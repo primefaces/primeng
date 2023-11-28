@@ -1,8 +1,7 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import docsearch from '@docsearch/js';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -64,7 +63,7 @@ import { UsersSectionComponent } from './userssection.component';
         FooterSectionComponent
     ]
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, AfterViewInit {
     private window: Window;
 
     private tableTheme = 'lara-light-blue';
@@ -85,56 +84,19 @@ export class LandingComponent implements OnInit {
         return this.configService.state.newsActive;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef,
-        public app: AppComponent,
-        private metaService: Meta,
-        private titleService: Title
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, public app: AppComponent, private metaService: Meta, private titleService: Title) {
         this.window = this.document.defaultView as Window;
     }
 
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
         this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
-        this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
-
-        if (isPlatformBrowser(this.platformId)) {
-            this.initDocSearch();
-        }
-    }
-
-    initDocSearch() {
-        docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
-            indexName: 'primeng',
-            container: '#docsearch',
-            transformItems: this.handleDocSearchTransformItems.bind(this)
-        });
-    }
-
-    handleDocSearchTransformItems(results) {
-        const valid = process.env.NODE_ENV !== 'production';
-        return results.map((result) => {
-            if (valid) {
-                const url = new URL(result.url);
-
-                url.protocol = this.window.location.protocol;
-                url.hostname = this.window.location.hostname;
-                url.port = this.window.location.port;
-                result.url = url.toString();
-            }
-
-            return result;
-        });
     }
 
     ngAfterViewInit() {
-        this.cd.detectChanges();
+        if (isPlatformBrowser(this.platformId) && this.configService.config.theme !== this.tableTheme) {
+            this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
+        }
     }
 
     toggleDarkMode() {
@@ -146,9 +108,7 @@ export class LandingComponent implements OnInit {
     }
 
     changeTableTheme(value: string) {
-        if (isPlatformBrowser(this.platformId)) {
-            this.replaceTableTheme(value);
-        }
+        this.replaceTableTheme(value);
     }
 
     replaceTableTheme(newTheme: string) {

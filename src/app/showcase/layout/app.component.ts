@@ -2,7 +2,7 @@ import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Theme } from '../domain/theme';
@@ -74,6 +74,16 @@ export class AppComponent implements OnInit, OnDestroy {
         
 
         
+    }
+
+    ngAfterViewInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (window && window && process.env.NODE_ENV === 'production') {
+                this.injectScripts();
+            }
+
+            this.bindRouteEvents();
+        }
     }
 
     injectScripts() {

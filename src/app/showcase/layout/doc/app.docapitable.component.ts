@@ -61,8 +61,8 @@ import { AppConfigService } from '../../service/appconfigservice';
                                     }"
                                     *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
                                     [id]="id + '.' + entry[0]"
-                                    >{{ entry[1] }}</span
-                                >
+                                    >{{ entry[1] }}
+                                </span>
                             </ng-container>
                         </td>
                     </tr>
@@ -108,7 +108,7 @@ export class AppDocApiTable {
 
     constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private configService: AppConfigService) {}
 
-    isDarkMode(): boolean {
+    get isDarkMode(): boolean {
         return this.configService.config.darkMode;
     }
 

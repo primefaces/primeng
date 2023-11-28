@@ -3,6 +3,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, OnInit, 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
+import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
 import { AppConfigService } from '../../service/appconfigservice';
@@ -41,8 +42,14 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         }
     }
 
-    showMenu() {
-        this.configService.showMenu();
+    toggleMenu() {
+        if (this.configService.state.menuActive) {
+            this.configService.hideMenu();
+            DomHandler.unblockBodyScroll('blocked-scroll');
+        } else {
+            this.configService.showMenu();
+            DomHandler.blockBodyScroll('blocked-scroll');
+        }
     }
 
     showConfig() {
@@ -58,24 +65,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
             appId: 'XG1L2MUWT9',
             apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
             indexName: 'primeng',
-            container: '#docsearch',
-            transformItems: this.handleDocSearchTransformItems.bind(this)
-        });
-    }
-
-    handleDocSearchTransformItems(results) {
-        const valid = process.env.NODE_ENV !== 'production';
-        return results.map((result) => {
-            if (valid) {
-                const url = new URL(result.url);
-
-                url.protocol = this.window.location.protocol;
-                url.hostname = this.window.location.hostname;
-                url.port = this.window.location.port;
-                result.url = url.toString();
-            }
-
-            return result;
+            container: '#docsearch'
         });
     }
 
