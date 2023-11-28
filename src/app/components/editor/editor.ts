@@ -14,9 +14,11 @@ import {
     QueryList,
     AfterContentInit,
     TemplateRef,
-    AfterViewChecked
+    AfterViewChecked,
+    Inject,
+    PLATFORM_ID
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -193,29 +195,33 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef, @Inject(PLATFORM_ID) private platformId: object) {}
 
     ngAfterViewInit(): void {
-        this.initQuillElements();
+        if (isPlatformBrowser(this.platformId)) {
+            this.initQuillElements();
 
-        if (this.isAttachedQuillEditorToDOM) {
-            this.initQuillEditor();
+            if (this.isAttachedQuillEditorToDOM) {
+                this.initQuillEditor();
+            }
         }
     }
 
     ngAfterViewChecked(): void {
-        // The problem is inside the `quill` library, we need to wait for a new release.
-        // Function `isLine` - used `getComputedStyle`, it was rewritten in the next release.
-        // (We need to wait for a release higher than 1.3.7).
-        // These checks and code can be removed.
-        if (!this.quill && this.isAttachedQuillEditorToDOM) {
-            this.initQuillEditor();
-        }
+        if (isPlatformBrowser(this.platformId)) {
+            // The problem is inside the `quill` library, we need to wait for a new release.
+            // Function `isLine` - used `getComputedStyle`, it was rewritten in the next release.
+            // (We need to wait for a release higher than 1.3.7).
+            // These checks and code can be removed.
+            if (!this.quill && this.isAttachedQuillEditorToDOM) {
+                this.initQuillEditor();
+            }
 
-        // Can also be deleted after updating `quill`.
-        if (this.delayedCommand && this.isAttachedQuillEditorToDOM) {
-            this.delayedCommand();
-            this.delayedCommand = null;
+            // Can also be deleted after updating `quill`.
+            if (this.delayedCommand && this.isAttachedQuillEditorToDOM) {
+                this.delayedCommand();
+                this.delayedCommand = null;
+            }
         }
     }
 
