@@ -858,7 +858,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     get isVisibleClearIcon(): boolean | undefined {
-        return this.modelValue() != null && ObjectUtils.isNotEmpty(this.modelValue()) && this.modelValue() !== '' && this.showClear && !this.disabled;
+        return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled;
     }
 
     get containerClass() {
@@ -1134,9 +1134,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return (
             (this.optionGroupLabel
                 ? index -
-                  this.visibleOptions()
-                      .slice(0, index)
-                      .filter((option) => this.isOptionGroup(option)).length
+                this.visibleOptions()
+                    .slice(0, index)
+                    .filter((option) => this.isOptionGroup(option)).length
                 : index) + 1
         );
     }
@@ -1459,7 +1459,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     hasSelectedOption() {
-        return ObjectUtils.isNotEmpty(this.modelValue());
+        return this.modelValue() !== undefined;
     }
 
     isValidSelectedOption(option) {
@@ -1487,8 +1487,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const matchedOptionIndex =
             index < this.visibleOptions().length - 1
                 ? this.visibleOptions()
-                      .slice(index + 1)
-                      .findIndex((option) => this.isValidOption(option))
+                    .slice(index + 1)
+                    .findIndex((option) => this.isValidOption(option))
                 : -1;
         return matchedOptionIndex > -1 ? matchedOptionIndex + index + 1 : index;
     }
@@ -1666,8 +1666,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             optionIndex =
                 optionIndex === -1
                     ? this.visibleOptions()
-                          .slice(0, this.focusedOptionIndex())
-                          .findIndex((option) => this.isOptionMatched(option))
+                        .slice(0, this.focusedOptionIndex())
+                        .findIndex((option) => this.isOptionMatched(option))
                     : optionIndex + this.focusedOptionIndex();
         } else {
             optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
