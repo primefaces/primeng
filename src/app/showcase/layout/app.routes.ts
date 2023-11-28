@@ -11,6 +11,7 @@ export const routes: Routes = [
             { path: '', redirectTo: 'installation', pathMatch: 'full' },
             { path: 'installation', loadChildren: () => import('../pages/installation/installation.module').then((m) => m.InstallationModule) },
             { path: 'configuration', loadChildren: () => import('../pages/configuration/configurationdemo.module').then((m) => m.ConfigurationDemoModule) },
+            { path: 'playground', loadChildren: () => import('../pages/playground/playground.module').then((m) => m.PlaygroundModule) },
             { path: 'roadmap', loadChildren: () => import('../pages/roadmap/roadmap.module').then((m) => m.RoadmapModule) },
             { path: 'team', loadChildren: () => import('../pages/team/team.module').then((m) => m.TeamModule) },
             { path: 'partners', loadChildren: () => import('../pages/partners/partners.module').then((m) => m.PartnersModule) },

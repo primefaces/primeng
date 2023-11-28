@@ -13,6 +13,10 @@
                     "routerLink": "/configuration"
                 },
                 {
+                    "name": "Playground",
+                    "routerLink": "/playground"
+                },
+                {
                     "name": "Accessibility",
                     "routerLink": "/accessibility"
                 }
@@ -299,7 +303,7 @@
                             "name": "Menu",
                             "routerLink": "/menu"
                         },
-                        
+
                         {
                             "name": "Menubar",
                             "routerLink": "/menubar"
