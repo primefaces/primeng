@@ -40,12 +40,17 @@
             }
         }
     }
+}
 
-    &.layout-light {
+
+.layout-light {
+    .layout-config {
         background: var(--surface-overlay);
     }
+}
 
-    &.layout-dark {
+.layout-dark {
+    .layout-config {
         background: var(rgba(0,0,0,.3));
         border: 0 none;
     }
