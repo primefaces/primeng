@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, Input } from '@angular/core';
 import { Location } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
         <div class="doc-section-description" *ngIf="description">
             <p class="mt-3">{{ description || null }}</p>
         </div>
-        <h3 class="doc-section-label" *ngIf="level === 3">
+        <h3 class="doc-section-label mt-4" *ngIf="level === 3">
             {{ title }}
             <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
         </h3>
