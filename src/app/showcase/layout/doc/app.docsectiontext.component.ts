@@ -1,6 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Input } from '@angular/core';
 
 @Component({
     selector: 'app-docsectiontext',
@@ -32,9 +31,9 @@ export class AppDocSectionTextComponent {
 
     @Input() description: string;
 
-    constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public location: Location, public el: ElementRef) {}
 
-    navigate(event, parentClick = false) {
+    navigate(event) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const parentElement = event.currentTarget.parentElement;
