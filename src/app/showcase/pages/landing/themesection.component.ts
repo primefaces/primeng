@@ -34,7 +34,6 @@ import { CustomerService } from '../../service/customerservice';
                         [value]="customers"
                         [(selection)]="selectedCustomers"
                         dataKey="id"
-                        styleClass="p-datatable-customers"
                         [rowHover]="true"
                         [rows]="5"
                         [showCurrentPageReport]="true"

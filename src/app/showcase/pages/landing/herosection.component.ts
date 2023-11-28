@@ -25,7 +25,7 @@ import { AppConfigService } from '../../service/appconfigservice';
         <section class="landing-hero py-8 px-5 lg:px-8">
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-6 flex flex-column justify-content-center lg:pr-8 align-items-center xl:align-items-stretch">
-                    <h1 class="text-6xl font-bold text-center xl:text-left">The Most Complete UI Suite for <span class="font-bold text-primary">Angular.js</span></h1>
+                    <h1 class="text-6xl font-bold text-center xl:text-left">The Most Complete UI Suite for <span class="font-bold text-primary">Angular</span></h1>
                     <p class="section-detail xl:text-left text-center px-0 mt-0 mb-5">
                         Elevate your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                     </p>
