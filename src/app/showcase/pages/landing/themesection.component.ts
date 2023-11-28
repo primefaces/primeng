@@ -8,10 +8,11 @@ import { TableModule } from 'primeng/table';
 import { Table } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
+import { ProgressBarModule } from 'primeng/progressbar';
 @Component({
     selector: 'template-theme',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, TagModule],
+    imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule],
     template: `
         <section class="landing-themes py-8">
             <div class="section-header">Themes</div>
