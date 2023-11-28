@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
@@ -9,6 +9,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
+import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -17,19 +18,17 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TableModule } from 'primeng/table';
 import { TabMenuModule } from 'primeng/tabmenu';
-import Versions from '../../data/versions.json';
 import { AppComponent } from '../../layout/app.component';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
 import { AppConfigService } from '../../service/appconfigservice';
-import { DropdownModule } from 'primeng/dropdown';
-import { HeroSectionComponent } from './herosection.component';
-import { FeaturesSectionComponent } from './featuressection.component';
-import { UsersSectionComponent } from './userssection.component';
-import { ThemeSectionComponent } from './themesection.component';
 import { BlockSectionComponent } from './blocksection.component';
-import { TemplateSectionComponent } from './templatesection.component';
+import { FeaturesSectionComponent } from './featuressection.component';
 import { FooterSectionComponent } from './footersection.component';
+import { HeroSectionComponent } from './herosection.component';
+import { TemplateSectionComponent } from './templatesection.component';
+import { ThemeSectionComponent } from './themesection.component';
+import { UsersSectionComponent } from './userssection.component';
 
 @Component({
     selector: 'landing',
@@ -63,40 +62,12 @@ import { FooterSectionComponent } from './footersection.component';
         BlockSectionComponent,
         TemplateSectionComponent,
         FooterSectionComponent
-    ],
+    ]
 })
 export class LandingComponent implements OnInit {
-    @ViewChild('containerElement') containerElement: ElementRef;
-
-    @ViewChild('editor') editor: ElementRef;
-
-    versions: any[] = Versions;
-
-    scrollListener: any;
-
-    tableTheme: string = 'lara-light-blue';
-
-    isNpmCopied: boolean = false;
-
-    user : any = null
-
-    users : any[]
-
-    usersData = [
-        { name: 'fox', width: '51', height: '22' },
-        { name: 'airbus', width: '87', height: '16' },
-        { name: 'mercedes', width: '34', height: '34' },
-        { name: 'ford', width: '64', height: '26' },
-        { name: 'vw', width: '35', height: '34' },
-        { name: 'intel', width: '53', height: '34' },
-        { name: 'unicredit', width: '79', height: '18' },
-        { name: 'lufthansa', width: '97', height: '18' },
-        { name: 'nvidia', width: '86', height: '16' },
-        { name: 'verizon', width: '102', height: '18' },
-        { name: 'amex', width: '81', height: '30' }
-    ];
-
     private window: Window;
+
+    private tableTheme = 'lara-light-blue';
 
     get landingClass() {
         return {
@@ -162,14 +133,6 @@ export class LandingComponent implements OnInit {
         });
     }
 
-    copyNpm() {
-        navigator.clipboard.writeText('npm i primeng');
-        this.isNpmCopied = true;
-        setTimeout(() => {
-            this.isNpmCopied = false;
-        }, 2000);
-    }
-
     ngAfterViewInit() {
         this.cd.detectChanges();
     }
@@ -210,6 +173,4 @@ export class LandingComponent implements OnInit {
             this.tableTheme = newTheme;
         }
     }
-
- 
 }
