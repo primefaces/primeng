@@ -16,8 +16,8 @@ import { AppConfigService } from '../../service/appconfigservice';
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
                             <div class="box p-4 w-full">
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/features/icon-components.svg" width="30" height="25" class="block mb-3" alt="components icon" />
-                                <div class="font-semibold mb-3 text-lg">90+ UI Components</div>
-                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 90+ impressive Angular Components.</p>
+                                <div class="font-semibold mb-3 text-lg">80+ UI Components</div>
+                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 80+ impressive Angular Components.</p>
                             </div>
                         </div>
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
@@ -38,7 +38,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                             <div class="box p-4 w-full">
                                 <img src="https://primefaces.org/cdn/primeng/images/landing/features/icon-accessibility.svg" alt="components icon" class="block mb-3" />
                                 <div class="font-semibold mb-3 text-lg">Accessibility</div>
-                                <p class="m-0 text-secondary font-medium">The ultimate set of UI Components to assist you with 90+ impressive Angular Components.</p>
+                                <p class="m-0 text-secondary font-medium">Compliant with the Web Content Accessibility Guidelines (WCAG 2.0).</p>
                             </div>
                         </div>
                         <div class="col-12 md:col-6 xl:col-3 flex justify-content-center">
