@@ -1,9 +1,10 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, PLATFORM_ID } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, ElementRef, Inject, OnDestroy, PLATFORM_ID } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
+import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
 import { AppConfigService } from '../../service/appconfigservice';
 import { AppMenuItemComponent } from './app.menuitem.component';
@@ -32,10 +33,12 @@ export interface MenuItem {
     standalone: true,
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
-export class AppMenuComponent {
+export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef) {
+    private routerSubscription: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
     }
 
@@ -48,6 +51,13 @@ export class AppMenuComponent {
             setTimeout(() => {
                 this.scrollToActiveItem();
             }, 1);
+
+            this.routerSubscription = this.router.events.subscribe((event) => {
+                if (event instanceof NavigationEnd && this.configService.state.menuActive) {
+                    this.configService.hideMenu();
+                    DomHandler.unblockBodyScroll('blocked-scroll');
+                }
+            });
         }
     }
 
@@ -62,6 +72,13 @@ export class AppMenuComponent {
         if (isPlatformBrowser(this.platformId)) {
             const rect = element.getBoundingClientRect();
             return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
+        }
+    }
+
+    ngOnDestroy() {
+        if (this.routerSubscription) {
+            this.routerSubscription.unsubscribe();
+            this.routerSubscription = null;
         }
     }
 }
