@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "17.0.0-beta.1",
+    "version": "17.0.0-rc.1",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -84,7 +84,7 @@
         "rxjs": "~7.8.1",
         "ts-node": "~10.9.1",
         "tslib": "^2.5.0",
-        "typedoc": "0.25.3",
+        "typedoc": "0.25.4",
         "typescript": "5.2.2",
         "xlsx": "^0.18.5",
         "zone.js": "~0.14.0"

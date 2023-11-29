@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, afterNextRender } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StyleClassModule } from 'primeng/styleclass';
 import News from '../../data/news.json';
@@ -9,6 +9,7 @@ import { AppConfigService } from '../../service/appconfigservice';
     selector: 'app-news',
     standalone: true,
     templateUrl: './app.news.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, FormsModule, StyleClassModule]
 })
 export class AppNewsComponent {
@@ -16,7 +17,7 @@ export class AppNewsComponent {
 
     announcement: any;
 
-    constructor(private configService: AppConfigService) {
+    constructor(private configService: AppConfigService, private cd: ChangeDetectorRef) {
         afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 
@@ -33,6 +34,7 @@ export class AppNewsComponent {
                 this.configService.state.newsActive = true;
                 this.announcement = News;
             }
+            this.cd.markForCheck();
         });
     }
 
