@@ -21,42 +21,42 @@ const PrimeNG = {
 };
 
 const demoDependencies = [
-  "@angular-devkit/build-angular",
-  "@angular/animations",
-  "@angular/cdk",
-  "@angular/cli",
-  "@angular/common",
-  "@angular/compiler",
-  "@angular/compiler-cli",
-  "@angular/core",
-  "@angular/forms",
-  "@angular/material",
-  "@angular/material-moment-adapter",
-  "@angular/platform-browser",
-  "@angular/platform-browser-dynamic",
-  "@angular/platform-server",
-  "@angular/router",
-  "@nguniversal/builders",
-  "@nguniversal/common",
-  "@nguniversal/express-engine",
-  "quill",
-  "primeflex",
-  "chart.js",
-  "primeicons",
-  "rxjs",
-  "tslib",
-  "zone.js"
+    '@angular-devkit/build-angular',
+    '@angular/animations',
+    '@angular/cdk',
+    '@angular/cli',
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/compiler-cli',
+    '@angular/core',
+    '@angular/forms',
+    '@angular/material',
+    '@angular/material-moment-adapter',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/platform-server',
+    '@angular/router',
+    '@nguniversal/builders',
+    '@nguniversal/common',
+    '@nguniversal/express-engine',
+    'quill',
+    'primeflex',
+    'chart.js',
+    'primeicons',
+    'rxjs',
+    'tslib',
+    'zone.js'
 ];
 
 const getAppDependencies = () => {
-  const dependencies = {};
-  for (const key in app_dependencies) {
-      if (demoDependencies.includes(key)) {
-          dependencies[key] = app_dependencies[key];
-      }
-  }
+    const dependencies = {};
+    for (const key in app_dependencies) {
+        if (demoDependencies.includes(key)) {
+            dependencies[key] = app_dependencies[key];
+        }
+    }
 
-  return dependencies;
+    return dependencies;
 };
 
 const getDependencies = () => {
@@ -479,8 +479,6 @@ Firefox ESR
 not ios_saf 15.2-15.3
 not safari 15.2-15.3`;
 
-
-
 const getAngularApp = (props: Props = {}) => {
     const { code, extFiles, routeFiles, selector } = props;
     const dependencies = getDependencies();
@@ -730,7 +728,7 @@ export class AppModule {}`;
         'src/index.html': { content: index_html },
         'src/karma.conf.js': { content: karma_conf_js },
         'src/styles.scss': { content: staticStyles.global },
-        'src/flags.css': { content: staticStyles.flags },
+        'src/flags.css': { content: staticStyles.flags }
     };
 
     const files = {
