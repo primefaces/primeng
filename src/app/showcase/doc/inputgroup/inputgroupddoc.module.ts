@@ -13,9 +13,11 @@ import { ButtonDoc } from './buttondoc';
 import { CheckboxDoc } from './checkboxdoc';
 import { ImportDoc } from './importdoc';
 import { MultipleDoc } from './multipledoc';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, ButtonModule, CheckboxModule, RadioButtonModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, InputTextModule, ButtonModule, CheckboxModule, RadioButtonModule,InputGroupModule,InputGroupAddonModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MultipleDoc, ButtonDoc, CheckboxDoc]
 })
