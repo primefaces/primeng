@@ -42,8 +42,7 @@ export class PositionDoc {
     sidebarVisible4: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible1" position="left">
+        basic: `<p-sidebar [(visible)]="sidebarVisible1" position="left">
     <h3>Left Sidebar</h3>
 </p-sidebar>
 

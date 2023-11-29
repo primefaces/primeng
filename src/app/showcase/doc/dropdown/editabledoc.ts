@@ -34,8 +34,7 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>`,
+        basic: `<p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>`,
 
         html: `
 <div class="card flex justify-content-center">

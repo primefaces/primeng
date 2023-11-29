@@ -25,8 +25,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
+        basic: `<p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
         html: `
 <div class="card">
     <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>

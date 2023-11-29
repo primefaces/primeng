@@ -17,8 +17,7 @@ export class InvalidDoc {
     checked: any;
 
     code: Code = {
-        basic: `
-<p-radioButton class="ng-invalid ng-dirty"></p-radioButton>`,
+        basic: `<p-radioButton class="ng-invalid ng-dirty"></p-radioButton>`,
 
         html: `
 <div class="card flex justify-content-center">

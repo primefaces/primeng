@@ -26,8 +26,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
+        basic: `<img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature3.jpg" alt="Logo" aria-haspopup="true" class="max-w-full">
 <p-contextMenu [target]="img" [model]="items"></p-contextMenu>`,
 
         html: `

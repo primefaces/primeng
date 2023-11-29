@@ -17,8 +17,7 @@ export class InvalidDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value" class="ng-invalid ng-dirty"></p-password>`,
+        basic: `<p-password [(ngModel)]="value" class="ng-invalid ng-dirty"></p-password>`,
 
         html: `
 <div class="card flex justify-content-center">

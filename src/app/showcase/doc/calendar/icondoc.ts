@@ -17,8 +17,7 @@ export class IconDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

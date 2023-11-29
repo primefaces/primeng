@@ -9,7 +9,7 @@ import { ProductService } from '../../service/productservice';
         <app-docsectiontext>
             <p>
                 DataView supports <i>list</i> and <i>grid</i> display modes defined with the <i>layout</i> property. The helper <i>DataViewLayoutOptions</i> component can be used to switch between the modes however this component is optional and you
-                may use your own UI to switch modes as well. As in <i>list</i> layout, the <i>grid</i> layout also requires PrimeFlex Grid classes to define how the grid is displayed per screen sizes.
+                may use your own UI to switch modes as well.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -19,48 +19,52 @@ import { ProductService } from '../../service/productservice';
                         <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="listItem">
-                    <div class="col-12">
-                        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                            <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                    <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                                    <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                                    <div class="flex align-items-center gap-3">
-                                        <span class="flex align-items-center gap-2">
-                                            <i class="pi pi-tag"></i>
-                                            <span class="font-semibold">{{ product.category }}</span>
-                                        </span>
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                <ng-template let-product pTemplate="list" let-products>
+                    <div class="grid grid-nogutter">
+                        <div class="col-12" *ngFor="let product of products; let first = first">
+                            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                        <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                                        <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                        <div class="flex align-items-center gap-3">
+                                            <span class="flex align-items-center gap-2">
+                                                <i class="pi pi-tag"></i>
+                                                <span class="font-semibold">{{ product.category }}</span>
+                                            </span>
+                                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                    <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                                    <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                        <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="gridItem">
-                    <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-                        <div class="p-4 border-1 surface-border surface-card border-round">
-                            <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                                <span class="flex align-items-center gap-2">
-                                    <i class="pi pi-tag"></i>
-                                    <span class="font-semibold">{{ product.category }}</span>
-                                </span>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
-                            </div>
-                            <div class="flex flex-column align-items-center gap-3 py-5">
-                                <img class="w-9 shadow-2 border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                                <div class="text-2xl font-bold">{{ product.name }}</div>
-                                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                            </div>
-                            <div class="flex align-items-center justify-content-between">
-                                <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                                <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                <ng-template let-product pTemplate="grid" let-products>
+                    <div class="grid grid-nogutter">
+                        <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" *ngFor="let product of products">
+                            <div class="p-4 border-1 surface-border surface-card border-round">
+                                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+                                    <span class="flex align-items-center gap-2">
+                                        <i class="pi pi-tag"></i>
+                                        <span class="font-semibold">{{ product.category }}</span>
+                                    </span>
+                                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                                </div>
+                                <div class="flex flex-column align-items-center gap-3 py-5">
+                                    <img class="w-9 shadow-2 border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                                    <div class="text-2xl font-bold">{{ product.name }}</div>
+                                    <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                </div>
+                                <div class="flex align-items-center justify-content-between">
+                                    <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                                    <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -98,72 +102,16 @@ export class LayoutDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dataView #dv [value]="products" [layout]="layout">
+        basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-content-end">
             <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
         </div>
     </ng-template>
-    <ng-template let-product pTemplate="listItem">
-        <div class="col-12">
-            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                        <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                        <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                                <i class="pi pi-tag"></i>
-                                <span class="font-semibold">{{ product.category }}</span>
-                            </span>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
-                        </div>
-                    </div>
-                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                        <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-    <ng-template let-product pTemplate="gridItem">
-        <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
-            <div class="p-4 border-1 surface-border surface-card border-round">
-                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                    <span class="flex align-items-center gap-2">
-                        <i class="pi pi-tag"></i>
-                        <span class="font-semibold">{{ product.category }}</span>
-                    </span>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
-                </div>
-                <div class="flex flex-column align-items-center gap-3 py-5">
-                    <img class="w-9 shadow-2 border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                    <div class="text-2xl font-bold">{{ product.name }}</div>
-                    <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                </div>
-                <div class="flex align-items-center justify-content-between">
-                    <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                    <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-</p-dataView>`,
-
-        html: `
-<div class="card">
-    <p-dataView #dv [value]="products" [layout]="layout">
-        <ng-template pTemplate="header">
-            <div class="flex justify-content-end">
-                <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
-            </div>
-        </ng-template>
-        <ng-template let-product pTemplate="listItem">
-            <div class="col-12">
-                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+    <ng-template let-product pTemplate="list" let-products>
+        <div class="grid grid-nogutter">
+            <div class="col-12" *ngFor="let product of products; let first = first">
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
                     <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
                     <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
                         <div class="flex flex-column align-items-center sm:align-items-start gap-3">
@@ -184,9 +132,11 @@ export class LayoutDoc {
                     </div>
                 </div>
             </div>
-        </ng-template>
-        <ng-template let-product pTemplate="gridItem">
-            <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+        </div>
+    </ng-template>
+    <ng-template let-product pTemplate="grid" let-products>
+        <div class="grid grid-nogutter">
+            <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" *ngFor="let product of products">
                 <div class="p-4 border-1 surface-border surface-card border-round">
                     <div class="flex flex-wrap align-items-center justify-content-between gap-2">
                         <span class="flex align-items-center gap-2">
@@ -203,6 +153,67 @@ export class LayoutDoc {
                     <div class="flex align-items-center justify-content-between">
                         <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
                         <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>`,
+
+        html: `
+<div class="card">
+    <p-dataView #dv [value]="products" [layout]="layout">
+        <ng-template pTemplate="header">
+            <div class="flex justify-content-end">
+                <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="list" let-products>
+            <div class="grid grid-nogutter">
+                <div class="col-12" *ngFor="let product of products; let first = first">
+                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                        <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                        <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                <div class="text-2xl font-bold text-900">{{ product.name }}</div>
+                                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                <div class="flex align-items-center gap-3">
+                                    <span class="flex align-items-center gap-2">
+                                        <i class="pi pi-tag"></i>
+                                        <span class="font-semibold">{{ product.category }}</span>
+                                    </span>
+                                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                                </div>
+                            </div>
+                            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                                <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="grid" let-products>
+            <div class="grid grid-nogutter">
+                <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" *ngFor="let product of products">
+                    <div class="p-4 border-1 surface-border surface-card border-round">
+                        <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+                            <span class="flex align-items-center gap-2">
+                                <i class="pi pi-tag"></i>
+                                <span class="font-semibold">{{ product.category }}</span>
+                            </span>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                        </div>
+                        <div class="flex flex-column align-items-center gap-3 py-5">
+                            <img class="w-9 shadow-2 border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
+                            <div class="text-2xl font-bold">{{ product.name }}</div>
+                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
+                        </div>
+                        <div class="flex align-items-center justify-content-between">
+                            <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
+                            <button pButton icon="pi pi-shopping-cart" class="p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                        </div>
                     </div>
                 </div>
             </div>

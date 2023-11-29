@@ -25,8 +25,7 @@ export class AnimationDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>`,
+        basic: `<p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>`,
         html: `
 <div class="card">
     <p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>

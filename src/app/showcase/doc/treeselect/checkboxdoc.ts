@@ -24,8 +24,7 @@ export class CheckboxDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

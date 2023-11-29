@@ -74,8 +74,7 @@ export class RadarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="radar" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="radar" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card flex justify-content-center">
     <p-chart type="radar" [data]="data" [options]="options"></p-chart>

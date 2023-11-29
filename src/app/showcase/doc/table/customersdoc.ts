@@ -239,8 +239,7 @@ export class CustomersDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     #dt
     [value]="customers"
     [(selection)]="selectedCustomers"

@@ -22,8 +22,7 @@ import { Code } from '../../domain/code';
 })
 export class InputDoc {
     code: Code = {
-        basic: `
-<p-inplace closable="closable">
+        basic: `<p-inplace closable="closable">
     <ng-template pTemplate="display">
         <span>Click to Edit</span>
     </ng-template>

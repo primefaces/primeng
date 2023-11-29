@@ -29,8 +29,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>`,
+        basic: `<p-fileUpload mode="basic" chooseLabel="Choose" name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onUpload($event)"></p-fileUpload>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>

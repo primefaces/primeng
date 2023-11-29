@@ -50,8 +50,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
     <ng-template pTemplate="marker" let-event>
         <span class="custom-marker shadow-2" [style.backgroundColor]="event.color">
             <i [ngClass]="event.icon"></i>

@@ -17,8 +17,7 @@ export class ReadonlyDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [readonly]="true"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [readonly]="true"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

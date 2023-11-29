@@ -78,8 +78,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>`,
+        basic: `<p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>

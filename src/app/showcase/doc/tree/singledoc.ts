@@ -27,8 +27,7 @@ export class SingleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"></p-tree>`,
+        basic: `<p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"></p-tree>`,
 
         html: `
 <div class="card flex justify-content-center">

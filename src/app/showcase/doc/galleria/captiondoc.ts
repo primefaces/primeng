@@ -52,8 +52,7 @@ export class CaptionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+        basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>

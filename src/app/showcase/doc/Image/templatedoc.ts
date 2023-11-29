@@ -19,8 +19,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image" width="250">
+        basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image" width="250">
     <ng-template pTemplate="indicator">
         <i class="pi pi-check"></i>
     </ng-template>

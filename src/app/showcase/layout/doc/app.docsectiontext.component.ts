@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Component, ElementRef, Input } from '@angular/core';
 
 @Component({
     selector: 'app-docsectiontext',
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
         <div class="doc-section-description" *ngIf="description">
             <p class="mt-3">{{ description || null }}</p>
         </div>
-        <h3 class="doc-section-label" *ngIf="level === 3">
+        <h3 class="doc-section-label mt-4" *ngIf="level === 3">
             {{ title }}
             <a (click)="navigate($event)" class="cursor-pointer" [id]="id">#</a>
         </h3>
@@ -32,9 +31,9 @@ export class AppDocSectionTextComponent {
 
     @Input() description: string;
 
-    constructor(public location: Location, private router: Router, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(public location: Location, public el: ElementRef) {}
 
-    navigate(event, parentClick = false) {
+    navigate(event) {
         if (typeof window !== undefined) {
             const hash = window.location.hash.substring(1);
             const parentElement = event.currentTarget.parentElement;

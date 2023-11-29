@@ -17,8 +17,7 @@ export class BasicDoc {
     values: string[] | undefined;
 
     code: Code = {
-        basic: `
-<p-chips [(ngModel)]="values"></p-chips>`,
+        basic: `<p-chips [(ngModel)]="values"></p-chips>`,
 
         html: `
 <div class="card p-fluid">

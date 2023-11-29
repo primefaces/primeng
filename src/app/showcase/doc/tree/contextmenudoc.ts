@@ -45,8 +45,7 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
 <p-toast></p-toast>`,
 

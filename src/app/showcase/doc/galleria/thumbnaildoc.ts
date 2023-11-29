@@ -72,8 +72,7 @@ export class ThumbnailDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+        basic: `<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
     </ng-template>

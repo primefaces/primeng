@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />`,
+        basic: `<input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />`,
         html: `
 <div class="card flex justify-content-center">
     <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" /> 

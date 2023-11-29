@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
 })
 export class OutlinedDoc {
     code: Code = {
-        basic: `
-<p-button label="Primary" [outlined]="true"></p-button>
+        basic: `<p-button label="Primary" [outlined]="true"></p-button>
 <p-button label="Secondary" [outlined]="true" severity="secondary"></p-button>
 <p-button label="Success" [outlined]="true" severity="success"></p-button>
 <p-button label="Info" [outlined]="true" severity="info"></p-button>

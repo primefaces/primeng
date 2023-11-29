@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
 })
 export class RoundedDoc {
     code: Code = {
-        basic: `
-<p-button label="Primary" [rounded]="true"></p-button>
+        basic: `<p-button label="Primary" [rounded]="true"></p-button>
 <p-button label="Secondary" [rounded]="true" severity="secondary"></p-button>
 <p-button label="Success" [rounded]="true" severity="success"></p-button>
 <p-button label="Info" [rounded]="true" severity="info"></p-button>

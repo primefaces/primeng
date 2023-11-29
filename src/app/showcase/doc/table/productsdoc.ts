@@ -277,8 +277,7 @@ export class ProductsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-toolbar styleClass="mb-4 gap-2">
     <ng-template pTemplate="left">
         <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success mr-2" (click)="openNew()"></button>

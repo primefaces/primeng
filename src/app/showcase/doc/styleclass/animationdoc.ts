@@ -6,13 +6,13 @@ import { Code } from '../../domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Classes to apply during enter and leave animations are specified using the <i>enterClass</i>, <i>enterActiveClass</i>, <i>enterToClass</i>, <i>leaveClass</i>, <i>leaveActiveClass</i>,<i>leaveToClass</i>properties. In addition in case
-                the target is an overlay, <i>hideOnOutsideClick</i> would be handy to hide the target if outside of the popup is clicked, or enable <i>hideOnEscape</i> to close the popup by listening <i>escape</i> key.
+                Classes to apply during enter and leave animations are specified using the <i>enterFromClass</i>, <i>enterActiveClass</i>, <i>enterToClass</i>, <i>leaveFromClass</i>, <i>leaveActiveClass</i>,<i>leaveToClass</i>properties. In addition
+                in case the target is an overlay, <i>hideOnOutsideClick</i> would be handy to hide the target if outside of the popup is clicked, or enable <i>hideOnEscape</i> to close the popup by listening <i>escape</i> key.
             </p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center">
             <div>
-                <button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="fadein"></button>
+                <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
                 <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
             </div>
 
@@ -25,9 +25,8 @@ import { Code } from '../../domain/code';
 })
 export class AnimationDoc {
     code: Code = {
-        basic: `
-<div>
-    <button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="fadein"></button>
+        basic: `<div>
+    <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
     <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
 </div>
 
@@ -37,7 +36,7 @@ export class AnimationDoc {
         html: `
 <div class="card flex flex-column align-items-center">
     <div>
-        <button pButton label="Show" class="mr-2" pStyleClass=".box" enterClass="hidden" enterActiveClass="fadein"></button>
+        <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
         <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
     </div>
 

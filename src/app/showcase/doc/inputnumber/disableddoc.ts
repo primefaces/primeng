@@ -17,8 +17,7 @@ export class DisabledDoc {
     value1: number = 50;
 
     code: Code = {
-        basic: `
-<p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1"> </p-inputNumber>`,
+        basic: `<p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1"> </p-inputNumber>`,
 
         html: `
 <div class="card flex justify-content-center">

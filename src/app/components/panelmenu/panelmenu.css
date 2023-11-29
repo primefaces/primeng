@@ -26,6 +26,7 @@
         text-decoration: none;
         position: relative;
         overflow: hidden;
+        outline: none;
     }
 
     .p-panelmenu .p-menuitem-text {

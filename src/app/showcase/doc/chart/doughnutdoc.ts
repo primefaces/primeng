@@ -51,8 +51,7 @@ export class DoughnutDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="doughnut" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="doughnut" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card flex justify-content-center">
     <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>

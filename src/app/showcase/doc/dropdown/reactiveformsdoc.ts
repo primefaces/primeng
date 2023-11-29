@@ -41,8 +41,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"></p-dropdown>
 </form>`,
 

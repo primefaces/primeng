@@ -62,8 +62,7 @@ export class ControlledSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [rowSelectable]="isRowSelectable" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [rowSelectable]="isRowSelectable" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem">

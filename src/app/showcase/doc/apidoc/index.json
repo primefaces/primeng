@@ -3965,7 +3965,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AutoCompleteOnSelectEvent"
+                                    "type": "AutoCompleteSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a suggestion is selected."
@@ -4110,7 +4110,7 @@
                         ]
                     },
                     {
-                        "name": "AutoCompleteOnSelectEvent",
+                        "name": "AutoCompleteSelectEvent",
                         "description": "Custom select event.",
                         "props": [
                             {
@@ -7790,7 +7790,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"none\" | \"close\" | \"reject\" | \"accept\"",
+                            "type": "\"none\" | \"close\" | \"accept\" | \"reject\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9097,7 +9097,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"solid\" | \"dashed\" | \"dotted\"",
+                            "type": "\"dashed\" | \"dotted\" | \"solid\"",
                             "default": "solid",
                             "description": "Border style type."
                         },
@@ -12418,6 +12418,20 @@
             }
         }
     },
+    "inputgroup": {
+        "components": {
+            "InputGroup": {
+                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
+    "inputgroupaddon": {
+        "components": {
+            "InputGroupAddon": {
+                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
     "inputmask": {
         "components": {
             "InputMask": {
@@ -13220,7 +13234,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "InputSwitchOnChangeEvent"
+                                    "type": "InputSwitchChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke when the on value change."
@@ -13235,7 +13249,7 @@
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
                     {
-                        "name": "InputSwitchOnChangeEvent",
+                        "name": "InputSwitchChangeEvent",
                         "description": "Custom change event.",
                         "props": [
                             {
@@ -13728,7 +13742,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -21022,6 +21036,12 @@
                             "name": "enterClass",
                             "optional": false,
                             "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "enterFromClass",
+                            "optional": false,
+                            "readonly": false,
                             "type": "string",
                             "description": "Style class to add when item begins to get displayed."
                         },
@@ -21041,6 +21061,12 @@
                         },
                         {
                             "name": "leaveClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "leaveFromClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -21312,7 +21338,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -24192,7 +24218,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -24944,7 +24970,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "default": "single",
                             "description": "Defines the selection mode."
                         },
@@ -25616,7 +25642,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {

@@ -17,8 +17,7 @@ export class CustomizedDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="checked" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{ width: '10em' }"></p-toggleButton>`,
+        basic: `<p-toggleButton [(ngModel)]="checked" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{ width: '10em' }"></p-toggleButton>`,
 
         html: `
 <div class="card flex justify-content-center">

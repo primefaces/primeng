@@ -17,8 +17,7 @@ export class StrokeDoc {
     value: number = 40;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [strokeWidth]="5"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [strokeWidth]="5"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

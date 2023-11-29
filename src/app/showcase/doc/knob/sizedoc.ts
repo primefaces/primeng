@@ -17,8 +17,7 @@ export class SizeDoc {
     value: number = 60;
 
     code: Code = {
-        basic: `
-<p-knob [(ngModel)]="value" [size]="200"></p-knob>`,
+        basic: `<p-knob [(ngModel)]="value" [size]="200"></p-knob>`,
 
         html: `
 <div class="card flex justify-content-center">

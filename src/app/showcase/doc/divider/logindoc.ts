@@ -34,8 +34,7 @@ import { Code } from '../../domain/code';
 })
 export class LoginDoc {
     code: Code = {
-        basic: `
-<div class="flex flex-column md:flex-row">
+        basic: `<div class="flex flex-column md:flex-row">
     <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5">
         <div class="flex flex-wrap justify-content-center align-items-center gap-2">
             <label class="w-6rem">Username</label>

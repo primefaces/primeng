@@ -33,8 +33,7 @@ export class DynamicDoc {
     }
 
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
+        basic: `<button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
 <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
 <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
         html: `

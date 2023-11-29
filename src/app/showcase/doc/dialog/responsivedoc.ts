@@ -30,8 +30,7 @@ export class ResponsiveDoc {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

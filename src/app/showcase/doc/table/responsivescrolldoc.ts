@@ -78,8 +78,7 @@ export class ResponsiveScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Name </th>

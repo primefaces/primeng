@@ -66,8 +66,7 @@ export class PaginatorBasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">

@@ -15,8 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `
-<p-progressBar [value]="50"></p-progressBar>`,
+        basic: `<p-progressBar [value]="50"></p-progressBar>`,
         html: `
 <div class="card">
     <p-progressBar [value]="50"></p-progressBar>

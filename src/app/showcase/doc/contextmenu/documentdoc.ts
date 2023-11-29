@@ -148,8 +148,7 @@ export class DocumentDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-contextMenu [model]="items" [global]="true"></p-contextMenu>`,
+        basic: `<p-contextMenu [model]="items" [global]="true"></p-contextMenu>`,
 
         html: `
 <div class="card text-center">

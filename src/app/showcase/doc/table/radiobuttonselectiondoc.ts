@@ -50,8 +50,7 @@ export class RadioButtonSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem"></th>

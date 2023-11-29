@@ -28,8 +28,7 @@ export class DocumentDoc {
     }
 
     code: Code = {
-        basic: `
-<p-blockUI [blocked]="blockedDocument"></p-blockUI>`,
+        basic: `<p-blockUI [blocked]="blockedDocument"></p-blockUI>`,
         html: `
 <div class="card">
     <p-blockUI [blocked]="blockedDocument"></p-blockUI>

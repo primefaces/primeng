@@ -57,8 +57,7 @@ export class ColumnSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>

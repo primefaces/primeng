@@ -17,8 +17,7 @@ export class WithoutCancelDoc {
     value!: number;
 
     code: Code = {
-        basic: `
-<p-rating [(ngModel)]="value" [cancel]="false"></p-rating>`,
+        basic: `<p-rating [(ngModel)]="value" [cancel]="false"></p-rating>`,
 
         html: `
 <div class="card flex justify-content-center">

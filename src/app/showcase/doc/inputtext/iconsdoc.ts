@@ -27,8 +27,7 @@ export class IconsDoc {
     value2: string | undefined;
 
     code: Code = {
-        basic: `
-<span class="p-input-icon-left">
+        basic: `<span class="p-input-icon-left">
     <i class="pi pi-search"></i>
     <input type="text" pInputText [(ngModel)]="value" />
 </span>`,

@@ -80,8 +80,7 @@ export class CellEditDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:25%">Code</th>

@@ -41,8 +41,7 @@ export class AdvancedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+        basic: `<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
     <ng-template pTemplate="content">
         <ul *ngIf="uploadedFiles.length">
             <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>

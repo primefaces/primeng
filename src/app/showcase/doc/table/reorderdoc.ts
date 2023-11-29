@@ -64,8 +64,7 @@ export class ReorderDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th style="width:3rem"></th>

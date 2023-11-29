@@ -49,8 +49,7 @@ export class BasicDoc {
     ];
 
     code: Code = {
-        basic: `
-<p-organizationChart [value]="data"></p-organizationChart>`,
+        basic: `<p-organizationChart [value]="data"></p-organizationChart>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -32,8 +32,7 @@ export class TargetDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast key="toast1"></p-toast>
+        basic: `<p-toast key="toast1"></p-toast>
 <p-toast key="toast2"></p-toast>
 <button type="button" pButton pRipple (click)="showToast1()" label="Show Success"></button>
 <button type="button" pButton pRipple (click)="showToast2()" label="Show Warning" class="p-button-success"></button>`,

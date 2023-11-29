@@ -17,8 +17,7 @@ export class DisabledDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value" [disabled]="true"></p-password>`,
+        basic: `<p-password [(ngModel)]="value" [disabled]="true"></p-password>`,
 
         html: `
 <div class="card flex justify-content-center">

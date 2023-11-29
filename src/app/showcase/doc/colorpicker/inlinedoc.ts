@@ -17,8 +17,7 @@ export class InlineDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `
-<p-colorPicker [(ngModel)]="color1" [inline]="true"></p-colorPicker>`,
+        basic: `<p-colorPicker [(ngModel)]="color1" [inline]="true"></p-colorPicker>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -36,8 +36,7 @@ export class ClosableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-messages [(value)]="messages1" [enableService]="false" [closable]="false"></p-messages>
+        basic: `<p-messages [(value)]="messages1" [enableService]="false" [closable]="false"></p-messages>
 <p-messages [(value)]="messages2" [enableService]="false"></p-messages>`,
         html: `
 <div class="card">

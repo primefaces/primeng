@@ -1,9 +1,7 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { AppConfig } from 'src/app/showcase/domain/appconfig';
-import { AppConfigService } from 'src/app/showcase/service/appconfigservice';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'app-docapitable',
@@ -56,15 +54,15 @@ import { AppConfigService } from 'src/app/showcase/service/appconfigservice';
                                 </ng-container>
                                 <span
                                     [ngClass]="{
-                                        'doc-option-dark': config.dark && entry[0] === 'default',
-                                        'doc-option-light': !config.dark && entry[0] === 'default',
+                                        'doc-option-dark': isDarkMode && entry[0] === 'default',
+                                        'doc-option-light': !isDarkMode && entry[0] === 'default',
                                         'doc-option-default': entry[0] === 'default',
                                         'doc-option-description': entry[0] === 'description'
                                     }"
                                     *ngIf="entry[0] !== 'name' && entry[0] !== 'type' && entry[0] !== 'parameters'"
                                     [id]="id + '.' + entry[0]"
-                                    >{{ entry[1] }}</span
-                                >
+                                    >{{ entry[1] }}
+                                </span>
                             </ng-container>
                         </td>
                     </tr>
@@ -87,7 +85,7 @@ import { AppConfigService } from 'src/app/showcase/service/appconfigservice';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppDocApiTable implements OnInit {
+export class AppDocApiTable {
     @Input() id: string;
 
     @Input() label: string;
@@ -108,19 +106,10 @@ export class AppDocApiTable implements OnInit {
 
     @Input() isInterface: boolean = false;
 
-    config: AppConfig;
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private configService: AppConfigService) {}
 
-    subscription: Subscription;
-
-    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, public configService: AppConfigService, private cd: ChangeDetectorRef) {}
-
-    ngOnInit() {
-        this.config = this.configService.config;
-
-        this.subscription = this.configService.configUpdate$.subscribe((config) => {
-            this.config = config;
-            this.cd.markForCheck();
-        });
+    get isDarkMode(): boolean {
+        return this.configService.config.darkMode;
     }
 
     navigate(event, param) {
@@ -194,12 +183,6 @@ export class AppDocApiTable implements OnInit {
             const label = document.getElementById(id);
             this.location.go(`${this.location.path()}/#${id}`);
             label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
-        }
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
         }
     }
 }

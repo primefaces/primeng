@@ -10,9 +10,9 @@ import { Code } from '../../domain/code';
                 with space key as well to trigger.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">On the other hand, a fancy css based button using a div has no keyboard or screen reader support.</p>
+            <p class="doc-section-description mt-3">On the other hand, a fancy css based button using a div has no keyboard or screen reader support.</p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">
+            <p class="doc-section-description mt-3">
                 <i>tabindex</i> is required to make a div element accessible in addition to use a keydown to bring the keyboard support back. To avoid the overload and implementing functionality that is already provided by the browser, native form
                 controls should be preferred.
             </p>

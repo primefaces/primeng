@@ -58,8 +58,7 @@ export class ResizeScrollableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
+        basic: `<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px">
     <ng-template pTemplate="colgroup" let-columns>
         <colgroup>
             <col *ngFor="let col of columns">

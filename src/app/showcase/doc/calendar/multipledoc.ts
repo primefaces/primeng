@@ -17,8 +17,7 @@ export class MultipleDoc {
     dates: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

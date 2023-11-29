@@ -30,8 +30,7 @@ import { Code } from '../../domain/code';
 })
 export class LabelDoc {
     code: Code = {
-        basic: `
-<div class="col-12 md:col-4">
+        basic: `<div class="col-12 md:col-4">
     <h5>Label</h5>
     <p-avatar label="P" styleClass="mr-2" size="xlarge"></p-avatar>
     <p-avatar label="V" styleClass="mr-2" size="large" [style]="{ 'background-color': '#2196F3', color: '#ffffff' }"></p-avatar>

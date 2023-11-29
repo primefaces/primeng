@@ -18,8 +18,7 @@ export class LabelDoc {
     selectedValues: string[] = [];
 
     code: Code = {
-        basic: `
-<p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
+        basic: `<p-checkbox name="groupname" value="val1" label="Value 1" [(ngModel)]="selectedValues"></p-checkbox>
 <p-checkbox name="groupname" value="val2" label="Value 2" [(ngModel)]="selectedValues"></p-checkbox>`,
 
         html: `

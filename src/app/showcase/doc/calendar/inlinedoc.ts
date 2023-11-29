@@ -17,8 +17,7 @@ export class InlineDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>`,
+        basic: `<p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

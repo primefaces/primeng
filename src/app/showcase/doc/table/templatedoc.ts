@@ -84,8 +84,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             Products

@@ -72,8 +72,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dock [model]="items" [position]="position">
+        basic: `<p-dock [model]="items" [position]="position">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.icon" [alt]="item.label" width="100%" />
     </ng-template>

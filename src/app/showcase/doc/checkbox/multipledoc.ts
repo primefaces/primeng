@@ -28,8 +28,7 @@ export class MultipleDoc {
     selectedCities: string[] = [];
 
     code: Code = {
-        basic: `
-<div class="flex align-items-center gap-1">
+        basic: `<div class="flex align-items-center gap-1">
         <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
         <label for="ny">New York</label>
 </div>

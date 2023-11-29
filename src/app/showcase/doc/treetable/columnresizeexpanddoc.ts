@@ -53,8 +53,7 @@ export class ResizeExpandDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
+        basic: `<p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" columnResizeMode="expand">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" ttResizableColumn>

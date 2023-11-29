@@ -1,13 +1,12 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, PLATFORM_ID } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, OnDestroy, afterNextRender } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DomHandler } from 'primeng/dom';
+import { StyleClassModule } from 'primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
-import { AppConfig } from '../../domain/appconfig';
 import { AppConfigService } from '../../service/appconfigservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { StyleClassModule } from 'primeng/styleclass';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
 export interface MenuItem {
@@ -20,31 +19,44 @@ export interface MenuItem {
 
 @Component({
     selector: 'app-menu',
+    template: ` <aside>
+        <nav>
+            <ol class="layout-menu">
+                <li *ngFor="let item of menu; let i = index" app-menuitem [item]="item" [root]="true"></li>
+            </ol>
+        </nav>
+    </aside>`,
+    host: {
+        class: 'layout-sidebar',
+        '[class.active]': 'isActive'
+    },
     standalone: true,
-    templateUrl: './app.menu.component.html',
     imports: [CommonModule, StyleClassModule, RouterModule, AutoCompleteModule, AppMenuItemComponent]
 })
-export class AppMenuComponent {
-    @Input() active: boolean;
-
+export class AppMenuComponent implements OnDestroy {
     menu!: MenuItem[];
 
-    config!: AppConfig;
+    private routerSubscription: Subscription;
 
-    subscription!: Subscription;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private el: ElementRef, private router: Router) {
+    constructor(private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-    }
 
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
+        afterNextRender(() => {
             setTimeout(() => {
                 this.scrollToActiveItem();
             }, 1);
-        }
+
+            this.routerSubscription = this.router.events.subscribe((event) => {
+                if (event instanceof NavigationEnd && this.configService.state.menuActive) {
+                    this.configService.hideMenu();
+                    DomHandler.unblockBodyScroll('blocked-scroll');
+                }
+            });
+        });
+    }
+
+    get isActive(): boolean {
+        return this.configService.state.menuActive;
     }
 
     scrollToActiveItem() {
@@ -55,15 +67,14 @@ export class AppMenuComponent {
     }
 
     isInViewport(element) {
-        if (isPlatformBrowser(this.platformId)) {
-            const rect = element.getBoundingClientRect();
-            return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
-        }
+        const rect = element.getBoundingClientRect();
+        return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || (document.documentElement.clientHeight && rect.right <= (window.innerWidth || document.documentElement.clientWidth)));
     }
 
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
+        if (this.routerSubscription) {
+            this.routerSubscription.unsubscribe();
+            this.routerSubscription = null;
         }
     }
 }

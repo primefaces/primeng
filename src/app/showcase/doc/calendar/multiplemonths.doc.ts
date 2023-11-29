@@ -17,8 +17,7 @@ export class MultipleMonthDoc {
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [numberOfMonths]="3"></p-calendar>`,
+        basic: `<p-calendar [(ngModel)]="date" [numberOfMonths]="3"></p-calendar>`,
 
         html: `
 <div class="card flex justify-content-center">

@@ -22,8 +22,7 @@ export class TemplateDoc {
     sidebarVisible: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible">
+        basic: `<p-sidebar [(visible)]="sidebarVisible">
     <ng-template pTemplate="header">Header Content</ng-template>
     <ng-template pTemplate="content">Body Content</ng-template>
     <ng-template pTemplate="footer">Footer Content</ng-template>

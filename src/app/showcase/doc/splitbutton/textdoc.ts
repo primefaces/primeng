@@ -61,8 +61,7 @@ export class TextDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text p-button-secondary mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text p-button-success mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-text p-button-info mr-2 mb-2"></p-splitButton>

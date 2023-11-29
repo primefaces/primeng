@@ -26,8 +26,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-inputSwitch formControlName="checked"></p-inputSwitch>`,
+        basic: `<p-inputSwitch formControlName="checked"></p-inputSwitch>`,
 
         html: `
 <div class="card flex justify-content-center">

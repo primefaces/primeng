@@ -99,8 +99,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>`,
+        basic: `<p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

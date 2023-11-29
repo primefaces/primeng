@@ -34,8 +34,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>`,
+        basic: `<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>`,
 
         html: `
 <div class="card flex justify-content-center">

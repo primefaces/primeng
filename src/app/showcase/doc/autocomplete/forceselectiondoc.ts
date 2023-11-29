@@ -51,8 +51,7 @@ export class ForceSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+        basic: `<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">

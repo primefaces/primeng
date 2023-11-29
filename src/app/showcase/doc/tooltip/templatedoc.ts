@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `
-<input type="text" pInputText [pTooltip]="tooltipContent" placeholder="hover to display tooltip">
+        basic: `<input type="text" pInputText [pTooltip]="tooltipContent" placeholder="hover to display tooltip">
 
 <ng-template #tooltipContent>
     <div class="flex align-items-center">

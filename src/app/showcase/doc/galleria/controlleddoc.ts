@@ -72,8 +72,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="py-2">
+        basic: `<div class="py-2">
     <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
     <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
 </div>

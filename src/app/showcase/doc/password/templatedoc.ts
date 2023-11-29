@@ -31,8 +31,7 @@ export class TemplateDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<p-password [(ngModel)]="value">
+        basic: `<p-password [(ngModel)]="value">
     <ng-template pTemplate="header">
         <h6>Pick a password</h6>
     </ng-template>

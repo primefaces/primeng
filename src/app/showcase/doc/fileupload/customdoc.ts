@@ -34,8 +34,7 @@ export class CustomDoc {
     }
 
     code: Code = {
-        basic: `
-<p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>`,
+        basic: `<p-fileUpload name="myfile[]" [customUpload]="true" (uploadHandler)="customUploader($event)"></p-fileUpload>`,
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>

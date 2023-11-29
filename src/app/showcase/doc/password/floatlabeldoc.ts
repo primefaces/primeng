@@ -20,8 +20,7 @@ export class FloatLabelDoc {
     value!: string;
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-password [(ngModel)]="value" [feedback]="false"></p-password>
     <label for="password">Password</label>
 </span>`,

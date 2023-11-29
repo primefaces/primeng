@@ -36,8 +36,7 @@ import { Code } from '../../domain/code';
 })
 export class NestedDoc {
     code: Code = {
-        basic: `
-<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-5">
+        basic: `<p-splitter [style]="{ height: '300px' }" [panelSizes]="[20, 80]" [minSizes]="[10, 0]" styleClass="mb-5">
     <ng-template pTemplate>
         <div class="col flex align-items-center justify-content-center">Panel 1</div>
     </ng-template>

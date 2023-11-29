@@ -50,8 +50,7 @@ import { Code } from '../../domain/code';
 })
 export class CusstomDoc {
     code: Code = {
-        basic: `
-<p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">
+        basic: `<p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">
     <p>
         Lorem ipsum dolor sit amet...
     </p>

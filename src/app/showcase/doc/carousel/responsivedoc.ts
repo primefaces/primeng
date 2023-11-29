@@ -82,8 +82,7 @@ export class ResponsiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
     <ng-template let-product pTemplate="item">
         <div class="product-item">
             <div class="product-item-content">

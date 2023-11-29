@@ -64,8 +64,7 @@ export class SelectionCheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selection)]="selectedNodes" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div class="flex">
             <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>

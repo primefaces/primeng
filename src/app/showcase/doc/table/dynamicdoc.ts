@@ -55,8 +55,7 @@ export class DynamicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">

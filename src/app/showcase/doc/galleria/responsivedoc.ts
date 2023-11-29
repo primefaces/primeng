@@ -48,8 +48,7 @@ export class ResponsiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
+        basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="7" [circular]="true">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>

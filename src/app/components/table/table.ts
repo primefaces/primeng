@@ -473,7 +473,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined;
+    @Input() metaKeySelection: boolean | undefined = true;
     /**
      * Defines if the row is selectable.
      * @group Props
@@ -4300,6 +4300,10 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
+            } else {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(true, event);
+                }
             }
         }
     }
