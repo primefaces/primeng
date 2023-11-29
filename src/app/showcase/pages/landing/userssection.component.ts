@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'users-section',
@@ -58,6 +59,8 @@ import { Component } from '@angular/core';
     `
 })
 export class UsersSectionComponent {
+    constructor(private configService: AppConfigService) {}
+
     usersData = [
         { name: 'fox', width: '51', height: '22' },
         { name: 'airbus', width: '87', height: '16' },
@@ -71,4 +74,9 @@ export class UsersSectionComponent {
         { name: 'verizon', width: '102', height: '18' },
         { name: 'amex', width: '81', height: '30' }
     ];
+
+    get isDarkMode() {
+        return this.configService.config.darkMode;
+    }
+
 }
