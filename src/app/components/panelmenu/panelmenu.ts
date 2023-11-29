@@ -43,7 +43,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
             [attr.aria-hidden]="!parentExpanded"
-            (focusin)="menuFocus.emit($event)"
+            (focus)="menuFocus.emit($event)"
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
@@ -485,6 +485,7 @@ export class PanelMenuList implements OnChanges {
     }
 
     onItemToggle(event) {
+        this.focused = true;
         const { processedItem, expanded } = event;
         processedItem.expanded = !processedItem.expanded;
 
