@@ -21,6 +21,7 @@ const PrimeNG = {
 };
 
 const demoDependencies = [
+  "@angular-devkit/build-angular",
   "@angular/animations",
   "@angular/cdk",
   "@angular/cli",
@@ -478,12 +479,7 @@ Firefox ESR
 not ios_saf 15.2-15.3
 not safari 15.2-15.3`;
 
-const stackblitzrc = `
-{
-  "installDependencies": true,
-  "startCommand": "yarn start"
-}
-`
+
 
 const getAngularApp = (props: Props = {}) => {
     const { code, extFiles, routeFiles, selector } = props;
@@ -720,7 +716,6 @@ export class AppModule {}`;
 
     const defaultFiles = {
         'src/main.ts': { content: main_ts },
-        '.stackblitzrc' : {content: stackblitzrc},
         'src/polyfills.ts': { content: polyfills_ts },
         'src/test.ts': { content: test_ts },
         'tsconfig.json': { content: tsconfig_json },
