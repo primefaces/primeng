@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Message } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-dynamic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A binding to the value property is required to provide messages to the component.</p>
         </app-docsectiontext>
         <div class="card">
@@ -14,13 +14,9 @@ import { Code } from '../../domain/code';
             <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
         </div>
         <app-code [code]="code" selector="messages-dynamic-demo"></app-code>
-    </section>`
+    `
 })
 export class DynamicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     messages: Message[] | undefined;
 
     addMessages() {
@@ -37,8 +33,7 @@ export class DynamicDoc {
     }
 
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
+        basic: `<button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
 <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
 <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
         html: `

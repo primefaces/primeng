@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
@@ -9,8 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-objects-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>
                 AutoComplete can also work with objects using the <i>field</i> property that defines the label to display as a suggestion. The value passed to the model would still be the object instance of a suggestion. Here is an example with a
                 Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
@@ -19,14 +18,9 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>`
 })
 export class ObjectsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCountry: any;
@@ -56,8 +50,7 @@ export class ObjectsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+        basic: `<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">

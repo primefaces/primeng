@@ -15,9 +15,9 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '16.9.0',
+    version: '17.0.0-beta.1',
     description:
-        'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
 
 const demoDependencies = [
@@ -366,8 +366,7 @@ const angular_json = `
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
               "assets": [
-                "src/assets",
-                "src/favicon.png"
+                "src/assets"
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
@@ -712,7 +711,7 @@ export class AppModule {}`;
         <link href="https://unpkg.com/primeflex/primeflex.css" rel="stylesheet" />
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
     </head>
     <body>
         <${selector}></${selector}>

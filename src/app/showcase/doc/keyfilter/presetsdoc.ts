@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'presets-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -38,16 +38,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-presets-demo"></app-code>
-    </section>`
+    `
 })
 export class PresetsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<input pInputText pKeyFilter="int" />
+        basic: `<input pInputText pKeyFilter="int" />
 <input pInputText pKeyFilter="num" />
 <input pInputText pKeyFilter="money" />
 <input pInputText pKeyFilter="hex" />

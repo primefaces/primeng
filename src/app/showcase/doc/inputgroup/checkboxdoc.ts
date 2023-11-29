@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
@@ -25,13 +25,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="inputgroup-checkbox-demo"></app-code>
-    </section>`
+    `
 })
 export class CheckboxDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     checkbox1: boolean = false;
 
     checkbox2: boolean = false;
@@ -39,8 +35,7 @@ export class CheckboxDoc {
     category: string | undefined;
 
     code: Code = {
-        basic: `
-<div class="p-inputgroup">
+        basic: `<div class="p-inputgroup">
     <span class="p-inputgroup-addon"><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></span>
     <input type="text" pInputText placeholder="Username" />
 </div>

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ColorsDoc } from './colorsdoc';
 import { FormControlsDoc } from './formcontrolsdoc';
 import { IntroductionDoc } from './introductiondoc';

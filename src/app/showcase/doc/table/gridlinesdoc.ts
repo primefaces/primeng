@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'gridlines-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">
@@ -31,15 +30,10 @@ import { ProductService } from '../../service/productservice';
                 <ng-template pTemplate="summary">Footer</ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-gridlines-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-gridlines-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GridlinesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -52,8 +46,7 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption"> Header </ng-template>
     <ng-template pTemplate="header">
         <tr>

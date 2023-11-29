@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dropdown-filter-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Dropdown provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,13 +24,9 @@ import { Code } from '../../domain/code';
             </p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-filter-demo"></app-code>
-    </section>`
+    `
 })
 export class FilterDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCountry: string | undefined;
@@ -51,8 +47,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+        basic: `<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
     <ng-template pTemplate="selectedItem">
         <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>

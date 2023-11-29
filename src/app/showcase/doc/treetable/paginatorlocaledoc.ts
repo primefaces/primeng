@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
 interface Column {
     field: string;
@@ -10,8 +9,8 @@ interface Column {
 
 @Component({
     selector: 'paginator-locale-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card">
@@ -34,15 +33,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-locale-demo"></app-code>
-    </section>`
+    `
 })
 export class PaginatorLocaleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     cols!: Column[];
@@ -78,8 +71,7 @@ export class PaginatorLocaleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable paginatorLocale="fa-IR" [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable paginatorLocale="fa-IR" [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">

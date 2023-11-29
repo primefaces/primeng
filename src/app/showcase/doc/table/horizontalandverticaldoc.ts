@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'horizontal-and-vertical-scroll-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
         </app-docsectiontext>
         <div class="card">
@@ -52,15 +51,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-horizontal-and-vertical-scroll-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-horizontal-and-vertical-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HorizontalAndVerticalScrollDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
@@ -77,8 +71,7 @@ export class HorizontalAndVerticalScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
+        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:100px">Id</th>

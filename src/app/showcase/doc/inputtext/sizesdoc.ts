@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'sizes-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Apply <i>.p-inputtext-sm</i> to reduce the size of the input element or <i>.p-inputtext-lg</i> to enlarge it.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3 ">
@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
             <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />
         </div>
         <app-code [code]="code" selector="input-text-sizes-demo"></app-code>
-    </section>`
+    `
 })
 export class SizesDoc {
     value: string | undefined;
@@ -22,13 +22,8 @@ export class SizesDoc {
 
     value3: string | undefined;
 
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<input pInputText type="text" class="p-inputtext-sm" placeholder="Small" [(ngModel)]="value" />
+        basic: `<input pInputText type="text" class="p-inputtext-sm" placeholder="Small" [(ngModel)]="value" />
 <input pInputText type="text" placeholder="Normal" [(ngModel)]="value2" />
 <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />`,
 
