@@ -1,4 +1,33 @@
 # Changelog
+
+## [17.0.0-rc.1](https://github.com/primefaces/primeng/tree/17.0.0-rc.1) (2023-11-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0-beta.1...17.0.0-rc.1)
+
+**Breaking Changes:**
+- Set all metaKeySelection to true by default [\#14244](https://github.com/primefaces/primeng/issues/14244)
+- StyleClass | deprecate enterClass and leaveClass [\#14243](https://github.com/primefaces/primeng/issues/14243)
+- InputSwitch | Rename InputSwitchOnChangeEvent [\#14228](https://github.com/primefaces/primeng/issues/14228)
+- AutoComplete | Rename AutoCompleteOnSelectEvent [\#14229](https://github.com/primefaces/primeng/issues/14229)
+- DataView | Remove primeflex dependency from component [\#14214](https://github.com/primefaces/primeng/issues/14214)
+
+**Implemented New Features and Enhancements:**
+- New Component | InputGroup [\#14133](https://github.com/primefaces/primeng/issues/14133)
+
+**Fixed bugs:**
+- Panel Menu: On Click Events of Panel-Submenu-List causes focus event on Panel Root List [\#14236](https://github.com/primefaces/primeng/issues/14236)
+- Edit mode not closed on TAB in last cell of p-table [\#14221](https://github.com/primefaces/primeng/issues/14221)
+- pMultiSelect: The maxSelectedLabels is set by default to 3 and is not undefinable, which is undesired for implementing the overflow ellipsis [\#14195](https://github.com/primefaces/primeng/issues/14195)
+- Component: MultiSelect [\#14199](https://github.com/primefaces/primeng/issues/14199)
+
+## [17.0.0-beta.1](https://github.com/primefaces/primeng/tree/17.0.0-beta.1) (2023-11-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.9.1...17.0.0-beta.1)
+
+**Implemented New Features and Enhancements:**
+- TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
+- Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
 ## [16.9.1](https://github.com/primefaces/primeng/tree/16.9.1) (2023-11-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.9.0...16.9.1)
