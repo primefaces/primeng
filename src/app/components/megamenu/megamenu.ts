@@ -830,11 +830,10 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     changeFocusedItemInfo(event, index) {
         const processedItem = this.findVisibleItem(index);
-        this.focusedItemInfo.mutate((value) => {
-            value.index = index;
-            value.key = ObjectUtils.isNotEmpty(processedItem) ? processedItem.key : '';
-            value.item = processedItem.item;
-        });
+        if (ObjectUtils.isNotEmpty(processedItem)) {
+            const { key, parentKey, item } = processedItem;
+            this.focusedItemInfo.set({ index, key: key ? key : '', parentKey, item });
+        }
 
         this.scrollInView();
     }

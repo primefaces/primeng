@@ -1,28 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'step-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-slider [(ngModel)]="value" [step]="20"></p-slider>
         </div>
         <app-code [code]="code" selector="slider-step-demo"></app-code>
-    </section>`
+    `
 })
 export class StepDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value!: number;
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="value" [step]="20"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="value" [step]="20"></p-slider>`,
 
         html: `
 <div class="card flex justify-content-center">

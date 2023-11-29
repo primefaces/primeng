@@ -1,8 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
             The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property of the <a href="/configuration/#locale">locale</a> API by default, with <i>previewButtonProps</i>you may use
@@ -42,8 +42,4 @@ import { Component, Input } from '@angular/core';
         </div>
     </app-docsectiontext>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

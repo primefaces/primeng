@@ -1,11 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'column-group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
+    template: `
         <div class="card">
             <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
@@ -25,7 +24,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr>
+                    <tr [ttRow]="rowNode">
                         <td>
                             <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                             {{ rowData.brand }}
@@ -46,13 +45,9 @@ import { Code } from '../../domain/code';
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
-    </section>`
+    `
 })
 export class ColumnGroupDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sales!: TreeNode[];
 
     ngOnInit() {
@@ -178,8 +173,7 @@ export class ColumnGroupDoc implements OnInit {
         ];
     }
     code: Code = {
-        basic: `
-<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Brand</th>
@@ -237,7 +231,7 @@ export class ColumnGroupDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-            <tr>
+            <tr [ttRow]="rowNode">
                 <td>
                     <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
                     {{ rowData.brand }}

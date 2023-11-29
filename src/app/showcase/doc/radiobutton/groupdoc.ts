@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>RadioButton is used as a controlled input with <i>value</i> and <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -30,18 +30,13 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-group-demo"></app-code>
-    </section>`
+    `
 })
 export class GroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     ingredient!: string;
 
     code: Code = {
-        basic: `
-<div class="flex flex-wrap gap-3">
+        basic: `<div class="flex flex-wrap gap-3">
     <div class="flex align-items-center">
         <p-radioButton name="pizza" value="Cheese" [(ngModel)]="ingredient" inputId="ingredient1"></p-radioButton>
         <label for="ingredient1" class="ml-2">Cheese</label>

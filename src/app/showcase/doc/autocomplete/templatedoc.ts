@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { CountryService } from '../../service/countryservice';
 
@@ -10,8 +9,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,14 +22,9 @@ interface AutoCompleteCompleteEvent {
                 </ng-template>
             </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-template-demo"></app-code>`
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCountryAdvanced: any[] | undefined;
@@ -60,8 +53,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
+        basic: `<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">

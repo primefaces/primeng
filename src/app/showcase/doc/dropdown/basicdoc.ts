@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -8,26 +8,21 @@ interface City {
 
 @Component({
     selector: 'dropdown-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
-                Dropdown is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively.
-                Default property name for the <i>optionLabel</i> is <i>label</i> and <i>value</i> for the <i>optionValue</i>. If <i>optionValue</i> is omitted and the object has no <i>value</i> property, the object itself becomes the value of an
-                option. Note that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
+                Dropdown is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Note
+                that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" showClear="true" placeholder="Select a City"></p-dropdown>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>
         </div>
         <app-code [code]="code" selector="dropdown-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    cities: City[] | undefined;
+    cities: City[];
 
     selectedCity: City | undefined;
 
@@ -42,12 +37,11 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" showClear="true" placeholder="Select a City"></p-dropdown>`,
+        basic: `<p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" showClear="true" placeholder="Select a City"></p-dropdown>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>
 </div>`,
 
         typescript: `

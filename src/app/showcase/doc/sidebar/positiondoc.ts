@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sidebar location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-2">
@@ -30,13 +30,9 @@ import { Code } from '../../domain/code';
             <p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-position-demo"></app-code>
-    </section>`
+    `
 })
 export class PositionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sidebarVisible1: boolean = false;
 
     sidebarVisible2: boolean = false;
@@ -46,8 +42,7 @@ export class PositionDoc {
     sidebarVisible4: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible1" position="left">
+        basic: `<p-sidebar [(visible)]="sidebarVisible1" position="left">
     <h3>Left Sidebar</h3>
 </p-sidebar>
 

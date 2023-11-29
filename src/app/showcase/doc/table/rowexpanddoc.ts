@@ -5,8 +5,7 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'row-expand-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
                 whose click event toggles the expansion. This enables providing your custom UI such as buttons, links and so on. Example below uses an anchor with an icon as a toggler. Setting <i>pRowTogglerDisabled</i> as true disables the toggle
@@ -60,7 +59,7 @@ import { ProductService } from '../../service/productservice';
                                         <tr>
                                             <td>{{ order.id }}</td>
                                             <td>{{ order.customer }}</td>
-                                            <td>{{ order.id }}</td>
+                                            <td>{{ order.date }}</td>
                                             <td>{{ order.amount | currency : 'USD' }}</td>
                                             <td>
                                                 <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
@@ -80,15 +79,10 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RowExpandDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -123,8 +117,7 @@ export class RowExpandDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+        basic: `<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 5rem"></th>
@@ -170,7 +163,7 @@ export class RowExpandDoc implements OnInit {
                             <tr>
                                 <td>{{ order.id }}</td>
                                 <td>{{ order.customer }}</td>
-                                <td>{{ order.id }}</td>
+                                <td>{{ order.date }}</td>
                                 <td>{{ order.amount | currency: 'USD' }}</td>
                                 <td>
                                     <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
@@ -237,7 +230,7 @@ export class RowExpandDoc implements OnInit {
                                 <tr>
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.customer }}</td>
-                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.date }}</td>
                                     <td>{{ order.amount | currency: 'USD' }}</td>
                                     <td>
                                         <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>

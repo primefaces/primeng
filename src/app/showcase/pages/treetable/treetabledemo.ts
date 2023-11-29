@@ -35,7 +35,7 @@ import { ResizeScrollableDoc } from '../../doc/treetable/columnresizescrollabled
 export class TreeTableDemo {
     docs = [
         {
-            id: 'import',
+            id: 'import-demo',
             label: 'Import',
             component: ImportDoc
         },

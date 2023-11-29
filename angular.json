@@ -33,40 +33,13 @@
                         "outputPath": "dist/primeng/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
-                        "polyfills": [
-                            "zone.js"
-                        ],
+                        "polyfills": ["zone.js"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": [
-                            "src/favicon.png",
-                            "src/assets",
-                            "src/showcase",
-                            "src/upload.php",
-                            "src/versions.json",
-                            "src/.htaccess"
-                        ],
-                        "styles": [
-                            "src/styles.scss",
-                            "node_modules/primeicons/primeicons.css"
-                        ],
-                        "scripts": [
-                            "./node_modules/prismjs/prism.js",
-                            "./node_modules/prismjs/components/prism-typescript.js",
-                            "./node_modules/prismjs/components/prism-scss.js",
-                            "./node_modules/prismjs/components/prism-bash.js"
-                        ],
-                        "allowedCommonJsDependencies": [
-                            "chart.js",
-                            "xlsx",
-                            "jspdf-autotable",
-                            "file-saver",
-                            "jspdf",
-                            "quill",
-                            "core-js",
-                            "raf",
-                            "rgbcolor"
-                        ]
+                        "assets": ["src/assets"],
+                        "styles": ["src/styles.scss"],
+                        "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
+                        "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"]
                     },
                     "configurations": {
                         "production": {
@@ -98,10 +71,10 @@
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
-                            "browserTarget": "primeng:build:production"
+                            "buildTarget": "primeng:build:production"
                         },
                         "development": {
-                            "browserTarget": "primeng:build:development"
+                            "buildTarget": "primeng:build:development"
                         }
                     },
                     "defaultConfiguration": "development"
@@ -109,7 +82,7 @@
                 "extract-i18n": {
                     "builder": "@angular-devkit/build-angular:extract-i18n",
                     "options": {
-                        "browserTarget": "primeng:build"
+                        "buildTarget": "primeng:build"
                     }
                 },
                 "test": {
@@ -119,15 +92,8 @@
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
-                        "assets": [
-                            "src/favicon.png",
-                            "src/assets",
-                            "src/upload.php"
-                        ],
-                        "styles": [
-                            "src/styles.scss",
-                            "src/assets/components/themes/lara-light-blue/theme.css"
-                        ],
+                        "assets": ["src/assets"],
+                        "styles": ["src/styles.scss", "src/assets/components/themes/lara-light-blue/theme.css"],
                         "scripts": []
                     }
                 },
@@ -149,39 +115,6 @@
                             "sourceMap": true,
                             "extractLicenses": false,
                             "vendorChunk": true
-                        }
-                    },
-                    "defaultConfiguration": "production"
-                },
-                "serve-ssr": {
-                    "builder": "@nguniversal/builders:ssr-dev-server",
-                    "configurations": {
-                        "development": {
-                            "browserTarget": "primeng:build:development",
-                            "serverTarget": "primeng:server:development"
-                        },
-                        "production": {
-                            "browserTarget": "primeng:build:production",
-                            "serverTarget": "primeng:server:production"
-                        }
-                    },
-                    "defaultConfiguration": "development"
-                },
-                "prerender": {
-                    "builder": "@nguniversal/builders:prerender",
-                    "options": {
-                        "routes": [
-                            "/"
-                        ]
-                    },
-                    "configurations": {
-                        "production": {
-                            "browserTarget": "primeng:build:production",
-                            "serverTarget": "primeng:server:production"
-                        },
-                        "development": {
-                            "browserTarget": "primeng:build:development",
-                            "serverTarget": "primeng:server:development"
                         }
                     },
                     "defaultConfiguration": "production"

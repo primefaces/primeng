@@ -1,24 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TabMenu requires a collection of menuitems as its model.</p>
         </app-docsectiontext>
         <div class="card">
             <p-tabMenu [model]="items"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -32,8 +28,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [model]="items"></p-tabMenu>`,
+        basic: `<p-tabMenu [model]="items"></p-tabMenu>`,
 
         html: `
 <div class="card">

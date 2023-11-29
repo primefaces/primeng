@@ -10,7 +10,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
@@ -31,17 +31,19 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 <input
                     #focusInput
                     type="text"
-                    role="listbox"
+                    role="combobox"
                     [attr.id]="inputId"
                     readonly
                     [disabled]="disabled"
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     (keydown)="onKeyDown($event)"
-                    [attr.tabindex]="tabindex"
-                    aria-haspopup="true"
+                    [attr.tabindex]="!disabled ? tabindex : -1"
+                    [attr.aria-controls]="listId"
+                    [attr.aria-haspopup]="'tree'"
                     [attr.aria-expanded]="overlayVisible"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 />
             </div>
             <div class="p-treeselect-label-container">
@@ -68,7 +70,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-container>
             </div>
-            <div class="p-treeselect-trigger">
+            <div class="p-treeselect-trigger" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible">
                 <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-treeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
@@ -88,8 +90,19 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
             >
                 <ng-template pTemplate="content">
                     <div #panel class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
+                        <span
+                            #firstHiddenFocusableEl
+                            role="presentation"
+                            [attr.aria-hidden]="'true'"
+                            class="p-hidden-accessible p-hidden-focusable"
+                            [attr.tabindex]="0"
+                            (focus)="onFirstHiddenFocus($event)"
+                            [attr.data-p-hidden-accessible]="true"
+                            [attr.data-p-hidden-focusable]="true"
+                        >
+                        </span>
                         <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: value, options: options }"></ng-container>
-                        <div class="p-treeselect-header" *ngIf="filter">
+                        <div class="p-treeselect-header" *ngIf="filter" (keydown.arrowdown)="onArrowDown($event)">
                             <div class="p-treeselect-filter-container">
                                 <input
                                     #filter
@@ -152,6 +165,16 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             </p-tree>
                         </div>
                         <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: value, options: options }"></ng-container>
+                        <span
+                            #lastHiddenFocusableEl
+                            role="presentation"
+                            [attr.aria-hidden]="true"
+                            class="p-hidden-accessible p-hidden-focusable"
+                            [attr.tabindex]="0"
+                            (focus)="onLastHiddenFocus($event)"
+                            [attr.data-p-hidden-accessible]="true"
+                            [attr.data-p-hidden-focusable]="true"
+                        ></span>
                     </div>
                 </ng-template>
             </p-overlay>
@@ -161,7 +184,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
     host: {
         class: 'p-element p-inputwrapper',
         '[class.p-inputwrapper-filled]': '!emptyValue',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-inputwrapper-focus]': 'focused',
         '[class.p-treeselect-clearable]': 'showClear && !disabled'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -203,7 +226,12 @@ export class TreeSelect implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: string | undefined;
+    @Input() tabindex: string | undefined = '0';
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -415,6 +443,10 @@ export class TreeSelect implements AfterContentInit {
 
     @ViewChild('overlay') overlayViewChild: Nullable<Overlay>;
 
+    @ViewChild('firstHiddenFocusableEl') firstHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
+    @ViewChild('lastHiddenFocusableEl') lastHiddenFocusableElementOnOverlay: Nullable<ElementRef>;
+
     public filteredNodes: TreeNode[] | undefined | null;
 
     filterValue: Nullable<string> = null;
@@ -461,9 +493,12 @@ export class TreeSelect implements AfterContentInit {
 
     onModelTouched: Function = () => {};
 
+    listId: string = '';
+
     constructor(public config: PrimeNGConfig, public cd: ChangeDetectorRef, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngOnInit() {
+        this.listId = UniqueComponentId() + '_list';
         this.updateTreeState();
     }
 
@@ -532,8 +567,13 @@ export class TreeSelect implements AfterContentInit {
                 if (this.filter) {
                     ObjectUtils.isNotEmpty(this.filterValue) && this.treeViewChild?._filter(<any>this.filterValue);
                     this.filterInputAutoFocus && this.filterViewChild?.nativeElement.focus();
-                }
+                } else {
+                    let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement);
 
+                    if (focusableElements && focusableElements.length > 0) {
+                        focusableElements[0].focus();
+                    }
+                }
                 break;
         }
     }
@@ -561,43 +601,38 @@ export class TreeSelect implements AfterContentInit {
     }
 
     onKeyDown(event: KeyboardEvent) {
-        switch (event.which) {
+        switch (event.code) {
             //down
-            case 40:
-                if (!this.overlayVisible && event.altKey) {
+            case 'ArrowDown':
+                if (!this.overlayVisible) {
                     this.show();
                     event.preventDefault();
-                } else if (this.overlayVisible && this.panelEl?.nativeElement) {
-                    let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement);
-
-                    if (focusableElements && focusableElements.length > 0) {
-                        focusableElements[0].focus();
-                    }
-
-                    event.preventDefault();
                 }
+                this.onArrowDown(event);
+                event.preventDefault();
                 break;
 
             //space
-            case 32:
+            case 'Space':
+            case 'Enter':
                 if (!this.overlayVisible) {
                     this.show();
                     event.preventDefault();
                 }
                 break;
 
-            //enter and escape
-            case 13:
-            case 27:
+            //escape
+            case 'Escape':
                 if (this.overlayVisible) {
                     this.hide();
+                    this.focusInput?.nativeElement.focus();
                     event.preventDefault();
                 }
                 break;
 
             //tab
-            case 9:
-                this.hide();
+            case 'Tab':
+                this.onTabKey(event);
                 break;
 
             default:
@@ -612,6 +647,32 @@ export class TreeSelect implements AfterContentInit {
             originalEvent: event,
             filteredValue: this.treeViewChild?.filteredNodes
         });
+    }
+
+    onArrowDown(event: KeyboardEvent) {
+        if (this.overlayVisible && this.panelEl?.nativeElement) {
+            let focusableElements = DomHandler.getFocusableElements(this.panelEl.nativeElement, '.p-treenode');
+
+            if (focusableElements && focusableElements.length > 0) {
+                focusableElements[0].focus();
+            }
+
+            event.preventDefault();
+        }
+    }
+
+    onFirstHiddenFocus(event) {
+        const focusableEl =
+            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+
+        DomHandler.focus(focusableEl);
+    }
+
+    onLastHiddenFocus(event) {
+        const focusableEl =
+            event.relatedTarget === this.focusInput?.nativeElement ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])') : this.focusInput?.nativeElement;
+
+        DomHandler.focus(focusableEl);
     }
 
     show() {
@@ -638,6 +699,22 @@ export class TreeSelect implements AfterContentInit {
 
     checkValue() {
         return this.value !== null && ObjectUtils.isNotEmpty(this.value);
+    }
+
+    onTabKey(event, pressedInInputText = false) {
+        if (!pressedInInputText) {
+            if (this.overlayVisible && this.hasFocusableElements()) {
+                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+
+                event.preventDefault();
+            } else {
+                this.overlayVisible && this.hide(this.filter);
+            }
+        }
+    }
+
+    hasFocusableElements() {
+        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
     }
 
     resetFilter() {
@@ -769,6 +846,7 @@ export class TreeSelect implements AfterContentInit {
 
         if (this.selectionMode === 'single') {
             this.hide();
+            this.focusInput?.nativeElement.focus();
         }
     }
 

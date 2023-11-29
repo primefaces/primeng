@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '../../domain/code';
 
@@ -9,8 +9,8 @@ interface City {
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>MultiSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -19,13 +19,9 @@ interface City {
             </form>
         </div>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities!: City[];
 
     formGroup!: FormGroup;
@@ -40,13 +36,12 @@ export class ReactiveFormsDoc implements OnInit {
         ];
 
         this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>(null)
+            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
+        basic: `<form [formGroup]="formGroup">
     <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
 </form>`,
 
@@ -85,7 +80,7 @@ export class MultiSelectReactiveFormsDemo implements OnInit {
         ];
 
         this.formGroup = new FormGroup({
-            selectedCities: new FormControl<City[] | null>(null)
+            selectedCities: new FormControl<City[] | null>([{ name: 'Istanbul', code: 'IST' }])
         });
     }  
 }`

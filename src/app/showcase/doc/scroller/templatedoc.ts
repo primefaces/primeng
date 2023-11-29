@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Scroller content is customizable by using <i>ng-template</i>. Valid values are <i>content</i>, <i>item</i>, <i>loader</i> and <i>loadericon</i></p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -34,14 +34,10 @@ import { Code } from '../../domain/code';
             </p-scroller>
         </div>
         <app-code [code]="code" selector="scroller-template-demo"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items!: string[];
 
     ngOnInit() {
@@ -49,8 +45,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+        basic: `<p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
     <ng-template pTemplate="item" let-item let-options="options">
         <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
             <div class="flex align-items-center px-2" style="height: 25px">Item: {{item}}</div>
