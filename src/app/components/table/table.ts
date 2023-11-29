@@ -4300,8 +4300,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
-            }
-            else{
+            } else {
                 if (this.dt.isEditingCellValid()) {
                     this.closeEditingCell(true, event);
                 }

@@ -8,7 +8,7 @@ import { SidebarModule } from 'primeng/sidebar';
 import { AppConfigComponent } from './app.config.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 @NgModule({
-    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule,SelectButtonModule],
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule],
     exports: [AppConfigComponent],
     declarations: [AppConfigComponent]
 })
