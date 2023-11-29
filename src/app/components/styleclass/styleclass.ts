@@ -138,8 +138,8 @@ export class StyleClass implements OnDestroy {
                 }
 
                 DomHandler.addClass(this.target, this.enterActiveClass);
-                if (this.enterClass) {
-                    DomHandler.removeClass(this.target, this.enterClass);
+                if (this.enterClass || this.enterFromClass) {
+                    DomHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
                 }
 
                 this.enterListener = this.renderer.listen(this.target, 'animationend', () => {
@@ -156,8 +156,8 @@ export class StyleClass implements OnDestroy {
                 });
             }
         } else {
-            if (this.enterClass) {
-                DomHandler.removeClass(this.target, this.enterClass);
+            if (this.enterClass || this.enterFromClass) {
+                DomHandler.removeClass(this.target, this.enterClass || this.enterFromClass);
             }
 
             if (this.enterToClass) {
@@ -179,8 +179,8 @@ export class StyleClass implements OnDestroy {
             if (!this.animating) {
                 this.animating = true;
                 DomHandler.addClass(this.target, this.leaveActiveClass);
-                if (this.leaveClass) {
-                    DomHandler.removeClass(this.target, this.leaveClass);
+                if (this.leaveClass || this.leaveFromClass) {
+                    DomHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
                 }
 
                 this.leaveListener = this.renderer.listen(this.target, 'animationend', () => {
@@ -193,8 +193,8 @@ export class StyleClass implements OnDestroy {
                 });
             }
         } else {
-            if (this.leaveClass) {
-                DomHandler.removeClass(this.target, this.leaveClass);
+            if (this.leaveClass || this.leaveFromClass) {
+                DomHandler.removeClass(this.target, this.leaveClass || this.leaveFromClass);
             }
 
             if (this.leaveToClass) {
