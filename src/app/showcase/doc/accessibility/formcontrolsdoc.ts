@@ -37,7 +37,7 @@ export class FormControlsDoc {
     };
 
     code4: Code = {
-        html: `<label htmlFor="myinput">Username:</label>
+        html: `<label for="myinput">Username:</label>
 <input id="myinput" type="text" name="username" />`
     };
 }
