@@ -56,6 +56,7 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import {
+    ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
     TableContextMenuSelectEvent,
@@ -2243,10 +2244,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - Export options.
+     * @param {ExportCSVOptions} object - Export options.
      * @group Method
      */
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportCSVOptions) {
         let data;
         let csv = '';
         let columns = this.columns;
