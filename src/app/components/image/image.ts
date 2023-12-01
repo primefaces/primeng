@@ -23,7 +23,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [attr.loading]="loading" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
-            <button *ngIf="preview" type="button" class="p-image-preview-indicator" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }" style="border: 'none';">
+            <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-indicator" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }" style="border: 'none';">
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
@@ -375,6 +375,10 @@ export class Image implements AfterContentInit {
 
     imagePreviewStyle() {
         return { transform: 'rotate(' + this.rotate + 'deg) scale(' + this.scale + ')' };
+    }
+    
+    get zoomImageAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.zoomImage : undefined;
     }
 
     containerClass() {

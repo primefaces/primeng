@@ -81,6 +81,9 @@ import { DomHandler } from 'primeng/dom';
                             <div
                                 *ngFor="let item of value; let index = index"
                                 [ngClass]="{ 'p-carousel-item': true, 'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index, 'p-carousel-item-start': firstIndex() === index, 'p-carousel-item-end': lastIndex() === index }"
+                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                [attr.aria-label]="ariaSlideNumber(index)"
+                                [attr.aria-roledescription]="ariaSlideLabel()"
                             >
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>

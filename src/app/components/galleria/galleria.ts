@@ -400,6 +400,7 @@ export class Galleria implements OnChanges, OnDestroy {
     template: `
         <div
             [attr.id]="id"
+            [attr.role]="'region'"
             *ngIf="value && value.length > 0"
             [ngClass]="{
                 'p-galleria p-component': true,
