@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AnimationsDoc } from './animationsdoc';
 import { DownloadDoc } from './downloaddoc';
 import { ExamplesDoc } from './examplesdoc';

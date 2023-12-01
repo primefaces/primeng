@@ -709,14 +709,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             }
             const { originalEvent, processedItem } = event;
             const grouped = this.isProcessedItemGroup(processedItem);
+            const focusedItemInfo = this.focusedItemInfo();
 
             if (grouped) {
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = -1;
-                    value.level = value.level + 1;
-                    value.parentKey = processedItem.key;
-                    value.item = processedItem.item;
-                });
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: -1, level: focusedItemInfo.level + 1, parentKey: processedItem.key, item: processedItem.item });
                 this.animate('right');
             } else {
                 this.onItemChange(event);
@@ -796,9 +792,11 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.onArrowLeftKey(event);
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = -1;
-                    value.item = null;
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: -1,
+                    item: null
                 });
                 break;
             default:
@@ -909,9 +907,11 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         if (this.popup) {
             this.hide(event, true);
-            this.focusedItemInfo.mutate((value) => {
-                value.index = this.findLastFocusedItemIndex();
-                value.item = null;
+            const focusedItemInfo = this.focusedItemInfo();
+            this.focusedItemInfo.set({
+                ...focusedItemInfo,
+                index: this.findLastFocusedItemIndex(),
+                item: null
             });
 
             event.preventDefault();
@@ -941,9 +941,12 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                 const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
                 anchorElement ? anchorElement.click() : element && element.click();
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = processedItem.index;
-                    value.item = processedItem.item;
+
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: processedItem.index,
+                    item: processedItem.item
                 });
             }
         }
@@ -976,7 +979,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         if (this.focusedItemInfo().index === -1 && this.left < 0) {
-            this.focusedItemInfo.mutate((value) => (value.index = 0));
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index: 0 });
         }
 
         if (this.focusedItemInfo().index === -1 && !this.left) {
@@ -988,9 +991,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focused = false;
         this.popup && this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         if (!this.popup) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = -1;
-                value.item = null;
+            this.focusedItemInfo.set({
+                ...this.focusedItemInfo(),
+                index: -1,
+                item: null
             });
         }
         this.searchValue = '';
@@ -1217,9 +1221,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-            });
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index });
             this.scrollInView();
         }
     }

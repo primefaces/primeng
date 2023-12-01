@@ -56,6 +56,7 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import {
+    ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
     TableContextMenuSelectEvent,
@@ -75,6 +76,7 @@ import {
 } from './table.interface';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { platformBrowser } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -472,7 +474,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined;
+    @Input() metaKeySelection: boolean | undefined = true;
     /**
      * Defines if the row is selectable.
      * @group Props
@@ -1298,14 +1300,16 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     ngAfterViewInit() {
-        if (this.isStateful() && this.resizableColumns) {
-            this.restoreColumnWidths();
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.isStateful() && this.resizableColumns) {
+                this.restoreColumnWidths();
+            }
         }
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
-            if (this.isStateful() && !this.stateRestored) {
+            if (this.isStateful() && !this.stateRestored && isPlatformBrowser(this.platformId)) {
                 this.restoreState();
             }
 
@@ -2240,10 +2244,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - Export options.
+     * @param {ExportCSVOptions} object - Export options.
      * @group Method
      */
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportCSVOptions) {
         let data;
         let csv = '';
         let columns = this.columns;
@@ -3450,7 +3454,7 @@ export class SortIcon implements OnInit, OnDestroy {
         let multiSortMeta = this.dt._multiSortMeta;
         let index = -1;
 
-        if (multiSortMeta && this.dt.sortMode === 'multiple' && (this.dt.showInitialSortBadge || multiSortMeta.length > 1)) {
+        if (multiSortMeta && this.dt.sortMode === 'multiple' && this.dt.showInitialSortBadge && multiSortMeta.length > 1) {
             for (let i = 0; i < multiSortMeta.length; i++) {
                 let meta = multiSortMeta[i];
                 if (meta.field === this.field || meta.field === this.field) {
@@ -4297,6 +4301,10 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
+            } else {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(true, event);
+                }
             }
         }
     }
@@ -5653,7 +5661,7 @@ export class ColumnFilterFormElement implements OnInit {
     onModelChange(value: any) {
         (<any>this.filterConstraint).value = value;
 
-        if (this.type === 'boolean' || value === '') {
+        if (this.type === 'date' || this.type === 'boolean' || value === '') {
             this.dt._filter();
         }
     }

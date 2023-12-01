@@ -5,7 +5,7 @@ import { InplaceModule } from 'primeng/inplace';
 import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { BasicDoc } from './basicdoc';
 import { DataDoc } from './datadoc';

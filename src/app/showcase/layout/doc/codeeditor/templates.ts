@@ -15,15 +15,43 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '16.8.0',
+    version: '17.0.0-rc.1',
     description:
-        'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
+
+const demoDependencies = [
+    '@angular-devkit/build-angular',
+    '@angular/animations',
+    '@angular/cdk',
+    '@angular/cli',
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/compiler-cli',
+    '@angular/core',
+    '@angular/forms',
+    '@angular/material',
+    '@angular/material-moment-adapter',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/platform-server',
+    '@angular/router',
+    '@nguniversal/builders',
+    '@nguniversal/common',
+    '@nguniversal/express-engine',
+    'quill',
+    'primeflex',
+    'chart.js',
+    'primeicons',
+    'rxjs',
+    'tslib',
+    'zone.js'
+];
 
 const getAppDependencies = () => {
     const dependencies = {};
     for (const key in app_dependencies) {
-        if (checkDependency(key)) {
+        if (demoDependencies.includes(key)) {
             dependencies[key] = app_dependencies[key];
         }
     }
@@ -40,10 +68,6 @@ const getDependencies = () => {
     };
 
     return dependencies;
-};
-
-const checkDependency = (dep: string) => {
-    return !(dep.startsWith('jasmine') || dep.startsWith('del') || dep.startsWith('gulp') || dep.startsWith('jspdf') || dep.startsWith('prism') || dep.startsWith('del') || dep.startsWith('@stackblitz'));
 };
 
 const getServiceImports = (service: string[]) => {
@@ -343,8 +367,7 @@ const angular_json = `
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
               "assets": [
-                "src/assets",
-                "src/favicon.png"
+                "src/assets"
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
@@ -682,7 +705,7 @@ export class AppModule {}`;
         <link href="https://unpkg.com/primeflex/primeflex.css" rel="stylesheet" />
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
     </head>
     <body>
         <${selector}></${selector}>

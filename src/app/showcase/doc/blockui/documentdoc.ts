@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'block-ui-document-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>If the target element is not specified, BlockUI blocks the document by default.</p>
         </app-docsectiontext>
         <div class="card">
@@ -12,13 +12,9 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
-    </section>`
+    `
 })
 export class DocumentDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     blockedDocument: boolean = false;
 
     constructor(private cd: ChangeDetectorRef) {}
@@ -32,8 +28,7 @@ export class DocumentDoc {
     }
 
     code: Code = {
-        basic: `
-<p-blockUI [blocked]="blockedDocument"></p-blockUI>`,
+        basic: `<p-blockUI [blocked]="blockedDocument"></p-blockUI>`,
         html: `
 <div class="card">
     <p-blockUI [blocked]="blockedDocument"></p-blockUI>

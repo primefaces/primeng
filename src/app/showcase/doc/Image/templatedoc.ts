@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,16 +15,11 @@ import { Code } from '../../domain/code';
             </p-image>
         </div>
         <app-code [code]="code" selector="image-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image" width="250">
+        basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" [preview]="true" alt="Image" width="250">
     <ng-template pTemplate="indicator">
         <i class="pi pi-check"></i>
     </ng-template>

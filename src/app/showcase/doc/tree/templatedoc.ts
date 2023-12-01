@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -19,13 +19,9 @@ import { Code } from '../../domain/code';
             </p-tree>
         </div>
         <app-code [code]="code" selector="tree-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     nodes!: TreeNode[];
 
     ngOnInit() {
@@ -54,8 +50,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree [value]="nodes" class="w-full md:w-30rem">
+        basic: `<p-tree [value]="nodes" class="w-full md:w-30rem">
     <ng-template let-node pTemplate="url">
          <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
     </ng-template>

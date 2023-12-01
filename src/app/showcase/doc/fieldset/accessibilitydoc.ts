@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Fieldset component uses the semantic <i>fieldset</i> element. When toggleable option is enabled, a clickable element with <i>button</i> role is included inside the <i>legend</i> element, this button has <i>aria-controls</i> to define
@@ -43,8 +43,4 @@ import { Component, Input } from '@angular/core';
         </app-docsectiontext>
     </div>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

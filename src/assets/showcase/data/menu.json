@@ -13,8 +13,8 @@
                     "routerLink": "/configuration"
                 },
                 {
-                    "name": "Accessibility",
-                    "routerLink": "/accessibility"
+                    "name": "Playground",
+                    "routerLink": "/playground"
                 }
             ]
         },
@@ -190,10 +190,6 @@
                         {
                             "name": "Timeline",
                             "routerLink": "/timeline"
-                        },
-                        {
-                            "name": "VirtualScroller",
-                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
@@ -299,7 +295,6 @@
                             "name": "Menu",
                             "routerLink": "/menu"
                         },
-                        
                         {
                             "name": "Menubar",
                             "routerLink": "/menubar"
@@ -518,6 +513,11 @@
             "name": "PrimeFlex CSS",
             "icon": "pi pi-table",
             "href": "https://primeflex.org"
+        },
+        {
+            "name": "Accessibility",
+            "icon": "pi pi-users",
+            "routerLink": "/accessibility"
         },
         {
             "name": "Support",

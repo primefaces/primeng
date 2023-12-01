@@ -953,7 +953,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 Promise.resolve(null).then(() => this.updateFocus());
                 this.isMonthNavigate = false;
             } else {
-                if (!this.focus) {
+                if (!this.focus && !this.inline) {
                     this.initFocusableCell();
                 }
             }
@@ -1195,10 +1195,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.inline) {
             this.contentViewChild && this.contentViewChild.nativeElement.setAttribute(this.attributeSelector, '');
 
-            if (!this.disabled) {
+            if (!this.disabled && !this.inline) {
                 this.initFocusableCell();
                 if (this.numberOfMonths === 1) {
-                    this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                    if (this.contentViewChild && this.contentViewChild.nativeElement) {
+                        this.contentViewChild.nativeElement.style.width = DomHandler.getOuterWidth(this.containerViewChild?.nativeElement) + 'px';
+                    }
                 }
             }
         }
@@ -3329,9 +3331,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     onTodayButtonClick(event: any) {
-        let date: Date = new Date();
-        let dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
+        const date: Date = new Date();
+        const dateMeta = { day: date.getDate(), month: date.getMonth(), year: date.getFullYear(), otherMonth: date.getMonth() !== this.currentMonth || date.getFullYear() !== this.currentYear, today: true, selectable: true };
 
+        this.createMonths(date.getMonth(), date.getFullYear());
         this.onDateSelect(event, dateMeta);
         this.onTodayClick.emit(event);
     }

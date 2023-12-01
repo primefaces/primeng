@@ -1,24 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-combo-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Different chart types can be combined in the same graph usign the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
-    </section>`
+    `
 })
 export class ComboDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
@@ -94,8 +90,7 @@ export class ComboDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="line" [data]="data" [options]="options"></p-chart>

@@ -1,5 +1,68 @@
 # Changelog
 
+## [17.0.0-rc.1](https://github.com/primefaces/primeng/tree/17.0.0-rc.1) (2023-11-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0-beta.1...17.0.0-rc.1)
+
+**Breaking Changes:**
+- Set all metaKeySelection to true by default [\#14244](https://github.com/primefaces/primeng/issues/14244)
+- StyleClass | deprecate enterClass and leaveClass [\#14243](https://github.com/primefaces/primeng/issues/14243)
+- InputSwitch | Rename InputSwitchOnChangeEvent [\#14228](https://github.com/primefaces/primeng/issues/14228)
+- AutoComplete | Rename AutoCompleteOnSelectEvent [\#14229](https://github.com/primefaces/primeng/issues/14229)
+- DataView | Remove primeflex dependency from component [\#14214](https://github.com/primefaces/primeng/issues/14214)
+
+**Implemented New Features and Enhancements:**
+- New Component | InputGroup [\#14133](https://github.com/primefaces/primeng/issues/14133)
+
+**Fixed bugs:**
+- Panel Menu: On Click Events of Panel-Submenu-List causes focus event on Panel Root List [\#14236](https://github.com/primefaces/primeng/issues/14236)
+- Edit mode not closed on TAB in last cell of p-table [\#14221](https://github.com/primefaces/primeng/issues/14221)
+- pMultiSelect: The maxSelectedLabels is set by default to 3 and is not undefinable, which is undesired for implementing the overflow ellipsis [\#14195](https://github.com/primefaces/primeng/issues/14195)
+- Component: MultiSelect [\#14199](https://github.com/primefaces/primeng/issues/14199)
+
+## [17.0.0-beta.1](https://github.com/primefaces/primeng/tree/17.0.0-beta.1) (2023-11-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.9.1...17.0.0-beta.1)
+
+**Implemented New Features and Enhancements:**
+- TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
+- Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
+## [16.9.1](https://github.com/primefaces/primeng/tree/16.9.1) (2023-11-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.9.0...16.9.1)
+
+**Fixed bugs:**
+- Paginator: missing or unresolved labels of navigation buttons / dropdowns [\#14191](https://github.com/primefaces/primeng/issues/14191)
+- MultiSelect: Template dropdown selections not working [\#14188](https://github.com/primefaces/primeng/issues/14188)
+
+## [16.9.0](https://github.com/primefaces/primeng/tree/16.9.0) (2023-11-22)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.8.0...16.9.0)
+
+**Implemented New Features and Enhancements:**
+- PickList | Accessibility Enhancements [\#14184](https://github.com/primefaces/primeng/issues/14184)
+- TabView | Add autoHideButtons input property [\#14186](https://github.com/primefaces/primeng/issues/14186)
+
+**Fixed bugs:**
+- Component: p-table [\#14164](https://github.com/primefaces/primeng/issues/14164)
+- MultiSelect | selectedItem template broken if optionValue and optionLabel used together. [\#14187](https://github.com/primefaces/primeng/issues/14187)
+- ColumnFilter in row mode and type date not trigger change when value change [\#13672](https://github.com/primefaces/primeng/issues/13672)
+- dataTable : <th> is hidden by <td> with frozenColumn  [\#13781](https://github.com/primefaces/primeng/issues/13781)
+- MultiSelect Empty Filter Message / Template is not working when you have options [\#14057](https://github.com/primefaces/primeng/issues/14057)
+- [Calendar] issue when clicking on "today" button it doesn't navigate to the current date. [\#14087](https://github.com/primefaces/primeng/issues/14087)
+- Listbox: optionValue is ignored on some events [\#14182](https://github.com/primefaces/primeng/issues/14182)
+- TabView Navbar hides last item / Wheelscroll not working anymore [\#14182](https://github.com/primefaces/primeng/issues/14182)
+- PrimeNG : SideBar onHide Not trigger [\#13933](https://github.com/primefaces/primeng/issues/13933)
+- OrderList | Filter accessibility fix [\#14156](https://github.com/primefaces/primeng/issues/14156)
+- REGRESSION: dropdown changes requires the selectedItem to store entire option array item (label and value) to use template selecteditem [\#14172](https://github.com/primefaces/primeng/issues/14172)
+- p-dropdown content position out of bounds [\#14162](https://github.com/primefaces/primeng/issues/14162)
+- Dropdown does not have the same width of the input when appendTo="body" [\#14159](https://github.com/primefaces/primeng/issues/14159)
+- ContextMenu - does NOT remove from the DOM after router.navigate action [\#13949](https://github.com/primefaces/primeng/issues/13949)
+- AutoComplete | formGroup.reset() does not work as expected. [\#14170](https://github.com/primefaces/primeng/issues/14170)
+- Autocomplete: ng-invalid and ng-dirty immediatly on startup. [\#14149](https://github.com/primefaces/primeng/issues/14149)
+- 16.7.0: Context Menu with appendTo="body" throws Type Error in a nested Table. [\#14149](https://github.com/primefaces/primeng/issues/14149)
+
 ## [16.8.0](https://github.com/primefaces/primeng/tree/16.8.0) (2023-11-20)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.7.2...16.8.0)

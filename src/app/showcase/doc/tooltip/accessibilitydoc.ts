@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
     template: `
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>Tooltip component uses <i>tooltip</i> role and when it becomes visible the generated id of the tooltip is defined as the <i>aria-describedby</i> of the target.</p>
             <h3>Keyboard Support</h3>
@@ -26,8 +26,4 @@ import { Component, Input } from '@angular/core';
         </app-docsectiontext>
     `
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

@@ -5,7 +5,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { AutoResizeDoc } from './autoresizedoc';
 import { BasicDoc } from './basicdoc';

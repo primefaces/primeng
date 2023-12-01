@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dock-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
                 <i>item</i> template.
@@ -24,13 +24,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="dock-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     position: string = 'top';
@@ -76,8 +72,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dock [model]="items" [position]="position">
+        basic: `<p-dock [model]="items" [position]="position">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.icon" [alt]="item.label" width="100%" />
     </ng-template>

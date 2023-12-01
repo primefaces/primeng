@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 Value to describe the component can either be provided with <i>ariaLabelledby</i> or <i>ariaLabel</i> props. The treeselect element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes.
@@ -180,10 +180,6 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `<span id="dd1">Options</span>
 <p-treeSelect ariaLabelledBy="dd1"></p-treeSelect>

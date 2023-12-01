@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chip-icon-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A font icon next to the label can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
         <div class="card flex align-items-center gap-2 flex-wrap">
@@ -14,16 +14,11 @@ import { Code } from '../../domain/code';
             <p-chip label="Microsoft" icon="pi pi-microsoft" [removable]="true"></p-chip>
         </div>
         <app-code [code]="code" selector="chip-icon-demo"></app-code>
-    </section>`
+    `
 })
 export class IconDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-chip label="Apple" icon="pi pi-apple"></p-chip>`,
+        basic: `<p-chip label="Apple" icon="pi pi-apple"></p-chip>`,
         html: `
 <div class="card flex align-items-center gap-2 flex-wrap">
     <p-chip label="Apple" icon="pi pi-apple"></p-chip>

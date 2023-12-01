@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -8,8 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'float-label-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -18,14 +17,9 @@ interface AutoCompleteCompleteEvent {
                 <label for="float-label">Float Label</label>
             </span>
         </div>
-        <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-float-label-demo"></app-code>`
 })
 export class FloatLabelDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: any[] | undefined;
 
     selectedItem: any;
@@ -37,8 +31,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"></p-autoComplete>
     <label for="float-label">Float Label</label>
 </span>`,

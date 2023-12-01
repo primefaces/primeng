@@ -1,12 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
-            The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property of the <a href="/configuration/#locale">locale</a> API by default, with <i>previewButtonProps</i>you may use
-            your own aria roles and attributes as any valid attribute is passed to the button element implicitly.
+            The preview button is a native <i>button</i> element with an <i>aria-label</i> that refers to the <i>aria.zoomImage</i> property of the <a href="/configuration/#locale">locale</a> API by default.
         </p>
         <p>When preview is active, <i>dialog</i> role with <i>aria-modal</i> is applied to the overlay image container.</p>
         <p>Button controls use <i>aria.rotateRight</i>, <i>aria.rotateLeft</i>, <i>aria.zoomIn</i>, <i>aria.zoomOut</i> and <i>aria.close</i> from the <a href="/configuration/#locale">locale</a> API as <i>aria-label</i>.</p>
@@ -42,8 +41,4 @@ import { Component, Input } from '@angular/core';
         </div>
     </app-docsectiontext>`
 })
-export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AccessibilityDoc {}

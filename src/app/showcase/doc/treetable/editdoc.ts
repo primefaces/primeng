@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'edit-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Incell editing is enabled by defining input elements with <i>treeTableCellEditor</i>.</p>
         </app-docsectiontext>
         <div class="card">
@@ -39,13 +39,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
-    </section>`
+    `
 })
 export class EditDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     cols!: Column[];
@@ -62,8 +58,7 @@ export class EditDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">

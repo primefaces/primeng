@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-dialog-position-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap flex-column align-items-center gap-2">
@@ -27,14 +27,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
-    </section>`,
+    `,
     providers: [ConfirmationService, MessageService]
 })
 export class PositionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     position: string = 'center';
 
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
@@ -64,8 +60,7 @@ export class PositionDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-confirmDialog [style]="{ width: '50vw' }" key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
 <div class="flex flex-wrap justify-content-center gap-2">
     <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
