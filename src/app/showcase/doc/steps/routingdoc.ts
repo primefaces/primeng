@@ -30,7 +30,7 @@ export class RoutingDoc implements OnInit {
         this.items = [
             {
                 label: 'Personal',
-                routerLink: ''
+                routerLink: 'personal'
             },
             {
                 label: 'Seat',
