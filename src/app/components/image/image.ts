@@ -376,7 +376,7 @@ export class Image implements AfterContentInit {
     imagePreviewStyle() {
         return { transform: 'rotate(' + this.rotate + 'deg) scale(' + this.scale + ')' };
     }
-    
+
     get zoomImageAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.zoomImage : undefined;
     }
