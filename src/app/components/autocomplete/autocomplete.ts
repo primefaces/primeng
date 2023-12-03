@@ -718,9 +718,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     _suggestions = signal<any>(null);
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     timeout: Nullable<any>;
 
@@ -844,10 +844,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return !this.virtualScroll;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) { }
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges()
     }
 
     ngAfterViewChecked() {
@@ -973,8 +974,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         const matchedOptionIndex =
             index < this.visibleOptions().length - 1
                 ? this.visibleOptions()
-                      .slice(index + 1)
-                      .findIndex((option) => this.isValidOption(option))
+                    .slice(index + 1)
+                    .findIndex((option) => this.isValidOption(option))
                 : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + index + 1 : index;
@@ -1528,9 +1529,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return (
             (this.optionGroupLabel
                 ? index -
-                  this.visibleOptions()
-                      .slice(0, index)
-                      .filter((option) => this.isOptionGroup(option)).length
+                this.visibleOptions()
+                    .slice(0, index)
+                    .filter((option) => this.isOptionGroup(option)).length
                 : index) + 1
         );
     }
@@ -1607,4 +1608,4 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
-export class AutoCompleteModule {}
+export class AutoCompleteModule { }
