@@ -10,11 +10,12 @@ import { BasicDoc } from './basicdoc';
 import { DynamicDoc } from './dynamicdoc';
 import { ImportDoc } from './importdoc';
 import { IndeterminateDoc } from './indeterminatedoc';
+import { TemplateDoc } from './templatedoc';
 import { StyleDoc } from './styledoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ProgressBarModule, ToastModule],
-    declarations: [BasicDoc, DynamicDoc, ImportDoc, IndeterminateDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, DynamicDoc, ImportDoc, IndeterminateDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ProgressBarDocModule {}
