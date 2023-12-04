@@ -12,13 +12,14 @@ import { ImportDoc } from './importdoc';
 import { PopupDoc } from './popupdoc';
 import { TemplateDoc } from './templatedoc';
 import { CommandDoc } from './commanddoc';
+import { RouterDoc } from './routerdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { MessageService } from 'primeng/api';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule, BadgeModule, ToastModule],
-    declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc,CommandDoc],
+    declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
     providers:[MessageService]
 })
