@@ -19867,6 +19867,12 @@
                         "name": "closeicon",
                         "parameters": [],
                         "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "sidebar",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
                     }
                 ]
             }
