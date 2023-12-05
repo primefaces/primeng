@@ -59,6 +59,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [attr.aria-modal]="modal"
             (keydown)="onKeyDown($event)"
         >
+            <ng-container *ngIf="headlessTemplate; else notHeadless">
+                 <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
+            </ng-container>
+            <ng-template #notHeadless>
             <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <button
@@ -87,6 +91,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
             </ng-container>
+            </ng-template>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -252,6 +257,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     closeIconTemplate: Nullable<TemplateRef<any>>;
 
+    headlessTemplate: Nullable<TemplateRef<any>>;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
@@ -272,6 +279,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
                 case 'closeicon':
                     this.closeIconTemplate = item.template;
+                    break;
+                case 'headless':
+                    this.headlessTemplate = item.template;
                     break;
 
                 default:
