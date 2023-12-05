@@ -6,6 +6,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
+import { AvatarModule } from 'primeng/avatar';
 import { ImportDoc } from './importdoc';
 import { AnimationDoc } from './animationdoc';
 import { BasicDoc } from './basicdoc';
@@ -22,7 +23,7 @@ import { ClearDoc } from './cleardoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, ToastModule, ButtonModule, RippleModule, AvatarModule],
     declarations: [AnimationDoc, BasicDoc, ImportDoc, MultipleDoc, PositionDoc, ResponsiveDoc, SeverityDoc, LifeDoc, StickyDoc, StyleDoc, TargetDoc, TemplateDoc, ClearDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
