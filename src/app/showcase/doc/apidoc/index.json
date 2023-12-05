@@ -23878,6 +23878,17 @@
                             }
                         ],
                         "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "toast",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Data of the message.\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
                     }
                 ]
             }

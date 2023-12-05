@@ -13,6 +13,7 @@ import { StickyDoc } from '../../doc/toast/stickydoc';
 import { StyleDoc } from '../../doc/toast/styledoc';
 import { TargetDoc } from '../../doc/toast/targetdoc';
 import { TemplateDoc } from '../../doc/toast/templatedoc';
+import { HeadlessDoc } from '../../doc/toast/headlessdoc';
 
 @Component({
     templateUrl: './toastdemo.html'
@@ -68,6 +69,11 @@ export class ToastDemo {
             id: 'templating',
             label: 'Templating',
             component: TemplateDoc
+        },
+        {
+            id: 'headless',
+            label: 'Headless',
+            component: HeadlessDoc
         },
         {
             id: 'responsive',
