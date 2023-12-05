@@ -72,12 +72,12 @@ export class RouterDoc implements OnInit {
                 icon: 'pi pi-home',
                 items: [
                     {
-                        label: 'Vue.js',
-                        url: 'https://vuejs.org/'
+                        label: 'Angular',
+                        url: 'https://angular.dev/'
                     },
                     {
                         label: 'Vite.js',
-                        url: 'https://vuejs.org/'
+                        url: 'https://vitejs.dev/'
                     }
                 ]
             }
@@ -182,17 +182,18 @@ export class TieredMenuRouterDemo implements OnInit {
                 icon: 'pi pi-home',
                 items: [
                     {
-                        label: 'Vue.js',
-                        url: 'https://vuejs.org/'
+                        label: 'Angular',
+                        url: 'https://angular.dev/'
                     },
                     {
                         label: 'Vite.js',
-                        url: 'https://vuejs.org/'
+                        url: 'https://vitejs.dev/'
                     }
                 ]
             }
         ];
     }
+
 }`
     };
 }
