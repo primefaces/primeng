@@ -574,13 +574,11 @@ export class Menu implements OnDestroy {
                 break;
 
             case 'Escape':
+            case 'Tab':
                 if (this.popup) {
                     DomHandler.focus(this.target);
                     this.hide();
                 }
-                break;
-
-            case 'Tab':
                 this.overlayVisible && this.hide();
                 break;
 
