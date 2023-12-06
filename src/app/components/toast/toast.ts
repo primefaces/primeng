@@ -140,7 +140,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(private zone: NgZone,private config: PrimeNGConfig) {}
+    constructor(private zone: NgZone, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initTimeout();
@@ -192,8 +192,6 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.clearTimeout();
     }
-
-    
 }
 
 /**
