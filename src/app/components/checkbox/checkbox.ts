@@ -35,6 +35,10 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [value]="value"
                     [attr.name]="name"
                     [checked]="checked()"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
+                    (change)="handleChange($event)"
+                    [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [disabled]="disabled"
                     [readonly]="readonly"
@@ -42,8 +46,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-checked]="checked()"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
                     [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
@@ -182,6 +184,18 @@ export class Checkbox implements ControlValueAccessor {
      * @group Emits
      */
     @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
+    /**
+     * Callback to invoke when the receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
@@ -234,13 +248,15 @@ export class Checkbox implements ControlValueAccessor {
         }
     }
 
-    onFocus() {
+    onInputFocus(event: Event) {
         this.focused = true;
+        this.onFocus.emit();
     }
 
-    onBlur() {
+    onInputBlur(event: Event) {
         this.focused = false;
         this.onModelTouched();
+        this.onBlur.emit();
     }
 
     writeValue(model: any): void {
