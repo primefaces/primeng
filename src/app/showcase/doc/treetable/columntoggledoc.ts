@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'column-toggle-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Column visibility based on a condition can be implemented with dynamic columns, in this sample a MultiSelect is used to manage the visible columns.</p>
         </app-docsectiontext>
         <div class="card">
@@ -39,13 +39,9 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-column-toggle-demo"></app-code>
-    </section>`
+    `
 })
 export class ColumnToggleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     cols!: Column[];
@@ -67,8 +63,7 @@ export class ColumnToggleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="files" [columns]="selectedColumns" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="caption">
         <div style="text-align:left">
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ width: '20em' }" defaultLabel="Choose Columns" display="chip"></p-multiSelect>

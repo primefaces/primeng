@@ -11,7 +11,7 @@ import { TerminalModule } from 'primeng/terminal';
 import { ToastModule } from 'primeng/toast';
 import { TreeModule } from 'primeng/tree';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { AdvancedDoc } from './advanceddoc';
 import { BasicDoc } from './basicdoc';

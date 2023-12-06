@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { PanelModule } from 'primeng/panel';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ArchitectureDoc } from './architecturedoc';
 import { BuiltInThemesDoc } from './builtinthemesdoc';
 import { CSSVariablesDoc } from './cssvariablesdoc';

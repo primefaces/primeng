@@ -74,7 +74,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
                     (keydown.enter)="onCloseIconClick($event)"
                     *ngIf="message?.closable !== false"
                     pRipple
-                    [attr.aria-label]="'Close'"
+                    [attr.aria-label]="closeAriaLabel"
                     [attr.data-pc-section]="'closebutton'"
                 >
                     <span *ngIf="message.closeIcon" [class]="'pt-1 text-base p-toast-message-icon pi ' + message.closeIcon"></span>
@@ -140,7 +140,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(private zone: NgZone) {}
+    constructor(private zone: NgZone, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initTimeout();
@@ -183,6 +183,10 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         });
 
         event.preventDefault();
+    }
+
+    get closeAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
     ngOnDestroy() {

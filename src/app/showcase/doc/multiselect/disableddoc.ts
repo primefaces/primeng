@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -8,21 +8,17 @@ interface City {
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities!: City[];
 
     selectedCities!: City[];
@@ -38,8 +34,7 @@ export class DisabledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name"></p-multiSelect>`,
+        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name"></p-multiSelect>`,
 
         html: `
 <div class="card flex justify-content-center">

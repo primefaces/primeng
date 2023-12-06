@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'life-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -14,14 +14,10 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class LifeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     showLife() {
@@ -33,8 +29,7 @@ export class LifeDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast [life]="10000"></p-toast>
+        basic: `<p-toast [life]="10000"></p-toast>
 <button type="button" pButton pRipple (click)="showLife()" label="Show Life Default"></button>
 <button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>`,
         html: `

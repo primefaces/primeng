@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-raised-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Raised buttons display a shadow to indicate elevation.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
@@ -17,16 +17,11 @@ import { Code } from '../../domain/code';
             <p-button label="Danger" [raised]="true" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-raised-demo"></app-code>
-    </section>`
+    `
 })
 export class RaisedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-button label="Primary" [raised]="true"></p-button>
+        basic: `<p-button label="Primary" [raised]="true"></p-button>
 <p-button label="Secondary" [raised]="true" severity="secondary"></p-button>
 <p-button label="Success" [raised]="true" severity="success"></p-button>
 <p-button label="Info" [raised]="true" severity="info"></p-button>

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'badge-severity-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Severity defines the color of the badge, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i></p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -14,16 +14,11 @@ import { Code } from '../../domain/code';
             <p-badge [value]="12" severity="danger"></p-badge>
         </div>
         <app-code [code]="code" selector="badge-severity-demo"></app-code>
-    </section>`
+    `
 })
 export class SeverityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-badge [value]="2" severity="success"></p-badge>`,
+        basic: `<p-badge [value]="2" severity="success"></p-badge>`,
         html: `
 <div class="card flex justify-content-center gap-2">
     <p-badge [value]="2" severity="success"></p-badge>

@@ -5,7 +5,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ActiveDoc } from './activedoc';
 import { BasicDoc } from './basicdoc';
 import { ControlledDoc } from './controlleddoc';

@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Filtering is enabled by adding the <i>filter</i> property, by default label property of a node is used to compare against the value in the text field, in order to customize which field(s) should be used during search define
                 <i>filterBy</i> property. In addition <i>filterMode</i> specifies the filtering strategy. In <i>lenient</i> mode when the query matches a node, children of the node are not searched further as all descendants of the node are included.
@@ -18,13 +18,9 @@ import { NodeService } from '../../service/nodeservice';
             <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
-    </section>`
+    `
 })
 export class FilterDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
@@ -34,8 +30,7 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter"></p-tree>
+        basic: `<p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter"></p-tree>
 <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>`,
 
         html: `

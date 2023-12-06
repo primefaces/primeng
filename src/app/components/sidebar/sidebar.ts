@@ -82,9 +82,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            <ng-container *ngIf="footerTemplate">
+                <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                </div>
+            </ng-container>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -281,7 +283,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
-            this.hide();
+            this.hide(false);
         }
     }
 
@@ -309,7 +311,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     close(event: Event) {
-        this.hide();
+        this.hide(false);
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -374,7 +376,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
-                this.hide(false);
+                this.hide();
+
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;

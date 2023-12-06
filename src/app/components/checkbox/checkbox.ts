@@ -42,8 +42,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-checked]="checked()"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
                     [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
@@ -182,6 +182,18 @@ export class Checkbox implements ControlValueAccessor {
      * @group Emits
      */
     @Output() onChange: EventEmitter<CheckboxChangeEvent> = new EventEmitter();
+    /**
+     * Callback to invoke when the receives focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when the loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
     @ViewChild('input') inputViewChild: Nullable<ElementRef>;
 
@@ -234,13 +246,15 @@ export class Checkbox implements ControlValueAccessor {
         }
     }
 
-    onFocus() {
+    onInputFocus(event: Event) {
         this.focused = true;
+        this.onFocus.emit(event);
     }
 
-    onBlur() {
+    onInputBlur(event: Event) {
         this.focused = false;
         this.onModelTouched();
+        this.onBlur.emit(event);
     }
 
     writeValue(model: any): void {

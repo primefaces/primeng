@@ -190,8 +190,12 @@ export class ObjectUtils {
 
     public static sort(value1, value2, order = 1, locale, nullSortOrder = 1) {
         const result = ObjectUtils.compare(value1, value2, locale, order);
+        let finalSortOrder = order;
+
         // nullSortOrder == 1 means Excel like sort nulls at bottom
-        const finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+        if (ObjectUtils.isEmpty(value1) || ObjectUtils.isEmpty(value2)) {
+            finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+        }
 
         return finalSortOrder * result;
     }

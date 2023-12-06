@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-theme-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Themes are created with SASS using the <i>primeng-sass-theme</i> project available at <a href="http://github.com/primefaces/primeng-sass-theme">github</a>. This repository contains all the scss files for the components and the
                 variables of the built-in themes so that you may customize an existing theme or create your own. The scss variables used in a theme are available at the
@@ -47,13 +47,9 @@ import { Code } from '../../domain/code';
                 <i>styles.scss</i>, import the <i>theme.scss</i> from <i>assets/themes/mytheme</i>. That would be it, during build time, your project will compile the sass and import the theme. Any changes to your theme will be reflected instantly.
             </p>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class CustomThemeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code1: Code = {
         basic: `sass --update themes/mytheme/theme.scss:themes/mytheme/theme.css`
     };

@@ -3965,7 +3965,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "AutoCompleteOnSelectEvent"
+                                    "type": "AutoCompleteSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a suggestion is selected."
@@ -4110,7 +4110,7 @@
                         ]
                     },
                     {
-                        "name": "AutoCompleteOnSelectEvent",
+                        "name": "AutoCompleteSelectEvent",
                         "description": "Custom select event.",
                         "props": [
                             {
@@ -4664,9 +4664,9 @@
                 "values": [
                     {
                         "parent": "breadcrumb",
-                        "name": "seperator",
+                        "name": "separator",
                         "parameters": [],
-                        "description": "Custom template of seperator."
+                        "description": "Custom template of separator."
                     }
                 ]
             }
@@ -6956,6 +6956,26 @@
                                 }
                             ],
                             "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the loses focus."
                         }
                     ]
                 }
@@ -7790,7 +7810,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"none\" | \"close\" | \"reject\" | \"accept\"",
+                            "type": "\"none\" | \"close\" | \"accept\" | \"reject\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -9097,7 +9117,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"solid\" | \"dashed\" | \"dotted\"",
+                            "type": "\"dashed\" | \"dotted\" | \"solid\"",
                             "default": "solid",
                             "description": "Border style type."
                         },
@@ -9648,7 +9668,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Used to define a string that autocomplete attribute the current element."
+                            "description": "Used to define a aria label attribute the current element."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -12418,6 +12438,20 @@
             }
         }
     },
+    "inputgroup": {
+        "components": {
+            "InputGroup": {
+                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
+    "inputgroupaddon": {
+        "components": {
+            "InputGroupAddon": {
+                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
     "inputmask": {
         "components": {
             "InputMask": {
@@ -13220,7 +13254,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "InputSwitchOnChangeEvent"
+                                    "type": "InputSwitchChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke when the on value change."
@@ -13235,7 +13269,7 @@
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
                     {
-                        "name": "InputSwitchOnChangeEvent",
+                        "name": "InputSwitchChangeEvent",
                         "description": "Custom change event.",
                         "props": [
                             {
@@ -13728,7 +13762,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -14019,7 +14053,7 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
@@ -14046,7 +14080,7 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
@@ -15863,6 +15897,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when filtering occurs."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 },
@@ -17539,6 +17593,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -17895,6 +17950,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when the target list is filtered"
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 }
@@ -20981,6 +21056,12 @@
                             "name": "enterClass",
                             "optional": false,
                             "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "enterFromClass",
+                            "optional": false,
+                            "readonly": false,
                             "type": "string",
                             "description": "Style class to add when item begins to get displayed."
                         },
@@ -21000,6 +21081,12 @@
                         },
                         {
                             "name": "leaveClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "leaveFromClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -21271,7 +21358,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -21953,7 +22040,7 @@
                             "parameters": [
                                 {
                                     "name": "options",
-                                    "type": "any"
+                                    "type": "ExportCSVOptions"
                                 }
                             ],
                             "description": "Data export method."
@@ -23039,6 +23126,28 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, the focused tab is activated."
+                        },
+                        {
+                            "name": "nextButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the forward navigation button."
+                        },
+                        {
+                            "name": "prevButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the backward navigation button."
+                        },
+                        {
+                            "name": "autoHideButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
                         },
                         {
                             "name": "tabindex",
@@ -24129,7 +24238,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -24881,7 +24990,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "default": "single",
                             "description": "Defines the selection mode."
                         },
@@ -25553,7 +25662,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {

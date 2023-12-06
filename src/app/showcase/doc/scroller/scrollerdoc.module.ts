@@ -5,7 +5,7 @@ import { ScrollerModule } from 'primeng/scroller';
 import { SkeletonModule } from 'primeng/skeleton';
 import { SpinnerModule } from 'primeng/spinner';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
 import { DelayDoc } from './delaydoc';
 import { HorizontalDoc } from './horizontaldoc';
