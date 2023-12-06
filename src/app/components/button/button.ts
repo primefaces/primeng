@@ -442,7 +442,8 @@ export class Button implements AfterContentInit {
             'p-button-outlined': this.outlined,
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
-            'p-button-plain': this.plain
+            'p-button-plain': this.plain,
+            [`${this.styleClass}`]:this.styleClass
         };
     }
 
