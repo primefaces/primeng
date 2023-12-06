@@ -77,6 +77,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
+                <ng-container *ngIf="headlessTemplate; else notHeadless">
+                    <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
+                </ng-container>
+
+                <ng-template #notHeadless>
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
                     <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
@@ -126,6 +131,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     <ng-content select="p-footer"></ng-content>
                     <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
+                </ng-template>
             </div>
         </div>
     `,
@@ -455,6 +461,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     minimizeIconTemplate: Nullable<TemplateRef<any>>;
 
+    headlessTemplate: Nullable<TemplateRef<any>>;
+
     _visible: boolean = false;
 
     maskVisible: boolean | undefined;
@@ -542,6 +550,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
                 case 'minimizeicon':
                     this.minimizeIconTemplate = item.template;
+                    break;
+
+                case 'headless':
+                    this.headlessTemplate = item.template;
                     break;
 
                 default:

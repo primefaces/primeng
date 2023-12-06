@@ -9059,6 +9059,12 @@
                         "name": "minimizeicon",
                         "parameters": [],
                         "description": "Custom template of minimizeicon."
+                    },
+                    {
+                        "parent": "dialog",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
                     }
                 ]
             }
