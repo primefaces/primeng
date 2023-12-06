@@ -18,7 +18,7 @@ import {
     Inject,
     PLATFORM_ID
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
