@@ -27,10 +27,6 @@ export class VirtualScrollDoc {
 
     items: any[] | undefined;
 
-    onLazyLoad(event) {
-        console.log('lazy');
-    }
-
     filterItems(event: AutoCompleteCompleteEvent) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
         let filtered: any[] = [];

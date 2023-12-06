@@ -16,8 +16,6 @@ export function app(): express.Express {
     server.set('view engine', 'html');
     server.set('views', distFolder);
 
-    console.log('distFolder', environment.production, distFolder);
-
     // Example Express Rest API endpoints
     // server.get('/api/**', (req, res) => { });
     // Serve static files from /browser
