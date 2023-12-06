@@ -6956,6 +6956,26 @@
                                 }
                             ],
                             "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the loses focus."
                         }
                     ]
                 }
@@ -22020,7 +22040,7 @@
                             "parameters": [
                                 {
                                     "name": "options",
-                                    "type": "any"
+                                    "type": "ExportCSVOptions"
                                 }
                             ],
                             "description": "Data export method."

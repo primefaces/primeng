@@ -443,7 +443,7 @@ export class Button implements AfterContentInit {
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
             'p-button-plain': this.plain,
-            [`${this.styleClass}`]:this.styleClass
+            [`${this.styleClass}`]: this.styleClass
         };
     }
 

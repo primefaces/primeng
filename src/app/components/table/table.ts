@@ -5006,7 +5006,15 @@ export class ReorderableRow implements AfterViewInit {
                                 [useGrouping]="useGrouping"
                             ></p-columnFilterFormElement>
                             <div>
-                                <button *ngIf="showRemoveIcon" type="button" pButton class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [attr.aria-label]="removeRuleButtonLabel">
+                                <button
+                                    *ngIf="showRemoveIcon"
+                                    type="button"
+                                    pButton
+                                    class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
+                                    (click)="removeConstraint(fieldConstraint)"
+                                    pRipple
+                                    [attr.aria-label]="removeRuleButtonLabel"
+                                >
                                     <TrashIcon *ngIf="!removeRuleIconTemplate" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
