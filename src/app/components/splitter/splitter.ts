@@ -200,26 +200,28 @@ export class Splitter {
     }
 
     ngAfterViewInit() {
-        if (this.panels && this.panels.length) {
-            let initialized = false;
-            if (this.isStateful() && isPlatformBrowser(this.platformId)) {
-                initialized = this.restoreState();
-            }
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.panels && this.panels.length) {
+                let initialized = false;
+                if (this.isStateful()) {
+                    initialized = this.restoreState();
+                }
 
-            if (!initialized) {
-                let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-                let _panelSizes = [];
+                if (!initialized) {
+                    let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+                    let _panelSizes = [];
 
-                this.panels.map((panel, i) => {
-                    let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                    let panelSize = panelInitialSize || 100 / this.panels.length;
-                    _panelSizes[i] = panelSize;
-                    children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
-                });
+                    this.panels.map((panel, i) => {
+                        let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
+                        let panelSize = panelInitialSize || 100 / this.panels.length;
+                        _panelSizes[i] = panelSize;
+                        children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
+                    });
 
-                this._panelSizes = _panelSizes;
+                    this._panelSizes = _panelSizes;
 
-                this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                    this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                }
             }
         }
     }

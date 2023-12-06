@@ -21,7 +21,7 @@ import { Code } from '../../domain/code';
                 be read by a reader.
             </p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description mt-3">One alternative is using ARIA roles for readers and use javascript for keyboard support. Notice the usage of <i>aria-labelledby</i> as a replacement of the <i>label</i> tag with htmlFor.</p>
+            <p class="doc-section-description mt-3">One alternative is using ARIA roles for readers and use javascript for keyboard support. Notice the usage of <i>aria-labelledby</i> as a replacement of the <i>label</i> tag with for.</p>
             <app-code [code]="code3" [hideToggleCode]="true"></app-code>
             <p class="doc-section-description mt-3">
                 However the best practice is combining semantic HTML for accessibility while keeping the design for UX. This approach involves hiding a native checkbox for accessibility and using javascript events to update its state. Notice the

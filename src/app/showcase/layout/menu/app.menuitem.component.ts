@@ -7,7 +7,7 @@ import { MenuItem } from './app.menu.component';
 @Component({
     selector: '[app-menuitem]',
     template: `
-        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
+        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
             <div class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>

@@ -712,12 +712,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             const focusedItemInfo = this.focusedItemInfo();
 
             if (grouped) {
-                this.focusedItemInfo.set({...focusedItemInfo,
-                    index : -1,
-                    level : focusedItemInfo.level + 1,
-                    parentKey : processedItem.key,
-                    item : processedItem.item
-                })
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: -1, level: focusedItemInfo.level + 1, parentKey: processedItem.key, item: processedItem.item });
                 this.animate('right');
             } else {
                 this.onItemChange(event);
@@ -802,7 +797,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                     ...focusedItemInfo,
                     index: -1,
                     item: null
-                })
+                });
                 break;
             default:
                 break;
@@ -917,7 +912,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                 ...focusedItemInfo,
                 index: this.findLastFocusedItemIndex(),
                 item: null
-            })
+            });
 
             event.preventDefault();
         }
@@ -952,7 +947,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                     ...focusedItemInfo,
                     index: processedItem.index,
                     item: processedItem.item
-                })
+                });
             }
         }
 
@@ -984,7 +979,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         if (this.focusedItemInfo().index === -1 && this.left < 0) {
-            this.focusedItemInfo.set({...this.focusedItemInfo(), index: 0})
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index: 0 });
         }
 
         if (this.focusedItemInfo().index === -1 && !this.left) {
@@ -1000,7 +995,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                 ...this.focusedItemInfo(),
                 index: -1,
                 item: null
-            })
+            });
         }
         this.searchValue = '';
         !this.popup && this.unbindOutsideClickListener();
@@ -1226,7 +1221,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.set({...this.focusedItemInfo(), index});
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index });
             this.scrollInView();
         }
     }

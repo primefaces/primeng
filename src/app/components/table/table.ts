@@ -56,6 +56,7 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import {
+    ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
     TableContextMenuSelectEvent,
@@ -473,7 +474,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined;
+    @Input() metaKeySelection: boolean | undefined = true;
     /**
      * Defines if the row is selectable.
      * @group Props
@@ -2243,10 +2244,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - Export options.
+     * @param {ExportCSVOptions} object - Export options.
      * @group Method
      */
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportCSVOptions) {
         let data;
         let csv = '';
         let columns = this.columns;
@@ -4300,6 +4301,10 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
+            } else {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(true, event);
+                }
             }
         }
     }

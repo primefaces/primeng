@@ -13,6 +13,8 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     selector: 'app-main',
     template: `
         <div class="layout-wrapper" [ngClass]="containerClass" [attr.data-p-theme]="theme">
+            <app-news></app-news>
+            <app-topbar (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
             <app-config (onDarkModeSwitch)="toggleDarkMode()"></app-config>
             <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive }" (click)="hideMenu()"></div>
             <div class="layout-content">

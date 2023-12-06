@@ -848,6 +848,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges();
     }
 
     ngAfterViewChecked() {

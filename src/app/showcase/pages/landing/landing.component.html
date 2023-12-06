@@ -1,9 +1,10 @@
 <div class="landing" [ngClass]="landingClass">
-    <template-hero></template-hero>
-    <template-features></template-features>
-    <template-users></template-users>
-    <template-theme></template-theme>
-    <template-block></template-block>
-    <template-templates></template-templates>
-    <template-footer></template-footer>
+    <app-news></app-news>
+    <app-topbar [showConfigurator]="false" [showMenuButton]="false" (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
+    <hero-section></hero-section>
+    <users-section></users-section>
+    <theme-section></theme-section>
+    <block-section></block-section>
+    <templates-section></templates-section>
+    <footer-section></footer-section>
 </div>

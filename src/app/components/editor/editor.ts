@@ -147,10 +147,10 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     set readonly(val: boolean) {
         this._readonly = val;
 
-        if (this.quill) {
-            if (this._readonly) this.quill.disable();
-            else this.quill.enable();
-        }
+        // if (this.quill) {
+        //     if (this._readonly) this.quill.disable();
+        //     else this.quill.enable();
+        // }
     }
     /**
      * Callback to invoke when the quill modules are loaded.
@@ -195,12 +195,11 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
-    constructor(public el: ElementRef, @Inject(PLATFORM_ID) private platformId: object) {}
+    constructor(@Inject(PLATFORM_ID) public platformId: any, public el: ElementRef) {}
 
     ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.initQuillElements();
-
             if (this.isAttachedQuillEditorToDOM) {
                 this.initQuillEditor();
             }
@@ -330,11 +329,13 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     }
 
     private initQuillElements(): void {
-        if (!this.quillElements) {
-            this.quillElements = {
-                editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
-            };
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.quillElements) {
+                this.quillElements = {
+                    editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
+                    toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+                };
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
-    selector: 'template-templates',
+    selector: 'templates-section',
     standalone: true,
     imports: [CommonModule],
     template: `
