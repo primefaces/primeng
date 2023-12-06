@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-vertical-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>To create a vertical Carousel, <i>orientation</i> needs to be set to <i>vertical</i> along with a <i>verticalViewPortHeight</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -33,13 +33,9 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-vertical-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class VerticalDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: Product[] | undefined;
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
@@ -63,8 +59,7 @@ export class VerticalDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px" [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px" [responsiveOptions]="responsiveOptions">
     <ng-template let-product pTemplate="item">
         <div class="product-item">
             <div class="product-item-content">

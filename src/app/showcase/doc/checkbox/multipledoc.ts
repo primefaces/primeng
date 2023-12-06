@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-multiple-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple checkboxes can be grouped together.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-3">
             <div class="flex align-items-center gap-1">
-                <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-                <label for="ny">New York</label>
+                <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="newyork"></p-checkbox>
+                <label for="newyork">New York</label>
             </div>
             <div class="flex align-items-center gap-1">
                 <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
@@ -22,18 +22,13 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCities: string[] = [];
 
     code: Code = {
-        basic: `
-<div class="flex align-items-center gap-1">
+        basic: `<div class="flex align-items-center gap-1">
         <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
         <label for="ny">New York</label>
 </div>

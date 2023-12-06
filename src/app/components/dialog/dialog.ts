@@ -79,8 +79,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             >
                 <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [id]="ariaLabelledBy + '_title'" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                    <span [id]="ariaLabelledBy + '_title'" class="p-dialog-title" *ngIf="headerFacet">
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
                         <ng-content select="p-header"></ng-content>
                     </span>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -557,12 +557,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.header) {
-            this.ariaLabelledBy = this.getAriaLabelledBy();
-        }
-    }
-
     getAriaLabelledBy() {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
@@ -591,8 +585,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         if (this.modal) {
-            DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+            DomHandler.blockBodyScroll();
         }
     }
 
@@ -603,8 +596,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             if (this.modal) {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.removeProperty('--scrollbar-width');
+                DomHandler.unblockBodyScroll();
             }
 
             if (!(this.cd as ViewRef).destroyed) {
@@ -618,11 +610,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
         if (!this.modal && !this.blockScroll) {
             if (this.maximized) {
-                DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.setProperty('--scrollbar-width', DomHandler.calculateScrollbarWidth() + 'px');
+                DomHandler.blockBodyScroll();
             } else {
-                DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-                this.document.body.style.removeProperty('--scrollbar-width');
+                DomHandler.unblockBodyScroll();
             }
         }
 
@@ -741,7 +731,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.lastPageX = event.pageX;
                 this.container.style.left = `${leftPos}px`;
                 this.lastPageY = event.pageY;
-                this.container.style.top = `${leftPos}px`;
+                this.container.style.top = `${topPos}px`;
             }
         }
     }

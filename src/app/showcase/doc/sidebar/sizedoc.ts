@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'size-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sidebar dimension can be defined with <i>style</i> or <i>styleClass</i> properties which can also be responsive when used with a CSS utility library like PrimeFlex.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -17,18 +17,13 @@ import { Code } from '../../domain/code';
             <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-size-demo"></app-code>
-    </section>`
+    `
 })
 export class SizeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sidebarVisible: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible" styleClass="w-30rem">
+        basic: `<p-sidebar [(visible)]="sidebarVisible" styleClass="w-30rem">
     <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
         Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

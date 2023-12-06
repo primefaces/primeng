@@ -1,48 +1,43 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-outlined-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 justify-content-center">
-            <p-button label="Primary" styleClass="p-button-outlined"></p-button>
-            <p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
-            <p-button label="Success" styleClass="p-button-outlined p-button-success"></p-button>
-            <p-button label="Info" styleClass="p-button-outlined p-button-info"></p-button>
-            <p-button label="Warning" styleClass="p-button-outlined p-button-warning"></p-button>
-            <p-button label="Help" styleClass="p-button-outlined p-button-help"></p-button>
-            <p-button label="Danger" styleClass="p-button-outlined p-button-danger"></p-button>
+            <p-button label="Primary" [outlined]="true"></p-button>
+            <p-button label="Secondary" [outlined]="true" severity="secondary"></p-button>
+            <p-button label="Success" [outlined]="true" severity="success"></p-button>
+            <p-button label="Info" [outlined]="true" severity="info"></p-button>
+            <p-button label="Warning" [outlined]="true" severity="warning"></p-button>
+            <p-button label="Help" [outlined]="true" severity="help"></p-button>
+            <p-button label="Danger" [outlined]="true" severity="danger"></p-button>
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
-    </section>`
+    `
 })
 export class OutlinedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-button label="Primary" styleClass="p-button-outlined"></p-button>
-<p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
-<p-button label="Success" styleClass="p-button-outlined p-button-success"></p-button>
-<p-button label="Info" styleClass="p-button-outlined p-button-info"></p-button>
-<p-button label="Warning" styleClass="p-button-outlined p-button-warning"></p-button>
-<p-button label="Help" styleClass="p-button-outlined p-button-help"></p-button>
-<p-button label="Danger" styleClass="p-button-outlined p-button-danger"></p-button>`,
+        basic: `<p-button label="Primary" [outlined]="true"></p-button>
+<p-button label="Secondary" [outlined]="true" severity="secondary"></p-button>
+<p-button label="Success" [outlined]="true" severity="success"></p-button>
+<p-button label="Info" [outlined]="true" severity="info"></p-button>
+<p-button label="Warning" [outlined]="true" severity="warning"></p-button>
+<p-button label="Help" [outlined]="true" severity="help"></p-button>
+<p-button label="Danger" [outlined]="true" severity="danger"></p-button>`,
 
         html: `
 <div class="card flex flex-wrap gap-3 justify-content-center">
-    <p-button label="Primary" styleClass="p-button-outlined"></p-button>
-    <p-button label="Secondary" styleClass="p-button-outlined p-button-secondary"></p-button>
-    <p-button label="Success" styleClass="p-button-outlined p-button-success"></p-button>
-    <p-button label="Info" styleClass="p-button-outlined p-button-info"></p-button>
-    <p-button label="Warning" styleClass="p-button-outlined p-button-warning"></p-button>
-    <p-button label="Help" styleClass="p-button-outlined p-button-help"></p-button>
-    <p-button label="Danger" styleClass="p-button-outlined p-button-danger"></p-button>
+    <p-button label="Primary" [outlined]="true"></p-button>
+    <p-button label="Secondary" [outlined]="true" severity="secondary"></p-button>
+    <p-button label="Success" [outlined]="true" severity="success"></p-button>
+    <p-button label="Info" [outlined]="true" severity="info"></p-button>
+    <p-button label="Warning" [outlined]="true" severity="warning"></p-button>
+    <p-button label="Help" [outlined]="true" severity="help"></p-button>
+    <p-button label="Danger" [outlined]="true" severity="danger"></p-button>
 </div>`,
 
         typescript: `

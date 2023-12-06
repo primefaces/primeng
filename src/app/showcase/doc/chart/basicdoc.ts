@@ -1,11 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-basic-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 A chart is configured with 3 properties; <i>type</i>, <i>data</i> and <i>options</i>. Chart type is defined using the <i>type</i> property that accepts <i>pie</i>, <i>doughtnut</i>, <i>line</i>, <i>bar</i>, <i>radar</i> and
                 <i>polarArea</i> as a value. The <i>data</i> defines datasets represented with the chart and the <i>options</i> provide numerous customization options to customize the presentation.
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     basicData: any;
 
     basicOptions: any;
@@ -82,8 +78,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>`,
+        basic: `<p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Enabling <i>disabled</i> property of an AccordionTab prevents user interaction.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -30,16 +30,11 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-accordion [activeIndex]="0">
+        basic: `<p-accordion [activeIndex]="0">
     <p-accordionTab header="Header I">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

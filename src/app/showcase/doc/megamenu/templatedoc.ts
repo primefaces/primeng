@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
         <div class="card">
@@ -19,13 +19,9 @@ import { Code } from '../../domain/code';
             </p-megaMenu>
         </div>
         <app-code [code]="code" selector="mega-menu-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MegaMenuItem[] | undefined;
 
     ngOnInit() {
@@ -148,8 +144,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-megaMenu [model]="items" styleClass="flex">
+        basic: `<p-megaMenu [model]="items" styleClass="flex">
     <ng-template pTemplate="start">
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
     </ng-template>

@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dynamic-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -16,13 +16,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="radio-button-dynamic-demo"></app-code>
-    </section>`
+    `
 })
 export class DynamicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCategory: any = null;
 
     categories: any[] = [
@@ -37,8 +33,7 @@ export class DynamicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex flex-column gap-3">
+        basic: `<div class="flex flex-column gap-3">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory"></p-radioButton>
         <label [for]="category.key" class="ml-2">{{ category.name }}</label>

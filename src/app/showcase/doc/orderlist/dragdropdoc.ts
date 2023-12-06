@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'drag-drop-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
@@ -27,13 +27,9 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-drag-drop-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DragDropDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
@@ -57,8 +53,7 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" [dragdrop]="true">
+        basic: `<p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" [dragdrop]="true">
     <ng-template let-product pTemplate="item">
         <div class="flex flex-wrap p-2 align-items-center gap-3">
             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />

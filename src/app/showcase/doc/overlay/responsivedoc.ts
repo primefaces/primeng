@@ -1,11 +1,10 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { AppDocSectionTextComponent } from '../../layout/doc/app.docsectiontext.component';
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>It is the option used to determine in which mode it should appear according to the given <i>media</i> or <i>breakpoint</i>.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
@@ -27,8 +26,7 @@ import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.
                 <li>right-start</li>
                 <li>right-end</li>
             </ul>
-        </div>
-    </section>`
+        </div>`
 })
 export class ResponsiveDoc {
     @Input() id: string;
@@ -38,8 +36,7 @@ export class ResponsiveDoc {
     @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
 
     code: Code = {
-        basic: `
-import { PrimeNGConfig, OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
+        basic: `import { PrimeNGConfig, OverlayOptions, ResponsiveOverlayDirectionType } from 'primeng/api';
 
 const responsiveOptions: ResponsiveOverlayOptions = {
     // style?: any;                                     // Style of component in given breakpoint or media query

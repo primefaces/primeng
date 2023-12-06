@@ -31,13 +31,17 @@
 
     .p-dropdown-label-empty {
         overflow: hidden;
-        visibility: hidden;
+        opacity: 0;
     }
 
     input.p-dropdown-label {
         cursor: default;
     }
 
+    .p-dropdown .p-dropdown-panel {
+        min-width: 100%;
+    }
+    
     .p-dropdown-items-wrapper {
         overflow: auto;
     }
@@ -48,6 +52,10 @@
         white-space: nowrap;
         position: relative;
         overflow: hidden;
+    }
+
+    .p-dropdown-item-group {
+        cursor: auto;
     }
 
     .p-dropdown-items {

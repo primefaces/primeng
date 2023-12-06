@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-columns-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
         <div class="card">
@@ -42,17 +40,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-frozen-columns-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-frozen-columns-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FrozenColumnsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     balanceFrozen: boolean = false;
 
     customers!: Customer[];
@@ -71,8 +62,7 @@ export class FrozenColumnsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        basic: `<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
     <ng-template pTemplate="header">

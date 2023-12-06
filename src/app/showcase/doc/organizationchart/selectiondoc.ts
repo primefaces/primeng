@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'selection-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
             </p></app-docsectiontext
@@ -22,13 +22,9 @@ import { Code } from '../../domain/code';
             </p-organizationChart>
         </div>
         <app-code [code]="code" selector="organization-chart-selection-demo"></app-code>
-    </section>`
+    `
 })
 export class SelectionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedNodes!: TreeNode[];
 
     data: TreeNode[] = [
@@ -80,8 +76,7 @@ export class SelectionDoc {
     ];
 
     code: Code = {
-        basic: `
-<p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
+        basic: `<p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
     <ng-template let-node pTemplate="person">
         <div class="p-2 text-center">
             <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />

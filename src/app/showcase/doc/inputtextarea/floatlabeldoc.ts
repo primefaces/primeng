@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -14,16 +14,11 @@ import { Code } from '../../domain/code';
             </span>
         </div>
         <app-code [code]="code" selector="input-textarea-floatlabel-demo"></app-code>
-    </section>`
+    `
 })
 export class FloatlabelDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <textarea id="float-input" rows="5" cols="30" pInputTextarea></textarea>
     <label for="float-input">Summary</label>
 </span>`,

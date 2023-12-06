@@ -1,25 +1,34 @@
 .doc-tabmenu {
     list-style: none;
-    margin: 0 17rem 0 0;
-    padding: 0 0 1px 0;
+    margin: 0;
+    padding: 0;
     display: flex;
     margin-bottom: 2rem;
-    border-bottom: 1px solid var(--surface-border);
     overflow: auto;
+    position: relative;
+
+    &:after {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-bottom: 1px solid var(--surface-border);
+        content: '';
+    }
 
     li {
-        margin-bottom: -1px;
-
+        position: relative;
+        z-index: 1;
+        
         button {
             background-color: transparent;
             border: 0 none;
             display: block;
-            padding: 1rem 2rem;
-            min-width: 12rem;
+            padding: 0 2rem 1rem 2rem;
             text-align: center;
             color: var(--surface-700);
-            font-size: 1.125rem;
-            letter-spacing: 2px;
+            font-size: 1rem;
+            letter-spacing: 1px;
             cursor: pointer;
             margin: 0;
             transition: all 0.2s;
@@ -35,12 +44,14 @@
             &:focus {
                 outline: 0 none;
             }
+
+            @include focus-visible();
         }
 
         &.doc-tabmenu-active {
             button {
-                color: var(--primary-color);
                 border-bottom-color: var(--primary-color);
+                color: var(--primary-color);
             }
         }
     }
@@ -63,11 +74,12 @@
 }
 
 .doc-intro {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
     p {
         font-size: 1.125rem;
         color: var(--surface-900);
+        margin: 0;
     }
 }
 
@@ -81,7 +93,9 @@
         opacity: 0.7;
         margin-left: 1rem;
         display: none;
-        transition: opacity 0.3s, colors 0.3s;
+        transition: all .2s;
+        border-radius: var(--border-radius);
+        @include focus-visible();
     }
 
     &:hover {
@@ -103,47 +117,39 @@
         i {
             border-radius: 6px;
             padding: 2px 6px;
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-size: 1rem;
+            font-weight: 500;
             font-style: normal;
+            background-color: var(--doc-highlight-text-bg);
+            color: var(--doc-highlight-text-color);
         }
 
         a {
             color: var(--primary-color);
-            font-weight: 600;
+            font-weight: 500;
+            transition: all .2s;
+            border-radius: var(--border-radius);
+            @include focus-visible();
 
             &:hover {
                 text-decoration: underline;
             }
         }
     }
-}
 
-.layout-wrapper-light {
-    .doc-section-description {
-        > p {
-            i {
-                background-color: var(--primary-100);
-                color: var(--primary-900);
-            }
-        }
-    }
-}
-
-.layout-wrapper-dark {
-    .doc-section-description {
-        > p {
-            i {
-                background-color: var(--highlight-bg);
-                color: var(--highlight-text-color);
-            }
-        }
+    .notification {
+        line-height: 1.5;
+        padding: 1rem;
+        font-weight: 500;
+        border-radius: 10px;
+        background-color: var(--doc-highlight-text-bg);
+        color: var(--doc-highlight-text-color);
     }
 }
 
 .doc-section-nav {
     position: sticky;
-    top: 7rem;
+    top: 6rem;
     right: 0;
     width: 14rem;
     max-height: calc(100vh - 15rem);
@@ -174,16 +180,17 @@
             .px-link {
                 padding: 0.25rem 1rem 0.25rem 1rem;
                 color: var(--surface-800);
+                font-weight: 400;
                 white-space: nowrap;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 transition: all .2s;
+            }
 
-                &:hover {
-                    .px-link {
-                        color: var(--surface-900);
-                    }
+            &:hover {
+                .px-link {
+                    color: var(--surface-900);
                 }
             }
         }
@@ -212,49 +219,82 @@
     }
 }
 
-.doc-section-code-tooltip .p-tooltip-text {
-    padding: 0.5rem;
-    font-size: 11px;
-}
-
-.doc-section-code {
+.doc-section-code { 
+    position: relative;
+    
     div {
         &::-webkit-scrollbar {
             width: 5px;
         }
     }
 
-    .p-button-label {
-        font-weight: normal;
-        font-size: 0.875rem;
+    &:not(:last-child) {
+        margin-bottom: 1rem;
     }
 
-    .doc-section-code-active {
-        .p-button-label {
-            font-weight: bold;
+    &:hover {
+        .doc-section-code-buttons {
+            display: flex;
         }
-    }
-
-    pre {
-        margin: 0 0 1.5rem 0;
     }
 }
 
+.doc-section-code-buttons {
+    position: absolute;
+    align-items: center;
+    justify-content: end;
+    z-index: 1;
+    top: .75rem;
+    right: .75rem;
+    gap: .5rem;
+    display: none;
+    background: rgba(255,255,255,.05);
+    border-radius: 10px;
+    padding: 2px;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, .1);
+    
+    button {
+        outline: 0 none;
+        border-radius: 8px;
+        outline-offset: 0;
+        background-color: transparent;
+        transition: background-color .2s, box-shadow .2s;
+        border: 0 none;
+        color: var(--demo-code-button-color);
+        cursor: pointer;
+
+        &:hover {
+            background-color: var(--demo-code-button-hover-bg);
+            color: var(--demo-code-button-hover-color);
+        }
+
+        &.code-active {
+            color: #bbf7d0;
+        }
+    }
+}
+
+.doc-section-code-tooltip .p-tooltip-text {
+    padding: 0.5rem;
+    font-size: 11px;
+}
+
+
+
 .doc-tablewrapper {
     overflow: auto;
-    @include card;
 }
 
 .doc-table {
     border-collapse: collapse;
     width: 100%;
     min-width: 960px;
-    background-color: var(--surface-card);
     margin-bottom: 1.5rem;
 
     th {
         border-bottom: 1px solid var(--surface-border);
-        padding: 1rem;
+        padding: .75rem 1rem;
         text-align: left;
         text-transform: capitalize;
     }
@@ -265,46 +305,51 @@
         }
 
         td {
-            padding: 1rem;
+            padding: .75rem 1rem;
             border-bottom: 1px solid var(--surface-border);
-            white-space: pre-wrap;
+            white-space: pre-line;
             line-height: 1.5;
+            scroll-margin-top: 6.5rem;
 
-            &.doc-option-type {
+            &:first-child {
+                color: var(--primary-color);
+                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+                font-weight: 600;
+            }
+
+            .doc-option-type {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
                 color: var(--primary-500);
+                font-weight: 500;
 
-                > a {
-                    color: var(--primary-500);
+                .doc-option-type-options-container {
+                    display: flex;
+                    align-items: center;
+                }
 
+                span.doc-option-type-options {
+                    color: var(--primary-700);
+                }
+
+                &.doc-option-link {
                     &:hover {
                         text-decoration: underline;
                     }
                 }
             }
 
-            &.doc-option-default {
-                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-                color: var(--primary-color);
-            }
-
-            &:first-child {
-                color: var(--primary-color);
-                font-weight: 700;
-                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-            }
-
             .doc-option-name,
-            > i {
+            > i:not(.pi) {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
                 position: relative;
                 scroll-margin-top: 6.5rem;
-                background-color: var(--highlight-bg);
-                color: var(--highlight-text-color);
+                background-color: var(--doc-highlight-text-bg);
+                color: var(--doc-highlight-text-color);
                 border-radius: 6px;
                 padding: 2px 6px;
                 font-weight: 600;
                 font-style: normal;
+                white-space: nowrap;
 
                 .doc-option-link {
                     position: absolute;
@@ -327,6 +372,43 @@
                         }
                     }
                 }
+            }
+
+            .doc-option-default,
+            .doc-option-returnType {
+                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+                font-weight: 400;
+                font-style: normal;
+                display: flex;
+                border-width: 1px;
+                border-style: solid;
+                border-radius: 6px;
+                padding: 2px 6px;
+                max-width: min-content;
+            }
+
+            .doc-option-parameter-name {
+                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+                color: var(--primary-700);
+            }
+
+            .doc-option-parameter-type {
+                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+                color: var(--primary-500);
+            }
+
+            .doc-option-params {
+                font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
+            }
+
+            .doc-option-light {
+                background: var(--bluegray-50);
+                border-color: var(--bluegray-100);
+            }
+
+            .doc-option-dark {
+                background: var(--bluegray-800);
+                border-color: var(--bluegray-800);
             }
         }
     }

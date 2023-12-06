@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'shapes-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Various shapes and sizes can be created using styling properties like <i>shape</i>, <i>width</i>, <i>height</i>, <i>borderRadius</i> and <i>styleClass</i>.</p>
         </app-docsectiontext>
         <div class="card grid grid-nogutter">
@@ -44,16 +44,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-shapes-demo"></app-code>
-    </section>`
+    `
 })
 export class ShapesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<h5>Rectangle</h5>
+        basic: `<h5>Rectangle</h5>
 <p-skeleton styleClass="mb-2"></p-skeleton>
 <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
 <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>

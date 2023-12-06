@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menu-group-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -13,14 +13,10 @@ import { Code } from '../../domain/code';
             <p-menu [model]="items"></p-menu>
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class GroupDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -73,8 +69,7 @@ export class GroupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-menu [model]="items"></p-menu>`,
 
         html: `

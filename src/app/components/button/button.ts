@@ -223,7 +223,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
     ngOnDestroy() {
@@ -321,6 +321,46 @@ export class Button implements AfterContentInit {
      */
     @Input() loadingIcon: string | undefined;
     /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input() raised: boolean = false;
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input() rounded: boolean = false;
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input() text: boolean = false;
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input() plain: boolean = false;
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' | string | undefined;
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input() outlined: boolean = false;
+    /**
+     *  Add a link style to the button.
+     * @group Props
+     */
+    @Input() link: boolean = false;
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined;
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -393,7 +433,16 @@ export class Button implements AfterContentInit {
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left'
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
+            'p-button-link': this.link,
+            [`p-button-${this.severity}`]: this.severity,
+            'p-button-raised': this.raised,
+            'p-button-rounded': this.rounded,
+            'p-button-text': this.text,
+            'p-button-outlined': this.outlined,
+            'p-button-sm': this.size === 'small',
+            'p-button-lg': this.size === 'large',
+            'p-button-plain': this.plain
         };
     }
 

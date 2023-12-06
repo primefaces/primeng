@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -31,32 +31,33 @@ import { Code } from '../../domain/code';
             <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
+    visible: boolean = false;
 
     constructor(private messageService: MessageService) {}
 
     showConfirm() {
-        this.messageService.clear();
-        this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+        if (!this.visible) {
+            this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+            this.visible = true;
+        }
     }
 
     onConfirm() {
         this.messageService.clear('confirm');
+        this.visible = false;
     }
 
     onReject() {
         this.messageService.clear('confirm');
+        this.visible = false;
     }
 
     code: Code = {
-        basic: `
-<p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
+        basic: `<p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
 <ng-template let-message pTemplate="message">
     <div class="flex flex-column" style="flex: 1">
         <div class="text-center">
@@ -111,8 +112,23 @@ import { MessageService } from 'primeng/api';
 export class ToastTemplateDemo {
     constructor(private messageService: MessageService) {}
 
-    showSticky() {
-        this.messageService.add({ severity: 'info', summary: 'Sticky', detail: 'Message Content', sticky: true });
+    visible: boolean = false;
+
+    showConfirm() {
+        if (!this.visible) {
+            this.messageService.add({ key: 'confirm', sticky: true, severity: 'warn', summary: 'Are you sure?', detail: 'Confirm to proceed' });
+            this.visible = true;
+        }
+    }
+
+    onConfirm() {
+        this.messageService.clear('confirm');
+        this.visible = false;
+    }
+
+    onReject() {
+        this.messageService.clear('confirm');
+        this.visible = false;
     }
 }`
     };

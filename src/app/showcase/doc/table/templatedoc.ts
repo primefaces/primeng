@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -10,8 +10,7 @@ interface Column {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Custom content at <i>header</i>, <i>body</i> and <i>footer</i> sections are supported via templating.</p>
         </app-docsectiontext>
         <div class="card">
@@ -49,15 +48,10 @@ interface Column {
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-template-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-template-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     cols!: Column[];
@@ -90,8 +84,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             Products

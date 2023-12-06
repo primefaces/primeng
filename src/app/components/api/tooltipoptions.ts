@@ -63,4 +63,8 @@ export interface TooltipOptions {
      * Time to wait in milliseconds to hide the tooltip even it is active.
      */
     life?: number;
+    /**
+     * When present, it adds a custom id to the tooltip.
+     */
+    id?: string;
 }

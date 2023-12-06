@@ -72,18 +72,16 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
             ></p-paginator>
+
             <div class="p-dataview-content">
-                <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
-                    <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
-                    </ng-template>
-                    <div *ngIf="isEmpty() && !loading" class="p-col col">
-                        <div class="p-dataview-emptymessage">
-                            <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
-                                {{ emptyMessageLabel }}
-                            </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
-                        </div>
+                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value }"></ng-container>
+
+                <div *ngIf="isEmpty() && !loading">
+                    <div class="p-dataview-emptymessage">
+                        <ng-container *ngIf="!emptyMessageTemplate; else empty">
+                            {{ emptyMessageLabel }}
+                        </ng-container>
+                        <ng-container #empty *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
                     </div>
                 </div>
             </div>
@@ -320,9 +318,9 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
 
     _value: Nullable<any[]>;
 
-    listItemTemplate: Nullable<TemplateRef<any>>;
+    listTemplate: Nullable<TemplateRef<any>>;
 
-    gridItemTemplate: Nullable<TemplateRef<any>>;
+    gridTemplate: Nullable<TemplateRef<any>>;
 
     itemTemplate: Nullable<TemplateRef<any>>;
 
@@ -393,11 +391,13 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'listItem':
-                    this.listItemTemplate = item.template;
+                case 'list':
+                    this.listTemplate = item.template;
                     break;
 
                 case 'gridItem':
-                    this.gridItemTemplate = item.template;
+                case 'grid':
+                    this.gridTemplate = item.template;
                     break;
 
                 case 'paginatorleft':
@@ -444,11 +444,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     updateItemTemplate() {
         switch (this.layout) {
             case 'list':
-                this.itemTemplate = this.listItemTemplate;
+                this.itemTemplate = this.listTemplate;
                 break;
 
             case 'grid':
-                this.itemTemplate = this.gridItemTemplate;
+                this.itemTemplate = this.gridTemplate;
                 break;
         }
     }

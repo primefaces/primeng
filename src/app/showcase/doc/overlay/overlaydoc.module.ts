@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { OverlayModule } from 'primeng/overlay';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { OverlayBasicDemo } from './basicdoc';
 import { AppendToDoc } from './appendtodoc';
 import { AutoZIndexDoc } from './autozindexdoc';

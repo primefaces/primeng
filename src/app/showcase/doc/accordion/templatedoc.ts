@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>AccordionTab is customized <i>header</i> and <i>content</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -57,16 +57,11 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-accordion class="w-full">
+        basic: `<p-accordion class="w-full">
     <p-accordionTab>
         <ng-template pTemplate="header">
             <div class="flex align-items-center">

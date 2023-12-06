@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'builtin-themes-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 PrimeNG ships with various free themes to choose from. The list below states all the available themes in the npm distribution with import paths. For a live preview, use the configurator
                 <span class="border-round inline-flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center bg-primary"><span class="pi pi-cog"></span></span> at the topbar to switch themes.
@@ -13,13 +13,9 @@ import { Code } from '../../domain/code';
         <div class="h-20rem overflow-auto">
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </div>
-    </section>`
+    `
 })
 export class BuiltInThemesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `primeng/resources/themes/bootstrap4-light-blue/theme.css
 primeng/resources/themes/bootstrap4-light-purple/theme.css

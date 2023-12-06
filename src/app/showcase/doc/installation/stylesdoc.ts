@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'styles-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Theme and Core styles are the necessary css files of the components, visit the <a href="/theming#themes" class="">Themes</a> section for the complete list of available themes to choose from. Styles can either be imported at
                 <i>angular.json</i> or <i>src/styles.css</i> file.
@@ -15,13 +15,9 @@ import { Code } from '../../domain/code';
             <h3>styles.css</h3>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class StylesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code1: Code = {
         typescript: `...
 "styles": [

@@ -13,8 +13,8 @@
                     "routerLink": "/configuration"
                 },
                 {
-                    "name": "Accessibility",
-                    "routerLink": "/accessibility"
+                    "name": "Playground",
+                    "routerLink": "/playground"
                 }
             ]
         },
@@ -190,10 +190,6 @@
                         {
                             "name": "Timeline",
                             "routerLink": "/timeline"
-                        },
-                        {
-                            "name": "VirtualScroller",
-                            "routerLink": "/virtualscroller"
                         }
                     ]
                 },
@@ -299,7 +295,6 @@
                             "name": "Menu",
                             "routerLink": "/menu"
                         },
-                        
                         {
                             "name": "Menubar",
                             "routerLink": "/menubar"
@@ -311,10 +306,6 @@
                         {
                             "name": "PanelMenu",
                             "routerLink": "/panelmenu"
-                        },
-                        {
-                            "name": "SlideMenu",
-                            "routerLink": "/slidemenu"
                         },
                         {
                             "name": "Steps",
@@ -451,8 +442,8 @@
                             "routerLink": "/autofocus"
                         },
                         {
-                            "name": "Animate",
-                            "routerLink": "/animate"
+                            "name": "AnimateOnScroll",
+                            "routerLink": "/animateonscroll"
                         }
                     ]
                 },
@@ -524,6 +515,11 @@
             "href": "https://primeflex.org"
         },
         {
+            "name": "Accessibility",
+            "icon": "pi pi-users",
+            "routerLink": "/accessibility"
+        },
+        {
             "name": "Support",
             "icon": "pi pi-question",
             "children": [
@@ -546,6 +542,11 @@
             ]
         },
         {
+            "name": "PrimeTV",
+            "icon": "pi pi-youtube",
+            "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
@@ -556,10 +557,6 @@
                 {
                     "name": "Roadmap",
                     "routerLink": "/roadmap"
-                },
-                {
-                    "name": "PrimeTV",
-                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
                 },
                 {
                     "name": "Source Code",

@@ -1,117 +1,120 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
-import { Subscription } from 'rxjs';
-import { AppConfig } from '../../domain/appconfig';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Inject, Output, Renderer2 } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { InputSwitchModule, InputSwitchChangeEvent } from 'primeng/inputswitch';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
+import { SidebarModule } from 'primeng/sidebar';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'app-config',
-    templateUrl: './app.config.component.html'
+    standalone: true,
+    templateUrl: './app.config.component.html',
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
-export class AppConfigComponent implements OnInit, OnDestroy {
+export class AppConfigComponent {
     scale: number = 14;
-
+    inputStyles = [
+        { label: 'Outlined', value: 'outlined' },
+        { label: 'Filled', value: 'filled' }
+    ];
     scales: number[] = [12, 13, 14, 15, 16];
 
-    outsideClickListener: VoidFunction | null;
+    compactMaterial: boolean = false;
 
-    config: AppConfig;
+    lightOnlyThemes = ['fluent-light', 'mira', 'nano'];
 
-    subscription: Subscription;
+    @Output() onDarkModeSwitch = new EventEmitter<any>();
 
-    sidebarSubscription: Subscription;
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService) {}
 
-    active: boolean;
-
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private el: ElementRef, private router: Router, private configService: AppConfigService) {}
-
-    ngOnInit() {
-        this.config = this.configService.config;
-        this.sidebarSubscription = this.configService.configActive$.subscribe((value: boolean) => (this.active = value));
-        this.subscription = this.configService.configUpdate$.subscribe((config) => {
-            this.config = config;
-            if (this.config.theme === 'nano') this.scale = 12;
-            else this.scale = 14;
-
-            this.applyScale();
-        });
-
-        if (this.config.theme === 'nano') this.scale = 12;
+    get isActive(): boolean {
+        return this.configService.state.configActive;
     }
 
-    hideConfigurator() {
-        this.unbindOutsideClickListener();
-        this.configService.toggleConfig();
+    get isDarkToggleDisabled(): boolean {
+        return this.lightOnlyThemes.includes(this.configService.config.theme);
     }
 
-    onConfigButtonClick(event: MouseEvent) {
-        this.configService.toggleConfig();
+    get isDarkMode(): boolean {
+        return this.configService.config.darkMode;
+    }
 
-        if (this.active) {
-            this.bindOutsideClickListener();
+    get inputStyle(): string {
+        return this.configService.config.inputStyle;
+    }
+
+    get ripple(): boolean {
+        return this.configService.config.ripple;
+    }
+
+    onVisibleChange(value: boolean) {
+        if (value === false) {
+            this.configService.hideConfig();
+        }
+    }
+
+    onCompactMaterialChange() {
+        const theme = this.configService.config.theme;
+        if (theme.startsWith('md')) {
+            let tokens = theme.split('-');
+
+            this.changeTheme(tokens[0].substring(0, 2), tokens[2]);
+        }
+    }
+
+    toggleDarkMode() {
+        this.onDarkModeSwitch.emit(null);
+    }
+
+    isThemeActive(themeFamily: string, color?: string) {
+        let themeName: string;
+        let themePrefix = themeFamily === 'md' && this.compactMaterial ? 'mdc' : themeFamily;
+
+        if (this.lightOnlyThemes.includes(themePrefix)) {
+            themeName = themePrefix;
         } else {
-            this.unbindOutsideClickListener();
+            themeName = themePrefix + (this.isDarkMode ? '-dark' : '-light');
         }
-        event.preventDefault();
-    }
 
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        const linkElement = document.getElementById('theme-link');
-        this.replaceLink(linkElement, theme, () => {
-            this.configService.updateConfig({ ...this.config, theme: theme, dark: dark });
-        });
-    }
-
-    replaceLink(linkElement, theme: string, onComplete: Function) {
-        const id = linkElement.getAttribute('id');
-        const cloneLinkElement = linkElement.cloneNode(true);
-
-        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.config.theme, theme));
-        cloneLinkElement.setAttribute('id', id + '-clone');
-
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-            onComplete();
-        });
-    }
-
-    onInputStyleChange() {
-        this.configService.updateConfig(this.config);
-
-        if (this.config.inputStyle === 'filled') DomHandler.addClass(document.body, 'p-input-filled');
-        else DomHandler.removeClass(document.body, 'p-input-filled');
-    }
-
-    onRippleChange() {
-        this.configService.updateConfig(this.config);
-        if (this.config.ripple) DomHandler.removeClass(document.body, 'p-ripple-disabled');
-        else DomHandler.addClass(document.body, 'p-ripple-disabled');
-    }
-
-    bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                if (this.active && this.isOutsideClicked(event)) {
-                    this.active = false;
-                }
-            });
+        if (color) {
+            themeName += '-' + color;
         }
+
+        return this.configService.config.theme === themeName;
     }
 
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            this.outsideClickListener();
-            this.outsideClickListener = null;
+    changeTheme(theme: string, color?: string) {
+        let newTheme: string, darkMode: boolean;
+
+        if (this.lightOnlyThemes.includes(theme)) {
+            newTheme = theme;
+            darkMode = false;
+        } else {
+            newTheme = theme + '-' + (this.isDarkMode ? 'dark' : 'light');
+
+            if (color) {
+                newTheme += '-' + color;
+            }
+
+            if (newTheme.startsWith('md-') && this.compactMaterial) {
+                newTheme = newTheme.replace('md-', 'mdc-');
+            }
+
+            darkMode = this.isDarkMode;
         }
+
+        this.configService.changeTheme({ name: newTheme, dark: darkMode });
     }
 
-    isOutsideClicked(event) {
-        return !(this.el.nativeElement.isSameNode(event.target) || this.el.nativeElement.contains(event.target));
+    onInputStyleChange(event: SelectButtonChangeEvent) {
+        this.configService.setInputStyle(event.value);
+    }
+
+    onRippleChange(event: InputSwitchChangeEvent) {
+        this.configService.setRipple(event.checked);
     }
 
     decrementScale() {
@@ -126,14 +129,5 @@ export class AppConfigComponent implements OnInit, OnDestroy {
 
     applyScale() {
         this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px');
-    }
-
-    ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-        if (this.sidebarSubscription) {
-            this.sidebarSubscription.unsubscribe();
-        }
     }
 }

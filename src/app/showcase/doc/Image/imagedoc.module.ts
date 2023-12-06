@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';
 import { PreviewDoc } from './previewdoc';

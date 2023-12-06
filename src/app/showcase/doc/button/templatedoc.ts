@@ -1,36 +1,31 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-template-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content inside a button is defined as children.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button styleClass="p-button-outlined">
+            <p-button [outlined]="true">
                 <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
                 <span class="ml-2 font-bold">PrimeNG</span>
             </p-button>
         </div>
         <app-code [code]="code" selector="button-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-button styleClass="p-button-outlined">
+        basic: `<p-button [outlined]="true">
     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
     <span class="ml-2 font-bold">PrimeNG</span>
 </p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-button styleClass="p-button-outlined">
+    <p-button [outlined]="true">
         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/primeng-icon.svg" style="width: 1.5rem" />
         <span class="ml-2 font-bold">PrimeNG</span>
     </p-button>

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Input, NgModule, Output, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
+import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
@@ -18,27 +19,30 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass" role="group">
+        <div #container [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass" role="group" [attr.aria-labelledby]="ariaLabelledBy" [attr.data-pc-name]="'selectbutton'" [attr.data-pc-section]="'root'">
             <div
                 *ngFor="let option of options; let i = index"
-                #btn
+                pRipple
+                [attr.tabindex]="i === focusedIndex ? '0' : '-1'"
+                [attr.aria-label]="option.label"
+                [role]="multiple ? 'checkbox' : 'radio'"
+                [attr.aria-checked]="isSelected(option)"
+                [attr.aria-disabled]="optionDisabled"
                 class="p-button p-component"
                 [class]="option.styleClass"
-                role="button"
-                [attr.aria-pressed]="isSelected(option)"
                 [ngClass]="{ 'p-highlight': isSelected(option), 'p-disabled': disabled || isOptionDisabled(option), 'p-button-icon-only': option.icon && !getOptionLabel(option) }"
-                (click)="onItemClick($event, option, i)"
-                (keydown.enter)="onItemClick($event, option, i)"
+                [attr.aria-pressed]="isSelected(option)"
+                (click)="onOptionSelect($event, option, i)"
+                (keydown)="onKeyDown($event, option, i)"
                 [attr.title]="option.title"
-                [attr.aria-label]="option.label"
+                (focus)="onFocus($event, i)"
                 (blur)="onBlur()"
-                [attr.tabindex]="disabled ? null : tabindex"
                 [attr.aria-labelledby]="this.getOptionLabel(option)"
-                pRipple
+                [attr.data-pc-section]="'button'"
             >
                 <ng-container *ngIf="!itemTemplate; else customcontent">
-                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon"></span>
-                    <span class="p-button-label">{{ getOptionLabel(option) }}</span>
+                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
+                    <span class="p-button-label" [attr.data-pc-section]="'label'">{{ getOptionLabel(option) }}</span>
                 </ng-container>
                 <ng-template #customcontent>
                     <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
@@ -76,6 +80,11 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Input() optionDisabled: string | undefined;
     /**
+     * Whether selection can be cleared.
+     * @group Props
+     */
+    @Input() unselectable: boolean = false;
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
@@ -85,6 +94,11 @@ export class SelectButton implements ControlValueAccessor {
      * @group Props
      */
     @Input() multiple: boolean | undefined;
+    /**
+     * Whether selection can not be cleared.
+     * @group Props
+     */
+    @Input() allowEmpty: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -123,10 +137,16 @@ export class SelectButton implements ControlValueAccessor {
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
 
+    @ViewChild('container') container: Nullable<ElementRef>;
+
     @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
 
     public get selectButtonTemplate(): TemplateRef<any> {
         return this.itemTemplate?.template;
+    }
+
+    get equalityKey() {
+        return this.optionValue ? null : this.dataKey;
     }
 
     value: any;
@@ -134,6 +154,8 @@ export class SelectButton implements ControlValueAccessor {
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
+
+    focusedIndex: number = 0;
 
     constructor(public cd: ChangeDetectorRef) {}
 
@@ -167,38 +189,97 @@ export class SelectButton implements ControlValueAccessor {
         this.cd.markForCheck();
     }
 
-    onItemClick(event: Event, option: any, index: number) {
+    onOptionSelect(event, option, index) {
         if (this.disabled || this.isOptionDisabled(option)) {
             return;
         }
 
-        const optionValue = this.getOptionValue(option);
+        let selected = this.isSelected(option);
+
+        if (selected && this.unselectable) {
+            return;
+        }
+
+        let optionValue = this.getOptionValue(option);
+        let newValue;
 
         if (this.multiple) {
-            if (this.isSelected(option)) this.removeOption(option);
-            else this.value = [...(this.value || []), optionValue];
-
-            this.onModelChange(this.value);
-
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
-        } else if (this.value !== optionValue) {
-            this.value = optionValue;
-            this.onModelChange(this.value);
-
-            this.onChange.emit({
-                originalEvent: event,
-                value: this.value
-            });
+            if (selected) newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
+            else newValue = this.value ? [...this.value, optionValue] : [optionValue];
+        } else {
+            if (selected && !this.allowEmpty) {
+                return;
+            }
+            newValue = selected ? null : optionValue;
         }
+
+        this.focusedIndex = index;
+        this.value = newValue;
+        this.onModelChange(this.value);
+
+        this.onChange.emit({
+            originalEvent: event,
+            value: this.value
+        });
 
         this.onOptionClick.emit({
             originalEvent: event,
             option: option,
             index: index
         });
+    }
+
+    onKeyDown(event, option, index) {
+        switch (event.code) {
+            case 'Space': {
+                this.onOptionSelect(event, option, index);
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowDown':
+
+            case 'ArrowRight': {
+                this.changeTabIndexes(event, 'next');
+                event.preventDefault();
+                break;
+            }
+
+            case 'ArrowUp':
+
+            case 'ArrowLeft': {
+                this.changeTabIndexes(event, 'prev');
+                event.preventDefault();
+                break;
+            }
+
+            default:
+                //no op
+                break;
+        }
+    }
+
+    changeTabIndexes(event, direction) {
+        let firstTabableChild, index;
+
+        for (let i = 0; i <= this.container.nativeElement.children.length - 1; i++) {
+            if (this.container.nativeElement.children[i].getAttribute('tabindex') === '0') firstTabableChild = { elem: this.container.nativeElement.children[i], index: i };
+        }
+
+        if (direction === 'prev') {
+            if (firstTabableChild.index === 0) index = this.container.nativeElement.children.length - 1;
+            else index = firstTabableChild.index - 1;
+        } else {
+            if (firstTabableChild.index === this.container.nativeElement.children.length - 1) index = 0;
+            else index = firstTabableChild.index + 1;
+        }
+
+        this.focusedIndex = index;
+        this.container.nativeElement.children[index].focus();
+    }
+
+    onFocus(event: Event, index: number) {
+        this.focusedIndex = index;
     }
 
     onBlur() {
@@ -223,7 +304,7 @@ export class SelectButton implements ControlValueAccessor {
                 }
             }
         } else {
-            selected = ObjectUtils.equals(optionValue, this.value, this.dataKey);
+            selected = ObjectUtils.equals(this.getOptionValue(option), this.value, this.equalityKey);
         }
 
         return selected;

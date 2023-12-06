@@ -7,7 +7,7 @@ import { BadgeModule } from 'primeng/badge';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { GroupDoc } from './avatargroupdoc';
 import { IconDoc } from './icondoc';
 import { ImageDoc } from './imagedoc';

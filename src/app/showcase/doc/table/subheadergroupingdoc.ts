@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'subheader-grouping-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Rows are grouped with the <i>groupRowsBy</i> property. When <i>rowGroupMode</i> is set as <i>subheader</i>, a header and footer can be displayed for each group. The content of a group header is provided with <i>groupheader</i> and
                 footer with <i>groupfooter</i> templates.
@@ -59,17 +57,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-subheader-grouping-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-subheader-grouping-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubheaderGroupingDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
@@ -115,8 +106,7 @@ export class SubheaderGroupingDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>

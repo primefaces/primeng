@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'context-menu-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,14 +15,10 @@ import { NodeService } from '../../service/nodeservice';
             <p-toast></p-toast>
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class ContextMenuDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode | null;
@@ -49,8 +45,7 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
 <p-contextMenu #cm [model]="items"></p-contextMenu>
 <p-toast></p-toast>`,
 

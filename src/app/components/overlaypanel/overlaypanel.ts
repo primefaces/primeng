@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    HostListener,
     Inject,
     Input,
     NgModule,
@@ -229,7 +230,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container?.contains(event.target) && !this.target.contains(event.target)) {
+                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
                         this.hide();
                     }
 
@@ -421,6 +422,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
     onCloseClick(event: MouseEvent) {
         this.hide();
         event.preventDefault();
+    }
+
+    @HostListener('document:keydown.escape', ['$event'])
+    onEscapeKeydown(event: KeyboardEvent) {
+        this.hide();
     }
 
     onWindowResize() {

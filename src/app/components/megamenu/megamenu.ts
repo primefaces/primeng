@@ -24,7 +24,7 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MegaMenuItem, MenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -40,7 +40,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             #menubar
             [ngClass]="{ 'p-megamenu-root-list': root, 'p-submenu-list p-megamenu-submenu': !root }"
             [attr.role]="root ? 'menubar' : 'menu'"
-            [id]="id"
+            [attr.id]="id"
             [attr.aria-orientation]="orientation"
             [tabindex]="tabindex"
             [attr.aria-activedescendant]="focusedItemId"
@@ -53,7 +53,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [style]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
@@ -63,7 +63,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     #listItem
                     *ngIf="isItemVisible(processedItem) && !getItemProp(processedItem, 'separator')"
                     role="menuitem"
-                    [id]="getItemId(processedItem)"
+                    [attr.id]="getItemId(processedItem)"
                     [attr.data-pc-section]="'menuitem'"
                     [attr.data-p-highlight]="isItemActive(processedItem)"
                     [attr.data-p-focused]="isItemFocused(processedItem)"
@@ -82,83 +82,88 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
                     <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
-                        <a
-                            *ngIf="!getItemProp(processedItem, 'routerLink')"
-                            [attr.href]="getItemProp(processedItem, 'url')"
-                            [attr.aria-hidden]="true"
-                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                            [attr.data-pc-section]="'action'"
-                            [target]="getItemProp(processedItem, 'target')"
-                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
-                            [attr.tabindex]="-1"
-                            pRipple
-                        >
-                            <span
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                class="p-menuitem-icon"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
+                        <ng-container *ngIf="!itemTemplate">
+                            <a
+                                *ngIf="!getItemProp(processedItem, 'routerLink')"
+                                [attr.href]="getItemProp(processedItem, 'url')"
                                 [attr.aria-hidden]="true"
+                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
+                                [attr.data-pc-section]="'action'"
+                                [target]="getItemProp(processedItem, 'target')"
+                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [attr.tabindex]="-1"
+                                pRipple
                             >
-                            </span>
-                            <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
-                                {{ getItemLabel(processedItem) }}
-                            </span>
-                            <ng-template #htmlLabel>
-                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
-                            </ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <span
+                                    *ngIf="getItemProp(processedItem, 'icon')"
+                                    class="p-menuitem-icon"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                >
+                                </span>
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                    {{ getItemLabel(processedItem) }}
+                                </span>
+                                <ng-template #htmlLabel>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                </ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
-                            <ng-container *ngIf="isItemGroup(processedItem)">
-                                <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                    </ng-container>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
-                            </ng-container>
-                        </a>
-                        <a
-                            *ngIf="getItemProp(processedItem, 'routerLink')"
-                            [routerLink]="getItemProp(processedItem, 'routerLink')"
-                            [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
-                            [attr.tabindex]="-1"
-                            [attr.aria-hidden]="true"
-                            [attr.data-pc-section]="'action'"
-                            [queryParams]="getItemProp(processedItem, 'queryParams')"
-                            [routerLinkActive]="'p-menuitem-link-active'"
-                            [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
-                            [target]="getItemProp(processedItem, 'target')"
-                            [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
-                            [fragment]="getItemProp(processedItem, 'fragment')"
-                            [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
-                            [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
-                            [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
-                            [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
-                            [state]="getItemProp(processedItem, 'state')"
-                            pRipple
-                        >
-                            <span
-                                class="p-menuitem-icon"
-                                *ngIf="getItemProp(processedItem, 'icon')"
-                                [ngClass]="getItemProp(processedItem, 'icon')"
-                                [ngStyle]="getItemProp(processedItem, 'iconStyle')"
-                                [attr.data-pc-section]="'icon'"
-                                [attr.aria-hidden]="true"
+                            </a>
+                            <a
+                                *ngIf="getItemProp(processedItem, 'routerLink')"
+                                [routerLink]="getItemProp(processedItem, 'routerLink')"
+                                [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                            ></span>
-                            <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
-                            <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
-                            <ng-container *ngIf="isItemGroup(processedItem)">
-                                <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                    <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                    <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                [attr.aria-hidden]="true"
+                                [attr.data-pc-section]="'action'"
+                                [queryParams]="getItemProp(processedItem, 'queryParams')"
+                                [routerLinkActive]="'p-menuitem-link-active'"
+                                [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
+                                [target]="getItemProp(processedItem, 'target')"
+                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [fragment]="getItemProp(processedItem, 'fragment')"
+                                [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
+                                [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
+                                [skipLocationChange]="getItemProp(processedItem, 'skipLocationChange')"
+                                [replaceUrl]="getItemProp(processedItem, 'replaceUrl')"
+                                [state]="getItemProp(processedItem, 'state')"
+                                pRipple
+                            >
+                                <span
+                                    class="p-menuitem-icon"
+                                    *ngIf="getItemProp(processedItem, 'icon')"
+                                    [ngClass]="getItemProp(processedItem, 'icon')"
+                                    [ngStyle]="getItemProp(processedItem, 'iconStyle')"
+                                    [attr.data-pc-section]="'icon'"
+                                    [attr.aria-hidden]="true"
+                                    [attr.tabindex]="-1"
+                                ></span>
+                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
+                                <ng-container *ngIf="isItemGroup(processedItem)">
+                                    <ng-container *ngIf="!megaMenu.submenuIconTemplate">
+                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                    </ng-container>
+                                    <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
-                                <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
-                            </ng-container>
-                        </a>
+                            </a>
+                        </ng-container>
+                        <ng-container *ngIf="itemTemplate">
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                        </ng-container>
                     </div>
                     <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel" [attr.data-pc-section]="'panel'">
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
@@ -168,6 +173,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [id]="getSubListId(submenu)"
                                     [submenu]="submenu"
                                     [items]="submenu.items"
+                                    [itemTemplate]="itemTemplate"
                                     [menuId]="menuId"
                                     [focusedItemId]="focusedItemId"
                                     [level]="level + 1"
@@ -192,6 +198,8 @@ export class MegaMenuSub {
     @Input() id: string | undefined;
 
     @Input() items: any[] | undefined;
+
+    @Input() itemTemplate: HTMLElement | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -350,15 +358,16 @@ export class MegaMenuSub {
             [ngStyle]="style"
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'megamenu'"
-            [id]="id"
+            [attr.id]="id"
         >
             <div class="p-megamenu-start" *ngIf="startTemplate">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
             <p-megaMenuSub
                 #rootmenu
+                [itemTemplate]="itemTemplate"
                 [items]="processedItems"
-                [id]="id + '_list'"
+                [attr.id]="id + '_list'"
                 [menuId]="id"
                 [root]="true"
                 [orientation]="orientation"
@@ -459,6 +468,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     submenuIconTemplate: TemplateRef<any> | undefined;
 
+    itemTemplate: TemplateRef<any> | undefined;
+
     outsideClickListener: VoidListener;
 
     resizeListener: VoidListener;
@@ -542,6 +553,14 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
+
+                case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+
+                default:
+                    this.itemTemplate = item.template;
+                    break;
             }
         });
     }
@@ -602,9 +621,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     onItemMouseEnter(event: any) {
         if (!DomHandler.isTouchDevice()) {
-            if (this.dirty) {
-                this.onItemChange(event);
-            }
+            this.onItemChange(event);
         }
     }
 
@@ -813,11 +830,10 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     changeFocusedItemInfo(event, index) {
         const processedItem = this.findVisibleItem(index);
-        this.focusedItemInfo.mutate((value) => {
-            value.index = index;
-            value.key = ObjectUtils.isNotEmpty(processedItem) ? processedItem.key : '';
-            value.item = processedItem.item;
-        });
+        if (ObjectUtils.isNotEmpty(processedItem)) {
+            const { key, parentKey, item } = processedItem;
+            this.focusedItemInfo.set({ index, key: key ? key : '', parentKey, item });
+        }
 
         this.scrollInView();
     }

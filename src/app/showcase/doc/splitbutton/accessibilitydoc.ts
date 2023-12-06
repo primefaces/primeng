@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 SplitButton component renders two native button elements, main button uses the label property to define <i>aria-label</i> by default which can be customized with <i>buttonProps</i>. Dropdown button requires an explicit definition to
@@ -130,14 +130,10 @@ import { Code } from '../../domain/code';
         </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `<p-splitButton 
-    buttonProps="{'aria-label': 'Default Action'}" 
-    menuButtonProps="{'aria-label': 'More Options'}"
+    [buttonProps]="{'aria-label': 'Default Action'}" 
+    [menuButtonProps]="{'aria-label': 'More Options'}"
 ></p-splitButton>`
     };
 }

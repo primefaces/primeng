@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import * as FileSaver from 'file-saver';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -17,8 +17,7 @@ interface ExportColumn {
 
 @Component({
     selector: 'export-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>
                 Table can export its data in CSV format using the built-in <i>exportCSV()</i> function. By default, all data is exported. If you'd like to export only the selection then pass a config object with <i>selectionOnly</i> property as true.
                 Note that columns should be dynamic for export functionality to work, and column objects must define field/header properties.
@@ -51,15 +50,10 @@ interface ExportColumn {
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-export-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-export-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ExportDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     selectedProducts!: Product[];
@@ -115,8 +109,7 @@ export class ExportDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="caption">
         <div class="flex">
             <button type="button" pButton pRipple icon="pi pi-file" (click)="dt.exportCSV()" class="mr-2" pTooltip="CSV" tooltipPosition="bottom"></button>

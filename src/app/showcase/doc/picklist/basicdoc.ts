@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card">
@@ -37,13 +37,9 @@ import { ProductService } from '../../service/productservice';
             </p-pickList>
         </div>
         <app-code [code]="code" selector="picklist-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sourceProducts!: Product[];
 
     targetProducts!: Product[];
@@ -59,8 +55,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" 
+        basic: `<p-pickList [source]="sourceProducts" [target]="targetProducts" sourceHeader="Available" targetHeader="Selected" [dragdrop]="true" [responsive]="true" 
     [sourceStyle]="{ height: '30rem' }" [targetStyle]="{ height: '30rem' }" breakpoint="1400px">
     <ng-template let-product pTemplate="item">
         <div class="flex flex-wrap p-2 align-items-center gap-3">

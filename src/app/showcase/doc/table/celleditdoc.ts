@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'cell-edit-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
         </app-docsectiontext>
         <div class="card">
@@ -66,17 +64,10 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-cell-edit-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-cell-edit-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CellEditDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -89,8 +80,7 @@ export class CellEditDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th style="width:25%">Code</th>

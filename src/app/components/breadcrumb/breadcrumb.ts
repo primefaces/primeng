@@ -87,10 +87,15 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [attr.tabindex]="item.disabled ? null : '0'"
                             [ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
-                            <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                            <ng-container *ngIf="item.label">
-                                <span *ngIf="item.escape !== false; else htmlLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                            <ng-container *ngIf="!itemTemplate">
+                                <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <ng-container *ngIf="item.label">
+                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-menuitem-text">{{ item.label }}</span>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="itemTemplate">
+                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
                             </ng-container>
                         </a>
                         <a
@@ -112,10 +117,15 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [state]="item.state"
                             [ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
-                            <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
-                            <ng-container *ngIf="item.label">
-                                <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                            <ng-container *ngIf="!itemTemplate">
+                                <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <ng-container *ngIf="item.label">
+                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-menuitem-text">{{ item.label }}</span>
+                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                </ng-container>
+                            </ng-container>
+                            <ng-container *ngIf="itemTemplate">
+                                <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-template>
                             </ng-container>
                         </a>
                     </li>
@@ -171,6 +181,8 @@ export class Breadcrumb implements AfterContentInit {
 
     separatorTemplate: TemplateRef<any> | undefined;
 
+    itemTemplate: TemplateRef<any> | undefined;
+
     constructor(private router: Router) {}
 
     onClick(event: MouseEvent, item: MenuItem) {
@@ -207,6 +219,12 @@ export class Breadcrumb implements AfterContentInit {
             switch (item.getType()) {
                 case 'separator':
                     this.separatorTemplate = item.template;
+                    break;
+                case 'item':
+                    this.itemTemplate = item.template;
+                    break;
+                default:
+                    this.itemTemplate = item.template;
                     break;
             }
         });

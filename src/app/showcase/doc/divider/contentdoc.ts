@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'divider-content-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Children are rendered within the boundaries of the divider where location of the content is configured with the align property. In horizontal layout, alignment options are <i>left</i>, <i>center</i> and <i>right</i> whereas vertical
                 mode supports <i>top</i>, <i>center</i> and <i>bottom</i>.
@@ -47,16 +47,11 @@ import { Code } from '../../domain/code';
             </p>
         </div>
         <app-code [code]="code" selector="divider-content-demo"></app-code>
-    </section>`
+    `
 })
 export class ContentDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p>
+        basic: `<p>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </p>

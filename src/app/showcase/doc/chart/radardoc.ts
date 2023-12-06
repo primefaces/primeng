@@ -1,24 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-radar-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-chart type="radar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
-    </section>`
+    `
 })
 export class RadarDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
@@ -78,8 +74,7 @@ export class RadarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="radar" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="radar" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card flex justify-content-center">
     <p-chart type="radar" [data]="data" [options]="options"></p-chart>

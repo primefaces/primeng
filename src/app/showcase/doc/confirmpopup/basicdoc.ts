@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'confirm-popup-basic-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -14,14 +14,10 @@ import { Code } from '../../domain/code';
             <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-popup-basic-demo"></app-code>
-    </section>`,
+    `,
     providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm(event: Event) {
@@ -39,8 +35,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-confirmPopup></p-confirmPopup>
 <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>`,
 

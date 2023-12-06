@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -32,10 +31,6 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    `
 })
-export class StyleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class StyleDoc {}

@@ -1,19 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { SortEvent } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'custom-sort-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Instead of using the built-in sorting algorithm a custom sort can be attached by enabling <i>customSort</i> property and defining a sortFunction implementation. This function gets a SortEvent instance that provides the data to sort,
                 <i>sortField</i>, <i>sortOrder</i> and <i>multiSortMeta</i>.
-            </p></app-docsectiontext
-        >
+            </p>
+        </app-docsectiontext>
         <div class="card">
             <p-table [value]="products" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template pTemplate="header">
@@ -36,17 +34,10 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-custom-sort-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-custom-sort-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CustomSortDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -75,8 +66,7 @@ export class CustomSortDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" (sortFunction)="customSort($event)" [customSort]="true" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>

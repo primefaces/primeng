@@ -32,6 +32,36 @@ export interface ListboxChangeEvent {
 }
 /**
  * Custom change event.
+ * @see {@link Listbox.onSelectAllChange}
+ * @group Events
+ */
+export interface ListboxSelectAllChangeEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Boolean value indicates whether all data is selected.
+     */
+    checked: boolean;
+}
+/**
+ * Custom filter event.
+ * @see {@link Listbox.onFilter}
+ * @group Events
+ */
+export interface ListboxFilterEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Filter value.
+     */
+    filter: any;
+}
+/**
+ * Custom change event.
  * @see {@link Listbox.onClick}
  * @group Events
  */
@@ -41,13 +71,13 @@ export interface ListboxClickEvent {
      */
     originalEvent: Event;
     /**
-     * Selected option value
+     * Value of the component.
      */
     value: any;
     /**
      * Selected option
      */
-    option: any;
+    option?: any;
 }
 /**
  * Custom change event.

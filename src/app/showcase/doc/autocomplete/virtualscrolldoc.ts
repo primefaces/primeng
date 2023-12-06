@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface AutoCompleteCompleteEvent {
@@ -8,8 +8,7 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>
                 Virtual scrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable virtual scrolling to avoid
                 performance issues. Usage is simple as setting <i>virtualScroll</i> property to <i>true</i> and defining <i>virtualScrollItemSize</i> to specify the height of an item.
@@ -18,14 +17,9 @@ interface AutoCompleteCompleteEvent {
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
 })
 export class VirtualScrollDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedItem: any;
 
     filteredItems: any[] | undefined;
@@ -55,8 +49,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>`,
+        basic: `<p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">

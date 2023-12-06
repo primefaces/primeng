@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'overview-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Colors are exported as CSS variables and used with the standard <i>var</i> syntax such as <i>var(--text-color)</i>. Following is the list of general variables used in a theme.</p>
         </app-docsectiontext>
         <div class="doc-tablewrapper">
@@ -68,13 +68,9 @@ import { Code } from '../../domain/code';
             <div [ngStyle]="{ backgroundColor: 'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Primary Color</div>
         </div>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`
+    `
 })
 export class OverviewDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `<div [ngStyle]="{backgroundColor:'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Highlighted Item</div>
 <div [ngStyle]="{backgroundColor:'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem'}">Primary Color</div>`

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/Image/importdoc';
-import { StyleDoc } from '../../doc/Image/styledoc';
-import { BasicDoc } from '../../doc/Image/basicdoc';
-import { TemplateDoc } from '../../doc/Image/templatedoc';
 import { AccessibilityDoc } from '../../doc/Image/accessibilitydoc';
+import { BasicDoc } from '../../doc/Image/basicdoc';
+import { ImportDoc } from '../../doc/Image/importdoc';
 import { PreviewDoc } from '../../doc/Image/previewdoc';
 import { PreviewImageSourceDoc } from '../../doc/Image/previewimagesourcedoc';
+import { StyleDoc } from '../../doc/Image/styledoc';
+import { TemplateDoc } from '../../doc/Image/templatedoc';
 
 @Component({
     templateUrl: './imagedemo.html'
@@ -23,18 +23,18 @@ export class ImageDemo {
             component: BasicDoc
         },
         {
-            id: 'templates',
-            label: 'Indicator Template',
-            component: TemplateDoc
-        },
-        {
             id: 'preview',
             label: 'Preview',
             component: PreviewDoc
         },
         {
+            id: 'templates',
+            label: 'Indicator',
+            component: TemplateDoc
+        },
+        {
             id: 'preview-image-source',
-            label: 'Preview Image Source',
+            label: 'Image Source',
             component: PreviewImageSourceDoc
         },
         {

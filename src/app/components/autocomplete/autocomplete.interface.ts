@@ -33,6 +33,36 @@ export interface AutoCompleteDropdownClickEvent {
     query: string;
 }
 /**
+ * Custom select event.
+ * @see {@link AutoComplete.onSelect}
+ * @group Events
+ */
+export interface AutoCompleteSelectEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Selected value.
+     */
+    value: any;
+}
+/**
+ * Custom unselect event.
+ * @see {@link AutoComplete.onUnSelect}
+ * @group Events
+ */
+export interface AutoCompleteUnselectEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Removed value.
+     */
+    value: any;
+}
+/**
  * Custom lazy load event.
  * @see {@link AutoComplete.onLazyLoad}
  * @group Events

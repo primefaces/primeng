@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tabs can be controlled programmatically using the <i>activeIndex</i> property of the accordion in general or the <i>selected</i> property of p-accordionTab individually.</p>
         </app-docsectiontext>
         <div class="card">
@@ -35,18 +35,13 @@ import { Code } from '../../domain/code';
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     activeIndex: number | undefined;
 
     code: Code = {
-        basic: `
-<div class="flex flex-wrap gap-2 mb-3">
+        basic: `<div class="flex flex-wrap gap-2 mb-3">
     <p-button [icon]="activeIndex === 0 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 0" styleClass="p-button-text" label="Toggle 1st"></p-button>
     <p-button [icon]="activeIndex === 1 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 1" styleClass="p-button-text ml-2" label="Toggle 2st"></p-button>
     <p-button [icon]="activeIndex === 2 ? 'pi pi-minus' : 'pi pi-plus'" (click)="activeIndex = 2" styleClass="p-button-text ml-2" label="Toggle 3st"></p-button>

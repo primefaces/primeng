@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'raised-text-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Text buttons can be displayed as raised as well for elevation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
@@ -20,14 +20,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-raised-text-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class RaisedTextDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {
@@ -65,8 +61,7 @@ export class RaisedTextDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary p-button-text mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-success p-button-text mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-info p-button-text mr-2 mb-2"></p-splitButton>

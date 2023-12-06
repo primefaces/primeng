@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'wai-aria-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 ARIA refers to "Accessible Rich Internet Applications" is a suite to fill the gap where semantic HTML is inadequate. These cases are mainly related to rich UI components/widgets. Although browser support for rich UI components such as
                 a datepicker or colorpicker has been improved over the past years many web developers still utilize UI components derived from standard HTML elements created by them or by other projects like PrimeNG. These types of components must
@@ -16,33 +16,29 @@ import { Code } from '../../domain/code';
             </p>
             <p>Consider the following case of a native checkbox. It has built-in keyboard and screen reader support.</p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">
+            <p class="doc-section-description mt-3">
                 A fancy checkbox with css animations might look more appealing but accessibility might be lacking. Checkbox below may display a checked font icon with animations however it is not tabbable, cannot be checked with space key and cannot
                 be read by a reader.
             </p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">One alternative is using ARIA roles for readers and use javascript for keyboard support. Notice the usage of <i>aria-labelledby</i> as a replacement of the <i>label</i> tag with htmlFor.</p>
+            <p class="doc-section-description mt-3">One alternative is using ARIA roles for readers and use javascript for keyboard support. Notice the usage of <i>aria-labelledby</i> as a replacement of the <i>label</i> tag with for.</p>
             <app-code [code]="code3" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">
+            <p class="doc-section-description mt-3">
                 However the best practice is combining semantic HTML for accessibility while keeping the design for UX. This approach involves hiding a native checkbox for accessibility and using javascript events to update its state. Notice the
                 usage of
                 <i>p-sr-only</i>
                 that hides the elements from the user but not from the screen reader.
             </p>
             <app-code [code]="code4" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">A working sample is the PrimeNG checkbox that is tabbable, keyboard accessible and is compliant with a screen reader. Instead of ARIA roles it relies on a hidden native checkbox.</p>
+            <p class="doc-section-description mt-3">A working sample is the PrimeNG checkbox that is tabbable, keyboard accessible and is compliant with a screen reader. Instead of ARIA roles it relies on a hidden native checkbox.</p>
             <div class="card flex align-items-center">
-                <label htmlFor="binary" class="mr-2">Remember Me</label>
+                <label for="binary" class="mr-2">Remember Me</label>
                 <p-checkbox inputId="binary" [binary]="true"></p-checkbox>
             </div>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class WAIARIADoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code1: Code = {
         basic: `<input type="checkbox" value="Prime" name="ui" checked/>`
     };

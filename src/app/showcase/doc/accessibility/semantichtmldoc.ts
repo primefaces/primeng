@@ -1,25 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'semantic-html-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 HTML offers various element to organize content on a web page that screen readers are aware of. Preferring Semantic HTML for good semantics provide out of the box support for reader which is not possible when regular
                 <i>div</i> elements with classes are used. Consider the following example that do not mean too much for readers.
             </p>
             <app-code [code]="code1" [hideToggleCode]="true"></app-code>
-            <p class="doc-section-description">Same layout can be achieved using the semantic elements with screen reader support built-in.</p>
+            <p class="doc-section-description mt-3">Same layout can be achieved using the semantic elements with screen reader support built-in.</p>
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </app-docsectiontext>
-    </section>`
+    `
 })
 export class SemanticHTMLDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code1: Code = {
         html: `<div class="header"/>
     <div class="header-text">Header></div>

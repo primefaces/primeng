@@ -1,24 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-line-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-line-demo"></app-code>
-    </section>`
+    `
 })
 export class LineDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
@@ -87,8 +83,7 @@ export class LineDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="line" [data]="data" [options]="options"></p-chart>

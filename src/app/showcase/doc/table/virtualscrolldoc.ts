@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CarService } from '../../service/carservice';
 
 interface Column {
@@ -11,8 +10,7 @@ interface Column {
 
 @Component({
     selector: 'virtual-scroll-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality. It is also
                 suggested to use the same <i>virtualScrollItemSize</i> value on the tr element inside the body template.
@@ -36,17 +34,10 @@ interface Column {
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-virtual-scroll-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-virtual-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VirtualScrollDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     cars!: Car[];
 
     virtualCars!: Car[];
@@ -69,8 +60,7 @@ export class VirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+        basic: `<p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns" style="width: 20%;">

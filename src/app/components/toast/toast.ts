@@ -31,7 +31,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
-import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
+import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
 
 @Component({
     selector: 'p-toastItem',
@@ -74,7 +74,7 @@ import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
                     (keydown.enter)="onCloseIconClick($event)"
                     *ngIf="message?.closable !== false"
                     pRipple
-                    [attr.aria-label]="'Close'"
+                    [attr.aria-label]="closeAriaLabel"
                     [attr.data-pc-section]="'closebutton'"
                 >
                     <span *ngIf="message.closeIcon" [class]="'pt-1 text-base p-toast-message-icon pi ' + message.closeIcon"></span>
@@ -92,7 +92,13 @@ import { ToastCloseEvent, ToastItemCloseEvent } from './toast.interface';
                     opacity: 1
                 })
             ),
-            transition('void => *', [style({ transform: '{{showTransformParams}}', opacity: 0 }), animate('{{showTransitionParams}}')]),
+            transition('void => *', [
+                style({
+                    transform: '{{showTransformParams}}',
+                    opacity: 0
+                }),
+                animate('{{showTransitionParams}}')
+            ]),
             transition('* => void', [
                 animate(
                     '{{hideTransitionParams}}',
@@ -134,7 +140,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(private zone: NgZone) {}
+    constructor(private zone: NgZone, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initTimeout();
@@ -179,10 +185,15 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         event.preventDefault();
     }
 
+    get closeAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
+    }
+
     ngOnDestroy() {
         this.clearTimeout();
     }
 }
+
 /**
  * Toast is used to display messages in an overlay.
  * @group Components
@@ -190,7 +201,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 @Component({
     selector: 'p-toast',
     template: `
-        <div #container [ngClass]="'p-toast p-component p-toast-' + position" [ngStyle]="style" [class]="styleClass">
+        <div #container class="p-toast p-component" [ngClass]="'p-toast-' + _position" [ngStyle]="style" [class]="styleClass">
             <p-toastItem
                 *ngFor="let msg of messages; let i = index"
                 [message]="msg"
@@ -247,11 +258,20 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+
     /**
      * Position of the toast in viewport.
      * @group Props
      */
-    @Input() position: 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'center' = 'top-right';
+    @Input() get position(): ToastPositionType {
+        return this._position;
+    }
+
+    set position(value: ToastPositionType) {
+        this._position = value;
+        this.cd.markForCheck();
+    }
+
     /**
      * It does not add the new message if there is already a toast displayed with the same content
      * @group Props
@@ -307,6 +327,8 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
     messagesArchieve: Message[] | undefined;
 
     template: TemplateRef<any> | undefined;
+
+    _position: ToastPositionType = 'top-right';
 
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 

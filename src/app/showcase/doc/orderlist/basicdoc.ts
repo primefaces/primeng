@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
@@ -27,13 +27,9 @@ import { ProductService } from '../../service/productservice';
             </p-orderList>
         </div>
         <app-code [code]="code" selector="orderlist-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products!: Product[];
 
     constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
@@ -57,8 +53,7 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="Products">
+        basic: `<p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="Products">
     <ng-template let-product pTemplate="item">
         <div class="flex flex-wrap p-2 align-items-center gap-3">
             <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />

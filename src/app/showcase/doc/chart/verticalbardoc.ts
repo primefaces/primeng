@@ -1,24 +1,20 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chart-vertical-bar-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A bar chart or bar graph is a chart that presents grouped data with rectangular bars with lengths proportional to the values that they represent.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="bar" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-vertical-bar-demo"></app-code>
-    </section>`
+    `
 })
 export class VerticalBarDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
@@ -88,8 +84,7 @@ export class VerticalBarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="bar" [data]="data" [options]="options"></p-chart>

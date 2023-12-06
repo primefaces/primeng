@@ -1,28 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'invalid-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1"> </p-inputNumber>
         </div>
         <app-code [code]="code" selector="input-number-invalid-demo"></app-code>
-    </section>`
+    `
 })
 export class InvalidDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value1!: number;
 
     code: Code = {
-        basic: `
-<p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1"> </p-inputNumber>`,
+        basic: `<p-inputNumber inputId="integeronly" class="ng-invalid ng-dirty" [(ngModel)]="value1"> </p-inputNumber>`,
 
         html: `
 <div class="card flex justify-content-center">

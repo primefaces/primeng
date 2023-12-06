@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>For controlled mode, use <i>activeItem</i> property along with <i>activeItemChange</i> event are needed to manage the active item.</p>
         </app-docsectiontext>
         <div class="card">
@@ -13,13 +13,9 @@ import { Code } from '../../domain/code';
             <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;
@@ -45,8 +41,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
+        basic: `<button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
 <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>`,
 
         html: `

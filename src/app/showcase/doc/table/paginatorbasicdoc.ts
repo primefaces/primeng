@@ -1,13 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'paginator-basic-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 Pagination is enabled by setting <i>paginator</i> property to <i>true</i> and defining a rows property to specify the number of rows per page. For server side pagination, see the
                 <a [routerLink]="['/table#lazy']">lazy loading</a> example.
@@ -21,7 +19,7 @@ import { CustomerService } from '../../service/customerservice';
                 [showCurrentPageReport]="true"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]"
+                [rowsPerPageOptions]="[5, 10, 20]"
             >
                 <ng-template pTemplate="header">
                     <tr>
@@ -47,17 +45,10 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-paginator-basic-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
@@ -70,15 +61,14 @@ export class PaginatorBasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     [value]="customers"
     [paginator]="true"
     [rows]="5"
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-    [rowsPerPageOptions]="[10, 25, 50]"
+    [rowsPerPageOptions]="[5, 10, 20]"
 >
     <ng-template pTemplate="header">
         <tr>
@@ -112,7 +102,7 @@ export class PaginatorBasicDoc {
         [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [rowsPerPageOptions]="[10, 25, 50]"
+        [rowsPerPageOptions]="[5, 10, 20]"
     >
         <ng-template pTemplate="header">
             <tr>

@@ -1,21 +1,13 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 
 @Component({
     selector: 'events-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext></app-docsectiontext>
+    template: ` <section class="py-4">
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })
 export class EventsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     code: Code = {
         typescript: `
 import { PrimeNGConfig, OverlayOptions, OverlayOnBeforeShowEvent, OverlayOnShowEvent, OverlayOnBeforeHideEvent, OverlayOnHideEvent } from 'primeng/api';

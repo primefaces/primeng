@@ -1,12 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'single-column-sort-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    selector: 'multiple-column-sort-doc',
+    template: `
+        <app-docsectiontext>
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
         </app-docsectiontext>
         <div class="card">
@@ -31,15 +31,11 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
-        <app-code [code]="code" selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <app-code [code]="code" selector="table-multiple-column-sort-demo" [extFiles]="extFiles"></app-code>
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SingleColumnSortDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
+export class MultipleColumnSortDoc implements OnInit {
     products: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -52,8 +48,7 @@ export class SingleColumnSortDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
@@ -102,8 +97,8 @@ import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
-    selector: 'table-single-column-sort-demo',
-    templateUrl: 'table-single-column-sort-demo.html'
+    selector: 'table-multiple-column-sort-demo',
+    templateUrl: 'table-multiple-column-sort-demo.html'
 })
 export class TableSingleColumnSortDemo implements OnInit {
     products: Product[];

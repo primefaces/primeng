@@ -1,14 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'galleria-caption-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Description of an image is specified with the <i>caption</i> template.</p>
         </app-docsectiontext>
-        <div class="card md:flex md:justify-content-center">
+        <div class="card">
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -25,13 +25,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-caption-demo"></app-code>
-    </section>`
+    `
 })
 export class CaptionDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [
@@ -56,8 +52,7 @@ export class CaptionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+        basic: `<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
@@ -73,7 +68,7 @@ export class CaptionDoc implements OnInit {
 </p-galleria>
 `,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />

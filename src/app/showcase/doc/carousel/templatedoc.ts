@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-template-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content projection is available using the <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
@@ -36,13 +36,9 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-template-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: Product[] | undefined;
 
     responsiveOptions: any[] | undefined;
@@ -86,8 +82,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
     <ng-template pTemplate="header">
         <p>Header content</p>
     </ng-template>

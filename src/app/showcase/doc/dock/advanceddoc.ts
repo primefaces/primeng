@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
@@ -8,8 +8,8 @@ import { PhotoService } from '../../service/photoservice';
 
 @Component({
     selector: 'dock-advanced-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
                 <i>item</i> template.
@@ -65,14 +65,10 @@ import { PhotoService } from '../../service/photoservice';
             </div>
         </div>
         <app-code [code]="code" selector="dock-advanced-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService, TerminalService, PhotoService, NodeService]
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
-    @Input() id: string;
-
-    @Input() title: string;
-
     displayTerminal: boolean | undefined;
 
     displayFinder: boolean | undefined;
@@ -371,8 +367,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     }
 
     code: Code = {
-        basic: `
-<p-menubar [model]="menubarItems">
+        basic: `<p-menubar [model]="menubarItems">
     <ng-template pTemplate="start">
         <i class="pi pi-apple"></i>
     </ng-template>

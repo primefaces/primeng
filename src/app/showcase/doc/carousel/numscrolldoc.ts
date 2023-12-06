@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'carousel-num-scroll-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Number of items to scroll is specified with the <i>numScroll</i> option.</p>
         </app-docsectiontext>
         <div class="card">
@@ -30,13 +30,9 @@ import { ProductService } from '../../service/productservice';
             </p-carousel>
         </div>
         <app-code [code]="code" selector="carousel-num-scroll-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class NumScrollDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: Product[] | undefined;
 
     responsiveOptions: any[] | undefined;
@@ -80,8 +76,7 @@ export class NumScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
     <ng-template let-product pTemplate="item">
         <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
             <div class="mb-3">

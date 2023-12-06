@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'dialog-template-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,13 +23,9 @@ import { Code } from '../../domain/code';
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     visible: boolean = false;
 
     showDialog() {
@@ -37,8 +33,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
     <ng-template pTemplate="header">
         <span class="text-xl font-bold">Header Content</span>

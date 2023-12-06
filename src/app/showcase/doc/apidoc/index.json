@@ -332,6 +332,61 @@
             }
         }
     },
+    "animateonscroll": {
+        "components": {
+            "AnimateOnScroll": {
+                "description": "AnimateOnScroll is used to apply animations to elements when entering or leaving the viewport during scrolling.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "enterClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Selector to define the CSS class for enter animation."
+                        },
+                        {
+                            "name": "leaveClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Selector to define the CSS class for leave animation."
+                        },
+                        {
+                            "name": "root",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "HTMLElement",
+                            "description": "Specifies the root option of the IntersectionObserver API."
+                        },
+                        {
+                            "name": "rootMargin",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies the rootMargin option of the IntersectionObserver API."
+                        },
+                        {
+                            "name": "threshold",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Specifies the threshold option of the IntersectionObserver API"
+                        },
+                        {
+                            "name": "once",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether the scroll event listener should be removed after initial run."
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "blockableui": {
         "components": {}
     },
@@ -2234,7 +2289,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "\"focus\" | \"hover\"",
-                            "description": "Event to show tooltip."
+                            "description": "Event to show the tooltip."
                         },
                         {
                             "name": "appendTo",
@@ -2312,6 +2367,13 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Time to wait in milliseconds to hide the tooltip even it is active."
+                        },
+                        {
+                            "name": "id",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "When present, it adds a custom id to the tooltip."
                         }
                     ]
                 }
@@ -3603,6 +3665,22 @@
                             "description": "Type of the input, defaults to \"text\"."
                         },
                         {
+                            "name": "autoZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to automatically manage layering."
+                        },
+                        {
+                            "name": "baseZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Base zIndex value to use in layering."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
@@ -3667,7 +3745,8 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Field of a suggested object to resolve and display."
+                            "description": "Field of a suggested object to resolve and display.",
+                            "deprecated": "use optionLabel property instead"
                         },
                         {
                             "name": "dropdown",
@@ -3759,6 +3838,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "items",
                             "description": "Name of the options field of an option group."
                         },
                         {
@@ -3766,6 +3846,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "label",
                             "description": "Name of the label field of an option group."
                         },
                         {
@@ -3789,6 +3870,80 @@
                             "type": "number",
                             "description": "Element dimensions of option for virtual scrolling.",
                             "deprecated": "use virtualScrollItemSize property instead."
+                        },
+                        {
+                            "name": "optionLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Property name or getter function to use as the label of an option."
+                        },
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component."
+                        },
+                        {
+                            "name": "searchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when the search is active. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "emptySelectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "selectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused option is selected."
+                        },
+                        {
+                            "name": "searchLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Locale to use in searching. The default locale is the host environment's current locale."
+                        },
+                        {
+                            "name": "optionDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Property name or getter function to use as the disabled flag of an option, defaults to false when not defined."
+                        },
+                        {
+                            "name": "focusOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the hovered option will be focused."
                         }
                     ]
                 },
@@ -3809,8 +3964,8 @@
                             "name": "onSelect",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "any"
+                                    "name": "event",
+                                    "type": "AutoCompleteSelectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a suggestion is selected."
@@ -3819,8 +3974,8 @@
                             "name": "onUnselect",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "any"
+                                    "name": "event",
+                                    "type": "AutoCompleteUnselectEvent"
                                 }
                             ],
                             "description": "Callback to invoke when a selected value is removed."
@@ -3951,6 +4106,46 @@
                                 "readonly": false,
                                 "type": "string",
                                 "description": "Selected option value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AutoCompleteSelectEvent",
+                        "description": "Custom select event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "AutoCompleteUnselectEvent",
+                        "description": "Custom unselect event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Removed value."
                             }
                         ]
                     },
@@ -4251,7 +4446,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
+                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4287,7 +4482,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"danger\" | \"info\"",
+                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4469,9 +4664,9 @@
                 "values": [
                     {
                         "parent": "breadcrumb",
-                        "name": "seperator",
+                        "name": "separator",
                         "parameters": [],
-                        "description": "Custom template of seperator."
+                        "description": "Custom template of separator."
                     }
                 ]
             }
@@ -4587,6 +4782,68 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon to display in loading state."
+                        },
+                        {
+                            "name": "raised",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a shadow to indicate elevation."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a circular border radius to the button."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "plain",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a plain textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the style of the button."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a border class without a background initially."
+                        },
+                        {
+                            "name": "link",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a link style to the button."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "description": "Defines the size of the button."
                         },
                         {
                             "name": "style",
@@ -4744,6 +5001,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "iconAriaLabel",
@@ -5920,6 +6184,78 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component"
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Determines if the option will be selected on focus."
+                        },
+                        {
+                            "name": "searchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when the search is active. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "emptyMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when there is no data. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "selectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "emptySearchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeVue locale configuration."
+                        },
+                        {
+                            "name": "emptySelectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "searchLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Locale to use in searching. The default locale is the host environment's current locale."
+                        },
+                        {
+                            "name": "optionDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Name of the disabled field of an option."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -6000,7 +6336,8 @@
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -6094,7 +6431,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "Event"
+                                    "type": "CascadeSelectChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke on value change."
@@ -6158,6 +6495,26 @@
                                 }
                             ],
                             "description": "Callback to invoke before overlay is hidden."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when input receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when input loses focus."
                         }
                     ]
                 }
@@ -6275,6 +6632,33 @@
                                 "description": "Overlay mode."
                             }
                         ]
+                    },
+                    {
+                        "name": "CascadeSelectChangeEvent",
+                        "description": "Custom panel change event emits when selection changed.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
+                            },
+                            {
+                                "name": "isFocus",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Focus state."
+                            }
+                        ]
                     }
                 ]
             },
@@ -6370,6 +6754,20 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether the chart is redrawn on screen size change."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string that autocomplete attribute the current element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         },
                         {
                             "name": "data",
@@ -6759,6 +7157,13 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Maximum number of entries allowed."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -7385,7 +7790,7 @@
                             "name": "defaultFocus",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"close\" | \"reject\" | \"accept\"",
+                            "type": "\"none\" | \"close\" | \"accept\" | \"reject\"",
                             "default": "accept",
                             "description": "Element to receive the focus when the dialog gets visible."
                         },
@@ -8692,7 +9097,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"solid\" | \"dashed\" | \"dotted\"",
+                            "type": "\"dashed\" | \"dotted\" | \"solid\"",
                             "default": "solid",
                             "description": "Border style type."
                         },
@@ -8949,6 +9354,13 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component"
+                        },
+                        {
                             "name": "scrollHeight",
                             "optional": false,
                             "readonly": false,
@@ -9035,6 +9447,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -9078,6 +9491,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "When filtering is enabled, filterBy decides which field or fields (comma separated) to search against."
+                        },
+                        {
+                            "name": "filterFields",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
                         },
                         {
                             "name": "autofocus",
@@ -9128,6 +9548,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "label",
                             "description": "Name of the label field of an option group."
                         },
                         {
@@ -9227,7 +9648,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Used to define a string that autocomplete attribute the current element."
+                            "description": "Used to define a aria label attribute the current element."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -9281,6 +9702,30 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the tooltip."
+                        },
+                        {
+                            "name": "focusOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Determines if the option will be selected on focus."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
                             "name": "autofocusFilter",
@@ -9458,12 +9903,22 @@
                         },
                         {
                             "name": "show",
-                            "parameters": [],
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Displays the panel."
                         },
                         {
                             "name": "hide",
-                            "parameters": [],
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
                             "description": "Hides the panel."
                         },
                         {
@@ -11692,6 +12147,13 @@
                             "description": "Attribute of the image element."
                         },
                         {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"eager\" | \"lazy\"",
+                            "description": "Attribute of the image element."
+                        },
+                        {
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
@@ -11956,6 +12418,20 @@
             }
         }
     },
+    "inputgroup": {
+        "components": {
+            "InputGroup": {
+                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
+    "inputgroupaddon": {
+        "components": {
+            "InputGroupAddon": {
+                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input."
+            }
+        }
+    },
     "inputmask": {
         "components": {
             "InputMask": {
@@ -12057,6 +12533,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Used to define a string that labels the input element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
                         },
                         {
                             "name": "ariaRequired",
@@ -12323,6 +12806,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Title text of the input text."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies one or more IDs in the DOM that labels the input field."
                         },
                         {
                             "name": "ariaLabel",
@@ -12744,7 +13234,7 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "InputSwitchOnChangeEvent"
+                                    "type": "InputSwitchChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke when the on value change."
@@ -12759,7 +13249,7 @@
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
                     {
-                        "name": "InputSwitchOnChangeEvent",
+                        "name": "InputSwitchChangeEvent",
                         "description": "Custom change event.",
                         "props": [
                             {
@@ -12884,6 +13374,28 @@
                             "readonly": false,
                             "type": "Object",
                             "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies one or more IDs in the DOM that labels the input field."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
                         },
                         {
                             "name": "valueColor",
@@ -13015,6 +13527,126 @@
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component."
+                        },
+                        {
+                            "name": "searchMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when the search is active. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "emptySelectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "selectionMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to be displayed in hidden accessible field when options are selected. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the focused option is selected."
+                        },
+                        {
+                            "name": "searchLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Locale to use in searching. The default locale is the host environment's current locale."
+                        },
+                        {
+                            "name": "focusOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, the hovered option will be focused."
+                        },
+                        {
+                            "name": "filterMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Text to display when filtering."
+                        },
+                        {
+                            "name": "filterFields",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Defines if data is loaded and interacted with in lazy manner."
+                        },
+                        {
+                            "name": "virtualScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the data should be loaded on demand during scroll."
+                        },
+                        {
+                            "name": "virtualScrollItemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "virtualScrollOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ScrollerOptions",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "200px",
+                            "description": "Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
                         {
                             "name": "multiple",
                             "optional": false,
@@ -13155,6 +13787,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "label",
                             "description": "Name of the label field of an option group."
                         },
                         {
@@ -13213,6 +13846,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "When specified, filter displays with this value."
+                        },
+                        {
+                            "name": "selectAll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether all data is selected."
                         }
                     ]
                 },
@@ -13248,6 +13888,65 @@
                                 }
                             ],
                             "description": "Callback to invoke when option is double clicked."
+                        },
+                        {
+                            "name": "onFilter",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxFilterEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when data is filtered."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when component receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when component loses focus."
+                        },
+                        {
+                            "name": "onSelectAllChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "ListboxSelectAllChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when all data is selected."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "updateModel",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Updates the model value."
                         }
                     ]
                 }
@@ -13279,6 +13978,46 @@
                         ]
                     },
                     {
+                        "name": "ListboxSelectAllChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "checked",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Boolean value indicates whether all data is selected."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "ListboxFilterEvent",
+                        "description": "Custom filter event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "filter",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Filter value."
+                            }
+                        ]
+                    },
+                    {
                         "name": "ListboxClickEvent",
                         "description": "Custom change event.",
                         "props": [
@@ -13294,11 +14033,11 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Selected option"
@@ -13321,11 +14060,11 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "any",
-                                "description": "Selected option value"
+                                "description": "Value of the component."
                             },
                             {
                                 "name": "option",
-                                "optional": false,
+                                "optional": true,
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Selected option"
@@ -13998,6 +14737,20 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component"
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -14091,6 +14844,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -14115,13 +14869,6 @@
                             "description": "Name of the input element."
                         },
                         {
-                            "name": "label",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Label of the input for accessibility."
-                        },
-                        {
                             "name": "ariaLabelledBy",
                             "optional": false,
                             "readonly": false,
@@ -14132,16 +14879,19 @@
                             "name": "displaySelectedLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to show labels of selected item labels or use default label."
+                            "type": "boolean"
                         },
                         {
                             "name": "maxSelectedLabels",
                             "optional": false,
                             "readonly": false,
+                            "type": "number"
+                        },
+                        {
+                            "name": "selectionLimit",
+                            "optional": false,
+                            "readonly": false,
                             "type": "number",
-                            "default": "3",
                             "description": "Decides how many selected item labels to show at most."
                         },
                         {
@@ -14149,7 +14899,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "ellipsis",
+                            "default": "{0} items selected",
                             "description": "Label to display after exceeding max selected labels e.g. ({0} items selected), defaults \"ellipsis\" keyword to indicate a text-overflow."
                         },
                         {
@@ -14217,6 +14967,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "label",
                             "description": "Name of the label field of an option group."
                         },
                         {
@@ -14354,7 +15105,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "on",
+                            "default": "off",
                             "description": "Defines the autocomplete is active."
                         },
                         {
@@ -14432,11 +15183,42 @@
                             "deprecated": "use virtualScrollItemSize property instead."
                         },
                         {
-                            "name": "selectionLimit",
+                            "name": "selectAll",
                             "optional": false,
                             "readonly": false,
-                            "type": "number",
-                            "description": "Number of maximum options that can be selected."
+                            "type": "boolean",
+                            "description": "Whether all data is selected."
+                        },
+                        {
+                            "name": "focusOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "filterFields",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Determines if the option will be selected on focus."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         }
                     ]
                 },
@@ -14542,6 +15324,55 @@
                                 }
                             ],
                             "description": "Callback to invoke in lazy mode to load new data."
+                        },
+                        {
+                            "name": "onSelectAllChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MultiSelectSelectAllChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when all data is selected."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "updateModel",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                },
+                                {
+                                    "name": "event",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Updates the model value."
+                        },
+                        {
+                            "name": "show",
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Displays the panel."
+                        },
+                        {
+                            "name": "hide",
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Hides the panel."
                         }
                     ]
                 }
@@ -14576,6 +15407,26 @@
                                 "readonly": false,
                                 "type": "any",
                                 "description": "Toggled item value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "MultiSelectSelectAllChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "checked",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Boolean value indicates whether all data is selected."
                             }
                         ]
                     },
@@ -14843,6 +15694,27 @@
                             "description": "Style class of the component."
                         },
                         {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies one or more IDs in the DOM that labels the input field."
+                        },
+                        {
                             "name": "listStyle",
                             "optional": false,
                             "readonly": false,
@@ -15005,6 +15877,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when filtering occurs."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 },
@@ -16677,6 +17569,14 @@
                             "description": "Text for the source list caption"
                         },
                         {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
                             "name": "rightButtonAriaLabel",
                             "optional": false,
                             "readonly": false,
@@ -17030,6 +17930,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when the target list is filtered"
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is focused"
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the list is blurred"
                         }
                     ]
                 }
@@ -17666,7 +18586,7 @@
     "rating": {
         "components": {
             "Rating": {
-                "description": "RadioButton is an extension to standard radio button element with theming.",
+                "description": "Rating is an extension to standard radio button element with theming.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -17768,6 +18688,26 @@
                                 }
                             ],
                             "description": "Emitted when the rating is cancelled."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Emitted when the rating receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "FocusEvent"
+                                }
+                            ],
+                            "description": "Emitted when the rating loses focus."
                         }
                     ]
                 }
@@ -18577,6 +19517,14 @@
                             "description": "Name of the disabled field of an option."
                         },
                         {
+                            "name": "unselectable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether selection can be cleared."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -18591,6 +19539,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When specified, allows selecting multiple values."
+                        },
+                        {
+                            "name": "allowEmpty",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether selection can not be cleared."
                         },
                         {
                             "name": "style",
@@ -19308,6 +20264,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -20073,6 +21036,12 @@
                             "name": "enterClass",
                             "optional": false,
                             "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "enterFromClass",
+                            "optional": false,
+                            "readonly": false,
                             "type": "string",
                             "description": "Style class to add when item begins to get displayed."
                         },
@@ -20092,6 +21061,12 @@
                         },
                         {
                             "name": "leaveClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "leaveFromClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
@@ -20363,7 +21338,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -22133,6 +23108,28 @@
                             "description": "When enabled, the focused tab is activated."
                         },
                         {
+                            "name": "nextButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the forward navigation button."
+                        },
+                        {
+                            "name": "prevButtonAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a string aria label attribute the backward navigation button."
+                        },
+                        {
+                            "name": "autoHideButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When activated, navigation buttons will automatically hide or show based on the available space within the container."
+                        },
+                        {
                             "name": "tabindex",
                             "optional": false,
                             "readonly": false,
@@ -22745,8 +23742,7 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"top-right\" | \"top-left\" | \"bottom-left\" | \"bottom-right\" | \"top-center\" | \"bottom-center\"",
-                            "default": "top-right",
+                            "type": "ToastPositionType",
                             "description": "Position of the toast in viewport."
                         },
                         {
@@ -22895,6 +23891,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon for the off state."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -23215,7 +24218,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "description": "Defines the selection mode."
                         },
                         {
@@ -23967,7 +24970,7 @@
                             "name": "selectionMode",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"multiple\" | \"single\" | \"checkbox\"",
+                            "type": "\"multiple\" | \"checkbox\" | \"single\"",
                             "default": "single",
                             "description": "Defines the selection mode."
                         },
@@ -23976,7 +24979,15 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -24631,7 +25642,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -25905,6 +26916,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Name of the component."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "ariaLabelledBy",

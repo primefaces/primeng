@@ -1,15 +1,14 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../../domain/code';
 import { PhotoService } from '../../../service/photoservice';
 
 @Component({
     selector: 'itemthumbnails-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>Add <i>showItemNavigators</i> to display navigator elements and the left and right side.</p>
         </app-docsectiontext>
-        <div class="card md:flex md:justify-content-center">
+        <div class="card">
             <p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
@@ -22,16 +21,10 @@ import { PhotoService } from '../../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-navigator-item-thumbnails-demo"></app-code>
-    </section>`,
+    `,
     providers: [PhotoService]
 })
 export class ItemThumbnailsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [
@@ -58,8 +51,7 @@ export class ItemThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
@@ -70,7 +62,7 @@ export class ItemThumbnailsDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `
- <div class="card md:flex md:justify-content-center">
+ <div class="card">
     <p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true"  [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />

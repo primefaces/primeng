@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'linear-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>SpeedDial items are defined with the <i>model</i> property based on MenuModel API. Default orientation of the items is linear and <i>direction</i> property is used to define the position of the items related to the button.</p>
         </app-docsectiontext>
         <div class="card">
@@ -18,14 +18,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class LinearDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -63,8 +59,7 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up"></p-speedDial>
+        basic: `<p-speedDial [model]="items" direction="up"></p-speedDial>
 <p-speedDial [model]="items" direction="down"></p-speedDial>
 <p-speedDial [model]="items" direction="left"></p-speedDial>
 <p-speedDial [model]="items" direction="right"></p-speedDial>`,
