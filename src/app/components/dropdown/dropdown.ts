@@ -149,7 +149,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="label() === placeholder || (label() && !placeholder)">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
+                    <span *ngIf="!modelValue() && (label() === placeholder || (label() && !placeholder))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
             </span>
             <input
@@ -917,7 +917,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         const selectedOptionIndex = this.findSelectedOptionIndex();
-
         return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
     });
 
@@ -1134,9 +1133,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return (
             (this.optionGroupLabel
                 ? index -
-                this.visibleOptions()
-                    .slice(0, index)
-                    .filter((option) => this.isOptionGroup(option)).length
+                  this.visibleOptions()
+                      .slice(0, index)
+                      .filter((option) => this.isOptionGroup(option)).length
                 : index) + 1
         );
     }
@@ -1487,8 +1486,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const matchedOptionIndex =
             index < this.visibleOptions().length - 1
                 ? this.visibleOptions()
-                    .slice(index + 1)
-                    .findIndex((option) => this.isValidOption(option))
+                      .slice(index + 1)
+                      .findIndex((option) => this.isValidOption(option))
                 : -1;
         return matchedOptionIndex > -1 ? matchedOptionIndex + index + 1 : index;
     }
@@ -1666,8 +1665,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             optionIndex =
                 optionIndex === -1
                     ? this.visibleOptions()
-                        .slice(0, this.focusedOptionIndex())
-                        .findIndex((option) => this.isOptionMatched(option))
+                          .slice(0, this.focusedOptionIndex())
+                          .findIndex((option) => this.isOptionMatched(option))
                     : optionIndex + this.focusedOptionIndex();
         } else {
             optionIndex = this.visibleOptions().findIndex((option) => this.isOptionMatched(option));
@@ -1706,7 +1705,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
-
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
         this.cd.markForCheck();
     }
