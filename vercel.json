@@ -10,8 +10,7 @@
     ],
     "functions": {
         "api/index.js": {
-            "includeFiles": "./dist/primeng/browser/**",
-            "maxDuration": 10
+            "includeFiles": "./dist/primeng/browser/**"
         }
     }
 }
