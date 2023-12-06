@@ -2277,30 +2277,32 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (!this.frozen) {
-            if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
-                DomHandler.addClass(this.el.nativeElement, 'p-treetable-unfrozen-view');
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.frozen) {
+                if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
+                    DomHandler.addClass(this.el.nativeElement, 'p-treetable-unfrozen-view');
+                }
+
+                let frozenView = this.el.nativeElement.previousElementSibling;
+                if (frozenView) {
+                    if (this.tt.virtualScroll) this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-scroller-viewport');
+                    else this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
+                }
+
+                let scrollBarWidth = DomHandler.calculateScrollbarWidth();
+                (this.scrollHeaderBoxViewChild as ElementRef).nativeElement.style.paddingRight = scrollBarWidth + 'px';
+
+                if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                    this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                }
+            } else {
+                if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
+                    this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
+                }
             }
 
-            let frozenView = this.el.nativeElement.previousElementSibling;
-            if (frozenView) {
-                if (this.tt.virtualScroll) this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-scroller-viewport');
-                else this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
-            }
-
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
-            (this.scrollHeaderBoxViewChild as ElementRef).nativeElement.style.paddingRight = scrollBarWidth + 'px';
-
-            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-            }
-        } else {
-            if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
-                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
-            }
+            this.bindEvents();
         }
-
-        this.bindEvents();
     }
 
     bindEvents() {

@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
@@ -118,11 +118,15 @@ export class AppCodeComponent {
 
     lang!: string;
 
+    constructor(@Inject(PLATFORM_ID) public platformId: any, @Inject(DOCUMENT) public document: Document) {}
+
     ngAfterViewChecked() {
-        if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
-            window['Prism'].highlightElement(this.codeElement.nativeElement);
-            this.codeElement.nativeElement.classList.add('prism');
-            this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');
+        if (isPlatformBrowser(this.platformId)) {
+            if (window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
+                window['Prism'].highlightElement(this.codeElement.nativeElement);
+                this.codeElement.nativeElement.classList.add('prism');
+                this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');
+            }
         }
     }
 

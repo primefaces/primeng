@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -175,7 +175,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     themeChangeCompleteSubscription: Subscription;
 
-    constructor(private configService: AppConfigService) {}
+    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChartData();
@@ -221,38 +221,40 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     }
 
     setChartOptions(): void {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
+            this.chartOptions = {
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder
+                        }
                     },
-                    min: 0,
-                    max: 100,
-                    grid: {
-                        color: surfaceBorder
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: surfaceBorder
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
     }
 
     ngOnDestroy(): void {

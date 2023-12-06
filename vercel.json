@@ -1,13 +1,17 @@
 {
-  "version": 2,
-  "public": true,
-  "name": "primeng",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/api" }
-  ],
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "dist/primeng/browser/**"
+    "version": 2,
+    "public": true,
+    "name": "primeng",
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/api"
+        }
+    ],
+    "functions": {
+        "api/index.js": {
+            "includeFiles": "./dist/primeng/browser/**",
+            "maxDuration": 10
+        }
     }
-  }
 }

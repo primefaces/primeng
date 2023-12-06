@@ -12,8 +12,6 @@
   "files": [
     "src/main.server.ts",
     "server.ts",
-    "server.ts",
-    "server.ts"
   ],
   "paths": {
     "primeng/*": ["src/app/components/*/public_api"]

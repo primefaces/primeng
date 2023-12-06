@@ -15,7 +15,8 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedItem" (onLazyLoad)="onLazyLoad($event)" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true">
+            </p-autoComplete>
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
 })
@@ -25,6 +26,10 @@ export class VirtualScrollDoc {
     filteredItems: any[] | undefined;
 
     items: any[] | undefined;
+
+    onLazyLoad(event) {
+        console.log('lazy');
+    }
 
     filterItems(event: AutoCompleteCompleteEvent) {
         //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
