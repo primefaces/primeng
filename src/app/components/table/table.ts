@@ -4932,6 +4932,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
+                [attr.aria-label]="showMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -4943,7 +4944,7 @@ export class ReorderableRow implements AfterViewInit {
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>
             </button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()">
+            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel">
                 <FilterSlashIcon *ngIf="!clearIconTemplate" />
                 <ng-template *ngTemplateOutlet="clearFilterIcon"></ng-template>
             </button>
@@ -5005,7 +5006,7 @@ export class ReorderableRow implements AfterViewInit {
                                 [useGrouping]="useGrouping"
                             ></p-columnFilterFormElement>
                             <div>
-                                <button *ngIf="showRemoveIcon" type="button" pButton class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel">
+                                <button *ngIf="showRemoveIcon" type="button" pButton class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [attr.aria-label]="removeRuleButtonLabel">
                                     <TrashIcon *ngIf="!removeRuleIconTemplate" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
@@ -5013,14 +5014,14 @@ export class ReorderableRow implements AfterViewInit {
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
+                        <button type="button" pButton [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
                             <PlusIcon *ngIf="!addRuleIconTemplate" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [attr.aria-label]="applyButtonLabel" pRipple></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
@@ -5129,6 +5130,62 @@ export class ColumnFilter implements AfterContentInit {
     private window: Window;
 
     overlayId: any;
+
+    get fieldConstraints(): FilterMetadata[] | undefined | null {
+        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
+    }
+
+    get showRemoveIcon(): boolean {
+        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
+    }
+
+    get showMenuButton(): boolean {
+        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+    }
+
+    get isShowOperator(): boolean {
+        return this.showOperator && this.type !== 'boolean';
+    }
+
+    get isShowAddConstraint(): boolean | undefined | null {
+        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+    }
+
+    get applyButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.APPLY);
+    }
+
+    get clearButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.CLEAR);
+    }
+
+    get addRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ADD_RULE);
+    }
+
+    get removeRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
+    get noFilterLabel(): string {
+        return this.config.getTranslation(TranslationKeys.NO_FILTER);
+    }
+
+    get filterMenuButtonAriaLabel() {
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+    }
+
+    get removeRuleButtonAriaLabel() {
+        return this.config.translation ? this.config.translation.removeRule : undefined;
+    }
+
+    get filterOperatorAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterOperator : undefined;
+    }
+
+    get filterConstraintAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterConstraint : undefined;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
@@ -5389,46 +5446,6 @@ export class ColumnFilter implements AfterContentInit {
 
     hasRowFilter() {
         return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
-    }
-
-    get fieldConstraints(): FilterMetadata[] | undefined | null {
-        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
-    }
-
-    get showRemoveIcon(): boolean {
-        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
-    }
-
-    get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
-    }
-
-    get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'boolean';
-    }
-
-    get isShowAddConstraint(): boolean | undefined | null {
-        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
-    }
-
-    get applyButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.APPLY);
-    }
-
-    get clearButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.CLEAR);
-    }
-
-    get addRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ADD_RULE);
-    }
-
-    get removeRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
-    }
-
-    get noFilterLabel(): string {
-        return this.config.getTranslation(TranslationKeys.NO_FILTER);
     }
 
     hasFilter(): boolean {
