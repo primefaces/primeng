@@ -25,8 +25,10 @@ import { Code } from '../../domain/code';
 })
 export class TemplateDoc {
     value!: number;
+
+    code: Code = {
         basic: `<p-rating [(ngModel)]="value" stars="5">
-    <ng-template pTemplate="cancelicon">
+    <ng-template pTemplate="cancel">
         <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
     </ng-template>
     <ng-template pTemplate="onicon">
@@ -40,7 +42,7 @@ export class TemplateDoc {
         html: `
 <div class="card flex justify-content-center">
     <p-rating [(ngModel)]="value" stars="5">
-        <ng-template pTemplate="cancelicon">
+        <ng-template pTemplate="cancel">
             <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
         </ng-template>
         <ng-template pTemplate="onicon">
