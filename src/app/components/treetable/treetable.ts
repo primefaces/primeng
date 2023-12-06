@@ -27,7 +27,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -3510,6 +3510,7 @@ export class TTRow {
             [style.marginLeft]="rowNode.level * 16 + 'px'"
             [attr.data-pc-section]="'rowtoggler'"
             [attr.data-pc-group-section]="'rowactionbutton'"
+            [attr.aria-label]="toggleButtonAriaLabel"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate">
                 <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
@@ -3526,7 +3527,11 @@ export class TTRow {
 export class TreeTableToggler {
     @Input() rowNode: any;
 
-    constructor(public tt: TreeTable) {}
+    constructor(public tt: TreeTable, private config: PrimeNGConfig) {}
+
+    get toggleButtonAriaLabel() {
+        return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;
+    }
 
     onClick(event: Event) {
         this.rowNode.node.expanded = !this.rowNode.node.expanded;
