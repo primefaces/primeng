@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login"></p-button>
-            <p-dialog [(visible)]="visible">
+            <p-dialog [modal]="true" [maskStyle]="'backdrop-filter: blur(2px)'" [(visible)]="visible">
                 <ng-template pTemplate="headless">
                     <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
                         <svg width="35" height="40" viewBox="0 0 35 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
