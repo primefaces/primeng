@@ -7965,6 +7965,16 @@
                 "values": [
                     {
                         "parent": "confirmpopup",
+                        "name": "content",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Custom content template."
+                    },
+                    {
+                        "parent": "confirmpopup",
                         "name": "rejecticon",
                         "parameters": [],
                         "description": "Custom template of rejecticon."
@@ -7974,6 +7984,16 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmpopup",
+                        "name": "headless",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Headless template."
                     }
                 ]
             }
