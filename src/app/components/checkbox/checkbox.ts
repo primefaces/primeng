@@ -35,10 +35,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [value]="value"
                     [attr.name]="name"
                     [checked]="checked()"
-                    (focus)="onInputFocus($event)"
-                    (blur)="onInputBlur($event)"
-                    (change)="handleChange($event)"
-                    [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [disabled]="disabled"
                     [readonly]="readonly"
@@ -46,6 +42,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-checked]="checked()"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
                     [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
@@ -250,13 +248,13 @@ export class Checkbox implements ControlValueAccessor {
 
     onInputFocus(event: Event) {
         this.focused = true;
-        this.onFocus.emit();
+        this.onFocus.emit(event);
     }
 
     onInputBlur(event: Event) {
         this.focused = false;
         this.onModelTouched();
-        this.onBlur.emit();
+        this.onBlur.emit(event);
     }
 
     writeValue(model: any): void {
