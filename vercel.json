@@ -11,7 +11,7 @@
     "functions": {
         "api/index.js": {
             "includeFiles": "./dist/primeng/browser/**",
-            "maxDuration": 10
+            "maxDuration": 30
         }
     }
 }
