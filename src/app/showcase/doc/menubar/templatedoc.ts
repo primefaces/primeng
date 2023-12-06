@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'menubar-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content can be placed inside the menubar using the <i>start</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
@@ -19,13 +19,9 @@ import { Code } from '../../domain/code';
             </p-menubar>
         </div>
         <app-code [code]="code" selector="menubar-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -155,8 +151,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-menubar [model]="items">
+        basic: `<p-menubar [model]="items">
     <ng-template pTemplate="start">
         <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
     </ng-template>

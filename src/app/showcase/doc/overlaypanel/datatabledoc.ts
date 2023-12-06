@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { Code } from '../../domain/code';
@@ -14,8 +14,8 @@ interface TableRowSelectEvent {
 
 @Component({
     selector: 'data-table-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
@@ -53,14 +53,10 @@ interface TableRowSelectEvent {
             </p-overlayPanel>
         </div>
         <app-code [code]="code" selector="overlay-panel-data-table-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class DataTableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: Product[] | undefined;
 
     selectedProduct: Product | undefined;
@@ -80,8 +76,7 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast></p-toast>
 <p-button (click)="op.toggle($event)" icon="pi pi-search" label="Search"></p-button>
 <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
     <div class="relative">

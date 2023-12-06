@@ -925,14 +925,14 @@ describe('Calendar', () => {
         inputEl.nativeElement.dispatchEvent(focusEvent);
         fixture.detectChanges();
 
-        const seperatorEl = fixture.debugElement.queryAll(By.css('.p-separator'));
+        const separatorEl = fixture.debugElement.queryAll(By.css('.p-separator'));
         const secondPicker = fixture.debugElement.query(By.css('.p-second-picker'));
-        expect(seperatorEl.length).toEqual(2);
+        expect(separatorEl.length).toEqual(2);
         expect(calendar.showSeconds).toBeTruthy();
-        expect(seperatorEl[0]).toBeTruthy();
-        expect(seperatorEl[1]).toBeTruthy();
-        expect(seperatorEl[0].children[0].nativeElement.textContent).toEqual(':');
-        expect(seperatorEl[1].children[0].nativeElement.textContent).toEqual(':');
+        expect(separatorEl[0]).toBeTruthy();
+        expect(separatorEl[1]).toBeTruthy();
+        expect(separatorEl[0].children[0].nativeElement.textContent).toEqual(':');
+        expect(separatorEl[1].children[0].nativeElement.textContent).toEqual(':');
         expect(secondPicker).toBeTruthy();
         expect(secondPicker.queryAll(By.css('span'))[0].nativeElement.textContent).toEqual('21');
     });

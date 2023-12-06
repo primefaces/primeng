@@ -4,7 +4,7 @@ import { InputSwitch } from './inputswitch';
  * @see {@link InputSwitch.onChange}
  * @group Events
  */
-export interface InputSwitchOnChangeEvent {
+export interface InputSwitchChangeEvent {
     /**
      * Browser event.
      */

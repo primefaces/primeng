@@ -1,6 +1,5 @@
 import sdk from '@stackblitz/sdk';
-import { getAngularApp } from './templates';
-import { Props } from './templates';
+import { Props, getAngularApp } from './templates';
 
 const useCodeSandbox = (props: Props) => {
     const { files } = getAngularApp(props);
@@ -38,7 +37,7 @@ const useStackBlitz = (props: Props) => {
         title: title,
         template: 'node',
         description:
-            'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.',
+            'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.',
         files: _files
     };
 
@@ -50,4 +49,4 @@ const useStackBlitz = (props: Props) => {
     sdk.openProject(project, options);
 };
 
-export { useStackBlitz, useCodeSandbox };
+export { useCodeSandbox, useStackBlitz };

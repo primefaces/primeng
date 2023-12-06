@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'templates-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -101,10 +100,6 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    `
 })
-export class TemplatesDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class TemplatesDoc {}

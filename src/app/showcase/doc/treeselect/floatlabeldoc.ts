@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,13 +15,9 @@ import { NodeService } from '../../service/nodeservice';
             </span>
         </div>
         <app-code [code]="code" selector="tree-select-floatlabel-demo"></app-code>
-    </section>`
+    `
 })
 export class FloatLabelDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     nodes!: any[];
 
     selectedNodes: any;
@@ -31,8 +27,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label md:w-20rem w-full">
+        basic: `<span class="p-float-label md:w-20rem w-full">
     <p-treeSelect containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
     <label for="treeselect">TreeSelect</label>
 </span>`,

@@ -40,7 +40,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteOnSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -611,10 +611,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
-     * @param {AutoCompleteOnSelectEvent} event - custom select event.
+     * @param {AutoCompleteSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<AutoCompleteOnSelectEvent> = new EventEmitter<AutoCompleteOnSelectEvent>();
+    @Output() onSelect: EventEmitter<AutoCompleteSelectEvent> = new EventEmitter<AutoCompleteSelectEvent>();
     /**
      * Callback to invoke when a selected value is removed.
      * @param {AutoCompleteUnselectEvent} event - custom unselect event.
@@ -848,6 +848,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges();
     }
 
     ngAfterViewChecked() {
@@ -1525,7 +1526,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         this.value = value;
         this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
-        console.log('a', value, this.modelValue());
         this.updateInputValue();
         this.cd.markForCheck();
     }

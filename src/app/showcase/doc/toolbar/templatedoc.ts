@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Content can also be placed using the <i>start</i>, <i>center</i> and <i>end</i> templates.</p>
         </app-docsectiontext>
         <div class="card">
@@ -27,13 +27,9 @@ import { Code } from '../../domain/code';
             </p-toolbar>
         </div>
         <app-code [code]="code" selector="toolbar-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -60,8 +56,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toolbar>
+        basic: `<p-toolbar>
     <ng-template pTemplate="start">
         <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
         <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
@@ -79,7 +74,7 @@ export class TemplateDoc implements OnInit {
 </p-toolbar>`,
 
         html: `
-<ng-template class="card">
+<div class="card">
     <p-toolbar>
         <ng-template pTemplate="start">
             <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>

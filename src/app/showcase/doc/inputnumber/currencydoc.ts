@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'currency-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Currency formatting is specified by setting the <i>mode</i> option to currency and <i>currency</i> property. In addition <i>currencyDisplay</i> option allows how the currency is displayed, valid values are "symbol" (default) or
                 "code".
@@ -29,13 +29,9 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="input-number-currency-demo"></app-code>
-    </section>`
+    `
 })
 export class CurrencyDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value1: number = 1500;
 
     value2: number = 2500;
@@ -45,8 +41,7 @@ export class CurrencyDoc {
     value4: number = 5002;
 
     code: Code = {
-        basic: `
-<p-inputNumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US"> </p-inputNumber>
+        basic: `<p-inputNumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value2" mode="currency" inputId="currency-germany" currency="EUR" locale="de-DE"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value3" mode="currency" inputId="currency-india" currency="INR" currencyDisplay="code" locale="en-IN"> </p-inputNumber>
 <p-inputNumber [(ngModel)]="value4" mode="currency" inputId="currency-japan" currency="JPY" locale="jp-JP"> </p-inputNumber>`,

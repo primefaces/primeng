@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'messages-inline-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p><i>p-message</i> component is used to display inline messages mostly within forms.</p>
         </app-docsectiontext>
         <div class="card">
@@ -32,16 +32,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="messages-inline-demo"></app-code>
-    </section>`
+    `
 })
 export class InlineDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div class="flex justify-content-center gap-2">
+        basic: `<div class="flex justify-content-center gap-2">
     <p-message severity="info" text="Message Content"></p-message>
     <p-message severity="success" text="Message Content"></p-message>  
     <p-message severity="warn" text="Message Content"></p-message>  

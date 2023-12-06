@@ -1,10 +1,40 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { StyleClassModule } from 'primeng/styleclass';
 import { MenuItem } from './app.menu.component';
 
 @Component({
     selector: '[app-menuitem]',
-    templateUrl: './app.menuitem.component.html'
+    template: `
+        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
+            <div class="menu-icon">
+                <i [ngClass]="item.icon"></i>
+            </div>
+            <span>{{ item.name }}</span>
+            <i class="menu-toggle-icon pi pi-angle-down"></i>
+        </button>
+        <a *ngIf="item.href" [href]="item.href" target="_blank" rel="noopener noreferrer">
+            <div *ngIf="item.icon && root" class="menu-icon">
+                <i [ngClass]="item.icon"></i>
+            </div>
+            {{ item.name }}
+        </a>
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
+            <div *ngIf="item.icon && root" class="menu-icon">
+                <i [ngClass]="item.icon"></i>
+            </div>
+            {{ item.name }}
+        </a>
+        <span *ngIf="!root && item.children" class="menu-child-category">{{ item.name }}</span>
+        <div *ngIf="item.children" class="overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+            <ol>
+                <li *ngFor="let child of item.children" app-menuitem [root]="false" [item]="child"></li>
+            </ol>
+        </div>
+    `,
+    standalone: true,
+    imports: [CommonModule, StyleClassModule, RouterModule]
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;

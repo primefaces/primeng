@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'list-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample List implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
@@ -50,16 +50,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-list-demo"></app-code>
-    </section>`
+    `
 })
 export class ListDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div class="border-round border-1 surface-border p-4 surface-card">
+        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
     <ul class="m-0 p-0 list-none">
         <li class="mb-3">
             <div class="flex">
