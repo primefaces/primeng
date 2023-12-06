@@ -17,7 +17,8 @@
 - Component: Multiselect Component Close Button Accessibility Issues - Close Button is empty + Screen Reader reads 'Unlabeled button' [\#13859](https://github.com/primefaces/primeng/issues/13859)
 - p-dropdown: REGRESSION a value of null or '' was previously treated as valid dropdown values, now it looks like they are treated as undefined [\#14223](https://github.com/primefaces/primeng/issues/14223)
 - AutoComplete: Change detection issue in dialog component [\#14262](https://github.com/primefaces/primeng/issues/14262)
-- [PrimeNG] PrimeNG table is not honoring the sort column and sort order specified when groupRowsBy is added. [\#13773](https://github.com/primefaces/primeng/issues/13773)
+- PrimeNG table is not honoring the sort column and sort order specified when groupRowsBy is added. [\#13773](https://github.com/primefaces/primeng/issues/13773)
+- Menu: Accessibility rule F85. Lost focus on TAB [\#14246](https://github.com/primefaces/primeng/issues/14246)
 
 ## [17.0.0-rc.1](https://github.com/primefaces/primeng/tree/17.0.0-rc.1) (2023-11-29)
 
