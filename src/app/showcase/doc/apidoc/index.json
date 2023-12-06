@@ -8808,6 +8808,13 @@
                             "description": "Style class of the mask."
                         },
                         {
+                            "name": "maskStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style of the mask."
+                        },
+                        {
                             "name": "showHeader",
                             "optional": false,
                             "readonly": false,

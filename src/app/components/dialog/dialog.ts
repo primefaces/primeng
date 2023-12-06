@@ -48,6 +48,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         <div
             *ngIf="maskVisible"
             [class]="maskStyleClass"
+            [style]="maskStyle"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
@@ -247,6 +248,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() maskStyleClass: string | undefined;
+     /**
+     * Style of the mask.
+     * @group Props
+     */
+     @Input() maskStyle: string | undefined;
     /**
      * Whether to show the header or not.
      * @group Props
