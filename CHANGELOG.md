@@ -1,4 +1,23 @@
 # Changelog
+## [17.0.0](https://github.com/primefaces/primeng/tree/17.0.0) (2023-12-06)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0-rc.1...17.0.0)
+
+**Implemented New Features and Enhancements:**
+- Checkbox: Add blur event [\#13800](https://github.com/primefaces/primeng/issues/13800)
+
+**Fixed bugs:**
+- Calendar | Today doesn't receive focus [\#14256](https://github.com/primefaces/primeng/issues/14256)
+- pMultiSelect: The filter isn't working as it did before, specifically in terms of filtering by label [\#14194](https://github.com/primefaces/primeng/issues/14194)
+- EditorModule doesn't support SSR [\#8817](https://github.com/primefaces/primeng/issues/8817)
+- Component: Button styleClass [\#13963](https://github.com/primefaces/primeng/issues/13963)
+- TreeTable: treeTableToggler missing aria-label [\#14271](https://github.com/primefaces/primeng/issues/14271)
+- p-dropdown: when filtering, placeholder is displayed even if there is a selected option [\#14282](https://github.com/primefaces/primeng/issues/14282)
+- Table: p-columnFilter missing aria-label [\#14272](https://github.com/primefaces/primeng/issues/14272)
+- Component: Multiselect Component Close Button Accessibility Issues - Close Button is empty + Screen Reader reads 'Unlabeled button' [\#13859](https://github.com/primefaces/primeng/issues/13859)
+- p-dropdown: REGRESSION a value of null or '' was previously treated as valid dropdown values, now it looks like they are treated as undefined [\#14223](https://github.com/primefaces/primeng/issues/14223)
+- AutoComplete: Change detection issue in dialog component [\#14262](https://github.com/primefaces/primeng/issues/14262)
+- [PrimeNG] PrimeNG table is not honoring the sort column and sort order specified when groupRowsBy is added. [\#13773](https://github.com/primefaces/primeng/issues/13773)
 
 ## [17.0.0-rc.1](https://github.com/primefaces/primeng/tree/17.0.0-rc.1) (2023-11-29)
 
