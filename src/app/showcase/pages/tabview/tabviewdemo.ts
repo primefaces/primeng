@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DisabledDoc } from '../../doc/tabview/disableddoc';
 import { BasicDoc } from '../../doc/tabview/basicdoc';
+import { DynamicDoc } from '../../doc/tabview/dynamicdoc';
 import { ControlledDoc } from '../../doc/tabview/controlleddoc';
 import { ImportDoc } from '../../doc/tabview/importdoc';
 import { TemplateDoc } from '../../doc/tabview/customtemplatedoc';
@@ -24,6 +25,11 @@ export class TabViewDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'dynamic',
+            label: 'Dynamic',
+            component: DynamicDoc
         },
         {
             id: 'controlled',
