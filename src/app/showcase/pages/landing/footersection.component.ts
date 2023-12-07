@@ -65,24 +65,6 @@ import { RouterModule } from '@angular/router';
                             </li>
                         </ul>
                     </div>
-                    <div class="w-6 lg:w-3 flex">
-                        <ul class="list-none p-0 m-0">
-                            <li class="font-bold mt-5 lg:mt-0 mb-5">Theming</li>
-                            <li class="mb-4">
-                                <a [routerLink]="['theming']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Guide</a>
-                                </a>
-                            </li>
-                            <li class="mb-4">
-                                <a href="https://www.primefaces.org/designer/primeng" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Designer</a>
-                            </li>
-                            <li class="mb-4">
-                                <a [routerLink]="['colors']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Colors</a>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
 
                 <hr class="section-divider mt-8" />

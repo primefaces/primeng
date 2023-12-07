@@ -21,7 +21,6 @@ import { CustomerService } from '../../service/customerservice';
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
-                <a type="button" class="font-medium p-link linkbox mt-4" href="https://designer.primeng.org" target="_blank">more...</a>
             </div>
             <div
                 class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
