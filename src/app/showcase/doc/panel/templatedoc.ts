@@ -15,7 +15,6 @@ import { Code } from '../../domain/code';
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
-
                 <ng-template pTemplate="footer">
                     <div class="flex flex-wrap align-items-center justify-content-between gap-3">
                         <div class="flex align-items-center gap-2">
