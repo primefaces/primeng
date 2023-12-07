@@ -7874,7 +7874,11 @@
                     {
                         "parent": "confirmdialog",
                         "name": "message",
-                        "parameters": [],
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
                         "description": "Custom template of message."
                     },
                     {
@@ -7894,6 +7898,16 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmdialog",
+                        "name": "headless",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Headless template."
                     }
                 ]
             }
