@@ -16,26 +16,23 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="caption"> FileViewer </ng-template>
+                <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th *ngFor="let col of columns">
                             {{ col.header }}
                         </th>
-                        <th style="width: 10rem">
-                            <p-button icon="pi pi-cog"></p-button>
-                        </th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                     <tr [ttRow]="rowNode">
-                        <td *ngFor="let col of columns; let i = index">
+                        <td *ngFor="let col of columns; let i = index; let last = last">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
-                        </td>
-                        <td>
-                            <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
-                            <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+                            <ng-container *ngIf="last">
+                                <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
+                                <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                            </ng-container>
                         </td>
                     </tr>
                 </ng-template>
@@ -61,65 +58,30 @@ export class TemplateDoc implements OnInit {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
+            { field: '', header: '' }
         ];
     }
 
     code: Code = {
-        basic: `<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="caption"> FileViewer </ng-template>
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-            <th style="width: 10rem">
-                <p-button icon="pi pi-cog"></p-button>
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                {{ rowData[col.field] }}
-            </td>
-            <td>
-                <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
-                <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="summary">
-        <div style="text-align:left">
-            <p-button icon="pi pi-refresh" label="Reload"></p-button>
-        </div>
-    </ng-template>
-</p-treeTable>`,
-
-        html: `
-<div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-        <ng-template pTemplate="caption"> FileViewer </ng-template>
+        basic: `<p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
                     {{ col.header }}
                 </th>
-                <th style="width: 10rem">
-                    <p-button icon="pi pi-cog"></p-button>
-                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
-                <td *ngFor="let col of columns; let i = index">
+                <td *ngFor="let col of columns; let i = index; let last = last">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
-                </td>
-                <td>
-                    <p-button icon="pi pi-search" styleClass="p-button-success" [style]="{ 'margin-right': '.5em' }"></p-button>
-                    <p-button icon="pi pi-pencil" styleClass="p-button-warning"></p-button>
+                    <ng-container *ngIf="last">
+                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
+                        <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                    </ng-container>
                 </td>
             </tr>
         </ng-template>
@@ -128,6 +90,35 @@ export class TemplateDoc implements OnInit {
                 <p-button icon="pi pi-refresh" label="Reload"></p-button>
             </div>
         </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+    <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="caption"><div class="text-xl font-bold">File Viewer</div> </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns">
+                {{ col.header }}
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+        <tr [ttRow]="rowNode">
+            <td *ngFor="let col of columns; let i = index; let last = last">
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                {{ rowData[col.field] }}
+                <ng-container *ngIf="last">
+                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
+                    <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                </ng-container>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div style="text-align:left">
+            <p-button icon="pi pi-refresh" label="Reload"></p-button>
+        </div>
+    </ng-template>
     </p-treeTable>
 </div>`,
 
@@ -157,11 +148,12 @@ export class TreeTableTemplateDemo implements OnInit {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
+            { field: '', header: '' }
         ];
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }
