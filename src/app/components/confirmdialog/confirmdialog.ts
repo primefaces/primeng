@@ -74,7 +74,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     </ng-container>
                     <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
                     <ng-container *ngIf="messageTemplate">
-                        <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="messageTemplate ; context:{$implicit:confirmation}"></ng-template>
                     </ng-container>
                 </div>
                 <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
