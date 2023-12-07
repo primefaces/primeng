@@ -467,10 +467,6 @@
                     "routerLink": "/theming"
                 },
                 {
-                    "name": "Visual Editor",
-                    "href": "https://designer.primeng.org"
-                },
-                {
                     "name": "Colors",
                     "routerLink": "/colors"
                 },
