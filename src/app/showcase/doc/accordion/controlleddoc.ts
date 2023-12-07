@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
                 <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
                 <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
             </div>
-            <p-accordion [activeIndex]="activeIndex">
+            <p-accordion (ngModelChange)="activeIndex = $event" [activeIndex]="activeIndex">
                 <p-accordionTab header="Header I">
                     <p class="m-0">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -45,8 +45,8 @@ export class ControlledDoc {
     <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0"></p-button>
     <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
     <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
-                </div>
-<p-accordion [activeIndex]="activeIndex">
+            </div>
+<p-accordion (ngModelChange)="activeIndex = $event" [activeIndex]="activeIndex">
     <p-accordionTab header="Header I">
         <p class="m-0">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -72,8 +72,8 @@ export class ControlledDoc {
     <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0"></p-button>
     <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
     <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
-                </div>
-    <p-accordion [activeIndex]="activeIndex">
+            </div>
+<p-accordion (ngModelChange)="activeIndex = $event" [activeIndex]="activeIndex">
     <p-accordionTab header="Header I">
         <p class="m-0">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -92,7 +92,7 @@ export class ControlledDoc {
             qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
         </p>
     </p-accordionTab>
-    </p-accordion>
+</p-accordion>
 </div>`,
 
         typescript: `
