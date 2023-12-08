@@ -535,6 +535,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup'
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -636,6 +638,8 @@ ${serviceImports}
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,
+    InputGroupModule,
+    InputGroupAddonModule,
     ImageModule,
     KnobModule,
     ListboxModule,
