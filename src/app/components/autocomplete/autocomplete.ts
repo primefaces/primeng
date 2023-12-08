@@ -1418,6 +1418,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     removeOption(event, index) {
+        event.stopPropagation();
+
         const removedOption = this.modelValue()[index];
         const value = this.modelValue()
             .filter((_, i) => i !== index)
