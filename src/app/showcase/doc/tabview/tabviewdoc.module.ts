@@ -13,12 +13,13 @@ import { TemplateDoc } from './customtemplatedoc';
 import { ImportDoc } from './importdoc';
 import { ClosableDoc } from './closabledoc';
 import { ScrollableDoc } from './scrollabledoc';
+import { LazyDoc } from './lazydoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TabViewModule, RouterModule, ButtonModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, ControlledDoc, DynamicDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, ControlledDoc, DynamicDoc, DisabledDoc, TemplateDoc, ClosableDoc, ScrollableDoc, LazyDoc, StyleDoc, AccessibilityDoc]
 })
 export class TabViewDocModule {}
