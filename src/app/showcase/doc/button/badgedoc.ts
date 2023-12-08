@@ -7,9 +7,9 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-button label="Emails" badge="8"></p-button>
-            <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
+        <div class="card flex justify-content-center flex-wrap gap-3">
+            <p-button label="Emails" badge="8" styleClass="m-0"></p-button>
+            <p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" styleClass="m-0" outlined="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
     `
@@ -17,12 +17,11 @@ import { Code } from '../../domain/code';
 export class BadgeDoc {
     code: Code = {
         basic: `<p-button label="Emails" badge="8"></p-button>
-<p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
+<p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" outlined="true"></p-button>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center flex-wrap gap-3">
     <p-button label="Emails" badge="8"></p-button>
-    <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
+    <p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" outlined="true"></p-button>
 </div>`,
 
         typescript: `
