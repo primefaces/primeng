@@ -13,6 +13,7 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { MeterDoc } from './meterdoc';
+import { LocaleDoc } from './localedoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
@@ -21,6 +22,6 @@ import { ToggleMaskDoc } from './togglemaskdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, PasswordModule, FormsModule, ReactiveFormsModule, DividerModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MeterDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, MeterDoc,LocaleDoc, ToggleMaskDoc, TemplateDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class PasswordDocModule {}
