@@ -59,6 +59,11 @@ export class DropdownDemo {
             component: VirtualScrollDoc
         },
         {
+            id: 'lazyvirtualscroll',
+            label: 'Lazy Virtual Scroll',
+            component: VirtualScrollDoc
+        },
+        {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
