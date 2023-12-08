@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '../../doc/tristatecheckbox/basicdoc';
+import { InvalidDoc } from '../../doc/tristatecheckbox/invaliddoc';
 import { ImportDoc } from '../../doc/tristatecheckbox/importdoc';
 import { DisabledDoc } from '../../doc/tristatecheckbox/disableddoc';
 import { StyleDoc } from '../../doc/tristatecheckbox/styledoc';
@@ -20,6 +21,11 @@ export class TriStateCheckboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'reactive-forms',
