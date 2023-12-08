@@ -3,6 +3,7 @@ import { ReactiveFormsDoc } from '../../doc/knob/reactiveformsdoc';
 import { AccessibilityDoc } from '../../doc/knob/accessibilitydoc';
 import { BasicDoc } from '../../doc/knob/basicdoc';
 import { ColorDoc } from '../../doc/knob/colordoc';
+import { ReactiveDoc } from '../../doc/knob/reactivedoc';
 import { DisabledDoc } from '../../doc/knob/disableddoc';
 import { ImportDoc } from '../../doc/knob/importdoc';
 import { MinMaxDoc } from '../../doc/knob/minmaxdoc';
@@ -62,6 +63,11 @@ export class KnobDemo {
             id: 'color',
             label: 'Color',
             component: ColorDoc
+        },
+        {
+            id: 'reactive',
+            label: 'Reactive',
+            component: ReactiveDoc
         },
         {
             id: 'readonly',
