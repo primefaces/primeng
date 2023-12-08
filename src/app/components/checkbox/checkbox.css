@@ -26,5 +26,6 @@
 
     .p-checkbox-label {
         line-height: 1;
+        cursor: pointer;
     }
 }
