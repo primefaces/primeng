@@ -31,6 +31,7 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { TemplatesDoc } from './templatesdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { InvalidDoc } from './invaliddoc';
+import { DisabledDoc } from './disableddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -61,7 +62,8 @@ import { InvalidDoc } from './invaliddoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FloatLabelDoc,
-        InvalidDoc
+        InvalidDoc,
+        DisabledDoc
     ]
 })
 export class CalendarDocModule {}
