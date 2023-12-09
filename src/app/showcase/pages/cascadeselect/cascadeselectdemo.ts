@@ -7,6 +7,7 @@ import { InvalidDoc } from '../../doc/cascadeselect/invaliddoc';
 import { FloatLabelDoc } from '../../doc/cascadeselect/floatlabeldoc';
 import { StyleDoc } from '../../doc/cascadeselect/styledoc';
 import { TemplateDoc } from '../../doc/cascadeselect/templatedoc';
+import { DisabledDoc } from '../../doc/cascadeselect/disableddoc';
 
 @Component({
     templateUrl: './cascadeselectdemo.html'
@@ -42,6 +43,11 @@ export class CascadeSelectDemo {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'style',
