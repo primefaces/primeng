@@ -29,6 +29,8 @@ import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { FloatLabelDoc } from './floatlabeldoc';
+
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -57,7 +59,8 @@ import { TemplatesDoc } from './templatesdoc';
         MethodsDoc,
         TemplatesDoc,
         AccessibilityDoc,
-        ReactiveFormsDoc
+        ReactiveFormsDoc,
+        FloatLabelDoc
     ]
 })
 export class CalendarDocModule {}
