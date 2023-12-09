@@ -30,7 +30,7 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { TemplatesDoc } from './templatesdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
-
+import { InvalidDoc } from './invaliddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -60,7 +60,8 @@ import { FloatLabelDoc } from './floatlabeldoc';
         TemplatesDoc,
         AccessibilityDoc,
         ReactiveFormsDoc,
-        FloatLabelDoc
+        FloatLabelDoc,
+        InvalidDoc
     ]
 })
 export class CalendarDocModule {}

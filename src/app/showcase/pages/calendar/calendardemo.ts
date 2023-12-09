@@ -24,6 +24,7 @@ import { MethodsDoc } from '../../doc/calendar/methodsdoc';
 import { AccessibilityDoc } from '../../doc/calendar/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/calendar/reactiveformsdoc';
 import { FloatLabelDoc } from '../../doc/calendar/floatlabeldoc';
+import { InvalidDoc } from '../../doc/calendar/invaliddoc';
 @Component({
     templateUrl: './calendardemo.html'
 })
@@ -123,6 +124,11 @@ export class CalendarDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'style',
