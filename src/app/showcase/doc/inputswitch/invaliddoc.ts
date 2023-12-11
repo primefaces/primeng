@@ -19,8 +19,7 @@ export class InvalidDoc {
     code: Code = {
         basic: `<p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid"></p-inputSwitch>`,
 
-        html: ` 
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid"></p-inputSwitch>
 </div>`,
 
