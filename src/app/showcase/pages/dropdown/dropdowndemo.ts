@@ -12,6 +12,7 @@ import { StyleDoc } from '../../doc/dropdown/styledoc';
 import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/dropdown/reactiveformsdoc';
 import { LazyVirtualScrollDoc } from '../../doc/dropdown/lazyvirtualscrolldoc';
+import { InvalidDoc } from '../../doc/dropdown/invaliddoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -68,6 +69,11 @@ export class DropdownDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'floatlabel',
