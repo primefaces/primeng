@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
         <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex flex-column gap-3 align-items-center">
-            <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" styleClass="ng-invalid ng-dirty"></p-triStateCheckbox>
+            <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" class="ng-dirty ng-invalid"></p-triStateCheckbox>
             <label class="p-tristatecheckbox-label" for="tricheckbox">{{ value === null ? 'null' : value }}</label>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-invalid-demo"></app-code>
@@ -18,11 +18,11 @@ export class InvalidDoc {
     value: boolean | null = null;
 
     code: Code = {
-        basic: `<p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" styleClass="ng-invalid ng-dirty"></p-triStateCheckbox>
+        basic: `<p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" class="ng-dirty ng-invalid"></p-triStateCheckbox>
 <label class="p-tristatecheckbox-label" for="tricheckbox">{{ value === null ? 'null' : value }}</label>`,
 
         html: `<div class="card flex flex-column gap-3 align-items-center">
-    <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" styleClass="ng-invalid ng-dirty"></p-triStateCheckbox>
+    <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" class="ng-dirty ng-invalid"></p-triStateCheckbox>
     <label class="p-tristatecheckbox-label" for="tricheckbox">{{ value === null ? 'null' : value }}</label>
 </div>`,
 
