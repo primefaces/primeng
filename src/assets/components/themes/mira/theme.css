@@ -1140,6 +1140,7 @@
     background: #d8dee9;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 30px;
+    border: 1px solid transparent;
   }
   .p-inputswitch .p-inputswitch-slider:before {
     background: #5e81ac;
@@ -1170,7 +1171,7 @@
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
     background: #81a1c1;
   }
-  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
     border-color: #bf616a;
   }
   .p-inputtext {

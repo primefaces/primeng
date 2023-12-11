@@ -23,14 +23,14 @@ export class TriStateCheckboxDemo {
             component: BasicDoc
         },
         {
-            id: 'invalid',
-            label: 'Invalid',
-            component: InvalidDoc
-        },
-        {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'disabled',
