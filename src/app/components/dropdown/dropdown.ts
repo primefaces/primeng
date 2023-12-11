@@ -1711,7 +1711,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     applyFocus(): void {
         if (this.editable) DomHandler.findSingle(this.el.nativeElement, '.p-dropdown-label.p-inputtext').focus();
-        else DomHandler.findSingle(this.el.nativeElement, 'input[readonly]').focus();
+        else DomHandler.focus(this.focusInputViewChild?.nativeElement);
     }
     /**
      * Applies focus.
