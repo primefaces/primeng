@@ -865,6 +865,10 @@
     border-color: #212529;
   }
 
+  p-tristatecheckbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+    border-color: #e57373;
+  }
+
   .p-chips:not(.p-disabled):hover .p-chips-multiple-container {
     border-color: #FFE082;
   }
@@ -933,10 +937,6 @@
 
   .p-colorpicker-overlay-panel {
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
-  }
-
-  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
-    border-color: #e57373;
   }
 
   .p-dropdown {
@@ -1058,6 +1058,10 @@
   }
   .p-input-filled .p-dropdown:not(.p-disabled).p-focus .p-inputtext {
     background-color: transparent;
+  }
+
+  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    border-color: #e57373;
   }
 
   .p-inputgroup-addon {
@@ -1204,7 +1208,7 @@
     background: #FFD54F;
   }
 
-  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
     border-color: #e57373;
   }
 
