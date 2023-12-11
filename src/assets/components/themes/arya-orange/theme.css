@@ -829,6 +829,9 @@
   .p-checkbox-label {
     margin-left: 0.5rem;
   }
+  p-tristatecheckbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+    border-color: #ef9a9a;
+  }
   .p-chips:not(.p-disabled):hover .p-chips-multiple-container {
     border-color: #FFD54F;
   }
