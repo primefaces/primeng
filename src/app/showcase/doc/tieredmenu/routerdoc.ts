@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tieredMenu [model]="items">
-                <ng-template pTemplate="item" let-item let-hasSubMenu="hasSubMenu">
+                <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <ng-container *ngIf="item.route; else withoutRoute">
                         <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                             <span class="item.icon"></span>
@@ -23,14 +23,14 @@ import { Router } from '@angular/router';
                             <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
                                 <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                             </a>
                         </ng-container>
                         <ng-template #withoutUrl>
                             <a class="p-menuitem-link">
                                 <span [class]="item.icon"></span>
                                 <span class="ml-2">{{ item.label }}</span>
-                                <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                                <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                             </a>
                         </ng-template>
                     </ng-template>
@@ -51,12 +51,12 @@ export class RouterDoc implements OnInit {
                 icon: 'pi pi-palette',
                 items: [
                     {
-                        label: 'Styled',
+                        label: 'Theming',
                         route: '/theming'
                     },
                     {
-                        label: 'Unstyled',
-                        route: '/unstyled'
+                        label: 'Colors',
+                        route: '/colors'
                     }
                 ]
             },
@@ -86,7 +86,7 @@ export class RouterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tieredMenu [model]="items">
-        <ng-template pTemplate="item" let-item let-hasSubMenu="hasSubMenu">
+        <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                     <span class="item.icon"></span>
@@ -98,14 +98,14 @@ export class RouterDoc implements OnInit {
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>
@@ -114,7 +114,7 @@ export class RouterDoc implements OnInit {
 
         html: `<div class="card flex justify-content-center">
         <p-tieredMenu [model]="items">
-        <ng-template pTemplate="item" let-item let-hasSubMenu="hasSubMenu">
+        <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
                     <span class="item.icon"></span>
@@ -126,14 +126,14 @@ export class RouterDoc implements OnInit {
                     <a [href]="item.url" [target]="item.target" class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                     </a>
                 </ng-container>
                 <ng-template #withoutUrl>
                     <a class="p-menuitem-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
-                        <span *ngIf="hasSubMenu" class="pi pi-angle-right ml-auto"></span>
+                        <span *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></span>
                     </a>
                 </ng-template>
             </ng-template>
@@ -161,12 +161,12 @@ export class TieredMenuRouterDemo implements OnInit {
                 icon: 'pi pi-palette',
                 items: [
                     {
-                        label: 'Styled',
+                        label: 'Theming',
                         route: '/theming'
                     },
                     {
-                        label: 'Unstyled',
-                        route: '/unstyled'
+                        label: 'Colors',
+                        route: '/colors'
                     }
                 ]
             },
@@ -193,6 +193,7 @@ export class TieredMenuRouterDemo implements OnInit {
             }
         ];
     }
+
 
 }`
     };
