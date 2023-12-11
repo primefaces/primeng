@@ -11,6 +11,7 @@ import { FloatLabelDoc } from '../../doc/dropdown/floatlabeldoc';
 import { StyleDoc } from '../../doc/dropdown/styledoc';
 import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/dropdown/reactiveformsdoc';
+import { LazyVirtualScrollDoc } from '../../doc/dropdown/lazyvirtualscrolldoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -61,7 +62,7 @@ export class DropdownDemo {
         {
             id: 'lazyvirtualscroll',
             label: 'Lazy Virtual Scroll',
-            component: VirtualScrollDoc
+            component: LazyVirtualScrollDoc
         },
         {
             id: 'disabled',
