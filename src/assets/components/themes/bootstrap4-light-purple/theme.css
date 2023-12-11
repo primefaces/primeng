@@ -935,6 +935,10 @@
     box-shadow: none;
   }
 
+  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    border-color: #dc3545;
+  }
+
   .p-dropdown {
     background: #ffffff;
     border: 1px solid #ced4da;
