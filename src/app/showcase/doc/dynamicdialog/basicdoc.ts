@@ -30,15 +30,19 @@ export class BasicDoc implements OnDestroy {
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Select a Product',
-            width: '70%',
+            width: '50vw',
             contentStyle: { overflow: 'auto' },
             baseZIndex: 10000,
             maximizable: true
+            
         });
 
         this.ref.onClose.subscribe((product: Product) => {
+            const buttonType = product?.buttonType;
+            const summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: product.name };
+            
             if (product) {
-                this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
+                this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
             }
         });
 

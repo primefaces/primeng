@@ -203,6 +203,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config.header;
     }
 
+    get data() {
+        return this.config.data;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
