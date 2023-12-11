@@ -69,7 +69,7 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" [attr.data-pc-section]="'loadingIcon'" />
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
