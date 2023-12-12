@@ -32,18 +32,13 @@ export class BasicDoc implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
             maximizable: true
-            
         });
 
-        this.ref.onClose.subscribe((product: Product) => {
-            const buttonType = product?.buttonType;
-            const summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: product.name };
-            
-            if (product) {
-                this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
-            }
+        this.ref.onClose.subscribe((data: any) => {
+            const buttonType = data?.buttonType;
+            const summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };
+            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
         });
 
         this.ref.onMaximize.subscribe((value) => {

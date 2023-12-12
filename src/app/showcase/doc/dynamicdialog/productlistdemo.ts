@@ -30,19 +30,20 @@ import { InfoDemo } from './infodemo';
                     </td>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="footer">
-                <p-button type="button" label="Cancel" icon="pi pi-times" styleClass="mt-3" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" [autofocus]="true"></p-button>
-            </ng-template>
-        </p-table>`
+        </p-table>
+        <div class="flex w-full justify-content-end mt-3">
+            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
+        </div>`
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
 
-    ref: DynamicDialogRef | undefined;
+    instance: any;
 
-    constructor(private productService: ProductService, private dialogService: DialogService) {}
+    constructor(private productService: ProductService, private dialogService: DialogService, public ref: DynamicDialogRef) {}
 
     ngOnInit() {
+        this.instance = this.dialogService.dialogComponentRefMap.get(this.ref).instance;
         this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));
     }
 
@@ -60,8 +61,8 @@ export class ProductListDemo implements OnInit {
         });
     }
 
-    closeDialog(e) {
-        this.ref.close(e);
+    closeDialog(data) {
+        this.ref.close(data);
     }
 
     getSeverity(status: string) {
