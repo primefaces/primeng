@@ -138,6 +138,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [ngClass]="inputClass"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
+                        [attr.value]="inputValue()"
                         [attr.type]="type"
                         [attr.id]="inputId"
                         [autocomplete]="autocomplete"
