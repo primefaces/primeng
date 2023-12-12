@@ -32,6 +32,14 @@ export class DialogService {
 
         return dialogRef;
     }
+    /**
+     * Returns the dynamic dialog component instance.
+     * @param {ref} DynamicDialogRef - DynamicDialog instance.
+     * @group Method
+     */
+    public getInstance(ref: DynamicDialogRef) {
+        return this.dialogComponentRefMap.get(ref).instance;
+    }
 
     private appendDialogComponentToBody(config: DynamicDialogConfig) {
         const map = new WeakMap();

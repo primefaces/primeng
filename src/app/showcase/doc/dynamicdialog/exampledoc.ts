@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
@@ -35,12 +34,17 @@ export class ExampleDoc implements OnDestroy {
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
-            },
+            }
         });
 
         this.ref.onClose.subscribe((data: any) => {
-            const buttonType = data?.buttonType;
-            const summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };
+            let summary_and_detail;
+            if (data) {
+                const buttonType = data?.buttonType;
+                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };
+            } else {
+                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
+            }
             this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
         });
 

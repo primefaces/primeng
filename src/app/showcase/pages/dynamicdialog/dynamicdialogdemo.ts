@@ -6,7 +6,6 @@ import { ExampleDoc } from '../../doc/dynamicdialog/exampledoc';
 import { UsageDoc } from '../../doc/dynamicdialog/usagedoc';
 import { PassingDataDoc } from '../../doc/dynamicdialog/passingdatadoc';
 import { CloseDoc } from '../../doc/dynamicdialog/closedoc';
-import { ProductListDemoDoc } from '../../doc/dynamicdialog/productlistdemodoc';
 import { CustomizationDoc } from '../../doc/dynamicdialog/customizationdoc';
 
 @Component({
@@ -44,11 +43,6 @@ export class DynamicDialogDemo {
             label: 'Closing a Dialog',
             component: CloseDoc
         },
-        // {
-        //     id: 'productlistdemo',
-        //     label: 'ProductListDemo',
-        //     component: ProductListDemoDoc
-        // },
         {
             id: 'example',
             label: 'Example',

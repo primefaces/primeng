@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     template: `
@@ -16,16 +16,25 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 export class InfoDemo implements OnInit {
     totalProducts: number = 0;
 
-    constructor(public ref: DynamicDialogRef, private dialogService: DialogService) {}
+    instance: DynamicDialogComponent | undefined;
+
+    constructor(public ref: DynamicDialogRef, private dialogService: DialogService) {
+        this.instance = this.dialogService.getInstance(this.ref);
+    }
 
     ngOnInit() {
-        const instance = this.dialogService.dialogComponentRefMap.get(this.ref).instance;
-        if (instance && instance.data) {
-            this.totalProducts = instance.data['totalProducts'];
+        if (this.instance && this.instance.data) {
+            this.totalProducts = this.instance.data['totalProducts'];
         }
     }
 
     close() {
         this.ref.close();
+    }
+
+    ngOnDestroy() {
+        if (this.ref) {
+            this.ref.close();
+        }
     }
 }
