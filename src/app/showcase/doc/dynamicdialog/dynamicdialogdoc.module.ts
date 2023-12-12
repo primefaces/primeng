@@ -18,10 +18,11 @@ import { PassingDataDoc } from './passingdatadoc';
 import { CloseDoc } from './closedoc';
 import { ProductListDemoDoc } from './productlistdemodoc';
 import { TagModule } from 'primeng/tag';
+import { InfoDemo } from './infodemo';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, TagModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [OpenDoc, ImportDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc],
+    declarations: [OpenDoc, ImportDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, InfoDemo],
     exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}

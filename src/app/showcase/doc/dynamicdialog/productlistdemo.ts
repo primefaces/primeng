@@ -31,7 +31,7 @@ import { InfoDemo } from './infodemo';
                 </tr>
             </ng-template>
             <ng-template pTemplate="footer">
-                <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" [autofocus]="true"></p-button>
+                <p-button type="button" label="Cancel" icon="pi pi-times" styleClass="mt-3" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" [autofocus]="true"></p-button>
             </ng-template>
         </p-table>`
 })
@@ -54,7 +54,6 @@ export class ProductListDemo implements OnInit {
             header: 'Information',
             modal: true,
             dismissableMask: true,
-
             data: {
                 totalProducts: this.products ? this.products.length : 0
             }
