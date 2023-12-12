@@ -158,4 +158,9 @@ export class DynamicDialogConfig<T = any> {
      * @group Props
      */
     duplicate?: boolean;
+   /**
+     * Object literal to define widths per screen size.
+     * @group Props
+     */
+   breakpoints?: any;
 }

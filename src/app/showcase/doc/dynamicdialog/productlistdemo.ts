@@ -10,20 +10,22 @@ import { InfoDemo } from './infodemo';
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
-                    <th pSortableColumn="name">Name <p-sortIcon field="vin"></p-sortIcon></th>
+                <th pSortableColumn="code">Code</th>
+                    <th pSortableColumn="name">Name</th>
                     <th pSortableColumn="year">Image</th>
-                    <th pSortableColumn="price">Brand <p-sortIcon field="price"></p-sortIcon></th>
-                    <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                    <th pSortableColumn="price">Category </th>
+                    <th pSortableColumn="inventoryStatus">Quantity</th>
                     <th style="width:4em"></th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-product>
                 <tr>
+                <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
                     <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
-                    <td>{{ product.price }}</td>
+                    <td>{{ product.category}}</td>
                     <td>
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                       {{product.quantity}}
                     </td>
                     <td>
                         <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>

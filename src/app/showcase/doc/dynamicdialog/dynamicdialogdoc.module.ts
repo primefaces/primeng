@@ -12,17 +12,17 @@ import { OpenDoc } from './opendoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { ProductListDemo } from './productlistdemo';
-import { BasicDoc } from './basicdoc';
+import { ExampleDoc } from './exampledoc';
 import { UsageDoc } from './usagedoc';
 import { PassingDataDoc } from './passingdatadoc';
 import { CloseDoc } from './closedoc';
 import { ProductListDemoDoc } from './productlistdemodoc';
 import { TagModule } from 'primeng/tag';
 import { InfoDemo } from './infodemo';
-
+import { CustomizationDoc } from './customizationdoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, TagModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [OpenDoc, ImportDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, InfoDemo],
+    declarations: [OpenDoc, ImportDoc, StyleDoc, ExampleDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc, InfoDemo, CustomizationDoc],
     exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}
