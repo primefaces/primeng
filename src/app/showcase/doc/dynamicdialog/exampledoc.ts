@@ -141,47 +141,69 @@ export interface Product {
             path: 'src/app/demo/productlistdemo.ts',
             name: 'ProductListDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
-
+import { MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { InfoDemo } from './infodemo';
 @Component({
-    template: \` <p-table [value]="products" responsiveLayout="scroll" [paginator]="true" [rows]="5" [responsive]="true">
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="name">Name <p-sortIcon field="vin"></p-sortIcon></th>
-                <th pSortableColumn="year">Image</th>
-                <th pSortableColumn="price">Brand <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-                <th style="width:4em"></th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-            <tr>
-                <td>{{ product.name }}</td>
-                <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                </td>
-                <td>
-                    <button type="button" pButton icon="pi pi-plus" (click)="selectProduct(product)"></button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>\`
+    providers: [DialogService, MessageService],
+    template: \` <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="code">Code</th>
+                    <th pSortableColumn="name">Name</th>
+                    <th pSortableColumn="year">Image</th>
+                    <th pSortableColumn="price">Category</th>
+                    <th pSortableColumn="inventoryStatus">Quantity</th>
+                    <th style="width:4em"></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
+                    <td>{{ product.category }}</td>
+                    <td>
+                        {{ product.quantity }}
+                    </td>
+                    <td>
+                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <div class="flex w-full justify-content-end mt-3">
+            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
+        </div>\`
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
 
-    constructor(private productService: ProductService, public ref: DynamicDialogRef) {}
+    constructor(private productService: ProductService, private dialogService: DialogService, private ref: DynamicDialogRef) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((products) => (this.products = products));
+        this.productService.getProductsSmall().then((products) => (this.products = products.slice(0, 5)));
     }
 
     selectProduct(product: Product) {
         this.ref.close(product);
+    }
+
+    showInfo() {
+        this.dialogService.open(InfoDemo, {
+            header: 'Information',
+            modal: true,
+            dismissableMask: true,
+            data: {
+                totalProducts: this.products ? this.products.length : 0
+            }
+        });
+    }
+
+    closeDialog(data) {
+        this.ref.close(data);
     }
 
     getSeverity(status: string) {
@@ -195,6 +217,28 @@ export class ProductListDemo implements OnInit {
         }
     }
 }`
+        },
+        {
+            path: 'src/app/demo/infodemo.ts',
+            name: 'InfoDemo',
+            content: `import { Component} from '@angular/core';
+import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
+@Component({
+    providers: [DialogService, MessageService],
+    template: \`<div>
+    <p>
+        There are <strong></strong> products in total in this list.
+    </p>
+    <div class="flex justify-content-end">
+        <p-button type="button" label="Close" ></p-button>
+    </div>
+</div>\`
+})
+export class InfoDemo {
+   
+}`
         }
+        
     ];
 }
