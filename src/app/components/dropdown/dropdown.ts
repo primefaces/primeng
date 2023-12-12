@@ -933,6 +933,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
+                this.cd.markForCheck()
             }
         });
     }
