@@ -7,7 +7,7 @@
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true
     },
-    "files": ["src/main.ts", "src/main.server.ts", "server.ts"],
+    "files": ["src/main.ts", "src/main.server.ts", "server.ts", "src/polyfills.ts"],
     "include": ["src/**/*.d.ts"],
     "exclude": ["node_modules", "**/node_modules/*"]
 }
