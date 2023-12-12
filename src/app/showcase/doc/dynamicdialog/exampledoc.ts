@@ -6,7 +6,7 @@ import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
-    selector: 'dynamic-dialog-basic-demo',
+    selector: 'dynamic-dialog-example-demo',
     template: `
         <app-docsectiontext>
             <p>
@@ -16,13 +16,13 @@ import { ProductListDemo } from './productlistdemo';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>
+            <p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>
         </div>
-        <app-code [code]="code" selector="dynamic-dialog-basic-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
+        <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
     providers: [DialogService, MessageService]
 })
-export class BasicDoc implements OnDestroy {
+export class ExampleDoc implements OnDestroy {
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;
@@ -32,7 +32,10 @@ export class BasicDoc implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
-            maximizable: true
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            },
         });
 
         this.ref.onClose.subscribe((data: any) => {
@@ -54,12 +57,12 @@ export class BasicDoc implements OnDestroy {
 
     code: Code = {
         basic: `<p-toast></p-toast>
-<p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>`,
+<p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-button (click)="show()" icon="pi pi-info-circle" label="Show"></p-button>
+    <p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>
 </div>`,
 
         typescript: `
@@ -70,11 +73,11 @@ import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
-    selector: 'dynamic-dialog-basic-demo',
-    templateUrl: './dynamic-dialog-basic-demo.html',
+    selector: 'dynamic-dialog-example-demo',
+    templateUrl: './dynamic-dialog-example-demo.html',
     providers: [DialogService, MessageService]
 })
-export class DynamicDialogBasicDemo implements OnDestroy {
+export class DynamicDialogExampleDemo implements OnDestroy {
     
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 

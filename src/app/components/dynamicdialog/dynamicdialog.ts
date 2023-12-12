@@ -18,7 +18,8 @@ import {
     Type,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    Input
 } from '@angular/core';
 import { PrimeNGConfig, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -123,6 +124,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     ariaLabelledBy: string | undefined;
 
+    id: string = UniqueComponentId();
+
+    styleElement: any;
+
     @ViewChild(DynamicDialogContent) insertionPoint: Nullable<DynamicDialogContent>;
 
     @ViewChild('mask') maskViewChild: Nullable<ElementRef>;
@@ -207,6 +212,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config.data;
     }
 
+    get breakpoints() {
+        return this.config.breakpoints;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -218,6 +227,39 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public primeNGConfig: PrimeNGConfig,
         @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
     ) {}
+    
+    ngOnInit(){
+        if (this.breakpoints) {
+            this.createStyle();
+        }
+    }
+    createStyle() {
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.styleElement) {
+                this.styleElement = this.renderer.createElement('style');
+                this.styleElement.type = 'text/css';
+                this.renderer.appendChild(this.document.head, this.styleElement);
+                let innerHTML = '';
+                for (let breakpoint in this.breakpoints) {
+                    innerHTML += `
+                        @media screen and (max-width: ${breakpoint}) {
+                            .p-dialog[${this.id}]:not(.p-dialog-maximized) {
+                                width: ${this.breakpoints[breakpoint]} !important;
+                            }
+                        }
+                    `;
+                }
+
+                this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+            }
+        }
+    }
+    destroyStyle() {
+        if (this.styleElement) {
+            this.renderer.removeChild(this.document.head, this.styleElement);
+            this.styleElement = null;
+        }
+    }
 
     ngAfterViewInit() {
         this.loadChildComponent(this.childComponentType!);
@@ -253,6 +295,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                     this.unbindGlobalListeners();
                 }
                 this.bindGlobalListeners();
+                this.container?.setAttribute(this.id, '');
 
                 if (this.config.modal !== false) {
                     this.enableModality();
@@ -641,6 +684,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         if (this.componentRef) {
             this.componentRef.destroy();
         }
+        this.destroyStyle();
     }
 }
 
