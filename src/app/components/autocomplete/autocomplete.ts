@@ -8,6 +8,7 @@ import {
     Component,
     computed,
     ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -734,7 +735,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focused: boolean = false;
 
-    filled: number | boolean | undefined;
+    _filled: boolean;
+
+    get filled() {
+        return this._filled;
+    }
+    set filled(value: any) {
+        this._filled = value;
+    }
 
     loading: Nullable<boolean>;
 
@@ -758,7 +766,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         if (modelValue) {
             if (typeof modelValue === 'object') {
                 const label = this.getOptionLabel(modelValue);
@@ -787,7 +794,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             'p-focus': this.focused,
             'p-autocomplete-dd': this.dropdown,
             'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-filled': this.modelValue() || ObjectUtils.isNotEmpty(this.inputValue),
             'p-inputwrapper-focus': this.focused,
             'p-overlay-open': this.overlayVisible
         };
@@ -844,7 +850,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return !this.virtualScroll;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+        effect(() => {
+            this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+        });
+    }
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
@@ -1517,7 +1527,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
         this.updateInputValue();
         this.cd.markForCheck();
