@@ -5028,8 +5028,8 @@ export class ReorderableRow implements AfterViewInit {
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [attr.aria-label]="applyButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [attr.aria-label]="applyButtonLabel" pRipple [label]="applyButtonLabel"></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
