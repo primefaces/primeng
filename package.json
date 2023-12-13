@@ -2,6 +2,7 @@
     "name": "primeng",
     "version": "17.1.0",
     "license": "SEE LICENSE IN LICENSE.md",
+    "type": "module",
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
