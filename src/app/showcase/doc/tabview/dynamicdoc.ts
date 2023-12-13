@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'dynamic-doc',
     template: `
         <app-docsectiontext>
-        <p>Tabs can be generated dynamically using the standard <i>ngFor</i> directive.</p>
+            <p>Tabs can be generated dynamically using the standard <i>ngFor</i> directive.</p>
         </app-docsectiontext>
         <div class="card">
             <p-tabView>
@@ -20,8 +20,7 @@ import { Code } from '../../domain/code';
     `
 })
 export class DynamicDoc implements OnInit {
-
-    tabs: { title: string, content: string }[] = [];
+    tabs: { title: string; content: string }[] = [];
 
     ngOnInit() {
         this.tabs = [

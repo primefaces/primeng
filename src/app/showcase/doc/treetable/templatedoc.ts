@@ -154,6 +154,6 @@ export class TreeTableTemplateDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService'],
+        service: ['NodeService']
     };
 }

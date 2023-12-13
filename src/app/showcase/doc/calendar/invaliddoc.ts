@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'calendar-invalid-demo',
     template: `
         <app-docsectiontext>
-        <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-calendar [(ngModel)]="date" class="ng-invalid ng-dirty"></p-calendar>

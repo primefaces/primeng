@@ -10,7 +10,7 @@ interface City {
     selector: 'dropdown-invalid-demo',
     template: `
         <app-docsectiontext>
-        <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid"></p-dropdown>

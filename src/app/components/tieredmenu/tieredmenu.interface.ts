@@ -13,11 +13,11 @@ export interface TieredMenuTemplates {
          * Item instance.
          */
         $implicit: any;
-         /**
+        /**
          * Submenu control of the item.
          */
-         hasSubmenu: boolean;
-    }): TemplateRef<{ $implicit: any; hasSubmenu:boolean }>;
+        hasSubmenu: boolean;
+    }): TemplateRef<{ $implicit: any; hasSubmenu: boolean }>;
     /**
      * Custom template of submenuicon.
      */

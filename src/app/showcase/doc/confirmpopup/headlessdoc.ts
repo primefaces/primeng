@@ -6,7 +6,7 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
     selector: 'confirm-popup-headless-demo',
     template: `
         <app-docsectiontext>
-        <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>

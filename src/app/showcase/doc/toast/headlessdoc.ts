@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'headless-doc',
     template: `
         <app-docsectiontext>
-        <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
+            <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast position="top-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
@@ -62,7 +62,7 @@ export class HeadlessDoc {
                     this.progress = 100;
                     clearInterval(this.interval);
                 }
-                this.cdr.markForCheck()
+                this.cdr.markForCheck();
             }, 1000);
         }
     }

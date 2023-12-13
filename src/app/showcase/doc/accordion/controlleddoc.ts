@@ -40,8 +40,8 @@ import { Code } from '../../domain/code';
 export class ControlledDoc {
     activeIndex: number | undefined = 0;
 
-    activeIndexChange(index : number){
-        this.activeIndex = index
+    activeIndexChange(index: number) {
+        this.activeIndex = index;
     }
 
     code: Code = {

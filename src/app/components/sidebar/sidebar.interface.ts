@@ -21,8 +21,8 @@ export interface SidebarTemplates {
      * Custom template of closeicon.
      */
     closeicon(): TemplateRef<any>;
-   /**
-    * Headless template.
-    */
+    /**
+     * Headless template.
+     */
     headless(): TemplateRef<any>;
 }

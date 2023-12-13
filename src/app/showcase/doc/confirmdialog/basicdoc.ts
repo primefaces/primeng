@@ -27,9 +27,9 @@ export class BasicDoc {
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
             icon: 'pi pi-exclamation-triangle',
-            acceptIcon:"none",
-            rejectIcon:"none",
-            rejectButtonStyleClass:"p-button-text",
+            acceptIcon: 'none',
+            rejectIcon: 'none',
+            rejectButtonStyleClass: 'p-button-text',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
@@ -45,10 +45,10 @@ export class BasicDoc {
             message: 'Do you want to delete this record?',
             header: 'Delete Confirmation',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass:"p-button-danger p-button-text",
-            rejectButtonStyleClass:"p-button-text p-button-text",
-            acceptIcon:"none",
-            rejectIcon:"none",
+            acceptButtonStyleClass: 'p-button-danger p-button-text',
+            rejectButtonStyleClass: 'p-button-text p-button-text',
+            acceptIcon: 'none',
+            rejectIcon: 'none',
 
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });

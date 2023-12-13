@@ -5,7 +5,10 @@ import { Code } from '../../domain/code';
     selector: 'lazy-doc',
     template: `
         <app-docsectiontext>
-            <p>Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy loaded tabpanel contents are cached by default so that upon reselection, they are not created again. You may use cache property on TabPanel to configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with <i>pTemplate</i>="content" in it.</p>
+            <p>
+                Lazy loading helps initial load performance by only initializing the active tab, inactive tabs are not initialized until they get selected. A lazy loaded tabpanel contents are cached by default so that upon reselection, they are not
+                created again. You may use cache property on TabPanel to configure this behavior. A TabPanel is specified as lazy when there is a ngTemplate with <i>pTemplate</i>="content" in it.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-tabView>

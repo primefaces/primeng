@@ -10,8 +10,8 @@ import { Code } from '../../domain/code';
         <div class="card flex flex-column align-items-center gap-2">
             <p-knob [(ngModel)]="value" size="150" readonly="true"></p-knob>
             <div class="flex gap-2">
-                <p-button icon="pi pi-plus" (click)="value = value+1" [disabled]="value >= 100" />
-                <p-button icon="pi pi-minus" (click)="value = value-1" [disabled]="value <= 0" />
+                <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
+                <p-button icon="pi pi-minus" (click)="value = value - 1" [disabled]="value <= 0" />
             </div>
         </div>
         <app-code [code]="code" selector="knob-reactive-demo"></app-code>

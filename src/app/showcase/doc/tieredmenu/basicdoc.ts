@@ -86,7 +86,7 @@ export class BasicDoc implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 
     code: Code = {

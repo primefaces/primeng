@@ -42,9 +42,9 @@ export class PositionDoc {
             message: 'Are you sure you want to proceed?',
             header: 'Confirmation',
             icon: 'pi pi-info-circle',
-            acceptIcon:"none",
-            rejectIcon:"none",
-            rejectButtonStyleClass:"p-button-text",
+            acceptIcon: 'none',
+            rejectIcon: 'none',
+            rejectButtonStyleClass: 'p-button-text',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
             },

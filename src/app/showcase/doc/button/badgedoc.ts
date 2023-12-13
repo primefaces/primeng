@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
             <p-button label="Emails" badge="8" styleClass="m-0"></p-button>
-            <p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" styleClass="m-0" outlined="true"></p-button>
+            <p-button label="Messages" icon="pi pi-users" badge="8" badgeClass="p-badge-danger" styleClass="m-0" outlined="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
     `

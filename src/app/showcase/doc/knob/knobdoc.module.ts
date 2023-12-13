@@ -22,7 +22,7 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { ReactiveDoc } from './reactivedoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule,ButtonModule, AppCodeModule, AppDocModule, KnobModule],
+    imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, ButtonModule, AppCodeModule, AppDocModule, KnobModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MinMaxDoc, StepDoc, TemplateDoc, StrokeDoc, SizeDoc, ColorDoc, ReadonlyDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, ReactiveDoc]
 })

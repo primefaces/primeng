@@ -5,10 +5,10 @@ import { Code } from '../../domain/code';
     selector: 'locale-doc',
     template: `
         <app-docsectiontext>
-        <p>
-            Labels are translated at component level by <i>promptLabel</i>, <i>weakLabel</i>, <i>mediumLabel</i> and <i>strongLabel</i> properties. In order to apply global translations for all Password components in the application, refer to the
-            <a href="/configuration/#locale">locale</a>
-        </p>
+            <p>
+                Labels are translated at component level by <i>promptLabel</i>, <i>weakLabel</i>, <i>mediumLabel</i> and <i>strongLabel</i> properties. In order to apply global translations for all Password components in the application, refer to the
+                <a href="/configuration/#locale">locale</a>
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password"></p-password>

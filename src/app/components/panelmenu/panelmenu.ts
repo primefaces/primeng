@@ -857,7 +857,6 @@ export class PanelMenu implements AfterContentInit {
      */
     @Input() set model(value: MenuItem[] | undefined) {
         this._model = value;
-        
     }
     get model(): MenuItem[] | undefined {
         return this._model;
@@ -905,12 +904,8 @@ export class PanelMenu implements AfterContentInit {
 
     activeItem = signal<any>(null);
 
-   
-
     _model: MenuItem[] | undefined;
 
-   
-    
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
     }
@@ -1123,4 +1118,3 @@ export class PanelMenu implements AfterContentInit {
     declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
 })
 export class PanelMenuModule {}
-

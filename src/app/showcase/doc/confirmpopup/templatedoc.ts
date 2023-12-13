@@ -6,7 +6,7 @@ import { Code } from '../../domain/code';
     selector: 'confirm-popup-template-demo',
     template: `
         <app-docsectiontext>
-         <p>Content section can be customized using <i>content</i> template.</p>
+            <p>Content section can be customized using <i>content</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
@@ -44,7 +44,6 @@ export class TemplateDoc {
             }
         });
     }
-
 
     code: Code = {
         basic: `<p-toast></p-toast>

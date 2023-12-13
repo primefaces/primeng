@@ -5,10 +5,19 @@ import { Code } from '../../domain/code';
     selector: 'cascade-select-invalid-demo',
     template: `
         <app-docsectiontext>
-        <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-cascadeSelect class="ng-invalid ng-dirty" [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+            <p-cascadeSelect
+                class="ng-invalid ng-dirty"
+                [(ngModel)]="selectedCity"
+                [options]="countries"
+                optionLabel="cname"
+                optionGroupLabel="name"
+                [optionGroupChildren]="['states', 'cities']"
+                [style]="{ minWidth: '14rem' }"
+                placeholder="Select a City"
+            ></p-cascadeSelect>
         </div>
         <app-code [code]="code" selector="cascade-select-invalid-demo"></app-code>
     `
