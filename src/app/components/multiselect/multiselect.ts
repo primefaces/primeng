@@ -1788,7 +1788,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        if (this.selectAll !== null) {
+        if (this.selectAll != null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
