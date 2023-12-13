@@ -90,16 +90,23 @@ export class DynamicDialogExampleDemo implements OnDestroy {
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Select a Product',
-            width: '70%',
+            width: '50vw',
             contentStyle: { overflow: 'auto' },
-            baseZIndex: 10000,
-            maximizable: true
+            breakpoints: {
+                '960px': '75vw',
+                '640px': '90vw'
+            }
         });
 
-        this.ref.onClose.subscribe((product: Product) => {
-            if (product) {
-                this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: product.name });
+        this.ref.onClose.subscribe((data: any) => {
+            let summary_and_detail;
+            if (data) {
+                const buttonType = data?.buttonType;
+                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: \`Pressed '\${buttonType}' button\` } : { summary: 'Product Selected', detail: data?.name };
+            } else {
+                summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
             }
+            this.messageService.add({ severity: 'info', ...summary_and_detail, life: 3000 });
         });
 
         this.ref.onMaximize.subscribe((value) => {
@@ -147,8 +154,11 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
 @Component({
-    providers: [DialogService, MessageService],
-    template: \` <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
+    providers: [DialogService, MessageService, ProductService],
+    template: \`<div class="flex justify-content-end mt-1 mb-3">
+            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
+        </div>
+        <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
                 <tr>
                     <th pSortableColumn="code">Code</th>
@@ -261,6 +271,5 @@ export class InfoDemo {
     }
 }`
         }
-        
     ];
 }
