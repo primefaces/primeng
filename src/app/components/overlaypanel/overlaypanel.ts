@@ -50,7 +50,7 @@ import { Subscription } from 'rxjs';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
+            <div class="p-overlaypanel-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
@@ -242,10 +242,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
 
+                    this.selfClick = false;
                     this.cd.markForCheck();
                 });
             }
@@ -310,8 +311,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.selfClick = true;
     }
 
-    onContentClick() {
-        this.selfClick = true;
+    onContentClick(event: MouseEvent) {
+        const targetElement = event.target as HTMLElement;
+        this.selfClick = event.offsetX < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
     }
 
     hasTargetChanged(event: any, target: any) {
