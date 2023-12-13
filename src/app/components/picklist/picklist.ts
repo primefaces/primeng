@@ -1426,12 +1426,13 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     changeFocusedOptionIndex(index, listType) {
         const items = this.getListItems(listType);
+        if (items?.length > 0) {
+            let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
-        let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-        this.focusedOptionIndex = items[order].getAttribute('id');
-        this.focusedOption = this.getFocusedOption(order, listType);
-        this.scrollInView(items[order].getAttribute('id'), listType);
+            this.focusedOptionIndex = items[order].getAttribute('id');
+            this.focusedOption = this.getFocusedOption(order, listType);
+            this.scrollInView(items[order].getAttribute('id'), listType);
+        }
     }
 
     scrollInView(id, listType) {
