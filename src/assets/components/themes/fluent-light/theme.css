@@ -1052,6 +1052,10 @@
     background-color: transparent;
   }
 
+  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    border-color: #a4252c;
+  }
+
   .p-inputgroup-addon {
     background: #f3f2f1;
     color: #605e5c;
@@ -1165,6 +1169,7 @@
     background: #ffffff;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
     border-radius: 30px;
+    border: 1px solid transparent;
   }
   .p-inputswitch .p-inputswitch-slider:before {
     background: #605e5c;
@@ -1195,8 +1200,11 @@
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
     background: #005a9e;
   }
+<<<<<<< HEAD
+=======
 
-  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+>>>>>>> 927106a2aa82cb6253ebe7b5d19d155d7617061e
+  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
     border-color: #a4252c;
   }
 

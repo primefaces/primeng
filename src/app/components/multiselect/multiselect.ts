@@ -381,8 +381,8 @@ export class MultiSelectItem {
     `,
     host: {
         class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-inputwrapper-filled]': 'filled'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -948,8 +948,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     filterOptions: MultiSelectFilterOptions | undefined;
 
-    maxSelectionLimitReached: boolean | undefined;
-
     preventModelTouched: boolean | undefined;
 
     preventDocumentDefault: boolean | undefined;
@@ -980,9 +978,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             'p-disabled': this.disabled,
             'p-multiselect-clearable': this.showClear && !this.disabled,
             'p-multiselect-chip': this.display === 'chip',
-            'p-focus': this.focused,
-            'p-inputwrapper-filled': ObjectUtils.isNotEmpty(this.modelValue()),
-            'p-inputwrapper-focus': this.focused || this.overlayVisible
+            'p-focus': this.focused
         };
     }
 
@@ -1021,7 +1017,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get filled(): boolean {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
 
-        return this.modelValue() || this.modelValue() != null || this.modelValue() != undefined;
+        return ObjectUtils.isNotEmpty(this.modelValue());
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -1091,6 +1087,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
+
             const visibleOptions = this.visibleOptions();
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions) && modelValue) {
                 if (this.optionValue && this.optionLabel) {
@@ -1112,6 +1109,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 reset: () => this.resetFilter()
             };
         }
+    }
+
+    maxSelectionLimitReached() {
+        return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
     }
 
     ngAfterContentInit() {
@@ -1356,8 +1357,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionDisabled(option: any) {
-        let disabled = this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
-        return disabled || (this.maxSelectionLimitReached && !this.isSelected(option));
+        if (this.maxSelectionLimitReached() && !this.isSelected(option)) {
+            return true;
+        }
+        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     isSelected(option) {
@@ -1785,7 +1788,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        if (this.selectAll !== null) {
+        if (this.selectAll != null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
@@ -1836,18 +1839,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
 
-    checkSelectionLimit() {
-        if (this.selectionLimit && this.value && this.value.length === this.selectionLimit) {
-            this.maxSelectionLimitReached = true;
-        } else {
-            this.maxSelectionLimitReached = false;
-        }
-    }
-
     writeValue(value: any): void {
         this.value = value;
         this.modelValue.set(this.value);
-        this.checkSelectionLimit();
         this.cd.markForCheck();
     }
 
@@ -1946,7 +1940,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     clear(event: Event) {
         this.value = null;
-        this.checkSelectionLimit();
         this.updateModel(null, event);
         this.selectedOptions = null;
         this.onClear.emit();
@@ -1963,6 +1956,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             value: value,
             itemValue: optionValue
         });
+
         event && event.stopPropagation();
     }
 

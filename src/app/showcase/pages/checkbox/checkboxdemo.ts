@@ -5,6 +5,7 @@ import { ImportDoc } from '../../doc/checkbox/importdoc';
 import { MultipleDoc } from '../../doc/checkbox/multipledoc';
 import { DynamicDoc } from '../../doc/checkbox/dynamicdoc';
 import { DisabledDoc } from '../../doc/checkbox/disableddoc';
+import { InvalidDoc } from '../../doc/checkbox/invaliddoc';
 import { StyleDoc } from '../../doc/checkbox/styledoc';
 import { AccessibilityDoc } from '../../doc/checkbox/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/checkbox/reactiveformsdoc';
@@ -43,6 +44,11 @@ export class CheckboxDemo {
             id: 'dynamic',
             label: 'Dynamic',
             component: DynamicDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'disabled',

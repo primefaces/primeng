@@ -164,7 +164,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu:getItemProp(processedItem,'items') }"></ng-template>
                         </ng-container>
                     </div>
 
@@ -231,7 +231,7 @@ export class TieredMenuSub {
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
     constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
-
+    
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
 

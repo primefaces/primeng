@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     computed,
+    effect,
     forwardRef,
     signal
 } from '@angular/core';
@@ -117,8 +118,6 @@ export class MenuItemContent {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() id: string;
-
     @Output() onMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
     menu: Menu;
@@ -128,7 +127,7 @@ export class MenuItemContent {
     }
 
     onItemClick(event, item) {
-        this.onMenuItemClick.emit({ originalEvent: event, item: { ...item, id: this.id } });
+        this.onMenuItemClick.emit({ originalEvent: event, item });
     }
 }
 /**
@@ -194,7 +193,7 @@ export class MenuItemContent {
                             [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
-                            (onMenuItemClick)="itemClick($event)"
+                            (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             role="menuitem"
@@ -217,7 +216,7 @@ export class MenuItemContent {
                         [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
-                        (onMenuItemClick)="itemClick($event)"
+                        (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
                         role="menuitem"
@@ -653,7 +652,7 @@ export class Menu implements OnDestroy {
         }
     }
 
-    itemClick(event: any) {
+    itemClick(event: any, id: string) {
         const { originalEvent, item } = event;
 
         if (item.disabled) {
@@ -676,8 +675,8 @@ export class Menu implements OnDestroy {
             this.hide();
         }
 
-        if (!this.popup && this.focusedOptionIndex() !== item.id) {
-            this.focusedOptionIndex.set(item.id);
+        if (!this.popup && this.focusedOptionIndex() !== id) {
+            this.focusedOptionIndex.set(id);
         }
     }
 
