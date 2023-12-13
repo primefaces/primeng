@@ -1130,7 +1130,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
                     this.target?.push(this.source?.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
 
-                    if (this.visibleOptionsSource) this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    if (this.visibleOptionsSource?.includes(selectedItem)) {
+                        this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    }
                 }
             }
 
@@ -1188,7 +1190,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
                     this.source?.push(this.target?.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
 
-                    if (this.visibleOptionsTarget) this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    if (this.visibleOptionsTarget?.includes(selectedItem)) {
+                        this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    }
                 }
             }
 
