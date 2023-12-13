@@ -1,5 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
-import { ComponentRef } from 'react';
+import { Type } from '@angular/core';
 
 /**
  * Dialogs can be created dynamically with any component as the content using a DialogService.
@@ -175,37 +174,31 @@ export class DynamicDialogConfig<T = any> {
 
 /**
  * Defines valid templates in Dynamic Dialog.
- * @group Templates
+ * @group Interface
  */
 export interface DynamicDialogTemplates {
     /**
      * Template of the header.
-     * @group Props
      */
-    header?: ComponentRef<any>;
+    header?: Type<any>;
     /**
-     * Template of the body.
-     * @group Props
+     * Template of the content.
      */
-    content?: ComponentRef<any>;
+    content?: Type<any>;
     /**
      * Template of the footer.
-     * @group Props
      */
-    footer?: ComponentRef<any>;
+    footer?: Type<any>;
     /**
      * Template of the minimize icon.
-     * @group Props
      */
-    minimizeicon?: ComponentRef<any>;
+    minimizeicon?: Type<any>;
     /**
      * Template of the maximize icon.
-     * @group Props
      */
-    maximizeicon?: ComponentRef<any>;
+    maximizeicon?: Type<any>;
     /**
      * Template of the close icon.
-     * @group Props
      */
-    closeicon?: ComponentRef<any>;
+    closeicon?: Type<any>;
 }

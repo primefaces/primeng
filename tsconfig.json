@@ -19,21 +19,18 @@
         "module": "ES2022",
         "useDefineForClassFields": false,
         "types": ["jasmine"],
-        "lib": [
-            "ES2022",
-            "dom"
-        ],
+        "lib": ["ES2022", "dom"],
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "paths": {
             "primeng/*": ["src/app/components/*/public_api"]
         }
     },
-    "exclude": ["node_modules", "**/node_modules/*"],
+    "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,
         "strictInjectionParameters": false,
         "strictInputAccessModifiers": false,
-        "strictTemplates": false,
+        "strictTemplates": false
     }
 }

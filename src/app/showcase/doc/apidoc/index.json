@@ -5648,6 +5648,18 @@
                     },
                     {
                         "parent": "calendar",
+                        "name": "inputIconTemplate",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t clickCallBack: undefined, // undefined\n  }",
+                                "description": "input icon template params."
+                            }
+                        ],
+                        "description": "Custom input icon template."
+                    },
+                    {
+                        "parent": "calendar",
                         "name": "previousicon",
                         "parameters": [],
                         "description": "Custom previous icon template."
@@ -7874,11 +7886,12 @@
                     {
                         "parent": "confirmdialog",
                         "name": "message",
-                        "parameters": [{
-                            "name": "context",
-                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
-                            "description": "Message data."
-                        }],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
                         "description": "Custom template of message."
                     },
                     {
@@ -7902,11 +7915,12 @@
                     {
                         "parent": "confirmdialog",
                         "name": "headless",
-                        "parameters": [{
-                            "name": "context",
-                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
-                            "description": "Message data."
-                        }],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
                         "description": "Headless template."
                     }
                 ]
@@ -8000,11 +8014,12 @@
                     {
                         "parent": "confirmpopup",
                         "name": "content",
-                        "parameters": [{
-                            "name": "context",
-                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
-                            "description": "Message data."
-                        }],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
                         "description": "Custom content template."
                     },
                     {
@@ -8022,11 +8037,12 @@
                     {
                         "parent": "confirmpopup",
                         "name": "headless",
-                        "parameters": [{
-                            "name": "context",
-                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
-                            "description": "Message data."
-                        }],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
                         "description": "Headless template."
                     }
                 ]
@@ -9120,12 +9136,6 @@
                         "name": "minimizeicon",
                         "parameters": [],
                         "description": "Custom template of minimizeicon."
-                    },
-                    {
-                        "parent": "dialog",
-                        "name": "headless",
-                        "parameters": [],
-                        "description": "Headless template."
                     }
                 ]
             }
@@ -10214,6 +10224,17 @@
                     ],
                     "returnType": "DynamicDialogRef",
                     "description": "Displays the dialog using the dynamic dialog object options."
+                },
+                {
+                    "name": "getInstance",
+                    "parameters": [
+                        {
+                            "name": "ref",
+                            "type": "DynamicDialogRef"
+                        }
+                    ],
+                    "returnType": "DynamicDialogComponent",
+                    "description": "Returns the dynamic dialog component instance."
                 }
             ]
         }
@@ -10453,10 +10474,77 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "A boolean to determine if it can be duplicate."
+                        },
+                        {
+                            "name": "breakpoints",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Object literal to define widths per screen size."
+                        },
+                        {
+                            "name": "templates",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "DynamicDialogTemplates",
+                            "description": "Dialog templates."
                         }
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "DynamicDialogTemplates",
+                    "description": "Defines valid templates in Dynamic Dialog.",
+                    "props": [
+                        {
+                            "name": "header",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the header."
+                        },
+                        {
+                            "name": "content",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the content."
+                        },
+                        {
+                            "name": "footer",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the footer."
+                        },
+                        {
+                            "name": "minimizeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the minimize icon."
+                        },
+                        {
+                            "name": "maximizeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the maximize icon."
+                        },
+                        {
+                            "name": "closeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the close icon."
+                        }
+                    ]
+                }
+            ]
         }
     },
     "dynamicdialog-injector": {
@@ -18428,6 +18516,25 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "progressbar",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of content."
+                    }
+                ]
+            }
         }
     },
     "progressspinner": {
@@ -23658,6 +23765,17 @@
                 "values": [
                     {
                         "parent": "tieredmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t hasSubmenu: boolean, // Submenu control of the item.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "tieredmenu",
                         "name": "submenuicon",
                         "parameters": [],
                         "description": "Custom template of submenuicon."
@@ -24077,6 +24195,23 @@
                                 "description": "Boolean value to represent checked state."
                             }
                         ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "togglebutton",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: boolean, // Checked.\n  }",
+                                "description": "checked state as boolean."
+                            }
+                        ],
+                        "description": "Custom icon template."
                     }
                 ]
             }
