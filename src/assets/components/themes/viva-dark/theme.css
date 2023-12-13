@@ -891,6 +891,10 @@
     margin-left: 0.5rem;
   }
 
+  p-tristatecheckbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+    border-color: #f78c79;
+  }
+
   .p-chips:not(.p-disabled):hover .p-chips-multiple-container {
     border-color: #2d3e44;
   }
@@ -1199,7 +1203,6 @@
     background: #263238;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
     border-radius: 6px;
-    border: 1px solid transparent;
   }
   .p-inputswitch .p-inputswitch-slider:before {
     background: rgba(255, 255, 255, 0.6);
@@ -1230,10 +1233,7 @@
   .p-inputswitch.p-inputswitch-checked:not(.p-disabled):hover .p-inputswitch-slider {
     background: #8fa0e2;
   }
-<<<<<<< HEAD
-=======
 
->>>>>>> 927106a2aa82cb6253ebe7b5d19d155d7617061e
   p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
     border-color: #f78c79;
   }
