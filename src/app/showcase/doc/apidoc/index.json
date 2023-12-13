@@ -16636,6 +16636,20 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
                             "name": "dismissable",
                             "optional": false,
                             "readonly": false,
@@ -17297,8 +17311,7 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
+                            "type": "MenuItem[]"
                         },
                         {
                             "name": "style",
