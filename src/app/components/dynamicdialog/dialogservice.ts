@@ -5,6 +5,7 @@ import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DOCUMENT } from '@angular/common';
+import { ObjectUtils } from 'primeng/utils';
 /**
  * Dynamic Dialog component methods.
  * @group Service

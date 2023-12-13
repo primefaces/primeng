@@ -32,10 +32,7 @@ import { InfoDemo } from './infodemo';
                     </td>
                 </tr>
             </ng-template>
-        </p-table>
-        <div class="flex w-full justify-content-end mt-3">
-            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
-        </div>`
+        </p-table>`
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
@@ -59,10 +56,6 @@ export class ProductListDemo implements OnInit {
                 totalProducts: this.products ? this.products.length : 0
             }
         });
-    }
-
-    closeDialog(data) {
-        this.ref.close(data);
     }
 
     getSeverity(status: string) {

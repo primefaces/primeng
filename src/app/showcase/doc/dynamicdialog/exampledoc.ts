@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 import { ProductListDemo } from './productlistdemo';
+import { Footer } from './footer';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
@@ -34,6 +35,9 @@ export class ExampleDoc implements OnDestroy {
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
+            },
+            templates: {
+                footer: Footer
             }
         });
 
@@ -75,6 +79,7 @@ import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
+import { Footer } from './footer';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
@@ -95,6 +100,9 @@ export class DynamicDialogExampleDemo implements OnDestroy {
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
+            },
+            templates: {
+                footer: Footer
             }
         });
 
@@ -183,10 +191,7 @@ import { InfoDemo } from './infodemo';
                     </td>
                 </tr>
             </ng-template>
-        </p-table>
-        <div class="flex w-full justify-content-end mt-3">
-            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
-        </div>\`
+        </p-table>\`
 })
 export class ProductListDemo implements OnInit {
     products: Product[];
@@ -268,6 +273,27 @@ export class InfoDemo {
         if (this.ref) {
             this.ref.close();
         }
+    }
+}`
+        },
+        {
+            path: 'src/app/demo/footer.ts',
+            name: 'Footer',
+            content: `import { Component } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
+
+@Component({
+    selector: 'footer',
+    template:  \`
+        <div class="flex w-full justify-content-end mt-3">
+            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
+        </div> \`
+})
+export class Footer {
+    constructor(public ref: DynamicDialogRef) {}
+
+    closeDialog(data) {
+        this.ref.close(data);
     }
 }`
         }
