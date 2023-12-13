@@ -121,7 +121,7 @@ export class MultiSelectItem {
             option: this.option,
             selected: this.selected
         });
-        event.stopPropagation()
+        event.stopPropagation();
     }
 
     onOptionMouseEnter(event: Event) {
