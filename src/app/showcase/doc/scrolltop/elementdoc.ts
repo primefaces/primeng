@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex justify-content-center">
             <div style="width: 250px; height: 200px; overflow: auto">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur

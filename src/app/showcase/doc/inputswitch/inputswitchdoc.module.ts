@@ -12,10 +12,10 @@ import { PreselectionDoc } from './preselectiondoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
-
+import { InvalidDoc } from './invaliddoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, InputSwitchModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, PreselectionDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class InputSwitchDocModule {}

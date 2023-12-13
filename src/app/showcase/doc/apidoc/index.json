@@ -7874,7 +7874,11 @@
                     {
                         "parent": "confirmdialog",
                         "name": "message",
-                        "parameters": [],
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
                         "description": "Custom template of message."
                     },
                     {
@@ -7894,6 +7898,16 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmdialog",
+                        "name": "headless",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -7985,6 +7999,16 @@
                 "values": [
                     {
                         "parent": "confirmpopup",
+                        "name": "content",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Custom content template."
+                    },
+                    {
+                        "parent": "confirmpopup",
                         "name": "rejecticon",
                         "parameters": [],
                         "description": "Custom template of rejecticon."
@@ -7994,6 +8018,16 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmpopup",
+                        "name": "headless",
+                        "parameters": [{
+                            "name": "context",
+                            "type": "{\n  \t $implicit: any, // Data of the message.\n  }",
+                            "description": "Message data."
+                        }],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -8808,6 +8842,13 @@
                             "description": "Style class of the mask."
                         },
                         {
+                            "name": "maskStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style of the mask."
+                        },
+                        {
                             "name": "showHeader",
                             "optional": false,
                             "readonly": false,
@@ -9079,6 +9120,12 @@
                         "name": "minimizeicon",
                         "parameters": [],
                         "description": "Custom template of minimizeicon."
+                    },
+                    {
+                        "parent": "dialog",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -19887,6 +19934,12 @@
                         "name": "closeicon",
                         "parameters": [],
                         "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "sidebar",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -23872,6 +23925,17 @@
                             }
                         ],
                         "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "toast",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Data of the message.\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
                     }
                 ]
             }

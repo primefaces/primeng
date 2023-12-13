@@ -15,6 +15,15 @@ export interface ToastTemplates {
          */
         $implicit: any;
     }): TemplateRef<{ $implicit: any }>;
+    /**
+     * Headless template.
+     */
+    headless(context: {
+        /**
+         * Data of the message.
+         */
+        $implicit: any;
+    }): TemplateRef<{ $implicit: any }>;
 }
 
 /**

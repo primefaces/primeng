@@ -10,8 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-                    <label [for]="category.key">{{ category.name }}</label>
+                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
                 </div>
             </div>
         </div>
@@ -30,16 +29,14 @@ export class DynamicDoc {
 
     code: Code = {
         basic: `<div *ngFor="let category of categories" class="field-checkbox">
-    <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-    <label [for]="category.key">{{ category.name }}</label>
+    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
 </div>`,
 
         html: `
 <div class="card flex justify-content-center">
     <div class="flex flex-column gap-2">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-            <label [for]="category.key">{{ category.name }}</label>
+        <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
         </div>
     </div>
 </div>`,

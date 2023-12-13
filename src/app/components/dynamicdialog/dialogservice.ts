@@ -5,6 +5,7 @@ import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DOCUMENT } from '@angular/common';
+import { ObjectUtils } from 'primeng/utils';
 /**
  * Dynamic Dialog component methods.
  * @group Service
@@ -31,6 +32,14 @@ export class DialogService {
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
 
         return dialogRef;
+    }
+    /**
+     * Returns the dynamic dialog component instance.
+     * @param {ref} DynamicDialogRef - DynamicDialog instance.
+     * @group Method
+     */
+    public getInstance(ref: DynamicDialogRef) {
+        return this.dialogComponentRefMap.get(ref).instance;
     }
 
     private appendDialogComponentToBody(config: DynamicDialogConfig) {
