@@ -12,7 +12,7 @@ import { Code } from '../../domain/code';
             <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
                 <ng-template pTemplate="header">
                     <div class="inline-flex align-items-center justify-content-center gap-2">
-                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold white-space-nowrap">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -40,7 +40,7 @@ export class TemplateDoc {
     <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
         <ng-template pTemplate="header">
             <div class="inline-flex align-items-center justify-content-center gap-2">
-                <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
                 <span class="font-bold white-space-nowrap">Amy Elsner</span>
             </div>
         </ng-template>
@@ -58,7 +58,7 @@ export class TemplateDoc {
 <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
     <ng-template pTemplate="header">
         <div class="inline-flex align-items-center justify-content-center gap-2">
-            <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
             <span class="font-bold white-space-nowrap">Amy Elsner</span>
         </div>
     </ng-template>

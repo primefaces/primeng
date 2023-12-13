@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
                 <ng-template let-message pTemplate="message">
                     <div class="flex flex-column align-items-start" style="flex: 1">
                         <div class="flex align-items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold text-900">Amy Elsner</span>
                         </div>
                         <div class="font-medium text-lg my-3 text-900">{{ message.summary }}</div>
@@ -28,7 +28,6 @@ import { Code } from '../../domain/code';
     providers: [MessageService]
 })
 export class TemplateDoc {
-
     constructor(private messageService: MessageService) {}
 
     visible: boolean = false;
@@ -55,7 +54,7 @@ export class TemplateDoc {
         <ng-template let-message pTemplate="message">
             <div class="flex flex-column align-items-start" style="flex: 1">
                 <div class="flex align-items-center gap-2">
-                    <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold text-900">Amy Elsner</span>
                 </div>
                 <div class="font-medium text-lg my-3 text-900">{{ message.summary }}</div>
@@ -69,7 +68,7 @@ export class TemplateDoc {
         <ng-template let-message pTemplate="message">
             <div class="flex flex-column align-items-start" style="flex: 1">
                 <div class="flex align-items-center gap-2">
-                    <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold text-900">Amy Elsner</span>
                 </div>
                 <div class="font-medium text-lg my-3 text-900">{{ message.summary }}</div>

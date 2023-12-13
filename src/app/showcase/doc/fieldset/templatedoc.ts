@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             <p-fieldset>
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2 px-2">
-                        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
@@ -29,7 +29,7 @@ export class TemplateDoc {
         basic: `<p-fieldset>
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2 px-2">
-            <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
             <span class="font-bold">Amy Elsner</span>
         </div>
     </ng-template>
@@ -43,7 +43,7 @@ export class TemplateDoc {
 <p-fieldset>
 <ng-template pTemplate="header">
     <div class="flex align-items-center gap-2 px-2">
-        <p-avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         <span class="font-bold">Amy Elsner</span>
     </div>
 </ng-template>
