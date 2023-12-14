@@ -203,13 +203,13 @@ export class Checkbox implements ControlValueAccessor {
 
     model: any;
 
-    onModelChange: Function = () => { };
+    onModelChange: Function = () => {};
 
-    onModelTouched: Function = () => { };
+    onModelTouched: Function = () => {};
 
     focused: boolean = false;
 
-    constructor(public cd: ChangeDetectorRef) { }
+    constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -285,4 +285,4 @@ export class Checkbox implements ControlValueAccessor {
     exports: [Checkbox, SharedModule],
     declarations: [Checkbox]
 })
-export class CheckboxModule { }
+export class CheckboxModule {}

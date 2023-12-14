@@ -19,4 +19,4 @@ import { CheckboxModule } from 'primeng/checkbox';
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
-export class TristatecheckboxDocModule { }
+export class TristatecheckboxDocModule {}
