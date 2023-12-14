@@ -567,6 +567,13 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.14-LTS](https://www.npmjs.com/package/primeng/v/15.4.14-lts) (2023-12-14)
+
+**Fixed bugs:**
+- PrimeNG table is not honoring the sort column and sort order specified when groupRowsBy is added. [\#13773](https://github.com/primefaces/primeng/issues/13773)
+- dataTable : <th> is hidden by <td> with frozenColumn [\#13781](https://github.com/primefaces/primeng/issues/13781)
+
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.13-LTS](https://www.npmjs.com/package/primeng/v/15.4.13-lts) (2023-11-17)
 
 **Fixed bugs:**
