@@ -81,6 +81,15 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.2-LTS](https://www.npmjs.com/package/primeng/v/16.9.2-lts) (2023-12-14)
+
+**Fixed bugs:**
+- AutoComplete | Float label goes down after losing focus w/ multiple [\#14297](https://github.com/primefaces/primeng/issues/14297)
+- MultiSelect: selectionLimit & floating label regression [\#14299](https://github.com/primefaces/primeng/issues/14299)
+- Menu | items don't receive p-focus class [\#14295](https://github.com/primefaces/primeng/issues/14295)
+- Removing an item from autocomplete closes p-OverlayPanel [\#14300](https://github.com/primefaces/primeng/issues/14300)
+
+
 ## [16.9.1](https://github.com/primefaces/primeng/tree/16.9.1) (2023-11-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.9.0...16.9.1)
