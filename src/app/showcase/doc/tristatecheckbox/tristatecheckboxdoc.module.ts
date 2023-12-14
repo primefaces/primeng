@@ -12,7 +12,6 @@ import { StyleDoc } from './styledoc';
 import { RouterModule } from '@angular/router';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
-import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TriStateCheckboxModule, FormsModule, ReactiveFormsModule, RouterModule],
