@@ -21,6 +21,6 @@ import { MessageService } from 'primeng/api';
     imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule, BadgeModule, ToastModule],
     declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
-    providers:[MessageService]
+    providers: [MessageService]
 })
 export class TieredMenuDocModule {}

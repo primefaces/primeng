@@ -47,6 +47,8 @@ import { Subscription } from 'rxjs';
             (@animation.done)="onAnimationEnd($event)"
             role="dialog"
             [attr.aria-modal]="overlayVisible"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
         >
             <div class="p-overlaypanel-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
@@ -94,6 +96,16 @@ import { Subscription } from 'rxjs';
     }
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Enables to hide the overlay when outside is clicked.
      * @group Props

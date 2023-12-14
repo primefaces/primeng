@@ -57,7 +57,6 @@ interface TableRowSelectEvent {
     providers: [MessageService]
 })
 export class DataTableDoc implements OnInit {
-
     constructor(private productService: ProductService, private messageService: MessageService, private cdr: ChangeDetectorRef) {}
 
     products: Product[] | undefined;
@@ -68,7 +67,7 @@ export class DataTableDoc implements OnInit {
         this.productService.getProductsSmall().then((products) => {
             this.products = products;
             this.selectedProduct = products[0];
-            this.cdr.markForCheck()
+            this.cdr.markForCheck();
         });
     }
 

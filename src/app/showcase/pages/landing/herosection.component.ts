@@ -54,7 +54,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                         <p-dropdown [(ngModel)]="user" [options]="users" optionLabel="name" placeholder="Select a User" styleClass="w-full">
                                             <ng-template pTemplate="content" let-slotProps>
                                                 <div class="flex align-items-center gap-2">
-                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primevue/images/avatar/{{ slotProps.image }}" width="28" />
+                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ slotProps.image }}" width="28" />
                                                     <span>{{ slotProps.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -110,7 +110,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 <ul class="list-none p-0 m-0">
                                     <li class="flex align-items-center mb-3">
                                         <span class="mr-3">
-                                            <img src="https://primefaces.org/cdn/primevue/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
+                                            <img src="https://primefaces.org/cdn/primeng/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
                                         </span>
                                         <div class="flex flex-column">
                                             <span class="font-bold mb-1">Amanda Williams</span>

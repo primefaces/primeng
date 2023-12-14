@@ -8,9 +8,7 @@ export interface ConfirmPopupTemplates {
     /**
      * Custom content template.
      */
-    content(context:{
-        $implicit?:any
-    }): TemplateRef<any>;
+    content(context: { $implicit?: any }): TemplateRef<any>;
     /**
      * Custom template of rejecticon.
      */
@@ -22,7 +20,5 @@ export interface ConfirmPopupTemplates {
     /**
      * Headless template.
      */
-    headless(context:{
-        $implicit?:any
-    }): TemplateRef<any>;
+    headless(context: { $implicit?: any }): TemplateRef<any>;
 }

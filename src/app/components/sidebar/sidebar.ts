@@ -60,37 +60,37 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             (keydown)="onKeyDown($event)"
         >
             <ng-container *ngIf="headlessTemplate; else notHeadless">
-                 <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
+                <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
-            <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <button
-                    type="button"
-                    class="p-sidebar-close p-sidebar-icon p-link"
-                    (click)="close($event)"
-                    (keydown.enter)="close($event)"
-                    [attr.aria-label]="ariaCloseLabel"
-                    *ngIf="showCloseIcon"
-                    pRipple
-                    [attr.data-pc-section]="'closebutton'"
-                    [attr.data-pc-group-section]="'iconcontainer'"
-                >
-                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </div>
-            <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            </div>
-            <ng-container *ngIf="footerTemplate">
-                <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <button
+                        type="button"
+                        class="p-sidebar-close p-sidebar-icon p-link"
+                        (click)="close($event)"
+                        (keydown.enter)="close($event)"
+                        [attr.aria-label]="ariaCloseLabel"
+                        *ngIf="showCloseIcon"
+                        pRipple
+                        [attr.data-pc-section]="'closebutton'"
+                        [attr.data-pc-group-section]="'iconcontainer'"
+                    >
+                        <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                        <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                            <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                        </span>
+                    </button>
                 </div>
-            </ng-container>
+                <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
+                <ng-container *ngIf="footerTemplate">
+                    <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                </ng-container>
             </ng-template>
         </div>
     `,

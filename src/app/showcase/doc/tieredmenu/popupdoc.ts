@@ -87,7 +87,7 @@ export class PopupDoc implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 
     code: Code = {

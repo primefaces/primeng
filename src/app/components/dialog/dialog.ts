@@ -83,55 +83,55 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 </ng-container>
 
                 <ng-template #notHeadless>
-                <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
-                <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                    <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
-                        <ng-content select="p-header"></ng-content>
-                    </span>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <div class="p-dialog-header-icons">
-                        <button *ngIf="maximizable" role="button" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
-                            <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
-                            <ng-container *ngIf="!maximizeIcon">
-                                <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
-                                <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
-                            </ng-container>
-                            <ng-container *ngIf="!maximized">
-                                <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
-                            </ng-container>
-                            <ng-container *ngIf="maximized">
-                                <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
-                            </ng-container>
-                        </button>
-                        <button
-                            *ngIf="closable"
-                            type="button"
-                            [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }"
-                            [attr.aria-label]="closeAriaLabel"
-                            (click)="close($event)"
-                            (keydown.enter)="close($event)"
-                            [attr.tabindex]="closeTabindex"
-                            pRipple
-                        >
-                            <ng-container *ngIf="!closeIconTemplate">
-                                <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
-                                <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'" />
-                            </ng-container>
-                            <span *ngIf="closeIconTemplate">
-                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                            </span>
-                        </button>
+                    <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                    <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
+                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
+                            <ng-content select="p-header"></ng-content>
+                        </span>
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                        <div class="p-dialog-header-icons">
+                            <button *ngIf="maximizable" role="button" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                                <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
+                                <ng-container *ngIf="!maximizeIcon">
+                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
+                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
+                                </ng-container>
+                                <ng-container *ngIf="!maximized">
+                                    <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
+                                </ng-container>
+                                <ng-container *ngIf="maximized">
+                                    <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
+                                </ng-container>
+                            </button>
+                            <button
+                                *ngIf="closable"
+                                type="button"
+                                [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }"
+                                [attr.aria-label]="closeAriaLabel"
+                                (click)="close($event)"
+                                (keydown.enter)="close($event)"
+                                [attr.tabindex]="closeTabindex"
+                                pRipple
+                            >
+                                <ng-container *ngIf="!closeIconTemplate">
+                                    <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
+                                    <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'" />
+                                </ng-container>
+                                <span *ngIf="closeIconTemplate">
+                                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                                </span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </div>
-                <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </div>
+                    <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+                    <div #footer class="p-dialog-footer" *ngIf="footerFacet || footerTemplate">
+                        <ng-content select="p-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
                 </ng-template>
             </div>
         </div>
@@ -248,11 +248,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() maskStyleClass: string | undefined;
-     /**
+    /**
      * Style of the mask.
      * @group Props
      */
-     @Input() maskStyle: string | undefined;
+    @Input() maskStyle: string | undefined;
     /**
      * Whether to show the header or not.
      * @group Props

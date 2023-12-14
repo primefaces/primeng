@@ -1,4 +1,37 @@
 # Changelog
+## [17.1.0](https://github.com/primefaces/primeng/tree/17.1.0) (2023-12-13)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0...17.1.0)
+
+**Implemented New Features and Enhancements:**
+- DialogService | Add method to get instance [\#14352](https://github.com/primefaces/primeng/issues/14352)
+- ConfirmPopup | Add headless template [\#14351](https://github.com/primefaces/primeng/issues/14351)
+- ConfirmPopup | Add content template [\#14350](https://github.com/primefaces/primeng/issues/14350)
+- Dialog | Add maskStyle input [\#14349](https://github.com/primefaces/primeng/issues/14349)
+- Dialog | Add headless template [\#14348](https://github.com/primefaces/primeng/issues/14348)
+- Toast | Add headless template [\#14347](https://github.com/primefaces/primeng/issues/14347)
+- Sidebar | Add headless template [\#14346](https://github.com/primefaces/primeng/issues/14346)
+- Progressbar | Add content template [\#14345](https://github.com/primefaces/primeng/issues/14345)
+- DynamicDialog | Add breakpoints option to config [\#14344](https://github.com/primefaces/primeng/issues/14344)
+- DynamicDialog | Template Support [\#14354](https://github.com/primefaces/primeng/issues/14354)
+- ToggleButton | Add missing icon template [\#14286](https://github.com/primefaces/primeng/issues/14286)
+- OverlayPanel | add missing aria attributes [\#14361](https://github.com/primefaces/primeng/issues/14361)
+
+**Fixed bugs:**
+- PickList | clicking on p-picklist would cause TypeError: Cannot read properties of undefined (reading 'getAttribute') [\#14339](https://github.com/primefaces/primeng/issues/14339)
+- 16.3.1 regression: p-overlayPanel dismisses when making changes to nested p-multiSelect with appendTo="body" [\#14120](https://github.com/primefaces/primeng/issues/14120)
+- multiselect: clicking directly on the svg icon closes the overlay [\#14335](https://github.com/primefaces/primeng/issues/14335)
+- Update of MenuItem's 'expanded' property not working [\#14329](https://github.com/primefaces/primeng/issues/14329)
+- Table: Apply and Clear text buttons for filter menu are missing [\#14289](https://github.com/primefaces/primeng/issues/14289)
+- Menu | items don't receive p-focus class [\#14295](https://github.com/primefaces/primeng/issues/14295)
+- Dropdown: Preselected value not shown when using reactive forms [\#14241](https://github.com/primefaces/primeng/issues/14241)
+- ListBox: emptyMessage not working [\#14294](https://github.com/primefaces/primeng/issues/14294)
+- AutoComplete | Float label goes down after losing focus w/ multiple [\#14297](https://github.com/primefaces/primeng/issues/14297)
+- MultiSelect: selectionLimit & floating label regression [\#14299](https://github.com/primefaces/primeng/issues/14299)
+- applyFocus() method is working only when dropdown is editable. [\#14051](https://github.com/primefaces/primeng/issues/14051)
+- Removing an item from autocomplete closes p-OverlayPanel [\#14300](https://github.com/primefaces/primeng/issues/14300)
+- Avatar | Missing alt attribute on image [\#14296](https://github.com/primefaces/primeng/issues/14296)
+
 ## [17.0.0](https://github.com/primefaces/primeng/tree/17.0.0) (2023-12-06)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0-rc.1...17.0.0)

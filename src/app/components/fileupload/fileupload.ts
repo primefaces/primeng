@@ -249,17 +249,17 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() previewWidth: number = 50;
     /**
-     * Label of the choose button. Defaults to PrimeVue Locale configuration.
+     * Label of the choose button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() chooseLabel: string | undefined;
     /**
-     * Label of the upload button. Defaults to PrimeVue Locale configuration.
+     * Label of the upload button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() uploadLabel: string | undefined;
     /**
-     * Label of the cancel button. Defaults to PrimeVue Locale configuration.
+     * Label of the cancel button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() cancelLabel: string | undefined;

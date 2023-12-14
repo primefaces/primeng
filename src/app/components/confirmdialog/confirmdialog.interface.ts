@@ -15,9 +15,7 @@ export interface ConfirmDialogTemplates {
     /**
      * Custom template of message.
      */
-    message(context:{
-        $implicit?:any
-    }): TemplateRef<any>;
+    message(context: { $implicit?: any }): TemplateRef<any>;
     /**
      * Custom template of icon.
      */
@@ -33,7 +31,5 @@ export interface ConfirmDialogTemplates {
     /**
      * Headless template.
      */
-    headless(context:{
-        $implicit?:any
-    }): TemplateRef<any>;
+    headless(context: { $implicit?: any }): TemplateRef<any>;
 }
