@@ -387,9 +387,9 @@
     padding: 0.375rem 0;
   }
   .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #4b5563;
     padding: 0;
     margin: 0;
@@ -913,9 +913,9 @@
     padding: 0.375rem 0;
   }
   .p-chips .p-chips-multiple-container .p-chips-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #4b5563;
     padding: 0;
     margin: 0;
@@ -1091,27 +1091,23 @@
   }
 
   .p-inputgroup > .p-component,
-.p-inputgroup > .p-element,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext,
+.p-inputgroup > .p-inputwrapper > .p-inputtext,
 .p-inputgroup > .p-float-label > .p-component {
     border-radius: 0;
     margin: 0;
   }
   .p-inputgroup > .p-component + .p-inputgroup-addon,
-.p-inputgroup > .p-element + .p-inputgroup-addon,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext + .p-inputgroup-addon,
+.p-inputgroup > .p-inputwrapper > .p-inputtext + .p-inputgroup-addon,
 .p-inputgroup > .p-float-label > .p-component + .p-inputgroup-addon {
     border-left: 0 none;
   }
   .p-inputgroup > .p-component:focus,
-.p-inputgroup > .p-element:focus,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext:focus,
+.p-inputgroup > .p-inputwrapper > .p-inputtext:focus,
 .p-inputgroup > .p-float-label > .p-component:focus {
     z-index: 1;
   }
   .p-inputgroup > .p-component:focus ~ label,
-.p-inputgroup > .p-element:focus ~ label,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext:focus ~ label,
+.p-inputgroup > .p-inputwrapper > .p-inputtext:focus ~ label,
 .p-inputgroup > .p-float-label > .p-component:focus ~ label {
     z-index: 1;
   }
@@ -5724,7 +5720,7 @@
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .p-message .p-message-close:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
   .p-message .p-message-close:focus-visible {
     outline: 0 none;
@@ -5834,7 +5830,7 @@
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .p-toast .p-toast-message .p-toast-icon-close:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
   .p-toast .p-toast-message .p-toast-icon-close:focus-visible {
     outline: 0 none;
