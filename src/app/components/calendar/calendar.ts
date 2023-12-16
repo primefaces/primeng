@@ -1770,7 +1770,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isYearDisabled(year) {
-        return !this.isSelectable(1, this.currentMonth, year, false);
+        return !this.isSelectable(null, this.currentMonth, year, false);
     }
 
     isYearSelected(year: number) {
@@ -1831,7 +1831,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 if (this.minDate.getMonth() > month) {
                     validMin = false;
                 } else if (this.minDate.getMonth() === month) {
-                    if (this.minDate.getDate() > day) {
+                    if (day !== null && this.minDate.getDate() > day) {
                         validMin = false;
                     }
                 }
@@ -1845,7 +1845,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 if (this.maxDate.getMonth() < month) {
                     validMax = false;
                 } else if (this.maxDate.getMonth() === month) {
-                    if (this.maxDate.getDate() < day) {
+                    if (day !== null && this.maxDate.getDate() < day) {
                         validMax = false;
                     }
                 }
