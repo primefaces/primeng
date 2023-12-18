@@ -489,7 +489,7 @@ const getAngularApp = (props: Props = {}) => {
     const serviceImports = code.service ? getServiceImports(code.service) : '';
     const routerModule = code.routerModule ? code.routerModule : `RouterModule.forRoot([{ path: '', component: ${componentName} }])`;
     const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
-
+    const providers = ['MessageService', ...(code.service ? [code.service] : [])];
     const app_module_ts = `import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -696,7 +696,7 @@ ${serviceImports}
     ${routerModule}],
     declarations: [ ${declarations} ],
     bootstrap: [ ${componentName} ],
-    providers: [ MessageService ]
+    providers: [ ${providers} ]
 })
 
 export class AppModule {}`;
