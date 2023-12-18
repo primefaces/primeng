@@ -2616,7 +2616,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
 
-            if (this.resizableColumns && this.resizeColumnElement && this.resizeColumnElement.isSameNode(this.draggedColumn)) {
+            if (this.resizableColumns && this.resizeColumnElement) {
                 let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
                 ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
                 this.updateStyleElement(width, dragIndex, null, null);
