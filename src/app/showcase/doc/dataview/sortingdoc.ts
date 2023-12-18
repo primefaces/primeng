@@ -8,7 +8,7 @@ import { ProductService } from '../../service/productservice';
     selector: 'data-view-sorting-demo',
     template: `
         <app-docsectiontext>
-            <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortField</i> properties from a custom UI.</p>
+            <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
@@ -228,7 +228,7 @@ export class DataViewSortingDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',
