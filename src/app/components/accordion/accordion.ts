@@ -443,17 +443,21 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
             case 'ArrowDown':
                 this.onTabArrowDownKey(event);
                 break;
-
+    
             case 'ArrowUp':
                 this.onTabArrowUpKey(event);
                 break;
-
+    
             case 'Home':
-                this.onTabHomeKey(event);
+                if (!event.shiftKey) {
+                    this.onTabHomeKey(event);
+                }
                 break;
-
+    
             case 'End':
-                this.onTabEndKey(event);
+                if (!event.shiftKey) {
+                    this.onTabEndKey(event);
+                }
                 break;
         }
     }
@@ -622,3 +626,4 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     declarations: [Accordion, AccordionTab]
 })
 export class AccordionModule {}
+
