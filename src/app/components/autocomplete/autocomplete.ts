@@ -1061,7 +1061,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         let query = event.target.value;
 
-        if (!this.multiple) {
+        if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
         }
 
