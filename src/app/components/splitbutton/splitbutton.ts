@@ -166,6 +166,10 @@ export class SplitButton {
      */
     @Input() menuButtonProps: MenuButtonProps | undefined;
     /**
+     * When true menu is hidden on default button click, otherwise just event is handled
+     */
+    @Input() hideMenuOnDefaultButtonClick = true;
+    /**
      * Callback to invoke when default command button is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -217,8 +221,10 @@ export class SplitButton {
     }
 
     onDefaultButtonClick(event: MouseEvent) {
+        if (this.hideMenuOnDefaultButtonClick) {
+            this.menu.hide();
+        }
         this.onClick.emit(event);
-        this.menu.hide();
     }
 
     onDropdownButtonClick(event?: MouseEvent) {
