@@ -139,6 +139,11 @@ import { LazyLoadEvent } from 'primeng/api';
 import { Car } from '../../domain/car';
 import { CarService } from '../../service/carservice';
 
+interface Column {
+    field: string;
+    header: string;
+}
+
 @Component({
     selector: 'table-virtual-scroll-lazy-demo',
     templateUrl: 'table-virtual-scroll-lazy-demo.html'

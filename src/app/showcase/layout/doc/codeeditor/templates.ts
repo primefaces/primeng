@@ -489,6 +489,7 @@ const getAngularApp = (props: Props = {}) => {
     const serviceImports = code.service ? getServiceImports(code.service) : '';
     const routerModule = code.routerModule ? code.routerModule : `RouterModule.forRoot([{ path: '', component: ${componentName} }])`;
     const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
+    const providers = code.service && code.service.length ? code.service.map((s) => s).join(', ') : '';
 
     const app_module_ts = `import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -696,7 +697,7 @@ ${serviceImports}
     ${routerModule}],
     declarations: [ ${declarations} ],
     bootstrap: [ ${componentName} ],
-    providers: [ MessageService ]
+    providers: [ ${providers} ]
 })
 
 export class AppModule {}`;
