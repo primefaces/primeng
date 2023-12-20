@@ -1587,7 +1587,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onSpaceKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
-        !pressedInInputText && this.onEnterKey(event);
+        !this.editable && !pressedInInputText && this.onEnterKey(event);
     }
 
     onEnterKey(event) {
