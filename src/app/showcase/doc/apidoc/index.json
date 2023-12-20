@@ -6236,7 +6236,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeVue locale configuration."
+                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeNG locale configuration."
                         },
                         {
                             "name": "emptySelectionMessage",
@@ -11193,21 +11193,21 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the choose button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the choose button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "uploadLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the upload button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the upload button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "cancelLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the cancel button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the cancel button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "chooseIcon",
@@ -12576,14 +12576,52 @@
     "inputgroup": {
         "components": {
             "InputGroup": {
-                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input."
+                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        }
+                    ]
+                }
             }
         }
     },
     "inputgroupaddon": {
         "components": {
             "InputGroupAddon": {
-                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input."
+                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        }
+                    ]
+                }
             }
         }
     },
@@ -17311,7 +17349,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "style",
