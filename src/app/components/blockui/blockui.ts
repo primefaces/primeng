@@ -104,7 +104,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     block() {
         if (isPlatformBrowser(this.platformId)) {
             this._blocked = true;
-            (this.mask as ElementRef).nativeElement.style.display = 'flex'
+            (this.mask as ElementRef).nativeElement.style.display = 'flex';
 
             if (this.target) {
                 this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
