@@ -62,7 +62,7 @@ import { platformBrowser } from '@angular/platform-browser';
                     (@animation.done)="onAnimationEnd($event)"
                     [value]="value"
                     [activeIndex]="activeIndex"
-                    [numVisible]="numVisible"
+                    [numVisible]="numVisibleLimit || numVisible"
                     (maskHide)="onMaskHide()"
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
@@ -71,7 +71,7 @@ import { platformBrowser } from '@angular/platform-browser';
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
     animations: [
@@ -281,6 +281,8 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
+    numVisibleLimit = 0;
+
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
@@ -327,7 +329,9 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
-            this.numVisible = simpleChanges.value.currentValue.length;
+            this.numVisibleLimit = simpleChanges.value.currentValue.length;
+        } else {
+            this.numVisibleLimit = 0;
         }
     }
 
