@@ -5014,6 +5014,7 @@ export class ReorderableRow implements AfterViewInit {
                                     (click)="removeConstraint(fieldConstraint)"
                                     pRipple
                                     [attr.aria-label]="removeRuleButtonLabel"
+                                    [label]="removeRuleButtonLabel"
                                 >
                                     <TrashIcon *ngIf="!removeRuleIconTemplate" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
@@ -5022,14 +5023,14 @@ export class ReorderableRow implements AfterViewInit {
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
+                        <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
                             <PlusIcon *ngIf="!addRuleIconTemplate" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
                         <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [attr.aria-label]="applyButtonLabel" pRipple [label]="applyButtonLabel"></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
