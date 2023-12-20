@@ -4902,7 +4902,10 @@ export class ReorderableRow implements AfterViewInit {
         this.unbindEvents();
     }
 }
-
+/**
+ * Column Filter element of Table.
+ * @group Components
+ */
 @Component({
     selector: 'p-columnFilter',
     template: `
@@ -4945,8 +4948,8 @@ export class ReorderableRow implements AfterViewInit {
                 </span>
             </button>
             <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel">
-                <FilterSlashIcon *ngIf="!clearIconTemplate" />
-                <ng-template *ngTemplateOutlet="clearFilterIcon"></ng-template>
+                <FilterSlashIcon *ngIf="!clearFilterIconTemplate" />
+                <ng-template *ngTemplateOutlet="clearFilterIconTemplate"></ng-template>
             </button>
             <div
                 *ngIf="showMenu && overlayVisible"
@@ -5044,54 +5047,131 @@ export class ReorderableRow implements AfterViewInit {
     }
 })
 export class ColumnFilter implements AfterContentInit {
+    /**
+     * Property represented by the column.
+     * @group Props
+     */
     @Input() field: string | undefined;
-
+    /**
+     * Type of the input.
+     * @group Props
+     */
     @Input() type: string = 'text';
-
+    /**
+     * Filter display.
+     * @group Props
+     */
     @Input() display: string = 'row';
-
+    /**
+     * Decides whether to display filter menu popup.
+     * @group Props
+     */
     @Input() showMenu: boolean = true;
-
+    /**
+     * Filter match mode.
+     * @group Props
+     */
     @Input() matchMode: string | undefined;
-
+    /**
+     * Filter operator.
+     * @defaultValue 'AND'
+     * @group Props
+     */
     @Input() operator: string = FilterOperator.AND;
-
+    /**
+     * Decides whether to display filter operator.
+     * @group Props
+     */
     @Input() showOperator: boolean = true;
-
+    /**
+     * Decides whether to display clear filter button.
+     * @group Props
+     */
     @Input() showClearButton: boolean = true;
-
+    /**
+     * Decides whether to display apply filter button.
+     * @group Props
+     */
     @Input() showApplyButton: boolean = true;
-
+    /**
+     * Decides whether to display filter match modes.
+     * @group Props
+     */
     @Input() showMatchModes: boolean = true;
-
+    /**
+     * Decides whether to display add filter button.
+     * @group Props
+     */
     @Input() showAddButton: boolean = true;
-
+    /**
+     * Decides whether to close popup on clear button click.
+     * @group Props
+     */
     @Input() hideOnClear: boolean = false;
-
+    /**
+     * Filter placeholder.
+     * @group Props
+     */
     @Input() placeholder: string | undefined;
-
+    /**
+     * Filter match mode options.
+     * @group Props
+     */
     @Input() matchModeOptions: SelectItem[] | undefined;
-
+    /**
+     * Defines maximum amount of constraints.
+     * @group Props
+     */
     @Input() maxConstraints: number = 2;
-
+    /**
+     * Defines minimum fraction of digits.
+     * @group Props
+     */
     @Input() minFractionDigits: number | undefined;
-
+    /**
+     * Defines maximum fraction of digits.
+     * @group Props
+     */
     @Input() maxFractionDigits: number | undefined;
-
+    /**
+     * Defines prefix of the filter.
+     * @group Props
+     */
     @Input() prefix: string | undefined;
-
+    /**
+     * Defines suffix of the filter.
+     * @group Props
+     */
     @Input() suffix: string | undefined;
-
+    /**
+     * Defines filter locale.
+     * @group Props
+     */
     @Input() locale: string | undefined;
-
+    /**
+     * Defines filter locale matcher.
+     * @group Props
+     */
     @Input() localeMatcher: string | undefined;
-
+    /**
+     * Enables currency input.
+     * @group Props
+     */
     @Input() currency: string | undefined;
-
+    /**
+     * Defines the display of the currency input.
+     * @group Props
+     */
     @Input() currencyDisplay: string | undefined;
-
+    /**
+     * Defines if filter grouping will be enabled.
+     * @group Props
+     */
     @Input() useGrouping: boolean = true;
-
+    /**
+     * Defines the visibility of buttons.
+     * @group Props
+     */
     @Input() showButtons: boolean = true;
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
@@ -5113,6 +5193,8 @@ export class ColumnFilter implements AfterContentInit {
     removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
     addRuleIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
 
@@ -5247,6 +5329,10 @@ export class ColumnFilter implements AfterContentInit {
 
                 case 'filtericon':
                     this.filterIconTemplate = item.template;
+                    break;
+
+                case 'clearfiltericon':
+                    this.clearFilterIconTemplate = item.template;
                     break;
 
                 case 'removeruleicon':
