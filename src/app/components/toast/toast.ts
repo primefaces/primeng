@@ -51,7 +51,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
             [attr.data-pc-section]="'root'"
         >
             <ng-container *ngIf="headlessTemplate; else notHeadless">
-                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message }"></ng-container>
+                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
                 <div class="p-toast-message-content" [ngClass]="message?.contentStyleClass" [attr.data-pc-section]="'content'">
@@ -181,7 +181,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         this.initTimeout();
     }
 
-    onCloseIconClick(event: Event) {
+    onCloseIconClick = (event: Event) => {
         this.clearTimeout();
 
         this.onClose.emit({
