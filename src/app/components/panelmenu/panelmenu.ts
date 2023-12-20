@@ -43,7 +43,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
             [attr.aria-hidden]="!parentExpanded"
-            (focus)="menuFocus.emit($event)"
+            (focusin)="menuFocus.emit($event)"
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
@@ -285,7 +285,7 @@ export class PanelMenuSub {
             [focusedItemId]="focused ? focusedItemId : undefined"
             [activeItemPath]="activeItemPath()"
             [transitionOptions]="transitionOptions"
-            [items]="processedItems"
+            [items]="processedItems()"
             [parentExpanded]="parentExpanded"
             (itemToggle)="onItemToggle($event)"
             (keydown)="onKeyDown($event)"
@@ -300,14 +300,7 @@ export class PanelMenuSub {
         class: 'p-element'
     }
 })
-export class PanelMenuList {
-    @Input() set model(value: MenuItem[] | undefined) {
-        this._model = value;
-        this._processedItems = this.createProcessedItems(this._model || []);
-    }
-    get model(): MenuItem[] | undefined {
-        return this._model;
-    }
+export class PanelMenuList implements OnChanges {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -344,19 +337,10 @@ export class PanelMenuList {
 
     activeItemPath = signal<any[]>([]);
 
-    _model: any;
-
-    _processedItems: any[];
-
-    get processedItems() {
-        if (!this._processedItems || !this._processedItems.length) {
-            this._processedItems = this.createProcessedItems(this.model || []);
-        }
-        return this._processedItems;
-    }
+    processedItems = signal<any[]>([]);
 
     visibleItems = computed(() => {
-        const processedItems = this.processedItems;
+        const processedItems = this.processedItems();
         return this.flatItems(processedItems);
     });
 
@@ -365,11 +349,13 @@ export class PanelMenuList {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    // ngOnChanges(changes: SimpleChanges) {
-    //     if (changes && changes.items && changes.items.currentValue) {
-    //         this._processedItems = this.createProcessedItems(changes.items.currentValue || []);
-    //     }
-    // }
+    constructor(private el: ElementRef) {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes && changes.items && changes.items.currentValue) {
+            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
+        }
+    }
 
     getItemProp(processedItem, name) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
@@ -445,7 +431,7 @@ export class PanelMenuList {
     }
 
     findProcessedItemByItemKey(key, processedItems?, level = 0) {
-        processedItems = processedItems || this.processedItems;
+        processedItems = processedItems || this.processedItems();
         if (processedItems && processedItems.length) {
             for (let i = 0; i < processedItems.length; i++) {
                 const processedItem = processedItems[i];
@@ -489,19 +475,24 @@ export class PanelMenuList {
     }
 
     onFocus(event) {
-        this.focused = true;
-        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
-        if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        if (!this.focused) {
+            this.focused = true;
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
+            if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        }
     }
 
     onBlur(event) {
-        this.focused = false;
-        this.focusedItem.set(null);
-        this.searchValue = '';
+        const target = event.relatedTarget;
+
+        if (this.focused && !this.el.nativeElement.contains(target)) {
+            this.focused = false;
+            this.focusedItem.set(null);
+            this.searchValue = '';
+        }
     }
 
     onItemToggle(event) {
-        this.focused = true;
         const { processedItem, expanded } = event;
         processedItem.expanded = !processedItem.expanded;
 
@@ -509,9 +500,7 @@ export class PanelMenuList {
         expanded && activeItemPath.push(processedItem);
 
         this.activeItemPath.set(activeItemPath);
-        const processedItems = this.processedItems;
-        const newProcessedItems = processedItems.map((item) => (item === processedItem ? processedItem : item));
-        this._processedItems = newProcessedItems;
+        this.processedItems.update((value) => value.map((i) => (i === processedItem ? processedItem : i)));
         this.focusedItem.set(processedItem);
     }
 
@@ -808,7 +797,6 @@ export class PanelMenuList {
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
                             <p-panelMenuList
-                                [model]="model"
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
                                 [itemTemplate]="itemTemplate"
@@ -855,12 +843,7 @@ export class PanelMenu implements AfterContentInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() set model(value: MenuItem[] | undefined) {
-        this._model = value;
-    }
-    get model(): MenuItem[] | undefined {
-        return this._model;
-    }
+    @Input() model: MenuItem[] | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -903,8 +886,6 @@ export class PanelMenu implements AfterContentInit {
     public animating: boolean | undefined;
 
     activeItem = signal<any>(null);
-
-    _model: MenuItem[] | undefined;
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
