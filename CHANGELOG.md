@@ -8,6 +8,7 @@
 - ContextMenu | Touch Device support [\#14375](https://github.com/primefaces/primeng/issues/14375)
 
 **Fixed bugs:**
+- Lara Light Teal: $highlightBg implementation defect [\#14414](https://github.com/primefaces/primeng/issues/14414)
 - Table: Not able to provide custom Icons for column filter clear icon [\#14397](https://github.com/primefaces/primeng/issues/14397)
 - BlockUI: entire page is blocked if "blocked" input contains true by default (even if a target is defined) [\#14230](https://github.com/primefaces/primeng/issues/14230)
 - Inputnumber: Inputnumber#currency mode not allowing to remove minus sign for Dollar and INR fields. [\#14327](https://github.com/primefaces/primeng/issues/14327)
