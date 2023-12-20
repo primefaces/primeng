@@ -257,11 +257,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             </li>
                         </ul>
                         <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
-                        <span role="status" aria-live="polite" class="p-hidden-accessible">
-                            {{ selectedMessageText }}
-                        </span>
                     </ng-template>
                 </div>
+                <span role="status" aria-live="polite" class="p-hidden-accessible">
+                    {{ selectedMessageText }}
+                </span>
             </p-overlay>
         </div>
     `,
