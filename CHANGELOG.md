@@ -1,4 +1,29 @@
 # Changelog
+## [17.2.0](https://github.com/primefaces/primeng/tree/17.2.0) (2023-12-20)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.1.0...17.2.0)
+
+**Implemented New Features and Enhancements:**
+- InputGroup | Add styleClass and style input properties [\#14404](https://github.com/primefaces/primeng/issues/14404)
+- ContextMenu | Touch Device support [\#14375](https://github.com/primefaces/primeng/issues/14375)
+
+**Fixed bugs:**
+- Table: Not able to provide custom Icons for column filter clear icon [\#14397](https://github.com/primefaces/primeng/issues/14397)
+- BlockUI: entire page is blocked if "blocked" input contains true by default (even if a target is defined) [\#14230](https://github.com/primefaces/primeng/issues/14230)
+- Inputnumber: Inputnumber#currency mode not allowing to remove minus sign for Dollar and INR fields. [\#14327](https://github.com/primefaces/primeng/issues/14327)
+- Galleria: After images change not correct numVisible value in component. [\#14401](https://github.com/primefaces/primeng/issues/14401)
+- Multiselect does not focus filter input [\#14387](https://github.com/primefaces/primeng/issues/14387)
+- Accordion: TextArea shortcuts are not working when used in Accordian Panels [\#14368](https://github.com/primefaces/primeng/issues/14368)
+- Component: Autocomplete with long list of options adds scrollbar to the whole page [\#14281](https://github.com/primefaces/primeng/issues/14281)
+- Dropdown Empty Filter Message not displayed [\#14409](https://github.com/primefaces/primeng/issues/14409)
+- PickList: Filtering bug, when moving item to target list [\#14334](https://github.com/primefaces/primeng/issues/14334)
+- Drodown: Unable to type spaces in editable dropdowns [\#14377](https://github.com/primefaces/primeng/issues/14377)
+- Table | Apply Rule and Remove Rule texts are not visible in column filter [\#14365](https://github.com/primefaces/primeng/issues/14365)
+- Autocomplete: ForceSelection does not force selection - formControl value is changed even without selection [\#14389](https://github.com/primefaces/primeng/issues/14389)
+- Table: Sort icons are not showing correct amount directions [\#14403](https://github.com/primefaces/primeng/issues/14403)
+- Component: PanelMenu repeated rendering [\#14373](https://github.com/primefaces/primeng/issues/14373)
+- Table | Resized column style is not applied (w/column reorder) [\#14386](https://github.com/primefaces/primeng/issues/14386)
+
 ## [17.1.0](https://github.com/primefaces/primeng/tree/17.1.0) (2023-12-13)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.0.0...17.1.0)
