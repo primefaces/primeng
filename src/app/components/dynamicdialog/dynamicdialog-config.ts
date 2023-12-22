@@ -34,7 +34,7 @@ export class DynamicDialogConfig<T = any> {
     /**
      * Specifies if first focusable element should be focused on show.
      */
-    disableFocusOnShow?: boolean;
+    focusOnShow: boolean = true;
     /**
      * Base zIndex value to use in layering.
      */
