@@ -24,18 +24,18 @@
                 PrimeNG LTS is a support service to provide a license for the finest compatible version suited to you.
                 LTS covers the prior two versions from the latest release, this means up to 18 months of almost
                 bi-weekly releases to bring the latest defect fixes and security updates to your project.
-                As an example, when PrimeNG moves to Angular 16, PrimeNG 15 and 14 will move to LTS support whereas STS
-                (short term support) versions of PrimeNG 16 will be open source under MIT license
-                for at least 6 months until Angular/PrimeNG 17 is released.
+                As an example, when PrimeNG moves to Angular 18, v17 and v16 will move to LTS support whereas STS
+                (short term support) versions of PrimeNG 18 will be open source under MIT license
+                for at least 6 months until Angular/PrimeNG 19 is released.
             </p>
         </div>
     </div>
     <div class="card mb-5">
         <div class="text-2xl text-900 font-semibold mb-3">Version Support</div>
         <p class="m-0 line-height-3 mb-5 text-secondary text-lg text-800">
-            The following table provides the status for PrimeNG versions under support by LTS.
+            <b>STS</b> means open source short term support whereas <b>LTS</b> stands for commercial long term support.
             Legacy versions are only supported by <a [routerLink]="['/support']"
-                class="text-primary font-medium hover:underline">PrimeNG PRO</a>.
+                class="text-primary font-medium hover:underline">PrimeNG PRO.</a>
         </p>
 
         <div class="doc-tablewrapper">
@@ -44,17 +44,31 @@
                     <tr>
                         <th class="text-900 font-semibold text-xl text-left p-2">Version</th>
                         <th class="text-900 font-semibold text-xl text-left p-2">Status</th>
-                        <th class="text-900 font-semibold text-xl text-left p-2">Active Ends</th>
-                        <th class="text-900 font-semibold text-xl text-left p-2">LTS Ends</th>
+                        <th class="text-900 font-semibold text-xl text-left p-2">End of STS</th>
+                        <th class="text-900 font-semibold text-xl text-left p-2">End of LTS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="text-lg text-800">
                         <td class="p-2">
-                            <p-tag value="v16" styleClass="text-lg px-3"></p-tag>
+                            <p-tag value="v17" styleClass="text-lg px-3"></p-tag>
                         </td>
                         <td class="p-2">
-                            Active
+                            STS
+                        </td>
+                        <td class="p-2">
+                            After v18 release
+                        </td>
+                        <td class="p-2">
+                            After v20 release
+                        </td>
+                    </tr>
+                    <tr class="text-lg text-800">
+                        <td class="p-2">
+                            <p-tag value="v16" styleClass="text-lg px-3" severity="success"></p-tag>
+                        </td>
+                        <td class="p-2">
+                            LTS
                         </td>
                         <td class="p-2">
                             After v17 release
@@ -79,10 +93,10 @@
                     </tr>
                     <tr class="text-lg text-800">
                         <td class="p-2">
-                            <p-tag value="v14" styleClass="text-lg px-3" severity="success"></p-tag>
+                            <p-tag value="v14" styleClass="text-lg px-3" severity="danger"></p-tag>
                         </td>
                         <td class="p-2">
-                            LTS
+                            Legacy
                         </td>
                         <td class="p-2">
                             After v15 release
@@ -96,13 +110,27 @@
                             <p-tag value="v13" styleClass="text-lg px-3" severity="danger"></p-tag>
                         </td>
                         <td class="p-2">
-                            Out of Support
+                            Legacy
                         </td>
                         <td class="p-2">
                             After v14 release
                         </td>
                         <td class="p-2">
                             After v16 release
+                        </td>
+                    </tr>
+                    <tr class="text-lg text-800">
+                        <td class="p-2">
+                            <p-tag value="v12" styleClass="text-lg px-3" severity="danger"></p-tag>
+                        </td>
+                        <td class="p-2">
+                            Legacy
+                        </td>
+                        <td class="p-2">
+                            After v13 release
+                        </td>
+                        <td class="p-2">
+                            After v15 release
                         </td>
                     </tr>
                 </tbody>
@@ -252,15 +280,20 @@
         <div class="text-2xl text-900 font-semibold mb-5">Frequently Asked Questions</div>
         <div class="flex flex-wrap text-lg -ml-5 -mt-5">
             <div class="w-full lg:w-4 p-5">
+                <div class="text-900 line-height-3 mb-2 font-medium">Do I have to purchase a license for PrimeNG?</div>
+                <p class="mt-0 mb-5 p-0 line-height-3 text-800">No, only the versions that have the <b>-lts</b> suffix
+                    required a paid license. Any other version is open source under MIT license.</p>
+
                 <div class="text-900 line-height-3 mb-2 font-medium">Is LTS License mandatory to use PrimeNG?</div>
-                <p class="mt-0 mb-5 p-0 line-height-3 text-800">No, all releases of the latest PrimeNG version are free
-                    to use under MIT License until a new major version comes which happens every 6 months.</p>
+                <p class="mt-0 mb-5 p-0 line-height-3 text-800">No, LTS is totally optional if you cannot update to
+                    latest Angular immediately and still would like to receive updates for your version.</p>
 
                 <div class="text-900 line-height-3 mb-2 font-medium">How long is the duration of the LTS license?</div>
                 <p class="mt-0 mb-5 p-0 line-height-3 text-800">Duration is 1 year for Basic License, for Extended
                     License there is no limit.</p>
 
-                <div class="text-900 line-height-3 mb-2 font-medium">What happens after the license duration ends?</div>
+                <div class="text-900 line-height-3 mb-2 font-medium">What happens after the LTS license duration ends?
+                </div>
                 <p class="mt-0 mb-5 p-0 line-height-3 text-800">A message will be displayed at the application screen
                     and license needs to be renewed at PrimeStore. This only applies to Basic License as Extended
                     License has no time limit.</p>
@@ -270,7 +303,7 @@
                 <p class="mt-0 mb-5 p-0 line-height-3 text-800">Yes, a license key is tied to the major version such as
                     15 and same license key cannot be used on another major version like 14.</p>
 
-                <div class="text-900 line-height-3 mb-2 font-medium">How can I assign my license to a version?</div>
+                <div class="text-900 line-height-3 mb-2 font-medium">How can I assign my LTS license to a version?</div>
                 <p class="mt-0 mb-5 p-0 line-height-3 text-800">At PrimeStore, there is an "Assign" feature that
                     activates your license by selecting a version.</p>
             </div>
