@@ -14,11 +14,13 @@ import { Code } from '../../domain/code';
                 </p-inputGroupAddon>
                 <input pInputText placeholder="Username" />
             </p-inputGroup>
+
             <p-inputGroup>
                 <p-inputGroupAddon>$</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Price" />
                 <p-inputGroupAddon>.00</p-inputGroupAddon>
             </p-inputGroup>
+            
             <p-inputGroup>
                 <p-inputGroupAddon>www</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
@@ -35,32 +37,36 @@ export class BasicDoc {
     </p-inputGroupAddon>
     <input pInputText placeholder="Username" />
 </p-inputGroup>
+
 <p-inputGroup>
     <p-inputGroupAddon>$</p-inputGroupAddon>
     <input type="text" pInputText placeholder="Price" />
     <p-inputGroupAddon>.00</p-inputGroupAddon>
 </p-inputGroup>
+
 <p-inputGroup>
     <p-inputGroupAddon>www</p-inputGroupAddon>
     <input type="text" pInputText placeholder="Website" />
 </p-inputGroup>`,
 
         html: `<div class="card flex flex-column md:flex-row gap-3">
-    <p-inputGroup>
-        <p-inputGroupAddon>
-            <i class="pi pi-user"></i>
-        </p-inputGroupAddon>
-        <input pInputText placeholder="Username" />
-    </p-inputGroup>
-    <p-inputGroup>
-        <p-inputGroupAddon>$</p-inputGroupAddon>
-        <input type="text" pInputText placeholder="Price" />
-        <p-inputGroupAddon>.00</p-inputGroupAddon>
-    </p-inputGroup>
-    <p-inputGroup>
-        <p-inputGroupAddon>www</p-inputGroupAddon>
-        <input type="text" pInputText placeholder="Website" />
-    </p-inputGroup>
+<p-inputGroup>
+    <p-inputGroupAddon>
+        <i class="pi pi-user"></i>
+    </p-inputGroupAddon>
+    <input pInputText placeholder="Username" />
+</p-inputGroup>
+
+<p-inputGroup>
+    <p-inputGroupAddon>$</p-inputGroupAddon>
+    <input type="text" pInputText placeholder="Price" />
+    <p-inputGroupAddon>.00</p-inputGroupAddon>
+</p-inputGroup>
+
+<p-inputGroup>
+    <p-inputGroupAddon>www</p-inputGroupAddon>
+    <input type="text" pInputText placeholder="Website" />
+</p-inputGroup>
 </div>`,
 
         typescript: `
