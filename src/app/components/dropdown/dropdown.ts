@@ -479,6 +479,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
+     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() group: boolean | undefined;
