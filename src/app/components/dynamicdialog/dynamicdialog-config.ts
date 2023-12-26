@@ -41,6 +41,10 @@ export class DynamicDialogConfig<T = any> {
      */
     closeOnEscape?: boolean;
     /**
+     * Specifies if first focusable element should be focused on show.
+     */
+    focusOnShow: boolean = true;
+    /**
      * Base zIndex value to use in layering.
      * @group Props
      */
