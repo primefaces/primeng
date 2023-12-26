@@ -130,11 +130,11 @@ export class MenubarService {
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                         <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -231,6 +231,8 @@ export class MenubarSub implements OnInit, OnDestroy {
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
+
+    @Input() submenuIconTemplate: TemplateRef<any> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -380,6 +382,7 @@ export class MenubarSub implements OnInit, OnDestroy {
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
+                [submenuIconTemplate]="submenuIconTemplate"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
                 (menuFocus)="onMenuFocus($event)"
