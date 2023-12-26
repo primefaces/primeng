@@ -11,10 +11,15 @@ import { IntroductionDoc } from './accessibility/introductiondoc';
 import { SemanticHTMLDoc } from './accessibility/semantichtmldoc';
 import { WAIARIADoc } from './accessibility/waiariadoc';
 import { WCAGDoc } from './accessibility/wcagdoc';
-
+import { SpecificityDoc } from './csslayer/specificitydoc';
+import { ResetDoc } from './csslayer/resetdoc';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { TailwindDoc } from './csslayer/tailwinddoc';
+import { BootstrapDoc } from './csslayer/bootstrapdoc';
+import { NormalizeDoc } from './csslayer/normalizedoc';
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, RouterModule, FormsModule, CheckboxModule, InputSwitchModule],
     exports: [AppDocModule],
-    declarations: [ColorsDoc, FormControlsDoc, IntroductionDoc, SemanticHTMLDoc, WAIARIADoc, WCAGDoc]
+    declarations: [ColorsDoc, FormControlsDoc, IntroductionDoc, SemanticHTMLDoc, WAIARIADoc, WCAGDoc, SpecificityDoc, ResetDoc, TailwindDoc, BootstrapDoc, NormalizeDoc]
 })
 export class GuidesDocModule {}
