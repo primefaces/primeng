@@ -24,24 +24,23 @@ export class CssLayerDemoComponent {
         {
             id: 'libraries',
             label: 'Libraries',
-            description: 'Compatibility between PrimeVue and CSS libraries.',
+            description: 'Compatibility between PrimeNG and CSS libraries.',
             children: [
                 {
                     id: 'tailwind',
                     label: 'Tailwind CSS',
-                    component:TailwindDoc
+                    component: TailwindDoc
                 },
                 {
                     id: 'bootstrap',
                     label: 'Bootstrap',
-                    component:BootstrapDoc
+                    component: BootstrapDoc
                 },
                 {
                     id: 'normalize',
                     label: 'Normalize',
-                    component:NormalizeDoc
-                },
-               
+                    component: NormalizeDoc
+                }
             ]
         }
     ];

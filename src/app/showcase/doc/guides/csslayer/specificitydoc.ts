@@ -1,16 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Code } from 'src/app/showcase/domain/code';
 
 @Component({
     selector: 'specificity-doc',
-
     template: `
         <app-docsectiontext>
             <p class="notification">A CSS layer is utilized in styled mode only, in unstyled mode the built-in CSS classes are not included and as a result no layer is defined. This documentation only applies to styled mode.</p>
             <p>
                 The <i>&#64;layer</i> is a standard CSS feature to define cascade layers for a customizable order of precedence. If you need to become more familiar with layers, visit the documentation at
-                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">MDN</a> to begin with. In styled mode, PrimeNG wraps the built-in style classes under the <i>primeNG</i> cascade layer to make the library styles easy to override. CSS
-                in your app without a layer has the highest CSS specificity, so you'll be able to override styles regardless of the location or how strong a class is written.
+                <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@layer">MDN</a> to begin with. PrimeNG wraps the built-in style classes under the <i>primeNG</i> cascade layer to make the library styles easy to override. CSS in your app
+                without a layer has the highest CSS specificity, so you'll be able to override styles regardless of the location or how strong a class is written.
             </p>
             <p>
                 For example, let's assume you need to remove the rounded borders of the InputSwitch component defined by the theme in use. In order to achieve this, <i>.p-inputswitch .p-inputswitch-slider</i> selector needs to be overriden. Without
@@ -21,38 +20,48 @@ import { Code } from 'src/app/showcase/domain/code';
                 <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
             </div>
 
-            <app-code [code]="code" selector="specificity-demo" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
-            <p>Layers also make it possible to use CSS Modules, view the <a [routerLink]="['/theming/#cssmodules']"> CSS Modules </a> guide for examples.</p>
+            <app-code [code]="code" selector="specificity-demo" [hideStackBlitz]="true" [hideCodeSandbox]="true"></app-code>
         </app-docsectiontext>
     `,
+    encapsulation: ViewEncapsulation.None,
     styles: `
-   :host ::ng-deep {
-    .my-inputswitch .p-inputswitch-slider {
-        border-radius: 0;
-     }
-     .my-inputswitch .p-inputswitch-slider:before  {
-        border-radius: 0;
-     }
- }
-    `
+        .my-inputswitch .p-inputswitch-slider {
+            border-radius: 0;
+        }
+        .my-inputswitch .p-inputswitch-slider:before  {
+            border-radius: 0;
+        }`
 })
 export class SpecificityDoc {
     checked: boolean = false;
-
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" styleClass="my-switch-slider" />
-        
-<style>
-
-.my-switch-slider {
+        basic: `<p-inputSwitch [(ngModel)]="checked" styleClass="my-switch-slider" />`,
+        scss: `.my-inputswitch .p-inputswitch-slider {
     border-radius: 0;
 }
 
-.my-switch-slider:before {
+.my-inputswitch .p-inputswitch-slider:before  {
     border-radius: 0;
-}
+}`,
+        typescript: `import { Component, ViewEncapsulation } from '@angular/core';
 
-</style>
-        `
+@Component({
+    template: \`
+        <div class="card flex justify-content-center">
+            <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
+        </div>\`,
+    encapsulation: ViewEncapsulation.None,
+    styles: \`
+        .my-inputswitch .p-inputswitch-slider {
+            border-radius: 0;
+        }
+        .my-inputswitch .p-inputswitch-slider:before  {
+            border-radius: 0;
+        }
+    \`
+})
+export class ExampleComponent {
+    checked: boolean = false;
+}`
     };
 }
