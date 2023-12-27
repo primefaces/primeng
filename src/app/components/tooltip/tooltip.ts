@@ -180,7 +180,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.getTarget(this.el.nativeElement);
+                    const targetElement = this.el.nativeElement;
+                    const defaultTarget = DomHandler.getFocusableElements(targetElement)[0];
+                    const target = this.getTarget(targetElement) || this.getTarget(defaultTarget);
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
@@ -637,9 +639,13 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener);
             this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener);
             this.el.nativeElement.removeEventListener('click', this.clickListener);
-        } else if (this.getOption('tooltipEvent') === 'focus') {
-            let target = this.getTarget(this.el.nativeElement);
-
+        } 
+        
+        else if (this.getOption('tooltipEvent') === 'focus') {
+            const targetElement = this.el.nativeElement;
+            const defaultTarget = DomHandler.getFocusableElements(targetElement)[0];
+            const target = this.getTarget(targetElement) || this.getTarget(defaultTarget);
+            
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
         }
@@ -703,3 +709,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     declarations: [Tooltip]
 })
 export class TooltipModule {}
+
