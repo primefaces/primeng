@@ -733,20 +733,20 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
         this.dirty = false;
     }
 
     show() {
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem.item });
-        DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
+        DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
         this.focused = true;
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem.item };
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
 
         this.focusedItemInfo.set(focusedItemInfo);
         this.onFocus.emit(event);
