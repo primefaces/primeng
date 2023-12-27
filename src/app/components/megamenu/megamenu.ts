@@ -37,6 +37,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
     selector: 'p-megaMenuSub',
     template: `
         <ul
+            *ngIf="isSubmenuVisible(submenu)"
             #menubar
             [ngClass]="{ 'p-megamenu-root-list': root, 'p-submenu-list p-megamenu-submenu': !root }"
             [attr.role]="root ? 'menubar' : 'menu'"
@@ -310,6 +311,14 @@ export class MegaMenuSub {
             'p-disabled': this.isItemDisabled(processedItem),
             ...this.getItemProp(processedItem, 'class')
         };
+    }
+
+    isSubmenuVisible(submenu: any) {
+        if (this.submenu && !this.root) {
+            return this.isItemVisible(submenu);
+        } else {
+            return true;
+        }
     }
 
     isItemVisible(processedItem: any): boolean {
