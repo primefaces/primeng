@@ -667,7 +667,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const contentPos = this.getContentPosition();
         const calculateFirst = (_index = 0, _numT: number) => (_index <= _numT ? 0 : _index);
         const calculateCoord = (_first: number, _size: number, _cpos: number) => _first * _size + _cpos;
-        const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+        const scrollTo = (left = 0, top = 0) => this.scrollTo({ top, behavior });
         let newFirst: any = 0;
 
         if (this.both) {
