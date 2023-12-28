@@ -177,7 +177,11 @@ import {
                             [attr.data-pc-section]="'item'"
                             [attr.aria-selected]="isSelected(item, selectedItemsSource)"
                         >
-                            <ng-container *ngTemplateOutlet="sourceTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            <ng-container *ngIf="!itemTemplate">
+                                <ng-container *ngTemplateOutlet="sourceItemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </ng-container>
+
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                         </li>
                     </ng-template>
                     <ng-container *ngIf="isEmpty(SOURCE_LIST) && (emptyMessageSourceTemplate || emptyFilterMessageSourceTemplate)">
@@ -285,7 +289,10 @@ import {
                             [attr.data-pc-section]="'item'"
                             [attr.aria-selected]="isSelected(item, selectedItemsTarget)"
                         >
-                            <ng-container *ngTemplateOutlet="targetTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            <ng-container *ngIf="!itemTemplate">
+                                <ng-container *ngTemplateOutlet="targetItemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                            </ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                         </li>
                     </ng-template>
                     <ng-container *ngIf="isEmpty(TARGET_LIST) && (emptyMessageTargetTemplate || emptyFilterMessageTargetTemplate)">
@@ -694,9 +701,11 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     _breakpoint: string = '960px';
 
-    public sourceTemplate: TemplateRef<any> | undefined;
+    public itemTemplate: TemplateRef<any> | undefined;
 
-    public targetTemplate: TemplateRef<any> | undefined;
+    public sourceItemTemplate: TemplateRef<any> | undefined;
+
+    public targetItemTemplate: TemplateRef<any> | undefined;
 
     moveTopIconTemplate: Nullable<TemplateRef<any>>;
 
@@ -819,12 +828,15 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
-                case 'source':
-                    this.sourceTemplate = item.template;
+                case 'item':
+                    this.itemTemplate = item.template;
+
+                case 'sourceitem':
+                    this.sourceItemTemplate = item.template;
                     break;
 
-                case 'target':
-                    this.targetTemplate = item.template;
+                case 'targetitem':
+                    this.targetItemTemplate = item.template;
                     break;
 
                 case 'sourceHeader':
@@ -900,7 +912,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                     break;
 
                 default:
-                    this.sourceTemplate = item.template;
+                    this.itemTemplate = item.template;
                     break;
             }
         });
