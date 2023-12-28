@@ -9658,7 +9658,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Whether to display options as grouped when nested options are provided."
+                            "description": "Whether to display options as grouped when nested options are provided.",
+                            "deprecated": "since v17.3.0, set initial value by model instead."
                         },
                         {
                             "name": "showClear",
@@ -10303,6 +10304,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Specifies if pressing escape key should hide the dialog."
+                        },
+                        {
+                            "name": "focusOnShow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Specifies if autofocus should happen on show."
                         },
                         {
                             "name": "baseZIndex",
@@ -21356,23 +21365,7 @@
     },
     "columnfilter": {
         "interfaces": {
-            "components": {
-                "TableColumnFilter": {
-                    "description": "Column Filter.",
-                    "props": {
-                        "description": "Defines the input properties of the component.",
-                        "values": [
-                            {
-                                "name": "field",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "string",
-                                "description": "Property represented by the column."
-                            }
-                        ]
-                    }
-                }
-            },
+            "components": {},
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
@@ -24466,6 +24459,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
