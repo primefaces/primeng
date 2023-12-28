@@ -673,7 +673,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     get moveToSourceAriaLabel() {
-        return this.allLeftButtonAriaLabel ? this.allLeftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
+        return this.leftButtonAriaLabel ? this.leftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
     }
 
     get moveAllToSourceAriaLabel() {
