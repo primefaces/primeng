@@ -26,7 +26,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [class]="styleClass"
             (click)="toggle($event)"
             (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled ? null : '0'"
+            [attr.tabindex]="disabled ? null : tabindex"
             role="switch"
             [attr.aria-checked]="checked"
             [attr.aria-labelledby]="ariaLabelledBy"
@@ -110,7 +110,7 @@ export class ToggleButton implements ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input() tabindex: number | undefined = 0;
     /**
      * Position of the icon.
      * @group Props
