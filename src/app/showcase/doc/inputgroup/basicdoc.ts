@@ -20,7 +20,7 @@ import { Code } from '../../domain/code';
                 <input type="text" pInputText placeholder="Price" />
                 <p-inputGroupAddon>.00</p-inputGroupAddon>
             </p-inputGroup>
-            
+
             <p-inputGroup>
                 <p-inputGroupAddon>www</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
