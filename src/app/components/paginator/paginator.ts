@@ -58,7 +58,8 @@ import { PaginatorState } from './paginator.interface';
                     *ngFor="let pageLink of pageLinks"
                     class="p-paginator-page p-paginator-element p-link"
                     [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
-                    [attr.aria-label]="getAriaLabel('pageLabel')"
+                    [attr.aria-label]="getPageAriaLabel(pageLink)"
+                    [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
                     (click)="onPageLinkClick($event, pageLink - 1)"
                     pRipple
                 >
@@ -288,6 +289,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     getAriaLabel(labelType) {
         return this.config.translation.aria ? this.config.translation.aria[labelType] : undefined;
+    }
+
+    getPageAriaLabel(value) {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `Page ${value}`) : undefined;
     }
 
     getLocalization(digit: number) {
