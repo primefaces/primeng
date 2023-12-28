@@ -928,13 +928,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
 
-            if (modelValue && this.editable) {
-                this.updateEditableLabel();
-            }
-
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
                 this.cd.markForCheck();
+            }
+
+            if (modelValue && this.editable) {
+                this.updateEditableLabel();
             }
         });
     }
@@ -1103,7 +1103,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.modelValue()) === undefined ? this.editableInputViewChild.nativeElement.value : this.getOptionLabel(this.modelValue());
+            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
         }
     }
 
@@ -1200,6 +1200,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.onModelChange(value);
         this.updateModel(value, event);
         this.onChange.emit({ originalEvent: event, value: value });
+
+        !this.overlayVisible && ObjectUtils.isNotEmpty(value) && this.show();
     }
     /**
      * Displays the panel.
@@ -1213,6 +1215,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (isFocus) {
             DomHandler.focus(this.focusInputViewChild?.nativeElement);
         }
+
         this.cd.markForCheck();
     }
 
@@ -1263,8 +1266,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
-
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        if (isFocus) {
+            if (this.focusInputViewChild) {
+                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            }
+            if (this.editable && this.editableInputViewChild) {
+                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+            }
+        }
         this.cd.markForCheck();
     }
 
