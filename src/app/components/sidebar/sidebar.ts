@@ -321,7 +321,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     close(event: Event) {
-        this.hide(false);
+        this.hide();
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -386,8 +386,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
-                this.hide();
-
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;
