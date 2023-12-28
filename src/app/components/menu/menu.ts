@@ -159,7 +159,7 @@ export class MenuItemContent {
                 class="p-menu-list p-reset"
                 role="menu"
                 [attr.id]="id + '_list'"
-                [tabindex]="tabindex"
+                [attr.tabindex]="getTabIndexValue()"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
                 [attr.aria-label]="ariaLabel"
@@ -430,6 +430,10 @@ export class Menu implements OnDestroy {
                     break;
             }
         });
+    }
+
+    getTabIndexValue(): string | null {
+        return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
