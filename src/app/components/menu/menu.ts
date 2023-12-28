@@ -530,24 +530,28 @@ export class Menu implements OnDestroy {
     }
 
     onListFocus(event: Event) {
-        this.focused = true;
-        if (!this.popup) {
-            if (this.selectedOptionIndex() !== -1) {
-                this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                this.selectedOptionIndex.set(-1);
-            } else {
-                this.changeFocusedOptionIndex(0);
+        if (!this.focused) {
+            this.focused = true;
+            if (!this.popup) {
+                if (this.selectedOptionIndex() !== -1) {
+                    this.changeFocusedOptionIndex(this.selectedOptionIndex());
+                    this.selectedOptionIndex.set(-1);
+                } else {
+                    this.changeFocusedOptionIndex(0);
+                }
             }
+            this.onFocus.emit(event);
         }
-        this.onFocus.emit(event);
     }
 
     onListBlur(event: FocusEvent | MouseEvent) {
-        this.focused = false;
-        this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(-1);
-        this.focusedOptionIndex.set(-1);
-        this.onBlur.emit(event);
+        if (this.focused) {
+            this.focused = false;
+            this.changeFocusedOptionIndex(-1);
+            this.selectedOptionIndex.set(-1);
+            this.focusedOptionIndex.set(-1);
+            this.onBlur.emit(event);
+        }
     }
 
     onListKeyDown(event) {
@@ -658,6 +662,11 @@ export class Menu implements OnDestroy {
 
     itemClick(event: any, id: string) {
         const { originalEvent, item } = event;
+
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit();
+        }
 
         if (item.disabled) {
             originalEvent.preventDefault();
