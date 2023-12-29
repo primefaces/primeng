@@ -26,7 +26,6 @@ export class ResetDoc {
     input {
         /* CSS to Reset */
     }
-}
-`
+}`
     };
 }

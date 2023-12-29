@@ -25,7 +25,6 @@ export class TailwindDoc {
 @layer tailwind-utilities {
     @tailwind components;
     @tailwind utilities;
-}
-    `
+}`
     };
 }
