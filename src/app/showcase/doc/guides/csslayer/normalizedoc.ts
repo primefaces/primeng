@@ -15,7 +15,6 @@ export class NormalizeDoc {
     code: Code = {
         basic: `@layer normalize, primeng;
 
-@import "normalize.css" layer(normalize-reset);
-`
+@import "normalize.css" layer(normalize-reset);`
     };
 }
