@@ -152,6 +152,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     mouseLeaveListener: Nullable<Function>;
 
+    touchStartListener: Nullable<Function>;
+
+    touchEndListener: Nullable<Function>;
+
     containerMouseleaveListener: Nullable<Function>;
 
     clickListener: Nullable<Function>;
@@ -169,20 +173,27 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
-                if (this.getOption('tooltipEvent') === 'hover') {
-                    this.mouseEnterListener = this.onMouseEnter.bind(this);
-                    this.mouseLeaveListener = this.onMouseLeave.bind(this);
-                    this.clickListener = this.onInputClick.bind(this);
-                    this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
-                    this.el.nativeElement.addEventListener('click', this.clickListener);
-                    this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
-                } else if (this.getOption('tooltipEvent') === 'focus') {
-                    this.focusListener = this.onFocus.bind(this);
-                    this.blurListener = this.onBlur.bind(this);
+                if (this.isMobile()) {
+                    this.touchStartListener = this.onTouchStart.bind(this);
+                    this.touchEndListener = this.onTouchEnd.bind(this);
+                    this.el.nativeElement.addEventListener('touchstart', this.touchStartListener);
+                    this.el.nativeElement.addEventListener('touchend', this.touchEndListener);
+                } else {
+                    if (this.getOption('tooltipEvent') === 'hover') {
+                        this.mouseEnterListener = this.onMouseEnter.bind(this);
+                        this.mouseLeaveListener = this.onMouseLeave.bind(this);
+                        this.clickListener = this.onInputClick.bind(this);
+                        this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener);
+                        this.el.nativeElement.addEventListener('click', this.clickListener);
+                        this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener);
+                    } else if (this.getOption('tooltipEvent') === 'focus') {
+                        this.focusListener = this.onFocus.bind(this);
+                        this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.getTarget(this.el.nativeElement);
-                    target.addEventListener('focus', this.focusListener);
-                    target.addEventListener('blur', this.blurListener);
+                        let target = this.getTarget(this.el.nativeElement);
+                        target.addEventListener('focus', this.focusListener);
+                        target.addEventListener('blur', this.blurListener);
+                    }
                 }
             });
         }
@@ -289,6 +300,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         return this.getOption('autoHide');
     }
 
+    isMobile(): boolean {
+        return DomHandler.isIOS() || DomHandler.isAndroid();
+    }
+
     onMouseEnter(e: Event) {
         if (!this.container && !this.showTimeout) {
             this.activate();
@@ -302,6 +317,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         } else {
             this.deactivate();
         }
+    }
+
+    onTouchStart(e: TouchEvent) {
+        if (!this.container && !this.showTimeout) {
+            this.showTimeout = setTimeout(() => {
+                this.activate();
+            }, 500);
+        }
+    }
+
+    onTouchEnd(e: TouchEvent) {
+        this.deactivate();
     }
 
     onFocus(e: Event) {
@@ -633,13 +660,18 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     unbindEvents() {
+        if (this.touchStartListener && this.touchEndListener) {
+            this.el.nativeElement.removeEventListener('touchstart', this.touchStartListener);
+            this.el.nativeElement.removeEventListener('touchend', this.touchEndListener);
+        }
+
         if (this.getOption('tooltipEvent') === 'hover') {
             this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener);
             this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener);
             this.el.nativeElement.removeEventListener('click', this.clickListener);
+            
         } else if (this.getOption('tooltipEvent') === 'focus') {
             let target = this.getTarget(this.el.nativeElement);
-
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
         }
