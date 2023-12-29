@@ -14,7 +14,7 @@ import { Code } from 'src/app/showcase/domain/code';
             <p>
                 For example, let's assume you need to remove the rounded borders of the InputSwitch component defined by the theme in use. In order to achieve this, <i>.p-inputswitch .p-inputswitch-slider</i> selector needs to be overriden. Without
                 the layers, we'd have to write a stronger css or use <i>!important</i> however, with layers, this does not present an issue as your CSS can always override PrimeNG with a more straightforward class name such as
-                <i>my-switch-slider</i>. Another advantage of this approach is that it does not force you to figure out the built-in class names of the components.
+                <i>my-inputswitch</i>. Another advantage of this approach is that it does not force you to figure out the built-in class names of the components.
             </p>
             <div class="card flex justify-content-center">
                 <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
@@ -35,7 +35,7 @@ import { Code } from 'src/app/showcase/domain/code';
 export class SpecificityDoc {
     checked: boolean = false;
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" styleClass="my-switch-slider" />`,
+        basic: `<p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />`,
         scss: `.my-inputswitch .p-inputswitch-slider {
     border-radius: 0;
 }
