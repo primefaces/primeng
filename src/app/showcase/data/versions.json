@@ -1,11 +1,11 @@
 [
     {
-        "version": "v17.2.0",
+        "version": "v17.3.0",
         "name": "v17",
         "url": "https://primeng.org"
     },
     {
-        "version": "v16.9.2-lts",
+        "version": "v16.9.3-lts",
         "name": "v16",
         "url": "https://www.primefaces.org/primeng-v16-lts/"
     },
@@ -15,7 +15,7 @@
         "url": "https://www.primefaces.org/primeng-v15-lts/#/"
     },
     {
-        "version": "v14.2.16-lts",
+        "version": "v14.2.17-lts",
         "name": "v14",
         "url": "https://www.primefaces.org/primeng-v14-lts"
     },

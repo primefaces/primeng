@@ -41,6 +41,11 @@ export class DynamicDialogConfig<T = any> {
      */
     closeOnEscape?: boolean;
     /**
+     * Specifies if autofocus should happen on show.
+     * @group Props
+     */
+    focusOnShow?: boolean = true;
+    /**
      * Base zIndex value to use in layering.
      * @group Props
      */
