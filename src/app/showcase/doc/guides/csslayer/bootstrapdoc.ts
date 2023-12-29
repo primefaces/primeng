@@ -15,7 +15,6 @@ export class BootstrapDoc {
     code: Code = {
         basic: `@layer bootstrap-reboot, primeng
 
-@import "bootstrap-reboot.css" layer(bootstrap-rebooot);
-`
+@import "bootstrap-reboot.css" layer(bootstrap-rebooot);`
     };
 }
