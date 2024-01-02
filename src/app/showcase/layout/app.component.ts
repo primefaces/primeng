@@ -1,6 +1,6 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Inject, OnDestroy, OnInit, Renderer2, afterNextRender } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -29,8 +29,8 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
     providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
-export class AppComponent implements OnInit, OnDestroy {
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router) {
+export class AppComponent implements OnDestroy {
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
@@ -41,15 +41,25 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     themeChangeSubscription: Subscription;
+    theme
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.primeng.ripple = true;
 
         this.themeChangeSubscription = this.configService.themeChange$.subscribe((theme: Theme) => {
             this.switchTheme(theme);
+            console.log("ds")
+            
         });
-    }
-
+        if (isPlatformBrowser(this.platformId)) {
+          if(this.configService.getAppState()==="true"){
+            this.switchThemeByLocalStorage()
+            
+          }
+        }
+      }
+    
+   
     injectScripts() {
         const script = this.renderer.createElement('script');
         script.type = 'text/javascript';
@@ -85,7 +95,25 @@ export class AppComponent implements OnInit, OnDestroy {
             }
         });
     }
+    switchThemeByLocalStorage() {
+        const id = 'theme-link';
+        const linkElement = <HTMLLinkElement>this.document.getElementById(id);
+        const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
 
+        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.configService.config.theme, "lara-dark-blue"));
+        cloneLinkElement.setAttribute('id', id + '-clone');
+
+        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
+
+        cloneLinkElement.addEventListener('load', () => {
+            linkElement.remove();
+            cloneLinkElement.setAttribute('id', id);
+            this.configService.updateConfig({
+                theme: "lara-dark-blue",
+                darkMode: true
+            });
+        });
+    }
     switchTheme(theme: Theme) {
         const id = 'theme-link';
         const linkElement = <HTMLLinkElement>this.document.getElementById(id);
@@ -104,6 +132,7 @@ export class AppComponent implements OnInit, OnDestroy {
                 darkMode: theme.dark
             });
             this.configService.completeThemeChange(theme);
+            this.configService.setAppState(theme.dark);
         });
     }
 

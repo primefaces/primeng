@@ -76,4 +76,13 @@ export class AppConfigService {
     hideNews() {
         this.state.newsActive = false;
     }
+
+    getAppState() : any{
+        return localStorage.getItem("darkmode")
+    }
+
+    setAppState(val){
+        localStorage.setItem("darkmode",val)
+        console.log(this.getAppState())
+    }
 }
