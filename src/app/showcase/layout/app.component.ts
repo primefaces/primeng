@@ -21,6 +21,7 @@ import { AppConfigComponent } from './config/app.config.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
+import { AppConfig } from '../domain/appconfig';
 
 @Component({
     selector: 'app-root',
@@ -29,7 +30,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
     providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit {
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
@@ -40,26 +41,22 @@ export class AppComponent implements OnDestroy {
         });
     }
 
-    themeChangeSubscription: Subscription;
-    theme
-
     ngOnInit(): void {
         this.primeng.ripple = true;
-
-        this.themeChangeSubscription = this.configService.themeChange$.subscribe((theme: Theme) => {
-            this.switchTheme(theme);
-            console.log("ds")
-            
-        });
         if (isPlatformBrowser(this.platformId)) {
-          if(this.configService.getAppState()==="true"){
-            this.switchThemeByLocalStorage()
-            
-          }
+            this.checkAppState();
         }
-      }
-    
-   
+    }
+
+    checkAppState() {
+        const stored = localStorage.getItem('layout-config');
+        let _config!: AppConfig;
+        if (stored) {
+            _config = JSON.parse(stored) as AppConfig;
+            this.configService.config.set(_config);
+        }
+    }
+
     injectScripts() {
         const script = this.renderer.createElement('script');
         script.type = 'text/javascript';
@@ -87,58 +84,12 @@ export class AppComponent implements OnDestroy {
                     });
                 }
 
-                const { theme, darkMode } = this.configService.config;
+                const { theme, darkMode } = this.configService.config();
                 const landingTheme = darkMode ? 'lara-dark-blue' : 'lara-light-blue';
                 if (event.urlAfterRedirects === '/' && theme !== landingTheme) {
-                    this.switchTheme({ name: landingTheme, dark: darkMode });
+                    this.configService.config.update((config) => ({ ...config, theme: landingTheme, dark: darkMode }));
                 }
             }
         });
-    }
-    switchThemeByLocalStorage() {
-        const id = 'theme-link';
-        const linkElement = <HTMLLinkElement>this.document.getElementById(id);
-        const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
-
-        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.configService.config.theme, "lara-dark-blue"));
-        cloneLinkElement.setAttribute('id', id + '-clone');
-
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-            this.configService.updateConfig({
-                theme: "lara-dark-blue",
-                darkMode: true
-            });
-        });
-    }
-    switchTheme(theme: Theme) {
-        const id = 'theme-link';
-        const linkElement = <HTMLLinkElement>this.document.getElementById(id);
-        const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
-
-        cloneLinkElement.setAttribute('href', linkElement.getAttribute('href').replace(this.configService.config.theme, theme.name));
-        cloneLinkElement.setAttribute('id', id + '-clone');
-
-        linkElement.parentNode.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-        cloneLinkElement.addEventListener('load', () => {
-            linkElement.remove();
-            cloneLinkElement.setAttribute('id', id);
-            this.configService.updateConfig({
-                theme: theme.name,
-                darkMode: theme.dark
-            });
-            this.configService.completeThemeChange(theme);
-            this.configService.setAppState(theme.dark);
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.themeChangeSubscription) {
-            this.themeChangeSubscription.unsubscribe();
-        }
     }
 }

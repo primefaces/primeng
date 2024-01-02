@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, effect, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AppConfig } from '../domain/appconfig';
 import { AppState } from '../domain/appstate';
-import { Theme } from '../domain/theme';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AppConfigService {
-    config: AppConfig = {
+    _config: AppConfig = {
         theme: 'lara-light-blue',
         darkMode: false,
         inputStyle: 'outlined',
-        ripple: true
+        ripple: true,
+        scale: 14,
+        tableTheme: 'lara-light-blue'
     };
 
     state: AppState = {
@@ -21,28 +23,37 @@ export class AppConfigService {
         newsActive: false
     };
 
-    private themeChange = new Subject<Theme>();
+    config = signal<AppConfig>(this._config);
 
-    themeChange$ = this.themeChange.asObservable();
+    private configUpdate = new Subject<AppConfig>();
 
-    private themeChangeComplete = new Subject<Theme>();
+    configUpdate$ = this.configUpdate.asObservable();
 
-    themeChangeComplete$ = this.themeChangeComplete.asObservable();
-
-    changeTheme(theme: Theme) {
-        this.themeChange.next(theme);
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {
+        effect(() => {
+            const config = this.config();
+            if (isPlatformBrowser(this.platformId)) {
+                if (this.updateStyle(config)) {
+                    this.changeTheme();
+                    const newTableTheme = !config.darkMode ? config.tableTheme.replace('dark', 'light') : config.tableTheme.replace('light', 'dark');
+                    this.replaceTableTheme(newTableTheme);
+                }
+                this.changeScale(config.scale);
+                this.onConfigUpdate();
+            }
+        });
     }
 
-    completeThemeChange(theme: Theme) {
-        this.themeChangeComplete.next(theme);
+    updateStyle(config: AppConfig) {
+        return config.theme !== this._config.theme || config.darkMode !== this._config.darkMode || config.tableTheme !== this._config.tableTheme;
     }
 
-    updateConfig(config: AppConfig) {
-        this.config = { ...this.config, ...config };
-    }
-
-    getConfig() {
-        return this.config;
+    onConfigUpdate() {
+        const config = this.config();
+        config.tableTheme = !config.darkMode ? config.tableTheme.replace('light', 'dark') : config.tableTheme.replace('dark', 'light');
+        this._config = { ...config };
+        this.configUpdate.next(this.config());
+        localStorage.setItem('layout-config', JSON.stringify(config));
     }
 
     showMenu() {
@@ -61,14 +72,6 @@ export class AppConfigService {
         this.state.configActive = false;
     }
 
-    setRipple(value: boolean) {
-        this.config.ripple = value;
-    }
-
-    setInputStyle(value: string) {
-        this.config.inputStyle = value;
-    }
-
     showNews() {
         this.state.newsActive = true;
     }
@@ -77,12 +80,56 @@ export class AppConfigService {
         this.state.newsActive = false;
     }
 
-    getAppState() : any{
-        return localStorage.getItem("darkmode")
+    changeTheme() {
+        const config = this.config();
+        const themeLink = <HTMLLinkElement>document.getElementById('theme-link');
+        const themeLinkHref = themeLink.getAttribute('href')!;
+        const newHref = themeLinkHref
+            .split('/')
+            .map((el) => (el == this._config.theme ? (el = config.theme) : el == `theme-${this._config.darkMode}` ? (el = `theme-${config.darkMode}`) : el))
+            .join('/');
+
+        this.replaceThemeLink(newHref);
     }
 
-    setAppState(val){
-        localStorage.setItem("darkmode",val)
-        console.log(this.getAppState())
+    replaceThemeLink(href: string) {
+        const id = 'theme-link';
+        let themeLink = <HTMLLinkElement>document.getElementById(id);
+        const cloneLinkElement = <HTMLLinkElement>themeLink.cloneNode(true);
+
+        cloneLinkElement.setAttribute('href', href);
+        cloneLinkElement.setAttribute('id', id + '-clone');
+
+        themeLink.parentNode!.insertBefore(cloneLinkElement, themeLink.nextSibling);
+        cloneLinkElement.addEventListener('load', () => {
+            themeLink.remove();
+            cloneLinkElement.setAttribute('id', id);
+        });
+    }
+
+    replaceTableTheme(newTheme: string) {
+        const elementId = 'home-table-link';
+        const linkElement = <HTMLLinkElement>document.getElementById(elementId);
+        const tableThemeTokens = linkElement?.getAttribute('href').split('/') || null;
+        const currentTableTheme = tableThemeTokens ? tableThemeTokens[tableThemeTokens.length - 2] : null;
+        if (currentTableTheme !== newTheme && tableThemeTokens) {
+            const newThemeUrl = linkElement.getAttribute('href').replace(currentTableTheme, newTheme);
+
+            const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
+
+            cloneLinkElement.setAttribute('id', elementId + '-clone');
+            cloneLinkElement.setAttribute('href', newThemeUrl);
+            cloneLinkElement.addEventListener('load', () => {
+                linkElement.remove();
+                cloneLinkElement.setAttribute('id', elementId);
+            });
+            linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling);
+        }
+    }
+
+    changeScale(value: number) {
+        if (isPlatformBrowser(this.platformId)) {
+            document.documentElement.style.fontSize = `${value}px`;
+        }
     }
 }

@@ -109,7 +109,7 @@ export class AppDocApiTable {
     constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private configService: AppConfigService) {}
 
     get isDarkMode(): boolean {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 
     navigate(event, param) {

@@ -1,6 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Code } from '../../domain/code';
+import { AppConfigService } from '../../service/appconfigservice';
+import { Subscription, debounceTime } from 'rxjs';
 
 @Component({
     selector: 'chart-basic-demo',
@@ -22,9 +24,19 @@ export class BasicDoc implements OnInit {
 
     basicOptions: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    subscription!: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.initChart();
+        });
+    }
 
     ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
