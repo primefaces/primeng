@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <span class="p-float-label">
                 <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input"></p-inputMask>
-                <label htmlFor="ssn_input">SSN</label>
+                <label for="ssn_input">SSN</label>
             </span>
         </div>
         <app-code [code]="code" selector="input-mask-floatlabel-demo"></app-code>
@@ -22,14 +22,14 @@ export class FloatlabelDoc {
     code: Code = {
         basic: `<span class="p-float-label">
     <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input"></p-inputMask>
-    <label htmlFor="ssn_input">SSN</label>
+    <label for="ssn_input">SSN</label>
 </span>`,
 
         html: `
 <div class="card flex justify-content-center">
     <span class="p-float-label">
     <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input"></p-inputMask>
-    <label htmlFor="ssn_input">SSN</label>
+    <label for="ssn_input">SSN</label>
     </span>
 </div>`,
 

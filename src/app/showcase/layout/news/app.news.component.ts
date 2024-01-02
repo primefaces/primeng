@@ -1,5 +1,5 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { StyleClassModule } from 'primeng/styleclass';
 import News from '../../data/news.json';
@@ -9,21 +9,16 @@ import { AppConfigService } from '../../service/appconfigservice';
     selector: 'app-news',
     standalone: true,
     templateUrl: './app.news.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [CommonModule, FormsModule, StyleClassModule]
 })
-export class AppNewsComponent implements OnInit {
+export class AppNewsComponent {
     storageKey: string = 'primeng';
 
     announcement: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService) {}
-
-    get isNewsActive(): boolean {
-        return this.configService.state.newsActive;
-    }
-
-    ngOnInit(): void {
-        if (isPlatformBrowser(this.platformId)) {
+    constructor(private configService: AppConfigService, private cd: ChangeDetectorRef) {
+        afterNextRender(() => {
             const itemString = localStorage.getItem(this.storageKey);
 
             if (itemString) {
@@ -39,7 +34,12 @@ export class AppNewsComponent implements OnInit {
                 this.configService.state.newsActive = true;
                 this.announcement = News;
             }
-        }
+            this.cd.markForCheck();
+        });
+    }
+
+    get isNewsActive(): boolean {
+        return this.configService.state.newsActive;
     }
 
     hideNews() {

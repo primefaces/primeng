@@ -20,9 +20,9 @@ import { ProductService } from '../../service/productservice';
                             <h4 class="mb-1">{{ product.name }}</h4>
                             <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                             <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                            <div class="car-buttons mt-5">
-                                <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                                <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
+                            <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                                <p-button icon="pi pi-search" [rounded]="true" />
+                                <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
                             </div>
                         </div>
                     </div>
@@ -86,16 +86,15 @@ export class CircularDoc implements OnInit {
                 <h4 class="mb-1">{{ product.name }}</h4>
                 <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                <div class="car-buttons mt-5">
-                    <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                    <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                </div>
+                <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                <p-button icon="pi pi-search" [rounded]="true" />
+                <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+            </div>
             </div>
         </div>
     </ng-template>
 </p-carousel>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="true" [responsiveOptions]="responsiveOptions" autoplayInterval="3000">
         <ng-template let-product pTemplate="item">
             <div class="border-1 surface-border border-round m-2 text-center py-5 px-3">
@@ -106,10 +105,10 @@ export class CircularDoc implements OnInit {
                     <h4 class="mb-1">{{ product.name }}</h4>
                     <h6 class="mt-0 mb-3">{{ '$' + product.price }}</h6>
                     <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                    <div class="car-buttons mt-5">
-                        <p-button type="button" styleClass="p-button p-button-rounded mr-2" icon="pi pi-search"></p-button>
-                        <p-button type="button" styleClass="p-button-success p-button-rounded mr-2" icon="pi pi-star-fill"></p-button>
-                    </div>
+                    <div class="mt-5 flex align-items-center justify-content-center gap-2">
+                    <p-button icon="pi pi-search" [rounded]="true" />
+                    <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
+                </div>
                 </div>
             </div>
         </ng-template>

@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
     `
 })
 export class CustomToolbarDoc {
-    text: string = 'Hello World!';
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 
     code: Code = {
         basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
@@ -56,7 +56,7 @@ import { Component } from '@angular/core';
     templateUrl: './editor-customtoolbar-demo.html'
 })
 export class EditorCustomtoolbarDemo {
-    text: string = 'Hello World!';
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 }`
     };
 }

@@ -781,15 +781,17 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     updateInkBar() {
-        if (this.navbar) {
-            const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.navbar) {
+                const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
 
-            if (!tabHeader) {
-                return;
+                if (!tabHeader) {
+                    return;
+                }
+
+                (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
             }
-
-            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
     }
 

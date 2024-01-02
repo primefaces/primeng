@@ -150,7 +150,7 @@
     .p-tree.p-tree-horizontal table {
         height: 0;
     }
-
+    
     /* Virtual Scroll */
     .p-scroller .p-tree-container {
         overflow: visible;

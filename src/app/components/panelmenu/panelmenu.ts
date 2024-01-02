@@ -349,6 +349,8 @@ export class PanelMenuList implements OnChanges {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
+    constructor(private el: ElementRef) {}
+
     ngOnChanges(changes: SimpleChanges) {
         if (changes && changes.items && changes.items.currentValue) {
             this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
@@ -473,15 +475,21 @@ export class PanelMenuList implements OnChanges {
     }
 
     onFocus(event) {
-        this.focused = true;
-        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
-        if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        if (!this.focused) {
+            this.focused = true;
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
+            if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        }
     }
 
     onBlur(event) {
-        this.focused = false;
-        this.focusedItem.set(null);
-        this.searchValue = '';
+        const target = event.relatedTarget;
+
+        if (this.focused && !this.el.nativeElement.contains(target)) {
+            this.focused = false;
+            this.focusedItem.set(null);
+            this.searchValue = '';
+        }
     }
 
     onItemToggle(event) {
@@ -492,9 +500,7 @@ export class PanelMenuList implements OnChanges {
         expanded && activeItemPath.push(processedItem);
 
         this.activeItemPath.set(activeItemPath);
-        const processedItems = this.processedItems();
-        const newProcessedItems = processedItems.map((item) => (item === processedItem ? processedItem : item));
-        this.processedItems.set(newProcessedItems);
+        this.processedItems.update((value) => value.map((i) => (i === processedItem ? processedItem : i)));
         this.focusedItem.set(processedItem);
     }
 

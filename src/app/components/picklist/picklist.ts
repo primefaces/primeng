@@ -673,7 +673,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     get moveToSourceAriaLabel() {
-        return this.allLeftButtonAriaLabel ? this.allLeftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
+        return this.leftButtonAriaLabel ? this.leftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
     }
 
     get moveAllToSourceAriaLabel() {
@@ -1130,7 +1130,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
                     this.target?.push(this.source?.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
 
-                    if (this.visibleOptionsSource) this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    if (this.visibleOptionsSource?.includes(selectedItem)) {
+                        this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    }
                 }
             }
 
@@ -1188,7 +1190,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
                     this.source?.push(this.target?.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
 
-                    if (this.visibleOptionsTarget) this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    if (this.visibleOptionsTarget?.includes(selectedItem)) {
+                        this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    }
                 }
             }
 
@@ -1426,12 +1430,13 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     changeFocusedOptionIndex(index, listType) {
         const items = this.getListItems(listType);
+        if (items?.length > 0) {
+            let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
-        let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-        this.focusedOptionIndex = items[order].getAttribute('id');
-        this.focusedOption = this.getFocusedOption(order, listType);
-        this.scrollInView(items[order].getAttribute('id'), listType);
+            this.focusedOptionIndex = items[order].getAttribute('id');
+            this.focusedOption = this.getFocusedOption(order, listType);
+            this.scrollInView(items[order].getAttribute('id'), listType);
+        }
     }
 
     scrollInView(id, listType) {

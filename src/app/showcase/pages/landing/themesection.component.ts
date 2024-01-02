@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
-    selector: 'template-theme',
+    selector: 'theme-section',
     standalone: true,
     imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule],
     template: `
@@ -21,7 +21,6 @@ import { CustomerService } from '../../service/customerservice';
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
-                <a type="button" class="font-medium p-link linkbox mt-4" href="https://designer.primeng.org" target="_blank">more...</a>
             </div>
             <div
                 class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
@@ -34,18 +33,12 @@ import { CustomerService } from '../../service/customerservice';
                         [value]="customers"
                         [(selection)]="selectedCustomers"
                         dataKey="id"
-                        styleClass="p-datatable-customers"
                         [rowHover]="true"
                         [rows]="5"
                         [showCurrentPageReport]="true"
-                        [rowsPerPageOptions]="[5, 10, 15]"
                         [loading]="loading"
-                        responsiveLayout="scroll"
                         [paginator]="true"
-                        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-                        paginatorDropdownAppendTo="body"
-                        [totalRecords]="5"
                     >
                         <ng-template pTemplate="caption">
                             <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">

@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <div class="flex flex-column gap-2">
-                <label htmlFor="username">Username</label>
+                <label for="username">Username</label>
                 <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
                 <small id="username-help">Enter your username to reset your password.</small>
             </div>
@@ -22,7 +22,7 @@ export class HelpTextDoc {
 
     code: Code = {
         basic: `<div class="flex flex-column gap-2">
-    <label htmlFor="username">Username</label>
+    <label for="username">Username</label>
     <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
     <small id="username-help">Enter your username to reset your password.</small>
 </div>`,
@@ -30,7 +30,7 @@ export class HelpTextDoc {
         html: `
 <div class="card flex justify-content-center">
     <div class="flex flex-column gap-2">
-        <label htmlFor="username">Username</label>
+        <label for="username">Username</label>
         <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
         <small id="username-help">Enter your username to reset your password.</small>
     </div>

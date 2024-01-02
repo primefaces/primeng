@@ -121,6 +121,7 @@ export class MultiSelectItem {
             option: this.option,
             selected: this.selected
         });
+        event.stopPropagation();
     }
 
     onOptionMouseEnter(event: Event) {
@@ -282,7 +283,7 @@ export class MultiSelectItem {
                                     </span>
                                 </div>
 
-                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple>
+                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple [attr.aria-label]="closeAriaLabel">
                                     <TimesIcon [styleClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate" />
                                     <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
                                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
@@ -381,8 +382,8 @@ export class MultiSelectItem {
     `,
     host: {
         class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
+        '[class.p-inputwrapper-focus]': 'focused || overlayVisible',
+        '[class.p-inputwrapper-filled]': 'filled'
     },
     providers: [MULTISELECT_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -501,10 +502,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      * @defaultValue 3
      */
-    @Input() set maxSelectedLabels(val: number) {
+    @Input() set maxSelectedLabels(val: number | null | undefined) {
         this._maxSelectedLabels = val;
     }
-    get maxSelectedLabels(): number {
+    get maxSelectedLabels(): number | null | undefined {
         return this._maxSelectedLabels;
     }
     /**
@@ -948,8 +949,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     filterOptions: MultiSelectFilterOptions | undefined;
 
-    maxSelectionLimitReached: boolean | undefined;
-
     preventModelTouched: boolean | undefined;
 
     preventDocumentDefault: boolean | undefined;
@@ -980,9 +979,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             'p-disabled': this.disabled,
             'p-multiselect-clearable': this.showClear && !this.disabled,
             'p-multiselect-chip': this.display === 'chip',
-            'p-focus': this.focused,
-            'p-inputwrapper-filled': ObjectUtils.isNotEmpty(this.modelValue()),
-            'p-inputwrapper-focus': this.focused || this.overlayVisible
+            'p-focus': this.focused
         };
     }
 
@@ -1021,7 +1018,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get filled(): boolean {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
 
-        return this.modelValue() || this.modelValue() != null || this.modelValue() != undefined;
+        return ObjectUtils.isNotEmpty(this.modelValue());
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -1091,6 +1088,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
+
             const visibleOptions = this.visibleOptions();
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions) && modelValue) {
                 if (this.optionValue && this.optionLabel) {
@@ -1098,6 +1096,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 } else {
                     this.selectedOptions = [...modelValue];
                 }
+                this.cd.markForCheck();
             }
         });
     }
@@ -1112,6 +1111,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 reset: () => this.resetFilter()
             };
         }
+    }
+
+    maxSelectionLimitReached() {
+        return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
     }
 
     ngAfterContentInit() {
@@ -1285,7 +1288,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return (this.filterBy || this.optionLabel || 'label').split(',');
     }
 
     findNearestSelectedOptionIndex(index, firstCheckUp = false) {
@@ -1356,8 +1359,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionDisabled(option: any) {
-        let disabled = this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
-        return disabled || (this.maxSelectionLimitReached && !this.isSelected(option));
+        if (this.maxSelectionLimitReached() && !this.isSelected(option)) {
+            return true;
+        }
+        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
     }
 
     isSelected(option) {
@@ -1785,7 +1790,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        if (this.selectAll !== null) {
+        if (this.selectAll != null) {
             this.onSelectAllChange.emit({
                 originalEvent: event,
                 checked: !this.allSelected()
@@ -1836,18 +1841,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
 
-    checkSelectionLimit() {
-        if (this.selectionLimit && this.value && this.value.length === this.selectionLimit) {
-            this.maxSelectionLimitReached = true;
-        } else {
-            this.maxSelectionLimitReached = false;
-        }
-    }
-
     writeValue(value: any): void {
         this.value = value;
         this.modelValue.set(this.value);
-        this.checkSelectionLimit();
         this.cd.markForCheck();
     }
 
@@ -1921,6 +1917,15 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                         }
                     }
                 }
+
+                if (this.filterInputChild && this.filterInputChild.nativeElement) {
+                    this.preventModelTouched = true;
+
+                    if (this.autofocusFilter) {
+                        this.filterInputChild.nativeElement.focus();
+                    }
+                }
+
                 this.onPanelShow.emit();
             case 'void':
                 this.itemsWrapper = null;
@@ -1946,7 +1951,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     clear(event: Event) {
         this.value = null;
-        this.checkSelectionLimit();
         this.updateModel(null, event);
         this.selectedOptions = null;
         this.onClear.emit();
@@ -1958,6 +1962,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         let value = this.modelValue().filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey()));
 
         this.updateModel(value, event);
+        this.onChange.emit({
+            originalEvent: event,
+            value: value,
+            itemValue: optionValue
+        });
 
         event && event.stopPropagation();
     }
@@ -2052,12 +2061,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     activateFilter() {
         if (this.hasFilter() && this._options) {
-            let searchFields: string[] = (this.filterBy || this.optionLabel || 'label').split(',');
-
             if (this.group) {
                 let filteredGroups = [];
                 for (let optgroup of this.options as any[]) {
-                    let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), searchFields, this.filterValue, this.filterMatchMode, this.filterLocale);
+                    let filteredSubOptions = this.filterService.filter(this.getOptionGroupChildren(optgroup), this.searchFields(), this.filterValue, this.filterMatchMode, this.filterLocale);
                     if (filteredSubOptions && filteredSubOptions.length) {
                         filteredGroups.push({ ...optgroup, ...{ [this.optionGroupChildren]: filteredSubOptions } });
                     }
@@ -2065,7 +2072,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 this._filteredOptions = filteredGroups;
             } else {
-                this._filteredOptions = this.filterService.filter(this.options as any[], searchFields, this._filterValue, this.filterMatchMode, this.filterLocale);
+                this._filteredOptions = this.filterService.filter(this.options as any[], this.searchFields(), this.filterValue, this.filterMatchMode, this.filterLocale);
             }
         } else {
             this._filteredOptions = null;

@@ -49,7 +49,19 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-calendar',
     template: `
-        <span #container [ngClass]="{ 'p-calendar': true, 'p-calendar-w-btn': showIcon, 'p-calendar-timeonly': timeOnly, 'p-calendar-disabled': disabled, 'p-focus': focus || overlayVisible }" [ngStyle]="style" [class]="styleClass">
+        <span
+            #container
+            [ngClass]="{
+                'p-calendar': true,
+                'p-input-icon-right': showIcon && iconDisplay === 'input',
+                'p-calendar-w-btn': showIcon && iconDisplay === 'button',
+                'p-calendar-timeonly': timeOnly,
+                'p-calendar-disabled': disabled,
+                'p-focus': focus || overlayVisible
+            }"
+            [ngStyle]="style"
+            [class]="styleClass"
+        >
             <ng-template [ngIf]="!inline">
                 <input
                     #inputfield
@@ -95,7 +107,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [attr.aria-controls]="panelId"
                     pButton
                     pRipple
-                    *ngIf="showIcon"
+                    *ngIf="showIcon && iconDisplay === 'button'"
                     (click)="onButtonClick($event, inputfield)"
                     class="p-datepicker-trigger p-button-icon-only"
                     [disabled]="disabled"
@@ -107,6 +119,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                         <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
                     </ng-container>
                 </button>
+                <ng-container *ngIf="iconDisplay === 'input' && showIcon">
+                    <CalendarIcon *ngIf="!inputIconTemplate" (click)="onButtonClick($event)" />
+                    <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
+                </ng-container>
             </ng-template>
             <div
                 #contentWrapper
@@ -442,6 +458,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     styleUrls: ['./calendar.css']
 })
 export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
+    @Input() iconDisplay: 'input' | 'button' = 'button';
     /**
      * Inline style of the component.
      * @group Props
@@ -1048,6 +1065,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     incrementIconTemplate: Nullable<TemplateRef<any>>;
 
+    inputIconTemplate: Nullable<TemplateRef<any>>;
+
     _disabledDates!: Array<Date>;
 
     _disabledDays!: Array<number>;
@@ -1154,6 +1173,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
                 case 'header':
                     this.headerTemplate = item.template;
+                    break;
+
+                case 'inputicon':
+                    this.inputIconTemplate = item.template;
                     break;
 
                 case 'previousicon':
@@ -1884,7 +1907,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.onModelTouched();
     }
 
-    onButtonClick(event: Event, inputfield: any) {
+    onButtonClick(event: Event, inputfield: any = this.inputfieldViewChild?.nativeElement) {
         if (!this.overlayVisible) {
             inputfield.focus();
             this.showOverlay();
@@ -1935,6 +1958,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             case 9:
                 if (!this.inline) {
                     this.trapFocus(event);
+                }
+                if (this.inline) {
+                    const headerElements = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
+                    const element = event.target;
+                    if (element == headerElements.children[headerElements.children.length - 1]) {
+                        this.initFocusableCell();
+                    }
                 }
                 break;
 

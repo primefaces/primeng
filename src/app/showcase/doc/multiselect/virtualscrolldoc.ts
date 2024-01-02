@@ -97,7 +97,6 @@ export class MultiSelectVirtualScrollDemo {
     onSelectAllChange(event) {
         this.selectedItems = event.checked ? [...this.items] : [];
         this.selectAll = event.checked;
-        event.updateModel(this.selectedItems, event.originalEvent)
     }
 
     onChange(event) {

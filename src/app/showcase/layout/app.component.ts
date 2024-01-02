@@ -1,6 +1,6 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2 } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, Renderer2, afterNextRender } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -29,10 +29,18 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
     providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
-export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router) {}
+export class AppComponent implements OnInit, OnDestroy {
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router) {
+        afterNextRender(() => {
+            if (process.env.NODE_ENV === 'production') {
+                this.injectScripts();
+            }
 
-    public themeChangeSubscription: Subscription;
+            this.bindRouteEvents();
+        });
+    }
+
+    themeChangeSubscription: Subscription;
 
     ngOnInit() {
         this.primeng.ripple = true;
@@ -40,16 +48,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
         this.themeChangeSubscription = this.configService.themeChange$.subscribe((theme: Theme) => {
             this.switchTheme(theme);
         });
-    }
-
-    ngAfterViewInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            if (window && window && process.env.NODE_ENV === 'production') {
-                this.injectScripts();
-            }
-
-            this.bindRouteEvents();
-        }
     }
 
     injectScripts() {

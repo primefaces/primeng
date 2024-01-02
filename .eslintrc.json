@@ -35,7 +35,7 @@
                 "@angular-eslint/template/eqeqeq": [
                     "error",
                     {
-                      "allowNullOrUndefined": true
+                        "allowNullOrUndefined": true
                     }
                 ],
                 "@angular-eslint/no-host-metadata-property": "off",
@@ -59,6 +59,14 @@
             "files": ["*.html"],
             "extends": ["plugin:@angular-eslint/template/recommended"],
             "rules": {}
+        },
+        {
+            "files": ["*.js"],
+            "rules": {
+                "parserOptions": {
+                    "allowImportExportEverywhere": true
+                }
+            }
         }
     ]
 }

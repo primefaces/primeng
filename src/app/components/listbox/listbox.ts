@@ -207,7 +207,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </li>
                         <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
                             <ng-container *ngIf="!emptyTemplate; else empty">
-                                {{ emptyMessageText }}
+                                {{ emptyMessage }}
                             </ng-container>
                             <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                         </li>
@@ -219,7 +219,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
-                {{ emptyMessageText }}
+                {{ emptyMessage }}
             </span>
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
@@ -392,7 +392,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input() metaKeySelection: boolean = true;
     /**
      * A property to uniquely identify a value in options.
      * @group Props

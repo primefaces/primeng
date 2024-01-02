@@ -47,8 +47,10 @@ import { Subscription } from 'rxjs';
             (@animation.done)="onAnimationEnd($event)"
             role="dialog"
             [attr.aria-modal]="overlayVisible"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
+            <div class="p-overlaypanel-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
@@ -94,6 +96,16 @@ import { Subscription } from 'rxjs';
     }
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Enables to hide the overlay when outside is clicked.
      * @group Props
@@ -233,6 +245,8 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                     if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
+
+
                     this.selfClick = false;
                     this.cd.markForCheck();
                 });
@@ -298,8 +312,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.selfClick = true;
     }
 
-    onContentClick() {
-        this.selfClick = true;
+    onContentClick(event: MouseEvent) {
+        const targetElement = event.target as HTMLElement;
+        this.selfClick = event.offsetX < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
     }
 
     hasTargetChanged(event: any, target: any) {

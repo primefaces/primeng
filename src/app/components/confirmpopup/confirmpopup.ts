@@ -42,38 +42,48 @@ import { Subscription } from 'rxjs';
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
         >
-            <div #content class="p-confirm-popup-content">
-                <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
-                <span class="p-confirm-popup-message">{{ confirmation?.message }}</span>
-            </div>
-            <div class="p-confirm-popup-footer">
-                <button
-                    type="button"
-                    pButton
-                    [label]="rejectButtonLabel"
-                    (click)="reject()"
-                    [ngClass]="'p-confirm-popup-reject p-button-sm'"
-                    [class]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
-                    *ngIf="confirmation?.rejectVisible !== false"
-                    [attr.aria-label]="rejectButtonLabel"
-                >
-                    <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
-                    <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
-                </button>
-                <button
-                    type="button"
-                    pButton
-                    [label]="acceptButtonLabel"
-                    (click)="accept()"
-                    [ngClass]="'p-confirm-popup-accept p-button-sm'"
-                    [class]="confirmation?.acceptButtonStyleClass"
-                    *ngIf="confirmation?.acceptVisible !== false"
-                    [attr.aria-label]="acceptButtonLabel"
-                >
-                    <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
-                    <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
-                </button>
-            </div>
+            <ng-container *ngIf="headlessTemplate; else notHeadless">
+                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: confirmation }"></ng-container>
+            </ng-container>
+            <ng-template #notHeadless>
+                <div #content class="p-confirm-popup-content">
+                    <ng-container *ngIf="contentTemplate; else withoutContentTemplate">
+                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"></ng-container>
+                    </ng-container>
+                    <ng-template #withoutContentTemplate>
+                        <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
+                        <span class="p-confirm-popup-message">{{ confirmation?.message }}</span>
+                    </ng-template>
+                </div>
+                <div class="p-confirm-popup-footer">
+                    <button
+                        type="button"
+                        pButton
+                        [label]="rejectButtonLabel"
+                        (click)="reject()"
+                        [ngClass]="'p-confirm-popup-reject p-button-sm'"
+                        [class]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
+                        *ngIf="confirmation?.rejectVisible !== false"
+                        [attr.aria-label]="rejectButtonLabel"
+                    >
+                        <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
+                        <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                    </button>
+                    <button
+                        type="button"
+                        pButton
+                        [label]="acceptButtonLabel"
+                        (click)="accept()"
+                        [ngClass]="'p-confirm-popup-accept p-button-sm'"
+                        [class]="confirmation?.acceptButtonStyleClass"
+                        *ngIf="confirmation?.acceptVisible !== false"
+                        [attr.aria-label]="acceptButtonLabel"
+                    >
+                        <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
+                        <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                    </button>
+                </div>
+            </ng-template>
         </div>
     `,
     animations: [
@@ -164,9 +174,13 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     confirmation: Nullable<Confirmation>;
 
+    contentTemplate: Nullable<TemplateRef<any>>;
+
     acceptIconTemplate: Nullable<TemplateRef<any>>;
 
     rejectIconTemplate: Nullable<TemplateRef<any>>;
+
+    headlessTemplate: Nullable<TemplateRef<any>>;
 
     _visible: boolean | undefined;
 
@@ -214,12 +228,20 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+
                 case 'rejecticon':
                     this.rejectIconTemplate = item.template;
                     break;
 
                 case 'accepticon':
                     this.acceptIconTemplate = item.template;
+                    break;
+
+                case 'headless':
+                    this.headlessTemplate = item.template;
                     break;
             }
         });

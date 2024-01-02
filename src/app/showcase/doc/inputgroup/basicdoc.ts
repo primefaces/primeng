@@ -5,75 +5,77 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>An InputGroup is created by wrapping the input and add-ons inside an element with a <i>p-inputgroup</i> class where add-ons also should be inside an element with <i>.p-inputgroup-addon</i> class</p>
+            <p>An InputGroup is created by wrapping the add-ons inside the <i>p-inputGroup</i> element.</p>
         </app-docsectiontext>
         <div class="card flex flex-column md:flex-row gap-3">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">
+            <p-inputGroup>
+                <p-inputGroupAddon>
                     <i class="pi pi-user"></i>
-                </span>
+                </p-inputGroupAddon>
                 <input pInputText placeholder="Username" />
-            </div>
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">$</span>
+            </p-inputGroup>
+
+            <p-inputGroup>
+                <p-inputGroupAddon>$</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Price" />
-                <span class="p-inputgroup-addon">.00</span>
-            </div>
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon">www</span>
+                <p-inputGroupAddon>.00</p-inputGroupAddon>
+            </p-inputGroup>
+
+            <p-inputGroup>
+                <p-inputGroupAddon>www</p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
-            </div>
+            </p-inputGroup>
         </div>
-        <app-code [code]="code" selector="inputgroup-basic-demo"></app-code>
+        <app-code [code]="code" selector="input-group-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">
+        basic: `<p-inputGroup>
+    <p-inputGroupAddon>
         <i class="pi pi-user"></i>
-    </span>
+    </p-inputGroupAddon>
     <input pInputText placeholder="Username" />
-</div>
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">$</span>
+</p-inputGroup>
+
+<p-inputGroup>
+    <p-inputGroupAddon>$</p-inputGroupAddon>
     <input type="text" pInputText placeholder="Price" />
-    <span class="p-inputgroup-addon">.00</span>
-</div>
-<div class="p-inputgroup">
-    <span class="p-inputgroup-addon">www</span>
+    <p-inputGroupAddon>.00</p-inputGroupAddon>
+</p-inputGroup>
+
+<p-inputGroup>
+    <p-inputGroupAddon>www</p-inputGroupAddon>
     <input type="text" pInputText placeholder="Website" />
-</div>`,
+</p-inputGroup>`,
 
-        html: `
-<div class="card flex flex-column md:flex-row gap-3">
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">
-            <i class="pi pi-user"></i>
-        </span>
-        <input pInputText placeholder="Username" />
-    </div>
+        html: `<div class="card flex flex-column md:flex-row gap-3">
+<p-inputGroup>
+    <p-inputGroupAddon>
+        <i class="pi pi-user"></i>
+    </p-inputGroupAddon>
+    <input pInputText placeholder="Username" />
+</p-inputGroup>
 
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">$</span>
-        <input type="text" pInputText placeholder="Price" />
-        <span class="p-inputgroup-addon">.00</span>
-    </div>
+<p-inputGroup>
+    <p-inputGroupAddon>$</p-inputGroupAddon>
+    <input type="text" pInputText placeholder="Price" />
+    <p-inputGroupAddon>.00</p-inputGroupAddon>
+</p-inputGroup>
 
-    <div class="p-inputgroup">
-        <span class="p-inputgroup-addon">www</span>
-        <input type="text" pInputText placeholder="Website" />
-    </div>
+<p-inputGroup>
+    <p-inputGroupAddon>www</p-inputGroupAddon>
+    <input type="text" pInputText placeholder="Website" />
+</p-inputGroup>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputgroup-basic-demo',
-    templateUrl: './inputgroup-basic-demo.html'
+    selector: 'input-group-basic-demo',
+    templateUrl: './input-group-basic-demo.html'
 })
-export class InputgroupBasicDemo {
-}`
+export class InputGroupBasicDemo { }`
     };
 }

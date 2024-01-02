@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -18,14 +18,14 @@ import { Subscription } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
-    selector: 'template-hero',
+    selector: 'hero-section',
     standalone: true,
     imports: [CommonModule, RouterModule, InputNumberModule, DropdownModule, RadioButtonModule, CalendarModule, ChartModule, ChipModule, InputSwitchModule, SelectButtonModule, SliderModule, BadgeModule, TabMenuModule, FormsModule],
     template: `
         <section class="landing-hero py-8 px-5 lg:px-8">
             <div class="flex flex-wrap">
                 <div class="w-full xl:w-6 flex flex-column justify-content-center lg:pr-8 align-items-center xl:align-items-stretch">
-                    <h1 class="text-6xl font-bold text-center xl:text-left">The Most Complete UI Suite for <span class="font-bold text-primary">Angular.js</span></h1>
+                    <h1 class="text-6xl font-bold text-center xl:text-left">The Most Complete UI Suite for <span class="font-bold text-primary">Angular</span></h1>
                     <p class="section-detail xl:text-left text-center px-0 mt-0 mb-5">
                         Elevate your web applications with PrimeNG's comprehensive suite of customizable, feature-rich UI components. With PrimeNG, turning your development vision into reality has never been easier.
                     </p>
@@ -54,7 +54,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                         <p-dropdown [(ngModel)]="user" [options]="users" optionLabel="name" placeholder="Select a User" styleClass="w-full">
                                             <ng-template pTemplate="content" let-slotProps>
                                                 <div class="flex align-items-center gap-2">
-                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primevue/images/avatar/{{ slotProps.image }}" width="28" />
+                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ slotProps.image }}" width="28" />
                                                     <span>{{ slotProps.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -110,7 +110,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 <ul class="list-none p-0 m-0">
                                     <li class="flex align-items-center mb-3">
                                         <span class="mr-3">
-                                            <img src="https://primefaces.org/cdn/primevue/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
+                                            <img src="https://primefaces.org/cdn/primeng/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
                                         </span>
                                         <div class="flex flex-column">
                                             <span class="font-bold mb-1">Amanda Williams</span>
@@ -175,7 +175,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     themeChangeCompleteSubscription: Subscription;
 
-    constructor(private configService: AppConfigService) {}
+    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChartData();
@@ -221,38 +221,40 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     }
 
     setChartOptions(): void {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
+            this.chartOptions = {
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder
+                        }
                     },
-                    min: 0,
-                    max: 100,
-                    grid: {
-                        color: surfaceBorder
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: surfaceBorder
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
     }
 
     ngOnDestroy(): void {

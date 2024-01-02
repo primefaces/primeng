@@ -1,14 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { MenuItem } from './app.menu.component';
-import { CommonModule } from '@angular/common';
-import { AutoCompleteModule } from 'primeng/autocomplete';
 import { StyleClassModule } from 'primeng/styleclass';
+import { MenuItem } from './app.menu.component';
 
 @Component({
     selector: '[app-menuitem]',
     template: `
-        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
+        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
             <div class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
@@ -28,7 +27,7 @@ import { StyleClassModule } from 'primeng/styleclass';
             {{ item.name }}
         </a>
         <span *ngIf="!root && item.children" class="menu-child-category">{{ item.name }}</span>
-        <div class="overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+        <div *ngIf="item.children" class="overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
             <ol>
                 <li *ngFor="let child of item.children" app-menuitem [root]="false" [item]="child"></li>
             </ol>

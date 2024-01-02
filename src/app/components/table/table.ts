@@ -56,6 +56,7 @@ import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import {
+    ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
     TableContextMenuSelectEvent,
@@ -473,7 +474,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined;
+    @Input() metaKeySelection: boolean | undefined = true;
     /**
      * Defines if the row is selectable.
      * @group Props
@@ -2243,10 +2244,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - Export options.
+     * @param {ExportCSVOptions} object - Export options.
      * @group Method
      */
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportCSVOptions) {
         let data;
         let csv = '';
         let columns = this.columns;
@@ -2615,7 +2616,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
 
-            if (this.resizableColumns && this.resizeColumnElement && this.resizeColumnElement.isSameNode(this.draggedColumn)) {
+            if (this.resizableColumns && this.resizeColumnElement) {
                 let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
                 ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
                 this.updateStyleElement(width, dragIndex, null, null);
@@ -4300,6 +4301,10 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
+            } else {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(true, event);
+                }
             }
         }
     }
@@ -4897,7 +4902,10 @@ export class ReorderableRow implements AfterViewInit {
         this.unbindEvents();
     }
 }
-
+/**
+ * Column Filter element of Table.
+ * @group Components
+ */
 @Component({
     selector: 'p-columnFilter',
     template: `
@@ -4927,6 +4935,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
+                [attr.aria-label]="showMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -4938,9 +4947,9 @@ export class ReorderableRow implements AfterViewInit {
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>
             </button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()">
-                <FilterSlashIcon *ngIf="!clearIconTemplate" />
-                <ng-template *ngTemplateOutlet="clearFilterIcon"></ng-template>
+            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel">
+                <FilterSlashIcon *ngIf="!clearFilterIconTemplate" />
+                <ng-template *ngTemplateOutlet="clearFilterIconTemplate"></ng-template>
             </button>
             <div
                 *ngIf="showMenu && overlayVisible"
@@ -5000,7 +5009,16 @@ export class ReorderableRow implements AfterViewInit {
                                 [useGrouping]="useGrouping"
                             ></p-columnFilterFormElement>
                             <div>
-                                <button *ngIf="showRemoveIcon" type="button" pButton class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel">
+                                <button
+                                    *ngIf="showRemoveIcon"
+                                    type="button"
+                                    pButton
+                                    class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
+                                    (click)="removeConstraint(fieldConstraint)"
+                                    pRipple
+                                    [attr.aria-label]="removeRuleButtonLabel"
+                                    [label]="removeRuleButtonLabel"
+                                >
                                     <TrashIcon *ngIf="!removeRuleIconTemplate" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
@@ -5008,14 +5026,14 @@ export class ReorderableRow implements AfterViewInit {
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
+                        <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
                             <PlusIcon *ngIf="!addRuleIconTemplate" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
@@ -5029,54 +5047,131 @@ export class ReorderableRow implements AfterViewInit {
     }
 })
 export class ColumnFilter implements AfterContentInit {
+    /**
+     * Property represented by the column.
+     * @group Props
+     */
     @Input() field: string | undefined;
-
+    /**
+     * Type of the input.
+     * @group Props
+     */
     @Input() type: string = 'text';
-
+    /**
+     * Filter display.
+     * @group Props
+     */
     @Input() display: string = 'row';
-
+    /**
+     * Decides whether to display filter menu popup.
+     * @group Props
+     */
     @Input() showMenu: boolean = true;
-
+    /**
+     * Filter match mode.
+     * @group Props
+     */
     @Input() matchMode: string | undefined;
-
+    /**
+     * Filter operator.
+     * @defaultValue 'AND'
+     * @group Props
+     */
     @Input() operator: string = FilterOperator.AND;
-
+    /**
+     * Decides whether to display filter operator.
+     * @group Props
+     */
     @Input() showOperator: boolean = true;
-
+    /**
+     * Decides whether to display clear filter button.
+     * @group Props
+     */
     @Input() showClearButton: boolean = true;
-
+    /**
+     * Decides whether to display apply filter button.
+     * @group Props
+     */
     @Input() showApplyButton: boolean = true;
-
+    /**
+     * Decides whether to display filter match modes.
+     * @group Props
+     */
     @Input() showMatchModes: boolean = true;
-
+    /**
+     * Decides whether to display add filter button.
+     * @group Props
+     */
     @Input() showAddButton: boolean = true;
-
+    /**
+     * Decides whether to close popup on clear button click.
+     * @group Props
+     */
     @Input() hideOnClear: boolean = false;
-
+    /**
+     * Filter placeholder.
+     * @group Props
+     */
     @Input() placeholder: string | undefined;
-
+    /**
+     * Filter match mode options.
+     * @group Props
+     */
     @Input() matchModeOptions: SelectItem[] | undefined;
-
+    /**
+     * Defines maximum amount of constraints.
+     * @group Props
+     */
     @Input() maxConstraints: number = 2;
-
+    /**
+     * Defines minimum fraction of digits.
+     * @group Props
+     */
     @Input() minFractionDigits: number | undefined;
-
+    /**
+     * Defines maximum fraction of digits.
+     * @group Props
+     */
     @Input() maxFractionDigits: number | undefined;
-
+    /**
+     * Defines prefix of the filter.
+     * @group Props
+     */
     @Input() prefix: string | undefined;
-
+    /**
+     * Defines suffix of the filter.
+     * @group Props
+     */
     @Input() suffix: string | undefined;
-
+    /**
+     * Defines filter locale.
+     * @group Props
+     */
     @Input() locale: string | undefined;
-
+    /**
+     * Defines filter locale matcher.
+     * @group Props
+     */
     @Input() localeMatcher: string | undefined;
-
+    /**
+     * Enables currency input.
+     * @group Props
+     */
     @Input() currency: string | undefined;
-
+    /**
+     * Defines the display of the currency input.
+     * @group Props
+     */
     @Input() currencyDisplay: string | undefined;
-
+    /**
+     * Defines if filter grouping will be enabled.
+     * @group Props
+     */
     @Input() useGrouping: boolean = true;
-
+    /**
+     * Defines the visibility of buttons.
+     * @group Props
+     */
     @Input() showButtons: boolean = true;
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
@@ -5098,6 +5193,8 @@ export class ColumnFilter implements AfterContentInit {
     removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
     addRuleIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
 
@@ -5124,6 +5221,62 @@ export class ColumnFilter implements AfterContentInit {
     private window: Window;
 
     overlayId: any;
+
+    get fieldConstraints(): FilterMetadata[] | undefined | null {
+        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
+    }
+
+    get showRemoveIcon(): boolean {
+        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
+    }
+
+    get showMenuButton(): boolean {
+        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+    }
+
+    get isShowOperator(): boolean {
+        return this.showOperator && this.type !== 'boolean';
+    }
+
+    get isShowAddConstraint(): boolean | undefined | null {
+        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+    }
+
+    get applyButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.APPLY);
+    }
+
+    get clearButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.CLEAR);
+    }
+
+    get addRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ADD_RULE);
+    }
+
+    get removeRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
+    get noFilterLabel(): string {
+        return this.config.getTranslation(TranslationKeys.NO_FILTER);
+    }
+
+    get filterMenuButtonAriaLabel() {
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+    }
+
+    get removeRuleButtonAriaLabel() {
+        return this.config.translation ? this.config.translation.removeRule : undefined;
+    }
+
+    get filterOperatorAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterOperator : undefined;
+    }
+
+    get filterConstraintAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterConstraint : undefined;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
@@ -5176,6 +5329,10 @@ export class ColumnFilter implements AfterContentInit {
 
                 case 'filtericon':
                     this.filterIconTemplate = item.template;
+                    break;
+
+                case 'clearfiltericon':
+                    this.clearFilterIconTemplate = item.template;
                     break;
 
                 case 'removeruleicon':
@@ -5386,46 +5543,6 @@ export class ColumnFilter implements AfterContentInit {
         return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
     }
 
-    get fieldConstraints(): FilterMetadata[] | undefined | null {
-        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
-    }
-
-    get showRemoveIcon(): boolean {
-        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
-    }
-
-    get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
-    }
-
-    get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'boolean';
-    }
-
-    get isShowAddConstraint(): boolean | undefined | null {
-        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
-    }
-
-    get applyButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.APPLY);
-    }
-
-    get clearButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.CLEAR);
-    }
-
-    get addRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ADD_RULE);
-    }
-
-    get removeRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
-    }
-
-    get noFilterLabel(): string {
-        return this.config.getTranslation(TranslationKeys.NO_FILTER);
-    }
-
     hasFilter(): boolean {
         let fieldFilter = this.dt.filters[<string>this.field];
         if (fieldFilter) {
@@ -5453,7 +5570,7 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                 if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
                     this.hide();
                 }

@@ -69,7 +69,7 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" [attr.data-pc-section]="'loadingIcon'" />
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -675,7 +675,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
             scrollTo(calculateCoord(newFirst.cols, (<number[]>this._itemSize)[1], contentPos.left), calculateCoord(newFirst.rows, (<number[]>this._itemSize)[0], contentPos.top));
         } else {
             newFirst = calculateFirst(index, numToleratedItems);
-            this.horizontal ? scrollTo(calculateCoord(newFirst, <number>this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, <number>this._itemSize, contentPos.top));
+
+            if (this.horizontal) {
+                scrollTo(calculateCoord(newFirst, <number>this._itemSize, contentPos.left), 0);
+            }
+            if (this.vertical) {
+                const currentScrollLeft = this.elementViewChild?.nativeElement.scrollLeft;
+                scrollTo(currentScrollLeft, calculateCoord(newFirst, <number>this._itemSize, contentPos.top));
+            }
         }
 
         this.isRangeChanged = this.first !== newFirst;

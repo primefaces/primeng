@@ -43,7 +43,7 @@ export class SeverityDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -110,7 +110,7 @@ export class SplitButtonSeverityDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
