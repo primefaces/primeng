@@ -1245,7 +1245,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     onArrowDownKey(event) {
         if (!this.overlayVisible) {
-            return;
+            if(this.focused) {
+                const el = this.inputEL.nativeElement as HTMLInputElement | undefined;
+                if(el){
+                    // Put cursor at the end as the preventDefault blocks this behaviour
+                    el.selectionStart = el.selectionEnd = el.value.length;
+                }
+                this.overlayVisible = true;
+            } else {
+                return;
+            }
         }
 
         const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
