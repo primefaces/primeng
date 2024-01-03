@@ -474,7 +474,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = true;
+    @Input() metaKeySelection: boolean | undefined = false;
     /**
      * Defines if the row is selectable.
      * @group Props

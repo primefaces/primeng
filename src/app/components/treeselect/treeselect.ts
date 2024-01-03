@@ -211,7 +211,7 @@ export class TreeSelect implements AfterContentInit {
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true;
+    @Input() metaKeySelection: boolean = false;
     /**
      * Defines how the selected items are displayed.
      * @group Props
