@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -12,6 +12,7 @@ import { ProductService } from '../../service/productservice';
                 event for the element.
             </p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template pTemplate="header">
@@ -79,15 +80,16 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RowExpandDoc implements OnInit {
+export class RowExpandDoc {
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsWithOrdersSmall().then((data) => {
             this.products = data;
             this.cd.markForCheck();

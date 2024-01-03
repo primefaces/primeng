@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -8,6 +8,7 @@ import { CustomerService } from '../../service/customerservice';
     template: ` <app-docsectiontext>
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
                 <ng-template pTemplate="header">
@@ -51,15 +52,16 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-horizontal-and-vertical-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HorizontalAndVerticalScrollDoc implements OnInit {
+export class HorizontalAndVerticalScrollDoc {
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {
             this.customers = data;
             this.cd.markForCheck();
