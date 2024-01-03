@@ -57,7 +57,7 @@ export class MenubarService {
             #menubar
             [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }"
             [attr.data-pc-section]="'menu'"
-            role="menu"
+            role="menubar"
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
             [tabindex]="0"
