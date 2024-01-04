@@ -4281,6 +4281,11 @@
   .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
     background: #e5e7eb;
   }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #6366f1;
+  }
   .p-splitter .p-splitter-gutter-resizing {
     background: #e5e7eb;
   }

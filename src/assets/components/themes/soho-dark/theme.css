@@ -4243,6 +4243,11 @@
   .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
     background: #3e4053;
   }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #e0d8fc;
+  }
   .p-splitter .p-splitter-gutter-resizing {
     background: #3e4053;
   }
