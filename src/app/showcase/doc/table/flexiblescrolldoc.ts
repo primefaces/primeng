@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -11,6 +11,7 @@ import { CustomerService } from '../../service/customerservice';
                 viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <div class="flex justify-content-center">
                 <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
@@ -39,17 +40,18 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-dialog>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-flexible-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FlexibleScrollDoc implements OnInit {
+export class FlexibleScrollDoc {
     customers!: Customer[];
 
     dialogVisible: boolean = false;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {
             this.customers = data;
         });
