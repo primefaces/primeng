@@ -55,27 +55,32 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 [attr.data-p-focused]="focused"
                 [attr.data-pc-section]="'input'"
             >
-                <ng-container *ngIf="checked()">
-                    <ng-container *ngIf="!checkboxIconTemplate">
-                        <span *ngIf="checkboxIcon" class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
-                        <CheckIcon *ngIf="!checkboxIcon" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
-                    </ng-container>
-                    <span *ngIf="checkboxIconTemplate" class="p-checkbox-icon" [attr.data-pc-section]="'icon'">
-                        <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
+                @if (checked()) {
+                    @if (checkboxIconTemplate) {
+                        <span class="p-checkbox-icon" [attr.data-pc-section]="'icon'">
+                            <ng-template *ngTemplateOutlet="checkboxIconTemplate"></ng-template>
+                        </span>
+                    } @else {
+                        @if (checkboxIcon) {
+                            <span class="p-checkbox-icon" [ngClass]="checkboxIcon" [attr.data-pc-section]="'icon'"></span>
+                        } @else {
+                            <CheckIcon [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
+                        }
+                    }
+                }
             </div>
         </div>
-        <label
-            (click)="onClick($event)"
-            [class]="labelStyleClass"
-            [ngClass]="{ 'p-checkbox-label': true, 'p-checkbox-label-active': checked(), 'p-disabled': disabled, 'p-checkbox-label-focus': focused }"
-            *ngIf="label"
-            [attr.for]="inputId"
-            [attr.data-pc-section]="'label'"
-        >
-            {{ label }}</label
-        >
+        @if (label) {
+            <label
+                (click)="onClick($event)"
+                [class]="labelStyleClass"
+                [ngClass]="{ 'p-checkbox-label': true, 'p-checkbox-label-active': checked(), 'p-disabled': disabled, 'p-checkbox-label-focus': focused }"
+                [attr.for]="inputId"
+                [attr.data-pc-section]="'label'"
+            >
+                {{ label }}
+            </label>
+        }
     `,
     providers: [CHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
