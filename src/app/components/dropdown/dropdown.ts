@@ -1626,7 +1626,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
-                if (this.focusedOptionIndex() !== -1) {
+                if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
                     const option = this.visibleOptions()[this.focusedOptionIndex()];
                     this.onOptionSelect(event, option);
                 }

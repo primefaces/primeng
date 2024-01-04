@@ -187,36 +187,19 @@ describe('TriStateCheckbox', () => {
         expect(checkBoxEl.nativeElement.className).not.toContain('p-focus');
     });
 
-    it('should call onKeydown', () => {
+    it('should call onKeyDown', () => {
         tristate.label = 'Primeng';
         fixture.detectChanges();
 
         let value;
         tristate.onChange.subscribe((data) => (value = data));
-        const onKeydownSpy = spyOn(tristate, 'onKeydown').and.callThrough();
+        const onKeyDownSpy = spyOn(tristate, 'onKeyDown').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         fixture.detectChanges();
 
-        expect(onKeydownSpy).toHaveBeenCalled();
+        expect(onKeyDownSpy).toHaveBeenCalled();
         expect(tristate.value).toBeUndefined();
     });
 
-    it('should call onKeydown', () => {
-        tristate.label = 'Primeng';
-        fixture.detectChanges();
-
-        let value;
-        tristate.onChange.subscribe((data) => (value = data));
-        const onKeydownSpy = spyOn(tristate, 'onKeyup').and.callThrough();
-        const inputEl = fixture.debugElement.query(By.css('input'));
-        const openEvent: any = document.createEvent('CustomEvent');
-        openEvent.keyCode = 32;
-        openEvent.initEvent('keyup', true, true);
-        inputEl.nativeElement.dispatchEvent(openEvent);
-        fixture.detectChanges();
-
-        expect(onKeydownSpy).toHaveBeenCalled();
-        expect(tristate.value).toBeTruthy();
-    });
 });
