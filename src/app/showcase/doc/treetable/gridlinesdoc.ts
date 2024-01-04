@@ -1,14 +1,13 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'gridlines-doc',
     template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
-        <p>Adding <i>p-treetable-gridlines</i> class displays grid lines.</p>
+        <app-docsectiontext>
+            <p>Adding <i>p-treetable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">
             <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-treetable-gridlines">
@@ -35,12 +34,6 @@ import { NodeService } from '../../service/nodeservice';
     </section>`
 })
 export class GridlinesDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
