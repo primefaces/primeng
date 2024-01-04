@@ -1,19 +1,17 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLATFORM_ID } from '@angular/core';
 
 @Component({
     selector: 'p-deferred-demo',
+    standalone: true,
+    imports: [CommonModule],
     template: `
         <div *ngIf="!visible; else content" class="demo-section-loading">Loading...</div>
         <ng-template #content>
             <ng-content></ng-content>
         </ng-template>
     `,
-    styleUrls: ['./deferreddemo.css'],
-    host: {
-        class: 'p-element'
-    }
+    styleUrl: './deferreddemo.scss'
 })
 export class DeferredDemo implements OnInit {
     visible: boolean = false;
@@ -52,10 +50,3 @@ export class DeferredDemo implements OnInit {
         clearTimeout(this.timeout);
     }
 }
-
-@NgModule({
-    imports: [CommonModule, SharedModule],
-    exports: [DeferredDemo, SharedModule],
-    declarations: [DeferredDemo]
-})
-export class DeferredDemoModule {}

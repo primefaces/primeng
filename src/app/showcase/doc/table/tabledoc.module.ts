@@ -81,7 +81,8 @@ import { StylingDoc } from './stylingdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
-import { DeferredDemoModule } from 'primeng/demo';
+import { DeferredDemo } from '../../demo/deferreddemo';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -113,7 +114,7 @@ import { DeferredDemoModule } from 'primeng/demo';
         SelectButtonModule,
         AppCodeModule,
         AppDocModule,
-        DeferredDemoModule
+        DeferredDemo
     ],
     declarations: [
         ImportDoc,
