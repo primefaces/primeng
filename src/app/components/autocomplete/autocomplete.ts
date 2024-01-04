@@ -555,7 +555,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    @Input() optionLabel: string | ((item: any) => string) | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
