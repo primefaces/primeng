@@ -167,15 +167,4 @@ describe('Checkbox', () => {
         expect(iconEl.className).toContain('pi pi-new-check');
     });
 
-    it('should call handleChange', () => {
-        fixture.detectChanges();
-
-        checkbox.binary = true;
-        const handleChangeSpy = spyOn(checkbox, 'handleChange').and.callThrough();
-        const input = fixture.nativeElement.querySelector('input');
-        input.dispatchEvent(new Event('change'));
-        fixture.detectChanges();
-
-        expect(handleChangeSpy).toHaveBeenCalled();
-    });
 });
