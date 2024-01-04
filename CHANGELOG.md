@@ -1,5 +1,13 @@
 # Changelog
 
+## [16.4.3](https://github.com/primefaces/primeng/tree/16.4.3) (2024-01-04)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.2...16.4.3)
+
+**Implemented New Features and Enhancements:**
+
+- ContextMenu | Touch Device support [\#14375](https://github.com/primefaces/primeng/issues/14375)
+
 ## [16.4.2](https://github.com/primefaces/primeng/tree/16.4.2) (2023-11-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.4.2)
