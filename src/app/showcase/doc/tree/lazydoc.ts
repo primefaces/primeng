@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -21,13 +21,14 @@ export class LazyDoc implements OnInit {
 
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(private nodeService: NodeService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
             this.nodeService.getLazyFiles().then((files) => (this.files = files));
             this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -40,6 +41,7 @@ export class LazyDoc implements OnInit {
                     this.messageService.add({ severity: 'info', summary: 'Children Loaded', detail: event.node.label });
                 });
                 this.loading = false;
+                this.cd.markForCheck();
             }, 200);
         }
     }
