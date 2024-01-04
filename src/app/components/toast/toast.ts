@@ -190,7 +190,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         });
 
         event.preventDefault();
-    }
+    };
 
     get closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;

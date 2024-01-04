@@ -21,7 +21,7 @@ export class HorizontalBarDoc implements OnInit {
     options: any;
 
     subscription!: Subscription;
-    
+
     constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
         this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
             this.initChart();
@@ -30,10 +30,10 @@ export class HorizontalBarDoc implements OnInit {
     }
 
     ngOnInit() {
-        this.initChart()
+        this.initChart();
     }
 
-    initChart(){
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');

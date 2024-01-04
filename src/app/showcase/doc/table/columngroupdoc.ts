@@ -7,42 +7,42 @@ import { Code } from '../../domain/code';
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th rowspan="3">Product</th>
-                        <th colspan="4">Sale Rate</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Sales</th>
-                        <th colspan="2">Profits</th>
-                    </tr>
-                    <tr>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-sale>
-                    <tr>
-                        <td>{{ sale.product }}</td>
-                        <td>{{ sale.lastYearSale }}%</td>
-                        <td>{{ sale.thisYearSale }}%</td>
-                        <td>{{ sale.lastYearProfit | currency : 'USD' }}</td>
-                        <td>{{ sale.thisYearProfit | currency : 'USD' }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr>
-                        <td colspan="3" class="text-right">Totals</td>
-                        <td>{{ lastYearTotal | currency : 'USD' }}</td>
-                        <td>{{ thisYearTotal | currency : 'USD' }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="card">
+                <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">Product</th>
+                            <th colspan="4">Sale Rate</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Sales</th>
+                            <th colspan="2">Profits</th>
+                        </tr>
+                        <tr>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-sale>
+                        <tr>
+                            <td>{{ sale.product }}</td>
+                            <td>{{ sale.lastYearSale }}%</td>
+                            <td>{{ sale.thisYearSale }}%</td>
+                            <td>{{ sale.lastYearProfit | currency : 'USD' }}</td>
+                            <td>{{ sale.thisYearProfit | currency : 'USD' }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr>
+                            <td colspan="3" class="text-right">Totals</td>
+                            <td>{{ lastYearTotal | currency : 'USD' }}</td>
+                            <td>{{ thisYearTotal | currency : 'USD' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-group-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -166,5 +166,4 @@ describe('Checkbox', () => {
 
         expect(iconEl.className).toContain('pi pi-new-check');
     });
-
 });

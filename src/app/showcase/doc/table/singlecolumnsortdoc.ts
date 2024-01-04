@@ -13,28 +13,28 @@ import { ProductService } from '../../service/productservice';
             <p>Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i> property to "multiple" and use metakey when clicking on another column.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
-                        <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                        <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td>{{ product.price | currency : 'USD' }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="card">
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
+                            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
+                            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
+                            <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -44,7 +44,7 @@ export class SingleColumnSortDoc {
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    loadDemoData(){
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

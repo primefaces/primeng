@@ -10,41 +10,41 @@ import { CustomerService } from '../../service/customerservice';
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <div class="mb-3 flex gap-1">
-                <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
-                <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+            <div class="card">
+                <div class="mb-3 flex gap-1">
+                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
+                    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text"></p-button>
+                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text"></p-button>
+                </div>
+                <p-table
+                    [value]="customers"
+                    [paginator]="true"
+                    [rows]="rows"
+                    [showCurrentPageReport]="true"
+                    [first]="first"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    (onPage)="pageChange($event)"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:25%">Name</th>
+                            <th style="width:25%">Country</th>
+                            <th style="width:25%">Company</th>
+                            <th style="width:25%">Representative</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.country.name }}</td>
+                            <td>{{ customer.company }}</td>
+                            <td>{{ customer.representative.name }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
-            <p-table
-                [value]="customers"
-                [paginator]="true"
-                [rows]="rows"
-                [showCurrentPageReport]="true"
-                [first]="first"
-                [tableStyle]="{ 'min-width': '50rem' }"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                (onPage)="pageChange($event)"
-                [rowsPerPageOptions]="[10, 25, 50]"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:25%">Name</th>
-                        <th style="width:25%">Country</th>
-                        <th style="width:25%">Company</th>
-                        <th style="width:25%">Representative</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-programmatic-demo" [extFiles]="extFiles"></app-code>
     `,
@@ -59,7 +59,7 @@ export class PaginatorProgrammaticDoc {
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    loadDemoData(){
+    loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.cd.markForCheck();

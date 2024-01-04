@@ -9,49 +9,49 @@ import { CustomerService } from '../../service/customerservice';
             <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="min-width:100px">Id</th>
-                        <th style="min-width:200px">Name</th>
-                        <th style="min-width:200px">Country</th>
-                        <th style="min-width:200px">Date</th>
-                        <th style="min-width:200px">Balance</th>
-                        <th style="min-width:200px">Company</th>
-                        <th style="min-width:200px">Status</th>
-                        <th style="min-width:200px">Activity</th>
-                        <th style="min-width:200px">Representative</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>{{ customer.id }}</td>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.date }}</td>
-                        <td>{{ formatCurrency(customer.balance) }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.status }}</td>
-                        <td>{{ customer.activity }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr>
-                        <td>Id</td>
-                        <td>Name</td>
-                        <td>Country</td>
-                        <td>Date</td>
-                        <td>Balance</td>
-                        <td>Company</td>
-                        <td>Status</td>
-                        <td>Activity</td>
-                        <td>Representative</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="card">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:100px">Id</th>
+                            <th style="min-width:200px">Name</th>
+                            <th style="min-width:200px">Country</th>
+                            <th style="min-width:200px">Date</th>
+                            <th style="min-width:200px">Balance</th>
+                            <th style="min-width:200px">Company</th>
+                            <th style="min-width:200px">Status</th>
+                            <th style="min-width:200px">Activity</th>
+                            <th style="min-width:200px">Representative</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td>{{ customer.id }}</td>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.country.name }}</td>
+                            <td>{{ customer.date }}</td>
+                            <td>{{ formatCurrency(customer.balance) }}</td>
+                            <td>{{ customer.company }}</td>
+                            <td>{{ customer.status }}</td>
+                            <td>{{ customer.activity }}</td>
+                            <td>{{ customer.representative.name }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr>
+                            <td>Id</td>
+                            <td>Name</td>
+                            <td>Country</td>
+                            <td>Date</td>
+                            <td>Balance</td>
+                            <td>Company</td>
+                            <td>Status</td>
+                            <td>Activity</td>
+                            <td>Representative</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-horizontal-and-vertical-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush

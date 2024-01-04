@@ -12,34 +12,34 @@ import { CustomerService } from '../../service/customerservice';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <div class="flex justify-content-center">
-                <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+            <div class="card">
+                <div class="flex justify-content-center">
+                    <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
+                </div>
+                <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
+                    <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Name</th>
+                                <th>Country</th>
+                                <th>Company</th>
+                                <th>Representative</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-customer>
+                            <tr>
+                                <td>{{ customer.name }}</td>
+                                <td>{{ customer.country.name }}</td>
+                                <td>{{ customer.company }}</td>
+                                <td>{{ customer.representative.name }}</td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    <ng-template pTemplate="footer">
+                        <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible = false" label="Dismiss" class="p-button-text"></button>
+                    </ng-template>
+                </p-dialog>
             </div>
-            <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
-                <p-table [value]="customers" [scrollable]="true" scrollHeight="flex" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="header">
-                        <tr>
-                            <th>Name</th>
-                            <th>Country</th>
-                            <th>Company</th>
-                            <th>Representative</th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-customer>
-                        <tr>
-                            <td>{{ customer.name }}</td>
-                            <td>{{ customer.country.name }}</td>
-                            <td>{{ customer.company }}</td>
-                            <td>{{ customer.representative.name }}</td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-                <ng-template pTemplate="footer">
-                    <button type="button" pButton pRipple icon="pi pi-times" (click)="dialogVisible = false" label="Dismiss" class="p-button-text"></button>
-                </ng-template>
-            </p-dialog>
-        </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-flexible-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush

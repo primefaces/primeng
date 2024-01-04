@@ -17,24 +17,24 @@ interface Column {
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns" style="width: 20%;">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                    <tr style="height:46px">
-                        <td *ngFor="let col of columns">
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="card">
+                <p-table [columns]="cols" [value]="cars" [scrollable]="true" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns" style="width: 20%;">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                        <tr style="height:46px">
+                            <td *ngFor="let col of columns">
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-virtual-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
