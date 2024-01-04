@@ -76,6 +76,6 @@ export class UsersSectionComponent {
     ];
 
     get isDarkMode() {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 }
