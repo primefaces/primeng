@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -8,6 +8,7 @@ import { CustomerService } from '../../service/customerservice';
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <p-table
                 #dt
@@ -169,10 +170,11 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-customers-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CustomersDoc implements OnInit {
+export class CustomersDoc {
     customers!: Customer[];
 
     selectedCustomers!: Customer[];
@@ -187,7 +189,7 @@ export class CustomersDoc implements OnInit {
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.loading = false;

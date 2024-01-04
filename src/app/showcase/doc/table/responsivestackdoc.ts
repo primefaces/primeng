@@ -16,41 +16,43 @@ interface Column {
                 <i>p-column-title</i> style class to the body cells.
             </p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Reviews</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-columns="columns">
-                    <tr>
-                        <td><span class="p-column-title">Name</span>{{ product.name }}</td>
-                        <td><span class="p-column-title">Price</span>{{ product.price | currency : 'USD' }}</td>
-                        <td><span class="p-column-title">Category</span>{{ product.category }}</td>
-                        <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
-                        <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
-                        <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="products" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Reviews</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-columns="columns">
+                        <tr>
+                            <td><span class="p-column-title">Name</span>{{ product.name }}</td>
+                            <td><span class="p-column-title">Price</span>{{ product.price | currency : 'USD' }}</td>
+                            <td><span class="p-column-title">Category</span>{{ product.category }}</td>
+                            <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
+                            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                            <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-responsive-stack-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResponsiveStackDoc implements OnInit {
+export class ResponsiveStackDoc{
     products!: Product[];
 
     cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData(){
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

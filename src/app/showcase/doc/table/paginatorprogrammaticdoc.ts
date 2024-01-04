@@ -9,6 +9,7 @@ import { CustomerService } from '../../service/customerservice';
         <app-docsectiontext>
             <p>Paginator can also be controlled via model using a binding to the <i>first</i> property where changes trigger a pagination.</p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <div class="mb-3 flex gap-1">
                 <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text"></p-button>
@@ -44,6 +45,7 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-paginator-programmatic-demo" [extFiles]="extFiles"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -57,7 +59,7 @@ export class PaginatorProgrammaticDoc {
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData(){
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.cd.markForCheck();

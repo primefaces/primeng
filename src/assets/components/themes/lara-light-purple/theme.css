@@ -4217,6 +4217,12 @@
   .p-scrollpanel .p-scrollpanel-bar {
     background: #f9fafb;
     border: 0 none;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .p-scrollpanel .p-scrollpanel-bar:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #DDD6FE;
   }
 
   .p-splitter {
@@ -4231,6 +4237,11 @@
   }
   .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
     background: #e5e7eb;
+  }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #DDD6FE;
   }
   .p-splitter .p-splitter-gutter-resizing {
     background: #e5e7eb;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -12,6 +12,7 @@ import { ProductService } from '../../service/productservice';
             </p>
             <p>Default sorting is executed on a single column, in order to enable multiple field sorting, set <i>sortMode</i> property to "multiple" and use metakey when clicking on another column.</p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                 <ng-template pTemplate="header">
@@ -34,15 +35,16 @@ import { ProductService } from '../../service/productservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-single-column-sort-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SingleColumnSortDoc implements OnInit {
+export class SingleColumnSortDoc {
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData(){
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

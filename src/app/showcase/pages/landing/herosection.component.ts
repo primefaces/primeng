@@ -14,7 +14,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
@@ -173,7 +173,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     rangeValues = [20, 80];
 
-    themeChangeCompleteSubscription: Subscription;
+    subscription!: Subscription;
 
     constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any) {}
 
@@ -199,7 +199,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { name: 'Onyama Limba', image: 'onyamalimba.png' }
         ];
 
-        this.themeChangeCompleteSubscription = this.configService.themeChangeComplete$.subscribe(() => {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
             this.setChartOptions();
         });
     }
@@ -258,9 +258,9 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.themeChangeCompleteSubscription) {
-            this.themeChangeCompleteSubscription.unsubscribe();
-            this.themeChangeCompleteSubscription = null;
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+            this.subscription = null;
         }
     }
 }

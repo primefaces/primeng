@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Table } from 'primeng/table';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
@@ -9,6 +9,7 @@ import { CustomerService } from '../../service/customerservice';
     template: ` <app-docsectiontext>
             <p>Filters are displayed in an overlay.</p>
         </app-docsectiontext>
+        <p-deferred-demo (load)="loadDemoData()">
         <div class="card">
             <p-table
                 #dt1
@@ -152,10 +153,11 @@ import { CustomerService } from '../../service/customerservice';
                 </ng-template>
             </p-table>
         </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-filter-menu-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterMenuDoc implements OnInit {
+export class FilterMenuDoc {
     customers!: Customer[];
 
     representatives!: Representative[];
@@ -168,7 +170,7 @@ export class FilterMenuDoc implements OnInit {
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData(){
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.loading = false;
