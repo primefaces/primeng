@@ -6,10 +6,11 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     standalone: true,
     imports: [CommonModule],
     template: `
-        <div *ngIf="!visible; else content" class="demo-section-loading">Loading...</div>
-        <ng-template #content>
-            <ng-content></ng-content>
-        </ng-template>
+        @if(!visible){
+        <div class="demo-section-loading">Loading...</div>
+        } @else {
+        <ng-content></ng-content>
+        }
     `,
     styleUrl: './deferreddemo.scss'
 })
@@ -43,6 +44,7 @@ export class DeferredDemo implements OnInit {
             this.observer.observe(this.el.nativeElement);
         }
     }
+
     ngOnDestroy() {
         if (!this.visible && this.el.nativeElement) {
             this.observer?.unobserve(this.el.nativeElement);
