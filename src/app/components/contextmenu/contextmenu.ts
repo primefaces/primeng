@@ -445,6 +445,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Press delay in touch devices as miliseconds.
+     * @group Props
+     */
+    @Input() pressDelay: number | undefined = 500;
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -474,6 +479,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     documentClickListener: VoidListener;
 
     documentTriggerListener: VoidListener;
+
+    touchEndListener: VoidListener;
+
+    pressTimer: any;
 
     pageX: number;
 
@@ -545,17 +554,31 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.bindTriggerEventListener();
     }
 
+    isMobile() {
+        return DomHandler.isIOS() || DomHandler.isAndroid();
+    }
+
     bindTriggerEventListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.triggerEventListener) {
-                if (this.global) {
-                    this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
-                } else if (this.target) {
-                    this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
+                if (!this.isMobile()) {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    }
+                } else {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.document, 'touchend', this.onTouchEnd.bind(this));
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.target, 'touchend', this.onTouchEnd.bind(this));
+                    }
                 }
             }
         }
@@ -677,6 +700,16 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         } else {
             grouped ? this.onItemChange(event) : this.hide();
         }
+    }
+
+    onTouchStart(event: MouseEvent) {
+        this.pressTimer = setTimeout(() => {
+            this.show(event);
+        }, this.pressDelay);
+    }
+
+    onTouchEnd() {
+        clearTimeout(this.pressTimer);
     }
 
     onItemMouseEnter(event: any) {
@@ -1123,6 +1156,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         if (this.resizeListener) {
             this.resizeListener();
             this.resizeListener = null;
+        }
+
+        if (this.touchEndListener) {
+            this.touchEndListener();
+            this.touchEndListener = null;
         }
     }
 
