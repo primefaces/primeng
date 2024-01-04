@@ -1968,7 +1968,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.totalRecords = this.filteredNodes ? this.filteredNodes.length : this.value ? this.value.length : 0;
                 }
             }
-            this.cd.markForCheck()
+            this.cd.markForCheck();
         }
 
         this.first = 0;
