@@ -8,10 +8,14 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     selector: 'p-avatar',
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
-            <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+            <ng-content />
+            @if (label) {
+                <span class="p-avatar-text">{{ label }}</span>
+            } @else if (icon) {
+                <span [class]="icon" [ngClass]="'p-avatar-icon'"></span>
+            } @else if (image) {
+                <img [src]="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
+            }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
