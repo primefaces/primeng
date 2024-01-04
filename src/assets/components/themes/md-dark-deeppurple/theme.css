@@ -7799,5 +7799,9 @@
   .p-splitbutton.p-button-danger.p-button-text > .p-button:not(:disabled):active, .p-splitbutton.p-button-danger.p-button-outlined > .p-button:not(:disabled):active {
     background: rgba(239, 154, 154, 0.16);
   }
+
+  .p-scrollpanel .p-scrollpanel-bar:focus {
+    box-shadow: 0 0 1px 4px rgba(165, 214, 167, 0.2);
+  }
 }
 /* Customizations to the designer theme should be defined here */
