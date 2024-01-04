@@ -176,6 +176,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                         [menuId]="menuId"
                         [activeItemPath]="activeItemPath"
                         [focusedItemId]="focusedItemId"
+                        [ariaLabelledBy]="getItemId(processedItem)"
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
