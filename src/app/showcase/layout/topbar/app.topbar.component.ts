@@ -37,7 +37,7 @@ export class AppTopBarComponent implements OnDestroy {
     }
 
     get isDarkMode() {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 
     toggleMenu() {

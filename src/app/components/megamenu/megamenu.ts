@@ -614,7 +614,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
             this.focusedItemInfo.set({ index, key, parentKey, item });
 
             this.dirty = !root;
-            DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+            DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
         } else {
             if (grouped) {
                 this.onItemChange(event);
@@ -623,7 +623,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
                 this.hide(originalEvent);
                 this.changeFocusedItemInfo(originalEvent, rootProcessedItem ? rootProcessedItem.index : -1);
 
-                DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+                DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
             }
         }
     }
@@ -636,7 +636,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     scrollInView(index: number = -1) {
         const id = index !== -1 ? `${this.id}_${index}` : this.focusedItemId;
-        const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
+        const element = DomHandler.findSingle(this.rootmenu?.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -657,14 +657,14 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         this.focusedItemInfo.set({ index, key, parentKey, item });
 
         grouped && (this.dirty = true);
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
     }
 
     hide(event?, isFocus?: boolean) {
         this.activeItem.set(null);
         this.focusedItemInfo.set({ index: -1, key: '', parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild?.nativeElement);
         this.dirty = false;
     }
 
@@ -991,7 +991,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     onEnterKey(event: KeyboardEvent) {
         if (this.focusedItemInfo().index !== -1) {
-            const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
+            const element = DomHandler.findSingle(this.rootmenu?.el?.nativeElement, `li[id="${`${this.focusedItemId}`}"]`);
             const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
@@ -1044,7 +1044,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.outsideClickListener) {
                 this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                    const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
+                    const isOutsideContainer = this.rootmenu?.el.nativeElement !== event.target && !this.rootmenu?.el.nativeElement.contains(event.target);
 
                     if (isOutsideContainer) {
                         this.hide();

@@ -1852,7 +1852,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
-    filter(value: string, field: string, matchMode: string) {
+    filter(value: string | string[], field: string, matchMode: string) {
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -1968,6 +1968,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.totalRecords = this.filteredNodes ? this.filteredNodes.length : this.value ? this.value.length : 0;
                 }
             }
+            this.cd.markForCheck();
         }
 
         this.first = 0;

@@ -4247,6 +4247,12 @@
   .p-scrollpanel .p-scrollpanel-bar {
     background: rgba(0, 0, 0, 0.12);
     border: 0 none;
+    transition: background-color 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s, background-size 0.2s cubic-bezier(0.64, 0.09, 0.08, 1);
+  }
+  .p-scrollpanel .p-scrollpanel-bar:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
   }
 
   .p-splitter {
@@ -4261,6 +4267,11 @@
   }
   .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
     background: rgba(0, 0, 0, 0.12);
+  }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none;
   }
   .p-splitter .p-splitter-gutter-resizing {
     background: rgba(0, 0, 0, 0.12);
@@ -7792,6 +7803,21 @@
   }
   .p-splitbutton.p-button-danger.p-button-text > .p-button:not(:disabled):active, .p-splitbutton.p-button-danger.p-button-outlined > .p-button:not(:disabled):active {
     background: rgba(211, 47, 47, 0.16);
+  }
+
+  .p-scrollpanel .p-scrollpanel-bar:focus {
+    box-shadow: 0 0 1px 4px rgba(255, 64, 129, 0.2);
+  }
+
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
+    transition: transform 0.2s, box-shadow 0.2s;
+    transform: scale(0.7);
+  }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus {
+    box-shadow: 0 0 1px 6px rgba(255, 64, 129, 0.2);
+  }
+  .p-splitter .p-splitter-gutter.p-splitter-gutter-resizing .p-splitter-gutter-handle {
+    transform: scale(1);
   }
 }
 /* Customizations to the designer theme should be defined here */

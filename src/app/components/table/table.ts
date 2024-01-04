@@ -1850,6 +1850,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.lazy && this.paginator) {
             (rangeStart as number) -= <number>this.first;
+            (rangeEnd as number) -= <number>this.first;
         }
 
         let rangeRowsData = [];
@@ -2033,7 +2034,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            this.filters[field] = field == 'global' ? { value: value, matchMode: matchMode } : [{ value: value, matchMode: matchMode }];
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2264,43 +2265,36 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        //headers
-        for (let i = 0; i < (<any[]>columns).length; i++) {
-            let column = (<any[]>columns)[i];
-            if (column.exportable !== false && column.field) {
-                csv += '"' + this.getExportHeader(column) + '"';
+        const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
-                if (i < (<any[]>columns).length - 1) {
-                    csv += this.csvSeparator;
-                }
-            }
-        }
+        //headers
+        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
 
         //body
-        data.forEach((record: any, i: number) => {
-            csv += '\n';
-            for (let i = 0; i < (<any[]>columns).length; i++) {
-                let column = (<any[]>columns)[i];
-                if (column.exportable !== false && column.field) {
-                    let cellData = ObjectUtils.resolveFieldData(record, column.field);
+        const body = data
+            .map((record: any) =>
+                exportableColumns
+                    .map((column) => {
+                        let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
-                    if (cellData != null) {
-                        if (this.exportFunction) {
-                            cellData = this.exportFunction({
-                                data: cellData,
-                                field: column.field
-                            });
-                        } else cellData = String(cellData).replace(/"/g, '""');
-                    } else cellData = '';
+                        if (cellData != null) {
+                            if (this.exportFunction) {
+                                cellData = this.exportFunction({
+                                    data: cellData,
+                                    field: column.field
+                                });
+                            } else cellData = String(cellData).replace(/"/g, '""');
+                        } else cellData = '';
 
-                    csv += '"' + cellData + '"';
+                        return '"' + cellData + '"';
+                    })
+                    .join(this.csvSeparator)
+            )
+            .join('\n');
 
-                    if (i < (<any[]>columns).length - 1) {
-                        csv += this.csvSeparator;
-                    }
-                }
-            }
-        });
+        if (body.length) {
+            csv += '\n' + body;
+        }
 
         let blob = new Blob([csv], {
             type: 'text/csv;charset=utf-8;'

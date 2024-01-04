@@ -1,0 +1,10 @@
+.demo-section-loading {
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    height: 350px;
+    background: var(--maskbg);
+}

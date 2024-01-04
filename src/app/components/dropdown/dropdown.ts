@@ -474,12 +474,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @Input() optionGroupChildren: string = 'items';
     /**
      * Whether to display the first item as the label if no placeholder is defined and value is null.
+     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
-     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() group: boolean | undefined;
@@ -1626,7 +1626,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
-                if (this.focusedOptionIndex() !== -1) {
+                if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
                     const option = this.visibleOptions()[this.focusedOptionIndex()];
                     this.onOptionSelect(event, option);
                 }

@@ -140,6 +140,6 @@ export class TemplateSectionComponent {
     constructor(private configService: AppConfigService) {}
 
     get isDarkMode() {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 }

@@ -386,6 +386,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
+                this.hide(false);
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;

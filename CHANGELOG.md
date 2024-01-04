@@ -1,7 +1,22 @@
 # Changelog
+## [17.3.1](https://github.com/primefaces/primeng/tree/17.3.1) (2024-01-04)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.3.0...17.3.1)
+
+**Fixed bugs:**
+- Table: Multiple selection with SHIFT/click does not work together with paginator and lazy loading [\#14140](https://github.com/primefaces/primeng/issues/14140)
+- Toast | Close callback is not exposed in headless. [\#14483](https://github.com/primefaces/primeng/issues/14483)
+- Exporting p-table with non exportable columns may lead in unecessary ending csvSeparator [\#14248](https://github.com/primefaces/primeng/issues/14248)
+- Error loading dropdown menu after performing a filter on the field programmatically[\#14432](https://github.com/primefaces/primeng/issues/14432)
+- Component: Tree checkbox disabled css not working [\#14251](https://github.com/primefaces/primeng/issues/14251)
+- Dropdown | Component selects first option on tab press [\#14473](https://github.com/primefaces/primeng/issues/14473)
+- Component: Sidebar. Cannot close sidebar programmatically [\#14450](https://github.com/primefaces/primeng/issues/14450)
+- MegaMenu | Error: Cannot read properties of undefined [\#14476](https://github.com/primefaces/primeng/issues/14476)
+
 ## [17.3.0](https://github.com/primefaces/primeng/tree/17.3.0) (2023-12-28)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.2.0...17.3.0)
+
 **Breaking Changes:**
 - Dropdown | Deprecate autoDisplayFirst property [\#14426](https://github.com/primefaces/primeng/issues/14426)
 
@@ -338,12 +353,18 @@
 - p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
 - Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
 
+## [16.4.3](https://github.com/primefaces/primeng/tree/16.4.3) (2024-01-04)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.2...16.4.3)
+
+**Fixed bugs:**
+- ContextMenu | Touch Device support[\#14375](https://github.com/primefaces/primeng/issues/14375)
+
 ## [16.4.2](https://github.com/primefaces/primeng/tree/16.4.2) (2023-11-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.1...16.4.2)
 
 **Fixed bugs:**
-
 - TreeTable | Global filter to search tree-table is not returning all the relevant results [\#14082](https://github.com/primefaces/primeng/issues/14082)
 - Dropdown | FocusTrap doesn't allow user to tab on next element [\#14083](https://github.com/primefaces/primeng/issues/14083)
 
@@ -352,7 +373,6 @@
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.0...16.4.1)
 
 **Fixed bugs:**
-
 - Menu Components | id property of menuItem API is ignored [\#13763](https://github.com/primefaces/primeng/issues/13763)
 - ESLint Error [\#13764](https://github.com/primefaces/primeng/issues/13764)
 - Table: Incorrect behavior when a column is both sortable and filterable, and user clicks on a certain part of the filter icon [\#13361](https://github.com/primefaces/primeng/issues/13361)
@@ -365,7 +385,6 @@
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.3.1...16.4.0)
 
 **Implemented New Features and Enhancements:**
-
 - Theme updates: change :focus to focus-visible [\#13740](https://github.com/primefaces/primeng/issues/13740)
 - New @layer implementation [\#13737](https://github.com/primefaces/primeng/issues/13737)
 - dynamic dialog module (same instances on top of each other) and update deprecated methods [\#13617](https://github.com/primefaces/primeng/issues/13617)
@@ -379,7 +398,6 @@
 - Add GTAG Manager [\#13626](https://github.com/primefaces/primeng/issues/13626)
 
 **Fixed bugs:**
-
 - TreeSelect: Close Button icon not centred [\#13750](https://github.com/primefaces/primeng/issues/13750)
 - PrimeNG 16.1.0 selecting a menu option causes panel to scroll [\#13390](https://github.com/primefaces/primeng/issues/13390)
 - p-tabPanel does not detect changes when "headerStyle", "headerStyleClass" binding is changed [\#13746](https://github.com/primefaces/primeng/issues/13746)
@@ -418,7 +436,6 @@
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.3.0...16.3.1)
 
 **Fixed bugs:**
-
 - PrimeNG build is not working [\#13581](https://github.com/primefaces/primeng/issues/13581)
 
 ## [16.3.0](https://github.com/primefaces/primeng/tree/16.3.0) (2023-08-30)

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -8,171 +8,173 @@ import { CustomerService } from '../../service/customerservice';
     template: ` <app-docsectiontext>
             <p>DataTable with selection, pagination, filtering, sorting and templating.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table
-                #dt
-                [value]="customers"
-                [(selection)]="selectedCustomers"
-                dataKey="id"
-                [rowHover]="true"
-                [rows]="10"
-                [showCurrentPageReport]="true"
-                [rowsPerPageOptions]="[10, 25, 50]"
-                [loading]="loading"
-                [paginator]="true"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [filterDelay]="0"
-                [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-            >
-                <ng-template pTemplate="caption">
-                    <div class="table-header">
-                        List of Customers
-                        <span class="p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                        </span>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem">
-                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-                        </th>
-                        <th pSortableColumn="name" style="min-width: 14rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Name
-                                <p-sortIcon field="name"></p-sortIcon>
-                                <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="country.name" style="min-width: 14rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Country
-                                <p-sortIcon field="country.name"></p-sortIcon>
-                                <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="representative.name" style="min-width: 14rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Agent
-                                <p-sortIcon field="representative.name"></p-sortIcon>
-                                <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
-                                    <ng-template pTemplate="header">
-                                        <div class="px-3 pt-3 pb-0">
-                                            <span class="font-bold">Agent Picker</span>
-                                        </div>
-                                    </ng-template>
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
-                                            <ng-template let-option pTemplate="item">
-                                                <div class="inline-block vertical-align-middle">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
-                                                </div>
-                                            </ng-template>
-                                        </p-multiSelect>
-                                    </ng-template>
-                                </p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="date" style="min-width: 10rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Date
-                                <p-sortIcon field="date"></p-sortIcon>
-                                <p-columnFilter type="date" field="date" display="menu" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="balance" style="min-width: 10rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Balance
-                                <p-sortIcon field="balance"></p-sortIcon>
-                                <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto"></p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="status" style="min-width: 10rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Status
-                                <p-sortIcon field="status"></p-sortIcon>
-                                <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
-                                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
-                                            <ng-template let-option pTemplate="item">
-                                                <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
-                                            </ng-template>
-                                        </p-dropdown>
-                                    </ng-template>
-                                </p-columnFilter>
-                            </div>
-                        </th>
-                        <th pSortableColumn="activity" style="min-width: 10rem">
-                            <div class="flex justify-content-between align-items-center">
-                                Activity
-                                <p-sortIcon field="activity"></p-sortIcon>
-                                <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
-                                    <ng-template pTemplate="filter" let-filter="filterCallback">
-                                        <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
-                                        <div class="flex align-items-center justify-content-between px-2">
-                                            <span>{{ activityValues[0] }}</span>
-                                            <span>{{ activityValues[1] }}</span>
-                                        </div>
-                                    </ng-template>
-                                </p-columnFilter>
-                            </div>
-                        </th>
-                        <th style="width: 5rem"></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr class="p-selectable-row">
-                        <td>
-                            <p-tableCheckbox [value]="customer"></p-tableCheckbox>
-                        </td>
-                        <td>
-                            <span class="p-column-title">Name</span>
-                            {{ customer.name }}
-                        </td>
-                        <td>
-                            <span class="p-column-title">Country</span>
-                            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                            <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
-                        </td>
-                        <td>
-                            <span class="p-column-title">Representative</span>
-                            <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                            <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-                        </td>
-                        <td>
-                            <span class="p-column-title">Date</span>
-                            {{ customer.date | date : 'MM/dd/yyyy' }}
-                        </td>
-                        <td>
-                            <span class="p-column-title">Balance</span>
-                            {{ customer.balance | currency : 'USD' : 'symbol' }}
-                        </td>
-                        <td>
-                            <span class="p-column-title">Status</span>
-                            <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-                        </td>
-                        <td>
-                            <span class="p-column-title">Activity</span>
-                            <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
-                        </td>
-                        <td style="text-align: center">
-                            <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td colspan="8">No customers found.</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table
+                    #dt
+                    [value]="customers"
+                    [(selection)]="selectedCustomers"
+                    dataKey="id"
+                    [rowHover]="true"
+                    [rows]="10"
+                    [showCurrentPageReport]="true"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    [loading]="loading"
+                    [paginator]="true"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [filterDelay]="0"
+                    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+                >
+                    <ng-template pTemplate="caption">
+                        <div class="table-header">
+                            List of Customers
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                            </span>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                            <th pSortableColumn="name" style="min-width: 14rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Name
+                                    <p-sortIcon field="name"></p-sortIcon>
+                                    <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="country.name" style="min-width: 14rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Country
+                                    <p-sortIcon field="country.name"></p-sortIcon>
+                                    <p-columnFilter type="text" field="country.name" display="menu" class="ml-auto"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="representative.name" style="min-width: 14rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Agent
+                                    <p-sortIcon field="representative.name"></p-sortIcon>
+                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                        <ng-template pTemplate="header">
+                                            <div class="px-3 pt-3 pb-0">
+                                                <span class="font-bold">Agent Picker</span>
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                                <ng-template let-option pTemplate="item">
+                                                    <div class="inline-block vertical-align-middle">
+                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                        <span class="ml-1 mt-1">{{ option.name }}</span>
+                                                    </div>
+                                                </ng-template>
+                                            </p-multiSelect>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="date" style="min-width: 10rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Date
+                                    <p-sortIcon field="date"></p-sortIcon>
+                                    <p-columnFilter type="date" field="date" display="menu" class="ml-auto"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="balance" style="min-width: 10rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Balance
+                                    <p-sortIcon field="balance"></p-sortIcon>
+                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto"></p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="status" style="min-width: 10rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Status
+                                    <p-sortIcon field="status"></p-sortIcon>
+                                    <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                                <ng-template let-option pTemplate="item">
+                                                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)"></p-tag>
+                                                </ng-template>
+                                            </p-dropdown>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th pSortableColumn="activity" style="min-width: 10rem">
+                                <div class="flex justify-content-between align-items-center">
+                                    Activity
+                                    <p-sortIcon field="activity"></p-sortIcon>
+                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                        <ng-template pTemplate="filter" let-filter="filterCallback">
+                                            <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                                            <div class="flex align-items-center justify-content-between px-2">
+                                                <span>{{ activityValues[0] }}</span>
+                                                <span>{{ activityValues[1] }}</span>
+                                            </div>
+                                        </ng-template>
+                                    </p-columnFilter>
+                                </div>
+                            </th>
+                            <th style="width: 5rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr class="p-selectable-row">
+                            <td>
+                                <p-tableCheckbox [value]="customer"></p-tableCheckbox>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Name</span>
+                                {{ customer.name }}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Country</span>
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Representative</span>
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Date</span>
+                                {{ customer.date | date : 'MM/dd/yyyy' }}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Balance</span>
+                                {{ customer.balance | currency : 'USD' : 'symbol' }}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Status</span>
+                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Activity</span>
+                                <p-progressBar [value]="customer.activity" [showValue]="false"></p-progressBar>
+                            </td>
+                            <td style="text-align: center">
+                                <button pButton type="button" class="p-button-secondary" icon="pi pi-cog"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td colspan="8">No customers found.</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-customers-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CustomersDoc implements OnInit {
+export class CustomersDoc {
     customers!: Customer[];
 
     selectedCustomers!: Customer[];
@@ -187,7 +189,7 @@ export class CustomersDoc implements OnInit {
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.loading = false;
