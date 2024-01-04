@@ -68,7 +68,7 @@ export class StackedBarDoc implements OnInit {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
                 plugins: {
-                    tooltips: {
+                    tooltip: {
                         mode: 'index',
                         intersect: false
                     },
@@ -156,7 +156,7 @@ export class ChartStackedBarDemo implements OnInit {
             maintainAspectRatio: false,
             aspectRatio: 0.8,
             plugins: {
-                tooltips: {
+                tooltip: {
                     mode: 'index',
                     intersect: false
                 },
