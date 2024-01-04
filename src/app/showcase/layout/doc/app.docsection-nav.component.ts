@@ -66,7 +66,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             hasHash &&
                 setTimeout(() => {
                     this.scrollToLabelById(id);
-                }, 25);
+                }, 250);
 
             this.zone.runOutsideAngular(() => {
                 this.scrollListener = this.renderer.listen(this.document, 'scroll', (event: any) => {
@@ -148,7 +148,9 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         if (typeof document !== undefined) {
             const label = document.getElementById(id);
             this.location.go(this.location.path().split('#')[0] + '#' + id);
-            label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            setTimeout(() => {
+                label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            }, 1);
         }
     }
 

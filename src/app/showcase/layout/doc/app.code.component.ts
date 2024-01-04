@@ -13,6 +13,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 <ng-container *ngIf="fullCodeVisible">
                     <button *ngIf="code.html" (click)="changeLang('html')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'html' }"><span>HTML</span></button>
                     <button *ngIf="code.typescript" (click)="changeLang('typescript')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'typescript' }"><span>TS</span></button>
+                    <button *ngIf="code.scss" (click)="changeLang('scss')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'scss' }"><span>SCSS</span></button>
 
                     <button
                         *ngIf="code.data"
@@ -160,7 +161,7 @@ export class AppCodeComponent {
 
     toggleCode() {
         this.fullCodeVisible = !this.fullCodeVisible;
-        this.fullCodeVisible && (this.lang = 'html');
+        this.fullCodeVisible && (this.code.html ? (this.lang = 'html') : (this.lang = 'typescript'));
         !this.fullCodeVisible && (this.lang = 'basic');
     }
 

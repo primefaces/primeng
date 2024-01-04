@@ -57,7 +57,7 @@ export class MenubarService {
             #menubar
             [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }"
             [attr.data-pc-section]="'menu'"
-            role="menu"
+            role="menubar"
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
             [tabindex]="0"
@@ -130,11 +130,11 @@ export class MenubarService {
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <ng-container *ngIf="!menubar.submenuIconTemplate">
+                                    <ng-container *ngIf="!submenuIconTemplate">
                                         <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                         <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -231,6 +231,8 @@ export class MenubarSub implements OnInit, OnDestroy {
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
+
+    @Input() submenuIconTemplate: TemplateRef<any> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -380,6 +382,7 @@ export class MenubarSub implements OnInit, OnDestroy {
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
+                [submenuIconTemplate]="submenuIconTemplate"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
                 (menuFocus)="onMenuFocus($event)"
@@ -730,20 +733,20 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
 
-        isFocus && DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        isFocus && DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
         this.dirty = false;
     }
 
     show() {
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem.item });
-        DomHandler.focus(this.rootmenu.menubarViewChild.nativeElement);
+        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item });
+        DomHandler.focus(this.rootmenu?.menubarViewChild.nativeElement);
     }
 
     onMenuFocus(event: any) {
         this.focused = true;
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem.item };
+        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: processedItem?.item };
 
         this.focusedItemInfo.set(focusedItemInfo);
         this.onFocus.emit(event);

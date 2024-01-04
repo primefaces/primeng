@@ -7,7 +7,10 @@ import { ProductService } from '../../service/productservice';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
+            <p>
+                PickList is used as a controlled input with <i>source</i> and <i>target</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter. Drag & drop
+                functionality depends on <i>&#64;angular/cdk</i> package.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-pickList

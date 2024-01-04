@@ -37,15 +37,15 @@ export class AppMainComponent {
     }
 
     get isInputFilled(): boolean {
-        return this.configService.config.inputStyle === 'filled';
+        return this.configService.config().inputStyle === 'filled';
     }
 
     get isDarkMode(): boolean {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 
     get isRippleDisabled(): boolean {
-        return this.configService.config.ripple === false;
+        return this.configService.config().ripple === false;
     }
 
     get isMenuActive(): boolean {
@@ -53,7 +53,7 @@ export class AppMainComponent {
     }
 
     get theme(): string {
-        return this.configService.config.theme;
+        return this.configService.config().theme;
     }
 
     get containerClass() {
@@ -68,7 +68,7 @@ export class AppMainComponent {
 
     toggleDarkMode() {
         let newTheme = null;
-        const { theme, darkMode } = this.configService.config;
+        const { theme, darkMode } = this.configService.config();
 
         if (darkMode) {
             newTheme = theme.replace('dark', 'light');
@@ -76,8 +76,7 @@ export class AppMainComponent {
             if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
             else newTheme = 'lara-dark-blue';
         }
-
-        this.configService.changeTheme({ name: newTheme, dark: !darkMode });
+        this.configService.config.update((config) => ({ ...config, darkMode: !darkMode, theme: newTheme }));
     }
 
     hideMenu() {
