@@ -90,7 +90,11 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
 
     private _size!: 'large' | 'xlarge';
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     ngAfterViewInit() {
         this.id = UniqueComponentId() + '_badge';
@@ -159,7 +163,11 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
  */
 @Component({
     selector: 'p-badge',
-    template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
+    template: `
+        @if (!badgeDisabled) {
+            <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span>
+        }
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./badge.css'],
