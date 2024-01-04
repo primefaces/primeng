@@ -201,5 +201,4 @@ describe('TriStateCheckbox', () => {
         expect(onKeyDownSpy).toHaveBeenCalled();
         expect(tristate.value).toBeUndefined();
     });
-
 });

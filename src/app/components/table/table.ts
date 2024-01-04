@@ -2033,7 +2033,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = field == 'global'? { value: value, matchMode: matchMode } : [{ value: value, matchMode: matchMode }];
+            this.filters[field] = field == 'global' ? { value: value, matchMode: matchMode } : [{ value: value, matchMode: matchMode }];
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2264,28 +2264,32 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        const exportableColumns: any[] = (<any[]>columns).filter(column => column.exportable !== false && column.field);
+        const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
         //headers
-        csv += exportableColumns.map(column => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
+        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
 
         //body
-        const body = data.map((record: any) =>
-            exportableColumns.map(column => {
-                let cellData = ObjectUtils.resolveFieldData(record, column.field);
+        const body = data
+            .map((record: any) =>
+                exportableColumns
+                    .map((column) => {
+                        let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
-                if (cellData != null) {
-                    if (this.exportFunction) {
-                        cellData = this.exportFunction({
-                            data: cellData,
-                            field: column.field
-                        });
-                    } else cellData = String(cellData).replace(/"/g, '""');
-                } else cellData = '';
+                        if (cellData != null) {
+                            if (this.exportFunction) {
+                                cellData = this.exportFunction({
+                                    data: cellData,
+                                    field: column.field
+                                });
+                            } else cellData = String(cellData).replace(/"/g, '""');
+                        } else cellData = '';
 
-                return '"' + cellData + '"';
-            }).join(this.csvSeparator)
-        ).join('\n');
+                        return '"' + cellData + '"';
+                    })
+                    .join(this.csvSeparator)
+            )
+            .join('\n');
 
         if (body.length) {
             csv += '\n' + body;

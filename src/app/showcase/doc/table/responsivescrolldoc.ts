@@ -52,7 +52,7 @@ export class ResponsiveScrollDoc {
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    loadDemoData(){
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

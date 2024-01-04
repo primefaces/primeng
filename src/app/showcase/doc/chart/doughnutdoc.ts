@@ -32,7 +32,7 @@ export class DoughnutDoc implements OnInit {
     ngOnInit() {
         this.initChart();
     }
-    
+
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);

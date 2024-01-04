@@ -30,10 +30,10 @@ export class VerticalBarDoc implements OnInit {
     }
 
     ngOnInit() {
-      this.initChart()
+        this.initChart();
     }
 
-    initChart(){
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');

@@ -45,14 +45,14 @@ interface Column {
         <app-code [code]="code" selector="table-responsive-stack-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResponsiveStackDoc{
+export class ResponsiveStackDoc {
     products!: Product[];
 
     cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    loadDemoData(){
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

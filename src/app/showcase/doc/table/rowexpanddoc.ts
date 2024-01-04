@@ -13,73 +13,73 @@ import { ProductService } from '../../service/productservice';
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
-        <div class="card">
-            <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 5rem"></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th>Image</th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-expanded="expanded">
-                    <tr>
-                        <td>
-                            <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-                        </td>
-                        <td>{{ product.name }}</td>
-                        <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                        <td>{{ product.price | currency : 'USD' }}</td>
-                        <td>{{ product.category }}</td>
-                        <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                        <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="rowexpansion" let-product>
-                    <tr>
-                        <td colspan="7">
-                            <div class="p-3">
-                                <p-table [value]="product.orders" dataKey="id">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                            <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                            <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                            <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                            <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
-                                            <th style="width: 4rem"></th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-order>
-                                        <tr>
-                                            <td>{{ order.id }}</td>
-                                            <td>{{ order.customer }}</td>
-                                            <td>{{ order.date }}</td>
-                                            <td>{{ order.amount | currency : 'USD' }}</td>
-                                            <td>
-                                                <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
-                                            </td>
-                                            <td><p-button type="button" icon="pi pi-plus"></p-button></td>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="emptymessage">
-                                        <tr>
-                                            <td colspan="6">There are no order for this product yet.</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+            <div class="card">
+                <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 5rem"></th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th>Image</th>
+                            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
+                            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                            </td>
+                            <td>{{ product.name }}</td>
+                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.category }}</td>
+                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                            <td>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="rowexpansion" let-product>
+                        <tr>
+                            <td colspan="7">
+                                <div class="p-3">
+                                    <p-table [value]="product.orders" dataKey="id">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
+                                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
+                                                <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
+                                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
+                                                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                                <th style="width: 4rem"></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-order>
+                                            <tr>
+                                                <td>{{ order.id }}</td>
+                                                <td>{{ order.customer }}</td>
+                                                <td>{{ order.date }}</td>
+                                                <td>{{ order.amount | currency : 'USD' }}</td>
+                                                <td>
+                                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                                </td>
+                                                <td><p-button type="button" icon="pi pi-plus"></p-button></td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="emptymessage">
+                                            <tr>
+                                                <td colspan="6">There are no order for this product yet.</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush

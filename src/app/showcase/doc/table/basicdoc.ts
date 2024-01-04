@@ -44,7 +44,7 @@ export class BasicDoc {
             this.cd.markForCheck();
         });
     }
-    
+
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
