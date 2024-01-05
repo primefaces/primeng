@@ -26,7 +26,6 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
 import { UniqueComponentId } from 'primeng/utils';
-import { HTMLUtils } from '../utils/htmlutils';
 
 /**
  * AccordionTab is a helper component for Accordion.
@@ -463,8 +462,18 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         }
     }
 
+    isInput(event): boolean {
+        const { tagName } = event.target;
+        return tagName?.toLowerCase() === 'input';
+    }
+
+    isTextArea(event): boolean {
+        const { tagName } = event.target;
+        return tagName?.toLowerCase() === 'textarea';
+    }
+
     onTabArrowDownKey(event) {
-        if (!HTMLUtils.isInput(event) && !HTMLUtils.isTextArea(event)) {
+        if (!this.isInput(event) && !this.isTextArea(event)) {
             const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
             nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
 
@@ -473,7 +482,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabArrowUpKey(event) {
-        if (!HTMLUtils.isInput(event) && !HTMLUtils.isTextArea(event)) {
+        if (!this.isInput(event) && !this.isTextArea(event)) {
             const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
             prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
 
