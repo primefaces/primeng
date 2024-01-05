@@ -67,7 +67,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <label
-            (click)="onClick($event)"
+            (click)="!inputId ? onClick($event) : null"
             [class]="labelStyleClass"
             [ngClass]="{ 'p-checkbox-label': true, 'p-checkbox-label-active': checked(), 'p-disabled': disabled, 'p-checkbox-label-focus': focused }"
             *ngIf="label"
@@ -286,3 +286,4 @@ export class Checkbox implements ControlValueAccessor {
     declarations: [Checkbox]
 })
 export class CheckboxModule {}
+
