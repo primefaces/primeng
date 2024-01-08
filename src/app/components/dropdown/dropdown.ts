@@ -913,6 +913,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             return filteredOptions;
         }
+
         return options;
     });
 
@@ -1660,7 +1661,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return this.filterBy.split(',') || this.filterFields || [this.optionLabel];
     }
 
     searchOptions(event, char) {
@@ -1746,3 +1747,4 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     declarations: [Dropdown, DropdownItem]
 })
 export class DropdownModule {}
+
