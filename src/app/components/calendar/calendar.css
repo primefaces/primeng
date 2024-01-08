@@ -20,6 +20,10 @@
         border-bottom-left-radius: 0;
     }
 
+    .p-calendar-icon { 
+        cursor: pointer;
+    }
+
     /* Fluid */
     .p-fluid .p-calendar {
         display: flex;
