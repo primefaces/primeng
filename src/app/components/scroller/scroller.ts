@@ -504,10 +504,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    get isPageChanged() {
-        return this._step ? this.page !== this.getPageByFirst() : true;
-    }
-
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
@@ -653,8 +649,12 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.elementViewChild;
     }
 
-    getPageByFirst() {
-        return Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+    getPageByFirst(first?: any) {
+        return Math.floor(((first ?? this.first) + this.d_numToleratedItems * 4) / (this._step || 1));
+    }
+
+    isPageChanged(first?: any) {
+        return this._step ? this.page !== this.getPageByFirst(first ?? this.first) : true;
     }
 
     scrollTo(options: ScrollToOptions) {
@@ -977,10 +977,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.handleEvents('onScrollIndexChange', newState);
 
-            if (this._lazy && this.isPageChanged) {
+            if (this._lazy && this.isPageChanged(first)) {
                 const lazyLoadState = {
-                    first: this._step ? Math.min(this.getPageByFirst() * this._step, (<any[]>this.items).length - this._step) : first,
-                    last: Math.min(this._step ? (this.getPageByFirst() + 1) * this._step : last, (<any[]>this.items).length)
+                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this.items).length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this.items).length)
                 };
                 const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
 
@@ -993,14 +993,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     onContainerScroll(event: Event) {
         this.handleEvents('onScroll', { originalEvent: event });
 
-        if (this._delay && this.isPageChanged) {
+        if (this._delay && this.isPageChanged()) {
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
             if (!this.d_loading && this.showLoader) {
                 const { isRangeChanged } = this.onScrollPositionChange(event);
-                const changed = isRangeChanged || (this._step ? this.isPageChanged : false);
+                const changed = isRangeChanged || (this._step ? this.isPageChanged() : false);
 
                 if (changed) {
                     this.d_loading = true;
