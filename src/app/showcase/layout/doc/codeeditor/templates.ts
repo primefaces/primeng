@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.1.0',
+    version: '17.3.1',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -489,6 +489,7 @@ const getAngularApp = (props: Props = {}) => {
     const serviceImports = code.service ? getServiceImports(code.service) : '';
     const routerModule = code.routerModule ? code.routerModule : `RouterModule.forRoot([{ path: '', component: ${componentName} }])`;
     const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
+    const providers = code.service && code.service.length ? code.service.map((s) => s).join(', ') : '';
 
     const app_module_ts = `import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -696,7 +697,7 @@ ${serviceImports}
     ${routerModule}],
     declarations: [ ${declarations} ],
     bootstrap: [ ${componentName} ],
-    providers: [ MessageService ]
+    providers: [ ${providers} ]
 })
 
 export class AppModule {}`;

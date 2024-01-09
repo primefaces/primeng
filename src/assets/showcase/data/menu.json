@@ -506,14 +506,22 @@
             "href": "https://blocks.primeng.org"
         },
         {
-            "name": "PrimeFlex CSS",
-            "icon": "pi pi-table",
-            "href": "https://primeflex.org"
-        },
-        {
-            "name": "Accessibility",
-            "icon": "pi pi-users",
-            "routerLink": "/accessibility"
+            "name": "Guides",
+            "icon": "pi pi-book",
+            "children": [
+                {
+                    "name": "Accessibility",
+                    "routerLink": "/guides/accessibility"
+                },
+                {
+                    "name": "CSS Layer",
+                    "routerLink": "/guides/csslayer"
+                },
+                {
+                    "name": "PrimeTV",
+                    "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
+                }
+            ]
         },
         {
             "name": "Support",
@@ -536,11 +544,6 @@
                     "routerLink": "/support"
                 }
             ]
-        },
-        {
-            "name": "PrimeTV",
-            "icon": "pi pi-youtube",
-            "href": "https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw"
         },
         {
             "name": "Discover",
@@ -581,6 +584,10 @@
                 {
                     "name": "PrimeGear",
                     "href": "https://gear.primefaces.org"
+                },
+                {
+                    "name": "PrimeFlex CSS",
+                    "href": "https://primeflex.org"
                 }
             ]
         }

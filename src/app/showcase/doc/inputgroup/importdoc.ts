@@ -8,6 +8,6 @@ import { Code } from '../../domain/code';
 export class ImportDoc {
     code: Code = {
         typescript: `import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddon } from 'primeng/inputgroupaddon';`
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';`
     };
 }

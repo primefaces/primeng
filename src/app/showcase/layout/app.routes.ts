@@ -9,6 +9,7 @@ export const routes: Routes = [
         component: AppMainComponent,
         children: [
             { path: '', redirectTo: 'installation', pathMatch: 'full' },
+            { path: 'accessibility', redirectTo: 'guides/accessibility', pathMatch: 'full' },
             { path: 'installation', loadChildren: () => import('../pages/installation/installation.module').then((m) => m.InstallationModule) },
             { path: 'configuration', loadChildren: () => import('../pages/configuration/configurationdemo.module').then((m) => m.ConfigurationDemoModule) },
             { path: 'playground', loadChildren: () => import('../pages/playground/playground.module').then((m) => m.PlaygroundModule) },
@@ -109,13 +110,13 @@ export const routes: Routes = [
             { path: 'treeselect', loadChildren: () => import('../pages/treeselect/treeselectdemo.module').then((m) => m.TreeSelectDemoModule) },
             { path: 'treetable', loadChildren: () => import('../pages/treetable/treetabledemo.module').then((m) => m.TreeTableDemoModule) },
             { path: 'tristatecheckbox', loadChildren: () => import('../pages/tristatecheckbox/tristatecheckboxdemo.module').then((m) => m.TriStateCheckboxDemoModule) },
-            { path: 'accessibility', loadChildren: () => import('../pages/accessibility/accessibilitydemo.module').then((m) => m.AccessibilityDemoModule) },
             { path: 'scroller', loadChildren: () => import('../pages/scroller/scrollerdemo.module').then((m) => m.ScrollerDemoModule) },
             { path: 'uikit', loadChildren: () => import('../pages/uikit/uikit.module').then((m) => m.UIKitModule) },
             { path: 'autofocus', loadChildren: () => import('../pages/autofocus/autofocusdemo.module').then((m) => m.AutoFocusDemoModule) },
             { path: 'overlay', loadChildren: () => import('../pages/overlay/overlaydemo.module').then((m) => m.OverlayDemoModule) },
             { path: 'animateonscroll', loadChildren: () => import('../pages/animate/animateonscrolldemo.module').then((m) => m.AnimateOnScrollDemoModule) },
-            { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) }
+            { path: 'templates', loadChildren: () => import('../pages/templates/templates.module').then((m) => m.TemplatesModule) },
+            { path: 'guides', loadChildren: () => import('../pages/guides/guides.module').then((m) => m.GuidesModule) }
         ]
     },
     { path: 'notfound', loadChildren: () => import('../pages/notfound/notfound.module').then((m) => m.NotFoundModule) },

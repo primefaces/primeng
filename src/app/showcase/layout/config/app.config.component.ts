@@ -15,7 +15,6 @@ import { AppConfigService } from '../../service/appconfigservice';
     imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
 })
 export class AppConfigComponent {
-    scale: number = 14;
     inputStyles = [
         { label: 'Outlined', value: 'outlined' },
         { label: 'Filled', value: 'filled' }
@@ -35,19 +34,32 @@ export class AppConfigComponent {
     }
 
     get isDarkToggleDisabled(): boolean {
-        return this.lightOnlyThemes.includes(this.configService.config.theme);
+        return this.lightOnlyThemes.includes(this.configService.config().theme);
     }
 
     get isDarkMode(): boolean {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 
     get inputStyle(): string {
-        return this.configService.config.inputStyle;
+        return this.configService.config().inputStyle;
+    }
+    set inputStyle(val: string) {
+        this.configService.config.update((config) => ({ ...config, inputStyle: val }));
     }
 
     get ripple(): boolean {
-        return this.configService.config.ripple;
+        return this.configService.config().ripple;
+    }
+    set ripple(val: boolean) {
+        this.configService.config.update((config) => ({ ...config, ripple: val }));
+    }
+
+    get scale(): number {
+        return this.configService.config().scale;
+    }
+    set scale(val: number) {
+        this.configService.config.update((config) => ({ ...config, scale: val }));
     }
 
     onVisibleChange(value: boolean) {
@@ -57,7 +69,7 @@ export class AppConfigComponent {
     }
 
     onCompactMaterialChange() {
-        const theme = this.configService.config.theme;
+        const theme = this.configService.config().theme;
         if (theme.startsWith('md')) {
             let tokens = theme.split('-');
 
@@ -83,7 +95,7 @@ export class AppConfigComponent {
             themeName += '-' + color;
         }
 
-        return this.configService.config.theme === themeName;
+        return this.configService.config().theme === themeName;
     }
 
     changeTheme(theme: string, color?: string) {
@@ -106,28 +118,22 @@ export class AppConfigComponent {
             darkMode = this.isDarkMode;
         }
 
-        this.configService.changeTheme({ name: newTheme, dark: darkMode });
-    }
-
-    onInputStyleChange(event: SelectButtonChangeEvent) {
-        this.configService.setInputStyle(event.value);
-    }
-
-    onRippleChange(event: InputSwitchChangeEvent) {
-        this.configService.setRipple(event.checked);
+        this.configService.config.update((config) => ({ ...config, dark: darkMode, theme: newTheme }));
     }
 
     decrementScale() {
         this.scale--;
-        this.applyScale();
+    }
+
+    onRippleChange(event) {
+        this.ripple = event.checked;
+    }
+
+    onInputStyleChange(event) {
+        this.inputStyle = event.value;
     }
 
     incrementScale() {
         this.scale++;
-        this.applyScale();
-    }
-
-    applyScale() {
-        this.renderer.setStyle(this.document.documentElement, 'font-size', this.scale + 'px');
     }
 }

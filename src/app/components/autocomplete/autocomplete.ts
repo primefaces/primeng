@@ -145,7 +145,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [required]="required"
                         [attr.name]="name"
                         role="combobox"
-                        [attr.placeholder]="placeholder"
+                        [attr.placeholder]="!filled ? placeholder : null"
                         [attr.size]="size"
                         aria-autocomplete="list"
                         [maxlength]="maxlength"
@@ -257,11 +257,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             </li>
                         </ul>
                         <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
-                        <span role="status" aria-live="polite" class="p-hidden-accessible">
-                            {{ selectedMessageText }}
-                        </span>
                     </ng-template>
                 </div>
+                <span role="status" aria-live="polite" class="p-hidden-accessible">
+                    {{ selectedMessageText }}
+                </span>
             </p-overlay>
         </div>
     `,
@@ -1061,7 +1061,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         let query = event.target.value;
 
-        if (!this.multiple) {
+        if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
         }
 

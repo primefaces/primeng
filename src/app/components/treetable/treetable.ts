@@ -410,7 +410,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = true;
+    @Input() metaKeySelection: boolean | undefined = false;
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
@@ -1852,7 +1852,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
-    filter(value: string, field: string, matchMode: string) {
+    filter(value: string | string[], field: string, matchMode: string) {
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -1968,6 +1968,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.totalRecords = this.filteredNodes ? this.filteredNodes.length : this.value ? this.value.length : 0;
                 }
             }
+            this.cd.markForCheck();
         }
 
         this.first = 0;
