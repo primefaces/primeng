@@ -85,6 +85,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
                 (onAnimationStart)="onOverlayAnimationStart($event)"
+                (onBeforeHide)="onOverlayBeforeHide($event)"
                 (onShow)="onShow.emit($event)"
                 (onHide)="hide($event)"
             >
@@ -575,6 +576,14 @@ export class TreeSelect implements AfterContentInit {
                     }
                 }
                 break;
+        }
+    }
+    
+    onOverlayBeforeHide(event: Event) {
+        let focusableElements = DomHandler.getFocusableElements(this.containerEl.nativeElement);
+
+        if (focusableElements && focusableElements.length > 0) {
+            focusableElements[0].focus();
         }
     }
 
