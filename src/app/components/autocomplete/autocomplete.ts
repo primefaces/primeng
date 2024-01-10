@@ -49,8 +49,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     multi: true
 };
 
-declare type OptionLabelCallback = (option: any) => string;
-
 /**
  * AutoComplete is an input component that provides real-time suggestions when being typed.
  * @group Components
