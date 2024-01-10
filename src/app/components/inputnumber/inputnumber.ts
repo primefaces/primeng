@@ -1331,7 +1331,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             this._decimal.lastIndex = 0;
 
             if (this.suffixChar) {
-                return val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
+                return decimalCharIndex !== -1 ? val1 : val1.replace(this.suffixChar, '').split(this._decimal)[0] + val2.replace(this.suffixChar, '').slice(decimalCharIndex) + this.suffixChar;
             } else {
                 return decimalCharIndex !== -1 ? val1.split(this._decimal)[0] + val2.slice(decimalCharIndex) : val1;
             }
