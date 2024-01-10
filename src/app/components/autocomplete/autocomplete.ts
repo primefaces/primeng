@@ -1010,6 +1010,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isSelected(option) {
+        if (this.multiple) {
+            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+        }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
