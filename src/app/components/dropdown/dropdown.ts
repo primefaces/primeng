@@ -22,7 +22,6 @@ import {
     Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
