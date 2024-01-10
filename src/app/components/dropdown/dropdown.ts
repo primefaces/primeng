@@ -693,7 +693,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return options;
     }
     set options(val: any[] | undefined) {
-        this._options.set(val);
+        if (!ObjectUtils.deepEquals(val, this._options())) {
+            this._options.set(val);
+        }
     }
     /**
      * Callback to invoke when value of dropdown changes.
