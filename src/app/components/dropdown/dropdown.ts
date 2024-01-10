@@ -1114,6 +1114,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
     }
 
+    clearEditableLabel(): void {
+        if (this.editableInputViewChild) {
+            this.editableInputViewChild.nativeElement.value = ''
+        }
+    }
+
     getOptionIndex(index, scrollerOptions) {
         return this.virtualScrollerDisabled ? index : scrollerOptions && scrollerOptions.getItemOptions(index)['index'];
     }
@@ -1741,7 +1747,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     clear(event: Event) {
         this.updateModel(null, event);
-        this.updateEditableLabel();
+        this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
     }
