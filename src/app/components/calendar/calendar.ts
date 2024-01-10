@@ -3008,7 +3008,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 }
             }
         }
-
+        if (this.dataType === 'string') {
+            this.updateModel(value);
+        }
         this.updateInputfield();
         this.updateUI();
         this.cd.markForCheck();

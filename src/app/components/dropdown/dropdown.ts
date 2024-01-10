@@ -145,6 +145,8 @@ export class DropdownItem {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
+                [attr.aria-required]="required"
+                [attr.required]="required"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
@@ -894,8 +896,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
+            const _filterBy = this.filterBy || this.optionLabel;
+
             const filteredOptions =
-                !this.filterBy && !this.filterFields && !this.optionValue
+                !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1)
                     : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
@@ -913,6 +917,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             return filteredOptions;
         }
+
         return options;
     });
 
@@ -1660,7 +1665,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
     }
 
     searchOptions(event, char) {
