@@ -1,17 +1,27 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'custom-content-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-menu [model]="items">
                 <ng-template pTemplate="item" let-item>
-                    <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+                    <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+                        <div>
+                            <span [class]="item.icon"></span>
+                            <span> {{ item.label }}</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                            <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                        </div>
+                    </a>
+                    <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url" [attr.target]="'blank'">
                         <div>
                             <span [class]="item.icon"></span>
                             <span> {{ item.label }}</span>
@@ -25,13 +35,9 @@ import { Code } from '../../domain/code';
             </p-menu>
         </div>
         <app-code [code]="code" selector="menu-custom-content-demo"></app-code>
-    </section>`
+    `
 })
 export class CustomContentDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -75,10 +81,19 @@ export class CustomContentDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-menu [model]="items">
+        basic: `<p-menu [model]="items">
     <ng-template pTemplate="item" let-item>
-        <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+        <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+            <div>
+                <span [class]="item.icon"></span>
+                <span> {{ item.label }}</span>
+            </div>
+            <div>
+                <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+            </div>
+        </a>
+        <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url">
             <div>
                 <span [class]="item.icon"></span>
                 <span> {{ item.label }}</span>
@@ -95,7 +110,17 @@ export class CustomContentDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-menu [model]="items">
         <ng-template pTemplate="item" let-item>
-            <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+            <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+                <div>
+                    <span [class]="item.icon"></span>
+                    <span> {{ item.label }}</span>
+                </div>
+                <div>
+                    <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                    <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                </div>
+            </a>
+            <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url">
                 <div>
                     <span [class]="item.icon"></span>
                     <span> {{ item.label }}</span>

@@ -1,67 +1,59 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-multiple-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple checkboxes can be grouped together.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-3">
-            <div class="flex align-items-center gap-1">
-                <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="newyork"></p-checkbox>
-                <label for="newyork">New York</label>
+        <div class="card flex flex-wrap justify-content-center gap-3">
+            <div class="flex align-items-center">
+                <p-checkbox label="Cheese" name="pizza" value="Cheese" [(ngModel)]="pizza"></p-checkbox>
             </div>
-            <div class="flex align-items-center gap-1">
-                <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
-                <label for="sf">San Francisco</label>
+            <div class="flex align-items-center">
+                <p-checkbox label="Mushroom" name="pizza" value="Mushroom" [(ngModel)]="pizza"></p-checkbox>
             </div>
-            <div class="flex align-items-center gap-1">
-                <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
-                <label for="la">Los Angeles</label>
+            <div class="flex align-items-center">
+                <p-checkbox label="Pepper" name="pizza" value="Pepper" [(ngModel)]="pizza"></p-checkbox>
+            </div>
+            <div class="flex align-items-center">
+                <p-checkbox label="Onion" name="pizza" value="Onion" [(ngModel)]="pizza"></p-checkbox>
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    selectedCities: string[] = [];
+    pizza: string[] = [];
 
     code: Code = {
-        basic: `
-<div class="flex align-items-center gap-1">
-        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-        <label for="ny">New York</label>
-</div>
-
-<div class="flex align-items-center gap-1">
-    <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
-    <label for="sf">San Francisco</label>
-</div>
-
-<div class="flex align-items-center gap-1">
-    <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
-    <label for="la">Los Angeles</label>
+        basic: `<div class="flex align-items-center">
+        <p-checkbox label="Cheese" name="pizza" value="Cheese" [(ngModel)]="pizza"></p-checkbox>
+    </div>
+    <div class="flex align-items-center">
+        <p-checkbox label="Mushroom" name="pizza" value="Mushroom" [(ngModel)]="pizza"></p-checkbox>
+    </div>
+    <div class="flex align-items-center">
+        <p-checkbox label="Pepper" name="pizza" value="Pepper" [(ngModel)]="pizza"></p-checkbox>
+    </div>
+    <div class="flex align-items-center">
+        <p-checkbox label="Onion" name="pizza" value="Onion" [(ngModel)]="pizza"></p-checkbox>
 </div>`,
 
-        html: `
-<div class="card flex justify-content-center gap-3">
-    <div class="flex align-items-center gap-1">
-        <p-checkbox name="group1" value="New York" [(ngModel)]="selectedCities" inputId="ny"></p-checkbox>
-        <label for="ny">New York</label>
+        html: `<div class="card flex justify-content-center gap-3">
+     <div class="flex align-items-center">
+        <p-checkbox label="Cheese" name="pizza" value="Cheese" [(ngModel)]="pizza"></p-checkbox>
     </div>
-    <div class="flex align-items-center gap-1">
-        <p-checkbox name="group1" value="San Francisco" [(ngModel)]="selectedCities" inputId="sf"></p-checkbox>
-        <label for="sf">San Francisco</label>
+    <div class="flex align-items-center">
+        <p-checkbox label="Mushroom" name="pizza" value="Mushroom" [(ngModel)]="pizza"></p-checkbox>
     </div>
-    <div class="flex align-items-center gap-1">
-        <p-checkbox name="group1" value="Los Angeles" [(ngModel)]="selectedCities" inputId="la"></p-checkbox>
-        <label for="la">Los Angeles</label>
+    <div class="flex align-items-center">
+        <p-checkbox label="Pepper" name="pizza" value="Pepper" [(ngModel)]="pizza"></p-checkbox>
     </div>
+    <div class="flex align-items-center">
+        <p-checkbox label="Onion" name="pizza" value="Onion" [(ngModel)]="pizza"></p-checkbox>
+</div>
 </div>`,
 
         typescript: `
@@ -72,7 +64,7 @@ import { Component } from '@angular/core';
     templateUrl: './checkbox-multiple-demo.html'
 })
 export class CheckboxMultipleDemo {
-    selectedCities: string[] = [];
+    pizza: string[] = [];
 }`
     };
 }

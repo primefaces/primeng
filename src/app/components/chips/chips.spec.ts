@@ -79,13 +79,13 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         expect(onInputFocusSpy).toHaveBeenCalled();
-        expect(chips.focus).toEqual(true);
+        expect(chips.focused).toEqual(true);
         expect(focusData).toBeTruthy();
         inputEl.nativeElement.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(onInputBlurSpy).toHaveBeenCalled();
-        expect(chips.focus).toEqual(false);
+        expect(chips.focused).toEqual(false);
         expect(blurData).toBeTruthy();
     });
 
@@ -96,14 +96,14 @@ describe('Chips', () => {
         let data;
         chips.onAdd.subscribe((value) => (data = value));
         const addItemSpy = spyOn(chips, 'addItem').and.callThrough();
-        const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
+        const onKeydownSpy = spyOn(chips, 'onKeyDown').and.callThrough();
         const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         chips.cd.detectChanges();
@@ -124,13 +124,13 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(2);
@@ -147,13 +147,13 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(1);
@@ -165,14 +165,14 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         const addItemSpy = spyOn(chips, 'addItem').and.callThrough();
-        const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
+        const onKeydownSpy = spyOn(chips, 'onKeyDown').and.callThrough();
         const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
         let event = { which: 9, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(addItemSpy).toHaveBeenCalled();
@@ -210,17 +210,17 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         event.which = 81;
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(2);
@@ -228,7 +228,7 @@ describe('Chips', () => {
         expect(chips.value[1]).toEqual('primeng');
         expect(inputEl.nativeElement.disabled).toEqual(true);
         event.which = 8;
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         chips.updateMaxedOut();
         fixture.detectChanges();
 
@@ -246,7 +246,7 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 8, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(data).toBeTruthy();

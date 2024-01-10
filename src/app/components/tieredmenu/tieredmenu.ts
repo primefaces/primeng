@@ -164,7 +164,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
                         </ng-container>
                     </div>
 
@@ -176,6 +176,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                         [menuId]="menuId"
                         [activeItemPath]="activeItemPath"
                         [focusedItemId]="focusedItemId"
+                        [ariaLabelledBy]="getItemId(processedItem)"
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
@@ -1064,10 +1065,8 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-                value.item = this.visibleItems[index].item;
-            });
+            const focusedItemInfo = this.focusedItemInfo();
+            this.focusedItemInfo.set({ ...focusedItemInfo, item: this.visibleItems[index].item, index });
             this.scrollInView();
         }
     }

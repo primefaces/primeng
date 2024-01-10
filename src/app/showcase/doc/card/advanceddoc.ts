@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-advanced-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,16 +23,11 @@ import { Code } from '../../domain/code';
             </p-card>
         </div>
         <app-code [code]="code" selector="card-advanced-demo"></app-code>
-    </section>`
+    `
 })
 export class AdvancedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+        basic: `<p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
     <ng-template pTemplate="header">
         <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
     </ng-template>

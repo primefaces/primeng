@@ -1,31 +1,39 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { Code } from '../../domain/code';
-
+import { Subscription, debounceTime } from 'rxjs';
+import { AppConfigService } from '../../service/appconfigservice';
 @Component({
     selector: 'chart-multi-axis-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple axes can be added using the <i>scales</i> option.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="line" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
-    </section>`
+    `
 })
 export class MultiAxisDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    subscription!: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
@@ -103,8 +111,7 @@ export class MultiAxisDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card">
     <p-chart type="line" [data]="data" [options]="options"></p-chart>

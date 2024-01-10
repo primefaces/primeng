@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'editor-customtoolbar-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Editor provides a default toolbar with common options, to customize it define your elements inside the header element. Refer to <a href="http://quilljs.com/docs/modules/toolbar/">Quill documentation</a> for available controls.</p>
         </app-docsectiontext>
         <div class="card">
@@ -19,18 +19,13 @@ import { Code } from '../../domain/code';
             </p-editor>
         </div>
         <app-code [code]="code" selector="editor-customtoolbar-demo"></app-code>
-    </section>`
+    `
 })
 export class CustomToolbarDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    text: string = 'Hello World!';
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 
     code: Code = {
-        basic: `
-<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
+        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
     <ng-template pTemplate="header">
         <span class="ql-formats">
             <button type="button" class="ql-bold" aria-label="Bold"></button>
@@ -61,7 +56,7 @@ import { Component } from '@angular/core';
     templateUrl: './editor-customtoolbar-demo.html'
 })
 export class EditorCustomtoolbarDemo {
-    text: string = 'Hello World!';
+    text: string = '<div>Hello World!</div><div>PrimeNG <b>Editor</b> Rocks</div><div><br></div>';
 }`
     };
 }

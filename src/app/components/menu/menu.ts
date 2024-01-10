@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     computed,
+    effect,
     forwardRef,
     signal
 } from '@angular/core';
@@ -117,8 +118,6 @@ export class MenuItemContent {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() id: string;
-
     @Output() onMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
     menu: Menu;
@@ -128,7 +127,7 @@ export class MenuItemContent {
     }
 
     onItemClick(event, item) {
-        this.onMenuItemClick.emit({ originalEvent: event, item: { ...item, id: this.id } });
+        this.onMenuItemClick.emit({ originalEvent: event, item });
     }
 }
 /**
@@ -160,7 +159,7 @@ export class MenuItemContent {
                 class="p-menu-list p-reset"
                 role="menu"
                 [attr.id]="id + '_list'"
-                [tabindex]="tabindex"
+                [attr.tabindex]="getTabIndexValue()"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
                 [attr.aria-label]="ariaLabel"
@@ -194,7 +193,7 @@ export class MenuItemContent {
                             [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
-                            (onMenuItemClick)="itemClick($event)"
+                            (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             role="menuitem"
@@ -217,7 +216,7 @@ export class MenuItemContent {
                         [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
-                        (onMenuItemClick)="itemClick($event)"
+                        (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
                         role="menuitem"
@@ -433,6 +432,10 @@ export class Menu implements OnDestroy {
         });
     }
 
+    getTabIndexValue(): string | null {
+        return this.tabindex !== undefined ? this.tabindex.toString() : null;
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -527,24 +530,28 @@ export class Menu implements OnDestroy {
     }
 
     onListFocus(event: Event) {
-        this.focused = true;
-        if (!this.popup) {
-            if (this.selectedOptionIndex() !== -1) {
-                this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                this.selectedOptionIndex.set(-1);
-            } else {
-                this.changeFocusedOptionIndex(0);
+        if (!this.focused) {
+            this.focused = true;
+            if (!this.popup) {
+                if (this.selectedOptionIndex() !== -1) {
+                    this.changeFocusedOptionIndex(this.selectedOptionIndex());
+                    this.selectedOptionIndex.set(-1);
+                } else {
+                    this.changeFocusedOptionIndex(0);
+                }
             }
+            this.onFocus.emit(event);
         }
-        this.onFocus.emit(event);
     }
 
     onListBlur(event: FocusEvent | MouseEvent) {
-        this.focused = false;
-        this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(-1);
-        this.focusedOptionIndex.set(-1);
-        this.onBlur.emit(event);
+        if (this.focused) {
+            this.focused = false;
+            this.changeFocusedOptionIndex(-1);
+            this.selectedOptionIndex.set(-1);
+            this.focusedOptionIndex.set(-1);
+            this.onBlur.emit(event);
+        }
     }
 
     onListKeyDown(event) {
@@ -574,13 +581,11 @@ export class Menu implements OnDestroy {
                 break;
 
             case 'Escape':
+            case 'Tab':
                 if (this.popup) {
                     DomHandler.focus(this.target);
                     this.hide();
                 }
-                break;
-
-            case 'Tab':
                 this.overlayVisible && this.hide();
                 break;
 
@@ -655,8 +660,13 @@ export class Menu implements OnDestroy {
         }
     }
 
-    itemClick(event: any) {
+    itemClick(event: any, id: string) {
         const { originalEvent, item } = event;
+
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit();
+        }
 
         if (item.disabled) {
             originalEvent.preventDefault();
@@ -678,8 +688,8 @@ export class Menu implements OnDestroy {
             this.hide();
         }
 
-        if (!this.popup && this.focusedOptionIndex() !== item.id) {
-            this.focusedOptionIndex.set(item.id);
+        if (!this.popup && this.focusedOptionIndex() !== id) {
+            this.focusedOptionIndex.set(id);
         }
     }
 

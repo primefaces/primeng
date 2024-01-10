@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -6,9 +6,9 @@ import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'data-view-sorting-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
-            <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortField</i> properties from a custom UI.</p>
+    template: `
+        <app-docsectiontext>
+            <p>Built-in sorting is controlled by bindings <i>sortField</i> and <i>sortOrder</i> properties from a custom UI.</p>
         </app-docsectiontext>
         <div class="card">
             <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
@@ -17,25 +17,27 @@ import { ProductService } from '../../service/productservice';
                         <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="listItem">
-                    <div class="col-12">
-                        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                            <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                    <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                                    <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                                    <div class="flex align-items-center gap-3">
-                                        <span class="flex align-items-center gap-2">
-                                            <i class="pi pi-tag"></i>
-                                            <span class="font-semibold">{{ product.category }}</span>
-                                        </span>
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                <ng-template let-products pTemplate="list">
+                    <div class="grid grid-nogutter">
+                        <div class="col-12" *ngFor="let item of products; let first = first">
+                            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                        <div class="text-2xl font-bold text-900">{{ item.name }}</div>
+                                        <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                        <div class="flex align-items-center gap-3">
+                                            <span class="flex align-items-center gap-2">
+                                                <i class="pi pi-tag"></i>
+                                                <span class="font-semibold">{{ item.category }}</span>
+                                            </span>
+                                            <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)"></p-tag>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                    <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                                    <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                        <span class="text-2xl font-semibold">{{ '$' + item.price }}</span>
+                                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"></button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -44,13 +46,9 @@ import { ProductService } from '../../service/productservice';
             </p-dataView>
         </div>
         <app-code [code]="code" selector="data-view-sorting-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class SortingDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sortOptions!: SelectItem[];
 
     sortOrder!: number;
@@ -99,32 +97,33 @@ export class SortingDoc {
     }
 
     code: Code = {
-        basic: `
-<p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
+        basic: `<p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
     <ng-template pTemplate="header">
         <div class="flex flex-column md:flex-row md:justify-content-between">
             <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
         </div>
     </ng-template>
-    <ng-template let-product pTemplate="listItem">
-        <div class="col-12">
-            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                        <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                        <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        <div class="flex align-items-center gap-3">
-                            <span class="flex align-items-center gap-2">
-                                <i class="pi pi-tag"></i>
-                                <span class="font-semibold">{{ product.category }}</span>
-                            </span>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+    <ng-template let-products pTemplate="list">
+        <div class="grid grid-nogutter">
+            <div class="col-12" *ngFor="let item of products; let first = first">
+                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                            <div class="text-2xl font-bold text-900">{{ item.name }}</div>
+                            <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+                            <div class="flex align-items-center gap-3">
+                                <span class="flex align-items-center gap-2">
+                                    <i class="pi pi-tag"></i>
+                                    <span class="font-semibold">{{ item.category }}</span>
+                                </span>
+                                <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)"></p-tag>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                        <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                        <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                            <span class="text-2xl font-semibold">{{ '$' + item.price }}</span>
+                            <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -140,25 +139,27 @@ export class SortingDoc {
                 <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
             </div>
         </ng-template>
-        <ng-template let-product pTemplate="listItem">
-            <div class="col-12">
-                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-                    <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" />
-                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                            <div class="text-2xl font-bold text-900">{{ product.name }}</div>
-                            <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                            <div class="flex align-items-center gap-3">
-                                <span class="flex align-items-center gap-2">
-                                    <i class="pi pi-tag"></i>
-                                    <span class="font-semibold">{{ product.category }}</span>
-                                </span>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+        <ng-template let-products pTemplate="list">
+            <div class="grid grid-nogutter">
+                <div class="col-12" *ngFor="let item of products; let first = first">
+                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                        <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
+                        <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                <div class="text-2xl font-bold text-900">{{ item.name }}</div>
+                                <p-rating [(ngModel)]="item.rating" [readonly]="true" [cancel]="false"></p-rating>
+                                <div class="flex align-items-center gap-3">
+                                    <span class="flex align-items-center gap-2">
+                                        <i class="pi pi-tag"></i>
+                                        <span class="font-semibold">{{ item.category }}</span>
+                                    </span>
+                                    <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)"></p-tag>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                            <span class="text-2xl font-semibold">{{ '$' + product.price }}</span>
-                            <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="product.inventoryStatus === 'OUTOFSTOCK'"></button>
+                            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+                                <span class="text-2xl font-semibold">{{ '$' + item.price }}</span>
+                                <button pButton icon="pi pi-shopping-cart" class="md:align-self-end mb-2 p-button-rounded" [disabled]="item.inventoryStatus === 'OUTOFSTOCK'"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -227,7 +228,7 @@ export class DataViewSortingDemo {
 }`,
 
         data: `
-/* ProductService */        
+/* ProductService */
 {
     id: '1000',
     code: 'f230fh0g3',

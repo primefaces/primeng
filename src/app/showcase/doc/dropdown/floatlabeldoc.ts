@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface City {
@@ -8,8 +8,8 @@ interface City {
 
 @Component({
     selector: 'dropdown-floatlabel-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -19,13 +19,9 @@ interface City {
             </span>
         </div>
         <app-code [code]="code" selector="dropdown-floatlabel-demo"></app-code>
-    </section>`
+    `
 })
 export class FloatLabelDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities: City[] | undefined;
 
     selectedCity: City | undefined;
@@ -41,8 +37,7 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
     <label for="float-label">Select a City</label>
 </span>`,

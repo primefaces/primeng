@@ -1,29 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center justify-content-center">
             <div class="mb-3">
-                <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
-                <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+                <button pButton type="button" icon="pi pi-plus" label="Expand all" (click)="expandAll()" class="mr-2"></button>
+                <button pButton type="button" icon="pi pi-minus" label="Collapse all" (click)="collapseAll()"></button>
             </div>
             <p-tree [value]="files" class="w-full md:w-30rem"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
@@ -54,8 +50,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="mb-3">
+        basic: `<div class="mb-3">
     <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
     <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
 </div>

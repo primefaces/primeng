@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'avatarstyle-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <div class="doc-tablewrapper">
             <table class="doc-table">
                 <thead>
@@ -20,10 +19,6 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    `
 })
-export class AvatarGroupStyleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class AvatarGroupStyleDoc {}

@@ -28,6 +28,8 @@ import { StyleDoc } from '../../doc/treetable/styledoc';
 import { AccessibilityDoc } from '../../doc/treetable/accessibilitydoc';
 import { PaginatorLocaleDoc } from '../../doc/treetable/paginatorlocaledoc';
 import { ResizeScrollableDoc } from '../../doc/treetable/columnresizescrollabledoc';
+import { SizeDoc } from '../../doc/treetable/sizedoc';
+import { GridlinesDoc } from '../../doc/treetable/gridlinesdoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -35,7 +37,7 @@ import { ResizeScrollableDoc } from '../../doc/treetable/columnresizescrollabled
 export class TreeTableDemo {
     docs = [
         {
-            id: 'import',
+            id: 'import-demo',
             label: 'Import',
             component: ImportDoc
         },
@@ -53,6 +55,16 @@ export class TreeTableDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'size',
+            label: 'Size',
+            component: SizeDoc
+        },
+        {
+            id: 'gridlines',
+            label: 'Grid Lines',
+            component: GridlinesDoc
         },
         {
             id: 'paginator',

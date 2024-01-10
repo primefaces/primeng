@@ -452,6 +452,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Press delay in touch devices as miliseconds.
+     * @group Props
+     */
+    @Input() pressDelay: number | undefined = 500;
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -484,6 +489,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     documentTriggerListener: VoidListener;
 
+    touchEndListener: VoidListener;
+
     pageX: number;
 
     pageY: number;
@@ -509,6 +516,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     _processedItems: any[];
 
     _model: MenuItem[] | undefined;
+
+    pressTimer: any;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -554,17 +563,31 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.bindTriggerEventListener();
     }
 
+    isMobile() {
+        return DomHandler.isIOS() || DomHandler.isAndroid();
+    }
+
     bindTriggerEventListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.triggerEventListener) {
-                if (this.global) {
-                    this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
-                } else if (this.target) {
-                    this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
+                if (!this.isMobile()) {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    }
+                } else {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.document, 'touchend', this.onTouchEnd.bind(this));
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.target, 'touchend', this.onTouchEnd.bind(this));
+                    }
                 }
             }
         }
@@ -833,10 +856,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         this.hide();
         const processedItem = this.findVisibleItem(this.findFirstFocusedItemIndex());
-        this.focusedItemInfo.mutate((value) => {
-            value.index = this.findFirstFocusedItemIndex();
-            value.item = processedItem.item;
-        });
+        const focusedItemInfo = this.focusedItemInfo();
+        this.focusedItemInfo.set({ ...focusedItemInfo, index: this.findFirstFocusedItemIndex(), item: processedItem.item });
 
         event.preventDefault();
     }
@@ -863,9 +884,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             const grouped = this.isProccessedItemGroup(processedItem);
 
             if (!grouped) {
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = this.findFirstFocusedItemIndex();
-                });
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: this.findFirstFocusedItemIndex() });
             }
         }
 
@@ -951,6 +971,16 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
         this.container = null;
         this.onHide.emit();
+    }
+
+    onTouchStart(event: MouseEvent) {
+        this.pressTimer = setTimeout(() => {
+            this.show(event);
+        }, this.pressDelay);
+    }
+
+    onTouchEnd() {
+        clearTimeout(this.pressTimer);
     }
 
     hide() {
@@ -1085,11 +1115,9 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         const processedItem = this.findVisibleItem(index);
-        if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-                value.item = processedItem.item;
-            });
+        const focusedItemInfo = this.focusedItemInfo();
+        if (focusedItemInfo.index !== index) {
+            this.focusedItemInfo.set({ ...focusedItemInfo, index, item: processedItem.item });
             this.scrollInView();
         }
     }
@@ -1139,6 +1167,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             this.resizeListener();
             this.resizeListener = null;
         }
+
+        if (this.touchEndListener) {
+            this.touchEndListener();
+            this.touchEndListener = null;
+        }
     }
 
     unbindTriggerEventListener() {
@@ -1150,8 +1183,13 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     removeAppendedElements() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-            else DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
+            if (this.appendTo === 'body') {
+                if (this.containerViewChild) {
+                    this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
+                }
+            } else {
+                DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
+            }
         }
     }
 

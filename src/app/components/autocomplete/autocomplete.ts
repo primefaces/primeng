@@ -8,6 +8,7 @@ import {
     Component,
     computed,
     ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -40,7 +41,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteOnSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -147,7 +148,7 @@ declare type OptionLabelCallback = (option: any) => string;
                         [required]="required"
                         [attr.name]="name"
                         role="combobox"
-                        [attr.placeholder]="placeholder"
+                        [attr.placeholder]="!filled ? placeholder : null"
                         [attr.size]="size"
                         aria-autocomplete="list"
                         [maxlength]="maxlength"
@@ -186,7 +187,7 @@ declare type OptionLabelCallback = (option: any) => string;
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
-                [options]="virtualScrollOptions"
+                [options]="overlayOptions"
                 [target]="'@parent'"
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
@@ -200,7 +201,6 @@ declare type OptionLabelCallback = (option: any) => string;
                         *ngIf="virtualScroll"
                         #scroller
                         [items]="visibleOptions()"
-                        [tabindex]="-1"
                         [style]="{ height: scrollHeight }"
                         [itemSize]="virtualScrollItemSize || _itemSize"
                         [autoSize]="true"
@@ -260,11 +260,11 @@ declare type OptionLabelCallback = (option: any) => string;
                             </li>
                         </ul>
                         <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
-                        <span role="status" aria-live="polite" class="p-hidden-accessible">
-                            {{ selectedMessageText }}
-                        </span>
                     </ng-template>
                 </div>
+                <span role="status" aria-live="polite" class="p-hidden-accessible">
+                    {{ selectedMessageText }}
+                </span>
             </p-overlay>
         </div>
     `,
@@ -558,7 +558,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | OptionLabelCallback | undefined;
+    @Input() optionLabel: string | ((item: any) => string) | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
@@ -615,10 +615,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
-     * @param {AutoCompleteOnSelectEvent} event - custom select event.
+     * @param {AutoCompleteSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<AutoCompleteOnSelectEvent> = new EventEmitter<AutoCompleteOnSelectEvent>();
+    @Output() onSelect: EventEmitter<AutoCompleteSelectEvent> = new EventEmitter<AutoCompleteSelectEvent>();
     /**
      * Callback to invoke when a selected value is removed.
      * @param {AutoCompleteUnselectEvent} event - custom unselect event.
@@ -738,7 +738,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focused: boolean = false;
 
-    filled: number | boolean | undefined;
+    _filled: boolean;
+
+    get filled() {
+        return this._filled;
+    }
+    set filled(value: any) {
+        this._filled = value;
+    }
 
     loading: Nullable<boolean>;
 
@@ -762,7 +769,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         if (modelValue) {
             if (typeof modelValue === 'object') {
                 const label = this.getOptionLabel(modelValue);
@@ -791,7 +797,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             'p-focus': this.focused,
             'p-autocomplete-dd': this.dropdown,
             'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-filled': this.modelValue() || ObjectUtils.isNotEmpty(this.inputValue),
             'p-inputwrapper-focus': this.focused,
             'p-overlay-open': this.overlayVisible
         };
@@ -848,10 +853,15 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return !this.virtualScroll;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+        effect(() => {
+            this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+        });
+    }
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges();
     }
 
     ngAfterViewChecked() {
@@ -1003,6 +1013,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isSelected(option) {
+        if (this.multiple) {
+            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+        }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
@@ -1054,13 +1067,16 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         let query = event.target.value;
 
-        if (!this.multiple) {
+        if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
         }
 
-        if (query.length === 0) {
-            this.hide();
+        if (query.length === 0 && !this.multiple) {
             this.onClear.emit();
+
+            setTimeout(() => {
+                this.hide();
+            }, this.delay / 2);
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
@@ -1418,6 +1434,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     removeOption(event, index) {
+        event.stopPropagation();
+
         const removedOption = this.modelValue()[index];
         const value = this.modelValue()
             .filter((_, i) => i !== index)
@@ -1437,7 +1455,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     updateInputValue() {
-        if (this.value && this.inputEL && this.inputEL.nativeElement) {
+        if (this.inputEL && this.inputEL.nativeElement) {
             if (!this.multiple) {
                 this.inputEL.nativeElement.value = this.inputValue();
             } else {
@@ -1515,8 +1533,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value.length ? true : false;
-        this.updateModel(value);
+        this.modelValue.set(value);
+        this.updateInputValue();
         this.cd.markForCheck();
     }
 
@@ -1576,7 +1594,26 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
             this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-autocomplete-panel');
-            this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+
+            if (this.virtualScroll) {
+                this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
+                this.scroller.viewInit();
+            }
+            if (this.visibleOptions() && this.visibleOptions().length) {
+                if (this.virtualScroll) {
+                    const selectedIndex = this.modelValue() ? this.focusedOptionIndex() : -1;
+
+                    if (selectedIndex !== -1) {
+                        this.scroller?.scrollToIndex(selectedIndex);
+                    }
+                } else {
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-autocomplete-item.p-highlight');
+
+                    if (selectedListItem) {
+                        selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                    }
+                }
+            }
         }
     }
 

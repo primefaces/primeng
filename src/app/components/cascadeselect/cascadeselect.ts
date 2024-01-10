@@ -352,7 +352,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      */
     @Input() selectionMessage: string | undefined;
     /**
-     * Text to display when filtering does not return any results. Defaults to value from PrimeVue locale configuration.
+     * Text to display when filtering does not return any results. Defaults to value from PrimeNG locale configuration.
      * @group Props
      * @defaultValue 'No available options'
      */
@@ -980,7 +980,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     changeFocusedOptionIndex(event, index) {
         if (this.focusedOptionInfo().index !== index) {
-            this.focusedOptionInfo.mutate((value) => (value.index = index));
+            const focusedOptionInfo = this.focusedOptionInfo();
+            this.focusedOptionInfo.set({ ...focusedOptionInfo, index });
             this.scrollInView();
         }
 

@@ -1,54 +1,47 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { ProductService } from '../../service/productservice';
 
 @Component({
     selector: 'multiple-selection-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>
                 In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or <i>shiftkey</i> are required. Setting <i>metaKeySelection</i> property as false
                 enables multiple selection without meta key.
             </p>
         </app-docsectiontext>
-        <div class="card">
-            <div class="flex justify-content-center align-items-center gap-2 mb-3">
-                <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
-                <span>MetaKey</span>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <div class="flex justify-content-center align-items-center gap-2 mb-3">
+                    <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
+                    <span>MetaKey</span>
+                </div>
+                <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKeySelection" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="caption"> Multiple Selection with MetaKey </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                        <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
-            <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKeySelection" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="caption"> Multiple Selection with MetaKey </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
-                    <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-multiple-selection-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-multiple-selection-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultipleSelectionDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
+export class MultipleSelectionDoc {
     products!: Product[];
 
     selectedProducts!: Product;
@@ -57,7 +50,7 @@ export class MultipleSelectionDoc implements OnInit {
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
@@ -65,8 +58,7 @@ export class MultipleSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center align-items-center gap-2 mb-3">
+        basic: `<div class="flex justify-content-center align-items-center gap-2 mb-3">
     <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
     <span>MetaKey</span>
 </div>

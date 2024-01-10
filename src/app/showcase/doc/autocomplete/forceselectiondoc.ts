@@ -9,15 +9,13 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'force-selection-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>
         </div>
-        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`
 })
 export class ForceSelectionDoc implements OnInit {
     @Input() id: string;
@@ -53,8 +51,7 @@ export class ForceSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>`,
+        basic: `<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" optionLabel="name"></p-autoComplete>`,
 
         html: `
 <div class="card flex justify-content-center">

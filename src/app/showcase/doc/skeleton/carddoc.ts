@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'card-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
@@ -25,16 +25,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="skeleton-card-demo"></app-code>
-    </section>`
+    `
 })
 export class CardDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div class="border-round border-1 surface-border p-4 surface-card">
+        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
     <div class="flex mb-3">
         <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
         <div>

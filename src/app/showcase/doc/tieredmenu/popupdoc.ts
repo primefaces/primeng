@@ -1,164 +1,101 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'popup-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+            <button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
             <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
-    </section>`
+    `
 })
 export class PopupDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
             {
                 label: 'File',
-                icon: 'pi pi-fw pi-file',
+                icon: 'pi pi-file',
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        icon: 'pi pi-plus',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
+                                label: 'Document',
+                                icon: 'pi pi-file'
+                            },
+                            {
+                                label: 'Image',
+                                icon: 'pi pi-image'
                             },
                             {
                                 label: 'Video',
-                                icon: 'pi pi-fw pi-video'
+                                icon: 'pi pi-video'
                             }
                         ]
                     },
                     {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
+                        label: 'Open',
+                        icon: 'pi pi-folder-open'
                     },
                     {
-                        separator: true
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
+                        label: 'Print',
+                        icon: 'pi pi-print'
                     }
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
+                icon: 'pi pi-file-edit',
                 items: [
                     {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
+                        label: 'Copy',
+                        icon: 'pi pi-copy'
                     },
                     {
                         label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
-                                items: [
-                                    {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
-                                    }
-                                ]
-                            },
-                            {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
-                            }
-                        ]
+                        icon: 'pi pi-times'
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
-                items: [
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    }
-                ]
+                label: 'Search',
+                icon: 'pi pi-search'
             },
             {
                 separator: true
             },
             {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off'
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Slack',
+                        icon: 'pi pi-slack'
+                    },
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp'
+                    }
+                ]
             }
         ];
     }
 
     code: Code = {
-        basic: `
-<button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+        basic: `<button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
 <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <button #btn type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)"></button>
+        html: `<div class="card flex justify-content-center">
+    <button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
     <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
 </div>`,
 
@@ -177,129 +114,72 @@ export class TieredMenuPopupDemo implements OnInit {
         this.items = [
             {
                 label: 'File',
-                icon: 'pi pi-fw pi-file',
+                icon: 'pi pi-file',
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        icon: 'pi pi-plus',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
+                                label: 'Document',
+                                icon: 'pi pi-file'
+                            },
+                            {
+                                label: 'Image',
+                                icon: 'pi pi-image'
                             },
                             {
                                 label: 'Video',
-                                icon: 'pi pi-fw pi-video'
+                                icon: 'pi pi-video'
                             }
                         ]
                     },
                     {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
+                        label: 'Open',
+                        icon: 'pi pi-folder-open'
                     },
                     {
-                        separator: true
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
+                        label: 'Print',
+                        icon: 'pi pi-print'
                     }
                 ]
             },
             {
                 label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
+                icon: 'pi pi-file-edit',
                 items: [
                     {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
+                        label: 'Copy',
+                        icon: 'pi pi-copy'
                     },
                     {
                         label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
-                                items: [
-                                    {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
-                                    }
-                                ]
-                            },
-                            {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
-                            }
-                        ]
+                        icon: 'pi pi-times'
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
-                items: [
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    }
-                ]
+                label: 'Search',
+                icon: 'pi pi-search'
             },
             {
                 separator: true
             },
             {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off'
+                label: 'Share',
+                icon: 'pi pi-share-alt',
+                items: [
+                    {
+                        label: 'Slack',
+                        icon: 'pi pi-slack'
+                    },
+                    {
+                        label: 'Whatsapp',
+                        icon: 'pi pi-whatsapp'
+                    }
+                ]
             }
-        ];
+        ]
     }
 }`
     };

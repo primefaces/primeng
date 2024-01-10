@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, NgModule, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
+import { Nullable } from 'primeng/ts-helpers';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -24,7 +26,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [class]="styleClass"
             (click)="toggle($event)"
             (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled ? null : '0'"
+            [attr.tabindex]="disabled ? null : tabindex"
             role="switch"
             [attr.aria-checked]="checked"
             [attr.aria-labelledby]="ariaLabelledBy"
@@ -33,12 +35,16 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [attr.data-pc-name]="'togglebutton'"
             [attr.data-pc-section]="'root'"
         >
+            @if(!iconTemplate) {
             <span
                 *ngIf="onIcon || offIcon"
                 [class]="checked ? this.onIcon : this.offIcon"
                 [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
                 [attr.data-pc-section]="'icon'"
             ></span>
+            } @else {
+            <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+            }
             <span class="p-button-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
         </div>
     `,
@@ -104,7 +110,7 @@ export class ToggleButton implements ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input() tabindex: number | undefined = 0;
     /**
      * Position of the icon.
      * @group Props
@@ -117,6 +123,10 @@ export class ToggleButton implements ControlValueAccessor {
      */
     @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
 
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
+
+    iconTemplate: Nullable<TemplateRef<any>>;
+
     checked: boolean = false;
 
     onModelChange: Function = () => {};
@@ -124,6 +134,19 @@ export class ToggleButton implements ControlValueAccessor {
     onModelTouched: Function = () => {};
 
     constructor(public cd: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+                default:
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
+    }
 
     toggle(event: Event) {
         if (!this.disabled) {
@@ -184,8 +207,8 @@ export class ToggleButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule],
-    exports: [ToggleButton],
+    imports: [CommonModule, RippleModule, SharedModule],
+    exports: [ToggleButton, SharedModule],
     declarations: [ToggleButton]
 })
 export class ToggleButtonModule {}

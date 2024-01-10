@@ -6,7 +6,7 @@ import { PreselectionDoc } from '../../doc/inputswitch/preselectiondoc';
 import { StyleDoc } from '../../doc/inputswitch/styledoc';
 import { AccessibilityDoc } from '../../doc/inputswitch/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/inputswitch/reactiveformsdoc';
-
+import { InvalidDoc } from '../../doc/inputswitch/invaliddoc';
 @Component({
     templateUrl: './inputswitchdemo.html'
 })
@@ -36,6 +36,11 @@ export class InputSwitchDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
         },
         {
             id: 'style',

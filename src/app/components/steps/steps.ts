@@ -21,6 +21,7 @@ import { Subscription } from 'rxjs';
                     #menuitem
                     [ngStyle]="item.style"
                     [class]="item.styleClass"
+                    [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
                     role="presentation"
                     [attr.id]="item.id"
                     pTooltip

@@ -1,27 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TriStateCheckbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
                 <p-triStateCheckbox formControlName="checked" inputId="checked"></p-triStateCheckbox>
-                <label class="p-tristatecheckbox-label" for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
+                <label for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
             </form>
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     formGroup!: FormGroup;
 
     ngOnInit() {
@@ -31,17 +27,16 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
+        basic: `<form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
     <p-triStateCheckbox formControlName="checked" inputId="checked"></p-triStateCheckbox>
-    <label class="p-tristatecheckbox-label" for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
+    <label  for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
 </form>`,
 
         html: `
 <div class="card flex justify-content-center">
     <form [formGroup]="formGroup" class="flex flex-column align-items-center gap-3">
         <p-triStateCheckbox formControlName="checked" inputId="checked"></p-triStateCheckbox>
-        <label class="p-tristatecheckbox-label" for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
+        <label  for="checked">{{ formGroup.value.checked === null ? 'null' : formGroup.value.checked }}</label>
     </form>
 </div>`,
 

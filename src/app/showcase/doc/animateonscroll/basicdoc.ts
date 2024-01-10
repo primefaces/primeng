@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes PrimeFlex animations however any valid CSS animation is supported.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center overflow-hidden">
@@ -44,7 +44,7 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="animate-on-scroll-basic-demo"></app-code>
-    </section>`,
+    `,
     styles: [
         `
             :host {
@@ -78,13 +78,8 @@ import { Code } from '../../domain/code';
     ]
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div class="flex flex-column align-items-center gap-2">
+        basic: `<div class="flex flex-column align-items-center gap-2">
     <span class="text-xl font-medium">Scroll Down</span>
     <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
         <i class="pi pi-arrow-down"></i>

@@ -1,37 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'lazy-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class LazyDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     loading: boolean = false;
 
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(private nodeService: NodeService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
             this.nodeService.getLazyFiles().then((files) => (this.files = files));
             this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -44,13 +41,13 @@ export class LazyDoc implements OnInit {
                     this.messageService.add({ severity: 'info', summary: 'Children Loaded', detail: event.node.label });
                 });
                 this.loading = false;
+                this.cd.markForCheck();
             }, 200);
         }
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
 
         html: `
 <div class="card flex justify-content-center">
@@ -58,7 +55,7 @@ export class LazyDoc implements OnInit {
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
@@ -72,13 +69,14 @@ export class TreeLazyDemo implements OnInit {
 
     files!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private nodeService: NodeService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
             this.nodeService.getLazyFiles().then((files) => (this.files = files));
             this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -91,6 +89,7 @@ export class TreeLazyDemo implements OnInit {
                     this.messageService.add({ severity: 'info', summary: 'Children Loaded', detail: event.node.label });
                 });
                 this.loading = false;
+                this.cd.markForCheck();
             }, 200);
         }
     }
