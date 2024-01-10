@@ -4064,7 +4064,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.el.nativeElement && (!changes.data || !changes.data.firstChange)) {
+        if (this.el.nativeElement && (!changes.data?.firstChange)) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
         }
     }
