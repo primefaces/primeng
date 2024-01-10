@@ -48,7 +48,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     useExisting: forwardRef(() => AutoComplete),
     multi: true
 };
-
 /**
  * AutoComplete is an input component that provides real-time suggestions when being typed.
  * @group Components
