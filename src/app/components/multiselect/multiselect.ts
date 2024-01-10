@@ -737,7 +737,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return options;
     }
     set options(val: any[] | undefined) {
-        this._options.set(val);
+        if (!ObjectUtils.deepEquals(this._options(), val)) {
+            this._options.set(val);
+        }
     }
     /**
      * When specified, filter displays with this value.
