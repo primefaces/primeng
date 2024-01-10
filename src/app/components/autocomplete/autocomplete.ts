@@ -555,7 +555,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    @Input() optionLabel: string | ((item: any) => string) | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
@@ -1010,6 +1010,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isSelected(option) {
+        if (this.multiple) {
+            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+        }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
