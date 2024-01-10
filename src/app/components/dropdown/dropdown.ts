@@ -1750,6 +1750,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
+        this.resetFilter();
     }
 }
 
