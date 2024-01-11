@@ -578,7 +578,7 @@ export class TreeSelect implements AfterContentInit {
                 break;
         }
     }
-    
+
     onOverlayBeforeHide(event: Event) {
         let focusableElements = DomHandler.getFocusableElements(this.containerEl.nativeElement);
 

@@ -1116,7 +1116,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     clearEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = ''
+            this.editableInputViewChild.nativeElement.value = '';
         }
     }
 

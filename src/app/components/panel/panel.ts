@@ -205,9 +205,7 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     headerIconTemplate: Nullable<TemplateRef<any>>;
 
-    get id() {
-        return UniqueComponentId();
-    }
+    readonly id = UniqueComponentId();
 
     get buttonAriaLabel() {
         return this.header;
