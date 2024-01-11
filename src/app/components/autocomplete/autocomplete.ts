@@ -1021,7 +1021,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isInputClicked(event) {
-         return event.target === this.inputEL.nativeElement;
+        return event.target === this.inputEL.nativeElement;
     }
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target) : false;
