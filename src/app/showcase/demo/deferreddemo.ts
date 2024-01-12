@@ -7,7 +7,9 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     imports: [CommonModule],
     template: `
         @if(!visible){
-        <div class="demo-section-loading">Loading...</div>
+            <div class="card">
+                <div class="deferred-demo-loading"></div>
+            </div>
         } @else {
         <ng-content></ng-content>
         }

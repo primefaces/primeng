@@ -152,16 +152,8 @@
                     "name": "Data",
                     "children": [
                         {
-                            "name": "Table",
-                            "routerLink": "/table"
-                        },
-                        {
                             "name": "DataView",
                             "routerLink": "/dataview"
-                        },
-                        {
-                            "name": "Scroller",
-                            "routerLink": "/scroller"
                         },
                         {
                             "name": "OrderList",
@@ -180,17 +172,25 @@
                             "routerLink": "/picklist"
                         },
                         {
+                            "name": "Scroller",
+                            "routerLink": "/scroller"
+                        },
+                        {
+                            "name": "Table",
+                            "routerLink": "/table"
+                        },
+                        {
+                            "name": "Timeline",
+                            "routerLink": "/timeline"
+                        },
+                        {
                             "name": "Tree",
                             "routerLink": "/tree"
                         },
                         {
                             "name": "TreeTable",
                             "routerLink": "/treetable"
-                        },
-                        {
-                            "name": "Timeline",
-                            "routerLink": "/timeline"
-                        }
+                        }   
                     ]
                 },
                 {
