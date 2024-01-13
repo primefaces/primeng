@@ -75,10 +75,10 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 <span class="text-secondary font-medium block mt-5 mb-3">Date</span>
                                 <p-calendar [(ngModel)]="dateValue" [showWeek]="true" styleClass="w-full" />
                             </div>
-                            <div class="box p-4 fadein animation-duration-500">
+                            <div class="box p-4 fadein animation-duration-500 z-0">
                                 <p-chart type="line" [data]="chartData" [options]="chartOptions" />
                             </div>
-                            <div class="box p-4 fadein animation-duration-500">
+                            <div class="box p-4 fadein animation-duration-500 z-0">
                                 <div class="flex align-items-center">
                                     <p-chip label="Angular" class="mr-2 font-medium" />
                                     <p-chip label="Typescript" class="mr-2 font-medium" />
