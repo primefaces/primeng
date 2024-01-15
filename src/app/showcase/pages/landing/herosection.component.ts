@@ -43,7 +43,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                 <div class="w-full xl:w-6 pt-7 xl:pt-0 hidden md:block">
                     <div class="flex">
                         <div class="flex flex-column w-6 gap-5 pt-8 pr-3">
-                            <div class="box p-4 fadein animation-duration-500">
+                            <div class="box p-4 fadein animation-duration-500 z-1">
                                 <div class="flex gap-2">
                                     <div class="w-6rem flex-shrink-0">
                                         <span class="text-secondary font-medium block mb-3">Amount</span>
