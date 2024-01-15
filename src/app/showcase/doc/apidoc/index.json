@@ -7227,6 +7227,14 @@
                             "description": "Whether to allow duplicate values or not."
                         },
                         {
+                          "name": "caseSensitiveDuplication",
+                          "optional": false,
+                          "readonly": false,
+                          "type": "boolean",
+                          "default": "true",
+                          "description": "Whether duplicate check should be case-sensitive."
+                        },
+                        {
                             "name": "inputStyle",
                             "optional": false,
                             "readonly": false,
