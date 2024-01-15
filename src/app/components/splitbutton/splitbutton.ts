@@ -54,7 +54,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 (keydown)="onDropdownButtonKeydown($event)"
                 [disabled]="disabled"
                 [attr.aria-label]="menuButtonProps?.['aria-label'] || expandAriaLabel"
-                [attr.aria-aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
+                [attr.aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['aria-expanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['aria-controls'] || ariaId"
             >
