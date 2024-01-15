@@ -527,7 +527,7 @@ export interface TableTemplates {
     /**
      * Custom paginator dropdown trigger icon template.
      */
-    paginatordropdownicon(): TemplateRef<any>
+    paginatordropdownicon(): TemplateRef<any>;
     /**
      * Custom paginator dropdown item template.
      */

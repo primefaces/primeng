@@ -19,7 +19,7 @@ export interface PaginatorTemplates {
     /**
      * Custom dropdown trigger icon template.
      */
-    dropdownicon(): TemplateRef<any>
+    dropdownicon(): TemplateRef<any>;
     /**
      * Custom first page link icon template.
      */
