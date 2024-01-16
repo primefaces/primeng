@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 /**
@@ -92,7 +92,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
         this.initChart();
@@ -119,13 +119,15 @@ export class UIChart implements AfterViewInit, OnDestroy {
             if (opts.responsive && (this.height || this.width)) {
                 opts.maintainAspectRatio = false;
             }
-
-            this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-                type: this.type,
-                data: this.data,
-                options: this.options,
-                plugins: this.plugins
-            });
+            
+            this.zone.runOutsideAngular(() => {
+                this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                    type: this.type,
+                    data: this.data,
+                    options: this.options,
+                    plugins: this.plugins
+                });
+            })
         }
     }
 
