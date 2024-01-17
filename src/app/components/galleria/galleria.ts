@@ -38,7 +38,6 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { GalleriaResponsiveOptions } from './galleria.interface';
 import { FocusTrapModule } from 'primeng/focustrap';
-import { platformBrowser } from '@angular/platform-browser';
 /**
  * Galleria is an advanced content gallery component.
  * @group Components
@@ -1026,7 +1025,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ngAfterViewInit() {
-        if (platformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId)) {
             this.calculatePosition();
         }
     }
