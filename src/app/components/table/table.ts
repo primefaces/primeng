@@ -163,6 +163,10 @@ export class TableService {
                 [styleClass]="paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
+                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate"></ng-container>
+                </ng-template>
+
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
@@ -278,6 +282,10 @@ export class TableService {
                 [styleClass]="paginatorStyleClass"
                 [locale]="paginatorLocale"
             >
+                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate"></ng-container>
+                </ng-template>
+
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
@@ -1043,6 +1051,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
+    paginatorDropdownIconTemplate: Nullable<TemplateRef<any>>;
+
     paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
@@ -1245,6 +1255,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
                 case 'paginatorright':
                     this.paginatorRightTemplate = item.template;
+                    break;
+
+                case 'paginatordropdownicon':
+                    this.paginatorDropdownIconTemplate = item.template;
                     break;
 
                 case 'paginatordropdownitem':
@@ -2291,7 +2305,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             csv += '\n' + body;
         }
 
-        let blob = new Blob([csv], {
+        let blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], {
             type: 'text/csv;charset=utf-8;'
         });
 
