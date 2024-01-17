@@ -1551,7 +1551,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     getOptionLabel(option: any) {
-        return this.field || this.optionLabel ? ObjectUtils.resolveFieldData(option, this.field || this.optionLabel) : option && option.label != undefined ? option.label : option;
+        if (this.field || typeof this.optionLabel === 'string' || this.optionLabel instanceof String) {
+            return ObjectUtils.resolveFieldData(option, this.field || this.optionLabel);
+        } else if (this.optionLabel) {
+            return this.optionLabel(option);
+        }
+        return option && option.label != undefined ? option.label : option;
     }
 
     getOptionValue(option) {
