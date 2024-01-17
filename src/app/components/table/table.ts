@@ -2305,7 +2305,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             csv += '\n' + body;
         }
 
-        let blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], {
+        let blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), csv], {
             type: 'text/csv;charset=utf-8;'
         });
 
@@ -5457,6 +5457,10 @@ export class ColumnFilter implements AfterContentInit {
                     this.overlayVisible = true;
                     event.preventDefault();
                 }
+                break;
+            case 'Enter':
+                this.toggleMenu();
+                event.preventDefault();
                 break;
         }
     }
