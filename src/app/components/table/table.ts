@@ -2291,7 +2291,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             csv += '\n' + body;
         }
 
-        let blob = new Blob([csv], {
+        let blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], {
             type: 'text/csv;charset=utf-8;'
         });
 
