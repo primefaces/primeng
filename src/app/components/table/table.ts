@@ -4064,7 +4064,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.el.nativeElement && (!changes.data?.firstChange)) {
+        if (this.el.nativeElement && !changes.data?.firstChange) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
         }
     }
@@ -4924,7 +4924,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-label]="showMenuButtonAriaLabel"
+                [attr.aria-label]="showMenuButtonLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -5229,6 +5229,10 @@ export class ColumnFilter implements AfterContentInit {
 
     get isShowAddConstraint(): boolean | undefined | null {
         return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+    }
+
+    get showMenuButtonLabel() {
+        return this.config.getTranslation(TranslationKeys.SHOW_FILTER_MENU);
     }
 
     get applyButtonLabel(): string {
