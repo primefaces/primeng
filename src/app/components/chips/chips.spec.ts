@@ -160,6 +160,29 @@ describe('Chips', () => {
         expect(chips.value[0]).toEqual('primeng');
     });
 
+    it('should not add duplicate item, case-insensitive', () => {
+        chips.allowDuplicate = false;
+        chips.caseSensitiveDuplication = false;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        inputEl.nativeElement.value = 'primeng';
+        fixture.detectChanges();
+
+        let event = { which: 13, preventDefault() {} };
+        chips.onKeyDown(event as KeyboardEvent);
+        fixture.detectChanges();
+
+        inputEl.nativeElement.value = 'PRIMENG';
+        fixture.detectChanges();
+
+        chips.onKeyDown(event as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(chips.value.length).toEqual(1);
+        expect(chips.value[0]).toEqual('primeng');
+    });
+
     it('should add item with tab key', () => {
         chips.addOnTab = true;
         fixture.detectChanges();

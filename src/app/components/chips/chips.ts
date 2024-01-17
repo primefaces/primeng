@@ -166,6 +166,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      */
     @Input() allowDuplicate: boolean = true;
     /**
+     * Defines whether duplication check should be case-sensitive
+     * @group Props
+     */
+    @Input() caseSensitiveDuplication: boolean = true;
+    /**
      * Inline style of the input field.
      * @group Props
      */
@@ -459,7 +464,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = this.value || [];
 
         if (item && item.trim().length) {
-            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isMaxedOut) {
+            const newItemIsDuplicate = this.caseSensitiveDuplication
+                ? this.value.includes(item)
+                : this.value.some((val) => val.toLowerCase() === item.toLowerCase());
+
+            if ((this.allowDuplicate || !newItemIsDuplicate) && !this.isMaxedOut) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
