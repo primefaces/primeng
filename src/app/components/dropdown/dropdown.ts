@@ -151,7 +151,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="!modelValue() && (label() === placeholder || (label() && !placeholder))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
+                    <span *ngIf="(modelValue() === undefined || modelValue === null) && (label() === placeholder || (label() && !placeholder))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
             </span>
             <input
@@ -162,7 +162,7 @@ export class DropdownItem {
                 [ngClass]="inputClass"
                 [disabled]="disabled"
                 aria-haspopup="listbox"
-                [attr.placeholder]="placeholder"
+                [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder : undefined"
                 [attr.aria-expanded]="overlayVisible"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
@@ -872,7 +872,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             'p-disabled': this.disabled,
             'p-dropdown-clearable': this.showClear && !this.disabled,
             'p-focus': this.focused,
-            'p-inputwrapper-filled': this.modelValue(),
+            'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
             'p-inputwrapper-focus': this.focused || this.overlayVisible
         };
     }
@@ -939,8 +939,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
                 this.cd.markForCheck();
             }
-
-            if (modelValue && this.editable) {
+            if ((modelValue !== undefined || modelValue !== null) && this.editable) {
                 this.updateEditableLabel();
             }
         });
@@ -1110,7 +1109,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
+            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) && this.selectedOption !== undefined ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
         }
     }
 
@@ -1125,11 +1124,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
+        return this.optionLabel !== undefined && this.optionLabel !== null ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue && this.optionValue !== null ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
     }
 
     isOptionDisabled(option: any) {
@@ -1137,11 +1136,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren !== undefined && this.optionGroupChildren !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
     }
 
     getAriaPosInset(index) {
@@ -1533,11 +1532,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isValidOption(option) {
-        return option && !(this.isOptionDisabled(option) || this.isOptionGroup(option));
+        return option !== undefined && option !== null && !(this.isOptionDisabled(option) || this.isOptionGroup(option));
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel && option.optionGroup && option.group;
+        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null && option.optionGroup !== undefined && option.optionGroup !== null && option.group;
     }
 
     onArrowUpKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
