@@ -509,6 +509,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 if (inputValue && inputValue.trim().length && !this.isMaxedOut) {
                     this.addItem(event, inputValue, true);
                 }
