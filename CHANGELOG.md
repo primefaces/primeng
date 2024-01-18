@@ -1,4 +1,31 @@
 # Changelog
+## [17.3.3](https://github.com/primefaces/primeng/tree/17.3.3) (2024-01-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.3.2...17.3.3)
+
+**Fixed bugs:**
+- Component: Carousel swipe not working properly on iOS devices [\#12942](https://github.com/primefaces/primeng/issues/12942)
+- Autocomplete: focus not being applied when clicking around input [\#14530](https://github.com/primefaces/primeng/issues/14530)
+- Chips: NumpadEnter being ignored [\#14578](https://github.com/primefaces/primeng/issues/14578)
+- Component: Chips: Invalid aria attribute: aria-pointset (should be aria-posinset) [\#14568](https://github.com/primefaces/primeng/issues/14568)
+- Button | StyleClass does not work as expected [\#14583](https://github.com/primefaces/primeng/issues/14583)
+- Calendar: Calendar Icon has a default cursor on hover [\#14501](https://github.com/primefaces/primeng/issues/14501)
+- SSR Duplicate elements with provideClientHydration() [\#14569](https://github.com/primefaces/primeng/issues/14569)
+- TreeTable with scrollHeight="flex" shrinks the header as the table rows are expanded. [\#14523](https://github.com/primefaces/primeng/issues/14523)
+- Table | Column filter in stateful is become 'undefined' [\#14571](https://github.com/primefaces/primeng/issues/14571)
+- Component: dropdown - Editable dropdown does not change value to empty string [\#14546](https://github.com/primefaces/primeng/issues/14546)
+- PrimeNG table filtering and sorting on each column- filter is not opening with keyboard [\#14545](https://github.com/primefaces/primeng/issues/14545)
+- GalleriaThumbnail afterViewInit use platformBrowser instead of isPlatformBrowser [\#14553](https://github.com/primefaces/primeng/issues/14553)
+- p-columnfilter: missing aria-label [\#14537](https://github.com/primefaces/primeng/issues/14537)
+- Component: Chips. Duplicate validation is case sensitive [\#14550](https://github.com/primefaces/primeng/issues/14550)
+- Paginator / Table: Configurable Dropdown Icon [\#9605](https://github.com/primefaces/primeng/issues/9605)
+- Chart component should runOutsideOfAngular [\#14561](https://github.com/primefaces/primeng/issues/14561)
+- Component: Table. Export CSV with cyrillic or chinese characters has broken encoding in Microsoft Excel [\#14562](https://github.com/primefaces/primeng/issues/14562)
+- p-table: columnFilter p-calendar cropped by overflow [\#14564](https://github.com/primefaces/primeng/issues/14564)
+- EditableColumn: error in ngOnChanges when input other than data changes [\#14525](https://github.com/primefaces/primeng/issues/14525)
+- SplitButton contains a typo on "aria-haspopup" attribute [\#14533](https://github.com/primefaces/primeng/issues/14533)
+- Calendar: Datepicker is hidden on PrimeNg homepage [\#14547](https://github.com/primefaces/primeng/issues/14547)
+
 ## [17.3.2](https://github.com/primefaces/primeng/tree/17.3.2) (2024-01-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.3.1...17.3.2)
