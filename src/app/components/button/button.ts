@@ -152,7 +152,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createLabel() {
-        if (this.label) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
@@ -166,7 +167,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIcon() {
-        if (this.icon || this.loading) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        if (!created && (this.icon || this.loading)) {
             let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
             iconElement.setAttribute('aria-hidden', 'true');
