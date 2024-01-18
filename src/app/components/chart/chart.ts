@@ -119,7 +119,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
             if (opts.responsive && (this.height || this.width)) {
                 opts.maintainAspectRatio = false;
             }
-            
+
             this.zone.runOutsideAngular(() => {
                 this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
                     type: this.type,
@@ -127,7 +127,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
                     options: this.options,
                     plugins: this.plugins
                 });
-            })
+            });
         }
     }
 

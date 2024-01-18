@@ -464,9 +464,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = this.value || [];
 
         if (item && item.trim().length) {
-            const newItemIsDuplicate = this.caseSensitiveDuplication
-                ? this.value.includes(item)
-                : this.value.some((val) => val.toLowerCase() === item.toLowerCase());
+            const newItemIsDuplicate = this.caseSensitiveDuplication ? this.value.includes(item) : this.value.some((val) => val.toLowerCase() === item.toLowerCase());
 
             if ((this.allowDuplicate || !newItemIsDuplicate) && !this.isMaxedOut) {
                 this.value = [...this.value, item];
