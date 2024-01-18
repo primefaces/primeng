@@ -22,7 +22,7 @@ import { Code } from '../../domain/code';
                 <label for="templatedisplay" class="font-bold block mb-2"> Template Display </label>
                 <p-calendar [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" inputId="templatedisplay">
                     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                        <i class="pi pi-user" (click)="clickCallBack($event)"></i>
+                        <i class="pi pi-user pointer-events-none pointer-events-none" (click)="clickCallBack($event)"></i>
                     </ng-template>
                 </p-calendar>
             </div>
@@ -42,7 +42,7 @@ export class IconDoc {
 <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
 <p-calendar [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" inputId="templatedisplay">
     <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-        <i class="pi pi-user" (click)="clickCallBack($event)"></i>
+        <i class="pi pi-user pointer-events-none" (click)="clickCallBack($event)"></i>
     </ng-template>
 </p-calendar>`,
 
@@ -61,7 +61,7 @@ export class IconDoc {
         <label for="templatedisplay" class="font-bold block mb-2"> Template Display </label>
         <p-calendar [(ngModel)]="date3" [iconDisplay]="'input'" [showIcon]="true" inputId="templatedisplay">
             <ng-template pTemplate="inputicon" let-clickCallBack="clickCallBack">
-                <i class="pi pi-user" (click)="clickCallBack($event)"></i>
+                <i class="pi pi-user pointer-events-none" (click)="clickCallBack($event)"></i>
             </ng-template>
         </p-calendar>
     </div>

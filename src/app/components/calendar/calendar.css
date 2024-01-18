@@ -166,6 +166,10 @@
         cursor: pointer;
     }
 
+    .p-icon-wrapper {
+        pointer-events: none;
+    }
+
     .p-calendar-clearable {
         position: relative;
     }
