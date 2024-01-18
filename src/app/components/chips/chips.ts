@@ -57,7 +57,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     [attr.ariaLabel]="item"
                     [attr.aria-selected]="true"
                     [attr.aria-setsize]="value.length"
-                    [attr.aria-pointset]="i + 1"
+                    [attr.aria-posinset]="i + 1"
                     [attr.data-p-focused]="focusedIndex === i"
                     [ngClass]="{ 'p-chips-token': true, 'p-focus': focusedIndex === i }"
                     (click)="onItemClick($event, item)"
