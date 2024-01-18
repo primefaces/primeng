@@ -62,8 +62,8 @@ import { DomHandler } from 'primeng/dom';
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </button>
-                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
-                        <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                        <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()">
                             <div
                                 *ngFor="let item of clonedItemsForStarting; let index = index"
                                 [ngClass]="{
