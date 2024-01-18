@@ -242,10 +242,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button
             [attr.type]="type"
             [attr.aria-label]="ariaLabel"
-            [class]="styleClass"
             [ngStyle]="style"
             [disabled]="disabled || loading"
-            [ngClass]="buttonClass()"
+            [ngClass]="buttonClass"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
@@ -428,7 +427,7 @@ export class Button implements AfterContentInit {
         };
     }
 
-    buttonClass() {
+    get buttonClass() {
         return {
             'p-button p-component': true,
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
