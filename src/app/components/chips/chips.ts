@@ -142,7 +142,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      */
     @Input() max: number | undefined;
     /**
-     * Maximum chip length.
+     * Maximum length of a chip.
      * @group Props
     */
     @Input() maxLength: number | undefined;

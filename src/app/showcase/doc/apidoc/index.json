@@ -7195,7 +7195,7 @@
                           "optional": false,
                           "readonly": false,
                           "type": "number",
-                          "description": "Maximum length of chip."
+                          "description": "Maximum length of a chip."
                         },
                         {
                             "name": "ariaLabel",
