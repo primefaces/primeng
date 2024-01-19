@@ -924,8 +924,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const selectedOptionIndex = this.findSelectedOptionIndex();
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        let holdValue: any;
+        if (this.virtualScroll) {
+            const selectedOptionIndex = this.findSelectedOptionIndex();
+            holdValue = selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : null;
+        } else {
+            holdValue = this.modelValue();
+        }
+        return holdValue ? this.getOptionLabel(holdValue) : this.placeholder || 'p-emptylabel';
     });
 
     selectedOption: any;
