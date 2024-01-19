@@ -774,7 +774,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     _disabled: boolean | undefined;
 
-    itemsWrapper: Nullable<HTMLDivElement>;
+    itemsWrapper = signal<Nullable<HTMLDivElement>>(null);
 
     itemTemplate: Nullable<TemplateRef<any>>;
 
@@ -923,15 +923,20 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return options;
     });
 
+    private currentLabel: string = null;
+
     label = computed(() => {
-        let holdValue: any;
-        if (this.virtualScroll) {
-            const selectedOptionIndex = this.findSelectedOptionIndex();
-            holdValue = selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : null;
-        } else {
-            holdValue = this.modelValue();
+        if(this.itemsWrapper()) {
+            return this.currentLabel;
         }
-        return holdValue ? this.getOptionLabel(holdValue) : this.placeholder || 'p-emptylabel';
+        const selectedOptionIndex = this.findSelectedOptionIndex();
+        // tricky logic
+        // this if condition is only true when the selected option was filtered from the options list
+        if ((selectedOptionIndex === -1) && (this.currentLabel !== null)) {
+            return this.currentLabel;
+        }
+        this.currentLabel = selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        return this.currentLabel;
     });
 
     selectedOption: any;
@@ -976,10 +981,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             });
         }
 
-        if (this.selectedOptionUpdated && this.itemsWrapper) {
+        if (this.selectedOptionUpdated && this.itemsWrapper()) {
             let selectedItem = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
             if (selectedItem) {
-                DomHandler.scrollInView(this.itemsWrapper, selectedItem);
+                DomHandler.scrollInView(this.itemsWrapper(), selectedItem);
             }
             this.selectedOptionUpdated = false;
         }
@@ -1239,7 +1244,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper.set(DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper'));
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1249,7 +1254,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                         this.scroller?.scrollToIndex(selectedIndex);
                     }
                 } else {
-                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-dropdown-item.p-highlight');
+                    let selectedListItem = DomHandler.findSingle(this.itemsWrapper(), '.p-dropdown-item.p-highlight');
 
                     if (selectedListItem) {
                         selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -1268,7 +1273,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onShow.emit(event);
         }
         if (event.toState === 'void') {
-            this.itemsWrapper = null;
+            this.itemsWrapper.set(null);
             this.onModelTouched();
             this.onHide.emit(event);
         }
@@ -1751,6 +1756,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     clear(event: Event) {
+        this.currentLabel = null;
         this.updateModel(null, event);
         this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });
