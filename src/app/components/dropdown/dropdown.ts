@@ -926,13 +926,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     private currentLabel: string = null;
 
     label = computed(() => {
-        if(this.itemsWrapper()) {
+        if (this.itemsWrapper()) {
             return this.currentLabel;
         }
         const selectedOptionIndex = this.findSelectedOptionIndex();
         // tricky logic
         // this if condition is only true when the selected option was filtered from the options list
-        if ((selectedOptionIndex === -1) && (this.currentLabel !== null)) {
+        if (selectedOptionIndex === -1 && this.currentLabel !== null) {
             return this.currentLabel;
         }
         this.currentLabel = selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
