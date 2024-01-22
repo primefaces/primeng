@@ -52,7 +52,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 class="p-splitbutton-menubutton p-button-icon-only"
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
-                [disabled]="disabled"
+                [disabled]="menuButtonDisabled"
                 [attr.aria-label]="menuButtonProps?.['aria-label'] || expandAriaLabel"
                 [attr.aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['aria-expanded'] || isExpanded()"
@@ -127,6 +127,11 @@ export class SplitButton {
      * @group Props
      */
     @Input() disabled: boolean | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() menuButtonDisabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Prop
