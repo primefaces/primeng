@@ -1806,6 +1806,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             this.updateModel(value, event);
         }
+        this.onChange.emit({ originalEvent: event, value: this.value });
 
         DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
         this.headerCheckboxFocus = true;
