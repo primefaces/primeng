@@ -930,6 +930,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     selectedOption: any;
 
+    editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
@@ -939,7 +941,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
                 this.cd.markForCheck();
             }
-            if ((modelValue !== undefined || modelValue !== null) && this.editable) {
+
+            if (modelValue !== undefined && this.editable) {
                 this.updateEditableLabel();
             }
         });
@@ -1109,16 +1112,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) && this.selectedOption !== undefined ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
-            if (this.selectedOption === undefined || this.selectedOption === null || this.modelValue() === undefined || this.modelValue === null) {
-                if (this.placeholder) {
-                    this.editableInputViewChild.nativeElement.value = this.placeholder;
-                } else {
-                    this.editableInputViewChild.nativeElement.value = '';
-                }
-            }
+            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.selectedOption) || this.modelValue() || '';
         }
     }
+
     clearEditableLabel(): void {
         if (this.editableInputViewChild) {
             this.editableInputViewChild.nativeElement.value = '';
