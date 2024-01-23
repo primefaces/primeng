@@ -493,6 +493,10 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.onClear.emit();
     }
 
+    public clearInput(): void {
+        this.inputViewChild.nativeElement.value = '';
+    }
+
     onKeyDown(event) {
         const inputValue = event.target.value;
 
