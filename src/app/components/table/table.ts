@@ -3660,28 +3660,33 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     onSpaceKey(event) {
-        this.onEnterKey(event);
+        const isInput = event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement;
+        if (isInput) {
+            return;
+        } else {
+            this.onEnterKey(event);
 
-        if (event.shiftKey && this.dt.selection !== null) {
-            const data = this.dt.dataToRender(this.dt.rows);
-            let index;
+            if (event.shiftKey && this.dt.selection !== null) {
+                const data = this.dt.dataToRender(this.dt.rows);
+                let index;
 
-            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
-                let firstSelectedRowIndex, lastSelectedRowIndex;
-                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+                if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                    let firstSelectedRowIndex, lastSelectedRowIndex;
+                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
-                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
-            } else {
-                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                    index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                } else {
+                    index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                }
+
+                this.dt.anchorRowIndex = index;
+                this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+                this.dt.selectRange(event, this.index);
             }
 
-            this.dt.anchorRowIndex = index;
-            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-            this.dt.selectRange(event, this.index);
+            event.preventDefault();
         }
-
-        event.preventDefault();
     }
 
     focusRowChange(firstFocusableRow, currentFocusedRow) {
