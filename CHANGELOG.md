@@ -1,4 +1,22 @@
 # Changelog
+## [17.4.0](https://github.com/primefaces/primeng/tree/17.4.0) (2024-01-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.3.3...17.4.0)
+
+**Implemented New Features and Enhancements:**
+- MultiSelect: selectedItemsLabel is not localized [\#14554](https://github.com/primefaces/primeng/issues/14554)
+
+**Fixed bugs:**
+- p-columnFilter: Missing icons to the table column filter dialog [\#14613](https://github.com/primefaces/primeng/issues/14613)
+- p-multiselect: Displaying the multiselect options dialog causes page to horizontally scroll [\#14611](https://github.com/primefaces/primeng/issues/14611)
+- p-calendar: Doesn't close on date selection in range mode [\#14558](https://github.com/primefaces/primeng/issues/14558)
+- ConfirmPopup arror right side rendering defect [\#14557](https://github.com/primefaces/primeng/issues/14557)
+- Dropdown: can't select input with Shift + Home / Shift + End [\#14540](https://github.com/primefaces/primeng/issues/14540)
+- TreeTable: StyleClass wont apply [\#14559](https://github.com/primefaces/primeng/issues/14559)
+- p-dropdown: optionValue is not working when object has property 'group' [\#14516](https://github.com/primefaces/primeng/issues/14516)
+- Table pSelectableRow: cannot type space into an pInputText component [\#14531](https://github.com/primefaces/primeng/issues/14531)
+- p-dropdown: Cannot clear dropdown programmatically [\#14544](https://github.com/primefaces/primeng/issues/14544)
+
 ## [17.3.3](https://github.com/primefaces/primeng/tree/17.3.3) (2024-01-18)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.3.2...17.3.3)
