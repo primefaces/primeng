@@ -1483,22 +1483,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else {
             if (this.shouldSelectDate(dateMeta)) {
                 this.selectDate(dateMeta);
-                this.value[1] &&
-                    this.hideOnDateTimeSelect &&
-                    setTimeout(() => {
-                        event.preventDefault();
-                        this.hideOverlay();
-
-                        if (this.mask) {
-                            this.disableModality();
-                        }
-
-                        this.cd.markForCheck();
-                    }, 150);
             }
         }
 
-        if (this.isSingleSelection() && this.hideOnDateTimeSelect) {
+        if ((this.isSingleSelection() && this.hideOnDateTimeSelect) || (this.isRangeSelection() && this.value[1])) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
