@@ -1916,7 +1916,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-multiselect-item.p-highlight');
 
                         if (selectedListItem) {
-                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                         }
                     }
                 }
