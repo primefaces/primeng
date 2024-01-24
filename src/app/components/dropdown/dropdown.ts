@@ -1574,8 +1574,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onHomeKey(event: any, pressedInInputText: boolean = false) {
         if (pressedInInputText) {
-            event.currentTarget.setSelectionRange(0, 0);
-            this.focusedOptionIndex.set(-1);
+            const target = event.currentTarget;
+            if (event.shiftKey) {
+                target.setSelectionRange(0, target.value.length);
+            } else {
+                target.setSelectionRange(0, 0);
+                this.focusedOptionIndex.set(-1);
+            }
         } else {
             this.changeFocusedOptionIndex(event, this.findFirstOptionIndex());
 
@@ -1588,10 +1593,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     onEndKey(event: any, pressedInInputText = false) {
         if (pressedInInputText) {
             const target = event.currentTarget;
-            const len = target.value.length;
 
-            target.setSelectionRange(len, len);
-            this.focusedOptionIndex.set(-1);
+            if (event.shiftKey) {
+                target.setSelectionRange(0, target.value.length);
+            } else {
+                const len = target.value.length;
+
+                target.setSelectionRange(len, len);
+                this.focusedOptionIndex.set(-1);
+            }
         } else {
             this.changeFocusedOptionIndex(event, this.findLastOptionIndex());
 
