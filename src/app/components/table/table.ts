@@ -40,10 +40,12 @@ import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TrashIcon } from 'primeng/icons/trash';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
@@ -5027,7 +5029,7 @@ export class ReorderableRow implements AfterViewInit {
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" />
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
@@ -5035,7 +5037,7 @@ export class ReorderableRow implements AfterViewInit {
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" />
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
@@ -5828,7 +5830,9 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountDownIcon,
         CheckIcon,
         FilterIcon,
-        FilterSlashIcon
+        FilterSlashIcon,
+        PlusIcon,
+        TrashIcon
     ],
     exports: [
         Table,
