@@ -20,6 +20,7 @@ import {
     Output,
     QueryList,
     Renderer2,
+    Signal,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -403,7 +404,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Default text to display when no option is selected.
      * @group Props
      */
-    @Input() placeholder: string | undefined;
+    @Input() set placeholder(val: string | undefined) {
+        this._placeholder.set(val);
+    }
+    get placeholder(): Signal<string | undefined> {
+        return this._placeholder.asReadonly();
+    }
+    _placeholder = signal<string | undefined>(undefined);
     /**
      * Placeholder text to show when filter input is empty.
      * @group Props
@@ -881,7 +888,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const label = this.label();
         return {
             'p-dropdown-label p-inputtext': true,
-            'p-placeholder': this.placeholder && label === this.placeholder,
+            'p-placeholder': this.placeholder() && label === this.placeholder(),
             'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (!label || label === 'p-emptylabel' || label.length === 0)
         };
     }
@@ -925,7 +932,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         const selectedOptionIndex = this.findSelectedOptionIndex();
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -1097,7 +1104,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable && this.options && this.options.length;
+        return this.autoDisplayFirst && !this.placeholder() && !this.modelValue() && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
