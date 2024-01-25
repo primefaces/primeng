@@ -120,7 +120,9 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     </ng-container>
                 </button>
                 <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                    <CalendarIcon *ngIf="!inputIconTemplate" (click)="onButtonClick($event)" class="p-datepicker-icon" />
+                    <CalendarIcon (click)="onButtonClick($event)" *ngIf="!inputIconTemplate" [ngClass]="{
+                        'p-datepicker-icon': showOnFocus
+                    }"/>
                     <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </ng-container>
             </ng-template>
