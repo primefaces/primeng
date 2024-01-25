@@ -1211,7 +1211,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         this.onModelChange(value);
         this.updateModel(value, event);
-        this.onChange.emit({ originalEvent: event, value: value });
+        setTimeout(() => {
+            this.onChange.emit({ originalEvent: event, value: value });
+        });
 
         !this.overlayVisible && ObjectUtils.isNotEmpty(value) && this.show();
     }
