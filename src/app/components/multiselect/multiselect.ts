@@ -1407,12 +1407,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     getSelectedItemsLabel() {
         let pattern = /{(.*?)}/;
+        let message = this.selectedItemsLabel ? this.selectedItemsLabel : this.config.getTranslation(TranslationKeys.SELECTION_MESSAGE);
 
-        if (pattern.test(this.selectedItemsLabel)) {
-            return this.selectedItemsLabel.replace(this.selectedItemsLabel.match(pattern)[0], this.modelValue().length + '');
+        if (pattern.test(message)) {
+            return message.replace(message.match(pattern)[0], this.modelValue().length + '');
         }
 
-        return this.selectedItemsLabel;
+        return message;
     }
 
     getOptionLabel(option: any) {
@@ -1915,7 +1916,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                         let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-multiselect-item.p-highlight');
 
                         if (selectedListItem) {
-                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'center' });
+                            selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
                         }
                     }
                 }

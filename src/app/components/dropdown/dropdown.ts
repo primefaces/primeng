@@ -268,13 +268,13 @@ export class DropdownItem {
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
                                 <ul #items [attr.id]="id + '_list'" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
-                                        <ng-container *ngIf="option.group">
+                                        <ng-container *ngIf="isOptionGroup(option)">
                                             <li class="p-dropdown-item-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                                 <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                                 <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                             </li>
                                         </ng-container>
-                                        <ng-container *ngIf="!option.group">
+                                        <ng-container *ngIf="!isOptionGroup(option)">
                                             <p-dropdownItem
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
@@ -930,6 +930,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     selectedOption: any;
 
+    editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
+
     constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
@@ -939,7 +941,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
                 this.cd.markForCheck();
             }
-            if ((modelValue !== undefined || modelValue !== null) && this.editable) {
+
+            if (modelValue !== undefined && this.editable) {
                 this.updateEditableLabel();
             }
         });
@@ -1109,7 +1112,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) && this.selectedOption !== undefined ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
+            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.selectedOption) || this.modelValue() || '';
         }
     }
 
@@ -1571,8 +1574,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onHomeKey(event: any, pressedInInputText: boolean = false) {
         if (pressedInInputText) {
-            event.currentTarget.setSelectionRange(0, 0);
-            this.focusedOptionIndex.set(-1);
+            const target = event.currentTarget;
+            if (event.shiftKey) {
+                target.setSelectionRange(0, target.value.length);
+            } else {
+                target.setSelectionRange(0, 0);
+                this.focusedOptionIndex.set(-1);
+            }
         } else {
             this.changeFocusedOptionIndex(event, this.findFirstOptionIndex());
 
@@ -1585,10 +1593,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     onEndKey(event: any, pressedInInputText = false) {
         if (pressedInInputText) {
             const target = event.currentTarget;
-            const len = target.value.length;
 
-            target.setSelectionRange(len, len);
-            this.focusedOptionIndex.set(-1);
+            if (event.shiftKey) {
+                target.setSelectionRange(0, target.value.length);
+            } else {
+                const len = target.value.length;
+
+                target.setSelectionRange(len, len);
+                this.focusedOptionIndex.set(-1);
+            }
         } else {
             this.changeFocusedOptionIndex(event, this.findLastOptionIndex());
 

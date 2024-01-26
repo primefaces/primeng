@@ -1,6 +1,6 @@
 {
     "name": "primeng",
-    "version": "17.3.3",
+    "version": "17.4.0",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",

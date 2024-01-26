@@ -40,10 +40,12 @@ import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TrashIcon } from 'primeng/icons/trash';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
@@ -3660,28 +3662,33 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     onSpaceKey(event) {
-        this.onEnterKey(event);
+        const isInput = event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement;
+        if (isInput) {
+            return;
+        } else {
+            this.onEnterKey(event);
 
-        if (event.shiftKey && this.dt.selection !== null) {
-            const data = this.dt.dataToRender(this.dt.rows);
-            let index;
+            if (event.shiftKey && this.dt.selection !== null) {
+                const data = this.dt.dataToRender(this.dt.rows);
+                let index;
 
-            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
-                let firstSelectedRowIndex, lastSelectedRowIndex;
-                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+                if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                    let firstSelectedRowIndex, lastSelectedRowIndex;
+                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
-                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
-            } else {
-                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                    index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                } else {
+                    index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                }
+
+                this.dt.anchorRowIndex = index;
+                this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+                this.dt.selectRange(event, this.index);
             }
 
-            this.dt.anchorRowIndex = index;
-            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-            this.dt.selectRange(event, this.index);
+            event.preventDefault();
         }
-
-        event.preventDefault();
     }
 
     focusRowChange(firstFocusableRow, currentFocusedRow) {
@@ -5022,7 +5029,7 @@ export class ReorderableRow implements AfterViewInit {
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" />
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
@@ -5030,7 +5037,7 @@ export class ReorderableRow implements AfterViewInit {
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" />
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
@@ -5823,7 +5830,9 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountDownIcon,
         CheckIcon,
         FilterIcon,
-        FilterSlashIcon
+        FilterSlashIcon,
+        PlusIcon,
+        TrashIcon
     ],
     exports: [
         Table,
