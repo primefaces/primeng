@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, signal } from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -126,7 +126,7 @@ export class SplitButton {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Prop

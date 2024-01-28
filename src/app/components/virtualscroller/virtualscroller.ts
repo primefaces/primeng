@@ -1,5 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute
+} from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
@@ -67,7 +84,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props

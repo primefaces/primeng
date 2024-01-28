@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
@@ -90,7 +90,7 @@ export class ToggleButton implements ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Inline style of the element.
      * @group Props

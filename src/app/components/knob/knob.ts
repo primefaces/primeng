@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -129,17 +129,17 @@ export class Knob {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Whether the show the value inside the knob.
      * @group Props
      */
-    @Input() showValue: boolean = true;
+    @Input({ transform: booleanAttribute }) showValue: boolean = true;
     /**
      * When present, it specifies that the component value cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean = false;
     /**
      * Callback to invoke on value change.
      * @param {number} value - New value.

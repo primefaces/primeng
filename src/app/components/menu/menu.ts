@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     computed,
     effect,
     forwardRef,
@@ -252,7 +253,7 @@ export class Menu implements OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -272,7 +273,7 @@ export class Menu implements OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props

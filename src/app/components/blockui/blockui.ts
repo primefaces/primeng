@@ -1,5 +1,23 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute
+} from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -40,7 +58,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { QueryList } from '@angular/core';
 /**
@@ -48,7 +48,7 @@ export class ProgressBar {
      * Whether to display the progress bar value.
      * @group Props
      */
-    @Input() showValue: boolean = true;
+    @Input({ transform: booleanAttribute }) showValue: boolean = true;
     /**
      * Class of the element.
      * @group Props

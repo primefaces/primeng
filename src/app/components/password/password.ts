@@ -26,6 +26,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     forwardRef
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -79,7 +80,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true;
+    @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Sets the visibility of the password field.
      * @group Props
@@ -429,7 +430,7 @@ export class Password implements AfterContentInit, OnInit {
      * Indicates whether the component is disabled or not.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -474,7 +475,7 @@ export class Password implements AfterContentInit, OnInit {
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true;
+    @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
@@ -484,7 +485,7 @@ export class Password implements AfterContentInit, OnInit {
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
-    @Input() toggleMask: boolean | undefined;
+    @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
     /**
      * Style class of the input field.
      * @group Props
@@ -529,7 +530,7 @@ export class Password implements AfterContentInit, OnInit {
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
 
@@ -82,12 +82,12 @@ export class InputSwitch {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props

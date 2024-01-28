@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
@@ -59,22 +59,22 @@ export class Inplace implements AfterContentInit {
      * Whether the content is displayed or not.
      * @group Props
      */
-    @Input() active: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) active: boolean | undefined = false;
     /**
      * Displays a button to switch back to display mode.
      * @group Props
      */
-    @Input() closable: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined = false;
     /**
      * Allows to prevent clicking.
      * @group Props
      */
-    @Input() preventClick: boolean | undefined;
+    @Input({ transform: booleanAttribute }) preventClick: boolean | undefined;
     /**
      * Inline style of the element.
      * @group Props

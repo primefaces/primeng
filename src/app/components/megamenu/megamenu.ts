@@ -19,6 +19,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     effect,
     forwardRef,
     signal
@@ -212,7 +213,7 @@ export class MegaMenuSub {
 
     @Input() focusedItemId: string | undefined;
 
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
 
     @Input() orientation: string | undefined;
 
@@ -222,7 +223,7 @@ export class MegaMenuSub {
 
     @Input() tabindex: number = 0;
 
-    @Input() root: boolean = false;
+    @Input({ transform: booleanAttribute }) root: boolean = false;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -456,7 +457,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props

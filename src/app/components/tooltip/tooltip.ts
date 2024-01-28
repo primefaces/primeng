@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute } from '@angular/core';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -50,7 +50,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * By default the tooltip contents are rendered as text. Set to false to support html tags in the content.
      * @group Props
      */
-    @Input() escape: boolean = true;
+    @Input({ transform: booleanAttribute }) escape: boolean = true;
     /**
      * Delay to show the tooltip in milliseconds.
      * @group Props
@@ -80,17 +80,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Whether to hide tooltip when hovering over tooltip content.
      * @group Props
      */
-    @Input() autoHide: boolean = true;
+    @Input({ transform: booleanAttribute }) autoHide: boolean = true;
     /**
      * Automatically adjusts the element position when there is not enough space on the selected position.
      * @group Props
      */
-    @Input() fitContent: boolean = true;
+    @Input({ transform: booleanAttribute }) fitContent: boolean = true;
     /**
      * Whether to hide tooltip on escape key press.
      * @group Props
      */
-    @Input() hideOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) hideOnEscape: boolean = true;
     /**
      * Content of the tooltip.
      * @group Props

@@ -16,7 +16,8 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     ViewEncapsulation,
-    OnDestroy
+    OnDestroy,
+    booleanAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -125,7 +126,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
@@ -160,7 +161,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -180,32 +181,32 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -245,7 +246,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props

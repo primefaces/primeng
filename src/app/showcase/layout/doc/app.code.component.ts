@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild, booleanAttribute } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
@@ -107,11 +107,11 @@ export class AppCodeComponent {
 
     @Input() routeFiles: RouteFile[] = [];
 
-    @Input() hideToggleCode: boolean = false;
+    @Input({ transform: booleanAttribute }) hideToggleCode: boolean = false;
 
-    @Input() hideCodeSandbox: boolean = false;
+    @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = false;
 
-    @Input() hideStackBlitz: boolean = false;
+    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = false;
 
     @ViewChild('codeElement') codeElement: ElementRef;
 

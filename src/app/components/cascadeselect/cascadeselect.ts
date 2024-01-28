@@ -2,6 +2,7 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -120,9 +121,9 @@ export class CascadeSelectSub implements OnInit {
 
     @Input() optionGroupLabel: string | undefined;
 
-    @Input() dirty: boolean | undefined;
+    @Input({ transform: booleanAttribute }) dirty: boolean | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
@@ -333,7 +334,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Determines if the option will be selected on focus.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Text to display when the search is active. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -377,7 +378,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
     /**
      * Style class of the component.
      * @group Props
@@ -462,12 +463,12 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Style class of the overlay panel.
      * @group Props

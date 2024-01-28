@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
+    booleanAttribute,
     forwardRef,
     signal
 } from '@angular/core';
@@ -69,7 +70,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Defines if tab can be removed.
      * @group Props
      */
-    @Input() closable: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
     /**
      * Inline style of the tab header.
      * @group Props
@@ -96,7 +97,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      * @group Props
      */
-    @Input() cache: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) cache: boolean | undefined = true;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
@@ -372,13 +373,13 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * @defaultValue false
      * @group Props
      */
-    @Input() controlClose: boolean | undefined;
+    @Input({ transform: booleanAttribute }) controlClose: boolean | undefined;
     /**
      * When enabled displays buttons at each side of the tab headers to scroll the tab list.
      * @defaultValue false
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Index of the active tab to change selected tab programmatically.
      * @group Props
@@ -405,7 +406,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * When enabled, the focused tab is activated.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Used to define a string aria label attribute the forward navigation button.
      * @group Props
@@ -420,7 +421,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * When activated, navigation buttons will automatically hide or show based on the available space within the container.
      * @group Props
      */
-    @Input() autoHideButtons: boolean = true;
+    @Input({ transform: booleanAttribute }) autoHideButtons: boolean = true;
     /**
      * Index of the element in tabbing order.
      * @group Props

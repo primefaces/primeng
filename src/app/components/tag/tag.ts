@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 /**
  * Tag component is used to categorize content.
@@ -57,7 +57,7 @@ export class Tag {
      * Whether the corners of the tag are rounded.
      * @group Props
      */
-    @Input() rounded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

@@ -25,7 +25,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -285,22 +286,22 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether the cell widths scale according to their content or not.
      * @group Props
      */
-    @Input() autoLayout: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
@@ -325,7 +326,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Position of the paginator.
      * @group Props
@@ -350,22 +351,22 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
@@ -380,12 +381,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When true, resets paginator to first page after sorting.
      * @group Props
      */
-    @Input() resetPageOnSort: boolean = true;
+    @Input({ transform: booleanAttribute }) resetPageOnSort: boolean = true;
     /**
      * Whether to use the default sorting or a custom one using sortFunction.
      * @group Props
      */
-    @Input() customSort: boolean | undefined;
+    @Input({ transform: booleanAttribute }) customSort: boolean | undefined;
     /**
      * Specifies the selection mode, valid values are "single" and "multiple".
      * @group Props
@@ -410,7 +411,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean | undefined = false;
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
@@ -420,12 +421,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Adds hover effect to rows without the need for selectionMode.
      * @group Props
      */
-    @Input() rowHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) rowHover: boolean | undefined;
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -435,12 +436,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to show the loading mask when loading property is true.
      * @group Props
      */
-    @Input() showLoader: boolean = true;
+    @Input({ transform: booleanAttribute }) showLoader: boolean = true;
     /**
      * When specifies, enables horizontal and/or vertical scrolling.
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.
      * @group Props
@@ -450,7 +451,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
@@ -480,7 +481,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When enabled, columns can be resized using drag and drop.
      * @group Props
      */
-    @Input() resizableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) resizableColumns: boolean | undefined;
     /**
      * Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
      * @group Props
@@ -490,7 +491,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When enabled, columns can be reordered using drag and drop.
      * @group Props
      */
-    @Input() reorderableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) reorderableColumns: boolean | undefined;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -2126,7 +2127,7 @@ export class TTBody {
 
     @Input('pTreeTableBodyTemplate') template: Nullable<TemplateRef<any>>;
 
-    @Input() frozen: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
 
     @Input() serializedNodes: any;
 
@@ -2231,7 +2232,7 @@ export class TTBody {
 export class TTScrollableView implements AfterViewInit, OnDestroy {
     @Input('ttScrollableView') columns: any[] | undefined;
 
-    @Input() frozen: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
 
     @ViewChild('scrollHeader') scrollHeaderViewChild: Nullable<ElementRef>;
 
@@ -2442,7 +2443,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 export class TTSortableColumn implements OnInit, OnDestroy {
     @Input('ttSortableColumn') field: string | undefined;
 
-    @Input() ttSortableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSortableColumnDisabled: boolean | undefined;
 
     sorted: boolean | undefined;
 
@@ -2566,7 +2567,7 @@ export class TTSortIcon implements OnInit, OnDestroy {
     }
 })
 export class TTResizableColumn implements AfterViewInit, OnDestroy {
-    @Input() ttResizableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
 
@@ -2647,7 +2648,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     }
 })
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
-    @Input() ttReorderableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttReorderableColumnDisabled: boolean | undefined;
 
     dragStartListener: VoidListener;
 
@@ -2752,7 +2753,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 export class TTSelectableRow implements OnInit, OnDestroy {
     @Input('ttSelectableRow') rowNode: any;
 
-    @Input() ttSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2835,7 +2836,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 export class TTSelectableRowDblClick implements OnInit, OnDestroy {
     @Input('ttSelectableRowDblClick') rowNode: any;
 
-    @Input() ttSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2887,7 +2888,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 export class TTContextMenuRow {
     @Input('ttContextMenuRow') rowNode: any | undefined;
 
-    @Input() ttContextMenuRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttContextMenuRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2951,7 +2952,7 @@ export class TTContextMenuRow {
     }
 })
 export class TTCheckbox {
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input('value') rowNode: any;
 
@@ -3106,7 +3107,7 @@ export class TTEditableColumn implements AfterViewInit {
 
     @Input('ttEditableColumnField') field: any;
 
-    @Input() ttEditableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttEditableColumnDisabled: boolean | undefined;
 
     constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 

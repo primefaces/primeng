@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2 } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, booleanAttribute } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 /**
@@ -173,7 +173,7 @@ export class Droppable implements AfterViewInit, OnDestroy {
      * Whether the element is droppable, useful for conditional cases.
      * @group Props
      */
-    @Input() pDroppableDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) pDroppableDisabled: boolean = false;
     /**
      * Defines the cursor style, valid values are none, copy, move, link, copyMove, copyLink, linkMove and all.
      * @group Props

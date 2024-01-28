@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     effect,
     forwardRef,
     signal
@@ -196,19 +197,19 @@ export class SlideMenuSub {
 
     @Input() menuWidth: number;
 
-    @Input() root: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
     @Input() easing: string = 'ease-out';
 
     @Input() effectDuration: any;
 
-    @Input() autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
 
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -419,7 +420,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -429,7 +430,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -449,7 +450,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
@@ -460,7 +461,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Transition options of the show animation.
      * @group Props
