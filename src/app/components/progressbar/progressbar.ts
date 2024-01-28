@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { QueryList } from '@angular/core';
 /**
@@ -43,7 +43,7 @@ export class ProgressBar {
      * Current value of the progress.
      * @group Props
      */
-    @Input() value: number | undefined;
+    @Input({ transform: numberAttribute }) value: number | undefined;
     /**
      * Whether to display the progress bar value.
      * @group Props

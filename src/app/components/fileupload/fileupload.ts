@@ -22,7 +22,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BlockableUI, Message, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -203,7 +204,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Maximum file size allowed in bytes.
      * @group Props
      */
-    @Input() maxFileSize: number | undefined;
+    @Input({ transform: numberAttribute }) maxFileSize: number | undefined;
     /**
      * Summary message of the invalid file size.
      * @group Props
@@ -248,7 +249,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Width of the image thumbnail in pixels.
      * @group Props
      */
-    @Input() previewWidth: number = 50;
+    @Input({ transform: numberAttribute }) previewWidth: number = 50;
     /**
      * Label of the choose button. Defaults to PrimeNG Locale configuration.
      * @group Props
@@ -308,7 +309,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Maximum number of files that can be uploaded.
      * @group Props
      */
-    @Input() fileLimit: number | undefined;
+    @Input({ transform: numberAttribute }) fileLimit: number | undefined;
     /**
      * Style class of the upload button.
      * @group Props

@@ -26,7 +26,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -306,17 +307,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined;
+    @Input({ transform: numberAttribute }) rows: number | undefined;
     /**
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number = 0;
+    @Input({ transform: numberAttribute }) first: number = 0;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
@@ -371,7 +372,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
      */
-    @Input() defaultSortOrder: number = 1;
+    @Input({ transform: numberAttribute }) defaultSortOrder: number = 1;
     /**
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
@@ -456,7 +457,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -466,7 +467,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * The delay (in milliseconds) before triggering the virtual scroll. This determines the time gap between the user's scroll action and the actual rendering of the next set of items in the virtual scroll.
      * @group Props
      */
-    @Input() virtualScrollDelay: number = 150;
+    @Input({ transform: numberAttribute }) virtualScrollDelay: number = 150;
     /**
      * Width of the frozen columns container.
      * @group Props
@@ -501,7 +502,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * An array of FilterMetadata objects to provide external filters.
      * @group Props
@@ -516,7 +517,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Delay in milliseconds before filtering the data.
      * @group Props
      */
-    @Input() filterDelay: number = 300;
+    @Input({ transform: numberAttribute }) filterDelay: number = 300;
     /**
      * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
      * @group Props

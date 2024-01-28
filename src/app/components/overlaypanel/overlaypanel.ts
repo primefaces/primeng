@@ -14,6 +14,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
     PLATFORM_ID,
@@ -146,7 +147,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * When enabled, first button receives focus on show.
      * @group Props

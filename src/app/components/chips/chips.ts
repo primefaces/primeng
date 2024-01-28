@@ -16,7 +16,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -157,7 +158,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Maximum number of entries allowed.
      * @group Props
      */
-    @Input() max: number | undefined;
+    @Input({ transform: numberAttribute }) max: number | undefined;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -172,7 +173,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props

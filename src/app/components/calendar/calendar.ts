@@ -13,6 +13,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     OnInit,
     Output,
@@ -603,17 +604,17 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Hours to change per step.
      * @group Props
      */
-    @Input() stepHour: number = 1;
+    @Input({ transform: numberAttribute }) stepHour: number = 1;
     /**
      * Minutes to change per step.
      * @group Props
      */
-    @Input() stepMinute: number = 1;
+    @Input({ transform: numberAttribute }) stepMinute: number = 1;
     /**
      * Seconds to change per step.
      * @group Props
      */
-    @Input() stepSecond: number = 1;
+    @Input({ transform: numberAttribute }) stepSecond: number = 1;
     /**
      * Whether to show the seconds in time picker.
      * @group Props
@@ -653,7 +654,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Maximum number of selectable dates in multiple mode.
      * @group Props
      */
-    @Input() maxDateCount: number | undefined;
+    @Input({ transform: numberAttribute }) maxDateCount: number | undefined;
     /**
      * Whether to display today and clear buttons at the footer
      * @group Props
@@ -678,7 +679,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Style class of the datetimepicker container element.
      * @group Props
@@ -728,7 +729,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * The minimum selectable date.
      * @group Props

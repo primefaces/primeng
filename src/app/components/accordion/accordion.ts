@@ -18,7 +18,8 @@ import {
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -197,7 +198,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
      * @group Props
      */
-    @Input() headerAriaLevel: number = 2;
+    @Input({ transform: numberAttribute }) headerAriaLevel: number = 2;
     /**
      * Event triggered by changing the choice.
      * @param {boolean} value - Boolean value indicates that the option is changed.

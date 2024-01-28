@@ -44,7 +44,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -162,12 +163,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Specifies tab order of the element.
      * @group Props

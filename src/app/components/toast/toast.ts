@@ -21,7 +21,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
@@ -126,9 +127,9 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
 export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() message: Message | null | undefined;
 
-    @Input() index: number | null | undefined;
+    @Input({ transform: numberAttribute }) index: number | null | undefined;
 
-    @Input() life: number;
+    @Input({ transform: numberAttribute }) life: number;
 
     @Input() template: TemplateRef<any> | undefined;
 
@@ -251,12 +252,12 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * The default time to display messages for in milliseconds.
      * @group Props
      */
-    @Input() life: number = 3000;
+    @Input({ transform: numberAttribute }) life: number = 3000;
     /**
      * Inline style of the component.
      * @group Props

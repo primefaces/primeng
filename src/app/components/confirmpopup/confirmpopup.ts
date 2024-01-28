@@ -17,7 +17,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -144,7 +145,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Inline style of the component.
      * @group Props

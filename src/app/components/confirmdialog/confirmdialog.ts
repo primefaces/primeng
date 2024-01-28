@@ -22,7 +22,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -274,7 +275,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the animation.
      * @group Props

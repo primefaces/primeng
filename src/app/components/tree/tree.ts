@@ -12,6 +12,7 @@ import {
     Inject,
     Input,
     NgModule,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -213,17 +214,17 @@ export class UITreeNode implements OnInit {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input({ transform: booleanAttribute }) firstChild: boolean | undefined;
 
     @Input({ transform: booleanAttribute }) lastChild: boolean | undefined;
 
-    @Input() level: number | undefined;
+    @Input({ transform: numberAttribute }) level: number | undefined;
 
-    @Input() indentation: number | undefined;
+    @Input({ transform: numberAttribute }) indentation: number | undefined;
 
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
 
     tree: Tree;
 
@@ -983,7 +984,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -993,7 +994,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Indentation factor for spacing of the nested node when virtual scrolling is enabled.
      * @group Props
      */
-    @Input() indentation: number = 1.5;
+    @Input({ transform: numberAttribute }) indentation: number = 1.5;
     /**
      * Custom templates of the component.
      * @group Props
@@ -1003,7 +1004,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Function to optimize the node list rendering, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
     /**
      * Height of the node.
      * @group Props

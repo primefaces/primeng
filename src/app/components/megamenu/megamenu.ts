@@ -22,6 +22,7 @@ import {
     booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -209,7 +210,7 @@ export class MegaMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
@@ -221,7 +222,7 @@ export class MegaMenuSub {
 
     @Input() submenu: any;
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Input({ transform: booleanAttribute }) root: boolean = false;
 
@@ -462,7 +463,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

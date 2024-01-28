@@ -25,6 +25,7 @@ import {
     booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -206,7 +207,7 @@ export class ContextMenuSub {
 
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
 
     @Input({ transform: booleanAttribute }) popup: boolean | undefined;
 
@@ -216,13 +217,13 @@ export class ContextMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -436,7 +437,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Current id state as a string.
      * @group Props
@@ -456,7 +457,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      * Press delay in touch devices as miliseconds.
      * @group Props
      */
-    @Input() pressDelay: number | undefined = 500;
+    @Input({ transform: numberAttribute }) pressDelay: number | undefined = 500;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits

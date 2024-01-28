@@ -15,6 +15,7 @@ import {
     Inject,
     Input,
     NgModule,
+    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -113,7 +114,7 @@ export class CascadeSelectSub implements OnInit {
 
     @Input() groupIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() optionLabel: string | undefined;
 
@@ -438,7 +439,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props

@@ -23,6 +23,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -426,7 +427,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke on tab change.
      * @param {TabViewChangeEvent} event - Custom tab change event

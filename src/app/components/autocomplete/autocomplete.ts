@@ -17,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
@@ -282,12 +283,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Minimum number of characters to initiate a search.
      * @group Props
      */
-    @Input() minLength: number = 1;
+    @Input({ transform: numberAttribute }) minLength: number = 1;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props
      */
-    @Input() delay: number = 300;
+    @Input({ transform: numberAttribute }) delay: number = 300;
     /**
      * Inline style of the component.
      * @group Props
@@ -357,7 +358,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -367,7 +368,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -382,7 +383,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -412,7 +413,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -483,7 +484,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props

@@ -15,7 +15,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
@@ -64,7 +65,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Height of an item in the list.
      * @group Props
      */
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -94,7 +95,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input() delay: number = 250;
+    @Input({ transform: numberAttribute }) delay: number = 250;
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.

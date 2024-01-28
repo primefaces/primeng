@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit, Inject, PLATFORM_ID, booleanAttribute } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit, Inject, PLATFORM_ID, booleanAttribute, numberAttribute } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 interface AnimateOnScrollOptions {
@@ -43,7 +43,7 @@ export class AnimateOnScroll implements OnInit, AfterViewInit {
      * Specifies the threshold option of the IntersectionObserver API
      * @group Props
      */
-    @Input() threshold: number | undefined;
+    @Input({ transform: numberAttribute }) threshold: number | undefined;
     /**
      * Whether the scroll event listener should be removed after initial run.
      * @group Props

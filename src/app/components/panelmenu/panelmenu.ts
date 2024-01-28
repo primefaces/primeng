@@ -21,6 +21,7 @@ import {
     booleanAttribute,
     computed,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -178,13 +179,13 @@ export class PanelMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() activeItemPath: any[];
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() transitionOptions: string | undefined;
 
@@ -318,7 +319,7 @@ export class PanelMenuList implements OnChanges {
 
     @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
 
@@ -874,7 +875,7 @@ export class PanelMenu implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

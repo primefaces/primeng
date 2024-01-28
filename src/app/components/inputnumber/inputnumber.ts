@@ -20,7 +20,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -245,17 +246,17 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Specifies tab order of the element.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Title text of the input text.
      * @group Props
@@ -295,12 +296,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number | undefined;
+    @Input({ transform: numberAttribute }) min: number | undefined;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number | undefined;
+    @Input({ transform: numberAttribute }) max: number | undefined;
     /**
      * Style class of the increment button.
      * @group Props
@@ -330,7 +331,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number = 1;
+    @Input({ transform: numberAttribute }) step: number = 1;
     /**
      * Determines whether the input field is empty.
      * @group Props
@@ -370,12 +371,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input() minFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
     /**
      * The maximum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number formatting is the larger of minimumFractionDigits and 3; the default for currency formatting is the larger of minimumFractionDigits and the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
      */
-    @Input() maxFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
     /**
      * Text to display before the value.
      * @group Props

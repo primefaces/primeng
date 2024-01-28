@@ -24,7 +24,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -284,17 +285,17 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Minimum value for the left coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minX: number = 0;
+    @Input({ transform: numberAttribute }) minX: number = 0;
     /**
      * Minimum value for the top coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minY: number = 0;
+    @Input({ transform: numberAttribute }) minY: number = 0;
     /**
      * When enabled, first button receives focus on show.
      * @group Props

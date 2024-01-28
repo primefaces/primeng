@@ -17,7 +17,8 @@ import {
     ChangeDetectorRef,
     ViewEncapsulation,
     OnDestroy,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -131,22 +132,22 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined;
+    @Input({ transform: numberAttribute }) rows: number | undefined;
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() totalRecords: number | undefined;
+    @Input({ transform: numberAttribute }) totalRecords: number | undefined;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input() rowsPerPageOptions: number[] | any[] | undefined;
+    @Input({ transform: numberAttribute }) rowsPerPageOptions: number[] | any[] | undefined;
     /**
      * Position of the paginator.
      * @group Props
@@ -231,7 +232,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
     /**
      * Comma separated list of fields in the object graph to search against.
      * @group Props
@@ -256,7 +257,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number | undefined = 0;
+    @Input({ transform: numberAttribute }) first: number | undefined = 0;
     /**
      * Property name of data to use in sorting by default.
      * @group Props
@@ -266,7 +267,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Order to sort the data by default.
      * @group Props
      */
-    @Input() sortOrder: number | undefined;
+    @Input({ transform: numberAttribute }) sortOrder: number | undefined;
     /**
      * An array of objects to display.
      * @group Props

@@ -20,7 +20,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -264,7 +265,7 @@ export class Carousel implements AfterContentInit {
      * Time in milliseconds to scroll items automatically.
      * @group Props
      */
-    @Input() autoplayInterval: number = 0;
+    @Input({ transform: numberAttribute }) autoplayInterval: number = 0;
     /**
      * Inline style of the component.
      * @group Props

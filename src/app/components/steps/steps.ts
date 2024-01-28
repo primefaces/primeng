@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -91,7 +91,7 @@ export class Steps implements OnInit, OnDestroy {
      * Index of the active item.
      * @group Props
      */
-    @Input() activeIndex: number = 0;
+    @Input({ transform: numberAttribute }) activeIndex: number = 0;
     /**
      * An array of menu items.
      * @group Props

@@ -27,7 +27,8 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -460,7 +461,7 @@ export class Password implements AfterContentInit, OnInit {
      * specifies the maximum number of characters allowed in the input element.
      * @group Props
      */
-    @Input() maxLength: number | undefined;
+    @Input({ transform: numberAttribute }) maxLength: number | undefined;
     /**
      * Text for a strong password. Defaults to PrimeNG I18N API configuration.
      * @group Props

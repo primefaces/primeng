@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     effect,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -215,7 +216,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
 
     @Input({ transform: booleanAttribute }) mobileActive: boolean | undefined;
 
@@ -227,7 +228,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
@@ -440,7 +441,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
      * @defaultValue true
@@ -456,7 +457,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * Delay to hide the root submenu in milliseconds when mouse leaves.
      * @group Props
      */
-    @Input() autoHideDelay: number = 100;
+    @Input({ transform: numberAttribute }) autoHideDelay: number = 100;
     /**
      * Current id state as a string.
      * @group Props

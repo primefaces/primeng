@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -187,7 +188,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Transition delay step for each action item.
      * @group Props
      */
-    @Input() transitionDelay: number = 30;
+    @Input({ transform: numberAttribute }) transitionDelay: number = 30;
     /**
      * Specifies the opening type of actions.
      * @group Props
@@ -197,7 +198,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Radius for *circle types.
      * @group Props
      */
-    @Input() radius: number = 0;
+    @Input({ transform: numberAttribute }) radius: number = 0;
     /**
      * Whether to show a mask element behind the speeddial.
      * @group Props

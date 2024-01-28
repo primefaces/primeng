@@ -25,7 +25,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -117,7 +118,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Number of items per page.
      * @group Props
      */
-    @Input() numVisible: number = 3;
+    @Input({ transform: numberAttribute }) numVisible: number = 3;
     /**
      * An array of options for responsive design.
      * @see {GalleriaResponsiveOptions}
@@ -163,7 +164,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Time in milliseconds to scroll items.
      * @group Props
      */
-    @Input() transitionInterval: number = 4000;
+    @Input({ transform: numberAttribute }) transitionInterval: number = 4000;
     /**
      * Whether to display thumbnail container.
      * @group Props
@@ -198,7 +199,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Style class of the mask on fullscreen mode.
      * @group Props
@@ -477,7 +478,7 @@ export class GalleriaContent implements DoCheck {
 
     @Input() value: any[] = [];
 
-    @Input() numVisible: number | undefined;
+    @Input({ transform: numberAttribute }) numVisible: number | undefined;
 
     @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
 
@@ -581,7 +582,7 @@ export class GalleriaContent implements DoCheck {
 export class GalleriaItemSlot {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() get item(): any {
         return this._item;

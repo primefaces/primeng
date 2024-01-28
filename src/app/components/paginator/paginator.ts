@@ -16,7 +16,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
@@ -167,7 +168,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Number of page links to display.
      * @group Props
      */
-    @Input() pageLinkSize: number = 5;
+    @Input({ transform: numberAttribute }) pageLinkSize: number = 5;
     /**
      * Inline style of the component.
      * @group Props
@@ -229,12 +230,12 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Number of total records.
      * @group Props
      */
-    @Input() totalRecords: number = 0;
+    @Input({ transform: numberAttribute }) totalRecords: number = 0;
     /**
      * Data count to display per page.
      * @group Props
      */
-    @Input() rows: number = 0;
+    @Input({ transform: numberAttribute }) rows: number = 0;
     /**
      * Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}]
      * @group Props

@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
 
@@ -74,7 +74,7 @@ export class Knob {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Background of the value.
      * @group Props
@@ -104,27 +104,27 @@ export class Knob {
      * Size of the component in pixels.
      * @group Props
      */
-    @Input() size: number = 100;
+    @Input({ transform: numberAttribute }) size: number = 100;
     /**
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number = 1;
+    @Input({ transform: numberAttribute }) step: number = 1;
     /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number = 0;
+    @Input({ transform: numberAttribute }) min: number = 0;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number = 100;
+    @Input({ transform: numberAttribute }) max: number = 100;
     /**
      * Width of the knob stroke.
      * @group Props
      */
-    @Input() strokeWidth: number = 14;
+    @Input({ transform: numberAttribute }) strokeWidth: number = 14;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props

@@ -17,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -369,7 +370,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
@@ -434,7 +435,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
      */
-    @Input() defaultSortOrder: number = 1;
+    @Input({ transform: numberAttribute }) defaultSortOrder: number = 1;
     /**
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
@@ -490,7 +491,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
@@ -530,7 +531,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Delay in milliseconds before filtering the data.
      * @group Props
      */
-    @Input() filterDelay: number = 300;
+    @Input({ transform: numberAttribute }) filterDelay: number = 300;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
@@ -581,7 +582,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -591,7 +592,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input() virtualScrollDelay: number = 250;
+    @Input({ transform: numberAttribute }) virtualScrollDelay: number = 250;
     /**
      * Width of the frozen columns container.
      * @group Props
@@ -699,7 +700,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Order to sort when default row grouping is enabled.
      * @group Props
      */
-    @Input() groupRowsByOrder: number = 1;
+    @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
      * @group Props
@@ -4531,7 +4532,7 @@ export class TableRadioButton {
 
     @Input() value: any;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() inputId: string | undefined;
 
@@ -4628,7 +4629,7 @@ export class TableCheckbox {
 
     @Input() value: any;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() inputId: string | undefined;
 
@@ -5133,17 +5134,17 @@ export class ColumnFilter implements AfterContentInit {
      * Defines maximum amount of constraints.
      * @group Props
      */
-    @Input() maxConstraints: number = 2;
+    @Input({ transform: numberAttribute }) maxConstraints: number = 2;
     /**
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input() minFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input() maxFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
     /**
      * Defines prefix of the filter.
      * @group Props
@@ -5756,9 +5757,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input() minFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
 
-    @Input() maxFractionDigits: number | undefined;
+    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
 
     @Input() prefix: string | undefined;
 

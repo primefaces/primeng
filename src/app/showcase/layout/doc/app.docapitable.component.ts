@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConfigService } from '../../service/appconfigservice';
 
@@ -102,7 +102,7 @@ export class AppDocApiTable {
 
     @Input() parentId: string;
 
-    @Input() level: number;
+    @Input({ transform: numberAttribute }) level: number;
 
     @Input({ transform: booleanAttribute }) isInterface: boolean = false;
 

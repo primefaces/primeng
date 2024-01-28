@@ -17,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -92,7 +93,7 @@ export class DropdownItem {
 
     @Input({ transform: booleanAttribute }) visible: boolean | undefined;
 
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
 
     @Input() ariaPosInset: string | undefined;
 
@@ -399,7 +400,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -515,7 +516,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -550,7 +551,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Maximum number of character allows in the editable input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
