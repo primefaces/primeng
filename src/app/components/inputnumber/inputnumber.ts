@@ -482,6 +482,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     _decimal: any;
 
+    _decimalChar: string;
+
     _group: any;
 
     _minusSign: any;
@@ -554,6 +556,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         this._minusSign = this.getMinusSignExpression();
         this._currency = this.getCurrencyExpression();
         this._decimal = this.getDecimalExpression();
+        this._decimalChar = this.getDecimalChar();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
         this._index = (d: any) => index.get(d);
@@ -570,15 +573,16 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     getDecimalExpression(): RegExp {
+        const decimalChar = this.getDecimalChar();
+        return new RegExp(`[${decimalChar}]`, 'g');
+    }
+    getDecimalChar(): string {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
-        return new RegExp(
-            `[${formatter
-                .format(1.1)
-                .replace(this._currency as RegExp | string, '')
-                .trim()
-                .replace(this._numeral, '')}]`,
-            'g'
-        );
+        return formatter
+            .format(1.1)
+            .replace(this._currency as RegExp | string, '')
+            .trim()
+            .replace(this._numeral, '');
     }
 
     getGroupingExpression(): RegExp {
@@ -953,11 +957,16 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
-        const isDecimalSign = this.isDecimalSign(char);
+        let isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
 
         if (code != 13) {
             event.preventDefault();
+        }
+        if (!isDecimalSign && event.code === 'NumpadDecimal') {
+            isDecimalSign = true;
+            char = this._decimalChar;
+            code = char.charCodeAt(0);
         }
 
         const newValue = this.parseValue(this.input.nativeElement.value + char);
