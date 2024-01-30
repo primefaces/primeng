@@ -1061,7 +1061,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             clearTimeout(this.searchTimeout);
         }
 
-        let query = event.target.value;
+        let query = event.target.value.split('').slice(0, this.maxlength).join('');
 
         if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
@@ -1622,3 +1622,4 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     declarations: [AutoComplete]
 })
 export class AutoCompleteModule {}
+
