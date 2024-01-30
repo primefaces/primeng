@@ -1221,8 +1221,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
-        this.focusedOptionIndex.set(focusedOptionIndex);
+        const currentFocusedIndex = this.focusedOptionIndex();
+
+        if (currentFocusedIndex !== -1 || this.autoOptionFocus) {
+            const newFocusedIndex = this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+
+            this.focusedOptionIndex.set(newFocusedIndex);
+        }
 
         if (isFocus) {
             DomHandler.focus(this.focusInputViewChild?.nativeElement);
@@ -1759,3 +1764,4 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     declarations: [Dropdown, DropdownItem]
 })
 export class DropdownModule {}
+
