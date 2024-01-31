@@ -170,7 +170,7 @@ import {
                             [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event, item, selectedItemsSource, onSourceSelect, idSource + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
-                            (dblclick)="onSourceItemDblClick()"
+                            (dblclick)="onSourceItemDblClick($event, item, selectedItemsSource, onSourceSelect, idSource + '_' + i)"
                             (touchend)="onItemTouchEnd()"
                             *ngIf="isItemVisible(item, SOURCE_LIST)"
                             role="option"
@@ -278,7 +278,7 @@ import {
                             [cdkDragDisabled]="!dragdrop"
                             (click)="onItemClick($event, item, selectedItemsTarget, onTargetSelect, idTarget + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
-                            (dblclick)="onTargetItemDblClick()"
+                            (dblclick)="onTargetItemDblClick($event, item, selectedItemsTarget, onTargetSelect, idTarget + '_' + i)"
                             (touchend)="onItemTouchEnd()"
                             *ngIf="isItemVisible(item, TARGET_LIST)"
                             role="option"
@@ -951,19 +951,19 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.focusedOptionIndex = index;
     }
 
-    onSourceItemDblClick() {
+    onSourceItemDblClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>, itemId?: string) {
         if (this.disabled) {
             return;
         }
-
+        this.onItemClick(event, item, selectedItems, callback, itemId);
         this.moveRight();
     }
 
-    onTargetItemDblClick() {
+    onTargetItemDblClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>, itemId?: string) {
         if (this.disabled) {
             return;
         }
-
+        this.onItemClick(event, item, selectedItems, callback, itemId);
         this.moveLeft();
     }
 
