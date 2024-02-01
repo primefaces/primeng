@@ -3183,7 +3183,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i - (1 + this.dt._first)];
+        let nextRowData = value[i + (1 + this.dt._first)];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
