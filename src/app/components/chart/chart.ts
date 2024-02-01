@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone, booleanAttribute } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 /**
@@ -43,7 +43,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Whether the chart is redrawn on screen size change.
      * @group Props
      */
-    @Input() responsive: boolean = true;
+    @Input({ transform: booleanAttribute }) responsive: boolean = true;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props

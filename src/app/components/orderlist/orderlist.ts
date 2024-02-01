@@ -18,7 +18,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -197,7 +198,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * A boolean value that indicates whether the component should be responsive.
      * @group Props
      */
-    @Input() responsive: boolean | undefined;
+    @Input({ transform: booleanAttribute }) responsive: boolean | undefined;
 
     /**
      * When specified displays an input field to filter the items on keyup and decides which fields to search against.
@@ -221,13 +222,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
 
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input() dragdrop: boolean = false;
+    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
 
     /**
      * Defines the location of the buttons with respect to the list.
@@ -257,13 +258,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Whether to displays rows with alternating colors.
      * @group Props
      */
-    @Input() stripedRows: boolean | undefined;
+    @Input({ transform: booleanAttribute }) stripedRows: boolean | undefined;
 
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
 
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.

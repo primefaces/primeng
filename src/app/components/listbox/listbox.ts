@@ -19,7 +19,8 @@ import {
     OnDestroy,
     computed,
     signal,
-    Renderer2
+    Renderer2,
+    booleanAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig, ScrollerOptions } from 'primeng/api';
@@ -272,22 +273,22 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean | undefined = true;
     /**
      * When enabled, the focused option is selected.
      * @group Props
      */
-    @Input() selectOnFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean | undefined;
     /**
      * Locale to use in searching. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() searchLocale: boolean | undefined;
+    @Input({ transform: booleanAttribute }) searchLocale: boolean | undefined;
     /**
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input() focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
      * Text to display when filtering.
      * @group Props
@@ -302,12 +303,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
@@ -332,7 +333,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Inline style of the container.
      * @group Props
@@ -357,22 +358,22 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * When present, it specifies that the element value cannot be changed.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When specified, allows selecting items with checkboxes.
      * @group Props
      */
-    @Input() checkbox: boolean = false;
+    @Input({ transform: booleanAttribute }) checkbox: boolean = false;
     /**
      * When specified, displays a filter input at header.
      * @group Props
      */
-    @Input() filter: boolean = false;
+    @Input({ transform: booleanAttribute }) filter: boolean = false;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
@@ -392,7 +393,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -402,7 +403,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether header checkbox is shown in multiple mode.
      * @group Props
      */
-    @Input() showToggleAll: boolean = true;
+    @Input({ transform: booleanAttribute }) showToggleAll: boolean = true;
     /**
      * Name of the label field of an option.
      * @group Props
@@ -452,7 +453,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined;
+    @Input({ transform: booleanAttribute }) group: boolean | undefined;
     /**
      * An array of selectitems to display as the available options.
      * @group Props

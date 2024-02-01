@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -101,7 +101,7 @@ export class Steps implements OnInit, OnDestroy {
      * Whether the items are clickable or not.
      * @group Props
      */
-    @Input() readonly: boolean = true;
+    @Input({ transform: booleanAttribute }) readonly: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -116,7 +116,7 @@ export class Steps implements OnInit, OnDestroy {
      * Whether to apply 'router-link-active-exact' class if route exactly matches the item path.
      * @group Props
      */
-    @Input() exact: boolean = true;
+    @Input({ transform: booleanAttribute }) exact: boolean = true;
     /**
      * Callback to invoke when the new step is selected.
      * @param {number} number - current index.

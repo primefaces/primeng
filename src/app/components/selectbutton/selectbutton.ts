@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -83,7 +83,7 @@ export class SelectButton implements ControlValueAccessor {
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input() unselectable: boolean = false;
+    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -93,12 +93,12 @@ export class SelectButton implements ControlValueAccessor {
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Whether selection can not be cleared.
      * @group Props
      */
-    @Input() allowEmpty: boolean = true;
+    @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -118,7 +118,7 @@ export class SelectButton implements ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props

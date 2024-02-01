@@ -1,5 +1,23 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { TimesIcon } from 'primeng/icons/times';
@@ -124,7 +142,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Name of the property to display on a chip.
      * @group Props
@@ -164,12 +182,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Whether to allow duplicate values or not.
      * @group Props
      */
-    @Input() allowDuplicate: boolean = true;
+    @Input({ transform: booleanAttribute }) allowDuplicate: boolean = true;
     /**
      * Defines whether duplication check should be case-sensitive
      * @group Props
      */
-    @Input() caseSensitiveDuplication: boolean = true;
+    @Input({ transform: booleanAttribute }) caseSensitiveDuplication: boolean = true;
     /**
      * Inline style of the input field.
      * @group Props
@@ -184,12 +202,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Whether to add an item on tab key press.
      * @group Props
      */
-    @Input() addOnTab: boolean | undefined;
+    @Input({ transform: booleanAttribute }) addOnTab: boolean | undefined;
     /**
      * Whether to add an item when the input loses focus.
      * @group Props
      */
-    @Input() addOnBlur: boolean | undefined;
+    @Input({ transform: booleanAttribute }) addOnBlur: boolean | undefined;
     /**
      * Separator char to add an item when pressed in addition to the enter key.
      * @group Props
@@ -199,7 +217,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Callback to invoke on chip add.
      * @param {ChipsAddEvent} event - Custom chip add event.

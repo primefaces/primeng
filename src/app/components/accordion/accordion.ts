@@ -17,6 +17,7 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
+    booleanAttribute,
     forwardRef
 } from '@angular/core';
 import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -158,12 +159,12 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      * Whether the tab is disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      * @group Props
      */
-    @Input() cache: boolean = true;
+    @Input({ transform: booleanAttribute }) cache: boolean = true;
     /**
      * Transition options of the animation.
      * @group Props
@@ -349,7 +350,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      * When enabled, multiple tabs can be activated at the same time.
      * @group Props
      */
-    @Input() multiple: boolean = false;
+    @Input({ transform: booleanAttribute }) multiple: boolean = false;
     /**
      * Inline style of the tab header and content.
      * @group Props
@@ -390,7 +391,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
      * When enabled, the focused tab is activated.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * The aria-level that each accordion header will have. The default value is 2 as per W3C specifications
      * @group Props

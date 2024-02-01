@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -116,7 +116,7 @@ export class Panel implements AfterContentInit, BlockableUI {
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
      */
-    @Input() toggleable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
     /**
      * Header text of the panel.
      * @group Props
@@ -126,7 +126,7 @@ export class Panel implements AfterContentInit, BlockableUI {
      * Defines the initial state of panel content, supports one or two-way binding as well.
      * @group Props
      */
-    @Input() collapsed: boolean | undefined;
+    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -159,7 +159,7 @@ export class Panel implements AfterContentInit, BlockableUI {
      * @group Props
      * @deprecated since v15.4.2, use `headericons` template instead.
      */
-    @Input() showHeader: boolean = true;
+    @Input({ transform: booleanAttribute }) showHeader: boolean = true;
     /**
      * Specifies the toggler element to toggle the panel content.
      * @group Props

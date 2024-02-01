@@ -20,7 +20,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
@@ -245,7 +246,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
@@ -284,12 +285,12 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * It does not add the new message if there is already a toast displayed with the same content
      * @group Props
      */
-    @Input() preventOpenDuplicates: boolean = false;
+    @Input({ transform: booleanAttribute }) preventOpenDuplicates: boolean = false;
     /**
      * Displays only once a message with the same content.
      * @group Props
      */
-    @Input() preventDuplicates: boolean = false;
+    @Input({ transform: booleanAttribute }) preventDuplicates: boolean = false;
     /**
      * Transform options of the show animation.
      * @group Props

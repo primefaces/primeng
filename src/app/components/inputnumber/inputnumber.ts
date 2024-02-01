@@ -19,6 +19,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
@@ -209,12 +210,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Displays spinner buttons.
      * @group Props
      */
-    @Input() showButtons: boolean = false;
+    @Input({ transform: booleanAttribute }) showButtons: boolean = false;
     /**
      * Whether to format the value.
      * @group Props
      */
-    @Input() format: boolean = true;
+    @Input({ transform: booleanAttribute }) format: boolean = true;
     /**
      * Layout of the buttons, valid values are "stacked" (default), "horizontal" and "vertical".
      * @group Props
@@ -274,7 +275,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
      */
-    @Input() ariaRequired: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ariaRequired: boolean | undefined;
     /**
      * Name of the input field.
      * @group Props
@@ -284,7 +285,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Indicates that whether the input field is required.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -324,7 +325,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean = false;
+    @Input({ transform: booleanAttribute }) readonly: boolean = false;
     /**
      * Step factor to increment/decrement the value.
      * @group Props
@@ -334,7 +335,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Determines whether the input field is empty.
      * @group Props
      */
-    @Input() allowEmpty: boolean = true;
+    @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
      * Locale to be used in formatting.
      * @group Props
@@ -364,7 +365,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators.
      * @group Props
      */
-    @Input() useGrouping: boolean = true;
+    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
     /**
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
@@ -399,7 +400,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props

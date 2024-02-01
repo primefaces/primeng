@@ -24,7 +24,8 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -101,7 +102,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display the component on fullscreen.
      * @group Props
      */
-    @Input() fullScreen: boolean = false;
+    @Input({ transform: booleanAttribute }) fullScreen: boolean = false;
     /**
      * Unique identifier of the element.
      * @group Props
@@ -127,37 +128,37 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display navigation buttons in item section.
      * @group Props
      */
-    @Input() showItemNavigators: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigators: boolean = false;
     /**
      * Whether to display navigation buttons in thumbnail container.
      * @group Props
      */
-    @Input() showThumbnailNavigators: boolean = true;
+    @Input({ transform: booleanAttribute }) showThumbnailNavigators: boolean = true;
     /**
      * Whether to display navigation buttons on item hover.
      * @group Props
      */
-    @Input() showItemNavigatorsOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigatorsOnHover: boolean = false;
     /**
      * When enabled, item is changed on indicator hover.
      * @group Props
      */
-    @Input() changeItemOnIndicatorHover: boolean = false;
+    @Input({ transform: booleanAttribute }) changeItemOnIndicatorHover: boolean = false;
     /**
      * Defines if scrolling would be infinite.
      * @group Props
      */
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
     /**
      * Items are displayed with a slideshow in autoPlay mode.
      * @group Props
      */
-    @Input() autoPlay: boolean = false;
+    @Input({ transform: booleanAttribute }) autoPlay: boolean = false;
     /**
      * When enabled, autorun should stop by click.
      * @group Props
      */
-    @Input() shouldStopAutoplayByClick: boolean = true;
+    @Input({ transform: booleanAttribute }) shouldStopAutoplayByClick: boolean = true;
     /**
      * Time in milliseconds to scroll items.
      * @group Props
@@ -167,7 +168,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display thumbnail container.
      * @group Props
      */
-    @Input() showThumbnails: boolean = true;
+    @Input({ transform: booleanAttribute }) showThumbnails: boolean = true;
     /**
      * Position of thumbnails.
      * @group Props
@@ -182,12 +183,12 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display indicator container.
      * @group Props
      */
-    @Input() showIndicators: boolean = false;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = false;
     /**
      * When enabled, indicator container is displayed on item container.
      * @group Props
      */
-    @Input() showIndicatorsOnItem: boolean = false;
+    @Input({ transform: booleanAttribute }) showIndicatorsOnItem: boolean = false;
     /**
      * Position of indicators.
      * @group Props
@@ -697,19 +698,19 @@ export class GalleriaItemSlot {
 export class GalleriaItem implements OnChanges {
     @Input() id: string | undefined;
 
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
 
     @Input() value: any[] | undefined;
 
-    @Input() showItemNavigators: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigators: boolean = false;
 
-    @Input() showIndicators: boolean = true;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = true;
 
-    @Input() slideShowActive: boolean = true;
+    @Input({ transform: booleanAttribute }) slideShowActive: boolean = true;
 
-    @Input() changeItemOnIndicatorHover: boolean = true;
+    @Input({ transform: booleanAttribute }) changeItemOnIndicatorHover: boolean = true;
 
-    @Input() autoPlay: boolean = false;
+    @Input({ transform: booleanAttribute }) autoPlay: boolean = false;
 
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
@@ -917,11 +918,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     @Input() value: any[] | undefined;
 
-    @Input() isVertical: boolean = false;
+    @Input({ transform: booleanAttribute }) isVertical: boolean = false;
 
-    @Input() slideShowActive: boolean = false;
+    @Input({ transform: booleanAttribute }) slideShowActive: boolean = false;
 
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
 
     @Input() responsiveOptions: GalleriaResponsiveOptions[] | undefined;
 

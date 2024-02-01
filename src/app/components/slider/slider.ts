@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -118,12 +118,12 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
-    @Input() animate: boolean | undefined;
+    @Input({ transform: booleanAttribute }) animate: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Mininum boundary value.
      * @group Props
@@ -148,7 +148,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * When specified, allows two boundary values to be picked.
      * @group Props
      */
-    @Input() range: boolean | undefined;
+    @Input({ transform: booleanAttribute }) range: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props

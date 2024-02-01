@@ -20,6 +20,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     effect,
     signal
 } from '@angular/core';
@@ -210,15 +211,15 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() root: boolean = false;
+    @Input({ transform: booleanAttribute }) root: boolean = false;
 
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
     @Input() baseZIndex: number = 0;
 
-    @Input() mobileActive: boolean | undefined;
+    @Input({ transform: booleanAttribute }) mobileActive: boolean | undefined;
 
-    @Input() autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -434,7 +435,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
@@ -445,12 +446,12 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
      */
-    @Input() autoHide: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined;
     /**
      * Delay to hide the root submenu in milliseconds when mouse leaves.
      * @group Props

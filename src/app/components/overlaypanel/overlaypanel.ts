@@ -2,6 +2,7 @@ import { animate, AnimationEvent, state, style, transition, trigger } from '@ang
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -110,12 +111,12 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Enables to hide the overlay when outside is clicked.
      * @group Props
      */
-    @Input() dismissable: boolean = true;
+    @Input({ transform: booleanAttribute }) dismissable: boolean = true;
     /**
      * When enabled, displays a close icon at top right corner.
      * @group Props
      */
-    @Input() showCloseIcon: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCloseIcon: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -135,7 +136,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Aria label of the close icon.
      * @group Props
@@ -150,7 +151,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * When enabled, first button receives focus on show.
      * @group Props
      */
-    @Input() focusOnShow: boolean = true;
+    @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
     /**
      * Transition options of the show animation.
      * @group Props
