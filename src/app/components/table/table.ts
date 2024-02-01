@@ -3028,7 +3028,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     getPaginatorStyleClasses(className?: string) {
-      return [this.paginatorStyleClass, className].filter(c => !!c).join(' ').trim();
+        return [this.paginatorStyleClass, className]
+            .filter((c) => !!c)
+            .join(' ')
+            .trim();
     }
 }
 

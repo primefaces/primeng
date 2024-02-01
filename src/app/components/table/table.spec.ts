@@ -478,30 +478,24 @@ describe('Table', () => {
     });
 
     it('should pass top/botton styleClass to paginators', () => {
-      table.paginator = true;
-      table.paginatorPosition = 'both';
-      fixture.detectChanges();
+        table.paginator = true;
+        table.paginatorPosition = 'both';
+        fixture.detectChanges();
 
-      const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
-      const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
-      expect(paginators).toEqual([
-        jasmine.objectContaining({ styleClass: 'p-paginator-top' }),
-        jasmine.objectContaining({ styleClass: 'p-paginator-bottom' })
-      ]);
+        const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
+        const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
+        expect(paginators).toEqual([jasmine.objectContaining({ styleClass: 'p-paginator-top' }), jasmine.objectContaining({ styleClass: 'p-paginator-bottom' })]);
     });
 
     it('should pass paginatorStyleClass to paginators', () => {
-      table.paginator = true;
-      table.paginatorPosition = 'both';
-      table.paginatorStyleClass = 'p-paginator-custom';
-      fixture.detectChanges();
+        table.paginator = true;
+        table.paginatorPosition = 'both';
+        table.paginatorStyleClass = 'p-paginator-custom';
+        fixture.detectChanges();
 
-      const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
-      const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
-      expect(paginators).toEqual([
-        jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-top' }),
-        jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-bottom' })
-      ]);
+        const basicTableElement = fixture.debugElement.query(By.css('.basicTable'));
+        const paginators = basicTableElement?.queryAll(By.css('p-paginator'))?.map(({ componentInstance }) => componentInstance as Paginator);
+        expect(paginators).toEqual([jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-top' }), jasmine.objectContaining({ styleClass: 'p-paginator-custom p-paginator-bottom' })]);
     });
 
     it('should use custom filter and show 2 items', fakeAsync(() => {

@@ -36,11 +36,11 @@ describe('Paginator', () => {
     });
 
     it('should apply styleClass', () => {
-      fixture.componentRef.setInput('styleClass', 'p-paginator-bottom');
-      fixture.detectChanges();
+        fixture.componentRef.setInput('styleClass', 'p-paginator-bottom');
+        fixture.detectChanges();
 
-      const paginatorElement = fixture.debugElement.query(By.css('.p-paginator'));
-      expect(paginatorElement?.nativeElement).toHaveClass('p-paginator-bottom');
+        const paginatorElement = fixture.debugElement.query(By.css('.p-paginator'));
+        expect(paginatorElement?.nativeElement).toHaveClass('p-paginator-bottom');
     });
 
     it('should use alwaysShow false', () => {

@@ -1581,8 +1581,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     formattedValue += ' ' + this.formatTime(date);
                 }
             }
-        }
-        else if (this.dataType === 'string') {
+        } else if (this.dataType === 'string') {
             formattedValue = date;
         }
 
