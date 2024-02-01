@@ -926,8 +926,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const selectedOptionIndex = this.findSelectedOptionIndex();
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        // because of timining issues with virtual scroll lazy load  PrimeNG demo, keep original logic for virtual scroll
+        if (this.virtualScroll) {
+            const selectedOptionIndex = this.findSelectedOptionIndex();
+            return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
+        }
+        return this.modelValue() ? this.getOptionLabel(this.selectedOption) : this.placeholder || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -940,8 +944,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const visibleOptions = this.visibleOptions();
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
-                this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
-                this.cd.markForCheck();
+                const selectedOptionIndex = this.findSelectedOptionIndex();
+                if (selectedOptionIndex !== -1 || !modelValue || this.editable) {
+                    this.selectedOption = visibleOptions[selectedOptionIndex];
+                    this.cd.markForCheck();
+                }
             }
 
             if (modelValue !== undefined && this.editable) {
