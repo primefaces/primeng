@@ -17,7 +17,8 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    numberAttribute
 } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -91,7 +92,7 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
      * Step factor to scroll the content while pressing the arrow keys.
      * @group Props
      */
-    @Input() step: number = 5;
+    @Input({ transform: numberAttribute }) step: number = 5;
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
 

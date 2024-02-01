@@ -1,4 +1,4 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID, Provider } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID, Provider, booleanAttribute } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
@@ -77,7 +77,7 @@ export class KeyFilter implements Validator {
      * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
      * @group Props
      */
-    @Input() pValidateOnly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pValidateOnly: boolean | undefined;
     /**
      * Sets the pattern for key filtering.
      * @group Props

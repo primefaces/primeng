@@ -16,7 +16,9 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     ViewEncapsulation,
-    OnDestroy
+    OnDestroy,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -125,27 +127,27 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined;
+    @Input({ transform: numberAttribute }) rows: number | undefined;
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() totalRecords: number | undefined;
+    @Input({ transform: numberAttribute }) totalRecords: number | undefined;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input() rowsPerPageOptions: number[] | any[] | undefined;
+    @Input({ transform: numberAttribute }) rowsPerPageOptions: number[] | any[] | undefined;
     /**
      * Position of the paginator.
      * @group Props
@@ -160,7 +162,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -180,32 +182,32 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -230,7 +232,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
     /**
      * Comma separated list of fields in the object graph to search against.
      * @group Props
@@ -245,7 +247,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -255,7 +257,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number | undefined = 0;
+    @Input({ transform: numberAttribute }) first: number | undefined = 0;
     /**
      * Property name of data to use in sorting by default.
      * @group Props
@@ -265,7 +267,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Order to sort the data by default.
      * @group Props
      */
-    @Input() sortOrder: number | undefined;
+    @Input({ transform: numberAttribute }) sortOrder: number | undefined;
     /**
      * An array of objects to display.
      * @group Props

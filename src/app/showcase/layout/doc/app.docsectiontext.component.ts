@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, numberAttribute } from '@angular/core';
 
 @Component({
     selector: 'app-docsectiontext',
@@ -25,7 +25,7 @@ export class AppDocSectionTextComponent {
 
     @Input() id!: string;
 
-    @Input() level!: number;
+    @Input({ transform: numberAttribute }) level!: number;
 
     @Input() label!: string;
 

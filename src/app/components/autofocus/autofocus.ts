@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { Directive, ElementRef, Input, NgModule, booleanAttribute } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 /**
  * AutoFocus manages focus on focusable element on load.
@@ -17,7 +17,7 @@ export class AutoFocus {
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input() autofocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
 
     focused: boolean = false;
 

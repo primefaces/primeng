@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -58,7 +58,7 @@ export class UIMessage {
      * Whether displaying messages would be escaped or not.
      * @group Props
      */
-    @Input() escape: boolean = true;
+    @Input({ transform: booleanAttribute }) escape: boolean = true;
     /**
      * Inline style of the component.
      * @group Props

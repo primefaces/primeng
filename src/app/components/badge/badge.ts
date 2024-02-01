@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
@@ -197,7 +197,7 @@ export class Badge {
      * When specified, disables the component.
      * @group Props
      */
-    @Input() badgeDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) badgeDisabled: boolean = false;
 
     containerClass() {
         return {

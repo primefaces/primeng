@@ -1,7 +1,7 @@
 import { DomHandler } from 'primeng/dom';
 
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, booleanAttribute } from '@angular/core';
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
  * @group Components
@@ -17,7 +17,7 @@ export class FocusTrap {
      * When set as true, focus wouldn't be managed.
      * @group Props
      */
-    @Input() pFocusTrapDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) pFocusTrapDisabled: boolean = false;
 
     constructor(public el: ElementRef) {}
 
