@@ -146,7 +146,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -162,7 +161,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-top')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -265,7 +264,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -281,7 +279,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-bottom')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -3027,6 +3025,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+    }
+
+    getPaginatorStyleClasses(className?: string) {
+      return [this.paginatorStyleClass, className].filter(c => !!c).join(' ').trim();
     }
 }
 
