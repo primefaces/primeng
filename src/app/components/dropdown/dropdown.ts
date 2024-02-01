@@ -848,6 +848,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     listId: Nullable<string>;
 
+    clicked = signal<boolean>(false);
+
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -1199,6 +1201,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
         this.onClick.emit(event);
+        this.clicked.set(true);
         this.cd.detectChanges();
     }
 
@@ -1226,7 +1229,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.editable ? -1 : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
@@ -1279,6 +1282,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public hide(isFocus?) {
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
+        this.clicked.set(false);
+        this.searchValue = '';
 
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
@@ -1396,6 +1401,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 break;
         }
+
+        this.clicked.set(false);
     }
 
     onFilterKeyDown(event) {
@@ -1443,10 +1450,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onArrowDownKey(event: KeyboardEvent) {
-        const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
-        this.changeFocusedOptionIndex(event, optionIndex);
+        if (!this.overlayVisible) {
+            this.show();
+            this.editable && this.changeFocusedOptionIndex(event, this.findSelectedOptionIndex());
+        } else {
+            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findFirstOptionIndex() : this.findFirstFocusedOptionIndex();
 
-        !this.overlayVisible && this.show();
+            this.changeFocusedOptionIndex(event, optionIndex);
+        }
+        // const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
+        // this.changeFocusedOptionIndex(event, optionIndex);
+
+        // !this.overlayVisible && this.show();
         event.preventDefault();
     }
 
@@ -1554,7 +1569,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.overlayVisible && this.hide();
             event.preventDefault();
         } else {
-            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.findLastFocusedOptionIndex();
+            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
@@ -1629,6 +1644,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onEnterKey(event) {
         if (!this.overlayVisible) {
+            this.focusedOptionIndex.set(-1);
             this.onArrowDownKey(event);
         } else {
             if (this.focusedOptionIndex() !== -1) {
