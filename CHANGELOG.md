@@ -1,4 +1,28 @@
 # Changelog
+## [17.5.0](https://github.com/primefaces/primeng/tree/17.5.0) (2024-02-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.4.0...17.5.0)
+
+**Implemented New Features and Enhancements:**
+- AutoComplete | Description in the accessibility section for tab not working [\#14641](https://github.com/primefaces/primeng/issues/14641)
+
+**Fixed bugs:**
+- Component: InputNumber does not validate max on blur [\#14630](https://github.com/primefaces/primeng/issues/14630)
+- p-dropdown: Filtering all items incorrectly clears the dropdown's selected value [\#14596](https://github.com/primefaces/primeng/issues/14596)
+- Component: Dropdown [\#14367](https://github.com/primefaces/primeng/issues/14367)
+- paginator missing p-paginator-top/bottom class [\#14679](https://github.com/primefaces/primeng/issues/14679)
+- Component: Placeholder not working in dropdown Reactive Forms and Template [\#14679](https://github.com/primefaces/primeng/issues/14679)
+- TabView with scrollable throws an exception [\#13332](https://github.com/primefaces/primeng/issues/13332)
+- Component: TreeTable, dragging over table cells [\#14512](https://github.com/primefaces/primeng/issues/14512)
+- p-calendar: validation is triggered before calendar is even touched [\#14542](https://github.com/primefaces/primeng/issues/14542)
+- Referencing closed thread -> Responsive Stack and add [scrollable]="true" not working responsive stack #11331 [\#14667](https://github.com/primefaces/primeng/issues/14667)
+- Table: built-in Ctrl+A errors when "rows" parameter is defined [\#14634](https://github.com/primefaces/primeng/issues/14634)
+- p-autocomplete: maxlength doesn't work anymore [\#14595](https://github.com/primefaces/primeng/issues/14595)
+- Dropdown: autoOptionFocus property not working [\#14655](https://github.com/primefaces/primeng/issues/14655)
+- Dropdown: Unable to type in editable Dropdowns when filtering options onChange and current value is an option [\#14556](https://github.com/primefaces/primeng/issues/14556)
+- p-MultiSelect: Clear Button does not work [\#14585](https://github.com/primefaces/primeng/issues/14585)
+- Calendar: Calendar CSS breaks other Components [\#14606](https://github.com/primefaces/primeng/issues/14606)
+
 ## [17.4.0](https://github.com/primefaces/primeng/tree/17.4.0) (2024-01-24)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.3.3...17.4.0)
