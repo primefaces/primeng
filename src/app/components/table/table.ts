@@ -3578,7 +3578,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
             default:
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
-                    const data = this.dt.dataToRender(this.dt.rows);
+                    const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
 
