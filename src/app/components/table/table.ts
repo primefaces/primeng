@@ -4947,7 +4947,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-label]="showMenuButtonLabel"
+                [attr.aria-label]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -5279,7 +5279,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get filterMenuButtonAriaLabel() {
-        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
     get removeRuleButtonAriaLabel() {
