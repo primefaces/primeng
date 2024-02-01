@@ -797,7 +797,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     updateScrollBar(index: number) {
         let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
-        tabHeader.scrollIntoView({ block: 'nearest' });
+
+        if (tabHeader) {
+            tabHeader.scrollIntoView({ block: 'nearest' });
+        }
     }
 
     updateButtonState() {
