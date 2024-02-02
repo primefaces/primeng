@@ -1781,8 +1781,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public focus(): void {
         this.applyFocus();
     }
-
-    clear(event: Event) {
+    /**
+     * Clears the model.
+     * @group Method
+     */
+    public clear(event?: Event) {
         this.updateModel(null, event);
         this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });
