@@ -958,7 +958,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const visibleOptions = this.visibleOptions();
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
-                const selectedOptionIndex = this.findSelectedOptionIndex();
+                const selectedOptionIndex = this.findSelectedOptionIndex(true);
                 if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                     this.cd.markForCheck();
@@ -1125,8 +1125,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.autoDisplayFirst && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
     }
 
-    isSelected(option) {
-        return this.isValidOption(option) && ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+    isSelected(option, includeDisabledOption = false) {
+        return this.isValidOption(option, includeDisabledOption) && ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
@@ -1523,8 +1523,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.modelValue() !== undefined;
     }
 
-    isValidSelectedOption(option) {
-        return this.isValidOption(option) && this.isSelected(option);
+    isValidSelectedOption(option, includeDisabledOption = false) {
+        return this.isValidOption(option, includeDisabledOption) && this.isSelected(option, includeDisabledOption);
     }
 
     equalityKey() {
@@ -1540,8 +1540,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.visibleOptions().findIndex((option) => this.isValidOption(option));
     }
 
-    findSelectedOptionIndex() {
-        return this.hasSelectedOption() ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option)) : -1;
+    findSelectedOptionIndex(includeDisabledOptions = false) {
+        return this.hasSelectedOption() ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option, includeDisabledOptions)) : -1;
     }
 
     findNextOptionIndex(index) {
@@ -1570,8 +1570,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return selectedIndex < 0 ? this.findLastOptionIndex() : selectedIndex;
     }
 
-    isValidOption(option) {
-        return option !== undefined && option !== null && !(this.isOptionDisabled(option) || this.isOptionGroup(option));
+    isValidOption(option, includeDisabledOption = false) {
+        return option !== undefined && option !== null && !((!includeDisabledOption && this.isOptionDisabled(option)) || this.isOptionGroup(option));
     }
 
     isOptionGroup(option) {
@@ -1774,7 +1774,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFilterInputChange(event: Event | any): void {
-        let value: string = (event.target as HTMLInputElement).value
+        let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
