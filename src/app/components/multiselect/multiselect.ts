@@ -517,7 +517,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
      * @group Props
      */
-    @Input() selectedItemsLabel: string = '{0} items selected';
+    @Input() selectedItemsLabel: string | undefined;
     /**
      * Whether to show the checkbox at header to toggle all items at once.
      * @group Props
