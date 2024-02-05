@@ -3,6 +3,7 @@ export * from './confirmaeventtype';
 export * from './confirmation';
 export * from './confirmationservice';
 export * from './contextmenuservice';
+export * from './countryservice';
 export * from './filtermatchmode';
 export * from './filtermetadata';
 export * from './filteroperator';
