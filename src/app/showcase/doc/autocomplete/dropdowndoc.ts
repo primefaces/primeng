@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
 import { PlatformService } from '../../service/platformservice';
+import { CountryService } from 'primeng/api';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

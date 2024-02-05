@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
+import { CountryService } from 'primeng/api';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
