@@ -7,7 +7,7 @@
 
     &.custombar1 {
         .p-scrollpanel-wrapper {
-            border-right: 10px solid var(--surface-ground);
+            border-inline-end: 10px solid var(--surface-ground);
         }
 
         .p-scrollpanel-bar {
@@ -23,8 +23,8 @@
 
     &.custombar2 {
         .p-scrollpanel-wrapper {
-            border-right: 9px solid var(--layer-1);
-            border-bottom: 9px solid var(--layer-1);
+            border-inline-end: 9px solid var(--layer-1);
+            border-block-end: 9px solid var(--layer-1);
         }
 
         .p-scrollpanel-bar {

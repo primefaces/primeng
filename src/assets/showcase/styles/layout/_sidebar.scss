@@ -1,6 +1,6 @@
 .layout-sidebar {
     position: sticky;
-    left: 0;
+    inset-inline-start: 0;
     top: 6rem;
     height: calc(100vh - 9rem);
     user-select: none;
@@ -9,7 +9,7 @@
     flex-direction: column;
     padding: 0 0 0 0;
     flex: 0 0 250px;
-    margin-right: 4rem;
+    margin-inline-end: 4rem;
     overflow: auto;
 
     .logo {
@@ -29,7 +29,7 @@
         padding: 0;
 
         > li {
-            margin-bottom: .25rem;
+            margin-block-end: .25rem;
             
             > button, 
             > a {
@@ -46,7 +46,7 @@
                     width: 2rem;
                     height: 2rem;
                     border-radius: var(--border-radius);
-                    margin-right: .5rem;
+                    margin-inline-end: .5rem;
                     border: 1px solid var(--surface-border);
                     display: inline-flex;
                     align-items: center;
@@ -61,7 +61,7 @@
     
                 .menu-toggle-icon {
                     color: var(--surface-700);
-                    margin-left: auto;
+                    margin-inline-start: auto;
                 }
 
                 &:hover {
@@ -98,7 +98,7 @@
                     li {
                         a {
                             color: var(--surface-700);
-                            border-left: 1px solid var(--surface-border);
+                            border-inline-start: 1px solid var(--surface-border);
                             transition: all .2s;
                             font-weight: 450;
                             display: flex;
@@ -130,11 +130,11 @@
 
 
                         &:has(.menu-child-category) {
-                            margin-top: 1rem;
+                            margin-block-start: 1rem;
                         }
 
                         &:has(.menu-child-category):first-child {
-                            margin-top: 0rem;
+                            margin-block-start: 0rem;
                         }
                     }
                 }
@@ -148,7 +148,7 @@
             font-weight: 600;
             letter-spacing: 1px;
             color: var(--surface-900);
-            margin-bottom: .25rem;
+            margin-block-end: .25rem;
         }
     }
 }

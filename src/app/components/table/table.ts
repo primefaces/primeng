@@ -2487,7 +2487,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.insetInlineStart = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
@@ -2561,12 +2561,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
                 if (event.pageX > columnCenter) {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = 1;
                 } else {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
                 (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.display = 'block';
@@ -2989,9 +2989,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         #${this.id}.p-datatable-gridlines > .p-datatable-wrapper > .p-datatable-table > .p-datatable-tbody > tr > td:last-child {
-            border-top: 0;
-            border-right: 0;
-            border-left: 0;
+            border-block-start: 0;
+            border-inline-end: 0;
+            border-inline-start: 0;
         }
 
         #${this.id}-table > .p-datatable-tbody > tr > td > .p-column-title {
@@ -3312,9 +3312,9 @@ export class FrozenColumn implements AfterViewInit {
                 let left = 0;
                 let prev = this.el.nativeElement.previousElementSibling;
                 if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.insetInlineStart) || 0);
                 }
-                this.el.nativeElement.style.left = left + 'px';
+                this.el.nativeElement.style.insetInlineStart = left + 'px';
             }
 
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
@@ -3322,7 +3322,7 @@ export class FrozenColumn implements AfterViewInit {
             if (filterRow) {
                 let index = DomHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
-                    filterRow.children[index].style.left = this.el.nativeElement.style.left;
+                    filterRow.children[index].style.insetInlineStart = this.el.nativeElement.style.insetInlineStart;
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
                 }
             }

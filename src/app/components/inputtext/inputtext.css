@@ -43,15 +43,15 @@
     .p-float-label label {
         position: absolute;
         pointer-events: none;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         transition-property: all;
         transition-timing-function: ease;
         line-height: 1;
     }
 
     .p-float-label textarea ~ label {
-        top: 1rem;
+        inset-block-start: 1rem;
     }
 
     .p-float-label input:focus ~ label,
@@ -60,12 +60,12 @@
     .p-float-label textarea.p-filled ~ label,
     .p-float-label .p-inputwrapper-focus ~ label,
     .p-float-label .p-inputwrapper-filled ~ label {
-        top: -0.75rem;
+        inset-block-start: -0.75rem;
         font-size: 12px;
     }
 
     .p-float-label .input:-webkit-autofill ~ label {
-        top: -20px;
+        inset-block-start: -20px;
         font-size: 12px;
     }
 
@@ -95,8 +95,8 @@
     .p-input-icon-right > i,
     .p-input-icon-right > .p-icon-wrapper {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-fluid .p-input-icon-left,

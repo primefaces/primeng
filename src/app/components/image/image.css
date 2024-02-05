@@ -13,8 +13,8 @@
 
     .p-image-preview-indicator {
         position: absolute;
-        left: 0;
-        top: 0;
+        inset-inline-start: 0;
+        inset-block-start: 0;
         width: 100%;
         height: 100%;
         outline: none;
@@ -46,8 +46,8 @@
 
     .p-image-toolbar {
         position: absolute;
-        top: 0;
-        right: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
         display: flex;
         z-index: 1;
     }

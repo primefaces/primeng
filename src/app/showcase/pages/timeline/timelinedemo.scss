@@ -23,7 +23,7 @@
                 flex-direction: row !important;
                 
                 .p-timeline-event-content {
-                    text-align: left !important;
+                    text-align: start  !important;
                 }
             }
 
@@ -32,7 +32,7 @@
             }
 
             .p-card {
-                margin-top: 1rem;
+                margin-block-start: 1rem;
             }
         }
     }

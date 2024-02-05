@@ -57,8 +57,8 @@
 
     .p-treeselect-filter-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-treeselect-filter-container .p-inputtext {
@@ -72,13 +72,13 @@
         flex-shrink: 0;
         overflow: hidden;
         position: relative;
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-treeselect-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-fluid .p-treeselect {
@@ -87,8 +87,8 @@
 
     .p-treeselect-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         cursor: pointer;
     }
 

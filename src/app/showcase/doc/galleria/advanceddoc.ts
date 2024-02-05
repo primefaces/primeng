@@ -386,7 +386,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
                     margin: .2rem 0;
     
                     &.fullscreen-button {
-                        margin-left: auto;
+                        margin-inline-start: auto;
                     }
     
                     &:hover {
@@ -398,7 +398,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
             .title-container {
                 > span {
                     font-size: .9rem;
-                    padding-left: .829rem;
+                    padding-inline-start: .829rem;
     
                     &.title {
                         font-weight: bold;

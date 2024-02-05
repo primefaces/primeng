@@ -1,8 +1,8 @@
 @layer primeng {
     .p-tieredmenu-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-tieredmenu ul {
@@ -36,20 +36,20 @@
     }
 
     .p-tieredmenu .p-menuitem-link .p-submenu-icon:not(svg) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-tieredmenu .p-menuitem-link .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list {
         display: block;
-        left: 100%;
-        top: 0;
+        inset-inline-start: 100%;
+        inset-block-start: 0;
     }
 
     .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list.p-submenu-list-flipped {
-        left: -100%;
+        inset-inline-start: -100%;
     }
 }

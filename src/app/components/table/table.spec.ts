@@ -39,13 +39,13 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
             </ng-template>
             <ng-template pTemplate="summary">
-                <div style="text-align: left">Always Bet On Prime!</div>
+                <div style="text-align: start ">Always Bet On Prime!</div>
             </ng-template>
         </p-table>
 
         <p-table class="filterTable" #dt [columns]="cols" [value]="cars">
             <ng-template pTemplate="caption">
-                <div style="text-align: right">
+                <div style="text-align: end">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                     <input type="text" class="globalFilter" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
                 </div>

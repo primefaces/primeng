@@ -8,8 +8,8 @@
 
     .p-dropdown-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-dropdown-trigger {
@@ -74,8 +74,8 @@
 
     .p-dropdown-filter-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-fluid .p-dropdown {

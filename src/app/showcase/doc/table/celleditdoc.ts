@@ -228,8 +228,8 @@ export class TableCellEditDemo implements OnInit {
 ...`,
         scss: `
 :host ::ng-deep .p-cell-editing {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
+    padding-block-start: 0 !important;
+    padding-block-end: 0 !important;
 }`,
         service: ['ProductService']
     };

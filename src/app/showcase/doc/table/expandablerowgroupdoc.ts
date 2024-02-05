@@ -31,7 +31,7 @@ import { CustomerService } from '../../service/customerservice';
                     </ng-template>
                     <ng-template pTemplate="groupfooter" let-customer>
                         <tr class="p-rowgroup-footer">
-                            <td colspan="4" style="text-align: right">Total Customers</td>
+                            <td colspan="4" style="text-align: end">Total Customers</td>
                             <td>{{ calculateCustomerTotal(customer.representative.name) }}</td>
                         </tr>
                     </ng-template>
@@ -128,7 +128,7 @@ export class ExpandableRowGroupDoc {
     </ng-template>
     <ng-template pTemplate="groupfooter" let-customer>
         <tr class="p-rowgroup-footer">
-            <td colspan="4" style="text-align: right">Total Customers</td>
+            <td colspan="4" style="text-align: end">Total Customers</td>
             <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
         </tr>
     </ng-template>
@@ -176,7 +176,7 @@ export class ExpandableRowGroupDoc {
         </ng-template>
         <ng-template pTemplate="groupfooter" let-customer>
             <tr class="p-rowgroup-footer">
-                <td colspan="4" style="text-align: right">Total Customers</td>
+                <td colspan="4" style="text-align: end">Total Customers</td>
                 <td>{{calculateCustomerTotal(customer.representative.name)}}</td>
             </tr>
         </ng-template>
@@ -268,7 +268,7 @@ export class TableExpandableRowGroupDemo implements OnInit{
 
     .p-row-toggler {
         vertical-align: middle;
-        margin-right: .25rem;
+        margin-inline-end: .25rem;
     }
 }`,
         data: `{

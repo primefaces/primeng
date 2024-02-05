@@ -1,14 +1,14 @@
 @layer primeng {
     .p-overlaypanel {
         position: absolute;
-        margin-top: 10px;
-        top: 0;
-        left: 0;
+        margin-block-start: 10px;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-overlaypanel-flipped {
-        margin-top: 0;
-        margin-bottom: 10px;
+        margin-block-start: 0;
+        margin-block-end: 10px;
     }
 
     .p-overlaypanel-close {
@@ -21,8 +21,8 @@
 
     .p-overlaypanel:after,
     .p-overlaypanel:before {
-        bottom: 100%;
-        left: calc(var(--overlayArrowLeft, 0) + 1.25rem);
+        inset-block-end: 100%;
+        inset-inline-start: calc(var(--overlayArrowLeft, 0) + 1.25rem);
         content: ' ';
         height: 0;
         width: 0;
@@ -32,25 +32,25 @@
 
     .p-overlaypanel:after {
         border-width: 8px;
-        margin-left: -8px;
+        margin-inline-start: -8px;
     }
 
     .p-overlaypanel:before {
         border-width: 10px;
-        margin-left: -10px;
+        margin-inline-start: -10px;
     }
 
     .p-overlaypanel-shifted:after,
     .p-overlaypanel-shifted:before {
-        left: auto;
-        right: 1.25em;
-        margin-left: auto;
+        inset-inline-start: auto;
+        inset-inline-end: 1.25em;
+        margin-inline-start: auto;
     }
 
     .p-overlaypanel-flipped:after,
     .p-overlaypanel-flipped:before {
-        bottom: auto;
-        top: 100%;
+        inset-block-end: auto;
+        inset-block-start: 100%;
     }
 
     .p-overlaypanel.p-overlaypanel-flipped:after {

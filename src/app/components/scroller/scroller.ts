@@ -831,7 +831,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     getContentPosition() {
         if (this.contentEl) {
             const style = getComputedStyle(this.contentEl);
-            const left = parseFloat(style.paddingLeft) + Math.max(parseFloat(style.left) || 0, 0);
+            const left = parseFloat(style.paddingLeft) + Math.max(parseFloat(style.insetInlineStart) || 0, 0);
             const right = parseFloat(style.paddingRight) + Math.max(parseFloat(style.right) || 0, 0);
             const top = parseFloat(style.paddingTop) + Math.max(parseFloat(style.top) || 0, 0);
             const bottom = parseFloat(style.paddingBottom) + Math.max(parseFloat(style.bottom) || 0, 0);

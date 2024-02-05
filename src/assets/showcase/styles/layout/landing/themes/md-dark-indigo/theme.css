@@ -105,9 +105,9 @@
   background: #1e1e1e;
   font-weight: 500;
   margin: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
+  border-start-end-radius: 4px;
+  border-start-start-radius: 4px;
 }
 .landing-themes .p-datepicker .p-datepicker-header .p-datepicker-prev,
 .landing-themes .p-datepicker .p-datepicker-header .p-datepicker-next {
@@ -144,7 +144,7 @@
   border-color: #9FA8DA;
 }
 .landing-themes .p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-datepicker table {
   font-size: 1rem;
@@ -187,13 +187,13 @@
 }
 .landing-themes .p-datepicker .p-datepicker-buttonbar {
   padding: 1rem 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.12);
 }
 .landing-themes .p-datepicker .p-datepicker-buttonbar .p-button {
   width: auto;
 }
 .landing-themes .p-datepicker .p-timepicker {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.12);
   padding: 0.5rem;
 }
 .landing-themes .p-datepicker .p-timepicker button {
@@ -216,7 +216,7 @@
   box-shadow: none;
 }
 .landing-themes .p-datepicker .p-timepicker button:last-child {
-  margin-top: 0.2em;
+  margin-block-start: 0.2em;
 }
 .landing-themes .p-datepicker .p-timepicker span {
   font-size: 1.25rem;
@@ -225,7 +225,7 @@
   padding: 0 0.5rem;
 }
 .landing-themes .p-datepicker.p-datepicker-timeonly .p-timepicker {
-  border-top: 0 none;
+  border-block-start: 0 none;
 }
 .landing-themes .p-datepicker .p-monthpicker {
   margin: 0.5rem 0;
@@ -240,18 +240,18 @@
   background: rgba(159, 168, 218, 0.16);
 }
 .landing-themes .p-datepicker.p-datepicker-multiple-month .p-datepicker-group {
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
-  padding-right: 0.5rem;
-  padding-left: 0.5rem;
-  padding-top: 0;
-  padding-bottom: 0;
+  border-inline-end: 1px solid rgba(255, 255, 255, 0.12);
+  padding-inline-end: 0.5rem;
+  padding-inline-start: 0.5rem;
+  padding-block-start: 0;
+  padding-block-end: 0;
 }
 .landing-themes .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:first-child {
-  padding-left: 0;
+  padding-inline-start: 0;
 }
 .landing-themes .p-datepicker.p-datepicker-multiple-month .p-datepicker-group:last-child {
-  padding-right: 0;
-  border-right: 0 none;
+  padding-inline-end: 0;
+  border-inline-end: 0 none;
 }
 .landing-themes .p-datepicker:not(.p-disabled) table td span:not(.p-highlight):not(.p-disabled):hover {
   background: rgba(255, 255, 255, 0.04);
@@ -346,7 +346,7 @@
   border-color: #9FA8DA;
 }
 .landing-themes .p-dropdown.p-dropdown-clearable .p-dropdown-label {
-  padding-right: 2rem;
+  padding-inline-end: 2rem;
 }
 .landing-themes .p-dropdown .p-dropdown-label {
   background: transparent;
@@ -363,8 +363,8 @@
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
   width: 2.357rem;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
 }
 .landing-themes .p-dropdown .p-dropdown-clear-icon {
   color: rgba(255, 255, 255, 0.6);
@@ -382,24 +382,24 @@
 }
 .landing-themes .p-dropdown-panel .p-dropdown-header {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.87);
   background: #2b2b2b;
   margin: 0;
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+  border-start-end-radius: 4px;
+  border-start-start-radius: 4px;
 }
 .landing-themes .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
-  padding-right: 2rem;
-  margin-right: -2rem;
+  padding-inline-end: 2rem;
+  margin-inline-end: -2rem;
 }
 .landing-themes .p-dropdown-panel .p-dropdown-header .p-dropdown-filter-icon {
   right: 1rem;
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-dropdown-panel .p-dropdown-header .p-dropdown-clearable-filter .p-dropdown-filter {
-  padding-right: 4rem;
-  margin-right: -4rem;
+  padding-inline-end: 4rem;
+  margin-inline-end: -4rem;
 }
 .landing-themes .p-dropdown-panel .p-dropdown-header .p-dropdown-clearable-filter .p-dropdown-filter-clear-icon {
   right: 3rem;
@@ -497,7 +497,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-input-icon-left > .p-inputtext {
-  padding-left: 3rem;
+  padding-inline-start: 3rem;
 }
 .landing-themes .p-input-icon-left.p-float-label > label {
   left: 3rem;
@@ -509,7 +509,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-input-icon-right > .p-inputtext {
-  padding-right: 3rem;
+  padding-inline-end: 3rem;
 }
 .landing-themes ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.6);
@@ -556,7 +556,7 @@
   border-color: #9FA8DA;
 }
 .landing-themes .p-multiselect.p-multiselect-clearable .p-multiselect-label {
-  padding-right: 2rem;
+  padding-inline-end: 2rem;
 }
 .landing-themes .p-multiselect .p-multiselect-label {
   padding: 1rem 1rem;
@@ -567,20 +567,20 @@
 }
 .landing-themes .p-multiselect.p-multiselect-chip .p-multiselect-token {
   padding: 0.5rem 1rem;
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
   background: rgba(159, 168, 218, 0.16);
   color: #9FA8DA;
   border-radius: 4px;
 }
 .landing-themes .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-multiselect .p-multiselect-trigger {
   background: transparent;
   color: rgba(255, 255, 255, 0.6);
   width: 2.357rem;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
 }
 .landing-themes .p-multiselect .p-multiselect-clear-icon {
   color: rgba(255, 255, 255, 0.6);
@@ -596,7 +596,7 @@
   padding: 1rem 1rem;
 }
 .landing-themes .p-inputwrapper-filled.p-multiselect.p-multiselect-clearable .p-multiselect-label {
-  padding-right: 2rem;
+  padding-inline-end: 2rem;
 }
 .landing-themes .p-multiselect-panel {
   background: #2b2b2b;
@@ -607,18 +607,18 @@
 }
 .landing-themes .p-multiselect-panel .p-multiselect-header {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.87);
   background: #2b2b2b;
   margin: 0;
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+  border-start-end-radius: 4px;
+  border-start-start-radius: 4px;
 }
 .landing-themes .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container {
   margin: 0 0.5rem;
 }
 .landing-themes .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-inputtext {
-  padding-right: 2rem;
+  padding-inline-end: 2rem;
 }
 .landing-themes .p-multiselect-panel .p-multiselect-header .p-multiselect-filter-container .p-multiselect-filter-icon {
   right: 1rem;
@@ -669,7 +669,7 @@
   box-shadow: none;
 }
 .landing-themes .p-multiselect-panel .p-multiselect-items .p-multiselect-item .p-checkbox {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-multiselect-panel .p-multiselect-items .p-multiselect-item-group {
   margin: 0;
@@ -756,15 +756,15 @@
   height: 2px;
 }
 .landing-themes .p-slider.p-slider-horizontal .p-slider-handle {
-  margin-top: -10px;
-  margin-left: -10px;
+  margin-block-start: -10px;
+  margin-inline-start: -10px;
 }
 .landing-themes .p-slider.p-slider-vertical {
   width: 2px;
 }
 .landing-themes .p-slider.p-slider-vertical .p-slider-handle {
-  margin-left: -10px;
-  margin-bottom: -10px;
+  margin-inline-start: -10px;
+  margin-block-end: -10px;
 }
 .landing-themes .p-slider .p-slider-handle {
   height: 20px;
@@ -864,19 +864,19 @@
   box-shadow: none;
 }
 .landing-themes .p-button .p-button-icon-left {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-right {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-bottom {
-  margin-top: 0.5rem;
+  margin-block-start: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-top {
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 .landing-themes .p-button .p-badge {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
@@ -916,16 +916,16 @@
   font-size: 1.25rem;
 }
 .landing-themes .p-button.p-button-loading-label-only.p-button-loading-left .p-button-label {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-button.p-button-loading-label-only.p-button-loading-right .p-button-label {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-button.p-button-loading-label-only.p-button-loading-top .p-button-label {
-  margin-top: 0.5rem;
+  margin-block-start: 0.5rem;
 }
 .landing-themes .p-button.p-button-loading-label-only.p-button-loading-bottom .p-button-label {
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 .landing-themes .p-button.p-button-loading-label-only .p-button-loading-icon {
   margin: 0;
@@ -1278,7 +1278,7 @@
   font-weight: 500;
 }
 .landing-themes .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start ;
   padding: 1rem 1rem;
   border: 1px solid #404040;
   border-width: 0 0 1px 0;
@@ -1288,7 +1288,7 @@
   transition: none;
 }
 .landing-themes .p-datatable .p-datatable-tfoot > tr > td {
-  text-align: left;
+  text-align: start ;
   padding: 1rem 1rem;
   border: 1px solid 3404040;
   border-width: 0 0 1px 0;
@@ -1298,7 +1298,7 @@
 }
 .landing-themes .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: rgba(255, 255, 255, 0.6);
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-datatable .p-sortable-column .p-sortable-column-badge {
   border-radius: 50%;
@@ -1307,7 +1307,7 @@
   line-height: 1.143rem;
   color: #9FA8DA;
   background: rgba(159, 168, 218, 0.16);
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-datatable .p-sortable-column:not(.p-highlight):not(.p-sortable-disabled):hover {
   background: rgba(255, 255, 255, 0.04);
@@ -1340,7 +1340,7 @@
   transition: none;
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr > td {
-  text-align: left;
+  text-align: start ;
   border: 1px solid #404040;
   border-width: 0 0 1px 0;
   padding: 1rem 1rem;
@@ -1374,7 +1374,7 @@
   box-shadow: none;
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr > td > .p-column-title {
   font-weight: 500;
@@ -1499,7 +1499,7 @@
 }
 .landing-themes .p-column-filter-row .p-column-filter-menu-button,
 .landing-themes .p-column-filter-row .p-column-filter-clear-button {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-column-filter-menu-button {
   width: 2.5rem;
@@ -1581,30 +1581,30 @@
   box-shadow: none;
 }
 .landing-themes .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-separator {
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-start: 1px solid rgba(255, 255, 255, 0.12);
   margin: 0.5rem 0;
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-operator {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.87);
   background: #2b2b2b;
   margin: 0;
-  border-top-right-radius: 4px;
-  border-top-left-radius: 4px;
+  border-start-end-radius: 4px;
+  border-start-start-radius: 4px;
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-constraint {
   padding: 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-matchmode-dropdown {
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-constraint .p-column-filter-remove-button {
-  margin-top: 0.5rem;
+  margin-block-start: 0.5rem;
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-constraint:last-child {
-  border-bottom: 0 none;
+  border-block-end: 0 none;
 }
 .landing-themes .p-column-filter-overlay-menu .p-column-filter-add-rule {
   padding: 1rem 1rem;
@@ -1642,23 +1642,23 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-paginator .p-paginator-first {
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
+  border-start-start-radius: 50%;
+  border-end-start-radius: 50%;
 }
 .landing-themes .p-paginator .p-paginator-last {
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
+  border-start-end-radius: 50%;
+  border-end-end-radius: 50%;
 }
 .landing-themes .p-paginator .p-dropdown {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   height: 3rem;
 }
 .landing-themes .p-paginator .p-dropdown .p-dropdown-label {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 .landing-themes .p-paginator .p-paginator-page-input {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-paginator .p-paginator-page-input .p-inputtext {
   max-width: 3rem;
@@ -1869,7 +1869,7 @@
   box-shadow: inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA, inset 0 0 0 1px #9FA8DA;
 }
 .landing-themes .p-datepicker .p-datepicker-header {
-  border-bottom: 0 none;
+  border-block-end: 0 none;
 }
 .landing-themes .p-datepicker .p-datepicker-header .p-datepicker-title {
   margin: 0 auto 0 0;
@@ -1882,7 +1882,7 @@
   order: 3;
 }
 .landing-themes .p-datepicker table th {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-block-end: 1px solid rgba(255, 255, 255, 0.12);
   color: rgba(255, 255, 255, 0.38);
   font-weight: 400;
   font-size: 0.875rem;
@@ -1906,8 +1906,8 @@
   box-shadow: inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435;
 }
 .landing-themes .p-input-filled .p-calendar-w-btn {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.06) no-repeat;
   background-image: linear-gradient(to bottom, #9FA8DA, #9FA8DA), linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
@@ -1989,8 +1989,8 @@
   position: absolute;
   top: 6px;
   left: 1px;
-  border-right: 2px solid transparent;
-  border-bottom: 2px solid transparent;
+  border-inline-end: 2px solid transparent;
+  border-block-end: 2px solid transparent;
   transform: rotate(45deg);
   transform-origin: 0% 100%;
   animation: checkbox-check 125ms 50ms linear forwards;
@@ -2064,8 +2064,8 @@
   background-color: rgba(159, 168, 218, 0.16);
 }
 .landing-themes .p-input-filled .p-dropdown {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.06) no-repeat;
   background-image: linear-gradient(to bottom, #9FA8DA, #9FA8DA), linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
@@ -2116,8 +2116,8 @@
   box-shadow: inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435, inset 0 0 0 1px #f44435;
 }
 .landing-themes .p-input-filled .p-inputtext {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.06) no-repeat;
   background-image: linear-gradient(to bottom, #9FA8DA, #9FA8DA), linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
@@ -2172,19 +2172,19 @@
   top: -0.5rem !important;
   background-color: #1e1e1e;
   padding: 2px 4px;
-  margin-left: -4px;
-  margin-top: 0;
+  margin-inline-start: -4px;
+  margin-block-start: 0;
 }
 .landing-themes .p-float-label textarea ~ label {
-  margin-top: 0;
+  margin-block-start: 0;
 }
 .landing-themes .p-float-label input:focus ~ label,
 .landing-themes .p-float-label .p-inputwrapper-focus ~ label {
   color: #9FA8DA;
 }
 .landing-themes .p-input-filled .p-float-label .p-inputtext {
-  padding-top: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-block-start: 1.5rem;
+  padding-block-end: 0.5rem;
 }
 .landing-themes .p-input-filled .p-float-label input:focus ~ label,
 .landing-themes .p-input-filled .p-float-label input.p-filled ~ label,
@@ -2193,7 +2193,7 @@
 .landing-themes .p-input-filled .p-float-label .p-inputwrapper-focus ~ label,
 .landing-themes .p-input-filled .p-float-label .p-inputwrapper-filled ~ label {
   top: 0.25rem !important;
-  margin-top: 0;
+  margin-block-start: 0;
   background: transparent;
 }
 .landing-themes .p-multiselect .p-multiselect-label, .landing-themes .p-multiselect .p-multiselect-trigger {
@@ -2219,8 +2219,8 @@
   background: rgba(255, 255, 255, 0.12);
 }
 .landing-themes .p-input-filled .p-multiselect {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
   border: 1px solid transparent;
   background: rgba(255, 255, 255, 0.06) no-repeat;
   background-image: linear-gradient(to bottom, #9FA8DA, #9FA8DA), linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));
@@ -2253,22 +2253,22 @@
 }
 .landing-themes .p-float-label .p-multiselect-label .p-multiselect-token {
   padding: 0.25rem 1rem;
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
+  margin-block-start: 0.25rem;
+  margin-block-end: 0.25rem;
 }
 .landing-themes .p-input-filled .p-float-label .p-multiselect .p-multiselect-label {
-  padding-top: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-block-start: 1.5rem;
+  padding-block-end: 0.5rem;
 }
 .landing-themes .p-input-filled .p-float-label .p-inputwrapper-filled.p-multiselect .p-multiselect-label {
-  padding-top: 1.5rem;
-  padding-bottom: 0.5rem;
+  padding-block-start: 1.5rem;
+  padding-block-end: 0.5rem;
 }
 .landing-themes .p-input-filled .p-float-label .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-token {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
+  padding-block-start: 0;
+  padding-block-end: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 .landing-themes .p-input-filled .p-float-label .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
   font-size: 75%;

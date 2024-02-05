@@ -25,8 +25,8 @@
         .prime-block {
             background: var(--home-blocks-block-bg);
             box-shadow:var(--home-blocks-block-shadow);
-            border-left: var(--home-blocks-border-left);
-            border-bottom: var(--home-blocks-border-bottom);
+            border-inline-start: var(--home-blocks-border-left);
+            border-block-end: var(--home-blocks-border-bottom);
             border-radius: 10px;
             height: 300px;
             width: 600px;
@@ -120,10 +120,10 @@
             &.block-item-active {
                 box-shadow: var(--home-blocks-active-shadow);
                 border-radius: 6px;
-                border-top: var(--home-blocks-active-border-top);
-                border-right: var(--home-blocks-active-border-right);
-                border-bottom: var(--home-blocks-active-border-bottom);
-                border-left: var(--home-blocks-active-border-left);
+                border-block-start: var(--home-blocks-active-border-top);
+                border-inline-end: var(--home-blocks-active-border-right);
+                border-block-end: var(--home-blocks-active-border-bottom);
+                border-inline-start: var(--home-blocks-active-border-left);
                 position: relative;
                 z-index: 5;
                 animation: block-animation 1500ms ease-in-out alternate infinite;

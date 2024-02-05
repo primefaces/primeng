@@ -415,7 +415,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         const tabHeader = DomHandler.findSingle(this.navbar?.nativeElement, 'li.p-highlight');
         if (tabHeader) {
             (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
+            (this.inkbar as ElementRef).nativeElement.style.insetInlineStart = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar?.nativeElement).left + 'px';
         }
     }
 

@@ -15,7 +15,7 @@
     
     .product-category-icon {
         vertical-align: middle;
-        margin-right: .5rem;
+        margin-inline-end: .5rem;
     }
     
     .product-category {
@@ -32,7 +32,7 @@
         img {
             width: 150px;
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-            margin-right: 2rem;
+            margin-inline-end: 2rem;
         }
     
         .product-list-detail {
@@ -46,7 +46,7 @@
         .product-price {
             font-size: 1.5rem;
             font-weight: 600;
-            margin-bottom: .5rem;
+            margin-block-end: .5rem;
             align-self: flex-end;
         }
     
@@ -56,7 +56,7 @@
         }
     
         .p-button {
-            margin-bottom: .5rem;
+            margin-block-end: .5rem;
         }
     }
     
@@ -114,7 +114,7 @@
 		}
 
 		.product-list-action {
-			margin-top: 2rem;
+			margin-block-start: 2rem;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;

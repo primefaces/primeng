@@ -41,7 +41,7 @@ export class RippleCustomDemo {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
         user-select: none;
         padding: 0;
 
@@ -70,7 +70,7 @@ export class RippleCustomDemo {
         }
 
         &:last-child {
-            margin-right: 0;
+            margin-inline-end: 0;
         }
     }
 }`

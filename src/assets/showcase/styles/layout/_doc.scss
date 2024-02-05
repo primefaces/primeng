@@ -3,16 +3,16 @@
     margin: 0;
     padding: 0;
     display: flex;
-    margin-bottom: 2rem;
+    margin-block-end: 2rem;
     overflow: auto;
     position: relative;
 
     &:after {
         display: block;
         position: absolute;
-        bottom: 0;
+        inset-block-end: 0;
         width: 100%;
-        border-bottom: 1px solid var(--surface-border);
+        border-block-end: 1px solid var(--surface-border);
         content: '';
     }
 
@@ -32,9 +32,9 @@
             cursor: pointer;
             margin: 0;
             transition: all 0.2s;
-            border-bottom: 1px solid transparent;
-            border-top-right-radius: var(--border-round);
-            border-top-left-radius: var(--border-round);
+            border-block-end: 1px solid transparent;
+            border-start-end-radius: var(--border-round);
+            border-start-start-radius: var(--border-round);
             white-space: nowrap;
 
             &:hover {
@@ -74,7 +74,7 @@
 }
 
 .doc-intro {
-    margin-bottom: 1.5rem;
+    margin-block-end: 1.5rem;
 
     p {
         font-size: 1.125rem;
@@ -86,12 +86,12 @@
 .doc-section-label {
     display: flex;
     align-items: center;
-    scroll-margin-top: 6.5rem;
+    scroll-margin-block-start: 6.5rem;
 
     > a {
         color: var(--primary-color);
         opacity: 0.7;
-        margin-left: 1rem;
+        margin-inline-start: 1rem;
         display: none;
         transition: all .2s;
         border-radius: var(--border-radius);
@@ -150,21 +150,21 @@
 .doc-section-nav {
     position: sticky;
     top: 6rem;
-    right: 0;
+    inset-inline-end: 0;
     width: 14rem;
     max-height: calc(100vh - 15rem);
     list-style: none;
     margin: 0;
     padding: 0.25rem 0;
-    margin-left: 4rem;
+    margin-inline-start: 4rem;
     overflow-y: auto;
     overflow-x: hidden;
     align-self: flex-start;
 
     > .navbar-item {
         .navbar-item-content {
-            border-left: 1px solid var(--surface-border);
-            padding-left: .25rem;
+            border-inline-start: 1px solid var(--surface-border);
+            padding-inline-start: .25rem;
             transition: all .2s;
 
             &:hover {
@@ -212,7 +212,7 @@
 
             .navbar-item {
                 .navbar-item-content {
-                    padding-left: 1rem;
+                    padding-inline-start: 1rem;
                 }
             }
         }
@@ -229,7 +229,7 @@
     }
 
     &:not(:last-child) {
-        margin-bottom: 1rem;
+        margin-block-end: 1rem;
     }
 
     &:hover {
@@ -245,7 +245,7 @@
     justify-content: end;
     z-index: 1;
     top: .75rem;
-    right: .75rem;
+    inset-inline-end: .75rem;
     gap: .5rem;
     display: none;
     background: rgba(255,255,255,.05);
@@ -290,12 +290,12 @@
     border-collapse: collapse;
     width: 100%;
     min-width: 960px;
-    margin-bottom: 1.5rem;
+    margin-block-end: 1.5rem;
 
     th {
-        border-bottom: 1px solid var(--surface-border);
+        border-block-end: 1px solid var(--surface-border);
         padding: .75rem 1rem;
-        text-align: left;
+        text-align: start ;
         text-transform: capitalize;
     }
 
@@ -306,10 +306,10 @@
 
         td {
             padding: .75rem 1rem;
-            border-bottom: 1px solid var(--surface-border);
+            border-block-end: 1px solid var(--surface-border);
             white-space: pre-line;
             line-height: 1.5;
-            scroll-margin-top: 6.5rem;
+            scroll-margin-block-start: 6.5rem;
 
             &:first-child {
                 color: var(--primary-color);
@@ -342,7 +342,7 @@
             > i:not(.pi) {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
                 position: relative;
-                scroll-margin-top: 6.5rem;
+                scroll-margin-block-start: 6.5rem;
                 background-color: var(--doc-highlight-text-bg);
                 color: var(--doc-highlight-text-color);
                 border-radius: 6px;

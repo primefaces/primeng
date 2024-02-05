@@ -8,9 +8,9 @@
 .deferred-demo-loading::after {
     content: '';
     animation: deferred-demo-loading 1.2s infinite;
-    left: 0;
+    inset-inline-start: 0;
     position: absolute;
-    right: 0;
+    inset-inline-end: 0;
     top: 0;
     height: 100%;
     transform: translateX(-100%);

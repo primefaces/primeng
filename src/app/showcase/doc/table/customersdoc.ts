@@ -660,7 +660,7 @@ export class TableCustomersDemo implements OnInit{
 :host ::ng-deep {
     .p-paginator {
         .p-paginator-current {
-            margin-left: auto;
+            margin-inline-start: auto;
         }
     }
     
@@ -689,7 +689,7 @@ export class TableCustomersDemo implements OnInit{
     .p-datatable.p-datatable-customers {
         .p-datatable-header {
             padding: 1rem;
-            text-align: left;
+            text-align: start ;
             font-size: 1.5rem;
         }
     
@@ -698,7 +698,7 @@ export class TableCustomersDemo implements OnInit{
         }
     
         .p-datatable-thead > tr > th {
-            text-align: left;
+            text-align: start ;
         }
     
         .p-datatable-tbody > tr > td {
@@ -730,10 +730,10 @@ export class TableCustomersDemo implements OnInit{
                 }
     
                 .p-datatable-tbody > tr {
-                    border-bottom: 1px solid var(--layer-2);
+                    border-block-end: 1px solid var(--layer-2);
     
                     > td {
-                        text-align: left;
+                        text-align: start ;
                         width: 100%;
                         display: flex;
                         align-items: center;
@@ -750,7 +750,7 @@ export class TableCustomersDemo implements OnInit{
                         }
 
                         &:last-child {
-                            border-bottom: 1px solid var(--surface-d);
+                            border-block-end: 1px solid var(--surface-d);
                         }
                     }
                 }

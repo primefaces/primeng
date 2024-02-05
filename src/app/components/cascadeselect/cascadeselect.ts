@@ -208,7 +208,7 @@ export class CascadeSelectSub implements OnInit {
         const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
         if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-            this.el.nativeElement.children[0].style.left = '-200%';
+            this.el.nativeElement.children[0].style.insetInlineStart = '-200%';
         }
     }
 }

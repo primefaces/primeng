@@ -14,14 +14,14 @@
     }
 
     .p-fileupload-row > div:last-child {
-        text-align: right;
+        text-align: end;
     }
 
     .p-fileupload-content .p-progressbar {
         width: 100%;
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-button.p-fileupload-choose {

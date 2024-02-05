@@ -44,7 +44,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
             [ngClass]="{ 'p-submenu-list': !root, 'p-slidemenu-root-list': root, 'p-active-submenu': isActive }"
             [id]="menuId + '_list'"
             [style.width.px]="menuWidth"
-            [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth"
+            [style.insetInlineStart.px]="root ? slideMenu.left : slideMenu.menuWidth"
             [style.transitionProperty]="root ? 'left' : 'none'"
             [style.transitionDuration]="effectDuration + 'ms'"
             [style.transitionTimingFunction]="easing"

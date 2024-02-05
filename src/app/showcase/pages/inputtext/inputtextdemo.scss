@@ -1,10 +1,10 @@
 .sizes {
     .p-inputtext {
         display: block;
-        margin-bottom: .5rem;
+        margin-block-end: .5rem;
 
         &:last-child {
-            margin-bottom: 0;
+            margin-block-end: 0;
         }
     }
 }

@@ -919,12 +919,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button {
-                            margin-right: var(--inline-spacing);
-                            margin-bottom: 0;
+                            margin-inline-end: var(--inline-spacing);
+                            margin-block-end: 0;
                         }
 
                         .p-orderlist[${this.id}] .p-orderlist-controls .p-button:last-child {
-                            margin-right: 0;
+                            margin-inline-end: 0;
                         }
                     }
                 `;

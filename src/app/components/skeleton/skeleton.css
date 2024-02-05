@@ -8,10 +8,10 @@
         content: '';
         animation: p-skeleton-animation 1.2s infinite;
         height: 100%;
-        left: 0;
+        inset-inline-start: 0;
         position: absolute;
-        right: 0;
-        top: 0;
+        inset-inline-end: 0;
+        inset-block-start: 0;
         transform: translateX(-100%);
         z-index: 1;
     }

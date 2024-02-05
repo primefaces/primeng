@@ -27,12 +27,12 @@
 
     .p-scrollpanel-bar-y {
         width: 9px;
-        top: 0;
+        inset-block-start: 0;
     }
 
     .p-scrollpanel-bar-x {
         height: 9px;
-        bottom: 0;
+        inset-block-end: 0;
     }
 
     .p-scrollpanel-hidden {

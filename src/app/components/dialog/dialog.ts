@@ -735,9 +735,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             if (this.keepInViewport) {
                 if (leftPos >= this.minX && leftPos + containerWidth < viewport.width) {
-                    this._style.left = `${leftPos}px`;
+                    this._style.insetInlineStart = `${leftPos}px`;
                     this.lastPageX = event.pageX;
-                    this.container.style.left = `${leftPos}px`;
+                    this.container.style.insetInlineStart = `${leftPos}px`;
                 }
 
                 if (topPos >= this.minY && topPos + containerHeight < viewport.height) {
@@ -747,7 +747,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 }
             } else {
                 this.lastPageX = event.pageX;
-                this.container.style.left = `${leftPos}px`;
+                this.container.style.insetInlineStart = `${leftPos}px`;
                 this.lastPageY = event.pageY;
                 this.container.style.top = `${topPos}px`;
             }
@@ -765,7 +765,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     resetPosition() {
         (this.container as HTMLDivElement).style.position = '';
-        (this.container as HTMLDivElement).style.left = '';
+        (this.container as HTMLDivElement).style.insetInlineStart = '';
         (this.container as HTMLDivElement).style.top = '';
         (this.container as HTMLDivElement).style.margin = '';
     }
@@ -798,7 +798,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             let minHeight = (this.container as HTMLDivElement).style.minHeight;
             let offset = (this.container as HTMLDivElement).getBoundingClientRect();
             let viewport = DomHandler.getViewport();
-            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.left);
+            let hasBeenDragged = !parseInt((this.container as HTMLDivElement).style.top) || !parseInt((this.container as HTMLDivElement).style.insetInlineStart);
 
             if (hasBeenDragged) {
                 newWidth += deltaX;

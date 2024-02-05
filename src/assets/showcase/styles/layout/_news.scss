@@ -1,7 +1,7 @@
 .layout-news {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     z-index: 1100;
     width: 100%;
     height: 2rem;
@@ -36,7 +36,7 @@
     }
 
     .layout-news-link {
-        margin-left: 0.5rem;
+        margin-inline-start: 0.5rem;
         line-height: 1.5;
         white-space: nowrap;
     }
@@ -61,7 +61,7 @@
         width: 1.5rem;
         height: 1.5rem;
         transition: background-color 0.3s;
-        margin-left: 0.5rem;
+        margin-inline-start: 0.5rem;
         color: var(--primary-color-text);
 
         &:hover {
@@ -72,21 +72,21 @@
 
 .layout-news-active {
     .layout-topbar {
-        top: 2rem;
+        inset-block-start: 2rem;
     }
 
     .layout-sidebar,
     .doc-section-nav {
-        top: 8rem;
+        inset-block-start: 8rem;
     }
 
     .layout-content {
-        padding-top: 8rem;
+        padding-block-start: 8rem;
     }
 
     .doc-section-label,
     .doc-table tbody td .doc-option-name,
     .doc-table tbody td > i {
-        scroll-margin-top: 8.5rem;
+        scroll-margin-block-start: 8.5rem;
     }
 }

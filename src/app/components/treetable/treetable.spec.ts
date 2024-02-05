@@ -126,7 +126,7 @@ import { MinusIcon } from 'primeng/icons/minus';
             <ng-template pTemplate="caption">
                 <div style="text-align:left">
                     <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
-                    <span style="margin-left: .25em; vertical-align: middle">Toggle All</span>
+                    <span style="margin-inline-start: .25em; vertical-align: middle">Toggle All</span>
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
@@ -241,7 +241,7 @@ import { MinusIcon } from 'primeng/icons/minus';
 
         <p-treeTable class="filterTreeTable" #tt [value]="files" [columns]="cols">
             <ng-template pTemplate="caption">
-                <div style="text-align: right">
+                <div style="text-align: end">
                     <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
                     <input type="text" pInputText size="50" class="globalFilter" placeholder="Global Filter" (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto" />
                 </div>

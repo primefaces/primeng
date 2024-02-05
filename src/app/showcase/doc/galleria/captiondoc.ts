@@ -19,7 +19,7 @@ import { PhotoService } from '../../service/photoservice';
                     </div>
                 </ng-template>
                 <ng-template pTemplate="caption" let-item>
-                    <h4 style="margin-bottom: .5rem; color: #ffffff;">{{ item.title }}</h4>
+                    <h4 style="margin-block-end: .5rem; color: #ffffff;">{{ item.title }}</h4>
                     <p>{{ item.alt }}</p>
                 </ng-template>
             </p-galleria>
@@ -62,7 +62,7 @@ export class CaptionDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="caption" let-item>
-        <h4 style="margin-bottom: .5rem; color: #ffffff;">{{ item.title }}</h4>
+        <h4 style="margin-block-end: .5rem; color: #ffffff;">{{ item.title }}</h4>
         <p>{{ item.alt }}</p>
     </ng-template>
 </p-galleria>

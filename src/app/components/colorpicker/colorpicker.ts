@@ -386,7 +386,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     updateUI() {
         if (this.colorHandleViewChild && this.hueHandleViewChild?.nativeElement) {
-            this.colorHandleViewChild.nativeElement.style.left = Math.floor((150 * this.value.s) / 100) + 'px';
+            this.colorHandleViewChild.nativeElement.style.insetInlineStart = Math.floor((150 * this.value.s) / 100) + 'px';
             this.colorHandleViewChild.nativeElement.style.top = Math.floor((150 * (100 - this.value.b)) / 100) + 'px';
             this.hueHandleViewChild.nativeElement.style.top = Math.floor(150 - (150 * this.value.h) / 360) + 'px';
         }

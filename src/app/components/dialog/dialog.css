@@ -1,8 +1,8 @@
 @layer primeng {
     .p-dialog-mask {
         position: fixed;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 100%;
         display: flex;
@@ -81,8 +81,8 @@
         transform: none;
         width: 100vw !important;
         height: 100vh !important;
-        top: 0px !important;
-        left: 0px !important;
+        inset-block-start: 0px !important;
+        inset-inline-start: 0px !important;
         max-height: 100%;
         height: 100%;
     }
@@ -128,8 +128,8 @@
         cursor: se-resize;
         width: 12px;
         height: 12px;
-        right: 1px;
-        bottom: 1px;
+        inset-inline-end: 1px;
+        inset-block-end: 1px;
     }
 
     .p-confirm-dialog .p-dialog-content {

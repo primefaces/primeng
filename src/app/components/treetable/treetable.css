@@ -74,7 +74,7 @@
     }
 
     .p-treetable-scrollable-body > table > .p-treetable-tbody > tr:first-child > td {
-        border-top: 0 none;
+        border-block-start: 0 none;
     }
 
     .p-treetable-virtual-table {
@@ -87,12 +87,12 @@
     }
 
     .p-treetable-frozen-view > .p-treetable-scrollable-body > table > .p-treetable-tbody > tr > td:last-child {
-        border-right: 0 none;
+        border-inline-end: 0 none;
     }
 
     .p-treetable-unfrozen-view {
         position: absolute;
-        top: 0;
+        inset-block-start: 0;
     }
 
     /* Flex Scrollable */
@@ -138,8 +138,8 @@
     .p-treetable .p-column-resizer {
         display: block;
         position: absolute !important;
-        top: 0;
-        right: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
         margin: 0;
         width: 0.5rem;
         height: 100%;
@@ -199,7 +199,7 @@
         transform: none !important;
         min-height: 0;
         position: sticky;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 }

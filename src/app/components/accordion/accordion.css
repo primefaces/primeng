@@ -26,7 +26,7 @@
 
     .p-accordion-toggle-icon-end {
         order: 1;
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-accordion-toggle-icon {

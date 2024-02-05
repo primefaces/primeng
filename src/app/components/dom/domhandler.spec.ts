@@ -150,7 +150,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl3);
         DomHandler.relativePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
-        expect(childEl3.style.left).toEqual('0px');
+        expect(childEl3.style.insetInlineStart).toEqual('0px');
     });
 
     describe('relativePosition', () => {
@@ -162,7 +162,7 @@ describe('DomHandler', () => {
             const relativeElement = document.createElement('div');
             relativeElement.style.position = 'relative';
             relativeElement.style.width = targetWidth + 'px';
-            relativeElement.style.left = viewportWidth - elementWidth / 2 + 'px';
+            relativeElement.style.insetInlineStart = viewportWidth - elementWidth / 2 + 'px';
             document.body.appendChild(relativeElement);
 
             const element = document.createElement('div');
@@ -198,7 +198,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl3);
         DomHandler.absolutePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
-        expect(childEl3.style.left).toEqual('0px');
+        expect(childEl3.style.insetInlineStart).toEqual('0px');
     });
 
     it('should get hidden element height and width', () => {

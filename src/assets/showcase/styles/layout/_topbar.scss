@@ -1,14 +1,14 @@
 .layout-topbar {
     position: fixed;
     top: 0;
-    left: 0;
+    inset-inline-start: 0;
     width: calc(100% - var(--scrollbar-width, 0px));
     z-index: 1100;
     transition: background-color .5s, border-color .5s;
-    border-bottom: 1px solid transparent;
+    border-block-end: 1px solid transparent;
 
     &.layout-topbar-sticky {
-        border-bottom: 1px solid var(--surface-border);
+        border-block-end: 1px solid var(--surface-border);
         background-color: var(--topbar-sticky-bg);
         backdrop-filter: blur(8px);
     }
@@ -23,7 +23,7 @@
 
     .layout-topbar-logo-container {
         width: 250px;
-        margin-right: 4rem;
+        margin-inline-end: 4rem;
     }
 
     .layout-topbar-logo,

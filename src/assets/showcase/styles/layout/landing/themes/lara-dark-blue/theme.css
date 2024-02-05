@@ -82,7 +82,7 @@
   background: #bfdbfe;
 }
 .landing-themes .p-checkbox-label {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-inputtext {
   font-family: var(--font-family);
@@ -130,7 +130,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-input-icon-left > .p-inputtext {
-  padding-left: 2.5rem;
+  padding-inline-start: 2.5rem;
 }
 .landing-themes .p-input-icon-left.p-float-label > label {
   left: 2.5rem;
@@ -141,7 +141,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .landing-themes .p-input-icon-right > .p-inputtext {
-  padding-right: 2.5rem;
+  padding-inline-end: 2.5rem;
 }
 .landing-themes ::-webkit-input-placeholder {
   color: rgba(255, 255, 255, 0.6);
@@ -253,19 +253,19 @@
   transition-duration: 0.2s;
 }
 .landing-themes .p-button .p-button-icon-left {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-right {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-bottom {
-  margin-top: 0.5rem;
+  margin-block-start: 0.5rem;
 }
 .landing-themes .p-button .p-button-icon-top {
-  margin-bottom: 0.5rem;
+  margin-block-end: 0.5rem;
 }
 .landing-themes .p-button .p-badge {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
   min-width: 1rem;
   height: 1rem;
   line-height: 1rem;
@@ -305,10 +305,10 @@
   font-size: 1.25rem;
 }
 .landing-themes .p-button.p-button-loading-label-only .p-button-label {
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-button.p-button-loading-label-only .p-button-loading-icon {
-  margin-right: 0;
+  margin-inline-end: 0;
 }
 .landing-themes .p-fluid .p-button {
   width: 100%;
@@ -658,7 +658,7 @@
   font-weight: 700;
 }
 .landing-themes .p-datatable .p-datatable-thead > tr > th {
-  text-align: left;
+  text-align: start ;
   padding: 1rem 1rem;
   border: 1px solid #424b57;
   border-width: 0 0 1px 0;
@@ -668,7 +668,7 @@
   transition: box-shadow 0.2s;
 }
 .landing-themes .p-datatable .p-datatable-tfoot > tr > td {
-  text-align: left;
+  text-align: start ;
   padding: 1rem 1rem;
   border: 1px solid #424b57;
   border-width: 0 0 1px 0;
@@ -678,7 +678,7 @@
 }
 .landing-themes .p-datatable .p-sortable-column .p-sortable-column-icon {
   color: rgba(255, 255, 255, 0.6);
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-datatable .p-sortable-column .p-sortable-column-badge {
   border-radius: 50%;
@@ -687,7 +687,7 @@
   line-height: 1.143rem;
   color: rgba(255, 255, 255, 0.87);
   background: rgba(96, 165, 250, 0.16);
-  margin-left: 0.5rem;
+  margin-inline-start: 0.5rem;
 }
 .landing-themes .p-datatable .p-sortable-column:not(.p-highlight):hover {
   background: rgba(255, 255, 255, 0.03);
@@ -720,7 +720,7 @@
   transition: box-shadow 0.2s;
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr > td {
-  text-align: left;
+  text-align: start ;
   border: 1px solid #424b57;
   border-width: 0 0 1px 0;
   padding: 1rem 1rem;
@@ -754,7 +754,7 @@
   box-shadow: 0 0 0 0.2rem rgba(96, 165, 250, 0.2);
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr > td .p-row-editor-save {
-  margin-right: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-datatable .p-datatable-tbody > tr:focus-visible {
   outline: 0.15rem solid rgba(96, 165, 250, 0.2);
@@ -916,24 +916,24 @@
   color: rgba(255, 255, 255, 0.87);
 }
 .landing-themes .p-paginator .p-paginator-first {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  border-start-start-radius: 6px;
+  border-end-start-radius: 6px;
 }
 .landing-themes .p-paginator .p-paginator-last {
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  border-start-end-radius: 6px;
+  border-end-end-radius: 6px;
 }
 .landing-themes .p-paginator .p-dropdown {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0.5rem;
   height: 3rem;
 }
 .landing-themes .p-paginator .p-dropdown .p-dropdown-label {
-  padding-right: 0;
+  padding-inline-end: 0;
 }
 .landing-themes .p-paginator .p-paginator-page-input {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin-inline-start: 0.5rem;
+  margin-inline-end: 0.5rem;
 }
 .landing-themes .p-paginator .p-paginator-page-input .p-inputtext {
   max-width: 3rem;
@@ -992,7 +992,7 @@
   color: #450a0a;
 }
 .landing-themes .p-tag .p-tag-icon {
-  margin-right: 0.25rem;
+  margin-inline-end: 0.25rem;
   font-size: 0.75rem;
 }
 .landing-themes .p-tag .p-icon {

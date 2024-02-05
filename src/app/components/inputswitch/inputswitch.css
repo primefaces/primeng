@@ -8,16 +8,16 @@
     .p-inputswitch-slider {
         position: absolute;
         cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        inset-block-end: 0;
         border: 1px solid transparent;
     }
 
     .p-inputswitch-slider:before {
         position: absolute;
         content: '';
-        top: 50%;
+        inset-block-start: 50%;
     }
 }

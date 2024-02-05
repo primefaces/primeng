@@ -1,7 +1,7 @@
 .landing {
     background-color: var(--home-bg);
     scroll-behavior: smooth;
-    padding-top: 4rem;
+    padding-block-start: 4rem;
 
     .box {
         border: 1px solid var(--home-border-color);
@@ -102,12 +102,12 @@
     .section-divider {
         border: 1px solid var(--home-border-color);
         height: 1px;
-        border-bottom: 0 none;
+        border-block-end: 0 none;
         overflow: hidden;
     }
 
     &.layout-news-active {
-        padding-top: 6rem;
+        padding-block-start: 6rem;
     }
 }
 
@@ -121,8 +121,8 @@
 
 .landing-footer-container {
     max-width: 1250px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
+    margin-inline-start: auto !important;
+    margin-inline-end: auto !important;
 }
 
 .animated-text {

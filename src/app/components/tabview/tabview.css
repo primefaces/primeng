@@ -50,7 +50,7 @@
 
     .p-tabview-nav-btn {
         position: absolute;
-        top: 0;
+        inset-block-start: 0;
         z-index: 2;
         height: 100%;
         display: flex;
@@ -59,7 +59,7 @@
     }
 
     .p-tabview-nav-prev {
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .p-tabview-nav-next {

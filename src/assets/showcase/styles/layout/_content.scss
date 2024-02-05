@@ -5,7 +5,7 @@
     .layout-content-slot {
         flex: 1 1 auto;
         width: 1%;
-        padding-top: .5rem;
+        padding-block-start: .5rem;
     }
 }
 
@@ -14,5 +14,5 @@
     border: var(--card-border);
     padding: 2rem;
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin-block-end: 1rem;
 }

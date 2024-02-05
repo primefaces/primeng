@@ -1,8 +1,8 @@
 .splash-logo {
-    left: 50%;
+    inset-inline-start: 50%;
     top: 50%;
-    margin-left: -26px;
-    margin-top: -26px;
+    margin-inline-start: -26px;
+    margin-block-start: -26px;
     z-index: 2;
     position: absolute;
     width: 54px;
@@ -13,8 +13,8 @@
 .splash-loader:after {
   left: 50%;
   top: 50%;
-  margin-left: -45px;
-  margin-top: -45px;
+  margin-inline-start: -45px;
+  margin-block-start: -45px;
   position: absolute;
   vertical-align: middle;
   background: #c3002f;

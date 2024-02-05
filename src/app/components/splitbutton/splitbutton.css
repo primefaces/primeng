@@ -8,9 +8,9 @@
     .p-splitbutton.p-button-rounded > .p-splitbutton-defaultbutton.p-button,
     .p-splitbutton.p-button-outlined > .p-splitbutton-defaultbutton.p-button {
         flex: 1 1 auto;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-        border-right: 0 none;
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+        border-inline-end: 0 none;
     }
 
     .p-splitbutton-menubutton,
@@ -19,8 +19,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
     }
 
     .p-splitbutton .p-menu {

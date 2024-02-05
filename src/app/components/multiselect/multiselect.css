@@ -82,8 +82,8 @@
 
     .p-multiselect-filter-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-multiselect-filter-container .p-inputtext {
@@ -105,8 +105,8 @@
 
     .p-multiselect-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         cursor: pointer;
     }
 

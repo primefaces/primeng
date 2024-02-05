@@ -17,21 +17,21 @@
     }
 
     .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-up {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
         padding: 0;
     }
 
     .p-inputnumber-buttons-stacked .p-inputnumber-input {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
     }
 
     .p-inputnumber-buttons-stacked .p-button.p-inputnumber-button-down {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 0;
+        border-start-start-radius: 0;
+        border-start-end-radius: 0;
+        border-end-start-radius: 0;
         padding: 0;
     }
 
@@ -46,8 +46,8 @@
 
     .p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-up {
         order: 3;
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
     }
 
     .p-inputnumber-buttons-horizontal .p-inputnumber-input {
@@ -57,8 +57,8 @@
 
     .p-inputnumber-buttons-horizontal .p-button.p-inputnumber-button-down {
         order: 1;
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
     }
 
     .p-inputnumber-buttons-vertical {
@@ -67,8 +67,8 @@
 
     .p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-up {
         order: 1;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
         width: 100%;
     }
 
@@ -80,8 +80,8 @@
 
     .p-inputnumber-buttons-vertical .p-button.p-inputnumber-button-down {
         order: 3;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-start-start-radius: 0;
+        border-start-end-radius: 0;
         width: 100%;
     }
 
@@ -104,8 +104,8 @@
 
     .p-inputnumber-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         cursor: pointer;
     }
 

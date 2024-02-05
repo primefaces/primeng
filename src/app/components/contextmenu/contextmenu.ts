@@ -328,9 +328,9 @@ export class ContextMenuSub {
         sublist.style.top = '0px';
 
         if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-            sublist.style.left = -1 * sublistWidth + 'px';
+            sublist.style.insetInlineStart = -1 * sublistWidth + 'px';
         } else {
-            sublist.style.left = itemOuterWidth + 'px';
+            sublist.style.insetInlineStart = itemOuterWidth + 'px';
         }
     }
 }
@@ -1033,7 +1033,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             top = this.document.scrollingElement.scrollTop;
         }
 
-        this.containerViewChild.nativeElement.style.left = left + 'px';
+        this.containerViewChild.nativeElement.style.insetInlineStart = left + 'px';
         this.containerViewChild.nativeElement.style.top = top + 'px';
     }
 

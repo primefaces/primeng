@@ -37,12 +37,12 @@ export class RippleDefaultDemo {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
         user-select: none;
         padding: 0;
 
         &:last-child {
-            margin-right: 0;
+            margin-inline-end: 0;
         }
     }
 }`

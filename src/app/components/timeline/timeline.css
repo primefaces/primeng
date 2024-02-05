@@ -6,11 +6,11 @@
     }
 
     .p-timeline-left .p-timeline-event-opposite {
-        text-align: right;
+        text-align: end;
     }
 
     .p-timeline-left .p-timeline-event-content {
-        text-align: left;
+        text-align: start ;
     }
 
     .p-timeline-right .p-timeline-event {
@@ -18,11 +18,11 @@
     }
 
     .p-timeline-right .p-timeline-event-opposite {
-        text-align: left;
+        text-align: start ;
     }
 
     .p-timeline-right .p-timeline-event-content {
-        text-align: right;
+        text-align: end;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) {
@@ -30,19 +30,19 @@
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-opposite {
-        text-align: right;
+        text-align: end;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(odd) .p-timeline-event-content {
-        text-align: left;
+        text-align: start ;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-opposite {
-        text-align: left;
+        text-align: start ;
     }
 
     .p-timeline-vertical.p-timeline-alternate .p-timeline-event:nth-child(even) .p-timeline-event-content {
-        text-align: right;
+        text-align: end;
     }
 
     .p-timeline-event {

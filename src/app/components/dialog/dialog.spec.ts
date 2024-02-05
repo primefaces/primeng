@@ -274,7 +274,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         tick(300);
-        let firstLeft = dialog.container.style.left;
+        let firstLeft = dialog.container.style.insetInlineStart;
         let firstTop = dialog.container.style.top;
         let event = {
             pageX: 500,
@@ -289,7 +289,7 @@ describe('Dialog', () => {
         dialog.endDrag(event as DragEvent);
         fixture.detectChanges();
 
-        expect(dialog.container.style.left).not.toEqual(firstLeft);
+        expect(dialog.container.style.insetInlineStart).not.toEqual(firstLeft);
         expect(dialog.container.style.top).not.toEqual(firstTop);
         expect(dialog.dragging).toEqual(false);
         flush();

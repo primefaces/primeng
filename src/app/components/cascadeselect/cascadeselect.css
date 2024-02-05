@@ -42,7 +42,7 @@
     }
 
     .p-cascadeselect-group-icon {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-cascadeselect-items {
@@ -72,14 +72,14 @@
 
     .p-cascadeselect-item-active > .p-cascadeselect-sublist {
         display: block;
-        left: 100%;
-        top: 0;
+        inset-inline-start: 100%;
+        inset-block-start: 0;
     }
 
     .p-cascadeselect-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         cursor: pointer;
     }
 
@@ -93,6 +93,6 @@
     }
 
     .p-overlay-modal .p-cascadeselect-item-active > .p-cascadeselect-sublist {
-        left: 0;
+        inset-inline-start: 0;
     }
 }

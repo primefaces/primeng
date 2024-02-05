@@ -11,13 +11,13 @@
     }
 
     .p-calendar-w-btn .p-inputtext {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
     }
 
     .p-calendar-w-btn .p-datepicker-trigger {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
     }
 
     /* Fluid */
@@ -37,8 +37,8 @@
     .p-datepicker {
         width: auto;
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-datepicker-inline {
@@ -142,8 +142,8 @@
     .p-datepicker-touch-ui,
     .p-calendar .p-datepicker-touch-ui {
         position: fixed;
-        top: 50%;
-        left: 50%;
+        inset-block-start: 50%;
+        inset-inline-start: 50%;
         min-width: 80vw;
         transform: translate(-50%, -50%);
     }
@@ -161,8 +161,8 @@
 
     .p-calendar-clear-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
         cursor: pointer;
     }
 

@@ -160,7 +160,7 @@ export class DomHandler {
         }
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = left + 'px';
     }
 
     public static absolutePosition(element: any, target: any): void {
@@ -191,7 +191,7 @@ export class DomHandler {
         else left = targetOffset.left + windowScrollLeft;
 
         element.style.top = top + 'px';
-        element.style.left = left + 'px';
+        element.style.insetInlineStart = left + 'px';
     }
 
     static getParents(element: any, parents: any = []): any {

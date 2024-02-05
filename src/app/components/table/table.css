@@ -44,7 +44,7 @@
 
     .p-datatable-scrollable-table > .p-datatable-thead {
         position: sticky;
-        top: 0;
+        inset-block-start: 0;
         z-index: 2;
     }
 
@@ -55,7 +55,7 @@
 
     .p-datatable-scrollable-table > .p-datatable-tfoot {
         position: sticky;
-        bottom: 0;
+        inset-block-end: 0;
         z-index: 1;
     }
 
@@ -107,8 +107,8 @@
     .p-datatable .p-column-resizer {
         display: block;
         position: absolute !important;
-        top: 0;
-        right: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
         margin: 0;
         width: 0.5rem;
         height: 100%;
@@ -195,8 +195,8 @@
 
     .p-column-filter-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-column-filter-row-items {
@@ -243,7 +243,7 @@
         transform: none !important;
         min-height: 0;
         position: sticky;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 }

@@ -1358,7 +1358,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.insetInlineStart = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
 
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
@@ -1504,12 +1504,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.top = dropHeaderOffset.top - containerOffset.top + dropHeader.offsetHeight + 'px';
 
                 if (event.pageX > columnCenter) {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft + dropHeader.offsetWidth - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = 1;
                 } else {
-                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
-                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.left = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorUpViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
+                    (<ElementRef>this.reorderIndicatorDownViewChild).nativeElement.style.insetInlineStart = targetLeft - Math.ceil(<number>this.reorderIconWidth / 2) + 'px';
                     this.dropPosition = -1;
                 }
 

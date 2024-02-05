@@ -11,7 +11,7 @@ import { CarService } from '../../service/carservice';
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
         <div class="card">
-            <p style="margin-bottom: 70rem;">Table is not loaded yet, scroll down to initialize it.</p>
+            <p style="margin-block-end: 70rem;">Table is not loaded yet, scroll down to initialize it.</p>
 
             <p-toast></p-toast>
             <div pDefer (onLoad)="initData()">
@@ -76,7 +76,7 @@ export class DataTableDoc {
 </div>`,
         html: `
 <div class="card">
-    <p style="margin-bottom: 70rem;">
+    <p style="margin-block-end: 70rem;">
         Table is not loaded yet, scroll down to initialize it.
     </p>
 

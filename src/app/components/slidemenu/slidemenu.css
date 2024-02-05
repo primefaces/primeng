@@ -1,13 +1,13 @@
 @layer primeng {
     .p-slidemenu .p-slidemenu-root-list {
         position: relative;
-        top: 0;
+        inset-block-start: 0;
     }
 
     .p-slidemenu-overlay {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
     }
 
     .p-slidemenu .p-menuitem-active {
@@ -56,17 +56,17 @@
     }
 
     .p-slidemenu .p-menuitem-link .p-submenu-icon:not(svg) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-link .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-slidemenu .p-menuitem-active > p-slidemenusub > .p-submenu-list {
         display: block;
-        left: 100%;
-        top: 0;
+        inset-inline-start: 100%;
+        inset-block-start: 0;
     }
 
     .p-slidemenu .p-menuitem-active > .p-menuitem-content > .p-submenu > .p-submenu-list {
@@ -84,7 +84,7 @@
 
     .p-slidemenu-backward {
         position: absolute;
-        bottom: 0;
+        inset-block-end: 0;
         width: 100%;
         cursor: pointer;
         display: none;

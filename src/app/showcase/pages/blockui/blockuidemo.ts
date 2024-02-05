@@ -10,7 +10,7 @@ import { StyleDoc } from '../../doc/blockui/styledoc';
     styles: [
         `
             :host ::ng-deep button {
-                margin-right: 0.25em;
+                margin-inline-end: 0.25em;
             }
 
             :host ::ng-deep .p-component-overlay-enter .pi.pi-lock {

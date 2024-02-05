@@ -18,40 +18,40 @@
     }
 
     .p-sidebar-footer {
-        margin-top: auto;
+        margin-block-start: auto;
     }
 
     .p-sidebar-icon {
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-sidebar-left {
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         width: 20rem;
         height: 100%;
     }
 
     .p-sidebar-right {
-        top: 0;
-        right: 0;
+        inset-block-start: 0;
+        inset-inline-end: 0;
         width: 20rem;
         height: 100%;
     }
 
     .p-sidebar-top {
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 10rem;
     }
 
     .p-sidebar-bottom {
-        bottom: 0;
-        left: 0;
+        inset-block-end: 0;
+        inset-inline-start: 0;
         width: 100%;
         height: 10rem;
     }
@@ -59,8 +59,8 @@
     .p-sidebar-full {
         width: 100%;
         height: 100%;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
         -webkit-transition: none;
         transition: none;
     }

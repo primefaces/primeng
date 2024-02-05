@@ -18,10 +18,10 @@
 
     .p-organizationchart-node-content .p-node-toggler {
         position: absolute;
-        bottom: -0.75rem;
-        margin-left: -0.75rem;
+        inset-block-end: -0.75rem;
+        margin-inline-start: -0.75rem;
         z-index: 2;
-        left: 50%;
+        inset-inline-start: 50%;
         user-select: none;
         cursor: pointer;
         width: 1.5rem;
@@ -30,7 +30,7 @@
 
     .p-organizationchart-node-content .p-node-toggler .p-node-toggler-icon {
         position: relative;
-        top: 0.25rem;
+        inset-block-start: 0.25rem;
     }
 
     .p-organizationchart-line-down {

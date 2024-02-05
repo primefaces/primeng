@@ -55,8 +55,8 @@
     /* Position */
     /* top */
     .p-dock-top {
-        left: 0;
-        top: 0;
+        inset-inline-start: 0;
+        inset-block-start: 0;
         width: 100%;
     }
 
@@ -66,8 +66,8 @@
 
     /* bottom */
     .p-dock-bottom {
-        left: 0;
-        bottom: 0;
+        inset-inline-start: 0;
+        inset-block-end: 0;
         width: 100%;
     }
 
@@ -78,7 +78,7 @@
     /* right */
     .p-dock-right {
         right: 0;
-        top: 0;
+        inset-block-start: 0;
         height: 100%;
     }
 
@@ -92,8 +92,8 @@
 
     /* left */
     .p-dock-left {
-        left: 0;
-        top: 0;
+        inset-inline-start: 0;
+        inset-block-start: 0;
         height: 100%;
     }
 

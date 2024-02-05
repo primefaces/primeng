@@ -53,8 +53,8 @@
 
     .p-tree-filter-icon {
         position: absolute;
-        top: 50%;
-        margin-top: -0.5rem;
+        inset-block-start: 50%;
+        margin-block-start: -0.5rem;
     }
 
     .p-tree-loading {
@@ -92,8 +92,8 @@
 
     .p-tree-horizontal {
         width: auto;
-        padding-left: 0;
-        padding-right: 0;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
         overflow: auto;
     }
 
@@ -125,7 +125,7 @@
 
     .p-tree.p-tree-horizontal .p-treenode.p-treenode-leaf,
     .p-tree.p-tree-horizontal .p-treenode.p-treenode-collapsed {
-        padding-right: 0;
+        padding-inline-end: 0;
     }
 
     .p-tree.p-tree-horizontal .p-treenode-children {

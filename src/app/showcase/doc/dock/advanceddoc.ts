@@ -809,7 +809,7 @@ export class DockAdvancedDemo implements OnInit {
             }
 
             p {
-                margin-top: 0;
+                margin-block-start: 0;
             }
 
             .p-terminal {
@@ -847,8 +847,8 @@ export class DockAdvancedDemo implements OnInit {
     }
 
     .p-menubar {
-        padding-top: 0;
-        padding-bottom: 0;
+        padding-block-start: 0;
+        padding-block-end: 0;
         border-radius: 0;
 
         .p-menuitem:first-child {

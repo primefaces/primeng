@@ -50,25 +50,25 @@
 
     .p-menubar .p-submenu-list > .p-menuitem-active > p-menubarsub > .p-submenu-list {
         display: block;
-        left: 100%;
-        top: 0;
+        inset-inline-start: 100%;
+        inset-block-start: 0;
     }
 
     .p-menubar .p-submenu-list .p-menuitem-link .p-submenu-icon:not(svg) {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-menubar .p-menubar-root-list .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-menubar .p-submenu-list .p-menuitem-link .p-icon-wrapper {
-        margin-left: auto;
+        margin-inline-start: auto;
     }
 
     .p-menubar .p-menubar-custom,
     .p-menubar .p-menubar-end {
-        margin-left: auto;
+        margin-inline-start: auto;
         align-self: center;
     }
 

@@ -63,7 +63,7 @@
                     font-family: "primeicons";
                     font-size: .4rem;
                     opacity: .7;
-                    margin-right: 2px;
+                    margin-inline-end: 2px;
                     height: 13.5px;
                     align-items: center;
                     font-weight: 700;
@@ -85,7 +85,7 @@
 
 .DocSearch-Footer {
     box-shadow: none;
-    border-top: 1px solid var(--surface-border);
+    border-block-start: 1px solid var(--surface-border);
     background-color: var(--surface-overlay);
 }
 
@@ -106,9 +106,9 @@
 }
 
 .DocSearch-Hit {
-    border-bottom: 1px solid var(--surface-border);
-    padding-bottom: 0;
-    margin-bottom: .25rem;
+    border-block-end: 1px solid var(--surface-border);
+    padding-block-end: 0;
+    margin-block-end: .25rem;
 }
 
 .DocSearch-Hit-source {
