@@ -1428,11 +1428,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 break;
 
             case 'Home':
-                this.onHomeKey(event, true);
+                this.onHomeKey(event, false);
                 break;
 
             case 'End':
-                this.onEndKey(event, true);
+                this.onEndKey(event, false);
                 break;
 
             case 'Enter':
