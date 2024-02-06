@@ -49,6 +49,10 @@
         pointer-events: none;
     }
 
+    .p-disabled-overlay{
+        cursor : not-allowed !important;
+    }
+
     .p-component-overlay {
         position: fixed;
         top: 0;

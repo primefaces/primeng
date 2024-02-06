@@ -328,7 +328,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
+        <div [ngClass]="toggleMask | mapper : containerClass , disabled  | mapper : inputDisabledClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
                 #input
                 [attr.label]="label"
@@ -857,6 +857,10 @@ export class Password implements AfterContentInit, OnInit {
 
     inputFieldClass(disabled: boolean) {
         return { 'p-password-input': true, 'p-disabled': disabled };
+    }
+
+    inputDisabledClass(disabled: boolean) {
+        return { 'p-disabled-overlay': disabled };
     }
 
     strengthClass(meter: any) {
