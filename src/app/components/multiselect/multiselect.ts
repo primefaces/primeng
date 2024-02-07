@@ -21,6 +21,7 @@ import {
     Output,
     QueryList,
     Renderer2,
+    Signal,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -723,10 +724,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      */
     @Input() set placeholder(val: string | undefined) {
-        this._placeholder = val;
+        this._placeholder.set(val);
     }
-    get placeholder(): string | undefined {
-        return this._placeholder;
+    get placeholder(): Signal<string | undefined> {
+        return this._placeholder.asReadonly();
     }
     /**
      * An array of objects to display as the available options.
@@ -897,7 +898,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     _defaultLabel: string | undefined;
 
-    _placeholder: string | undefined;
+    _placeholder = signal<string | undefined>(undefined);
 
     _itemSize: number | undefined;
 
@@ -988,7 +989,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get inputClass() {
         return {
             'p-multiselect-label p-inputtext': true,
-            'p-placeholder': (this.placeholder || this.defaultLabel) && (this.label() === this.placeholder || this.label() === this.defaultLabel),
+            'p-placeholder': (this.placeholder() || this.defaultLabel) && (this.label() === this.placeholder() || this.label() === this.defaultLabel),
             'p-multiselect-label-empty': !this.selectedItemsTemplate && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
     }
@@ -1004,8 +1005,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get labelClass() {
         return {
             'p-multiselect-label': true,
-            'p-placeholder': this.label() === this.placeholder || this.label() === this.defaultLabel,
-            'p-multiselect-label-empty': !this.placeholder && !this.defaultLabel && (!this.modelValue() || this.modelValue().length === 0)
+            'p-placeholder': this.label() === this.placeholder() || this.label() === this.defaultLabel,
+            'p-multiselect-label-empty': !this.placeholder() && !this.defaultLabel && (!this.modelValue() || this.modelValue().length === 0)
         };
     }
 
@@ -1078,7 +1079,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             }
         } else {
-            label = this.placeholder || this.defaultLabel || '';
+            label = this.placeholder() || this.defaultLabel || '';
         }
         return label;
     });
