@@ -903,7 +903,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     visibleOptions = computed(() => {
-        const options = this.group ? this.flatOptions(this.options) : this.options || [];
+        const options = this.getAllVisibleAndNonVisibleOptions();
 
         if (this._filterValue()) {
             const _filterBy = this.filterBy || this.optionLabel;
@@ -938,9 +938,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const selectedOptionIndex = this.findSelectedOptionIndex();
+        const options = this.group ? this.flatOptions(this.options) : this.options || [];
+        // use  getAllVisibleAndNonVisibleOptions verses just visible options
+        // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
+        const selectedOptionIndex = this.getAllVisibleAndNonVisibleOptions().findIndex((option) => this.isValidSelectedOption(option));
 
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
 
     filled = computed(() => {
@@ -969,6 +972,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.updateEditableLabel();
             }
         });
+    }
+
+    private getAllVisibleAndNonVisibleOptions() {
+        return this.group ? this.flatOptions(this.options) : this.options || [];
     }
 
     ngOnInit() {
