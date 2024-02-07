@@ -938,10 +938,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const options = this.group ? this.flatOptions(this.options) : this.options || [];
         // use  getAllVisibleAndNonVisibleOptions verses just visible options
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
-        const selectedOptionIndex = this.getAllVisibleAndNonVisibleOptions().findIndex((option) => this.isValidSelectedOption(option));
+        const options = this.getAllVisibleAndNonVisibleOptions();
+        const selectedOptionIndex = options.findIndex((option) => this.isValidSelectedOption(option));
 
         return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
