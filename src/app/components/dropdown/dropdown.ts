@@ -150,9 +150,9 @@ export class DropdownItem {
                 [attr.required]="required"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-                <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
+                <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="(modelValue() === undefined || modelValue === null) && (label() === placeholder || (label() && !placeholder))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
+                    <span *ngIf="(modelValue() === undefined || modelValue() === null) && (label() === placeholder || (label() && !placeholder))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder }}</span>
                 </ng-template>
             </span>
             <input
@@ -855,6 +855,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     listId: Nullable<string>;
 
+    clicked = signal<boolean>(false);
+
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -866,7 +868,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     get filled(): boolean {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
 
-        return this.modelValue() || this.modelValue() != null || this.modelValue() != undefined;
+        return this.modelValue() || this.modelValue() !== null || this.modelValue() !== undefined;
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -908,9 +910,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const _filterBy = this.filterBy || this.optionLabel;
 
             const filteredOptions =
-                !_filterBy && !this.filterFields && !this.optionValue
-                    ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1)
-                    : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            !_filterBy && !this.filterFields && !this.optionValue
+                ? this.options.filter((option) => {
+                      if (option.label) {
+                          return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                      }
+                      return option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                  })
+                : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
@@ -931,8 +939,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const selectedOptionIndex = this.findSelectedOptionIndex();
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        // because of timining issues with virtual scroll lazy load  PrimeNG demo, keep original logic for virtual scroll
+        if (this.virtualScroll) {
+            const selectedOptionIndex = this.findSelectedOptionIndex();
+            return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        }
+        const modelValue = this.modelValue();
+        return modelValue !== undefined && modelValue !== null ? this.getOptionLabel(this.selectedOption) : this.placeholder() || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -945,8 +958,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const visibleOptions = this.visibleOptions();
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
-                this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
-                this.cd.markForCheck();
+                const selectedOptionIndex = this.findSelectedOptionIndex();
+                if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
+                    this.selectedOption = visibleOptions[selectedOptionIndex];
+                    this.cd.markForCheck();
+                }
             }
 
             if (modelValue !== undefined && this.editable) {
@@ -1064,7 +1080,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()], false);
         }
-        if (this.autoDisplayFirst && !this.modelValue()) {
+        if (this.autoDisplayFirst && (this.modelValue() === null || this.modelValue() === undefined)) {
             const ind = this.findFirstOptionIndex();
             this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
         }
@@ -1104,7 +1120,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder() && !this.modelValue() && !this.editable && this.options && this.options.length;
+        return this.autoDisplayFirst && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
@@ -1206,6 +1222,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
         this.onClick.emit(event);
+        this.clicked.set(true);
         this.cd.detectChanges();
     }
 
@@ -1221,7 +1238,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         this.onModelChange(value);
         this.updateModel(value, event);
-        this.onChange.emit({ originalEvent: event, value: value });
+        setTimeout(() => {
+            this.onChange.emit({ originalEvent: event, value: value });
+        }, 1);
 
         !this.overlayVisible && ObjectUtils.isNotEmpty(value) && this.show();
     }
@@ -1231,7 +1250,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.editable ? -1 : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
@@ -1284,6 +1303,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public hide(isFocus?) {
         this.overlayVisible = false;
         this.focusedOptionIndex.set(-1);
+        this.clicked.set(false);
+        this.searchValue = '';
 
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
@@ -1401,6 +1422,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 break;
         }
+
+        this.clicked.set(false);
     }
 
     onFilterKeyDown(event) {
@@ -1448,10 +1471,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onArrowDownKey(event: KeyboardEvent) {
-        const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
-        this.changeFocusedOptionIndex(event, optionIndex);
+        if (!this.overlayVisible) {
+            this.show();
+            this.editable && this.changeFocusedOptionIndex(event, this.findSelectedOptionIndex());
+        } else {
+            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findFirstOptionIndex() : this.findFirstFocusedOptionIndex();
 
-        !this.overlayVisible && this.show();
+            this.changeFocusedOptionIndex(event, optionIndex);
+        }
+        // const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.findFirstFocusedOptionIndex();
+        // this.changeFocusedOptionIndex(event, optionIndex);
+
+        // !this.overlayVisible && this.show();
         event.preventDefault();
     }
 
@@ -1559,7 +1590,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.overlayVisible && this.hide();
             event.preventDefault();
         } else {
-            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.findLastFocusedOptionIndex();
+            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
@@ -1634,6 +1665,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onEnterKey(event) {
         if (!this.overlayVisible) {
+            this.focusedOptionIndex.set(-1);
             this.onArrowDownKey(event);
         } else {
             if (this.focusedOptionIndex() !== -1) {
@@ -1763,8 +1795,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public focus(): void {
         this.applyFocus();
     }
-
-    clear(event: Event) {
+    /**
+     * Clears the model.
+     * @group Method
+     */
+    public clear(event?: Event) {
         this.updateModel(null, event);
         this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });

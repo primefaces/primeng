@@ -146,7 +146,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -162,7 +161,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-top')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -265,7 +264,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -281,7 +279,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-bottom')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -708,7 +706,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';
+    @Input() breakpoint: string = '640px';
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -1169,7 +1167,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+        if (this.responsiveLayout === 'stack') {
             this.createResponsiveStyle();
         }
 
@@ -3028,6 +3026,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
     }
+
+    getPaginatorStyleClasses(className?: string) {
+        return [this.paginatorStyleClass, className]
+            .filter((c) => !!c)
+            .join(' ')
+            .trim();
+    }
 }
 
 @Component({
@@ -3578,7 +3583,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
             default:
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
-                    const data = this.dt.dataToRender(this.dt.rows);
+                    const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
 
@@ -4945,7 +4950,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-label]="showMenuButtonLabel"
+                [attr.aria-label]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -5277,7 +5282,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get filterMenuButtonAriaLabel() {
-        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
     get removeRuleButtonAriaLabel() {

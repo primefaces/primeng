@@ -27,14 +27,20 @@ describe('Paginator', () => {
         expect(paginatorEl).toBeTruthy();
     });
 
-    it('should change style and styleClass', () => {
-        paginator.style = { height: '250px' };
-        paginator.styleClass = 'Primeng ROCKS!';
+    it('should apply style', () => {
+        fixture.componentRef.setInput('style', { height: '250px' });
         fixture.detectChanges();
 
-        const paginatorEl = fixture.debugElement.query(By.css('.p-paginator'));
-        expect(paginatorEl.nativeElement.className).toContain('Primeng ROCKS!');
-        expect(paginatorEl.nativeElement.style.height).toEqual('250px');
+        const paginatorElement = fixture.debugElement.query(By.css('.p-paginator'));
+        expect(paginatorElement?.nativeElement?.style?.height).toEqual('250px');
+    });
+
+    it('should apply styleClass', () => {
+        fixture.componentRef.setInput('styleClass', 'p-paginator-bottom');
+        fixture.detectChanges();
+
+        const paginatorElement = fixture.debugElement.query(By.css('.p-paginator'));
+        expect(paginatorElement?.nativeElement).toHaveClass('p-paginator-bottom');
     });
 
     it('should use alwaysShow false', () => {

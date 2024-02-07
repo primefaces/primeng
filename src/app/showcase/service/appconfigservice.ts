@@ -53,7 +53,6 @@ export class AppConfigService {
         config.tableTheme = !config.darkMode ? config.tableTheme.replace('light', 'dark') : config.tableTheme.replace('dark', 'light');
         this._config = { ...config };
         this.configUpdate.next(this.config());
-        localStorage.setItem('layout-config', JSON.stringify(config));
     }
 
     showMenu() {

@@ -583,7 +583,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input() autoOptionFocus: boolean | undefined = false;
     /**
      * When enabled, the focused option is selected.
      * @group Props
@@ -1061,7 +1061,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             clearTimeout(this.searchTimeout);
         }
 
-        let query = event.target.value;
+        let query = event.target.value.split('').slice(0, this.maxlength).join('');
 
         if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
