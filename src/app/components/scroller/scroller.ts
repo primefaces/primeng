@@ -139,8 +139,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
     set items(val: any[] | undefined | null) {
         this._items = val;
-        this.init();
-        this.calculateAutoSize();
     }
     /**
      * The height/width of item according to orientation.
