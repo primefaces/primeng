@@ -1778,6 +1778,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay()
+        });
         this.cd.markForCheck();
     }
 
