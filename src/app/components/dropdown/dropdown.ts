@@ -861,7 +861,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     get filled(): boolean {
         if (typeof this.modelValue() === 'string') return !!this.modelValue();
 
-        return this.modelValue() || this.modelValue() != null || this.modelValue() != undefined;
+        return this.modelValue() || this.modelValue() !== null || this.modelValue() !== undefined;
     }
 
     get isVisibleClearIcon(): boolean | undefined {
@@ -931,7 +931,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const selectedOptionIndex = this.findSelectedOptionIndex();
             return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder || 'p-emptylabel';
         }
-        return this.modelValue() ? this.getOptionLabel(this.selectedOption) : this.placeholder || 'p-emptylabel';
+        const modelValue = this.modelValue();
+        return modelValue !== undefined && modelValue !== null ? this.getOptionLabel(this.selectedOption) : this.placeholder || 'p-emptylabel';
     });
 
     selectedOption: any;
@@ -945,7 +946,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-                if (selectedOptionIndex !== -1 || !modelValue || this.editable) {
+                if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                     this.cd.markForCheck();
                 }
@@ -1066,7 +1067,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.focusedOptionIndex.set(this.findFirstFocusedOptionIndex());
             this.onOptionSelect(null, this.visibleOptions()[this.focusedOptionIndex()], false);
         }
-        if (this.autoDisplayFirst && !this.modelValue()) {
+        if (this.autoDisplayFirst && (this.modelValue() === null || this.modelValue() === undefined)) {
             const ind = this.findFirstOptionIndex();
             this.onOptionSelect(null, this.visibleOptions()[ind], false, true);
         }
@@ -1106,7 +1107,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder && !this.modelValue() && !this.editable && this.options && this.options.length;
+        return this.autoDisplayFirst && !this.placeholder && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
     }
 
     isSelected(option) {
