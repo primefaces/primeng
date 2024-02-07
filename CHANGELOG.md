@@ -22,8 +22,8 @@
 - Component: Dropdown TypeError: option.toLowerCase is not a function [\#14682](https://github.com/primefaces/primeng/issues/14682)
 - Dropdown: "0" Value in optionValue, causes Label to be replaced by Placeholder [\#14715](https://github.com/primefaces/primeng/issues/14715)
 - The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
-- PrimeNg p-columnFilter does not close on outside element click or scroll or search submit [\#14658](https://github.com/primefaces/primeng/issues/14658)
 - Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
+- PrimeNg p-columnFilter does not close on outside element click or scroll or search submit [\#14658](https://github.com/primefaces/primeng/issues/14658)
 - Showcase | Remove stateful config [\#14752](https://github.com/primefaces/primeng/issues/14752)
 
 
@@ -269,6 +269,12 @@
 **Implemented New Features and Enhancements:**
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.5-LTS](https://www.npmjs.com/package/primeng/v/16.9.5-lts) (2024-02-07)
+
+**Fixed bugs:**
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.4-LTS](https://www.npmjs.com/package/primeng/v/16.9.4-lts) (2024-01-19)
 
@@ -816,6 +822,12 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.16-LTS](https://www.npmjs.com/package/primeng/v/15.4.16-lts) (2024-02-07)
+
+**Fixed bugs:**
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.15-LTS](https://www.npmjs.com/package/primeng/v/15.4.15-lts) (2024-01-19)
 
