@@ -904,8 +904,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             const filteredOptions =
                 !_filterBy && !this.filterFields && !this.optionValue
-                    ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1)
-                    : this.filterService.filter(options, this.searchFields(), this._filterValue().toLowerCase().trim(), this.filterMatchMode, this.filterLocale);
+                ? this.options.filter((option) => {
+                    if (option.label) {
+                        return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                    }
+                    return option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                })
+              : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
