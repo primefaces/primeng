@@ -976,7 +976,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     selectedOptions: any;
 
-    clickInProgress : boolean = false;
+    clickInProgress: boolean = false;
 
     get containerClass() {
         return {
@@ -1747,7 +1747,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onFilterInputChange(event: KeyboardEvent) {
-        let value: string = (event.target as HTMLInputElement).value?.trim();
+        let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
