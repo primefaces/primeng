@@ -1,4 +1,32 @@
 # Changelog
+## [17.6.0](https://github.com/primefaces/primeng/tree/17.6.0) (2024-02-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.5.0...17.6.0)
+
+**Implemented New Features and Enhancements:**
+- Dropdown | make clear method public for better DX [\#14641](https://github.com/primefaces/primeng/issues/14641)
+
+**Fixed bugs:**
+- MultiSelect: selectedItemsLabel is not localized (re-opened) [\#14554](https://github.com/primefaces/primeng/issues/14554)
+- Component: Calendar isn't show initial value from FormControl/ngModel [\#14616](https://github.com/primefaces/primeng/issues/14616)
+- Component: Dropdown removing a letter from filter that comes after a whitespace ' ' removes the whitespace [\#14701](https://github.com/primefaces/primeng/issues/14701)
+- Component: p-multiselect - double click on multiselect "button" causes modal window to jump around before disappearing [\#14442](https://github.com/primefaces/primeng/issues/14442)
+- Virtual Scroll Jumping Backwards [\#14298](https://github.com/primefaces/primeng/issues/14298)
+- p-dropdown: dropdown options float to the top when searching [\#14659](https://github.com/primefaces/primeng/issues/14659)
+- Dropdown: Key events not correctly working when filter is enabled [\#14189](https://github.com/primefaces/primeng/issues/14189)
+- Component: Dropdown| closing overlay on pressing enter key on filter input [\#14708](https://github.com/primefaces/primeng/issues/14708)
+- Component: p-Dropdown placeholder/values not displayed [\#14695](https://github.com/primefaces/primeng/issues/14695)
+- TreeSelect: When using reactive form disabled input doesn't affect [\#14662](https://github.com/primefaces/primeng/issues/14662)
+- MultiSelect: dynamic text in placeholder is not displayed [\#14321](https://github.com/primefaces/primeng/issues/14321)
+- Dropdown: dynamic text in placeholder is not displayed [\#14320](https://github.com/primefaces/primeng/issues/14320)
+- Component: Dropdown TypeError: option.toLowerCase is not a function [\#14682](https://github.com/primefaces/primeng/issues/14682)
+- Dropdown: "0" Value in optionValue, causes Label to be replaced by Placeholder [\#14715](https://github.com/primefaces/primeng/issues/14715)
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- PrimeNg p-columnFilter does not close on outside element click or scroll or search submit [\#14658](https://github.com/primefaces/primeng/issues/14658)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
+- Showcase | Remove stateful config [\#14752](https://github.com/primefaces/primeng/issues/14752)
+
+
 ## [17.5.0](https://github.com/primefaces/primeng/tree/17.5.0) (2024-02-01)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.4.0...17.5.0)
