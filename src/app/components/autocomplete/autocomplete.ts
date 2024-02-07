@@ -219,7 +219,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
+                        <ul #resultItems *ngIf="items.length !== 0" class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -681,7 +681,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     @ViewChild('ddBtn') dropdownButton: Nullable<ElementRef>;
 
-    @ViewChild('items') itemsViewChild: Nullable<ElementRef>;
+    @ViewChild('resultItems') itemsViewChild: Nullable<ElementRef>;
 
     @ViewChild('scroller') scroller: Nullable<Scroller>;
 
