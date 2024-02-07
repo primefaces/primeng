@@ -1451,7 +1451,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 break;
 
             case 'Enter':
-                this.onEnterKey(event);
+                this.onEnterKey(event, true);
                 break;
 
             case 'Escape':
@@ -1660,7 +1660,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         !this.editable && !pressedInInputText && this.onEnterKey(event);
     }
 
-    onEnterKey(event) {
+    onEnterKey(event, pressedInInput = false) {
         if (!this.overlayVisible) {
             this.focusedOptionIndex.set(-1);
             this.onArrowDownKey(event);
@@ -1669,6 +1669,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 const option = this.visibleOptions()[this.focusedOptionIndex()];
                 this.onOptionSelect(event, option);
             }
+
+            !pressedInInput && this.hide();
         }
 
         event.preventDefault();
