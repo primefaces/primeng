@@ -1669,8 +1669,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 const option = this.visibleOptions()[this.focusedOptionIndex()];
                 this.onOptionSelect(event, option);
             }
-
-            this.hide();
         }
 
         event.preventDefault();
