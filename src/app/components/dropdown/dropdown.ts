@@ -912,11 +912,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => {
                           if (option.label) {
-                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
-                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                       })
-                    : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+                    : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
 
             if (this.group) {
                 const optionGroups = this.options || [];
@@ -1774,7 +1774,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFilterInputChange(event: Event | any): void {
-        let value: string = (event.target as HTMLInputElement).value?.trim();
+        let value: string = (event.target as HTMLInputElement).value
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
