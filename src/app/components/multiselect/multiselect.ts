@@ -976,6 +976,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     selectedOptions: any;
 
+    clickInProgress : boolean = false;
+
     get containerClass() {
         return {
             'p-multiselect p-component p-inputwrapper': true,
@@ -1692,7 +1694,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.focusInputViewChild?.nativeElement)) {
+        if (this.disabled || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
             return;
         }
 
@@ -1700,6 +1702,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
+            if (this.clickInProgress) {
+                return;
+            }
+
+            this.clickInProgress = true;
+
+            setTimeout(() => {
+                this.clickInProgress = false;
+            }, 150);
+
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
