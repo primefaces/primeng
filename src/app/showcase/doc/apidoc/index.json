@@ -5415,7 +5415,9 @@
                             "name": "locale",
                             "optional": false,
                             "readonly": false,
-                            "type": "LocaleSettings"
+                            "type": "LocaleSettings",
+                            "description": "Option to set calendar locale.",
+                            "deprecated": "Locale property has no effect, use new i18n API instead."
                         },
                         {
                             "name": "view",
@@ -8068,7 +8070,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "triggerEvent",
@@ -9547,7 +9550,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "Signal<string>",
                             "description": "Default text to display when no option is selected."
                         },
                         {
@@ -10019,6 +10022,16 @@
                             "name": "focus",
                             "parameters": [],
                             "description": "Applies focus."
+                        },
+                        {
+                            "name": "clear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Clears the model."
                         }
                     ]
                 }
@@ -13547,7 +13560,8 @@
                             "name": "pattern",
                             "optional": false,
                             "readonly": false,
-                            "type": "RegExp | KeyFilterPattern"
+                            "type": "RegExp | KeyFilterPattern",
+                            "description": "Sets the pattern for key filtering."
                         }
                     ]
                 },
@@ -14404,7 +14418,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MegaMenuItem[]"
+                            "type": "MegaMenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "style",
@@ -14693,7 +14708,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "style",
@@ -14843,7 +14859,8 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": null
+                            "type": null,
+                            "description": "An array of messages to display."
                         },
                         {
                             "name": "closable",
@@ -15097,13 +15114,15 @@
                             "name": "displaySelectedLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Whether to show labels of selected item labels or use default label."
                         },
                         {
                             "name": "maxSelectedLabels",
                             "optional": false,
                             "readonly": false,
-                            "type": "number"
+                            "type": "number",
+                            "description": "Decides how many selected item labels to show at most."
                         },
                         {
                             "name": "selectionLimit",
@@ -15117,7 +15136,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "{0} items selected",
                             "description": "Label to display after exceeding max selected labels e.g. ({0} items selected), defaults \"ellipsis\" keyword to indicate a text-overflow."
                         },
                         {
@@ -15370,13 +15388,16 @@
                             "name": "defaultLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Label to display when there are no selections.",
+                            "deprecated": "Use placeholder instead."
                         },
                         {
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "Signal<string>",
+                            "description": "Label to display when there are no selections."
                         },
                         {
                             "name": "options",
@@ -16043,13 +16064,15 @@
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "A list of values that are currently selected."
                         },
                         {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "Array of values to be displayed in the component.\nIt represents the data source for the list of items."
                         }
                     ]
                 },
@@ -17508,7 +17531,8 @@
                             "name": "showPassword",
                             "optional": false,
                             "readonly": false,
-                            "type": null
+                            "type": null,
+                            "description": "Sets the visibility of the password field."
                         }
                     ]
                 }
@@ -20210,7 +20234,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "menuWidth",
@@ -21299,7 +21324,9 @@
                             "name": "enterClass",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Style class to add when item begins to get displayed.",
+                            "deprecated": "Use enterFromClass instead"
                         },
                         {
                             "name": "enterFromClass",
@@ -21326,7 +21353,9 @@
                             "name": "leaveClass",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Style class to add when item begins to get hidden.",
+                            "deprecated": "Use leaveFromClass instead"
                         },
                         {
                             "name": "leaveFromClass",
@@ -23330,7 +23359,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "activeItem",
@@ -23914,7 +23944,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "popup",
