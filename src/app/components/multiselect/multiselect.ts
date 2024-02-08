@@ -21,6 +21,7 @@ import {
     Output,
     QueryList,
     Renderer2,
+    Signal,
     signal,
     SimpleChanges,
     TemplateRef,
@@ -176,7 +177,7 @@ export class MultiSelectItem {
                                     </span>
                                 </ng-container>
                             </div>
-                            <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder || defaultLabel || 'empty' }}</ng-container>
+                            <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
@@ -517,7 +518,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
      * @group Props
      */
-    @Input() selectedItemsLabel: string = '{0} items selected';
+    @Input() selectedItemsLabel: string | undefined;
     /**
      * Whether to show the checkbox at header to toggle all items at once.
      * @group Props
@@ -723,10 +724,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      */
     @Input() set placeholder(val: string | undefined) {
-        this._placeholder = val;
+        this._placeholder.set(val);
     }
-    get placeholder(): string | undefined {
-        return this._placeholder;
+    get placeholder(): Signal<string | undefined> {
+        return this._placeholder.asReadonly();
     }
     /**
      * An array of objects to display as the available options.
@@ -897,7 +898,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     _defaultLabel: string | undefined;
 
-    _placeholder: string | undefined;
+    _placeholder = signal<string | undefined>(undefined);
 
     _itemSize: number | undefined;
 
@@ -975,6 +976,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     selectedOptions: any;
 
+    clickInProgress: boolean = false;
+
     get containerClass() {
         return {
             'p-multiselect p-component p-inputwrapper': true,
@@ -988,7 +991,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get inputClass() {
         return {
             'p-multiselect-label p-inputtext': true,
-            'p-placeholder': (this.placeholder || this.defaultLabel) && (this.label() === this.placeholder || this.label() === this.defaultLabel),
+            'p-placeholder': (this.placeholder() || this.defaultLabel) && (this.label() === this.placeholder() || this.label() === this.defaultLabel),
             'p-multiselect-label-empty': !this.selectedItemsTemplate && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
     }
@@ -1004,8 +1007,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get labelClass() {
         return {
             'p-multiselect-label': true,
-            'p-placeholder': this.label() === this.placeholder || this.label() === this.defaultLabel,
-            'p-multiselect-label-empty': !this.placeholder && !this.defaultLabel && (!this.modelValue() || this.modelValue().length === 0)
+            'p-placeholder': this.label() === this.placeholder() || this.label() === this.defaultLabel,
+            'p-multiselect-label-empty': !this.placeholder() && !this.defaultLabel && (!this.modelValue() || this.modelValue().length === 0)
         };
     }
 
@@ -1078,7 +1081,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 }
             }
         } else {
-            label = this.placeholder || this.defaultLabel || '';
+            label = this.placeholder() || this.defaultLabel || '';
         }
         return label;
     });
@@ -1691,7 +1694,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.focusInputViewChild?.nativeElement)) {
+        if (this.disabled || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
             return;
         }
 
@@ -1699,6 +1702,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
+            if (this.clickInProgress) {
+                return;
+            }
+
+            this.clickInProgress = true;
+
+            setTimeout(() => {
+                this.clickInProgress = false;
+            }, 150);
+
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
@@ -1734,7 +1747,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onFilterInputChange(event: KeyboardEvent) {
-        let value: string = (event.target as HTMLInputElement).value?.trim();
+        let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });

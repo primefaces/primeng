@@ -43,5 +43,5 @@ export class TranslationKeys {
     public static readonly EMPTY_FILTER_MESSAGE = 'emptyFilterMessage';
     public static readonly SHOW_FILTER_MENU = 'showFilterMenu';
     public static readonly HIDE_FILTER_MENU = 'hideFilterMenu';
-    public static readonly SELECTION_MESSAGE = '{0} items selected';
+    public static readonly SELECTION_MESSAGE = 'selectionMessage';
 }

@@ -886,7 +886,9 @@ export class TreeSelect implements AfterContentInit {
     }
 
     setDisabledState(val: boolean): void {
-        this.disabled = val;
+        setTimeout(() => {
+            this.disabled = val;
+        });
         this.cd.markForCheck();
     }
 
