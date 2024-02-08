@@ -886,7 +886,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return {
             'p-dropdown-label p-inputtext': true,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
-            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (!label || label === 'p-emptylabel' || label.length === 0)
+            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
         };
     }
 
@@ -912,11 +912,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => {
                           if (option.label) {
-                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
-                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1;
+                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                       })
-                    : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+                    : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
 
             if (this.group) {
                 const optionGroups = this.options || [];
@@ -939,6 +939,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     label = computed(() => {
         const selectedOptionIndex = this.findSelectedOptionIndex();
+
         return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
 
@@ -1773,13 +1774,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFilterInputChange(event: Event | any): void {
-        let value: string = (event.target as HTMLInputElement).value?.trim();
+        let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
         setTimeout(() => {
-            this.overlayViewChild.alignOverlay()
+            this.overlayViewChild.alignOverlay();
         });
         this.cd.markForCheck();
     }

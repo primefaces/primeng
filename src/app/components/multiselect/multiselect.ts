@@ -177,7 +177,7 @@ export class MultiSelectItem {
                                     </span>
                                 </ng-container>
                             </div>
-                            <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder || defaultLabel || 'empty' }}</ng-container>
+                            <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
                         </ng-container>
                     </ng-container>
                     <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
@@ -518,7 +518,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
      * @group Props
      */
-    @Input() selectedItemsLabel: string = '{0} items selected';
+    @Input() selectedItemsLabel: string | undefined;
     /**
      * Whether to show the checkbox at header to toggle all items at once.
      * @group Props
@@ -975,6 +975,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     focusedOptionIndex = signal<number>(-1);
 
     selectedOptions: any;
+
+    clickInProgress: boolean = false;
 
     get containerClass() {
         return {
@@ -1692,7 +1694,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.focusInputViewChild?.nativeElement)) {
+        if (this.disabled || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
             return;
         }
 
@@ -1700,6 +1702,16 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             event.preventDefault();
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
+            if (this.clickInProgress) {
+                return;
+            }
+
+            this.clickInProgress = true;
+
+            setTimeout(() => {
+                this.clickInProgress = false;
+            }, 150);
+
             this.overlayVisible ? this.hide(true) : this.show(true);
         }
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
@@ -1735,7 +1747,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onFilterInputChange(event: KeyboardEvent) {
-        let value: string = (event.target as HTMLInputElement).value?.trim();
+        let value: string = (event.target as HTMLInputElement).value;
         this._filterValue.set(value);
         this.focusedOptionIndex.set(-1);
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });

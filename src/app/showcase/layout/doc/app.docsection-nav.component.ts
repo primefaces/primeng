@@ -92,7 +92,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         return [...Array.from(this.document.querySelectorAll(':is(h1,h2,h3).doc-section-label'))].filter((el: any) => DomHandler.isVisible(el));
     }
 
-     onScroll() {
+    onScroll() {
         if (isPlatformBrowser(this.platformId) && this.nav) {
             if (!this.isScrollBlocked) {
                 this.zone.run(() => {
