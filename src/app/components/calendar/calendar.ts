@@ -2740,7 +2740,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         } else if (value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
             if (this.isRangeSelection()) {
-                isValid = value.length > 1 && value[1] > value[0] ? true : false;
+                isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0] ? true : false);
             }
         }
         return isValid;
