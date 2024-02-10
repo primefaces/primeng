@@ -2733,16 +2733,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isValidSelection(value: any): boolean {
-        let isValid = true;
+        let isValid = false;
         if (this.isSingleSelection()) {
-            if (!this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false)) {
-                isValid = false;
-            }
-        } else if (value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false))) {
-            if (this.isRangeSelection()) {
-                isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0] ? true : false);
-            }
-        }
+            return this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false);
+        } 
+		isValid = value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false));
+		if (isValid && this.isRangeSelection()) {
+			isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0] ? true : false);
+		}
         return isValid;
     }
 
