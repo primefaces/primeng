@@ -86,7 +86,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
     markerTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) { }
+    constructor(private el: ElementRef) {}
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
@@ -116,4 +116,4 @@ export class Timeline implements AfterContentInit, BlockableUI {
     exports: [Timeline, SharedModule],
     declarations: [Timeline]
 })
-export class TimelineModule { }
+export class TimelineModule {}
