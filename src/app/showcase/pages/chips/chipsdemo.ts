@@ -36,7 +36,7 @@ export class ChipsDemo {
         },
         {
             id: 'commaseparator',
-            label: 'Comma Seperator',
+            label: 'Comma Separator',
             component: CommaSeparatorDoc
         },
         {

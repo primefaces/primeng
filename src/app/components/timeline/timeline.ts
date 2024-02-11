@@ -29,7 +29,7 @@ import { Nullable } from 'primeng/ts-helpers';
                 <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
                     <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
                 </div>
-                <div class="p-timeline-event-separator" [attr.data-pc-section]="'seperator'">
+                <div class="p-timeline-event-separator" [attr.data-pc-section]="'separator'">
                     <ng-container *ngIf="markerTemplate; else marker">
                         <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
                     </ng-container>
@@ -86,7 +86,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
     markerTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef) { }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
@@ -116,4 +116,4 @@ export class Timeline implements AfterContentInit, BlockableUI {
     exports: [Timeline, SharedModule],
     declarations: [Timeline]
 })
-export class TimelineModule {}
+export class TimelineModule { }
