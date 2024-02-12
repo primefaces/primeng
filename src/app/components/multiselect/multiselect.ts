@@ -1038,11 +1038,20 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
+ 
     visibleOptions = computed(() => {
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
-
+        const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0])
+        
         if (this._filterValue()) {
-            const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            let filteredOptions;
+
+            if (isArrayOfObjects) {
+                filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            } else {
+                filteredOptions = options.filter((option) => option.toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
+            }
+
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
