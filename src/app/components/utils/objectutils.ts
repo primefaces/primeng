@@ -1,4 +1,12 @@
 export class ObjectUtils {
+    public static isArray(value, empty = true) {
+        return Array.isArray(value) && (empty || value.length !== 0);
+    }
+
+    public static isObject(value, empty = true) {
+        return value instanceof Object && value.constructor === Object && (empty || Object.keys(value).length !== 0);
+    }
+
     public static equals(obj1: any, obj2: any, field?: string): boolean {
         if (field) return this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field);
         else return this.equalsByValue(obj1, obj2);
