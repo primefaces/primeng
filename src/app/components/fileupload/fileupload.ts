@@ -557,11 +557,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
-        if (this.fileLimit) {
-            this.checkFileLimit();
-        }
+         // this will check the fileLimit with the uploaded files
+        this.checkFileLimit(files);
 
-        if (this.hasFiles() && this.auto && (!(this.mode === 'advanced') || !this.isFileLimitExceeded())) {
+        if (this.hasFiles() && this.auto && !(this.mode === 'advanced') && !this.isFileLimitExceeded()) {
             this.upload();
         }
 
@@ -739,7 +738,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         this.clearInputElement();
         this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
-        this.checkFileLimit();
+        this.checkFileLimit(this.files);
     }
 
     isFileLimitExceeded() {
@@ -761,9 +760,9 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         }
     }
 
-    checkFileLimit() {
+    checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        if (this.isFileLimitExceeded()) {
+        if (this.isFileLimitExceeded() || (this.msgs.length>0 && this.fileLimit < files.length)) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
