@@ -1762,6 +1762,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay();
+        });
     }
 
     onLastHiddenFocus(event) {
