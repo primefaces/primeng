@@ -467,7 +467,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to show the empty message or not.
      * @group Props
      */
-    @Input() showEmptyMessage: boolean | undefined;
+    @Input() showEmptyMessage: boolean | undefined = true;
     /**
      * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
      * @group Props

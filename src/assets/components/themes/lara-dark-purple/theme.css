@@ -452,6 +452,11 @@
     background: #374151;
     font-weight: 700;
   }
+  .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
+    padding: 0.75rem 1.25rem;
+    color: rgba(255, 255, 255, 0.87);
+    background: transparent;
+  }
 
   p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
     border-color: #fca5a5;
