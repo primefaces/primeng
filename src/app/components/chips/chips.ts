@@ -514,6 +514,13 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 
                 break;
 
+            case 'Tab':
+                if (this.addOnTab && inputValue && inputValue.trim().length && !this.isMaxedOut) {
+                    this.addItem(event, inputValue, true);
+                }
+
+                break;
+
             case 'ArrowLeft':
                 if (inputValue.length === 0 && this.value && this.value.length > 0) {
                     this.containerViewChild?.nativeElement.focus();
