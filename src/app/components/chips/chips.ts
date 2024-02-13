@@ -517,6 +517,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
             case 'Tab':
                 if (this.addOnTab && inputValue && inputValue.trim().length && !this.isMaxedOut) {
                     this.addItem(event, inputValue, true);
+                    event.preventDefault();
                 }
 
                 break;
