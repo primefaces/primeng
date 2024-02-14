@@ -688,7 +688,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._filterValue();
     }
     set filterValue(val: string | undefined | null) {
-        this._filterValue.set(val);
+        setTimeout(() => {
+            this._filterValue.set(val);
+        });
     }
     /**
      * An array of objects to display as the available options.
