@@ -1364,12 +1364,10 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         this.focused = false;
 
         let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
-
-        this.onBlur.emit(event);
-
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
         this.updateModel(event, newValue);
+        this.onBlur.emit(event);
     }
 
     formattedValue() {

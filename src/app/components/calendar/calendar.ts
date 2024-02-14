@@ -120,7 +120,13 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     </ng-container>
                 </button>
                 <ng-container *ngIf="iconDisplay === 'input' && showIcon">
-                    <CalendarIcon *ngIf="!inputIconTemplate" (click)="onButtonClick($event)" />
+                    <CalendarIcon
+                        (click)="onButtonClick($event)"
+                        *ngIf="!inputIconTemplate"
+                        [ngClass]="{
+                            'p-datepicker-icon': showOnFocus
+                        }"
+                    />
                     <ng-container *ngTemplateOutlet="inputIconTemplate; context: { clickCallBack: onButtonClick.bind(this) }"></ng-container>
                 </ng-container>
             </ng-template>
@@ -1486,7 +1492,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
 
-        if (this.isSingleSelection() && this.hideOnDateTimeSelect) {
+        if ((this.isSingleSelection() && this.hideOnDateTimeSelect) || (this.isRangeSelection() && this.value[1])) {
             setTimeout(() => {
                 event.preventDefault();
                 this.hideOverlay();
@@ -1575,6 +1581,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     formattedValue += ' ' + this.formatTime(date);
                 }
             }
+        } else if (this.dataType === 'string') {
+            formattedValue = date;
         }
 
         return formattedValue;
@@ -3008,9 +3016,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 }
             }
         }
-        if (this.dataType === 'string') {
-            this.updateModel(value);
-        }
+
         this.updateInputfield();
         this.updateUI();
         this.cd.markForCheck();

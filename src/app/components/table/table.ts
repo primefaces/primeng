@@ -40,10 +40,12 @@ import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
 import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TrashIcon } from 'primeng/icons/trash';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
@@ -144,7 +146,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -160,7 +161,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-top')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -263,7 +264,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -279,7 +279,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-bottom')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -706,7 +706,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';
+    @Input() breakpoint: string = '640px';
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -1167,7 +1167,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+        if (this.responsiveLayout === 'stack') {
             this.createResponsiveStyle();
         }
 
@@ -3026,6 +3026,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
     }
+
+    getPaginatorStyleClasses(className?: string) {
+        return [this.paginatorStyleClass, className]
+            .filter((c) => !!c)
+            .join(' ')
+            .trim();
+    }
 }
 
 @Component({
@@ -3576,7 +3583,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
             default:
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
-                    const data = this.dt.dataToRender(this.dt.rows);
+                    const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
 
@@ -3660,28 +3667,33 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     onSpaceKey(event) {
-        this.onEnterKey(event);
+        const isInput = event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement;
+        if (isInput) {
+            return;
+        } else {
+            this.onEnterKey(event);
 
-        if (event.shiftKey && this.dt.selection !== null) {
-            const data = this.dt.dataToRender(this.dt.rows);
-            let index;
+            if (event.shiftKey && this.dt.selection !== null) {
+                const data = this.dt.dataToRender(this.dt.rows);
+                let index;
 
-            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
-                let firstSelectedRowIndex, lastSelectedRowIndex;
-                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+                if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                    let firstSelectedRowIndex, lastSelectedRowIndex;
+                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
-                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
-            } else {
-                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                    index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                } else {
+                    index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                }
+
+                this.dt.anchorRowIndex = index;
+                this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+                this.dt.selectRange(event, this.index);
             }
 
-            this.dt.anchorRowIndex = index;
-            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-            this.dt.selectRange(event, this.index);
+            event.preventDefault();
         }
-
-        event.preventDefault();
     }
 
     focusRowChange(firstFocusableRow, currentFocusedRow) {
@@ -4938,7 +4950,7 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-label]="showMenuButtonLabel"
+                [attr.aria-label]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayId"
                 [attr.aria-expanded]="overlayVisible"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
@@ -5022,7 +5034,7 @@ export class ReorderableRow implements AfterViewInit {
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
                                 >
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" />
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
@@ -5030,7 +5042,7 @@ export class ReorderableRow implements AfterViewInit {
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
                         <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" />
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
@@ -5270,7 +5282,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get filterMenuButtonAriaLabel() {
-        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
     get removeRuleButtonAriaLabel() {
@@ -5823,7 +5835,9 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountDownIcon,
         CheckIcon,
         FilterIcon,
-        FilterSlashIcon
+        FilterSlashIcon,
+        PlusIcon,
+        TrashIcon
     ],
     exports: [
         Table,

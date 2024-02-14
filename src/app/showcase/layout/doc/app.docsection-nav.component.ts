@@ -95,20 +95,22 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     onScroll() {
         if (isPlatformBrowser(this.platformId) && this.nav) {
             if (!this.isScrollBlocked) {
-                if (typeof document !== undefined) {
-                    const labels = this.getLabels();
-                    const windowScrollTop = DomHandler.getWindowScrollTop();
+                this.zone.run(() => {
+                    if (typeof document !== 'undefined') {
+                        const labels = this.getLabels();
+                        const windowScrollTop = DomHandler.getWindowScrollTop();
 
-                    labels.forEach((label) => {
-                        const { top } = DomHandler.getOffset(label);
-                        const threshold = this.getThreshold(label);
+                        labels.forEach((label) => {
+                            const { top } = DomHandler.getOffset(label);
+                            const threshold = this.getThreshold(label);
 
-                        if (top - threshold <= windowScrollTop) {
-                            const link = DomHandler.findSingle(label, 'a');
-                            this.activeId = link.id;
-                        }
-                    });
-                }
+                            if (top - threshold <= windowScrollTop) {
+                                const link = DomHandler.findSingle(label, 'a');
+                                this.activeId = link.id;
+                            }
+                        });
+                    }
+                });
             }
 
             clearTimeout(this.scrollEndTimer);

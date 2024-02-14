@@ -293,7 +293,9 @@ export class Checkbox implements ControlValueAccessor {
     }
 
     setDisabledState(val: boolean): void {
-        this.disabled = val;
+        setTimeout(() => {
+            this.disabled = val;
+        });
         this.cd.markForCheck();
     }
 
