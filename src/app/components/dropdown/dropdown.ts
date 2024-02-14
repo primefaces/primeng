@@ -971,13 +971,17 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 const selectedOptionIndex = this.findSelectedOptionIndex();
                 if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
-                    this.cd.markForCheck();
                 }
+            }
+
+            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || modelValue === null) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+                this.selectedOption = null;
             }
 
             if (modelValue !== undefined && this.editable) {
                 this.updateEditableLabel();
             }
+            this.cd.markForCheck();
         });
     }
 
@@ -1127,8 +1131,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter) {
             this.resetFilter();
         }
-        this.value = value;
 
+        this.value = value;
         this.allowModelChange() && this.onModelChange(value);
         this.modelValue.set(this.value);
         this.updateEditableLabel();
