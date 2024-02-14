@@ -656,7 +656,7 @@ export class TreeSelect implements AfterContentInit {
             originalEvent: event,
             filteredValue: this.treeViewChild?.filteredNodes
         });
-           setTimeout(() => {
+        setTimeout(() => {
             this.overlayViewChild.alignOverlay();
         });
     }
