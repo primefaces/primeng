@@ -780,7 +780,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1439,3 +1439,4 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     declarations: [Listbox]
 })
 export class ListboxModule {}
+
