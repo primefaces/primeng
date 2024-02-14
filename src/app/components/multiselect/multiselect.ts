@@ -319,7 +319,7 @@ export class MultiSelectItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true">
+                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -1038,11 +1038,14 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
- 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
     visibleOptions = computed(() => {
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
-        const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0])
-        
+        const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0]);
+
         if (this._filterValue()) {
             let filteredOptions;
 

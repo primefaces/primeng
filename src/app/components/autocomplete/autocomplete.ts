@@ -26,7 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -219,7 +219,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
+                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -844,6 +844,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     get ariaSetSize() {
         return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
+    }
+
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
     get virtualScrollerDisabled() {

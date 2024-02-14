@@ -267,7 +267,7 @@ export class DropdownItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items [attr.id]="id + '_list'" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li class="p-dropdown-item-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -870,6 +870,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     get isVisibleClearIcon(): boolean | undefined {
         return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled;
+    }
+
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
     get containerClass() {
