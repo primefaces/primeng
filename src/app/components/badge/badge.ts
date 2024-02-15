@@ -1,12 +1,12 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
-
-type BadgeDirectiveIconPosition = 'left' | 'right' | 'top' | 'bottom';
-type BadgeSize = 'large' | 'xlarge';
-
+/**
+ * Badge Directive is directive usage of badge component.
+ * @group Components
+ */
 @Directive({
     selector: '[pBadge]',
     host: {
@@ -14,82 +14,48 @@ type BadgeSize = 'large' | 'xlarge';
     }
 })
 export class BadgeDirective implements AfterViewInit, OnDestroy {
-    @Input() iconPos: BadgeDirectiveIconPosition = 'left';
-
+    /**
+     * Icon position of the component.
+     * @group Props
+     */
+    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
+    /**
+     * When specified, disables the component.
+     * @group Props
+     */
     @Input('badgeDisabled') get disabled(): boolean {
         return this._disabled;
     }
     set disabled(val: boolean) {
         this._disabled = val;
     }
-
-    @Input() public get size(): BadgeSize {
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     */
+    @Input() public get size(): 'large' | 'xlarge' {
         return this._size;
     }
-    set size(val: BadgeSize) {
+    set size(val: 'large' | 'xlarge') {
         this._size = val;
 
         if (this.initialized) {
             this.setSizeClasses();
         }
     }
-
-    public _value: string;
-
-    public initialized: boolean;
-
-    private id: string;
-
-    private _disabled: boolean = false;
-
-    private _size: BadgeSize;
-
-    constructor(public el: ElementRef) {}
-
-    ngAfterViewInit() {
-        this.id = UniqueComponentId() + '_badge';
-        let el = this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
-
-        if (this._disabled) {
-            return null;
-        }
-
-        let badge = document.createElement('span');
-        badge.id = this.id;
-        badge.className = 'p-badge p-component';
-
-        if (this.severity) {
-            DomHandler.addClass(badge, 'p-badge-' + this.severity);
-        }
-
-        this.setSizeClasses(badge);
-
-        if (this.value != null) {
-            badge.appendChild(document.createTextNode(this.value));
-
-            if (String(this.value).length === 1) {
-                DomHandler.addClass(badge, 'p-badge-no-gutter');
-            }
-        } else {
-            DomHandler.addClass(badge, 'p-badge-dot');
-        }
-
-        DomHandler.addClass(el, 'p-overlay-badge');
-        el.appendChild(badge);
-
-        this.initialized = true;
-    }
-
+    /**
+     * Value to display inside the badge.
+     * @group Props
+     */
     @Input() get value(): string {
         return this._value;
     }
-
     set value(val: string) {
         if (val !== this._value) {
             this._value = val;
 
             if (this.initialized) {
-                let badge = document.getElementById(this.id);
+                let badge: HTMLElement = document.getElementById(this.id) as HTMLElement;
 
                 if (this._value) {
                     if (DomHandler.hasClass(badge, 'p-badge-dot')) DomHandler.removeClass(badge, 'p-badge-dot');
@@ -104,15 +70,64 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
                 }
 
                 badge.innerHTML = '';
-                badge.appendChild(document.createTextNode(this._value));
+                this.renderer.appendChild(badge, document.createTextNode(this._value));
             }
         }
     }
+    /**
+     * Severity type of the badge.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
 
-    @Input() severity: string;
+    public _value!: string;
+
+    public initialized: boolean = false;
+
+    private id!: string;
+
+    private _disabled: boolean = false;
+
+    private _size!: 'large' | 'xlarge';
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
+
+    ngAfterViewInit() {
+        this.id = UniqueComponentId() + '_badge';
+        let el = this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
+
+        if (this._disabled) {
+            return null;
+        }
+
+        let badge = this.document.createElement('span');
+        badge.id = this.id;
+        badge.className = 'p-badge p-component';
+
+        if (this.severity) {
+            DomHandler.addClass(badge, 'p-badge-' + this.severity);
+        }
+
+        this.setSizeClasses(badge);
+
+        if (this.value != null) {
+            this.renderer.appendChild(badge, this.document.createTextNode(this.value));
+
+            if (String(this.value).length === 1) {
+                DomHandler.addClass(badge, 'p-badge-no-gutter');
+            }
+        } else {
+            DomHandler.addClass(badge, 'p-badge-dot');
+        }
+
+        DomHandler.addClass(el, 'p-overlay-badge');
+        this.renderer.appendChild(el, badge);
+
+        this.initialized = true;
+    }
 
     private setSizeClasses(element?: HTMLElement): void {
-        const badge = element ?? document.getElementById(this.id);
+        const badge = element ?? this.document.getElementById(this.id);
 
         if (!badge) {
             return;
@@ -138,7 +153,10 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         this.initialized = false;
     }
 }
-
+/**
+ * Badge is a small status indicator for another element.
+ * @group Components
+ */
 @Component({
     selector: 'p-badge',
     template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
@@ -150,16 +168,35 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     }
 })
 export class Badge {
-    @Input() styleClass: string;
-
-    @Input() style: any;
-
-    @Input() size: BadgeSize;
-
-    @Input() severity: string;
-
-    @Input() value: string;
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     */
+    @Input() size: 'large' | 'xlarge' | undefined;
+    /**
+     * Severity type of the badge.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    /**
+     * Value to display inside the badge.
+     * @group Props
+     */
+    @Input() value: string | null | undefined;
+    /**
+     * When specified, disables the component.
+     * @group Props
+     */
     @Input() badgeDisabled: boolean = false;
 
     containerClass() {

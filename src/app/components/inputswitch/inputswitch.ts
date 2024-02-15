@@ -1,41 +1,47 @@
-import { NgModule, Component, Input, forwardRef, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputSwitchChangeEvent } from './inputswitch.interface';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputSwitch),
     multi: true
 };
-
-export interface InputSwitchOnChangeEvent {
-    originalEvent: Event;
-    checked: boolean;
-}
-
+/**
+ * InputSwitch is used to select a boolean value.
+ * @group Components
+ */
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }" [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
-            <div class="p-hidden-accessible">
+        <div
+            [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            (click)="onClick($event)"
+            [attr.data-pc-name]="'inputswitch'"
+            [attr.data-pc-section]="'root'"
+        >
+            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
                 <input
-                    #cb
-                    type="checkbox"
-                    [attr.aria-label]="ariaLabel"
+                    #input
                     [attr.id]="inputId"
-                    [attr.name]="name"
-                    [attr.tabindex]="tabindex"
-                    [checked]="checked()"
-                    (change)="onInputChange($event)"
-                    (focus)="onFocus($event)"
-                    (blur)="onBlur($event)"
-                    [disabled]="disabled"
+                    type="checkbox"
                     role="switch"
+                    [checked]="checked()"
+                    [disabled]="disabled"
                     [attr.aria-checked]="checked()"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.name]="name"
+                    [attr.tabindex]="tabindex"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
-            <span class="p-inputswitch-slider"></span>
+            <span class="p-inputswitch-slider" [attr.data-pc-section]="'slider'"></span>
         </div>
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
@@ -46,30 +52,70 @@ export interface InputSwitchOnChangeEvent {
         class: 'p-element'
     }
 })
-export class InputSwitch implements ControlValueAccessor {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
-    @Input() tabindex: number;
-
-    @Input() inputId: string;
-
-    @Input() name: string;
-
-    @Input() disabled: boolean;
-
-    @Input() readonly: boolean;
-
+export class InputSwitch {
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input() tabindex: number | undefined;
+    /**
+     * Identifier of the input element.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Name of the input element.
+     * @group Props
+     */
+    @Input() name: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * When present, it specifies that the component cannot be edited.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * Value in checked state.
+     * @group Props
+     */
     @Input() trueValue: any = true;
-
+    /**
+     * Value in unchecked state.
+     * @group Props
+     */
     @Input() falseValue: any = false;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Callback to invoke when the on value change.
+     * @param {InputSwitchChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<InputSwitchChangeEvent> = new EventEmitter<InputSwitchChangeEvent>();
 
-    @Input() ariaLabel: string;
-
-    @Input() ariaLabelledBy: string;
-
-    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter();
+    @ViewChild('input') input!: ElementRef;
 
     modelValue: any = false;
 
@@ -81,39 +127,26 @@ export class InputSwitch implements ControlValueAccessor {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    onClick(event: Event, cb: HTMLInputElement) {
+    onClick(event: Event) {
         if (!this.disabled && !this.readonly) {
+            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+
+            this.onModelChange(this.modelValue);
+            this.onChange.emit({
+                originalEvent: event,
+                checked: this.modelValue
+            });
+
             event.preventDefault();
-            this.toggle(event);
-            cb.focus();
+            this.input.nativeElement.focus();
         }
     }
 
-    onInputChange(event: Event) {
-        if (!this.readonly) {
-            const inputChecked = (<HTMLInputElement>event.target).checked;
-            this.updateModel(event, inputChecked);
-        }
-    }
-
-    toggle(event: Event) {
-        this.updateModel(event, !this.checked());
-    }
-
-    updateModel(event: Event, value: boolean) {
-        this.modelValue = value ? this.trueValue : this.falseValue;
-        this.onModelChange(this.modelValue);
-        this.onChange.emit({
-            originalEvent: event,
-            checked: this.modelValue
-        });
-    }
-
-    onFocus(event: Event) {
+    onFocus() {
         this.focused = true;
     }
 
-    onBlur(event: Event) {
+    onBlur() {
         this.focused = false;
         this.onModelTouched();
     }

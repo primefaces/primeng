@@ -68,7 +68,7 @@ describe('DomHandler', () => {
         const childEl2 = document.createElement('a');
         const childEl3 = document.createElement('a');
         const childEl4 = document.createElement('button');
-        childEl2.setAttribute('href', 'https://www.primefaces.org/primeng/');
+        childEl2.setAttribute('href', 'https://primeng.org');
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
@@ -151,6 +151,33 @@ describe('DomHandler', () => {
         DomHandler.relativePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
         expect(childEl3.style.left).toEqual('0px');
+    });
+
+    describe('relativePosition', () => {
+        it('should avoid overflow if element exceeds document width', () => {
+            const elementWidth = 200;
+            const targetWidth = 10;
+            const viewportWidth = DomHandler.getViewport().width;
+
+            const relativeElement = document.createElement('div');
+            relativeElement.style.position = 'relative';
+            relativeElement.style.width = targetWidth + 'px';
+            relativeElement.style.left = viewportWidth - elementWidth / 2 + 'px';
+            document.body.appendChild(relativeElement);
+
+            const element = document.createElement('div');
+            element.style.width = elementWidth + 'px';
+            element.style.position = 'absolute';
+            relativeElement.appendChild(element);
+
+            const target = document.createElement('div');
+            target.style.width = targetWidth + 'px';
+            relativeElement.appendChild(target);
+
+            DomHandler.relativePosition(element, target);
+
+            expect(element.getBoundingClientRect().right).toBe(viewportWidth);
+        });
     });
 
     it('should use absolutePosition', () => {

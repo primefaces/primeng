@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "declaration": true,
-        "module": "es2020",
-        "target": "es2017",
+        "module": "es2022",
+        "target": "es2022",
         "baseUrl": ".",
         "stripInternal": true,
         "emitDecoratorMetadata": false,
@@ -11,7 +11,7 @@
         "outDir": "../build",
         "rootDir": ".",
         "lib": [
-            "es2020",
+            "es2022",
             "dom"
         ],
         "skipLibCheck": true,

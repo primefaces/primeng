@@ -7,6 +7,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
 import { OverlayModule } from 'primeng/overlay';
 import { AutoComplete } from './autocomplete';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -53,7 +55,7 @@ describe('AutoComplete', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule],
+            imports: [NoopAnimationsModule, FormsModule, BrowserDynamicTestingModule, ButtonModule, OverlayModule, ChevronDownIcon, TimesCircleIcon],
             declarations: [AutoComplete, TestAutocompleteComponent]
         }).compileComponents();
 
@@ -161,8 +163,8 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const onKeydownSpy = spyOn(autocomplete, 'onKeydown').and.callThrough();
-        const onKeyupSpy = spyOn(autocomplete, 'onKeyup').and.callThrough();
+        const onKeydownSpy = spyOn(autocomplete, 'onKeyDown').and.callThrough();
+        const onKeyupSpy = spyOn(autocomplete, 'onKeyUp').and.callThrough();
         const onInputSpy = spyOn(autocomplete, 'onInput').and.callThrough();
         const handleSuggestionsChangeSpy = spyOn(autocomplete, 'handleSuggestionsChange').and.callThrough();
         const filterBrandsSpy = spyOn(testComponent, 'filterBrands').and.callThrough();
@@ -351,7 +353,6 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
         inputEl.nativeElement.value = 'vsa';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -374,7 +375,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -387,7 +388,7 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
 
         expect(autocomplete.value).toEqual('Volvo');
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(inputEl.nativeElement.value).toEqual(autocomplete.value);
         expect(testComponent.brand).toEqual(autocomplete.value);
         flush();
@@ -434,7 +435,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete2, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete2, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -446,7 +447,7 @@ describe('AutoComplete', () => {
         firstItemEl.click();
         fixture.detectChanges();
         expect(autocomplete2.value.brand).toEqual('Volvo');
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(inputEl.nativeElement.value).toEqual(autocomplete2.value.brand);
         expect(testComponent.car).toEqual(autocomplete2.value);
         flush();
@@ -470,6 +471,16 @@ describe('AutoComplete', () => {
 
         const panelEl = fixture.debugElement.query(By.css('div'));
         expect(panelEl).toBeFalsy();
+
+        inputEl.nativeElement.value = 'va';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const updatedPanelEl = fixture.debugElement.query(By.css('div'));
+        expect(updatedPanelEl).toBeFalsy();
         flush();
     }));
 
@@ -493,7 +504,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -507,7 +518,7 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
         expect(autocomplete.value[0]).toEqual('Volvo');
         expect(autocomplete.value.length).toEqual(1);
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
         flush();
     }));
@@ -521,7 +532,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -535,7 +546,7 @@ describe('AutoComplete', () => {
 
         expect(autocomplete.value[0]).toEqual('Volvo');
         expect(autocomplete.value.length).toEqual(1);
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
         flush();
     }));
@@ -549,7 +560,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -562,10 +573,12 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
         expect(autocomplete.value[0]).toEqual('Volvo');
         expect(autocomplete.value.length).toEqual(1);
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
-        let backspaceEvent = { which: 8, preventDefault() {} };
-        autocomplete.onKeydown(backspaceEvent);
+        let backspaceEvent = new Event('keydown');
+        Object.defineProperty(backspaceEvent, 'which', { value: 8 });
+        Object.defineProperty(backspaceEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeyDown(backspaceEvent);
         fixture.detectChanges();
 
         expect(autocomplete.value[0]).toEqual(undefined);
@@ -582,7 +595,7 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         inputEl.nativeElement.value = 'v';
         inputEl.nativeElement.dispatchEvent(new Event('keydown'));
         inputEl.nativeElement.dispatchEvent(new Event('input'));
@@ -595,7 +608,7 @@ describe('AutoComplete', () => {
         fixture.detectChanges();
         expect(autocomplete.value[0]).toEqual('Volvo');
         expect(autocomplete.value.length).toEqual(1);
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
         const iconEl = fixture.debugElement.query(By.css('.p-autocomplete-token-icon'));
         iconEl.nativeElement.click();
@@ -614,21 +627,22 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        fixture.detectChanges();
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeyDown(navigateEvent);
 
-        event.which = 38;
-        autocomplete.onKeydown(event);
-        event.which = 13;
-        autocomplete.onKeydown(event);
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 13 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
+        autocomplete.onKeyDown(event);
         fixture.detectChanges();
 
         expect(autocomplete.value).toEqual('Volvo');
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
     });
 
@@ -640,17 +654,22 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 40, preventDefault() {} };
-        autocomplete.onKeydown(event);
-        event.which = 9;
-        autocomplete.onKeydown(event);
-        fixture.detectChanges();
 
+        let navigateEvent = new Event('keydown');
+        Object.defineProperty(navigateEvent, 'which', { value: 40 });
+        Object.defineProperty(navigateEvent, 'preventDefault', { value: () => {} });
+        autocomplete.onKeyDown(navigateEvent);
+
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 9 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
+        autocomplete.onKeyDown(event);
+        fixture.detectChanges();
         expect(autocomplete.value).toEqual('Volvo');
-        expect(selectItemSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
     });
 
@@ -662,16 +681,19 @@ describe('AutoComplete', () => {
         inputEl.nativeElement.click();
         fixture.detectChanges();
 
-        const selectItemSpy = spyOn(autocomplete, 'selectItem').and.callThrough();
+        const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = { which: 27, preventDefault() {} };
-        autocomplete.onKeydown(event);
+        let event = new Event('keydown');
+        Object.defineProperty(event, 'which', { value: 27 });
+        Object.defineProperty(event, 'preventDefault', { value: () => {} });
+
+        autocomplete.onKeyDown(event);
         fixture.detectChanges();
 
         expect(autocomplete.value).toEqual(null);
-        expect(selectItemSpy).not.toHaveBeenCalled();
+        expect(onOptionSelectSpy).not.toHaveBeenCalled();
         expect(hideSpy).toHaveBeenCalled();
         expect(autocomplete.overlayVisible).toEqual(false);
     });

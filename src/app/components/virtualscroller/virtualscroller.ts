@@ -1,17 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
-import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
-
+import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Nullable } from 'primeng/ts-helpers';
+import { VirtualScrollerLazyLoadEvent } from './virtualscroller.interface';
+/**
+ * VirtualScroller is a performant approach to handle huge data efficiently.
+ * @group Components
+ */
 @Component({
     selector: 'p-virtualScroller',
     template: `
-        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass">
+        <div [ngClass]="'p-virtualscroller p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'virtualscroller'" [attr.data-pc-section]="'root'">
             <div class="p-virtualscroller-header" *ngIf="header || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div #content class="p-virtualscroller-content">
+            <div #content class="p-virtualscroller-content" [attr.data-pc-section]="'content'">
                 <p-scroller #scroller [items]="value" styleClass="p-virtualscroller-list" [style]="{ height: scrollHeight }" [itemSize]="itemSize" [lazy]="lazy" (onLazyLoad)="onLazyItemLoad($event)" [options]="options">
                     <ng-template pTemplate="item" let-item let-scrollerOptions="options">
                         <div [ngStyle]="{ height: itemSize + 'px' }" class="p-virtualscroller-item">
@@ -20,7 +25,7 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
                     </ng-template>
                 </p-scroller>
             </div>
-            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate">
+            <div class="p-virtualscroller-footer" *ngIf="footer || footerTemplate" [attr.data-pc-section]="'footer'">
                 <ng-content select="p-footer"></ng-content>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -33,46 +38,75 @@ import { Scroller, ScrollerModule, ScrollerOptions } from 'primeng/scroller';
     }
 })
 export class VirtualScroller implements AfterContentInit, BlockableUI {
-    @Input() value: any[];
-
-    @Input() itemSize: number;
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * An array of objects to display.
+     * @group Props
+     */
+    @Input() value: any[] | undefined;
+    /**
+     * Height of an item in the list.
+     * @group Props
+     */
+    @Input() itemSize: number | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Max height of the content area in inline mode.
+     * @group Props
+     */
     @Input() scrollHeight: any;
-
-    @Input() lazy: boolean;
-
-    @Input() options: ScrollerOptions;
-
+    /**
+     * Defines if data is loaded and interacted with in lazy manner.
+     * @group Props
+     */
+    @Input() lazy: boolean | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() options: ScrollerOptions | undefined;
+    /**
+     * Threshold in milliseconds to delay lazy loading during scrolling.
+     * @group Props
+     */
     @Input() delay: number = 250;
+    /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<VirtualScrollerLazyLoadEvent> = new EventEmitter<VirtualScrollerLazyLoadEvent>();
 
-    @ContentChild(Header) header: Header;
+    @ContentChild(Header) header: Header | undefined;
 
-    @ContentChild(Footer) footer: Footer;
+    @ContentChild(Footer) footer: Footer | undefined;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    @ViewChild('scroller') scroller: Scroller;
+    @ViewChild('scroller') scroller: Nullable<Scroller>;
 
-    @Output() onLazyLoad: EventEmitter<any> = new EventEmitter();
+    itemTemplate: Nullable<TemplateRef<any>>;
 
-    itemTemplate: TemplateRef<any>;
+    headerTemplate: Nullable<TemplateRef<any>>;
 
-    headerTemplate: TemplateRef<any>;
+    footerTemplate: Nullable<TemplateRef<any>>;
 
-    footerTemplate: TemplateRef<any>;
-
-    loadingItemTemplate: TemplateRef<any>;
+    loadingItemTemplate: Nullable<TemplateRef<any>>;
 
     virtualScrollTimeout: any;
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'item':
                     this.itemTemplate = item.template;
@@ -97,7 +131,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
         });
     }
 
-    onLazyItemLoad(event) {
+    onLazyItemLoad(event: VirtualScrollerLazyLoadEvent) {
         if (this.virtualScrollTimeout) {
             clearTimeout(this.virtualScrollTimeout);
         }
@@ -105,7 +139,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
         this.virtualScrollTimeout = setTimeout(() => {
             this.onLazyLoad.emit({
                 ...event,
-                rows: event.last - event.first,
+                rows: <number>event.last - <number>event.first,
                 forceUpdate: () => this.cd.detectChanges()
             });
         }, this.delay);

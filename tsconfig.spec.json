@@ -3,7 +3,8 @@
     "compilerOptions": {
       "outDir": "./out-tsc/spec",
       "types": [
-        "jasmine"
+        "jasmine",
+        "node"
       ],
       "resolveJsonModule": true,
       "allowSyntheticDefaultImports": true
@@ -15,6 +16,7 @@
     "include": [
       "src/**/*.spec.ts",
       "src/**/*.d.ts"
-    ]
+    ],
+    "exclude": ["node_modules", "**/node_modules/*"]
   }
   

@@ -119,7 +119,7 @@ describe('Menu', () => {
         }
     });
 
-    it('should show seperator', () => {
+    it('should show separator', () => {
         menu.model = [
             {
                 label: 'File',
@@ -128,9 +128,9 @@ describe('Menu', () => {
         ];
         fixture.detectChanges();
 
-        const seperatorEl = fixture.debugElement.query(By.css('.p-menu-separator'));
+        const separatorEl = fixture.debugElement.query(By.css('.p-menuitem-separator'));
         const menuItemsEl = fixture.debugElement.queryAll(By.css('li'));
-        expect(seperatorEl).toBeTruthy();
+        expect(separatorEl).toBeTruthy();
         expect(menuItemsEl.length).toEqual(4);
     });
 

@@ -1,7 +1,11 @@
-import { NgModule, Component, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, AfterContentInit, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
-
+import { Nullable } from 'primeng/ts-helpers';
+/**
+ * Timeline visualizes a series of chained events.
+ * @group Components
+ */
 @Component({
     selector: 'p-timeline',
     template: `
@@ -18,21 +22,23 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
                 'p-timeline-vertical': layout === 'vertical',
                 'p-timeline-horizontal': layout === 'horizontal'
             }"
+            [attr.data-pc-name]="'timeline'"
+            [attr.data-pc-section]="'root'"
         >
-            <div *ngFor="let event of value; let last = last" class="p-timeline-event">
-                <div class="p-timeline-event-opposite">
+            <div *ngFor="let event of value; let last = last" class="p-timeline-event" [attr.data-pc-section]="'event'">
+                <div class="p-timeline-event-opposite" [attr.data-pc-section]="'opposite'">
                     <ng-container *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"></ng-container>
                 </div>
-                <div class="p-timeline-event-separator">
+                <div class="p-timeline-event-separator" [attr.data-pc-section]="'separator'">
                     <ng-container *ngIf="markerTemplate; else marker">
                         <ng-container *ngTemplateOutlet="markerTemplate; context: { $implicit: event }"></ng-container>
                     </ng-container>
                     <ng-template #marker>
-                        <div class="p-timeline-event-marker"></div>
+                        <div class="p-timeline-event-marker" [attr.data-pc-section]="'marker'"></div>
                     </ng-template>
                     <div *ngIf="!last" class="p-timeline-event-connector"></div>
                 </div>
-                <div class="p-timeline-event-content">
+                <div class="p-timeline-event-content" [attr.data-pc-section]="'content'">
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: event }"></ng-container>
                 </div>
             </div>
@@ -46,23 +52,39 @@ import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
     }
 })
 export class Timeline implements AfterContentInit, BlockableUI {
-    @Input() value: any[];
-
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * An array of events to display.
+     * @group Props
+     */
+    @Input() value: any[] | undefined;
+    /**
+     * Inline style of the component.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the component.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Position of the timeline bar relative to the content. Valid values are "left", "right" for vertical layout and "top", "bottom" for horizontal layout.
+     * @group Props
+     */
     @Input() align: string = 'left';
+    /**
+     * Orientation of the timeline.
+     * @group Props
+     */
+    @Input() layout: 'vertical' | 'horizontal' = 'vertical';
 
-    @Input() layout: string = 'vertical';
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
+    contentTemplate: Nullable<TemplateRef<any>>;
 
-    contentTemplate: TemplateRef<any>;
+    oppositeTemplate: Nullable<TemplateRef<any>>;
 
-    oppositeTemplate: TemplateRef<any>;
-
-    markerTemplate: TemplateRef<any>;
+    markerTemplate: Nullable<TemplateRef<any>>;
 
     constructor(private el: ElementRef) {}
 
@@ -71,7 +93,7 @@ export class Timeline implements AfterContentInit, BlockableUI {
     }
 
     ngAfterContentInit() {
-        this.templates.forEach((item) => {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'content':
                     this.contentTemplate = item.template;

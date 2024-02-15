@@ -2,6 +2,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Chips } from './chips';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
 describe('Chips', () => {
     let chips: Chips;
@@ -9,7 +10,7 @@ describe('Chips', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule],
+            imports: [NoopAnimationsModule, TimesCircleIcon],
             declarations: [Chips]
         });
 
@@ -78,13 +79,13 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         expect(onInputFocusSpy).toHaveBeenCalled();
-        expect(chips.focus).toEqual(true);
+        expect(chips.focused).toEqual(true);
         expect(focusData).toBeTruthy();
         inputEl.nativeElement.dispatchEvent(new Event('blur'));
         fixture.detectChanges();
 
         expect(onInputBlurSpy).toHaveBeenCalled();
-        expect(chips.focus).toEqual(false);
+        expect(chips.focused).toEqual(false);
         expect(blurData).toBeTruthy();
     });
 
@@ -95,14 +96,14 @@ describe('Chips', () => {
         let data;
         chips.onAdd.subscribe((value) => (data = value));
         const addItemSpy = spyOn(chips, 'addItem').and.callThrough();
-        const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
+        const onKeydownSpy = spyOn(chips, 'onKeyDown').and.callThrough();
         const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         chips.cd.detectChanges();
@@ -123,13 +124,13 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(2);
@@ -146,13 +147,36 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
+        fixture.detectChanges();
+
+        expect(chips.value.length).toEqual(1);
+        expect(chips.value[0]).toEqual('primeng');
+    });
+
+    it('should not add duplicate item, case-insensitive', () => {
+        chips.allowDuplicate = false;
+        chips.caseSensitiveDuplication = false;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        inputEl.nativeElement.value = 'primeng';
+        fixture.detectChanges();
+
+        let event = { which: 13, preventDefault() {} };
+        chips.onKeyDown(event as KeyboardEvent);
+        fixture.detectChanges();
+
+        inputEl.nativeElement.value = 'PRIMENG';
+        fixture.detectChanges();
+
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(1);
@@ -164,14 +188,14 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         const addItemSpy = spyOn(chips, 'addItem').and.callThrough();
-        const onKeydownSpy = spyOn(chips, 'onKeydown').and.callThrough();
+        const onKeydownSpy = spyOn(chips, 'onKeyDown').and.callThrough();
         const updateMaxedOutSpy = spyOn(chips, 'updateMaxedOut').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('input'));
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
         let event = { which: 9, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(addItemSpy).toHaveBeenCalled();
@@ -209,17 +233,17 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 13, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         event.which = 81;
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(chips.value.length).toEqual(2);
@@ -227,7 +251,7 @@ describe('Chips', () => {
         expect(chips.value[1]).toEqual('primeng');
         expect(inputEl.nativeElement.disabled).toEqual(true);
         event.which = 8;
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         chips.updateMaxedOut();
         fixture.detectChanges();
 
@@ -245,7 +269,7 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         let event = { which: 8, preventDefault() {} };
-        chips.onKeydown(event as KeyboardEvent);
+        chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
         expect(data).toBeTruthy();
@@ -264,7 +288,7 @@ describe('Chips', () => {
         fixture.detectChanges();
 
         const tokenIconEl = fixture.debugElement.query(By.css('.p-chips-token-icon'));
-        tokenIconEl.nativeElement.click();
+        tokenIconEl.nativeElement.parentElement.click();
         fixture.detectChanges();
 
         expect(data).toBeTruthy();

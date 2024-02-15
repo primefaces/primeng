@@ -25,6 +25,8 @@ export class TranslationKeys {
     public static readonly CHOOSE = 'choose';
     public static readonly UPLOAD = 'upload';
     public static readonly CANCEL = 'cancel';
+    public static readonly PENDING = 'pending';
+    public static readonly FILE_SIZE_TYPES = 'fileSizeTypes';
     public static readonly DAY_NAMES = 'dayNames';
     public static readonly DAY_NAMES_SHORT = 'dayNamesShort';
     public static readonly DAY_NAMES_MIN = 'dayNamesMin';
@@ -39,4 +41,8 @@ export class TranslationKeys {
     public static readonly PASSWORD_PROMPT = 'passwordPrompt';
     public static readonly EMPTY_MESSAGE = 'emptyMessage';
     public static readonly EMPTY_FILTER_MESSAGE = 'emptyFilterMessage';
+    public static readonly SHOW_FILTER_MENU = 'showFilterMenu';
+    public static readonly HIDE_FILTER_MENU = 'hideFilterMenu';
+    public static readonly SELECTION_MESSAGE = 'selectionMessage';
+    public static readonly ARIA = 'aria';
 }

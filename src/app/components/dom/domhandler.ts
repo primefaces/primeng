@@ -46,6 +46,15 @@ export class DomHandler {
         }
     }
 
+    public static removeMultipleClasses(element, classNames) {
+        if (element && classNames) {
+            [classNames]
+                .flat()
+                .filter(Boolean)
+                .forEach((cNames) => cNames.split(' ').forEach((className) => this.removeClass(element, className)));
+        }
+    }
+
     public static hasClass(element: any, className: string): boolean {
         if (element && className) {
             if (element.classList) return element.classList.contains(className);
@@ -66,10 +75,7 @@ export class DomHandler {
     }
 
     public static findSingle(element: any, selector: string): any {
-        if (element) {
-            return element.querySelector(selector);
-        }
-        return null;
+        return this.isElement(element) ? element.querySelector(selector) : null;
     }
 
     public static index(element: any): number {
@@ -100,7 +106,9 @@ export class DomHandler {
 
     public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
         if (overlay && target) {
-            calculateMinWidth && (overlay.style.minWidth || (overlay.style.minWidth = DomHandler.getOuterWidth(target) + 'px'));
+            if (calculateMinWidth) {
+                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+            }
 
             if (appendTo === 'self') {
                 this.relativePosition(overlay, target);
@@ -138,12 +146,14 @@ export class DomHandler {
             element.style.transformOrigin = 'top';
         }
 
+        const horizontalOverflow = targetOffset.left + elementDimensions.width - viewport.width;
+        const targetLeftOffsetInSpaceOfRelativeElement = targetOffset.left - relativeElementOffset.left;
         if (elementDimensions.width > viewport.width) {
             // element wider then viewport and cannot fit on screen (align at left side of viewport)
             left = (targetOffset.left - relativeElementOffset.left) * -1;
-        } else if (targetOffset.left - relativeElementOffset.left + elementDimensions.width > viewport.width) {
+        } else if (horizontalOverflow > 0) {
             // element wider then viewport but can be fit on screen (align at right side of viewport)
-            left = (targetOffset.left - relativeElementOffset.left + elementDimensions.width - viewport.width) * -1;
+            left = targetLeftOffsetInSpaceOfRelativeElement - horizontalOverflow;
         } else {
             // element fits on screen (align with target)
             left = targetOffset.left - relativeElementOffset.left;
@@ -431,7 +441,9 @@ export class DomHandler {
     }
 
     public static getUserAgent(): string {
-        return navigator.userAgent;
+        if (navigator && this.isClient()) {
+            return navigator.userAgent;
+        }
     }
 
     public static isIE() {
@@ -474,7 +486,7 @@ export class DomHandler {
 
     public static appendChild(element: any, target: any) {
         if (this.isElement(target)) target.appendChild(element);
-        else if (target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
+        else if (target && target.el && target.el.nativeElement) target.el.nativeElement.appendChild(element);
         else throw 'Cannot append ' + target + ' to ' + element;
     }
 
@@ -603,21 +615,37 @@ export class DomHandler {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static getFocusableElements(element: HTMLElement) {
-        let focusableElements = DomHandler.find(
+    public static getFocusableElements(element, selector = '') {
+        let focusableElements = this.find(
             element,
-            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [href]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]), [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]),
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden]):not(.p-disabled)`
+            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`
         );
 
         let visibleFocusableElements = [];
+
         for (let focusableElement of focusableElements) {
-            if (!!(focusableElement.offsetWidth || focusableElement.offsetHeight || focusableElement.getClientRects().length)) visibleFocusableElements.push(focusableElement);
+            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
         }
+
         return visibleFocusableElements;
+    }
+
+    public static getFirstFocusableElement(element, selector) {
+        const focusableElements = this.getFocusableElements(element, selector);
+
+        return focusableElements.length > 0 ? focusableElements[0] : null;
+    }
+
+    public static getLastFocusableElement(element, selector) {
+        const focusableElements = this.getFocusableElements(element, selector);
+
+        return focusableElements.length > 0 ? focusableElements[focusableElements.length - 1] : null;
     }
 
     public static getNextFocusableElement(element: HTMLElement, reverse = false) {
@@ -683,5 +711,41 @@ export class DomHandler {
 
                 return (element && element.nodeType === 9) || this.isExist(element) ? element : null;
         }
+    }
+
+    public static isClient() {
+        return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
+    }
+
+    public static getAttribute(element, name) {
+        if (element) {
+            const value = element.getAttribute(name);
+
+            if (!isNaN(value)) {
+                return +value;
+            }
+
+            if (value === 'true' || value === 'false') {
+                return value === 'true';
+            }
+
+            return value;
+        }
+
+        return undefined;
+    }
+
+    public static calculateBodyScrollbarWidth() {
+        return window.innerWidth - document.documentElement.offsetWidth;
+    }
+
+    public static blockBodyScroll(className = 'p-overflow-hidden') {
+        document.body.style.setProperty('--scrollbar-width', this.calculateBodyScrollbarWidth() + 'px');
+        this.addClass(document.body, className);
+    }
+
+    public static unblockBodyScroll(className = 'p-overflow-hidden') {
+        document.body.style.removeProperty('--scrollbar-width');
+        this.removeClass(document.body, className);
     }
 }

@@ -1,21 +1,45 @@
-import { Injectable, ComponentFactoryResolver, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef } from '@angular/core';
+import { Injectable, ApplicationRef, Injector, Type, EmbeddedViewRef, ComponentRef, Inject, createComponent } from '@angular/core';
+import { DomHandler } from 'primeng/dom';
 import { DynamicDialogComponent } from './dynamicdialog';
 import { DynamicDialogInjector } from './dynamicdialog-injector';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
-
+import { DOCUMENT } from '@angular/common';
+import { ObjectUtils } from 'primeng/utils';
+/**
+ * Dynamic Dialog component methods.
+ * @group Service
+ */
 @Injectable()
 export class DialogService {
     dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
 
-    constructor(private componentFactoryResolver: ComponentFactoryResolver, private appRef: ApplicationRef, private injector: Injector) {}
+    constructor(private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
+    /**
+     * Displays the dialog using the dynamic dialog object options.
+     * @param {*} componentType - Dynamic component for content template.
+     * @param {DynamicDialogConfig} config - DynamicDialog object.
+     * @returns {DynamicDialogRef} DynamicDialog instance.
+     * @group Method
+     */
+    public open(componentType: Type<any>, config: DynamicDialogConfig): DynamicDialogRef {
+        if (!this.duplicationPermission(componentType, config)) {
+            return null;
+        }
 
-    public open(componentType: Type<any>, config: DynamicDialogConfig) {
         const dialogRef = this.appendDialogComponentToBody(config);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
 
         return dialogRef;
+    }
+    /**
+     * Returns the dynamic dialog component instance.
+     * @param {ref} DynamicDialogRef - DynamicDialog instance.
+     * @group Method
+     */
+    public getInstance(ref: DynamicDialogRef) {
+        return this.dialogComponentRefMap.get(ref).instance;
     }
 
     private appendDialogComponentToBody(config: DynamicDialogConfig) {
@@ -35,13 +59,16 @@ export class DialogService {
             sub.unsubscribe();
         });
 
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(DynamicDialogComponent);
-        const componentRef = componentFactory.create(new DynamicDialogInjector(this.injector, map));
+        const componentRef = createComponent(DynamicDialogComponent, { environmentInjector: this.appRef.injector, elementInjector: new DynamicDialogInjector(this.injector, map) });
 
         this.appRef.attachView(componentRef.hostView);
 
         const domElem = (componentRef.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
-        document.body.appendChild(domElem);
+        if (!config.appendTo || config.appendTo === 'body') {
+            this.document.body.appendChild(domElem);
+        } else {
+            DomHandler.appendChild(domElem, config.appendTo);
+        }
 
         this.dialogComponentRefMap.set(dialogRef, componentRef);
 
@@ -57,5 +84,19 @@ export class DialogService {
         this.appRef.detachView(dialogComponentRef.hostView);
         dialogComponentRef.destroy();
         this.dialogComponentRefMap.delete(dialogRef);
+    }
+
+    private duplicationPermission(componentType: Type<any>, config: DynamicDialogConfig): boolean {
+        if (config.duplicate) {
+            return true;
+        }
+        let permission = true;
+        for (const [key, value] of this.dialogComponentRefMap) {
+            if (value.instance.childComponentType === componentType) {
+                permission = false;
+                break;
+            }
+        }
+        return permission;
     }
 }

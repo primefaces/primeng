@@ -1,11 +1,14 @@
-import { NgModule, Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+/**
+ * ProgressSpinner is a process status indicator.
+ * @group Components
+ */
 @Component({
     selector: 'p-progressSpinner',
     template: `
-        <div class="p-progress-spinner" [ngStyle]="style" [ngClass]="styleClass" role="alert" aria-busy="true">
-            <svg class="p-progress-spinner-svg" viewBox="25 25 50 50" [style.animation-duration]="animationDuration">
+        <div class="p-progress-spinner" [ngStyle]="style" [ngClass]="styleClass" role="progressbar" [attr.aria-label]="ariaLabel" [attr.aria-busy]="true" [attr.data-pc-name]="'progressspinner'" [attr.data-pc-section]="'root'">
+            <svg class="p-progress-spinner-svg" viewBox="25 25 50 50" [style.animation-duration]="animationDuration" [attr.data-pc-section]="'root'">
                 <circle class="p-progress-spinner-circle" cx="50" cy="50" r="20" [attr.fill]="fill" [attr.stroke-width]="strokeWidth" stroke-miterlimit="10" />
             </svg>
         </div>
@@ -18,15 +21,36 @@ import { CommonModule } from '@angular/common';
     }
 })
 export class ProgressSpinner {
-    @Input() style: any;
-
-    @Input() styleClass: string;
-
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() style: { [klass: string]: any } | null | undefined;
+    /**
+     * Width of the circle stroke.
+     * @group Props
+     */
     @Input() strokeWidth: string = '2';
-
+    /**
+     * Color for the background of the circle.
+     * @group Props
+     */
     @Input() fill: string = 'none';
-
+    /**
+     * Duration of the rotate animation.
+     * @group Props
+     */
     @Input() animationDuration: string = '2s';
+    /**
+     * Used to define a aria label attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
 }
 
 @NgModule({

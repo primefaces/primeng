@@ -1,40 +1,45 @@
-.p-panelmenu .p-panelmenu-header-link {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
-    position: relative;
-    text-decoration: none;
-}
+@layer primeng {
+    .p-panelmenu .p-panelmenu-header-action {
+        display: flex;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+        position: relative;
+        text-decoration: none;
+    }
 
-.p-panelmenu .p-panelmenu-header-link:focus {
-    z-index: 1;
-}
+    .p-panelmenu .p-panelmenu-header-action:focus {
+        z-index: 1;
+    }
 
-.p-panelmenu .p-submenu-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
+    .p-panelmenu .p-submenu-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-.p-panelmenu .p-menuitem-link {
-    display: flex;
-    align-items: center;
-    user-select: none;
-    cursor: pointer;
-    text-decoration: none;
-}
+    .p-panelmenu .p-menuitem-link {
+        display: flex;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        outline: none;
+    }
 
-.p-panelmenu .p-menuitem-text {
-    line-height: 1;
-}
+    .p-panelmenu .p-menuitem-text {
+        line-height: 1;
+    }
 
-.p-panelmenu-expanded.p-toggleable-content:not(.ng-animating),
-.p-panelmenu .p-submenu-expanded:not(.ng-animating) {
-    overflow: visible;
-}
+    .p-panelmenu-expanded.p-toggleable-content:not(.ng-animating),
+    .p-panelmenu .p-submenu-expanded:not(.ng-animating) {
+        overflow: visible;
+    }
 
-.p-panelmenu .p-toggleable-content,
-.p-panelmenu .p-submenu-list {
-    overflow: hidden;
+    .p-panelmenu .p-toggleable-content,
+    .p-panelmenu .p-submenu-list {
+        overflow: hidden;
+    }
 }

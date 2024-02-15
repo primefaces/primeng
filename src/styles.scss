@@ -1,8 +1,7 @@
-$gutter:1rem;
-
-@import "assets/showcase/styles/primeng.css";
-@import "../node_modules/primeicons/primeicons.css";
-@import "../node_modules/primeflex/primeflex.scss";
-@import "../node_modules/prismjs/themes/prism-coy.css";
-@import "../node_modules/quill/dist/quill.snow.css";
-@import "assets/showcase/styles/flags.css";
+@import 'assets/showcase/styles/layout/layout.scss';
+@import 'assets/showcase/styles/primeng.css';
+@import 'primeicons/primeicons.css';
+@import 'primeflex/primeflex.scss';
+@import 'quill/dist/quill.snow.css';
+@import 'assets/showcase/styles/flags.css';
+@import '@docsearch/css/dist/style.css';

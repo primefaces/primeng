@@ -1,8 +1,13 @@
-.p-rating-icon {
-    cursor: pointer;
-    display: inline-flex;
-}
+@layer primeng {
+    .p-rating {
+        display: inline-flex;
+    }
 
-.p-rating.p-rating-readonly .p-rating-icon {
-    cursor: default;
+    .p-rating-icon {
+        cursor: pointer;
+    }
+
+    .p-rating.p-rating-readonly .p-rating-icon {
+        cursor: default;
+    }
 }

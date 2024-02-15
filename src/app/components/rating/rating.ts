@@ -1,36 +1,79 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BanIcon } from 'primeng/icons/ban';
+import { StarIcon } from 'primeng/icons/star';
+import { StarFillIcon } from 'primeng/icons/starfill';
+import { Nullable } from 'primeng/ts-helpers';
+import { RatingRateEvent } from './rating.interface';
+import { DomHandler } from 'primeng/dom';
+import { UniqueComponentId } from 'primeng/utils';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Rating),
     multi: true
 };
-
+/**
+ * Rating is an extension to standard radio button element with theming.
+ * @group Components
+ */
 @Component({
     selector: 'p-rating',
     template: `
-        <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }">
+        <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }" [attr.data-pc-name]="'rating'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
-                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
-                <span
-                    *ngFor="let star of starsArray; let i = index"
-                    class="p-rating-icon"
-                    [attr.tabindex]="disabled || readonly ? null : '0'"
-                    (click)="rate($event, i)"
-                    (keydown.enter)="rate($event, i)"
-                    [ngClass]="!value || i >= value ? iconOffClass : iconOnClass"
-                    [ngStyle]="!value || i >= value ? iconOffStyle : iconOnStyle"
-                >
-                </span>
+                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'" (click)="onOptionClick($event, 0)" [ngClass]="{ 'p-focus': focusedOptionIndex() === 0 && isFocusVisible }" class="p-rating-item p-rating-cancel-item">
+                    <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                        <input
+                            type="radio"
+                            value="0"
+                            [name]="name"
+                            [checked]="value === 0"
+                            [disabled]="disabled"
+                            [readonly]="readonly"
+                            [attr.aria-label]="cancelAriaLabel()"
+                            (focus)="onInputFocus($event, 0)"
+                            (blur)="onInputBlur($event)"
+                            (change)="onChange($event, 0)"
+                        />
+                    </span>
+                    <span *ngIf="iconCancelClass" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
+                    <BanIcon *ngIf="!iconCancelClass" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'" />
+                </div>
+                <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
+                    <div class="p-rating-item" [ngClass]="{ 'p-rating-item-active': star + 1 <= value, 'p-focus': star + 1 === focusedOptionIndex() && isFocusVisible }" (click)="onOptionClick($event, star + 1)">
+                        <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
+                            <input
+                                type="radio"
+                                value="0"
+                                [name]="name"
+                                [checked]="value === 0"
+                                [disabled]="disabled"
+                                [readonly]="readonly"
+                                [attr.aria-label]="starAriaLabel(star + 1)"
+                                (focus)="onInputFocus($event, star + 1)"
+                                (blur)="onInputBlur($event)"
+                                (change)="onChange($event, star + 1)"
+                            />
+                        </span>
+                        <ng-container *ngIf="!value || i >= value">
+                            <span class="p-rating-icon" *ngIf="iconOffClass" [ngStyle]="iconOffStyle" [ngClass]="iconOffClass" [attr.data-pc-section]="'offIcon'"></span>
+                            <StarIcon *ngIf="!iconOffClass" [ngStyle]="iconOffStyle" [styleClass]="'p-rating-icon'" [attr.data-pc-section]="'offIcon'" />
+                        </ng-container>
+                        <ng-container *ngIf="value && i < value">
+                            <span class="p-rating-icon p-rating-icon-active" *ngIf="iconOnClass" [ngStyle]="iconOnStyle" [ngClass]="iconOnClass" [attr.data-pc-section]="'onIcon'"></span>
+                            <StarFillIcon *ngIf="!iconOnClass" [ngStyle]="iconOnStyle" [styleClass]="'p-rating-icon p-rating-icon-active'" [attr.data-pc-section]="'onIcon'" />
+                        </ng-container>
+                    </div>
+                </ng-template>
             </ng-container>
             <ng-template #customTemplate>
-                <span *ngIf="cancel" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="clear($event)" (keydown.enter)="clear($event)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle">
+                <span *ngIf="cancel" (click)="onOptionClick($event, 0)" class="p-rating-icon p-rating-cancel" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'">
                     <ng-container *ngTemplateOutlet="cancelIconTemplate"></ng-container>
                 </span>
-                <span *ngFor="let star of starsArray; let i = index" class="p-rating-icon" [attr.tabindex]="disabled || readonly ? null : '0'" (click)="rate($event, i)" (keydown.enter)="rate($event, i)">
+                <span *ngFor="let star of starsArray; let i = index" class="p-rating-icon" (click)="onOptionClick($event, star + 1)" [attr.data-pc-section]="'onIcon'">
                     <ng-container *ngTemplateOutlet="getIconTemplate(i)"></ng-container>
                 </span>
             </ng-template>
@@ -45,58 +88,113 @@ export const RATING_VALUE_ACCESSOR: any = {
     }
 })
 export class Rating implements OnInit, ControlValueAccessor {
-    @ContentChildren(PrimeTemplate) templates: QueryList<any>;
-
-    onIconTemplate: TemplateRef<any>;
-
-    offIconTemplate: TemplateRef<any>;
-
-    cancelIconTemplate: TemplateRef<any>;
-
-    @Input() isCustomCancelIcon: boolean = true;
-
-    @Input() index: number;
-
-    @Input() disabled: boolean;
-
-    @Input() readonly: boolean;
-
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input() disabled: boolean | undefined;
+    /**
+     * When present, changing the value is not possible.
+     * @group Props
+     */
+    @Input() readonly: boolean | undefined;
+    /**
+     * Number of stars.
+     * @group Props
+     */
     @Input() stars: number = 5;
-
+    /**
+     * When specified a cancel icon is displayed to allow removing the value.
+     * @group Props
+     */
     @Input() cancel: boolean = true;
+    /**
+     * Style class of the on icon.
+     * @group Props
+     */
+    @Input() iconOnClass: string | undefined;
+    /**
+     * Inline style of the on icon.
+     * @group Props
+     */
+    @Input() iconOnStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the off icon.
+     * @group Props
+     */
+    @Input() iconOffClass: string | undefined;
+    /**
+     * Inline style of the off icon.
+     * @group Props
+     */
+    @Input() iconOffStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Style class of the cancel icon.
+     * @group Props
+     */
+    @Input() iconCancelClass: string | undefined;
+    /**
+     * Inline style of the cancel icon.
+     * @group Props
+     */
+    @Input() iconCancelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Emitted on value change.
+     * @param {RatingRateEvent} value - Custom rate event.
+     * @group Emits
+     */
+    @Output() onRate: EventEmitter<RatingRateEvent> = new EventEmitter<RatingRateEvent>();
+    /**
+     * Emitted when the rating is cancelled.
+     * @param {Event} value - Browser event.
+     * @group Emits
+     */
+    @Output() onCancel: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Emitted when the rating receives focus.
+     * @param {Event} value - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
+    /**
+     * Emitted when the rating loses focus.
+     * @param {Event} value - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<FocusEvent> = new EventEmitter<FocusEvent>();
 
-    @Input() iconOnClass: string = 'pi pi-star-fill';
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Input() iconOnStyle: any;
+    onIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() iconOffClass: string = 'pi pi-star';
+    offIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() iconOffStyle: any;
+    cancelIconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() iconCancelClass: string = 'pi pi-ban';
-
-    @Input() iconCancelStyle: any;
-
-    @Output() onRate: EventEmitter<any> = new EventEmitter();
-
-    @Output() onCancel: EventEmitter<any> = new EventEmitter();
-
-    constructor(private cd: ChangeDetectorRef) {}
-
-    value: number;
+    value: Nullable<number>;
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
 
-    public starsArray: number[];
+    public starsArray: Nullable<number[]>;
+
+    isFocusVisibleItem: boolean = true;
+
+    focusedOptionIndex = signal<number>(-1);
+
+    name: string | undefined;
+
+    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
 
     ngOnInit() {
+        this.name = this.name || UniqueComponentId();
         this.starsArray = [];
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
         }
     }
+
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
@@ -108,38 +206,68 @@ export class Rating implements OnInit, ControlValueAccessor {
                     this.offIconTemplate = item.template;
                     break;
 
-                case 'cancel':
+                case 'cancelicon':
                     this.cancelIconTemplate = item.template;
                     break;
             }
         });
     }
 
-    getIconTemplate(i: number): TemplateRef<any> {
-        return !this.value || i >= this.value ? this.offIconTemplate : this.onIconTemplate;
+    onOptionClick(event, value) {
+        if (!this.readonly && !this.disabled) {
+            this.onOptionSelect(event, value);
+            this.isFocusVisibleItem = false;
+            const firstFocusableEl = DomHandler.getFirstFocusableElement(event.currentTarget, '');
+
+            firstFocusableEl && DomHandler.focus(firstFocusableEl);
+        }
     }
 
-    rate(event, i: number): void {
-        if (!this.readonly && !this.disabled) {
-            this.value = i + 1;
-            this.onModelChange(this.value);
-            this.onModelTouched();
+    onOptionSelect(event, value) {
+        this.focusedOptionIndex.set(value);
+        this.updateModel(event, value || null);
+    }
+
+    onChange(event, value) {
+        this.onOptionSelect(event, value);
+        this.isFocusVisibleItem = true;
+    }
+
+    onInputBlur(event) {
+        this.focusedOptionIndex.set(-1);
+        this.onBlur.emit(event);
+    }
+
+    onInputFocus(event, value) {
+        this.focusedOptionIndex.set(value);
+        this.onFocus.emit(event);
+    }
+
+    updateModel(event, value) {
+        this.value = value;
+        this.onModelChange(this.value);
+        this.onModelTouched();
+
+        if (!value) {
+            this.onCancel.emit();
+        } else {
             this.onRate.emit({
                 originalEvent: event,
-                value: i + 1
+                value
             });
         }
-        event.preventDefault();
     }
 
-    clear(event): void {
-        if (!this.readonly && !this.disabled) {
-            this.value = null;
-            this.onModelChange(this.value);
-            this.onModelTouched();
-            this.onCancel.emit(event);
-        }
-        event.preventDefault();
+    cancelAriaLabel() {
+        return this.config.translation.clear;
+    }
+
+    starAriaLabel(value) {
+        return value === 1 ? this.config.translation.aria.star : this.config.translation.aria.stars.replace(/{star}/g, value);
+    }
+
+    getIconTemplate(i: number): Nullable<TemplateRef<any>> {
+        return !this.value || i >= this.value ? this.offIconTemplate : this.onIconTemplate;
     }
 
     writeValue(value: any): void {
@@ -166,7 +294,7 @@ export class Rating implements OnInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, StarFillIcon, StarIcon, BanIcon],
     exports: [Rating, SharedModule],
     declarations: [Rating]
 })
