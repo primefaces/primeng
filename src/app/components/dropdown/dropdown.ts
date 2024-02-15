@@ -986,9 +986,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     // modelValue  equal to null would usually mean that modelValue was not set
-    // this method includes a test for the special case where modelValue is set because (modelValue is null and the selected option has a value of null) 
+    // this method includes a test for the special case where modelValue is set because (modelValue is null and the selected option has a value of null)
     private isModelValueNotSet(): boolean {
-        return (this.modelValue() === null) && !this.isOptionValueEqualsModelValue(this.selectedOption);
+        return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
     }
 
     private getAllVisibleAndNonVisibleOptions() {
