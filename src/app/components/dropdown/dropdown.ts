@@ -974,7 +974,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 }
             }
 
-            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || modelValue === null) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || modelValue === null) && ObjectUtils.isNotEmpty(this.selectedOption) && !this._filterValue()) {
                 this.selectedOption = null;
             }
 
