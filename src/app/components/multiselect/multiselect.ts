@@ -1042,8 +1042,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
+    private getAllVisibleAndNonVisibleOptions() {
+        return this.group ? this.flatOptions(this.options) : this.options || [];
+    }
+
     visibleOptions = computed(() => {
-        const options = this.group ? this.flatOptions(this.options) : this.options || [];
+        const options = this.getAllVisibleAndNonVisibleOptions();
         const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0]);
 
         if (this._filterValue()) {
@@ -1834,8 +1838,17 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);
+
+            // because onToggleAll could have been called during filtering,  this additional test needs to be performed before calling onSelectAllChange.emit
+            if(!value.length || (value.length === this.getAllVisibleAndNonVisibleOptions().length)) {
+                this.onSelectAllChange.emit({
+                    originalEvent: event,
+                    checked: !!value.length
+                });
+            }
         }
 
+        this.onChange.emit({ originalEvent: event, value: this.value });
         DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
