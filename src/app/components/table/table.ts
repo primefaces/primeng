@@ -5594,7 +5594,7 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
+                if (this.overlayVisible && this.isOutsideClicked(event)) {
                     this.hide();
                 }
 
