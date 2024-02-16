@@ -1840,7 +1840,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             this.updateModel(value, event);
 
             // because onToggleAll could have been called during filtering,  this additional test needs to be performed before calling onSelectAllChange.emit
-            if(!value.length || (value.length === this.getAllVisibleAndNonVisibleOptions().length)) {
+            if (!value.length || value.length === this.getAllVisibleAndNonVisibleOptions().length) {
                 this.onSelectAllChange.emit({
                     originalEvent: event,
                     checked: !!value.length
