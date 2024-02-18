@@ -762,7 +762,8 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        if (this.isFileLimitExceeded() || (this.msgs.length>0 && this.fileLimit < files.length)) {
+        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
+        if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
