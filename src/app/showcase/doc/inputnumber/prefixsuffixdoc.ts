@@ -70,7 +70,7 @@ import { Component } from '@angular/core';
     selector: 'input-number-prefix-suffix-demo',
     templateUrl: './input-number-prefix-suffix-demo.html'
 })
-export class InputNumberPrefixSsuffixDemo {
+export class InputNumberPrefixSuffixDemo {
     value1: number = 20;
 
     value2: number = 50;
