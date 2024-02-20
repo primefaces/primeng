@@ -58,6 +58,10 @@
                             "routerLink": "/editor"
                         },
                         {
+                            "name": "IconField",
+                            "routerLink": "/iconfield"
+                        },
+                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },
