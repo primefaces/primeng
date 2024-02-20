@@ -3,11 +3,11 @@ import { Code } from '../../domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` test`
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
 })
 export class ImportDoc {
-     code: Code = {
-         typescript: `import { FileUploadModule } from 'primeng/fileupload';`
-     };
+    code: Code = {
+        typescript: `import { FloatLabelModule } from 'primeng/floatlabel';`
+    };
 }
 

@@ -5,30 +5,42 @@ import { Code } from '../../domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
+            <p>FloatLabel is used by wrapping the input and its label.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-floatLabel></p-floatLabel>
+            <p-floatLabel>
+                <input id="username" type="text" pInputText [(ngModel)]="value" />
+                <label for="username">Username</label>
+            </p-floatLabel>
         </div>
-
+        <app-code [code]="code" selector="float-label-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
-    code: Code = {
-        basic: `<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>`,
+    value: string | undefined;
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>
+    code: Code = {
+        basic: `<p-floatLabel>
+<input id="username" type="text" pInputText [(ngModel)]="value" />
+<label for="username">Username</label>
+</p-floatLabel>`,
+
+        html: `<div class="card flex justify-content-center">
+<p-floatLabel>
+<input id="username" type="text" pInputText [(ngModel)]="value" />
+<label for="username">Username</label>
+</p-floatLabel>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
         
 @Component({
-    selector: 'image-basic-demo',
-    templateUrl: './image-basic-demo.html'
+    selector: 'float-label-basic-demo',
+    templateUrl: './float-label-basic-demo.html'
 })
-export class ImageBasicDemo {}`
+export class FloatLabelBasicDemo {
+    value: string | undefined;
+}`
     };
 }

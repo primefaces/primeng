@@ -58,6 +58,10 @@
                             "routerLink": "/editor"
                         },
                         {
+                            "name": "FloatLabel",
+                            "routerLink": "/floatlabel"
+                        },
+                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },
