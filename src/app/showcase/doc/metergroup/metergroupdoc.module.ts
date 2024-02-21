@@ -12,9 +12,12 @@ import { MultipleDoc } from './multipledoc';
 import { IconDoc } from './icondoc';
 import { LabelDoc } from './labeldoc';
 import { VerticalDoc } from './verticaldoc';
+import { MinMaxDoc } from './minmaxdoc';
+import { TemplateDoc } from './templatedoc';
+import { CardModule } from 'primeng/card';
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroupModule],
-    declarations: [BasicDoc, ImportDoc, MultipleDoc,IconDoc,LabelDoc,VerticalDoc],
+    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroupModule,CardModule],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc,IconDoc,LabelDoc,VerticalDoc,MinMaxDoc,TemplateDoc],
     exports: [AppDocModule]
 })
 export class MeterGroupDocModule {}

@@ -5,6 +5,8 @@ import { MultipleDoc } from '../../doc/metergroup/multipledoc';
 import { IconDoc } from '../../doc/metergroup/icondoc';
 import { LabelDoc } from '../../doc/metergroup/labeldoc';
 import { VerticalDoc } from '../../doc/metergroup/verticaldoc';
+import { MinMaxDoc } from '../../doc/metergroup/minmaxdoc';
+import { TemplateDoc } from '../../doc/metergroup/templatedoc';
 @Component({
     templateUrl: './metergroupdemo.html'
 })
@@ -39,6 +41,16 @@ export class MeterGroupDemo {
             id: 'vertical',
             label: 'Vertical',
             component: VerticalDoc  
+        },
+        {
+            id: 'minmax',
+            label: 'Min Max',
+            component: MinMaxDoc 
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
     ];
 }

@@ -142,6 +142,9 @@ export class MeterGroup {
                 case 'start':
                     this.startTemplate = item.template;
                     break;
+                case 'meter':
+                    this.meterTemplate = item.template;
+                    break;
                 case 'end':
                     this.endTemplate = item.template;
                     break;
