@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ContentChildren, Input, NgModule, QueryList, TemplateRef } from '@angular/core';
+import { Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, forwardRef, inject } from '@angular/core';
 import { PrimeTemplate, SharedModule } from '../api/shared';
 export interface MeterGroupValue {
     label?: string;
@@ -10,14 +10,14 @@ export interface MeterGroupValue {
 @Component({
     selector: 'p-meterGroupLabel',
     template: `
-        <ol [ngClass]="labelClasses">
-            <li *ngFor="let val of value; let index = index" [key]="index + '_label'" class="p-metergroup-label">
+        <ol [ngClass]="labelClass">
+            <li *ngFor="let val of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
                 <ng-container *ngIf="!iconTemplate">
                     <i *ngIf="val.icon" [ngClass]="{ 'p-metergroup-label-icon': val.icon }" [ngStyle]="{ color: val.color }"></i>
                     <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val }"></ng-container>
-                <span class="p-metergroup-label-text">{{ val.label }} ({{ percentValue(val.value) }})</span>
+                <span class="p-metergroup-label-text">{{ val.label }} ({{ parentInstance?.percentValue(val.value) }})</span>
             </li>
         </ol>
     `,
@@ -41,14 +41,7 @@ export class MeterGroupLabel {
 
     iconTemplate: TemplateRef<any> | undefined;
 
-    percent(meter = 0) {
-        const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
-        return Math.round(Math.max(0, Math.min(100, percentOfItem)));
-    }
-
-    percentValue(meter) {
-        return this.percent(meter) + '%';
-    }
+    parentInstance: MeterGroup = inject(forwardRef(() => MeterGroup));
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -62,7 +55,8 @@ export class MeterGroupLabel {
             }
         });
     }
-    get labelClasses(): { [key: string]: boolean } {
+
+    get labelClass(): { [key: string]: boolean } {
         return {
             'p-metergroup-labels': true,
             'p-metergroup-labels-vertical': this.labelOrientation === 'vertical',
@@ -83,7 +77,7 @@ export class MeterGroupLabel {
             <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             }
             <div class="p-metergroup-meters">
-                <ng-container *ngFor="let val of value; let index = index">
+                <ng-container *ngFor="let val of value; let index = index; trackBy: trackByFn">
                     <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val }"> </ng-container>
                     <ng-container *ngIf="!meterTemplate">
                         <span class="p-metergroup-meter" [ngStyle]="meterSize(val)"></span>
@@ -113,6 +107,10 @@ export class MeterGroup {
     startTemplate: TemplateRef<any> | undefined;
     meterTemplate: TemplateRef<any> | undefined;
     endTemplate: TemplateRef<any> | undefined;
+
+    trackByFn(index: number, item: any): number {
+        return index;
+    }
 
     percent(meter = 0) {
         const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
