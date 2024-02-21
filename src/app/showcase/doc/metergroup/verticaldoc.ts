@@ -7,8 +7,8 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical"></p-meterGroup>
+        <div class="card flex justify-content-center">
+            <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>
         </div>
         <app-code [code]="code" selector="metergroup-vertical-demo"></app-code>
     `
