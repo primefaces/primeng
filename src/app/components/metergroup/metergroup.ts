@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, ContentChildren, Input, NgModule, QueryList, TemplateRef } from '@angular/core';
 import { PrimeTemplate, SharedModule } from '../api/shared';
-
+export interface MeterGroupValue {
+    label?: string;
+    value?: number;
+    color?: string;
+    icon?: string;
+}
 @Component({
     selector: 'p-meterGroupLabel',
     template: `
         <ol [ngClass]="labelClasses">
             <li *ngFor="let val of value; let index = index" [key]="index + '_label'" class="p-metergroup-label">
                 <ng-container *ngIf="!iconTemplate">
-                    <div class="p-metergroup-label-icon">
-                        <i *ngIf="val.icon" [ngClass]="{ 'p-metergroup-label-icon': val.icon }" [ngStyle]="{ color: val.color }"></i>
-                        <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
-                    </div>
+                    <i *ngIf="val.icon" [ngClass]="{ 'p-metergroup-label-icon': val.icon }" [ngStyle]="{ color: val.color }"></i>
+                    <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val }"></ng-container>
                 <span class="p-metergroup-label-text">{{ val.label }} ({{ percentValue(val.value) }})</span>
@@ -42,11 +45,11 @@ export class MeterGroupLabel {
         const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
         return Math.round(Math.max(0, Math.min(100, percentOfItem)));
     }
-    
+
     percentValue(meter) {
         return this.percent(meter) + '%';
     }
-    
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -75,21 +78,22 @@ export class MeterGroupLabel {
     selector: 'p-meterGroup',
     template: `
         <div [ngClass]="meterGroupStyles" role="meter">
-            <ng-container *ngIf="labelPosition === 'start'">
-                <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
-            </ng-container>
+            @if(labelPosition ==='start') {
+            <p-meterGroupLabel *ngIf="!startTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
             <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            }
             <div class="p-metergroup-meters">
-                <ng-container *ngFor="let val of value; let index = index" [key]="index" >
+                <ng-container *ngFor="let val of value; let index = index">
                     <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val }"> </ng-container>
                     <ng-container *ngIf="!meterTemplate">
                         <span class="p-metergroup-meter" [ngStyle]="meterSize(val)"></span>
                     </ng-container>
                 </ng-container>
-                <ng-container *ngIf="labelPosition === 'end'">
-                    <p-meterGroupLabel [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
-                </ng-container>
             </div>
+            @if(labelPosition === 'end') {
+            <p-meterGroupLabel *ngIf="!endTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
+            <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            }
         </div>
     `,
     styleUrls: ['./metergroup.css'],
@@ -98,7 +102,7 @@ export class MeterGroupLabel {
     }
 })
 export class MeterGroup {
-    @Input() value: any[] | null = [{ label: 'Space used', value: 15 }];
+    @Input() value: MeterGroupValue[] | undefined;
     @Input() min: number = 0;
     @Input() max: number = 100;
     @Input() orientation: string = 'horizontal';
@@ -109,6 +113,7 @@ export class MeterGroup {
     startTemplate: TemplateRef<any> | undefined;
     meterTemplate: TemplateRef<any> | undefined;
     endTemplate: TemplateRef<any> | undefined;
+
     percent(meter = 0) {
         const percentOfItem = ((meter - this.min) / (this.max - this.min)) * 100;
 
@@ -121,7 +126,7 @@ export class MeterGroup {
         return {
             backgroundColor: val.color,
             width: this.orientation === 'horizontal' && this.percentValue(val.value),
-            height: this.orientation === 'vertical' && this.percentValue(val.value),
+            height: this.orientation === 'vertical' && this.percentValue(val.value)
         };
     }
     totalPercent() {

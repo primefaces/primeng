@@ -7,16 +7,17 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-meterGroup></p-meterGroup>
+        <div class="card">
+            <p-meterGroup [value]="value"></p-meterGroup>
         </div>
         <app-code [code]="code" selector="metergroup-basic-demo"></app-code>
     `
 })
-export class BasicDoc  {
-  
-
-
+export class BasicDoc {
+    value = [
+        { label: 'Space used', value: 15, color: '#34d399' },
+        { label: 'Messages', value: 55, color: '#fbbf24' }
+    ];
     code: Code = {
         basic: `<p-menu [model]="items"></p-menu>`,
 
