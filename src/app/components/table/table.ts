@@ -2655,7 +2655,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-        this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+        this.styleElement.textContent = innerHTML;
     }
 
     onRowDragStart(event: any, index: number) {
@@ -2905,7 +2905,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     `;
                 });
 
-                this.styleElement.innerHTML = innerHTML;
+                this.styleElement.textContent = innerHTML;
             }
         }
     }
@@ -2999,7 +2999,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
     `;
-                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', innerHTML);
+                this.responsiveStyleElement.textContent = innerHTML;
             }
         }
     }
