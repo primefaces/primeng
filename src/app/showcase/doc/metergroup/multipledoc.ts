@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'multiple-doc',
     template: `
         <app-docsectiontext>
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
@@ -10,12 +10,15 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-basic-demo"></app-code>
+        <app-code [code]="code" selector="metergroup-multiple-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class MultipleDoc {
     value = [
-        { label: 'Space used', value: 15, color: '#34d399' }
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
         basic: `<p-menu [model]="items"></p-menu>`,

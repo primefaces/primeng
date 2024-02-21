@@ -8,10 +8,13 @@ import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { ButtonModule } from 'primeng/button';
 import { MeterGroupModule } from 'primeng/metergroup';
-
+import { MultipleDoc } from './multipledoc';
+import { IconDoc } from './icondoc';
+import { LabelDoc } from './labeldoc';
+import { VerticalDoc } from './verticaldoc';
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroupModule],
-    declarations: [BasicDoc, ImportDoc],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc,IconDoc,LabelDoc,VerticalDoc],
     exports: [AppDocModule]
 })
 export class MeterGroupDocModule {}

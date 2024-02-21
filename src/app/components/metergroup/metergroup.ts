@@ -13,7 +13,7 @@ export interface MeterGroupValue {
         <ol [ngClass]="labelClass">
             <li *ngFor="let val of value; let index = index; trackBy: parentInstance.trackByFn" class="p-metergroup-label">
                 <ng-container *ngIf="!iconTemplate">
-                    <i *ngIf="val.icon" [ngClass]="{ 'p-metergroup-label-icon': val.icon }" [ngStyle]="{ color: val.color }"></i>
+                    <i *ngIf="val.icon" [class]="val.icon" [ngClass]="{ 'p-metergroup-label-icon': true }" [ngStyle]="{ color: val.color }"></i>
                     <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
                 </ng-container>
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val }"></ng-container>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'icon-doc',
     template: `
         <app-docsectiontext>
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
@@ -10,12 +10,15 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-basic-demo"></app-code>
+        <app-code [code]="code" selector="metergroup-icon-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class IconDoc {
     value = [
-        { label: 'Space used', value: 15, color: '#34d399' }
+        { label: 'Apps', color: '#34d399', value: 16, icon: 'pi pi-table' },
+        { label: 'Messages', color: '#fbbf24', value: 8, icon: 'pi pi-inbox' },
+        { label: 'Media', color: '#60a5fa', value: 24, icon: 'pi pi-image' },
+        { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
     code: Code = {
         basic: `<p-menu [model]="items"></p-menu>`,
