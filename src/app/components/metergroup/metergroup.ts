@@ -73,7 +73,7 @@ export class MeterGroupLabel {
     selector: 'p-meterGroup',
     template: `
         <div #container [ngClass]="containerClass" role="meter" [ngStyle]="style" [class]="styleClass">
-            <ng-container *ngTemplateOutlet="start; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+            <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if(labelPosition ==='start') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
             <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
@@ -86,7 +86,7 @@ export class MeterGroupLabel {
                     </ng-container>
                 </ng-container>
             </div>
-            <ng-container *ngTemplateOutlet="end"></ng-container>
+            <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
             @if(labelPosition === 'end') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
             <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
