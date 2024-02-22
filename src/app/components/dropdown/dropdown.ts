@@ -152,7 +152,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="(modelValue() === undefined || modelValue() === null) && (label() === placeholder() || (label() && !placeholder()))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
                 </ng-template>
             </span>
             <input
@@ -969,7 +969,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-                if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
+                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || modelValue === null || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                 }
             }
@@ -983,6 +983,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             this.cd.markForCheck();
         });
+    }
+
+    displayPlaceholder() {
+        return ObjectUtils.isEmpty(this.selectedOption) && this.label() === this.placeholder();
     }
 
     private getAllVisibleAndNonVisibleOptions() {
@@ -1111,9 +1115,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const value = this.getOptionValue(option);
             this.updateModel(value, event);
             this.focusedOptionIndex.set(this.findSelectedOptionIndex());
+            isHide && setTimeout(() => this.hide(true), 1);
             preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
         }
-        isHide && setTimeout(() => this.hide(true), 1);
     }
 
     onOptionMouseEnter(event, index) {
@@ -1184,7 +1188,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
+            return false;
+        } else {
+            return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        }
     }
 
     getOptionGroupLabel(optionGroup: any) {
