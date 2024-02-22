@@ -28,7 +28,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
 
                 <ng-template pTemplate="meter">
-                    <!-- <span *ngFor="let val of value; let index = index" class="p-metergroup-meter" [ngStyle]="{ background: 'linear-gradient(to right, ' + val.color1 + ', ' + val.color2 + ')', width: percentValue(val.value) }"></span> -->
+                   <!-- <span *ngFor="let val of value; let index = index" class="p-metergroup-meter" [ngStyle]="{ background: 'linear-gradient(to right, ' + val.color1 + ', ' + val.color2 + ')', width: percentValue(val.value) }"></span>  -->
                 </ng-template>
             </p-meterGroup>
         </div>
@@ -42,6 +42,7 @@ export class TemplateDoc {
         { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
         { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
+    
     code: Code = {
         basic: `<p-menu [model]="items"></p-menu>`,
 

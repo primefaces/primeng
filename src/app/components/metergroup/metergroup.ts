@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation, effect, forwardRef, inject, viewChild } from '@angular/core';
 import { PrimeTemplate, SharedModule } from '../api/shared';
-import { Nullable } from 'primeng/ts-helpers';
 import { DomHandler } from 'primeng/dom';
 export interface MeterGroupValue {
     label?: string;
