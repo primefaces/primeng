@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value" labelPosition="start">
-                <ng-template pTemplate="start">
+                <ng-template pTemplate="label">
                     <div class="flex flex-wrap gap-3">
                         <div *ngFor="let val of value; let index = index">
                             <p-card class="flex-1">
@@ -26,9 +26,8 @@ import { Code } from '../../domain/code';
                         </div>
                     </div>
                 </ng-template>
-
-                <ng-template pTemplate="meter">
-                   <!-- <span *ngFor="let val of value; let index = index" class="p-metergroup-meter" [ngStyle]="{ background: 'linear-gradient(to right, ' + val.color1 + ', ' + val.color2 + ')', width: percentValue(val.value) }"></span>  -->
+                <ng-template pTemplate="meter" let-value let-class="class" let-width="size">
+                    <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
                 </ng-template>
             </p-meterGroup>
         </div>
@@ -42,7 +41,7 @@ export class TemplateDoc {
         { label: 'Media', color1: '#60a5fa', color2: '#c084fc', value: 20, icon: 'pi pi-image' },
         { label: 'System', color1: '#c084fc', color2: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
-    
+
     code: Code = {
         basic: `<p-menu [model]="items"></p-menu>`,
 

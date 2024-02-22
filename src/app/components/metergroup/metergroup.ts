@@ -73,21 +73,23 @@ export class MeterGroupLabel {
     selector: 'p-meterGroup',
     template: `
         <div #container [ngClass]="containerClass" role="meter" [ngStyle]="style" [class]="styleClass">
+            <ng-container *ngTemplateOutlet="start; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if(labelPosition ==='start') {
-            <p-meterGroupLabel *ngIf="!startTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
-            <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
+            <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
+            <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
             }
             <div class="p-metergroup-meters">
                 <ng-container *ngFor="let val of value; let index = index; trackBy: trackByFn">
-                    <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val }"> </ng-container>
+                    <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val, class: 'p-metergroup-meter', size: percentValue(val.value) }"> </ng-container>
                     <ng-container *ngIf="!meterTemplate">
-                        <span class="p-metergroup-meter" [ngStyle]="meterSize(val)"></span>
+                        <span class="p-metergroup-meter" [ngStyle]="meterStyle(val)"></span>
                     </ng-container>
                 </ng-container>
             </div>
+            <ng-container *ngTemplateOutlet="end"></ng-container>
             @if(labelPosition === 'end') {
-            <p-meterGroupLabel *ngIf="!endTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
-            <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
+            <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
             }
         </div>
     `,
@@ -121,11 +123,13 @@ export class MeterGroup {
         };
     }
 
-    startTemplate: TemplateRef<any> | undefined;
+    labelTemplate: TemplateRef<any> | undefined;
 
     meterTemplate: TemplateRef<any> | undefined;
 
     endTemplate: TemplateRef<any> | undefined;
+
+    startTemplate: TemplateRef<any> | undefined;
 
     container = viewChild('container', { read: ElementRef });
 
@@ -138,11 +142,14 @@ export class MeterGroup {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
-                case 'start':
-                    this.startTemplate = item.template;
+                case 'label':
+                    this.labelTemplate = item.template;
                     break;
                 case 'meter':
                     this.meterTemplate = item.template;
+                    break;
+                case 'start':
+                    this.startTemplate = item.template;
                     break;
                 case 'end':
                     this.endTemplate = item.template;
@@ -161,7 +168,7 @@ export class MeterGroup {
     percentValue(meter) {
         return this.percent(meter) + '%';
     }
-    meterSize(val) {
+    meterStyle(val) {
         return {
             backgroundColor: val.color,
             width: this.orientation === 'horizontal' && this.percentValue(val.value),
