@@ -1317,7 +1317,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             if (this.filterViewChild && this.filterViewChild.nativeElement) {
                 this.preventModelTouched = true;
 
-                if (this.autofocusFilter) {
+                if (this.autofocusFilter && !this.editable) {
                     this.filterViewChild.nativeElement.focus();
                 }
             }
