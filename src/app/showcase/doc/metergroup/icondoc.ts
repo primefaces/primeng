@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'icon-doc',
     template: `
         <app-docsectiontext>
-            <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
+        <p>Icons can be displayed next to the labels instead of the default marker.</p>
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
@@ -21,36 +21,28 @@ export class IconDoc {
         { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
     code: Code = {
-        basic: `<p-menu [model]="items"></p-menu>`,
+        basic: `<p-meterGroup [value]="value"></p-meterGroup>`,
 
         html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+<div class="card">
+<p-meterGroup [value]="value"></p-meterGroup>
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component } from '@angular/core';
+
 
 @Component({
-    selector: 'menu-basic-demo',
-    templateUrl: './menu-basic-demo.html'
+    selector: 'meter-group-icon-demo',
+    templateUrl: './meter-group-icon-demo.html'
 })
-export class MeterGroupBasicDemo implements OnInit {
-    items: MenuItem[] | undefined;
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'New',
-                icon: 'pi pi-fw pi-plus',
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-trash'
-            }
-        ];
-    }
+export class MeterGroupIconDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16, icon: 'pi pi-table' },
+        { label: 'Messages', color: '#fbbf24', value: 8, icon: 'pi pi-inbox' },
+        { label: 'Media', color: '#60a5fa', value: 24, icon: 'pi pi-image' },
+        { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
+    ];
 }`
     };
 }

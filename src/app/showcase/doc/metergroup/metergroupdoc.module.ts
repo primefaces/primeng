@@ -14,10 +14,11 @@ import { LabelDoc } from './labeldoc';
 import { VerticalDoc } from './verticaldoc';
 import { MinMaxDoc } from './minmaxdoc';
 import { TemplateDoc } from './templatedoc';
+import { AccessibilityDoc } from './accessibilitydoc';
 import { CardModule } from 'primeng/card';
 @NgModule({
     imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, ButtonModule, AppDocModule, MeterGroupModule,CardModule],
-    declarations: [BasicDoc, ImportDoc, MultipleDoc,IconDoc,LabelDoc,VerticalDoc,MinMaxDoc,TemplateDoc],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc,IconDoc,LabelDoc,VerticalDoc,MinMaxDoc,TemplateDoc,AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MeterGroupDocModule {}

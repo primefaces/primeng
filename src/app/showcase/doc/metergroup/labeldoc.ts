@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'label-doc',
     template: `
         <app-docsectiontext>
-            <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
+            <p>
+                The position of the labels relative to the meters is defined using the <i>labelPosition</i> property. The default orientation of the labels is horizontal, and the vertical alternative is available through the
+                <i>labelOrientation</i> option.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value" labelPosition="start" labelOrientation="vertical"></p-meterGroup>
@@ -21,36 +24,26 @@ export class LabelDoc {
         { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
-        basic: `<p-menu [model]="items"></p-menu>`,
+        basic: `<p-meterGroup [value]="value" labelPosition="start" labelOrientation="vertical"></p-meterGroup>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+        html: `<div class="card">
+<p-meterGroup [value]="value" labelPosition="start" labelOrientation="vertical"></p-meterGroup>
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'menu-basic-demo',
-    templateUrl: './menu-basic-demo.html'
+    selector: 'meter-group-label-demo',
+    templateUrl: './meter-group-label-demo.html'
 })
-export class MeterGroupBasicDemo implements OnInit {
-    items: MenuItem[] | undefined;
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'New',
-                icon: 'pi pi-fw pi-plus',
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-trash'
-            }
-        ];
-    }
+export class MeterGroupLabelDemo {
+    value = [
+        { label: 'Apps', color: '#34d399', value: 16 },
+        { label: 'Messages', color: '#fbbf24', value: 8 },
+        { label: 'Media', color: '#60a5fa', value: 24 },
+        { label: 'System', color: '#c084fc', value: 10 }
+    ];
 }`
     };
 }

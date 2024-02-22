@@ -393,6 +393,10 @@
                             "routerLink": "/inplace"
                         },
                         {
+                            "name": "MeterGroup",
+                            "routerLink": "/metergroup"
+                        },
+                        {
                             "name": "ScrollTop",
                             "routerLink": "/scrolltop"
                         },

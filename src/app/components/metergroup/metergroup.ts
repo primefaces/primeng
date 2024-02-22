@@ -72,12 +72,12 @@ export class MeterGroupLabel {
 @Component({
     selector: 'p-meterGroup',
     template: `
-        <div #container [ngClass]="containerClass" role="meter" [ngStyle]="style" [class]="styleClass">
-            <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+        <div #container [ngClass]="containerClass" role="meter" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="totalPercent()" [ngStyle]="style" [class]="styleClass" >
             @if(labelPosition ==='start') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
             <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
             }
+            <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             <div class="p-metergroup-meters">
                 <ng-container *ngFor="let val of value; let index = index; trackBy: trackByFn">
                     <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val, class: 'p-metergroup-meter', size: percentValue(val.value) }"> </ng-container>
@@ -86,7 +86,7 @@ export class MeterGroupLabel {
                     </ng-container>
                 </ng-container>
             </div>
-            <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if(labelPosition === 'end') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" />
             <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
@@ -192,7 +192,7 @@ export class MeterGroup {
         return sumsArray;
     }
 
-    trackByFn(index: number, item: any): number {
+    trackByFn(index: number): number {
         return index;
     }
 }

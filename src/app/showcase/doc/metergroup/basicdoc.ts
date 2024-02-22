@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
+            <p>MeterGroup requires a <i>value</i> as the data to display where each item in the collection should be a type of <i>MeterItem</i>.</p>
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
@@ -14,40 +14,27 @@ import { Code } from '../../domain/code';
     `
 })
 export class BasicDoc {
-    value = [
-        { label: 'Space used', value: 15, color: '#34d399' }
-    ];
+    value = [{ label: 'Space used', value: 15, color: '#34d399' }];
+
     code: Code = {
-        basic: `<p-menu [model]="items"></p-menu>`,
+        basic: `<p-meterGroup [value]="value"></p-meterGroup>`,
 
         html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+<div class="card">
+<p-meterGroup [value]="value"></p-meterGroup>
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Component } from '@angular/core';
 
 @Component({
-    selector: 'menu-basic-demo',
-    templateUrl: './menu-basic-demo.html'
+    selector: 'meter-group-basic-demo',
+    templateUrl: './meter-group-basic-demo.html'
 })
-export class MeterGroupBasicDemo implements OnInit {
-    items: MenuItem[] | undefined;
-
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'New',
-                icon: 'pi pi-fw pi-plus',
-            },
-            {
-                label: 'Delete',
-                icon: 'pi pi-fw pi-trash'
-            }
-        ];
-    }
+export class MeterGroupBasicDemo {
+    value = [
+        { label: 'Space used', value: 15, color: '#34d399' }
+    ];
 }`
     };
 }
