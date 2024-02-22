@@ -9,10 +9,11 @@ import { ImportDoc } from './importdoc';
 import { IconFieldModule } from 'src/app/components/iconfield/iconfield';
 import { InputIconModule } from 'src/app/components/inputicon/inputicon';
 import { FormsModule } from '@angular/forms';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InputTextModule, IconFieldModule, InputIconModule, FormsModule],
-    declarations: [BasicDoc, ImportDoc],
+    declarations: [BasicDoc, ImportDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class IconFieldDocModule {}
