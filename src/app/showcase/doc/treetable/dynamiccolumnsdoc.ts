@@ -36,12 +36,10 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
-        
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicColumnsDoc {
-
     files!: TreeNode[];
 
     cols!: Column[];

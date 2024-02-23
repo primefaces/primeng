@@ -557,7 +557,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
-         // this will check the fileLimit with the uploaded files
+        // this will check the fileLimit with the uploaded files
         this.checkFileLimit(files);
 
         if (this.hasFiles() && this.auto && !(this.mode === 'advanced') && !this.isFileLimitExceeded()) {

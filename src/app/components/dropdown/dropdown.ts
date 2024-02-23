@@ -969,7 +969,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-              
+
                 if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                 }

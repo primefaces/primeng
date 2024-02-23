@@ -41,8 +41,8 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-edit-demo"></app-code>
-    `
-    ,changeDetection: ChangeDetectionStrategy.OnPush
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditDoc {
     files!: TreeNode[];

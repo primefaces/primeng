@@ -50,7 +50,6 @@ interface Column {
         <app-code [code]="code" selector="tree-table-scroll-frozen-columns-demo"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
-    
 })
 export class FrozenColumnsDoc {
     files!: TreeNode[];

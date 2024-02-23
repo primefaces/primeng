@@ -31,7 +31,7 @@ interface Column {
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>`,
-        changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorBasicDoc {
     files!: TreeNode[];

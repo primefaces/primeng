@@ -24,23 +24,23 @@ interface Column {
                 <span>Metakey</span>
             </div>
             <p-deferred-demo (load)="loadDemoData()">
-            <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
-                        <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+                <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
+                            <td *ngFor="let col of columns; let i = index">
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-selection-multiple-demo"></app-code>
