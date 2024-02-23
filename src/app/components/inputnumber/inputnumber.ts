@@ -1417,10 +1417,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             clearInterval(this.timer);
         }
     }
-
-    getFormatter() {
-        return this.numberFormat;
-    }
 }
 
 @NgModule({
