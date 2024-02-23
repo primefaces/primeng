@@ -7,7 +7,7 @@
 - Component: Chips. No ability to limit max length of chip [\#14592](https://github.com/primefaces/primeng/issues/14592)
 - Sidebar : Combination of role 'complementary' and aria-modal attribute causes accessibility violation. [\#14818](https://github.com/primefaces/primeng/issues/14818)
 
-- **Fixed bugs:**
+**Fixed bugs:**
 - DropDown: Making form touched on clearing pre filled values. [\#14836](https://github.com/primefaces/primeng/issues/14836)
 - Component: MultiSelect (p-multiSelect) no longer emits an event when all items are selected or deselected [\#14252](https://github.com/primefaces/primeng/issues/14252)
 - p-multiselect: onChange event is not triggered for multiselect's filter select all/unselect all [\#14252](https://github.com/primefaces/primeng/issues/14252)
