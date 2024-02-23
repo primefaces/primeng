@@ -22,7 +22,6 @@
         "type": "git",
         "url": "https://github.com/primefaces/primeng.git"
     },
-    "type": "module",
     "devDependencies": {
         "@angular-devkit/build-angular": "^17.0.5",
         "@angular-eslint/eslint-plugin": "17.2.1",
