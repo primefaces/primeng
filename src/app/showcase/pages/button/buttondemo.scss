@@ -2,7 +2,7 @@
     margin-right: .5rem;
 }
 
-:host ::ng-deep .p-buttonset {
+:host ::ng-deep .p-button-group {
     .p-button {
         margin-right: 0;
     }
@@ -29,7 +29,7 @@
         }
     }
 
-    .p-buttonset {
+    .p-button-group {
         .p-button {
             margin-bottom: 0;
         }
