@@ -3582,7 +3582,7 @@ export class SelectableRow implements OnInit, OnDestroy {
                 break;
 
             default:
-                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) &&  this.dt.selectionMode === 'multiple') {
                     const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
@@ -5594,7 +5594,7 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
+                if (this.overlayVisible && this.isOutsideClicked(event)) {
                     this.hide();
                 }
 

@@ -43,9 +43,11 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 import { SizeDoc } from './sizedoc';
 import { GridlinesDoc } from './gridlinesdoc';
+import { ControlledDoc } from './controlleddoc';
+import { DeferredDemo } from '../../demo/deferreddemo';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DeferredDemo],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -78,7 +80,8 @@ import { GridlinesDoc } from './gridlinesdoc';
         PaginatorLocaleDoc,
         ResizeScrollableDoc,
         SizeDoc,
-        GridlinesDoc
+        GridlinesDoc,
+        ControlledDoc
     ]
 })
 export class TreeTableDocModule {}

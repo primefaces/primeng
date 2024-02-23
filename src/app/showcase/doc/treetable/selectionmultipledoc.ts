@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -23,6 +23,7 @@ interface Column {
                 <p-inputSwitch [(ngModel)]="metaKeySelection"></p-inputSwitch>
                 <span>Metakey</span>
             </div>
+            <p-deferred-demo (load)="loadDemoData()">
             <p-treeTable [value]="files" [columns]="cols" selectionMode="multiple" [(selection)]="selectedNodes" dataKey="name" [metaKeySelection]="metaKeySelection" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -40,11 +41,13 @@ interface Column {
                     </tr>
                 </ng-template>
             </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-selection-multiple-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectionMultipleDoc implements OnInit {
+export class SelectionMultipleDoc {
     metaKeySelection: boolean = true;
 
     files!: TreeNode[];
@@ -55,7 +58,7 @@ export class SelectionMultipleDoc implements OnInit {
 
     constructor(private nodeService: NodeService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [

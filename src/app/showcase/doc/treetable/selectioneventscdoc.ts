@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -21,6 +21,7 @@ interface NodeEvent {
         </app-docsectiontext>
         <div class="card">
             <p-toast></p-toast>
+            <p-deferred-demo (load)="loadDemoData()">
             <p-treeTable
                 [value]="files"
                 [columns]="cols"
@@ -48,12 +49,14 @@ interface NodeEvent {
                     </tr>
                 </ng-template>
             </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-selection-events-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SelectionEventsDoc implements OnInit {
+export class SelectionEventsDoc {
     files!: TreeNode[];
 
     selectedNode!: TreeNode;
@@ -62,7 +65,7 @@ export class SelectionEventsDoc implements OnInit {
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [

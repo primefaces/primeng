@@ -7191,6 +7191,13 @@
                             "description": "Maximum number of entries allowed."
                         },
                         {
+                          "name": "maxLength",
+                          "optional": false,
+                          "readonly": false,
+                          "type": "number",
+                          "description": "Maximum length of a chip."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,

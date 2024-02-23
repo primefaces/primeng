@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -21,6 +21,7 @@ interface Column {
             <div class="flex justify-content-center mb-4">
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
+            <p-deferred-demo (load)="loadDemoData()">
             <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="caption">
                     <div class="flex justify-content-end align-items-center">
@@ -52,15 +53,17 @@ interface Column {
                 </ng-template>
                 <ng-template pTemplate="emptymessage">
                     <tr>
-                        <td [attr.colspan]="cols.length">No data found.</td>
+                        <td [attr.colspan]="cols?.length">No data found.</td>
                     </tr>
                 </ng-template>
             </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterDoc implements OnInit {
+export class FilterDoc {
     filterMode = 'lenient';
 
     filterModes = [
@@ -74,7 +77,7 @@ export class FilterDoc implements OnInit {
 
     constructor(private nodeService: NodeService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
         this.cols = [
             { field: 'name', header: 'Name' },

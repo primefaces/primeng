@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -15,40 +15,44 @@ interface Column {
             <p>A column can be fixed during horizontal scrolling by enabling the <i>frozenColumns</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="colgroup" let-columns>
-                    <colgroup>
-                        <col *ngFor="let col of columns" style="width:250px" />
-                    </colgroup>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode" style="height: 57px">
-                        <td *ngFor="let col of columns; let i = index">
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode" style="height: 57px">
-                        <td>
-                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                            {{ rowData.name }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="colgroup" let-columns>
+                        <colgroup>
+                            <col *ngFor="let col of columns" style="width:250px" />
+                        </colgroup>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" style="height: 57px">
+                            <td *ngFor="let col of columns; let i = index">
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode" style="height: 57px">
+                            <td>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.name }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-scroll-frozen-columns-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
+    
 })
-export class FrozenColumnsDoc implements OnInit {
+export class FrozenColumnsDoc {
     files!: TreeNode[];
 
     cols!: Column[];
@@ -59,7 +63,7 @@ export class FrozenColumnsDoc implements OnInit {
 
     constructor(private nodeService: NodeService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
         this.cols = [
             { field: 'name', header: 'Name' },

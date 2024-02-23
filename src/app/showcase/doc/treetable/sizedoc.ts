@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -13,30 +13,33 @@ import { NodeService } from '../../service/nodeservice';
             <div class="flex justify-content-center mb-3">
                 <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
             </div>
-            <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Name</th>
-                        <th>Size</th>
-                        <th>Type</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode">
-                        <td>
-                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                            {{ rowData.name }}
-                        </td>
-                        <td>{{ rowData.size }}</td>
-                        <td>{{ rowData.type }}</td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Name</th>
+                            <th>Size</th>
+                            <th>Type</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.name }}
+                            </td>
+                            <td>{{ rowData.size }}</td>
+                            <td>{{ rowData.type }}</td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-basic-demo"></app-code>
-    </section>`
+    </section>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SizeDoc implements OnInit {
+export class SizeDoc {
     files!: TreeNode[];
 
     sizes!: any[];
@@ -45,7 +48,7 @@ export class SizeDoc implements OnInit {
 
     constructor(private nodeService: NodeService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.sizes = [

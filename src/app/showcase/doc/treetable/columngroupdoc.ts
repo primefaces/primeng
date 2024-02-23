@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 
@@ -6,51 +6,54 @@ import { Code } from '../../domain/code';
     selector: 'column-group-doc',
     template: `
         <div class="card">
-            <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th rowspan="3">Brand</th>
-                        <th colspan="4">Sale Rate</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Sales</th>
-                        <th colspan="2">Profits</th>
-                    </tr>
-                    <tr>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode">
-                        <td>
-                            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                            {{ rowData.brand }}
-                        </td>
-                        <td>{{ rowData.lastYearSale }}</td>
-                        <td>{{ rowData.thisYearSale }}</td>
-                        <td>{{ rowData.lastYearProfit }}</td>
-                        <td>{{ rowData.thisYearProfit }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr>
-                        <td colspan="3">Totals</td>
-                        <td>$3,283,772</td>
-                        <td>$2,126,925</td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">Brand</th>
+                            <th colspan="4">Sale Rate</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Sales</th>
+                            <th colspan="2">Profits</th>
+                        </tr>
+                        <tr>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td>
+                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                {{ rowData.brand }}
+                            </td>
+                            <td>{{ rowData.lastYearSale }}</td>
+                            <td>{{ rowData.thisYearSale }}</td>
+                            <td>{{ rowData.lastYearProfit }}</td>
+                            <td>{{ rowData.thisYearProfit }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr>
+                            <td colspan="3">Totals</td>
+                            <td>$3,283,772</td>
+                            <td>$2,126,925</td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-column-group-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnGroupDoc implements OnInit {
+export class ColumnGroupDoc {
     sales!: TreeNode[];
 
-    ngOnInit() {
+    loadDemoData() {
         this.sales = [
             {
                 data: { brand: 'Bliss', lastYearSale: '51%', thisYearSale: '40%', lastYearProfit: '$54,406.00', thisYearProfit: '$43,342' },
