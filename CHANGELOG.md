@@ -1,6 +1,8 @@
 # Changelog
 ## [17.8.0](https://github.com/primefaces/primeng/tree/17.8.0) (2024-02-23)
+
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.7.0...17.8.0)
+
 **Implemented New Features and Enhancements:**
 - Component: Chips. No ability to limit max length of chip [\#14592](https://github.com/primefaces/primeng/issues/14592)
 - Sidebar : Combination of role 'complementary' and aria-modal attribute causes accessibility violation. [\#14818](https://github.com/primefaces/primeng/issues/14818)
