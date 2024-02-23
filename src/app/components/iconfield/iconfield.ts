@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {
-    Component,
-    Input,
-    NgModule,
-} from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 
 import { SharedModule } from 'primeng/api';
-
 
 /**
  * IconField wraps an input and an icon.
@@ -21,7 +16,11 @@ import { SharedModule } from 'primeng/api';
     }
 })
 export class IconField {
-    @Input() iconPosition: string | undefined;
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPosition: 'right' | 'left' = 'right';
 }
 
 @NgModule({

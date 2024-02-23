@@ -10899,6 +10899,26 @@
             }
         }
     },
+    "iconfield": {
+        "components": {
+            "IconField": {
+                "description": "IconField wraps an input and an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "iconPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"right\"",
+                            "description": "Position of the icon",
+                            "default" :"right"
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "fieldset": {
         "components": {
             "Fieldset": {
