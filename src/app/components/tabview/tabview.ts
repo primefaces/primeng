@@ -809,7 +809,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
     }
 
     refreshButtonState() {
