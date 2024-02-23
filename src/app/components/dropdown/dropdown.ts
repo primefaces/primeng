@@ -948,7 +948,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
         // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
-        const selectedOptionIndex = options.findIndex((option) => this.isOptionEqualsModelValue(option));
+        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
         return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
@@ -969,12 +969,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || modelValue === null || this.editable) {
+              
+                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                 }
             }
 
-            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || modelValue === null) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && ObjectUtils.isNotEmpty(this.selectedOption)) {
                 this.selectedOption = null;
             }
 
@@ -983,6 +984,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             this.cd.markForCheck();
         });
+    }
+
+    private isModelValueNotSet(): boolean {
+        return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
     }
 
     displayPlaceholder() {
@@ -1150,10 +1155,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isSelected(option) {
-        return this.isValidOption(option) && this.isOptionEqualsModelValue(option);
+        return this.isValidOption(option) && this.isOptionValueEqualsModelValue(option);
     }
 
-    private isOptionEqualsModelValue(option: any) {
+    private isOptionValueEqualsModelValue(option: any) {
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
