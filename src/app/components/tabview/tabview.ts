@@ -524,7 +524,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
-            if (this.list.offsetWidth > this.container.offsetWidth) {
+            if (this.list.offsetWidth >= this.container.offsetWidth) {
                 this.buttonVisible = true;
             } else {
                 this.buttonVisible = false;
