@@ -8,10 +8,11 @@ import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, FloatLabelModule, InputTextModule],
-    declarations: [BasicDoc, ImportDoc],
+    declarations: [BasicDoc, ImportDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class FloatLabelDocModule {}
