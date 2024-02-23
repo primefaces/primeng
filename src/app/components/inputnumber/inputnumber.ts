@@ -444,7 +444,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      */
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
-    @ViewChild('input') input!: ElementRef;
+    @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -824,8 +824,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
 
             case 'ArrowLeft':
-                if (!this.isNumeralChar(inputValue.charAt(selectionStart - 1))) {
-                    event.preventDefault();
+                for( let index=selectionStart; index<=inputValue.length;index++){
+                    if(this.isNumeralChar(inputValue.charAt(index===0?0:index-1))){
+                        this.input.nativeElement.setSelectionRange(index, index);
+                        break;
+                    }
                 }
                 break;
 
@@ -1363,7 +1366,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     onInputBlur(event: Event) {
         this.focused = false;
 
-        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value)).toString();
         this.input.nativeElement.value = this.formatValue(newValue);
         this.input.nativeElement.setAttribute('aria-valuenow', newValue);
         this.updateModel(event, newValue);
