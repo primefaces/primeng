@@ -77,6 +77,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         #inputtext
                         type="text"
                         [attr.id]="inputId"
+                        [attr.maxlength]="maxLength"
                         [attr.placeholder]="value && value.length ? null : placeholder"
                         [attr.tabindex]="tabindex"
                         (keydown)="onKeyDown($event)"
@@ -140,6 +141,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * @group Props
      */
     @Input() max: number | undefined;
+    /**
+     * Maximum length of a chip.
+     * @group Props
+    */
+    @Input() maxLength: number | undefined;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
