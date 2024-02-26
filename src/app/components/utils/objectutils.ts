@@ -4,7 +4,7 @@ export class ObjectUtils {
     }
 
     public static isObject(value, empty = true) {
-        return value instanceof Object && value.constructor === Object && (empty || Object.keys(value).length !== 0);
+        return typeof value === 'object' && !Array.isArray(value) && value != null && (empty || Object.keys(value).length !== 0);
     }
 
     public static equals(obj1: any, obj2: any, field?: string): boolean {
