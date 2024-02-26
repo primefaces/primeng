@@ -137,7 +137,7 @@ export class DropdownItem {
                 [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-haspopup]="'listbox'"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 [attr.aria-controls]="id + '_list'"
                 [attr.tabindex]="!disabled ? tabindex : -1"
                 pAutoFocus
@@ -164,7 +164,7 @@ export class DropdownItem {
                 [disabled]="disabled"
                 aria-haspopup="listbox"
                 [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
                 (focus)="onInputFocus($event)"
@@ -177,7 +177,7 @@ export class DropdownItem {
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.data-pc-section]="'trigger'">
+            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="!dropdownIconTemplate">
                     <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
                     <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
