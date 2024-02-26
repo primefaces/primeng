@@ -13,6 +13,8 @@ import { ContextMenuDoc } from '../../doc/tree/contextmenudoc';
 import { FilterDoc } from '../../doc/tree/filterdoc';
 import { StyleDoc } from '../../doc/tree/styledoc';
 import { AccessibilityDoc } from '../../doc/tree/accessibilitydoc';
+import { VirtualScrollDoc } from '../../doc/tree/virtualscrolldoc';
+import { LazyVirtualScrollDoc } from '../../doc/tree/virtualscrolllazydoc';
 
 @Component({
     templateUrl: './treedemo.html'
@@ -64,6 +66,22 @@ export class TreeDemo {
             id: 'lazy',
             label: 'Lazy',
             component: LazyDoc
+        },
+        {
+            id: 'virtualscroll',
+            label: 'Virtual Scroll',
+            children:[
+                {
+                    id: 'preload',
+                    label: 'Preload',
+                    component: VirtualScrollDoc
+                },
+                {
+                    id: 'lazyvirtualscroll',
+                    label: 'Lazy',
+                    component: LazyVirtualScrollDoc
+                },
+            ]
         },
         {
             id: 'template',
