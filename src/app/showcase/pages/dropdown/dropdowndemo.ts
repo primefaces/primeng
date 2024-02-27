@@ -13,6 +13,7 @@ import { AccessibilityDoc } from '../../doc/dropdown/accessibilitydoc';
 import { ReactiveFormsDoc } from '../../doc/dropdown/reactiveformsdoc';
 import { LazyVirtualScrollDoc } from '../../doc/dropdown/lazyvirtualscrolldoc';
 import { InvalidDoc } from '../../doc/dropdown/invaliddoc';
+import { CustomFilterDoc } from '../../doc/dropdown/customfilterdoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -54,6 +55,11 @@ export class DropdownDemo {
             id: 'filter',
             label: 'Filter',
             component: FilterDoc
+        },
+        {
+            id: 'customfilter',
+            label: 'Custom Filter',
+            component: CustomFilterDoc
         },
         {
             id: 'virtualscroll',
