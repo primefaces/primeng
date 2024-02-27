@@ -54,13 +54,20 @@ export class DropdownDemo {
         {
             id: 'filter',
             label: 'Filter',
-            component: FilterDoc
+            children: [
+                {
+                    id: 'filterbasic',
+                    label: 'Basic',
+                    component: FilterDoc
+                },
+                {
+                    id: 'customfilter',
+                    label: 'Custom Filter',
+                    component: CustomFilterDoc
+                }
+            ]
         },
-        {
-            id: 'customfilter',
-            label: 'Custom Filter',
-            component: CustomFilterDoc
-        },
+
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',

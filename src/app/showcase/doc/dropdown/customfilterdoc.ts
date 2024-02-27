@@ -11,7 +11,7 @@ interface City {
     selector: 'dropdown-custom-filter-demo',
     template: `
         <app-docsectiontext>
-            <p>A custom filter dropdown component can be created using a <i>filter template.</i></p>
+            <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
@@ -73,7 +73,7 @@ export class CustomFilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+        basic: `<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" styleClass="w-20rem">
         <ng-template pTemplate="filter" let-options="options">
             <div class="flex gap-1">
                 <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -98,7 +98,7 @@ export class CustomFilterDoc implements OnInit {
 </p-dropdown>`,
 
         html: `<div class="card flex justify-content-center">
-<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country" styleClass="w-20rem">
     <ng-template pTemplate="filter" let-options="options">
         <div class="flex gap-1">
             <div class="p-inputgroup" (click)="$event.stopPropagation()">
