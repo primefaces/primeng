@@ -241,7 +241,7 @@ export class DropdownItem {
                                 </div>
                             </ng-template>
                         </div>
-                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" tabindex="0">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
