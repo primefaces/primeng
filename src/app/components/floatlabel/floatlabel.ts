@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from '../api/shared';
+import { SharedModule } from 'primeng/api';
 import { RouterModule } from '@angular/router';
 
 /**
@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class FloatLabel {}
 
