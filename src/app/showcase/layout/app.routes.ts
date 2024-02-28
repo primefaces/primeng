@@ -47,6 +47,7 @@ export const routes: Routes = [
             { path: 'dynamicdialog', loadChildren: () => import('../pages/dynamicdialog/dynamicdialogdemo.module').then((m) => m.DynamicDialogDemoModule) },
             { path: 'dragdrop', loadChildren: () => import('../pages/dragdrop/dragdropdemo.module').then((m) => m.DragDropDemoModule) },
             { path: 'dropdown', loadChildren: () => import('../pages/dropdown/dropdowndemo.module').then((m) => m.DropdownDemoModule) },
+            { path: 'iconfield', loadChildren: () => import('../pages/iconfield/iconfielddemo.module').then((m) => m.IconFieldDemoModule) },
             { path: 'editor', loadChildren: () => import('../pages/editor/editordemo.module').then((m) => m.EditorDemoModule) },
             { path: 'fieldset', loadChildren: () => import('../pages/fieldset/fieldsetdemo.module').then((m) => m.FieldsetDemoModule) },
             { path: 'fileupload', loadChildren: () => import('../pages/fileupload/fileuploaddemo.module').then((m) => m.FileUploadDemoModule) },
