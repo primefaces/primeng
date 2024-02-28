@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from '../api/shared';
 import { RouterModule } from '@angular/router';
 
@@ -10,13 +10,12 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'p-floatLabel',
     template: `
-        <div class="p-float-label">
+        <span class="p-float-label">
             <ng-content></ng-content>
-        </div>
+        </span>
     `,
-    host: {
-        class: 'p-element'
-    }
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
 })
 export class FloatLabel {}
 
