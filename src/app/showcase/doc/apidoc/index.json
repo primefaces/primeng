@@ -15041,38 +15041,57 @@
                 "values": [
                     {
                         "parent": "metergroup",
-                        "name": "content",
-                        "parameters": [],
-                        "description": "Custom content template."
-                    },
-                    {
-                        "parent": "metergroup",
                         "name": "label",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
                         "description": "Custom label template."
                     },
                     {
                         "parent": "metergroup",
                         "name": "meter",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t index: number, // Current index of the meter item.\n  \t class: string, // Style class of the meter item\n  \t orientation: string, // Current orientation of the component.\n  \t size: string, // Current width of the meter item.\n  \t totalPercent: number, // Total percent of the metergroup items\n  }"
+                            }
+                        ],
                         "description": "Custom meter item template."
                     },
                     {
                         "parent": "metergroup",
                         "name": "start",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
                         "description": "Custom start template."
                     },
                     {
                         "parent": "metergroup",
                         "name": "end",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
                         "description": "Custom start template."
                     },
                     {
                         "parent": "metergroup",
                         "name": "icon",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t class: string, // Style class of the icon.\n  }"
+                            }
+                        ],
                         "description": "Custom icon template."
                     }
                 ]

@@ -13,7 +13,7 @@ import { MeterItem } from './metergroup.interface';
                     <i *ngIf="val.icon" [class]="val.icon" [ngClass]="{ 'p-metergroup-label-icon': true }" [ngStyle]="{ color: val.color }"></i>
                     <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
                 </ng-container>
-                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val }"></ng-container>
+                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val, icon:val.icon }"></ng-container>
                 <span class="p-metergroup-label-text">{{ val.label }} ({{ parentInstance?.percentValue(val.value) }})</span>
             </li>
         </ol>
@@ -54,12 +54,12 @@ export class MeterGroupLabel {
         <div #container [ngClass]="containerClass" role="meter" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="totalPercent()" [ngStyle]="style" [class]="styleClass">
             @if(labelPosition ==='start') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
-            <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             <div class="p-metergroup-meters">
                 <ng-container *ngFor="let val of value; let index = index; trackBy: trackByFn">
-                    <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val, class: 'p-metergroup-meter', size: percentValue(val.value) }"> </ng-container>
+                    <ng-container *ngTemplateOutlet="meterTemplate; context: { $implicit: val, index: index, orientation: this.orientation, class: 'p-metergroup-meter', size: percentValue(val.value) }; totalPercent: totalPercent()"> </ng-container>
                     <ng-container *ngIf="!meterTemplate">
                         <span class="p-metergroup-meter" [ngStyle]="meterStyle(val)"></span>
                     </ng-container>
@@ -68,7 +68,7 @@ export class MeterGroupLabel {
             <ng-container *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if(labelPosition === 'end') {
             <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
-            <ng-container *ngTemplateOutlet="labelTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
         </div>
     `,

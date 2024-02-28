@@ -6,29 +6,98 @@ import { TemplateRef } from '@angular/core';
  */
 export interface MeterGroupTemplates {
     /**
-     * Custom content template.
-     */
-    content(): TemplateRef<any>;
-    /**
      * Custom label template.
      */
-    label(): TemplateRef<any>;
+    label(context: {
+        /**
+         * Current value of the component.
+         */
+        $implicit?: MeterItem;
+        /**
+         * Total percent of the metergroup items.
+         */
+        totalPercent?: number;
+        /**
+         * Array of sequential sum of values of metergroup items.
+         */
+        percentages?: number;
+    }): TemplateRef<any>;
     /**
      * Custom meter item template.
      */
-    meter(): TemplateRef<any>;
+    meter(context: {
+        /**
+         * Current value of the component.
+         */
+        $implicit?: MeterItem;
+        /**
+         * Current index of the meter item.
+         */
+        index?: number;
+        /**
+         * Style class of the meter item
+         */
+        class?: string;
+        /**
+         * Current orientation of the component.
+         */
+        orientation?: string;
+        /**
+         * Current width of the meter item.
+         */
+        size?: string;
+        /**
+         * Total percent of the metergroup items
+         */
+        totalPercent?: number;
+    }): TemplateRef<any>;
     /**
      * Custom start template.
      */
-    start(): TemplateRef<any>;
+    start(context: {
+        /**
+         * Current value of the component.
+         */
+        $implicit?: MeterItem;
+        /**
+         * Total percent of the metergroup items.
+         */
+        totalPercent?: number;
+        /**
+         * Array of sequential sum of values of metergroup items.
+         */
+        percentages?: number;
+    }): TemplateRef<any>;
     /**
      * Custom start template.
      */
-    end(): TemplateRef<any>;
+    end(context: {
+        /**
+         * Current value of the component.
+         */
+        $implicit?: MeterItem;
+        /**
+         * Total percent of the metergroup items.
+         */
+        totalPercent?: number;
+        /**
+         * Array of sequential sum of values of metergroup items.
+         */
+        percentages?: number;
+    }): TemplateRef<any>;
     /**
      * Custom icon template.
      */
-    icon(): TemplateRef<any>;
+    icon(context: {
+        /**
+         * Current value of the component.
+         */
+        $implicit?: MeterItem;
+        /**
+         * Style class of the icon.
+         */
+        class?: string;
+    }): TemplateRef<any>;
 }
 
 export interface MeterItem {
