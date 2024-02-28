@@ -138,7 +138,7 @@ export class DropdownItem {
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-haspopup]="'listbox'"
                 [attr.aria-expanded]="overlayVisible ?? false"
-                [attr.aria-controls]="id + '_list'"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                 [attr.tabindex]="!disabled ? tabindex : -1"
                 pAutoFocus
                 [autofocus]="autofocus"
