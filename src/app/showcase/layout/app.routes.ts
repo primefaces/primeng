@@ -49,6 +49,7 @@ export const routes: Routes = [
             { path: 'dropdown', loadChildren: () => import('../pages/dropdown/dropdowndemo.module').then((m) => m.DropdownDemoModule) },
             { path: 'iconfield', loadChildren: () => import('../pages/iconfield/iconfielddemo.module').then((m) => m.IconFieldDemoModule) },
             { path: 'editor', loadChildren: () => import('../pages/editor/editordemo.module').then((m) => m.EditorDemoModule) },
+            { path: 'floatlabel', loadChildren: () => import('../pages/floatlabel/floatlabeldemo.module').then((m) => m.FloatLabelDemoModule) },
             { path: 'fieldset', loadChildren: () => import('../pages/fieldset/fieldsetdemo.module').then((m) => m.FieldsetDemoModule) },
             { path: 'fileupload', loadChildren: () => import('../pages/fileupload/fileuploaddemo.module').then((m) => m.FileUploadDemoModule) },
             { path: 'filterservice', loadChildren: () => import('../pages/filterservice/filterservicedemo.module').then((m) => m.FilterServiceDemoModule) },
