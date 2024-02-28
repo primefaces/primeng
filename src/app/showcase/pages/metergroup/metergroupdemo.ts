@@ -7,6 +7,7 @@ import { LabelDoc } from '../../doc/metergroup/labeldoc';
 import { VerticalDoc } from '../../doc/metergroup/verticaldoc';
 import { MinMaxDoc } from '../../doc/metergroup/minmaxdoc';
 import { TemplateDoc } from '../../doc/metergroup/templatedoc';
+import { StyleDoc } from '../../doc/metergroup/styledoc';
 import { AccessibilityDoc } from '../../doc/metergroup/accessibilitydoc';
 @Component({
     templateUrl: './metergroupdemo.html'
@@ -52,6 +53,11 @@ export class MeterGroupDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'style',
+            label: 'Style',
+            component: StyleDoc
         },
         {
             id: 'accessibility',
