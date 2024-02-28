@@ -10,9 +10,6 @@ import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from 
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class ButtonGroup {}
 
