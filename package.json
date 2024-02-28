@@ -15,7 +15,7 @@
         "build:package": "BROWSERSLIST_ENV=library ng build primeng-library && gulp build-assets",
         "build:check": "npm run format:check && npm run security:check",
         "security:check": "npm audit --production --audit-level high",
-        "apidoc": "node ./api-generator/build-apidoc.cjs",
+        "apidoc": "node ./api-generator/build-apidoc.ts",
         "vercel-build": "ng build"
     },
     "repository": {
