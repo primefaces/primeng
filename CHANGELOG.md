@@ -1,4 +1,57 @@
 # Changelog
+## [17.8.0](https://github.com/primefaces/primeng/tree/17.8.0) (2024-02-23)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.7.0...17.8.0)
+
+**Implemented New Features and Enhancements:**
+- Component: Chips. No ability to limit max length of chip [\#14592](https://github.com/primefaces/primeng/issues/14592)
+- Sidebar : Combination of role 'complementary' and aria-modal attribute causes accessibility violation. [\#14818](https://github.com/primefaces/primeng/issues/14818)
+
+**Fixed bugs:**
+- DropDown: Making form touched on clearing pre filled values. [\#14836](https://github.com/primefaces/primeng/issues/14836)
+- Component: MultiSelect (p-multiSelect) no longer emits an event when all items are selected or deselected [\#14252](https://github.com/primefaces/primeng/issues/14252)
+- p-multiselect: onChange event is not triggered for multiselect's filter select all/unselect all [\#14252](https://github.com/primefaces/primeng/issues/14252)
+- Component: Multiselect onChange not called [\#14807](https://github.com/primefaces/primeng/issues/14807)
+- Tabview: Forward Button Visible with Fractions [\#14785](https://github.com/primefaces/primeng/issues/14785)
+- ContextMenu: appentTo w/ template variable causes error when ContextMenu is destroyed [\#14793](https://github.com/primefaces/primeng/issues/14793)
+- FileUpload Component [\#14789](https://github.com/primefaces/primeng/issues/14789)
+- Component: Table "Ctrl + A" selects all rows even in selectionMode "single" [\#14795](https://github.com/primefaces/primeng/issues/14795)
+- TabView: Scroll buttons are not displayed when adding tabPanel dynamically [\#13530](https://github.com/primefaces/primeng/issues/13530)
+- DomHandler: getFocusableElements returns elements with hidden parents [\#14691](https://github.com/primefaces/primeng/issues/14691)
+- Component: Dropdown - If editable = true and filter = true and you start typing, it will search by default but not start editing. [\#14567](https://github.com/primefaces/primeng/issues/14567)
+- dropdown: selected, disabled option not rendered when using selectedItem template [\#14809](https://github.com/primefaces/primeng/issues/14809)
+- Component: Dropdown Selected option not shown while typing in filter if it has value null, while having selectedItem template [\#14815](https://github.com/primefaces/primeng/issues/14815)
+- Dropdown: Placeholder is not displayed when using a combination of reactive forms and selectedItem template [\#14801](https://github.com/primefaces/primeng/issues/14801)
+- Dropdown: Dropdown no longer closes when clicking the currently selected option [\#14811](https://github.com/primefaces/primeng/issues/14811)
+- Table: ColumnFilter not hiding when another filter icon clicked and previously any input field clicked in still in focus [\#14775](https://github.com/primefaces/primeng/issues/14775)
+- Checkbox: Disabled checkboxes appear writable until they receive focus [\#14819](https://github.com/primefaces/primeng/issues/14819)
+- Calendar: Autofocus not working [\#14745](https://github.com/primefaces/primeng/issues/14745)
+- When p-chart is put into a p-fieldset, the chart is not responsive anymre [\#14739](https://github.com/primefaces/primeng/issues/14739)
+
+## [17.7.0](https://github.com/primefaces/primeng/tree/17.7.0) (2024-02-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.6.0...17.7.0)
+
+**Implemented New Features and Enhancements:**
+- Dropdown, MultiSelect, AutoComplete, CascadeSelect: aria-label missing from inner ul element [\#14790](https://github.com/primefaces/primeng/issues/14790)
+- Autocomplete: emptyMessage is not showed, when no item fit condition [\#14744](https://github.com/primefaces/primeng/issues/14744)
+- ProgressSpinner: Unable to set aria-label [\#14798](https://github.com/primefaces/primeng/issues/14798)
+
+**Fixed bugs:**
+- Dropdown: invalid text after cleaning via ngModel [\#14784](https://github.com/primefaces/primeng/issues/14784)
+- Component: p-dropdown emits changes when selected option did not change [\#14788](https://github.com/primefaces/primeng/issues/14788)
+- Password: Hand/Pointer icon not displayed while hovering over the eye icon in password ToggleMask mode [\#14724](https://github.com/primefaces/primeng/issues/14724)
+- Component: p-dropdown filterValue initial value is ignored and binding not working [\#14586](https://github.com/primefaces/primeng/issues/14586)
+- ContextMenu: Double opacity applied to disabled items [\#14773](https://github.com/primefaces/primeng/issues/14773)
+- dropdown: selected, disabled option not rendered [\#14716](https://github.com/primefaces/primeng/issues/14716)
+- TreeSelect: Incorrect alignment in TreeSelect on filter [\#14764](https://github.com/primefaces/primeng/issues/14764)
+- Multiselect: headerCheckboxViewChild not found [\#14737](https://github.com/primefaces/primeng/issues/14737)
+- MultiSelect: Incorrect Alignment in multiselect dropdown on filter [\#14755](https://github.com/primefaces/primeng/issues/14755)
+- Multiselect with string array search not working [\#12854](https://github.com/primefaces/primeng/issues/12854)
+- Chips and Timeline: Typo error 'seperator' instead 'separator' [\#14783](https://github.com/primefaces/primeng/issues/14783)
+- Remove CodeSandbox from the examples. [\#14792](https://github.com/primefaces/primeng/issues/14792)
+- p-chips: [addOnTab] feature has no effect. Tab key should make a chip and keep focus in the text box. [\#14706](https://github.com/primefaces/primeng/issues/14706)
+
 ## [17.6.0](https://github.com/primefaces/primeng/tree/17.6.0) (2024-02-07)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.5.0...17.6.0)

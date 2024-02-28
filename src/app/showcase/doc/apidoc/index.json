@@ -3102,6 +3102,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "listLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3761,7 +3767,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show the empty message or not."
                         },
                         {
@@ -4446,7 +4452,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4482,7 +4488,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -7191,6 +7197,13 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Maximum number of entries allowed."
+                        },
+                        {
+                          "name": "maxLength",
+                          "optional": false,
+                          "readonly": false,
+                          "type": "number",
+                          "description": "Maximum length of a chip."
                         },
                         {
                             "name": "ariaLabel",
@@ -12088,6 +12101,26 @@
             }
         }
     },
+    "iconfield": {
+        "components": {
+            "IconField": {
+                "description": "IconField wraps an input and an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "iconPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"right\"",
+                            "default": "left",
+                            "description": "Position of the icon."
+                        }
+                    ]
+                }
+            }
+        }
+    },
     "angledoubledown": {
         "components": {}
     },
@@ -12657,6 +12690,25 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "inputicon": {
+        "components": {
+            "InputIcon": {
+                "description": "InputIcon displays an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
                         }
                     ]
                 }
@@ -18688,6 +18740,13 @@
                             "type": "string",
                             "default": "2s",
                             "description": "Duration of the rotate animation."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a aria label attribute the current element."
                         }
                     ]
                 }

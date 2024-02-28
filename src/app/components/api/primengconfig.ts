@@ -136,7 +136,8 @@ export class PrimeNGConfig {
             zoomIn: 'Zoom In',
             zoomOut: 'Zoom Out',
             rotateRight: 'Rotate Right',
-            rotateLeft: 'Rotate Left'
+            rotateLeft: 'Rotate Left',
+            listLabel: 'Option List'
         }
     };
 

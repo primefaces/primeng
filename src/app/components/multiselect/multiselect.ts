@@ -319,7 +319,7 @@ export class MultiSelectItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true">
+                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -1038,11 +1038,27 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
+    private getAllVisibleAndNonVisibleOptions() {
+        return this.group ? this.flatOptions(this.options) : this.options || [];
+    }
+
     visibleOptions = computed(() => {
-        const options = this.group ? this.flatOptions(this.options) : this.options || [];
+        const options = this.getAllVisibleAndNonVisibleOptions();
+        const isArrayOfObjects = ObjectUtils.isArray(options) && ObjectUtils.isObject(options[0]);
 
         if (this._filterValue()) {
-            const filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            let filteredOptions;
+
+            if (isArrayOfObjects) {
+                filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
+            } else {
+                filteredOptions = options.filter((option) => option.toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
+            }
+
             if (this.group) {
                 const optionGroups = this.options || [];
                 const filtered = [];
@@ -1753,6 +1769,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+        setTimeout(() => {
+            this.overlayViewChild.alignOverlay();
+        });
     }
 
     onLastHiddenFocus(event) {
@@ -1819,9 +1838,18 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);
+
+            // because onToggleAll could have been called during filtering,  this additional test needs to be performed before calling onSelectAllChange.emit
+            if (!value.length || value.length === this.getAllVisibleAndNonVisibleOptions().length) {
+                this.onSelectAllChange.emit({
+                    originalEvent: event,
+                    checked: !!value.length
+                });
+            }
         }
 
-        DomHandler.focus(this.headerCheckboxViewChild.nativeElement);
+        this.onChange.emit({ originalEvent: event, value: this.value });
+        DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
 
         event.preventDefault();

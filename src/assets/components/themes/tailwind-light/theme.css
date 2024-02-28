@@ -471,6 +471,11 @@
     background: #ffffff;
     font-weight: 600;
   }
+  .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
+    padding: 0.75rem 1rem;
+    color: #3f3f46;
+    background: transparent;
+  }
 
   p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
     border-color: #f0a9a7;
@@ -1096,6 +1101,12 @@
     border-color: #f0a9a7;
   }
 
+  .p-icon-field .p-input-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+  }
+
   .p-inputgroup-addon {
     background: #fafafa;
     color: #71717a;
@@ -1164,6 +1175,16 @@
   }
   .p-fluid .p-inputgroup .p-button.p-button-icon-only {
     width: 3rem;
+  }
+
+  .p-icon-field-left .p-input-icon:first-of-type {
+    left: 0.75rem;
+    color: #71717a;
+  }
+
+  .p-icon-field-right .p-input-icon:last-of-type {
+    right: 0.75rem;
+    color: #71717a;
   }
 
   p-inputmask.ng-dirty.ng-invalid > .p-inputtext {

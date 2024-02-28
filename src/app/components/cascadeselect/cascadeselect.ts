@@ -23,7 +23,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -43,7 +43,14 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub',
     template: `
-        <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{ 'p-cascadeselect-panel-root': root }" [attr.role]="role" aria-orientation="horizontal" [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'">
+        <ul
+            class="p-cascadeselect-panel p-cascadeselect-items"
+            [ngClass]="{ 'p-cascadeselect-panel-root': root }"
+            [attr.role]="role"
+            aria-orientation="horizontal"
+            [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'"
+            [attr.aria-label]="listLabel"
+        >
             <ng-template ngFor let-processedOption [ngForOf]="options" let-i="index">
                 <li
                     [ngClass]="getItemClass(processedOption)"
@@ -126,7 +133,11 @@ export class CascadeSelectSub implements OnInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    constructor(private el: ElementRef) {}
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
+    constructor(private el: ElementRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (!this.root) {

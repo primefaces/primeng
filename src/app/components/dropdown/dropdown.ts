@@ -137,8 +137,8 @@ export class DropdownItem {
                 [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-haspopup]="'listbox'"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_list'"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                 [attr.tabindex]="!disabled ? tabindex : -1"
                 pAutoFocus
                 [autofocus]="autofocus"
@@ -152,7 +152,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="(modelValue() === undefined || modelValue() === null) && (label() === placeholder() || (label() && !placeholder()))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
                 </ng-template>
             </span>
             <input
@@ -164,7 +164,7 @@ export class DropdownItem {
                 [disabled]="disabled"
                 aria-haspopup="listbox"
                 [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
                 (focus)="onInputFocus($event)"
@@ -177,7 +177,7 @@ export class DropdownItem {
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.data-pc-section]="'trigger'">
+            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="!dropdownIconTemplate">
                     <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
                     <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
@@ -267,7 +267,7 @@ export class DropdownItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items [attr.id]="id + '_list'" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li class="p-dropdown-item-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -688,7 +688,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._filterValue();
     }
     set filterValue(val: string | undefined | null) {
-        this._filterValue.set(val);
+        setTimeout(() => {
+            this._filterValue.set(val);
+        });
     }
     /**
      * An array of objects to display as the available options.
@@ -870,6 +872,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.modelValue() != null && this.hasSelectedOption() && this.showClear && !this.disabled;
     }
 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
     get containerClass() {
         return {
             'p-dropdown p-component p-inputwrapper': true,
@@ -903,7 +909,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     visibleOptions = computed(() => {
-        const options = this.group ? this.flatOptions(this.options) : this.options || [];
+        const options = this.getAllVisibleAndNonVisibleOptions();
 
         if (this._filterValue()) {
             const _filterBy = this.filterBy || this.optionLabel;
@@ -938,9 +944,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     });
 
     label = computed(() => {
-        const selectedOptionIndex = this.findSelectedOptionIndex();
+        // use  getAllVisibleAndNonVisibleOptions verses just visible options
+        // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
+        const options = this.getAllVisibleAndNonVisibleOptions();
+        // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
+        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(this.visibleOptions()[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
 
     filled = computed(() => {
@@ -959,16 +969,33 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-                if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
+
+                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
-                    this.cd.markForCheck();
                 }
+            }
+
+            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+                this.selectedOption = null;
             }
 
             if (modelValue !== undefined && this.editable) {
                 this.updateEditableLabel();
             }
+            this.cd.markForCheck();
         });
+    }
+
+    private isModelValueNotSet(): boolean {
+        return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
+    }
+
+    displayPlaceholder() {
+        return ObjectUtils.isEmpty(this.selectedOption) && this.label() === this.placeholder();
+    }
+
+    private getAllVisibleAndNonVisibleOptions() {
+        return this.group ? this.flatOptions(this.options) : this.options || [];
     }
 
     ngOnInit() {
@@ -1089,11 +1116,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onOptionSelect(event, option, isHide = true, preventChange = false) {
-        const value = this.getOptionValue(option);
-        this.updateModel(value, event);
-        this.focusedOptionIndex.set(this.findSelectedOptionIndex());
-        isHide && setTimeout(() => this.hide(true), 1);
-        preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
+        if (!this.isSelected(option)) {
+            const value = this.getOptionValue(option);
+            this.updateModel(value, event);
+            this.focusedOptionIndex.set(this.findSelectedOptionIndex());
+            isHide && setTimeout(() => this.hide(true), 1);
+            preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
+        }
     }
 
     onOptionMouseEnter(event, index) {
@@ -1113,8 +1142,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter) {
             this.resetFilter();
         }
-        this.value = value;
 
+        this.value = value;
         this.allowModelChange() && this.onModelChange(value);
         this.modelValue.set(this.value);
         this.updateEditableLabel();
@@ -1126,7 +1155,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isSelected(option) {
-        return this.isValidOption(option) && ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
+        return this.isValidOption(option) && this.isOptionValueEqualsModelValue(option);
+    }
+
+    private isOptionValueEqualsModelValue(option: any) {
+        return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
     ngAfterViewInit() {
@@ -1160,7 +1193,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
+            return false;
+        } else {
+            return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        }
     }
 
     getOptionGroupLabel(optionGroup: any) {
@@ -1285,7 +1322,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             if (this.filterViewChild && this.filterViewChild.nativeElement) {
                 this.preventModelTouched = true;
 
-                if (this.autofocusFilter) {
+                if (this.autofocusFilter && !this.editable) {
                     this.filterViewChild.nativeElement.focus();
                 }
             }
@@ -1698,7 +1735,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
         DomHandler.focus(focusableEl);
     }
 
@@ -1803,6 +1840,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public clear(event?: Event) {
         this.updateModel(null, event);
         this.clearEditableLabel();
+        this.onModelTouched();
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
         this.resetFilter();

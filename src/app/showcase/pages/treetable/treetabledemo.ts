@@ -30,6 +30,7 @@ import { PaginatorLocaleDoc } from '../../doc/treetable/paginatorlocaledoc';
 import { ResizeScrollableDoc } from '../../doc/treetable/columnresizescrollabledoc';
 import { SizeDoc } from '../../doc/treetable/sizedoc';
 import { GridlinesDoc } from '../../doc/treetable/gridlinesdoc';
+import { ControlledDoc } from '../../doc/treetable/controlleddoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -50,6 +51,11 @@ export class TreeTableDemo {
             id: 'dynamiccolumns',
             label: 'Dynamic Columns',
             component: DynamicColumnsDoc
+        },
+        {
+            id: 'controlled',
+            label: 'Controlled',
+            component: ControlledDoc
         },
         {
             id: 'template',
