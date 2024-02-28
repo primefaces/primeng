@@ -13,7 +13,7 @@ import { MeterItem } from './metergroup.interface';
                     <i *ngIf="val.icon" [class]="val.icon" [ngClass]="{ 'p-metergroup-label-icon': true }" [ngStyle]="{ color: val.color }"></i>
                     <span *ngIf="!val.icon" class="p-metergroup-label-marker" [ngStyle]="{ backgroundColor: val.color }"></span>
                 </ng-container>
-                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val, icon:val.icon }"></ng-container>
+                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: val, icon: val.icon }"></ng-container>
                 <span class="p-metergroup-label-text">{{ val.label }} ({{ parentInstance?.percentValue(val.value) }})</span>
             </li>
         </ol>
@@ -22,9 +22,9 @@ import { MeterItem } from './metergroup.interface';
 export class MeterGroupLabel {
     @Input() value: any[] = null;
 
-    @Input() labelPosition: string = 'end';
+    @Input() labelPosition: 'start' | 'end' = 'end';
 
-    @Input() labelOrientation: string = 'horizontal';
+    @Input() labelOrientation: 'horizontal' | 'vertical' = 'horizontal';
 
     @Input() min: number;
 
