@@ -7,6 +7,7 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { IconField } from 'primeng/iconfield';`
+        typescript: `import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';`
     };
 }
