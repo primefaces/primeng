@@ -3102,6 +3102,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "listLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3761,7 +3767,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show the empty message or not."
                         },
                         {
@@ -4446,7 +4452,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4482,7 +4488,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -9547,8 +9553,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Default text to display when no option is selected."
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "filterPlaceholder",
@@ -10019,6 +10024,16 @@
                             "name": "focus",
                             "parameters": [],
                             "description": "Applies focus."
+                        },
+                        {
+                            "name": "clear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Clears the model."
                         }
                     ]
                 }
@@ -14947,6 +14962,123 @@
             }
         }
     },
+    "metergroup": {
+        "components": {
+            "MeterGroup": {
+                "description": "MeterGroup displays scalar measurements within a known range.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MeterItem[]",
+                            "description": "Current value of the metergroup."
+                        },
+                        {
+                            "name": "min",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Mininum boundary value."
+                        },
+                        {
+                            "name": "max",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "100",
+                            "description": "Maximum boundary value."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "labelPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"end\" | \"start\"",
+                            "default": "end",
+                            "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
+                        },
+                        {
+                            "name": "labelOrientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "horizontal",
+                            "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "metergroup",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom content template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "label",
+                        "parameters": [],
+                        "description": "Custom label template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "meter",
+                        "parameters": [],
+                        "description": "Custom meter item template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "icon",
+                        "parameters": [],
+                        "description": "Custom icon template."
+                    }
+                ]
+            }
+        }
+    },
     "multiselect": {
         "components": {
             "MultiSelect": {
@@ -15117,7 +15249,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "{0} items selected",
                             "description": "Label to display after exceeding max selected labels e.g. ({0} items selected), defaults \"ellipsis\" keyword to indicate a text-overflow."
                         },
                         {
@@ -15376,7 +15507,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "options",
@@ -18664,6 +18795,13 @@
                             "type": "string",
                             "default": "2s",
                             "description": "Duration of the rotate animation."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a aria label attribute the current element."
                         }
                     ]
                 }
