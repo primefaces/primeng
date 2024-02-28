@@ -23,8 +23,7 @@ export class IconDoc {
     code: Code = {
         basic: `<p-meterGroup [value]="value"></p-meterGroup>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
 <p-meterGroup [value]="value"></p-meterGroup>
 </div>`,
 
