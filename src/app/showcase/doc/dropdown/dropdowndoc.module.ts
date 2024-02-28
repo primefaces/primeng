@@ -15,13 +15,16 @@ import { InvalidDoc } from './invaliddoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { LazyVirtualScrollDoc } from './lazyvirtualscrolldoc';
 import { FilterDoc } from './filterdoc';
+import { CustomFilterDoc } from './customfilterdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, InvalidDoc, VirtualScrollDoc, LazyVirtualScrollDoc, FilterDoc, FloatLabelDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, InvalidDoc, VirtualScrollDoc, LazyVirtualScrollDoc,CustomFilterDoc, FilterDoc, FloatLabelDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
 export class DropdownDocModule {}

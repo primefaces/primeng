@@ -152,7 +152,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="(modelValue() === undefined || modelValue() === null) && (label() === placeholder() || (label() && !placeholder()))">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
                 </ng-template>
             </span>
             <input
@@ -948,7 +948,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         // this will find the selected option whether or not the user is currently filtering  because the filtered (i.e. visible) options, are a subset of all the options
         const options = this.getAllVisibleAndNonVisibleOptions();
         // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
-        const selectedOptionIndex = options.findIndex((option) => this.isOptionEqualsModelValue(option));
+        const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
         return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
     });
@@ -969,12 +969,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
-                if (selectedOptionIndex !== -1 || modelValue === undefined || modelValue === null || this.editable) {
+
+                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                 }
             }
 
-            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || modelValue === null) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && ObjectUtils.isNotEmpty(this.selectedOption)) {
                 this.selectedOption = null;
             }
 
@@ -983,6 +984,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             this.cd.markForCheck();
         });
+    }
+
+    private isModelValueNotSet(): boolean {
+        return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
+    }
+
+    displayPlaceholder() {
+        return ObjectUtils.isEmpty(this.selectedOption) && this.label() === this.placeholder();
     }
 
     private getAllVisibleAndNonVisibleOptions() {
@@ -1146,10 +1155,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isSelected(option) {
-        return this.isValidOption(option) && this.isOptionEqualsModelValue(option);
+        return this.isValidOption(option) && this.isOptionValueEqualsModelValue(option);
     }
 
-    private isOptionEqualsModelValue(option: any) {
+    private isOptionValueEqualsModelValue(option: any) {
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
@@ -1184,7 +1193,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
+            return false;
+        } else {
+            return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+        }
     }
 
     getOptionGroupLabel(optionGroup: any) {
@@ -1309,7 +1322,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             if (this.filterViewChild && this.filterViewChild.nativeElement) {
                 this.preventModelTouched = true;
 
-                if (this.autofocusFilter) {
+                if (this.autofocusFilter && !this.editable) {
                     this.filterViewChild.nativeElement.focus();
                 }
             }
@@ -1722,7 +1735,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild.nativeElement;
+        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
         DomHandler.focus(focusableEl);
     }
 
@@ -1827,6 +1840,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     public clear(event?: Event) {
         this.updateModel(null, event);
         this.clearEditableLabel();
+        this.onModelTouched();
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
         this.resetFilter();

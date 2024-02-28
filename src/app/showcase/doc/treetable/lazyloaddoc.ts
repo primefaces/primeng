@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -54,7 +54,8 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-lazy-load-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc implements OnInit {
     files!: TreeNode[];
@@ -127,6 +128,7 @@ export class LazyLoadDoc implements OnInit {
             ];
 
             this.files = [...this.files];
+            this.cd.markForCheck();
         }, 250);
     }
 
@@ -255,6 +257,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
             ];
 
             this.files = [...this.files];
+            this.cd.markForCheck();
         }, 250);
     }
 }`,

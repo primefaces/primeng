@@ -258,6 +258,14 @@ describe('Chips', () => {
         expect(inputEl.nativeElement.disabled).toEqual(false);
     });
 
+    it('should set maxlength to input element', () => {
+        chips.max = 2;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input'));
+        expect(inputEl.attributes.maxlength).toEqual('2');
+    });
+
     it('should delete item', () => {
         chips.value = ['primeng'];
         fixture.detectChanges();

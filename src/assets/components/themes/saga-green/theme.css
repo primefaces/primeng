@@ -1065,6 +1065,12 @@
     border-color: #f44336;
   }
 
+  .p-icon-field .p-input-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+  }
+
   .p-inputgroup-addon {
     background: #e9ecef;
     color: #6c757d;
@@ -1133,6 +1139,16 @@
   }
   .p-fluid .p-inputgroup .p-button.p-button-icon-only {
     width: 2.357rem;
+  }
+
+  .p-icon-field-left .p-input-icon:first-of-type {
+    left: 0.5rem;
+    color: #6c757d;
+  }
+
+  .p-icon-field-right .p-input-icon:last-of-type {
+    right: 0.5rem;
+    color: #6c757d;
   }
 
   p-inputmask.ng-dirty.ng-invalid > .p-inputtext {

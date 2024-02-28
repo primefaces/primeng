@@ -62,6 +62,10 @@
                             "routerLink": "/floatlabel"
                         },
                         {
+                            "name": "IconField",
+                            "routerLink": "/iconfield"
+                        },
+                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },
