@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 
 import { SharedModule } from 'primeng/api';
 
@@ -9,18 +9,24 @@ import { SharedModule } from 'primeng/api';
  */
 @Component({
     selector: 'p-iconField',
-    template: ` <span class="p-input-icon-left"><ng-content></ng-content> </span>`,
-
-    host: {
-        class: 'p-element'
-    }
+    template: ` <span class="p-icon-field" [ngClass]="containerClass"><ng-content></ng-content> </span>`,
+    styleUrl: './iconfield.css',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconField {
     /**
      * Position of the icon.
      * @group Props
      */
-    @Input() iconPosition: 'right' | 'left' = 'right';
+    @Input() iconPosition: 'right' | 'left' = 'left';
+
+    get containerClass() {
+        return {
+            'p-icon-field-left': this.iconPosition === 'left',
+            'p-icon-field-right': this.iconPosition === 'right'
+        };
+    }
 }
 
 @NgModule({

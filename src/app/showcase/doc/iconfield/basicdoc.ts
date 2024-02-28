@@ -11,33 +11,25 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-iconField>
-                <p-inputIcon>
-                    <i class="pi pi-search"></i>
-                </p-inputIcon>
-                <input type="text" pInputText [(ngModel)]="value" />
+            <p-iconField iconPosition="left">
+                <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText />
             </p-iconField>
         </div>
         <app-code [code]="code" selector="iconfield-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
-    value: string | undefined;
-
     code: Code = {
-        basic: `<p-iconField>
-    <p-inputIcon>
-        <i class="pi pi-search"></i>
-    </p-inputIcon>
-<input type="text" pInputText [(ngModel)]="value" />
+        basic: `<p-iconField iconPosition="left">
+<p-inputIcon styleClass="pi pi-search" />
+    <input type="text" pInputText />
 </p-iconField>`,
         html: `<div class="card flex justify-content-center">
-<p-iconField>
-    <p-inputIcon>
-        <i class="pi pi-search"></i>
-    </p-inputIcon>
-    <input type="text" pInputText [(ngModel)]="value" />
-</p-iconField>
+    <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-search" />
+        <input type="text" pInputText />
+    </p-iconField>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
