@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/floatlabel/basicdoc';
 import { ImportDoc } from '../../doc/floatlabel/importdoc';
+import { BasicDoc } from '../../doc/floatlabel/basicdoc';
+import { StyleDoc } from '../../doc/floatlabel/styledoc';
 import { AccessibilityDoc } from '../../doc/floatlabel/accessibilitydoc';
 @Component({
     templateUrl: './floatlabeldemo.html'
@@ -16,6 +17,11 @@ export class FloatLabelDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'style',
+            label: 'Style',
+            component: StyleDoc
         },
         {
             id: 'accessibility',
