@@ -15008,6 +15008,142 @@
             }
         }
     },
+    "metergroup": {
+        "components": {
+            "MeterGroup": {
+                "description": "MeterGroup displays scalar measurements within a known range.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MeterItem[]",
+                            "description": "Current value of the metergroup."
+                        },
+                        {
+                            "name": "min",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Mininum boundary value."
+                        },
+                        {
+                            "name": "max",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "100",
+                            "description": "Maximum boundary value."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "labelPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"end\" | \"start\"",
+                            "default": "end",
+                            "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
+                        },
+                        {
+                            "name": "labelOrientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "horizontal",
+                            "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "metergroup",
+                        "name": "label",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom label template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "meter",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t index: number, // Current index of the meter item.\n  \t class: string, // Style class of the meter item\n  \t orientation: string, // Current orientation of the component.\n  \t size: string, // Current width of the meter item.\n  \t totalPercent: number, // Total percent of the metergroup items\n  }"
+                            }
+                        ],
+                        "description": "Custom meter item template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "start",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "end",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t class: string, // Style class of the icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom icon template."
+                    }
+                ]
+            }
+        }
+    },
     "multiselect": {
         "components": {
             "MultiSelect": {
