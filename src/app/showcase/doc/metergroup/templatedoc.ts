@@ -11,15 +11,15 @@ import { Code } from '../../domain/code';
             <p-meterGroup [value]="value" labelPosition="start">
                 <ng-template pTemplate="label">
                     <div class="flex flex-wrap gap-3">
-                        <ng-container *ngFor="let val of value; let index = index">
+                        <ng-container *ngFor="let meterItem of value; let index = index">
                             <p-card class="flex-1">
                                 <div class="flex justify-content-between gap-5">
                                     <div class="flex flex-column gap-1">
-                                        <span class="text-secondary text-sm">{{ val.label }}</span>
-                                        <span class="font-bold text-lg">{{ val.value }}%</span>
+                                        <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                                        <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                                     </div>
-                                    <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': val.color1, color: '#ffffff' }">
-                                        <i [class]="val.icon"></i>
+                                    <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                                        <i [class]="meterItem.icon"></i>
                                     </span>
                                 </div>
                             </p-card>
@@ -59,15 +59,15 @@ export class TemplateDoc {
 basic: `<p-meterGroup [value]="value" labelPosition="start">
 <ng-template pTemplate="label">
 <div class="flex flex-wrap gap-3">
-    <ng-container *ngFor="let val of value; let index = index">
+    <ng-container *ngFor="let meterItem of value; let index = index">
         <p-card class="flex-1">
             <div class="flex justify-content-between gap-5">
                 <div class="flex flex-column gap-1">
-                    <span class="text-secondary text-sm">{{ val.label }}</span>
-                    <span class="font-bold text-lg">{{ val.value }}%</span>
+                    <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                    <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                 </div>
-                <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': val.color1, color: '#ffffff' }">
-                    <i [class]="val.icon"></i>
+                <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                    <i [class]="meterItem.icon"></i>
                 </span>
             </div>
         </p-card>
@@ -96,15 +96,15 @@ basic: `<p-meterGroup [value]="value" labelPosition="start">
 <p-meterGroup [value]="value" labelPosition="start">
 <ng-template pTemplate="label">
     <div class="flex flex-wrap gap-3">
-        <ng-container *ngFor="let val of value; let index = index">
+        <ng-container *ngFor="let meterItem of value; let index = index">
             <p-card class="flex-1">
                 <div class="flex justify-content-between gap-5">
                     <div class="flex flex-column gap-1">
-                        <span class="text-secondary text-sm">{{ val.label }}</span>
-                        <span class="font-bold text-lg">{{ val.value }}%</span>
+                        <span class="text-secondary text-sm">{{ meterItem.label }}</span>
+                        <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                     </div>
-                    <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': val.color1, color: '#ffffff' }">
-                        <i [class]="val.icon"></i>
+                    <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                        <i [class]="meterItem.icon"></i>
                     </span>
                 </div>
             </p-card>
