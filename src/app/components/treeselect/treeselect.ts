@@ -39,9 +39,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     (blur)="onBlur()"
                     (keydown)="onKeyDown($event)"
                     [attr.tabindex]="!disabled ? tabindex : -1"
-                    [attr.aria-controls]="listId"
+                    [attr.aria-controls]="overlayVisible ? listId : null"
                     [attr.aria-haspopup]="'tree'"
-                    [attr.aria-expanded]="overlayVisible"
+                    [attr.aria-expanded]="overlayVisible ?? false"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 />
@@ -70,7 +70,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-container>
             </div>
-            <div class="p-treeselect-trigger" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible" [attr.aria-label]="'treeselect trigger'">
+            <div class="p-treeselect-trigger" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
                 <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-treeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>

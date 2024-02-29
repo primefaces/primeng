@@ -73,8 +73,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [attr.aria-required]="required"
                     aria-autocomplete="none"
                     aria-haspopup="dialog"
-                    [attr.aria-expanded]="overlayVisible"
-                    [attr.aria-controls]="panelId"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    [attr.aria-controls]="overlayVisible ? panelId : null"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [value]="inputFieldValue"
@@ -103,8 +103,8 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     type="button"
                     [attr.aria-label]="iconButtonAriaLabel"
                     aria-haspopup="dialog"
-                    [attr.aria-expanded]="overlayVisible"
-                    [attr.aria-controls]="panelId"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    [attr.aria-controls]="overlayVisible ? panelId : null"
                     pButton
                     pRipple
                     *ngIf="showIcon && iconDisplay === 'button'"
