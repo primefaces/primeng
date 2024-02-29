@@ -20,8 +20,7 @@ import { TemplateDoc } from '../../doc/button/templatedoc';
 import { TextDoc } from '../../doc/button/textdoc';
 import { ButtonGroupDoc } from '../../doc/button/buttongroupdoc';
 @Component({
-    templateUrl: './buttondemo.html',
-    styleUrls: ['./buttondemo.scss']
+    templateUrl: './buttondemo.html'
 })
 export class ButtonDemo {
     docs = [
