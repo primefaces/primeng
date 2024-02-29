@@ -1294,6 +1294,30 @@
     color: #bf616a;
   }
 
+  .p-input-icon-left > .p-icon-wrapper.p-icon,
+.p-input-icon-left > i:first-of-type {
+    left: 0.5rem;
+    color: #81a1c1;
+  }
+
+  .p-input-icon-left > .p-inputtext {
+    padding-left: 2rem;
+  }
+
+  .p-input-icon-left.p-float-label > label {
+    left: 2rem;
+  }
+
+  .p-input-icon-right > .p-icon-wrapper,
+.p-input-icon-right > i:last-of-type {
+    right: 0.5rem;
+    color: #81a1c1;
+  }
+
+  .p-input-icon-right > .p-inputtext {
+    padding-right: 2rem;
+  }
+
   .p-icon-field-left > .p-inputtext {
     padding-left: 2rem;
   }
