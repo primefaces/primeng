@@ -256,8 +256,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                             </li>
                         </ul>
-                        <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
                     </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <span role="status" aria-live="polite" class="p-hidden-accessible">
                     {{ selectedMessageText }}
