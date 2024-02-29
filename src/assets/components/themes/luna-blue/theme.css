@@ -1272,27 +1272,15 @@
     color: #e57373;
   }
 
-  .p-input-icon-left > .p-icon-wrapper.p-icon,
-.p-input-icon-left > i:first-of-type {
-    left: 0.429rem;
-    color: #888888;
-  }
-
-  .p-input-icon-left > .p-inputtext {
+  .p-icon-field-left > .p-inputtext {
     padding-left: 1.858rem;
   }
 
-  .p-input-icon-left.p-float-label > label {
+  .p-icon-field-left.p-float-label > label {
     left: 1.858rem;
   }
 
-  .p-input-icon-right > .p-icon-wrapper,
-.p-input-icon-right > i:last-of-type {
-    right: 0.429rem;
-    color: #888888;
-  }
-
-  .p-input-icon-right > .p-inputtext {
+  .p-icon-field-right > .p-inputtext {
     padding-right: 1.858rem;
   }
 
