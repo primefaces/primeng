@@ -70,7 +70,7 @@ export class TreeDemo {
         {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
-            children:[
+            children: [
                 {
                     id: 'preload',
                     label: 'Preload',
@@ -80,7 +80,7 @@ export class TreeDemo {
                     id: 'lazyvirtualscroll',
                     label: 'Lazy',
                     component: LazyVirtualScrollDoc
-                },
+                }
             ]
         },
         {

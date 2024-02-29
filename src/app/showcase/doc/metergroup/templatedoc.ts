@@ -56,7 +56,7 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-basic: `<p-meterGroup [value]="value" labelPosition="start">
+        basic: `<p-meterGroup [value]="value" labelPosition="start">
 <ng-template pTemplate="label">
 <div class="flex flex-wrap gap-3">
     <ng-container *ngFor="let meterItem of value; let index = index">

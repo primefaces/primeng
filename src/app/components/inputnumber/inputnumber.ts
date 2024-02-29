@@ -828,9 +828,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
 
             case 'ArrowLeft':
-                for( let index=selectionStart; index<=inputValue.length;index++){
+                for (let index = selectionStart; index <= inputValue.length; index++) {
                     const previousCharIndex = index === 0 ? 0 : index - 1;
-                    if(this.isNumeralChar(inputValue.charAt(previousCharIndex))){
+                    if (this.isNumeralChar(inputValue.charAt(previousCharIndex))) {
                         this.input.nativeElement.setSelectionRange(index, index);
                         break;
                     }
@@ -838,8 +838,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
 
             case 'ArrowRight':
-                for( let index=selectionEnd; index>=0;index--){
-                    if(this.isNumeralChar(inputValue.charAt(index))){
+                for (let index = selectionEnd; index >= 0; index--) {
+                    if (this.isNumeralChar(inputValue.charAt(index))) {
                         this.input.nativeElement.setSelectionRange(index, index);
                         break;
                     }

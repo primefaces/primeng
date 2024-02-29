@@ -10,4 +10,3 @@ export class ImportDoc {
         typescript: `import { FloatLabelModule } from 'primeng/floatlabel';`
     };
 }
-

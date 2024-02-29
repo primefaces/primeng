@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
     selector: 'accessibility-doc',
     template: `
         <app-docsectiontext>
-        <h3>Screen Reader</h3>
-        <p>FloatLabel does not require any roles and attributes.</p>
+            <h3>Screen Reader</h3>
+            <p>FloatLabel does not require any roles and attributes.</p>
 
-        <h3>Keyboard Support</h3>
-        <p>Component does not include any interactive elements.</p>
+            <h3>Keyboard Support</h3>
+            <p>Component does not include any interactive elements.</p>
         </app-docsectiontext>
     `
 })

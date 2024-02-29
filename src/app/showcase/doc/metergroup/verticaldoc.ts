@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'vertical-doc',
     template: `
         <app-docsectiontext>
-        <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>
+            <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>

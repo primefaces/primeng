@@ -35,7 +35,6 @@ export class IconFieldDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        },
-    
+        }
     ];
 }

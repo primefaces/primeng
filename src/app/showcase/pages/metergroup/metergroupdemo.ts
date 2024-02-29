@@ -32,22 +32,22 @@ export class MeterGroupDemo {
         {
             id: 'icon',
             label: 'Icon',
-            component: IconDoc  
+            component: IconDoc
         },
         {
             id: 'label',
             label: 'Label',
-            component: LabelDoc  
+            component: LabelDoc
         },
         {
             id: 'vertical',
             label: 'Vertical',
-            component: VerticalDoc  
+            component: VerticalDoc
         },
         {
             id: 'minmax',
             label: 'Min Max',
-            component: MinMaxDoc 
+            component: MinMaxDoc
         },
         {
             id: 'template',
@@ -63,6 +63,6 @@ export class MeterGroupDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        },
+        }
     ];
 }

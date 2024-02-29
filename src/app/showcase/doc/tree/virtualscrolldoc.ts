@@ -77,9 +77,9 @@ export class TreeVirtualScrollDemo implements OnInit {
     }
 
 }`,
-service: ['NodeService'],
+        service: ['NodeService'],
 
-data: `
+        data: `
 /* NodeService */
 {
 key: '0',

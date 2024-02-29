@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'icon-doc',
     template: `
         <app-docsectiontext>
-        <p>Icons can be displayed next to the labels instead of the default marker.</p>
+            <p>Icons can be displayed next to the labels instead of the default marker.</p>
         </app-docsectiontext>
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
