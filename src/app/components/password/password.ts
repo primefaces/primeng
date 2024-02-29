@@ -359,13 +359,13 @@ export const Password_VALUE_ACCESSOR: any = {
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" [tabIndex]='0' (keydown)="onToggleMaskKeyDown($event)" />
+                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" [tabIndex]="0" (keydown)="onToggleMaskKeyDown($event)" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" [tabIndex]='0' (keydown)="onToggleMaskKeyDown($event)" />
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" [tabIndex]="0" (keydown)="onToggleMaskKeyDown($event)" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -771,7 +771,7 @@ export class Password implements AfterContentInit, OnInit {
     onMaskToggle() {
         this.unmasked = !this.unmasked;
     }
-    
+
     onToggleMaskKeyDown(event: KeyboardEvent) {
         switch (event.code) {
             case 'Enter':
@@ -782,7 +782,7 @@ export class Password implements AfterContentInit, OnInit {
             default:
                 break;
         }
-    };
+    }
 
     onOverlayClick(event: Event) {
         this.overlayService.add({
