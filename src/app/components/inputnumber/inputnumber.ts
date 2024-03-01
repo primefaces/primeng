@@ -624,7 +624,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     formatValue(value: any) {
-        if (value != null) {
+        if (value) {
             if (value === '-') {
                 // Minus sign
                 return value;
