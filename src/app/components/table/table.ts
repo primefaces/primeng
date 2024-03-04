@@ -3289,12 +3289,14 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, 1000);
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this.updateStickyPosition();
+            }, 1000);
+        });
     }
 
     _frozen: boolean = true;
