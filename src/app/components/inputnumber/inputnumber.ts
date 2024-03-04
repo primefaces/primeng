@@ -1379,9 +1379,9 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     onInputBlur(event: Event) {
         this.focused = false;
 
-        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value)).toString();
+        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
         this.input.nativeElement.value = this.formatValue(newValue);
-        this.input.nativeElement.setAttribute('aria-valuenow', newValue);
+        newValue && this.input.nativeElement.setAttribute('aria-valuenow', newValue.toString());
         this.updateModel(event, newValue);
         this.onBlur.emit(event);
     }
