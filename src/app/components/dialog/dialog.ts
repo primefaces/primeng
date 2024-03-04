@@ -626,7 +626,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.unbindMaskClickListener();
             }
 
-            if (this.modal) {
+            const dialogElements = document.querySelectorAll('.p-dialog');
+
+            if (this.modal && !dialogElements) {
                 DomHandler.unblockBodyScroll();
             }
 
