@@ -54,9 +54,8 @@ import {
     selector: 'p-treeNode',
     template: `
         <ng-template [ngIf]="node">
-            <ul>
+            <ul *ngIf="tree.droppableNodes">
                 <li
-                    *ngIf="tree.droppableNodes"
                     class="p-treenode-droppoint"
                     [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
                     (drop)="onDropPoint($event, -1)"
@@ -135,9 +134,8 @@ import {
                     ></p-treeNode>
                 </ul>
             </li>
-            <ul>
+            <ul *ngIf="tree.droppableNodes && lastChild">
                 <li
-                    *ngIf="tree.droppableNodes && lastChild"
                     class="p-treenode-droppoint"
                     [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
                     (drop)="onDropPoint($event, 1)"
