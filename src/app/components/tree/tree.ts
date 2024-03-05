@@ -54,16 +54,16 @@ import {
     selector: 'p-treeNode',
     template: `
         <ng-template [ngIf]="node">
-            <ul *ngIf="tree.droppableNodes">
-                <li
-                    class="p-treenode-droppoint"
-                    [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
-                    (drop)="onDropPoint($event, -1)"
-                    (dragover)="onDropPointDragOver($event)"
-                    (dragenter)="onDropPointDragEnter($event, -1)"
-                    (dragleave)="onDropPointDragLeave($event)"
-                ></li>
-            </ul>
+            <li
+                *ngIf="tree.droppableNodes"
+                class="p-treenode-droppoint"
+                [attr.aria-hidden]="true"
+                [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
+                (drop)="onDropPoint($event, -1)"
+                (dragover)="onDropPointDragOver($event)"
+                (dragenter)="onDropPointDragEnter($event, -1)"
+                (dragleave)="onDropPointDragLeave($event)"
+            ></li>
             <li
                 *ngIf="!tree.horizontal"
                 [ngClass]="['p-treenode', node.styleClass || '', isLeaf() ? 'p-treenode-leaf' : '']"
@@ -134,16 +134,18 @@ import {
                     ></p-treeNode>
                 </ul>
             </li>
-            <ul *ngIf="tree.droppableNodes && lastChild">
-                <li
-                    class="p-treenode-droppoint"
-                    [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
-                    (drop)="onDropPoint($event, 1)"
-                    (dragover)="onDropPointDragOver($event)"
-                    (dragenter)="onDropPointDragEnter($event, 1)"
-                    (dragleave)="onDropPointDragLeave($event)"
-                ></li>
-            </ul>
+
+            <li
+                *ngIf="tree.droppableNodes && lastChild"
+                class="p-treenode-droppoint"
+                [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
+                (drop)="onDropPoint($event, 1)"
+                [attr.aria-hidden]="true"
+                (dragover)="onDropPointDragOver($event)"
+                (dragenter)="onDropPointDragEnter($event, 1)"
+                (dragleave)="onDropPointDragLeave($event)"
+            ></li>
+
             <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
