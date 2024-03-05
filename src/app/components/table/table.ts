@@ -4880,8 +4880,21 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     onMouseDown(event: Event) {
-        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle')) this.el.nativeElement.draggable = true;
-        else this.el.nativeElement.draggable = false;
+        const targetElement = event.target as HTMLElement;
+        const isHandleClicked = this.isHandleElement(targetElement);
+        this.el.nativeElement.draggable = isHandleClicked;
+    }
+
+    isHandleElement(element: HTMLElement): boolean {
+        if (element?.classList.contains('p-datatable-reorderablerow-handle')) {
+            return true;
+        }
+
+        if (element?.parentElement && !['TD', 'TR'].includes(element?.parentElement?.tagName)) {
+            return this.isHandleElement(element?.parentElement);
+        }
+
+        return false;
     }
 
     onDragStart(event: DragEvent) {
