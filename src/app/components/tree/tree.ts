@@ -74,7 +74,7 @@ import {
                 [attr.aria-selected]="ariaSelected"
                 [attr.aria-expanded]="node.expanded"
                 [attr.aria-posinset]="index + 1"
-                [attr.aria-level]="level"
+                [attr.aria-level]="level + 1"
                 [attr.tabindex]="index === 0 ? 0 : -1"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
