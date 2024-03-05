@@ -43,6 +43,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
+                aria-label="Choose a color"
             />
             <div
                 *ngIf="inline || overlayVisible"
