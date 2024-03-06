@@ -1122,7 +1122,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.focusedOptionIndex.set(this.findSelectedOptionIndex());
             preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
         }
-        isHide && setTimeout(() => this.hide(true), 1);
+        if (isHide) {
+            this.hide(true);
+        }
     }
 
     onOptionMouseEnter(event, index) {
