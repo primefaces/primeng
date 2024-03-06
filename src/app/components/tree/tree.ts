@@ -198,7 +198,6 @@ import {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element',
-        '[attr.role]': '"treeitem"'
     }
 })
 export class UITreeNode implements OnInit {
