@@ -309,6 +309,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         viewContainerRef?.clear();
 
         this.componentRef = viewContainerRef?.createComponent(componentType);
+        this.dialogRef.onChildComponentLoaded.next(this.componentRef!.instance);
     }
 
     moveOnTop() {
