@@ -1,4 +1,27 @@
 # Changelog
+## [17.9.0](https://github.com/primefaces/primeng/tree/17.9.0) (2024-02-29)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.8.0...17.9.0)
+
+**Implemented New Features and Enhancements:**
+- New Component | MeterGroup [\#14898](https://github.com/primefaces/primeng/issues/14898)
+- New Component | ButtonGroup [\#14897](https://github.com/primefaces/primeng/issues/14897)
+- New Component | FloatLabel [\#14899](https://github.com/primefaces/primeng/issues/14899)
+- New Components | IconField & InputIcon [\#14896](https://github.com/primefaces/primeng/issues/14896)
+
+**Fixed bugs:**
+- Component: Autocomplete [\#14806](https://github.com/primefaces/primeng/issues/14806)
+- p-inputNumber: LeftArrowKey not working for selected input [\#14869](https://github.com/primefaces/primeng/issues/14869)
+- Reopen issue #11442 p-inputNumber cannot use the decimal separator of the digital keyboard when the separator is a comma [\#12626](https://github.com/primefaces/primeng/issues/12626)
+- Calendar, TreeSelect, MultiSelect, AutoComplete, CascadeSelect, Table | aria-expanded attribute is undefined and aria-controls attribute referencing a hidden element [\#14358](https://github.com/primefaces/primeng/issues/14358)
+- DropDown: aria-controls referencing an element that doesn't exist. [\#14851](https://github.com/primefaces/primeng/issues/14851)
+- Dropdown: aria-expanded attribute not present. [\#14850](https://github.com/primefaces/primeng/issues/14850)
+- Dropdown attr aria-expanded missing because undefined value [\#14832](https://github.com/primefaces/primeng/issues/14832)
+- multiselect: filter not working [\#14835](https://github.com/primefaces/primeng/issues/14835)
+- TabMenu: TabChange doesn't update Inkbar [\#14867](https://github.com/primefaces/primeng/issues/14867)
+- InputNumberInputEvent value type appears to be incorrect [\#14831](https://github.com/primefaces/primeng/issues/14831)
+- Theming: Wrong Icon in documentation [\#14872](https://github.com/primefaces/primeng/issues/14872)
+
 ## [17.8.0](https://github.com/primefaces/primeng/tree/17.8.0) (2024-02-23)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.7.0...17.8.0)

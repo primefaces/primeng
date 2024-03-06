@@ -2,7 +2,7 @@ import { AnimationEvent, animate, style, transition, trigger } from '@angular/an
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig } from 'primeng/api';
+import { OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
@@ -43,6 +43,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
+                [attr.aria-label]="ariaLabel"
             />
             <div
                 *ngIf="inline || overlayVisible"
@@ -228,6 +229,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
         this.hueHandleViewChild = element;
+    }
+
+    get ariaLabel() {
+        return this.config?.getTranslation(TranslationKeys.ARIA)[TranslationKeys.SELECT_COLOR];
     }
 
     onHueMousedown(event: MouseEvent) {

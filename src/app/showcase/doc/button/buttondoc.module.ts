@@ -28,7 +28,6 @@ import { TemplateDoc } from './templatedoc';
 import { TextDoc } from './textdoc';
 import { ButtonGroupDoc } from './buttongroupdoc';
 
-
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, ButtonModule, ButtonGroupModule, RippleModule, RouterModule],
     exports: [AppDocModule],
@@ -53,7 +52,7 @@ import { ButtonGroupDoc } from './buttongroupdoc';
         TemplateDoc,
         StyleDoc,
         AccessibilityDoc,
-        DirectiveDoc,
+        DirectiveDoc
     ]
 })
 export class ButtonDocModule {}

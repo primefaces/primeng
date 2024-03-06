@@ -6214,6 +6214,107 @@
     box-shadow: 0 0 0 1px #e0d8fc;
   }
 
+  .p-metergroup {
+    display: flex;
+  }
+
+  .p-metergroup-meters {
+    display: flex;
+  }
+
+  .p-metergroup-vertical {
+    height: 100%;
+  }
+
+  .p-metergroup-vertical .p-metergroup-meters {
+    flex-direction: column;
+  }
+
+  .p-metergroup-labels {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .p-metergroup-vertical .p-metergroup-labels {
+    align-items: start;
+  }
+
+  .p-metergroup-labels-vertical {
+    flex-direction: column;
+  }
+
+  .p-metergroup-label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .p-metergroup-label-marker {
+    display: inline-flex;
+  }
+
+  .p-metergroup {
+    gap: 1rem;
+  }
+  .p-metergroup .p-metergroup-meters {
+    background: #3e4053;
+    border-radius: 6px;
+  }
+  .p-metergroup .p-metergroup-meter {
+    border: 0 none;
+    background: #b19df7;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-marker {
+    background: #b19df7;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-vertical {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-horizontal {
+    gap: 1rem;
+  }
+  .p-metergroup.p-metergroup-horizontal {
+    flex-direction: column;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meters {
+    height: 0.5rem;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:last-of-type {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-vertical {
+    flex-direction: row;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meters {
+    width: 0.5rem;
+    height: 100%;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:last-of-type {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
   .p-progressbar {
     border: 0 none;
     height: 1.5rem;

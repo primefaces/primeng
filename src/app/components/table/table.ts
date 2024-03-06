@@ -3289,12 +3289,14 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, 1000);
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this.updateStickyPosition();
+            }, 1000);
+        });
     }
 
     _frozen: boolean = true;
@@ -4878,8 +4880,21 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     onMouseDown(event: Event) {
-        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle')) this.el.nativeElement.draggable = true;
-        else this.el.nativeElement.draggable = false;
+        const targetElement = event.target as HTMLElement;
+        const isHandleClicked = this.isHandleElement(targetElement);
+        this.el.nativeElement.draggable = isHandleClicked;
+    }
+
+    isHandleElement(element: HTMLElement): boolean {
+        if (element?.classList.contains('p-datatable-reorderablerow-handle')) {
+            return true;
+        }
+
+        if (element?.parentElement && !['TD', 'TR'].includes(element?.parentElement?.tagName)) {
+            return this.isHandleElement(element?.parentElement);
+        }
+
+        return false;
     }
 
     onDragStart(event: DragEvent) {
@@ -4951,8 +4966,8 @@ export class ReorderableRow implements AfterViewInit {
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
                 [attr.aria-label]="filterMenuButtonAriaLabel"
-                [attr.aria-controls]="overlayId"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-controls]="overlayVisible ? overlayId : null"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
                 (keydown)="onToggleButtonKeyDown($event)"
