@@ -201,7 +201,7 @@ import {
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element',
+        class: 'p-element'
     }
 })
 export class UITreeNode implements OnInit {
