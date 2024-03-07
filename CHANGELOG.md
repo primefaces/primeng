@@ -1,7 +1,7 @@
 # Changelog
 ## [17.10.0](https://github.com/primefaces/primeng/tree/17.10.0) (2024-03-07)
 
-[Full Changelog](https://github.com/primefaces/primeng/compare/17.8.0...17.10.0)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.9.0...17.10.0)
 
 **Implemented New Features and Enhancements:**
 - ColorPicker: Form elements must have labels [\#14941](https://github.com/primefaces/primeng/issues/14941)
