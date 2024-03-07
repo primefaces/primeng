@@ -982,10 +982,10 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     hide() {
+        this.onHide.emit();
         this.visible.set(false);
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
-        this.onHide.emit();
     }
 
     toggle(event?: any) {
@@ -999,8 +999,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.pageX = event.pageX;
         this.pageY = event.pageY;
 
-        this.visible() ? this.position() : this.visible.set(true);
         this.onShow.emit();
+        this.visible() ? this.position() : this.visible.set(true);
 
         event.stopPropagation();
         event.preventDefault();
