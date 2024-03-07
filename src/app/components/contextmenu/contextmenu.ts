@@ -982,8 +982,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     hide() {
-        this.onHide.emit();
         this.visible.set(false);
+        this.onHide.emit();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
