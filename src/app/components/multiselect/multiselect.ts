@@ -1056,7 +1056,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             if (isArrayOfObjects) {
                 filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             } else {
-                filteredOptions = options.filter((option) => option.toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
+                filteredOptions = options.filter((option) => option.toString().toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
             }
 
             if (this.group) {
@@ -1392,7 +1392,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
     }
 
     isEmpty() {
