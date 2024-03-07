@@ -5,10 +5,6 @@
         user-select: none;
     }
 
-    .p-hidden-accessible {
-      display: none;
-    }
-        
     .p-inputswitch-slider {
         position: absolute;
         cursor: pointer;
