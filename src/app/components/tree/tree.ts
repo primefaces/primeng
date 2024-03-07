@@ -1247,8 +1247,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
-
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes) as TreeNode;
                 if (!node) {
                     return;
                 }
@@ -1359,7 +1358,6 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
-
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
                 let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;
