@@ -1,4 +1,26 @@
 # Changelog
+## [17.10.0](https://github.com/primefaces/primeng/tree/17.10.0) (2024-03-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.8.0...17.10.0)
+
+**Implemented New Features and Enhancements:**
+- ColorPicker: Form elements must have labels [\#14941](https://github.com/primefaces/primeng/issues/14941)
+
+**Fixed bugs:**
+- treetable, treeselect: wrong type information in jsdoc for node events [\#14939](https://github.com/primefaces/primeng/issues/14939)
+- Icons: Wrong value for PrimeIcons.SORT_ALPHA_ALT_DOWN and others [\#14965](https://github.com/primefaces/primeng/issues/14965)
+- Multiselect | TypeError: option.toLocaleLowerCase is not a function [\#14960](https://github.com/primefaces/primeng/issues/14960)
+- Dropdown: TypeError: this.getOptionLabel(...).toLocaleLowerCase is not a function [\#14865](https://github.com/primefaces/primeng/issues/14865)
+- Tree: If user filter tree nodes and then lazy load new children (with .key prop) - nodeClick event is not emitted [\#14723](https://github.com/primefaces/primeng/issues/14723)
+- Tree: Certain ARIA roles must be contained by particular parents [\#14913](https://github.com/primefaces/primeng/issues/14913)
+- Tree: Node drop points are not contained in a <ul> or <ol> [\#14911](https://github.com/primefaces/primeng/issues/14911)
+- Tree: ARIA attributes must conform to valid values [\#14912](https://github.com/primefaces/primeng/issues/14912)
+- Scroll bar for the base page reappears after closing a secondary modal despite one modal still being open [\#14933](https://github.com/primefaces/primeng/issues/14933)
+- Drag-and-Drop Functionality Disrupted by extra tag (div) in <td> Tag [\#14935](https://github.com/primefaces/primeng/issues/14935)
+- Table, pFrozenColumn: Frozen columns are extremely slow and kick off many change detection cycles [\#14579](https://github.com/primefaces/primeng/issues/14579)
+- Dropdown: Clicking on currently selected item no longer closes the list [\#14917](https://github.com/primefaces/primeng/issues/14917)
+
+
 ## [17.9.0](https://github.com/primefaces/primeng/tree/17.9.0) (2024-02-29)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.8.0...17.9.0)
@@ -345,6 +367,19 @@
 **Implemented New Features and Enhancements:**
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.6-LTS](https://www.npmjs.com/package/primeng/v/16.9.6-lts) (2024-03-07)
+
+**Implemented New Features and Enhancements:**
+- ColorPicker: Form elements must have labels [\#14941](https://github.com/primefaces/primeng/issues/14941)
+
+**Fixed bugs:**
+- Tree: If user filter tree nodes and then lazy load new children (with .key prop) - nodeClick event is not emitted [\#14723](https://github.com/primefaces/primeng/issues/14723)
+- Tree: Certain ARIA roles must be contained by particular parents [\#14913](https://github.com/primefaces/primeng/issues/14913)
+- Tree | ARIA attributes must conform to valid values [\#14912](https://github.com/primefaces/primeng/issues/14912)
+- Scroll bar for the base page reappears after closing a secondary modal despite one modal still being open [\#14933](https://github.com/primefaces/primeng/issues/14933)
+- Drag-and-Drop Functionality Disrupted by extra tag [\#14935](https://github.com/primefaces/primeng/issues/14935)
+- Table, pFrozenColumn: Frozen columns are extremely slow and kick off many change detection cycles [\#14579](https://github.com/primefaces/primeng/issues/14579)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.5-LTS](https://www.npmjs.com/package/primeng/v/16.9.5-lts) (2024-02-07)
 
@@ -898,6 +933,13 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.17-LTS](https://www.npmjs.com/package/primeng/v/15.4.17-lts) (2024-03-07)
+
+**Fixed bugs:**
+- Tree: If user filter tree nodes and then lazy load new children (with .key prop) - nodeClick event is not emitted [\#14723](https://github.com/primefaces/primeng/issues/14723)
+- Table, pFrozenColumn: Frozen columns are extremely slow and kick off many change detection cycles [\#14579](https://github.com/primefaces/primeng/issues/14579)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.16-LTS](https://www.npmjs.com/package/primeng/v/15.4.16-lts) (2024-02-07)
 
