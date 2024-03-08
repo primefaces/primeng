@@ -60,6 +60,7 @@ export const routes: Routes = [
             { path: 'metergroup', loadChildren: () => import('../pages/metergroup/metergroupdemo.module').then((m) => m.MeterGroupDemoModule) },
             { path: 'inputmask', loadChildren: () => import('../pages/inputmask/inputmaskdemo.module').then((m) => m.InputMaskDemoModule) },
             { path: 'inputnumber', loadChildren: () => import('../pages/inputnumber/inputnumberdemo.module').then((m) => m.InputNumberDemoModule) },
+            { path: 'inputotp', loadChildren: () => import('../pages/inputotp/inputotpdemo.module').then((m) => m.InputOtpDemoModule) },
             { path: 'inputswitch', loadChildren: () => import('../pages/inputswitch/inputswitchdemo.module').then((m) => m.InputSwitchDemoModule) },
             { path: 'inputtext', loadChildren: () => import('../pages/inputtext/inputtextdemo.module').then((m) => m.InputTextDemoModule) },
             { path: 'inputgroup', loadChildren: () => import('../pages/inputgroup/inputgroupdemo.module').then((m) => m.InputGroupDemoModule) },

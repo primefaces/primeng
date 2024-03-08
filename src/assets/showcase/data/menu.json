@@ -90,6 +90,10 @@
                             "routerLink": "/inputnumber"
                         },
                         {
+                            "name": "InputOtp",
+                            "routerLink": "/inputotp"
+                        },
+                        {
                             "name": "Knob",
                             "routerLink": "/knob"
                         },
