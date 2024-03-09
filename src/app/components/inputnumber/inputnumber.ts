@@ -1246,7 +1246,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         return false;
     }
 
-    validateValue(value: number | string) {
+    validateValue(value: number | string | null) {
         if (value === '-' || value == null) {
             return null;
         }
@@ -1378,11 +1378,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     onInputBlur(event: Event) {
         this.focused = false;
-
-        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value)).toString();
-        this.input.nativeElement.value = this.formatValue(newValue);
-        this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-        this.updateModel(event, newValue);
+        let newValue: number | string | null = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        let newValueStr: string = newValue != null ? newValue.toString() : '';
+        this.input.nativeElement.value = this.formatValue(newValueStr);
+        this.input.nativeElement.setAttribute('aria-valuenow', newValueStr);
+        this.updateModel(event, newValueStr);
         this.onBlur.emit(event);
     }
 
