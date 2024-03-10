@@ -49,7 +49,6 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
             [attr.aria-orientation]="'vertical'"
             [attr.data-pc-section]="'menu'"
             (keydown)="menuKeydown.emit($event)"
-            (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
@@ -223,15 +222,13 @@ export class TieredMenuSub {
 
     @Output() itemMouseEnter: EventEmitter<any> = new EventEmitter();
 
-    @Output() menuFocus: EventEmitter<any> = new EventEmitter();
-
     @Output() menuBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
         let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
@@ -363,7 +360,6 @@ export class TieredMenuSub {
                 [focusedItemId]="focused ? focusedItemId : undefined"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
-                (menuFocus)="onMenuFocus($event)"
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
@@ -498,8 +494,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     relativeAlign: boolean | undefined;
 
-    private window: Window;
-
     dirty: boolean = false;
 
     focused: boolean = false;
@@ -544,7 +538,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
-        this.window = this.document.defaultView as Window;
         effect(() => {
             const path = this.activeItemPath();
 
@@ -877,12 +870,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
     }
 
-    onMenuFocus(event: any) {
-        this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: this.visibleItems[this.findFirstFocusedItemIndex()]?.item };
-        this.focusedItemInfo.set(focusedItemInfo);
-    }
-
     onMenuBlur(event: any) {
         this.focused = false;
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
@@ -984,7 +971,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.relativeAlign = event?.relativeAlign || null;
         }
 
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
 
