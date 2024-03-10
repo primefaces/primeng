@@ -234,7 +234,7 @@ export class TieredMenuSub {
     constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
-        let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+        const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
 
         if (sublist) {
             const parentItem = sublist.parentElement.parentElement;
@@ -845,7 +845,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
             anchorElement ? anchorElement.click() : element && element.click();
 
-            const processedItem = this.visibleItems[this.focusedItemInfo().index];
             if (!this.popup) {
                 const processedItem = this.visibleItems[this.focusedItemInfo().index];
                 const grouped = this.isProccessedItemGroup(processedItem);
