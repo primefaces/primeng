@@ -49,6 +49,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
             [attr.aria-orientation]="'vertical'"
             [attr.data-pc-section]="'menu'"
             (keydown)="menuKeydown.emit($event)"
+            (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
@@ -222,6 +223,8 @@ export class TieredMenuSub {
 
     @Output() itemMouseEnter: EventEmitter<any> = new EventEmitter();
 
+    @Output() menuFocus: EventEmitter<any> = new EventEmitter();
+
     @Output() menuBlur: EventEmitter<any> = new EventEmitter();
 
     @Output() menuKeydown: EventEmitter<any> = new EventEmitter();
@@ -360,6 +363,7 @@ export class TieredMenuSub {
                 [focusedItemId]="focused ? focusedItemId : undefined"
                 [activeItemPath]="activeItemPath()"
                 (itemClick)="onItemClick($event)"
+                (menuFocus)="onMenuFocus($event)"
                 (menuBlur)="onMenuBlur($event)"
                 (menuKeydown)="onKeyDown($event)"
                 (itemMouseEnter)="onItemMouseEnter($event)"
@@ -868,6 +872,10 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
         grouped && (this.dirty = true);
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
+    }
+
+    onMenuFocus(event: any) {
+        this.focused = true;
     }
 
     onMenuBlur(event: any) {
