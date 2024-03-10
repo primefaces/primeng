@@ -1832,9 +1832,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             });
         } else {
             const value = this.allSelected()
-                ? []
+                ? this.visibleOptions()
+                      .filter((option) => !this.isValidOption(option) && this.isSelected(option))
+                      .map((option) => this.getOptionValue(option))
                 : this.visibleOptions()
-                      .filter((option) => this.isValidOption(option))
+                      .filter((option) => this.isSelected(option) || this.isValidOption(option))
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);
