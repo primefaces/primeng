@@ -11,15 +11,14 @@
 - Icons: Wrong value for PrimeIcons.SORT_ALPHA_ALT_DOWN and others [\#14965](https://github.com/primefaces/primeng/issues/14965)
 - Multiselect | TypeError: option.toLocaleLowerCase is not a function [\#14960](https://github.com/primefaces/primeng/issues/14960)
 - Dropdown: TypeError: this.getOptionLabel(...).toLocaleLowerCase is not a function [\#14865](https://github.com/primefaces/primeng/issues/14865)
-- Tree: If user filter tree nodes and then lazy load new children (with .key prop) - nodeClick event is not emitted [\#14723](https://github.com/primefaces/primeng/issues/14723)
+- Tree: If user filter tree nodes and then lazy load new children (with .key prop) - nodeClick event is not emitted [\#14723 (https://github.com/primefaces/primeng/issues/14723)
 - Tree: Certain ARIA roles must be contained by particular parents [\#14913](https://github.com/primefaces/primeng/issues/14913)
-- Tree: Node drop points are not contained in a <ul> or <ol> [\#14911](https://github.com/primefaces/primeng/issues/14911)
+- Tree: Node drop points are not contained in a ul or ol [\#14911](https://github.com/primefaces/primeng/issues/14911)
 - Tree: ARIA attributes must conform to valid values [\#14912](https://github.com/primefaces/primeng/issues/14912)
 - Scroll bar for the base page reappears after closing a secondary modal despite one modal still being open [\#14933](https://github.com/primefaces/primeng/issues/14933)
 - Drag-and-Drop Functionality Disrupted by extra tag (div) in <td> Tag [\#14935](https://github.com/primefaces/primeng/issues/14935)
 - Table, pFrozenColumn: Frozen columns are extremely slow and kick off many change detection cycles [\#14579](https://github.com/primefaces/primeng/issues/14579)
 - Dropdown: Clicking on currently selected item no longer closes the list [\#14917](https://github.com/primefaces/primeng/issues/14917)
-
 
 ## [17.9.0](https://github.com/primefaces/primeng/tree/17.9.0) (2024-02-29)
 
