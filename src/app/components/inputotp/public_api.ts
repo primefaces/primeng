@@ -1,2 +1,2 @@
 export * from './inputotp';
-// export * from './inputotp.interface';
+export * from './inputotp.interface';

@@ -1,40 +1,44 @@
-// import { TemplateRef } from '@angular/core';
+import { TemplateRef } from '@angular/core';
 
-// /**
-//  * Custom input event.
-//  * @see {@link InputNumber.onInput}
-//  * @group Events
-//  */
-// export interface InputNumberInputEvent {
-//     /**
-//      * Browser event.
-//      */
-//     originalEvent: Event;
-//     /**
-//      * Input value.
-//      */
-//     value: number;
-//     /**
-//      * Selected option value.
-//      */
-//     formattedValue: string;
-// }
+/**
+ * Defines the custom events used by the component's emit.
+ * @group Events
+ */
+export interface InputOtpTemplateEvents {
+    input: Function;
+    keydown: Function;
+    focus: Function;
+    blur: Function;
+    paste: Function;
+}
 
-// /**
-//  * Defines valid templates in InputNumber.
-//  * @group Templates
-//  */
-// export interface InputNumberTemplates {
-//     /**
-//      * Custom clear icon template.
-//      */
-//     clearicon(): TemplateRef<any>;
-//     /**
-//      * Custom increment button icon template.
-//      */
-//     incrementbuttonicon(): TemplateRef<any>;
-//     /**
-//      * Custom decrement button icon template.
-//      */
-//     decrementbuttonicon(): TemplateRef<any>;
-// }
+/**
+ * InputOtp attr options
+ */
+export interface InputOtpTemplateAttrsOptions {
+    /**
+     * Input token value
+     */
+    value: string;
+}
+
+/**
+ * Defines valid templates in InputOtp.
+ * @group Templates
+ */
+export interface InputOtpTemplates {
+    /**
+     * Custom template of input.
+     * @param {Object} context
+     */
+    input(context: {
+        /**
+         * Events of the component
+         */
+        events: InputOtpTemplateEvents;
+        /**
+         * Attributes of the component
+         */
+        attrs: InputOtpTemplateAttrsOptions;
+    }): TemplateRef<{ $implicit: any }>;
+}

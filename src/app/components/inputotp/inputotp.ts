@@ -11,7 +11,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     multi: true
 };
 /**
- * InputNumber is an input component to provide numerical input.
+ * Input Otp is used to enter one time passwords.
  * @group Components
  */
 @Component({
@@ -52,26 +52,61 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     providers: [INPUT_OTP_VALUE_ACCESSOR]
 })
 export class InputOtp implements OnChanges, AfterContentInit {
+    /**
+     * Specifies whether a inputotp should be checked or not.
+     * @group Props
+     */
     modelValue = signal<any>(null);
-
+    /**
+     * When present, it specifies that the component should have invalid state style.
+     * @group Props
+     */
     @Input() invalid: boolean = false;
+    /**
+     * When present, it specifies that the component should be disabled.
+     * @group Props
+     */
 
     @Input() disabled: boolean = false;
-
+    /**
+     * When present, it specifies that an input field is read-only.
+     * @group Props
+     */
     @Input() readonly: boolean = false;
-
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
     @Input() variant: string | null = null;
-
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
     @Input() tabindex: number | null = null;
-
+    /**
+     * Number of characters to initiate.
+     * @group Props
+     */
     @Input() length: number = 4;
-
+    /**
+     * Mask pattern.
+     * @group Props
+     */
     @Input() mask: boolean = false;
-
+    /**
+     * When present, it specifies that an input field is integer-only.
+     * @group Props
+     */
     @Input() integerOnly: boolean = false;
-
+    /**
+     * Emitted when the value changes.
+     * @group Emits
+     */
     @Output() updateModelValue = new EventEmitter<string>();
-
+    /**
+     * Callback to invoke on value change.
+     * @group Emits
+     */
     @Output() onChange = new EventEmitter<any>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;

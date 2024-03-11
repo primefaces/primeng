@@ -3108,6 +3108,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "selectColor",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -4944,6 +4950,9 @@
                 ]
             }
         }
+    },
+    "buttongroup": {
+        "components": {}
     },
     "calendar": {
         "components": {
@@ -7197,11 +7206,11 @@
                             "description": "Maximum number of entries allowed."
                         },
                         {
-                          "name": "maxLength",
-                          "optional": false,
-                          "readonly": false,
-                          "type": "number",
-                          "description": "Maximum length of a chip."
+                            "name": "maxLength",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum length of a chip."
                         },
                         {
                             "name": "ariaLabel",
@@ -9008,7 +9017,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "-1",
+                            "default": "0",
                             "description": "Index of the close button in tabbing order."
                         },
                         {
@@ -11709,6 +11718,13 @@
             }
         }
     },
+    "floatlabel": {
+        "components": {
+            "FloatLabel": {
+                "description": "FloatLabel appears on top of the input field when focused."
+            }
+        }
+    },
     "focustrap": {
         "components": {
             "FocusTrap": {
@@ -13376,7 +13392,7 @@
                                 "name": "value",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "number",
                                 "description": "Input value."
                             },
                             {
@@ -13410,6 +13426,196 @@
                         "name": "decrementbuttonicon",
                         "parameters": [],
                         "description": "Custom decrement button icon template."
+                    }
+                ]
+            }
+        }
+    },
+    "inputotp": {
+        "components": {
+            "InputOtp": {
+                "description": "Input Otp is used to enter one time passwords.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "modelValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "WritableSignal<any>",
+                            "default": "...",
+                            "description": "Specifies whether a inputotp should be checked or not."
+                        },
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is read-only."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "null",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "null",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "length",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "4",
+                            "description": "Number of characters to initiate."
+                        },
+                        {
+                            "name": "mask",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Mask pattern."
+                        },
+                        {
+                            "name": "integerOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is integer-only."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "updateModelValue",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "string"
+                                }
+                            ],
+                            "description": "Emitted when the value changes."
+                        },
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component loses focus."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "InputOtpTemplateEvents",
+                        "description": "Defines the custom events used by the component's emit.",
+                        "props": [
+                            {
+                                "name": "input",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "keydown",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "focus",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "blur",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "paste",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "inputotp",
+                        "name": "input",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t events: InputOtpTemplateEvents, // Events of the component\n  \t attrs: InputOtpTemplateAttrsOptions, // Attributes of the component\n  }",
+                                "description": ""
+                            }
+                        ],
+                        "description": "Custom template of input."
                     }
                 ]
             }
@@ -23539,8 +23745,7 @@
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem",
-                            "description": "Defines the default active menuitem"
+                            "type": "MenuItem"
                         },
                         {
                             "name": "scrollable",
