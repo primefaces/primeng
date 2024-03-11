@@ -5,34 +5,34 @@ import { Code } from '../../domain/code';
     selector: 'integer-only-doc',
     template: `
         <app-docsectiontext>
-            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
+            <p>When <i>integerOnly</i> is present, only integers can be accepted as input.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-         <p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>
+            <p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>
         </div>
         <app-code [code]="code" selector="input-otp-integer-only-demo"></app-code>
     `
 })
 export class IntegerOnlyDoc {
-    value : any
+    value: any;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>`,
+        basic: `<p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>`,
 
         html: ` 
 <div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+    <p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'input-switch-basic-demo',
-    templateUrl: './input-switch-basic-demo.html'
+    selector: 'input-otp-integer-only-demo',
+    templateUrl: './input-otp-integer-only-demo.html'
 })
-export class InputSwitchBasicDemo {
-    checked: boolean = false;
+export class InputOtpIntegerOnlyDemo {
+    value : any
 }`
     };
 }

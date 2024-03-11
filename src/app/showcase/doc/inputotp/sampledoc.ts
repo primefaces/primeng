@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'sample-doc',
     template: `
         <app-docsectiontext>
-            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
+            <p>A sample UI implementation with templating and additional elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <div class="flex flex-column align-items-center">
@@ -71,22 +71,51 @@ export class SampleDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>`,
+        basic: `<div class="flex flex-column align-items-center">
+    <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+    <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
+    <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+        <ng-template pTemplate="input" let-events="events" let-attrs="attrs" let-index="index">
+            <input pInputText type="text" v-bind="attrs" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
+            <div *ngIf="index === 3" class="px-3">
+                <i class="pi pi-minus"></i>
+            </div>
+        </ng-template>
+    </p-inputOtp>
+    <div class="flex justify-content-between mt-5 align-self-stretch">
+        <p-button label="Resend Code" [link]="true" class="p-0"></p-button>
+        <p-button label="Submit Code"></p-button>
+    </div>
+</div>`,
 
-        html: ` 
-<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+        html: `<div class="card flex justify-content-center">
+<div class="flex flex-column align-items-center">
+<div class="font-bold text-xl mb-2">Authenticate Your Account</div>
+<p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
+<p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+    <ng-template pTemplate="input" let-events="events" let-attrs="attrs" let-index="index">
+        <input pInputText type="text" v-bind="attrs" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
+        <div *ngIf="index === 3" class="px-3">
+            <i class="pi pi-minus"></i>
+        </div>
+    </ng-template>
+</p-inputOtp>
+<div class="flex justify-content-between mt-5 align-self-stretch">
+    <p-button label="Resend Code" [link]="true" class="p-0"></p-button>
+    <p-button label="Submit Code"></p-button>
+</div>
+</div>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'input-switch-basic-demo',
-    templateUrl: './input-switch-basic-demo.html'
+    selector: 'input-otp-sample-demo',
+    templateUrl: './input-otp-sample-demo.html'
 })
-export class InputSwitchBasicDemo {
-    checked: boolean = false;
+export class InputOtpSampleDemo {
+    value: any;
 }`
     };
 }

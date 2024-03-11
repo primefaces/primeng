@@ -5,11 +5,11 @@ import { Code } from '../../domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Two-way value binding is defined using <i>ngModel</i>.</p>
+            <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputOtp [(ngModel)]="value">
-                <ng-template pTemplate="input" let-events="events" let-attrs="attrs" >
+                <ng-template pTemplate="input" let-events="events" let-attrs="attrs">
                     <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="attrs.value" [maxLength]="1" />
                 </ng-template>
             </p-inputOtp>

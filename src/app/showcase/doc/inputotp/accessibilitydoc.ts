@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -37,16 +36,7 @@ import { Code } from '../../domain/code';
                     </tr>
                 </tbody>
             </table>
-        </div>`
+        </div>
+    </div>`
 })
-export class AccessibilityDoc {
-    code: Code = {
-        basic: `<label for="date">Date</label>
-<p-inputMask inputId="date"></p-inputMask>
-
-<span id="phone">Phone</span>
-<p-inputMask ariaLabelledBy="phone"></p-inputMask>
-
-<p-inputMask ariaLabel="Age"></p-inputMask>`
-    };
-}
+export class AccessibilityDoc {}

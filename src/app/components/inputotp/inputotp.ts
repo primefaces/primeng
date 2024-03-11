@@ -1,27 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EventEmitter,
-    Inject,
-    Injector,
-    Input,
-    NgModule,
-    OnChanges,
-    OnInit,
-    Output,
-    QueryList,
-    SimpleChanges,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation,
-    forwardRef,
-    signal
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation, forwardRef, signal } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from '../inputtext/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -68,10 +46,12 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputotp.css'],
+    host: {
+        class: 'p-inputotp p-component'
+    },
     providers: [INPUT_OTP_VALUE_ACCESSOR]
 })
-export class InputOtp {
+export class InputOtp implements OnChanges, AfterContentInit {
     modelValue = signal<any>(null);
 
     @Input() invalid: boolean = false;
@@ -302,7 +282,7 @@ export class InputOtp {
             }
         });
     }
-    trackByFn(index: number, item: any): any {
+    trackByFn(index: number) {
         return index;
     }
 }
