@@ -630,7 +630,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onFilter: EventEmitter<TreeTableFilterEvent> = new EventEmitter<TreeTableFilterEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeTableNode} object - Node instance.
+     * @param {TreeTableNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeTableNodeExpandEvent> = new EventEmitter<TreeTableNodeExpandEvent>();

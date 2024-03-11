@@ -3108,6 +3108,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "selectColor",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -4944,6 +4950,9 @@
                 ]
             }
         }
+    },
+    "buttongroup": {
+        "components": {}
     },
     "calendar": {
         "components": {
@@ -7197,11 +7206,11 @@
                             "description": "Maximum number of entries allowed."
                         },
                         {
-                          "name": "maxLength",
-                          "optional": false,
-                          "readonly": false,
-                          "type": "number",
-                          "description": "Maximum length of a chip."
+                            "name": "maxLength",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum length of a chip."
                         },
                         {
                             "name": "ariaLabel",
@@ -9008,7 +9017,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "-1",
+                            "default": "0",
                             "description": "Index of the close button in tabbing order."
                         },
                         {
@@ -11709,6 +11718,13 @@
             }
         }
     },
+    "floatlabel": {
+        "components": {
+            "FloatLabel": {
+                "description": "FloatLabel appears on top of the input field when focused."
+            }
+        }
+    },
     "focustrap": {
         "components": {
             "FocusTrap": {
@@ -13376,7 +13392,7 @@
                                 "name": "value",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "number",
                                 "description": "Input value."
                             },
                             {
@@ -23539,8 +23555,7 @@
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem",
-                            "description": "Defines the default active menuitem"
+                            "type": "MenuItem"
                         },
                         {
                             "name": "scrollable",

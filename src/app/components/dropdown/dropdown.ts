@@ -918,9 +918,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => {
                           if (option.label) {
-                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                              return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
-                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                          return option.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                       })
                     : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
 
@@ -1809,7 +1809,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
     }
 
     onFilterInputChange(event: Event | any): void {

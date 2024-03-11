@@ -415,13 +415,13 @@ export class TreeSelect implements AfterContentInit {
     @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a node is unselected.
-     * @param {TreeNode} node - Node instance.
+     * @param {TreeNodeUnSelectEvent} event - node unselect event.
      * @group Emits
      */
     @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is selected.
-     * @param {TreeNode} node - Node instance.
+     * @param {TreeNodeSelectEvent} event - node select event.
      * @group Emits
      */
     @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
