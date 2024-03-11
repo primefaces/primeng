@@ -11,7 +11,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
             <ng-content></ng-content>
-            <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" />
+            <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
             <div class="p-chip-text" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
@@ -48,6 +48,11 @@ export class Chip implements AfterContentInit {
      * @group Props
      */
     @Input() image: string | undefined;
+    /**
+     * Alt attribute of the image.
+     * @group Props
+     */
+    @Input() alt: string | undefined;
     /**
      * Inline style of the element.
      * @group Props

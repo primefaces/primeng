@@ -7077,6 +7077,13 @@
                             "description": "Defines the image to display."
                         },
                         {
+                            "name": "alt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Alt attribute of the image."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
