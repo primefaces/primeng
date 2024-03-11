@@ -95,6 +95,7 @@ export const routes: Routes = [
             { path: 'speeddial', loadChildren: () => import('../pages/speeddial/speeddialdemo.module').then((m) => m.SpeedDialDemoModule) },
             { path: 'splitbutton', loadChildren: () => import('../pages/splitbutton/splitbuttondemo.module').then((m) => m.SplitButtonDemoModule) },
             { path: 'splitter', loadChildren: () => import('../pages/splitter/splitterdemo.module').then((m) => m.SplitterDemoModule) },
+            { path: 'stepper', loadChildren: () => import('../pages/stepper/stepperdemo.module').then((m) => m.StepperDemoModule) },
             { path: 'steps', loadChildren: () => import('../pages/steps/stepsdemo.module').then((m) => m.StepsDemoModule) },
             { path: 'support', loadChildren: () => import('../pages/support/support.module').then((m) => m.SupportModule) },
             { path: 'styleclass', loadChildren: () => import('../pages/styleclass/styleclassdemo.module').then((m) => m.StyleClassDemoModule) },
