@@ -70,5 +70,35 @@ describe('InputNumber', () => {
             inputNumber.onInputKeyPress(pressFiveEvent);
             expect(testComponent.val).toEqual(5.5);
         });
+        it('should model value', () => {
+            inputNumber.onInputKeyPress(pressFiveEvent);
+            inputNumber.onInputKeyPress(pressNumpadDecimalWithDotEvent);
+            inputNumber.onInputKeyPress(pressFiveEvent);
+            expect(typeof inputNumber.value).toEqual('number');
+            expect(inputNumber.value).toEqual(5.5);
+            inputNumber.onInputBlur({} as Event);
+            expect(typeof inputNumber.value).toEqual('number');
+            expect(inputNumber.value).toEqual(5.5);
+            const inputMaskEl = fixture.debugElement.query(By.css('input'));
+            inputMaskEl.nativeElement.value = '';
+            const pressMinusEvent = new KeyboardEvent('event', {
+                code: 'Minus',
+                key: '-',
+                keyCode: '-'.charCodeAt(0)
+            });
+            inputNumber.onInputKeyPress(pressMinusEvent);
+            //@ts-ignore primeNG can can set value to string '-'
+            expect(inputNumber.value).toEqual('-');
+            expect(typeof inputNumber.value).toEqual('string');
+            inputNumber.onInputBlur({} as Event);
+            expect(inputNumber.value).toEqual(null);
+            inputNumber.onInputKeyPress(pressMinusEvent);
+            inputNumber.onInputKeyPress(pressFiveEvent);
+            expect(typeof inputNumber.value).toEqual('number');
+            expect(inputNumber.value).toEqual(-5);
+            inputNumber.onInputBlur({} as Event);
+            expect(typeof inputNumber.value).toEqual('number');
+            expect(inputNumber.value).toEqual(-5);
+        });
     });
 });
