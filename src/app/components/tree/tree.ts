@@ -77,6 +77,7 @@ import {
                 [attr.aria-posinset]="index + 1"
                 [attr.aria-level]="level + 1"
                 [attr.tabindex]="index === 0 ? 0 : -1"
+                [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
             >
