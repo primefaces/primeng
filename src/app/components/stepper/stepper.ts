@@ -3,6 +3,7 @@ import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, 
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { StepperPanel, StepperPanelModule } from '../stepperpanel/stepperpanel';
 
 @Component({
     selector: 'p-stepperHeader',
@@ -23,15 +24,25 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 })
 export class StepperHeader {
     @Input() id: any;
+
     @Input() template: any;
+
     @Input() stepperpanel: any;
+
     @Input() index: any;
+
     @Input() disabled: any;
+
     @Input() active: any;
+
     @Input() highlighted: any;
+
     @Input() ariaControls: any;
+
     @Input() clickCallback: any;
+
     @Input() getStepPT: any;
+
     @Input() getStepProp: any;
 }
 
@@ -266,7 +277,7 @@ export class StepperContent {
     }
 })
 export class Stepper implements OnInit, AfterContentInit {
-    
+
     @Input() activeStep: number = 0;
 
     @Input() orientation: string = 'horizontal';
@@ -279,6 +290,8 @@ export class Stepper implements OnInit, AfterContentInit {
     d_activeStep = this.activeStep;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    @ContentChildren(StepperPanel) stepperPanels!: QueryList<StepperPanel>;
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -344,11 +357,11 @@ export class Stepper implements OnInit, AfterContentInit {
             this.updateActiveStep(event, index - 1);
         }
     }
-    nextCallback(event, index) {
-        // if (index !== this.stepperpanels.length - 1) {
-        //     this.updateActiveStep(event, index + 1);
-        // }
-    }
+    // nextCallback(event, index) {
+    //     if (index !== this.stepperpanels.length - 1) {
+    //          this.updateActiveStep(event, index + 1);
+    //     }
+    // }
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -377,7 +390,7 @@ export class Stepper implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, StepperPanelModule],
     exports: [Stepper, SharedModule],
     declarations: [Stepper, StepperHeader, StepperContent]
 })
