@@ -112,7 +112,7 @@ import {
                 </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
-                <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate" [attr.data-pc-section]="'sourceHeader'" [attr.data-pc-group-section]="'header'">
+                <div [id]="idSource + '_header'" class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate" [attr.data-pc-section]="'sourceHeader'" [attr.data-pc-group-section]="'header'">
                     <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate">{{ sourceHeader }}</div>
                     <ng-container *ngTemplateOutlet="sourceHeaderTemplate"></ng-container>
                 </div>
@@ -145,6 +145,7 @@ import {
                     #sourcelist
                     class="p-picklist-list p-picklist-source"
                     [id]="idSource + '_list'"
+                    [attr.aria-labelledby]="idSource + '_header'"
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (focus)="onListFocus($event, SOURCE_LIST)"
                     (blur)="onListBlur($event, SOURCE_LIST)"
@@ -221,7 +222,7 @@ import {
                 </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
-                <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate" [attr.data-pc-section]="'targetHead'" [attr.data-pc-group-section]="'header'">
+                <div [id]="idTarget + '_header'" class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate" [attr.data-pc-section]="'targetHead'" [attr.data-pc-group-section]="'header'">
                     <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{ targetHeader }}</div>
                     <ng-container *ngTemplateOutlet="targetHeaderTemplate"></ng-container>
                 </div>
@@ -253,6 +254,7 @@ import {
                     #targetlist
                     class="p-picklist-list p-picklist-target"
                     [id]="idTarget + '_list'"
+                    [attr.aria-labelledby]="idTarget + '_header'"
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (focus)="onListFocus($event, TARGET_LIST)"
                     (blur)="onListBlur($event, TARGET_LIST)"
