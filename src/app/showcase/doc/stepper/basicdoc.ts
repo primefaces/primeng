@@ -9,36 +9,45 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-stepper>
-                <p-stepperPanel header="header1">
-                    <ng-template pTemplate="separator"> seperator1</ng-template>
-                    <!-- <ng-template pTemplate="header" let-onHeaderClick="onClick" let-index="index">
-                        <h5 (click)="onHeaderClick.emit($event, index)">header template</h5>
-                    </ng-template> -->
-                    <ng-template pTemplate="content" let-onContentClick="onClick" let-index="index">
+                <p-stepperPanel header="Header I">
+                    <ng-template pTemplate="content" let-onNextClick="onNextClick" let-index="index">
                         <div class="flex flex-column h-12rem">
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
                         </div>
                         <div class="flex pt-4 justify-content-end">
-                            
-                            <h5 (click)="onContentClick.emit($event, index)" >NEXT</h5>
-                            </div
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (click)="onNextClick.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
-                <p-stepperPanel header="header2">
-                    <ng-template pTemplate="separator"> seperator1</ng-template>
-
-                    <ng-template pTemplate="content">
+                <p-stepperPanel header="Header II">
+                    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick" let-index="index">
                         <div class="flex flex-column h-12rem">
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
                         </div>
-                        <div class="flex pt-4 justify-content-end">
-                            <p-button label="back" icon="pi pi-arrow-right" /></div
+                        <div class="flex pt-4 justify-content-between">
+                            <p-button label="Back" icon="pi pi-arrow-left" (click)="onPrevClick.emit()" />
+                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (click)="onNextClick.emit()" /></div
+                    ></ng-template>
+                </p-stepperPanel>
+                <p-stepperPanel header="Header III">
+                    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-index="index">
+                        <div class="flex flex-column h-12rem">
+                            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+                        </div>
+                        <div class="flex pt-4 justify-content-start">
+                            <p-button label="Back" icon="pi pi-arrow-left" (click)="onPrevClick.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
             </p-stepper>
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-    `
+    ` ,styles: [
+        `.p-stepper {
+            flex-basis: 50rem;
+        }
+
+         
+        `
+    ],
 })
 export class BasicDoc {
     code: Code = {
