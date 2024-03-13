@@ -42,10 +42,10 @@ import { CustomerService } from '../../service/customerservice';
                         </tr>
                         <tr>
                             <th>
-                                <p-columnFilter type="text" field="name"></p-columnFilter>
+                                <p-columnFilter type="text" field="name" ariaLabel="Filter Name"></p-columnFilter>
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                                <p-columnFilter type="text" field="country.name" ariaLabel="Filter Country"></p-columnFilter>
                             </th>
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
