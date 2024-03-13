@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import { PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 /**
  * Chip represents people using icons, labels and images.
@@ -16,10 +16,10 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
             <div class="p-chip-text" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
-                    <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)"></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" />
+                    <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel"></span>
+                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)">
+                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -81,9 +81,15 @@ export class Chip implements AfterContentInit {
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
+    config = inject(PrimeNGConfig);
+
     visible: boolean = true;
 
     removeIconTemplate: TemplateRef<any> | undefined;
+
+    get removeAriaLabel() {
+        return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
+    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 

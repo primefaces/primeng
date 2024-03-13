@@ -129,4 +129,5 @@ export interface Aria {
     rotateLeft?: string;
     listLabel?: string;
     selectColor?: string;
+    removeLabel?: string;
 }

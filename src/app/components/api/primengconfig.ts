@@ -138,7 +138,8 @@ export class PrimeNGConfig {
             rotateRight: 'Rotate Right',
             rotateLeft: 'Rotate Left',
             listLabel: 'Option List',
-            selectColor: 'Select a color'
+            selectColor: 'Select a color',
+            removeLabel: 'Remove'
         }
     };
 
