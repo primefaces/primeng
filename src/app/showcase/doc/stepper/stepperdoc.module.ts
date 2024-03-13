@@ -7,9 +7,10 @@ import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, StepperModule, RouterModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, StepperModule, RouterModule,ButtonModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, AccessibilityDoc]
 })

@@ -31,8 +31,12 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
     selector: 'p-stepperHeader',
     template: `
         <ng-container *ngIf="template; else button">
-            <!-- contextle dişarı aç -->
-            <ng-container *ngTemplateOutlet="template"></ng-container>
+            <ng-container
+                *ngTemplateOutlet="
+                    template;
+                    context: { index: index, active: active, higlighted: highlighted, class: 'p-stepper-action', headerClass: 'p-stepper-action', numberClass: 'p-stepper-number', titleClass: 'p-stepper-title', onClick: onClick }
+                "
+            ></ng-container>
         </ng-container>
         <ng-template #button>
             <p-button [id]="id" class="p-stepper-action" role="tab" [tabindex]="disabled ? -1 : undefined" [aria-controls]="ariaControls" (click)="onClick.emit($event, index)">
@@ -59,6 +63,8 @@ export class StepperHeader {
     @Input() active: any;
 
     @Input() highlighted: any;
+
+    @Input() getStepProp: any;
 
     @Input() ariaControls: any;
 
@@ -101,7 +107,7 @@ export class StepperSeparator {
         [attr.aria-labelledby]="ariaLabelledby"
     >
         <ng-container *ngIf="template; else stepperPanelRef">
-            <ng-container *ngTemplateOutlet="template"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick }"></ng-container>
         </ng-container>
         <ng-template #stepperPanelRef>
             <ng-container *ngIf="stepperpanel">
@@ -130,8 +136,8 @@ export class StepperContent {
 
     @Input() highlighted: any;
 
-    @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
-
+    @Output() onClick = new EventEmitter<void>();
+    
     // @Input() onPrevClick: any;
 
     // @Input() nextCallback: any;
@@ -227,8 +233,8 @@ export class StepperPanel {
                                 [index]="index"
                                 [active]="isStepActive(index)"
                                 [highlighted]="index < _activeStep()"
-                                (onClick)="onItemClick.emit($event, index)"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
+                                (onClick)="onItemClick($event, index)"
                             />
                         </ng-container>
                     </ng-template>
@@ -295,7 +301,16 @@ export class Stepper implements AfterContentInit {
     }
 
     getStepProp(step, name) {
-        return step.props ? step.props[name] : undefined;
+        console.log(step);
+        
+        if (step.header) {
+            return step.header;
+        }
+
+        if (step.content) {
+            return step.content;
+        }
+        return undefined;
     }
 
     getStepKey(step, index) {

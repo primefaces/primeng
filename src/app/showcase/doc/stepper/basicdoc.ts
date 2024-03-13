@@ -11,13 +11,17 @@ import { Code } from '../../domain/code';
             <p-stepper>
                 <p-stepperPanel header="header1">
                     <ng-template pTemplate="separator"> seperator1</ng-template>
-
-                    <ng-template pTemplate="content">
+                    <!-- <ng-template pTemplate="header" let-onHeaderClick="onClick" let-index="index">
+                        <h5 (click)="onHeaderClick.emit($event, index)">header template</h5>
+                    </ng-template> -->
+                    <ng-template pTemplate="content" let-onContentClick="onClick" let-index="index">
                         <div class="flex flex-column h-12rem">
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
                         </div>
                         <div class="flex pt-4 justify-content-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" /></div
+                            
+                            <h5 (click)="onContentClick.emit($event, index)" >NEXT</h5>
+                            </div
                     ></ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel header="header2">
@@ -28,7 +32,7 @@ import { Code } from '../../domain/code';
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
                         </div>
                         <div class="flex pt-4 justify-content-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" /></div
+                            <p-button label="back" icon="pi pi-arrow-right" /></div
                     ></ng-template>
                 </p-stepperPanel>
             </p-stepper>
