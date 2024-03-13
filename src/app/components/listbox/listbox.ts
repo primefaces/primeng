@@ -1037,6 +1037,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onSpaceKey(event);
                 break;
 
