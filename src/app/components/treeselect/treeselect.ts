@@ -598,7 +598,12 @@ export class TreeSelect implements AfterContentInit {
             return;
         }
 
-        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && !DomHandler.hasClass(event.target, 'p-treeselect-close')) {
+        if (
+            !this.overlayViewChild?.el?.nativeElement?.contains(event.target) &&
+            !DomHandler.hasClass(event.target, 'p-treeselect-close') &&
+            !DomHandler.hasClass(event.target, 'p-checkbox-box') &&
+            !DomHandler.hasClass(event.target, 'p-checkbox-icon')
+        ) {
             if (this.overlayVisible) {
                 this.hide();
             } else {
@@ -857,7 +862,7 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeSelect.emit(event);
 
         if (this.selectionMode === 'single') {
-            this.hide();
+            // this.hide();
             this.focusInput?.nativeElement.focus();
         }
     }
