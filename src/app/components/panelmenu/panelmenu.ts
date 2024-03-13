@@ -798,7 +798,7 @@ export class PanelMenuList implements OnChanges {
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
                             <p-panelMenuList
                                 [panelId]="getPanelId(i, item)"
-                                [items]="getItemProp(item, 'items')"
+                                [items]="getItems(item)"
                                 [itemTemplate]="itemTemplate"
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
@@ -940,6 +940,10 @@ export class PanelMenu implements AfterContentInit {
 
     getItemProp(item, name) {
         return item ? ObjectUtils.getItemValue(item[name]) : undefined;
+    }
+
+    getItems(item) {
+        return item ? [...ObjectUtils.getItemValue(item['items'])] : undefined;
     }
 
     getItemLabel(item) {
