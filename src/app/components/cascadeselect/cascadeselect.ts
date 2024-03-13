@@ -793,6 +793,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 this.onEnterKey(event);
                 break;
 
