@@ -537,6 +537,7 @@ export class UITreeNode implements OnInit {
             //enter
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onEnter(event);
                 break;
             //tab
