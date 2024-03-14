@@ -1835,7 +1835,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.minDate) {
             if (this.minDate.getFullYear() > year) {
                 validMin = false;
-            } else if (this.minDate.getFullYear() === year) {
+            } else if (this.minDate.getFullYear() === year && this.currentView != 'year') {
                 if (this.minDate.getMonth() > month) {
                     validMin = false;
                 } else if (this.minDate.getMonth() === month) {
