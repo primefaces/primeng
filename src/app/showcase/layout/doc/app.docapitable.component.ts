@@ -33,7 +33,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 ></span>
                                 <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
                                 <ng-container *ngIf="entry[0] === 'parameters'">
-                                    <ng-container *ngFor="let parameter of entry[1]" >
+                                    <ng-container *ngFor="let parameter of entry[1]">
                                         <div class="doc-option-params" *ngIf="parameter.name; else nullValue">
                                             <span *ngIf="parameter.name" [ngClass]="{ 'doc-option-parameter-name': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ parameter.name }} :</span>
                                             <ng-container *ngFor="let value of getType(parameter.type); let i = index"
