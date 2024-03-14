@@ -30,15 +30,15 @@ import { UniqueComponentId } from '../utils/uniquecomponentid';
 @Component({
     selector: 'p-stepperHeader',
     template: `
-        <ng-container *ngIf="template; else button">
+        <ng-container *ngIf="template; else buttonRef">
             <ng-container
                 *ngTemplateOutlet="
                     template;
-                    context: { index: index, active: active, higlighted: highlighted, class: 'p-stepper-action', headerClass: 'p-stepper-action', numberClass: 'p-stepper-number', titleClass: 'p-stepper-title', onClick: onClick }
+                    context: { index: index, active: active, highlighted:highlighted, class: 'p-stepper-action', headerClass: 'p-stepper-action', numberClass: 'p-stepper-number', titleClass: 'p-stepper-title', onClick: onClick }
                 "
             ></ng-container>
         </ng-container>
-        <ng-template #button>
+        <ng-template #buttonRef>
             <p-button [id]="id" class="p-stepper-action" role="tab" [tabindex]="disabled ? -1 : undefined" [aria-controls]="ariaControls" (click)="onClick.emit($event, index)">
                 <span class="p-stepper-number">{{ index + 1 }}</span>
                 <span class="p-stepper-title">{{ getStepProp }}</span>
@@ -69,13 +69,19 @@ export class StepperHeader {
     @Input() ariaControls: any;
 
     @Output() onClick = new EventEmitter<void>();
+
+    init
+
+    ngAfterContentInit(){
+        this.init = true
+    }
 }
 
 @Component({
     selector: 'p-stepperSeparator',
     template: `
         <ng-container *ngIf="template; else span">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, higlighted: highlighted, class: seperatorClass }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, class: separatorClass }"></ng-container>
         </ng-container>
         <ng-template #span>
             <span [class]="separatorClass" aria-hidden="true"></span>
@@ -103,16 +109,7 @@ export class StepperSeparator {
 
 @Component({
     selector: 'p-stepperContent',
-    template: ` <div
-        [id]="id"
-        class="p-stepper-content"
-        [ngClass]="{ 'p-toggleable-content': orientation === 'vertical' }"
-        role="tabpanel"
-        data-pc-name="stepperpanel"
-        [attr.data-pc-index]="index"
-        [attr.data-p-active]="active"
-        [attr.aria-labelledby]="ariaLabelledby"
-    >
+    template: ` <div [id]="id" role="tabpanel" data-pc-name="stepperpanel" [attr.data-pc-index]="index" [attr.data-p-active]="active" [attr.aria-labelledby]="ariaLabelledby">
         <ng-container *ngIf="template; else stepperPanelRef">
             <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
         </ng-container>
@@ -122,11 +119,16 @@ export class StepperSeparator {
             </ng-container>
         </ng-template>
     </div>`,
+
     host: {
-        class: 'p-element'
+        '[class.p-stepper-content]': 'true',
+        '[class.p-element]': 'true',
+        '[class.p-toggleable-content]': "orientation === 'vertical'"
     }
 })
 export class StepperContent {
+
+
     @Input() id: any;
 
     @Input() orientation: any;
@@ -180,7 +182,7 @@ export class StepperPanel {
                 case 'content':
                     this.contentTemplate = item.template;
                     break;
-                case 'seperator':
+                case 'separator':
                     this.separatorTemplate = item.template;
                     break;
             }
@@ -232,7 +234,7 @@ export class StepperPanel {
                             ></p-stepperHeader>
 
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
-                                <p-stepperSeparator [template]="step.seperatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < _activeStep()" />
+                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < _activeStep()" />
                             </ng-container>
                         </li>
                     </ng-template>
@@ -261,16 +263,24 @@ export class StepperPanel {
                 <ng-template ngFor let-step [ngForOf]="panels" let-index="index">
                     <div
                         [key]="getStepKey(step, index)"
-                        class="p-stepper-nav"
+                        class="p-stepper-panel"
+                        [ngClass]="{
+                            'p-stepper-panel-active': orientation === 'vertical' && isStepActive(index)
+                        }"
                         [attr.aria-current]="isStepActive(index) ? 'step' : undefined"
-                        role="presentation"
-                        [data-pc-name]="stepperpanel"
+                        [data-pc-name]="'stepperpanel'"
                         [data-p-highlight]="isStepActive(index)"
                         [data-p-disabled]="isItemDisabled(index)"
                         [data-pc-index]="index"
                         [data-p-active]="isStepActive(index)"
                     >
-                        <div class="p-stepper-header">
+                        <div
+                            class="p-stepper-header "
+                            [ngClass]="{
+                                'p-highlight': isStepActive(index),
+                                'p-disabled': isItemDisabled(index)
+                            }"
+                        >
                             <p-stepperHeader
                                 [id]="getStepHeaderActionId(index)"
                                 [template]="step.headerTemplate"
@@ -286,22 +296,23 @@ export class StepperPanel {
                             ></p-stepperHeader>
                         </div>
 
-                        <div class="p-stepper-toggleable-content" [ngStyle]="{ visibility: isStepActive(index) ? 'visible' : 'hidden' }">
+                        <div class="p-stepper-toggleable-content" *ngIf="isStepActive(index)">
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
-                                <p-stepperContent
-                                    [id]="getStepContentId(index)"
-                                    [template]="step.contentTemplate"
-                                    [orientation]="orientation"
-                                    [stepperpanel]="step"
-                                    [index]="index"
-                                    [active]="isStepActive(index)"
-                                    [highlighted]="index < _activeStep()"
-                                    [ariaLabelledby]="getStepHeaderActionId(index)"
-                                    (onClick)="onItemClick($event, index)"
-                                    (onNextClick)="nextCallback($event, index)"
-                                    (onPrevClick)="prevCallback($event, index)"
-                                />
+                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < _activeStep()" />
                             </ng-container>
+                            <p-stepperContent
+                                [id]="getStepContentId(index)"
+                                [template]="step.contentTemplate"
+                                [orientation]="orientation"
+                                [stepperpanel]="step"
+                                [index]="index"
+                                [active]="isStepActive(index)"
+                                [highlighted]="index < _activeStep()"
+                                [ariaLabelledby]="getStepHeaderActionId(index)"
+                                (onClick)="onItemClick($event, index)"
+                                (onNextClick)="nextCallback($event, index)"
+                                (onPrevClick)="prevCallback($event, index)"
+                            />
                         </div>
                     </div>
                 </ng-template>
@@ -314,7 +325,9 @@ export class StepperPanel {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-stepper p-component'
+        '[class.p-stepper]': 'true',
+        '[class.p-component]': 'true',
+        '[class.p-stepper-vertical]': "orientation === 'vertical'"
     }
 })
 export class Stepper implements AfterContentInit {

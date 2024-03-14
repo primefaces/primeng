@@ -2,21 +2,27 @@ import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-stepper>
-                <p-stepperPanel header="Header I">
-                    <ng-template pTemplate="content" let-onNextClick="onNextClick" let-index="index">
-                        <div class="flex flex-column h-12rem">
-                            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
-                        </div>
-                        <div class="flex pt-4 justify-content-end">
-                            <p-button label="Next" icon="pi pi-arrow-right" iconPos="right" (click)="onNextClick.emit()" /></div
-                    ></ng-template>
+                <p-stepperPanel>
+                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index" let-active="active">
+                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="clickCallback.emit()">
+                            <span
+                                class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                                [ngClass]="{
+                                    'bg-primary border-primary': index <= active,
+                                    'surface-border': index > active
+                                }"
+                            >
+                                <i class="pi pi-user"></i>
+                            </span>
+                        </button>
+                    </ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel header="Header II">
                     <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick" let-index="index">
@@ -39,7 +45,7 @@ import { Code } from '../../domain/code';
                 </p-stepperPanel>
             </p-stepper>
         </div>
-        <app-code [code]="code" selector="select-button-basic-demo"></app-code>
+        <app-code [code]="code" selector="stepper-template-demo"></app-code>
     `,
     styles: [
         `
@@ -49,7 +55,7 @@ import { Code } from '../../domain/code';
         `
     ]
 })
-export class BasicDoc {
+export class TemplateDoc {
     code: Code = {
         basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
 

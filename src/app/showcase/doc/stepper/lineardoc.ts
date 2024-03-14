@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'linear-doc',
     template: `
         <app-docsectiontext>
             <p>SelectButton requires a value to bind and a collection of options.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-stepper>
+        <div class="card">
+            <p-stepper [linear]="true">
                 <p-stepperPanel header="Header I">
                     <ng-template pTemplate="content" let-onNextClick="onNextClick" let-index="index">
                         <div class="flex flex-column h-12rem">
@@ -40,16 +40,9 @@ import { Code } from '../../domain/code';
             </p-stepper>
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-    `,
-    styles: [
-        `
-            .p-stepper {
-                flex-basis: 50rem;
-            }
-        `
-    ]
+    `
 })
-export class BasicDoc {
+export class LinearDoc {
     code: Code = {
         basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
 
