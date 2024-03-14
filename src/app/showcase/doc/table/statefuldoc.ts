@@ -23,55 +23,55 @@ import { CustomerService } from '../../service/customerservice';
                             <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
                         </tr>
                         <tr>
-<th>
-    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name'] ? dt1.filters['name'][0]?.value : ''" placeholder="Search by Name" class="w-full" />
-</th>
-<th>
-    <input
-        pInputText
-        type="text"
-        (input)="dt1.filter($event.target.value, 'country.name', 'contains')"
-        [value]="dt1.filters['country.name'] ? dt1.filters['country.name'][0]?.value : ''"
-        placeholder="Search by Country"
-        class="w-full"
-    />
-</th>
-<th>
-    <input
-        pInputText
-        type="text"
-        (input)="dt1.filter($event.target.value, 'representative.name', 'contains')"
-        [value]="dt1.filters['representative.name'] ? dt1.filters['representative.name'][0]?.value : ''"
-        placeholder="Search by Representative"
-        class="w-full"
-    />
-</th>
-<th>
-    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status'] ? dt1.filters['status'][0]?.value : ''" placeholder="Search by Status" class="w-full" />
-</th>
-</tr>
-</ng-template>
-<ng-template pTemplate="body" let-customer>
-<tr [pSelectableRow]="customer">
-<td>
-    <span class="p-column-title">Name</span>
-    {{ customer.name }}
-</td>
-<td>
-    <span class="p-column-title">Country</span>
-    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
-</td>
-<td>
-    <span class="p-column-title">Representative</span>
-    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-</td>
-<td>
-    <span class="p-column-title">Status</span>
-    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-</td>
-</tr>
+                            <th>
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name'] ? dt1.filters['name'][0]?.value : ''" placeholder="Search by Name" class="w-full" />
+                            </th>
+                            <th>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    (input)="dt1.filter($event.target.value, 'country.name', 'contains')"
+                                    [value]="dt1.filters['country.name'] ? dt1.filters['country.name'][0]?.value : ''"
+                                    placeholder="Search by Country"
+                                    class="w-full"
+                                />
+                            </th>
+                            <th>
+                                <input
+                                    pInputText
+                                    type="text"
+                                    (input)="dt1.filter($event.target.value, 'representative.name', 'contains')"
+                                    [value]="dt1.filters['representative.name'] ? dt1.filters['representative.name'][0]?.value : ''"
+                                    placeholder="Search by Representative"
+                                    class="w-full"
+                                />
+                            </th>
+                            <th>
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status'] ? dt1.filters['status'][0]?.value : ''" placeholder="Search by Status" class="w-full" />
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr [pSelectableRow]="customer">
+                            <td>
+                                <span class="p-column-title">Name</span>
+                                {{ customer.name }}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Country</span>
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Representative</span>
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Status</span>
+                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                            </td>
+                        </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-customer>
                         <tr [pSelectableRow]="customer">
@@ -338,4 +338,3 @@ export interface Customer {
         }
     ];
 }
-
