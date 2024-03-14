@@ -1,4 +1,28 @@
 # Changelog
+## [17.10.0](https://github.com/primefaces/primeng/tree/17.11.0) (2024-03-14)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.10.0...17.11.0)
+
+**Implemented New Features and Enhancements:**
+- p-chip: Image does not have an alt attribute [\#15000](https://github.com/primefaces/primeng/issues/15000)
+- Numpad Enter Key Ineffective for Option Selection [\#15027](https://github.com/primefaces/primeng/issues/15027)
+- p-chip: aria-label is not applied to remove icon [\#14973](https://github.com/primefaces/primeng/issues/14973)
+
+**Fixed bugs:**
+- Calendar: The lowest year in the Year navigator dropdown remains disabled when we are applying minDate in date selector [\#14839](https://github.com/primefaces/primeng/issues/14839)
+- Component: MultiSelect [\#14617](https://github.com/primefaces/primeng/issues/14617)
+- Calendar: Error on time selection in with range mode [\#15005](https://github.com/primefaces/primeng/issues/15005)
+- Table filter set undefined [\#14588](https://github.com/primefaces/primeng/issues/14588)
+- p-table: stateful table filters are not properly reset [\#14903](https://github.com/primefaces/primeng/issues/14903)
+- PrimeNG docs for p-table - Template example missing crucial property first [\#14983](https://github.com/primefaces/primeng/issues/14983)
+- Component: p-table column order not restored [\#14888](https://github.com/primefaces/primeng/issues/14888)
+- MenuItem: Update of 'expanded' and 'label' properties not working [\#14893](https://github.com/primefaces/primeng/issues/14893)
+- p-inputnumber: multiple problems when input number looses focus [\#15014](https://github.com/primefaces/primeng/issues/15014)
+- TreeSelect popup closes when unchecking nodes [\#13698](https://github.com/primefaces/primeng/issues/13698)
+- Component: Menubar "Duplicate id aria" a11y [\#14972](https://github.com/primefaces/primeng/issues/14972)
+- Dropdown: aria-expanded attribute added to input when setting dropdown editable to true [\#14969](https://github.com/primefaces/primeng/issues/14969)
+- Docs: Only first parameter is shown [\#14942](https://github.com/primefaces/primeng/issues/14942)
+
 ## [17.10.0](https://github.com/primefaces/primeng/tree/17.10.0) (2024-03-07)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.9.0...17.10.0)
