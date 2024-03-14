@@ -1338,11 +1338,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (simpleChange.columns) {
-            this._columns = simpleChange.columns.currentValue;
-            this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            if (!this.isStateful()) {
+                this._columns = simpleChange.columns.currentValue;
+                this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            }
 
             if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
                 this.restoreColumnOrder();
+                this.tableService.onColumnsChange(this._columns);
             }
         }
 
@@ -2851,6 +2854,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.tableWidthState = state.tableWidth;
             }
 
+            if (this.reorderableColumns) {
+                this.restoreColumnOrder();
+            }
+
             if (state.expandedRowKeys) {
                 this.expandedRowKeys = state.expandedRowKeys;
             }
@@ -2927,6 +2934,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
             let columnOrder = state.columnOrder;
+
             if (columnOrder) {
                 let reorderedColumns: any[] = [];
 
