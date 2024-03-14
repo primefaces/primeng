@@ -2484,11 +2484,20 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     validateTime(hour: number, minute: number, second: number, pm: boolean) {
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
-        if (this.isRangeSelection()) {
-            value = this.value[1] || this.value[0];
-        }
-        if (this.isMultipleSelection()) {
-            value = this.value[this.value.length - 1];
+        const isRange = this.isRangeSelection(),
+            isMultiple = this.isMultipleSelection(),
+            isMultiValue = isRange || isMultiple;
+
+        if (isMultiValue) {
+            if (!this.value) {
+                this.value = [new Date(), new Date()];
+            }
+            if (isRange) {
+                value = this.value[1] || this.value[0];
+            }
+            if (isMultiple) {
+                value = this.value[this.value.length - 1];
+            }
         }
         const valueDateString = value ? value.toDateString() : null;
         if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
