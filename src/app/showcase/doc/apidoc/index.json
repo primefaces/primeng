@@ -21451,10 +21451,11 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "activeStep",
+                            "name": "_activeStep",
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Active step index of stepper."
                         },
                         {
@@ -21479,7 +21480,7 @@
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
                         {
-                            "name": "activeStepChange",
+                            "name": "onActiveStepChange",
                             "parameters": [
                                 {
                                     "name": "event",
@@ -21526,39 +21527,58 @@
                         "name": "end",
                         "parameters": [],
                         "description": "Custom end template."
-                    },
+                    }
+                ]
+            }
+        }
+    },
+    "stepperpanel": {
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
                     {
-                        "parent": "stepper",
+                        "parent": "stepperpanel",
                         "name": "header",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $index: number, // Index of the stepperpanel.\n  \t $active: boolean, // Current active state of the stepperpanel\n  \t $activeStep: number, // Current active index state of the stepperpanel\n  \t $highlighted: boolean, // Current highlighted state of the stepperpanel\n  \t $class: string, // Style class of the stepperpanel\n  \t $headerClass: string, // Style class of the header content container\n  \t $numberClass: string, // Style class of the number content container\n  \t $titleClass: string, // Style class of the title content container\n  \t $onClick: undefined, // undefined\n  }"
+                                "type": "{\n  \t index: number, // Index of the stepperpanel.\n  \t active: boolean, // Current active state of the stepperpanel\n  \t activeStep: number, // Current active index state of the stepperpanel\n  \t highlighted: boolean, // Current highlighted state of the stepperpanel\n  \t class: string, // Style class of the stepperpanel\n  \t headerClass: string, // Style class of the header content container\n  \t numberClass: string, // Style class of the number content container\n  \t titleClass: string, // Style class of the title content container\n  \t onClick: undefined, // undefined\n  }"
                             }
                         ],
                         "description": "Custom header template."
                     },
                     {
-                        "parent": "stepper",
+                        "parent": "stepperpanel",
                         "name": "content",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $index: number, // Index of the stepperpanel.\n  \t $active: boolean, // Current active state of the stepperpanel\n  \t $activeStep: number, // Current active index state of the stepperpanel\n  \t $highlighted: boolean, // Current highlighted state of the stepperpanel\n  \t $class: string, // Style class of the stepperpanel\n  \t $headerClass: string, // Style class of the header content container\n  \t $numberClass: string, // Style class of the number content container\n  \t $titleClass: string, // Style class of the title content container\n  \t $onClick: undefined, // undefined\n  \t $onPrevClick: undefined, // undefined\n  \t $onNextClick: undefined, // undefined\n  }"
+                                "type": "{\n  \t index: number, // Index of the stepperpanel.\n  \t active: boolean, // Current active state of the stepperpanel\n  \t activeStep: number, // Current active index state of the stepperpanel\n  \t highlighted: boolean, // Current highlighted state of the stepperpanel\n  \t class: string, // Style class of the stepperpanel\n  \t headerClass: string, // Style class of the header content container\n  \t numberClass: string, // Style class of the number content container\n  \t titleClass: string, // Style class of the title content container\n  \t onClick: undefined, // undefined\n  \t onPrevClick: undefined, // undefined\n  \t onNextClick: undefined, // undefined\n  }"
                             }
                         ],
                         "description": "Custom header template."
                     },
                     {
-                        "parent": "stepper",
+                        "parent": "stepperpanel",
                         "name": "separator",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $index: number, // Index of the stepperpanel.\n  \t $active: boolean, // Current active state of the stepperpanel\n  \t $activeStep: number, // Current active index state of the stepperpanel\n  \t $highlighted: boolean, // Current highlighted state of the stepperpanel\n  }"
+                                "type": "{\n  \t index: number, // Index of the stepperpanel.\n  \t active: boolean, // Current active state of the stepperpanel\n  \t activeStep: number, // Current active index state of the stepperpanel\n  \t highlighted: boolean, // Current highlighted state of the stepperpanel\n  }"
                             }
                         ],
                         "description": "Custom separator template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "ScrollerItemOptions",
+                        "description": "Scroller item options."
                     }
                 ]
             }

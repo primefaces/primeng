@@ -10,13 +10,13 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-stepper [activeStep]="active">
                 <p-stepperPanel>
-                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index" let-activeStep="activeStep">
+                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
                         <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= activeStep,
-                                    'surface-border': index > activeStep
+                                    'bg-primary border-primary': index <= active,
+                                    'surface-border': index > active
                                 }"
                             >
                                 <i class="pi pi-user"></i>
@@ -54,13 +54,13 @@ import { Code } from '../../domain/code';
                 </p-stepperPanel>
 
                 <p-stepperPanel>
-                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index" let-activeStep="activeStep">
+                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
                         <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= activeStep,
-                                    'surface-border': index > activeStep
+                                    'bg-primary border-primary': index <= active,
+                                    'surface-border': index > active
                                 }"
                             >
                                 <i class="pi pi-star"></i>
@@ -92,13 +92,13 @@ import { Code } from '../../domain/code';
                 </p-stepperPanel>
 
                 <p-stepperPanel>
-                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index" let-activeStep="activeStep">
+                    <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
                         <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= activeStep,
-                                    'surface-border': index > activeStep
+                                    'bg-primary border-primary': index <= active,
+                                    'surface-border': index > active
                                 }"
                             >
                                 <i class="pi pi-id-card"></i>
@@ -158,6 +158,10 @@ export class TemplateDoc {
     option9: boolean | undefined = false;
 
     option10: boolean | undefined = false;
+
+    ngDoCheck() {
+        console.log(this.active);
+    }
 
     code: Code = {
         basic: `<p-stepper [activeStep]="active">

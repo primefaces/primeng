@@ -246,15 +246,15 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep()"
-                                [highlighted]="index < _activeStep()"
+                                [activeStep]="_activeStep"
+                                [highlighted]="index < _activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
                                 (onClick)="onItemClick($event, index)"
                             ></p-stepperHeader>
 
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
-                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < _activeStep()" />
+                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < activeStep" />
                             </ng-container>
                         </li>
                     </ng-template>
@@ -269,8 +269,8 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep()"
-                                [highlighted]="index < _activeStep()"
+                                [activeStep]="activeStep"
+                                [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
                                 (onNextClick)="nextCallback($event, index)"
@@ -310,8 +310,8 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep()"
-                                [highlighted]="index < _activeStep()"
+                                [activeStep]="_activeStep"
+                                [highlighted]="index < _activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -320,7 +320,7 @@ export class StepperPanel {
 
                         <div class="p-stepper-toggleable-content" *ngIf="isStepActive(index)">
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
-                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < _activeStep()" />
+                                <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < activeStep" />
                             </ng-container>
                             <p-stepperContent
                                 [id]="getStepContentId(index)"
@@ -329,8 +329,8 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep()"
-                                [highlighted]="index < _activeStep()"
+                                [activeStep]="_activeStep"
+                                [highlighted]="index < _activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
                                 (onNextClick)="nextCallback($event, index)"
@@ -358,19 +358,13 @@ export class Stepper implements AfterContentInit {
      * Active step index of stepper.
      * @group Props
      */
+    _activeStep: number | undefined | null = 0;
     @Input() get activeStep(): number | undefined | null {
-        return this._activeStep();
+        return this._activeStep;
     }
-
     set activeStep(val: number | undefined | null) {
-        this._activeStep.set(val);
+        this._activeStep = val;
     }
-
-    _activeStep = signal<number | undefined | null>(0);
-
-    _activeStepChange = effect(() => {
-        this.activeStepChange.emit({ value: this._activeStep() });
-    });
     /**
      * Orientation of the stepper.
      * @group Props
@@ -393,7 +387,7 @@ export class Stepper implements AfterContentInit {
      * @param {ActiveStepChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() activeStepChange: EventEmitter<ActiveStepChangeEvent> = new EventEmitter<ActiveStepChangeEvent>();
+    @Output() onActiveStepChange: EventEmitter<ActiveStepChangeEvent> = new EventEmitter<ActiveStepChangeEvent>();
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -445,12 +439,9 @@ export class Stepper implements AfterContentInit {
     updateActiveStep(event, index) {
         this.activeStep = index;
 
-        // this.$emit('update:activeStep', index);
-        // this.$emit('step-change', {
-        //     originalEvent: event,
-        //     index
-        // });
+        this.onActiveStepChange.emit({ value: this.activeStep });
     }
+
     onItemClick(event, index) {
         if (this.linear) {
             event.preventDefault();
