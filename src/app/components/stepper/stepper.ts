@@ -246,8 +246,8 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep"
-                                [highlighted]="index < _activeStep"
+                                [activeStep]="activeStep"
+                                [highlighted]="index < activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -310,8 +310,8 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep"
-                                [highlighted]="index < _activeStep"
+                                [activeStep]="activeStep"
+                                [highlighted]="index < activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -329,8 +329,8 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
-                                [activeStep]="_activeStep"
-                                [highlighted]="index < _activeStep"
+                                [activeStep]="activeStep"
+                                [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
                                 (onNextClick)="nextCallback($event, index)"
@@ -358,13 +358,9 @@ export class Stepper implements AfterContentInit {
      * Active step index of stepper.
      * @group Props
      */
-    _activeStep: number | undefined | null = 0;
-    @Input() get activeStep(): number | undefined | null {
-        return this._activeStep;
-    }
-    set activeStep(val: number | undefined | null) {
-        this._activeStep = val;
-    }
+
+    @Input() activeStep: number | undefined | null = 0;
+
     /**
      * Orientation of the stepper.
      * @group Props
@@ -387,7 +383,7 @@ export class Stepper implements AfterContentInit {
      * @param {ActiveStepChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onActiveStepChange: EventEmitter<ActiveStepChangeEvent> = new EventEmitter<ActiveStepChangeEvent>();
+    @Output() activeStepChange: EventEmitter<number> = new EventEmitter<number>();
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -439,7 +435,7 @@ export class Stepper implements AfterContentInit {
     updateActiveStep(event, index) {
         this.activeStep = index;
 
-        this.onActiveStepChange.emit({ value: this.activeStep });
+        this.activeStepChange.emit(this.activeStep);
     }
 
     onItemClick(event, index) {
