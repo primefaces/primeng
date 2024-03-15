@@ -27,13 +27,7 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export const STEPPER_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => Stepper),
-    multi: true
-};
 @Component({
     selector: 'p-stepperHeader',
     template: `
@@ -94,7 +88,7 @@ export class StepperHeader {
     selector: 'p-stepperSeparator',
     template: `
         <ng-container *ngIf="template; else span">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, class: separatorClass }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, activeStep: activeStep, highlighted: highlighted, class: separatorClass }"></ng-container>
         </ng-container>
         <ng-template #span>
             <span [class]="separatorClass" aria-hidden="true"></span>
@@ -115,6 +109,8 @@ export class StepperSeparator {
 
     @Input() active: any;
 
+    @Input() activeStep: any;
+
     @Input() highlighted: any;
 
     @Input() getStepPT: any;
@@ -124,7 +120,7 @@ export class StepperSeparator {
     selector: 'p-stepperContent',
     template: ` <div [id]="id" role="tabpanel" data-pc-name="stepperpanel" [attr.data-pc-index]="index" [attr.data-p-active]="active" [attr.aria-labelledby]="ariaLabelledby">
         <ng-container *ngIf="template">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, activeStep: activeStep, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
         </ng-container>
         <ng-template *ngIf="!template">
             <ng-container *ngIf="stepperpanel">
@@ -153,6 +149,8 @@ export class StepperContent {
     @Input() index: any;
 
     @Input() active: any;
+
+    @Input() activeStep: any;
 
     @Input() highlighted: any;
 
@@ -238,11 +236,11 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
+                                [activeStep]="_activeStep()"
                                 [highlighted]="index < _activeStep()"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
                                 (onClick)="onItemClick($event, index)"
-                                [activeStep]="_activeStep()"
                             ></p-stepperHeader>
 
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
@@ -261,6 +259,7 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
+                                [activeStep]="_activeStep()"
                                 [highlighted]="index < _activeStep()"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -320,6 +319,7 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
+                                [activeStep]="_activeStep()"
                                 [highlighted]="index < _activeStep()"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -335,9 +335,8 @@ export class StepperPanel {
             </ng-container>
         </div>
     `,
-  providers: [STEPPER_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
     host: {
         '[class.p-stepper]': 'true',
         '[class.p-component]': 'true',
@@ -476,27 +475,6 @@ export class Stepper implements AfterContentInit {
                     break;
             }
         });
-    }
-    registerOnChange(fn: Function): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: Function): void {
-        this.onModelTouched = fn;
-    }
-
-    updateModel(value, event?) {
-        this.value = value;
-        this.onModelChange(value);
-        this._activeStep.set(value);
-    }
-
-    writeValue(value: any): void {
-        this.value = value;
-        this.onModelChange(value);
-        this._activeStep.set(this.value);
-
-        this.cd.markForCheck();
     }
 }
 

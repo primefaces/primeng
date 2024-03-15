@@ -5,7 +5,7 @@ import { Code } from '../../domain/code';
     selector: 'vertical-doc',
     template: `
         <app-docsectiontext>
-            <p>SelectButton requires a value to bind and a collection of options.</p>
+            <p>Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card">
             <p-stepper orientation="vertical">
@@ -25,7 +25,7 @@ import { Code } from '../../domain/code';
                         </div>
                         <div class="flex py-4 gap-2">
                             <p-button label="Back" severity="secondary" (click)="onPrevClick.emit()" />
-                            <p-button label="Next"  (click)="onNextClick.emit()" /></div
+                            <p-button label="Next" (click)="onNextClick.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel header="Header III">
@@ -39,30 +39,85 @@ import { Code } from '../../domain/code';
                 </p-stepperPanel>
             </p-stepper>
         </div>
-        <app-code [code]="code" selector="select-button-basic-demo"></app-code>
+        <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
     `
-  
 })
 export class VerticalDoc {
     code: Code = {
-        basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
+        basic: `<p-stepper orientation="vertical">
+<p-stepperPanel header="Header I">
+    <ng-template pTemplate="content" let-onNextClick="onNextClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
+        </div>
+        <div class="flex py-4">
+            <p-button label="Next" (click)="onNextClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+<p-stepperPanel header="Header II">
+    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
+        </div>
+        <div class="flex py-4 gap-2">
+            <p-button label="Back" severity="secondary" (click)="onPrevClick.emit()" />
+            <p-button label="Next" (click)="onNextClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+<p-stepperPanel header="Header III">
+    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+        </div>
+        <div class="flex py-4">
+            <p-button label="Back" (click)="onPrevClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+</p-stepper>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>
+        html: `<div class="card">
+<p-stepper orientation="vertical">
+<p-stepperPanel header="Header I">
+    <ng-template pTemplate="content" let-onNextClick="onNextClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
+        </div>
+        <div class="flex py-4">
+            <p-button label="Next" (click)="onNextClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+
+<p-stepperPanel header="Header II">
+    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
+        </div>
+        <div class="flex py-4 gap-2">
+            <p-button label="Back" severity="secondary" (click)="onPrevClick.emit()" />
+            <p-button label="Next" (click)="onNextClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+
+<p-stepperPanel header="Header III">
+    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-index="index">
+        <div class="flex flex-column h-12rem">
+            <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
+        </div>
+        <div class="flex py-4">
+            <p-button label="Back" (click)="onPrevClick.emit()" /></div
+    ></ng-template>
+</p-stepperPanel>
+</p-stepper>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'select-button-basic-demo',
-    templateUrl: './select-button-basic-demo.html'
+    selector: 'stepper-vertical-demo',
+    templateUrl: './stepper-vertical-demo.html'
 })
-export class SelectButtonBasicDemo {
-    stateOptions: any[] = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
-
-    value: string = 'off';
+export class StepperVerticalDemo {
 }`
     };
 }
