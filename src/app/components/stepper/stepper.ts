@@ -27,6 +27,7 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { ActiveStepChangeEvent } from './stepper.interface';
 
 @Component({
     selector: 'p-stepperHeader',
@@ -160,6 +161,11 @@ export class StepperContent {
 
     @Output() onNextClick = new EventEmitter<void>();
 }
+
+/**
+ * StepperPanel is a helper component for Stepper component.
+ * @group Components
+ */
 @Component({
     selector: 'p-stepperPanel',
     template: ` <ng-content></ng-content> `,
@@ -168,7 +174,11 @@ export class StepperContent {
     }
 })
 export class StepperPanel {
-    @Input() header;
+    /**
+     * Orientation of tab headers.
+     * @group Props
+     */
+    @Input() header: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
@@ -200,7 +210,7 @@ export class StepperPanel {
 }
 
 /**
- * stepper
+ * The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression.
  * @group Components
  */
 @Component({
@@ -344,31 +354,46 @@ export class StepperPanel {
     }
 })
 export class Stepper implements AfterContentInit {
+    /**
+     * Active step index of stepper.
+     * @group Props
+     */
     @Input() get activeStep(): number | undefined | null {
         return this._activeStep();
     }
 
-    set activeStep(val) {
+    set activeStep(val: number | undefined | null) {
         this._activeStep.set(val);
     }
 
-    _activeStep = signal<number>(0);
+    _activeStep = signal<number | undefined | null>(0);
 
     _activeStepChange = effect(() => {
-        this.activeStepChange.emit(this._activeStep());
+        this.activeStepChange.emit({ value: this._activeStep() });
     });
-
-    @Input() orientation: string = 'horizontal';
-
+    /**
+     * Orientation of the stepper.
+     * @group Props
+     */
+    @Input() orientation: 'vertical' | 'horizontal' = 'horizontal';
+    /**
+     * Whether the steps are clickable or not.
+     * @group Props
+     */
     @Input() linear: boolean = false;
 
     @ContentChildren(StepperPanel) stepperpanels: QueryList<StepperPanel> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Output() clickCallback: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onClick: EventEmitter<any> = new EventEmitter<any>();
 
-    @Output() activeStepChange: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Emitted when the value changes.
+     * @param {ActiveStepChangeEvent} event - custom change event.
+     * @group Emits
+     */
+    @Output() activeStepChange: EventEmitter<ActiveStepChangeEvent> = new EventEmitter<ActiveStepChangeEvent>();
 
     headerTemplate: Nullable<TemplateRef<any>>;
 
@@ -389,12 +414,6 @@ export class Stepper implements AfterContentInit {
     value: any;
 
     constructor(private cd: ChangeDetectorRef) {}
-
-    ngOnInit() {}
-
-    isStep(child) {
-        return child.type.name === 'StepperPanel';
-    }
 
     isStepActive(index) {
         return this.activeStep === index;
