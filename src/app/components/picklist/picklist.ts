@@ -168,7 +168,7 @@ import {
                             [ngClass]="itemClass(item, idSource + '_' + i, selectedItemsSource)"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsSource, onSourceSelect, idSource + '_' + i)"
+                            (click)="onItemClick($event, item, selectedItemsSource, SOURCE_LIST, onSourceSelect, idSource + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
                             (dblclick)="onSourceItemDblClick()"
                             (touchend)="onItemTouchEnd()"
@@ -276,7 +276,7 @@ import {
                             [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsTarget, onTargetSelect, idTarget + '_' + i)"
+                            (click)="onItemClick($event, item, selectedItemsTarget, TARGET_LIST, onTargetSelect, idTarget + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
                             (dblclick)="onTargetItemDblClick()"
                             (touchend)="onItemTouchEnd()"
@@ -915,7 +915,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    onItemClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>, itemId?: string) {
+    onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
         if (this.disabled) {
             return;
         }
@@ -929,18 +929,21 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
 
             if (selected && metaKey) {
-                selectedItems.splice(index, 1);
+                selectedItems = selectedItems.filter((_, i) => i !== index);
             } else {
                 if (!metaKey) {
-                    selectedItems.length = 0;
+                    selectedItems = [];
                 }
                 selectedItems.push(item);
             }
         } else {
-            if (selected) selectedItems.splice(index, 1);
-            else selectedItems.push(item);
+            if (selected) {
+                selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
+            } else {
+                selectedItems.push(item);
+            }
         }
-
+        this.setSelectionList(listType, selectedItems);
         callback.emit({ originalEvent: event, items: selectedItems });
 
         this.itemTouched = false;
@@ -1399,7 +1402,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 break;
 
             case 'Enter':
-                this.onEnterKey(event, selectedItems, callback);
+                this.onEnterKey(event, selectedItems, callback, listType);
                 break;
 
             case 'Space':
@@ -1453,7 +1456,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.changeFocusedOptionIndex(optionIndex, listType);
 
         if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback);
+            this.onEnterKey(event, selectedItems, callback, listType);
         }
 
         event.preventDefault();
@@ -1465,14 +1468,14 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.changeFocusedOptionIndex(optionIndex, listType);
 
         if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback);
+            this.onEnterKey(event, selectedItems, callback, listType);
         }
 
         event.preventDefault();
     }
 
-    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>) {
-        this.onItemClick(event, this.focusedOption, selectedItems, callback);
+    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+        this.onItemClick(event, this.focusedOption, selectedItems, listType, callback);
         event.preventDefault();
     }
 
@@ -1494,7 +1497,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
         }
 
-        this.onEnterKey(event, selectedItems, callback);
+        this.onEnterKey(event, selectedItems, callback, listType);
     }
 
     onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
