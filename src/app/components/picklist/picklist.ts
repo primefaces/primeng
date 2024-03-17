@@ -1574,37 +1574,6 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.resetTargetFilter();
     }
 
-    onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {
-        let listItem = <HTMLLIElement>event.currentTarget;
-
-        switch (event.which) {
-            //down
-            case 40:
-                var nextItem = this.findNextItem(listItem);
-                if (nextItem) {
-                    nextItem.focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            //up
-            case 38:
-                var prevItem = this.findPrevItem(listItem);
-                if (prevItem) {
-                    prevItem.focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            //enter
-            case 13:
-                this.onItemClick(event, item, selectedItems, callback);
-                event.preventDefault();
-                break;
-        }
-    }
 
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
