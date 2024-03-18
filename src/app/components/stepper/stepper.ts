@@ -193,7 +193,7 @@ export class StepperPanel {
             </ng-container>
             <ng-container *ngIf="orientation === 'horizontal'; else vertical">
                 <ul class="p-stepper-nav">
-                    <ng-template ngFor let-step [ngForOf]="panels" let-index="index">
+                    <ng-template ngFor let-step [ngForOf]="panels" let-index="index" [ngForTrackBy]="trackByFn">
                         <li
                             [key]="getStepKey(step, index)"
                             class="p-stepper-header"
@@ -230,7 +230,7 @@ export class StepperPanel {
                     </ng-template>
                 </ul>
                 <div class="p-stepper-panels">
-                    <ng-template ngFor let-step [ngForOf]="panels" let-index="index">
+                    <ng-template ngFor let-step [ngForOf]="panels" let-index="index" [ngForTrackBy]="trackByFn">
                         <ng-container *ngIf="isStepActive(index)">
                             <p-stepperContent
                                 [id]="getStepContentId(index)"
@@ -250,7 +250,7 @@ export class StepperPanel {
                 </div>
             </ng-container>
             <ng-template #vertical>
-                <ng-template ngFor let-step [ngForOf]="panels" let-index="index">
+                <ng-template ngFor let-step [ngForOf]="panels" let-index="index" [ngForTrackBy]="trackByFn">
                     <div
                         [key]="getStepKey(step, index)"
                         class="p-stepper-panel"
@@ -446,6 +446,10 @@ export class Stepper implements AfterContentInit {
         if (index !== this.stepperpanels.length - 1) {
             this.updateActiveStep(event, index + 1);
         }
+    }
+
+    trackByFn(index: number): number {
+        return index;
     }
 
     ngAfterContentInit() {

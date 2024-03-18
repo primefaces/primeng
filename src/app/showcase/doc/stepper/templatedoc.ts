@@ -159,10 +159,6 @@ export class TemplateDoc {
 
     option10: boolean | undefined = false;
 
-    ngDoCheck() {
-        console.log(this.active);
-    }
-
     code: Code = {
         basic: `<p-stepper [activeStep]="active">
 <p-stepperPanel>
