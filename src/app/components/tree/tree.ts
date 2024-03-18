@@ -765,6 +765,7 @@ export class UITreeNode implements OnInit {
                             [level]="rowNode.level"
                             [rowNode]="rowNode"
                             [node]="rowNode.node"
+                            [parentNode]="rowNode.parent"
                             [firstChild]="firstChild"
                             [lastChild]="lastChild"
                             [index]="getIndex(scrollerOptions, index)"
