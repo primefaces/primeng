@@ -16,6 +16,7 @@ import {
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
     selector: 'p-stepperHeader',
@@ -273,6 +274,7 @@ export class StepperPanel {
                     <div
                         [key]="getStepKey(step, index)"
                         class="p-stepper-panel"
+                        [@tabContent]="isStepActive(index) ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }"
                         [ngClass]="{
                             'p-stepper-panel-active': orientation === 'vertical' && isStepActive(index)
                         }"
@@ -339,9 +341,31 @@ export class StepperPanel {
         '[class.p-stepper]': 'true',
         '[class.p-component]': 'true',
         '[class.p-stepper-vertical]': "orientation === 'vertical'"
-    }
+    },
+    animations: [
+        trigger('tabContent', [
+            state(
+                'hidden',
+                style({
+                    height: '0',
+                    visibility: 'hidden'
+                })
+            ),
+            state(
+                'visible',
+                style({
+                    height: '*',
+                    visibility: 'visible'
+                })
+            ),
+            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
+            transition('void => *', animate(0))
+        ])
+    ],
 })
 export class Stepper implements AfterContentInit {
+
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
      * Active step index of stepper.
      * @group Props
