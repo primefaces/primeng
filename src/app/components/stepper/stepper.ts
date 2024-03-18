@@ -1,18 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    EventEmitter,
-    Input,
-    NgModule,
-    Output,
-    QueryList,
-    TemplateRef,
-    ViewEncapsulation,
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
@@ -274,7 +261,6 @@ export class StepperPanel {
                     <div
                         [key]="getStepKey(step, index)"
                         class="p-stepper-panel"
-                        [@tabContent]="isStepActive(index) ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }"
                         [ngClass]="{
                             'p-stepper-panel-active': orientation === 'vertical' && isStepActive(index)
                         }"
@@ -308,7 +294,7 @@ export class StepperPanel {
                             ></p-stepperHeader>
                         </div>
 
-                        <div class="p-stepper-toggleable-content" *ngIf="isStepActive(index)">
+                        <div class="p-stepper-toggleable-content" [@tabContent]="isStepActive(index) ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }">
                             <ng-container *ngIf="index !== stepperpanels.length - 1">
                                 <p-stepperSeparator [template]="step.separatorTemplate" [separatorClass]="'p-stepper-separator'" [stepperpanel]="step" [index]="index" [active]="isStepActive(index)" [highlighted]="index < activeStep" />
                             </ng-container>
@@ -337,6 +323,7 @@ export class StepperPanel {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./stepper.css'],
     host: {
         '[class.p-stepper]': 'true',
         '[class.p-component]': 'true',
@@ -358,13 +345,12 @@ export class StepperPanel {
                     visibility: 'visible'
                 })
             ),
-            transition('visible <=> hidden', [animate('{{transitionParams}}')]),
+            transition('visible <=> hidden', [animate('250ms cubic-bezier(0.86, 0, 0.07, 1)')]),
             transition('void => *', animate(0))
         ])
-    ],
+    ]
 })
 export class Stepper implements AfterContentInit {
-
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
     /**
      * Active step index of stepper.
@@ -372,7 +358,6 @@ export class Stepper implements AfterContentInit {
      */
 
     @Input() activeStep: number | undefined | null = 0;
-
     /**
      * Orientation of the stepper.
      * @group Props
