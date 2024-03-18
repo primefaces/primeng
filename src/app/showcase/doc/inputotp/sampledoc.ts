@@ -13,7 +13,8 @@ import { Code } from '../../domain/code';
                 <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
                 <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
                     <ng-template pTemplate="input" let-events="events" let-attrs="attrs" let-index="index">
-                        <input pInputText type="text" v-bind="attrs" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
+                        <button (click)="test(attrs)">click</button>
+                        <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
                         <div *ngIf="index === 3" class="px-3">
                             <i class="pi pi-minus"></i>
                         </div>
@@ -68,6 +69,9 @@ import { Code } from '../../domain/code';
     ]
 })
 export class SampleDoc {
+    test(e) {
+        console.log(e);
+    }
     value: any;
 
     code: Code = {
@@ -76,7 +80,7 @@ export class SampleDoc {
     <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-events="events" let-attrs="attrs" let-index="index">
-            <input pInputText type="text" v-bind="attrs" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
+            <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>
             </div>
@@ -94,7 +98,7 @@ export class SampleDoc {
 <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
 <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
     <ng-template pTemplate="input" let-events="events" let-attrs="attrs" let-index="index">
-        <input pInputText type="text" v-bind="attrs" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
+        <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="attrs.value" class="custom-otp-input" />
         <div *ngIf="index === 3" class="px-3">
             <i class="pi pi-minus"></i>
         </div>
