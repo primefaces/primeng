@@ -21603,13 +21603,6 @@
                                 "description": "Current active state of the stepperpanel"
                             },
                             {
-                                "name": "activeStep",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Current active index state of the stepperpanel"
-                            },
-                            {
                                 "name": "highlighted",
                                 "optional": false,
                                 "readonly": false,
@@ -21669,13 +21662,6 @@
                                 "readonly": false,
                                 "type": "boolean",
                                 "description": "Current active state of the stepperpanel"
-                            },
-                            {
-                                "name": "activeStep",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Current active index state of the stepperpanel"
                             },
                             {
                                 "name": "highlighted",
@@ -21749,13 +21735,6 @@
                                 "readonly": false,
                                 "type": "boolean",
                                 "description": "Current active state of the stepperpanel"
-                            },
-                            {
-                                "name": "activeStep",
-                                "optional": false,
-                                "readonly": false,
-                                "type": "number",
-                                "description": "Current active index state of the stepperpanel"
                             },
                             {
                                 "name": "highlighted",

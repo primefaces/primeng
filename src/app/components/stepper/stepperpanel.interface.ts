@@ -33,10 +33,6 @@ export interface StepperPanelHeaderProps {
      */
     active: boolean;
     /**
-     * Current active index state of the stepperpanel
-     */
-    activeStep: number;
-    /**
      * Current highlighted state of the stepperpanel
      */
     highlighted: boolean;
@@ -75,10 +71,6 @@ export interface StepperPanelContentProps {
      * Current active state of the stepperpanel
      */
     active: boolean;
-    /**
-     * Current active index state of the stepperpanel
-     */
-    activeStep: number;
     /**
      * Current highlighted state of the stepperpanel
      */
@@ -125,10 +117,6 @@ export interface StepperPanelSeparatorProps {
      * Current active state of the stepperpanel
      */
     active: boolean;
-    /**
-     * Current active index state of the stepperpanel
-     */
-    activeStep: number;
     /**
      * Current highlighted state of the stepperpanel
      */

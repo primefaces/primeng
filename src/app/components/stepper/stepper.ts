@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
@@ -15,7 +15,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
                     context: {
                         index: index,
                         active: active,
-                        activeStep: activeStep,
                         highlighted: highlighted,
                         class: 'p-stepper-action',
                         headerClass: 'p-stepper-action',
@@ -56,8 +55,6 @@ export class StepperHeader {
 
     @Input() ariaControls: any;
 
-    @Input() activeStep: any;
-
     @Output() onClick = new EventEmitter<void>();
 }
 
@@ -65,7 +62,7 @@ export class StepperHeader {
     selector: 'p-stepperSeparator',
     template: `
         <ng-container *ngIf="template; else span">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, activeStep: activeStep, highlighted: highlighted, class: separatorClass }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, class: separatorClass }"></ng-container>
         </ng-container>
         <ng-template #span>
             <span [class]="separatorClass" aria-hidden="true"></span>
@@ -97,7 +94,7 @@ export class StepperSeparator {
     selector: 'p-stepperContent',
     template: ` <div [id]="id" role="tabpanel" data-pc-name="stepperpanel" [attr.data-pc-index]="index" [attr.data-p-active]="active" [attr.aria-labelledby]="ariaLabelledby">
         <ng-container *ngIf="template">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, activeStep: activeStep, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
         </ng-container>
         <ng-template *ngIf="!template">
             <ng-container *ngIf="stepperpanel">
@@ -126,8 +123,6 @@ export class StepperContent {
     @Input() index: any;
 
     @Input() active: any;
-
-    @Input() activeStep: any;
 
     @Input() highlighted: any;
 
@@ -222,7 +217,6 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="activeStep"
                                 [highlighted]="index < activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
@@ -245,7 +239,6 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
-                                [activeStep]="activeStep"
                                 [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -286,7 +279,6 @@ export class StepperPanel {
                                 [index]="index"
                                 [disabled]="isItemDisabled(index)"
                                 [active]="isStepActive(index)"
-                                [activeStep]="activeStep"
                                 [highlighted]="index < activeStep"
                                 [class]="'p-stepper-action'"
                                 [aria-controls]="getStepContentId(index)"
@@ -305,7 +297,6 @@ export class StepperPanel {
                                 [stepperpanel]="step"
                                 [index]="index"
                                 [active]="isStepActive(index)"
-                                [activeStep]="activeStep"
                                 [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
@@ -351,7 +342,6 @@ export class StepperPanel {
     ]
 })
 export class Stepper implements AfterContentInit {
-
     /**
      * Active step index of stepper.
      * @group Props
@@ -372,7 +362,7 @@ export class Stepper implements AfterContentInit {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
-    
+
     @ContentChildren(StepperPanel) stepperpanels: QueryList<StepperPanel> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
@@ -397,14 +387,6 @@ export class Stepper implements AfterContentInit {
     id: string = UniqueComponentId();
 
     panels!: any[];
-
-    onModelChange: Function = () => {};
-
-    onModelTouched: Function = () => {};
-
-    value: any;
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     isStepActive(index) {
         return this.activeStep === index;
