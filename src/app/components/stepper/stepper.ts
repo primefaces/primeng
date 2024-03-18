@@ -391,19 +391,19 @@ export class Stepper implements AfterContentInit {
         return this.activeStep === index;
     }
 
-    getStepProp(step, name) {
-        if (step.header) {
+    getStepProp(step) {
+        if (step?.header) {
             return step.header;
         }
 
-        if (step.content) {
+        if (step?.content) {
             return step.content;
         }
         return undefined;
     }
 
     getStepKey(step, index) {
-        return this.getStepProp(step, 'header') || index;
+        return this.getStepProp(step) || index;
     }
 
     getStepHeaderActionId(index) {
