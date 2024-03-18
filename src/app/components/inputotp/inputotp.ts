@@ -301,6 +301,7 @@ export class InputOtp implements OnChanges, AfterContentInit {
 
         event.preventDefault();
     }
+
     getRange(n: number): number[] {
         return Array.from({ length: n }, (_, index) => index + 1);
     }
@@ -323,7 +324,7 @@ export class InputOtp implements OnChanges, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule],
+    imports: [CommonModule, SharedModule, InputTextModule],
     exports: [InputOtp, SharedModule],
     declarations: [InputOtp]
 })
