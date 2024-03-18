@@ -21473,6 +21473,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether the steps are clickable or not."
+                        },
+                        {
+                            "name": "transitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
+                            "description": "Transition options of the animation."
                         }
                     ]
                 },

@@ -351,12 +351,11 @@ export class StepperPanel {
     ]
 })
 export class Stepper implements AfterContentInit {
-    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+
     /**
      * Active step index of stepper.
      * @group Props
      */
-
     @Input() activeStep: number | undefined | null = 0;
     /**
      * Orientation of the stepper.
@@ -368,7 +367,12 @@ export class Stepper implements AfterContentInit {
      * @group Props
      */
     @Input() linear: boolean = false;
-
+    /**
+     * Transition options of the animation.
+     * @group Props
+     */
+    @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    
     @ContentChildren(StepperPanel) stepperpanels: QueryList<StepperPanel> | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
