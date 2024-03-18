@@ -4,30 +4,18 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ContentChildren,
-    ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
-    OnInit,
     Output,
     QueryList,
     TemplateRef,
-    ViewChild,
-    ViewContainerRef,
     ViewEncapsulation,
-    contentChildren,
-    effect,
-    forwardRef,
-    input,
-    signal
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from '../utils/uniquecomponentid';
-import { ActiveStepChangeEvent } from './stepper.interface';
 
 @Component({
     selector: 'p-stepperHeader',
