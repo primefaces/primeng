@@ -5455,7 +5455,9 @@ export class ColumnFilter implements AfterContentInit {
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        this.dt._filter();
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
         DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
