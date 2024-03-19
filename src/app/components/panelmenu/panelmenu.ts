@@ -128,10 +128,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
                         <p-panelMenuSub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                             [id]="getItemId(processedItem) + '_list'"
                             [panelId]="panelId"
-                            [items]="processedItem.items"
+                            [items]="processedItem?.items"
                             [itemTemplate]="itemTemplate"
                             [transitionOptions]="transitionOptions"
                             [focusedItemId]="focusedItemId"
@@ -352,9 +352,7 @@ export class PanelMenuList implements OnChanges {
     constructor(private el: ElementRef) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes && changes.items && changes.items.currentValue) {
-            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
-        }
+        this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
     }
 
     getItemProp(processedItem, name) {
@@ -798,7 +796,7 @@ export class PanelMenuList implements OnChanges {
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
                             <p-panelMenuList
                                 [panelId]="getPanelId(i, item)"
-                                [items]="getItems(item)"
+                                [items]="getItemProp(item, 'items')"
                                 [itemTemplate]="itemTemplate"
                                 [transitionOptions]="transitionOptions"
                                 [root]="true"
@@ -925,6 +923,7 @@ export class PanelMenu implements AfterContentInit {
 
     onToggleDone() {
         this.animating = false;
+        this.cd.markForCheck();
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {
@@ -940,10 +939,6 @@ export class PanelMenu implements AfterContentInit {
 
     getItemProp(item, name) {
         return item ? ObjectUtils.getItemValue(item[name]) : undefined;
-    }
-
-    getItems(item) {
-        return item ? [...ObjectUtils.getItemValue(item['items'])] : undefined;
     }
 
     getItemLabel(item) {
