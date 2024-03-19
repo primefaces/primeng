@@ -5617,7 +5617,10 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                if (this.overlayVisible && this.isOutsideClicked(event)) {
+                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
+
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
                 }
 
