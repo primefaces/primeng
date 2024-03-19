@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex flex-wrap justify-content-center gap-3">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
-                <input type="text" pInputText [(ngModel)]="value" />
+                <input type="text" pInputText [(ngModel)]="value" class="pl-10" />
             </span>
 
             <span class="p-input-icon-right">
