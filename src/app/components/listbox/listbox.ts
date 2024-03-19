@@ -1412,7 +1412,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options()?.length || !this.visibleOptions()?.length;
     }
 
     hasFilter() {
