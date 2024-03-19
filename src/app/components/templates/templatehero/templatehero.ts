@@ -43,7 +43,7 @@ import { TooltipModule } from 'primeng/tooltip';
                 <p>{{ selectedTemplate?.description }}</p>
                 <div class="template-hero-card-buttons">
                     <a [href]="selectedTemplate?.liveHref" target="_blank" class="template-hero-card-buttons-btn1 p-button"> Live Demo </a>
-                    <a [href]="selectedTemplate.storeHref ?? 'https://www.primefaces.org/store/'" target="_blank" class="template-hero-card-buttons-btn2 p-button">
+                    <a [href]="selectedTemplate?.storeHref ?? 'https://www.primefaces.org/store/'" target="_blank" class="template-hero-card-buttons-btn2 p-button">
                         {{ selectedTemplate?.free ? 'Source Code' : 'Buy Now' }}
                     </a>
                 </div>

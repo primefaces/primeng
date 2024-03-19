@@ -37,12 +37,12 @@ import { TooltipModule } from 'primeng/tooltip';
         <div class="template-license-wrapper">
             <div class="template-license">
                 <div class="template-license-cards">
-                    <ng-container *ngFor="let licenseData of license.licenseDetails">
+                    <ng-container *ngFor="let licenseData of license?.licenseDetails">
                         <div class="template-license-card">
-                            <span>{{ licenseData.title }}</span>
-                            <h2>{{ licenseData.price }}</h2>
+                            <span>{{ licenseData?.title }}</span>
+                            <h2>{{ licenseData?.price }}</h2>
                             <div class="template-license-card-included">
-                                <ng-container *ngFor="let txt of licenseData.included; let j = index">
+                                <ng-container *ngFor="let txt of licenseData?.included; let j = index">
                                     <p>{{ txt }}</p>
                                 </ng-container>
                             </div>
@@ -52,10 +52,10 @@ import { TooltipModule } from 'primeng/tooltip';
                         </div>
                     </ng-container>
                 </div>
-                <p class="template-license-description">{{ license.description }}</p>
+                <p class="template-license-description">{{ license?.description }}</p>
                 <p class="template-license-visit">
                     Visit the 
-                    <a [href]="license.documentLink" target="_blank"> official documentation </a>
+                    <a [href]="license?.documentLink" target="_blank"> official documentation </a>
                      for more information.
                 </p>
             </div>
@@ -66,6 +66,10 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TemplateLicense {
     @Input() license;
+
+    ngOnInit(){
+        console.log(this.license)
+    }
 }
 
 @NgModule({

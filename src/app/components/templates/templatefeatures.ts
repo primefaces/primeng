@@ -82,8 +82,11 @@ export class TemplateFeatures {
     firstColumnData;
     secondColumnData;
     ngOnInit() {
-        this.firstColumnData = this.featuresData.slice(0, Math.ceil(this.featuresData.length / 2));
-        this.secondColumnData = this.featuresData.slice(Math.ceil(this.featuresData.length / 2));
+        if(this.featuresData){
+
+            this.firstColumnData = this.featuresData.slice(0, Math.ceil(this.featuresData.length / 2));
+            this.secondColumnData = this.featuresData.slice(Math.ceil(this.featuresData.length / 2));
+        }
     }
 }
 
