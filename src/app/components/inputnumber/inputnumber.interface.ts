@@ -13,7 +13,7 @@ export interface InputNumberInputEvent {
     /**
      * Input value.
      */
-    value: number;
+    value: number | string;
     /**
      * Selected option value.
      */
