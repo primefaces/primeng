@@ -212,7 +212,7 @@ export class MultiSelectItem {
                 (onHide)="hide()"
             >
                 <ng-template pTemplate="content">
-                    <div [ngClass]="'p-multiselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <div [attr.id]="id + '_list'" [ngClass]="'p-multiselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"

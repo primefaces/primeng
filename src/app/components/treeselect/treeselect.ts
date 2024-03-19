@@ -90,7 +90,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onHide)="hide($event)"
             >
                 <ng-template pTemplate="content">
-                    <div #panel class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
+                    <div #panel [attr.id]="listId" class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"

@@ -132,6 +132,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
             </ng-template>
             <div
                 #contentWrapper
+                [attr.id]="panelId"
                 [class]="panelStyleClass"
                 [ngStyle]="panelStyle"
                 [ngClass]="{
