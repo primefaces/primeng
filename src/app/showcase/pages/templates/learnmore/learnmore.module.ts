@@ -10,8 +10,20 @@ import { TemplateLicenseModule } from 'src/app/components/templates/templatelice
 import { TemplateFeaturesModule } from 'src/app/components/templates/templatefeatures';
 import { TemplateFeaturesAnimationModule } from 'src/app/components/templates/templatefeaturesanimation/templatefeaturesanimation';
 import { TemplateConfigurationModule } from 'src/app/components/templates/templateconfiguration';
+import { TemplateRelatedModule } from 'src/app/components/templates/templaterelated';
 @NgModule({
     declarations: [LearnMoreComponent],
-    imports: [CommonModule, LearnMoreRoutingModule, TemplateHeroModule, TemplateSeparatorModule, TemplateYoutubeModule, TemplateLicenseModule, TemplateFeaturesModule, TemplateFeaturesAnimationModule,TemplateConfigurationModule]
+    imports: [
+        CommonModule,
+        LearnMoreRoutingModule,
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        TemplateFeaturesModule,
+        TemplateFeaturesAnimationModule,
+        TemplateConfigurationModule,
+        TemplateRelatedModule
+    ]
 })
 export class LearnMoreModule {}

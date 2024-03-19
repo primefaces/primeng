@@ -3,7 +3,7 @@
       {
         "name": "apollo",
         "data": {
-          "apolloRelatedData": [
+          "relatedData": [
             {
               "src": "https://primefaces.org/cdn/primereact/images/templates/diamond-react.jpg",
               "href": "/templates/diamond"
@@ -17,7 +17,7 @@
               "href": "/templates/babylon"
             }
           ],
-          "apolloFeatures2Data": [
+          "features2Data": [
             {
               "title": "Fully Responsive",
               "description": "Apollo is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
@@ -78,7 +78,7 @@
               "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-figma.png"
             }
           ],
-          "apolloFeatures1Data": [
+          "features1Data": [
             {
               "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature1.png",
               "title": "Ready to Use Applications",

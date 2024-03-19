@@ -6,7 +6,13 @@
     <template-separator></template-separator>
     <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData2" title="Features"></template-features-animation>
     <template-separator></template-separator>
-    <template-features [featuresData]="selectedTemplate?.apolloFeatures1Data" displayType="horizontal"></template-features>
+    <template-features [featuresData]="selectedTemplate?.features1Data" displayType="horizontal"></template-features>
     <template-separator></template-separator>
     <template-configuration title="React based on Next.JS" description="Apollo is powered by Next.js to get started in no time following the best practices. Template is implemented purely in React with Typescript."></template-configuration>
+    <template-separator></template-separator>
+    <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></template-features-animation>
+    <template-separator></template-separator>
+    <template-features [featuresData]="selectedTemplate?.features2Data" displayType="vertical"></template-features>
+    <template-separator></template-separator>
+    <template-related [relatedData]="selectedTemplate?.relatedData"></template-related>
 </div>
