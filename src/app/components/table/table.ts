@@ -2428,11 +2428,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRow(rowData: any, event?: Event) {
-        if (!this.dataKey) {
-            throw new Error('dataKey must be defined to use row expansion');
+        if (!this.dataKey && !this.groupRowsBy) {
+            throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = this.groupRowsBy ?
+            String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) :
+            String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -2462,7 +2464,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.groupRowsBy ?
+            this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy))] === true :
+            this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
@@ -3182,7 +3186,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - 1];
+        let prevRowData = value[i - (1 + this.dt._first)];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3193,7 +3197,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + 1];
+        let nextRowData = value[i + (1 + this.dt._first)];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
