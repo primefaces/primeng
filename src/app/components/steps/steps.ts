@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
     selector: 'p-steps',
     template: `
         <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
-            <ul #list role="tablist" [attr.data-pc-section]="'menu'">
+            <ul #list [attr.data-pc-section]="'menu'">
                 <li
                     *ngFor="let item of model; let i = index"
                     class="p-steps-item"
@@ -22,7 +22,6 @@ import { Subscription } from 'rxjs';
                     [ngStyle]="item.style"
                     [class]="item.styleClass"
                     [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
-                    role="presentation"
                     [attr.id]="item.id"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
@@ -33,7 +32,6 @@ import { Subscription } from 'rxjs';
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
-                        role="tab"
                         [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                         class="p-menuitem-link"
@@ -60,7 +58,6 @@ import { Subscription } from 'rxjs';
                         <a
                             [attr.href]="item.url"
                             class="p-menuitem-link"
-                            role="tab"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
