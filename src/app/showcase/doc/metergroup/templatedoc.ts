@@ -44,7 +44,7 @@ import { Code } from '../../domain/code';
                 </ng-template>
             </p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-vertical-demo"></app-code>
+        <app-code [code]="code" selector="meter-group-template-demo"></app-code>
     `
 })
 export class TemplateDoc {

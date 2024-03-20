@@ -547,6 +547,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { OrderListModule } from 'primeng/orderlist';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -650,6 +651,7 @@ ${serviceImports}
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     OverlayPanelModule,

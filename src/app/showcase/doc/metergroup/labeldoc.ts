@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-meterGroup [value]="value" labelPosition="start" labelOrientation="vertical"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-label-demo"></app-code>
+        <app-code [code]="code" selector="meter-group-label-demo"></app-code>
     `
 })
 export class LabelDoc {
