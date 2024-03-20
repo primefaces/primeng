@@ -1376,7 +1376,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onInputBlur(event: Event) {
         this.focused = false;
-        this.overlayVisible === false && this.onBlur.emit(event);
+        this.onBlur.emit(event);
 
         if (!this.preventModelTouched) {
             this.onModelTouched();

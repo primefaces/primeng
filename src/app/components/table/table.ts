@@ -4953,6 +4953,7 @@ export class ReorderableRow implements AfterViewInit {
                 class="p-fluid"
                 [type]="type"
                 [field]="field"
+                [ariaLabel]="ariaLabel"
                 [filterConstraint]="dt.filters[field]"
                 [filterTemplate]="filterTemplate"
                 [placeholder]="placeholder"
@@ -5211,6 +5212,11 @@ export class ColumnFilter implements AfterContentInit {
      * @group Props
      */
     @Input() showButtons: boolean = true;
+    /**
+     * Defines the aria-label of the form element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
 
@@ -5455,7 +5461,9 @@ export class ColumnFilter implements AfterContentInit {
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        this.dt._filter();
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
         DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
@@ -5743,7 +5751,7 @@ export class ColumnFilter implements AfterContentInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)" (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder" />
+                <input *ngSwitchCase="'text'" type="text" [ariaLabel]="ariaLabel" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)" (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder" />
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
@@ -5752,6 +5760,7 @@ export class ColumnFilter implements AfterContentInit {
                     [showButtons]="showButtons"
                     [minFractionDigits]="minFractionDigits"
                     [maxFractionDigits]="maxFractionDigits"
+                    [ariaLabel]="ariaLabel"
                     [prefix]="prefix"
                     [suffix]="suffix"
                     [placeholder]="placeholder"
@@ -5762,8 +5771,8 @@ export class ColumnFilter implements AfterContentInit {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
-                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
-                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
+                <p-triStateCheckbox [ariaLabel]="ariaLabel" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
+                <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
             </ng-container>
         </ng-template>
     `,
@@ -5800,6 +5809,8 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() currencyDisplay: string | undefined;
 
     @Input() useGrouping: boolean = true;
+
+    @Input() ariaLabel:  string | undefined;
 
     get showButtons(): boolean {
         return this.colFilter.showButtons;
