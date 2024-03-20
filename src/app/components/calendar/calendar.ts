@@ -3388,7 +3388,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
         this.createMonths(date.getMonth(), date.getFullYear());
         this.onDateSelect(event, dateMeta);
-        this.onTodayClick.emit(event);
+        this.onTodayClick.emit(date);
     }
 
     onClearButtonClick(event: any) {
