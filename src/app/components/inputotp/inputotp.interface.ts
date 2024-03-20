@@ -5,21 +5,26 @@ import { TemplateRef } from '@angular/core';
  * @group Events
  */
 export interface InputOtpTemplateEvents {
-    input: Function;
-    keydown: Function;
-    focus: Function;
-    blur: Function;
-    paste: Function;
-}
-
-/**
- * InputOtp attr options
- */
-export interface InputOtpTemplateAttrsOptions {
     /**
-     * Input token value
+     * Input event.
      */
-    value: string;
+    input: Function;
+    /**
+     * Keydown event.
+     */
+    keydown: Function;
+    /**
+     * Focus event.
+     */
+    focus: Function;
+    /**
+     * Blur event.
+     */
+    blur: Function;
+    /**
+     * Paste event.
+     */
+    paste: Function;
 }
 
 /**
@@ -33,14 +38,14 @@ export interface InputOtpTemplates {
      */
     input(context: {
         /**
+         * Input value.
+         */
+        $implicit: any;
+        /**
          * Events of the component
          */
         events: InputOtpTemplateEvents;
-        /**
-         * Attributes of the component
-         */
-        attrs: InputOtpTemplateAttrsOptions;
-    }): TemplateRef<{ $implicit: any }>;
+    }): TemplateRef<{ $implicit: any; events: InputOtpTemplateEvents }>;
 }
 
 /**

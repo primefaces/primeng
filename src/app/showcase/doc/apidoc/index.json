@@ -13554,31 +13554,36 @@
                                 "name": "input",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Input event."
                             },
                             {
                                 "name": "keydown",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Keydown event."
                             },
                             {
                                 "name": "focus",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Focus event."
                             },
                             {
                                 "name": "blur",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Blur event."
                             },
                             {
                                 "name": "paste",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Paste event."
                             }
                         ]
                     },
@@ -13613,7 +13618,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t events: InputOtpTemplateEvents, // Events of the component\n  \t attrs: InputOtpTemplateAttrsOptions, // Attributes of the component\n  }",
+                                "type": "{\n  \t $implicit: any, // Input value.\n  \t events: InputOtpTemplateEvents, // Events of the component\n  }",
                                 "description": ""
                             }
                         ],
