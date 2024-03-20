@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { InputTextModule } from '../inputtext/inputtext';
+import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputOtpChangeEvent } from './inputotp.interface';
@@ -23,6 +23,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
                 <input
                     type="text"
                     pInputText
+                    [value]="getModelValue(i)"
                     [maxLength]="1"
                     [type]="inputType"
                     class="p-inputotp-input"
@@ -172,8 +173,33 @@ export class InputOtp implements AfterContentInit {
     }
 
     writeValue(value: any): void {
-        this.value = value;
+        if (value) {
+            if (Array.isArray(value) && value.length > 0) {
+                this.value = value.slice(0, this.length);
+            } else {
+                this.value = value.toString().split('').slice(0, this.length);
+            }
+        } else {
+            this.value = value;
+        }
+        this.updateTokens();
         this.cd.markForCheck();
+    }
+
+    updateTokens() {
+        if (this.value !== null && this.value !== undefined) {
+            if (Array.isArray(this.value)) {
+                this.tokens = [...this.value];
+            } else {
+                this.tokens = this.value.toString().split('');
+            }
+        } else {
+            this.tokens = [];
+        }
+    }
+
+    getModelValue(i: number) {
+        return this.tokens[i - 1] || '';
     }
 
     registerOnChange(fn: Function): void {
