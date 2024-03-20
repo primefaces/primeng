@@ -571,6 +571,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { SpinnerModule } from 'primeng/spinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { SplitterModule } from 'primeng/splitter';
+import { StepperModule } from 'primeng/stepper';
 import { StepsModule } from 'primeng/steps';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
@@ -675,6 +676,7 @@ ${serviceImports}
     SpeedDialModule,
     SpinnerModule,
     SplitterModule,
+    StepperModule,
     SplitButtonModule,
     StepsModule,
     TableModule,

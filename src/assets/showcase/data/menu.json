@@ -229,6 +229,10 @@
                             "routerLink": "/splitter"
                         },
                         {
+                            "name": "Stepper",
+                            "routerLink": "/stepper"
+                        },
+                        {
                             "name": "ScrollPanel",
                             "routerLink": "/scrollpanel"
                         },
