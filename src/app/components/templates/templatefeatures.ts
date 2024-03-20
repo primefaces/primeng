@@ -78,12 +78,15 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TemplateFeatures {
     @Input() displayType;
-    @Input() featuresData;
-    firstColumnData;
-    secondColumnData;
-    ngOnInit() {
-        if(this.featuresData){
 
+    @Input() featuresData;
+
+    firstColumnData;
+
+    secondColumnData;
+
+    ngOnInit() {
+        if (this.featuresData) {
             this.firstColumnData = this.featuresData.slice(0, Math.ceil(this.featuresData.length / 2));
             this.secondColumnData = this.featuresData.slice(Math.ceil(this.featuresData.length / 2));
         }

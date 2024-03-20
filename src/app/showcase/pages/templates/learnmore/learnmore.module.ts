@@ -11,6 +11,7 @@ import { TemplateFeaturesModule } from 'src/app/components/templates/templatefea
 import { TemplateFeaturesAnimationModule } from 'src/app/components/templates/templatefeaturesanimation/templatefeaturesanimation';
 import { TemplateConfigurationModule } from 'src/app/components/templates/templateconfiguration';
 import { TemplateRelatedModule } from 'src/app/components/templates/templaterelated';
+import { TemplateFeaturesAnimationInlineModule } from 'src/app/components/templates/templatefeaturesanimation/templatefeaturesanimationinline';
 @NgModule({
     declarations: [LearnMoreComponent],
     imports: [
@@ -23,7 +24,8 @@ import { TemplateRelatedModule } from 'src/app/components/templates/templaterela
         TemplateFeaturesModule,
         TemplateFeaturesAnimationModule,
         TemplateConfigurationModule,
-        TemplateRelatedModule
+        TemplateRelatedModule,
+        TemplateFeaturesAnimationInlineModule
     ]
 })
 export class LearnMoreModule {}

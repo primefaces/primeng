@@ -30,6 +30,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { TemplateFeaturesAnimationInline, TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
 
 @Component({
     selector: 'template-features-animation',
@@ -65,13 +66,13 @@ import { TooltipModule } from 'primeng/tooltip';
                 </div>
                 <div class="template-features-animation-right">
                     <ng-container *ngIf="featuresData[selectedID - 1]?.type === 'inline-animation'; else featureImage">
-                        <app-template-features-animation-inline
+                        <template-features-animation-inline
                             [inlineFeaturesData]="featuresData[selectedID - 1]?.inlineFeaturesData"
                             [parentHandleClick]="handleClick"
                             [parentHandleHover]="handleHover"
                             [parentID]="selectedID"
                             [inlineSeconds]="animationSeconds / featuresData[selectedID - 1]?.inlineFeaturesData.length"
-                        ></app-template-features-animation-inline>
+                        ></template-features-animation-inline>
                     </ng-container>
                     <ng-template #featureImage>
                         <img [src]="featuresData[selectedID - 1]?.src" alt="Animation Feature Image" />
@@ -85,20 +86,54 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TemplateFeaturesAnimation {
     @Input() featuresData;
+
     @Input() title;
 
+    animationSeconds = 5000;
+
     selectedID = 1;
-    hoveredID=""
-    intervalIds = []
-    cancelInterval= false
 
-    enterCardArea = (id) => {};
+    hoveredID = null;
 
-    leaveCardArea = (id) => {};
+    intervalId;
+
+    cancelInterval = false;
+
+    constructor(private cd: ChangeDetectorRef) {}
+
+    startInterval() {
+        this.intervalId = setInterval(() => {
+            this.selectedID++;
+            if (this.selectedID > this.featuresData.length) {
+                this.selectedID = 1;
+            }
+            this.cd.markForCheck();
+        }, 5000);
+    }
+
+    enterCardArea() {
+        clearInterval(this.intervalId);
+    }
+
+    leaveCardArea() {
+        this.startInterval();
+    }
+
+    ngOnInit() {
+        this.startInterval();
+    }
+
+    ngOnDestroy() {
+        clearInterval(this.intervalId);
+    }
+
+    handleClick(id) {
+        this.selectedID = id;
+    }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, TemplateFeaturesAnimationInlineModule],
     exports: [TemplateFeaturesAnimation, SharedModule],
     declarations: [TemplateFeaturesAnimation]
 })
