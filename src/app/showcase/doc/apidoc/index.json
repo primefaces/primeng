@@ -13438,6 +13438,203 @@
             }
         }
     },
+    "inputotp": {
+        "components": {
+            "InputOtp": {
+                "description": "Input Otp is used to enter one time passwords.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is read-only."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "null",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "null",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "length",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "4",
+                            "description": "Number of characters to initiate."
+                        },
+                        {
+                            "name": "mask",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Mask pattern."
+                        },
+                        {
+                            "name": "integerOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is integer-only."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "InputOtpChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component loses focus."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "InputOtpTemplateEvents",
+                        "description": "Defines the custom events used by the component's emit.",
+                        "props": [
+                            {
+                                "name": "input",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Input event."
+                            },
+                            {
+                                "name": "keydown",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Keydown event."
+                            },
+                            {
+                                "name": "focus",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Focus event."
+                            },
+                            {
+                                "name": "blur",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Blur event."
+                            },
+                            {
+                                "name": "paste",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Paste event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputOtpChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "inputotp",
+                        "name": "input",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Input value.\n  \t events: InputOtpTemplateEvents, // Events of the component\n  }",
+                                "description": ""
+                            }
+                        ],
+                        "description": "Custom template of input."
+                    }
+                ]
+            }
+        }
+    },
     "inputswitch": {
         "components": {
             "InputSwitch": {
