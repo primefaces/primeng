@@ -42,7 +42,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate">
-                <ng-container *ngTemplateOutlet="inputTemplate; context: { events: getTemplateEvents(i - 1), attrs: getTemplateAttrs(i - 1), index: i }"> </ng-container>
+                <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
             </ng-container>
         </ng-container>
     `,
@@ -135,10 +135,8 @@ export class InputOtp implements AfterContentInit {
 
     constructor(public cd: ChangeDetectorRef) {}
 
-    getTemplateAttrs(index) {
-        return {
-            value: this.tokens[index]
-        };
+    getToken(index) {
+        return this.tokens[index];
     }
 
     getTemplateEvents(index) {

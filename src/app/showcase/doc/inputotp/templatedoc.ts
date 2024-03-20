@@ -9,8 +9,8 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-inputOtp [(ngModel)]="value">
-                <ng-template pTemplate="input" let-events="events" let-attrs="attrs">
-                    <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="attrs.value" [maxLength]="1" />
+                <ng-template pTemplate="input" let-token let-events="events">
+                    <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
                 </ng-template>
             </p-inputOtp>
         </div>
