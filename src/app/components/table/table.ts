@@ -1345,6 +1345,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
             if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
                 this.restoreColumnOrder();
+
                 this.tableService.onColumnsChange(this._columns);
             }
         }
@@ -2854,9 +2855,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.tableWidthState = state.tableWidth;
             }
 
-            if (this.reorderableColumns) {
-                this.restoreColumnOrder();
-            }
+            // if (this.reorderableColumns) {
+            //     this.restoreColumnOrder();
+            // }
 
             if (state.expandedRowKeys) {
                 this.expandedRowKeys = state.expandedRowKeys;
@@ -5754,7 +5755,16 @@ export class ColumnFilter implements AfterContentInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" [ariaLabel]="ariaLabel" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)" (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder" />
+                <input
+                    *ngSwitchCase="'text'"
+                    type="text"
+                    [ariaLabel]="ariaLabel"
+                    pInputText
+                    [value]="filterConstraint?.value"
+                    (input)="onModelChange($event.target.value)"
+                    (keydown.enter)="onTextInputEnterKeyDown($event)"
+                    [attr.placeholder]="placeholder"
+                />
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
@@ -5813,7 +5823,7 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() useGrouping: boolean = true;
 
-    @Input() ariaLabel:  string | undefined;
+    @Input() ariaLabel: string | undefined;
 
     get showButtons(): boolean {
         return this.colFilter.showButtons;
