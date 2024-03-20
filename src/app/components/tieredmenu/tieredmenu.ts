@@ -288,7 +288,11 @@ export class TieredMenuSub {
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return index - this.items.slice(0, index).filter((processedItem) => {
+            const isItemVisible = this.isItemVisible(processedItem);
+            const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
+            return !isItemVisible || isVisibleSeparator;
+        }).length + 1;
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -625,11 +629,15 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     isValidItem(processedItem: any): boolean {
-        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item) && this.isItemVisible(processedItem.item);
     }
 
     isItemDisabled(item: any): boolean {
         return this.getItemProp(item, 'disabled');
+    }
+
+    isItemVisible(item: any): boolean {
+        return this.getItemProp(item, 'visible') !== false;
     }
 
     isItemSeparator(item: any): boolean {
