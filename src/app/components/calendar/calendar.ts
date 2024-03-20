@@ -1769,17 +1769,21 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return false;
     }
 
-    isMonthDisabled(month: number) {
-        for (let day = 1; day < this.getDaysCountInMonth(month, this.currentYear) + 1; day++) {
-            if (this.isSelectable(day, month, this.currentYear, false)) {
+    isMonthDisabled(month: number, year?: number) {
+        const yearToCheck = year ?? this.currentYear;
+
+        for (let day = 1; day < this.getDaysCountInMonth(month, yearToCheck) + 1; day++) {
+            if (this.isSelectable(day, month, yearToCheck, false)) {
                 return false;
             }
         }
         return true;
     }
 
-    isYearDisabled(year) {
-        return !this.isSelectable(1, this.currentMonth, year, false);
+    isYearDisabled(year: number) {
+        return Array(12)
+            .fill(0)
+            .every((v, month) => this.isMonthDisabled(month, year));
     }
 
     isYearSelected(year: number) {
