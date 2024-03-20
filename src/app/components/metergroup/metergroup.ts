@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewChild, ViewEncapsulation, effect, forwardRef, inject } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, effect, forwardRef, inject, viewChild } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { MeterItem } from './metergroup.interface';
@@ -142,7 +142,7 @@ export class MeterGroup implements AfterContentInit {
 
     iconTemplate: TemplateRef<any> | undefined;
 
-    container = ViewChild('container', { read: ElementRef });
+    container = viewChild('container', { read: ElementRef });
 
     containerEffect = effect(() => {
         const _container = this.container();
