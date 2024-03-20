@@ -135,6 +135,19 @@ export class InputOtp implements AfterContentInit {
 
     constructor(public cd: ChangeDetectorRef) {}
 
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'input':
+                    this.inputTemplate = item.template;
+                    break;
+                default:
+                    this.inputTemplate = item.template;
+                    break;
+            }
+        });
+    }
+
     getToken(index) {
         return this.tokens[index];
     }
@@ -308,18 +321,6 @@ export class InputOtp implements AfterContentInit {
         return Array.from({ length: n }, (_, index) => index + 1);
     }
 
-    ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
-            switch (item.getType()) {
-                case 'input':
-                    this.inputTemplate = item.template;
-                    break;
-                default:
-                    this.inputTemplate = item.template;
-                    break;
-            }
-        });
-    }
     trackByFn(index: number) {
         return index;
     }
