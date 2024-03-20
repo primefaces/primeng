@@ -13439,14 +13439,6 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
-                            "name": "modelValue",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "WritableSignal<any>",
-                            "default": "...",
-                            "description": "Specifies whether a inputotp should be checked or not."
-                        },
-                        {
                             "name": "invalid",
                             "optional": false,
                             "readonly": false,
@@ -13516,21 +13508,11 @@
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
                         {
-                            "name": "updateModelValue",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "string"
-                                }
-                            ],
-                            "description": "Emitted when the value changes."
-                        },
-                        {
                             "name": "onChange",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "any"
+                                    "name": "event",
+                                    "type": "InputOtpChangeEvent"
                                 }
                             ],
                             "description": "Callback to invoke on value change."
@@ -13597,6 +13579,26 @@
                                 "optional": false,
                                 "readonly": false,
                                 "type": "Function"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputOtpChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
                             }
                         ]
                     }

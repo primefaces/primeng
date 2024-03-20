@@ -42,3 +42,19 @@ export interface InputOtpTemplates {
         attrs: InputOtpTemplateAttrsOptions;
     }): TemplateRef<{ $implicit: any }>;
 }
+
+/**
+ * Custom change event.
+ * @see {@link InputOtp.onChange}
+ * @group Events
+ */
+export interface InputOtpChangeEvent {
+    /**
+     * Browser event.
+     */
+    originalEvent: Event;
+    /**
+     * Selected value.
+     */
+    value: any;
+}

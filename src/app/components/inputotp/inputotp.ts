@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, OnChanges, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation, forwardRef, signal } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from '../inputtext/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputOtpChangeEvent } from './inputotp.interface';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -51,12 +52,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
     },
     providers: [INPUT_OTP_VALUE_ACCESSOR]
 })
-export class InputOtp implements OnChanges, AfterContentInit {
-    /**
-     * Specifies whether a inputotp should be checked or not.
-     * @group Props
-     */
-    modelValue = signal<any>(null);
+export class InputOtp implements AfterContentInit {
     /**
      * When present, it specifies that the component should have invalid state style.
      * @group Props
@@ -99,20 +95,10 @@ export class InputOtp implements OnChanges, AfterContentInit {
      */
     @Input() integerOnly: boolean = false;
     /**
-     * Emitted when the value changes.
-     * @group Emits
-     */
-    @Output() updateModelValue = new EventEmitter<string>();
-    /**
      * Callback to invoke on value change.
      * @group Emits
      */
-    @Output() onChange = new EventEmitter<any>();
-
-    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
-
-    inputTemplate: Nullable<TemplateRef<any>>;
-
+    @Output() onChange: EventEmitter<InputOtpChangeEvent> = new EventEmitter<InputOtpChangeEvent>();
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -126,11 +112,17 @@ export class InputOtp implements OnChanges, AfterContentInit {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter();
 
+    @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
+
+    inputTemplate: Nullable<TemplateRef<any>>;
+
     tokens: any = [];
 
     onModelChange: Function = () => {};
 
     onModelTouched: Function = () => {};
+
+    value: any;
 
     get inputMode(): string {
         return this.integerOnly ? 'number' : 'text';
@@ -141,15 +133,6 @@ export class InputOtp implements OnChanges, AfterContentInit {
     }
 
     constructor(public cd: ChangeDetectorRef) {}
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.modelValue) {
-            const newValue = changes.modelValue.currentValue;
-
-            this.tokens = newValue ? newValue.split('') : new Array(this.length);
-            this.cd.markForCheck();
-        }
-    }
 
     getTemplateAttrs(index) {
         return {
@@ -180,9 +163,7 @@ export class InputOtp implements OnChanges, AfterContentInit {
 
     updateModel(event: any) {
         const newValue = this.tokens.join('');
-
         this.onModelChange(newValue);
-        this.modelValue = newValue;
 
         this.onChange.emit({
             originalEvent: event,
@@ -190,8 +171,8 @@ export class InputOtp implements OnChanges, AfterContentInit {
         });
     }
 
-    writeValue(model: any): void {
-        this.modelValue = model;
+    writeValue(value: any): void {
+        this.value = value;
         this.cd.markForCheck();
     }
 
@@ -220,6 +201,7 @@ export class InputOtp implements OnChanges, AfterContentInit {
             nextInput.select();
         }
     }
+
     findNextInput(element) {
         let nextElement = element.nextElementSibling;
 
@@ -227,6 +209,7 @@ export class InputOtp implements OnChanges, AfterContentInit {
 
         return nextElement.nodeName === 'INPUT' ? nextElement : this.findNextInput(nextElement);
     }
+
     findPrevInput(element) {
         let prevElement = element.previousElementSibling;
 
@@ -265,11 +248,6 @@ export class InputOtp implements OnChanges, AfterContentInit {
                     this.moveToPrev(event);
                     event.preventDefault();
                 }
-
-                break;
-
-            case 40:
-                event.preventDefault();
 
                 break;
 
