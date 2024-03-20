@@ -112,7 +112,7 @@ export class DynamicDialogRef {
 
     private readonly _onMaximize = new Subject<any>();
     /**
-     * Event triggered on resize end.
+     * Event triggered on dialog is maximized.
      * @param {*} value - Size value.
      * @group Events
      */
