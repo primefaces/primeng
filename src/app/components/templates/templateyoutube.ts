@@ -73,7 +73,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
                 </div>
                 <p-dialog header="Video Content" [(visible)]="youtubeVideoVisible" (onHide)="youtubeVideoVisible = false" [style]="{ width: '70vw' }">
                     <div class="template-youtube-video">
-                        <iframe [src]="iframeSrc" title="PrimeNG 2023 Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe [src]="iframeSrc" title="PrimeNG 2023 Roadmap" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </p-dialog>
             </div>

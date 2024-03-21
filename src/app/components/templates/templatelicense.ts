@@ -66,10 +66,6 @@ import { TooltipModule } from 'primeng/tooltip';
 })
 export class TemplateLicense {
     @Input() license;
-
-    ngOnInit(){
-        console.log(this.license)
-    }
 }
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -36,7 +36,7 @@ import { TooltipModule } from 'primeng/tooltip';
     template: `
         <div class="template-hero">
             <ng-container *ngIf="!!selectedTemplate?.pattern">
-                <img class="template-hero-pattern" [src]="selectedTemplate.pattern" alt="Template Hero Pattern" />
+                <img class="template-hero-pattern" width="1344" height="315" [ngSrc]="selectedTemplate.pattern" alt="Template Hero Pattern" />
             </ng-container>
             <div class="template-hero-card">
                 <div class="template-hero-card-logo">{{ selectedTemplate?.logo }}</div>
@@ -59,10 +59,10 @@ import { TooltipModule } from 'primeng/tooltip';
                 </div>
             </div>
             <ng-container *ngIf="!!selectedTemplate?.dashboard1">
-                <img class="template-hero-dashboard1" [src]="selectedTemplate?.dashboard1" alt="Template Dashboard Image 1" />
+                <img class="template-hero-dashboard1" width="504" height="504" [ngSrc]="selectedTemplate?.dashboard1" alt="Template Dashboard Image 1" />
             </ng-container>
             <ng-container *ngIf="!!selectedTemplate?.dashboard2">
-                <img class="template-hero-dashboard2" [src]="selectedTemplate?.dashboard2" alt="Template Dashboard Image 2" />
+                <img class="template-hero-dashboard2" width="504" height="504" [ngSrc]="selectedTemplate?.dashboard2" alt="Template Dashboard Image 2" />
             </ng-container>
         </div>
     `,
@@ -75,7 +75,7 @@ export class TemplateHero {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, NgOptimizedImage],
     exports: [TemplateHero, SharedModule],
     declarations: [TemplateHero]
 })

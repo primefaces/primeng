@@ -101,7 +101,7 @@ export class TemplateFeaturesAnimationInline {
     }
 
     ngOnInit() {
-        // this.startInterval();
+         this.startInterval();
     }
 
     ngOnDestroy() {

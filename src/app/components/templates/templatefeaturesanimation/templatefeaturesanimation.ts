@@ -1,4 +1,4 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
@@ -76,7 +76,7 @@ import { TemplateFeaturesAnimationInline, TemplateFeaturesAnimationInlineModule 
                         ></template-features-animation-inline>
                     </ng-container>
                     <ng-template #featureImage>
-                        <img [src]="featuresData[selectedID - 1]?.src" alt="Animation Feature Image" />
+                        <img [ngSrc]="featuresData[selectedID - 1]?.src" width="960" height="940" alt="Animation Feature Image" />
                     </ng-template>
                 </div>
             </div>
@@ -106,7 +106,7 @@ export class TemplateFeaturesAnimation {
             if (this.selectedID > this.featuresData.length) {
                 this.selectedID = 1;
             }
-            console.log('checked');
+
             this.cd.markForCheck();
         }, 5000);
     }
@@ -134,7 +134,7 @@ export class TemplateFeaturesAnimation {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, TemplateFeaturesAnimationInlineModule],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, TemplateFeaturesAnimationInlineModule, NgOptimizedImage],
     exports: [TemplateFeaturesAnimation, SharedModule],
     declarations: [TemplateFeaturesAnimation]
 })
