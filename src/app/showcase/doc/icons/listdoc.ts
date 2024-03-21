@@ -51,7 +51,6 @@ export class ListDoc {
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement>event.target).value;
         let sanitizedInput = searchText?.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
-        const filteredIcons = [];
 
         if (!searchText) {
             this.filteredIcons = this.icons;
