@@ -70,16 +70,6 @@ export class ListDoc {
                         .includes(sanitizedInput.toLowerCase())
                 );
             });
-            // this.icons.forEach((icon) => {
-            //     if (icon.icon.tags.some((tag) => tag.includes(searchText.toLowerCase()))) {
-            //         filteredIcons.push(icon);
-            //     }
-            //     if (icon.properties.name.toLowerCase().includes(searchText.toLowerCase())) {
-            //         filteredIcons.push(icon);
-            //     }
-            // });
-
-            // this.filteredIcons = [...filteredIcons];
         }
     }
 }
