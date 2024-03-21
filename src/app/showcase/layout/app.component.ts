@@ -38,9 +38,14 @@ export class AppComponent implements OnInit {
             }
 
             this.bindRouteEvents();
+            this.configService.config.update((val) => ({
+                ...val,
+                theme: 'lara-dark-blue',
+                darkMode: true,
+                ripple: true
+            }));
         });
     }
-
     ngOnInit(): void {
         this.primeng.ripple = true;
     }
