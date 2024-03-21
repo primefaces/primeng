@@ -1,53 +1,24 @@
-:root {
-  font-family: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  --font-family: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica,
-      Arial, "Lucida Grande", sans-serif;
-  --surface-a: #1e1e1e;
-  --surface-b: #121212;
-  --surface-c: hsla(0, 0%, 100%, 0.04);
-  --surface-d: hsla(0, 0%, 100%, 0.12);
-  --surface-e: #1e1e1e;
-  --surface-f: #262626;
-  --text-color: rgba(255, 255, 255, 0.87);
-  --text-color-secondary: rgba(255, 255, 255, 0.6);
-  --primary-color: #CE93D8;
-  --primary-color-text: #121212;
-  --surface-0: #121212;
-  --surface-50: #2a2a2a;
-  --surface-100: #414141;
-  --surface-200: #595959;
-  --surface-300: #717171;
-  --surface-400: #898989;
-  --surface-500: #a0a0a0;
-  --surface-600: #b8b8b8;
-  --surface-700: #d0d0d0;
-  --surface-800: #e7e7e7;
-  --surface-900: #ffffff;
-  --gray-50: #e7e7e7;
-  --gray-100: #d0d0d0;
-  --gray-200: #b8b8b8;
-  --gray-300: #a0a0a0;
-  --gray-400: #898989;
-  --gray-500: #717171;
-  --gray-600: #595959;
-  --gray-700: #414141;
-  --gray-800: #2a2a2a;
-  --gray-900: #121212;
-  --content-padding: 1rem;
-  --inline-spacing: 0.5rem;
-  --border-radius: 4px;
-  --surface-ground: #121212;
-  --surface-section: #121212;
-  --surface-card: #1e1e1e;
-  --surface-overlay: #262626;
-  --surface-border: hsla(0, 0%, 100%, 0.12);
-  --surface-hover: hsla(0, 0%, 100%, 0.04);
-  --maskbg: rgba(0, 0, 0, 0.32);
-  --highlight-bg: rgba(206, 147, 216, 0.16);
-  --highlight-text-color: #CE93D8;
-  --focus-ring: none;
-  color-scheme: dark;
+/* Error: Undefined variable.
+ *    ,
+ * 21 |     outline-offset: $inputFocusOutlineOffset;
+ *    |                     ^^^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                                    focused-input()
+ *   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13             @import
+ *   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                                @import
+ *   ../github/primeng-sass-theme/themes/material/material-dark/compact/deeppurple/theme.scss 3:9  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 21 \2502      outline-offset: $inputFocusOutlineOffset;\a    \2502                      ^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                                    focused-input()\a   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13             @import\a   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                                @import\a   ../github/primeng-sass-theme/themes/material/material-dark/compact/deeppurple/theme.scss 3:9  root stylesheet";
 }
+<<<<<<< HEAD
 
 /* roboto-regular - latin-ext_latin */
 @font-face {
@@ -7831,3 +7802,5 @@
   }
 }
 /* Customizations to the designer theme should be defined here */
+=======
+>>>>>>> Init aura

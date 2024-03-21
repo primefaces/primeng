@@ -1,54 +1,24 @@
-:root {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-  --surface-a: #2a323d;
-  --surface-b: #20262e;
-  --surface-c: rgba(255, 255, 255, 0.04);
-  --surface-d: #3f4b5b;
-  --surface-e: #2a323d;
-  --surface-f: #2a323d;
-  --text-color: rgba(255, 255, 255, 0.87);
-  --text-color-secondary: rgba(255, 255, 255, 0.6);
-  --primary-color: #8dd0ff;
-  --primary-color-text: #151515;
-  --surface-0: #20262e;
-  --surface-50: #363c43;
-  --surface-100: #4d5158;
-  --surface-200: #63676d;
-  --surface-300: #797d82;
-  --surface-400: #909397;
-  --surface-500: #a6a8ab;
-  --surface-600: #bcbec0;
-  --surface-700: #d2d4d5;
-  --surface-800: #e9e9ea;
-  --surface-900: #ffffff;
-  --gray-50: #e9e9ea;
-  --gray-100: #d2d4d5;
-  --gray-200: #bcbec0;
-  --gray-300: #a6a8ab;
-  --gray-400: #909397;
-  --gray-500: #797d82;
-  --gray-600: #63676d;
-  --gray-700: #4d5158;
-  --gray-800: #363c43;
-  --gray-900: #20262e;
-  --content-padding: 1.25rem;
-  --inline-spacing: 0.5rem;
-  --border-radius: 4px;
-  --surface-ground: #20262e;
-  --surface-section: #20262e;
-  --surface-card: #2a323d;
-  --surface-overlay: #2a323d;
-  --surface-border: #3f4b5b;
-  --surface-hover: rgba(255, 255, 255, 0.04);
-  --maskbg: rgba(0, 0, 0, 0.4);
-  --focus-ring: 0 0 0 1px #e3f3fe;
-  --highlight-bg: #8dd0ff;
-  --highlight-text-color: #151515;
-  color-scheme: dark;
+/* Error: Undefined variable.
+ *    ,
+ * 21 |     outline-offset: $inputFocusOutlineOffset;
+ *    |                     ^^^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                          focused-input()
+ *   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13   @import
+ *   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                      @import
+ *   ../github/primeng-sass-theme/themes/bootstrap4/bootstrap4-dark/blue/theme.scss 3:9  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 21 \2502      outline-offset: $inputFocusOutlineOffset;\a    \2502                      ^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                          focused-input()\a   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13   @import\a   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                      @import\a   ../github/primeng-sass-theme/themes/bootstrap4/bootstrap4-dark/blue/theme.scss 3:9  root stylesheet";
 }
+<<<<<<< HEAD
 
 :root {
   --blue-50:#f3f8ff;
@@ -6401,3 +6371,5 @@
 }
 /* Vendor extensions to the designer enhanced bootstrap compatibility */
 /* Customizations to the designer theme should be defined here */
+=======
+>>>>>>> Init aura

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
   font-family: Lato, Helvetica, sans-serif;
   --font-family: Lato, Helvetica, sans-serif;
@@ -6377,4 +6378,25 @@
   .p-datatable .p-datatable-tbody > tr.p-datatable-dragpoint-bottom > td {
     box-shadow: inset 0 -2px 0 0 #b19df7;
   }
+=======
+/* Error: Undefined variable.
+ *    ,
+ * 21 |     outline-offset: $inputFocusOutlineOffset;
+ *    |                     ^^^^^^^^^^^^^^^^^^^^^^^^
+ *    '
+ *   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                         focused-input()
+ *   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13  @import
+ *   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                     @import
+ *   ../github/primeng-sass-theme/themes/soho/soho-dark/theme.scss 3:9                  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 21 \2502      outline-offset: $inputFocusOutlineOffset;\a    \2502                      ^^^^^^^^^^^^^^^^^^^^^^^^\a    \2575 \a   ../github/primeng-sass-theme/theme-base/_mixins.scss 21:21                         focused-input()\a   ../github/primeng-sass-theme/theme-base/components/input/_autocomplete.scss 22:13  @import\a   ../github/primeng-sass-theme/theme-base/_components.scss 10:13                     @import\a   ../github/primeng-sass-theme/themes/soho/soho-dark/theme.scss 3:9                  root stylesheet";
+>>>>>>> Init aura
 }
