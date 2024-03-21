@@ -288,11 +288,15 @@ export class TieredMenuSub {
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => {
-            const isItemVisible = this.isItemVisible(processedItem);
-            const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
-            return !isItemVisible || isVisibleSeparator;
-        }).length + 1;
+        return (
+            index -
+            this.items.slice(0, index).filter((processedItem) => {
+                const isItemVisible = this.isItemVisible(processedItem);
+                const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
+                return !isItemVisible || isVisibleSeparator;
+            }).length +
+            1
+        );
     }
 
     isItemVisible(processedItem: any): boolean {

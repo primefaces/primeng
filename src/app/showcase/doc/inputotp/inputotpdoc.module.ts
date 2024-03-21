@@ -15,7 +15,6 @@ import { SampleDoc } from './sampledoc';
 import { ButtonModule } from 'primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
 
-
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, InputOtpModule, InputTextModule, ButtonModule],
     exports: [AppDocModule],

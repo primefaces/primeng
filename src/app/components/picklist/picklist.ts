@@ -1574,7 +1574,6 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.resetTargetFilter();
     }
 
-
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
