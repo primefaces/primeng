@@ -30,6 +30,7 @@
 - MenuItem: Update of 'expanded' and 'label' properties not working [\#14893](https://github.com/primefaces/primeng/issues/14893)
 - p-listbox empty filter message is not being shown [\#14459](https://github.com/primefaces/primeng/issues/14459)
 - p-contextMenu: Neither (onHide) Nor (onShow) event is being triggered when you right click twice continuously on same or other records [\#14962](https://github.com/primefaces/primeng/issues/14962)
+- Showcase | Update angular packages to 17.3x [\#15125](https://github.com/primefaces/primeng/issues/15125)
 
 ## [17.11.0](https://github.com/primefaces/primeng/tree/17.11.0) (2024-03-14)
 
