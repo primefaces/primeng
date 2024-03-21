@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppConfigService {
     _config: AppConfig = {
-        theme: 'lara-light-blue',
+        theme: 'aura-light-blue',
         darkMode: false,
         inputStyle: 'outlined',
         ripple: true,
