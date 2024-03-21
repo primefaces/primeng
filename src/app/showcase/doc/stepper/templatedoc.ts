@@ -24,7 +24,7 @@ import { Code } from '../../domain/code';
                         </button>
                     </ng-template>
 
-                    <ng-template pTemplate="content" let-onNextClick="onNextClick">
+                    <ng-template pTemplate="content" let-nextCallback="nextCallback">
                         <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
                             <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
                             <div class="field p-fluid">
@@ -48,7 +48,7 @@ import { Code } from '../../domain/code';
                             </div>
                         </div>
                         <div class="flex pt-4 justify-content-end">
-                            <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                            <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -68,7 +68,7 @@ import { Code } from '../../domain/code';
                         </button>
                     </ng-template>
 
-                    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick">
+                    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
                         <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                             <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
                             <div class="flex flex-wrap justify-content-center gap-3">
@@ -85,8 +85,8 @@ import { Code } from '../../domain/code';
                             </div>
                         </div>
                         <div class="flex pt-4 justify-content-between">
-                            <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-                            <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+                            <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+                            <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -106,7 +106,7 @@ import { Code } from '../../domain/code';
                         </button>
                     </ng-template>
 
-                    <ng-template pTemplate="content" let-onPrevClick="onPrevClick">
+                    <ng-template pTemplate="content" let-prevCallback="prevCallback">
                         <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
                             <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
                             <div class="text-center">
@@ -114,7 +114,7 @@ import { Code } from '../../domain/code';
                             </div>
                         </div>
                         <div class="flex pt-4 justify-content-start">
-                            <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+                            <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
@@ -176,7 +176,7 @@ export class TemplateDoc {
     </button>
 </ng-template>
 
-<ng-template pTemplate="content" let-onNextClick="onNextClick">
+<ng-template pTemplate="content" let-nextCallback="nextCallback">
     <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
         <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
         <div class="field p-fluid">
@@ -200,7 +200,7 @@ export class TemplateDoc {
         </div>
     </div>
     <div class="flex pt-4 justify-content-end">
-        <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+        <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
     </div>
 </ng-template>
 </p-stepperPanel>
@@ -220,7 +220,7 @@ export class TemplateDoc {
     </button>
 </ng-template>
 
-<ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick">
+<ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
     <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
         <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
         <div class="flex flex-wrap justify-content-center gap-3">
@@ -237,8 +237,8 @@ export class TemplateDoc {
         </div>
     </div>
     <div class="flex pt-4 justify-content-between">
-        <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-        <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+        <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+        <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
     </div>
 </ng-template>
 </p-stepperPanel>
@@ -258,7 +258,7 @@ export class TemplateDoc {
     </button>
 </ng-template>
 
-<ng-template pTemplate="content" let-onPrevClick="onPrevClick">
+<ng-template pTemplate="content" let-prevCallback="prevCallback">
     <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
         <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
         <div class="text-center">
@@ -266,7 +266,7 @@ export class TemplateDoc {
         </div>
     </div>
     <div class="flex pt-4 justify-content-start">
-        <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+        <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
     </div>
 </ng-template>
 </p-stepperPanel>
@@ -288,7 +288,7 @@ export class TemplateDoc {
         </span>
     </button>
 </ng-template>
-<ng-template pTemplate="content" let-onNextClick="onNextClick">
+<ng-template pTemplate="content" let-nextCallback="nextCallback">
     <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
         <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
         <div class="field p-fluid">
@@ -312,7 +312,7 @@ export class TemplateDoc {
         </div>
     </div>
     <div class="flex pt-4 justify-content-end">
-        <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+        <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
     </div>
 </ng-template>
 </p-stepperPanel>
@@ -330,7 +330,7 @@ export class TemplateDoc {
             </span>
         </button>
     </ng-template>
-    <ng-template pTemplate="content" let-onPrevClick="onPrevClick" let-onNextClick="onNextClick">
+    <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
         <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
             <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
             <div class="flex flex-wrap justify-content-center gap-3">
@@ -347,8 +347,8 @@ export class TemplateDoc {
             </div>
         </div>
         <div class="flex pt-4 justify-content-between">
-            <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
-            <p-button (click)="onNextClick.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
+            <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+            <p-button (click)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
         </div>
     </ng-template>
 </p-stepperPanel>
@@ -366,7 +366,7 @@ export class TemplateDoc {
             </span>
         </button>
     </ng-template>
-    <ng-template pTemplate="content" let-onPrevClick="onPrevClick">
+    <ng-template pTemplate="content" let-prevCallback="prevCallback">
         <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
             <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
             <div class="text-center">
@@ -374,7 +374,7 @@ export class TemplateDoc {
             </div>
         </div>
         <div class="flex pt-4 justify-content-start">
-            <p-button (click)="onPrevClick.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
+            <p-button (click)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
         </div>
     </ng-template>
 </p-stepperPanel>
