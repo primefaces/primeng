@@ -775,7 +775,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._selectAll = value;
     }
     /**
-     * Fields used when filtering the options, defaults to optionLabel.
+     * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
      */
     @Input() focusOnHover: boolean = false;
