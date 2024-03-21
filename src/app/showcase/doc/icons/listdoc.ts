@@ -50,21 +50,37 @@ export class ListDoc {
 
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement>event.target).value;
+        let sanitizedInput = searchText?.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
         const filteredIcons = [];
 
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.icons.forEach((icon) => {
-                if (icon.icon.tags.some((tag) => tag.includes(searchText.toLowerCase()))) {
-                    filteredIcons.push(icon);
-                }
-                if (icon.properties.name.toLowerCase().includes(searchText.toLowerCase())) {
-                    filteredIcons.push(icon);
-                }
+            this.filteredIcons = this.icons.filter((icon) => {
+                return (
+                    icon.icon.tags.some((tag) =>
+                        tag
+                            .replace(/[^\w\s]/gi, '')
+                            .replace(/\s/g, '')
+                            .includes(sanitizedInput.toLowerCase())
+                    ) ||
+                    icon.properties.name
+                        .replace(/[^\w\s]/gi, '')
+                        .replace(/\s/g, '')
+                        .toLowerCase()
+                        .includes(sanitizedInput.toLowerCase())
+                );
             });
+            // this.icons.forEach((icon) => {
+            //     if (icon.icon.tags.some((tag) => tag.includes(searchText.toLowerCase()))) {
+            //         filteredIcons.push(icon);
+            //     }
+            //     if (icon.properties.name.toLowerCase().includes(searchText.toLowerCase())) {
+            //         filteredIcons.push(icon);
+            //     }
+            // });
 
-            this.filteredIcons = [...filteredIcons];
+            // this.filteredIcons = [...filteredIcons];
         }
     }
 }
