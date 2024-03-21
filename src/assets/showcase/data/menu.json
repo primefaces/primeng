@@ -60,12 +60,12 @@
                         {
                             "name": "FloatLabel",
                             "routerLink": "/floatlabel",
-                            "badge": "new"
+                            "badge": "NEW"
                         },
                         {
                             "name": "IconField",
                             "routerLink": "/iconfield",
-                            "badge": "new"
+                            "badge": "NEW"
                         },
                         {
                             "name": "InputGroup",
@@ -94,7 +94,7 @@
                         {
                             "name": "InputOtp",
                             "routerLink": "/inputotp",
-                            "badge": "new"
+                            "badge": "NEW"
                         },
                         {
                             "name": "Knob",
@@ -238,7 +238,7 @@
                         {
                             "name": "Stepper",
                             "routerLink": "/stepper",
-                            "badge": "new"
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollPanel",
@@ -415,7 +415,7 @@
                         {
                             "name": "MeterGroup",
                             "routerLink": "/metergroup",
-                            "badge": "new"
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollTop",
