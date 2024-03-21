@@ -9,13 +9,19 @@ import * as templateData from './templatedata.json';
 export class LearnMoreComponent implements OnInit {
     id: string;
 
-    selectedTemplate;
+    selectedTemplate: any;
+
+    templateName: string;
 
     constructor(private route: ActivatedRoute, private router: Router) {}
 
     ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id');
-        this.selectedTemplate = templateData.templates.find((item: any) => item.name === this.id)?.data;
+        const findSelectedTemplate = templateData.templates.find((item: any) => item.name === this.id);
+        const { name, data } = findSelectedTemplate;
+        this.selectedTemplate = data;
+        this.templateName = name;
+
         if (!this.selectedTemplate) {
             this.router.navigateByUrl('/not-found');
         }

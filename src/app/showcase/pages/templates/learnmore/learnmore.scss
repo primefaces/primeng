@@ -1552,3 +1552,547 @@
 
     }
 }
+
+.atlantis {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 50rem;
+                height: auto;
+                position: absolute;
+                bottom: -7rem;
+                left: -7rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                border-radius: 1.12rem;
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .atlantis {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 45rem;
+                    bottom: -5.75rem;
+                    left: -9.5rem;
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .atlantis {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 50rem;
+                    bottom: 16.75rem;
+                    left: -10.5rem;
+                }
+            }
+        }
+
+    }
+}
+
+.avalon {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 56rem;
+                height: auto;
+                position: absolute;
+                bottom: 0px;
+                left: -3.06;
+                z-index: 6;
+
+                
+            }
+            &-rectangle{
+                opacity: 0.5;
+            }
+            &-light{
+                opacity: 0.75;
+            }
+        }
+        &-separator {
+            &-icon {
+                width: 7rem;
+                height: 3.5rem; 
+                border-radius: 99px;
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .avalon {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 68rem;
+                    height: auto;
+                    bottom: -8rem;
+                    left: -12rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .avalon {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 88rem;
+                    height: auto;
+                    bottom: 0rem;
+                    left: -16rem;
+                }
+            }
+        }
+
+    }
+}
+
+.babylon {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 100.3125rem;
+                height: auto;
+                position: absolute;
+                bottom: -23rem;
+                left: -15rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                width: 40rem;
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .babylon {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 72rem;
+                    height: auto;
+                    bottom: -16rem;
+                    left: -20rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .babylon {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 100rem;
+                    height: auto;
+                    bottom: -21rem;
+                    left: -24rem;
+                }
+            }
+        }
+
+    }
+}
+
+.california {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 70.3125rem;
+                height: auto;
+                position: absolute;
+                bottom: -1.2rem;
+                left: -8.65rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                width: 40rem;
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .california {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 64rem;
+                    height: auto;
+                    bottom: -1.2rem;
+                    left: -10rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .california {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 92rem;
+                    height: auto;
+                    bottom: -1.2rem;
+                    left: -16rem;
+                }
+            }
+        }
+
+    }
+}
+
+.diamond {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 62.3125rem;
+                height: 44.8125rem;
+                position: absolute;
+                top: -3.62;
+                left: -3.06;
+                z-index: 6;
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .diamond {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 60rem;
+                    height: auto;
+                    bottom: -8rem;
+                    left: -8rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .diamond {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 64rem;
+                    height: auto;
+                    bottom: 2rem;
+                    left: -8rem;
+                }
+            }
+        }
+
+    }
+}
+
+.freya {
+    .template {
+        &-hero {
+
+            &-pattern {
+                height: auto;
+                width: 45rem;
+                position: absolute;
+                bottom: -9rem;
+                left: 0rem;
+                z-index: 6;
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .freya {
+        .template {
+            &-hero {
+
+                &-pattern {
+                    width: 55rem;
+                    height: auto;
+                    bottom: -2rem;
+                    left: 0;
+                }
+            }
+        }
+
+    }
+}
+
+.poseidon {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 102.3125rem;
+                height: auto;
+                position: absolute;
+                bottom: 0rem;
+                left: -26rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                width: 45rem;
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .poseidon {
+        .template{
+            &-hero {
+                &-pattern {
+                    height: auto;
+                    bottom: 0rem;
+                    left: -34rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .poseidon {
+        .template{
+            &-hero {
+                &-pattern {
+                    height: auto;
+                    bottom: 21rem;
+                    left: -35rem;
+                }
+            }
+        }
+
+    }
+}
+
+.roma {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 56rem;
+                height: auto;
+                position: absolute;
+                bottom: -0.5rem;
+                left: -4.06rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                width: 42rem;
+            }
+        }
+        &-separator {
+            &-icon {
+                width: 6rem;
+                height: 2.5rem;
+                border-radius: 99px;
+                svg{
+                    width: 4.2rem;
+                    height: 4.2rem;
+                }
+            }
+        }
+    }
+
+}
+@media only screen and (max-width: 1200px) {
+    .roma {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 68rem;
+                    height: auto;
+                    bottom: -8rem;
+                    left: -12rem;
+                }
+            }
+        }
+
+    }
+}
+@media only screen and (max-width: 768px) {
+    .roma {
+        .template{
+            &-hero {
+                &-pattern {
+                    width: 88rem;
+                    height: auto;
+                    bottom: 0rem;
+                    left: -16rem;
+                }
+            }
+        }
+
+    }
+}
+
+.sakai {
+    .template {
+        &-hero {
+            &-pattern {
+                width: 72.3125rem;
+                height: auto;
+                position: absolute;
+                bottom: -1rem;
+                left: -1rem;
+                z-index: 6;
+            }
+            &-dashboard1,
+            &-dashboard2{
+                width: 42rem;
+            }
+        }
+        &-features-horizontal-card{
+            width: 30rem;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .sakai {
+        .template {
+            &-hero {
+                &-pattern {
+                    width: 72.3125rem;
+                    height: auto;
+                    bottom: -1rem;
+                    left: -2rem;
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .sakai {
+        .template {
+            &-hero {
+                &-pattern {
+                    width: 64.3125rem;
+                    height: auto;
+                    bottom: 20rem;
+                    left: -2rem;
+                }
+            }
+        }
+
+    }
+}
+
+.ultima {
+    .template {
+        &-hero {
+
+            &-pattern {
+                width: 80rem;
+                height: auto;
+                position: absolute;
+                bottom: -26rem;
+                left: -22.5rem;
+                z-index: 6;
+                mix-blend-mode: overlay;
+            }
+
+            &-dashboard1,
+            &-dashboard2{
+                border-radius: 0.42857rem;
+            }
+
+        }
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .ultima {
+        .template {
+            &-hero {
+
+                &-pattern {
+                    width: 90rem;
+                    left: -25rem;
+                    bottom: -10rem;
+                }
+            }
+        }
+
+    }
+}
+
+.verona {
+    .template {
+        &-hero {
+
+            &-pattern {
+                width: 110rem;
+                height: auto;
+                position: absolute;
+                bottom: -2rem;
+                left: -1rem;
+                z-index: 6;
+            }
+
+        }
+    }
+
+}
+
+@media only screen and (max-width: 1200px) {
+    .verona {
+        .template {
+            &-hero {
+                &-pattern {
+                    width: 120rem;
+                    left: -7.5rem;
+                    bottom: -10rem;
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .verona {
+        .template {
+            &-hero {
+
+                &-pattern {
+                    width: 124rem;
+                    left: -8.5rem;
+                    bottom: 0;
+                }
+            }
+        }
+
+    }
+}

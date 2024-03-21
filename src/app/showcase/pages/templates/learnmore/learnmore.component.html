@@ -1,4 +1,4 @@
-<div class="apollo template">
+<div [class]="templateName + ' template'">
     <template-hero [selectedTemplate]="selectedTemplate?.templateHeroData"></template-hero>
     <template-separator></template-separator>
     <!-- <template-youtube></template-youtube> -->
@@ -19,7 +19,7 @@
 
     <template-configuration title="React based on Next.JS" description="Apollo is powered by Next.js to get started in no time following the best practices. Template is implemented purely in React with Typescript."></template-configuration>
     <template-separator></template-separator>
-    
+
     <ng-container *ngIf="selectedTemplate?.animationFeaturesData1">
         <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></template-features-animation>
         <template-separator></template-separator>
