@@ -50,13 +50,21 @@ export class ListDoc {
 
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement>event.target).value;
+        const filteredIcons = [];
 
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.filteredIcons = this.icons.filter((it) => {
-                return it.icon.tags[0].includes(searchText);
+            this.icons.forEach((icon) => {
+                if (icon.icon.tags.some((tag) => tag.includes(searchText.toLowerCase()))) {
+                    filteredIcons.push(icon);
+                }
+                if (icon.properties.name.toLowerCase().includes(searchText.toLowerCase())) {
+                    filteredIcons.push(icon);
+                }
             });
+
+            this.filteredIcons = [...filteredIcons];
         }
     }
 }
