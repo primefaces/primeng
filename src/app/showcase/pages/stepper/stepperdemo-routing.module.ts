@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { StepperDemo } from './stepperdemo';
 
 @NgModule({
-    imports: [RouterModule.forChild([{ path: '', component: StepperDemo}])],
+    imports: [RouterModule.forChild([{ path: '', component: StepperDemo }])],
     exports: [RouterModule]
 })
 export class StepperDemoRoutingModule {}

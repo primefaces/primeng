@@ -47,10 +47,6 @@ export class InputOtpDemo {
             id: 'accessibility',
             label: 'Accessibility',
             component: AccessibilityDoc
-        },
-      
-      
-      
-      
+        }
     ];
 }

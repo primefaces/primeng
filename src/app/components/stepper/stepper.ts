@@ -49,14 +49,13 @@ export class StepperHeader {
 
     @Input() active: boolean | undefined;
 
-    @Input() highlighted: boolean | undefined;
+    @Input() highlighted: boolean | undefined;
 
-    @Input() getStepProp: string | undefined;
+    @Input() getStepProp: string | undefined;
 
-    @Input() ariaControls: string | undefined;
+    @Input() ariaControls: string | undefined;
 
     @Output() onClick = new EventEmitter<void>();
-    
 }
 
 @Component({
@@ -76,16 +75,15 @@ export class StepperHeader {
 export class StepperSeparator {
     @Input() template: TemplateRef<any> | undefined;
 
-    @Input() separatorClass: string | undefined;
+    @Input() separatorClass: string | undefined;
 
     @Input() stepperPanel: StepperPanel;
 
     @Input() index: string | undefined;
 
-    @Input() active: boolean | undefined;
+    @Input() active: boolean | undefined;
 
     @Input() highlighted: boolean | undefined;
-
 }
 
 @Component({
@@ -118,7 +116,7 @@ export class StepperContent {
 
     @Input() stepperPanel: StepperPanel;
 
-    @Input() index: string | undefined;
+    @Input() index: string | undefined;
 
     @Input() active: boolean | undefined;
 
@@ -129,7 +127,6 @@ export class StepperContent {
     @Output() prevCallback = new EventEmitter<void>();
 
     @Output() nextCallback = new EventEmitter<void>();
-
 }
 
 /**
@@ -387,7 +384,7 @@ export class Stepper implements AfterContentInit {
 
     panels!: StepperPanel[];
 
-    isStepActive(index:number) {
+    isStepActive(index: number) {
         return this.activeStep === index;
     }
 
