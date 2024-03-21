@@ -6849,6 +6849,7 @@
 
   .p-fileupload .p-fileupload-content {
     border-top: 0 none;
+    padding-top: 1.125rem;
   }
 
   .p-galleria .p-galleria-indicators .p-galleria-indicator.p-highlight button {
@@ -7469,6 +7470,9 @@
     border-radius: 6px;
   }
 
+  .p-stepper .p-stepper-header .p-stepper-number {
+    box-shadow: 0px 0.5px 0px 0px rgba(0, 0, 0, 0.06), 0px 1px 1px 0px rgba(0, 0, 0, 0.12);
+  }
   .p-stepper .p-stepper-header.p-highlight .p-stepper-number {
     background: #18181b;
     color: #a78bfa;
