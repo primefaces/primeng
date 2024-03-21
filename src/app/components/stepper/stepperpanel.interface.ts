@@ -98,11 +98,11 @@ export interface StepperPanelContentProps {
     /**
      * Content previous panel click function.
      */
-    onPrevClick: (event: Event) => void;
+    prevCallback: (event: Event) => void;
     /**
      * Content next panel click function.
      */
-    onNextClick: (event: Event) => void;
+    nextCallback: (event: Event) => void;
 }
 /**
  * Props of stepper panel separator.

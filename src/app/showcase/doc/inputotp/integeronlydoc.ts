@@ -19,8 +19,7 @@ export class IntegerOnlyDoc {
     code: Code = {
         basic: `<p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>`,
 
-        html: ` 
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-inputOtp [(ngModel)]="value" [integerOnly]="true"></p-inputOtp>
 </div>`,
 

@@ -59,11 +59,13 @@
                         },
                         {
                             "name": "FloatLabel",
-                            "routerLink": "/floatlabel"
+                            "routerLink": "/floatlabel",
+                            "badge": "NEW"
                         },
                         {
                             "name": "IconField",
-                            "routerLink": "/iconfield"
+                            "routerLink": "/iconfield",
+                            "badge": "NEW"
                         },
                         {
                             "name": "InputGroup",
@@ -91,7 +93,8 @@
                         },
                         {
                             "name": "InputOtp",
-                            "routerLink": "/inputotp"
+                            "routerLink": "/inputotp",
+                            "badge": "NEW"
                         },
                         {
                             "name": "Knob",
@@ -202,7 +205,7 @@
                         {
                             "name": "TreeTable",
                             "routerLink": "/treetable"
-                        }   
+                        }
                     ]
                 },
                 {
@@ -234,7 +237,8 @@
                         },
                         {
                             "name": "Stepper",
-                            "routerLink": "/stepper"
+                            "routerLink": "/stepper",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollPanel",
@@ -410,7 +414,8 @@
                         },
                         {
                             "name": "MeterGroup",
-                            "routerLink": "/metergroup"
+                            "routerLink": "/metergroup",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollTop",

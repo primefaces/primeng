@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from '../utils/uniquecomponentid';
+import { UniqueComponentId } from 'primeng/utils';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -90,7 +90,7 @@ export class StepperSeparator {
     selector: 'p-stepperContent',
     template: ` <div [id]="id" role="tabpanel" data-pc-name="stepperpanel" [attr.data-pc-index]="index" [attr.data-p-active]="active" [attr.aria-labelledby]="ariaLabelledby">
         <ng-container *ngIf="template">
-            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick, onPrevClick: onPrevClick, onNextClick: onNextClick }"></ng-container>
+            <ng-container *ngTemplateOutlet="template; context: { index: index, active: active, highlighted: highlighted, onClick: onClick, prevCallback: prevCallback, nextCallback: nextCallback }"></ng-container>
         </ng-container>
         <ng-template *ngIf="!template">
             <ng-container *ngIf="stepperPanel">
@@ -124,9 +124,9 @@ export class StepperContent {
 
     @Output() onClick = new EventEmitter<void>();
 
-    @Output() onPrevClick = new EventEmitter<void>();
+    @Output() prevCallback = new EventEmitter<void>();
 
-    @Output() onNextClick = new EventEmitter<void>();
+    @Output() nextCallback = new EventEmitter<void>();
 }
 
 /**
@@ -238,8 +238,8 @@ export class StepperPanel {
                                 [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
-                                (onNextClick)="nextCallback($event, index)"
-                                (onPrevClick)="prevCallback($event, index)"
+                                (nextCallback)="nextCallback($event, index)"
+                                (prevCallback)="prevCallback($event, index)"
                             />
                         </ng-container>
                     </ng-template>
@@ -296,8 +296,8 @@ export class StepperPanel {
                                 [highlighted]="index < activeStep"
                                 [ariaLabelledby]="getStepHeaderActionId(index)"
                                 (onClick)="onItemClick($event, index)"
-                                (onNextClick)="nextCallback($event, index)"
-                                (onPrevClick)="prevCallback($event, index)"
+                                (nextCallback)="nextCallback($event, index)"
+                                (prevCallback)="prevCallback($event, index)"
                             />
                         </div>
                     </div>

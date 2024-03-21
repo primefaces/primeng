@@ -21,15 +21,15 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-<input id="username" type="text" pInputText [(ngModel)]="value" />
-<label for="username">Username</label>
+    <input id="username" type="text" pInputText [(ngModel)]="value" />
+    <label for="username">Username</label>
 </p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
-<p-floatLabel>
-<input id="username" type="text" pInputText [(ngModel)]="value" />
-<label for="username">Username</label>
-</p-floatLabel>
+    <p-floatLabel>
+        <input id="username" type="text" pInputText [(ngModel)]="value" />
+        <label for="username">Username</label>
+    </p-floatLabel>
 </div>`,
 
         typescript: `

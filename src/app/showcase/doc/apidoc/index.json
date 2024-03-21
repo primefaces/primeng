@@ -3114,6 +3114,12 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "removeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -7374,6 +7380,16 @@
                             "description": "Callback to invoke on clear token clicked."
                         }
                     ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "clear",
+                            "parameters": [],
+                            "description": "Callback to invoke on filter reset."
+                        }
+                    ]
                 }
             }
         },
@@ -10721,7 +10737,7 @@
                         },
                         {
                             "name": "onMaximize",
-                            "description": "Event triggered on resize end."
+                            "description": "Event triggered on dialog is maximized."
                         }
                     ]
                 }
@@ -13399,7 +13415,7 @@
                                 "name": "value",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "number",
+                                "type": "string | number",
                                 "description": "Input value."
                             },
                             {
@@ -15208,6 +15224,16 @@
                                 }
                             ],
                             "description": "This function is executed when the value changes."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Message"
+                                }
+                            ],
+                            "description": "This function is executed when a message is closed."
                         }
                     ]
                 }
@@ -21909,13 +21935,13 @@
                                 "type": "Function"
                             },
                             {
-                                "name": "onPrevClick",
+                                "name": "prevCallback",
                                 "optional": false,
                                 "readonly": false,
                                 "type": "Function"
                             },
                             {
-                                "name": "onNextClick",
+                                "name": "nextCallback",
                                 "optional": false,
                                 "readonly": false,
                                 "type": "Function"
@@ -23306,6 +23332,13 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Defines the visibility of buttons."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the aria-label of the form element."
                         }
                     ]
                 }

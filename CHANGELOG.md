@@ -1,5 +1,38 @@
 # Changelog
-## [17.10.0](https://github.com/primefaces/primeng/tree/17.11.0) (2024-03-14)
+## [17.12.0](https://github.com/primefaces/primeng/tree/17.12.0) (2024-03-21)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.11.0...17.12.0)
+
+**Implemented New Features and Enhancements:**
+- New Component | InputOtp [\#15101](https://github.com/primefaces/primeng/issues/15101)
+- New Component | Stepper [\#15100](https://github.com/primefaces/primeng/issues/15100)
+- Chips | Make clear method public [\#15109](https://github.com/primefaces/primeng/issues/15109)
+- Dialog: Ensures every ARIA dialog and alertdialog node has an accessible name. [\#14950](https://github.com/primefaces/primeng/issues/14950)
+- Steps: Invalid and unnecessary tablist role structure [\#15099](https://github.com/primefaces/primeng/issues/15099)
+- p-chip: Missing button role on a remove icon [\#15095](https://github.com/primefaces/primeng/issues/15095)
+- Message | Add onClose emitter [\#14982](https://github.com/primefaces/primeng/issues/14982)
+- Table / Filter Row: Form elements missing aria-label [\#15024](https://github.com/primefaces/primeng/issues/15024)
+- Calendar, TreeSelect, MultiSelect: Invalid aria-controls attribute value. Overlay missing an id attribute. [\#14980](https://github.com/primefaces/primeng/issues/14980)
+- type of InputNumberInputEvent.value is "number | string", cause it can be string when there is nothing accept "-" (minus sign) [\#15076](https://github.com/primefaces/primeng/issues/15076)
+- AutoComplete | clear input field if showClear="true" [\#15078](https://github.com/primefaces/primeng/issues/15078)
+
+**Fixed bugs:**
+- Table | Row Expansion and Selection not Working Together [\#14081](https://github.com/primefaces/primeng/issues/14081)
+- TieredMenu: Keyboard navigation does not skip non-visible menu items [\#15058](https://github.com/primefaces/primeng/issues/15058)
+- Calendar: the calendar disables the year if minDate is set to the current month [\#13919](https://github.com/primefaces/primeng/issues/13919)
+- Picklist items deleted: On using Ctrl+A to select all, then right clicking on item it gets removed from the list [\#15046](https://github.com/primefaces/primeng/issues/15046)
+- p-tree: Parent node always undefined in node selection events when Virtual Scrolling is enabled [\#12718](https://github.com/primefaces/primeng/issues/12718)
+- Component: p-table column order not restored [\#14888](https://github.com/primefaces/primeng/issues/14888)
+- p-table: Date filter not working [\#14987](https://github.com/primefaces/primeng/issues/14987)
+- TreeSelect: 'itemcheckboxicon' issue [\#15086](https://github.com/primefaces/primeng/issues/15086)
+- Component: p-dropdown (onBlur) is not fired when a value is not selected [\#15049](https://github.com/primefaces/primeng/issues/15049)
+- whole page & browser tab is hanging after 17.11 update [\#15057](https://github.com/primefaces/primeng/issues/15057)
+- MenuItem: Update of 'expanded' and 'label' properties not working [\#14893](https://github.com/primefaces/primeng/issues/14893)
+- p-listbox empty filter message is not being shown [\#14459](https://github.com/primefaces/primeng/issues/14459)
+- p-contextMenu: Neither (onHide) Nor (onShow) event is being triggered when you right click twice continuously on same or other records [\#14962](https://github.com/primefaces/primeng/issues/14962)
+- Showcase | Update angular packages to 17.3x [\#15125](https://github.com/primefaces/primeng/issues/15125)
+
+## [17.11.0](https://github.com/primefaces/primeng/tree/17.11.0) (2024-03-14)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.10.0...17.11.0)
 
