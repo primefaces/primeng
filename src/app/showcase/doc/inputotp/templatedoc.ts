@@ -44,17 +44,17 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-inputOtp [(ngModel)]="value">
-        <ng-template pTemplate="input" let-token let-events="events">
-            <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
-        </ng-template>
-</p-inputOtp>`,
-
-        html: `<div class="card flex justify-content-center">
-<p-inputOtp [(ngModel)]="value">
     <ng-template pTemplate="input" let-token let-events="events">
         <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
     </ng-template>
-</p-inputOtp>
+</p-inputOtp>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-inputOtp [(ngModel)]="value">
+        <ng-template pTemplate="input" let-token let-events="events">
+            <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+        </ng-template>
+    </p-inputOtp>
 </div>`,
 
         typescript: `
