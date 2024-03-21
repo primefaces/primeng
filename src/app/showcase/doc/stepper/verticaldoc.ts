@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
                         </div>
                         <div class="flex py-4">
-                            <p-button label="Next" (click)="nextCallback.emit()" /></div
+                            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel header="Header II">
@@ -24,8 +24,8 @@ import { Code } from '../../domain/code';
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
                         </div>
                         <div class="flex py-4 gap-2">
-                            <p-button label="Back" severity="secondary" (click)="prevCallback.emit()" />
-                            <p-button label="Next" (click)="nextCallback.emit()" /></div
+                            <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
+                            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel header="Header III">
@@ -34,7 +34,7 @@ import { Code } from '../../domain/code';
                             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
                         </div>
                         <div class="flex py-4">
-                            <p-button label="Back" (click)="prevCallback.emit()" /></div
+                            <p-button label="Back" (onClick)="prevCallback.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
             </p-stepper>
@@ -51,7 +51,7 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
         </div>
         <div class="flex py-4">
-            <p-button label="Next" (click)="nextCallback.emit()" /></div
+            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 <p-stepperPanel header="Header II">
@@ -60,8 +60,8 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
         </div>
         <div class="flex py-4 gap-2">
-            <p-button label="Back" severity="secondary" (click)="prevCallback.emit()" />
-            <p-button label="Next" (click)="nextCallback.emit()" /></div
+            <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
+            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 <p-stepperPanel header="Header III">
@@ -70,7 +70,7 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
         </div>
         <div class="flex py-4">
-            <p-button label="Back" (click)="prevCallback.emit()" /></div
+            <p-button label="Back" (onClick)="prevCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 </p-stepper>`,
@@ -83,7 +83,7 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content I</div>
         </div>
         <div class="flex py-4">
-            <p-button label="Next" (click)="nextCallback.emit()" /></div
+            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 
@@ -93,8 +93,8 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content II</div>
         </div>
         <div class="flex py-4 gap-2">
-            <p-button label="Back" severity="secondary" (click)="prevCallback.emit()" />
-            <p-button label="Next" (click)="nextCallback.emit()" /></div
+            <p-button label="Back" severity="secondary" (onClick)="prevCallback.emit()" />
+            <p-button label="Next" (onClick)="nextCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 
@@ -104,7 +104,7 @@ export class VerticalDoc {
             <div class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium">Content III</div>
         </div>
         <div class="flex py-4">
-            <p-button label="Back" (click)="prevCallback.emit()" /></div
+            <p-button label="Back" (onClick)="prevCallback.emit()" /></div
     ></ng-template>
 </p-stepperPanel>
 </p-stepper>
