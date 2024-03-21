@@ -81,6 +81,7 @@ export class TemplateFeaturesAnimationInline {
         this.handleClick(id);
         this.parentHandleClick(id);
     };
+
     startInterval() {
         this.intervalId = setInterval(() => {
             this.selectedID++;
@@ -90,6 +91,7 @@ export class TemplateFeaturesAnimationInline {
             this.cd.markForCheck();
         }, this.inlineSeconds);
     }
+    
     enterCardArea() {
         clearInterval(this.intervalId);
     }

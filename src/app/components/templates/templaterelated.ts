@@ -24,6 +24,7 @@ import {
     forwardRef,
     signal
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
@@ -38,7 +39,7 @@ import { TooltipModule } from 'primeng/tooltip';
         <div class="template-related">
             <h2 class="template-related-title">Related Layouts</h2>
             <div class="template-related-slide">
-                <a *ngFor="let data of relatedData; let i = index" [href]="data.href" target="_blank" class="template-related-slide-card">
+                <a *ngFor="let data of relatedData; let i = index" [routerLink]="data.href" class="template-related-slide-card">
                     <img [src]="data.src" [alt]="'Related Image ' + i" />
                 </a>
             </div>
@@ -53,7 +54,7 @@ export class TemplateRelated {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon,RouterModule],
     exports: [TemplateRelated, SharedModule],
     declarations: [TemplateRelated]
 })
