@@ -183,7 +183,8 @@
                     "description": "Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeReact themes.",
                     "liveHref": "https://apollo.primereact.org",
                     "docHref": "https://apollo.primereact.org/documentation"
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-youtube-screen.png"
             }
         },
         {
@@ -345,7 +346,8 @@
                     "description": "Prepare to be amazed by the remastered Atlantis for PrimeReact featuring a new gorgeous dark mode for the entire layout, 5 menu modes, reusable css widgets, utilities, modern icons and many more.",
                     "liveHref": "https://www.primefaces.org/atlantis-react/",
                     "docHref": "https://www.primefaces.org/atlantis-react/documentation/"
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-youtube-screen.png"
             }
         },
         {
@@ -701,7 +703,8 @@
                     "description": "An amazing application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 30 PrimeReact themes.",
                     "liveHref": "https://diamond.primereact.org",
                     "docHref": "https://diamond.primereact.org/documentation"
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-youtube-screen.png"
             }
         },
         {
@@ -863,7 +866,8 @@
                     "description": "Freya is a modern admin template for developers and IT professionals. It comes with a huge collection of reusable UI components and dozens of built-in layouts for various purposes.",
                     "liveHref": "https://www.primefaces.org/freya-react/",
                     "docHref": "https://freya.primereact.org/documentation"
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/freya/freya-youtube-screen.png"
             }
         },
         {
@@ -1131,7 +1135,8 @@
                             "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
                         }
                     ]
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-youtube-screen.png"
             }
         },
         {
@@ -1284,7 +1289,8 @@
                             "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
                         }
                     ]
-                }
+                },
+                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/verona/verona-youtube-screen.png"
             }
         }
     ]

@@ -91,7 +91,7 @@ export class TemplateFeaturesAnimationInline {
             this.cd.markForCheck();
         }, this.inlineSeconds);
     }
-    
+
     enterCardArea() {
         clearInterval(this.intervalId);
     }
@@ -101,7 +101,7 @@ export class TemplateFeaturesAnimationInline {
     }
 
     ngOnInit() {
-        this.startInterval();
+        // this.startInterval();
     }
 
     ngOnDestroy() {

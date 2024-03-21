@@ -12,6 +12,7 @@ import {
     Inject,
     Input,
     NgModule,
+    NgZone,
     OnDestroy,
     Output,
     PLATFORM_ID,
@@ -95,11 +96,9 @@ export class TemplateFeaturesAnimation {
 
     hoveredID = null;
 
-    intervalId;
+    intervalId = null;
 
-    cancelInterval = false;
-
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     startInterval() {
         this.intervalId = setInterval(() => {
@@ -107,6 +106,7 @@ export class TemplateFeaturesAnimation {
             if (this.selectedID > this.featuresData.length) {
                 this.selectedID = 1;
             }
+            console.log('checked');
             this.cd.markForCheck();
         }, 5000);
     }
@@ -120,11 +120,12 @@ export class TemplateFeaturesAnimation {
     }
 
     ngOnInit() {
-        this.startInterval();
+        // this.startInterval();
     }
 
     ngOnDestroy() {
         clearInterval(this.intervalId);
+        this.intervalId = null;
     }
 
     handleClick(id) {
