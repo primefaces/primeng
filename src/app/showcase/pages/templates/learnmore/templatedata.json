@@ -5,15 +5,15 @@
             "data": {
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg",
                         "href": "/templates/diamond"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/avalon-ng.jpg",
                         "href": "/templates/avalon"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg",
                         "href": "/templates/babylon"
                     }
                 ],
@@ -240,15 +240,15 @@
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg",
                         "href": "/templates/freya"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg",
                         "href": "/templates/ultima"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/roma-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg",
                         "href": "/templates/roma"
                     }
                 ],
@@ -418,15 +418,15 @@
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg",
                         "href": "/templates/babylon"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg",
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/roma-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg",
                         "href": "/templates/roma"
                     }
                 ],
@@ -619,15 +619,15 @@
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg",
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/avalon-ng.jpg",
                         "href": "/templates/avalon"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/roma-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg",
                         "href": "/templates/roma"
                     }
                 ],
@@ -802,15 +802,15 @@
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg",
                         "href": "/templates/diamond"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg",
                         "href": "/templates/babylon"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg",
                         "href": "/templates/ultima"
                     }
                 ],
@@ -1092,15 +1092,15 @@
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/diamond-ng.jpg",
                         "href": "/templates/diamond"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg",
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg",
                         "href": "/templates/babylon"
                     }
                 ],
@@ -1241,15 +1241,15 @@
                 },
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg",
                         "href": "/templates/freya"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg",
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg",
                         "href": "/templates/atlantis"
                     }
                 ],
@@ -1409,15 +1409,15 @@
                 },
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya-ng.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg",
                         "href": "/templates/freya"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo-ng.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg",
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis-ng.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg",
                         "href": "/templates/atlantis"
                     }
                 ],
