@@ -405,6 +405,16 @@ export class PanelMenuList implements OnChanges {
         return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
     }
 
+    findItemByEventTarget(target: EventTarget): undefined | any {
+        let parentNode = target as ParentNode & Element;
+
+        while (parentNode && parentNode.tagName?.toLowerCase() !== 'li') {
+            parentNode = parentNode?.parentNode as Element;
+        }
+
+        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
+    }
+
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
         const processedItems = [];
         items &&
@@ -475,7 +485,7 @@ export class PanelMenuList implements OnChanges {
     onFocus(event) {
         if (!this.focused) {
             this.focused = true;
-            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findItemByEventTarget(event.target) || this.findFirstItem() : this.findLastItem());
             if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
         }
     }
