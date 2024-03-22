@@ -4,8 +4,8 @@ import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'virtual-scroll-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.</p>
         </app-docsectiontext>
@@ -13,13 +13,9 @@ import { NodeService } from '../../service/nodeservice';
             <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"
                           [virtualScroll]="true" [virtualScrollItemSize]="46" [virtualScrollOptions]="{ scrollHeight: '200px' }"></p-treeSelect>
         </div>
-        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="tree-select-virtual-scroll-demo"></app-code>`
 })
 export class VirtualScrollDoc {
-    @Input() id: string;
-
-    @Input() title: string;
 
     nodes!: any[];
 
