@@ -1,31 +1,28 @@
+import { CommonModule, isPlatformServer } from '@angular/common';
 import {
-    NgModule,
-    Component,
-    ElementRef,
-    AfterViewInit,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    forwardRef,
-    ChangeDetectionStrategy,
-    ViewEncapsulation,
-    ContentChildren,
-    QueryList,
     AfterContentInit,
-    TemplateRef,
-    AfterViewChecked,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
     Inject,
-    PLATFORM_ID
+    Input,
+    NgModule,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    afterNextRender,
+    forwardRef
 } from '@angular/core';
-import { isPlatformBrowser, CommonModule } from '@angular/common';
-import { SharedModule, Header, PrimeTemplate } from 'primeng/api';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { EditorInitEvent, EditorTextChangeEvent, EditorSelectionChangeEvent } from './editor.interface';
 import { Nullable } from 'primeng/ts-helpers';
-//@ts-ignore
-import Quill from 'quill';
+import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -96,7 +93,7 @@ export const EDITOR_VALUE_ACCESSOR: any = {
         class: 'p-element'
     }
 })
-export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit, ControlValueAccessor {
+export class Editor implements AfterContentInit, ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props
@@ -147,10 +144,10 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     set readonly(val: boolean) {
         this._readonly = val;
 
-        // if (this.quill) {
-        //     if (this._readonly) this.quill.disable();
-        //     else this.quill.enable();
-        // }
+        if (this.quill) {
+            if (this._readonly) this.quill.disable();
+            else this.quill.enable();
+        }
     }
     /**
      * Callback to invoke when the quill modules are loaded.
@@ -187,6 +184,8 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     quill: any;
 
+    dynamicQuill: any;
+
     headerTemplate: Nullable<TemplateRef<any>>;
 
     private get isAttachedQuillEditorToDOM(): boolean | undefined {
@@ -195,33 +194,17 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
-    constructor(@Inject(PLATFORM_ID) public platformId: any, public el: ElementRef) {}
-
-    ngAfterViewInit(): void {
-        if (isPlatformBrowser(this.platformId)) {
+    constructor(public el: ElementRef, @Inject(PLATFORM_ID) private platformId: object) {
+        /**
+         * Read or write the DOM once, when initializing non-Angular (Quill) library.
+         */
+        afterNextRender(() => {
             this.initQuillElements();
+
             if (this.isAttachedQuillEditorToDOM) {
                 this.initQuillEditor();
             }
-        }
-    }
-
-    ngAfterViewChecked(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            // The problem is inside the `quill` library, we need to wait for a new release.
-            // Function `isLine` - used `getComputedStyle`, it was rewritten in the next release.
-            // (We need to wait for a release higher than 1.3.7).
-            // These checks and code can be removed.
-            if (!this.quill && this.isAttachedQuillEditorToDOM) {
-                this.initQuillEditor();
-            }
-
-            // Can also be deleted after updating `quill`.
-            if (this.delayedCommand && this.isAttachedQuillEditorToDOM) {
-                this.delayedCommand();
-                this.delayedCommand = null;
-            }
-        }
+        });
     }
 
     ngAfterContentInit() {
@@ -275,12 +258,33 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     }
 
     private initQuillEditor(): void {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
+
+        /**
+         * Importing Quill at top level, throws `document is undefined` error during when
+         * building for SSR, so this dynamically loads quill when it's in browser module.
+         */
+        if (!this.dynamicQuill) {
+            import('quill')
+                .then((quillModule: any) => {
+                    this.dynamicQuill = quillModule.default;
+                    this.createQuillEditor();
+                })
+                .catch((e) => console.error(e.message));
+        } else {
+            this.createQuillEditor();
+        }
+    }
+
+    private createQuillEditor(): void {
         this.initQuillElements();
 
         const { toolbarElement, editorElement } = this.quillElements;
         let defaultModule = { toolbar: toolbarElement };
         let modules = this.modules ? { ...defaultModule, ...this.modules } : defaultModule;
-        this.quill = new Quill(editorElement, {
+        this.quill = new this.dynamicQuill(editorElement, {
             modules: modules,
             placeholder: this.placeholder,
             readOnly: this.readonly,
@@ -329,13 +333,11 @@ export class Editor implements AfterViewInit, AfterViewChecked, AfterContentInit
     }
 
     private initQuillElements(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            if (!this.quillElements) {
-                this.quillElements = {
-                    editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
-                    toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
-                };
-            }
+        if (!this.quillElements) {
+            this.quillElements = {
+                editorElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-content'),
+                toolbarElement: DomHandler.findSingle(this.el.nativeElement, 'div.p-editor-toolbar')
+            };
         }
     }
 }
