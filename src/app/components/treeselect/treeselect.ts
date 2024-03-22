@@ -2,7 +2,7 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
@@ -127,7 +127,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </button>
                         </div>
-                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
+                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }" >
                             <p-tree
                                 #tree
                                 [value]="options"
@@ -147,6 +147,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [filterPlaceholder]="filterPlaceholder"
                                 [filterLocale]="filterLocale"
                                 [filteredNodes]="filteredNodes"
+                                [virtualScroll]="virtualScroll"
+                                [virtualScrollItemSize]="virtualScrollItemSize"
+                                [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
                             >
                                 <ng-container *ngIf="emptyTemplate">
@@ -343,6 +346,21 @@ export class TreeSelect implements AfterContentInit {
      * @group Props
      */
     @Input() resetFilterOnHide: boolean = true;
+    /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
     /**
      * An array of treenodes.
      * @defaultValue undefined
