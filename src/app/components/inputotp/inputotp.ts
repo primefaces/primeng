@@ -295,7 +295,7 @@ export class InputOtp implements AfterContentInit {
                 break;
 
             default:
-                if (this.integerOnly && !(event.keyCode >= 48 && event.keyCode <= 57)) {
+                if (this.integerOnly && !((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105))) {
                     event.preventDefault();
                 }
 
