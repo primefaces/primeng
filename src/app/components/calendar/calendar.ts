@@ -2496,7 +2496,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return hours;
     };
 
-    validateTime(hour: number, minute: number, second: number, pm: boolean) {
+    constrainTime(hour: number, minute: number, second: number, pm: boolean) {
+        let returnTimeTriple: number[] = [ hour, minute, second ]
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
@@ -2515,58 +2516,42 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
         const valueDateString = value ? value.toDateString() : null;
-        if (this.minDate && valueDateString && this.minDate.toDateString() === valueDateString) {
-            if (this.minDate.getHours() > convertedHour) {
-                return false;
-            }
-            if (this.minDate.getHours() === convertedHour) {
-                if (this.minDate.getMinutes() > minute) {
-                    return false;
-                }
-                if (this.minDate.getMinutes() === minute) {
-                    if (this.minDate.getSeconds() > second) {
-                        return false;
-                    }
-                }
-            }
+        let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
+        let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
+        switch (true) { // intentional fall through
+            case isMinDate && this.minDate.getHours() > convertedHour:
+                returnTimeTriple[0] = this.minDate.getHours();
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate.getMinutes();
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate.getSeconds();
+                break;
+            case isMaxDate && this.maxDate.getHours() < convertedHour:
+                returnTimeTriple[0] = this.maxDate.getHours();
+            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() < minute:
+                returnTimeTriple[1] = this.maxDate.getMinutes();
+            case isMaxDate && this.maxDate.getHours() === convertedHour && this.maxDate.getMinutes() === minute && this.maxDate.getSeconds() < second:
+                returnTimeTriple[2] = this.maxDate.getSeconds();
+                break;
         }
-
-        if (this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString) {
-            if (this.maxDate.getHours() < convertedHour) {
-                return false;
-            }
-            if (this.maxDate.getHours() === convertedHour) {
-                if (this.maxDate.getMinutes() < minute) {
-                    return false;
-                }
-                if (this.maxDate.getMinutes() === minute) {
-                    if (this.maxDate.getSeconds() < second) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
+        return returnTimeTriple;
     }
 
     incrementHour(event: any) {
-        const prevHour = this.currentHour;
-        let newHour = <number>this.currentHour + this.stepHour;
+        const prevHour = this.currentHour ?? 0;
+        let newHour = (this.currentHour ?? 0) + this.stepHour;
         let newPM = this.pm;
-
-        if (this.hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
+        if (this.hourFormat == '24')
+            newHour = newHour >= 24 ? newHour - 24 : newHour;
         else if (this.hourFormat == '12') {
             // Before the AM/PM break, now after
-            if (<number>prevHour < 12 && newHour > 11) {
+            if (prevHour < 12 && newHour > 11) {
                 newPM = !this.pm;
             }
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
-
-        if (this.validateTime(newHour, <any>this.currentMinute, <any>this.currentSecond, <any>newPM)) {
-            this.currentHour = newHour;
-            this.pm = newPM;
-        }
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
+        this.pm = newPM;
         event.preventDefault();
     }
 
@@ -2628,10 +2613,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     decrementHour(event: any) {
-        let newHour = <number>this.currentHour - this.stepHour;
+        let newHour = ( this.currentHour ?? 0 ) - this.stepHour;
         let newPM = this.pm;
-
-        if (this.hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
+        if (this.hourFormat == '24')
+            newHour = newHour < 0 ? 24 + newHour : newHour;
         else if (this.hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
@@ -2639,52 +2624,36 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
-
-        if (this.validateTime(newHour, <any>this.currentMinute, <any>this.currentSecond, <any>newPM)) {
-            this.currentHour = newHour;
-            this.pm = newPM;
-        }
-
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
+        this.pm = newPM;
         event.preventDefault();
     }
 
     incrementMinute(event: any) {
-        let newMinute = <number>this.currentMinute + this.stepMinute;
+        let newMinute = ( this.currentMinute ?? 0 ) + this.stepMinute;
         newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
-        if (this.validateTime(<any>this.currentHour, newMinute, <any>this.currentSecond, <any>this.pm)) {
-            this.currentMinute = newMinute;
-        }
-
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
         event.preventDefault();
     }
 
     decrementMinute(event: any) {
-        let newMinute = <any>this.currentMinute - this.stepMinute;
+        let newMinute = ( this.currentMinute ?? 0 ) - this.stepMinute;
         newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
-        if (this.validateTime(<any>this.currentHour, newMinute, <any>this.currentSecond, <any>this.pm)) {
-            this.currentMinute = newMinute;
-        }
-
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
         event.preventDefault();
     }
 
     incrementSecond(event: any) {
         let newSecond = <any>this.currentSecond + this.stepSecond;
         newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
-        if (this.validateTime(<any>this.currentHour, <any>this.currentMinute, newSecond, <any>this.pm)) {
-            this.currentSecond = newSecond;
-        }
-
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
         event.preventDefault();
     }
 
     decrementSecond(event: any) {
         let newSecond = <any>this.currentSecond - this.stepSecond;
         newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
-        if (this.validateTime(<any>this.currentHour, <any>this.currentMinute, newSecond, <any>this.pm)) {
-            this.currentSecond = newSecond;
-        }
-
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
         event.preventDefault();
     }
 
@@ -2723,10 +2692,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     toggleAMPM(event: any) {
         const newPM = !this.pm;
-        if (this.validateTime(<any>this.currentHour, <any>this.currentMinute, <any>this.currentSecond, newPM)) {
-            this.pm = newPM;
-            this.updateTime();
-        }
+        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
+        this.pm = newPM;
+        this.updateTime();
         event.preventDefault();
     }
 
