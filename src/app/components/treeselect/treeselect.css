@@ -94,12 +94,4 @@
     .p-treeselect-clearable {
         position: relative;
     }
-
-    .p-treeselect-virtual-scroll .p-tree.p-component {
-      padding: 0;
-    }
-
-    .p-treeselect-virtual-scroll .p-tree-container.p-scroller-content {
-      padding: 1.25rem;
-    }
 }
