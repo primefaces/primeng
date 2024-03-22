@@ -53,7 +53,7 @@ import { TooltipModule } from 'primeng/tooltip';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrl: '../../../showcase/pages/templates/learnmore/learnmore.scss'
+    styleUrl: '../../../pages/templates/learnmore/learnmore.scss'
 })
 export class TemplateHeroRectangle {}
 

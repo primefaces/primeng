@@ -50,8 +50,8 @@ import { TooltipModule } from 'primeng/tooltip';
                         <img class="template-configuration-screen-bottom-logo" src="https://primefaces.org/cdn/primereact/images/templates/react-3d-logo.png" alt="Angular 3D Logo" />
                     </div>
                 </div>
-                <h3 class="template-configuration-title">{{ configurationData?.title }}</h3>
-                <p class="template-configuration-description">{{ configurationData?.description }}</p>
+                <h3 class="template-configuration-title">{{ title }}</h3>
+                <p class="template-configuration-description">{{ description }}</p>
             </div>
         </div>
     `,
@@ -59,7 +59,8 @@ import { TooltipModule } from 'primeng/tooltip';
     encapsulation: ViewEncapsulation.None
 })
 export class TemplateConfiguration {
-    @Input() configurationData;
+    @Input() title;
+    @Input() description;
 }
 
 @NgModule({
