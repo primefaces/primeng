@@ -55,8 +55,8 @@ export class AtlantisPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png',
         description: 'Prepare to be amazed by the remastered Atlantis for PrimeNG featuring a new gorgeous dark mode for the entire layout, 5 menu modes, reusable css widgets, utilities, modern icons and many more.',
-        liveHref: 'https://www.primefaces.org/atlantis-react/',
-        docHref: 'https://www.primefaces.org/atlantis-react/documentation/'
+        liveHref: 'https://www.primefaces.org/atlantis-ng/',
+        docHref: 'https://www.primefaces.org/atlantis-ng/documentation/'
     };
 
     relatedData = [
@@ -132,7 +132,7 @@ export class AtlantisPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Atlantis Figma file as they are available in PrimeOne for Figma only.',
+                'Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Atlantis Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-figma.png'
         }
     ];
@@ -197,7 +197,7 @@ export class AtlantisPage {
     ];
 
     license = {
-        documentLink: 'https://atlantis.primereact.org/documentation',
+        documentLink: 'https://atlantis.primeng.org/documentation',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

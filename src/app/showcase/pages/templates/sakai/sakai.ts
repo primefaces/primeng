@@ -49,11 +49,11 @@ export class SakaiPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard2.png',
         description: 'Sakai is an application template for Angular and is distributed as a CLI project.',
-        liveHref: 'https://sakai.primereact.org/',
-        docHref: 'https://sakai.primereact.org/documentation',
+        liveHref: 'https://sakai.primeng.org/',
+        docHref: 'https://sakai.primeng.org/documentation',
         free: true,
-        storeHref: 'https://github.com/primefaces/sakai-react',
-        supportHref: 'https://github.com/primefaces/sakai-react/issues'
+        storeHref: 'https://github.com/primefaces/sakai-ng',
+        supportHref: 'https://github.com/primefaces/sakai-ng/issues'
     };
 
     relatedData = [
@@ -75,7 +75,7 @@ export class SakaiPage {
         {
             src: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-github.png',
             title: 'Open Source and Free to Use',
-            description: "Explore Sakai, our versatile, open-source React application template. It's free for your every innovation."
+            description: "Explore Sakai, our versatile, open-source Angular application template. It's free for your every innovation."
         },
         {
             src: 'https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-ready.png',
@@ -156,21 +156,4 @@ export class SakaiPage {
             ]
         }
     ];
-
-    license = {
-        documentLink: 'https://freya.primereact.org/documentation',
-        description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
-        licenseDetails: [
-            {
-                title: 'Basic License',
-                price: '$59',
-                included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
-            },
-            {
-                title: 'Extended License',
-                price: '$590',
-                included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
-            }
-        ]
-    };
 }

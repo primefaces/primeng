@@ -46,8 +46,8 @@ export class UltimaPage {
         description: 'A highly customizable premium application template featuring 4 menu modes, 13 themes, light and dark modes based on material design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png',
-        liveHref: 'https://ultima.primereact.org',
-        docHref: 'https://ultima.primereact.org/documentation'
+        liveHref: 'https://ultima.primeng.org',
+        docHref: 'https://ultima.primeng.org/documentation'
     };
 
     relatedData = [
@@ -140,7 +140,7 @@ export class UltimaPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Ultima uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Ultima Figma file as they are available in PrimeOne for Figma only.',
+                'Ultima uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Ultima Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-figma.png'
         }
     ];
@@ -205,7 +205,7 @@ export class UltimaPage {
     ];
 
     license = {
-        documentLink: 'https://ultima.primereact.org/documentation/',
+        documentLink: 'https://ultima.primeng.org/documentation/',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

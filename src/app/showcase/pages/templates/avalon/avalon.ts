@@ -56,8 +56,8 @@ export class AvalonPage {
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard2.png',
         description:
             'Welcome the new Avalon, elegantly designed with its new bootstrap theme and colors, offering 5 menu layouts with light and dark modes. The layout is mobile-friendly and cross-browser compatible, built with SASS, CSS3 and HTML5 ensuring excellent performance to get you started with your next project!',
-        liveHref: 'https://avalon.primereact.org/',
-        docHref: 'https://avalon.primereact.org/documentation'
+        liveHref: 'https://avalon.primeng.org/',
+        docHref: 'https://avalon.primeng.org/documentation'
     };
 
     relatedData = [
@@ -151,7 +151,7 @@ export class AvalonPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Avalon uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Avalon Figma file as they are available in PrimeOne for Figma only.',
+                'Avalon uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Avalon Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-figma.png'
         }
     ];
@@ -222,7 +222,7 @@ export class AvalonPage {
     ];
 
     license = {
-        documentLink: 'https://avalon.primereact.org/documentation',
+        documentLink: 'https://avalon.primeng.org/documentation',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

@@ -55,8 +55,8 @@ export class FreyaPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png',
         description: 'Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, CSS widgets and template pages.',
-        liveHref: 'https://www.primefaces.org/freya-react/',
-        docHref: 'https://freya.primereact.org/documentation'
+        liveHref: 'https://www.primefaces.org/freya-ng/',
+        docHref: 'https://freya.primeng.org/documentation'
     };
 
     relatedData = [
@@ -149,7 +149,7 @@ export class FreyaPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Freya Figma file as they are available in PrimeOne for Figma only.',
+                'Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Freya Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png'
         }
     ];
@@ -214,7 +214,7 @@ export class FreyaPage {
     ];
 
     license = {
-        documentLink: 'https://freya.primereact.org/documentation',
+        documentLink: 'https://freya.primeng.org/documentation',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

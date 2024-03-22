@@ -45,8 +45,8 @@ export class ApolloPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png',
         description: 'An amazing Angular CLI application template with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeNG themes.',
-        liveHref: 'https://apollo.primereact.org',
-        docHref: 'https://apollo.primereact.org/documentation'
+        liveHref: 'https://apollo.primeng.org',
+        docHref: 'https://apollo.primeng.org/documentation'
     };
 
     apolloRelatedData = [
@@ -123,7 +123,7 @@ export class ApolloPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.',
+                'Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
         }
     ];
@@ -212,7 +212,7 @@ export class ApolloPage {
     ];
 
     license = {
-        documentLink: 'https://apollo.primereact.org/documentation/',
+        documentLink: 'https://apollo.primeng.org/documentation/',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

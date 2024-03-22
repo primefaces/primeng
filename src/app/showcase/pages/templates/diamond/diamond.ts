@@ -55,8 +55,8 @@ export class DiamondPage {
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard2.png',
         description: 'A spectacular application template with light&dark modes, beautiful main menu with themes and layouts, premium PrimeNG component themes, reusable css widgets, utilities, modern icons and professional template pages.',
-        liveHref: 'https://diamond.primereact.org',
-        docHref: 'https://diamond.primereact.org/documentation'
+        liveHref: 'https://diamond.primeng.org',
+        docHref: 'https://diamond.primeng.org/documentation'
     };
 
     relatedData = [
@@ -149,7 +149,7 @@ export class DiamondPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Diamond Figma file as they are available in PrimeOne for Figma only.',
+                'Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Diamond Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-figma.png'
         }
     ];
@@ -215,12 +215,12 @@ export class DiamondPage {
             id: 4,
             title: 'Menu Themes',
             description: 'Stunning theming options for the main menu in light color scheme.',
-            src: 'https://primefaces.org/cdn/primerereact/images/templates/diamond/features-animation-orientations.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png'
         }
     ];
 
     license = {
-        documentLink: 'https://diamond.primereact.org/documentation/',
+        documentLink: 'https://diamond.primeng.org/documentation/',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {

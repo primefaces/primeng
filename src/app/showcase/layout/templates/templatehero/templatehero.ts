@@ -56,7 +56,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                     </a>
                 </div>
                 <div class="template-hero-card-links ">
-                    <a [href]="templateHeroData?.supportHref ?? 'https://github.com/orgs/primefaces/discussions/categories/primereact-templates'" target="_blank">
+                    <a [href]="templateHeroData?.supportHref ?? 'https://github.com/orgs/primefaces/discussions/categories/primeng-templates'" target="_blank">
                         <i class="pi pi-github " style="font-size: 1rem;"></i>
                         <span>{{ templateHeroData?.free ? 'Open Issues' : 'Get Support' }}</span>
                     </a>

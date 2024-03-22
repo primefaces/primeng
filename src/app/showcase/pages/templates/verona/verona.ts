@@ -56,8 +56,8 @@ export class VeronaPage {
         description: 'Prepare to be amazed by the remastered Verona for PrimeNG featuring a new gorgeous dark mode for the entire layout, 2 menu modes, reusable css widgets, utilities, modern icons and many more.',
         dashboard1: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png',
-        liveHref: 'https://verona.primereact.org/',
-        docHref: 'https://verona.primereact.org/documentation'
+        liveHref: 'https://verona.primeng.org/',
+        docHref: 'https://verona.primeng.org/documentation'
     };
 
     relatedData = [
@@ -150,7 +150,7 @@ export class VeronaPage {
             id: 4,
             title: 'Figma File',
             description:
-                'Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Verona Figma file as they are available in PrimeOne for Figma only.',
+                'Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Verona Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-figma.png'
         }
     ];
@@ -206,7 +206,7 @@ export class VeronaPage {
     ];
 
     license = {
-        documentLink: 'https://verona.primereact.org/documentation',
+        documentLink: 'https://verona.primeng.org/documentation',
         description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {
