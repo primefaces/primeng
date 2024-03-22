@@ -5,11 +5,11 @@
             "data": {
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond-react.jpg",
                         "href": "/templates/diamond"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon-react.jpg",
                         "href": "/templates/avalon"
                     },
                     {
@@ -21,35 +21,35 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Apollo is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-responsive.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Apollo has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Top Notch Quality",
                         "description": "Superior standards with 100% compatibility for strict mode and linting tools.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png"
                     }
                 ],
                 "animationFeaturesData1": [
@@ -57,40 +57,40 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Apollo ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png"
                     }
                 ],
                 "features1Data": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature1.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature1.png",
                         "title": "Ready to Use Applications",
                         "description": "Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease."
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature2.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature2.png",
                         "title": "E-Commerce Pages",
                         "description": "Apollo offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks."
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features1-feature3.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature3.png",
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app."
                     }
@@ -100,55 +100,55 @@
                         "id": 1,
                         "title": "Light / Dark / Dim Modes",
                         "description": "Apollo has 3 display modes to choose from; Light, Dim and Dark.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Apollo offers 24 built-in component themes and creating your own theme is a matter of defining couple of sass variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Reveal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Horizontal.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Slim+.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/Drawer.png"
                             }
                         ]
                     },
@@ -156,7 +156,7 @@
                         "id": 4,
                         "title": "Menu Themes",
                         "description": "Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-menu-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-menu-themes.png"
                     }
                 ],
                 "license": {
@@ -166,28 +166,38 @@
                         {
                             "title": "Basic License",
                             "price": "$59",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$590",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
                 "templateHeroData": {
                     "logo": "<ApolloLogo />",
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-pattern.png",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard2.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-pattern.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-hero-dashboard2.png",
                     "description": "An amazing Angular CLI application template with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeNG themes.",
                     "liveHref": "https://apollo.primereact.org",
                     "docHref": "https://apollo.primereact.org/documentation"
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Apollo is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Apollo is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -198,34 +208,34 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Atlantis is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Atlantis has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Full SaSS Support",
                         "description": "Sass is utilized for both the application and components to provide simplicity and flexibility.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-ready.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-ready.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-features2-mobile.png"
                     }
                 ],
                 "relatedData": [
@@ -247,25 +257,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Atlantis ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Atlantis uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Atlantis Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -273,55 +283,55 @@
                         "id": 1,
                         "title": "Light and Dark Modes",
                         "description": "The stunning dark and light modes will impress your users.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Atlantis offers 16 built-in component themes with dark and light options. You are also free to create you own theme by defining couple SASS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Reveal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Horizontal.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Slim+.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/Drawer.png"
                             }
                         ]
                     }
@@ -333,28 +343,38 @@
                         {
                             "title": "Basic License",
                             "price": "$59",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$590",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
                 "templateHeroData": {
                     "logo": "<AtlantisLogo />",
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-pattern.png",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-hero-dashboard2.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-pattern.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-hero-dashboard2.png",
                     "description": "Prepare to be amazed by the remastered Atlantis for PrimeNG featuring a new gorgeous dark mode for the entire layout, 5 menu modes, reusable css widgets, utilities, modern icons and many more.",
                     "liveHref": "https://www.primefaces.org/atlantis-react/",
                     "docHref": "https://www.primefaces.org/atlantis-react/documentation/"
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/atlantis/atlantis-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Atlantis is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Atlantis is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -365,35 +385,35 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Avalon is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Diamond has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Top Notch Quality",
                         "description": "Superior standards with 100% compatibility for strict mode and linting tools.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features2-mobile.png"
                     }
                 ],
                 "relatedData": [
@@ -415,25 +435,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Avalon ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Avalon uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Avalon Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -441,55 +461,55 @@
                         "id": 1,
                         "title": "Light and Dark Modes",
                         "description": "Avalon offers you 2 uniquely designed layout modes to choose from; Light and Dark.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component 10 Beautiful Themes",
                         "description": "Avalon offers 10 built-in themes and creating your own theme is a matter of defining couple of SaSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Avalon has 7 menu layouts to choose from; Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal with Light and Dark options.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Reveal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Horizontal.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Slim+.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/Drawer.png"
                             }
                         ]
                     },
@@ -497,22 +517,22 @@
                         "id": 4,
                         "title": "Topbar Themes",
                         "description": "Avalon comes with 11 topbar themes guaranteeing an enviable design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/features-animation-menu-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/features-animation-menu-themes.png"
                     }
                 ],
                 "features1Data": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-features1-feature1.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature1.png",
                         "title": "Ready to Use Applications",
                         "description": "Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease."
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-features1-feature2.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature2.png",
                         "title": "E-Commerce Pages",
                         "description": "Avalon offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks."
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-features1-feature3.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-features1-feature3.png",
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app."
                     }
@@ -524,29 +544,39 @@
                         {
                             "title": "Basic License",
                             "price": "$49",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$490",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
                 "templateHeroData": {
                     "logo": "<AvalonLogo />",
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-hero-pattern.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-pattern.png",
                     "light": true,
                     "rectangle": true,
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/avalon/avalon-hero-dashboard2.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-dashboard2.png",
                     "description": "Welcome the new Avalon, elegantly designed with its new bootstrap theme and colors, offering 5 menu layouts with light and dark modes. The layout is mobile-friendly and cross-browser compatible, built with SASS, CSS3 and HTML5 ensuring excellent performance to get you started with your next project!",
                     "liveHref": "https://avalon.primereact.org/",
                     "docHref": "https://avalon.primereact.org/documentation"
                 },
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Avalon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Avalon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -557,34 +587,34 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Diamond is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Diamond has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-features2-ready.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-ready.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-features2-mobile.png"
                     }
                 ],
                 "relatedData": [
@@ -606,25 +636,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Diamond ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Diamond uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Diamond Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -632,55 +662,55 @@
                         "id": 1,
                         "title": "Light / Dark / Dim Modes",
                         "description": "Diamond has 3 display modes to choose from; Light, Dim and Dark.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Diamond offers 30 built-in component themes and creating your own theme is a matter of defining couple of sass variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Static, Overlay, Slim, Compact, Horizontal, Reveal and Drawer are the available menu layouts depending on your preference.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Horizontal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Drawer.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Compact",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Compact.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Compact.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/diamond/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/diamond/Reveal.png"
                             }
                         ]
                     },
@@ -698,28 +728,38 @@
                         {
                             "title": "Basic License",
                             "price": "$59",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$590",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
                 "templateHeroData": {
                     "logo": "<DiamondLogo />",
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-hero-pattern.png",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-hero-dashboard2.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-pattern.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-dashboard2.png",
                     "description": "A spectacular application template with light&dark modes, beautiful main menu with themes and layouts, premium PrimeNG component themes, reusable css widgets, utilities, modern icons and professional template pages.",
                     "liveHref": "https://diamond.primereact.org",
                     "docHref": "https://diamond.primereact.org/documentation"
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/diamond/diamond-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Diamond is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Diamond is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -730,34 +770,34 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Freya is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Freya has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-features2-ready.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-features2-ready.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-features2-mobile.png"
                     }
                 ],
                 "relatedData": [
@@ -779,25 +819,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Freya ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Freya uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Freya Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -805,55 +845,55 @@
                         "id": 1,
                         "title": "Light and Dark Modes",
                         "description": "Impress your users with the Light and Dark modes.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Freya offers 16 built-in component themes with dark and light options. Also if you wanna create your own theme you can do it by just defining couple SASS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org                    .cdn/primereact/images/templates/freya/Slim.png"
+                                "src": "https://primefaces.org                    .cdn/primeng/images/templates/freya/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Reveal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Horizontal.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Slim+.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/freya/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/freya/Drawer.png"
                             }
                         ]
                     }
@@ -865,28 +905,38 @@
                         {
                             "title": "Basic License",
                             "price": "$59",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$590",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
                 "templateHeroData": {
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-hero-pattern.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-pattern.png",
                     "logo": "<FreyaLogo />",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/freya/freya-hero-dashboard2.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-hero-dashboard2.png",
                     "description": "Freya is a modern and clean application template for PrimeNG featuring a dark mode, attractive themes, customizable menu orientations, CSS widgets and template pages.",
                     "liveHref": "https://www.primefaces.org/freya-react/",
                     "docHref": "https://freya.primereact.org/documentation"
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/freya/freya-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Freya is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/freya/freya-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Freya is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -897,24 +947,24 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Atlantis is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Full SaSS Support",
                         "description": "Sass is utilized for both the application and components to provide simplicity and flexibility.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-features2-mobile.png"
                     }
                 ],
                 "animationFeaturesData1": [
@@ -922,19 +972,19 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/babylon/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/babylon/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Atlantis ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/babylon/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/babylon/features-animation-icons.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -942,45 +992,45 @@
                         "id": 1,
                         "title": "Various Free Themes",
                         "description": "Sakai has various free themes to choose from; PrimeOne Design, Bootstrap, Material Design with light and dark options.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "2 Menu Orientations",
                         "description": "Sakai has 2 menu modes; Static and Overlay",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/Overlay.png"
                             }
                         ]
                     }
                 ],
                 "features1Data": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-github.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-github.png",
                         "title": "Open Source and Free to Use",
                         "description": "Explore Sakai, our versatile, open-source React application template. It's free for your every innovation."
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-ready.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-ready.png",
                         "title": "Ready to Use Pages",
                         "description": "Landing, login and error pages are provided as template pages to get started with building your app in no time."
                     }
                 ],
                 "templateHeroData": {
                     "logo": "<SakaiLogo />",
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-pattern.png",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/sakai/sakai-hero-dashboard2.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-pattern.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/sakai/sakai-hero-dashboard2.png",
                     "description": "Sakai is an application template for Angular and is distributed as a CLI project.",
                     "liveHref": "https://sakai.primereact.org/",
                     "docHref": "https://sakai.primereact.org/documentation",
@@ -988,9 +1038,9 @@
                     "storeHref": "https://github.com/primefaces/sakai-react",
                     "supportHref": "https://github.com/primefaces/sakai-react/issues"
                 },
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -998,11 +1048,11 @@
             "name": "ultima",
             "data": {
                 "templateHeroData": {
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-hero-pattern.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-pattern.png",
                     "logo": "<UltimaLogo />",
                     "description": "A highly customizable premium application template featuring 4 menu modes, 13 themes, light and dark modes based on material design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-hero-dashboard2.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-dashboard2.png",
                     "liveHref": "https://ultima.primereact.org",
                     "docHref": "https://ultima.primereact.org/documentation"
                 },
@@ -1010,39 +1060,39 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Ultima is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Ultima has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Ready to Use Pages",
                         "description": "Everything is ready for you to start and build your app in no time. Landing, login, invoice, help, and error pages are provided as template pages.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-features2-ready.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-features2-ready.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-features2-mobile.png"
                     }
                 ],
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/diamond-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/diamond-react.jpg",
                         "href": "/templates/diamond"
                     },
                     {
@@ -1059,25 +1109,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Ultima ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Ultima uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Ultima Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -1085,55 +1135,55 @@
                         "id": 1,
                         "title": "Light and Dark Modes",
                         "description": "Ultima offers you 2 uniquely designed layout modes to choose from; Light and Dark.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Ultima offers 17 built-in component themes with dark and light options. Also if you wanna create your own theme you can do it by just defining couple SASS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "7 Menu Orientations",
                         "description": "Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Reveal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Reveal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Reveal.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Horizontal",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Horizontal.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Horizontal.png"
                             },
                             {
                                 "id": 5,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Overlay.png"
                             },
                             {
                                 "id": 6,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Slim+.png"
                             },
                             {
                                 "id": 7,
                                 "title": "Drawer",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/Drawer.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/Drawer.png"
                             }
                         ]
                     },
@@ -1141,7 +1191,7 @@
                         "id": 4,
                         "title": "Menu Themes",
                         "description": "Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/ultima/features-animation-menu-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/ultima/features-animation-menu-themes.png"
                     }
                 ],
                 "license": {
@@ -1151,19 +1201,29 @@
                         {
                             "title": "Basic License",
                             "price": "$59",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$590",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/ultima/ultima-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Ultima is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Ultima is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -1171,17 +1231,17 @@
             "name": "verona",
             "data": {
                 "templateHeroData": {
-                    "pattern": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-pattern.png",
+                    "pattern": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-pattern.png",
                     "description": "Prepare to be amazed by the remastered Verona for PrimeNG featuring a new gorgeous dark mode for the entire layout, 2 menu modes, reusable css widgets, utilities, modern icons and many more.",
                     "logo": "<VeronaLogo />",
-                    "dashboard1": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard1.png",
-                    "dashboard2": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-hero-dashboard2.png",
+                    "dashboard1": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard1.png",
+                    "dashboard2": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-hero-dashboard2.png",
                     "liveHref": "https://verona.primereact.org/",
                     "docHref": "https://verona.primereact.org/documentation"
                 },
                 "relatedData": [
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/freya-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/freya-react.jpg",
                         "href": "/templates/freya"
                     },
                     {
@@ -1189,7 +1249,7 @@
                         "href": "/templates/apollo"
                     },
                     {
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/atlantis-react.jpg",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/atlantis-react.jpg",
                         "href": "/templates/atlantis"
                     }
                 ],
@@ -1197,34 +1257,34 @@
                     {
                         "title": "Fully Responsive",
                         "description": "Verona is crafted to provide optimal viewing and interaction experience for a wide range of devices.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-features2-responsive.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-responsive.png"
                     },
                     {
                         "title": "Cross Browser Compatible",
                         "description": "First class support for Firefox, Safari, Chrome and Edge.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-compatible-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png"
                     },
                     {
                         "title": "Lifetime Support",
                         "description": "Verona has a dedicated forum where lifetime support is delivered by engineers at PrimeTek in a timely manner.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-lifetime.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-lifetime.png"
                     },
                     {
                         "title": "Customizable Design",
                         "description": "Fully customizable with a mixture of Sass and CSS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png",
-                        "darkSrc": "https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png",
+                        "darkSrc": "https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png"
                     },
                     {
                         "title": "Ready to Use Pages",
                         "description": "Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-features2-ready.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-ready.png"
                     },
                     {
                         "title": "Mobile Experience",
                         "description": "Touch optimized enhanced mobile experience with responsive design.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/verona-features2-mobile.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-features2-mobile.png"
                     }
                 ],
                 "animationFeaturesData1": [
@@ -1232,25 +1292,25 @@
                         "id": 1,
                         "title": "PrimeFlex CSS Utilities",
                         "description": "PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-utilities.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png"
                     },
                     {
                         "id": 2,
                         "title": "PrimeBlocks",
                         "description": "Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-blocks.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png"
                     },
                     {
                         "id": 3,
                         "title": "PrimeIcons",
                         "description": "Verona ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-icons.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png"
                     },
                     {
                         "id": 4,
                         "title": "Figma File",
                         "description": "Verona uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Verona Figma file as they are available in PrimeOne for Figma only.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/features-animation-figma.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-figma.png"
                     }
                 ],
                 "animationFeaturesData2": [
@@ -1258,40 +1318,40 @@
                         "id": 1,
                         "title": "Light and Dark Modes",
                         "description": "The stunning dark and light modes will impress your users.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/features-animation-darkmode.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-darkmode.png"
                     },
                     {
                         "id": 2,
                         "title": "Component Themes",
                         "description": "Verona offers 10 built-in component themes with dark and light options. You are also free to create you own theme by defining couple SASS variables.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/features-animation-component-themes.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-component-themes.png"
                     },
                     {
                         "id": 3,
                         "title": "4 Menu Orientations",
                         "description": "Choose from Static, Overlay, Slim and Slim+ menu orientations.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/features-animation-orientations.png",
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-orientations.png",
                         "type": "inline-animation",
                         "inlineFeaturesData": [
                             {
                                 "id": 1,
                                 "title": "Static",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/verona/Static.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/verona/Static.png"
                             },
                             {
                                 "id": 2,
                                 "title": "Slim",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/verona/Slim.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/verona/Slim.png"
                             },
                             {
                                 "id": 3,
                                 "title": "Slim+",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/verona/Slim+.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/verona/Slim+.png"
                             },
                             {
                                 "id": 4,
                                 "title": "Overlay",
-                                "src": "https://primefaces.org/cdn/primereact/images/templates/verona/Overlay.png"
+                                "src": "https://primefaces.org/cdn/primeng/images/templates/verona/Overlay.png"
                             }
                         ]
                     },
@@ -1299,7 +1359,7 @@
                         "id": 4,
                         "title": "Menu Themes",
                         "description": "Verona offers 10 special layout themes featuring gorgeous gradients.",
-                        "src": "https://primefaces.org/cdn/primereact/images/templates/verona/features-animation-orientations.png"
+                        "src": "https://primefaces.org/cdn/primeng/images/templates/verona/features-animation-orientations.png"
                     }
                 ],
                 "license": {
@@ -1309,19 +1369,29 @@
                         {
                             "title": "Basic License",
                             "price": "$49",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$490",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primereact/images/templates/verona/verona-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Verona is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/verona/verona-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Verona is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         },
@@ -1467,19 +1537,29 @@
                         {
                             "title": "Basic License",
                             "price": "$49",
-                            "included": ["Non Commercial Usage", "Single End Product, No Multi-Use", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Non Commercial Usage",
+                                "Single End Product, No Multi-Use",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         },
                         {
                             "title": "Extended License",
                             "price": "$490",
-                            "included": ["Commercial Usage", "Multiple End Products", "Lifetime Support", "Unlimited Updates"]
+                            "included": [
+                                "Commercial Usage",
+                                "Multiple End Products",
+                                "Lifetime Support",
+                                "Unlimited Updates"
+                            ]
                         }
                     ]
                 },
-                "youtubeImgSrc":"https://primefaces.org/cdn/primeng/images/templates/poseidon/poseidon-youtube-screen.png",
-                "templateConfigurationData":{
-                    "title":"Angular with CLI",
-                    "description":"Poseidon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+                "youtubeImgSrc": "https://primefaces.org/cdn/primeng/images/templates/poseidon/poseidon-youtube-screen.png",
+                "templateConfigurationData": {
+                    "title": "Angular with CLI",
+                    "description": "Poseidon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
                 }
             }
         }
