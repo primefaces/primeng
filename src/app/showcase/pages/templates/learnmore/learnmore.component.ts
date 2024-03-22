@@ -18,11 +18,9 @@ export class LearnMoreComponent implements OnInit {
     ngOnInit() {
         this.id = this.route.snapshot.paramMap.get('id');
         const findSelectedTemplate = templateData.templates.find((item: any) => item.name === this.id);
-        const { name, data } = findSelectedTemplate;
-        this.selectedTemplate = data;
-        this.templateName = name;
-
-        if (!this.selectedTemplate) {
+        this.selectedTemplate = findSelectedTemplate?.data;
+        this.templateName = findSelectedTemplate?.name;
+        if (!findSelectedTemplate) {
             this.router.navigateByUrl('/not-found');
         }
     }

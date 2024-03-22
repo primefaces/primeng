@@ -1,9 +1,12 @@
 <div [class]="templateName + ' template'">
+    
     <template-hero [selectedTemplate]="selectedTemplate?.templateHeroData"></template-hero>
     <template-separator></template-separator>
+
     <ng-container *ngIf="selectedTemplate?.youtubeImgSrc">
         <template-youtube [imgSrc]="selectedTemplate?.youtubeImgSrc"></template-youtube>
     </ng-container>
+
     <ng-container *ngIf="selectedTemplate?.license">
         <template-license [license]="selectedTemplate?.license"></template-license>
         <template-separator></template-separator>
@@ -19,16 +22,18 @@
         <template-separator></template-separator>
     </ng-container>
 
-    <template-configuration title="React based on Next.JS" description="Apollo is powered by Next.js to get started in no time following the best practices. Template is implemented purely in React with Typescript."></template-configuration>
+    <template-configuration [configurationData]="selectedTemplate?.templateConfigurationData"></template-configuration>
     <template-separator></template-separator>
 
     <ng-container *ngIf="selectedTemplate?.animationFeaturesData1">
         <template-features-animation [featuresData]="selectedTemplate?.animationFeaturesData1"></template-features-animation>
         <template-separator></template-separator>
     </ng-container>
+
     <ng-container *ngIf="selectedTemplate?.features2Data">
         <template-features [featuresData]="selectedTemplate?.features2Data" displayType="vertical"></template-features>
     </ng-container>
+
     <ng-container *ngIf="selectedTemplate?.relatedData">
         <template-separator></template-separator>
         <template-related [relatedData]="selectedTemplate?.relatedData"></template-related>

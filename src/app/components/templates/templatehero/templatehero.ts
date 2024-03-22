@@ -30,6 +30,8 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
+import { TemplateHeroLightModule } from './templateherolight';
+import { TemplateHeroRectangleModule } from './templateherorectangle';
 
 @Component({
     selector: 'template-hero',
@@ -37,6 +39,12 @@ import { TooltipModule } from 'primeng/tooltip';
         <div class="template-hero">
             <ng-container *ngIf="!!selectedTemplate?.pattern">
                 <img class="template-hero-pattern" width="1344" height="315" [ngSrc]="selectedTemplate.pattern" alt="Template Hero Pattern" />
+            </ng-container>
+            <ng-container *ngIf="!!selectedTemplate?.light">
+                <template-hero-light></template-hero-light>
+            </ng-container>
+            <ng-container *ngIf="!!selectedTemplate?.rectangle">
+                <template-hero-rectangle></template-hero-rectangle>
             </ng-container>
             <div class="template-hero-card">
                 <div class="template-hero-card-logo">{{ selectedTemplate?.logo }}</div>
@@ -75,7 +83,7 @@ export class TemplateHero {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, NgOptimizedImage],
+    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, NgOptimizedImage, TemplateHeroLightModule, TemplateHeroRectangleModule],
     exports: [TemplateHero, SharedModule],
     declarations: [TemplateHero]
 })
