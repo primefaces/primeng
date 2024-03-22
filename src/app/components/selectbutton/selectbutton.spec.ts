@@ -71,13 +71,13 @@ describe('SelectButton', () => {
         ];
         fixture.detectChanges();
 
-        const onItemClickSpy = spyOn(selectButton, 'onItemClick').and.callThrough();
+        const onOptionSelectSpy = spyOn(selectButton, 'onOptionSelect').and.callThrough();
         const buttonEls = fixture.debugElement.queryAll(By.css('.p-button'));
         expect(buttonEls.length).toEqual(3);
         buttonEls[1].nativeElement.click();
         fixture.detectChanges();
 
-        expect(onItemClickSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(selectButton.value).toEqual(undefined);
     });
 
@@ -95,7 +95,7 @@ describe('SelectButton', () => {
         let valueChange;
         selectButton.onOptionClick.subscribe((data) => (valueOptionClick = data));
         selectButton.onChange.subscribe((data) => (valueChange = data));
-        const onItemClickSpy = spyOn(selectButton, 'onItemClick').and.callThrough();
+        const onOptionSelectSpy = spyOn(selectButton, 'onOptionSelect').and.callThrough();
         const buttonEls = fixture.debugElement.queryAll(By.css('.p-button'));
         expect(buttonEls.length).toEqual(3);
         buttonEls[0].nativeElement.click();
@@ -106,7 +106,7 @@ describe('SelectButton', () => {
         buttonEls[2].nativeElement.click();
         fixture.detectChanges();
 
-        expect(onItemClickSpy).toHaveBeenCalled();
+        expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(selectButton.value.length).toEqual(2);
         expect(valueOptionClick.option).toBeTruthy();
         expect(valueChange.value).toBeTruthy();

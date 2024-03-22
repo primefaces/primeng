@@ -28,41 +28,53 @@
             "prefix": "app",
             "architect": {
                 "build": {
-                    "builder": "@angular-devkit/build-angular:browser",
+                    "builder": "@angular-devkit/build-angular:application",
                     "options": {
-                        "outputPath": "dist/primeng/browser",
+                        "outputPath": "dist/primeng",
                         "index": "src/index.html",
-                        "main": "src/main.ts",
-                        "polyfills": ["zone.js"],
+                        "browser": "src/main.ts",
+                        "polyfills": [
+                            "zone.js"
+                        ],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
-                        "assets": ["src/assets"],
-                        "styles": ["src/styles.scss"],
-                        "scripts": ["./node_modules/prismjs/prism.js", "./node_modules/prismjs/components/prism-typescript.js", "./node_modules/prismjs/components/prism-scss.js", "./node_modules/prismjs/components/prism-bash.js"],
-                        "allowedCommonJsDependencies": ["chart.js", "xlsx", "jspdf-autotable", "file-saver", "jspdf", "quill", "core-js", "raf", "rgbcolor"]
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss"
+                        ],
+                        "scripts": [
+                            "./node_modules/prismjs/prism.js",
+                            "./node_modules/prismjs/components/prism-typescript.js",
+                            "./node_modules/prismjs/components/prism-scss.js",
+                            "./node_modules/prismjs/components/prism-bash.js"
+                        ],
+                        "allowedCommonJsDependencies": [
+                            "chart.js",
+                            "xlsx",
+                            "jspdf-autotable",
+                            "file-saver",
+                            "jspdf",
+                            "quill",
+                            "core-js",
+                            "raf",
+                            "rgbcolor"
+                        ],
+                        "server": "src/main.server.ts",
+                        "ssr": {
+                            "entry": "server.ts"
+                        }
                     },
                     "configurations": {
                         "production": {
-                            "fileReplacements": [
-                                {
-                                    "replace": "src/environments/environment.ts",
-                                    "with": "src/environments/environment.prod.ts"
-                                }
-                            ],
-                            "optimization": {
-                                "styles": {
-                                    "inlineCritical": false
-                                }
-                            },
                             "outputHashing": "all"
                         },
                         "development": {
-                            "buildOptimizer": false,
                             "optimization": false,
-                            "vendorChunk": true,
                             "extractLicenses": false,
-                            "sourceMap": true,
-                            "namedChunks": true
+                            "sourceMap": true
                         }
                     },
                     "defaultConfiguration": "production"
@@ -88,38 +100,26 @@
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "main": "src/test.ts",
-                        "polyfills": "src/polyfills.ts",
+                        "polyfills": [
+                            "zone.js",
+                            "zone.js/testing"
+                        ],
                         "tsConfig": "tsconfig.spec.json",
-                        "karmaConfig": "karma.conf.js",
-                        "assets": ["src/assets"],
-                        "styles": ["src/styles.scss", "src/assets/components/themes/lara-light-blue/theme.css"],
+                        "inlineStyleLanguage": "scss",
+                        "assets": [
+                            "src/favicon.ico",
+                            "src/assets"
+                        ],
+                        "styles": [
+                            "src/styles.scss"
+                        ],
                         "scripts": []
                     }
-                },
-                "server": {
-                    "builder": "@angular-devkit/build-angular:server",
-                    "options": {
-                        "outputPath": "dist/primeng/server",
-                        "main": "server.ts",
-                        "tsConfig": "tsconfig.server.json",
-                        "inlineStyleLanguage": "scss",
-                        "optimization": false
-                    },
-                    "configurations": {
-                        "production": {
-                            "outputHashing": "media"
-                        },
-                        "development": {
-                            "optimization": false,
-                            "sourceMap": true,
-                            "extractLicenses": false,
-                            "vendorChunk": true
-                        }
-                    },
-                    "defaultConfiguration": "production"
                 }
             }
         }
+    },
+    "cli": {
+      "analytics": false
     }
 }

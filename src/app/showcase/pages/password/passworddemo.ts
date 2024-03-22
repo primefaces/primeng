@@ -7,6 +7,7 @@ import { FloatLabelDoc } from '../../doc/password/floatlabeldoc';
 import { ImportDoc } from '../../doc/password/importdoc';
 import { InvalidDoc } from '../../doc/password/invaliddoc';
 import { MeterDoc } from '../../doc/password/meterdoc';
+import { LocaleDoc } from '../../doc/password/localedoc';
 import { StyleDoc } from '../../doc/password/styledoc';
 import { TemplateDoc } from '../../doc/password/templatedoc';
 import { ToggleMaskDoc } from '../../doc/password/togglemaskdoc';
@@ -35,6 +36,11 @@ export class PasswordDemo {
             id: 'meter',
             label: 'Meter',
             component: MeterDoc
+        },
+        {
+            id: 'locale',
+            label: 'Locale',
+            component: LocaleDoc
         },
         {
             id: 'togglemask',

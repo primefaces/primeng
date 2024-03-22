@@ -1425,7 +1425,7 @@
                         }
                     ],
                     "returnType": "void",
-                    "description": "Insterts new messages."
+                    "description": "Inserts new messages."
                 },
                 {
                     "name": "clear",
@@ -3102,6 +3102,24 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "listLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "selectColor",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "removeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3761,7 +3779,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show the empty message or not."
                         },
                         {
@@ -3875,7 +3893,7 @@
                             "name": "optionLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "string | Function",
                             "description": "Property name or getter function to use as the label of an option."
                         },
                         {
@@ -3911,7 +3929,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
@@ -4446,7 +4464,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4482,7 +4500,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4938,6 +4956,9 @@
                 ]
             }
         }
+    },
+    "buttongroup": {
+        "components": {}
     },
     "calendar": {
         "components": {
@@ -5648,6 +5669,18 @@
                     },
                     {
                         "parent": "calendar",
+                        "name": "inputIconTemplate",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t clickCallBack: undefined, // undefined\n  }",
+                                "description": "input icon template params."
+                            }
+                        ],
+                        "description": "Custom input icon template."
+                    },
+                    {
+                        "parent": "calendar",
                         "name": "previousicon",
                         "parameters": [],
                         "description": "Custom previous icon template."
@@ -6224,7 +6257,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeVue locale configuration."
+                            "description": "Text to display when filtering does not return any results. Defaults to value from PrimeNG locale configuration."
                         },
                         {
                             "name": "emptySelectionMessage",
@@ -6956,6 +6989,26 @@
                                 }
                             ],
                             "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the loses focus."
                         }
                     ]
                 }
@@ -7028,6 +7081,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Defines the image to display."
+                        },
+                        {
+                            "name": "alt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Alt attribute of the image."
                         },
                         {
                             "name": "style",
@@ -7159,6 +7219,13 @@
                             "description": "Maximum number of entries allowed."
                         },
                         {
+                            "name": "maxLength",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum length of a chip."
+                        },
+                        {
                             "name": "ariaLabel",
                             "optional": false,
                             "readonly": false,
@@ -7193,6 +7260,14 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to allow duplicate values or not."
+                        },
+                        {
+                            "name": "caseSensitiveDuplication",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines whether duplication check should be case-sensitive"
                         },
                         {
                             "name": "inputStyle",
@@ -7303,6 +7378,16 @@
                                 }
                             ],
                             "description": "Callback to invoke on clear token clicked."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "clear",
+                            "parameters": [],
+                            "description": "Callback to invoke on filter reset."
                         }
                     ]
                 }
@@ -7854,7 +7939,12 @@
                     {
                         "parent": "confirmdialog",
                         "name": "message",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
                         "description": "Custom template of message."
                     },
                     {
@@ -7874,6 +7964,17 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmdialog",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -7965,6 +8066,17 @@
                 "values": [
                     {
                         "parent": "confirmpopup",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Custom content template."
+                    },
+                    {
+                        "parent": "confirmpopup",
                         "name": "rejecticon",
                         "parameters": [],
                         "description": "Custom template of rejecticon."
@@ -7974,6 +8086,17 @@
                         "name": "accepticon",
                         "parameters": [],
                         "description": "Custom template of accepticon."
+                    },
+                    {
+                        "parent": "confirmpopup",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // undefined\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -8072,6 +8195,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "pressDelay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "500",
+                            "description": "Press delay in touch devices as miliseconds."
                         }
                     ]
                 },
@@ -8788,6 +8919,13 @@
                             "description": "Style class of the mask."
                         },
                         {
+                            "name": "maskStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style of the mask."
+                        },
+                        {
                             "name": "showHeader",
                             "optional": false,
                             "readonly": false,
@@ -8902,7 +9040,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "-1",
+                            "default": "0",
                             "description": "Index of the close button in tabbing order."
                         },
                         {
@@ -9454,8 +9592,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Default text to display when no option is selected."
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "filterPlaceholder",
@@ -9565,7 +9702,8 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Whether to display the first item as the label if no placeholder is defined and value is null."
+                            "description": "Whether to display the first item as the label if no placeholder is defined and value is null.",
+                            "deprecated": "since v17.3.0, set initial value by model instead."
                         },
                         {
                             "name": "group",
@@ -9925,6 +10063,16 @@
                             "name": "focus",
                             "parameters": [],
                             "description": "Applies focus."
+                        },
+                        {
+                            "name": "clear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Clears the model."
                         }
                     ]
                 }
@@ -10147,6 +10295,17 @@
                     ],
                     "returnType": "DynamicDialogRef",
                     "description": "Displays the dialog using the dynamic dialog object options."
+                },
+                {
+                    "name": "getInstance",
+                    "parameters": [
+                        {
+                            "name": "ref",
+                            "type": "DynamicDialogRef"
+                        }
+                    ],
+                    "returnType": "DynamicDialogComponent",
+                    "description": "Returns the dynamic dialog component instance."
                 }
             ]
         }
@@ -10207,6 +10366,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Specifies if pressing escape key should hide the dialog."
+                        },
+                        {
+                            "name": "focusOnShow",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Specifies if autofocus should happen on show."
                         },
                         {
                             "name": "baseZIndex",
@@ -10386,10 +10553,77 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "A boolean to determine if it can be duplicate."
+                        },
+                        {
+                            "name": "breakpoints",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Object literal to define widths per screen size."
+                        },
+                        {
+                            "name": "templates",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "DynamicDialogTemplates",
+                            "description": "Dialog templates."
                         }
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "description": "Defines the custom interfaces used by the module.",
+            "values": [
+                {
+                    "name": "DynamicDialogTemplates",
+                    "description": "Defines valid templates in Dynamic Dialog.",
+                    "props": [
+                        {
+                            "name": "header",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the header."
+                        },
+                        {
+                            "name": "content",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the content."
+                        },
+                        {
+                            "name": "footer",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the footer."
+                        },
+                        {
+                            "name": "minimizeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the minimize icon."
+                        },
+                        {
+                            "name": "maximizeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the maximize icon."
+                        },
+                        {
+                            "name": "closeicon",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "Type<any>",
+                            "description": "Template of the close icon."
+                        }
+                    ]
+                }
+            ]
         }
     },
     "dynamicdialog-injector": {
@@ -10503,7 +10737,7 @@
                         },
                         {
                             "name": "onMaximize",
-                            "description": "Event triggered on resize end."
+                            "description": "Event triggered on dialog is maximized."
                         }
                     ]
                 }
@@ -11038,21 +11272,21 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the choose button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the choose button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "uploadLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the upload button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the upload button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "cancelLabel",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Label of the cancel button. Defaults to PrimeVue Locale configuration."
+                            "description": "Label of the cancel button. Defaults to PrimeNG Locale configuration."
                         },
                         {
                             "name": "chooseIcon",
@@ -11507,6 +11741,13 @@
             }
         }
     },
+    "floatlabel": {
+        "components": {
+            "FloatLabel": {
+                "description": "FloatLabel appears on top of the input field when focused."
+            }
+        }
+    },
     "focustrap": {
         "components": {
             "FocusTrap": {
@@ -11892,6 +12133,26 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    "iconfield": {
+        "components": {
+            "IconField": {
+                "description": "IconField wraps an input and an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "iconPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"right\"",
+                            "default": "left",
+                            "description": "Position of the icon."
+                        }
+                    ]
+                }
             }
         }
     },
@@ -12421,14 +12682,71 @@
     "inputgroup": {
         "components": {
             "InputGroup": {
-                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input."
+                "description": "InputGroup displays text, icon, buttons and other content can be grouped next to an input.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        }
+                    ]
+                }
             }
         }
     },
     "inputgroupaddon": {
         "components": {
             "InputGroupAddon": {
-                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input."
+                "description": "InputGroupAddon displays text, icon, buttons and other content can be grouped next to an input.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "inputicon": {
+        "components": {
+            "InputIcon": {
+                "description": "InputIcon displays an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        }
+                    ]
+                }
             }
         }
     },
@@ -13097,7 +13415,7 @@
                                 "name": "value",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "string | number",
                                 "description": "Input value."
                             },
                             {
@@ -13131,6 +13449,203 @@
                         "name": "decrementbuttonicon",
                         "parameters": [],
                         "description": "Custom decrement button icon template."
+                    }
+                ]
+            }
+        }
+    },
+    "inputotp": {
+        "components": {
+            "InputOtp": {
+                "description": "Input Otp is used to enter one time passwords.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is read-only."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "null",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "null",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "length",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "4",
+                            "description": "Number of characters to initiate."
+                        },
+                        {
+                            "name": "mask",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Mask pattern."
+                        },
+                        {
+                            "name": "integerOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is integer-only."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "InputOtpChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component loses focus."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "InputOtpTemplateEvents",
+                        "description": "Defines the custom events used by the component's emit.",
+                        "props": [
+                            {
+                                "name": "input",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Input event."
+                            },
+                            {
+                                "name": "keydown",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Keydown event."
+                            },
+                            {
+                                "name": "focus",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Focus event."
+                            },
+                            {
+                                "name": "blur",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Blur event."
+                            },
+                            {
+                                "name": "paste",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Paste event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputOtpChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "inputotp",
+                        "name": "input",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Input value.\n  \t events: InputOtpTemplateEvents, // Events of the component\n  }",
+                                "description": ""
+                            }
+                        ],
+                        "description": "Custom template of input."
                     }
                 ]
             }
@@ -13742,7 +14257,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -14709,6 +15224,16 @@
                                 }
                             ],
                             "description": "This function is executed when the value changes."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Message"
+                                }
+                            ],
+                            "description": "This function is executed when a message is closed."
                         }
                     ]
                 }
@@ -14724,6 +15249,142 @@
                         "name": "content",
                         "parameters": [],
                         "description": "Custom template of content."
+                    }
+                ]
+            }
+        }
+    },
+    "metergroup": {
+        "components": {
+            "MeterGroup": {
+                "description": "MeterGroup displays scalar measurements within a known range.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MeterItem[]",
+                            "description": "Current value of the metergroup."
+                        },
+                        {
+                            "name": "min",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Mininum boundary value."
+                        },
+                        {
+                            "name": "max",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "100",
+                            "description": "Maximum boundary value."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "labelPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"end\" | \"start\"",
+                            "default": "end",
+                            "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
+                        },
+                        {
+                            "name": "labelOrientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "horizontal",
+                            "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "metergroup",
+                        "name": "label",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom label template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "meter",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t index: number, // Current index of the meter item.\n  \t class: string, // Style class of the meter item\n  \t orientation: string, // Current orientation of the component.\n  \t size: string, // Current width of the meter item.\n  \t totalPercent: number, // Total percent of the metergroup items\n  }"
+                            }
+                        ],
+                        "description": "Custom meter item template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "start",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "end",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t class: string, // Style class of the icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom icon template."
                     }
                 ]
             }
@@ -14899,7 +15560,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "{0} items selected",
                             "description": "Label to display after exceeding max selected labels e.g. ({0} items selected), defaults \"ellipsis\" keyword to indicate a text-overflow."
                         },
                         {
@@ -15158,7 +15818,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "options",
@@ -15755,7 +16415,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "When true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -16481,6 +17141,20 @@
                     "description": "Defines the input properties of the component.",
                     "values": [
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
                             "name": "dismissable",
                             "optional": false,
                             "readonly": false,
@@ -16846,6 +17520,12 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "paginator",
+                        "name": "dropdownicon",
+                        "parameters": [],
+                        "description": "Custom dropdown trigger icon template."
+                    },
                     {
                         "parent": "paginator",
                         "name": "firstpagelinkicon",
@@ -17704,7 +18384,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -18361,6 +19041,25 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "progressbar",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Value of the progressbar.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of content."
+                    }
+                ]
+            }
         }
     },
     "progressspinner": {
@@ -18407,6 +19106,13 @@
                             "type": "string",
                             "default": "2s",
                             "description": "Duration of the rotate animation."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a aria label attribute the current element."
                         }
                     ]
                 }
@@ -19867,6 +20573,12 @@
                         "name": "closeicon",
                         "parameters": [],
                         "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "sidebar",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -20946,6 +21658,327 @@
             }
         }
     },
+    "stepper": {
+        "components": {
+            "StepperPanel": {
+                "description": "StepperPanel is a helper component for Stepper component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Orientation of tab headers."
+                        }
+                    ]
+                }
+            },
+            "Stepper": {
+                "description": "The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "activeStep",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Active step index of stepper."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Orientation of the stepper."
+                        },
+                        {
+                            "name": "linear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the steps are clickable or not."
+                        },
+                        {
+                            "name": "transitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
+                            "description": "Transition options of the animation."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "activeStepChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
+                            "description": "Emitted when the value changes."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "ActiveStepChangeEvent",
+                        "description": "Custom active step change event.",
+                        "props": [
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Emitted when the value changes."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "stepper",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "stepper",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom end template."
+                    }
+                ]
+            }
+        }
+    },
+    "stepperpanel": {
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "stepperpanel",
+                        "name": "header",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelHeaderProps"
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "stepperpanel",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelContentProps"
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "stepperpanel",
+                        "name": "separator",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelSeparatorProps"
+                            }
+                        ],
+                        "description": "Custom separator template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "StepperPanelHeaderProps",
+                        "description": "Props of stepper panel header.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            },
+                            {
+                                "name": "class",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the stepperpanel"
+                            },
+                            {
+                                "name": "headerClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the header content container"
+                            },
+                            {
+                                "name": "numberClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the number content container"
+                            },
+                            {
+                                "name": "titleClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the title content container"
+                            },
+                            {
+                                "name": "onClick",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepperPanelContentProps",
+                        "description": "Props of stepper panel content.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            },
+                            {
+                                "name": "class",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the stepperpanel"
+                            },
+                            {
+                                "name": "headerClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the header content container"
+                            },
+                            {
+                                "name": "numberClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the number content container"
+                            },
+                            {
+                                "name": "titleClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the title content container"
+                            },
+                            {
+                                "name": "onClick",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "prevCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "nextCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepperPanelSeparatorProps",
+                        "description": "Props of stepper panel separator.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
     "steps": {
         "components": {
             "Steps": {
@@ -21111,6 +22144,58 @@
                         }
                     ]
                 }
+            }
+        }
+    },
+    "columnfilter": {
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "columnfilter",
+                        "name": "filterTemplate",
+                        "parameters": [],
+                        "description": "Custom filter template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "headerTemplate",
+                        "parameters": [],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "footerTemplate",
+                        "parameters": [],
+                        "description": "Custom footer template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "filterIconTemplate",
+                        "parameters": [],
+                        "description": "Custom filter icon template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "removeRuleIconTemplate",
+                        "parameters": [],
+                        "description": "Custom remove rule icon template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "addRuleIconTemplate",
+                        "parameters": [],
+                        "description": "Custom add rule icon template."
+                    },
+                    {
+                        "parent": "columnfilter",
+                        "name": "clearFilterIconTemplate",
+                        "parameters": [],
+                        "description": "Custom clear filter icon template."
+                    }
+                ]
             }
         }
     },
@@ -21338,7 +22423,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -21677,7 +22762,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "960px",
+                            "default": "640px",
                             "description": "The breakpoint to define the maximum width boundary when using stack responsive layout."
                         },
                         {
@@ -22020,7 +23105,7 @@
                             "parameters": [
                                 {
                                     "name": "options",
-                                    "type": "any"
+                                    "type": "ExportCSVOptions"
                                 }
                             ],
                             "description": "Data export method."
@@ -22051,6 +23136,209 @@
                                 }
                             ],
                             "description": "Scrolls to given index."
+                        }
+                    ]
+                }
+            },
+            "ColumnFilter": {
+                "description": "Column Filter element of Table.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "field",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Property represented by the column."
+                        },
+                        {
+                            "name": "type",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "text",
+                            "description": "Type of the input."
+                        },
+                        {
+                            "name": "display",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "row",
+                            "description": "Filter display."
+                        },
+                        {
+                            "name": "showMenu",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter menu popup."
+                        },
+                        {
+                            "name": "matchMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Filter match mode."
+                        },
+                        {
+                            "name": "operator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "FilterOperator.AND",
+                            "description": "Filter operator."
+                        },
+                        {
+                            "name": "showOperator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter operator."
+                        },
+                        {
+                            "name": "showClearButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display clear filter button."
+                        },
+                        {
+                            "name": "showApplyButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display apply filter button."
+                        },
+                        {
+                            "name": "showMatchModes",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display filter match modes."
+                        },
+                        {
+                            "name": "showAddButton",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Decides whether to display add filter button."
+                        },
+                        {
+                            "name": "hideOnClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Decides whether to close popup on clear button click."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Filter placeholder."
+                        },
+                        {
+                            "name": "matchModeOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "SelectItem<any>[]",
+                            "description": "Filter match mode options."
+                        },
+                        {
+                            "name": "maxConstraints",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "2",
+                            "description": "Defines maximum amount of constraints."
+                        },
+                        {
+                            "name": "minFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Defines minimum fraction of digits."
+                        },
+                        {
+                            "name": "maxFractionDigits",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Defines maximum fraction of digits."
+                        },
+                        {
+                            "name": "prefix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines prefix of the filter."
+                        },
+                        {
+                            "name": "suffix",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines suffix of the filter."
+                        },
+                        {
+                            "name": "locale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines filter locale."
+                        },
+                        {
+                            "name": "localeMatcher",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines filter locale matcher."
+                        },
+                        {
+                            "name": "currency",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Enables currency input."
+                        },
+                        {
+                            "name": "currencyDisplay",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the display of the currency input."
+                        },
+                        {
+                            "name": "useGrouping",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines if filter grouping will be enabled."
+                        },
+                        {
+                            "name": "showButtons",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Defines the visibility of buttons."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the aria-label of the form element."
                         }
                     ]
                 }
@@ -22717,6 +24005,12 @@
                     },
                     {
                         "parent": "table",
+                        "name": "paginatordropdownicon",
+                        "parameters": [],
+                        "description": "Custom paginator dropdown trigger icon template."
+                    },
+                    {
+                        "parent": "table",
                         "name": "paginatordropdownitem",
                         "parameters": [],
                         "description": "Custom paginator dropdown item template."
@@ -22819,8 +24113,7 @@
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem",
-                            "description": "Defines the default active menuitem"
+                            "type": "MenuItem"
                         },
                         {
                             "name": "scrollable",
@@ -23585,6 +24878,17 @@
                 "values": [
                     {
                         "parent": "tieredmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Item instance.\n  \t hasSubmenu: boolean, // Submenu control of the item.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "tieredmenu",
                         "name": "submenuicon",
                         "parameters": [],
                         "description": "Custom template of submenuicon."
@@ -23852,6 +25156,17 @@
                             }
                         ],
                         "description": "Custom template of message."
+                    },
+                    {
+                        "parent": "toast",
+                        "name": "headless",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Data of the message.\n  }"
+                            }
+                        ],
+                        "description": "Headless template."
                     }
                 ]
             }
@@ -23940,6 +25255,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "number",
+                            "default": "0",
                             "description": "Index of the element in tabbing order."
                         },
                         {
@@ -23993,6 +25309,23 @@
                                 "description": "Boolean value to represent checked state."
                             }
                         ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "togglebutton",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: boolean, // Checked.\n  }",
+                                "description": "checked state as boolean."
+                            }
+                        ],
+                        "description": "Custom icon template."
                     }
                 ]
             }
@@ -24292,7 +25625,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -24955,7 +26288,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
@@ -25642,7 +26975,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmEventType, ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -17,22 +17,15 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-confirmDialog #cd [style]="{ width: '50vw' }">
-                <ng-template pTemplate="header">
-                    <h3>Header Content</h3>
-                </ng-template>
-                <ng-template pTemplate="icon">
-                    <i class="pi pi-user"></i>
-                </ng-template>
-                <ng-template pTemplate="message">
-                    <p>Message Template</p>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-                    <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+            <p-confirmDialog>
+                <ng-template pTemplate="message" let-message>
+                    <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+                        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+                        <p>{{ message.message }}</p>
+                    </div>
                 </ng-template>
             </p-confirmDialog>
-            <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+            <p-button (click)="confirm()" icon="pi pi-check" label="Confirm"></p-button>
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
     `,
@@ -41,62 +34,46 @@ import { Code } from '../../domain/code';
 export class TemplateDoc {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
-    confirm1() {
+    confirm() {
         this.confirmationService.confirm({
+            header: 'Confirmation',
+            message: 'Please confirm to proceed moving forward.',
+            acceptIcon: 'pi pi-check mr-2',
+            rejectIcon: 'pi pi-times mr-2',
+            rejectButtonStyleClass: 'p-button-sm',
+            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
-            reject: (type: ConfirmEventType) => {
-                switch (type) {
-                    case ConfirmEventType.REJECT:
-                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-                        break;
-                    case ConfirmEventType.CANCEL:
-                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-                        break;
-                }
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
             }
         });
     }
 
     code: Code = {
         basic: `<p-toast></p-toast>
-<p-confirmDialog #cd [style]="{ width: '50vw' }">
-    <ng-template pTemplate="header">
-        <h3>Header Content</h3>
-    </ng-template>
-    <ng-template pTemplate="icon">
-        <i class="pi pi-user"></i>
-    </ng-template>
-    <ng-template pTemplate="message">
-        <p>Message Template</p>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+        <p-confirmDialog>
+            <ng-template pTemplate="message" let-message>
+                <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+                    <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+                    <p>{{ message.message }}</p>
+                </div>
+            </ng-template>
+        </p-confirmDialog>
+<p-button (click)="confirm()" icon="pi pi-check" label="Confirm"></p-button>`,
+
+        html: `<div class="card flex justify-content-center">
+<p-toast></p-toast>
+<p-confirmDialog>
+    <ng-template pTemplate="message" let-message>
+        <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+            <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+            <p>{{ message.message }}</p>
+        </div>
     </ng-template>
 </p-confirmDialog>
-<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-confirmDialog #cd [style]="{ width: '50vw' }">
-        <ng-template pTemplate="header">
-            <h3>Header Content</h3>
-        </ng-template>
-        <ng-template pTemplate="icon">
-            <i class="pi pi-user"></i>
-        </ng-template>
-        <ng-template pTemplate="message">
-            <p>Message Template</p>
-        </ng-template>
-        <ng-template pTemplate="footer">
-            <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-            <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-        </ng-template>
-    </p-confirmDialog>
-    <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+<p-button (click)="confirm()" icon="pi pi-check" label="Confirm"></p-button>
 </div>`,
 
         typescript: `
@@ -108,26 +85,26 @@ import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/a
     templateUrl: './confirm-dialog-template-demo.html',
     providers: [ConfirmationService, MessageService]
 })
-export class ConfirmTemplateDoc {
+export class ConfirmDialogTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
-    confirm1() {
+    confirm() {
         this.confirmationService.confirm({
+            header: 'Confirmation',
+            message: 'Please confirm to proceed moving forward.',
+            acceptIcon: 'pi pi-check mr-2',
+            rejectIcon: 'pi pi-times mr-2',
+            rejectButtonStyleClass: 'p-button-sm',
+            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
             accept: () => {
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
-            reject: (type: ConfirmEventType) => {
-                switch (type) {
-                    case ConfirmEventType.REJECT:
-                        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-                        break;
-                    case ConfirmEventType.CANCEL:
-                        this.messageService.add({ severity: 'warn', summary: 'Cancelled', detail: 'You have cancelled' });
-                        break;
-                }
+            reject: () => {
+                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
             }
         });
     }
+
 }`
     };
 }

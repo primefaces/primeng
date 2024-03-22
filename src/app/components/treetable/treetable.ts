@@ -27,7 +27,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
@@ -410,7 +410,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = true;
+    @Input() metaKeySelection: boolean | undefined = false;
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
@@ -630,7 +630,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onFilter: EventEmitter<TreeTableFilterEvent> = new EventEmitter<TreeTableFilterEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeTableNode} object - Node instance.
+     * @param {TreeTableNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeTableNodeExpandEvent> = new EventEmitter<TreeTableNodeExpandEvent>();
@@ -1852,7 +1852,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
-    filter(value: string, field: string, matchMode: string) {
+    filter(value: string | string[], field: string, matchMode: string) {
         if (this.filterTimeout) {
             clearTimeout(this.filterTimeout);
         }
@@ -1968,6 +1968,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     this.totalRecords = this.filteredNodes ? this.filteredNodes.length : this.value ? this.value.length : 0;
                 }
             }
+            this.cd.markForCheck();
         }
 
         this.first = 0;
@@ -2277,30 +2278,32 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
-        if (!this.frozen) {
-            if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
-                DomHandler.addClass(this.el.nativeElement, 'p-treetable-unfrozen-view');
+        if (isPlatformBrowser(this.platformId)) {
+            if (!this.frozen) {
+                if (this.tt.frozenColumns || this.tt.frozenBodyTemplate) {
+                    DomHandler.addClass(this.el.nativeElement, 'p-treetable-unfrozen-view');
+                }
+
+                let frozenView = this.el.nativeElement.previousElementSibling;
+                if (frozenView) {
+                    if (this.tt.virtualScroll) this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-scroller-viewport');
+                    else this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
+                }
+
+                let scrollBarWidth = DomHandler.calculateScrollbarWidth();
+                (this.scrollHeaderBoxViewChild as ElementRef).nativeElement.style.paddingRight = scrollBarWidth + 'px';
+
+                if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
+                    this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
+                }
+            } else {
+                if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
+                    this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
+                }
             }
 
-            let frozenView = this.el.nativeElement.previousElementSibling;
-            if (frozenView) {
-                if (this.tt.virtualScroll) this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-scroller-viewport');
-                else this.frozenSiblingBody = DomHandler.findSingle(frozenView, '.p-treetable-scrollable-body');
-            }
-
-            let scrollBarWidth = DomHandler.calculateScrollbarWidth();
-            (this.scrollHeaderBoxViewChild as ElementRef).nativeElement.style.paddingRight = scrollBarWidth + 'px';
-
-            if (this.scrollFooterBoxViewChild && this.scrollFooterBoxViewChild.nativeElement) {
-                this.scrollFooterBoxViewChild.nativeElement.style.paddingRight = scrollBarWidth + 'px';
-            }
-        } else {
-            if (this.scrollableAlignerViewChild && this.scrollableAlignerViewChild.nativeElement) {
-                this.scrollableAlignerViewChild.nativeElement.style.height = DomHandler.calculateScrollbarHeight() + 'px';
-            }
+            this.bindEvents();
         }
-
-        this.bindEvents();
     }
 
     bindEvents() {
@@ -3308,6 +3311,7 @@ export class TreeTableCellEditor implements AfterContentInit {
     selector: '[ttRow]',
     host: {
         class: 'p-element',
+        '[class]': `'p-element ' + styleClass`,
         '[attr.tabindex]': "'0'",
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-level]': 'level',
@@ -3318,6 +3322,10 @@ export class TreeTableCellEditor implements AfterContentInit {
 export class TTRow {
     get level() {
         return this.rowNode?.['level'] + 1;
+    }
+
+    get styleClass() {
+        return this.rowNode?.node['styleClass'] || '';
     }
 
     get expanded() {
@@ -3508,6 +3516,7 @@ export class TTRow {
             [style.marginLeft]="rowNode.level * 16 + 'px'"
             [attr.data-pc-section]="'rowtoggler'"
             [attr.data-pc-group-section]="'rowactionbutton'"
+            [attr.aria-label]="toggleButtonAriaLabel"
         >
             <ng-container *ngIf="!tt.togglerIconTemplate">
                 <ChevronDownIcon *ngIf="rowNode.node.expanded" [attr.aria-hidden]="true" />
@@ -3524,7 +3533,11 @@ export class TTRow {
 export class TreeTableToggler {
     @Input() rowNode: any;
 
-    constructor(public tt: TreeTable) {}
+    constructor(public tt: TreeTable, private config: PrimeNGConfig) {}
+
+    get toggleButtonAriaLabel() {
+        return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;
+    }
 
     onClick(event: Event) {
         this.rowNode.node.expanded = !this.rowNode.node.expanded;

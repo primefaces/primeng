@@ -1,4 +1,5 @@
-/* eslint-env es6 */
-const server = require('../dist/primeng/server/main');
+import { app } from '../dist/primeng/server/server.mjs';
 
-module.exports = server.app();
+const server = app();
+
+export default server;

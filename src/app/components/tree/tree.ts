@@ -57,6 +57,7 @@ import {
             <li
                 *ngIf="tree.droppableNodes"
                 class="p-treenode-droppoint"
+                [attr.aria-hidden]="true"
                 [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
                 (drop)="onDropPoint($event, -1)"
                 (dragover)="onDropPointDragOver($event)"
@@ -74,8 +75,9 @@ import {
                 [attr.aria-selected]="ariaSelected"
                 [attr.aria-expanded]="node.expanded"
                 [attr.aria-posinset]="index + 1"
-                [attr.aria-level]="level"
+                [attr.aria-level]="level + 1"
                 [attr.tabindex]="index === 0 ? 0 : -1"
+                [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
             >
@@ -103,7 +105,7 @@ import {
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
-                    <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" aria-hidden="true">
+                    <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled p-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" aria-hidden="true">
                         <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }" role="checkbox">
                             <ng-container *ngIf="!tree.checkboxIconTemplate">
                                 <CheckIcon *ngIf="!node.partialSelected && isSelected()" [styleClass]="'p-checkbox-icon'" />
@@ -114,13 +116,13 @@ import {
                     </div>
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
                     <span class="p-treenode-label">
-                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }} {{ node.children ? node.children.length : 0 }}</span>
+                        <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
+                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="tree">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -133,15 +135,18 @@ import {
                     ></p-treeNode>
                 </ul>
             </li>
+
             <li
                 *ngIf="tree.droppableNodes && lastChild"
                 class="p-treenode-droppoint"
                 [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
                 (drop)="onDropPoint($event, 1)"
+                [attr.aria-hidden]="true"
                 (dragover)="onDropPointDragOver($event)"
                 (dragenter)="onDropPointDragEnter($event, 1)"
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
+
             <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
@@ -197,8 +202,7 @@ import {
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element',
-        '[attr.role]': '"treeitem"'
+        class: 'p-element'
     }
 })
 export class UITreeNode implements OnInit {
@@ -534,6 +538,7 @@ export class UITreeNode implements OnInit {
             //enter
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onEnter(event);
                 break;
             //tab
@@ -760,6 +765,7 @@ export class UITreeNode implements OnInit {
                             [level]="rowNode.level"
                             [rowNode]="rowNode"
                             [node]="rowNode.node"
+                            [parentNode]="rowNode.parent"
                             [firstChild]="firstChild"
                             [lastChild]="lastChild"
                             [index]="getIndex(scrollerOptions, index)"
@@ -887,7 +893,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true;
+    @Input() metaKeySelection: boolean = false;
     /**
      * Whether checkbox selections propagate to ancestor nodes.
      * @group Props
@@ -1244,8 +1250,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
-
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes) as TreeNode;
                 if (!node) {
                     return;
                 }
@@ -1356,7 +1361,6 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
-
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
                 let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;

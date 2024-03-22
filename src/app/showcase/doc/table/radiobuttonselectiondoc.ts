@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -8,41 +8,43 @@ import { ProductService } from '../../service/productservice';
     template: ` <app-docsectiontext>
             <p>Single selection can also be handled using radio buttons.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 4rem"></th>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>
-                            <p-tableRadioButton [value]="product"></p-tableRadioButton>
-                        </td>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 4rem"></th>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>
+                                <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                            </td>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-radio-button-selection-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButtonSelectionDoc implements OnInit {
+export class RadioButtonSelectionDoc {
     products!: Product[];
 
     selectedProduct!: Product;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

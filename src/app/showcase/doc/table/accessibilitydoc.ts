@@ -73,6 +73,10 @@ import { Component } from '@angular/core';
                         <td><i>escape</i></td>
                         <td>Hides the popup.</td>
                     </tr>
+                    <tr>
+                        <td><i>enter</i></td>
+                        <td>Opens the popup.</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

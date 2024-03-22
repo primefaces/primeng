@@ -66,7 +66,7 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
             hasHash &&
                 setTimeout(() => {
                     this.scrollToLabelById(id);
-                }, 25);
+                }, 250);
 
             this.zone.runOutsideAngular(() => {
                 this.scrollListener = this.renderer.listen(this.document, 'scroll', (event: any) => {
@@ -95,20 +95,22 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
     onScroll() {
         if (isPlatformBrowser(this.platformId) && this.nav) {
             if (!this.isScrollBlocked) {
-                if (typeof document !== undefined) {
-                    const labels = this.getLabels();
-                    const windowScrollTop = DomHandler.getWindowScrollTop();
+                this.zone.run(() => {
+                    if (typeof document !== 'undefined') {
+                        const labels = this.getLabels();
+                        const windowScrollTop = DomHandler.getWindowScrollTop();
 
-                    labels.forEach((label) => {
-                        const { top } = DomHandler.getOffset(label);
-                        const threshold = this.getThreshold(label);
+                        labels.forEach((label) => {
+                            const { top } = DomHandler.getOffset(label);
+                            const threshold = this.getThreshold(label);
 
-                        if (top - threshold <= windowScrollTop) {
-                            const link = DomHandler.findSingle(label, 'a');
-                            this.activeId = link.id;
-                        }
-                    });
-                }
+                            if (top - threshold <= windowScrollTop) {
+                                const link = DomHandler.findSingle(label, 'a');
+                                this.activeId = link.id;
+                            }
+                        });
+                    }
+                });
             }
 
             clearTimeout(this.scrollEndTimer);
@@ -148,7 +150,9 @@ export class AppDocSectionNavComponent implements OnInit, OnDestroy {
         if (typeof document !== undefined) {
             const label = document.getElementById(id);
             this.location.go(this.location.path().split('#')[0] + '#' + id);
-            label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            setTimeout(() => {
+                label && label.parentElement.scrollIntoView({ block: 'start', behavior: 'smooth' });
+            }, 1);
         }
     }
 

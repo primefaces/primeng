@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, NgModule, ViewChild } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { Code, ExtFile, RouteFile } from 'src/app/showcase/domain/code';
@@ -13,6 +13,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 <ng-container *ngIf="fullCodeVisible">
                     <button *ngIf="code.html" (click)="changeLang('html')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'html' }"><span>HTML</span></button>
                     <button *ngIf="code.typescript" (click)="changeLang('typescript')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'typescript' }"><span>TS</span></button>
+                    <button *ngIf="code.scss" (click)="changeLang('scss')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'scss' }"><span>SCSS</span></button>
 
                     <button
                         *ngIf="code.data"
@@ -28,21 +29,6 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                 </ng-container>
                 <button *ngIf="!hideToggleCode" pTooltip="Toggle Full Code" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center" (click)="toggleCode()">
                     <i class="pi pi-code"></i>
-                </button>
-
-                <button
-                    pTooltip="Edit in CodeSandbox"
-                    tooltipPosition="bottom"
-                    tooltipStyleClass="doc-section-code-tooltip"
-                    *ngIf="!hideCodeSandbox && !hideToggleCode"
-                    class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center"
-                    (click)="openCodeSandbox()"
-                >
-                    <svg role="img" viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="display: 'block'">
-                        <path
-                            d="M2 6l10.455-6L22.91 6 23 17.95 12.455 24 2 18V6zm2.088 2.481v4.757l3.345 1.86v3.516l3.972 2.296v-8.272L4.088 8.481zm16.739 0l-7.317 4.157v8.272l3.972-2.296V15.1l3.345-1.861V8.48zM5.134 6.601l7.303 4.144 7.32-4.18-3.871-2.197-3.41 1.945-3.43-1.968L5.133 6.6z"
-                        />
-                    </svg>
                 </button>
 
                 <button
@@ -118,11 +104,15 @@ export class AppCodeComponent {
 
     lang!: string;
 
+    constructor(@Inject(PLATFORM_ID) public platformId: any, @Inject(DOCUMENT) public document: Document) {}
+
     ngAfterViewChecked() {
-        if (typeof window !== undefined && window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
-            window['Prism'].highlightElement(this.codeElement.nativeElement);
-            this.codeElement.nativeElement.classList.add('prism');
-            this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');
+        if (isPlatformBrowser(this.platformId)) {
+            if (window['Prism'] && this.codeElement && !this.codeElement.nativeElement.classList.contains('prism')) {
+                window['Prism'].highlightElement(this.codeElement.nativeElement);
+                this.codeElement.nativeElement.classList.add('prism');
+                this.codeElement.nativeElement.parentElement.setAttribute('tabindex', '-1');
+            }
         }
     }
 
@@ -156,7 +146,7 @@ export class AppCodeComponent {
 
     toggleCode() {
         this.fullCodeVisible = !this.fullCodeVisible;
-        this.fullCodeVisible && (this.lang = 'html');
+        this.fullCodeVisible && (this.code.html ? (this.lang = 'html') : (this.lang = 'typescript'));
         !this.fullCodeVisible && (this.lang = 'basic');
     }
 

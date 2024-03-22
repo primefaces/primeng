@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { Code } from '../../domain/code';
-
+import { Subscription, debounceTime } from 'rxjs';
+import { AppConfigService } from '../../service/appconfigservice';
 @Component({
     selector: 'chart-horizontal-bar-demo',
     template: `
@@ -19,9 +20,20 @@ export class HorizontalBarDoc implements OnInit {
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    subscription!: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');

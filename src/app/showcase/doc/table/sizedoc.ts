@@ -8,29 +8,31 @@ import { ProductService } from '../../service/productservice';
     template: ` <app-docsectiontext>
             <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
         </app-docsectiontext>
-        <div class="card">
-            <div class="flex justify-content-center mb-3">
-                <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <div class="flex justify-content-center mb-3">
+                    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+                </div>
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-size-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -43,7 +45,7 @@ export class SizeDoc {
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

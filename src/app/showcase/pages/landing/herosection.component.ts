@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -14,7 +14,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
@@ -43,7 +43,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                 <div class="w-full xl:w-6 pt-7 xl:pt-0 hidden md:block">
                     <div class="flex">
                         <div class="flex flex-column w-6 gap-5 pt-8 pr-3">
-                            <div class="box p-4 fadein animation-duration-500">
+                            <div class="box p-4 fadein animation-duration-500 z-1">
                                 <div class="flex gap-2">
                                     <div class="w-6rem flex-shrink-0">
                                         <span class="text-secondary font-medium block mb-3">Amount</span>
@@ -54,7 +54,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                         <p-dropdown [(ngModel)]="user" [options]="users" optionLabel="name" placeholder="Select a User" styleClass="w-full">
                                             <ng-template pTemplate="content" let-slotProps>
                                                 <div class="flex align-items-center gap-2">
-                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primevue/images/avatar/{{ slotProps.image }}" width="28" />
+                                                    <img [alt]="slotProps.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ slotProps.image }}" width="28" />
                                                     <span>{{ slotProps.name }}</span>
                                                 </div>
                                             </ng-template>
@@ -110,7 +110,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 <ul class="list-none p-0 m-0">
                                     <li class="flex align-items-center mb-3">
                                         <span class="mr-3">
-                                            <img src="https://primefaces.org/cdn/primevue/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
+                                            <img src="https://primefaces.org/cdn/primeng/images/landing/avatar.png" alt="Avatar" class="w-3rem h-3rem" />
                                         </span>
                                         <div class="flex flex-column">
                                             <span class="font-bold mb-1">Amanda Williams</span>
@@ -173,9 +173,14 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     rangeValues = [20, 80];
 
-    themeChangeCompleteSubscription: Subscription;
+    subscription!: Subscription;
 
-    constructor(private configService: AppConfigService) {}
+    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.setChartOptions();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
         this.initChartData();
@@ -198,10 +203,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' }
         ];
-
-        this.themeChangeCompleteSubscription = this.configService.themeChangeComplete$.subscribe(() => {
-            this.setChartOptions();
-        });
     }
 
     initChartData(): void {
@@ -221,44 +222,46 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     }
 
     setChartOptions(): void {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        if (isPlatformBrowser(this.platformId)) {
+            const documentStyle = getComputedStyle(document.documentElement);
+            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.chartOptions = {
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
+            this.chartOptions = {
+                plugins: {
+                    legend: {
+                        display: false
                     }
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: textColorSecondary
+                scales: {
+                    x: {
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        grid: {
+                            color: surfaceBorder
+                        }
                     },
-                    min: 0,
-                    max: 100,
-                    grid: {
-                        color: surfaceBorder
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondary
+                        },
+                        min: 0,
+                        max: 100,
+                        grid: {
+                            color: surfaceBorder
+                        }
                     }
                 }
-            }
-        };
+            };
+        }
     }
 
     ngOnDestroy(): void {
-        if (this.themeChangeCompleteSubscription) {
-            this.themeChangeCompleteSubscription.unsubscribe();
-            this.themeChangeCompleteSubscription = null;
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+            this.subscription = null;
         }
     }
 }

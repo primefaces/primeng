@@ -23,6 +23,7 @@
     }
 
     .p-tooltip-arrow {
+        scale: 2;
         position: absolute;
         width: 0;
         height: 0;

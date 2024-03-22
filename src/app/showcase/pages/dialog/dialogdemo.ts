@@ -9,6 +9,7 @@ import { MaximizableDoc } from '../../doc/dialog/maximizabledoc';
 import { TemplateDoc } from '../../doc/dialog/templatedoc';
 import { OverlaysInsideDoc } from '../../doc/dialog/overlaysinsidedoc';
 import { ModalDoc } from '../../doc/dialog/modaldoc';
+import { HeadlessDoc } from '../../doc/dialog/headlessdoc';
 import { AccessibilityDoc } from '../../doc/dialog/accessibilitydoc';
 
 @Component({
@@ -60,6 +61,11 @@ export class DialogDemo {
             id: 'overlaysinside',
             label: 'Overlays Inside',
             component: OverlaysInsideDoc
+        },
+        {
+            id: 'headless',
+            label: 'Headless',
+            component: HeadlessDoc
         },
         {
             id: 'style',

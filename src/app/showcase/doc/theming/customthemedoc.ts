@@ -11,17 +11,8 @@ import { Code } from '../../domain/code';
                 <a href="https://www.primefaces.org/designer/api/primeng/15.0.0">SASS API</a> documentation.
             </p>
             <p>
-                There are 3 alternatives to create your own theme. First option is using the Visual Editor, second one is compiling a theme with command line sass and final alternative is embedding scss files within your project to let your build
-                environment do the compilation. In all cases, the generated theme file should be imported to your project. Here is a video tutorial that demonstrates all three options.
-            </p>
-
-            <div class="video-container"></div>
-
-            <h3>Visual Editor</h3>
-            <p>
-                <a href="https://designer.primeng.org">Visual Editor</a> is an easy way to quickly customize an existing theme without dealing with the details of the SASS API. The editor allows changing common settings like primary color for
-                built-in themes. Once you have completed the design, click the download button to access the generated <i>theme.css</i> file and import it to your project as an asset. In near future, an advanced UI Designer will be available with the
-                ability to edit all variables and components where you'll also be able to save your themes when accessed with an account.
+                There are 2 alternatives to create your own theme. First option is compiling a theme with command line sass whereas second option is embedding scss files within your project to let your build environment do the compilation. In all
+                cases, the generated theme file should be imported to your project.
             </p>
 
             <h3>Theme SCSS</h3>

@@ -35,6 +35,16 @@ export interface CalendarTemplates {
      */
     header(): TemplateRef<any>;
     /**
+     * Custom input icon template.
+     * @param {Object} context - input icon template params.
+     */
+    inputIconTemplate(context: {
+        /**
+         * Click callback
+         */
+        clickCallBack: () => void;
+    }): TemplateRef<{ clickCallBack: Function }>;
+    /**
      * Custom previous icon template.
      */
     previousicon(): TemplateRef<any>;

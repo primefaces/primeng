@@ -308,7 +308,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.toggle(event);
-                event.preventDefault(); // ???
+                event.preventDefault();
                 break;
             default:
                 break;
@@ -449,27 +449,45 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
                 break;
 
             case 'Home':
-                this.onTabHomeKey(event);
+                if (!event.shiftKey) {
+                    this.onTabHomeKey(event);
+                }
                 break;
 
             case 'End':
-                this.onTabEndKey(event);
+                if (!event.shiftKey) {
+                    this.onTabEndKey(event);
+                }
                 break;
         }
     }
 
-    onTabArrowDownKey(event) {
-        const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
-        nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
+    isInput(event): boolean {
+        const { tagName } = event.target;
+        return tagName?.toLowerCase() === 'input';
+    }
 
-        event.preventDefault();
+    isTextArea(event): boolean {
+        const { tagName } = event.target;
+        return tagName?.toLowerCase() === 'textarea';
+    }
+
+    onTabArrowDownKey(event) {
+        if (!this.isInput(event) && !this.isTextArea(event)) {
+            const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
+            nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
+
+            event.preventDefault();
+        }
     }
 
     onTabArrowUpKey(event) {
-        const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
-        prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
+        if (!this.isInput(event) && !this.isTextArea(event)) {
+            const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
+            prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }
 
     onTabHomeKey(event) {

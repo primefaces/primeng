@@ -370,9 +370,9 @@
     padding: 0.2145rem 0;
   }
   .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #666666;
     padding: 0;
     margin: 0;
@@ -434,6 +434,11 @@
     color: #666666;
     background: #f4f4f4;
     font-weight: 700;
+  }
+  .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-empty-message {
+    padding: 0.429rem 0.857rem;
+    color: #666666;
+    background: transparent;
   }
 
   p-autocomplete.ng-dirty.ng-invalid > .p-autocomplete > .p-inputtext {
@@ -861,6 +866,10 @@
     margin-left: 0.5rem;
   }
 
+  p-tristatecheckbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
+    border-color: #e7a3a3;
+  }
+
   .p-chips:not(.p-disabled):hover .p-chips-multiple-container {
     border-color: #a6a6a6;
   }
@@ -892,9 +901,9 @@
     padding: 0.2145rem 0;
   }
   .p-chips .p-chips-multiple-container .p-chips-input-token input {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-size: inherit;
+    font-family: var(--font-family);
+    font-feature-settings: var(--font-feature-settings, normal);
+    font-size: 1rem;
     color: #666666;
     padding: 0;
     margin: 0;
@@ -1052,6 +1061,16 @@
     background-color: transparent;
   }
 
+  p-dropdown.ng-dirty.ng-invalid > .p-dropdown {
+    border-color: #e7a3a3;
+  }
+
+  .p-icon-field .p-input-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -0.5rem;
+  }
+
   .p-inputgroup-addon {
     background: #dbdbdb;
     color: #666666;
@@ -1066,27 +1085,23 @@
   }
 
   .p-inputgroup > .p-component,
-.p-inputgroup > .p-element,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext,
+.p-inputgroup > .p-inputwrapper > .p-inputtext,
 .p-inputgroup > .p-float-label > .p-component {
     border-radius: 0;
     margin: 0;
   }
   .p-inputgroup > .p-component + .p-inputgroup-addon,
-.p-inputgroup > .p-element + .p-inputgroup-addon,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext + .p-inputgroup-addon,
+.p-inputgroup > .p-inputwrapper > .p-inputtext + .p-inputgroup-addon,
 .p-inputgroup > .p-float-label > .p-component + .p-inputgroup-addon {
     border-left: 0 none;
   }
   .p-inputgroup > .p-component:focus,
-.p-inputgroup > .p-element:focus,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext:focus,
+.p-inputgroup > .p-inputwrapper > .p-inputtext:focus,
 .p-inputgroup > .p-float-label > .p-component:focus {
     z-index: 1;
   }
   .p-inputgroup > .p-component:focus ~ label,
-.p-inputgroup > .p-element:focus ~ label,
-.p-inputgroup > .p-inputwrapper > .p-component > .p-inputtext:focus ~ label,
+.p-inputgroup > .p-inputwrapper > .p-inputtext:focus ~ label,
 .p-inputgroup > .p-float-label > .p-component:focus ~ label {
     z-index: 1;
   }
@@ -1126,6 +1141,16 @@
     width: 2.357rem;
   }
 
+  .p-icon-field-left .p-input-icon:first-of-type {
+    left: 0.429rem;
+    color: #a6a6a6;
+  }
+
+  .p-icon-field-right .p-input-icon:last-of-type {
+    right: 0.429rem;
+    color: #a6a6a6;
+  }
+
   p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
     border-color: #e7a3a3;
   }
@@ -1155,6 +1180,17 @@
   }
   p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
     right: 2.786rem;
+  }
+
+  .p-inputotp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .p-inputotp-input {
+    text-align: center;
+    width: 1.858rem;
   }
 
   .p-inputswitch {
@@ -1196,7 +1232,7 @@
     background: #afd3c8;
   }
 
-  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch {
+  p-inputswitch.ng-dirty.ng-invalid > .p-inputswitch > .p-inputswitch-slider {
     border-color: #e7a3a3;
   }
 
@@ -1264,6 +1300,18 @@
   }
 
   .p-input-icon-right > .p-inputtext {
+    padding-right: 1.858rem;
+  }
+
+  .p-icon-field-left > .p-inputtext {
+    padding-left: 1.858rem;
+  }
+
+  .p-icon-field-left.p-float-label > label {
+    left: 1.858rem;
+  }
+
+  .p-icon-field-right > .p-inputtext {
     padding-right: 1.858rem;
   }
 
@@ -3312,14 +3360,23 @@
   .p-orderlist .p-orderlist-controls .p-button {
     margin-bottom: 0.5rem;
   }
+  .p-orderlist .p-orderlist-list-container {
+    background: #ffffff;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    outline-color: transparent;
+  }
+  .p-orderlist .p-orderlist-list-container.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #e4e9ec;
+    border-color: #7b95a3;
+  }
   .p-orderlist .p-orderlist-header {
-    background: #7b95a3;
     color: #ffffff;
-    border: 1px solid #7b95a3;
     padding: 0.857rem 1rem;
-    border-bottom: 0 none;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
+    font-weight: 700;
   }
   .p-orderlist .p-orderlist-header .p-orderlist-title {
     font-weight: 700;
@@ -3338,13 +3395,12 @@
     color: #a6a6a6;
   }
   .p-orderlist .p-orderlist-list {
-    border: 1px solid #dadada;
-    background: #ffffff;
     color: #666666;
     padding: 0;
-    border-bottom-right-radius: 2px;
-    border-bottom-left-radius: 2px;
     outline: 0 none;
+  }
+  .p-orderlist .p-orderlist-list:not(:first-child) {
+    border-top: 1px solid #dadada;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item {
     padding: 0.429rem 0.857rem;
@@ -3520,14 +3576,23 @@
   .p-picklist .p-picklist-buttons .p-button {
     margin-bottom: 0.5rem;
   }
+  .p-picklist .p-picklist-list-wrapper {
+    background: #ffffff;
+    border: 1px solid #dadada;
+    border-radius: 2px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    outline-color: transparent;
+  }
+  .p-picklist .p-picklist-list-wrapper.p-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #e4e9ec;
+    border-color: #7b95a3;
+  }
   .p-picklist .p-picklist-header {
-    background: #7b95a3;
     color: #ffffff;
-    border: 1px solid #7b95a3;
     padding: 0.857rem 1rem;
-    border-bottom: 0 none;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
+    font-weight: 700;
   }
   .p-picklist .p-picklist-header .p-picklist-title {
     font-weight: 700;
@@ -3546,13 +3611,12 @@
     color: #a6a6a6;
   }
   .p-picklist .p-picklist-list {
-    border: 1px solid #dadada;
-    background: #ffffff;
     color: #666666;
     padding: 0;
-    border-bottom-right-radius: 2px;
-    border-bottom-left-radius: 2px;
     outline: 0 none;
+  }
+  .p-picklist .p-picklist-list:not(:first-child) {
+    border-top: 1px solid #dadada;
   }
   .p-picklist .p-picklist-list .p-picklist-item {
     padding: 0.429rem 0.857rem;
@@ -4196,6 +4260,12 @@
   .p-scrollpanel .p-scrollpanel-bar {
     background: #f8f8f8;
     border: 0 none;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  }
+  .p-scrollpanel .p-scrollpanel-bar:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #e4e9ec;
   }
 
   .p-splitter {
@@ -4210,6 +4280,11 @@
   }
   .p-splitter .p-splitter-gutter .p-splitter-gutter-handle {
     background: #dadada;
+  }
+  .p-splitter .p-splitter-gutter .p-splitter-gutter-handle:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem #e4e9ec;
   }
   .p-splitter .p-splitter-gutter-resizing {
     background: #dadada;
@@ -5699,7 +5774,7 @@
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .p-message .p-message-close:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
   .p-message .p-message-close:focus-visible {
     outline: 0 none;
@@ -5809,7 +5884,7 @@
     transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
   }
   .p-toast .p-toast-message .p-toast-icon-close:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.5);
   }
   .p-toast .p-toast-message .p-toast-icon-close:focus-visible {
     outline: 0 none;
@@ -6126,6 +6201,103 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem #e4e9ec;
+  }
+
+  .p-metergroup {
+    display: flex;
+  }
+
+  .p-metergroup-meters {
+    display: flex;
+  }
+
+  .p-metergroup-vertical .p-metergroup-meters {
+    flex-direction: column;
+  }
+
+  .p-metergroup-labels {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .p-metergroup-vertical .p-metergroup-labels {
+    align-items: start;
+  }
+
+  .p-metergroup-labels-vertical {
+    flex-direction: column;
+  }
+
+  .p-metergroup-label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .p-metergroup-label-marker {
+    display: inline-flex;
+  }
+
+  .p-metergroup {
+    gap: 1rem;
+  }
+  .p-metergroup .p-metergroup-meters {
+    background: #efefef;
+    border-radius: 2px;
+  }
+  .p-metergroup .p-metergroup-meter {
+    border: 0 none;
+    background: #7b95a3;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-marker {
+    background: #7b95a3;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-vertical {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-horizontal {
+    gap: 1rem;
+  }
+  .p-metergroup.p-metergroup-horizontal {
+    flex-direction: column;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meters {
+    height: 0.5rem;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:last-of-type {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+  .p-metergroup.p-metergroup-vertical {
+    flex-direction: row;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meters {
+    width: 0.5rem;
+    height: 100%;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:last-of-type {
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 
   .p-progressbar {

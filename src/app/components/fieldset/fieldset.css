@@ -1,4 +1,7 @@
 @layer primeng {
+    .p-fieldset{
+        min-width: initial;
+    }
     .p-fieldset-legend > a,
     .p-fieldset-legend > span {
         display: flex;

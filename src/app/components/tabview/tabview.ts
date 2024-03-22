@@ -35,7 +35,6 @@ import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 import { UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { AnimationStyleMetadata } from '@angular/animations';
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -496,6 +495,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
         this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
+            this.refreshButtonState();
         });
 
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -524,7 +524,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
-            if (this.list.offsetWidth > this.container.offsetWidth) {
+            if (this.list.offsetWidth >= this.container.offsetWidth) {
                 this.buttonVisible = true;
             } else {
                 this.buttonVisible = false;
@@ -781,21 +781,26 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
     }
 
     updateInkBar() {
-        if (this.navbar) {
-            const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.navbar) {
+                const tabHeader: HTMLElement | null = DomHandler.findSingle(this.navbar.nativeElement, 'li.p-highlight');
 
-            if (!tabHeader) {
-                return;
+                if (!tabHeader) {
+                    return;
+                }
+
+                (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
+                (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
             }
-
-            (this.inkbar as ElementRef).nativeElement.style.width = DomHandler.getWidth(tabHeader) + 'px';
-            (this.inkbar as ElementRef).nativeElement.style.left = DomHandler.getOffset(tabHeader).left - DomHandler.getOffset(this.navbar.nativeElement).left + 'px';
         }
     }
 
     updateScrollBar(index: number) {
         let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
-        tabHeader.scrollIntoView({ block: 'nearest' });
+
+        if (tabHeader) {
+            tabHeader.scrollIntoView({ block: 'nearest' });
+        }
     }
 
     updateButtonState() {
@@ -804,7 +809,21 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
+    }
+
+    refreshButtonState() {
+        this.container = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        if (this.list.offsetWidth >= this.container.offsetWidth) {
+            if (this.list.offsetWidth >= this.container.offsetWidth) {
+                this.buttonVisible = true;
+            } else {
+                this.buttonVisible = false;
+            }
+            this.updateButtonState();
+            this.cd.markForCheck();
+        }
     }
 
     onScroll(event: Event) {

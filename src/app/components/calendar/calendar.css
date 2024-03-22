@@ -166,6 +166,10 @@
         cursor: pointer;
     }
 
+    .p-datepicker-icon {
+        pointer-events: none;
+    }
+
     .p-calendar-clearable {
         position: relative;
     }

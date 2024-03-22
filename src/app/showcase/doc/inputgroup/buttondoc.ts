@@ -12,19 +12,17 @@ import { Code } from '../../domain/code';
                 <button type="button" pButton label="Search"></button>
                 <input type="text" pInputText placeholder="Keyword" />
             </p-inputGroup>
-
             <p-inputGroup>
                 <input type="text" pInputText placeholder="Keyword" />
-                <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
+                <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
             </p-inputGroup>
-
             <p-inputGroup>
-                <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
+                <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
                 <input type="text" pInputText placeholder="Vote" />
-                <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
+                <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
             </p-inputGroup>
         </div>
-        <app-code [code]="code" selector="inputgroup-button-demo"></app-code>
+        <app-code [code]="code" selector="input-group-button-demo"></app-code>
     `
 })
 export class ButtonDoc {
@@ -33,32 +31,29 @@ export class ButtonDoc {
     <button type="button" pButton label="Search"></button>
     <input type="text" pInputText placeholder="Keyword" />
 </p-inputGroup>
-
 <p-inputGroup>
     <input type="text" pInputText placeholder="Keyword" />
-    <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
+    <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
 </p-inputGroup>
-
 <p-inputGroup>
-    <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
+    <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
     <input type="text" pInputText placeholder="Vote" />
-    <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
+    <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
 </p-inputGroup>`,
+
         html: `<div class="card flex flex-column md:flex-row gap-3">
     <p-inputGroup>
         <button type="button" pButton label="Search"></button>
         <input type="text" pInputText placeholder="Keyword" />
     </p-inputGroup>
-
     <p-inputGroup>
         <input type="text" pInputText placeholder="Keyword" />
-        <button type="button" pButton icon="pi pi-refresh" styleClass="p-button-warn"></button>
+        <button type="button" pButton icon="pi pi-search" class="p-button-warning"></button>
     </p-inputGroup>
-
     <p-inputGroup>
-        <button type="button" pButton icon="pi pi-check" styleClass="p-button-success"></button>
+        <button type="button" pButton icon="pi pi-check" class="p-button-success"></button>
         <input type="text" pInputText placeholder="Vote" />
-        <button type="button" pButton icon="pi pi-times" styleClass="p-button-danger"></button>
+        <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
     </p-inputGroup>
 </div>`,
 

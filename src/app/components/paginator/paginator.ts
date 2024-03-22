@@ -58,7 +58,8 @@ import { PaginatorState } from './paginator.interface';
                     *ngFor="let pageLink of pageLinks"
                     class="p-paginator-page p-paginator-element p-link"
                     [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
-                    [attr.aria-label]="getAriaLabel('pageLabel')"
+                    [attr.aria-label]="getPageAriaLabel(pageLink)"
+                    [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
                     (click)="onPageLinkClick($event, pageLink - 1)"
                     pRipple
                 >
@@ -82,6 +83,9 @@ import { PaginatorState } from './paginator.interface';
                         <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
                 </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
             </p-dropdown>
             <button
                 type="button"
@@ -129,6 +133,9 @@ import { PaginatorState } from './paginator.interface';
                         <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
                 </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
             </p-dropdown>
             <div class="p-paginator-right-content" *ngIf="templateRight" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
@@ -271,6 +278,8 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
+    dropdownIconTemplate: Nullable<TemplateRef<any>>;
+
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     previousPageLinkIconTemplate: Nullable<TemplateRef<any>>;
@@ -301,6 +310,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return this.config.translation.aria ? this.config.translation.aria[labelType] : undefined;
     }
 
+    getPageAriaLabel(value) {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `Page ${value}`) : undefined;
+    }
+
     getLocalization(digit: number) {
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [i, d]));
@@ -315,6 +328,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     ngAfterContentInit(): void {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
+                    break;
+
                 case 'firstpagelinkicon':
                     this.firstPageLinkIconTemplate = item.template;
                     break;

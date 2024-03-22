@@ -8,6 +8,7 @@ import { Customer } from '../../domain/customer';
 import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '../../service/appconfigservice';
 import { CustomerService } from '../../service/customerservice';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'theme-section',
@@ -21,7 +22,6 @@ import { CustomerService } from '../../service/customerservice';
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
                 <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
-                <a type="button" class="font-medium p-link linkbox mt-4" href="https://designer.primeng.org" target="_blank">more...</a>
             </div>
             <div
                 class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
@@ -162,7 +162,12 @@ export class ThemeSectionComponent {
 
     @ViewChild('dt') table: Table;
 
-    tableTheme: string = 'lara-light-blue';
+    get tableTheme() {
+        return this.configService.config().tableTheme;
+    }
+    set tableTheme(value: string) {
+        this.configService.config.update((config) => ({ ...config, tableTheme: value }));
+    }
 
     customers: Customer[];
 
@@ -171,44 +176,18 @@ export class ThemeSectionComponent {
     loading: boolean = true;
 
     get isDarkMode() {
-        return this.configService.config.darkMode;
-    }
-
-    changeTableTheme(value: string) {
-        if (isPlatformBrowser(this.platformId)) {
-            this.replaceTableTheme(value);
-        }
-    }
-    replaceTableTheme(newTheme: string) {
-        const elementId = 'home-table-link';
-        const linkElement = <HTMLLinkElement>document.getElementById(elementId);
-        const tableThemeTokens = linkElement?.getAttribute('href').split('/') || null;
-        const currentTableTheme = tableThemeTokens ? tableThemeTokens[tableThemeTokens.length - 2] : null;
-
-        if (currentTableTheme !== newTheme && tableThemeTokens) {
-            const newThemeUrl = linkElement.getAttribute('href').replace(currentTableTheme, newTheme);
-
-            const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
-
-            cloneLinkElement.setAttribute('id', elementId + '-clone');
-            cloneLinkElement.setAttribute('href', newThemeUrl);
-            cloneLinkElement.addEventListener('load', () => {
-                linkElement.remove();
-                cloneLinkElement.setAttribute('id', elementId);
-            });
-            linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-            this.tableTheme = newTheme;
-        }
+        return this.configService.config().darkMode;
     }
 
     ngOnInit() {
-        this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
-
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.loading = false;
         });
+    }
+
+    changeTableTheme(value: string) {
+        this.tableTheme = value;
     }
 
     getSeverity(status) {

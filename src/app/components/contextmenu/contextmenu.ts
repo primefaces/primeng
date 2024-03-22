@@ -96,7 +96,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-menuitem-link': true }"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
@@ -452,6 +452,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Press delay in touch devices as miliseconds.
+     * @group Props
+     */
+    @Input() pressDelay: number | undefined = 500;
+    /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
      */
@@ -484,6 +489,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     documentTriggerListener: VoidListener;
 
+    touchEndListener: VoidListener;
+
     pageX: number;
 
     pageY: number;
@@ -509,6 +516,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     _processedItems: any[];
 
     _model: MenuItem[] | undefined;
+
+    pressTimer: any;
 
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
@@ -554,17 +563,31 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.bindTriggerEventListener();
     }
 
+    isMobile() {
+        return DomHandler.isIOS() || DomHandler.isAndroid();
+    }
+
     bindTriggerEventListener() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.triggerEventListener) {
-                if (this.global) {
-                    this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
-                } else if (this.target) {
-                    this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
-                        this.show(event);
-                    });
+                if (!this.isMobile()) {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, this.triggerEvent, (event) => {
+                            this.show(event);
+                        });
+                    }
+                } else {
+                    if (this.global) {
+                        this.triggerEventListener = this.renderer.listen(this.document, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.document, 'touchend', this.onTouchEnd.bind(this));
+                    } else if (this.target) {
+                        this.triggerEventListener = this.renderer.listen(this.target, 'touchstart', this.onTouchStart.bind(this));
+                        this.touchEndListener = this.renderer.listen(this.target, 'touchend', this.onTouchEnd.bind(this));
+                    }
                 }
             }
         }
@@ -908,7 +931,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.moveOnTop();
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                this.onShow.emit();
                 DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                 break;
         }
@@ -947,11 +969,21 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         this.container = null;
-        this.onHide.emit();
+    }
+
+    onTouchStart(event: MouseEvent) {
+        this.pressTimer = setTimeout(() => {
+            this.show(event);
+        }, this.pressDelay);
+    }
+
+    onTouchEnd() {
+        clearTimeout(this.pressTimer);
     }
 
     hide() {
         this.visible.set(false);
+        this.onHide.emit();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
@@ -967,6 +999,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.pageX = event.pageX;
         this.pageY = event.pageY;
 
+        this.onShow.emit();
         this.visible() ? this.position() : this.visible.set(true);
 
         event.stopPropagation();
@@ -1134,6 +1167,11 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
             this.resizeListener();
             this.resizeListener = null;
         }
+
+        if (this.touchEndListener) {
+            this.touchEndListener();
+            this.touchEndListener = null;
+        }
     }
 
     unbindTriggerEventListener() {
@@ -1144,11 +1182,9 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     removeAppendedElements() {
-        if (this.appendTo) {
+        if (this.appendTo && this.containerViewChild) {
             if (this.appendTo === 'body') {
-                if (this.containerViewChild) {
-                    this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-                }
+                this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
             } else {
                 DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }

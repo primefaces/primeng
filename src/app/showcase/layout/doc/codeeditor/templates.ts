@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.0.0-rc.1',
+    version: '17.12.0',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -536,6 +536,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup'
+import { InputOtpModule } from 'primeng/inputotp'
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -545,6 +548,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { OrderListModule } from 'primeng/orderlist';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -568,6 +572,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { SpinnerModule } from 'primeng/spinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { SplitterModule } from 'primeng/splitter';
+import { StepperModule } from 'primeng/stepper';
 import { StepsModule } from 'primeng/steps';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
@@ -588,6 +593,9 @@ import { AnimateModule } from 'primeng/animate';
 import { CardModule } from 'primeng/card';
 import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RippleModule } from 'primeng/ripple';
+import { StyleClassModule } from 'primeng/styleclass';
+import { MessageService } from 'primeng/api';
 ${serviceImports}
 
 @NgModule({
@@ -634,6 +642,9 @@ ${serviceImports}
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputOtpModule,
     ImageModule,
     KnobModule,
     ListboxModule,
@@ -643,6 +654,7 @@ ${serviceImports}
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     OverlayPanelModule,
@@ -666,6 +678,7 @@ ${serviceImports}
     SpeedDialModule,
     SpinnerModule,
     SplitterModule,
+    StepperModule,
     SplitButtonModule,
     StepsModule,
     TableModule,
@@ -685,6 +698,8 @@ ${serviceImports}
     TreeTableModule,
     AnimateModule,
     CardModule,
+    RippleModule,
+    StyleClassModule,
     ${routerModule}],
     declarations: [ ${declarations} ],
     bootstrap: [ ${componentName} ],

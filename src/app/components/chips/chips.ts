@@ -57,7 +57,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     [attr.ariaLabel]="item"
                     [attr.aria-selected]="true"
                     [attr.aria-setsize]="value.length"
-                    [attr.aria-pointset]="i + 1"
+                    [attr.aria-posinset]="i + 1"
                     [attr.data-p-focused]="focusedIndex === i"
                     [ngClass]="{ 'p-chips-token': true, 'p-focus': focusedIndex === i }"
                     (click)="onItemClick($event, item)"
@@ -77,6 +77,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         #inputtext
                         type="text"
                         [attr.id]="inputId"
+                        [attr.maxlength]="maxLength"
                         [attr.placeholder]="value && value.length ? null : placeholder"
                         [attr.tabindex]="tabindex"
                         (keydown)="onKeyDown($event)"
@@ -141,6 +142,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      */
     @Input() max: number | undefined;
     /**
+     * Maximum length of a chip.
+     * @group Props
+     */
+    @Input() maxLength: number | undefined;
+    /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
@@ -165,6 +171,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * @group Props
      */
     @Input() allowDuplicate: boolean = true;
+    /**
+     * Defines whether duplication check should be case-sensitive
+     * @group Props
+     */
+    @Input() caseSensitiveDuplication: boolean = true;
     /**
      * Inline style of the input field.
      * @group Props
@@ -459,7 +470,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = this.value || [];
 
         if (item && item.trim().length) {
-            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isMaxedOut) {
+            const newItemIsDuplicate = this.caseSensitiveDuplication ? this.value.includes(item) : this.value.some((val) => val.toLowerCase() === item.toLowerCase());
+
+            if ((this.allowDuplicate || !newItemIsDuplicate) && !this.isMaxedOut) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -478,7 +491,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         }
     }
 
-    clear() {
+    /**
+     * Callback to invoke on filter reset.
+     * @group Method
+     */
+    public clear() {
         this.value = null;
         this.updateFilledState();
         this.onModelChange(this.value);
@@ -500,8 +517,17 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 if (inputValue && inputValue.trim().length && !this.isMaxedOut) {
                     this.addItem(event, inputValue, true);
+                }
+
+                break;
+
+            case 'Tab':
+                if (this.addOnTab && inputValue && inputValue.trim().length && !this.isMaxedOut) {
+                    this.addItem(event, inputValue, true);
+                    event.preventDefault();
                 }
 
                 break;

@@ -11,15 +11,18 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
-                    <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-                    <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
-                    <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
+                    <button pButton icon="pi pi-plus" class="mr-2"></button>
+                    <button pButton icon="pi pi-print" class="mr-2"></button>
+                    <button pButton icon="pi pi-upload"></button>
+                </div>
+                <div class="p-toolbar-group-center">
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText placeholder="Search" />
+                    </span>
                 </div>
                 <div class="p-toolbar-group-end">
-                    <p-button icon="pi pi-search" class="mr-2"></p-button>
-                    <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
-                    <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+                    <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
                 </div>
             </p-toolbar>
         </div>
@@ -38,16 +41,6 @@ export class BasicDoc implements OnInit {
             {
                 label: 'Delete',
                 icon: 'pi pi-times'
-            },
-            {
-                label: 'Angular',
-                icon: 'pi pi-external-link',
-                url: 'http://angular.io'
-            },
-            {
-                label: 'Router',
-                icon: 'pi pi-upload',
-                routerLink: '/fileupload'
             }
         ];
     }
@@ -55,33 +48,38 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-toolbar>
     <div class="p-toolbar-group-start">
-        <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
-        <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-        <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
-        <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
+        <button pButton icon="pi pi-plus" class="mr-2"></button>
+        <button pButton icon="pi pi-print" class="mr-2"></button>
+        <button pButton icon="pi pi-upload"></button>
+    </div>
+    <div class="p-toolbar-group-center">
+        <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input pInputText placeholder="Search" />
+        </span>
     </div>
     <div class="p-toolbar-group-end">
-        <p-button icon="pi pi-search" class="mr-2"></p-button>
-        <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
-        <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
+        <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
     </div>
 </p-toolbar>`,
 
-        html: `
-<div class="card">
-    <p-toolbar>
-        <div class="p-toolbar-group-start">
-            <p-button label="New" icon="pi pi-plus" class="mr-2"></p-button>
-            <p-button label="Upload" icon="pi pi-upload" styleClass="p-button-success"></p-button>
-            <i class="p-toolbar-separator pi pi-bars mr-2" style="vertical-align: middle"></i>
-            <p-splitButton label="Save" icon="pi pi-check" [model]="items" styleClass="p-button-warning"></p-splitButton>
-        </div>
-        <div class="p-toolbar-group-end">
-            <p-button icon="pi pi-search" class="mr-2"></p-button>
-            <p-button icon="pi pi-calendar" styleClass="p-button-success mr-2"></p-button>
-            <p-button icon="pi pi-times" styleClass="p-button-danger"></p-button>
-        </div>
-    </p-toolbar>
+        html: `<div class="card">
+<p-toolbar>
+<div class="p-toolbar-group-start">
+    <button pButton icon="pi pi-plus" class="mr-2"></button>
+    <button pButton icon="pi pi-print" class="mr-2"></button>
+    <button pButton icon="pi pi-upload"></button>
+</div>
+<div class="p-toolbar-group-center">
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input pInputText placeholder="Search" />
+    </span>
+</div>
+<div class="p-toolbar-group-end">
+    <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
+</div>
+</p-toolbar>
 </div>`,
 
         typescript: `
@@ -104,16 +102,6 @@ export class ToolbarBasicDemo implements OnInit {
             {
                 label: 'Delete',
                 icon: 'pi pi-times'
-            },
-            {
-                label: 'Angular',
-                icon: 'pi pi-external-link',
-                url: 'http://angular.io'
-            },
-            {
-                label: 'Router',
-                icon: 'pi pi-upload',
-                routerLink: '/fileupload'
             }
         ];
     }

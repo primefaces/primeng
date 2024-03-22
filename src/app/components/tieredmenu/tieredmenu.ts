@@ -164,7 +164,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             </a>
                         </ng-container>
                         <ng-container *ngIf="itemTemplate">
-                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item, hasSubmenu: getItemProp(processedItem, 'items') }"></ng-template>
                         </ng-container>
                     </div>
 
@@ -176,6 +176,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                         [menuId]="menuId"
                         [activeItemPath]="activeItemPath"
                         [focusedItemId]="focusedItemId"
+                        [ariaLabelledBy]="getItemId(processedItem)"
                         [level]="level + 1"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
@@ -230,10 +231,10 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
-        let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+        const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
 
         if (sublist) {
             const parentItem = sublist.parentElement.parentElement;
@@ -287,7 +288,15 @@ export class TieredMenuSub {
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items.slice(0, index).filter((processedItem) => {
+                const isItemVisible = this.isItemVisible(processedItem);
+                const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
+                return !isItemVisible || isVisibleSeparator;
+            }).length +
+            1
+        );
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -497,8 +506,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     relativeAlign: boolean | undefined;
 
-    private window: Window;
-
     dirty: boolean = false;
 
     focused: boolean = false;
@@ -543,7 +550,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
-        this.window = this.document.defaultView as Window;
         effect(() => {
             const path = this.activeItemPath();
 
@@ -624,11 +630,15 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     isValidItem(processedItem: any): boolean {
-        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item) && this.isItemVisible(processedItem.item);
     }
 
     isItemDisabled(item: any): boolean {
         return this.getItemProp(item, 'disabled');
+    }
+
+    isItemVisible(item: any): boolean {
+        return this.getItemProp(item, 'visible') !== false;
     }
 
     isItemSeparator(item: any): boolean {
@@ -847,7 +857,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
             anchorElement ? anchorElement.click() : element && element.click();
 
-            const processedItem = this.visibleItems[this.focusedItemInfo().index];
             if (!this.popup) {
                 const processedItem = this.visibleItems[this.focusedItemInfo().index];
                 const grouped = this.isProccessedItemGroup(processedItem);
@@ -878,8 +887,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: this.visibleItems[this.findFirstFocusedItemIndex()]?.item };
-        this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
@@ -983,7 +990,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.relativeAlign = event?.relativeAlign || null;
         }
 
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
 

@@ -14,14 +14,14 @@ import { Subscription } from 'rxjs';
     selector: 'p-steps',
     template: `
         <nav [ngClass]="{ 'p-steps p-component': true, 'p-readonly': readonly }" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'steps'">
-            <ul #list role="tablist" [attr.data-pc-section]="'menu'">
+            <ul #list [attr.data-pc-section]="'menu'">
                 <li
                     *ngFor="let item of model; let i = index"
                     class="p-steps-item"
                     #menuitem
                     [ngStyle]="item.style"
                     [class]="item.styleClass"
-                    role="presentation"
+                    [attr.aria-current]="isActive(item, i) ? 'step' : undefined"
                     [attr.id]="item.id"
                     pTooltip
                     [tooltipOptions]="item.tooltipOptions"
@@ -29,10 +29,10 @@ import { Subscription } from 'rxjs';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <a
+                        role="link"
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
-                        role="tab"
                         [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                         class="p-menuitem-link"
@@ -40,7 +40,6 @@ import { Subscription } from 'rxjs';
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.tabindex]="getItemTabIndex(item, i)"
-                        [attr.aria-selected]="i === activeIndex"
                         [attr.aria-expanded]="i === activeIndex"
                         [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                         [fragment]="item.fragment"
@@ -57,14 +56,13 @@ import { Subscription } from 'rxjs';
                     </a>
                     <ng-template #elseBlock>
                         <a
+                            role="link"
                             [attr.href]="item.url"
                             class="p-menuitem-link"
-                            role="tab"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.tabindex]="getItemTabIndex(item, i)"
-                            [attr.aria-selected]="i === activeIndex"
                             [attr.aria-expanded]="i === activeIndex"
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                             [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"

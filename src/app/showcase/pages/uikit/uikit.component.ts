@@ -15,6 +15,6 @@ export class UIKitComponent {
     }
 
     get isDarkMode(): boolean {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 }

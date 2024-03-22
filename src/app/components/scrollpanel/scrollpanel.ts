@@ -22,6 +22,8 @@ import {
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
+import { UniqueComponentId } from 'primeng/utils';
+
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
  * @group Components
@@ -44,6 +46,7 @@ import { Nullable } from 'primeng/ts-helpers';
                 [attr.aria-orientation]="'horizontal'"
                 [attr.aria-valuenow]="lastScrollLeft"
                 [attr.data-pc-section]="'barx'"
+                [attr.aria-controls]="contentId"
                 (mousedown)="onXBarMouseDown($event)"
                 (keydown)="onKeyDown($event)"
                 (keyup)="onKeyUp()"
@@ -58,6 +61,7 @@ import { Nullable } from 'primeng/ts-helpers';
                 [attr.aria-orientation]="'vertical'"
                 [attr.aria-valuenow]="lastScrollTop"
                 [attr.data-pc-section]="'bary'"
+                [attr.aria-controls]="contentId"
                 (mousedown)="onYBarMouseDown($event)"
                 (keydown)="onKeyDown($event)"
                 (keyup)="onKeyUp()"
@@ -125,6 +129,8 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     timer: any;
 
+    contentId: string | undefined;
+
     windowResizeListener: VoidFunction | null | undefined;
 
     contentScrollListener: VoidFunction | null | undefined;
@@ -139,7 +145,9 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentMouseUpListener: Nullable<(event?: any) => void>;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {
+        this.contentId = UniqueComponentId() + '_content';
+    }
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {

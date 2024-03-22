@@ -14,9 +14,7 @@ import { RouterModule } from '@angular/router';
                         <ul class="list-none p-0 m-0">
                             <li class="font-bold mb-5">General</li>
                             <li class="mb-4">
-                                <a [routerLink]="['installation']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Get Started</a>
-                                </a>
+                                <a [routerLink]="['installation']" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150"> Get Started </a>
                             </li>
                             <li class="mb-4">
                                 <a href="https://github.com/primefaces/primeng-examples" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Examples</a>
@@ -33,9 +31,7 @@ import { RouterModule } from '@angular/router';
                                 <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Discord</a>
                             </li>
                             <li class="mb-4">
-                                <a [routerLink]="['support']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">PRO Support</a>
-                                </a>
+                                <a [routerLink]="['support']" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">PRO Support </a>
                             </li>
                         </ul>
                     </div>
@@ -62,24 +58,6 @@ import { RouterModule } from '@angular/router';
                             </li>
                             <li class="mb-4">
                                 <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="w-6 lg:w-3 flex">
-                        <ul class="list-none p-0 m-0">
-                            <li class="font-bold mt-5 lg:mt-0 mb-5">Theming</li>
-                            <li class="mb-4">
-                                <a [routerLink]="['theming']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Guide</a>
-                                </a>
-                            </li>
-                            <li class="mb-4">
-                                <a href="https://www.primefaces.org/designer/primeng" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Designer</a>
-                            </li>
-                            <li class="mb-4">
-                                <a [routerLink]="['colors']">
-                                    <a class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Colors</a>
-                                </a>
                             </li>
                         </ul>
                     </div>

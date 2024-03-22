@@ -61,7 +61,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.done)="onAnimationEnd($event)"
                     [value]="value"
                     [activeIndex]="activeIndex"
-                    [numVisible]="numVisible"
+                    [numVisible]="numVisibleLimit || numVisible"
                     (maskHide)="onMaskHide()"
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
@@ -70,7 +70,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
     animations: [
@@ -280,6 +280,8 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
+    numVisibleLimit = 0;
+
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
@@ -326,7 +328,9 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
-            this.numVisible = simpleChanges.value.currentValue.length;
+            this.numVisibleLimit = simpleChanges.value.currentValue.length;
+        } else {
+            this.numVisibleLimit = 0;
         }
     }
 
@@ -498,14 +502,15 @@ export class GalleriaContent implements DoCheck {
     }
 
     ngDoCheck(): void {
-        const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
-
-        if (changes && changes.forEachItem.length > 0) {
-            // Because we change the properties of the parent component,
-            // and the children take our entity from the injector.
-            // We can tell the children to redraw themselves when we change the properties of the parent component.
-            // Since we have an onPush strategy
-            this.cd.markForCheck();
+        if (isPlatformBrowser(this.galleria.platformId)) {
+            const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
+            if (changes && changes.forEachItem.length > 0) {
+                // Because we change the properties of the parent component,
+                // and the children take our entity from the injector.
+                // We can tell the children to redraw themselves when we change the properties of the parent component.
+                // Since we have an onPush strategy
+                this.cd.markForCheck();
+            }
         }
     }
 
@@ -978,10 +983,12 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.createStyle();
+        if (isPlatformBrowser(this.platformId)) {
+            this.createStyle();
 
-        if (this.responsiveOptions) {
-            this.bindDocumentListeners();
+            if (this.responsiveOptions) {
+                this.bindDocumentListeners();
+            }
         }
     }
 
@@ -1018,7 +1025,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ngAfterViewInit() {
-        this.calculatePosition();
+        if (isPlatformBrowser(this.platformId)) {
+            this.calculatePosition();
+        }
     }
 
     createStyle() {
@@ -1066,23 +1075,25 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     calculatePosition() {
-        if (this.itemsContainer && this.sortedResponsiveOptions) {
-            let windowWidth = window.innerWidth;
-            let matchedResponsiveData = {
-                numVisible: this._numVisible
-            };
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.itemsContainer && this.sortedResponsiveOptions) {
+                let windowWidth = window.innerWidth;
+                let matchedResponsiveData = {
+                    numVisible: this._numVisible
+                };
 
-            for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
-                let res = this.sortedResponsiveOptions[i];
+                for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
+                    let res = this.sortedResponsiveOptions[i];
 
-                if (parseInt(res.breakpoint, 10) >= windowWidth) {
-                    matchedResponsiveData = res;
+                    if (parseInt(res.breakpoint, 10) >= windowWidth) {
+                        matchedResponsiveData = res;
+                    }
                 }
-            }
 
-            if (this.d_numVisible !== matchedResponsiveData.numVisible) {
-                this.d_numVisible = matchedResponsiveData.numVisible;
-                this.cd.markForCheck();
+                if (this.d_numVisible !== matchedResponsiveData.numVisible) {
+                    this.d_numVisible = matchedResponsiveData.numVisible;
+                    this.cd.markForCheck();
+                }
             }
         }
     }

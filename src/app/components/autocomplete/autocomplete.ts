@@ -8,6 +8,7 @@ import {
     Component,
     computed,
     ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -25,7 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -80,8 +81,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_list'"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                 [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (input)="onInput($event)"
                 (keydown)="onKeyDown($event)"
@@ -144,7 +145,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [required]="required"
                         [attr.name]="name"
                         role="combobox"
-                        [attr.placeholder]="placeholder"
+                        [attr.placeholder]="!filled ? placeholder : null"
                         [attr.size]="size"
                         aria-autocomplete="list"
                         [maxlength]="maxlength"
@@ -154,8 +155,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.aria-label]="ariaLabel"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-required]="required"
-                        [attr.aria-expanded]="overlayVisible"
-                        [attr.aria-controls]="id + '_list'"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                         [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
                         (input)="onInput($event)"
                         (keydown)="onKeyDown($event)"
@@ -218,7 +219,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
+                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -255,12 +256,12 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                             </li>
                         </ul>
-                        <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
-                        <span role="status" aria-live="polite" class="p-hidden-accessible">
-                            {{ selectedMessageText }}
-                        </span>
                     </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
+                <span role="status" aria-live="polite" class="p-hidden-accessible">
+                    {{ selectedMessageText }}
+                </span>
             </p-overlay>
         </div>
     `,
@@ -466,7 +467,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to show the empty message or not.
      * @group Props
      */
-    @Input() showEmptyMessage: boolean | undefined;
+    @Input() showEmptyMessage: boolean | undefined = true;
     /**
      * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
      * @group Props
@@ -554,7 +555,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    @Input() optionLabel: string | ((item: any) => string) | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
@@ -582,7 +583,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input() autoOptionFocus: boolean | undefined = false;
     /**
      * When enabled, the focused option is selected.
      * @group Props
@@ -734,7 +735,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focused: boolean = false;
 
-    filled: number | boolean | undefined;
+    _filled: boolean;
+
+    get filled() {
+        return this._filled;
+    }
+    set filled(value: any) {
+        this._filled = value;
+    }
 
     loading: Nullable<boolean>;
 
@@ -758,7 +766,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         if (modelValue) {
             if (typeof modelValue === 'object') {
                 const label = this.getOptionLabel(modelValue);
@@ -787,7 +794,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             'p-focus': this.focused,
             'p-autocomplete-dd': this.dropdown,
             'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-filled': this.modelValue() || ObjectUtils.isNotEmpty(this.inputValue),
             'p-inputwrapper-focus': this.focused,
             'p-overlay-open': this.overlayVisible
         };
@@ -840,14 +846,23 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
     }
 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
     get virtualScrollerDisabled() {
         return !this.virtualScroll;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+        effect(() => {
+            this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+        });
+    }
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges();
     }
 
     ngAfterViewChecked() {
@@ -999,6 +1014,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isSelected(option) {
+        if (this.multiple) {
+            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+        }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
@@ -1007,8 +1025,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isInputClicked(event) {
-        if (this.multiple) return event.target === this.multiContainerEL.nativeElement || this.multiContainerEL.nativeElement.contains(event.target);
-        else return event.target === this.inputEL.nativeElement;
+        return event.target === this.inputEL.nativeElement;
     }
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target) : false;
@@ -1048,9 +1065,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             clearTimeout(this.searchTimeout);
         }
 
-        let query = event.target.value;
+        let query = event.target.value.split('').slice(0, this.maxlength).join('');
 
-        if (!this.multiple) {
+        if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
         }
 
@@ -1354,6 +1371,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
         }
+
+        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
+            this.clear();
+        }
     }
 
     onArrowLeftKeyOnMultiple(event) {
@@ -1417,6 +1438,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     removeOption(event, index) {
+        event.stopPropagation();
+
         const removedOption = this.modelValue()[index];
         const value = this.modelValue()
             .filter((_, i) => i !== index)
@@ -1514,7 +1537,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
         this.updateInputValue();
         this.cd.markForCheck();
