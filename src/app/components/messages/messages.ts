@@ -2,6 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Message, MessageService, PrimeTemplate } from 'primeng/api';
+import { PrimeNGConfig } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -42,7 +43,7 @@ import { Subscription, timer } from 'rxjs';
                             <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
                             <span *ngIf="msg.detail" class="p-message-detail" [attr.data-pc-section]="'detail'">{{ msg.detail }}</span>
                         </ng-template>
-                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple [attr.aria-label]="'Close'" [attr.data-pc-section]="'closebutton'">
+                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable" type="button" pRipple [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
                             <TimesIcon [styleClass]="'p-message-close-icon'" [attr.data-pc-section]="'closeicon'" />
                         </button>
                     </div>
@@ -130,6 +131,12 @@ export class Messages implements AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    /**
+     * This function is executed when a message is closed.
+     * @param {Message} value - Closed message.
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<Message> = new EventEmitter<Message>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -143,7 +150,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Optional() public messageService: MessageService, public el: ElementRef, public cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -202,6 +209,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     removeMessage(i: number) {
         this.messages = this.messages?.filter((msg, index) => index !== i);
+        this.messages[i] && this.onClose.emit(this.messages[i]);
         this.valueChange.emit(this.messages);
     }
 
@@ -228,6 +236,9 @@ export class Messages implements AfterContentInit, OnDestroy {
         }
 
         return null;
+    }
+    get closeAriaLabel() {
+        return this.config.translation.aria ? this.config.translation.aria.close : undefined;
     }
 
     ngOnDestroy() {

@@ -1,65 +1,58 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
 import { CustomerService } from '../../service/customerservice';
 
 @Component({
     selector: 'frozen-columns-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Certain columns can be frozen by using the <i>pFrozenColumn</i> directive of the table component. In addition, <i>alignFrozen</i> is available to define whether the column should be fixed on the left or right.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
 
-            <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="min-width:200px" pFrozenColumn>Name</th>
-                        <th style="min-width:100px">Id</th>
-                        <th style="min-width:200px">Country</th>
-                        <th style="min-width:200px">Date</th>
-                        <th style="min-width:200px">Company</th>
-                        <th style="min-width:200px">Status</th>
-                        <th style="min-width:200px">Activity</th>
-                        <th style="min-width:200px">Representative</th>
-                        <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">Balance</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td pFrozenColumn>{{ customer.name }}</td>
-                        <td style="min-width:100px">{{ customer.id }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.date }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.status }}</td>
-                        <td>{{ customer.activity }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                        <td alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">{{ formatCurrency(customer.balance) }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-frozen-columns-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="min-width:200px" pFrozenColumn>Name</th>
+                            <th style="min-width:100px">Id</th>
+                            <th style="min-width:200px">Country</th>
+                            <th style="min-width:200px">Date</th>
+                            <th style="min-width:200px">Company</th>
+                            <th style="min-width:200px">Status</th>
+                            <th style="min-width:200px">Activity</th>
+                            <th style="min-width:200px">Representative</th>
+                            <th style="min-width:200px" alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">Balance</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td pFrozenColumn>{{ customer.name }}</td>
+                            <td style="min-width:100px">{{ customer.id }}</td>
+                            <td>{{ customer.country.name }}</td>
+                            <td>{{ customer.date }}</td>
+                            <td>{{ customer.company }}</td>
+                            <td>{{ customer.status }}</td>
+                            <td>{{ customer.activity }}</td>
+                            <td>{{ customer.representative.name }}</td>
+                            <td alignFrozen="right" pFrozenColumn [frozen]="balanceFrozen">{{ formatCurrency(customer.balance) }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-frozen-columns-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FrozenColumnsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
+export class FrozenColumnsDoc {
     balanceFrozen: boolean = false;
 
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersMedium().then((data) => {
             this.customers = data;
             this.cd.markForCheck();
@@ -71,8 +64,7 @@ export class FrozenColumnsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        basic: `<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
     <ng-template pTemplate="header">

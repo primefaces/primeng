@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'nested-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -13,14 +13,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-nested-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class NestedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {
@@ -157,8 +153,7 @@ export class NestedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
+        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center">

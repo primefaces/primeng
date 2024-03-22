@@ -18,7 +18,7 @@ import { DomHandler } from 'primeng/dom';
             <div class="p-dock-list-container">
                 <ul
                     #list
-                    [id]="id"
+                    [attr.id]="id"
                     class="p-dock-list"
                     role="menu"
                     [attr.aria-orientation]="position === 'bottom' || position === 'top' ? 'horizontal' : 'vertical'"
@@ -34,15 +34,15 @@ import { DomHandler } from 'primeng/dom';
                 >
                     <li
                         *ngFor="let item of model; let i = index"
-                        [attr.id]="getItemId(i)"
-                        [ngClass]="itemClass(i)"
+                        [attr.id]="getItemId(item, i)"
+                        [ngClass]="itemClass(item, i)"
                         role="menuitem"
                         [attr.aria-label]="item.label"
                         [attr.aria-disabled]="disabled(item)"
                         (click)="onItemClick($event, item)"
                         (mouseenter)="onItemMouseEnter(i)"
                         [attr.data-pc-section]="'menuitem'"
-                        [attr.data-p-focused]="isItemActive(getItemId(i))"
+                        [attr.data-p-focused]="isItemActive(getItemId(item, i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
                         <div class="p-menuitem-content" [attr.data-pc-section]="'content'">
@@ -55,7 +55,6 @@ import { DomHandler } from 'primeng/dom';
                                 class="p-dock-link"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
-                                [attr.id]="item.id"
                                 [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
                                 pTooltip
                                 [tooltipOptions]="item.tooltipOptions"
@@ -80,7 +79,6 @@ import { DomHandler } from 'primeng/dom';
                                     [tooltipOptions]="item.tooltipOptions"
                                     [ngClass]="{ 'p-disabled': item.disabled }"
                                     [target]="item.target"
-                                    [attr.id]="item.id"
                                     [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                 >
@@ -190,8 +188,8 @@ export class Dock implements AfterContentInit {
         });
     }
 
-    getItemId(index) {
-        return `${index}`;
+    getItemId(item, index) {
+        return item && item?.id ? item.id : `${index}`;
     }
 
     getItemProp(processedItem, name) {
@@ -347,7 +345,7 @@ export class Dock implements AfterContentInit {
         return item.routerLink && !item.disabled;
     }
 
-    itemClass(index: number) {
+    itemClass(item, index: number) {
         return {
             'p-dock-item': true,
             'p-dock-item-second-prev': this.currentIndex - 2 === index,
@@ -355,7 +353,7 @@ export class Dock implements AfterContentInit {
             'p-dock-item-current': this.currentIndex === index,
             'p-dock-item-next': this.currentIndex + 1 === index,
             'p-dock-item-second-next': this.currentIndex + 2 === index,
-            'p-focus': this.isItemActive(this.getItemId(index))
+            'p-focus': this.isItemActive(this.getItemId(item, index))
         };
     }
 }

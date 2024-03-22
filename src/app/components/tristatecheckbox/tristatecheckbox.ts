@@ -1,9 +1,9 @@
-import { NgModule, Component, Input, Output, EventEmitter, forwardRef, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, TemplateRef, ContentChildren, QueryList } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
 import { TriStateCheckboxChangeEvent } from './tristatecheckbox.interface';
 
@@ -19,39 +19,47 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-triStateCheckbox',
     template: `
-        <div [ngStyle]="style" [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }" [class]="styleClass">
+        <div
+            [ngStyle]="style"
+            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }"
+            [class]="styleClass"
+            (click)="onClick($event, input)"
+            [attr.data-pc-name]="'tristatecheckbox'"
+            [attr.data-pc-section]="'root'"
+        >
             <div class="p-hidden-accessible">
                 <input
                     #input
-                    type="text"
                     [attr.id]="inputId"
+                    type="checkbox"
                     [name]="name"
                     [attr.tabindex]="tabindex"
                     [readonly]="readonly"
                     [disabled]="disabled"
-                    (keyup)="onKeyup($event)"
-                    (keydown)="onKeydown($event)"
+                    (keydown)="onKeyDown($event)"
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
                     inputmode="none"
+                    [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
-            <div class="p-checkbox-box" (click)="onClick($event, input)" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
+            <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
                 <ng-container *ngIf="value === true">
-                    <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon"></span>
+                    <span *ngIf="checkboxTrueIcon" [ngClass]="checkboxTrueIcon" class="p-checkbox-icon" [attr.data-pc-section]="'checkIcon'"></span>
                     <ng-container *ngIf="!checkboxTrueIcon">
-                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" />
-                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon">
+                        <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.data-pc-section]="'checkIcon'" />
+                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.data-pc-section]="'checkIcon'">
                             <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
                         </span>
                     </ng-container>
                 </ng-container>
                 <ng-container *ngIf="value === false">
-                    <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon"></span>
+                    <span *ngIf="checkboxFalseIcon" [ngClass]="checkboxFalseIcon" class="p-checkbox-icon" [attr.data-pc-section]="'uncheckIcon'"></span>
                     <ng-container *ngIf="!checkboxFalseIcon">
-                        <TimesIcon [styleClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" />
-                        <span class="p-checkbox-icon" *ngIf="uncheckIconTemplate">
+                        <TimesIcon [styleClass]="'p-checkbox-icon'" *ngIf="!uncheckIconTemplate" [attr.data-pc-section]="'uncheckIcon'" />
+                        <span class="p-checkbox-icon" *ngIf="uncheckIconTemplate" [attr.data-pc-section]="'uncheckIcon'">
                             <ng-template *ngTemplateOutlet="uncheckIconTemplate"></ng-template>
                         </span>
                     </ng-container>
@@ -79,6 +87,11 @@ export class TriStateCheckbox implements ControlValueAccessor {
      * @group Props
      */
     @Input() name: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -153,14 +166,8 @@ export class TriStateCheckbox implements ControlValueAccessor {
         }
     }
 
-    onKeydown(event: KeyboardEvent) {
-        if (event.keyCode == 32) {
-            event.preventDefault();
-        }
-    }
-
-    onKeyup(event: KeyboardEvent) {
-        if (event.keyCode == 32 && !this.readonly) {
+    onKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
             this.toggle(event);
             event.preventDefault();
         }

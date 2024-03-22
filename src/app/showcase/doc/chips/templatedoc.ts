@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'chips-template-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A chip is customized using a <i>ng-template</i> element where the value is passed as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card p-fluid">
@@ -13,18 +13,13 @@ import { Code } from '../../domain/code';
             </p-chips>
         </div>
         <app-code [code]="code" selector="chips-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     values: string[] | undefined;
 
     code: Code = {
-        basic: `
-<p-chips [(ngModel)]="values">
+        basic: `<p-chips [(ngModel)]="values">
     <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i> </ng-template>
 </p-chips>`,
 

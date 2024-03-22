@@ -15,15 +15,43 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '16.3.1',
+    version: '17.12.0',
     description:
-        'PrimeNG is an open source UI library for Angular featuring a rich set of 90+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
+        'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
+
+const demoDependencies = [
+    '@angular-devkit/build-angular',
+    '@angular/animations',
+    '@angular/cdk',
+    '@angular/cli',
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/compiler-cli',
+    '@angular/core',
+    '@angular/forms',
+    '@angular/material',
+    '@angular/material-moment-adapter',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/platform-server',
+    '@angular/router',
+    '@nguniversal/builders',
+    '@nguniversal/common',
+    '@nguniversal/express-engine',
+    'quill',
+    'primeflex',
+    'chart.js',
+    'primeicons',
+    'rxjs',
+    'tslib',
+    'zone.js'
+];
 
 const getAppDependencies = () => {
     const dependencies = {};
     for (const key in app_dependencies) {
-        if (checkDependency(key)) {
+        if (demoDependencies.includes(key)) {
             dependencies[key] = app_dependencies[key];
         }
     }
@@ -40,10 +68,6 @@ const getDependencies = () => {
     };
 
     return dependencies;
-};
-
-const checkDependency = (dep: string) => {
-    return !(dep.startsWith('jasmine') || dep.startsWith('del') || dep.startsWith('gulp') || dep.startsWith('jspdf') || dep.startsWith('prism') || dep.startsWith('del') || dep.startsWith('@stackblitz'));
 };
 
 const getServiceImports = (service: string[]) => {
@@ -343,8 +367,7 @@ const angular_json = `
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
               "assets": [
-                "src/assets",
-                "src/favicon.png"
+                "src/assets"
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
@@ -492,6 +515,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ChipModule } from 'primeng/chip';
 import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ColorPickerModule } from 'primeng/colorpicker';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DataViewModule } from 'primeng/dataview';
@@ -512,6 +536,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputGroupModule } from 'primeng/inputgroup'
+import { InputOtpModule } from 'primeng/inputotp'
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -521,6 +548,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { OrderListModule } from 'primeng/orderlist';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -544,6 +572,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { SpinnerModule } from 'primeng/spinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { SplitterModule } from 'primeng/splitter';
+import { StepperModule } from 'primeng/stepper';
 import { StepsModule } from 'primeng/steps';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
@@ -564,6 +593,9 @@ import { AnimateModule } from 'primeng/animate';
 import { CardModule } from 'primeng/card';
 import { BlockUIModule } from 'primeng/blockui';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RippleModule } from 'primeng/ripple';
+import { StyleClassModule } from 'primeng/styleclass';
+import { MessageService } from 'primeng/api';
 ${serviceImports}
 
 @NgModule({
@@ -590,6 +622,7 @@ ${serviceImports}
     ChipModule,
     ColorPickerModule,
     ConfirmDialogModule,
+    ConfirmPopupModule,
     ContextMenuModule,
     VirtualScrollerModule,
     DataViewModule,
@@ -609,6 +642,9 @@ ${serviceImports}
     InputTextModule,
     InputTextareaModule,
     InputNumberModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    InputOtpModule,
     ImageModule,
     KnobModule,
     ListboxModule,
@@ -618,6 +654,7 @@ ${serviceImports}
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     OverlayPanelModule,
@@ -641,6 +678,7 @@ ${serviceImports}
     SpeedDialModule,
     SpinnerModule,
     SplitterModule,
+    StepperModule,
     SplitButtonModule,
     StepsModule,
     TableModule,
@@ -660,6 +698,8 @@ ${serviceImports}
     TreeTableModule,
     AnimateModule,
     CardModule,
+    RippleModule,
+    StyleClassModule,
     ${routerModule}],
     declarations: [ ${declarations} ],
     bootstrap: [ ${componentName} ],
@@ -680,7 +720,7 @@ export class AppModule {}`;
         <link href="https://unpkg.com/primeflex/primeflex.css" rel="stylesheet" />
         <link href="https://unpkg.com/primeicons/primeicons.css" rel="stylesheet" />
         <link href="https://unpkg.com/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" type="image/x-icon" href="https://primefaces.org/cdn/primeng/images/favicon.png">
     </head>
     <body>
         <${selector}></${selector}>

@@ -3,7 +3,7 @@ function ZIndexUtils() {
 
     const generateZIndex = (key, baseZIndex) => {
         let lastZIndex = zIndexes.length > 0 ? zIndexes[zIndexes.length - 1] : { key, value: baseZIndex };
-        let newZIndex = lastZIndex.value + (lastZIndex.key === key ? 0 : baseZIndex) + 1;
+        let newZIndex = lastZIndex.value + (lastZIndex.key === key ? 0 : baseZIndex) + 2;
 
         zIndexes.push({ key, value: newZIndex });
 

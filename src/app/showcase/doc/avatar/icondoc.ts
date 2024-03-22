@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'avatar-icon-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A font icon is displayed as an Avatar with the <i>icon</i> property.</p>
         </app-docsectiontext>
         <div class="grid card grid-nogutter">
@@ -26,16 +26,11 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
-    </section>`
+    `
 })
 export class IconDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>`,
+        basic: `<p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge"></p-avatar>`,
         html: `
 <div class="grid card grid-nogutter">
     <div class="col-12 md:col-4">

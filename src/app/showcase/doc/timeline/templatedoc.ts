@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface EventItem {
@@ -11,8 +11,8 @@ interface EventItem {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample implementation with custom content and styled markers.</p>
         </app-docsectiontext>
         <div class="card">
@@ -35,13 +35,9 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     events: EventItem[];
 
     constructor() {
@@ -54,8 +50,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
+        basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
     <ng-template pTemplate="marker" let-event>
         <span class="custom-marker shadow-2" [style.backgroundColor]="event.color">
             <i [ngClass]="event.icon"></i>

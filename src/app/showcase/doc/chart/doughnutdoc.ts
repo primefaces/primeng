@@ -1,31 +1,39 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
 import { Code } from '../../domain/code';
-
+import { Subscription, debounceTime } from 'rxjs';
+import { AppConfigService } from '../../service/appconfigservice';
 @Component({
     selector: 'chart-doughnut-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
-    </section>`
+    `
 })
 export class DoughnutDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    subscription!: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
@@ -53,10 +61,8 @@ export class DoughnutDoc implements OnInit {
             };
         }
     }
-
     code: Code = {
-        basic: `
-<p-chart type="doughnut" [data]="data" [options]="options"></p-chart>`,
+        basic: `<p-chart type="doughnut" [data]="data" [options]="options"></p-chart>`,
         html: `
 <div class="card flex justify-content-center">
     <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>

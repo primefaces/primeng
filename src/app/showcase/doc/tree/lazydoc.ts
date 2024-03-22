@@ -1,112 +1,148 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
 
 @Component({
     selector: 'lazy-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
+            <p-tree class="w-full md:w-30rem" [value]="nodes" [filter]="true" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
-    </section>`,
-    providers: [MessageService]
+    `
 })
 export class LazyDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     loading: boolean = false;
 
-    files!: TreeNode[];
+    nodes!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
-            this.nodeService.getLazyFiles().then((files) => (this.files = files));
+            this.nodes = this.initiateNodes();
             this.loading = false;
-        }, 1000);
+            this.cd.markForCheck();
+        }, 2000);
+    }
+
+    initiateNodes(): TreeNode[] {
+        return [
+            {
+                key: '0',
+                label: 'Node 0',
+                leaf: false
+            },
+            {
+                key: '1',
+                label: 'Node 1',
+                leaf: false
+            },
+            {
+                key: '2',
+                label: 'Node 2',
+                leaf: false
+            }
+        ];
     }
 
     nodeExpand(event: any) {
-        if (event.node) {
+        if (!event.node.children) {
             this.loading = true;
             setTimeout(() => {
-                this.nodeService.getLazyFiles().then((nodes) => {
-                    event.node.children = nodes;
-                    this.messageService.add({ severity: 'info', summary: 'Children Loaded', detail: event.node.label });
-                });
+                event.node.children = [];
+                for (let i = 0; i < 3; i++) {
+                    event.node.children.push({
+                        key: event.node.key + '-' + i,
+                        label: 'Node ' + event.node.key + '-' + i,
+                        leaf: false
+                    });
+                }
                 this.loading = false;
-            }, 200);
+                this.cd.markForCheck();
+            }, 500);
         }
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
+        basic: `<p-tree class="w-full md:w-30rem" [value]="nodes" [filter]="true" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <p-tree class="w-full md:w-30rem" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
+    <p-tree class="w-full md:w-30rem" [value]="nodes" [filter]="true" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { MessageService, TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 
 @Component({
     selector: 'tree-lazy-demo',
-    templateUrl: './tree-lazy-demo.html',
-    providers: [MessageService]
+    templateUrl: './tree-lazy-demo.html'
 })
 export class TreeLazyDemo implements OnInit {
     loading: boolean = false;
 
-    files!: TreeNode[];
+    nodes!: TreeNode[];
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) { }
+    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;
         setTimeout(() => {
-            this.nodeService.getLazyFiles().then((files) => (this.files = files));
+            this.nodes = this.initiateNodes();
             this.loading = false;
-        }, 1000);
+            this.cd.markForCheck();
+        }, 2000);
+    }
+
+    initiateNodes(): TreeNode[] {
+        return [
+            {
+                key: '0',
+                label: 'Node 0',
+                leaf: false
+            },
+            {
+                key: '1',
+                label: 'Node 1',
+                leaf: false
+            },
+            {
+                key: '2',
+                label: 'Node 2',
+                leaf: false
+            }
+        ];
     }
 
     nodeExpand(event: any) {
-        if (event.node) {
+        if (!event.node.children) {
             this.loading = true;
             setTimeout(() => {
-                this.nodeService.getLazyFiles().then((nodes) => {
-                    event.node.children = nodes;
-                    this.messageService.add({ severity: 'info', summary: 'Children Loaded', detail: event.node.label });
-                });
+                event.node.children = [];
+                for (let i = 0; i < 3; i++) {
+                    event.node.children.push({
+                        key: event.node.key + '-' + i,
+                        label: 'Node ' + event.node.key + '-' + i,
+                        leaf: false
+                    });
+                }
                 this.loading = false;
-            }, 200);
+                this.cd.markForCheck();
+            }, 500);
         }
     }
 }`,
 
-        service: ['NodeService'],
-
-        data: `
-    /* NodeService */
-{
-    "label": "Lazy Node 0",
-    "data": "Node 0",
-    "expandedIcon": "pi pi-folder-open",
-    "collapsedIcon": "pi pi-folder",
-    "leaf": false
-}
+        data: `{
+    key: '0',
+    label: 'Node 0',
+    leaf: false
+},
 ...`
     };
 }

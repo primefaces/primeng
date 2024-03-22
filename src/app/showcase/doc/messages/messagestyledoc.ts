@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'messagestyle-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <p>Following is the list of structural style classes, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
         <div class="doc-tablewrapper">
             <table class="doc-table">
@@ -45,10 +44,6 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    `
 })
-export class MessageStyleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class MessageStyleDoc {}

@@ -1,33 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-button label="Emails" badge="8"></p-button>
-            <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+        <div class="card flex justify-content-center flex-wrap gap-3">
+            <p-button label="Emails" badge="8" styleClass="m-0"></p-button>
+            <p-button label="Messages" icon="pi pi-users" badge="8" badgeClass="p-badge-danger" styleClass="m-0" outlined="true"></p-button>
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    </section>`
+    `
 })
 export class BadgeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-button label="Emails" badge="8"></p-button>
-<p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
+        basic: `<p-button label="Emails" badge="8"></p-button>
+<p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" outlined="true"></p-button>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center flex-wrap gap-3">
     <p-button label="Emails" badge="8"></p-button>
-    <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+    <p-button label="Messages" icon="pi pi-users"  badge="8" badgeClass="p-badge-danger" outlined="true"></p-button>
 </div>`,
 
         typescript: `

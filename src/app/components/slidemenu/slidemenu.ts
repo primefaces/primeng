@@ -2,7 +2,6 @@ import { AnimationEvent, animate, style, transition, trigger } from '@angular/an
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -28,7 +27,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -248,7 +247,7 @@ export class SlideMenuSub {
     }
 
     getItemId(processedItem: any): string {
-        return `${this.menuId}_${processedItem.key}`;
+        return processedItem.item && processedItem.item?.id ? processedItem.item.id : `${this.menuId}_${processedItem.key}`;
     }
 
     getItemKey(processedItem: any): string {
@@ -570,8 +569,8 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     get focusedItemId() {
-        const focusedItemInfo = this.focusedItemInfo();
-        return focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
+        const focusedItem = this.focusedItemInfo();
+        return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
     constructor(
@@ -710,13 +709,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             }
             const { originalEvent, processedItem } = event;
             const grouped = this.isProcessedItemGroup(processedItem);
+            const focusedItemInfo = this.focusedItemInfo();
 
             if (grouped) {
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = -1;
-                    value.level = value.level + 1;
-                    value.parentKey = processedItem.key;
-                });
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: -1, level: focusedItemInfo.level + 1, parentKey: processedItem.key, item: processedItem.item });
                 this.animate('right');
             } else {
                 this.onItemChange(event);
@@ -796,7 +792,12 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.onArrowLeftKey(event);
-                this.focusedItemInfo.mutate((value) => (value.index = -1));
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: -1,
+                    item: null
+                });
                 break;
             default:
                 break;
@@ -837,9 +838,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const grouped = this.isProccessedItemGroup(processedItem);
         if (grouped) {
-            let { index, level, key } = processedItem;
+            let { index, level, key, item } = processedItem;
             this.onItemChange({ originalEvent: event, processedItem });
-            this.focusedItemInfo.set({ index: 0, level: processedItem.level, parentKey: processedItem.key });
+            this.focusedItemInfo.set({ index: 0, level: level, parentKey: key });
+
             this.searchValue = '';
             this.animate('right');
         }
@@ -878,7 +880,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
         if (!root) {
             let { level, index, parentKey } = parentItem;
-            this.focusedItemInfo.set({ index, level, parentKey });
+            this.focusedItemInfo.set({ index, level, parentKey, item: parentItem.item });
             this.searchValue = '';
         }
 
@@ -905,7 +907,12 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         if (this.popup) {
             this.hide(event, true);
-            this.focusedItemInfo().index = this.findFirstFocusedItemIndex();
+            const focusedItemInfo = this.focusedItemInfo();
+            this.focusedItemInfo.set({
+                ...focusedItemInfo,
+                index: this.findLastFocusedItemIndex(),
+                item: null
+            });
 
             event.preventDefault();
         }
@@ -934,7 +941,13 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                 const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
                 anchorElement ? anchorElement.click() : element && element.click();
-                this.focusedItemInfo.mutate((value) => (value.index = processedItem.index));
+
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: processedItem.index,
+                    item: processedItem.item
+                });
             }
         }
 
@@ -945,12 +958,12 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         const { processedItem, isFocus } = event;
         if (ObjectUtils.isEmpty(processedItem)) return;
 
-        const { index, key, level, parentKey, items } = processedItem;
+        const { index, key, level, parentKey, items, item } = processedItem;
         const grouped = ObjectUtils.isNotEmpty(items);
         const activeItemPath = this.activeItemPath().filter((p) => p.parentKey !== parentKey && p.parentKey !== key);
 
         grouped && activeItemPath.push(processedItem);
-        this.focusedItemInfo.set({ index, level, parentKey });
+        this.focusedItemInfo.set({ index, level, parentKey, item });
         this.activeItemPath.set(activeItemPath);
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
     }
@@ -962,24 +975,26 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         this.bindTransitionListeners();
 
         if (!this.left && this.focusedItemInfo().level > 0) {
-            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '' });
+            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '', item: this.findVisibleItem(0).item });
         }
 
         if (this.focusedItemInfo().index === -1 && this.left < 0) {
-            this.focusedItemInfo.mutate((value) => (value.index = 0));
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index: 0 });
         }
 
         if (this.focusedItemInfo().index === -1 && !this.left) {
-            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '' });
+            this.focusedItemInfo.set({ index: 0, level: 0, parentKey: '', item: this.findVisibleItem(0).item });
         }
     }
 
     onMenuBlur() {
         this.focused = false;
-        this.popup && this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
+        this.popup && this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         if (!this.popup) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = -1;
+            this.focusedItemInfo.set({
+                ...this.focusedItemInfo(),
+                index: -1,
+                item: null
             });
         }
         this.searchValue = '';
@@ -1014,7 +1029,6 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                         this.activeItemPath.set(newActiveItemPath);
                     }
                 }
-
                 this.transition = false;
                 event.preventDefault();
             });
@@ -1166,6 +1180,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         return matched;
     }
 
+    findVisibleItem(index) {
+        return ObjectUtils.isNotEmpty(this.visibleItems) ? this.visibleItems[index] : null;
+    }
+
     findLastFocusedItemIndex() {
         const selectedIndex = this.findSelectedItemIndex();
         return selectedIndex < 0 ? this.findLastItemIndex() : selectedIndex;
@@ -1203,9 +1221,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-            });
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index });
             this.scrollInView();
         }
     }
@@ -1215,7 +1231,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         const element = DomHandler.findSingle(this.rootmenu.el.nativeElement, `li[id="${id}"]`);
 
         if (element) {
-            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'start' });
+            element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
         }
     }
 

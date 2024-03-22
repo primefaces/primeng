@@ -1,20 +1,23 @@
-.p-message-wrapper {
-    display: flex;
-    align-items: center;
-}
+@layer primeng {
+    .p-message-wrapper {
+        display: flex;
+        align-items: center;
+    }
 
-.p-message-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    .p-message-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+    }
 
-.p-message-close.p-link {
-    margin-left: auto;
-    overflow: hidden;
-    position: relative;
-}
+    .p-message-close.p-link {
+        margin-left: auto;
+        overflow: hidden;
+        position: relative;
+    }
 
-.p-messages .p-message.ng-animating {
-    overflow: hidden;
+    .p-messages .p-message.ng-animating {
+        overflow: hidden;
+    }
 }

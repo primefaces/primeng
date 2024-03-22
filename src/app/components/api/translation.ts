@@ -127,4 +127,8 @@ export interface Aria {
     zoomOut?: string;
     rotateRight?: string;
     rotateLeft?: string;
+    listLabel?: string;
+    selectColor?: string;
+    removeLabel?: string;
+    browseFiles?: string;
 }

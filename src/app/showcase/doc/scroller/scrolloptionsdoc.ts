@@ -1,20 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'options-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The properties of scroller component can be used like an object in it.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`
+    `
 })
 export class ScrollOptionsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         html: `
 <ng-template pTemplate="item" let-item let-scrollOptions="options">

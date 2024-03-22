@@ -3,7 +3,7 @@ import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgMo
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 
 /**
  * Tooltip directive provides advisory information for a component.
@@ -130,7 +130,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         positionLeft: null,
         life: null,
         autoHide: true,
-        hideOnEscape: true
+        hideOnEscape: true,
+        id: UniqueComponentId() + '_tooltip'
     };
 
     _disabled: boolean | undefined;
@@ -261,6 +262,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.setOption({ autoHide: simpleChange.autoHide.currentValue });
         }
 
+        if (simpleChange.id) {
+            this.setOption({ id: simpleChange.id.currentValue });
+        }
+
         if (simpleChange.tooltipOptions) {
             this._tooltipOptions = { ...this._tooltipOptions, ...simpleChange.tooltipOptions.currentValue };
             this.deactivate();
@@ -292,13 +297,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     onMouseLeave(e: MouseEvent) {
         if (!this.isAutoHide()) {
-            const valid =
-                DomHandler.hasClass(e.target, 'p-tooltip') ||
-                DomHandler.hasClass(e.target, 'p-tooltip-arrow') ||
-                DomHandler.hasClass(e.target, 'p-tooltip-text') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') ||
-                DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
+            const valid = DomHandler.hasClass(e.relatedTarget, 'p-tooltip') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-text') || DomHandler.hasClass(e.relatedTarget, 'p-tooltip-arrow');
             !valid && this.deactivate();
         } else {
             this.deactivate();
@@ -363,6 +362,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         this.container = document.createElement('div');
+        this.container.setAttribute('id', this.getOption('id'));
+        this.container.setAttribute('role', 'tooltip');
 
         let tooltipArrow = document.createElement('div');
         tooltipArrow.className = 'p-tooltip-arrow';
@@ -389,7 +390,10 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.container.style.width = 'fit-content';
         }
 
-        if (!this.isAutoHide()) {
+        if (this.isAutoHide()) {
+            this.container.style.pointerEvents = 'none';
+        } else {
+            this.container.style.pointerEvents = 'unset';
             this.bindContainerMouseleaveListener();
         }
     }

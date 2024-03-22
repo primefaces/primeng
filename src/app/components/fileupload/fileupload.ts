@@ -57,7 +57,17 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     [class]="chooseStyleClass"
                     [attr.data-pc-section]="'choosebutton'"
                 >
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [attr.data-pc-section]="'input'" />
+                    <input
+                        [attr.aria-label]="browseFilesLabel"
+                        #advancedfileinput
+                        type="file"
+                        (change)="onFileSelect($event)"
+                        [multiple]="multiple"
+                        [accept]="accept"
+                        [disabled]="disabled || isChooseDisabled()"
+                        [attr.title]="''"
+                        [attr.data-pc-section]="'input'"
+                    />
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                     <ng-container *ngIf="!chooseIcon">
                         <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
@@ -121,7 +131,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                 [ngClass]="{ 'p-button p-component p-fileupload-choose': true, 'p-button-icon-only': !basicButtonLabel, 'p-fileupload-choose-selected': hasFiles(), 'p-focus': focus, 'p-disabled': disabled }"
                 [ngStyle]="style"
                 [class]="styleClass"
-                (mouseup)="onBasicUploaderClick()"
+                (click)="onBasicUploaderClick()"
                 (keydown)="onBasicKeydown($event)"
                 tabindex="0"
                 pRipple
@@ -146,7 +156,19 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </ng-container>
                 </ng-template>
                 <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
-                <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" [attr.data-pc-section]="'input'" />
+                <input
+                    [attr.aria-label]="browseFilesLabel"
+                    #basicfileinput
+                    type="file"
+                    [accept]="accept"
+                    [multiple]="multiple"
+                    [disabled]="disabled"
+                    (change)="onFileSelect($event)"
+                    *ngIf="!hasFiles()"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'input'"
+                />
             </span>
         </div>
     `,
@@ -249,17 +271,17 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      */
     @Input() previewWidth: number = 50;
     /**
-     * Label of the choose button. Defaults to PrimeVue Locale configuration.
+     * Label of the choose button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() chooseLabel: string | undefined;
     /**
-     * Label of the upload button. Defaults to PrimeVue Locale configuration.
+     * Label of the upload button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() uploadLabel: string | undefined;
     /**
-     * Label of the cancel button. Defaults to PrimeVue Locale configuration.
+     * Label of the cancel button. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
     @Input() cancelLabel: string | undefined;
@@ -557,11 +579,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
         this.onSelect.emit({ originalEvent: event, files: files, currentFiles: this.files });
 
-        if (this.fileLimit) {
-            this.checkFileLimit();
-        }
+        // this will check the fileLimit with the uploaded files
+        this.checkFileLimit(files);
 
-        if (this.hasFiles() && this.auto && (!(this.mode === 'advanced') || !this.isFileLimitExceeded())) {
+        if (this.hasFiles() && this.auto && !(this.mode === 'advanced') && !this.isFileLimitExceeded()) {
             this.upload();
         }
 
@@ -739,24 +760,32 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         this.clearInputElement();
         this.onRemove.emit({ originalEvent: event, file: this.files[index] });
         this.files.splice(index, 1);
-        this.checkFileLimit();
+        this.checkFileLimit(this.files);
     }
 
     isFileLimitExceeded() {
-        if (this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount && this.focus) {
+        const isAutoMode = this.auto;
+        const totalFileCount = isAutoMode ? this.files.length : this.files.length + this.uploadedFileCount;
+
+        if (this.fileLimit && this.fileLimit <= totalFileCount && this.focus) {
             this.focus = false;
         }
 
-        return this.fileLimit && this.fileLimit < this.files.length + this.uploadedFileCount;
+        return this.fileLimit && this.fileLimit < totalFileCount;
     }
 
     isChooseDisabled() {
-        return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        if (this.auto) {
+            return this.fileLimit && this.fileLimit <= this.files.length;
+        } else {
+            return this.fileLimit && this.fileLimit <= this.files.length + this.uploadedFileCount;
+        }
     }
 
-    checkFileLimit() {
+    checkFileLimit(files: File[]) {
         this.msgs ??= [];
-        if (this.isFileLimitExceeded()) {
+        const hasExistingValidationMessages = this.msgs.length > 0 && this.fileLimit < files.length;
+        if (this.isFileLimitExceeded() || hasExistingValidationMessages) {
             this.msgs.push({
                 severity: 'error',
                 summary: this.invalidFileLimitMessageSummary.replace('{0}', (this.fileLimit as number).toString()),
@@ -880,6 +909,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     get cancelButtonLabel(): string {
         return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+    }
+
+    get browseFilesLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
     }
 
     ngOnDestroy() {

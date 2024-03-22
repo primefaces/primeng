@@ -152,7 +152,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createLabel() {
-        if (this.label) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
@@ -166,7 +167,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIcon() {
-        if (this.icon || this.loading) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        if (!created && (this.icon || this.loading)) {
             let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
             iconElement.setAttribute('aria-hidden', 'true');
@@ -223,7 +225,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon;
+        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
     }
 
     ngOnDestroy() {
@@ -240,10 +242,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button
             [attr.type]="type"
             [attr.aria-label]="ariaLabel"
-            [class]="styleClass"
             [ngStyle]="style"
             [disabled]="disabled || loading"
-            [ngClass]="buttonClass()"
+            [ngClass]="buttonClass"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
@@ -321,6 +322,46 @@ export class Button implements AfterContentInit {
      */
     @Input() loadingIcon: string | undefined;
     /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input() raised: boolean = false;
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input() rounded: boolean = false;
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input() text: boolean = false;
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input() plain: boolean = false;
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' | string | undefined;
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input() outlined: boolean = false;
+    /**
+     *  Add a link style to the button.
+     * @group Props
+     */
+    @Input() link: boolean = false;
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined;
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -370,6 +411,8 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    constructor(public el: ElementRef) {}
+
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
             .filter(([, value]) => !!value)
@@ -386,14 +429,24 @@ export class Button implements AfterContentInit {
         };
     }
 
-    buttonClass() {
+    get buttonClass() {
         return {
             'p-button p-component': true,
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left'
+            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
+            'p-button-link': this.link,
+            [`p-button-${this.severity}`]: this.severity,
+            'p-button-raised': this.raised,
+            'p-button-rounded': this.rounded,
+            'p-button-text': this.text,
+            'p-button-outlined': this.outlined,
+            'p-button-sm': this.size === 'small',
+            'p-button-lg': this.size === 'large',
+            'p-button-plain': this.plain,
+            [`${this.styleClass}`]: this.styleClass
         };
     }
 

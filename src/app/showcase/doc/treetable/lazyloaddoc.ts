@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -10,8 +10,8 @@ interface Column {
 
 @Component({
     selector: 'lazy-load-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Lazy mode is handy to deal with large datasets, instead of loading the entire data, small chunks of data is loaded by invoking corresponding callbacks everytime <i>paging</i>, <i>sorting</i> and <i>filtering</i> occurs. Sample below
                 imitates lazy loading data from a remote datasource using an in-memory list and timeouts to mimic network connection.
@@ -44,7 +44,7 @@ interface Column {
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr>
+                    <tr [ttRow]="rowNode">
                         <td *ngFor="let col of columns; let i = index">
                             <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                             {{ rowData[col.field] }}
@@ -54,13 +54,10 @@ interface Column {
             </p-treeTable>
         </div>
         <app-code [code]="code" selector="tree-table-lazy-load-demo"></app-code>
-    </section>`
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LazyLoadDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     cols!: Column[];
@@ -69,7 +66,7 @@ export class LazyLoadDoc implements OnInit {
 
     loading: boolean = false;
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.cols = [
@@ -87,7 +84,6 @@ export class LazyLoadDoc implements OnInit {
         this.loading = true;
 
         setTimeout(() => {
-            this.loading = false;
             this.files = [];
 
             for (let i = 0; i < event.rows; i++) {
@@ -102,6 +98,8 @@ export class LazyLoadDoc implements OnInit {
 
                 this.files.push(node);
             }
+            this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -130,12 +128,12 @@ export class LazyLoadDoc implements OnInit {
             ];
 
             this.files = [...this.files];
+            this.cd.markForCheck();
         }, 250);
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [lazy]="true" (onLazyLoad)="loadNodes($event)" [totalRecords]="1000" [loading]="loading" (onNodeExpand)="onNodeExpand($event)" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -144,7 +142,7 @@ export class LazyLoadDoc implements OnInit {
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr>
+        <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index">
                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                 {{ rowData[col.field] }}
@@ -164,7 +162,7 @@ export class LazyLoadDoc implements OnInit {
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-            <tr>
+            <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
                     <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
                     {{ rowData[col.field] }}
@@ -175,7 +173,7 @@ export class LazyLoadDoc implements OnInit {
 </div>`,
 
         typescript: `
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
@@ -197,7 +195,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
 
     loading: boolean = false;
 
-    constructor(private nodeService: NodeService) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.cols = [
@@ -215,7 +213,6 @@ export class TreeTableLazyLoadDemo implements OnInit{
         this.loading = true;
 
         setTimeout(() => {
-            this.loading = false;
             this.files = [];
 
             for (let i = 0; i < event.rows; i++) {
@@ -230,6 +227,8 @@ export class TreeTableLazyLoadDemo implements OnInit{
 
                 this.files.push(node);
             }
+            this.loading = false;
+            this.cd.markForCheck();
         }, 1000);
     }
 
@@ -258,6 +257,7 @@ export class TreeTableLazyLoadDemo implements OnInit{
             ];
 
             this.files = [...this.files];
+            this.cd.markForCheck();
         }, 250);
     }
 }`,

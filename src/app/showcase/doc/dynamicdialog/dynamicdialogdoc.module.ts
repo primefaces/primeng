@@ -7,21 +7,22 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { OpenDoc } from './opendoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { ProductListDemo } from './productlistdemo';
-import { BasicDoc } from './basicdoc';
+import { ExampleDoc } from './exampledoc';
 import { UsageDoc } from './usagedoc';
 import { PassingDataDoc } from './passingdatadoc';
 import { CloseDoc } from './closedoc';
-import { ProductListDemoDoc } from './productlistdemodoc';
 import { TagModule } from 'primeng/tag';
-
+import { InfoDemo } from './infodemo';
+import { CustomizationDoc } from './customizationdoc';
+import { Footer } from './footer';
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, FormsModule, TagModule, DialogModule, ButtonModule, AppDocModule, ToastModule, TableModule],
-    declarations: [OpenDoc, ImportDoc, StyleDoc, BasicDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, ProductListDemoDoc, StyleDoc],
+    declarations: [OpenDoc, Footer, ImportDoc, StyleDoc, ExampleDoc, ProductListDemo, UsageDoc, PassingDataDoc, CloseDoc, StyleDoc, InfoDemo, CustomizationDoc],
     exports: [AppDocModule]
 })
 export class DynamicDialogDocModule {}

@@ -17,7 +17,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
-            [attr.aria-label]="scrollTopAriaLabel"
+            [attr.aria-label]="buttonAriaLabel"
             [ngClass]="containerClass()"
             (click)="onClick()"
             [class]="styleClass"

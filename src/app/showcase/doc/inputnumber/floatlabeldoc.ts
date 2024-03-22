@@ -1,40 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'float-label-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <span class="p-float-label">
                 <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
-                <label htmlFor="number-input">Number</label>
+                <label for="number-input">Number</label>
             </span>
         </div>
         <app-code [code]="code" selector="input-number-float-label-demo"></app-code>
-    </section>`
+    `
 })
 export class FloatlabelDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value1!: number;
 
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<span class="p-float-label">
     <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
-    <label htmlFor="number-input">Number</label>
+    <label for="number-input">Number</label>
 </span>`,
 
         html: `
 <div class="card flex justify-content-center">
     <span class="p-float-label">
         <p-inputNumber inputId="integeronly" [(ngModel)]="value1"> </p-inputNumber>
-        <label htmlFor="number-input">Number</label>
+        <label for="number-input">Number</label>
     </span>
 </div>`,
 

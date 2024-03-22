@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>RadioButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -17,13 +17,9 @@ import { Code } from '../../domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="radio-button-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     formGroup!: FormGroup;
 
     categories: any[] = [
@@ -40,8 +36,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form class="flex flex-column gap-3" [formGroup]="formGroup">
+        basic: `<form class="flex flex-column gap-3" [formGroup]="formGroup">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory"></p-radioButton>
         <label [for]="category.key" class="ml-2">{{ category.name }}</label>

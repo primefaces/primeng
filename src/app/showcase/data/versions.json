@@ -1,51 +1,56 @@
 [
     {
-        "version": "v16.3.1",
-        "name": "v16",
+        "version": "v17.12.0",
+        "name": "v17",
         "url": "https://primeng.org"
     },
     {
-        "version": "v15.4.9-lts",
+        "version": "v16.9.6-lts",
+        "name": "v16",
+        "url": "https://www.primefaces.org/primeng-v16-lts/"
+    },
+    {
+        "version": "v15.4.17-lts",
         "name": "v15",
         "url": "https://www.primefaces.org/primeng-v15-lts/#/"
     },
     {
-        "version": "v14.2.12-lts",
+        "version": "v14.2.17-lts",
         "name": "v14",
         "url": "https://www.primefaces.org/primeng-v14-lts"
     },
     {
-        "version": "v13.4.5-lts",
+        "version": "13.4.5-lts",
         "name": "v13",
         "url": "https://www.primefaces.org/primeng-v13-lts"
     },
     {
-        "version": "v12.2.5-lts",
+        "version": "12.2.5-lts",
         "name": "v12",
         "url": "https://www.primefaces.org/primeng-v12-lts"
     },
     {
-        "version": "v11.4.10-lts",
+        "version": "11.4.10-lts",
         "name": "v11",
         "url": "https://www.primefaces.org/primeng-v11-lts"
     },
     {
-        "version": "v10.1.5-lts",
+        "version": "10.1.5-lts",
         "name": "v10",
         "url": "https://www.primefaces.org/primeng-v10-lts"
     },
     {
-        "version": "v9.2.8-lts",
+        "version": "9.2.8-lts",
         "name": "v9",
         "url": "https://www.primefaces.org/primeng-v9-lts"
     },
     {
-        "version": "v8.2.9-lts",
+        "version": "8.2.9-lts",
         "name": "v8",
         "url": "https://www.primefaces.org/primeng-v8-lts"
     },
     {
-        "version": "v7.2.6-lts",
+        "version": "7.2.6-lts",
         "name": "v7",
         "url": "https://www.primefaces.org/primeng-v7-lts"
     }

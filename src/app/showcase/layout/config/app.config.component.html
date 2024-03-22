@@ -1,308 +1,226 @@
-<p-sidebar [(visible)]="active" position="right" styleClass="layout-config w-full sm:w-30rem layout-config" (onHide)="hideConfigurator()">
+<p-sidebar [visible]="isActive" (visibleChange)="onVisibleChange($event)" position="right"
+    styleClass="layout-config w-full sm:w-26rem">
     <div class="p-2">
-        <section class="mb-5">
-            <h3>Component Scale</h3>
-            <div class="flex align-items-center">
-                <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem mr-2" [disabled]="scale === scales[0]"></button>
+        <section class="pb-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Scale</span>
+            <div class="flex align-items-center gap-2 border-1 surface-border py-1 px-2" style="border-radius: 30px">
+                <button icon="pi pi-minus" type="button" pButton (click)="decrementScale()"
+                    class="p-button-text p-button-rounded w-2rem h-2rem" [disabled]="scale === scales[0]"></button>
                 <div class="flex gap-2 align-items-center">
-                    <i class="pi pi-circle-fill text-300" *ngFor="let s of scales" [ngClass]="{'text-primary-500 text-xl': s === scale}"></i>
+                    <i class="pi pi-circle-fill text-sm text-200" *ngFor="let s of scales"
+                        [ngClass]="{ 'text-lg text-primary': s === scale }"></i>
                 </div>
-                <button icon="pi pi-plus"  type="button" pButton (click)="incrementScale()" class="p-button-text p-button-rounded w-2rem h-2rem ml-2" [disabled]="scale === scales[scales.length - 1]"></button>
+                <button icon="pi pi-plus" type="button" pButton (click)="incrementScale()"
+                    class="p-button-text p-button-rounded w-2rem h-2rem"
+                    [disabled]="scale === scales[scales.length - 1]"></button>
             </div>
         </section>
 
-        <section class="mb-5">
-            <h3>Input Style</h3>
-            <div class="flex gap-5">
-                <div class="flex align-items-center gap-2">
-                    <p-radioButton name="inputstyle" value="outlined" [(ngModel)]="config.inputStyle" (onClick)="onInputStyleChange()" inputId="input_outlined"></p-radioButton>
-                    <label for="input_outlined">Outlined</label>
-                </div>
-                <div class="flex align-items-center gap-2">
-                    <p-radioButton name="inputstyle" value="filled" [(ngModel)]="config.inputStyle" (onClick)="onInputStyleChange()" inputId="input_filled"></p-radioButton>
-                    <label for="input_filled">Filled</label>
-                </div>
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Input Style</span>
+            <p-selectButton [options]="inputStyles" [ngModel]="inputStyle" (onChange)="onInputStyleChange($event)"
+                optionLabel="label" optionValue="value" allowEmpty="false"></p-selectButton>
+        </section>
+
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span class="text-xl font-semibold">Ripple Effect</span>
+            <p-inputSwitch [ngModel]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
+        </section>
+        <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
+            <span [ngClass]="{ 'p-disabled': isDarkToggleDisabled }" class="text-xl font-semibold">Dark Mode</span>
+            <p-inputSwitch [ngModel]="isDarkMode" (onChange)="toggleDarkMode()" [disabled]="isDarkToggleDisabled" />
+        </section>
+
+        <section class="py-4 border-bottom-1 surface-border">
+            <div class="text-xl font-semibold mb-3">Themes</div>
+            <div class="flex align-items-center gap-2 mb-3">
+                <img src="https://primefaces.org/cdn/primevue/images/themes/aura.png" alt="Aura"
+                    class="border-circle" style="width: 1.5rem" />
+                <span class="font-medium">Aura</span>
+            </div>
+            <div class="flex align-items-center justify-content-between gap-3 mb-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'green'), 'hover:border-500 surface-border': !isThemeActive('aura', 'green') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'green')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #4dac9c 0%, rgba(77, 172, 156, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'cyan'), 'hover:border-500 surface-border': !isThemeActive('aura', 'cyan') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'cyan')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #06b6d4 0%, rgba(6, 182, 212, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'blue'), 'hover:border-500 surface-border': !isThemeActive('aura', 'blue') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'blue')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #4378e6 0%, rgba(67, 120, 230, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'indigo'), 'hover:border-500 surface-border': !isThemeActive('aura', 'indigo') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'indigo')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #585fe0 0%, rgba(88, 95, 224, 0.5) 100%)"></span>
+                </button>
+            </div>
+            <div class="flex align-items-center justify-content-between gap-3 mb-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'purple'), 'hover:border-500 surface-border': !isThemeActive('aura', 'purple') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'purple')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #7758e4 0%, rgba(119, 88, 228, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'amber'), 'hover:border-500 surface-border': !isThemeActive('aura', 'amber') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'amber')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #f59e0b 0%, rgba(245, 158, 11, 0.5) 100%)"></span>
+                </button>
+
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'teal'), 'hover:border-500 surface-border': !isThemeActive('aura', 'teal') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'teal')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background:linear-gradient(180deg, #14b8a6 0%, rgba(20, 184, 166, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'pink'), 'hover:border-500 surface-border': !isThemeActive('aura', 'pink') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'pink')"
+                    >
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #ec4899 0%, rgba(236, 72, 153, 0.5) 100%)"></span>
+                </button>
+            </div>
+            <div class="flex align-items-center justify-content-between gap-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'noir'), 'hover:border-500 surface-border': !isThemeActive('aura', 'noir') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'noir')"
+                    >
+                    <span class="block h-1rem w-full"
+                    style="border-radius: 30px; background: linear-gradient(180deg, #0f172a 0%, rgba(0, 0, 0, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('aura', 'lime'), 'hover:border-500 surface-border': !isThemeActive('aura', 'lime') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('aura', 'lime')"
+                    >
+                    <span class="block h-1rem w-full"
+                    style="border-radius: 30px; background:linear-gradient(180deg, #84cc16 0%, rgb(132, 204, 22, 0.5) 100%)"></span>
+                </button>
+                <span class="w-3"></span>
+                <span class="w-3"></span>
             </div>
         </section>
 
-        <section class="mb-5">
-            <h3>Ripple Effect</h3>
-            <p-inputSwitch [(ngModel)]="config.ripple" (onChange)="onRippleChange()"></p-inputSwitch>
+        <section class="py-4 border-bottom-1 surface-border">
+            <div class="text-xl font-semibold mb-3">Themes</div>
+            <div class="flex align-items-center gap-2 mb-3">
+                <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-teal.png" alt="Lara Light Teal"
+                    class="border-circle" style="width: 1.5rem" />
+                <span class="font-medium">Lara</span>
+            </div>
+            <div class="flex align-items-center justify-content-between gap-3 mb-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'blue'), 'hover:border-500 surface-border': !isThemeActive('lara', 'blue') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'blue')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #4378e6 0%, rgba(67, 120, 230, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'indigo'), 'hover:border-500 surface-border': !isThemeActive('lara', 'indigo') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'indigo')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #585fe0 0%, rgba(88, 95, 224, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'purple'), 'hover:border-500 surface-border': !isThemeActive('lara', 'purple') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'purple')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #7758e4 0%, rgba(119, 88, 228, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'green'), 'hover:border-500 surface-border': !isThemeActive('lara', 'green') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'green')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #4dac9c 0%, rgba(77, 172, 156, 0.5) 100%)"></span>
+                </button>
+            </div>
+            <div class="flex align-items-center justify-content-between gap-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'cyan'), 'hover:border-500 surface-border': !isThemeActive('lara', 'cyan') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'cyan')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #06b6d4 0%, rgba(6, 182, 212, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'teal'), 'hover:border-500 surface-border': !isThemeActive('lara', 'teal') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'teal')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #14b8a6 0%, rgba(20, 184, 166, 0.5) 100%)"></span>
+                </button>
+
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'amber'), 'hover:border-500 surface-border': !isThemeActive('lara', 'amber') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'amber')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #f59e0b 0%, rgba(245, 158, 11, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('lara', 'pink'), 'hover:border-500 surface-border': !isThemeActive('lara', 'pink') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('lara', 'pink')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #ec4899 0%, rgba(236, 72, 153, 0.5) 100%)"></span>
+                </button>
+            </div>
         </section>
 
-        <section>
-            <h3>Themes</h3>
-            <h4>Bootstrap</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-light-blue', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-blue.svg"  alt="Bootstrap Light Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-light-purple', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-light-purple.svg" alt="Bootstrap Light Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Purple</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-dark-blue', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-dark-blue.svg" alt="Bootstrap Dark Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'bootstrap4-dark-purple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/bootstrap4-dark-purple.svg" alt="Bootstrap Dark Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Purple</span>
+        <section class="py-4 border-bottom-1 surface-border">
+            <div class="flex align-items-center gap-2 mb-3">
+                <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Material Design"
+                    class="border-circle" style="width: 1.5rem" />
+                <span class="font-medium">Material Design</span>
+                <div class="ml-auto flex align-items-center gap-2">
+                    <label for="material-condensed" class="text-sm">Condensed</label>
+                    <p-inputSwitch inputId="material-condensed" [(ngModel)]="compactMaterial"
+                        (onChange)="onCompactMaterialChange()" class="ml-auto" />
                 </div>
             </div>
-    
-            <h4>Material Design</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'md-light-indigo', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Material Light Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'md-light-deeppurple', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-deeppurple.svg" alt="Material Light Deep Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Deep Purple</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'md-dark-indigo', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-indigo.svg" alt="Material Dark Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'md-dark-deeppurple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-deeppurple.svg" alt="Material Dark Deep Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Deep Purple</span>
-                </div>
-            </div>
-    
-            <h4>Material Design Compact</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'mdc-light-indigo', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-indigo.svg" alt="Material Compact Light Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'mdc-light-deeppurple', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-light-deeppurple.svg" alt="Material Compact Deep Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Deep Purple</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'mdc-dark-indigo', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-indigo.svg" alt="Material Compact Dark Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'mdc-dark-deeppurple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/md-dark-deeppurple.svg" alt="Material Compact Dark Deep Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Deep Purple</span>
-                </div>
-            </div>
-    
-            <h4>Tailwind</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'tailwind-light', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/tailwind-light.png" alt="Tailwind Light" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Tailwind Light</span>
-                </div>
-            </div>
-    
-            <h4>Fluent UI</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'fluent-light', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/fluent-light.png" alt="Fluent Light" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Fluent Light</span>
-                </div>
-            </div>
+            <div class="flex align-items-center justify-content-between gap-3">
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('md', 'indigo'), 'hover:border-500 surface-border': !isThemeActive('md', 'indigo') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('md', 'indigo')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #0565f2 0%, rgba(5, 101, 242, 0.5) 100%)"></span>
+                </button>
+                <button
+                    [ngClass]="{ 'border-primary': isThemeActive('md', 'deeppurple'), 'hover:border-500 surface-border': !isThemeActive('md', 'deeppurple') }"
+                    class="bg-transparent border-1 cursor-pointer p-2 w-3 flex align-items-center justify-content-center transition-all transition-duration-200"
+                    style="border-radius: 30px" (click)="changeTheme('md', 'deeppurple')">
+                    <span class="block h-1rem w-full"
+                        style="border-radius: 30px; background: linear-gradient(180deg, #702f92 0%, rgba(112, 47, 146, 0.5) 100%)"></span>
+                </button>
 
-            <h4>PrimeOne Design</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-light-indigo', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-indigo.png" alt="Lara Light Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-dark-indigo', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-indigo.png" alt="Lara Dark Indigo" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Indigo</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-light-purple', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-purple.png" alt="Lara Light Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Purple</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-dark-purple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-purple.png" alt="Lara Dark Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Purple</span>
-                </div>
-    
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-light-blue', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-blue.png" alt="Lara Light Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-dark-blue', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-blue.png" alt="Lara Dark Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-light-teal', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-light-teal.png" alt="Lara Light Teal" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Teal</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'lara-dark-teal', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/lara-dark-teal.png" alt="Lara Dark Teal" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Lara Teal</span>
-                </div>
-            </div>
- 
-            <h4>Misc</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'soho-light', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/soho-light.png" alt="Soho Light" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Soho Light</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'soho-dark', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/soho-dark.png" alt="Soho Dark" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Soho Dark</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'viva-light', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/viva-light.svg" alt="Viva Light" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Viva Light</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'viva-dark', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/viva-dark.svg" alt="Viva Dark" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Viva Dark</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'mira', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/mira.jpg" alt="Mira" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Mira</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'nano', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/nano.jpg" alt="Nano" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Nano</span>
-                </div>
-            </div>
-            <h4>PrimeOne Design - Legacy</h4>
-            <div class="grid">
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-blue', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/saga-blue.png" alt="Saga Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Saga Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-green', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/saga-green.png" alt="Saga Green" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Saga Green</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-orange', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/saga-orange.png" alt="Saga Orange" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Saga Orange</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'saga-purple', false)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/saga-purple.png" alt="Saga Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Saga Purple</span>
-                </div>
-    
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'vela-blue', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/vela-blue.png" alt="Vela Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Vela Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'vela-green', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/vela-green.png" alt="Vela Green" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Vela Green</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'vela-orange', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/vela-orange.png" alt="Vela Orange" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Vela Orange</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'vela-purple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/vela-purple.png" alt="Vela Purple" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Vela Purple</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-blue', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/arya-blue.png" alt="Arya Blue" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Arya Blue</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-green', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/arya-green.png" alt="Arya Green" class="w-3rem border-round" />
-                    </button>
-                    <span class="white-space-nowrap">Arya Green</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-orange', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/arya-orange.png" alt="Arya Orange" class="w-3rem border-round" />
-                        </button>
-                    <span class="white-space-nowrap">Arya Orange</span>
-                </div>
-                <div class="col-3 flex flex-column align-items-center gap-2">
-                    <button class="p-link h-3rem" (click)="changeTheme($event, 'arya-purple', true)">
-                        <img src="https://primefaces.org/cdn/primeng/images/themes/arya-purple.png" alt="Arya Purple" class="w-3rem border-round" />
-                        </button>
-                    <span class="white-space-nowrap">Arya Purple</span>
-                </div>
+                <div class="w-3"></div>
+                <div class="w-3"></div>
             </div>
         </section>
     </div>

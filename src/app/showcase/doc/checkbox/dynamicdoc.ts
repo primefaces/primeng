@@ -1,28 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Checkboxes can be generated using a list of values.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-                    <label [for]="category.key">{{ category.name }}</label>
+                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
                 </div>
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-dynamic-demo"></app-code>
-    </section>`
+    `
 })
 export class DynamicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCategories: any[] = [];
 
     categories: any[] = [
@@ -33,18 +28,15 @@ export class DynamicDoc {
     ];
 
     code: Code = {
-        basic: `
-<div *ngFor="let category of categories" class="field-checkbox">
-    <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-    <label [for]="category.key">{{ category.name }}</label>
+        basic: `<div *ngFor="let category of categories" class="field-checkbox">
+    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
 </div>`,
 
         html: `
 <div class="card flex justify-content-center">
     <div class="flex flex-column gap-2">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-checkbox name="group" [value]="category" [(ngModel)]="selectedCategories" [inputId]="category.key"></p-checkbox>
-            <label [for]="category.key">{{ category.name }}</label>
+        <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
         </div>
     </div>
 </div>`,

@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID } from '@angular/core';
+import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 /**
@@ -9,7 +9,7 @@ import Chart from 'chart.js/auto';
     selector: 'p-chart',
     template: `
         <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+            <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,6 +44,16 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * @group Props
      */
     @Input() responsive: boolean = true;
+    /**
+     * Used to define a string that autocomplete attribute the current element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
     /**
      * Data to display.
      * @group Props
@@ -82,7 +92,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
         this.initChart();
@@ -110,11 +120,13 @@ export class UIChart implements AfterViewInit, OnDestroy {
                 opts.maintainAspectRatio = false;
             }
 
-            this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
-                type: this.type,
-                data: this.data,
-                options: this.options,
-                plugins: this.plugins
+            this.zone.runOutsideAngular(() => {
+                this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                    type: this.type,
+                    data: this.data,
+                    options: this.options,
+                    plugins: this.plugins
+                });
             });
         }
     }

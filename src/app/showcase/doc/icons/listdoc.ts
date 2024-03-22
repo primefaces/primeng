@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { IconService } from '../../service/iconservice';
 
 @Component({
     selector: 'list-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Here is the full list of PrimeIcons. More icons will be added periodically and you may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
         </app-docsectiontext>
         <div>
@@ -18,13 +18,9 @@ import { IconService } from '../../service/iconservice';
                 </div>
             </div>
         </div>
-    </section>`
+    `
 })
 export class ListDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     icons: any[];
 
     filteredIcons: any[];
@@ -54,12 +50,25 @@ export class ListDoc {
 
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement>event.target).value;
+        let sanitizedInput = searchText?.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
 
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.filteredIcons = this.icons.filter((it) => {
-                return it.icon.tags[0].includes(searchText);
+            this.filteredIcons = this.icons.filter((icon) => {
+                return (
+                    icon.icon.tags.some((tag) =>
+                        tag
+                            .replace(/[^\w\s]/gi, '')
+                            .replace(/\s/g, '')
+                            .includes(sanitizedInput.toLowerCase())
+                    ) ||
+                    icon.properties.name
+                        .replace(/[^\w\s]/gi, '')
+                        .replace(/\s/g, '')
+                        .toLowerCase()
+                        .includes(sanitizedInput.toLowerCase())
+                );
             });
         }
     }

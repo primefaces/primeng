@@ -1,15 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'style-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Styling is same as <a href="#" [routerLink]="['/inputtext']">inputtext component</a>, for theming classes visit <a href="#" [routerLink]="['/theming']">theming page</a>.</p>
         </app-docsectiontext>
-    </section>`
+    `
 })
-export class StyleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class StyleDoc {}

@@ -1,7 +1,7 @@
-import { NgModule, Component, Input, forwardRef, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { InputSwitchOnChangeEvent } from './inputswitch.interface';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputSwitchChangeEvent } from './inputswitch.interface';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -15,26 +15,33 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputSwitch',
     template: `
-        <div [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }" [ngStyle]="style" [class]="styleClass" (click)="onClick($event, cb)">
-            <div class="p-hidden-accessible">
+        <div
+            [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            (click)="onClick($event)"
+            [attr.data-pc-name]="'inputswitch'"
+            [attr.data-pc-section]="'root'"
+        >
+            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
                 <input
-                    #cb
-                    type="checkbox"
-                    [attr.aria-label]="ariaLabel"
+                    #input
                     [attr.id]="inputId"
-                    [attr.name]="name"
-                    [attr.tabindex]="tabindex"
-                    [checked]="checked()"
-                    (change)="onInputChange($event)"
-                    (focus)="onFocus($event)"
-                    (blur)="onBlur($event)"
-                    [disabled]="disabled"
+                    type="checkbox"
                     role="switch"
+                    [checked]="checked()"
+                    [disabled]="disabled"
                     [attr.aria-checked]="checked()"
                     [attr.aria-labelledby]="ariaLabelledBy"
+                    [attr.aria-label]="ariaLabel"
+                    [attr.name]="name"
+                    [attr.tabindex]="tabindex"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'hiddenInput'"
                 />
             </div>
-            <span class="p-inputswitch-slider"></span>
+            <span class="p-inputswitch-slider" [attr.data-pc-section]="'slider'"></span>
         </div>
     `,
     providers: [INPUTSWITCH_VALUE_ACCESSOR],
@@ -45,7 +52,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
         class: 'p-element'
     }
 })
-export class InputSwitch implements ControlValueAccessor {
+export class InputSwitch {
     /**
      * Inline style of the component.
      * @group Props
@@ -103,10 +110,12 @@ export class InputSwitch implements ControlValueAccessor {
     @Input() ariaLabelledBy: string | undefined;
     /**
      * Callback to invoke when the on value change.
-     * @param {InputSwitchOnChangeEvent} event - Custom change event.
+     * @param {InputSwitchChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter<InputSwitchOnChangeEvent>();
+    @Output() onChange: EventEmitter<InputSwitchChangeEvent> = new EventEmitter<InputSwitchChangeEvent>();
+
+    @ViewChild('input') input!: ElementRef;
 
     modelValue: any = false;
 
@@ -118,39 +127,26 @@ export class InputSwitch implements ControlValueAccessor {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    onClick(event: Event, cb: HTMLInputElement) {
+    onClick(event: Event) {
         if (!this.disabled && !this.readonly) {
+            this.modelValue = this.checked() ? this.falseValue : this.trueValue;
+
+            this.onModelChange(this.modelValue);
+            this.onChange.emit({
+                originalEvent: event,
+                checked: this.modelValue
+            });
+
             event.preventDefault();
-            this.toggle(event);
-            cb.focus();
+            this.input.nativeElement.focus();
         }
     }
 
-    onInputChange(event: Event) {
-        if (!this.readonly) {
-            const inputChecked = (<HTMLInputElement>event.target).checked;
-            this.updateModel(event, inputChecked);
-        }
-    }
-
-    toggle(event: Event) {
-        this.updateModel(event, !this.checked());
-    }
-
-    updateModel(event: Event, value: boolean) {
-        this.modelValue = value ? this.trueValue : this.falseValue;
-        this.onModelChange(this.modelValue);
-        this.onChange.emit({
-            originalEvent: event,
-            checked: this.modelValue
-        });
-    }
-
-    onFocus(event: Event) {
+    onFocus() {
         this.focused = true;
     }
 
-    onBlur(event: Event) {
+    onBlur() {
         this.focused = false;
         this.onModelTouched();
     }

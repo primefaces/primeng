@@ -1,70 +1,64 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Multiple add-ons can be placed inside the same group.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <div class="p-inputgroup w-full md:w-30rem">
-                <span class="p-inputgroup-addon">
+            <p-inputGroup class="w-full md:w-30rem">
+                <p-inputGroupAddon>
                     <i class="pi pi-clock"></i>
-                </span>
-                <span class="p-inputgroup-addon">
+                </p-inputGroupAddon>
+                <p-inputGroupAddon>
                     <i class="pi pi-star-fill"></i>
-                </span>
+                </p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Price" />
-                <span class="p-inputgroup-addon">$</span>
-                <span class="p-inputgroup-addon">.00</span>
-            </div>
+                <p-inputGroupAddon>$</p-inputGroupAddon>
+                <p-inputGroupAddon>.00</p-inputGroupAddon>
+            </p-inputGroup>
         </div>
-        <app-code [code]="code" selector="inputgroup-multiple-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="input-group-multiple-demo"></app-code>
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div class="p-inputgroup w-full md:w-30rem">
-    <span class="p-inputgroup-addon">
+        basic: `<p-inputGroup class="w-full md:w-30rem">
+    <p-inputGroupAddon>
         <i class="pi pi-clock"></i>
-    </span>
-    <span class="p-inputgroup-addon">
+    </p-inputGroupAddon>
+    <p-inputGroupAddon>
         <i class="pi pi-star-fill"></i>
-    </span>
+    </p-inputGroupAddon>
     <input type="text" pInputText placeholder="Price" />
-    <span class="p-inputgroup-addon">$</span>
-    <span class="p-inputgroup-addon">.00</span>
-</div>`,
+    <p-inputGroupAddon>$</p-inputGroupAddon>
+    <p-inputGroupAddon>.00</p-inputGroupAddon>
+</p-inputGroup>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <div class="p-inputgroup w-full md:w-30rem">
-        <span class="p-inputgroup-addon">
+        html: `<div class="card flex justify-content-center">
+    <p-inputGroup class="w-full md:w-30rem">
+        <p-inputGroupAddon>
             <i class="pi pi-clock"></i>
-        </span>
-        <span class="p-inputgroup-addon">
+        </p-inputGroupAddon>
+        <p-inputGroupAddon>
             <i class="pi pi-star-fill"></i>
-        </span>
+        </p-inputGroupAddon>
         <input type="text" pInputText placeholder="Price" />
-        <span class="p-inputgroup-addon">$</span>
-        <span class="p-inputgroup-addon">.00</span>
-    </div>
+        <p-inputGroupAddon>$</p-inputGroupAddon>
+        <p-inputGroupAddon>.00</p-inputGroupAddon>
+    </p-inputGroup>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'inputgroup-multiple-demo',
-    templateUrl: './inputgroup-multiple-demo.html'
+    selector: 'input-group-multiple-demo',
+    templateUrl: './input-group-multiple-demo.html'
 })
-export class InputgroupMultipleDemo {
+export class InputGroupMultipleDemo {
 }`
     };
 }

@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'outlined-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Outlined buttons display a border without a background initially.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
@@ -19,14 +19,10 @@ import { Code } from '../../domain/code';
             <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-danger mr-2 mb-2"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-outlined-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class OutlinedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {
@@ -47,7 +43,7 @@ export class OutlinedDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -64,8 +60,7 @@ export class OutlinedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined mr-2 mb-2"></p-splitButton>
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-secondary mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-success mr-2 mb-2"></p-splitButton>
 <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-outlined p-button-info mr-2 mb-2"></p-splitButton>
@@ -115,7 +110,7 @@ export class SplitButtonOutlinedDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 

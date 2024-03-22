@@ -56,35 +56,41 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
             [attr.data-pc-section]="'root'"
-            [attr.aria-modal]="modal"
             (keydown)="onKeyDown($event)"
         >
-            <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <button
-                    type="button"
-                    class="p-sidebar-close p-sidebar-icon p-link"
-                    (click)="close($event)"
-                    (keydown.enter)="close($event)"
-                    [attr.aria-label]="ariaCloseLabel"
-                    *ngIf="showCloseIcon"
-                    pRipple
-                    [attr.data-pc-section]="'closebutton'"
-                    [attr.data-pc-group-section]="'iconcontainer'"
-                >
-                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </div>
-            <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            </div>
-            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            <ng-container *ngIf="headlessTemplate; else notHeadless">
+                <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
+            </ng-container>
+            <ng-template #notHeadless>
+                <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <button
+                        type="button"
+                        class="p-sidebar-close p-sidebar-icon p-link"
+                        (click)="close($event)"
+                        (keydown.enter)="close($event)"
+                        [attr.aria-label]="ariaCloseLabel"
+                        *ngIf="showCloseIcon"
+                        pRipple
+                        [attr.data-pc-section]="'closebutton'"
+                        [attr.data-pc-group-section]="'iconcontainer'"
+                    >
+                        <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                        <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                            <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                        </span>
+                    </button>
+                </div>
+                <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
+                <ng-container *ngIf="footerTemplate">
+                    <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                </ng-container>
+            </ng-template>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -250,6 +256,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     closeIconTemplate: Nullable<TemplateRef<any>>;
 
+    headlessTemplate: Nullable<TemplateRef<any>>;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
@@ -271,6 +279,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                 case 'closeicon':
                     this.closeIconTemplate = item.template;
                     break;
+                case 'headless':
+                    this.headlessTemplate = item.template;
+                    break;
 
                 default:
                     this.contentTemplate = item.template;
@@ -281,7 +292,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onKeyDown(event: KeyboardEvent) {
         if (event.code === 'Escape') {
-            this.hide();
+            this.hide(false);
         }
     }
 
@@ -330,7 +341,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
             this.renderer.appendChild(this.document.body, this.mask);
             if (this.blockScroll) {
-                DomHandler.addClass(document.body, 'p-overflow-hidden');
+                DomHandler.blockBodyScroll();
             }
         }
     }
@@ -350,7 +361,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
 
         if (this.blockScroll) {
-            DomHandler.removeClass(document.body, 'p-overflow-hidden');
+            DomHandler.unblockBodyScroll();
         }
 
         this.unbindAnimationEndListener();

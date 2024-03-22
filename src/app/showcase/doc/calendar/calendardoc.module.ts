@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { CalendarModule } from 'primeng/calendar';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
@@ -29,6 +29,9 @@ import { MethodsDoc } from './methodsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { TemplatesDoc } from './templatesdoc';
+import { FloatLabelDoc } from './floatlabeldoc';
+import { InvalidDoc } from './invaliddoc';
+import { DisabledDoc } from './disableddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -57,7 +60,10 @@ import { TemplatesDoc } from './templatesdoc';
         MethodsDoc,
         TemplatesDoc,
         AccessibilityDoc,
-        ReactiveFormsDoc
+        ReactiveFormsDoc,
+        FloatLabelDoc,
+        InvalidDoc,
+        DisabledDoc
     ]
 })
 export class CalendarDocModule {}

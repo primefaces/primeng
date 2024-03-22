@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 interface PageEvent {
@@ -10,8 +10,8 @@ interface PageEvent {
 
 @Component({
     selector: 'locale-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
@@ -29,13 +29,9 @@ interface PageEvent {
             </div>
         </div>
         <app-code [code]="code" selector="paginator-locale-demo"></app-code>
-    </section>`
+    `
 })
 export class LocaleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     first: number = 0;
 
     rows: number = 10;
@@ -46,8 +42,7 @@ export class LocaleDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex-auto">
+        basic: `<div class="flex-auto">
     <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
 </div>
 <div class="flex-auto">

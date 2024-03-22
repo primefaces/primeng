@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'datatable-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
@@ -28,13 +28,9 @@ import { Code } from '../../domain/code';
             </p-table>
         </div>
         <app-code [code]="code" selector="skeleton-data-table-demo"></app-code>
-    </section>`
+    `
 })
 export class DataTableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: any[] | undefined;
 
     ngOnInit() {
@@ -42,8 +38,7 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th>Code</th>

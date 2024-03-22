@@ -22,71 +22,86 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             [class]="styleClass"
             [ngClass]="{ 'p-slider p-component': true, 'p-disabled': disabled, 'p-slider-horizontal': orientation == 'horizontal', 'p-slider-vertical': orientation == 'vertical', 'p-slider-animate': animate }"
             (click)="onBarClick($event)"
+            [attr.data-pc-name]="'slider'"
+            [attr.data-pc-section]="'root'"
         >
             <span
                 *ngIf="range && orientation == 'horizontal'"
                 class="p-slider-range"
                 [ngStyle]="{ left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [attr.data-pc-section]="'range'"
             ></span>
             <span
                 *ngIf="range && orientation == 'vertical'"
                 class="p-slider-range"
                 [ngStyle]="{ bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [attr.data-pc-section]="'range'"
             ></span>
-            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [ngStyle]="{ height: handleValue + '%' }"></span>
-            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [ngStyle]="{ width: handleValue + '%' }"></span>
+            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ height: handleValue + '%' }"></span>
+            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ width: handleValue + '%' }"></span>
             <span
-                #sliderHandle
                 *ngIf="!range"
-                [attr.tabindex]="disabled ? null : tabindex"
-                (keydown)="onHandleKeydown($event)"
+                #sliderHandle
                 class="p-slider-handle"
-                (mousedown)="onMouseDown($event)"
-                (touchstart)="onTouchStart($event)"
-                (touchmove)="onTouchMove($event)"
-                (touchend)="onTouchEnd($event)"
                 [style.transition]="dragging ? 'none' : null"
                 [ngStyle]="{ left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
+                (touchstart)="onDragStart($event)"
+                (touchmove)="onDrag($event)"
+                (touchend)="onDragEnd($event)"
+                (mousedown)="onMouseDown($event)"
+                (keydown)="onKeyDown($event)"
+                [attr.tabindex]="disabled ? null : tabindex"
+                role="slider"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuenow]="value"
                 [attr.aria-valuemax]="max"
                 [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-orientation]="orientation"
+                [attr.data-pc-section]="'handle'"
             ></span>
             <span
-                #sliderHandleStart
                 *ngIf="range"
-                [attr.tabindex]="disabled ? null : tabindex"
-                (keydown)="onHandleKeydown($event, 0)"
-                (mousedown)="onMouseDown($event, 0)"
-                (touchstart)="onTouchStart($event, 0)"
-                (touchmove)="onTouchMove($event, 0)"
-                (touchend)="onTouchEnd($event)"
+                #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
                 [ngStyle]="{ left: rangeStartLeft, bottom: rangeStartBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
+                (keydown)="onKeyDown($event, 0)"
+                (mousedown)="onMouseDown($event, 0)"
+                (touchstart)="onDragStart($event, 0)"
+                (touchmove)="onDrag($event, 0)"
+                (touchend)="onDragEnd($event)"
+                [attr.tabindex]="disabled ? null : tabindex"
+                role="slider"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuenow]="value ? value[0] : null"
                 [attr.aria-valuemax]="max"
                 [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-orientation]="orientation"
+                [attr.data-pc-section]="'startHandler'"
             ></span>
             <span
-                #sliderHandleEnd
                 *ngIf="range"
-                [attr.tabindex]="disabled ? null : tabindex"
-                (keydown)="onHandleKeydown($event, 1)"
-                (mousedown)="onMouseDown($event, 1)"
-                (touchstart)="onTouchStart($event, 1)"
-                (touchmove)="onTouchMove($event, 1)"
-                (touchend)="onTouchEnd($event)"
+                #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
                 [ngStyle]="{ left: rangeEndLeft, bottom: rangeEndBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
+                (keydown)="onKeyDown($event, 1)"
+                (mousedown)="onMouseDown($event, 1)"
+                (touchstart)="onDragStart($event, 1)"
+                (touchmove)="onDrag($event, 1)"
+                (touchend)="onDragEnd($event)"
+                [attr.tabindex]="disabled ? null : tabindex"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuenow]="value ? value[1] : null"
                 [attr.aria-valuemax]="max"
                 [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-orientation]="orientation"
+                [attr.data-pc-section]="'endHandler'"
             ></span>
         </div>
     `,
@@ -144,6 +159,11 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
      * @group Props
@@ -240,7 +260,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         }
     }
 
-    onTouchStart(event: TouchEvent, index?: number) {
+    onDragStart(event: TouchEvent, index?: number) {
         if (this.disabled) {
             return;
         }
@@ -269,7 +289,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         event.preventDefault();
     }
 
-    onTouchMove(event: TouchEvent) {
+    onDrag(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -288,7 +308,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         event.preventDefault();
     }
 
-    onTouchEnd(event: TouchEvent) {
+    onDragEnd(event: TouchEvent) {
         if (this.disabled) {
             return;
         }
@@ -321,29 +341,76 @@ export class Slider implements OnDestroy, ControlValueAccessor {
         this.sliderHandleClick = false;
     }
 
-    onHandleKeydown(event: KeyboardEvent, handleIndex?: number) {
-        if (this.disabled) {
-            return;
-        }
-        if (event.which == 38 || event.which == 39) {
-            this.spin(event, 1, handleIndex);
-        } else if (event.which == 37 || event.which == 40) {
-            this.spin(event, -1, handleIndex);
+    onKeyDown(event, index) {
+        this.handleIndex = index;
+
+        switch (event.code) {
+            case 'ArrowDown':
+            case 'ArrowLeft':
+                this.decrementValue(event, index);
+                event.preventDefault();
+                break;
+
+            case 'ArrowUp':
+            case 'ArrowRight':
+                this.incrementValue(event, index);
+                event.preventDefault();
+                break;
+
+            case 'PageDown':
+                this.decrementValue(event, index, true);
+                event.preventDefault();
+                break;
+
+            case 'PageUp':
+                this.incrementValue(event, index, true);
+                event.preventDefault();
+                break;
+
+            case 'Home':
+                this.updateValue(this.min, event);
+                event.preventDefault();
+                break;
+
+            case 'End':
+                this.updateValue(this.max, event);
+                event.preventDefault();
+                break;
+
+            default:
+                break;
         }
     }
 
-    spin(event: Event, dir: number, handleIndex?: number) {
-        let step = (this.step || 1) * dir;
+    decrementValue(event, index, pageKey = false) {
+        let newValue;
 
         if (this.range) {
-            this.handleIndex = handleIndex as number;
-            this.updateValue((this.values as number[])[this.handleIndex] + step);
-            this.updateHandleValue();
+            if (this.step) newValue = this.values[index] - this.step;
+            else newValue = this.values[index] - 1;
         } else {
-            this.updateValue((this.value as number) + step);
-            this.updateHandleValue();
+            if (this.step) newValue = this.value - this.step;
+            else if (!this.step && pageKey) newValue = this.value - 10;
+            else newValue = this.value - 1;
         }
 
+        this.updateValue(newValue, event);
+        event.preventDefault();
+    }
+
+    incrementValue(event, index, pageKey = false) {
+        let newValue;
+
+        if (this.range) {
+            if (this.step) newValue = this.values[index] + this.step;
+            else newValue = this.values[index] + 1;
+        } else {
+            if (this.step) newValue = this.value + this.step;
+            else if (!this.step && pageKey) newValue = this.value + 10;
+            else newValue = this.value + 1;
+        }
+
+        this.updateValue(newValue, event);
         event.preventDefault();
     }
 
@@ -573,6 +640,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
             this.onChange.emit({ event: event as Event, value: this.value });
             this.sliderHandle?.nativeElement.focus();
         }
+        this.updateHandleValue();
     }
 
     getValueFromHandle(handleValue: number): number {

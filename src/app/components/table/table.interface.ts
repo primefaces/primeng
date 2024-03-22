@@ -255,6 +255,19 @@ export interface TableSelectAllChangeEvent {
     checked: boolean;
 }
 /**
+ * Custom CSV export options.
+ */
+export interface ExportCSVOptions {
+    /**
+     * Boolean value determining whether to export all selected values.
+     */
+    selectionOnly?: boolean;
+    /**
+     * Boolean value determining whether to export all values.
+     */
+    allValues?: boolean;
+}
+/**
  * Defines valid templates in Table.
  * @group Templates
  */
@@ -511,6 +524,10 @@ export interface TableTemplates {
      * Custom paginator right template.
      */
     paginatorright(): TemplateRef<any>;
+    /**
+     * Custom paginator dropdown trigger icon template.
+     */
+    paginatordropdownicon(): TemplateRef<any>;
     /**
      * Custom paginator dropdown item template.
      */

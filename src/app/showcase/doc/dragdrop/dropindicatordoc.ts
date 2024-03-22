@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 
 @Component({
     selector: 'drag-drop-drop-indicator-demo',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3">
@@ -26,13 +26,9 @@ import { Product } from '../../domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drop-indicator-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DropIndicatorDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;
@@ -75,8 +71,7 @@ export class DropIndicatorDoc {
         return index;
     }
     code: Code = {
-        basic: `
-<div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
+        basic: `<div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
     <ul class="list-none flex flex-column gap-2 p-0 m-0">
         <li *ngFor="let product of availableProducts" class="p-2 border-round shadow-1" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
             {{product.name}}

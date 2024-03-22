@@ -1,11 +1,13 @@
-.p-dataview {
-    position: relative;
-}
+@layer primeng {
+    .p-dataview {
+        position: relative;
+    }
 
-.p-dataview .p-dataview-loading-overlay {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
+    .p-dataview .p-dataview-loading-overlay {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
 }

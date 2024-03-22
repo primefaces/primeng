@@ -14,7 +14,7 @@ export interface TooltipOptions {
      */
     tooltipPosition?: 'right' | 'left' | 'top' | 'bottom';
     /**
-     * Position of tooltip.
+     * Event to show the tooltip.
      */
     tooltipEvent?: 'hover' | 'focus';
     /**
@@ -63,4 +63,8 @@ export interface TooltipOptions {
      * Time to wait in milliseconds to hide the tooltip even it is active.
      */
     life?: number;
+    /**
+     * When present, it adds a custom id to the tooltip.
+     */
+    id?: string;
 }

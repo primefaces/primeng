@@ -8,6 +8,8 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
+    inputStyle: 'outlined' | 'filled' = 'outlined';
+
     overlayOptions: OverlayOptions = {};
 
     filterMatchModeOptions = {
@@ -134,7 +136,11 @@ export class PrimeNGConfig {
             zoomIn: 'Zoom In',
             zoomOut: 'Zoom Out',
             rotateRight: 'Rotate Right',
-            rotateLeft: 'Rotate Left'
+            rotateLeft: 'Rotate Left',
+            listLabel: 'Option List',
+            selectColor: 'Select a color',
+            removeLabel: 'Remove',
+            browseFiles: 'Browse Files'
         }
     };
 

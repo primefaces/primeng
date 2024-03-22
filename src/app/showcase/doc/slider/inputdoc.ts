@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Code } from '../../domain/code';
 
 @Component({
     selector: 'input-doc',
-    template: ` <section class="py-3">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Slider is connected to an input field using two-way binding.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -14,18 +14,13 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
-    </section>`
+    `
 })
 export class InputDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value: number = 50;
 
     code: Code = {
-        basic: `
-<div>
+        basic: `<div>
     <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
     <p-slider [(ngModel)]="value" class="w-full"></p-slider>
 </div>`,
