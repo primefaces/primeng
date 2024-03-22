@@ -635,6 +635,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      */
     @Input() showWeek: boolean = false;
     /**
+     * When enabled, calendar will start week numbers from first day of the year.
+     * @group Props
+     */
+    @Input() startWeekFromFirstDayOfYear: boolean = false;
+    /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
@@ -1293,7 +1298,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     getWeekNumber(date: Date) {
         let checkDate = new Date(date.getTime());
-        checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+        if (this.startWeekFromFirstDayOfYear) {
+            let firstDayOfWeek: number = +this.getFirstDateOfWeek();
+            checkDate.setDate(checkDate.getDate() + 6 + firstDayOfWeek - checkDate.getDay());
+        } else {
+            checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+        }
         let time = checkDate.getTime();
         checkDate.setMonth(0);
         checkDate.setDate(1);
