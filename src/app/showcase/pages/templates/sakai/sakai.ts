@@ -8,24 +8,36 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { SakaiLogo } from './sakailogo';
+import { SakaiSeparator } from './sakaiseparator';
 @Component({
     standalone: true,
     selector: 'sakai-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        SakaiSeparator
+    ],
     template: `<div class="sakai template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="sakaiLogo"></template-hero>
-        <template-separator></template-separator>
+        <sakai-separator></sakai-separator>
         <template-features [featuresData]="features1Data" displayType="horizontal"></template-features>
-        <template-separator></template-separator>
+        <sakai-separator></sakai-separator>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
+        <sakai-separator></sakai-separator>
         <template-configuration
             title="Angular with CLI"
             description="Sakai is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <sakai-separator></sakai-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <sakai-separator></sakai-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
     </div>`
 })

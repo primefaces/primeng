@@ -8,30 +8,42 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { AtlantisLogo } from './atlantislogo';
+import { AtlantisSeparator } from './atlantisseparator';
 @Component({
     standalone: true,
     selector: 'atlantis-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        AtlantisSeparator
+    ],
     template: `<div class="atlantis template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="atlantisLogo"></template-hero>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <template-license [license]="license"></template-license>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <div [style.display]="'none'">
-            <template-separator></template-separator>
+            <atlantis-separator></atlantis-separator>
             <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/atlantis/atlantis-youtube-screen.png"></template-youtube>
         </div>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <template-configuration
             title="Angular with CLI"
             description="Atlantis is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <template-separator></template-separator>
+        <atlantis-separator></atlantis-separator>
         <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })

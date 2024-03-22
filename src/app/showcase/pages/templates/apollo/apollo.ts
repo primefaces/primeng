@@ -8,31 +8,32 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { ApolloLogo } from './apollologo';
+import { ApolloSeparator } from './apolloseparator';
 
 @Component({
     standalone: true,
     selector: 'apollo-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule,ApolloSeparator],
     template: `<div class="apollo template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></template-hero>
         <div [style.display]="'none'">
-            <template-separator></template-separator>
+            <apollo-separator></apollo-separator>
             <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></template-youtube>
         </div>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-license [license]="license"></template-license>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features" displayType="horizontal"></template-features-animation>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-configuration
             title="Angular with CLI"
             description="Apollo is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-features [featuresData]="apolloFeatures2Data" displayType="vertical"></template-features>
-        <template-separator></template-separator>
+        <apollo-separator></apollo-separator>
         <template-related [relatedData]="apolloRelatedData"></template-related>
     </div>`
 })

@@ -8,34 +8,46 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { AvalonLogo } from './avalonlogo';
+import { AvalonSeparator } from './avalonseparator';
 
 @Component({
     standalone: true,
     selector: 'avalon-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        AvalonSeparator
+    ],
     template: `<div class="avalon template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="avalonLogo"></template-hero>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-license [license]="license"></template-license>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-configuration
             title="Angular with CLI"
             description="Avalon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-features [featuresData]="features1Data" displayType="horizontal"></template-features>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <template-separator></template-separator>
+        <avalon-separator></avalon-separator>
         <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class AvalonPage {
-    avalonLogo = AvalonLogo
+    avalonLogo = AvalonLogo;
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/avalon/avalon-hero-pattern.png',
         light: true,

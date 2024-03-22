@@ -8,35 +8,47 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { DiamondLogo } from './diamondlogo';
+import { DiamondSeparator } from './diamondseparator';
 
 @Component({
     standalone: true,
     selector: 'diamond-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        DiamondSeparator
+    ],
     template: `<div class="diamond template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="diamondLogo"></template-hero>
-        <template-separator></template-separator>
+        <diamond-separator></diamond-separator>
         <template-license [license]="license"></template-license>
-        <template-separator></template-separator>
+        <diamond-separator></diamond-separator>
         <div [style.display]="'none'">
-            <template-separator></template-separator>
+            <diamond-separator></diamond-separator>
             <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-youtube-screen.png"></template-youtube>
         </div>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
+        <diamond-separator></diamond-separator>
         <template-configuration
             title="Angular with CLI"
             description="Diamond is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <diamond-separator></diamond-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <diamond-separator></diamond-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
         <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class DiamondPage {
-    diamondLogo = DiamondLogo
+    diamondLogo = DiamondLogo;
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/diamond/diamond-hero-pattern.png',

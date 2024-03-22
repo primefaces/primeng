@@ -8,31 +8,43 @@ import { TemplateRelatedModule } from 'src/app/showcase/layout/templates/templat
 import { TemplateSeparatorModule } from 'src/app/showcase/layout/templates/templateseparator';
 import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templateyoutube';
 import { VeronaLogo } from './veronalogo';
+import { VeronaSeparator } from './veronaseparator';
 
 @Component({
     standalone: true,
     selector: 'verona-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        VeronaSeparator
+    ],
     template: `<div class="verona template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="veronaLogo"></template-hero>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <template-license [license]="license"></template-license>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <div [style.display]="'none'">
-            <template-separator></template-separator>
+            <verona-separator></verona-separator>
             <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/verona/verona-youtube-screen.png"></template-youtube>
         </div>
         <template-features-animation [featuresData]="animationFeaturesData2" title="Features"></template-features-animation>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <template-configuration
             title="Angular with CLI"
             description="Verona is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
         ></template-configuration>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <template-separator></template-separator>
+        <verona-separator></verona-separator>
         <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
