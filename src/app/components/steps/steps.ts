@@ -29,6 +29,7 @@ import { Subscription } from 'rxjs';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <a
+                        role="link"
                         *ngIf="isClickableRouterLink(item); else elseBlock"
                         [routerLink]="item.routerLink"
                         [queryParams]="item.queryParams"
@@ -39,7 +40,6 @@ import { Subscription } from 'rxjs';
                         (keydown)="onItemKeydown($event, item, i)"
                         [target]="item.target"
                         [attr.tabindex]="getItemTabIndex(item, i)"
-                        [attr.aria-selected]="i === activeIndex"
                         [attr.aria-expanded]="i === activeIndex"
                         [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                         [fragment]="item.fragment"
@@ -56,13 +56,13 @@ import { Subscription } from 'rxjs';
                     </a>
                     <ng-template #elseBlock>
                         <a
+                            role="link"
                             [attr.href]="item.url"
                             class="p-menuitem-link"
                             (click)="onItemClick($event, item, i)"
                             (keydown)="onItemKeydown($event, item, i)"
                             [target]="item.target"
                             [attr.tabindex]="getItemTabIndex(item, i)"
-                            [attr.aria-selected]="i === activeIndex"
                             [attr.aria-expanded]="i === activeIndex"
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
                             [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
