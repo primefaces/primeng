@@ -738,10 +738,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * The minimum selectable date.
      * @group Props
      */
-    @Input() get minDate(): Date {
+    @Input() get minDate(): Date | undefined | null {
         return this._minDate;
     }
-    set minDate(date: Date) {
+    set minDate(date: Date | undefined | null) {
         this._minDate = date;
 
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
@@ -752,10 +752,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * The maximum selectable date.
      * @group Props
      */
-    @Input() get maxDate(): Date {
+    @Input() get maxDate(): Date | undefined | null {
         return this._maxDate;
     }
-    set maxDate(date: Date) {
+    set maxDate(date: Date | undefined | null) {
         this._maxDate = date;
 
         if (this.currentMonth != undefined && this.currentMonth != null && this.currentYear) {
@@ -1045,9 +1045,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     inputFieldValue: Nullable<string> = null;
 
-    _minDate!: Date;
+    _minDate?: Date | null;
 
-    _maxDate!: Date;
+    _maxDate?: Date | null;
 
     _showTime!: boolean;
 
