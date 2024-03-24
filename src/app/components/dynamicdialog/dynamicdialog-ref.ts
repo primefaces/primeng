@@ -1,9 +1,10 @@
 import { Observable, Subject } from 'rxjs';
+import { Output, EventEmitter, Type } from '@angular/core';
 /**
  * Dynamic Dialog instance.
  * @group Components
  */
-export class DynamicDialogRef {
+export class DynamicDialogRef<ComponentType = any> {
     constructor() {}
     /**
      * Closes dialog.
@@ -112,9 +113,16 @@ export class DynamicDialogRef {
 
     private readonly _onMaximize = new Subject<any>();
     /**
-     * Event triggered on resize end.
+     * Event triggered on dialog is maximized.
      * @param {*} value - Size value.
      * @group Events
      */
     onMaximize: Observable<any> = this._onMaximize.asObservable();
+
+    /**
+     * Event triggered on child component load.
+     * @param {*} value - Chi.
+     * @group Events
+     */
+    readonly onChildComponentLoaded = new Subject<ComponentType>();
 }

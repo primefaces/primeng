@@ -58,6 +58,16 @@
                             "routerLink": "/editor"
                         },
                         {
+                            "name": "FloatLabel",
+                            "routerLink": "/floatlabel",
+                            "badge": "NEW"
+                        },
+                        {
+                            "name": "IconField",
+                            "routerLink": "/iconfield",
+                            "badge": "NEW"
+                        },
+                        {
                             "name": "InputGroup",
                             "routerLink": "/inputgroup"
                         },
@@ -80,6 +90,11 @@
                         {
                             "name": "InputNumber",
                             "routerLink": "/inputnumber"
+                        },
+                        {
+                            "name": "InputOtp",
+                            "routerLink": "/inputotp",
+                            "badge": "NEW"
                         },
                         {
                             "name": "Knob",
@@ -190,7 +205,7 @@
                         {
                             "name": "TreeTable",
                             "routerLink": "/treetable"
-                        }   
+                        }
                     ]
                 },
                 {
@@ -219,6 +234,11 @@
                         {
                             "name": "Splitter",
                             "routerLink": "/splitter"
+                        },
+                        {
+                            "name": "Stepper",
+                            "routerLink": "/stepper",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollPanel",
@@ -391,6 +411,11 @@
                         {
                             "name": "Inplace",
                             "routerLink": "/inplace"
+                        },
+                        {
+                            "name": "MeterGroup",
+                            "routerLink": "/metergroup",
+                            "badge": "NEW"
                         },
                         {
                             "name": "ScrollTop",

@@ -444,7 +444,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      */
     @Output() onClear: EventEmitter<void> = new EventEmitter<void>();
 
-    @ViewChild('input') input!: ElementRef;
+    @ViewChild('input') input!: ElementRef<HTMLInputElement>;
 
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
@@ -481,6 +481,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     numberFormat: any;
 
     _decimal: any;
+
+    _decimalChar: string;
 
     _group: any;
 
@@ -554,6 +556,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         this._minusSign = this.getMinusSignExpression();
         this._currency = this.getCurrencyExpression();
         this._decimal = this.getDecimalExpression();
+        this._decimalChar = this.getDecimalChar();
         this._suffix = this.getSuffixExpression();
         this._prefix = this.getPrefixExpression();
         this._index = (d: any) => index.get(d);
@@ -570,15 +573,16 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     getDecimalExpression(): RegExp {
+        const decimalChar = this.getDecimalChar();
+        return new RegExp(`[${decimalChar}]`, 'g');
+    }
+    getDecimalChar(): string {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
-        return new RegExp(
-            `[${formatter
-                .format(1.1)
-                .replace(this._currency as RegExp | string, '')
-                .trim()
-                .replace(this._numeral, '')}]`,
-            'g'
-        );
+        return formatter
+            .format(1.1)
+            .replace(this._currency as RegExp | string, '')
+            .trim()
+            .replace(this._numeral, '');
     }
 
     getGroupingExpression(): RegExp {
@@ -824,14 +828,21 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 break;
 
             case 'ArrowLeft':
-                if (!this.isNumeralChar(inputValue.charAt(selectionStart - 1))) {
-                    event.preventDefault();
+                for (let index = selectionStart; index <= inputValue.length; index++) {
+                    const previousCharIndex = index === 0 ? 0 : index - 1;
+                    if (this.isNumeralChar(inputValue.charAt(previousCharIndex))) {
+                        this.input.nativeElement.setSelectionRange(index, index);
+                        break;
+                    }
                 }
                 break;
 
             case 'ArrowRight':
-                if (!this.isNumeralChar(inputValue.charAt(selectionStart))) {
-                    event.preventDefault();
+                for (let index = selectionEnd; index >= 0; index--) {
+                    if (this.isNumeralChar(inputValue.charAt(index))) {
+                        this.input.nativeElement.setSelectionRange(index, index);
+                        break;
+                    }
                 }
                 break;
 
@@ -953,15 +964,26 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
         let code = event.which || event.keyCode;
         let char = String.fromCharCode(code);
-        const isDecimalSign = this.isDecimalSign(char);
+        let isDecimalSign = this.isDecimalSign(char);
         const isMinusSign = this.isMinusSign(char);
 
         if (code != 13) {
             event.preventDefault();
         }
+        if (!isDecimalSign && event.code === 'NumpadDecimal') {
+            isDecimalSign = true;
+            char = this._decimalChar;
+            code = char.charCodeAt(0);
+        }
 
         const newValue = this.parseValue(this.input.nativeElement.value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
+
+        if (this.maxlength && this.getSelectedText()?.length == this.maxlength) {
+            this.insert(event, char, { isDecimalSign, isMinusSign });
+            return;
+        }
+
         if (this.maxlength && newValueStr.length > this.maxlength) {
             return;
         }
@@ -969,6 +991,15 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if ((48 <= code && code <= 57) || isMinusSign || isDecimalSign) {
             this.insert(event, char, { isDecimalSign, isMinusSign });
         }
+    }
+
+    private getSelectedText() {
+        return (
+            window
+                ?.getSelection()
+                ?.toString()
+                .replaceAll(/[^0-9']/g, '') || ''
+        );
     }
 
     onPaste(event: ClipboardEvent) {
@@ -1363,13 +1394,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     onInputBlur(event: Event) {
         this.focused = false;
 
-        let newValue = this.validateValue(this.parseValue(this.input.nativeElement.value));
-
+        const newValueNumber = this.validateValue(this.parseValue(this.input.nativeElement.value));
+        const newValueString = newValueNumber?.toString();
+        this.input.nativeElement.value = this.formatValue(newValueString);
+        this.input.nativeElement.setAttribute('aria-valuenow', newValueString);
+        this.updateModel(event, newValueNumber);
         this.onBlur.emit(event);
-
-        this.input.nativeElement.value = this.formatValue(newValue);
-        this.input.nativeElement.setAttribute('aria-valuenow', newValue);
-        this.updateModel(event, newValue);
     }
 
     formattedValue() {
@@ -1418,10 +1448,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if (this.timer) {
             clearInterval(this.timer);
         }
-    }
-
-    getFormatter() {
-        return this.numberFormat;
     }
 }
 

@@ -33,21 +33,23 @@ import { AppConfigService } from '../../service/appconfigservice';
                                 ></span>
                                 <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
                                 <ng-container *ngIf="entry[0] === 'parameters'">
-                                    <div class="doc-option-params" *ngIf="entry[1].name; else nullValue">
-                                        <span *ngIf="entry[1].name" [ngClass]="{ 'doc-option-parameter-name': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ entry[1].name }} :</span>
-                                        <ng-container *ngFor="let value of getType(entry[1].type); let i = index"
-                                            >{{ i !== 0 ? ' |' : ' ' }}
-                                            <a
-                                                *ngIf="isLinkType(value); else elseBlock"
-                                                (click)="scrollToLinkedElement($event, value, prop)"
-                                                [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }"
-                                                >{{ value || '-' }}</a
-                                            >
-                                            <ng-template #elseBlock>
-                                                <span [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ value }}</span>
-                                            </ng-template>
-                                        </ng-container>
-                                    </div>
+                                    <ng-container *ngFor="let parameter of entry[1]">
+                                        <div class="doc-option-params" *ngIf="parameter.name; else nullValue">
+                                            <span *ngIf="parameter.name" [ngClass]="{ 'doc-option-parameter-name': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ parameter.name }} :</span>
+                                            <ng-container *ngFor="let value of getType(parameter.type); let i = index"
+                                                >{{ i !== 0 ? ' |' : ' ' }}
+                                                <a
+                                                    *ngIf="isLinkType(value); else elseBlock"
+                                                    (click)="scrollToLinkedElement($event, value, prop)"
+                                                    [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }"
+                                                    >{{ value || '-' }}</a
+                                                >
+                                                <ng-template #elseBlock>
+                                                    <span [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ value }}</span>
+                                                </ng-template>
+                                            </ng-container>
+                                        </div>
+                                    </ng-container>
                                     <ng-template #nullValue>
                                         <span>null</span>
                                     </ng-template>

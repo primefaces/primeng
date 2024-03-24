@@ -1425,7 +1425,7 @@
                         }
                     ],
                     "returnType": "void",
-                    "description": "Insterts new messages."
+                    "description": "Inserts new messages."
                 },
                 {
                     "name": "clear",
@@ -3102,6 +3102,24 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "listLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "selectColor",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "removeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -3761,7 +3779,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "Whether to show the empty message or not."
                         },
                         {
@@ -3911,7 +3929,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
@@ -4446,7 +4464,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         }
                     ]
@@ -4482,7 +4500,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"warning\" | \"info\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4938,6 +4956,9 @@
                 ]
             }
         }
+    },
+    "buttongroup": {
+        "components": {}
     },
     "calendar": {
         "components": {
@@ -7062,6 +7083,13 @@
                             "description": "Defines the image to display."
                         },
                         {
+                            "name": "alt",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Alt attribute of the image."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -7189,6 +7217,13 @@
                             "readonly": false,
                             "type": "number",
                             "description": "Maximum number of entries allowed."
+                        },
+                        {
+                            "name": "maxLength",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum length of a chip."
                         },
                         {
                             "name": "ariaLabel",
@@ -7343,6 +7378,16 @@
                                 }
                             ],
                             "description": "Callback to invoke on clear token clicked."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "clear",
+                            "parameters": [],
+                            "description": "Callback to invoke on filter reset."
                         }
                     ]
                 }
@@ -8995,7 +9040,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "-1",
+                            "default": "0",
                             "description": "Index of the close button in tabbing order."
                         },
                         {
@@ -9547,8 +9592,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Default text to display when no option is selected."
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "filterPlaceholder",
@@ -10019,6 +10063,16 @@
                             "name": "focus",
                             "parameters": [],
                             "description": "Applies focus."
+                        },
+                        {
+                            "name": "clear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Clears the model."
                         }
                     ]
                 }
@@ -10683,7 +10737,7 @@
                         },
                         {
                             "name": "onMaximize",
-                            "description": "Event triggered on resize end."
+                            "description": "Event triggered on dialog is maximized."
                         }
                     ]
                 }
@@ -11687,6 +11741,13 @@
             }
         }
     },
+    "floatlabel": {
+        "components": {
+            "FloatLabel": {
+                "description": "FloatLabel appears on top of the input field when focused."
+            }
+        }
+    },
     "focustrap": {
         "components": {
             "FocusTrap": {
@@ -12072,6 +12133,26 @@
                         ]
                     }
                 ]
+            }
+        }
+    },
+    "iconfield": {
+        "components": {
+            "IconField": {
+                "description": "IconField wraps an input and an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "iconPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"right\"",
+                            "default": "left",
+                            "description": "Position of the icon."
+                        }
+                    ]
+                }
             }
         }
     },
@@ -12644,6 +12725,25 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Class of the element."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "inputicon": {
+        "components": {
+            "InputIcon": {
+                "description": "InputIcon displays an icon.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
                         }
                     ]
                 }
@@ -13315,7 +13415,7 @@
                                 "name": "value",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "string",
+                                "type": "string | number",
                                 "description": "Input value."
                             },
                             {
@@ -13349,6 +13449,203 @@
                         "name": "decrementbuttonicon",
                         "parameters": [],
                         "description": "Custom decrement button icon template."
+                    }
+                ]
+            }
+        }
+    },
+    "inputotp": {
+        "components": {
+            "InputOtp": {
+                "description": "Input Otp is used to enter one time passwords.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "invalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should have invalid state style."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is read-only."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "null",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "null",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "length",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "4",
+                            "description": "Number of characters to initiate."
+                        },
+                        {
+                            "name": "mask",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Mask pattern."
+                        },
+                        {
+                            "name": "integerOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field is integer-only."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "InputOtpChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke on value change."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component receives focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when the component loses focus."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "InputOtpTemplateEvents",
+                        "description": "Defines the custom events used by the component's emit.",
+                        "props": [
+                            {
+                                "name": "input",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Input event."
+                            },
+                            {
+                                "name": "keydown",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Keydown event."
+                            },
+                            {
+                                "name": "focus",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Focus event."
+                            },
+                            {
+                                "name": "blur",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Blur event."
+                            },
+                            {
+                                "name": "paste",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function",
+                                "description": "Paste event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "InputOtpChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected value."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "inputotp",
+                        "name": "input",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Input value.\n  \t events: InputOtpTemplateEvents, // Events of the component\n  }",
+                                "description": ""
+                            }
+                        ],
+                        "description": "Custom template of input."
                     }
                 ]
             }
@@ -14927,6 +15224,16 @@
                                 }
                             ],
                             "description": "This function is executed when the value changes."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Message"
+                                }
+                            ],
+                            "description": "This function is executed when a message is closed."
                         }
                     ]
                 }
@@ -14942,6 +15249,142 @@
                         "name": "content",
                         "parameters": [],
                         "description": "Custom template of content."
+                    }
+                ]
+            }
+        }
+    },
+    "metergroup": {
+        "components": {
+            "MeterGroup": {
+                "description": "MeterGroup displays scalar measurements within a known range.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "MeterItem[]",
+                            "description": "Current value of the metergroup."
+                        },
+                        {
+                            "name": "min",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Mininum boundary value."
+                        },
+                        {
+                            "name": "max",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "100",
+                            "description": "Maximum boundary value."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Specifies the layout of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "labelPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"end\" | \"start\"",
+                            "default": "end",
+                            "description": "Specifies the label position of the component, valid values are 'start' and 'end'."
+                        },
+                        {
+                            "name": "labelOrientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "horizontal",
+                            "description": "Specifies the label orientation of the component, valid values are 'horizontal' and 'vertical'."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "metergroup",
+                        "name": "label",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom label template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "meter",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t index: number, // Current index of the meter item.\n  \t class: string, // Style class of the meter item\n  \t orientation: string, // Current orientation of the component.\n  \t size: string, // Current width of the meter item.\n  \t totalPercent: number, // Total percent of the metergroup items\n  }"
+                            }
+                        ],
+                        "description": "Custom meter item template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "start",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "end",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t totalPercent: number, // Total percent of the metergroup items.\n  \t percentages: number, // Array of sequential sum of values of metergroup items.\n  }"
+                            }
+                        ],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "metergroup",
+                        "name": "icon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MeterItem, // Current value of the component.\n  \t class: string, // Style class of the icon.\n  }"
+                            }
+                        ],
+                        "description": "Custom icon template."
                     }
                 ]
             }
@@ -15117,7 +15560,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "{0} items selected",
                             "description": "Label to display after exceeding max selected labels e.g. ({0} items selected), defaults \"ellipsis\" keyword to indicate a text-overflow."
                         },
                         {
@@ -15376,7 +15818,7 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "Signal<string>"
                         },
                         {
                             "name": "options",
@@ -18664,6 +19106,13 @@
                             "type": "string",
                             "default": "2s",
                             "description": "Duration of the rotate animation."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a aria label attribute the current element."
                         }
                     ]
                 }
@@ -21209,6 +21658,327 @@
             }
         }
     },
+    "stepper": {
+        "components": {
+            "StepperPanel": {
+                "description": "StepperPanel is a helper component for Stepper component.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "header",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Orientation of tab headers."
+                        }
+                    ]
+                }
+            },
+            "Stepper": {
+                "description": "The Stepper component displays a wizard-like workflow by guiding users through the multi-step progression.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "activeStep",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Active step index of stepper."
+                        },
+                        {
+                            "name": "orientation",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"vertical\" | \"horizontal\"",
+                            "default": "horizontal",
+                            "description": "Orientation of the stepper."
+                        },
+                        {
+                            "name": "linear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the steps are clickable or not."
+                        },
+                        {
+                            "name": "transitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
+                            "description": "Transition options of the animation."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "activeStepChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "number"
+                                }
+                            ],
+                            "description": "Emitted when the value changes."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "ActiveStepChangeEvent",
+                        "description": "Custom active step change event.",
+                        "props": [
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Emitted when the value changes."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "stepper",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom start template."
+                    },
+                    {
+                        "parent": "stepper",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom end template."
+                    }
+                ]
+            }
+        }
+    },
+    "stepperpanel": {
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "stepperpanel",
+                        "name": "header",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelHeaderProps"
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "stepperpanel",
+                        "name": "content",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelContentProps"
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "stepperpanel",
+                        "name": "separator",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "StepperPanelSeparatorProps"
+                            }
+                        ],
+                        "description": "Custom separator template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "StepperPanelHeaderProps",
+                        "description": "Props of stepper panel header.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            },
+                            {
+                                "name": "class",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the stepperpanel"
+                            },
+                            {
+                                "name": "headerClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the header content container"
+                            },
+                            {
+                                "name": "numberClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the number content container"
+                            },
+                            {
+                                "name": "titleClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the title content container"
+                            },
+                            {
+                                "name": "onClick",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepperPanelContentProps",
+                        "description": "Props of stepper panel content.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            },
+                            {
+                                "name": "class",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the stepperpanel"
+                            },
+                            {
+                                "name": "headerClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the header content container"
+                            },
+                            {
+                                "name": "numberClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the number content container"
+                            },
+                            {
+                                "name": "titleClass",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Style class of the title content container"
+                            },
+                            {
+                                "name": "onClick",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "prevCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "nextCallback",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "StepperPanelSeparatorProps",
+                        "description": "Props of stepper panel separator.",
+                        "props": [
+                            {
+                                "name": "index",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the stepperpanel."
+                            },
+                            {
+                                "name": "active",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current active state of the stepperpanel"
+                            },
+                            {
+                                "name": "highlighted",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Current highlighted state of the stepperpanel"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
     "steps": {
         "components": {
             "Steps": {
@@ -21992,7 +22762,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "960px",
+                            "default": "640px",
                             "description": "The breakpoint to define the maximum width boundary when using stack responsive layout."
                         },
                         {
@@ -22562,6 +23332,13 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Defines the visibility of buttons."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines the aria-label of the form element."
                         }
                     ]
                 }
@@ -23336,8 +24113,7 @@
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem",
-                            "description": "Defines the default active menuitem"
+                            "type": "MenuItem"
                         },
                         {
                             "name": "scrollable",

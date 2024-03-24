@@ -26,7 +26,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -81,8 +81,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_list'"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                 [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (input)="onInput($event)"
                 (keydown)="onKeyDown($event)"
@@ -155,8 +155,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.aria-label]="ariaLabel"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-required]="required"
-                        [attr.aria-expanded]="overlayVisible"
-                        [attr.aria-controls]="id + '_list'"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                         [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
                         (input)="onInput($event)"
                         (keydown)="onKeyDown($event)"
@@ -219,7 +219,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
+                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -256,8 +256,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                             </li>
                         </ul>
-                        <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
                     </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <span role="status" aria-live="polite" class="p-hidden-accessible">
                     {{ selectedMessageText }}
@@ -467,7 +467,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to show the empty message or not.
      * @group Props
      */
-    @Input() showEmptyMessage: boolean | undefined;
+    @Input() showEmptyMessage: boolean | undefined = true;
     /**
      * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
      * @group Props
@@ -583,7 +583,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input() autoOptionFocus: boolean | undefined = false;
     /**
      * When enabled, the focused option is selected.
      * @group Props
@@ -846,6 +846,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
     }
 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
     get virtualScrollerDisabled() {
         return !this.virtualScroll;
     }
@@ -1061,7 +1065,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             clearTimeout(this.searchTimeout);
         }
 
-        let query = event.target.value;
+        let query = event.target.value.split('').slice(0, this.maxlength).join('');
 
         if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
@@ -1366,6 +1370,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
+        }
+
+        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
+            this.clear();
         }
     }
 

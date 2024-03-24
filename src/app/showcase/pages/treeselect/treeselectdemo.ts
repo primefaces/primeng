@@ -10,6 +10,7 @@ import { ImportDoc } from '../../doc/treeselect/importdoc';
 import { InvalidDoc } from '../../doc/treeselect/invaliddoc';
 import { MultipleDoc } from '../../doc/treeselect/multipledoc';
 import { StyleDoc } from '../../doc/treeselect/styledoc';
+import { VirtualScrollDoc } from '../../doc/treeselect/virtualscrolldoc';
 
 @Component({
     templateUrl: './treeselectdemo.html'
@@ -40,6 +41,11 @@ export class TreeSelectDemo {
             id: 'checkbox',
             label: 'Checkbox',
             component: CheckboxDoc
+        },
+        {
+            id: 'virtual-scroll-doc',
+            label: 'Virtual Scroll',
+            component: VirtualScrollDoc
         },
         {
             id: 'filter',

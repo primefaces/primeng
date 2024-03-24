@@ -128,10 +128,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
                         <p-panelMenuSub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                             [id]="getItemId(processedItem) + '_list'"
                             [panelId]="panelId"
-                            [items]="processedItem.items"
+                            [items]="processedItem?.items"
                             [itemTemplate]="itemTemplate"
                             [transitionOptions]="transitionOptions"
                             [focusedItemId]="focusedItemId"
@@ -352,9 +352,7 @@ export class PanelMenuList implements OnChanges {
     constructor(private el: ElementRef) {}
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes && changes.items && changes.items.currentValue) {
-            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
-        }
+        this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
     }
 
     getItemProp(processedItem, name) {
@@ -405,6 +403,16 @@ export class PanelMenuList implements OnChanges {
 
     findLastItem() {
         return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
+    }
+
+    findItemByEventTarget(target: EventTarget): undefined | any {
+        let parentNode = target as ParentNode & Element;
+
+        while (parentNode && parentNode.tagName?.toLowerCase() !== 'li') {
+            parentNode = parentNode?.parentNode as Element;
+        }
+
+        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
@@ -477,7 +485,7 @@ export class PanelMenuList implements OnChanges {
     onFocus(event) {
         if (!this.focused) {
             this.focused = true;
-            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findItemByEventTarget(event.target) || this.findFirstItem() : this.findLastItem());
             if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
         }
     }
@@ -925,6 +933,7 @@ export class PanelMenu implements AfterContentInit {
 
     onToggleDone() {
         this.animating = false;
+        this.cd.markForCheck();
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {

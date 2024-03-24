@@ -780,7 +780,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1037,6 +1037,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onSpaceKey(event);
                 break;
 
@@ -1411,7 +1412,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options()?.length || !this.visibleOptions()?.length;
     }
 
     hasFilter() {

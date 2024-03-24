@@ -630,7 +630,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onFilter: EventEmitter<TreeTableFilterEvent> = new EventEmitter<TreeTableFilterEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeTableNode} object - Node instance.
+     * @param {TreeTableNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeTableNodeExpandEvent> = new EventEmitter<TreeTableNodeExpandEvent>();
@@ -3311,6 +3311,7 @@ export class TreeTableCellEditor implements AfterContentInit {
     selector: '[ttRow]',
     host: {
         class: 'p-element',
+        '[class]': `'p-element ' + styleClass`,
         '[attr.tabindex]': "'0'",
         '[attr.aria-expanded]': 'expanded',
         '[attr.aria-level]': 'level',
@@ -3321,6 +3322,10 @@ export class TreeTableCellEditor implements AfterContentInit {
 export class TTRow {
     get level() {
         return this.rowNode?.['level'] + 1;
+    }
+
+    get styleClass() {
+        return this.rowNode?.node['styleClass'] || '';
     }
 
     get expanded() {

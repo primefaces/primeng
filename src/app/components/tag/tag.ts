@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 /**
  * Tag component is used to categorize content.
@@ -31,7 +31,13 @@ export class Tag {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() get style(): { [klass: string]: any } | null | undefined {
+        return this._style;
+    }
+    set style(value: { [klass: string]: any } | null | undefined) {
+        this._style = value;
+        this.cd.markForCheck();
+    }
     /**
      * Style class of the component.
      * @group Props
@@ -63,6 +69,8 @@ export class Tag {
 
     iconTemplate: TemplateRef<any> | undefined;
 
+    _style: { [klass: string]: any } | null | undefined;
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -72,6 +80,8 @@ export class Tag {
             }
         });
     }
+
+    constructor(private cd: ChangeDetectorRef) {}
 
     containerClass() {
         return {

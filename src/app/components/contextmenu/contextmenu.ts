@@ -96,7 +96,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-menuitem-link': true }"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
@@ -931,7 +931,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.moveOnTop();
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                this.onShow.emit();
                 DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                 break;
         }
@@ -970,7 +969,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         this.container = null;
-        this.onHide.emit();
     }
 
     onTouchStart(event: MouseEvent) {
@@ -985,6 +983,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     hide() {
         this.visible.set(false);
+        this.onHide.emit();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
@@ -1000,6 +999,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.pageX = event.pageX;
         this.pageY = event.pageY;
 
+        this.onShow.emit();
         this.visible() ? this.position() : this.visible.set(true);
 
         event.stopPropagation();
@@ -1182,11 +1182,9 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     removeAppendedElements() {
-        if (this.appendTo) {
+        if (this.appendTo && this.containerViewChild) {
             if (this.appendTo === 'body') {
-                if (this.containerViewChild) {
-                    this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
-                }
+                this.renderer.removeChild(this.document.body, this.containerViewChild.nativeElement);
             } else {
                 DomHandler.removeChild(this.containerViewChild.nativeElement, this.appendTo);
             }

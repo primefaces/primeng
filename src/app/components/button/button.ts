@@ -411,6 +411,8 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    constructor(public el: ElementRef) {}
+
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
             .filter(([, value]) => !!value)

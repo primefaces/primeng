@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import { PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 /**
  * Chip represents people using icons, labels and images.
@@ -11,15 +11,25 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
             <ng-content></ng-content>
-            <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" />
+            <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
             <div class="p-chip-text" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
-                    <span tabindex="0" *ngIf="removeIcon" [class]="removeIcon" [ngClass]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)"></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" />
+                    <span
+                        tabindex="0"
+                        *ngIf="removeIcon"
+                        [class]="removeIcon"
+                        [ngClass]="'pi-chip-remove-icon'"
+                        [attr.data-pc-section]="'removeicon'"
+                        (click)="close($event)"
+                        (keydown)="onKeydown($event)"
+                        [attr.aria-label]="removeAriaLabel"
+                        role="button"
+                    ></span>
+                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)">
+                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -48,6 +58,11 @@ export class Chip implements AfterContentInit {
      * @group Props
      */
     @Input() image: string | undefined;
+    /**
+     * Alt attribute of the image.
+     * @group Props
+     */
+    @Input() alt: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -81,9 +96,15 @@ export class Chip implements AfterContentInit {
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
+    config = inject(PrimeNGConfig);
+
     visible: boolean = true;
 
     removeIconTemplate: TemplateRef<any> | undefined;
+
+    get removeAriaLabel() {
+        return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
+    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
