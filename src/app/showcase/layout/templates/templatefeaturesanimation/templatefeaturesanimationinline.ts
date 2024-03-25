@@ -1,35 +1,13 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
-    AfterContentInit,
-    AfterViewChecked,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ContentChildren,
-    ElementRef,
-    EmbeddedViewRef,
-    EventEmitter,
-    Inject,
     Input,
     NgModule,
-    OnDestroy,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
     ViewEncapsulation,
-    forwardRef,
-    signal
 } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
     selector: 'template-features-animation-inline',
@@ -110,7 +88,7 @@ export class TemplateFeaturesAnimationInline {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon],
+    imports: [CommonModule, SharedModule],
     exports: [TemplateFeaturesAnimationInline, SharedModule],
     declarations: [TemplateFeaturesAnimationInline]
 })

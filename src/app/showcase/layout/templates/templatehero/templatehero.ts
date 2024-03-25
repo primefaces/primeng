@@ -1,35 +1,6 @@
-import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewChecked,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EmbeddedViewRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgModule,
-    OnDestroy,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation,
-    forwardRef,
-    signal
-} from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
 import { TemplateHeroLightModule } from './templateherolight';
 import { TemplateHeroRectangleModule } from './templateherorectangle';
 
@@ -84,7 +55,7 @@ export class TemplateHero {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, NgOptimizedImage, TemplateHeroLightModule, TemplateHeroRectangleModule],
+    imports: [CommonModule, SharedModule, NgOptimizedImage, TemplateHeroLightModule, TemplateHeroRectangleModule],
     exports: [TemplateHero, SharedModule],
     declarations: [TemplateHero]
 })

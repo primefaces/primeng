@@ -1,37 +1,7 @@
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewChecked,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    EmbeddedViewRef,
-    EventEmitter,
-    Inject,
-    Input,
-    NgModule,
-    NgZone,
-    OnDestroy,
-    Output,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewContainerRef,
-    ViewEncapsulation,
-    forwardRef,
-    signal
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgModule, NgZone, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { TimesIcon } from 'primeng/icons/times';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { TemplateFeaturesAnimationInline, TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
+import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
 
 @Component({
     selector: 'template-features-animation',
@@ -134,7 +104,7 @@ export class TemplateFeaturesAnimation {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, TooltipModule, RippleModule, TimesIcon, ChevronLeftIcon, ChevronRightIcon, TemplateFeaturesAnimationInlineModule, NgOptimizedImage],
+    imports: [CommonModule, SharedModule, TemplateFeaturesAnimationInlineModule, NgOptimizedImage],
     exports: [TemplateFeaturesAnimation, SharedModule],
     declarations: [TemplateFeaturesAnimation]
 })

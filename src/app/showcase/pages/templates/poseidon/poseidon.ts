@@ -19,15 +19,18 @@ import { TemplateYoutubeModule } from 'src/app/showcase/layout/templates/templat
         <template-separator></template-separator>
         <template-license [license]="license"></template-license>
         <template-separator></template-separator>
-        <template-features [featuresData]="apolloFeatures1Data" displayType="horizontal"></template-features>
+        <template-features [featuresData]="features1Data" displayType="horizontal"></template-features>
         <template-separator></template-separator>
-        <template-configuration title="React based on Next.JS" description="Apollo is powered by Next.js to get started in no time following the best practices. Template is implemented purely in React with Typescript."></template-configuration>
+        <template-configuration
+            title="Angular with CLI"
+            description="Poseidon is powered by Angular CLI to get started in no time following the best practices like service based component interaction modular design and strict mode support"
+        ></template-configuration>
         <template-separator></template-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <template-separator></template-separator>
-        <template-features [featuresData]="apolloFeatures2Data" displayType="vertical"></template-features>
+        <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
         <template-separator></template-separator>
-        <template-related [relatedData]="apolloRelatedData"></template-related>
+        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class PoseidonPage {
@@ -35,12 +38,12 @@ export class PoseidonPage {
         pattern: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-pattern.png',
         dashboard1: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard1.png',
         dashboard2: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-hero-dashboard2.png',
-        description: 'Application template for React based on the popular NextJS framework with light-dim-dark modes, four menu layouts, various menu themes, sample apps, ready to use template pages and 24 PrimeReact themes.',
+        description: 'A modern and easy to use premium application template with various color schemes.Based on flat design language, it is fully responsive, touch optimized, built with SASS, CSS3 and HTML5.',
         liveHref: 'https://apollo.primereact.org',
         docHref: 'https://apollo.primereact.org/documentation'
     };
 
-    apolloRelatedData = [
+    relatedData = [
         {
             src: 'https://primefaces.org/cdn/primereact/images/templates/diamond-react.jpg',
             href: '/templates/diamond'
@@ -55,7 +58,7 @@ export class PoseidonPage {
         }
     ];
 
-    apolloFeatures2Data = [
+    features2Data = [
         {
             title: 'Fully Responsive',
             description: 'Apollo is crafted to provide optimal viewing and interaction experience for a wide range of devices.',
@@ -109,17 +112,10 @@ export class PoseidonPage {
             title: 'PrimeIcons',
             description: 'Apollo ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
-        },
-        {
-            id: 4,
-            title: 'Figma File',
-            description:
-                'Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeReact UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
         }
     ];
 
-    apolloFeatures1Data = [
+    features1Data = [
         {
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature1.png',
             title: 'Ready to Use Applications',
@@ -141,19 +137,19 @@ export class PoseidonPage {
         {
             id: 1,
             title: 'Light / Dark / Dim Modes',
-            description: 'Apollo has 3 display modes to choose from; Light, Dim and Dark.',
+            description: 'Poseidon offers you 3 uniquely designed layout modes to choose from; Light, Dim, and Dark.',
             src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
-            description: 'Apollo offers 24 built-in component themes and creating your own theme is a matter of defining couple of sass variables.',
+            description: 'Poseidon offers 12 built-in component themes with dark, light and dim options. Also if you wanna create your own theme you can do it by just defining couple SASS variables.',
             src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-component-themes.png'
         },
         {
             id: 3,
-            title: '7 Menu Orientations',
-            description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
+            title: '3 Menu Orientations',
+            description: 'Poseidon has 3 menu layouts to choose from; Static, Overlay and Horizontal.',
             src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
@@ -193,12 +189,6 @@ export class PoseidonPage {
                     src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/Drawer.png'
                 }
             ]
-        },
-        {
-            id: 4,
-            title: 'Menu Themes',
-            description: 'Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
-            src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/features-animation-menu-themes.png'
         }
     ];
 

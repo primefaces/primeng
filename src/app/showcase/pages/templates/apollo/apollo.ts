@@ -13,7 +13,18 @@ import { ApolloSeparator } from './apolloseparator';
 @Component({
     standalone: true,
     selector: 'apollo-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule,ApolloSeparator],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        ApolloSeparator
+    ],
     template: `<div class="apollo template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="apolloLogo"></template-hero>
         <div [style.display]="'none'">
