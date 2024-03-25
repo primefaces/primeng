@@ -1,5 +1,5 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, NgModule, NgZone, ViewEncapsulation } from '@angular/core';
+import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, NgZone, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
 
@@ -68,7 +68,13 @@ export class TemplateFeaturesAnimation {
 
     intervalId = null;
 
-    constructor(private cd: ChangeDetectorRef, private zone: NgZone) {}
+    observer = null;
+
+    timeout = null;
+
+    options;
+
+    constructor(private cd: ChangeDetectorRef, public el: ElementRef, @Inject(PLATFORM_ID) private platformId: any) {}
 
     startInterval() {
         this.intervalId = setInterval(() => {
@@ -89,17 +95,33 @@ export class TemplateFeaturesAnimation {
         this.startInterval();
     }
 
+    handleClick(id) {
+        this.selectedID = id;
+    }
+
     ngOnInit() {
-        // this.startInterval();
+        if (isPlatformBrowser(this.platformId)) {
+            this.observer = new IntersectionObserver(([entry]) => {
+                clearTimeout(this.timeout);
+
+                if (entry.isIntersecting) {
+                    this.startInterval();
+                    this.timeout = setTimeout(() => {
+                        this.observer.unobserve(this.el.nativeElement);
+                    }, 350);
+                }
+            }, this.options);
+
+            this.observer.observe(this.el.nativeElement);
+        }
     }
 
     ngOnDestroy() {
         clearInterval(this.intervalId);
         this.intervalId = null;
-    }
-
-    handleClick(id) {
-        this.selectedID = id;
+        if (this.el.nativeElement) {
+            this.observer?.unobserve(this.el.nativeElement);
+        }
     }
 }
 

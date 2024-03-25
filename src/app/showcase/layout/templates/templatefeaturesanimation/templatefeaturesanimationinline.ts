@@ -1,12 +1,5 @@
-import { CommonModule } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    Input,
-    NgModule,
-    ViewEncapsulation,
-} from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 
 @Component({
@@ -49,8 +42,30 @@ export class TemplateFeaturesAnimationInline {
 
     intervalId;
 
-    constructor(private cd: ChangeDetectorRef) {}
+    observer = null;
 
+    timeout = null;
+
+    options;
+
+    constructor(private cd: ChangeDetectorRef, public el: ElementRef, @Inject(PLATFORM_ID) private platformId: any) {}
+
+    ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.observer = new IntersectionObserver(([entry]) => {
+                clearTimeout(this.timeout);
+
+                if (entry.isIntersecting) {
+                    this.startInterval();
+                    this.timeout = setTimeout(() => {
+                        this.observer.unobserve(this.el.nativeElement);
+                    }, 350);
+                }
+            }, this.options);
+
+            this.observer.observe(this.el.nativeElement);
+        }
+    }
     handleClick(id) {
         this.selectedID = id;
     }
@@ -78,12 +93,12 @@ export class TemplateFeaturesAnimationInline {
         this.startInterval();
     }
 
-    ngOnInit() {
-         this.startInterval();
-    }
-
     ngOnDestroy() {
         clearInterval(this.intervalId);
+        this.intervalId = null;
+        if (this.el.nativeElement) {
+            this.observer?.unobserve(this.el.nativeElement);
+        }
     }
 }
 

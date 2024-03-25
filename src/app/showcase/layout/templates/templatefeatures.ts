@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { SharedModule } from 'primeng/api';
+import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
     selector: 'template-features',
@@ -12,7 +13,7 @@ import { SharedModule } from 'primeng/api';
                         <ng-container *ngFor="let feature of featuresData">
                             <div class="template-features-horizontal-card">
                                 <div class="template-features-horizontal-card-top">
-                                    <img [src]="darkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
+                                    <img [src]="isDarkMode ? feature.darkSrc || feature.src : feature.src" [alt]="feature.title" />
                                 </div>
                                 <div class="template-features-horizontal-card-bottom">
                                     <h5 class="template-features-horizontal-card-bottom-title">{{ feature.title }}</h5>
@@ -31,7 +32,7 @@ import { SharedModule } from 'primeng/api';
                                 <ng-container *ngFor="let data of i === 0 ? firstColumnData : secondColumnData; let j = index">
                                     <div class="template-features-vertical-card">
                                         <div class="template-features-vertical-card-image">
-                                            <img [src]="darkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
+                                            <img [src]="isDarkMode ? data.darkSrc || data.src : data.src" [alt]="data.title" />
                                         </div>
                                         <h2>{{ data.title }}</h2>
                                         <p>{{ data.description }}</p>
@@ -55,6 +56,12 @@ export class TemplateFeatures {
     firstColumnData;
 
     secondColumnData;
+
+    get isDarkMode(): boolean {
+        return this.configService.config().darkMode;
+    }
+
+    constructor(private configService: AppConfigService) {}
 
     ngOnInit() {
         if (this.featuresData) {
