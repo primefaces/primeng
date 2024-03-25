@@ -1813,17 +1813,33 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    isSelected(node: TreeTableNode) {
+    isSelected(node: TreeTableNode): boolean {
         if (node && this.selection) {
             if (this.dataKey) {
                 return this.selectionKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
             } else {
-                if (Array.isArray(this.selection)) return this.findIndexInSelection(node) > -1;
-                else return this.equals(node, this.selection);
+                if (Array.isArray(this.selection)) {
+                    return this.allChildrenOrNodeSelected(node);
+                } else {
+                    return this.equals(node, this.selection);
+                }
             }
         }
 
         return false;
+    }
+
+    allChildrenOrNodeSelected(node: TreeTableNode): boolean {
+        if (this.findIndexInSelection(node) == -1 && node.parent) {
+            if (this.findIndexInSelection(node.parent) !== -1) {
+                return true;
+            }
+        }
+        if (!node.children) {
+            return this.selection.some((selectedItem) => this.equals(node, selectedItem));
+        } else {
+            return node.children.every((child) => this.isSelected(child)) || this.selection.some((selectedItem) => this.equals(node, selectedItem));
+        }
     }
 
     findIndexInSelection(node: any) {
@@ -2933,13 +2949,13 @@ export class TTContextMenuRow {
             <div class="p-hidden-accessible">
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" tabindex="-1" />
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': isPartialSelected(), 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!tt.checkboxIconTemplate">
                     <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
-                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected" />
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="isPartialSelected()" />
                 </ng-container>
                 <span *ngIf="tt.checkboxIconTemplate">
-                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
+                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: isPartialSelected() }"></ng-template>
                 </span>
             </div>
         </div>
@@ -2970,6 +2986,16 @@ export class TTCheckbox {
 
     ngOnInit() {
         this.checked = this.tt.isSelected(this.rowNode.node);
+    }
+
+    isPartialSelected() {
+        const node = this.rowNode.node;
+        if (node['partialSelected']) {
+            return !this.checked && node['partialSelected'];
+        }
+        if (node['partialSelected'] == undefined && node.children && node.children.length > 0) {
+            return !this.checked && node.children.some((child) => this.tt.isSelected(child));
+        }
     }
 
     onClick(event: Event) {
