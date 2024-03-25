@@ -56,6 +56,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
     template: `
         <li
             pRipple
+            role='option'
             [ngStyle]="{ height: itemSize + 'px' }"
             class="p-multiselect-item"
             [ngClass]="{ 'p-multiselect-item': true, 'p-highlight': selected, 'p-disabled': disabled, 'p-focus': focused }"
