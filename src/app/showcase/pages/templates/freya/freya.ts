@@ -182,7 +182,7 @@ export class FreyaPage {
                 {
                     id: 2,
                     title: 'Slim',
-                    src: 'https://primefaces.org                    .cdn/primeng/images/templates/freya/Slim.png'
+                    src: 'https://primefaces.org/cdn/primeng/images/templates/freya/Slim.png'
                 },
                 {
                     id: 3,
