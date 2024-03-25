@@ -199,6 +199,10 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config.position!;
     }
 
+    get closeAriaLabel(): string {
+        return this.config.closeAriaLabel!;
+    }
+
     set style(value: any) {
         if (value) {
             this._style = { ...value };

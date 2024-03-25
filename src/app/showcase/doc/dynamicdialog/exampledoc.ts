@@ -32,6 +32,7 @@ export class ExampleDoc implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
+            closeAriaLabel: "Close",
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
@@ -87,7 +88,7 @@ import { Footer } from './footer';
     providers: [DialogService, MessageService]
 })
 export class DynamicDialogExampleDemo implements OnDestroy {
-    
+
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;
@@ -97,6 +98,7 @@ export class DynamicDialogExampleDemo implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
+            closeAriaLabel: "Close",
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
