@@ -207,7 +207,7 @@ export class VeronaPage {
 
     license = {
         documentLink: 'https://verona.primeng.org/documentation',
-        description: 'The download package is a NextJS-based project containing all application source codes deployed at the live demo. The project code is written in TypeScript.',
+        description: 'The download package is an Angular CLI-based project containing all source code of the application deployed at the live demo. The project code is written in TypeScript.',
         licenseDetails: [
             {
                 title: 'Basic License',
