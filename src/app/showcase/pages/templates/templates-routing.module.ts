@@ -1,29 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { TemplatesComponent } from './templates.component';
-import { ApolloPage } from './apollo/apollo';
-import { AtlantisPage } from './atlantis/atlantis';
-import { AvalonPage } from './avalon/avalon';
-import { DiamondPage } from './diamond/diamond';
-import { FreyaPage } from './freya/freya';
-import { PoseidonPage } from './poseidon/poseidon';
-import { SakaiPage } from './sakai/sakai';
-import { UltimaPage } from './ultima/ultima';
-import { VeronaPage } from './verona/verona';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
             { path: '', pathMatch: 'full', component: TemplatesComponent },
-            { path: 'apollo', component: ApolloPage },
-            { path: 'atlantis', component: AtlantisPage},
-            { path: 'avalon', component: AvalonPage},
-            { path: 'diamond', component: DiamondPage},
-            { path: 'freya', component: FreyaPage},
-            { path: 'poseidon', component: PoseidonPage},
-            { path: 'sakai', component: SakaiPage},
-            { path: 'ultima', component: UltimaPage},
-            { path: 'verona', component: VeronaPage},
+            { path: 'apollo', loadComponent: () => import('./apollo/apollo').then((m) => m.ApolloPage) },
+            { path: 'atlantis', loadComponent: () => import('./atlantis/atlantis').then((m) => m.AtlantisPage) },
+            { path: 'avalon', loadComponent: () => import('./avalon/avalon').then((m) => m.AvalonPage) },
+            { path: 'diamond', loadComponent: () => import('./diamond/diamond').then((m) => m.DiamondPage) },
+            { path: 'freya', loadComponent: () => import('./freya/freya').then((m) => m.FreyaPage) },
+            { path: 'poseidon', loadComponent: () => import('./poseidon/poseidon').then((m) => m.PoseidonPage) },
+            { path: 'sakai', loadComponent: () => import('./sakai/sakai').then((m) => m.SakaiPage) },
+            { path: 'ultima', loadComponent: () => import('./ultima/ultima').then((m) => m.UltimaPage) },
+            { path: 'verona', loadComponent: () => import('./verona/verona').then((m) => m.VeronaPage) }
         ])
     ],
     exports: [RouterModule]

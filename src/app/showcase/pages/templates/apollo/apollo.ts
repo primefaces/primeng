@@ -115,24 +115,32 @@ export class ApolloPage {
         {
             id: 1,
             title: 'PrimeFlex CSS Utilities',
+            width: 1440,
+            height: 1789,
             description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
         },
         {
             id: 2,
             title: 'PrimeBlocks',
+            width: 1440,
+            height: 1789,
             description: 'Fully compatible with PrimeBlocks, choose from the wide range of blocks and customize the way you like. Note that PrimeBlocks is not included in the template and requires a separate purchase.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-blocks.png'
         },
         {
             id: 3,
             title: 'PrimeIcons',
+            width: 1440,
+            height: 1789,
             description: 'Apollo ships with PrimeIcons, PrimeTek’s modern icon library including a wide range of icons for your applications.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-icons.png'
         },
         {
             id: 4,
             title: 'Figma File',
+            width: 1440,
+            height: 1788,
             description:
                 'Apollo uses Figma as the design tool. It will be possible to download the Figma file after your purchase. You can preview the Figma file before the purchase. Note that PrimeNG UI components are excluded from the Apollo Figma file as they are available in PrimeOne for Figma only.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-figma.png'
@@ -141,16 +149,22 @@ export class ApolloPage {
 
     apolloFeatures1Data = [
         {
+            height: 940,
+            width: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature1.png',
             title: 'Ready to Use Applications',
             description: 'Mail, File System, Tasks, Calendar, Blog and Chat are the sample applications to get started with ease.'
         },
         {
+            height: 940,
+            width: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature2.png',
             title: 'E-Commerce Pages',
             description: 'Apollo offers E-commerce pages to kickstart your e-commerce project powered by PrimeBlocks.'
         },
         {
+            height: 940,
+            width: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features1-feature3.png',
             title: 'Ready to Use Pages',
             description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
@@ -162,54 +176,71 @@ export class ApolloPage {
             id: 1,
             title: 'Light / Dark / Dim Modes',
             description: 'Apollo has 3 display modes to choose from; Light, Dim and Dark.',
+            height: 940,
+            width: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-darkmode.png'
         },
         {
             id: 2,
             title: 'Component Themes',
             description: 'Apollo offers 24 built-in component themes and creating your own theme is a matter of defining couple of sass variables.',
+            width: 940,
+            height: 960,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-component-themes.png'
         },
         {
             id: 3,
             title: '7 Menu Orientations',
             description: 'Static, Overlay, Slim, Slim+, Reveal, Drawer and Horizontal are the available menu layouts depending on your preference.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-orientations.png',
             type: 'inline-animation',
             inlineFeaturesData: [
                 {
                     id: 1,
                     title: 'Static',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Static.png'
                 },
                 {
                     id: 2,
                     title: 'Slim',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Slim.png'
                 },
                 {
                     id: 3,
                     title: 'Reveal',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Reveal.png'
                 },
                 {
                     id: 4,
                     title: 'Horizontal',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Horizontal.png'
                 },
                 {
                     id: 5,
                     title: 'Overlay',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Overlay.png'
                 },
                 {
                     id: 6,
                     title: 'Slim+',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Slim+.png'
                 },
                 {
                     id: 7,
                     title: 'Drawer',
+                    width: 1440,
+                    height: 1789,
                     src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/Drawer.png'
                 }
             ]
@@ -218,6 +249,8 @@ export class ApolloPage {
             id: 4,
             title: 'Menu Themes',
             description: 'Stunning theming for the main menu with 3 alternatives; Color Scheme, Primary Color and Transparent.',
+            width: 960,
+            height: 940,
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-menu-themes.png'
         }
     ];
