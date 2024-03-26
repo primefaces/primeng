@@ -274,6 +274,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Input() autoOptionFocus: boolean | undefined = true;
     /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
      * When enabled, the focused option is selected.
      * @group Props
      */
