@@ -131,4 +131,5 @@ export interface Aria {
     selectColor?: string;
     removeLabel?: string;
     browseFiles?: string;
+    maximizeLabel?: string;
 }

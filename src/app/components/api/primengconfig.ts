@@ -140,7 +140,8 @@ export class PrimeNGConfig {
             listLabel: 'Option List',
             selectColor: 'Select a color',
             removeLabel: 'Remove',
-            browseFiles: 'Browse Files'
+            browseFiles: 'Browse Files',
+            maximizeLabel: 'Maximize'
         }
     };
 
