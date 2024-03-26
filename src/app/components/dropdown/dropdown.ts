@@ -164,6 +164,7 @@ export class DropdownItem {
                 [disabled]="disabled"
                 aria-haspopup="listbox"
                 [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
+                [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
                 (focus)="onInputFocus($event)"
