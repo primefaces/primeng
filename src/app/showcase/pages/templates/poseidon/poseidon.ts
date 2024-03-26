@@ -29,7 +29,7 @@ import { PoseidonLogo } from './poseidonlogo';
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="poseidonLogo"></template-hero>
         <poseidon-separator></poseidon-separator>
         <div [style.display]="'none'">
-            <template-youtube imgSrc="https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-youtube-screen.png"></template-youtube>
+            <template-youtube imgSrc="https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-youtube-screen.png"></template-youtube>
             <poseidon-separator></poseidon-separator>
         </div>
         <template-license [license]="license"></template-license>
@@ -89,7 +89,7 @@ export class PoseidonPage {
             title: 'Top Notch Quality',
             description: 'Superior standards with 100% compatibility for strict mode and linting tools.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality.png',
-            darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-quality-dark.png'
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-quality-dark.png'
         },
         {
             title: 'Cross Browser Compatible',
@@ -100,13 +100,13 @@ export class PoseidonPage {
         {
             title: 'Customizable Design',
             description: 'Fully customizable with a mixture of Sass and CSS variables.',
-            src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable.png',
-            darkSrc: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-customizable-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-customizable-dark.png'
         },
         {
             title: 'Mobile Experience',
             description: 'Touch optimized enhanced mobile experience with responsive design.',
-            src: 'https://primefaces.org/cdn/primereact/images/templates/apollo/apollo-features2-mobile.png'
+            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-mobile.png'
         }
     ];
 
