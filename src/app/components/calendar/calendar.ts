@@ -2803,7 +2803,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     updateUI() {
         let propValue = this.value;
         if (Array.isArray(propValue)) {
-            propValue = propValue[0];
+            propValue = propValue.length === 2 ? propValue[1] : propValue[0];
         }
 
         let val = this.defaultDate && this.isValidDate(this.defaultDate) && !this.value ? this.defaultDate : propValue && this.isValidDate(propValue) ? propValue : new Date();
