@@ -91,8 +91,8 @@ export class UltimaPage {
         {
             title: 'Cross Browser Compatible',
             description: 'First class support for Firefox, Safari, Chrome and Edge.',
-            src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible.png',
-            darkSrc: 'https://primefaces.org/cdn/primeng/images/templates/apollo/apollo-features2-compatible-dark.png'
+            src: 'https://primefaces.org/cdn/primeng/images/compatible-ng.png',
+            darkSrc: 'https://primefaces.org/cdn/primeng/images/compatible-ng-dark.png'
         },
         {
             title: 'Lifetime Support',
