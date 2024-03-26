@@ -69,8 +69,8 @@ export class AtlantisPage {
             href: '/templates/ultima'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg',
-            href: '/templates/roma'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/verona-ng.jpg',
+            href: '/templates/verona'
         }
     ];
 

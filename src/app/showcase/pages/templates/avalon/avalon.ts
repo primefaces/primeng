@@ -62,16 +62,16 @@ export class AvalonPage {
 
     relatedData = [
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg',
-            href: '/templates/babylon'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/verona-ng.jpg',
+            href: '/templates/verona'
         },
         {
             src: 'https://primefaces.org/cdn/primeng/images/layouts/apollo-ng.jpg',
             href: '/templates/apollo'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg',
-            href: '/templates/roma'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg',
+            href: '/templates/ultima'
         }
     ];
 

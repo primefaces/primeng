@@ -65,8 +65,8 @@ export class FreyaPage {
             href: '/templates/diamond'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg',
-            href: '/templates/babylon'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/atlantis-ng.jpg',
+            href: '/templates/atlantis'
         },
         {
             src: 'https://primefaces.org/cdn/primeng/images/layouts/ultima-ng.jpg',

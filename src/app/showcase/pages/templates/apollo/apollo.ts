@@ -70,8 +70,8 @@ export class ApolloPage {
             href: '/templates/avalon'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg',
-            href: '/templates/babylon'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/freya-ng.jpg',
+            href: '/templates/freya'
         }
     ];
 

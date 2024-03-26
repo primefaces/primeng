@@ -69,8 +69,8 @@ export class DiamondPage {
             href: '/templates/avalon'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/roma-ng.jpg',
-            href: '/templates/roma'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/verona-ng.jpg',
+            href: '/templates/verona'
         }
     ];
 

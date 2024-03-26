@@ -60,8 +60,8 @@ export class UltimaPage {
             href: '/templates/apollo'
         },
         {
-            src: 'https://primefaces.org/cdn/primeng/images/layouts/babylon-ng.jpg',
-            href: '/templates/babylon'
+            src: 'https://primefaces.org/cdn/primeng/images/layouts/avalon-ng.jpg',
+            href: '/templates/avalon'
         }
     ];
 
@@ -82,6 +82,7 @@ export class UltimaPage {
             description: 'Landing, login, invoice, help, user management and error pages are provided as template pages to get started with building your app.'
         }
     ];
+
     features2Data = [
         {
             title: 'Fully Responsive',
