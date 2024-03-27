@@ -41,7 +41,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [iconPos]="iconPos"
                     [label]="label"
                     (click)="onDefaultButtonClick($event)"
-                    [disabled]="disabled"
+                    [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
                     [attr.aria-label]="buttonProps?.['aria-label']"
                 ></button>
@@ -52,7 +52,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 class="p-splitbutton-menubutton p-button-icon-only"
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
-                [disabled]="disabled"
+                [disabled]="menuButtonDisabled"
                 [attr.aria-label]="menuButtonProps?.['aria-label'] || expandAriaLabel"
                 [attr.aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['aria-expanded'] || isExpanded()"
@@ -126,11 +126,7 @@ export class SplitButton {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
-    /**
-     * Index of the element in tabbing order.
-     * @group Prop
-     */
+
     @Input() tabindex: number | undefined;
     /**
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
@@ -176,6 +172,47 @@ export class SplitButton {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
+    private _disabled: boolean | undefined;
+    @Input() set disabled(v: boolean | undefined) {
+        this._disabled = v;
+        this._buttonDisabled = v;
+        this.menuButtonDisabled = v;
+    }
+    public get disabled(): boolean | undefined {
+        return this._disabled;
+    }
+    /**
+     * Index of the element in tabbing order.
+     * @group Prop
+     */
+
+    /**
+     * When present, it specifies that the menu button element should be disabled.
+     * @group Props
+     */
+    private _menuButtonDisabled: boolean | undefined;
+    @Input('menuButtonDisabled') set menuButtonDisabled(v: boolean | undefined) {
+        if (this.disabled) {
+            this._menuButtonDisabled = this.disabled;
+        } else this._menuButtonDisabled = v;
+    }
+    public get menuButtonDisabled(): boolean | undefined {
+        return this._menuButtonDisabled;
+    }
+    /**
+     * When present, it specifies that the button element should be disabled.
+     * @group Props
+     */
+    private _buttonDisabled: boolean | undefined;
+    @Input() set buttonDisabled(v: boolean | undefined) {
+        if (this.disabled) {
+            this.buttonDisabled = this.disabled;
+        } else this._buttonDisabled = v;
+    }
+    public get buttonDisabled(): boolean {
+        return this._buttonDisabled;
+    }
+
     @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;

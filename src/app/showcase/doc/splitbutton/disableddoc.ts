@@ -7,10 +7,20 @@ import { Code } from '../../domain/code';
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
+            <p>You can now use <i>menuButtonDisabled</i> and <i>buttonDisabled</i> to disable menu icon button and the main button.</p>
+            <p>also , you can set the default <i>disabled</i> attribute to true , so you can disable both buttons.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
+        </div>
+        <div class="card flex justify-content-center">
+            <p-toast></p-toast>
+            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [menuButtonDisabled]="true"></p-splitButton>
+        </div>
+        <div class="card flex justify-content-center">
+            <p-toast></p-toast>
+            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [buttonDisabled]="true"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
     `,
@@ -60,7 +70,20 @@ export class DisabledDoc {
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
-</div>`,
+    
+</div>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [menuButtonDisabled]="true"></p-splitButton>
+    
+</div>
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [buttonDisabled]="true"></p-splitButton>
+    
+</div>
+`,
 
         typescript: `
 import { Component } from '@angular/core';
