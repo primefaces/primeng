@@ -1199,6 +1199,17 @@
     right: 3.75rem;
   }
 
+  .p-inputotp {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .p-inputotp-input {
+    text-align: center;
+    width: 2.5rem;
+  }
+
   .p-inputswitch {
     width: 3rem;
     height: 1.75rem;
@@ -1306,6 +1317,18 @@
   }
 
   .p-input-icon-right > .p-inputtext {
+    padding-right: 2.5rem;
+  }
+
+  .p-icon-field-left > .p-inputtext {
+    padding-left: 2.5rem;
+  }
+
+  .p-icon-field-left.p-float-label > label {
+    left: 2.5rem;
+  }
+
+  .p-icon-field-right > .p-inputtext {
     padding-right: 2.5rem;
   }
 
@@ -6195,6 +6218,103 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem rgba(167, 139, 250, 0.2);
+  }
+
+  .p-metergroup {
+    display: flex;
+  }
+
+  .p-metergroup-meters {
+    display: flex;
+  }
+
+  .p-metergroup-vertical .p-metergroup-meters {
+    flex-direction: column;
+  }
+
+  .p-metergroup-labels {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+
+  .p-metergroup-vertical .p-metergroup-labels {
+    align-items: start;
+  }
+
+  .p-metergroup-labels-vertical {
+    flex-direction: column;
+  }
+
+  .p-metergroup-label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .p-metergroup-label-marker {
+    display: inline-flex;
+  }
+
+  .p-metergroup {
+    gap: 1rem;
+  }
+  .p-metergroup .p-metergroup-meters {
+    background: #424b57;
+    border-radius: 6px;
+  }
+  .p-metergroup .p-metergroup-meter {
+    border: 0 none;
+    background: #a78bfa;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-marker {
+    background: #a78bfa;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+  }
+  .p-metergroup .p-metergroup-labels .p-metergroup-label-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-vertical {
+    gap: 0.5rem;
+  }
+  .p-metergroup .p-metergroup-labels.p-metergroup-labels-horizontal {
+    gap: 1rem;
+  }
+  .p-metergroup.p-metergroup-horizontal {
+    flex-direction: column;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meters {
+    height: 0.5rem;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-horizontal .p-metergroup-meter:last-of-type {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-vertical {
+    flex-direction: row;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meters {
+    width: 0.5rem;
+    height: 100%;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:first-of-type {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+  .p-metergroup.p-metergroup-vertical .p-metergroup-meter:last-of-type {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
   }
 
   .p-progressbar {

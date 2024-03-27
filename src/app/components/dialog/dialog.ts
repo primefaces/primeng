@@ -25,7 +25,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -87,8 +87,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-template #notHeadless>
                     <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                     <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="headerFacet">
                             <ng-content select="p-header"></ng-content>
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -101,6 +101,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (click)="maximize()"
                                 (keydown.enter)="maximize()"
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
+                                [attr.aria-label]="maximizeLabel"
                                 pRipple
                                 pButton
                             >
@@ -492,7 +493,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string = this.getAriaLabelledBy();
 
     documentDragListener: VoidListener;
 
@@ -539,6 +540,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     styleElement: any;
 
     private window: Window;
+
+    get maximizeLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;
@@ -626,7 +631,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.unbindMaskClickListener();
             }
 
-            if (this.modal) {
+            // for nested dialogs w/modal
+            const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
+
+            if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
                 DomHandler.unblockBodyScroll();
             }
 

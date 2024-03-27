@@ -9,9 +9,9 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-buttonGroup>
-                <button pButton pRipple label="Save" icon="pi pi-check"></button>
-                <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-                <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+                <p-button label="Save" icon="pi pi-check"></p-button>
+                <p-button label="Delete" icon="pi pi-trash"></p-button>
+                <p-button label="Cancel" icon="pi pi-times"></p-button>
             </p-buttonGroup>
         </div>
         <app-code [code]="code" selector="button-group-demo"></app-code>
@@ -20,16 +20,16 @@ import { Code } from '../../domain/code';
 export class ButtonGroupDoc {
     code: Code = {
         basic: `<p-buttonGroup>
-    <button pButton pRipple label="Save" icon="pi pi-check"></button>
-    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-    <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+    <p-button label="Save" icon="pi pi-check"></p-button>
+    <p-button label="Delete" icon="pi pi-trash"></p-button>
+    <p-button label="Cancel" icon="pi pi-times"></p-button>
 </p-buttonGroup>`,
 
         html: `
 <div class="card flex justify-content-center">
-    <button pButton pRipple label="Save" icon="pi pi-check"></button>
-    <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
-    <button pButton pRipple label="Cancel" icon="pi pi-times"></button>
+    <p-button label="Save" icon="pi pi-check"></p-button>
+    <p-button label="Delete" icon="pi pi-trash"></p-button>
+    <p-button label="Cancel" icon="pi pi-times"></p-button>
 </div>`,
 
         typescript: `

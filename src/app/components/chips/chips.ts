@@ -491,7 +491,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         }
     }
 
-    clear() {
+    /**
+     * Callback to invoke on filter reset.
+     * @group Method
+     */
+    public clear() {
         this.value = null;
         this.updateFilledState();
         this.onModelChange(this.value);

@@ -931,7 +931,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
                 this.moveOnTop();
                 this.appendOverlay();
                 this.bindGlobalListeners();
-                this.onShow.emit();
                 DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
                 break;
         }
@@ -970,7 +969,6 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         this.container = null;
-        this.onHide.emit();
     }
 
     onTouchStart(event: MouseEvent) {
@@ -985,6 +983,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     hide() {
         this.visible.set(false);
+        this.onHide.emit();
         this.activeItemPath.set([]);
         this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
     }
@@ -1000,6 +999,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.pageX = event.pageX;
         this.pageY = event.pageY;
 
+        this.onShow.emit();
         this.visible() ? this.position() : this.visible.set(true);
 
         event.stopPropagation();

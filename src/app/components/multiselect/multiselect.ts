@@ -154,8 +154,8 @@ export class MultiSelectItem {
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-haspopup]="'listbox'"
-                    [attr.aria-expanded]="overlayVisible"
-                    [attr.aria-controls]="id + '_list'"
+                    [attr.aria-expanded]="overlayVisible ?? false"
+                    [attr.aria-controls]="overlayVisible ? id + '_list' : null"
                     [attr.tabindex]="!disabled ? tabindex : -1"
                     [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                     (focus)="onInputFocus($event)"
@@ -212,7 +212,7 @@ export class MultiSelectItem {
                 (onHide)="hide()"
             >
                 <ng-template pTemplate="content">
-                    <div [ngClass]="'p-multiselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <div [attr.id]="id + '_list'" [ngClass]="'p-multiselect-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"
@@ -250,7 +250,7 @@ export class MultiSelectItem {
                                             [attr.aria-label]="toggleAllAriaLabel"
                                         />
                                     </div>
-                                    <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allSelected()" [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }">
+                                    <div class="p-checkbox-box" role="checkbox" [attr.aria-label]="toggleAllAriaLabel" [attr.aria-checked]="allSelected()" [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }">
                                         <ng-container *ngIf="allSelected()">
                                             <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
                                             <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
@@ -775,7 +775,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this._selectAll = value;
     }
     /**
-     * Fields used when filtering the options, defaults to optionLabel.
+     * Indicates whether to focus on options when hovering over them, defaults to optionLabel.
      * @group Props
      */
     @Input() focusOnHover: boolean = false;
@@ -1056,7 +1056,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             if (isArrayOfObjects) {
                 filteredOptions = this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             } else {
-                filteredOptions = options.filter((option) => option.toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
+                filteredOptions = options.filter((option) => option.toString().toLocaleLowerCase().includes(this._filterValue().toLocaleLowerCase()));
             }
 
             if (this.group) {
@@ -1392,7 +1392,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
     }
 
     isEmpty() {
@@ -1548,6 +1548,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 this.onEnterKey(event);
                 break;
 
@@ -1832,9 +1833,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             });
         } else {
             const value = this.allSelected()
-                ? []
+                ? this.visibleOptions()
+                      .filter((option) => !this.isValidOption(option) && this.isSelected(option))
+                      .map((option) => this.getOptionValue(option))
                 : this.visibleOptions()
-                      .filter((option) => this.isValidOption(option))
+                      .filter((option) => this.isSelected(option) || this.isValidOption(option))
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);

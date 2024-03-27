@@ -50,12 +50,25 @@ export class ListDoc {
 
     onFilter(event: KeyboardEvent): void {
         let searchText = (<HTMLInputElement>event.target).value;
+        let sanitizedInput = searchText?.replace(/[^\w\s]/gi, '').replace(/\s/g, '');
 
         if (!searchText) {
             this.filteredIcons = this.icons;
         } else {
-            this.filteredIcons = this.icons.filter((it) => {
-                return it.icon.tags[0].includes(searchText);
+            this.filteredIcons = this.icons.filter((icon) => {
+                return (
+                    icon.icon.tags.some((tag) =>
+                        tag
+                            .replace(/[^\w\s]/gi, '')
+                            .replace(/\s/g, '')
+                            .includes(sanitizedInput.toLowerCase())
+                    ) ||
+                    icon.properties.name
+                        .replace(/[^\w\s]/gi, '')
+                        .replace(/\s/g, '')
+                        .toLowerCase()
+                        .includes(sanitizedInput.toLowerCase())
+                );
             });
         }
     }

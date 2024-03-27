@@ -57,7 +57,17 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     [class]="chooseStyleClass"
                     [attr.data-pc-section]="'choosebutton'"
                 >
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [attr.data-pc-section]="'input'" />
+                    <input
+                        [attr.aria-label]="browseFilesLabel"
+                        #advancedfileinput
+                        type="file"
+                        (change)="onFileSelect($event)"
+                        [multiple]="multiple"
+                        [accept]="accept"
+                        [disabled]="disabled || isChooseDisabled()"
+                        [attr.title]="''"
+                        [attr.data-pc-section]="'input'"
+                    />
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                     <ng-container *ngIf="!chooseIcon">
                         <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
@@ -146,7 +156,19 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </ng-container>
                 </ng-template>
                 <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
-                <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" [attr.data-pc-section]="'input'" />
+                <input
+                    [attr.aria-label]="browseFilesLabel"
+                    #basicfileinput
+                    type="file"
+                    [accept]="accept"
+                    [multiple]="multiple"
+                    [disabled]="disabled"
+                    (change)="onFileSelect($event)"
+                    *ngIf="!hasFiles()"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'input'"
+                />
             </span>
         </div>
     `,
@@ -887,6 +909,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     get cancelButtonLabel(): string {
         return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+    }
+
+    get browseFilesLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
     }
 
     ngOnDestroy() {

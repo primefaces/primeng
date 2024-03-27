@@ -53,7 +53,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.done)="onAnimationEnd($event)"
                 role="alertdialog"
                 *ngIf="visible"
-                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
                 <ng-container *ngIf="headlessTemplate; else notHeadless">
@@ -64,7 +64,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     </div>
                     <div class="p-dialog-header" *ngIf="!headerTemplate">
-                        <span class="p-dialog-title" [id]="getAriaLabelledBy()" *ngIf="option('header')">{{ option('header') }}</span>
+                        <span class="p-dialog-title" [id]="ariaLabelledBy" *ngIf="option('header')">{{ option('header') }}</span>
                         <div class="p-dialog-header-icons">
                             <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
                                 <TimesIcon />
@@ -433,6 +433,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     styleElement: any;
 
     id = UniqueComponentId();
+
+    ariaLabelledBy: string = this.getAriaLabelledBy();
 
     confirmationOptions: Nullable<Confirmation>;
 

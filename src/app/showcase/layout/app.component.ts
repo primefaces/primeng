@@ -40,7 +40,6 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
     }
-
     ngOnInit(): void {
         this.primeng.ripple = true;
     }

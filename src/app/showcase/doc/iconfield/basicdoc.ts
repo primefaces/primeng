@@ -6,13 +6,17 @@ import { Code } from '../../domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                A group is created by wrapping the input and icon with the IconField component. Each icon is defined as a child of InputIcon component. In addition, position of the icon can be changed using iconPosition property that the default
-                value is right and also left option is available.
+                A group is created by wrapping the input and icon with the <i>IconField</i> component. Each icon is defined as a child of <i>InputIcon</i> component. In addition, position of the icon can be changed using <i>iconPosition</i> property
+                that the default value is <i>right</i> and also <i>left</i> option is available.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex flex-wrap justify-content-center gap-3">
             <p-iconField iconPosition="left">
                 <p-inputIcon styleClass="pi pi-search" />
+                <input type="text" pInputText placeholder="Search" />
+            </p-iconField>
+            <p-iconField iconPosition="right">
+                <p-inputIcon styleClass="pi pi-spinner pi-spin" />
                 <input type="text" pInputText />
             </p-iconField>
         </div>
@@ -22,21 +26,31 @@ import { Code } from '../../domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-iconField iconPosition="left">
-<p-inputIcon styleClass="pi pi-search" />
+    <p-inputIcon styleClass="pi pi-search" />
+    <input type="text" pInputText placeholder="Search" />
+</p-iconField>
+<p-iconField iconPosition="right">
+    <p-inputIcon styleClass="pi pi-spinner pi-spin" />
     <input type="text" pInputText />
 </p-iconField>`,
-        html: `<div class="card flex justify-content-center">
+
+        html: `<div class="card flex flex-wrap justify-content-center gap-3">
     <p-iconField iconPosition="left">
         <p-inputIcon styleClass="pi pi-search" />
+        <input type="text" pInputText placeholder="Search" />
+    </p-iconField>
+    <p-iconField iconPosition="right">
+        <p-inputIcon styleClass="pi pi-spinner pi-spin" />
         <input type="text" pInputText />
     </p-iconField>
 </div>`,
+
         typescript: `
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'iconField-basic-demo',
-    templateUrl: './iconField-basic-demo.html'
+    selector: 'iconfield-basic-demo',
+    templateUrl: './iconfield-basic-demo.html'
 })
 export class IconFieldBasicDemo {}`
     };

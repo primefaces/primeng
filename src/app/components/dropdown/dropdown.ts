@@ -164,7 +164,7 @@ export class DropdownItem {
                 [disabled]="disabled"
                 aria-haspopup="listbox"
                 [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
-                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
                 (focus)="onInputFocus($event)"
@@ -918,9 +918,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => {
                           if (option.label) {
-                              return option.label.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                              return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                           }
-                          return option.toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                          return option.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
                       })
                     : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
 
@@ -1120,8 +1120,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const value = this.getOptionValue(option);
             this.updateModel(value, event);
             this.focusedOptionIndex.set(this.findSelectedOptionIndex());
-            isHide && setTimeout(() => this.hide(true), 1);
             preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
+        }
+        if (isHide) {
+            this.hide(true);
         }
     }
 
@@ -1375,7 +1377,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     onInputBlur(event: Event) {
         this.focused = false;
-        this.overlayVisible === false && this.onBlur.emit(event);
+        this.onBlur.emit(event);
 
         if (!this.preventModelTouched) {
             this.onModelTouched();
@@ -1807,7 +1809,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
     }
 
     onFilterInputChange(event: Event | any): void {

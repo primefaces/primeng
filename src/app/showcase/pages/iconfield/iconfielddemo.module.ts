@@ -4,7 +4,6 @@ import { IconFieldDemo } from './iconfielddemo';
 import { IconFieldDocModule } from '../../doc/iconfield/iconfielddoc.module';
 import { IconFieldDemoRoutingModule } from './iconfielddemo-routing.module';
 
-
 @NgModule({
     imports: [CommonModule, IconFieldDocModule, IconFieldDemoRoutingModule],
     declarations: [IconFieldDemo]

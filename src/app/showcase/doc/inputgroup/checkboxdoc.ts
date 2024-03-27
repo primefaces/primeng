@@ -12,12 +12,10 @@ import { Code } from '../../domain/code';
                 <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Username" />
             </p-inputGroup>
-
             <p-inputGroup>
                 <input type="text" pInputText placeholder="Price" />
                 <p-inputGroupAddon><p-radioButton name="category" value="price" [(ngModel)]="category"></p-radioButton></p-inputGroupAddon>
             </p-inputGroup>
-
             <p-inputGroup>
                 <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox2" [binary]="true"></p-checkbox></p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
@@ -39,12 +37,10 @@ export class CheckboxDoc {
     <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></p-inputGroupAddon>
     <input type="text" pInputText placeholder="Username" />
 </p-inputGroup>
-
 <p-inputGroup>
     <input type="text" pInputText placeholder="Price" />
     <p-inputGroupAddon><p-radioButton name="category" value="price" [(ngModel)]="category"></p-radioButton></p-inputGroupAddon>
 </p-inputGroup>
-
 <p-inputGroup>
     <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox2" [binary]="true"></p-checkbox></p-inputGroupAddon>
     <input type="text" pInputText placeholder="Website" />
@@ -56,12 +52,10 @@ export class CheckboxDoc {
         <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox1" [binary]="true"></p-checkbox></p-inputGroupAddon>
         <input type="text" pInputText placeholder="Username" />
     </p-inputGroup>
-
     <p-inputGroup>
         <input type="text" pInputText placeholder="Price" />
         <p-inputGroupAddon><p-radioButton name="category" value="price" [(ngModel)]="category"></p-radioButton></p-inputGroupAddon>
     </p-inputGroup>
-
     <p-inputGroup>
         <p-inputGroupAddon><p-checkbox [(ngModel)]="checkbox2" [binary]="true"></p-checkbox></p-inputGroupAddon>
         <input type="text" pInputText placeholder="Website" />

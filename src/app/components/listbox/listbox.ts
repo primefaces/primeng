@@ -274,6 +274,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Input() autoOptionFocus: boolean | undefined = true;
     /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
      * When enabled, the focused option is selected.
      * @group Props
      */
@@ -1037,6 +1042,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onSpaceKey(event);
                 break;
 
@@ -1411,7 +1417,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options()?.length || !this.visibleOptions()?.length;
     }
 
     hasFilter() {

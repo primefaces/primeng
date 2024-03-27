@@ -2,7 +2,7 @@ import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
@@ -39,9 +39,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     (blur)="onBlur()"
                     (keydown)="onKeyDown($event)"
                     [attr.tabindex]="!disabled ? tabindex : -1"
-                    [attr.aria-controls]="listId"
+                    [attr.aria-controls]="overlayVisible ? listId : null"
                     [attr.aria-haspopup]="'tree'"
-                    [attr.aria-expanded]="overlayVisible"
+                    [attr.aria-expanded]="overlayVisible ?? false"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
                 />
@@ -70,7 +70,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-container>
             </div>
-            <div class="p-treeselect-trigger" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible" [attr.aria-label]="'treeselect trigger'">
+            <div class="p-treeselect-trigger" role="button" aria-haspopup="tree" [attr.aria-expanded]="overlayVisible ?? false" [attr.aria-label]="'treeselect trigger'">
                 <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-treeselect-trigger-icon'" />
                 <span *ngIf="triggerIconTemplate" class="p-treeselect-trigger-icon">
                     <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
@@ -90,7 +90,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                 (onHide)="hide($event)"
             >
                 <ng-template pTemplate="content">
-                    <div #panel class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
+                    <div #panel [attr.id]="listId" class="p-treeselect-panel p-component" [ngStyle]="panelStyle" [class]="panelStyleClass" [ngClass]="panelClass">
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"
@@ -127,7 +127,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </button>
                         </div>
-                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
+                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }" >
                             <p-tree
                                 #tree
                                 [value]="options"
@@ -147,6 +147,9 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [filterPlaceholder]="filterPlaceholder"
                                 [filterLocale]="filterLocale"
                                 [filteredNodes]="filteredNodes"
+                                [virtualScroll]="virtualScroll"
+                                [virtualScrollItemSize]="virtualScrollItemSize"
+                                [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
                             >
                                 <ng-container *ngIf="emptyTemplate">
@@ -157,8 +160,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 <ng-template pTemplate="togglericon" let-expanded *ngIf="itemTogglerIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemTogglerIconTemplate; context: { $implicit: expanded }"></ng-container>
                                 </ng-template>
-                                <ng-template pTemplate="checkboxicon" *ngIf="itemCheckboxIconTemplate">
-                                    <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate"></ng-template>
+                                <ng-template pTemplate="checkboxicon" let-selected let-partialSelected="partialSelected" *ngIf="itemCheckboxIconTemplate">
+                                    <ng-container *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected, partialSelected: partialSelected }"></ng-container>
                                 </ng-template>
                                 <ng-template pTemplate="loadingicon" *ngIf="itemLoadingIconTemplate">
                                     <ng-container *ngTemplateOutlet="itemLoadingIconTemplate"></ng-container>
@@ -344,6 +347,21 @@ export class TreeSelect implements AfterContentInit {
      */
     @Input() resetFilterOnHide: boolean = true;
     /**
+     * Whether the data should be loaded on demand during scroll.
+     * @group Props
+     */
+    @Input() virtualScroll: boolean | undefined;
+    /**
+     * Height of an item in the list for VirtualScrolling.
+     * @group Props
+     */
+    @Input() virtualScrollItemSize: number | undefined;
+    /**
+     * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
+     * @group Props
+     */
+    @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
      * An array of treenodes.
      * @defaultValue undefined
      * @group Props
@@ -415,13 +433,13 @@ export class TreeSelect implements AfterContentInit {
     @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
     /**
      * Callback to invoke when a node is unselected.
-     * @param {TreeNode} node - Node instance.
+     * @param {TreeNodeUnSelectEvent} event - node unselect event.
      * @group Emits
      */
     @Output() onNodeUnselect: EventEmitter<TreeNodeUnSelectEvent> = new EventEmitter<TreeNodeUnSelectEvent>();
     /**
      * Callback to invoke when a node is selected.
-     * @param {TreeNode} node - Node instance.
+     * @param {TreeNodeSelectEvent} event - node select event.
      * @group Emits
      */
     @Output() onNodeSelect: EventEmitter<TreeNodeSelectEvent> = new EventEmitter<TreeNodeSelectEvent>();
@@ -598,7 +616,12 @@ export class TreeSelect implements AfterContentInit {
             return;
         }
 
-        if (!this.overlayViewChild?.el?.nativeElement?.contains(event.target) && !DomHandler.hasClass(event.target, 'p-treeselect-close')) {
+        if (
+            !this.overlayViewChild?.el?.nativeElement?.contains(event.target) &&
+            !DomHandler.hasClass(event.target, 'p-treeselect-close') &&
+            !DomHandler.hasClass(event.target, 'p-checkbox-box') &&
+            !DomHandler.hasClass(event.target, 'p-checkbox-icon')
+        ) {
             if (this.overlayVisible) {
                 this.hide();
             } else {
@@ -857,7 +880,7 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeSelect.emit(event);
 
         if (this.selectionMode === 'single') {
-            this.hide();
+            // this.hide();
             this.focusInput?.nativeElement.focus();
         }
     }

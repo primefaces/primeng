@@ -45,4 +45,6 @@ export class TranslationKeys {
     public static readonly HIDE_FILTER_MENU = 'hideFilterMenu';
     public static readonly SELECTION_MESSAGE = 'selectionMessage';
     public static readonly ARIA = 'aria';
+    public static readonly SELECT_COLOR = 'selectColor';
+    public static readonly BROWSE_FILES = 'browseFiles';
 }

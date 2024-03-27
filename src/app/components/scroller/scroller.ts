@@ -603,7 +603,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && !this.initialized) {
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);

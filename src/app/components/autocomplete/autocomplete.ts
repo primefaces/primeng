@@ -81,9 +81,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_list'"
-                [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (input)="onInput($event)"
                 (keydown)="onKeyDown($event)"
                 (change)="onInputChange($event)"
@@ -155,9 +155,9 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.aria-label]="ariaLabel"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-required]="required"
-                        [attr.aria-expanded]="overlayVisible"
-                        [attr.aria-controls]="id + '_list'"
-                        [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         (input)="onInput($event)"
                         (keydown)="onKeyDown($event)"
                         (change)="onInputChange($event)"
@@ -256,8 +256,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                             </li>
                         </ul>
-                        <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
                     </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
                 <span role="status" aria-live="polite" class="p-hidden-accessible">
                     {{ selectedMessageText }}
@@ -1370,6 +1370,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
+        }
+
+        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
+            this.clear();
         }
     }
 

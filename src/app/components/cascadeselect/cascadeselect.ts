@@ -243,8 +243,8 @@ export class CascadeSelectSub implements OnInit {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 aria-haspopup="tree"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_tree'"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_tree' : null"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
@@ -267,7 +267,7 @@ export class CascadeSelectSub implements OnInit {
             </span>
         </ng-container>
 
-        <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
+        <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
             <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
             <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
                 <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
@@ -793,6 +793,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 this.onEnterKey(event);
                 break;
 
