@@ -1849,7 +1849,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     equals(node1: TreeTableNode, node2: TreeTableNode) {
-        return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? ObjectUtils.equals(node1, node2) : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
     filter(value: string | string[], field: string, matchMode: string) {
