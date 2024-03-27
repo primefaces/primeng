@@ -38,9 +38,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 #container
                 [ngClass]="{ 'p-inputtext p-chips-multiple-container': true }"
                 tabindex="-1"
-                role="listbox"
-                [attr.aria-labelledby]="ariaLabelledBy"
-                [attr.aria-label]="ariaLabel"
+                role="grid"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [attr.aria-orientation]="'horizontal'"
                 (click)="onWrapperClick()"
@@ -53,7 +51,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     #token
                     *ngFor="let item of value; let i = index"
                     [attr.id]="id + '_chips_item_' + i"
-                    role="option"
+                    role="row"
                     [attr.ariaLabel]="item"
                     [attr.aria-selected]="true"
                     [attr.aria-setsize]="value.length"
@@ -63,37 +61,45 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     (click)="onItemClick($event, item)"
                     [attr.data-pc-section]="'token'"
                 >
-                    <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-                    <span *ngIf="!itemTemplate" class="p-chips-token-label" [attr.data-pc-section]="'label'">{{ field ? resolveFieldData(item, field) : item }}</span>
-                    <ng-container *ngIf="!disabled">
-                        <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true" />
-                        <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
+                    <span role="cell">
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
+                        <span *ngIf="!itemTemplate" class="p-chips-token-label" [attr.data-pc-section]="'label'">{{ field ? resolveFieldData(item, field) : item }}</span>
+                        <ng-container *ngIf="!disabled">
+                            <TimesCircleIcon [styleClass]="'p-chips-token-icon'" *ngIf="!removeTokenIconTemplate" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true" />
+                            <span *ngIf="removeTokenIconTemplate" class="p-chips-token-icon" (click)="removeItem($event, i)" [attr.data-pc-section]="'removeTokenIcon'" [attr.aria-hidden]="true">
+                                <ng-template *ngTemplateOutlet="removeTokenIconTemplate"></ng-template>
+                            </span>
+                        </ng-container>
+                    </span>
+                </li>
+                <li class="p-chips-input-token" role="row" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }" [attr.data-pc-section]="'inputToken'">
+                    <span role="cell">
+                        <input
+                            #inputtext
+                            type="text"
+                            [attr.id]="inputId"
+                            [attr.maxlength]="maxLength"
+                            [attr.placeholder]="value && value.length ? null : placeholder"
+                            [attr.tabindex]="tabindex"
+                            [attr.aria-labelledby]="ariaLabelledBy"
+                            [attr.aria-label]="ariaLabel"
+                            (keydown)="onKeyDown($event)"
+                            (input)="onInput()"
+                            (paste)="onPaste($event)"
+                            (focus)="onInputFocus($event)"
+                            (blur)="onInputBlur($event)"
+                            [disabled]="disabled || isMaxedOut"
+                            [ngStyle]="inputStyle"
+                            [class]="inputStyleClass"
+                        />
+                    </span>
+                </li>
+                <li *ngIf="value != null && filled && !disabled && showClear" role="row">
+                    <span role="cell">
+                        <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()" />
+                        <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
+                            <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                         </span>
-                    </ng-container>
-                </li>
-                <li class="p-chips-input-token" [ngClass]="{ 'p-chips-clearable': showClear && !disabled }" [attr.data-pc-section]="'inputToken'" role="option">
-                    <input
-                        #inputtext
-                        type="text"
-                        [attr.id]="inputId"
-                        [attr.maxlength]="maxLength"
-                        [attr.placeholder]="value && value.length ? null : placeholder"
-                        [attr.tabindex]="tabindex"
-                        (keydown)="onKeyDown($event)"
-                        (input)="onInput()"
-                        (paste)="onPaste($event)"
-                        (focus)="onInputFocus($event)"
-                        (blur)="onInputBlur($event)"
-                        [disabled]="disabled || isMaxedOut"
-                        [ngStyle]="inputStyle"
-                        [class]="inputStyleClass"
-                    />
-                </li>
-                <li *ngIf="value != null && filled && !disabled && showClear">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-chips-clear-icon'" (click)="clear()" />
-                    <span *ngIf="clearIconTemplate" class="p-chips-clear-icon" (click)="clear()">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                     </span>
                 </li>
             </ul>
