@@ -3120,6 +3120,18 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "browseFiles",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "maximizeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -5219,6 +5231,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, calendar will show week numbers."
+                        },
+                        {
+                            "name": "startWeekFromFirstDayOfYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, calendar will start week numbers from first day of the year."
                         },
                         {
                             "name": "showClear",
@@ -10288,7 +10308,7 @@
                     "parameters": [
                         {
                             "name": "componentType",
-                            "type": "Type<any>",
+                            "type": "Type<T>",
                             "description": "Dynamic component for content template."
                         },
                         {
@@ -10297,7 +10317,7 @@
                             "description": "DynamicDialog object."
                         }
                     ],
-                    "returnType": "DynamicDialogRef",
+                    "returnType": "DynamicDialogRef<T>",
                     "description": "Displays the dialog using the dynamic dialog object options."
                 },
                 {
@@ -10305,7 +10325,7 @@
                     "parameters": [
                         {
                             "name": "ref",
-                            "type": "DynamicDialogRef"
+                            "type": "DynamicDialogRef<any>"
                         }
                     ],
                     "returnType": "DynamicDialogComponent",
@@ -10742,6 +10762,10 @@
                         {
                             "name": "onMaximize",
                             "description": "Event triggered on dialog is maximized."
+                        },
+                        {
+                            "name": "onChildComponentLoaded",
+                            "description": "Event triggered on child component load."
                         }
                     ]
                 }
@@ -14084,6 +14108,13 @@
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
                         },
                         {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
                             "name": "selectOnFocus",
                             "optional": false,
                             "readonly": false,
@@ -15868,7 +15899,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                            "description": "Indicates whether to focus on options when hovering over them, defaults to optionLabel."
                         },
                         {
                             "name": "filterFields",
@@ -17483,6 +17514,13 @@
                             "description": "Whether to display a input to navigate to any page."
                         },
                         {
+                            "name": "jumpToPageItemTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<Object>",
+                            "description": "Template instance to inject into the jump to page dropdown item inside in the paginator."
+                        },
+                        {
                             "name": "showPageLinks",
                             "optional": false,
                             "readonly": false,
@@ -17502,7 +17540,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "TemplateRef<Object>",
-                            "description": "Template instance to inject into the dropdown item inside in the paginator."
+                            "description": "Template instance to inject into the rows per page dropdown item inside in the paginator."
                         },
                         {
                             "name": "first",
@@ -24135,7 +24173,8 @@
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem"
+                            "type": "MenuItem",
+                            "description": "Defines the default active menuitem"
                         },
                         {
                             "name": "scrollable",
@@ -26507,6 +26546,28 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Clears the filter value when hiding the dropdown."
+                        },
+                        {
+                            "name": "virtualScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the data should be loaded on demand during scroll."
+                        },
+                        {
+                            "name": "virtualScrollItemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "virtualScrollOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ScrollerOptions",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
                         },
                         {
                             "name": "options",
