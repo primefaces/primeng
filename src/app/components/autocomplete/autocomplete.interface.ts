@@ -107,7 +107,7 @@ export interface AutoCompleteTemplates {
         $implicit: any | any[];
     }): TemplateRef<{ $implicit: any | any[] }>;
     /**
-     * Custom selected item template.
+     * Custom selected item template, only supported in multiple mode.
      * @param {Object} context - selected item data.
      */
     selectedItem(context: {
