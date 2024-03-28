@@ -23,7 +23,7 @@ export class MessageService {
         }
     }
     /**
-     * Insterts new messages.
+     * Inserts new messages.
      * @param {Message[]} messages - Messages to be added.
      * @group Method
      */

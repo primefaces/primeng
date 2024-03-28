@@ -3120,6 +3120,18 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string"
+                        },
+                        {
+                            "name": "browseFiles",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "maximizeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -5221,6 +5233,14 @@
                             "description": "When enabled, calendar will show week numbers."
                         },
                         {
+                            "name": "startWeekFromFirstDayOfYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, calendar will start week numbers from first day of the year."
+                        },
+                        {
                             "name": "showClear",
                             "optional": false,
                             "readonly": false,
@@ -5436,7 +5456,9 @@
                             "name": "locale",
                             "optional": false,
                             "readonly": false,
-                            "type": "LocaleSettings"
+                            "type": "LocaleSettings",
+                            "description": "Option to set calendar locale.",
+                            "deprecated": "Locale property has no effect, use new i18n API instead."
                         },
                         {
                             "name": "view",
@@ -8113,7 +8135,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "triggerEvent",
@@ -9592,7 +9615,8 @@
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "Signal<string>"
+                            "type": "Signal<string>",
+                            "description": "Default text to display when no option is selected."
                         },
                         {
                             "name": "filterPlaceholder",
@@ -10284,7 +10308,7 @@
                     "parameters": [
                         {
                             "name": "componentType",
-                            "type": "Type<any>",
+                            "type": "Type<T>",
                             "description": "Dynamic component for content template."
                         },
                         {
@@ -10293,7 +10317,7 @@
                             "description": "DynamicDialog object."
                         }
                     ],
-                    "returnType": "DynamicDialogRef",
+                    "returnType": "DynamicDialogRef<T>",
                     "description": "Displays the dialog using the dynamic dialog object options."
                 },
                 {
@@ -10301,7 +10325,7 @@
                     "parameters": [
                         {
                             "name": "ref",
-                            "type": "DynamicDialogRef"
+                            "type": "DynamicDialogRef<any>"
                         }
                     ],
                     "returnType": "DynamicDialogComponent",
@@ -10738,6 +10762,10 @@
                         {
                             "name": "onMaximize",
                             "description": "Event triggered on dialog is maximized."
+                        },
+                        {
+                            "name": "onChildComponentLoaded",
+                            "description": "Event triggered on child component load."
                         }
                     ]
                 }
@@ -13844,7 +13872,8 @@
                             "name": "pattern",
                             "optional": false,
                             "readonly": false,
-                            "type": "RegExp | KeyFilterPattern"
+                            "type": "RegExp | KeyFilterPattern",
+                            "description": "Sets the pattern for key filtering."
                         }
                     ]
                 },
@@ -14077,6 +14106,13 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
                         },
                         {
                             "name": "selectOnFocus",
@@ -14701,7 +14737,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MegaMenuItem[]"
+                            "type": "MegaMenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "style",
@@ -14990,7 +15027,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "style",
@@ -15140,7 +15178,8 @@
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": null
+                            "type": null,
+                            "description": "An array of messages to display."
                         },
                         {
                             "name": "closable",
@@ -15540,13 +15579,15 @@
                             "name": "displaySelectedLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Whether to show labels of selected item labels or use default label."
                         },
                         {
                             "name": "maxSelectedLabels",
                             "optional": false,
                             "readonly": false,
-                            "type": "number"
+                            "type": "number",
+                            "description": "Decides how many selected item labels to show at most."
                         },
                         {
                             "name": "selectionLimit",
@@ -15812,13 +15853,16 @@
                             "name": "defaultLabel",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Label to display when there are no selections.",
+                            "deprecated": "Use placeholder instead."
                         },
                         {
                             "name": "placeholder",
                             "optional": false,
                             "readonly": false,
-                            "type": "Signal<string>"
+                            "type": "Signal<string>",
+                            "description": "Label to display when there are no selections."
                         },
                         {
                             "name": "options",
@@ -15855,7 +15899,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                            "description": "Indicates whether to focus on options when hovering over them, defaults to optionLabel."
                         },
                         {
                             "name": "filterFields",
@@ -16485,13 +16529,15 @@
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "A list of values that are currently selected."
                         },
                         {
                             "name": "value",
                             "optional": false,
                             "readonly": false,
-                            "type": "any[]"
+                            "type": "any[]",
+                            "description": "Array of values to be displayed in the component.\nIt represents the data source for the list of items."
                         }
                     ]
                 },
@@ -17468,6 +17514,13 @@
                             "description": "Whether to display a input to navigate to any page."
                         },
                         {
+                            "name": "jumpToPageItemTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<Object>",
+                            "description": "Template instance to inject into the jump to page dropdown item inside in the paginator."
+                        },
+                        {
                             "name": "showPageLinks",
                             "optional": false,
                             "readonly": false,
@@ -17487,7 +17540,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "TemplateRef<Object>",
-                            "description": "Template instance to inject into the dropdown item inside in the paginator."
+                            "description": "Template instance to inject into the rows per page dropdown item inside in the paginator."
                         },
                         {
                             "name": "first",
@@ -17950,7 +18003,8 @@
                             "name": "showPassword",
                             "optional": false,
                             "readonly": false,
-                            "type": null
+                            "type": null,
+                            "description": "Sets the visibility of the password field."
                         }
                     ]
                 }
@@ -20659,7 +20713,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "menuWidth",
@@ -22069,7 +22124,9 @@
                             "name": "enterClass",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Style class to add when item begins to get displayed.",
+                            "deprecated": "Use enterFromClass instead"
                         },
                         {
                             "name": "enterFromClass",
@@ -22096,7 +22153,9 @@
                             "name": "leaveClass",
                             "optional": false,
                             "readonly": false,
-                            "type": "string"
+                            "type": "string",
+                            "description": "Style class to add when item begins to get hidden.",
+                            "deprecated": "Use leaveFromClass instead"
                         },
                         {
                             "name": "leaveFromClass",
@@ -24107,13 +24166,15 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "activeItem",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem"
+                            "type": "MenuItem",
+                            "description": "Defines the default active menuitem"
                         },
                         {
                             "name": "scrollable",
@@ -24690,7 +24751,8 @@
                             "name": "model",
                             "optional": false,
                             "readonly": false,
-                            "type": "MenuItem[]"
+                            "type": "MenuItem[]",
+                            "description": "An array of menuitems."
                         },
                         {
                             "name": "popup",
@@ -26484,6 +26546,28 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Clears the filter value when hiding the dropdown."
+                        },
+                        {
+                            "name": "virtualScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the data should be loaded on demand during scroll."
+                        },
+                        {
+                            "name": "virtualScrollItemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "virtualScrollOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ScrollerOptions",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
                         },
                         {
                             "name": "options",
