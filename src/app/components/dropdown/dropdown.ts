@@ -223,6 +223,7 @@ export class DropdownItem {
                                     <input
                                         #filter
                                         type="text"
+                                        role="search"
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
@@ -241,7 +242,7 @@ export class DropdownItem {
                                 </div>
                             </ng-template>
                         </div>
-                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" role="section">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
