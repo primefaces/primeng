@@ -1426,6 +1426,7 @@
                     ],
                     "returnType": "void",
                     "description": "Insterts new messages."
+                    "description": "Insterts new messages."
                 },
                 {
                     "name": "clear",
@@ -3117,6 +3118,12 @@
                         },
                         {
                             "name": "removeLabel",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
+                        },
+                        {
+                            "name": "browseFiles",
                             "optional": true,
                             "readonly": false,
                             "type": "string"
@@ -21383,6 +21390,17 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "speeddial",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Data of the item.\n  \t index: number, // Index of the item.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
                     {
                         "parent": "speeddial",
                         "name": "item",
