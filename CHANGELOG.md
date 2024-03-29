@@ -424,6 +424,12 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.7-LTS](https://www.npmjs.com/package/primeng/v/16.9.7-lts) (2024-03-29)
+
+**Fixed bugs:**
+- Major bug p-dropdown in latest LTS version! [\#15026](https://github.com/primefaces/primeng/issues/15026)
+
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.6-LTS](https://www.npmjs.com/package/primeng/v/16.9.6-lts) (2024-03-07)
 
 **Implemented New Features and Enhancements:**
