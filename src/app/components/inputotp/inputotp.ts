@@ -126,7 +126,7 @@ export class InputOtp implements AfterContentInit {
     value: any;
 
     get inputMode(): string {
-        return this.integerOnly ? 'number' : 'text';
+        return this.integerOnly ? 'numeric' : 'text';
     }
 
     get inputType(): string {
