@@ -1425,8 +1425,7 @@
                         }
                     ],
                     "returnType": "void",
-                    "description": "Insterts new messages."
-                    "description": "Insterts new messages."
+                    "description": "Inserts new messages."
                 },
                 {
                     "name": "clear",
@@ -3129,7 +3128,7 @@
                             "type": "string"
                         },
                         {
-                            "name": "browseFiles",
+                            "name": "maximizeLabel",
                             "optional": true,
                             "readonly": false,
                             "type": "string"
@@ -4239,7 +4238,7 @@
                                 "description": "selected item data."
                             }
                         ],
-                        "description": "Custom selected item template."
+                        "description": "Custom selected item template, only supported in multiple mode."
                     },
                     {
                         "parent": "autocomplete",
@@ -5232,14 +5231,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, calendar will show week numbers."
-                        },
-                        {
-                            "name": "startWeekFromFirstDayOfYear",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When enabled, calendar will start week numbers from first day of the year."
                         },
                         {
                             "name": "startWeekFromFirstDayOfYear",
@@ -10318,7 +10309,6 @@
                         {
                             "name": "componentType",
                             "type": "Type<T>",
-                            "type": "Type<T>",
                             "description": "Dynamic component for content template."
                         },
                         {
@@ -10328,7 +10318,6 @@
                         }
                     ],
                     "returnType": "DynamicDialogRef<T>",
-                    "returnType": "DynamicDialogRef<T>",
                     "description": "Displays the dialog using the dynamic dialog object options."
                 },
                 {
@@ -10336,7 +10325,6 @@
                     "parameters": [
                         {
                             "name": "ref",
-                            "type": "DynamicDialogRef<any>"
                             "type": "DynamicDialogRef<any>"
                         }
                     ],
@@ -10774,10 +10762,6 @@
                         {
                             "name": "onMaximize",
                             "description": "Event triggered on dialog is maximized."
-                        },
-                        {
-                            "name": "onChildComponentLoaded",
-                            "description": "Event triggered on child component load."
                         },
                         {
                             "name": "onChildComponentLoaded",
@@ -15916,7 +15900,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Indicates whether to focus on options when hovering over them, defaults to optionLabel."
-                            "description": "Indicates whether to focus on options when hovering over them, defaults to optionLabel."
                         },
                         {
                             "name": "filterFields",
@@ -17538,13 +17521,6 @@
                             "description": "Template instance to inject into the jump to page dropdown item inside in the paginator."
                         },
                         {
-                            "name": "jumpToPageItemTemplate",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "TemplateRef<Object>",
-                            "description": "Template instance to inject into the jump to page dropdown item inside in the paginator."
-                        },
-                        {
                             "name": "showPageLinks",
                             "optional": false,
                             "readonly": false,
@@ -17564,7 +17540,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "TemplateRef<Object>",
-                            "description": "Template instance to inject into the rows per page dropdown item inside in the paginator."
                             "description": "Template instance to inject into the rows per page dropdown item inside in the paginator."
                         },
                         {
@@ -21403,17 +21378,6 @@
                     },
                     {
                         "parent": "speeddial",
-                        "name": "item",
-                        "parameters": [
-                            {
-                                "name": "context",
-                                "type": "{\n  \t $implicit: MenuItem, // Data of the item.\n  \t index: number, // Index of the item.\n  }"
-                            }
-                        ],
-                        "description": "Custom template of item."
-                    },
-                    {
-                        "parent": "speeddial",
                         "name": "button",
                         "parameters": [],
                         "description": "Custom template of button."
@@ -21487,11 +21451,10 @@
                             "description": "Style class of the overlay menu."
                         },
                         {
-                            "name": "disabled",
+                            "name": "tabindex",
                             "optional": false,
                             "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
+                            "type": "number",
                             "description": "When present, it specifies that the element should be disabled."
                         },
                         {
@@ -21530,6 +21493,22 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "_menuButtonDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the menu button element should be disabled."
+                        },
+                        {
+                            "name": "_buttonDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
                 },
@@ -21547,11 +21526,10 @@
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
-                            "name": "onDropdownClick",
+                            "name": "_disabled",
                             "parameters": [
                                 {
-                                    "name": "event",
-                                    "type": "MouseEvent"
+                                    "name": "value"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown button is clicked."
@@ -26593,28 +26571,6 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Clears the filter value when hiding the dropdown."
-                        },
-                        {
-                            "name": "virtualScroll",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether the data should be loaded on demand during scroll."
-                        },
-                        {
-                            "name": "virtualScrollItemSize",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "Height of an item in the list for VirtualScrolling."
-                        },
-                        {
-                            "name": "virtualScrollOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "ScrollerOptions",
-                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
                         },
                         {
                             "name": "virtualScroll",
