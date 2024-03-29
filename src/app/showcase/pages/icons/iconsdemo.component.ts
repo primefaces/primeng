@@ -7,6 +7,7 @@ import { ImportDoc } from '../../doc/icons/importdoc';
 import { ListDoc } from '../../doc/icons/listdoc';
 import { SizeDoc } from '../../doc/icons/sizedoc';
 import { SpinDoc } from '../../doc/icons/spindoc';
+import { FigmaDoc } from '../../doc/icons/figmadoc';
 
 @Component({
     templateUrl: './iconsdemo.component.html',
@@ -23,6 +24,11 @@ export class IconsDemoComponent {
             id: 'import',
             label: 'Import',
             component: ImportDoc
+        },
+        {
+            id: 'figma',
+            label: 'Figma',
+            component: FigmaDoc
         },
         {
             id: 'basic',
