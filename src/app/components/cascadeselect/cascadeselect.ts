@@ -18,6 +18,7 @@ import {
     Output,
     QueryList,
     signal,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -295,7 +296,7 @@ export class CascadeSelectSub implements OnInit {
                     <div class="p-cascadeselect-items-wrapper" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeSelectSub
                             class="p-cascadeselect-items"
-                            [options]="processedOptions()"
+                            [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
                             [activeOptionPath]="activeOptionPath()"
@@ -618,6 +619,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     modelValue = signal<any>(null);
 
+    processedOptions: string[] | string | undefined = [];
+
     get containerClass() {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
@@ -679,11 +682,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     visibleOptions = computed(() => {
         const processedOption = this.activeOptionPath().find((p) => p.key === this.focusedOptionInfo().parentKey);
 
-        return processedOption ? processedOption.children : this.processedOptions();
-    });
-
-    processedOptions = computed(() => {
-        return this.createProcessedOptions(this.options || []);
+        return processedOption ? processedOption.children : this.processedOptions;
     });
 
     label = computed(() => {
@@ -708,6 +707,13 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             return processedOption ? this.getOptionLabel(processedOption.option) : label;
         }
         return label;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.options) {
+            this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
+            this.updateModel(null)
+        }
     }
 
     hasSelectedOption() {
@@ -1074,7 +1080,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     }
 
     findOptionPathByValue(value, processedOptions?, level = 0) {
-        processedOptions = processedOptions || (level === 0 && this.processedOptions());
+        processedOptions = processedOptions || (level === 0 && this.processedOptions);
 
         if (!processedOptions) return null;
         if (ObjectUtils.isEmpty(value)) return [];
