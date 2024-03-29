@@ -290,14 +290,13 @@ export class DropdownItem {
                                             ></p-dropdownItem>
                                         </ng-container>
                                     </ng-template>
-
-                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="presentation">
                                         <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                             {{ emptyFilterMessageLabel }}
                                         </ng-container>
                                         <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
                                     </li>
-                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="presentation">
                                         <ng-container *ngIf="!emptyTemplate; else empty">
                                             {{ emptyMessageLabel }}
                                         </ng-container>
