@@ -43,8 +43,6 @@ import { FreyaSeparator } from './freyaseparator';
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
         <freya-separator></freya-separator>
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
-        <freya-separator></freya-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class FreyaPage {

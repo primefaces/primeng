@@ -43,8 +43,6 @@ import { AtlantisSeparator } from './atlantisseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <atlantis-separator></atlantis-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <atlantis-separator></atlantis-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class AtlantisPage {

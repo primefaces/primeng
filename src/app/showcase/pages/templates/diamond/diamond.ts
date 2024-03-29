@@ -44,7 +44,6 @@ import { DiamondSeparator } from './diamondseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <diamond-separator></diamond-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class DiamondPage {

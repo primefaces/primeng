@@ -44,8 +44,6 @@ import { VeronaSeparator } from './veronaseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <verona-separator></verona-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <verona-separator></verona-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class VeronaPage {

@@ -44,8 +44,6 @@ import { PoseidonLogo } from './poseidonlogo';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <poseidon-separator></poseidon-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <poseidon-separator></poseidon-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class PoseidonPage {

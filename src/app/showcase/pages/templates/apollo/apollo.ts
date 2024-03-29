@@ -44,8 +44,6 @@ import { ApolloSeparator } from './apolloseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <apollo-separator></apollo-separator>
         <template-features [featuresData]="apolloFeatures2Data" displayType="vertical"></template-features>
-        <apollo-separator></apollo-separator>
-        <template-related [relatedData]="apolloRelatedData"></template-related>
     </div>`
 })
 export class ApolloPage {

@@ -33,8 +33,6 @@ import { UltimaSeparator } from './ultimaseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <ultima-separator></ultima-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <ultima-separator></ultima-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class UltimaPage {

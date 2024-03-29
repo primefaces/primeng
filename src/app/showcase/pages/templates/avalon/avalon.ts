@@ -42,8 +42,6 @@ import { AvalonSeparator } from './avalonseparator';
         <template-features-animation [featuresData]="animationFeaturesData1"></template-features-animation>
         <avalon-separator></avalon-separator>
         <template-features [featuresData]="features2Data" displayType="vertical"></template-features>
-        <avalon-separator></avalon-separator>
-        <template-related [relatedData]="relatedData"></template-related>
     </div>`
 })
 export class AvalonPage {
