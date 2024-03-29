@@ -251,8 +251,10 @@ export class Droppable implements AfterViewInit, OnDestroy {
     dragLeave(event: DragEvent) {
         event.preventDefault();
 
-        DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
-        this.onDragLeave.emit(event);
+        if (!this.el.nativeElement.contains(event.relatedTarget)) {
+            DomHandler.removeClass(this.el.nativeElement, 'p-draggable-enter');
+            this.onDragLeave.emit(event);
+        }
     }
 
     allowDrop(event: DragEvent): boolean {

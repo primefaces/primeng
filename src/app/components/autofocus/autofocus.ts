@@ -24,16 +24,18 @@ export class AutoFocus {
     ngAfterContentChecked() {
         if (!this.focused) {
             if (this.autofocus) {
-                const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);
+                setTimeout(() => {
+                    const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);
 
-                if (focusableElements.length === 0) {
-                    this.host.nativeElement.focus();
-                }
-                if (focusableElements.length > 0) {
-                    focusableElements[0].focus();
-                }
+                    if (focusableElements.length === 0) {
+                        this.host.nativeElement.focus();
+                    }
+                    if (focusableElements.length > 0) {
+                        focusableElements[0].focus();
+                    }
 
-                this.focused = true;
+                    this.focused = true;
+                });
             }
         }
     }

@@ -310,7 +310,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.toggle(event);
-                event.preventDefault(); // ???
+                event.preventDefault();
                 break;
             default:
                 break;

@@ -59,6 +59,7 @@ import {
             <li
                 *ngIf="tree.droppableNodes"
                 class="p-treenode-droppoint"
+                [attr.aria-hidden]="true"
                 [ngClass]="{ 'p-treenode-droppoint-active': draghoverPrev }"
                 (drop)="onDropPoint($event, -1)"
                 (dragover)="onDropPointDragOver($event)"
@@ -76,8 +77,9 @@ import {
                 [attr.aria-selected]="ariaSelected"
                 [attr.aria-expanded]="node.expanded"
                 [attr.aria-posinset]="index + 1"
-                [attr.aria-level]="level"
+                [attr.aria-level]="level + 1"
                 [attr.tabindex]="index === 0 ? 0 : -1"
+                [attr.data-id]="node.key"
                 role="treeitem"
                 (keydown)="onKeyDown($event)"
             >
@@ -135,15 +137,18 @@ import {
                     ></p-treeNode>
                 </ul>
             </li>
+
             <li
                 *ngIf="tree.droppableNodes && lastChild"
                 class="p-treenode-droppoint"
                 [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
                 (drop)="onDropPoint($event, 1)"
+                [attr.aria-hidden]="true"
                 (dragover)="onDropPointDragOver($event)"
                 (dragenter)="onDropPointDragEnter($event, 1)"
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
+
             <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
@@ -199,8 +204,7 @@ import {
     `,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element',
-        '[attr.role]': '"treeitem"'
+        class: 'p-element'
     }
 })
 export class UITreeNode implements OnInit {
@@ -536,6 +540,7 @@ export class UITreeNode implements OnInit {
             //enter
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onEnter(event);
                 break;
             //tab
@@ -762,6 +767,7 @@ export class UITreeNode implements OnInit {
                             [level]="rowNode.level"
                             [rowNode]="rowNode"
                             [node]="rowNode.node"
+                            [parentNode]="rowNode.parent"
                             [firstChild]="firstChild"
                             [lastChild]="lastChild"
                             [index]="getIndex(scrollerOptions, index)"
@@ -1246,8 +1252,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             }
 
             if (this.hasFilteredNodes()) {
-                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.value) as TreeNode;
-
+                node = this.getNodeWithKey(<string>node.key, <TreeNode<any>[]>this.filteredNodes) as TreeNode;
                 if (!node) {
                     return;
                 }
@@ -1358,7 +1363,6 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     findIndexInSelection(node: TreeNode) {
         let index: number = -1;
-
         if (this.selectionMode && this.selection) {
             if (this.isSingleSelectionMode()) {
                 let areNodesEqual = (this.selection.key && this.selection.key === node.key) || this.selection == node;

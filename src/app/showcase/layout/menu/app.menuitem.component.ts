@@ -3,6 +3,7 @@ import { Component, Input, booleanAttribute } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { MenuItem } from './app.menu.component';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: '[app-menuitem]',
@@ -18,13 +19,15 @@ import { MenuItem } from './app.menu.component';
             <div *ngIf="item.icon && root" class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
-            {{ item.name }}
+            <span>{{ item.name }}</span>
+            <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
         <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
             <div *ngIf="item.icon && root" class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
-            {{ item.name }}
+            <span>{{ item.name }}</span>
+            <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
         <span *ngIf="!root && item.children" class="menu-child-category">{{ item.name }}</span>
         <div *ngIf="item.children" class="overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
@@ -34,7 +37,7 @@ import { MenuItem } from './app.menu.component';
         </div>
     `,
     standalone: true,
-    imports: [CommonModule, StyleClassModule, RouterModule]
+    imports: [CommonModule, StyleClassModule, RouterModule, TagModule]
 })
 export class AppMenuItemComponent {
     @Input() item: MenuItem;

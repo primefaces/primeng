@@ -58,7 +58,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
             [attr.data-pc-section]="'root'"
-            [attr.aria-modal]="modal"
             (keydown)="onKeyDown($event)"
         >
             <ng-container *ngIf="headlessTemplate; else notHeadless">

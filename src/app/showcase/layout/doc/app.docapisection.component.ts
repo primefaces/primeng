@@ -281,7 +281,7 @@ export class AppDocApiSection {
     setEmitData(emitters) {
         return emitters.map((emitter) => ({
             name: emitter.name,
-            parameters: { name: emitter.parameters[0]?.name, type: emitter.parameters[0]?.type },
+            parameters: emitter.parameters,
             description: emitter.description,
             deprecated: emitter.deprecated
         }));

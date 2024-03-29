@@ -451,7 +451,6 @@ export class Menu implements OnDestroy {
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
-                    this.changeFocusedOptionIndex(0);
                 }
                 break;
 
@@ -534,14 +533,6 @@ export class Menu implements OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
-            if (!this.popup) {
-                if (this.selectedOptionIndex() !== -1) {
-                    this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                    this.selectedOptionIndex.set(-1);
-                } else {
-                    this.changeFocusedOptionIndex(0);
-                }
-            }
             this.onFocus.emit(event);
         }
     }

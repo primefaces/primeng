@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
         '[class.p-inputtextarea-resizable]': 'autoResize'
     }
 })
-export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -49,10 +49,6 @@ export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, O
                 this.updateState();
             });
         }
-    }
-
-    ngAfterViewChecked() {
-        this.updateState();
     }
 
     ngAfterViewInit() {

@@ -632,7 +632,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @Output() onFilter: EventEmitter<TreeTableFilterEvent> = new EventEmitter<TreeTableFilterEvent>();
     /**
      * Callback to invoke when a node is expanded.
-     * @param {TreeTableNode} object - Node instance.
+     * @param {TreeTableNodeExpandEvent} event - Node expand event.
      * @group Emits
      */
     @Output() onNodeExpand: EventEmitter<TreeTableNodeExpandEvent> = new EventEmitter<TreeTableNodeExpandEvent>();
@@ -1851,7 +1851,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     equals(node1: TreeTableNode, node2: TreeTableNode) {
-        return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? ObjectUtils.equals(node1, node2) : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
     filter(value: string | string[], field: string, matchMode: string) {

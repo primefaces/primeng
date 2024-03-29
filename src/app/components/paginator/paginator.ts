@@ -97,6 +97,11 @@ import { PaginatorState } from './paginator.interface';
                 [scrollHeight]="dropdownScrollHeight"
             >
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
+                <ng-container *ngIf="jumpToPageItemTemplate">
+                    <ng-template let-item pTemplate="item">
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
+                    </ng-template>
+                </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
                 </ng-template>
@@ -252,6 +257,12 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      */
     @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
     /**
+     * Template instance to inject into the jump to page dropdown item inside in the paginator.
+     * @param {Object} context - item instance.
+     * @group Props
+     */
+    @Input() jumpToPageItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
+    /**
      * Whether to show page links.
      * @group Props
      */
@@ -262,7 +273,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      */
     @Input() locale: string | undefined;
     /**
-     * Template instance to inject into the dropdown item inside in the paginator.
+     * Template instance to inject into the rows per page dropdown item inside in the paginator.
      * @param {Object} context - item instance.
      * @group Props
      */

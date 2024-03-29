@@ -117,6 +117,28 @@ describe('TabMenu', () => {
         expect(itemClickSpy).toHaveBeenCalled();
     });
 
+    it('should select item when activeItem controlled', () => {
+        tabmenu.model = [
+            { label: 'Stats', icon: 'pi pi-fw pi-bar-chart' },
+            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
+            { label: 'Documentation', icon: 'pi pi-fw pi-book' },
+            { label: 'Support', icon: 'pi pi-fw pi-support' },
+            { label: 'Social', icon: 'pi pi-fw pi-twitter' }
+        ];
+
+        const updateInkBarSpy = spyOn(tabmenu, 'updateInkBar').and.callThrough();
+
+        tabmenu.activeItem = tabmenu.model[1];
+        fixture.detectChanges();
+
+        const itemList = fixture.debugElement.query(By.css('ul'));
+
+        expect(itemList.children[1].nativeElement.className).toContain('p-highlight');
+        expect(tabmenu.activeItem.label).toEqual('Calendar');
+        expect(tabmenu.activeItem.icon).toContain('pi-calendar');
+        expect(updateInkBarSpy).toHaveBeenCalled();
+    });
+
     it("shouldn't show content", () => {
         tabmenu.model = [
             { label: 'Stats', icon: 'pi pi-fw pi-bar-chart', disabled: true },

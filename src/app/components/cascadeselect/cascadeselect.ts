@@ -20,12 +20,13 @@ import {
     Output,
     QueryList,
     signal,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -45,7 +46,14 @@ export const CASCADESELECT_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-cascadeSelectSub',
     template: `
-        <ul class="p-cascadeselect-panel p-cascadeselect-items" [ngClass]="{ 'p-cascadeselect-panel-root': root }" [attr.role]="role" aria-orientation="horizontal" [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'">
+        <ul
+            class="p-cascadeselect-panel p-cascadeselect-items"
+            [ngClass]="{ 'p-cascadeselect-panel-root': root }"
+            [attr.role]="role"
+            aria-orientation="horizontal"
+            [attr.data-pc-section]="level === 0 ? 'list' : 'sublist'"
+            [attr.aria-label]="listLabel"
+        >
             <ng-template ngFor let-processedOption [ngForOf]="options" let-i="index">
                 <li
                     [ngClass]="getItemClass(processedOption)"
@@ -128,7 +136,11 @@ export class CascadeSelectSub implements OnInit {
 
     @Output() onChange: EventEmitter<any> = new EventEmitter();
 
-    constructor(private el: ElementRef) {}
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
+    constructor(private el: ElementRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (!this.root) {
@@ -234,8 +246,8 @@ export class CascadeSelectSub implements OnInit {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 aria-haspopup="tree"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_tree'"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_tree' : null"
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
@@ -258,7 +270,7 @@ export class CascadeSelectSub implements OnInit {
             </span>
         </ng-container>
 
-        <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
+        <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
             <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
             <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
                 <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
@@ -286,7 +298,7 @@ export class CascadeSelectSub implements OnInit {
                     <div class="p-cascadeselect-items-wrapper" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeSelectSub
                             class="p-cascadeselect-items"
-                            [options]="processedOptions()"
+                            [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
                             [activeOptionPath]="activeOptionPath()"
@@ -609,6 +621,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     modelValue = signal<any>(null);
 
+    processedOptions: string[] | string | undefined = [];
+
     get containerClass() {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
@@ -670,11 +684,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     visibleOptions = computed(() => {
         const processedOption = this.activeOptionPath().find((p) => p.key === this.focusedOptionInfo().parentKey);
 
-        return processedOption ? processedOption.children : this.processedOptions();
-    });
-
-    processedOptions = computed(() => {
-        return this.createProcessedOptions(this.options || []);
+        return processedOption ? processedOption.children : this.processedOptions;
     });
 
     label = computed(() => {
@@ -699,6 +709,13 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             return processedOption ? this.getOptionLabel(processedOption.option) : label;
         }
         return label;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.options) {
+            this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
+            this.updateModel(null)
+        }
     }
 
     hasSelectedOption() {
@@ -784,6 +801,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 this.onEnterKey(event);
                 break;
 
@@ -1064,7 +1082,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     }
 
     findOptionPathByValue(value, processedOptions?, level = 0) {
-        processedOptions = processedOptions || (level === 0 && this.processedOptions());
+        processedOptions = processedOptions || (level === 0 && this.processedOptions);
 
         if (!processedOptions) return null;
         if (ObjectUtils.isEmpty(value)) return [];

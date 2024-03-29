@@ -148,6 +148,12 @@ export class Messages implements AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    /**
+     * This function is executed when a message is closed.
+     * @param {Message} value - Closed message.
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<Message> = new EventEmitter<Message>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -220,6 +226,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     removeMessage(i: number) {
         this.messages = this.messages?.filter((msg, index) => index !== i);
+        this.messages[i] && this.onClose.emit(this.messages[i]);
         this.valueChange.emit(this.messages);
     }
 

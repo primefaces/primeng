@@ -24,17 +24,39 @@ import { CustomerService } from '../../service/customerservice';
                         </tr>
                         <tr>
                             <th>
-                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="w-full" />
                             </th>
                             <th>
-                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="w-full" />
                             </th>
                             <th>
-                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full" />
                             </th>
                             <th>
-                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
+                                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="w-full" />
                             </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr [pSelectableRow]="customer">
+                            <td>
+                                <span class="p-column-title">Name</span>
+                                {{ customer.name }}
+                            </td>
+                            <td>
+                                <span class="p-column-title">Country</span>
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Representative</span>
+                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                            </td>
+                            <td>
+                                <span class="p-column-title">Status</span>
+                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                            </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-customer>
@@ -114,19 +136,19 @@ export class StatefulDoc {
             <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
         </tr>
         <tr>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
-            </th>
-            <th>
-                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
-            </th>
-        </tr>
+        <th>
+            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="w-full">
+        </th>
+        <th>
+            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="w-full">
+        </th>
+        <th>
+            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full">
+        </th>
+        <th>
+            <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="w-full">
+        </th>
+    </tr>
     </ng-template>
     <ng-template pTemplate="body" let-customer>
         <tr [pSelectableRow]="customer">
@@ -156,8 +178,7 @@ export class StatefulDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table #dt1 [value]="customers" selectionMode="single" [(selection)]="selectedCustomers" dataKey="id" [tableStyle]="{'min-width': '50rem'}"
     [rows]="10" [paginator]="true" stateStorage="session" stateKey="statedemo-session">
         <ng-template pTemplate="header">
@@ -168,18 +189,18 @@ export class StatefulDoc {
                 <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status"></p-sortIcon></th>
             </tr>
             <tr>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" placeholder="Search by Name" class="w-full" />
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" placeholder="Search by Country" class="w-full" />
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" placeholder="Search by Representative" class="w-full" />
-                </th>
-                <th>
-                    <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" placeholder="Search by Status" class="w-full" />
-                </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'name', 'contains')" [value]="dt1.filters['name']?.value" placeholder="Search by Name" class="w-full">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'country.name', 'contains')" [value]="dt1.filters['country.name']?.value" placeholder="Search by Country" class="w-full">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'representative.name', 'contains')" [value]="dt1.filters['representative.name']?.value" placeholder="Search by Representative" class="w-full">
+            </th>
+            <th>
+                <input pInputText type="text" (input)="dt1.filter($event.target.value, 'status', 'contains')" [value]="dt1.filters['status']?.value" placeholder="Search by Status" class="w-full">
+            </th>
         </tr>
         </ng-template>
         <ng-template pTemplate="body" let-customer>

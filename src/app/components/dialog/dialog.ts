@@ -27,7 +27,7 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -36,6 +36,7 @@ import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ButtonModule } from 'primeng/button';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -51,6 +52,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             *ngIf="maskVisible"
             [class]="maskStyleClass"
             [style]="maskStyle"
+            (focus)="containerFocus($event)"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
@@ -87,13 +89,24 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-template #notHeadless>
                     <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                     <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="headerFacet">
                             <ng-content select="p-header"></ng-content>
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <div class="p-dialog-header-icons">
-                            <button *ngIf="maximizable" role="button" type="button" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }" (click)="maximize()" (keydown.enter)="maximize()" tabindex="-1" pRipple>
+                            <button
+                                *ngIf="maximizable"
+                                role="button"
+                                type="button"
+                                [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }"
+                                (click)="maximize()"
+                                (keydown.enter)="maximize()"
+                                [attr.tabindex]="maximizable ? '0' : '-1'"
+                                [attr.aria-label]="maximizeLabel"
+                                pRipple
+                                pButton
+                            >
                                 <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon">
                                     <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
@@ -113,8 +126,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 [attr.aria-label]="closeAriaLabel"
                                 (click)="close($event)"
                                 (keydown.enter)="close($event)"
-                                [attr.tabindex]="closeTabindex"
                                 pRipple
+                                pButton
+                                [attr.tabindex]="closeTabindex"
                             >
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
@@ -335,7 +349,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Index of the close button in tabbing order.
      * @group Props
      */
-    @Input() closeTabindex: string = '-1';
+    @Input() closeTabindex: string = '0';
     /**
      * Name of the minimize icon.
      * @group Props
@@ -481,7 +495,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string = this.getAriaLabelledBy();
 
     documentDragListener: VoidListener;
 
@@ -528,6 +542,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     styleElement: any;
 
     private window: Window;
+
+    get maximizeLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;
@@ -615,7 +633,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                 this.unbindMaskClickListener();
             }
 
-            if (this.modal) {
+            // for nested dialogs w/modal
+            const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
+
+            if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
                 DomHandler.unblockBodyScroll();
             }
 
@@ -1026,7 +1047,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, FocusTrapModule, RippleModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
+    imports: [CommonModule, FocusTrapModule, ButtonModule, RippleModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
     exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })

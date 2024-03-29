@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
@@ -21,46 +21,49 @@ interface Column {
             <div class="flex justify-content-center mb-4">
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value"></p-selectButton>
             </div>
-            <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="caption">
-                    <div class="flex justify-content-end align-items-center">
-                        <div class="p-input-icon-left">
-                            <i class="pi pi-search"></i>
-                            <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="caption">
+                        <div class="flex justify-content-end align-items-center">
+                            <div class="p-input-icon-left">
+                                <i class="pi pi-search"></i>
+                                <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
+                            </div>
                         </div>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of cols">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th *ngFor="let col of cols">
-                            <input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                    <tr [ttRow]="rowNode">
-                        <td *ngFor="let col of cols; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                    <tr>
-                        <td [attr.colspan]="cols.length">No data found.</td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of cols">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of cols">
+                                <input pInputText type="text" (input)="tt.filter($event.target.value, col.field, col.filterMatchMode)" />
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                        <tr [ttRow]="rowNode">
+                            <td *ngFor="let col of cols; let i = index">
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="emptymessage">
+                        <tr>
+                            <td [attr.colspan]="cols?.length">No data found.</td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-filter-demo"></app-code>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FilterDoc implements OnInit {
+export class FilterDoc {
     filterMode = 'lenient';
 
     filterModes = [
@@ -74,7 +77,7 @@ export class FilterDoc implements OnInit {
 
     constructor(private nodeService: NodeService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
         this.cols = [
             { field: 'name', header: 'Name' },

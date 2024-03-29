@@ -9,7 +9,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AppConfigService {
     _config: AppConfig = {
-        theme: 'lara-light-blue',
+        theme: 'aura-light-blue',
         darkMode: false,
         inputStyle: 'outlined',
         ripple: true,
@@ -53,7 +53,6 @@ export class AppConfigService {
         config.tableTheme = !config.darkMode ? config.tableTheme.replace('light', 'dark') : config.tableTheme.replace('dark', 'light');
         this._config = { ...config };
         this.configUpdate.next(this.config());
-        localStorage.setItem('layout-config', JSON.stringify(config));
     }
 
     showMenu() {

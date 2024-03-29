@@ -148,7 +148,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -164,7 +163,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-top')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -267,7 +266,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -283,7 +281,7 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-bottom')"
                 [locale]="paginatorLocale"
             >
                 <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
@@ -710,7 +708,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '960px';
+    @Input() breakpoint: string = '640px';
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -1171,7 +1169,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+        if (this.responsiveLayout === 'stack') {
             this.createResponsiveStyle();
         }
 
@@ -1342,11 +1340,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (simpleChange.columns) {
-            this._columns = simpleChange.columns.currentValue;
-            this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            if (!this.isStateful()) {
+                this._columns = simpleChange.columns.currentValue;
+                this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            }
 
             if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
                 this.restoreColumnOrder();
+
+                this.tableService.onColumnsChange(this._columns);
             }
         }
 
@@ -2047,7 +2049,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = field == 'global' ? { value: value, matchMode: matchMode } : [{ value: value, matchMode: matchMode }];
+            this.filters[field] = { value: value, matchMode: matchMode };
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2428,11 +2430,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRow(rowData: any, event?: Event) {
-        if (!this.dataKey) {
-            throw new Error('dataKey must be defined to use row expansion');
+        if (!this.dataKey && !this.groupRowsBy) {
+            throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = this.groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -2462,7 +2464,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.groupRowsBy ? this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy))] === true : this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
@@ -2855,6 +2857,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.tableWidthState = state.tableWidth;
             }
 
+            // if (this.reorderableColumns) {
+            //     this.restoreColumnOrder();
+            // }
+
             if (state.expandedRowKeys) {
                 this.expandedRowKeys = state.expandedRowKeys;
             }
@@ -2931,6 +2937,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
             let columnOrder = state.columnOrder;
+
             if (columnOrder) {
                 let reorderedColumns: any[] = [];
 
@@ -3029,6 +3036,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+    }
+
+    getPaginatorStyleClasses(className?: string) {
+        return [this.paginatorStyleClass, className]
+            .filter((c) => !!c)
+            .join(' ')
+            .trim();
     }
 }
 
@@ -3170,7 +3184,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - 1];
+        let prevRowData = value[i - (1 + this.dt._first)];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3181,7 +3195,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + 1];
+        let nextRowData = value[i + (1 + this.dt._first)];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
@@ -3286,12 +3300,14 @@ export class FrozenColumn implements AfterViewInit {
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, 1000);
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this.updateStickyPosition();
+            }, 1000);
+        });
     }
 
     _frozen: boolean = true;
@@ -3579,8 +3595,8 @@ export class SelectableRow implements OnInit, OnDestroy {
                 break;
 
             default:
-                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
-                    const data = this.dt.dataToRender(this.dt.rows);
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dt.selectionMode === 'multiple') {
+                    const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
 
@@ -4875,8 +4891,21 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     onMouseDown(event: Event) {
-        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle')) this.el.nativeElement.draggable = true;
-        else this.el.nativeElement.draggable = false;
+        const targetElement = event.target as HTMLElement;
+        const isHandleClicked = this.isHandleElement(targetElement);
+        this.el.nativeElement.draggable = isHandleClicked;
+    }
+
+    isHandleElement(element: HTMLElement): boolean {
+        if (element?.classList.contains('p-datatable-reorderablerow-handle')) {
+            return true;
+        }
+
+        if (element?.parentElement && !['TD', 'TR'].includes(element?.parentElement?.tagName)) {
+            return this.isHandleElement(element?.parentElement);
+        }
+
+        return false;
     }
 
     onDragStart(event: DragEvent) {
@@ -4927,6 +4956,7 @@ export class ReorderableRow implements AfterViewInit {
                 class="p-fluid"
                 [type]="type"
                 [field]="field"
+                [ariaLabel]="ariaLabel"
                 [filterConstraint]="dt.filters[field]"
                 [filterTemplate]="filterTemplate"
                 [placeholder]="placeholder"
@@ -4947,9 +4977,9 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-label]="showMenuButtonLabel"
-                [attr.aria-controls]="overlayId"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-label]="filterMenuButtonAriaLabel"
+                [attr.aria-controls]="overlayVisible ? overlayId : null"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
                 (keydown)="onToggleButtonKeyDown($event)"
@@ -5185,6 +5215,11 @@ export class ColumnFilter implements AfterContentInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showButtons: boolean = true;
+    /**
+     * Defines the aria-label of the form element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
 
@@ -5279,7 +5314,7 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     get filterMenuButtonAriaLabel() {
-        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.showFilterMenu : this.config.translation.aria.hideFilterMenu) : undefined;
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
     }
 
     get removeRuleButtonAriaLabel() {
@@ -5429,7 +5464,9 @@ export class ColumnFilter implements AfterContentInit {
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        this.dt._filter();
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
         DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
@@ -5591,7 +5628,10 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
+                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
+
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
                 }
 
@@ -5717,7 +5757,16 @@ export class ColumnFilter implements AfterContentInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)" (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder" />
+                <input
+                    *ngSwitchCase="'text'"
+                    type="text"
+                    [ariaLabel]="ariaLabel"
+                    pInputText
+                    [value]="filterConstraint?.value"
+                    (input)="onModelChange($event.target.value)"
+                    (keydown.enter)="onTextInputEnterKeyDown($event)"
+                    [attr.placeholder]="placeholder"
+                />
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
@@ -5726,6 +5775,7 @@ export class ColumnFilter implements AfterContentInit {
                     [showButtons]="showButtons"
                     [minFractionDigits]="minFractionDigits"
                     [maxFractionDigits]="maxFractionDigits"
+                    [ariaLabel]="ariaLabel"
                     [prefix]="prefix"
                     [suffix]="suffix"
                     [placeholder]="placeholder"
@@ -5736,8 +5786,8 @@ export class ColumnFilter implements AfterContentInit {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
-                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
-                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
+                <p-triStateCheckbox [ariaLabel]="ariaLabel" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
+                <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
             </ng-container>
         </ng-template>
     `,
@@ -5774,6 +5824,8 @@ export class ColumnFilterFormElement implements OnInit {
     @Input() currencyDisplay: string | undefined;
 
     @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+
+    @Input() ariaLabel: string | undefined;
 
     get showButtons(): boolean {
         return this.colFilter.showButtons;

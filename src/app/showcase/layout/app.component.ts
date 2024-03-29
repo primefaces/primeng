@@ -40,21 +40,8 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
     }
-
     ngOnInit(): void {
         this.primeng.ripple = true;
-        if (isPlatformBrowser(this.platformId)) {
-            this.checkAppState();
-        }
-    }
-
-    checkAppState() {
-        const stored = localStorage.getItem('layout-config');
-        let _config!: AppConfig;
-        if (stored) {
-            _config = JSON.parse(stored) as AppConfig;
-            this.configService.config.set(_config);
-        }
     }
 
     injectScripts() {

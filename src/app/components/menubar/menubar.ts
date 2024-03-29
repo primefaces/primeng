@@ -66,7 +66,7 @@ export class MenubarService {
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
             (keydown)="menuKeydown.emit($event)"
-            [attr.id]="menuId"
+            [attr.id]="root ? menuId : null"
             [attr.aria-activedescendant]="focusedItemId"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
@@ -123,11 +123,11 @@ export class MenubarService {
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -194,6 +194,7 @@ export class MenubarService {
                         [activeItemPath]="activeItemPath"
                         [focusedItemId]="focusedItemId"
                         [level]="level + 1"
+                        [ariaLabelledBy]="getItemLabelId(processedItem)"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
                     >
@@ -273,6 +274,10 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     getItemKey(processedItem: any): string {
         return this.getItemId(processedItem);
+    }
+
+    getItemLabelId(processedItem: any): string {
+        return `${this.menuId}_${processedItem.key}_label`;
     }
 
     getItemClass(processedItem: any) {

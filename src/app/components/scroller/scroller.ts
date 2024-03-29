@@ -603,7 +603,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && !this.initialized) {
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
@@ -658,35 +658,41 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     scrollTo(options: ScrollToOptions) {
-        this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
+        // this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.elementViewChild?.nativeElement?.scrollTo(options);
     }
 
-    scrollToIndex(index: number, behavior: ScrollBehavior = 'auto') {
-        const { numToleratedItems } = this.calculateNumItems();
-        const contentPos = this.getContentPosition();
-        const calculateFirst = (_index = 0, _numT: number) => (_index <= _numT ? 0 : _index);
-        const calculateCoord = (_first: number, _size: number, _cpos: number) => _first * _size + _cpos;
-        const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
-        let newFirst: any = 0;
+    scrollToIndex(index: number | number[], behavior: ScrollBehavior = 'auto') {
+        const valid = this.both ? (index as number[]).every((i) => i > -1) : (index as number) > -1;
 
-        if (this.both) {
-            newFirst = { rows: calculateFirst((<any>index)[0], numToleratedItems[0]), cols: calculateFirst((<any>index)[1], numToleratedItems[1]) };
-            scrollTo(calculateCoord(newFirst.cols, (<number[]>this._itemSize)[1], contentPos.left), calculateCoord(newFirst.rows, (<number[]>this._itemSize)[0], contentPos.top));
-        } else {
-            newFirst = calculateFirst(index, numToleratedItems);
+        if (valid) {
+            const first = this.first;
+            const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
+            const { numToleratedItems } = this.calculateNumItems();
+            const contentPos = this.getContentPosition();
+            const itemSize = this.itemSize;
+            const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
+            const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
+            const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+            let newFirst = this.both ? { rows: 0, cols: 0 } : 0;
+            let isRangeChanged = false,
+                isScrollChanged = false;
 
-            if (this.horizontal) {
-                scrollTo(calculateCoord(newFirst, <number>this._itemSize, contentPos.left), 0);
+            if (this.both) {
+                newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
+                scrollTo(calculateCoord(newFirst.cols, itemSize[1], contentPos.left), calculateCoord(newFirst.rows, itemSize[0], contentPos.top));
+                isScrollChanged = this.lastScrollPos.top !== scrollTop || this.lastScrollPos.left !== scrollLeft;
+                isRangeChanged = newFirst.rows !== first.rows || newFirst.cols !== first.cols;
+            } else {
+                newFirst = calculateFirst(index as number, numToleratedItems);
+                this.horizontal ? scrollTo(calculateCoord(newFirst, itemSize, contentPos.left), scrollTop) : scrollTo(scrollLeft, calculateCoord(newFirst, itemSize, contentPos.top));
+                isScrollChanged = this.lastScrollPos !== (this.horizontal ? scrollLeft : scrollTop);
+                isRangeChanged = newFirst !== first;
             }
-            if (this.vertical) {
-                const currentScrollLeft = this.elementViewChild?.nativeElement.scrollLeft;
-                scrollTo(currentScrollLeft, calculateCoord(newFirst, <number>this._itemSize, contentPos.top));
-            }
+
+            this.isRangeChanged = isRangeChanged;
+            isScrollChanged && (this.first = newFirst);
         }
-
-        this.isRangeChanged = this.first !== newFirst;
-        this.first = newFirst;
     }
 
     scrollInView(index: number, to: ScrollerToType, behavior: ScrollBehavior = 'auto') {

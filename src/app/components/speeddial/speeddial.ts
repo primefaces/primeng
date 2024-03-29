@@ -87,48 +87,53 @@ import { asapScheduler } from 'rxjs';
                     role="menuitem"
                     [attr.data-pc-section]="'menuitem'"
                 >
-                    <a
-                        *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
-                        pRipple
-                        [routerLink]="item.routerLink"
-                        [queryParams]="item.queryParams"
-                        class="p-speeddial-action"
-                        [ngClass]="{ 'p-disabled': item.disabled }"
-                        role="menuitem"
-                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                        (click)="onItemClick($event, item)"
-                        (keydown.enter)="onItemClick($event, item, i)"
-                        [attr.target]="item.target"
-                        [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        [fragment]="item.fragment"
-                        [queryParamsHandling]="item.queryParamsHandling"
-                        [preserveFragment]="item.preserveFragment"
-                        [skipLocationChange]="item.skipLocationChange"
-                        [replaceUrl]="item.replaceUrl"
-                        [state]="item.state"
-                        [attr.aria-label]="item.label"
-                        [attr.data-pc-section]="'action'"
-                    >
-                        <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                    </a>
-                    <ng-template #elseBlock>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!itemTemplate">
                         <a
-                            *ngIf="_visible"
-                            [attr.href]="item.url || null"
-                            class="p-speeddial-action"
-                            role="menuitem"
+                            *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
                             pRipple
-                            (click)="onItemClick($event, item)"
+                            [routerLink]="item.routerLink"
+                            [queryParams]="item.queryParams"
+                            class="p-speeddial-action"
                             [ngClass]="{ 'p-disabled': item.disabled }"
+                            role="menuitem"
+                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                            (click)="onItemClick($event, item)"
                             (keydown.enter)="onItemClick($event, item, i)"
                             [attr.target]="item.target"
-                            [attr.data-pc-section]="'action'"
+                            [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            [fragment]="item.fragment"
+                            [queryParamsHandling]="item.queryParamsHandling"
+                            [preserveFragment]="item.preserveFragment"
+                            [skipLocationChange]="item.skipLocationChange"
+                            [replaceUrl]="item.replaceUrl"
+                            [state]="item.state"
                             [attr.aria-label]="item.label"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            [attr.data-pc-section]="'action'"
                         >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
-                    </ng-template>
+                        <ng-template #elseBlock>
+                            <a
+                                *ngIf="_visible"
+                                [attr.href]="item.url || null"
+                                class="p-speeddial-action"
+                                role="menuitem"
+                                pRipple
+                                (click)="onItemClick($event, item)"
+                                [ngClass]="{ 'p-disabled': item.disabled }"
+                                (keydown.enter)="onItemClick($event, item, i)"
+                                [attr.target]="item.target"
+                                [attr.data-pc-section]="'action'"
+                                [attr.aria-label]="item.label"
+                                [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            >
+                                <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            </a>
+                        </ng-template>
+                    </ng-container>
                 </li>
             </ul>
         </div>
@@ -298,6 +303,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     buttonTemplate: TemplateRef<any> | undefined;
 
+    itemTemplate: TemplateRef<any> | undefined;
+
     isItemClicked: boolean = false;
 
     _visible: boolean = false;
@@ -339,6 +346,9 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
             switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
+                    break;
+                case 'item':
+                    this.itemTemplate = item.template;
                     break;
             }
         });
