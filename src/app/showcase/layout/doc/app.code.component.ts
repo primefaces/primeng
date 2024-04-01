@@ -155,21 +155,20 @@ export class AppCodeComponent {
             if (this.code.typescript) {
                 const str = this.code.typescript;
                 const importModuleStatement = "import { ImportsModule } from './imports';";
-            
+
                 if (!str.includes(importModuleStatement)) {
-                    const matchComponent = str.match(/@Component\s*\(\s*\{[^{}]*\}\s*\)/);
-                    if (matchComponent) {
-                        const insertIndex = matchComponent.index! + matchComponent[0].indexOf('}') - 1; // '{' bloğunun sonuna ekle
-                        const importsInsertion = '\n    imports: [ImportsModule]'; // virgül eklemeyi unutma ve indentasyonu ayarla
-            
-                        // Kodu güncelle
-                        const modifiedCode = str.slice(0, insertIndex) + importsInsertion + str.slice(insertIndex);
-            
-                        // import { ImportsModule } from './imports'; satırını ekle
-                        const finalModifiedCode = modifiedCode.replace(/import\s+{[^{}]*}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
-            
-                        this.code.typescript = finalModifiedCode;
-                    }
+                    let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
+                        if (match.includes('Module')) {
+                            return '';
+                        }
+                        return match;
+                    });
+
+                    modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
+
+                    const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
+
+                    this.code.typescript = finalModifiedCode;
                 }
             }
             useStackBlitz({ code: this.code, selector: this.selector, extFiles: this.extFiles, routeFiles: this.routeFiles });

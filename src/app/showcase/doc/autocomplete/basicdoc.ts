@@ -41,7 +41,7 @@ export class BasicDoc {
 <p-autoComplete 
     [(ngModel)]="selectedItem"
     [suggestions]="suggestions"
-    completeMethod)="search($event)"
+    (completeMethod)="search($event)"
 />
 </div>`,
 
