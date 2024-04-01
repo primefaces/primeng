@@ -164,8 +164,13 @@ import { ProductService } from '../../service/productservice';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
+import { TableModule } from 'primeng/table'
+import { ButtonModule } from 'primeng/button';
+
 @Component({
     providers: [DialogService, MessageService, ProductService],
+    standalone:true,
+    imports:[TableModule, ButtonModule],
     template: \`<div class="flex justify-content-end mt-1 mb-3">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
@@ -242,8 +247,12 @@ export class ProductListDemo implements OnInit {
             content: `import { Component} from '@angular/core';
 import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
 @Component({
     providers: [DialogService, MessageService],
+    standalone: true,
+    imports:[ButtonModule],
     template: \`<div>
     <p>
         There are <strong>{{ totalProducts }}</strong> products in total in this list.
@@ -284,9 +293,12 @@ export class InfoDemo {
             name: 'Footer',
             content: `import { Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'footer',
+    standalone: true,
+    imports: [ButtonModule],
     template:  \`
         <div class="flex w-full justify-content-end mt-3">
             <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
