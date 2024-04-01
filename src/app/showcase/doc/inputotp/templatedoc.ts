@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-inputOtp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
-                    <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+                    <input pInputText class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
                 </ng-template>
             </p-inputOtp>
         </div>
@@ -45,14 +45,14 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-inputOtp [(ngModel)]="value">
     <ng-template pTemplate="input" let-token let-events="events">
-        <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+        <input pInputText class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
     </ng-template>
 </p-inputOtp>`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputOtp [(ngModel)]="value">
         <ng-template pTemplate="input" let-token let-events="events">
-            <input pInputText class="custom-otp-input" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
+            <input pInputText class="custom-otp-input" (input)="events.input($event)" (keydown)="events.keydown($event)" type="text" [attr.value]="token" [maxLength]="1" />
         </ng-template>
     </p-inputOtp>
 </div>`,
