@@ -19,6 +19,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -191,7 +193,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Transition delay step for each action item.
      * @group Props
      */
-    @Input() transitionDelay: number = 30;
+    @Input({ transform: numberAttribute }) transitionDelay: number = 30;
     /**
      * Specifies the opening type of actions.
      * @group Props
@@ -201,22 +203,22 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Radius for *circle types.
      * @group Props
      */
-    @Input() radius: number = 0;
+    @Input({ transform: numberAttribute }) radius: number = 0;
     /**
      * Whether to show a mask element behind the speeddial.
      * @group Props
      */
-    @Input() mask: boolean = false;
+    @Input({ transform: booleanAttribute }) mask: boolean = false;
     /**
      * Whether the component is disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Whether the actions close when clicked outside.
      * @group Props
      */
-    @Input() hideOnClickOutside: boolean = true;
+    @Input({ transform: booleanAttribute }) hideOnClickOutside: boolean = true;
     /**
      * Inline style of the button element.
      * @group Props
@@ -251,7 +253,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Defined to rotate showIcon when hideIcon is not present.
      * @group Props
      */
-    @Input() rotateAnimation: boolean = true;
+    @Input({ transform: booleanAttribute }) rotateAnimation: boolean = true;
     /**
      * Defines a string value that labels an interactive element.
      * @group Props

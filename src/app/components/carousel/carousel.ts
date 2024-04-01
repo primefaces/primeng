@@ -19,7 +19,9 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -248,22 +250,22 @@ export class Carousel implements AfterContentInit {
      * Defines if scrolling would be infinite.
      * @group Props
      */
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
     /**
      * Whether to display indicator container.
      * @group Props
      */
-    @Input() showIndicators: boolean = true;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = true;
     /**
      * Whether to display navigation buttons in container.
      * @group Props
      */
-    @Input() showNavigators: boolean = true;
+    @Input({ transform: booleanAttribute }) showNavigators: boolean = true;
     /**
      * Time in milliseconds to scroll items automatically.
      * @group Props
      */
-    @Input() autoplayInterval: number = 0;
+    @Input({ transform: numberAttribute }) autoplayInterval: number = 0;
     /**
      * Inline style of the component.
      * @group Props

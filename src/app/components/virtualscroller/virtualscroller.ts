@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, ScrollerOptions, SharedModule } from 'primeng/api';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { Nullable } from 'primeng/ts-helpers';
@@ -47,7 +65,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Height of an item in the list.
      * @group Props
      */
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -67,7 +85,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -77,7 +95,7 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input() delay: number = 250;
+    @Input({ transform: numberAttribute }) delay: number = 250;
     /**
      * Callback to invoke in lazy mode to load new data.
      * @param {VirtualScrollerLazyLoadEvent} event - custom lazy load event.

@@ -18,8 +18,10 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     computed,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -177,17 +179,17 @@ export class PanelMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() activeItemPath: any[];
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -309,15 +311,15 @@ export class PanelMenuList implements OnChanges {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
-    @Input() expanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) expanded: boolean | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
 
@@ -866,7 +868,7 @@ export class PanelMenu implements AfterContentInit {
      * Whether multiple tabs can be activated at the same time or not.
      * @group Props
      */
-    @Input() multiple: boolean = false;
+    @Input({ transform: booleanAttribute }) multiple: boolean = false;
     /**
      * Transition options of the animation.
      * @group Props
@@ -881,7 +883,7 @@ export class PanelMenu implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
