@@ -300,7 +300,7 @@ export class InputOtp implements AfterContentInit {
                 break;
         }
     }
-    
+
     onPaste(event) {
         let paste = event.clipboardData.getData('text');
 
