@@ -1497,7 +1497,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.focusedOptionIndex.set(index);
             this.scrollInView();
 
-            if (this.selectOnFocus || this.autoHighlight) {
+            if (this.selectOnFocus) {
                 this.onOptionSelect(event, this.visibleOptions()[index], false);
             }
         }
