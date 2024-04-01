@@ -20,7 +20,7 @@ import { Footer } from './footer';
         </div>
         <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
-    providers: [DialogService, MessageService]
+    providers: [DialogService, MessageService],
 })
 export class ExampleDoc implements OnDestroy {
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
@@ -77,14 +77,17 @@ export class ExampleDoc implements OnDestroy {
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Product } from '../../domain/product';
-import { ProductListDemo } from './productlistdemo';
-import { Footer } from './footer';
+import { ProductListDemo } from './demo/productlistdemo';
+import { Footer } from './demo/footer';
+import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
     templateUrl: './dynamic-dialog-example-demo.html',
-    providers: [DialogService, MessageService]
+    imports: [DialogModule, ToastModule],
+    providers: [DialogService, MessageService],
+    standalone: true,
 })
 export class DynamicDialogExampleDemo implements OnDestroy {
     

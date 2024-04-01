@@ -31,15 +31,24 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedItem" 
+    [suggestions]="suggestions" 
+    (completeMethod)="search($event)" 
+/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+<p-autoComplete 
+    [(ngModel)]="selectedItem"
+    [suggestions]="suggestions"
+    completeMethod)="search($event)"
+/>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -48,7 +57,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-basic-demo',
-    templateUrl: './autocomplete-basic-demo.html'
+    templateUrl: './autocomplete-basic-demo.html',
+    imports: [AutoCompleteModule, FormsModule],
+    standalone: true,
 })
 export class AutocompleteBasicDemo {
     items: any[] | undefined;
