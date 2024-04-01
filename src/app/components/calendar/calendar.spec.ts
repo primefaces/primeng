@@ -1903,7 +1903,7 @@ describe('Calendar', () => {
     });
 
     it('should allow changing time when min and max date times are within the hour', () => {
-        const event = { preventDefault: () => { } };
+        const event = { preventDefault: () => {} };
         const now = new Date('2023-01-01T12:14:00.000Z'); // 1 minute before max date
         const minDate = new Date('2023-01-01T11:45:00.000Z'); // quarter to now date hour
         const maxDate = new Date('2023-01-01T12:15:01.000Z'); // quarter past now date hour, 1 minute and 1 second after now date
@@ -1940,5 +1940,5 @@ describe('Calendar', () => {
         calendar.incrementHour(event);
         calendar.updateTime();
         expect((calendar.value as Date).toISOString()).toBe(maxDateISO);
-    })
+    });
 });

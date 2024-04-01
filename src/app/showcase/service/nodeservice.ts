@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from "../../components/api/treenode";
+import { TreeNode } from '../../components/api/treenode';
 
 @Injectable()
 export class NodeService {
@@ -774,7 +774,7 @@ export class NodeService {
                 children.push({
                     key: `${parentIndex}-${childIndex}`,
                     label: `Child ${parentIndex}-${childIndex}`,
-                    selectable: true,
+                    selectable: true
                 });
             }
 
@@ -782,7 +782,7 @@ export class NodeService {
                 key: parentIndex.toString(),
                 label: `Parent ${parentIndex}`,
                 selectable: true,
-                children: children,
+                children: children
             });
         }
 

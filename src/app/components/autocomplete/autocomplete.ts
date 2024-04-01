@@ -126,7 +126,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ getOptionLabel(option) }}</span>
-                    <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) :''">
+                    <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
                         <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" [attr.aria-hidden]="true" />
                         <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>

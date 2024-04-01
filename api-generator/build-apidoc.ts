@@ -94,10 +94,8 @@ async function main() {
                                             readonly: prop.flags.isReadonly,
                                             type: prop.getSignature && prop.getSignature.type ? prop.getSignature.type.toString() : prop.type ? prop.type.toString() : null,
                                             default: prop.type && prop.type.name === 'boolean' && !prop.defaultValue ? 'false' : prop.defaultValue ? prop.defaultValue.replace(/^'|'$/g, '') : undefined,
-                                            description: ((prop.getSignature?.comment?.summary || prop.setSignature?.comment?.summary) || prop.comment?.summary)?.map((s) => s.text || '').join(' '),
-                                            deprecated: getDeprecatedText(prop.getSignature)
-                                                || getDeprecatedText(prop.setSignature)
-                                                || getDeprecatedText(prop)
+                                            description: (prop.getSignature?.comment?.summary || prop.setSignature?.comment?.summary || prop.comment?.summary)?.map((s) => s.text || '').join(' '),
+                                            deprecated: getDeprecatedText(prop.getSignature) || getDeprecatedText(prop.setSignature) || getDeprecatedText(prop)
                                         });
                                     });
                                     doc[name]['components'][componentName]['props'] = props;

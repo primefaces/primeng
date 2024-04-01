@@ -714,7 +714,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.options) {
             this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
-            this.updateModel(null)
+            this.updateModel(null);
         }
     }
 
