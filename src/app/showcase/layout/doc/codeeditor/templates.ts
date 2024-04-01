@@ -199,10 +199,10 @@ trim_trailing_whitespace = false
 `;
 
 const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
-import { DynamicDialogExampleDemo } from './app/dynamic-dialog-example-demo';
+import { TableBasicDemo } from './app/table-basic-demo';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-bootstrapApplication(DynamicDialogExampleDemo, {
+bootstrapApplication(TableBasicDemo, {
   providers: [provideAnimationsAsync()],
 }).catch((err) => console.error(err));`;
 
@@ -493,6 +493,7 @@ const getAngularApp = (props: Props = {}) => {
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
+    ${serviceImports}
     
     @NgModule({
       imports: [
@@ -695,6 +696,7 @@ const getAngularApp = (props: Props = {}) => {
         RippleModule,
         StyleClassModule,
       ],
+      providers: [ ${providers} ]
     })
     export class ImportsModule {}
     `;
