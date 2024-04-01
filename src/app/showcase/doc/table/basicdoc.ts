@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
-
 @Component({
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
@@ -31,7 +30,7 @@ import { ProductService } from '../../service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-basic-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BasicDoc {
     products!: Product[];
@@ -89,13 +88,16 @@ export class BasicDoc {
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../domain/product';
 import { ProductService } from '../service/productservice';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'table-basic-demo',
     templateUrl: 'table-basic-demo.html',
     standalone: true,
-    imports:[]
+    imports: [TableModule],
+    providers: [ProductService]
 })
+
 export class TableBasicDemo implements OnInit {
     products!: Product[];
 
