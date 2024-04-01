@@ -198,14 +198,6 @@ max_line_length = off
 trim_trailing_whitespace = false
 `;
 
-const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
-import { TableBasicDemo } from './app/table-basic-demo';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
-bootstrapApplication(TableBasicDemo, {
-  providers: [provideAnimationsAsync()],
-}).catch((err) => console.error(err));`;
-
 const angular_json = `{
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
@@ -719,6 +711,14 @@ const getAngularApp = (props: Props = {}) => {
         <${selector}></${selector}>
     </body>
 </html>`;
+
+    const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
+    import { ${componentName} } from './app/${selector}';
+    import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+    bootstrapApplication(${componentName}, {
+    providers: [provideAnimationsAsync()],
+    }).catch((err) => console.error(err));`;
 
     const defaultFiles = {
         'src/main.ts': { content: main_ts },
