@@ -18,7 +18,9 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -383,7 +385,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * Defines a string that labels the move to right button for accessibility.
      * @group Props
@@ -433,7 +435,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * When enabled orderlist adjusts its controls based on screen size.
      * @group Props
      */
-    @Input() responsive: boolean | undefined;
+    @Input({ transform: booleanAttribute }) responsive: boolean | undefined;
     /**
      * When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).
      * @group Props
@@ -448,7 +450,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity. Use sourceTrackBy or targetTrackBy in case different algorithms are needed per list.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy in source list, default algorithm checks for object identity.
      * @group Props
@@ -463,22 +465,22 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to show filter input for source list when filterBy is enabled.
      * @group Props
      */
-    @Input() showSourceFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) showSourceFilter: boolean = true;
     /**
      * Whether to show filter input for target list when filterBy is enabled.
      * @group Props
      */
-    @Input() showTargetFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) showTargetFilter: boolean = true;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input() dragdrop: boolean = false;
+    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
@@ -503,12 +505,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to show buttons of source list.
      * @group Props
      */
-    @Input() showSourceControls: boolean = true;
+    @Input({ transform: booleanAttribute }) showSourceControls: boolean = true;
     /**
      * Whether to show buttons of target list.
      * @group Props
      */
-    @Input() showTargetControls: boolean = true;
+    @Input({ transform: booleanAttribute }) showTargetControls: boolean = true;
     /**
      * Placeholder text on source filter input.
      * @group Props
@@ -523,7 +525,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
@@ -543,12 +545,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to displays rows with alternating colors.
      * @group Props
      */
-    @Input() stripedRows: boolean | undefined;
+    @Input({ transform: booleanAttribute }) stripedRows: boolean | undefined;
     /**
      * Keeps selection on the transfer list.
      * @group Props
      */
-    @Input() keepSelection: boolean = false;
+    @Input({ transform: booleanAttribute }) keepSelection: boolean = false;
     /**
      * Indicates the width of the screen at which the component should change its behavior.
      * @group Props

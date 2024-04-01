@@ -1,6 +1,24 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef
+} from '@angular/core';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -72,11 +90,11 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
 export class OrganizationChartNode implements OnDestroy {
     @Input() node: TreeNode<any> | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() first: boolean | undefined;
+    @Input({ transform: booleanAttribute }) first: boolean | undefined;
 
-    @Input() last: boolean | undefined;
+    @Input({ transform: booleanAttribute }) last: boolean | undefined;
 
     chart: OrganizationChart;
 
@@ -162,7 +180,7 @@ export class OrganizationChart implements AfterContentInit {
      * Whether the space allocated by a node is preserved when hidden.
      * @group Props
      */
-    @Input() preserveSpace: boolean = true;
+    @Input({ transform: booleanAttribute }) preserveSpace: boolean = true;
     /**
      * A single treenode instance or an array to refer to the selections.
      * @group Props

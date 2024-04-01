@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, OnInit, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, OnInit, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BanIcon } from 'primeng/icons/ban';
@@ -92,22 +92,22 @@ export class Rating implements OnInit, ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, changing the value is not possible.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Number of stars.
      * @group Props
      */
-    @Input() stars: number = 5;
+    @Input({ transform: numberAttribute }) stars: number = 5;
     /**
      * When specified a cancel icon is displayed to allow removing the value.
      * @group Props
      */
-    @Input() cancel: boolean = true;
+    @Input({ transform: booleanAttribute }) cancel: boolean = true;
     /**
      * Style class of the on icon.
      * @group Props

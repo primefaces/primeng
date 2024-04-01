@@ -21,8 +21,10 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -195,15 +197,15 @@ export class TieredMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() root: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
-    @Input() autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
 
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -211,13 +213,13 @@ export class TieredMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -402,7 +404,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -422,18 +424,18 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
      * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -463,12 +465,12 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits

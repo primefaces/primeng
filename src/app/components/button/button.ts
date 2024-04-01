@@ -1,5 +1,23 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
@@ -310,12 +328,12 @@ export class Button implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Whether the button is in loading state.
      * @group Props
      */
-    @Input() loading: boolean = false;
+    @Input({ transform: booleanAttribute }) loading: boolean = false;
     /**
      * Icon to display in loading state.
      * @group Props
@@ -325,22 +343,22 @@ export class Button implements AfterContentInit {
      * Add a shadow to indicate elevation.
      * @group Props
      */
-    @Input() raised: boolean = false;
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
     /**
      * Add a circular border radius to the button.
      * @group Props
      */
-    @Input() rounded: boolean = false;
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
     /**
      * Add a textual class to the button without a background initially.
      * @group Props
      */
-    @Input() text: boolean = false;
+    @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
      * @group Props
      */
-    @Input() plain: boolean = false;
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
     /**
      * Defines the style of the button.
      * @group Props
@@ -350,12 +368,12 @@ export class Button implements AfterContentInit {
      * Add a border class without a background initially.
      * @group Props
      */
-    @Input() outlined: boolean = false;
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
     /**
      *  Add a link style to the button.
      * @group Props
      */
-    @Input() link: boolean = false;
+    @Input({ transform: booleanAttribute }) link: boolean = false;
     /**
      * Defines the size of the button.
      * @group Props

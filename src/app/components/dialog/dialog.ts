@@ -23,7 +23,9 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -168,12 +170,12 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Enables dragging to change the position using header.
      * @group Props
      */
-    @Input() draggable: boolean = true;
+    @Input({ transform: booleanAttribute }) draggable: boolean = true;
     /**
      * Enables resizing of the content.
      * @group Props
      */
-    @Input() resizable: boolean = true;
+    @Input({ transform: booleanAttribute }) resizable: boolean = true;
     /**
      * Defines the left offset of dialog.
      * @group Props
@@ -210,27 +212,27 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Defines if background should be blocked when dialog is displayed.
      * @group Props
      */
-    @Input() modal: boolean = false;
+    @Input({ transform: booleanAttribute }) modal: boolean = false;
     /**
      * Specifies if pressing escape key should hide the dialog.
      * @group Props
      */
-    @Input() closeOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
     /**
      * Specifies if clicking the modal background should hide the dialog.
      * @group Props
      */
-    @Input() dismissableMask: boolean = false;
+    @Input({ transform: booleanAttribute }) dismissableMask: boolean = false;
     /**
      * When enabled dialog is displayed in RTL direction.
      * @group Props
      */
-    @Input() rtl: boolean = false;
+    @Input({ transform: booleanAttribute }) rtl: boolean = false;
     /**
      * Adds a close icon to the header to hide the dialog.
      * @group Props
      */
-    @Input() closable: boolean = true;
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
      * Defines if the component is responsive.
      * @group Props
@@ -271,7 +273,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Whether to show the header or not.
      * @group Props
      */
-    @Input() showHeader: boolean = true;
+    @Input({ transform: booleanAttribute }) showHeader: boolean = true;
     /**
      * Defines the breakpoint of the component responsive.
      * @group Props
@@ -287,47 +289,47 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Whether background scroll should be blocked when dialog is visible.
      * @group Props
      */
-    @Input() blockScroll: boolean = false;
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = false;
     /**
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Minimum value for the left coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minX: number = 0;
+    @Input({ transform: numberAttribute }) minX: number = 0;
     /**
      * Minimum value for the top coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minY: number = 0;
+    @Input({ transform: numberAttribute }) minY: number = 0;
     /**
      * When enabled, first button receives focus on show.
      * @group Props
      */
-    @Input() focusOnShow: boolean = true;
+    @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
     /**
      * Whether the dialog can be displayed full screen.
      * @group Props
      */
-    @Input() maximizable: boolean = false;
+    @Input({ transform: booleanAttribute }) maximizable: boolean = false;
     /**
      * Keeps dialog in the viewport.
      * @group Props
      */
-    @Input() keepInViewport: boolean = true;
+    @Input({ transform: booleanAttribute }) keepInViewport: boolean = true;
     /**
      * When enabled, can only focus on elements inside the dialog.
      * @group Props
      */
-    @Input() focusTrap: boolean = true;
+    @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
     /**
      * Transition options of the animation.
      * @group Props

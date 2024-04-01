@@ -19,8 +19,10 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -208,11 +210,11 @@ export class MegaMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
 
     @Input() orientation: string | undefined;
 
@@ -220,9 +222,9 @@ export class MegaMenuSub {
 
     @Input() submenu: any;
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
-    @Input() root: boolean = false;
+    @Input({ transform: booleanAttribute }) root: boolean = false;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -456,12 +458,12 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
