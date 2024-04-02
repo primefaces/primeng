@@ -1,17 +1,17 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { LocaleDoc } from '../../doc/inputnumber/localedoc';
-import { ImportDoc } from '../../doc/inputnumber/importdoc';
-import { NumeralsDoc } from '../../doc/inputnumber/numeralsdoc';
-import { CurrencyDoc } from '../../doc/inputnumber/currencydoc';
-import { PrefixSuffixDoc } from '../../doc/inputnumber/prefixsuffixdoc';
-import { ButtonsDoc } from '../../doc/inputnumber/buttonsdoc';
-import { VerticalDoc } from '../../doc/inputnumber/verticaldoc';
-import { FloatlabelDoc } from '../../doc/inputnumber/floatlabeldoc';
-import { InvalidDoc } from '../../doc/inputnumber/invaliddoc';
-import { DisabledDoc } from '../../doc/inputnumber/disableddoc';
-import { StyleDoc } from '../../doc/inputnumber/styledoc';
-import { AccessibilityDoc } from '../../doc/inputnumber/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/inputnumber/reactiveformsdoc';
+import { LocaleDoc } from '@doc/inputnumber/localedoc';
+import { ImportDoc } from '@doc/inputnumber/importdoc';
+import { NumeralsDoc } from '@doc/inputnumber/numeralsdoc';
+import { CurrencyDoc } from '@doc/inputnumber/currencydoc';
+import { PrefixSuffixDoc } from '@doc/inputnumber/prefixsuffixdoc';
+import { ButtonsDoc } from '@doc/inputnumber/buttonsdoc';
+import { VerticalDoc } from '@doc/inputnumber/verticaldoc';
+import { FloatlabelDoc } from '@doc/inputnumber/floatlabeldoc';
+import { InvalidDoc } from '@doc/inputnumber/invaliddoc';
+import { DisabledDoc } from '@doc/inputnumber/disableddoc';
+import { StyleDoc } from '@doc/inputnumber/styledoc';
+import { AccessibilityDoc } from '@doc/inputnumber/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/inputnumber/reactiveformsdoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',

@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ArchitectureDoc } from '../../doc/theming/architecturedoc';
-import { BuiltInThemesDoc } from '../../doc/theming/builtinthemesdoc';
-import { CSSVariablesDoc } from '../../doc/theming/cssvariablesdoc';
-import { CustomThemeDoc } from '../../doc/theming/customthemedoc';
-import { PrimeFlexDoc } from '../../doc/theming/primeflexdoc';
-import { ScalingDoc } from '../../doc/theming/scalingdoc';
-import { ScopedCSSDoc } from '../../doc/theming/scopedcssdoc';
-import { SwitchThemesDoc } from '../../doc/theming/switchthemesdoc';
-import { UtilsDoc } from '../../doc/theming/utilsdoc';
+import { ArchitectureDoc } from '@doc/theming/architecturedoc';
+import { BuiltInThemesDoc } from '@doc/theming/builtinthemesdoc';
+import { CSSVariablesDoc } from '@doc/theming/cssvariablesdoc';
+import { CustomThemeDoc } from '@doc/theming/customthemedoc';
+import { PrimeFlexDoc } from '@doc/theming/primeflexdoc';
+import { ScalingDoc } from '@doc/theming/scalingdoc';
+import { ScopedCSSDoc } from '@doc/theming/scopedcssdoc';
+import { SwitchThemesDoc } from '@doc/theming/switchthemesdoc';
+import { UtilsDoc } from '@doc/theming/utilsdoc';
 
 @Component({
     templateUrl: './theming.component.html',

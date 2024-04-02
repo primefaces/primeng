@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { Code } from '@domain/code';
+import { CarService } from '@service/carservice';
 
 interface Column {
     field: string;
@@ -99,8 +99,8 @@ export class VirtualScrollDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { Car } from '../../domain/car';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { CarService } from '@service/carservice';
 
 interface Column {
     field: string;

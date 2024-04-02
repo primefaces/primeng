@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'lazy-load-doc',
@@ -288,8 +288,8 @@ export class LazyLoadDoc implements OnInit {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'table-lazy-load-demo',

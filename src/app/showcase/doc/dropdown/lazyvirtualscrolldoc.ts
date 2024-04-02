@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ScrollerOptions, SelectItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'dropdown-lazy-virtualscroll-demo',

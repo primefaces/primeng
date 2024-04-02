@@ -1,4 +1,4 @@
-import { AccordionDemo } from '.';
+import { AccordionDemo } from './';
 
 export default [
     {

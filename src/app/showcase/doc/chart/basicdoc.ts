@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { Code } from '../../domain/code';
-import { AppConfigService } from '../../service/appconfigservice';
+import { Code } from '@domain/code';
+import { AppConfigService } from '@service/appconfigservice';
 import { Subscription, debounceTime } from 'rxjs';
 
 @Component({

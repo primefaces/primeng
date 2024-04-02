@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ProgressSpinnerDocModule } from '../../doc/progressspinner/progressspinnerdoc.module';
+import { ProgressSpinnerDocModule } from '@doc/progressspinner/progressspinnerdoc.module';
 import { ProgressSpinnerDemo } from './progressspinnerdemo';
 import { ProgressSpinnerDemoRoutingModule } from './progressspinnerdemo-routing.module';
 

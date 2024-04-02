@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { Code } from '../../domain/code';
-import { TicketService } from '../../service/ticketservice';
+import { Code } from '@domain/code';
+import { TicketService } from '@service/ticketservice';
 
 @Component({
     selector: 'routing-doc',
@@ -73,7 +73,7 @@ export class RoutingDoc implements OnInit {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -140,7 +140,7 @@ export class StepsRoutingDemo implements OnInit {
             path: 'src/app/demo/paymentdemo.ts',
             name: 'PaymentDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -206,7 +206,7 @@ export class PaymentDemo implements OnInit {
             path: 'src/app/demo/personaldemo.ts',
             name: 'PersonalDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -278,7 +278,7 @@ export class PersonalDemo implements OnInit {
             path: 'src/app/demo/seatdemo.ts',
             name: 'SeatDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -367,7 +367,7 @@ export class SeatDemo implements OnInit {
             path: 'src/app/demo/confirmationdemo.ts',
             name: 'ConfirmationDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({

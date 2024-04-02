@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
@@ -33,7 +33,7 @@ export class CheckboxDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'tree-select-checkbox-demo',

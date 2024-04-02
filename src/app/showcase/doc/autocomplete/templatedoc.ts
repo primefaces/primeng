@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
+import { Code } from '@domain/code';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -78,7 +78,7 @@ export class TemplateDoc {
         typescript: `
 import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
-import { CountryService } from 'src/service/countryservice';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

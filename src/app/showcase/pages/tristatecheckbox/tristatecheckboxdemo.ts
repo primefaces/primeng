@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/tristatecheckbox/basicdoc';
-import { InvalidDoc } from '../../doc/tristatecheckbox/invaliddoc';
-import { ImportDoc } from '../../doc/tristatecheckbox/importdoc';
-import { DisabledDoc } from '../../doc/tristatecheckbox/disableddoc';
-import { StyleDoc } from '../../doc/tristatecheckbox/styledoc';
-import { AccessibilityDoc } from '../../doc/tristatecheckbox/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/tristatecheckbox/reactiveformsdoc';
+import { BasicDoc } from '@doc/tristatecheckbox/basicdoc';
+import { InvalidDoc } from '@doc/tristatecheckbox/invaliddoc';
+import { ImportDoc } from '@doc/tristatecheckbox/importdoc';
+import { DisabledDoc } from '@doc/tristatecheckbox/disableddoc';
+import { StyleDoc } from '@doc/tristatecheckbox/styledoc';
+import { AccessibilityDoc } from '@doc/tristatecheckbox/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/tristatecheckbox/reactiveformsdoc';
 
 @Component({
     templateUrl: './tristatecheckboxdemo.html'

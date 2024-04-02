@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/metergroup/importdoc';
-import { BasicDoc } from '../../doc/metergroup/basicdoc';
-import { MultipleDoc } from '../../doc/metergroup/multipledoc';
-import { IconDoc } from '../../doc/metergroup/icondoc';
-import { LabelDoc } from '../../doc/metergroup/labeldoc';
-import { VerticalDoc } from '../../doc/metergroup/verticaldoc';
-import { MinMaxDoc } from '../../doc/metergroup/minmaxdoc';
-import { TemplateDoc } from '../../doc/metergroup/templatedoc';
-import { StyleDoc } from '../../doc/metergroup/styledoc';
-import { AccessibilityDoc } from '../../doc/metergroup/accessibilitydoc';
+import { ImportDoc } from '@doc/metergroup/importdoc';
+import { BasicDoc } from '@doc/metergroup/basicdoc';
+import { MultipleDoc } from '@doc/metergroup/multipledoc';
+import { IconDoc } from '@doc/metergroup/icondoc';
+import { LabelDoc } from '@doc/metergroup/labeldoc';
+import { VerticalDoc } from '@doc/metergroup/verticaldoc';
+import { MinMaxDoc } from '@doc/metergroup/minmaxdoc';
+import { TemplateDoc } from '@doc/metergroup/templatedoc';
+import { StyleDoc } from '@doc/metergroup/styledoc';
+import { AccessibilityDoc } from '@doc/metergroup/accessibilitydoc';
 @Component({
     templateUrl: './metergroupdemo.html'
 })

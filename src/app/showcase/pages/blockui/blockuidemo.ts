@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/blockui/accessibilitydoc';
-import { BasicDoc } from '../../doc/blockui/basicdoc';
-import { DocumentDoc } from '../../doc/blockui/documentdoc';
-import { ImportDoc } from '../../doc/blockui/importdoc';
-import { StyleDoc } from '../../doc/blockui/styledoc';
+import { AccessibilityDoc } from '@doc/blockui/accessibilitydoc';
+import { BasicDoc } from '@doc/blockui/basicdoc';
+import { DocumentDoc } from '@doc/blockui/documentdoc';
+import { ImportDoc } from '@doc/blockui/importdoc';
+import { StyleDoc } from '@doc/blockui/styledoc';
 
 @Component({
     templateUrl: './blockuidemo.html',

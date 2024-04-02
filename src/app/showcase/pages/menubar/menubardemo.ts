@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { TemplateDoc } from '../../doc/menubar/templatedoc';
-import { BasicDoc } from '../../doc/menubar/basicdoc';
-import { ImportDoc } from '../../doc/menubar/importdoc';
-import { StyleDoc } from '../../doc/menubar/styledoc';
-import { AccessibilityDoc } from '../../doc/menubar/accessibilitydoc';
+import { TemplateDoc } from '@doc/menubar/templatedoc';
+import { BasicDoc } from '@doc/menubar/basicdoc';
+import { ImportDoc } from '@doc/menubar/importdoc';
+import { StyleDoc } from '@doc/menubar/styledoc';
+import { AccessibilityDoc } from '@doc/menubar/accessibilitydoc';
 
 @Component({
     templateUrl: './menubardemo.html'

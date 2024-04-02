@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { PhotoService } from '../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-responsive-demo',
@@ -73,7 +73,7 @@ export class ResponsiveDoc implements OnInit {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-responsive-demo',

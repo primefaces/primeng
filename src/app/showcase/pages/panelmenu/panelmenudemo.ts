@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/panelmenu/basicdoc';
-import { ImportDoc } from '../../doc/panelmenu/importdoc';
-import { StyleDoc } from '../../doc/panelmenu/styledoc';
-import { MultipleDoc } from '../../doc/panelmenu/multipledoc';
-import { AccessibilityDoc } from '../../doc/panelmenu/accessibilitydoc';
+import { BasicDoc } from '@doc/panelmenu/basicdoc';
+import { ImportDoc } from '@doc/panelmenu/importdoc';
+import { StyleDoc } from '@doc/panelmenu/styledoc';
+import { MultipleDoc } from '@doc/panelmenu/multipledoc';
+import { AccessibilityDoc } from '@doc/panelmenu/accessibilitydoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'

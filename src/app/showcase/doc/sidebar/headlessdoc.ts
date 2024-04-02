@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { Sidebar } from 'primeng/sidebar';
 
 @Component({

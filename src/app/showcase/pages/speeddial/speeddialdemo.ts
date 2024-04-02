@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/speeddial/accessibilitydoc';
-import { CircleDoc } from '../../doc/speeddial/circledoc';
-import { CustomDoc } from '../../doc/speeddial/customdoc';
-import { ImportDoc } from '../../doc/speeddial/importdoc';
-import { LinearDoc } from '../../doc/speeddial/lineardoc';
-import { MaskDoc } from '../../doc/speeddial/maskdoc';
-import { QuarterCircleDoc } from '../../doc/speeddial/quartercircledoc';
-import { SemiCircleDoc } from '../../doc/speeddial/semicircledoc';
-import { StyleDoc } from '../../doc/speeddial/styledoc';
-import { TooltipDoc } from '../../doc/speeddial/tooltipdoc';
+import { AccessibilityDoc } from '@doc/speeddial/accessibilitydoc';
+import { CircleDoc } from '@doc/speeddial/circledoc';
+import { CustomDoc } from '@doc/speeddial/customdoc';
+import { ImportDoc } from '@doc/speeddial/importdoc';
+import { LinearDoc } from '@doc/speeddial/lineardoc';
+import { MaskDoc } from '@doc/speeddial/maskdoc';
+import { QuarterCircleDoc } from '@doc/speeddial/quartercircledoc';
+import { SemiCircleDoc } from '@doc/speeddial/semicircledoc';
+import { StyleDoc } from '@doc/speeddial/styledoc';
+import { TooltipDoc } from '@doc/speeddial/tooltipdoc';
 
 @Component({
     templateUrl: './speeddialdemo.html',

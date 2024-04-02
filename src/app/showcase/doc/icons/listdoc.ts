@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { IconService } from '../../service/iconservice';
+import { IconService } from '@service/iconservice';
 
 @Component({
     selector: 'list-doc',

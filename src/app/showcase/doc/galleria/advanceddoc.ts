@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
-import { Code } from '../../domain/code';
-import { PhotoService } from '../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-doc',
@@ -217,7 +217,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         typescript: `
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
-import { PhotoService } from '../../service/photoservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-demo',

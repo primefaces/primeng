@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
+import { Code } from '@domain/code';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -59,7 +59,7 @@ export class ObjectsDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { CountryService } from 'src/service/countryservice';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

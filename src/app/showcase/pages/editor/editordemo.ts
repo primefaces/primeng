@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/editor/accessibilitydoc';
-import { BasicDoc } from '../../doc/editor/basicdoc';
-import { CustomToolbarDoc } from '../../doc/editor/customtoolbardoc';
-import { ImportDoc } from '../../doc/editor/importdoc';
-import { QuillDoc } from '../../doc/editor/quilldoc';
-import { ReactiveFormsDoc } from '../../doc/editor/reactiveformsdoc';
-import { ReadOnlyDoc } from '../../doc/editor/readonlydoc';
-import { StyleDoc } from '../../doc/editor/styledoc';
+import { AccessibilityDoc } from '@doc/editor/accessibilitydoc';
+import { BasicDoc } from '@doc/editor/basicdoc';
+import { CustomToolbarDoc } from '@doc/editor/customtoolbardoc';
+import { ImportDoc } from '@doc/editor/importdoc';
+import { QuillDoc } from '@doc/editor/quilldoc';
+import { ReactiveFormsDoc } from '@doc/editor/reactiveformsdoc';
+import { ReadOnlyDoc } from '@doc/editor/readonlydoc';
+import { StyleDoc } from '@doc/editor/styledoc';
 
 @Component({
     templateUrl: './editordemo.html'

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/steps/basicdoc';
-import { ImportDoc } from '../../doc/steps/importdoc';
-import { InteractiveDoc } from '../../doc/steps/interactivedoc';
-import { StyleDoc } from '../../doc/steps/styledoc';
-import { RoutingDoc } from '../../doc/steps/routingdoc';
-import { AccessibilityDoc } from '../../doc/steps/accessibilitydoc';
+import { BasicDoc } from '@doc/steps/basicdoc';
+import { ImportDoc } from '@doc/steps/importdoc';
+import { InteractiveDoc } from '@doc/steps/interactivedoc';
+import { StyleDoc } from '@doc/steps/styledoc';
+import { RoutingDoc } from '@doc/steps/routingdoc';
+import { AccessibilityDoc } from '@doc/steps/accessibilitydoc';
 
 @Component({
     templateUrl: './stepsdemo.html',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;

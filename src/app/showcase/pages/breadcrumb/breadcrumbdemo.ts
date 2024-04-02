@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { StyleDoc } from '../../doc/breadcrumb/styledoc';
-import { BasicDoc } from '../../doc/breadcrumb/basicdoc';
-import { ImportDoc } from '../../doc/breadcrumb/importdoc';
-import { AccessibilityDoc } from '../../doc/breadcrumb/accessibilitydoc';
+import { StyleDoc } from '@doc/breadcrumb/styledoc';
+import { BasicDoc } from '@doc/breadcrumb/basicdoc';
+import { ImportDoc } from '@doc/breadcrumb/importdoc';
+import { AccessibilityDoc } from '@doc/breadcrumb/accessibilitydoc';
 
 @Component({
     templateUrl: './breadcrumbdemo.html'

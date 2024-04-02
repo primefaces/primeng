@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../../domain/code';
-import { PhotoService } from '../../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'hover-doc',
@@ -76,7 +76,7 @@ export class HoverDoc implements OnInit {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-navigator-hover-demo',

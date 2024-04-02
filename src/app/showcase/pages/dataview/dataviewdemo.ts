@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { StyleDoc } from '../../doc/dataview/styledoc';
-import { BasicDoc } from '../../doc/dataview/basicdoc';
-import { ImportDoc } from '../../doc/dataview/importdoc';
-import { LayoutDoc } from '../../doc/dataview/layoutdoc';
-import { PaginationDoc } from '../../doc/dataview/paginationdoc';
-import { SortingDoc } from '../../doc/dataview/sortingdoc';
-import { AccessibilityDoc } from '../../doc/dataview/accessibilitydoc';
+import { StyleDoc } from '@doc/dataview/styledoc';
+import { BasicDoc } from '@doc/dataview/basicdoc';
+import { ImportDoc } from '@doc/dataview/importdoc';
+import { LayoutDoc } from '@doc/dataview/layoutdoc';
+import { PaginationDoc } from '@doc/dataview/paginationdoc';
+import { SortingDoc } from '@doc/dataview/sortingdoc';
+import { AccessibilityDoc } from '@doc/dataview/accessibilitydoc';
 
 @Component({
     templateUrl: './dataviewdemo.html',

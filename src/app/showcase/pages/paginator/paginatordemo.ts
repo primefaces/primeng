@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/paginator/accessibilitydoc';
-import { BasicDoc } from '../../doc/paginator/basicdoc';
-import { ImagesDoc } from '../../doc/paginator/imagesdoc';
-import { ImportDoc } from '../../doc/paginator/importdoc';
-import { StyleDoc } from '../../doc/paginator/styledoc';
-import { TemplateDoc } from '../../doc/paginator/templatedoc';
-import { LocaleDoc } from '../../doc/paginator/localedoc';
+import { AccessibilityDoc } from '@doc/paginator/accessibilitydoc';
+import { BasicDoc } from '@doc/paginator/basicdoc';
+import { ImagesDoc } from '@doc/paginator/imagesdoc';
+import { ImportDoc } from '@doc/paginator/importdoc';
+import { StyleDoc } from '@doc/paginator/styledoc';
+import { TemplateDoc } from '@doc/paginator/templatedoc';
+import { LocaleDoc } from '@doc/paginator/localedoc';
 
 @Component({
     templateUrl: './paginatordemo.html',

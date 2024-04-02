@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsDoc } from '../../doc/selectbutton/reactiveformsdoc';
-import { AccessibilityDoc } from '../../doc/selectbutton/accessibilitydoc';
-import { BasicDoc } from '../../doc/selectbutton/basicdoc';
-import { DisabledDoc } from '../../doc/selectbutton/disableddoc';
-import { ImportDoc } from '../../doc/selectbutton/importdoc';
-import { InvalidDoc } from '../../doc/selectbutton/invaliddoc';
-import { MultipleDoc } from '../../doc/selectbutton/multipledoc';
-import { TemplateDoc } from '../../doc/selectbutton/templatedoc';
+import { ReactiveFormsDoc } from '@doc/selectbutton/reactiveformsdoc';
+import { AccessibilityDoc } from '@doc/selectbutton/accessibilitydoc';
+import { BasicDoc } from '@doc/selectbutton/basicdoc';
+import { DisabledDoc } from '@doc/selectbutton/disableddoc';
+import { ImportDoc } from '@doc/selectbutton/importdoc';
+import { InvalidDoc } from '@doc/selectbutton/invaliddoc';
+import { MultipleDoc } from '@doc/selectbutton/multipledoc';
+import { TemplateDoc } from '@doc/selectbutton/templatedoc';
 
 @Component({
     templateUrl: './selectbuttondemo.html'

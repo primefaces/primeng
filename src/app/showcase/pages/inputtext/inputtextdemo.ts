@@ -6,11 +6,11 @@ import { IconsDoc } from 'src/app/showcase/doc/inputtext/iconsdoc';
 import { ImportDoc } from 'src/app/showcase/doc/inputtext/importdoc';
 import { InvalidDoc } from 'src/app/showcase/doc/inputtext/invaliddoc';
 import { SizesDoc } from 'src/app/showcase/doc/inputtext/sizesdoc';
-import { AccessibilityDoc } from '../../doc/inputtext/accessibilitydoc';
-import { BasicDoc } from '../../doc/inputtext/basicdoc';
-import { KeyFilterDoc } from '../../doc/inputtext/keyfilterdoc';
-import { ReactiveFormsDoc } from '../../doc/inputtext/reactiveformsdoc';
-import { StyleDoc } from '../../doc/inputtext/styledoc';
+import { AccessibilityDoc } from '@doc/inputtext/accessibilitydoc';
+import { BasicDoc } from '@doc/inputtext/basicdoc';
+import { KeyFilterDoc } from '@doc/inputtext/keyfilterdoc';
+import { ReactiveFormsDoc } from '@doc/inputtext/reactiveformsdoc';
+import { StyleDoc } from '@doc/inputtext/styledoc';
 
 @Component({
     templateUrl: './inputtextdemo.html',

@@ -2,9 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
-import { PhotoService } from '../../service/photoservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'dock-advanced-demo',
@@ -471,8 +471,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { TerminalService } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
-import { NodeService } from '../../service/nodeservice';
-import { PhotoService } from '../../service/photoservice';
+import { NodeService } from '@service/nodeservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'dock-advanced-demo',

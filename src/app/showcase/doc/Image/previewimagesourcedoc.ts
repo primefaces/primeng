@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'image-preview-source-demo',
@@ -24,7 +24,7 @@ export class PreviewImageSourceDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+import { PhotoService } from '@service/photoservice';
         
 @Component({
     selector: 'image-preview-source-demo',

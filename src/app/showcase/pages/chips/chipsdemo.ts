@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/chips/importdoc';
-import { BasicDoc } from '../../doc/chips/basicdoc';
-import { CommaSeparatorDoc } from '../../doc/chips/commaseparator.doc';
-import { RegexpSeparatorDoc } from '../../doc/chips/regexpseparator.doc';
-import { TemplateDoc } from '../../doc/chips/templatedoc';
-import { StyleDoc } from '../../doc/chips/styledoc';
-import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
-import { MaxValuesDoc } from '../../doc/chips/maxvaluesdoc';
+import { ImportDoc } from '@doc/chips/importdoc';
+import { BasicDoc } from '@doc/chips/basicdoc';
+import { CommaSeparatorDoc } from '@doc/chips/commaseparator.doc';
+import { RegexpSeparatorDoc } from '@doc/chips/regexpseparator.doc';
+import { TemplateDoc } from '@doc/chips/templatedoc';
+import { StyleDoc } from '@doc/chips/styledoc';
+import { AccessibilityDoc } from '@doc/chips/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/chips/reactiveformsdoc';
+import { MaxValuesDoc } from '@doc/chips/maxvaluesdoc';
 
 @Component({
     templateUrl: './chipsdemo.html'

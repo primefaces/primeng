@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '@docaccordion/accessibilitydoc';
-import { BasicDoc } from '@docaccordion/basicdoc';
-import { ControlledDoc } from '@docaccordion/controlleddoc';
-import { DisabledDoc } from '@docaccordion/disableddoc';
-import { ImportDoc } from '@docaccordion/importdoc';
-import { MultipleDoc } from '@docaccordion/multipledoc';
-import { StyleDoc } from '@docaccordion/styledoc';
-import { TemplateDoc } from '@docaccordion/templatedoc';
-import { AccordionDocModule } from '@docaccordion/accordiondoc.module';
+import { AccessibilityDoc } from '@doc/accordion/accessibilitydoc';
+import { BasicDoc } from '@doc/accordion/basicdoc';
+import { ControlledDoc } from '@doc/accordion/controlleddoc';
+import { DisabledDoc } from '@doc/accordion/disableddoc';
+import { ImportDoc } from '@doc/accordion/importdoc';
+import { MultipleDoc } from '@doc/accordion/multipledoc';
+import { StyleDoc } from '@doc/accordion/styledoc';
+import { TemplateDoc } from '@doc/accordion/templatedoc';
+import { AccordionDocModule } from '@doc/accordion/accordiondoc.module';
 
 @Component({
     template: `<app-doc docTitle="Angular Accordion Component" header="Accordion" description="Accordion groups a collection of contents in tabs." [docs]="docs" [apiDocs]="['Accordion', 'AccordionTab']"></app-doc>`,

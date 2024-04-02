@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsDoc } from '../../doc/treeselect/reactiveformsdoc';
-import { AccessibilityDoc } from '../../doc/treeselect/accessibilitydoc';
-import { BasicDoc } from '../../doc/treeselect/basicdoc';
-import { CheckboxDoc } from '../../doc/treeselect/checkboxdoc';
-import { DisabledDoc } from '../../doc/treeselect/disableddoc';
-import { FilterDoc } from '../../doc/treeselect/filterdoc';
-import { FloatLabelDoc } from '../../doc/treeselect/floatlabeldoc';
-import { ImportDoc } from '../../doc/treeselect/importdoc';
-import { InvalidDoc } from '../../doc/treeselect/invaliddoc';
-import { MultipleDoc } from '../../doc/treeselect/multipledoc';
-import { StyleDoc } from '../../doc/treeselect/styledoc';
-import { VirtualScrollDoc } from '../../doc/treeselect/virtualscrolldoc';
+import { ReactiveFormsDoc } from '@doc/treeselect/reactiveformsdoc';
+import { AccessibilityDoc } from '@doc/treeselect/accessibilitydoc';
+import { BasicDoc } from '@doc/treeselect/basicdoc';
+import { CheckboxDoc } from '@doc/treeselect/checkboxdoc';
+import { DisabledDoc } from '@doc/treeselect/disableddoc';
+import { FilterDoc } from '@doc/treeselect/filterdoc';
+import { FloatLabelDoc } from '@doc/treeselect/floatlabeldoc';
+import { ImportDoc } from '@doc/treeselect/importdoc';
+import { InvalidDoc } from '@doc/treeselect/invaliddoc';
+import { MultipleDoc } from '@doc/treeselect/multipledoc';
+import { StyleDoc } from '@doc/treeselect/styledoc';
+import { VirtualScrollDoc } from '@doc/treeselect/virtualscrolldoc';
 
 @Component({
     templateUrl: './treeselectdemo.html'

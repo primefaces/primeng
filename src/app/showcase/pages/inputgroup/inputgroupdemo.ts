@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { MultipleDoc } from '../../doc/inputgroup/multipledoc';
-import { BasicDoc } from '../../doc/inputgroup/basicdoc';
-import { ImportDoc } from '../../doc/inputgroup/importdoc';
-import { ButtonDoc } from '../../doc/inputgroup/buttondoc';
-import { CheckboxDoc } from '../../doc/inputgroup/checkboxdoc';
+import { MultipleDoc } from '@doc/inputgroup/multipledoc';
+import { BasicDoc } from '@doc/inputgroup/basicdoc';
+import { ImportDoc } from '@doc/inputgroup/importdoc';
+import { ButtonDoc } from '@doc/inputgroup/buttondoc';
+import { CheckboxDoc } from '@doc/inputgroup/checkboxdoc';
 
 @Component({
     templateUrl: './inputgroupdemo.html'

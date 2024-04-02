@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'dropdown-virtualscroll-demo',

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { TreeTableModule } from 'primeng/treetable';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/app.code.component';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ButtonModule } from 'primeng/button';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';

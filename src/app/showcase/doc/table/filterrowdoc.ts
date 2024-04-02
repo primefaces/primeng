@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Code } from '../../domain/code';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'filter-row-doc',
@@ -371,8 +371,8 @@ export class FilterRowDoc {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { Table } from 'primeng/table';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'table-filter-row-demo',

@@ -6,7 +6,7 @@ import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 import { AppMenuItemComponent } from './app.menuitem.component';
 
 export interface MenuItem {

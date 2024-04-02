@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { LabelDoc } from '../../doc/checkbox/labeldoc';
-import { BasicDoc } from '../../doc/checkbox/basicdoc';
-import { ImportDoc } from '../../doc/checkbox/importdoc';
-import { MultipleDoc } from '../../doc/checkbox/multipledoc';
-import { DynamicDoc } from '../../doc/checkbox/dynamicdoc';
-import { DisabledDoc } from '../../doc/checkbox/disableddoc';
-import { InvalidDoc } from '../../doc/checkbox/invaliddoc';
-import { StyleDoc } from '../../doc/checkbox/styledoc';
-import { AccessibilityDoc } from '../../doc/checkbox/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/checkbox/reactiveformsdoc';
+import { LabelDoc } from '@doc/checkbox/labeldoc';
+import { BasicDoc } from '@doc/checkbox/basicdoc';
+import { ImportDoc } from '@doc/checkbox/importdoc';
+import { MultipleDoc } from '@doc/checkbox/multipledoc';
+import { DynamicDoc } from '@doc/checkbox/dynamicdoc';
+import { DisabledDoc } from '@doc/checkbox/disableddoc';
+import { InvalidDoc } from '@doc/checkbox/invaliddoc';
+import { StyleDoc } from '@doc/checkbox/styledoc';
+import { AccessibilityDoc } from '@doc/checkbox/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/checkbox/reactiveformsdoc';
 
 @Component({
     templateUrl: './checkboxdemo.html'

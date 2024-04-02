@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/dialog/basicdoc';
-import { ImportDoc } from '../../doc/dialog/importdoc';
-import { LongContentDoc } from '../../doc/dialog/longcontentdoc';
-import { StyleDoc } from '../../doc/dialog/styledoc';
-import { ResponsiveDoc } from '../../doc/dialog/responsivedoc';
-import { PositionDoc } from '../../doc/dialog/positiondoc';
-import { MaximizableDoc } from '../../doc/dialog/maximizabledoc';
-import { TemplateDoc } from '../../doc/dialog/templatedoc';
-import { OverlaysInsideDoc } from '../../doc/dialog/overlaysinsidedoc';
-import { ModalDoc } from '../../doc/dialog/modaldoc';
-import { HeadlessDoc } from '../../doc/dialog/headlessdoc';
-import { AccessibilityDoc } from '../../doc/dialog/accessibilitydoc';
+import { BasicDoc } from '@doc/dialog/basicdoc';
+import { ImportDoc } from '@doc/dialog/importdoc';
+import { LongContentDoc } from '@doc/dialog/longcontentdoc';
+import { StyleDoc } from '@doc/dialog/styledoc';
+import { ResponsiveDoc } from '@doc/dialog/responsivedoc';
+import { PositionDoc } from '@doc/dialog/positiondoc';
+import { MaximizableDoc } from '@doc/dialog/maximizabledoc';
+import { TemplateDoc } from '@doc/dialog/templatedoc';
+import { OverlaysInsideDoc } from '@doc/dialog/overlaysinsidedoc';
+import { ModalDoc } from '@doc/dialog/modaldoc';
+import { HeadlessDoc } from '@doc/dialog/headlessdoc';
+import { AccessibilityDoc } from '@doc/dialog/accessibilitydoc';
 
 @Component({
     templateUrl: './dialogdemo.html'
