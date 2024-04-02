@@ -1,27 +1,25 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BasicDoc } from '../../doc/autocomplete/basicdoc';
-import { GroupedDoc } from '../../doc/autocomplete/groupeddoc';
-import { ImportDoc } from '../../doc/autocomplete/importdoc';
-import { MultipleDoc } from '../../doc/autocomplete/multipledoc';
-import { StyleDoc } from '../../doc/autocomplete/styledoc';
-import { TemplateDoc } from '../../doc/autocomplete/templatedoc';
-import { VirtualScrollDoc } from '../../doc/autocomplete/virtualscrolldoc';
-import { AccessibilityDoc } from '../../doc/autocomplete/accessibilitydoc';
-import { DropdownDoc } from '../../doc/autocomplete/dropdowndoc';
-import { ForceSelectionDoc } from '../../doc/autocomplete/forceselectiondoc';
-import { ObjectsDoc } from '../../doc/autocomplete/objectsdoc';
-import { ReactiveFormsDoc } from '../../doc/autocomplete/reactiveformsdoc';
-import { FloatLabelDoc } from '../../doc/autocomplete/floatlabeldoc';
-import { DisabledDoc } from '../../doc/autocomplete/disableddoc';
-import { InvalidDoc } from '../../doc/autocomplete/invaliddoc';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/app.code.component';
+import { BasicDoc } from '@doc/autocomplete/basicdoc';
+import { GroupedDoc } from '@doc/autocomplete/groupeddoc';
+import { ImportDoc } from '@doc/autocomplete/importdoc';
+import { MultipleDoc } from '@doc/autocomplete/multipledoc';
+import { StyleDoc } from '@doc/autocomplete/styledoc';
+import { TemplateDoc } from '@doc/autocomplete/templatedoc';
+import { VirtualScrollDoc } from '@doc/autocomplete/virtualscrolldoc';
+import { AccessibilityDoc } from '@doc/autocomplete/accessibilitydoc';
+import { DropdownDoc } from '@doc/autocomplete/dropdowndoc';
+import { ForceSelectionDoc } from '@doc/autocomplete/forceselectiondoc';
+import { ObjectsDoc } from '@doc/autocomplete/objectsdoc';
+import { ReactiveFormsDoc } from '@doc/autocomplete/reactiveformsdoc';
+import { FloatLabelDoc } from '@doc/autocomplete/floatlabeldoc';
+import { DisabledDoc } from '@doc/autocomplete/disableddoc';
+import { InvalidDoc } from '@doc/autocomplete/invaliddoc';
+import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module';
 
 @Component({
     template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
     standalone: true,
-    imports: [AppDocModule, AppCodeModule],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    imports: [AutoCompleteDocModule]
 })
 export class AutoCompleteDemo {
     docs = [

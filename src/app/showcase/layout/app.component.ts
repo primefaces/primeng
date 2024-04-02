@@ -6,7 +6,7 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { Theme } from '../domain/theme';
-import { LandingComponent } from '../pages/landing/landing.component';
+import { LandingComponent } from '@pages/landing/landing.component';
 import { AppConfigService } from '../service/appconfigservice';
 import { CarService } from '../service/carservice';
 import { CountryService } from '../service/countryservice';

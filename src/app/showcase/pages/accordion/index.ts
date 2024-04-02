@@ -1,16 +1,22 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/accordion/accessibilitydoc';
-import { BasicDoc } from '../../doc/accordion/basicdoc';
-import { ControlledDoc } from '../../doc/accordion/controlleddoc';
-import { DisabledDoc } from '../../doc/accordion/disableddoc';
-import { ImportDoc } from '../../doc/accordion/importdoc';
-import { MultipleDoc } from '../../doc/accordion/multipledoc';
-import { StyleDoc } from '../../doc/accordion/styledoc';
-import { TemplateDoc } from '../../doc/accordion/templatedoc';
+import { AccessibilityDoc } from '@docaccordion/accessibilitydoc';
+import { BasicDoc } from '@docaccordion/basicdoc';
+import { ControlledDoc } from '@docaccordion/controlleddoc';
+import { DisabledDoc } from '@docaccordion/disableddoc';
+import { ImportDoc } from '@docaccordion/importdoc';
+import { MultipleDoc } from '@docaccordion/multipledoc';
+import { StyleDoc } from '@docaccordion/styledoc';
+import { TemplateDoc } from '@docaccordion/templatedoc';
+import { AccordionDocModule } from '@docaccordion/accordiondoc.module';
 
 @Component({
-    templateUrl: './accordiondemo.html',
-    styleUrls: ['./accordiondemo.scss']
+    template: `<app-doc docTitle="Angular Accordion Component" header="Accordion" description="Accordion groups a collection of contents in tabs." [docs]="docs" [apiDocs]="['Accordion', 'AccordionTab']"></app-doc>`,
+    imports: [AccordionDocModule],
+    standalone: true,
+    styles: `:host ::ng-deep .p-accordion p {
+        line-height: 1.5;
+        margin: 0;
+    }`
 })
 export class AccordionDemo {
     docs = [

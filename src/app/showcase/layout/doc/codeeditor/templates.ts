@@ -352,7 +352,11 @@ const tsconfig_json = `{
       "lib": [
         "es2022",
         "dom"
-      ]
+      ],
+      "paths": {
+        "@domain/*": ["src/domain/*"],
+        "@service/*": ["src/service/*"]
+      }
     }
 }`;
 
