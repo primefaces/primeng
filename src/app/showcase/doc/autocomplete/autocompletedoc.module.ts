@@ -8,7 +8,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';
-import { GroupedDoc } from './groupeddoc';
+import { GroupDoc } from './groupdoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { MultipleDoc } from './multipledoc';
 import { StyleDoc } from './styledoc';
@@ -25,6 +25,6 @@ import { FilledDoc } from './filleddoc';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc]
 })
 export class AutoCompleteDocModule {}

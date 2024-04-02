@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedCountry" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"/>
         </div>
         <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>`
 })
@@ -50,16 +50,25 @@ export class ObjectsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedCountry" 
+    [suggestions]="filteredCountries" 
+    (completeMethod)="filterCountry($event)" 
+    field="name"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        [(ngModel)]="selectedCountry" 
+        [suggestions]="filteredCountries" 
+        (completeMethod)="filterCountry($event)" 
+        field="name"/>
 </div>`,
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -68,7 +77,11 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-objects-demo',
-    templateUrl: './autocomplete-objects-demo.html'
+    templateUrl: './autocomplete-objects-demo.html',
+    standalone: true,
+    imports: [AutoCompleteModule, FormsModule],
+    providers: [CountryService]
+
 })
 export class AutocompleteObjectsDemo implements OnInit {
     countries: any[] | undefined;

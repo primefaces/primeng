@@ -13,7 +13,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <span class="p-float-label">
-                <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"></p-autoComplete>
+                <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"/>
                 <label for="float-label">Float Label</label>
             </span>
         </div>
@@ -32,20 +32,29 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<span class="p-float-label">
-    <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"></p-autoComplete>
+    <p-autoComplete 
+        [(ngModel)]="selectedItem" 
+        [suggestions]="suggestions" 
+        (completeMethod)="search($event)" 
+        inputId="float-label"/>
     <label for="float-label">Float Label</label>
 </span>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <span class="p-float-label">
-        <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"></p-autoComplete>
+        <p-autoComplete 
+            [(ngModel)]="selectedItem" 
+            [suggestions]="suggestions" 
+            (completeMethod)="search($event)" 
+            inputId="float-label"/>
         <label for="float-label">Float Label</label>
     </span>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -55,7 +64,8 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-float-label-demo',
     templateUrl: './autocomplete-float-label-demo.html',
-    styleUrls: ['./autocomplete-float-label-demo.scss']
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteFloatLabelDemo {
     items: any[] | undefined;

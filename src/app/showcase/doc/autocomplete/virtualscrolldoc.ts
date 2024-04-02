@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"/>
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
 })
@@ -49,15 +49,30 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedItem" 
+    [virtualScroll]="true" 
+    [suggestions]="filteredItems" 
+    [virtualScrollItemSize]="34" 
+    (completeMethod)="filterItems($event)" 
+    field="label" 
+    [dropdown]="true"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true"> </p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        [(ngModel)]="selectedItem" 
+        [virtualScroll]="true" 
+        [suggestions]="filteredItems" 
+        [virtualScrollItemSize]="34" 
+        (completeMethod)="filterItems($event)" 
+        field="label" 
+        [dropdown]="true"/>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -66,7 +81,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-virtual-scroll-demo',
-    templateUrl: './autocomplete-virtual-scroll-demo.html'
+    templateUrl: './autocomplete-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteVirtualScrollDemo {
     selectedItem: any;

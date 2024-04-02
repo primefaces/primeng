@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BasicDoc } from '@doc/autocomplete/basicdoc';
-import { GroupedDoc } from '@doc/autocomplete/groupeddoc';
+import { GroupDoc } from '@doc/autocomplete/groupdoc';
 import { ImportDoc } from '@doc/autocomplete/importdoc';
 import { MultipleDoc } from '@doc/autocomplete/multipledoc';
 import { StyleDoc } from '@doc/autocomplete/styledoc';
@@ -56,9 +56,9 @@ export class AutoCompleteDemo {
             component: TemplateDoc
         },
         {
-            id: 'grouped',
-            label: 'Grouped',
-            component: GroupedDoc
+            id: 'group',
+            label: 'Group',
+            component: GroupDoc
         },
         {
             id: 'forceselection',

@@ -12,7 +12,7 @@ interface AutoCompleteCompleteEvent {
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete variant="filled" [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" placeholder="Search"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" variant="filled"/>
         </div>
         <app-code [code]="code" selector="autocomplete-filled-demo"></app-code>`
 })
@@ -28,18 +28,18 @@ export class FilledDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete 
-    [(ngModel)]="selectedItem" 
-    [suggestions]="suggestions" 
-    (completeMethod)="search($event)" 
-/>`,
-
-        html: `<div class="card flex justify-content-center">
-<p-autoComplete 
+        basic: `<p-autoComplete
     [(ngModel)]="selectedItem"
     [suggestions]="suggestions"
     (completeMethod)="search($event)"
-/>
+    variant="filled"/>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete
+        [(ngModel)]="selectedItem"
+        [suggestions]="suggestions"
+        (completeMethod)="search($event)"
+        variant="filled"/>
 </div>`,
 
         typescript: `
@@ -53,12 +53,12 @@ interface AutoCompleteCompleteEvent {
 }
 
 @Component({
-    selector: 'autocomplete-basic-demo',
-    templateUrl: './autocomplete-basic-demo.html',
+    selector: 'autocomplete-filled-demo',
+    templateUrl: './autocomplete-filled-demo.html',
     imports: [AutoCompleteModule, FormsModule],
     standalone: true,
 })
-export class AutocompleteBasicDemo {
+export class AutocompleteFilledDemo {
     items: any[] | undefined;
 
     selectedItem: any;
