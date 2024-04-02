@@ -1347,6 +1347,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.clicked.set(false);
         this.searchValue = '';
 
+        if (this.overlayOptions?.mode === 'modal') {
+            DomHandler.unblockBodyScroll();
+        }
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
