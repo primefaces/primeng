@@ -32,7 +32,6 @@ export class ExampleDoc implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
-            closeAriaLabel: "Close",
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'
@@ -98,7 +97,6 @@ export class DynamicDialogExampleDemo implements OnDestroy {
             header: 'Select a Product',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
-            closeAriaLabel: "Close",
             breakpoints: {
                 '960px': '75vw',
                 '640px': '90vw'

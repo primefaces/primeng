@@ -20,7 +20,7 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { PrimeNGConfig, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
@@ -200,7 +200,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get closeAriaLabel(): string {
-        return this.config.closeAriaLabel!;
+        return this.primeNGConfig.getTranslation(TranslationKeys.ARIA)['close'];
     }
 
     set style(value: any) {
