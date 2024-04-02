@@ -607,6 +607,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
@@ -802,7 +807,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     get multiContainerClass() {
-        return 'p-autocomplete-multiple-container p-component p-inputtext';
+        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled' };
     }
 
     get panelClass() {
@@ -816,7 +821,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     get inputClass() {
         return {
             'p-autocomplete-input p-inputtext p-component': !this.multiple,
-            'p-autocomplete-dd-input': this.dropdown
+            'p-autocomplete-dd-input': this.dropdown,
+            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled'
         };
     }
 

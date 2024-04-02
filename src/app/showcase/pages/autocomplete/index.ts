@@ -15,11 +15,13 @@ import { FloatLabelDoc } from '@doc/autocomplete/floatlabeldoc';
 import { DisabledDoc } from '@doc/autocomplete/disableddoc';
 import { InvalidDoc } from '@doc/autocomplete/invaliddoc';
 import { AutoCompleteDocModule } from '@doc/autocomplete/autocompletedoc.module';
+import { FilledDoc } from '@doc/autocomplete/filleddoc';
 
 @Component({
     template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
     standalone: true,
-    imports: [AutoCompleteDocModule]
+    imports: [AutoCompleteDocModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
     docs = [
@@ -77,6 +79,11 @@ export class AutoCompleteDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'disabled',

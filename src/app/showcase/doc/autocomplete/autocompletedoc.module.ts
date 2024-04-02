@@ -20,10 +20,11 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { DisabledDoc } from './disableddoc';
 import { InvalidDoc } from './invaliddoc';
+import { FilledDoc } from './filleddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupedDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc]
 })
 export class AutoCompleteDocModule {}
