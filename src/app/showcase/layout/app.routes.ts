@@ -21,7 +21,7 @@ export const routes: Routes = [
             { path: 'customicons', loadChildren: () => import('../pages/customicons/customiconsdemo.module').then((m) => m.CustomIconsDemoModule) },
             { path: 'accordion', loadChildren: () => import('../pages/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },
             { path: 'avatar', loadChildren: () => import('../pages/avatar/avatardemo.module').then((m) => m.AvatarDemoModule) },
-            { path: 'autocomplete', loadChildren: () => import('../pages/autocomplete/autocompletedemo.module').then((m) => m.AutoCompleteDemoModule) },
+            { path: 'autocomplete', loadChildren: () => import('../pages/autocomplete/index').then((m) => m.AutoCompleteDemo) },
             { path: 'blockui', loadChildren: () => import('../pages/blockui/blockuidemo.module').then((m) => m.BlockUIDemoModule) },
             { path: 'badge', loadChildren: () => import('../pages/badge/badgedemo.module').then((m) => m.BadgeDemoModule) },
             { path: 'breadcrumb', loadChildren: () => import('../pages/breadcrumb/breadcrumbdemo.module').then((m) => m.BreadcrumbDemoModule) },

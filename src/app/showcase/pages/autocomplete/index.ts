@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BasicDoc } from '../../doc/autocomplete/basicdoc';
 import { GroupedDoc } from '../../doc/autocomplete/groupeddoc';
 import { ImportDoc } from '../../doc/autocomplete/importdoc';
@@ -14,8 +14,14 @@ import { ReactiveFormsDoc } from '../../doc/autocomplete/reactiveformsdoc';
 import { FloatLabelDoc } from '../../doc/autocomplete/floatlabeldoc';
 import { DisabledDoc } from '../../doc/autocomplete/disableddoc';
 import { InvalidDoc } from '../../doc/autocomplete/invaliddoc';
+import { AppDocModule } from '../../layout/doc/app.doc.module';
+import { AppCodeModule } from '../../layout/doc/app.code.component';
+
 @Component({
-    templateUrl: './autocompletedemo.html'
+    template: `<app-doc docTitle="Angular AutoComplete Component" header="AutoComplete" description="AutoComplete is an input component that provides real-time suggestions when being typed." [docs]="docs" [apiDocs]="['AutoComplete']"></app-doc>`,
+    standalone: true,
+    imports: [AppDocModule, AppCodeModule],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutoCompleteDemo {
     docs = [
