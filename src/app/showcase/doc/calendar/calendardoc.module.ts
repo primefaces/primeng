@@ -32,6 +32,7 @@ import { TemplatesDoc } from './templatesdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { InvalidDoc } from './invaliddoc';
 import { DisabledDoc } from './disableddoc';
+import { FilledDoc } from './filleddoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
@@ -62,6 +63,7 @@ import { DisabledDoc } from './disableddoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FloatLabelDoc,
+        FilledDoc,
         InvalidDoc,
         DisabledDoc
     ]
