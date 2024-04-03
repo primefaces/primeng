@@ -510,6 +510,11 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Transition options of the hide animation.
      * @group Props
      * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
@@ -629,6 +634,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             'p-disabled': this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue(),
+            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled',
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-overlay-open': this.overlayVisible
         };

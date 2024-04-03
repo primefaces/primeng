@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+            <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"/>
         </div>
         <app-code [code]="code" selector="cascade-select-basic-demo"></app-code>
     `
@@ -99,19 +99,36 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>`,
+        basic: `<p-cascadeSelect 
+    [(ngModel)]="selectedCity" 
+    [options]="countries" 
+    optionLabel="cname" 
+    optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" 
+    [style]="{ minWidth: '14rem' }"
+    placeholder="Select a City"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-cascadeSelect 
+        [(ngModel)]="selectedCity" 
+        [options]="countries" 
+        optionLabel="cname"
+        optionGroupLabel="name" 
+        [optionGroupChildren]="['states', 'cities']" 
+        [style]="{ minWidth: '14rem' }" 
+        placeholder="Select a City"/>
 </div>`,
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-basic-demo',
-    templateUrl: './cascade-select-basic-demo.html'
+    templateUrl: './cascade-select-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, CascadeSelectModule]
 })
 export class CascadeSelectBasicDemo implements OnInit {
     countries: any[] | undefined;
