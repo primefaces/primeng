@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { LabelDoc } from '@doc/checkbox/labeldoc';
 import { BasicDoc } from '@doc/checkbox/basicdoc';
 import { ImportDoc } from '@doc/checkbox/importdoc';
 import { MultipleDoc } from '@doc/checkbox/multipledoc';
@@ -34,11 +33,6 @@ export class CheckboxDemo {
             id: 'group',
             label: 'Group',
             component: MultipleDoc
-        },
-        {
-            id: 'label',
-            label: 'Label',
-            component: LabelDoc
         },
         {
             id: 'dynamic',
