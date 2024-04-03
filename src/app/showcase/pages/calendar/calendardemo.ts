@@ -12,15 +12,10 @@ import { TimeDoc } from '@doc/calendar/timedoc';
 import { MonthDoc } from '@doc/calendar/monthdoc';
 import { YearDoc } from '@doc/calendar/yeardoc';
 import { MultipleMonthDoc } from '@doc/calendar/multiplemonths.doc';
-import { TemplateDoc } from '@doc/calendar/templatedoc';
 import { InlineDoc } from '@doc/calendar/inlinedoc';
 import { TouchUIDoc } from '@doc/calendar/touchuidoc';
 import { DateTemplateDoc } from '@doc/calendar/datetemplatedoc';
-import { PropsDoc } from '@doc/calendar/propsdoc';
 import { StyleDoc } from '@doc/calendar/styledoc';
-import { TemplatesDoc } from '@doc/calendar/templatesdoc';
-import { EventsDoc } from '@doc/calendar/eventsdoc';
-import { MethodsDoc } from '@doc/calendar/methodsdoc';
 import { AccessibilityDoc } from '@doc/calendar/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/calendar/reactiveformsdoc';
 import { FloatLabelDoc } from '@doc/calendar/floatlabeldoc';
@@ -100,11 +95,6 @@ export class CalendarDemo {
             id: 'multiplemonths',
             label: 'Multiple Months',
             component: MultipleMonthDoc
-        },
-        {
-            id: 'customcontent',
-            label: 'Custom Content',
-            component: TemplateDoc
         },
         {
             id: 'datetemplate',

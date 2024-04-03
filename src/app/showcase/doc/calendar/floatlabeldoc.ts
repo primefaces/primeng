@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <span class="p-float-label">
-                <p-calendar [(ngModel)]="date" inputId="birth_date"></p-calendar>
+                <p-calendar [(ngModel)]="date" inputId="birth_date"/>
                 <label for="birth_date">Birth Date</label>
             </span>
         </div>
@@ -21,23 +21,31 @@ export class FloatLabelDoc {
 
     code: Code = {
         basic: `<span class="p-float-label">
-    <p-calendar [(ngModel)]="date" inputId="birth_date"></p-calendar>
+    <p-calendar 
+        [(ngModel)]="date" 
+        inputId="birth_date"/>
     <label for="birth_date">Birth Date</label>
 </span>`,
 
         html: `<div class="card flex justify-content-center">
     <span class="p-float-label">
-    <p-calendar [(ngModel)]="date" inputId="birth_date"></p-calendar>
-    <label for="birth_date">Birth Date</label>
+        <p-calendar 
+            [(ngModel)]="date" 
+            inputId="birth_date"/>
+        <label for="birth_date">Birth Date</label>
     </span>
 </div>`,
 
         typescript: `
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'calendar-float-label-demo',
-    templateUrl: './calendar-float-label-demo.html'
+    templateUrl: './calendar-float-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, CalendarModule]
 })
 export class CalendarFloatLabelDemo {
     date: Date | undefined;
