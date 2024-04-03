@@ -9,6 +9,7 @@ import { StyleDoc } from '@doc/cascadeselect/styledoc';
 import { TemplateDoc } from '@doc/cascadeselect/templatedoc';
 import { DisabledDoc } from '@doc/cascadeselect/disableddoc';
 import { FilledDoc } from '@doc/cascadeselect/filleddoc';
+import { LoadingDoc } from '@doc/cascadeselect/loadingdoc';
 
 @Component({
     templateUrl: './cascadeselectdemo.html'
@@ -34,6 +35,11 @@ export class CascadeSelectDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            component: LoadingDoc
         },
         {
             id: 'float-label',

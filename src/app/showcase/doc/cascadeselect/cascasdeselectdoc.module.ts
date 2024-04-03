@@ -15,9 +15,10 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
+import { LoadingDoc } from './loadingdoc';
 @NgModule({
     imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingDoc]
 })
 export class CascadeSelectDocModule {}
