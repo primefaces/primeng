@@ -297,7 +297,6 @@ export class CascadeSelectSub implements OnInit {
                 <div #panel class="p-cascadeselect-panel p-component" [class]="panelStyleClass" [ngStyle]="panelStyle" [attr.data-pc-section]="'panel'">
                     <div class="p-cascadeselect-items-wrapper" [attr.data-pc-section]="'wrapper'">
                         <p-cascadeSelectSub
-                            class="p-cascadeselect-items"
                             [options]="processedOptions"
                             [selectId]="id"
                             [focusedOptionId]="focused ? focusedOptionId : undefined"
@@ -714,7 +713,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.options) {
             this.processedOptions = this.createProcessedOptions(changes.options.currentValue || []);
-            this.updateModel(null)
+            this.updateModel(null);
         }
     }
 
