@@ -1435,10 +1435,14 @@
     background: #334155;
   }
   .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled).p-focus {
-    color: #0f172a;
-    background: #e2e8f0;
+    color: #1e293b;
+    background: #f1f5f9;
   }
   .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover {
+    color: #1e293b;
+    background: #f1f5f9;
+  }
+  .p-listbox:not(.p-disabled) .p-listbox-item:not(.p-highlight):not(.p-disabled):hover.p-focus {
     color: #1e293b;
     background: #f1f5f9;
   }

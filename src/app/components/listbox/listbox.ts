@@ -596,7 +596,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     get containerClass() {
         return {
             'p-listbox p-component': true,
-            'p-focus': this.focused,
             'p-disabled': this.disabled
         };
     }
