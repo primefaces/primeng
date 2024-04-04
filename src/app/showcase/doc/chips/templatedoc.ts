@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card p-fluid">
             <p-chips [(ngModel)]="values">
-                <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i> </ng-template>
+                <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i></ng-template>
             </p-chips>
         </div>
         <app-code [code]="code" selector="chips-template-demo"></app-code>
@@ -20,22 +20,28 @@ export class TemplateDoc {
 
     code: Code = {
         basic: `<p-chips [(ngModel)]="values">
-    <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i> </ng-template>
+    <ng-template let-item pTemplate="item">
+        {{ item }} - (active) <i class="pi pi-user ml-2"></i> 
+     </ng-template>
 </p-chips>`,
 
-        html: `
-<div class="card p-fluid">
+        html: `<div class="card p-fluid">
     <p-chips [(ngModel)]="values">
-        <ng-template let-item pTemplate="item"> {{ item }} - (active) <i class="pi pi-user ml-2"></i> </ng-template>
+        <ng-template let-item pTemplate="item">
+            {{ item }} - (active) <i class="pi pi-user ml-2"></i>
+        </ng-template>
     </p-chips>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ChipsModule } from 'primeng/chips';
 
 @Component({
     selector: 'chips-template-demo',
-    templateUrl: './chips-template-demo.html'
+    templateUrl: './chips-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, ChipsModule]
 })
 export class ChipsTemplateDemo {
     values: string[] | undefined;
