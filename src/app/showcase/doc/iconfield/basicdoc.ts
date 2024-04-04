@@ -45,13 +45,18 @@ export class BasicDoc {
     </p-iconField>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'iconfield-basic-demo',
-    templateUrl: './iconfield-basic-demo.html'
+    templateUrl: './iconfield-basic-demo.html',
+    standalone: true,
+    imports: [InputIconModule, IconFieldModule, InputTextModule, FormsModule]
 })
-export class IconFieldBasicDemo {}`
+export class IconfieldBasicDemo {}`
     };
 }
