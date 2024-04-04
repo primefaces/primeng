@@ -4,6 +4,7 @@ import { BasicDoc } from '@doc/inputgroup/basicdoc';
 import { ImportDoc } from '@doc/inputgroup/importdoc';
 import { ButtonDoc } from '@doc/inputgroup/buttondoc';
 import { CheckboxDoc } from '@doc/inputgroup/checkboxdoc';
+import { AccessibilityDoc } from '@doc/inputgroup/accessibilitydoc';
 
 @Component({
     templateUrl: './inputgroupdemo.html'
@@ -32,8 +33,13 @@ export class InputGroupDemo {
         },
         {
             id: 'checkbox',
-            label: 'Checkbox & RadioButton',
+            label: 'Check & Radio',
             component: CheckboxDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
         }
     ];
 }

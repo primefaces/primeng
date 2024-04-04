@@ -57,12 +57,18 @@ export class ButtonDoc {
     </p-inputGroup>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'input-group-button-demo',
-    templateUrl: './input-group-button-demo.html'
+    templateUrl: './input-group-button-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule, ButtonModule]
 })
 export class InputGroupButtonDemo {
 }`

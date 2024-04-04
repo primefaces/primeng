@@ -63,12 +63,17 @@ export class BasicDoc {
     </p-inputGroup>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'input-group-basic-demo',
-    templateUrl: './input-group-basic-demo.html'
+    templateUrl: './input-group-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule]
 })
 export class InputGroupBasicDemo { }`
     };
