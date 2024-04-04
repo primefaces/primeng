@@ -30,66 +30,65 @@ export class MultipleDoc {
     code: Code = {
         basic: `<div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"/>
+        [(ngModel)]="pizza"
         label="Cheese" 
         name="pizza" 
-        value="Cheese" 
+        value="Cheese"/>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"/>
+        [(ngModel)]="pizza"
         label="Mushroom"
         name="pizza" 
-        value="Mushroom" 
+        value="Mushroom"/>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"/>
+        [(ngModel)]="pizza"
         label="Pepper" 
         name="pizza" 
-        value="Pepper" 
+        value="Pepper"/>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"/>
+        [(ngModel)]="pizza"
         label="Onion" 
         name="pizza" 
-        value="Onion" 
+        value="Onion"/>
 </div>`,
 
         html: `<div class="card flex justify-content-center gap-3">
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"/>
+            [(ngModel)]="pizza"
             label="Cheese" 
             name="pizza" 
-            value="Cheese" 
+            value="Cheese"/>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"/>
+            [(ngModel)]="pizza"
             label="Mushroom"
             name="pizza" 
-            value="Mushroom" 
+            value="Mushroom"/>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"/>
+            [(ngModel)]="pizza"
             label="Pepper" 
             name="pizza" 
-            value="Pepper" 
+            value="Pepper"/>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"/>
+            [(ngModel)]="pizza"
             label="Onion" 
             name="pizza" 
-            value="Onion" 
+            value="Onion"/>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 
