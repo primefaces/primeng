@@ -32,12 +32,14 @@ export class BasicDoc {
     </p-floatLabel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-        
+        typescript: `import { Component } from '@angular/core';
+import { FloatLabelModule } from "primeng/floatlabel"  
+
 @Component({
     selector: 'float-label-basic-demo',
-    templateUrl: './float-label-basic-demo.html'
+    templateUrl: './float-label-basic-demo.html',
+    standalone: true,
+    imports: [FloatLabelModule]
 })
 export class FloatLabelBasicDemo {
     value: string | undefined;
