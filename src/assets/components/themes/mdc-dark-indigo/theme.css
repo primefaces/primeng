@@ -1719,6 +1719,9 @@
   .p-rating .p-rating-item {
     border-radius: 50%;
     outline-color: transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
   .p-rating .p-rating-item .p-rating-icon {
     color: #9FA8DA;
@@ -7612,6 +7615,8 @@
     border-radius: 50%;
     width: 2rem;
     height: 2rem;
+    align-items: center;
+    display: inline-flex;
     justify-content: center;
   }
   .p-rating .p-rating-item.p-focus {

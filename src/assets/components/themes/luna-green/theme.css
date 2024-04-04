@@ -1704,6 +1704,9 @@
   .p-rating .p-rating-item {
     border-radius: 50%;
     outline-color: transparent;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
   .p-rating .p-rating-item .p-rating-icon {
     color: #dedede;
