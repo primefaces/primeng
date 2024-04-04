@@ -4944,6 +4944,7 @@
     color: #212529;
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: none;
+    border-radius: 4px;
   }
   .p-megamenu .p-submenu-header {
     margin: 0;

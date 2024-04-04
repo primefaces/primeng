@@ -4908,6 +4908,7 @@
     color: #666666;
     border: 1px solid #eaeaea;
     box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 2px;
   }
   .p-megamenu .p-submenu-header {
     margin: 0;
