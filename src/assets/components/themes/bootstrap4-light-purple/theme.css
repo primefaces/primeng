@@ -5197,6 +5197,7 @@
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: none;
     width: 12.5rem;
+    border-radius: 4px;
   }
   .p-menubar .p-submenu-list .p-menuitem-separator {
     border-top: 1px solid #dee2e6;
