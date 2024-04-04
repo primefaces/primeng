@@ -20,7 +20,7 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { InputTextModule } from 'primeng/inputtext';
@@ -55,7 +55,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         >
             <ul
                 #container
-                [ngClass]="{ 'p-inputtext p-chips-multiple-container': true }"
+                [ngClass]="{ 'p-inputtext p-chips-multiple-container': true, 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
                 tabindex="-1"
                 role="listbox"
                 [attr.aria-labelledby]="ariaLabelledBy"
@@ -226,6 +226,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Callback to invoke on chip add.
      * @param {ChipsAddEvent} event - Custom chip add event.
      * @group Emits
@@ -297,7 +302,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         return this.max && this.value && this.max === this.value.length;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

@@ -16,9 +16,10 @@ import { RouterDoc } from './routerdoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { MessageService } from 'primeng/api';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule, BadgeModule, ToastModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, TieredMenuModule, ButtonModule, AppDocModule, BadgeModule, ToastModule, FloatLabelModule],
     declarations: [BasicDoc, ImportDoc, PopupDoc, StyleDoc, AccessibilityDoc, TemplateDoc, CommandDoc, RouterDoc],
     exports: [AppDocModule],
     providers: [MessageService]
