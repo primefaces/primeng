@@ -37,14 +37,14 @@ export class InputMaskDemo {
             component: MaskDoc
         },
         {
-            id: 'slotchar',
-            label: 'Slot Char',
-            component: SlotCharDoc
-        },
-        {
             id: 'optional',
             label: 'Optional',
             component: OptionalDoc
+        },
+        {
+            id: 'slotchar',
+            label: 'Slot Char',
+            component: SlotCharDoc
         },
         {
             id: 'floatlabel',
@@ -52,14 +52,14 @@ export class InputMaskDemo {
             component: FloatlabelDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
-        },
-        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'style',

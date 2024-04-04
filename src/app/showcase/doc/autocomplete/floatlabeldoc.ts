@@ -9,11 +9,11 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'float-label-doc',
     template: ` <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused.</p>
+            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <span class="p-float-label">
-                <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label"/>
+                <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label" />
                 <label for="float-label">Float Label</label>
             </span>
         </div>

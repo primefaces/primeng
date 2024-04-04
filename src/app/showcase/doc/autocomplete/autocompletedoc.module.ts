@@ -23,7 +23,7 @@ import { InvalidDoc } from './invaliddoc';
 import { FilledDoc } from './filleddoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, FormsModule, AppDocModule, AutoCompleteModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, GroupDoc, VirtualScrollDoc, MultipleDoc, StyleDoc, AccessibilityDoc, DropdownDoc, ForceSelectionDoc, ObjectsDoc, ReactiveFormsDoc, FloatLabelDoc, DisabledDoc, InvalidDoc, FilledDoc]
 })

@@ -16,9 +16,10 @@ import { OptionalDoc } from './optionaldoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { SlotCharDoc } from './slotchardoc';
 import { StyleDoc } from './styledoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, InputMaskModule, RouterModule, AppCodeModule, AppDocModule, FloatLabelModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, MaskDoc, SlotCharDoc, OptionalDoc, FloatlabelDoc, DisabledDoc, InvalidDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
 })
