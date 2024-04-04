@@ -1553,7 +1553,7 @@
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled).p-focus {
     color: #495057;
-    background: #dee2e6;
+    background: #e9ecef;
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: #495057;

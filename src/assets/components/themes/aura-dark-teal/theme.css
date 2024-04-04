@@ -1570,7 +1570,7 @@
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled).p-focus {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: #ffffff;
@@ -7102,7 +7102,7 @@
     margin-left: 0.375rem;
   }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.25rem;
   }
 

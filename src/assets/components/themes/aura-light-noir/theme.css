@@ -1576,7 +1576,7 @@
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled).p-focus {
     color: #0f172a;
-    background: #e2e8f0;
+    background: #f1f5f9;
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: #1e293b;
@@ -7111,7 +7111,7 @@
     margin-left: 0.375rem;
   }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.25rem;
   }
 

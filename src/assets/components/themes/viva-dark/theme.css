@@ -1583,7 +1583,7 @@
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled).p-focus {
     color: rgba(255, 255, 255, 0.87);
-    background: rgba(158, 173, 230, 0.1);
+    background: rgba(158, 173, 230, 0.08);
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item:not(.p-highlight):not(.p-disabled):hover {
     color: rgba(255, 255, 255, 0.87);

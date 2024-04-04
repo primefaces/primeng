@@ -61,7 +61,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             role="option"
             [ngStyle]="{ height: itemSize + 'px' }"
             class="p-multiselect-item"
-            [ngClass]="{ 'p-multiselect-item': true, 'p-highlight': selected, 'p-disabled': disabled, 'p-focus': focused }"
+            [ngClass]="{ 'p-multiselect-item': true, 'p-disabled': disabled, 'p-focus': focused }"
             [id]="id"
             [attr.aria-label]="label"
             [attr.aria-setsize]="ariaSetSize"
@@ -1965,7 +1965,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                             this.scroller?.scrollToIndex(selectedIndex);
                         }
                     } else {
-                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '.p-multiselect-item.p-highlight');
+                        let selectedListItem = DomHandler.findSingle(this.itemsWrapper, '[data-p-highlight="true"]');
 
                         if (selectedListItem) {
                             selectedListItem.scrollIntoView({ block: 'nearest', inline: 'nearest' });
