@@ -5652,6 +5652,7 @@
     background: #252525;
     border: 1px solid #191919;
     box-shadow: 0 0px 6px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 3px;
   }
   .p-tieredmenu .p-menuitem > .p-menuitem-content {
     color: #dedede;

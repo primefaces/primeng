@@ -5700,6 +5700,7 @@
     background: #ffffff;
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: none;
+    border-radius: 4px;
   }
   .p-tieredmenu .p-menuitem > .p-menuitem-content {
     color: #212529;
