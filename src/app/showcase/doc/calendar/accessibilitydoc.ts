@@ -231,11 +231,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="date1">Date</label>
-<p-calendar inputId="date1"></p-calendar>
+<p-calendar inputId="date1"/>
 
 <span id="date2">Date</span>
-<p-calendar ariaLabelledBy="date2"></p-calendar>
+<p-calendar ariaLabelledBy="date2"/>
 
-<p-calendar ariaLabel="Date"></p-calendar>`
+<p-calendar ariaLabel="Date"/>`
     };
 }
