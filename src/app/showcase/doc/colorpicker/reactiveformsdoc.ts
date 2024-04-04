@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-colorPicker formControlName="color"></p-colorPicker>
+                <p-colorPicker formControlName="color"/>
             </form>
         </div>
         <app-code [code]="code" selector="color-picker-reactive-forms-demo"></app-code>
@@ -27,25 +27,26 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-colorPicker formControlName="color"></p-colorPicker>
+    <p-colorPicker formControlName="color"/>
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-colorPicker formControlName="color"></p-colorPicker>
+        <p-colorPicker formControlName="color"/>
     </form>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-reactive-forms-demo',
-    templateUrl: './color-picker-reactive-forms-demo.html'
+    templateUrl: './color-picker-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, ColorPickerModule]
 })
-export class ColorPickerReactiveFormsDemo implements OnInit {
+export class ColorPickerReactiveFormsDemo {
     formGroup: FormGroup | undefined;
 
     ngOnInit() {
