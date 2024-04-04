@@ -7561,6 +7561,9 @@
   .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
   }
+  .p-tabmenu .p-tabmenu-nav-container .p-tabmenu-nav-btn {
+    outline: 0 none;
+  }
 
   .p-tabview .p-tabview-ink-bar {
     z-index: 1;
