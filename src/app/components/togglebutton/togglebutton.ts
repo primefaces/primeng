@@ -21,7 +21,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <div
-            [ngClass]="{ 'p-button p-togglebutton p-component': true, 'p-button-icon-only': onIcon && offIcon && !hasOnLabel && !hasOffLabel, 'p-highlight': checked, 'p-disabled': disabled }"
+            [ngClass]="{ 'p-togglebutton p-button p-component': true, 'p-button-icon-only': onIcon && offIcon && !hasOnLabel && !hasOffLabel, 'p-highlight': checked, 'p-disabled': disabled }"
             [ngStyle]="style"
             [class]="styleClass"
             (click)="toggle($event)"
