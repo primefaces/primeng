@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"></p-dropdown>
+                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"/>
             </form>
         </div>
         <app-code [code]="code" selector="dropdown-reactive-forms-demo"></app-code>
@@ -42,19 +42,26 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"></p-dropdown>
+    <p-dropdown 
+        formControlName="selectedCity" 
+        [options]="cities"
+        optionLabel="name"
+        placeholder="Select a City"/>
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"></p-dropdown>
+        <p-dropdown 
+            formControlName="selectedCity"
+            [options]="cities"
+            optionLabel="name"
+            placeholder="Select a City"/>
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 interface City {
     name: string;
@@ -63,7 +70,9 @@ interface City {
 
 @Component({
     selector: 'dropdown-reactive-forms-demo',
-    templateUrl: './dropdown-reactive-forms-demo.html'
+    templateUrl: './dropdown-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, DropdownModule]
 })
 export class DropdownReactiveFormsDemo implements OnInit {
     cities: City[] | undefined;

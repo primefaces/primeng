@@ -16,7 +16,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"/>
         </div>
         <app-code [code]="code" selector="dropdown-basic-demo"></app-code>
     `
@@ -37,23 +37,36 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>`,
+        basic: `<p-dropdown 
+    [options]="cities" 
+    [(ngModel)]="selectedCity" 
+    optionLabel="name" 
+    [showClear]="true" 
+    placeholder="Select a City"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City"></p-dropdown>
+        html: `<div class="card flex justify-content-center">
+    <p-dropdown 
+        [options]="cities" 
+        [(ngModel)]="selectedCity" 
+        optionLabel="name" 
+        [showClear]="true"
+        placeholder="Select a City"/>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 interface City {
     name: string;
     code: string;
 }
+
 @Component({
     selector: 'dropdown-basic-demo',
-    templateUrl: './dropdown-basic-demo.html'
+    templateUrl: './dropdown-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, DropdownModule]
 })
 export class DropdownBasicDemo implements OnInit {
     cities: City[] | undefined;
