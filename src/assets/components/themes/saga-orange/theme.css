@@ -1693,6 +1693,10 @@
   .p-rating {
     gap: 0.5rem;
   }
+  .p-rating .p-rating-item {
+    border-radius: 50%;
+    outline-color: transparent;
+  }
   .p-rating .p-rating-item .p-rating-icon {
     color: #495057;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -1709,7 +1713,6 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem #ffe69c;
-    border-color: #FFC107;
   }
   .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
     color: #FFC107;

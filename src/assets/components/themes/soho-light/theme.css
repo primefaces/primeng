@@ -1715,6 +1715,10 @@
   .p-rating {
     gap: 0.5rem;
   }
+  .p-rating .p-rating-item {
+    border-radius: 50%;
+    outline-color: transparent;
+  }
   .p-rating .p-rating-item .p-rating-icon {
     color: #043d75;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
@@ -1731,7 +1735,6 @@
     outline: 0 none;
     outline-offset: 0;
     box-shadow: 0 0 0 1px #c7bbfa;
-    border-color: #7254f3;
   }
   .p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
     color: #7254f3;
