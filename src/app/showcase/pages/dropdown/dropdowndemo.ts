@@ -15,6 +15,9 @@ import { LazyVirtualScrollDoc } from '@doc/dropdown/lazyvirtualscrolldoc';
 import { InvalidDoc } from '@doc/dropdown/invaliddoc';
 import { CustomFilterDoc } from '@doc/dropdown/customfilterdoc';
 import { CheckmarkDoc } from '@doc/dropdown/checkmarkdoc';
+import { ClearIconDoc } from '@doc/dropdown/clearicondoc';
+import { LoadingStateDoc } from '@doc/dropdown/loadingstatedoc';
+import { FilledDoc } from '@doc/dropdown/filleddoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -73,6 +76,16 @@ export class DropdownDemo {
                 }
             ]
         },
+        {
+            id: 'clearicon',
+            label: 'Clear Icon',
+            component: ClearIconDoc
+        },
+        {
+            id: 'loadingstate',
+            label: 'Loading State',
+            component: LoadingStateDoc
+        },
 
         {
             id: 'virtualscroll',
@@ -85,9 +98,14 @@ export class DropdownDemo {
             component: LazyVirtualScrollDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'floatlabel',
+            label: 'Float Label',
+            component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',
@@ -95,9 +113,9 @@ export class DropdownDemo {
             component: InvalidDoc
         },
         {
-            id: 'floatlabel',
-            label: 'Float Label',
-            component: FloatLabelDoc
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'style',

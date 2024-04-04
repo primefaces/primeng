@@ -529,7 +529,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      * Whether the dropdown is in loading state.
      * @group Props
      */
-    @Input() loading: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
     /**
      * Icon to display in loading state.
      * @group Props

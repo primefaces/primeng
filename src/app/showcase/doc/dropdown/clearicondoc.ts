@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
 
 interface City {
@@ -7,19 +7,19 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-disabled-demo',
+    selector: 'dropdown-clear-icon-demo',
     template: `
         <app-docsectiontext>
-            <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Dropdown.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" />
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" />
         </div>
-        <app-code [code]="code" selector="dropdown-disabled-demo"></app-code>
+        <app-code [code]="code" selector="dropdown-clear-icon-demo"></app-code>
     `
 })
-export class DisabledDoc {
-    cities: City[] | undefined;
+export class ClearIconDoc implements OnInit {
+    cities: City[];
 
     selectedCity: City | undefined;
 
@@ -37,20 +37,20 @@ export class DisabledDoc {
         basic: `<p-dropdown 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
-    placeholder="Select a City" 
     optionLabel="name" 
-    [disabled]="true"/>`,
+    [showClear]="true" 
+    placeholder="Select a City"/>`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
-        placeholder="Select a City" 
         optionLabel="name" 
-        [disabled]="true"/>
+        [showClear]="true"
+        placeholder="Select a City"/>
 </div>`,
 
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 
@@ -60,12 +60,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-disabled-demo',
-    templateUrl: './dropdown-disabled-demo.html',
+    selector: 'dropdown-clear-icon-demo',
+    templateUrl: './dropdown-clear-icon-demo.html',
     standalone: true,
     imports: [FormsModule, DropdownModule]
 })
-export class DropdownDisabledDemo {
+export class DropdownClearIconDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

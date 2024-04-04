@@ -188,13 +188,25 @@ export class DropdownItem {
             </ng-container>
 
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
-                <ng-container *ngIf="!dropdownIconTemplate">
-                    <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                <ng-container *ngIf="loading; else elseBlock">
+                    <ng-container *ngIf="loadingIconTemplate">
+                        <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!loadingIconTemplate">
+                        <span *ngIf="loadingIcon" [ngClass]="'p-dropdown-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                        <span *ngIf="!loadingIcon" [class]="'p-dropdown-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                    </ng-container>
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
-                </span>
+
+                <ng-template #elseBlock>
+                    <ng-container *ngIf="!dropdownIconTemplate">
+                        <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                    </ng-container>
+                    <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
+                        <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                    </span>
+                </ng-template>
             </div>
 
             <p-overlay
@@ -236,6 +248,7 @@ export class DropdownItem {
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
+                                        [ngClass]="{ 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
                                         [attr.placeholder]="filterPlaceholder"
                                         [attr.aria-owns]="id + '_list'"
                                         (input)="onFilterInputChange($event)"
@@ -420,6 +433,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._placeholder.asReadonly();
     }
     /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
      * Placeholder text to show when filter input is empty.
      * @group Props
      */
@@ -429,6 +447,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() filterLocale: string | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props
@@ -469,6 +492,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
+    /**
+     * Whether the dropdown is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
     /**
      * Name of the label field of an option.
      * @group Props
@@ -818,6 +846,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
+
     clearIconTemplate: Nullable<TemplateRef<any>>;
 
     filterIconTemplate: Nullable<TemplateRef<any>>;
@@ -897,7 +927,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             'p-dropdown-clearable': this.showClear && !this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
-            'p-inputwrapper-focus': this.focused || this.overlayVisible
+            'p-inputwrapper-focus': this.focused || this.overlayVisible,
+            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled'
         };
     }
 
@@ -1089,6 +1120,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                     this.dropdownIconTemplate = item.template;
                     break;
 
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
+                    break;
+
                 case 'clearicon':
                     this.clearIconTemplate = item.template;
                     break;
@@ -1265,7 +1300,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || this.loading) {
             return;
         }
 
@@ -1400,7 +1435,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || this.loading) {
             return;
         }
 

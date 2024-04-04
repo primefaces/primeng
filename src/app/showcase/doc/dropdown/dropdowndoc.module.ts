@@ -23,9 +23,13 @@ import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { CheckmarkDoc } from './checkmarkdoc';
+import { ClearIconDoc } from './clearicondoc';
+import { LoadingStateDoc } from './loadingstatedoc';
+import { FilledDoc } from './filleddoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule, FloatLabelModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, InvalidDoc, VirtualScrollDoc, LazyVirtualScrollDoc, CustomFilterDoc, FilterDoc, FloatLabelDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, CheckmarkDoc]
+    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, InvalidDoc, VirtualScrollDoc, LazyVirtualScrollDoc, CustomFilterDoc, FilterDoc, FloatLabelDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, CheckmarkDoc, ClearIconDoc, LoadingStateDoc, FilledDoc]
 })
 export class DropdownDocModule {}
