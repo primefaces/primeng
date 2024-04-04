@@ -14,6 +14,7 @@ import { ReactiveFormsDoc } from '@doc/dropdown/reactiveformsdoc';
 import { LazyVirtualScrollDoc } from '@doc/dropdown/lazyvirtualscrolldoc';
 import { InvalidDoc } from '@doc/dropdown/invaliddoc';
 import { CustomFilterDoc } from '@doc/dropdown/customfilterdoc';
+import { CheckmarkDoc } from '@doc/dropdown/checkmarkdoc';
 
 @Component({
     templateUrl: './dropdowndemo.html',
@@ -35,6 +36,11 @@ export class DropdownDemo {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc
+        },
+        {
+            id: 'checkmark',
+            label: 'Checkmark',
+            component: CheckmarkDoc
         },
         {
             id: 'editable',
