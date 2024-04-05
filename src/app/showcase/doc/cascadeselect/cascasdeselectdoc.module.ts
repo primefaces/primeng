@@ -16,8 +16,9 @@ import { TemplateDoc } from './templatedoc';
 import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
 import { LoadingDoc } from './loadingdoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
-    imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, CascadeSelectModule, FormsModule, AppCodeModule, AppDocModule, ReactiveFormsModule, FloatLabelModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, InvalidDoc, FloatLabelDoc, FilledDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, LoadingDoc]
 })
