@@ -38,11 +38,6 @@ export class ListboxDemo {
             component: MultipleDoc
         },
         {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
             id: 'group',
             label: 'Group',
             component: GroupDoc
@@ -53,6 +48,16 @@ export class ListboxDemo {
             component: FilterDoc
         },
         {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
+        {
+            id: 'virtualscroll',
+            label: 'Virtual Scroll',
+            component: VirtualScrollDoc
+        },
+        {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
@@ -61,11 +66,6 @@ export class ListboxDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
-        },
-        {
-            id: 'virtualscroll',
-            label: 'Virtual Scroll',
-            component: VirtualScrollDoc
         },
         {
             id: 'style',

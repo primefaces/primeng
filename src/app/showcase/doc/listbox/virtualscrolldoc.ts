@@ -18,17 +18,13 @@ import { Code } from '@domain/code';
                 optionLabel="label"
                 [style]="{ width: '15rem' }"
                 [virtualScroll]="true"
-                [filter]="true"
-                [virtualScrollItemSize]="43"
+                [virtualScrollItemSize]="38"
                 [multiple]="true"
-                [checkbox]="true"
-                [showToggleAll]="false"
                 [metaKeySelection]="false"
-                [showToggleAll]="true"
                 (onSelectAllChange)="onSelectAllChange($event)"
                 (onChange)="onChange($event)"
-                [listStyle]="{ 'max-height': '220px' }"
-            ></p-listbox>
+                scrollHeight="250px"
+            />
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
     `
@@ -58,20 +54,14 @@ export class VirtualScrollDoc {
     optionLabel="label"
     [style]="{ width: '15rem' }"
     [virtualScroll]="true"
-    [filter]="true"
-    [virtualScrollItemSize]="43"
+    [virtualScrollItemSize]="38"
     [multiple]="true"
-    [checkbox]="true"
-    [showToggleAll]="false"
     [metaKeySelection]="false"
-    [showToggleAll]="true"
     (onSelectAllChange)="onSelectAllChange($event)"
     (onChange)="onChange($event)"
-    [listStyle]="{ 'max-height': '220px' }"
-></p-listbox>`,
+    scrollHeight="250px"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-listbox
         [options]="items"
         [(ngModel)]="selectedItems"
@@ -79,25 +69,23 @@ export class VirtualScrollDoc {
         optionLabel="label"
         [style]="{ width: '15rem' }"
         [virtualScroll]="true"
-        [filter]="true"
-        [virtualScrollItemSize]="43"
+        [virtualScrollItemSize]="38"
         [multiple]="true"
-        [checkbox]="true"
-        [showToggleAll]="false"
         [metaKeySelection]="false"
-        [showToggleAll]="true"
         (onSelectAllChange)="onSelectAllChange($event)"
         (onChange)="onChange($event)"
-        [listStyle]="{ 'max-height': '220px' }"
-    ></p-listbox>
+        scrollHeight="250px"/>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     selector: 'listbox-virtual-scroll-demo',
-    templateUrl: './listbox-virtual-scroll-demo.html'
+    templateUrl: './listbox-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxVirtualScrollDemo {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
