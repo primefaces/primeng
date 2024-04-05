@@ -2,30 +2,32 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'checkbox-basic-demo',
+    selector: 'checkbox-filled-demo',
     template: `
         <app-docsectiontext>
-            <p>Binary checkbox is used as a controlled input with <i>ngModel</i> and <i>binary</i> properties.</p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary"/>
+            <p-checkbox [(ngModel)]="checked" [binary]="true" variant="filled" inputId="binary" />
         </div>
-        <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
+        <app-code [code]="code" selector="checkbox-filled-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class FilledDoc {
     checked: boolean = false;
 
     code: Code = {
         basic: `<p-checkbox 
     [(ngModel)]="checked" 
     [binary]="true" 
+    variant="filled"
     inputId="binary"/>`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [(ngModel)]="checked" 
         [binary]="true" 
+        variant="filled"
         inputId="binary"/>
 </div>`,
 
@@ -34,12 +36,12 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
-    selector: 'checkbox-basic-demo',
-    templateUrl: './checkbox-basic-demo.html',
+    selector: 'checkbox-filled-demo',
+    templateUrl: './checkbox-filled-demo.html',
     standalone: true,
     imports: [FormsModule, CheckboxModule]
 })
-export class CheckboxBasicDemo {
+export class CheckboxFilledDemo {
     checked: boolean = false;
 }`
     };

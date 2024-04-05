@@ -18,7 +18,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -38,7 +38,13 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div
             [ngStyle]="style"
-            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-checked': checked(), 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }"
+            [ngClass]="{
+                'p-checkbox p-component': true,
+                'p-checkbox-checked': checked(),
+                'p-checkbox-disabled': disabled,
+                'p-checkbox-focused': focused,
+                'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled'
+            }"
             [class]="styleClass"
             [attr.data-pc-name]="'checkbox'"
             [attr.data-pc-section]="'root'"
@@ -195,6 +201,11 @@ export class Checkbox implements ControlValueAccessor {
      */
     @Input() falseValue: any = false;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Callback to invoke on value change.
      * @param {CheckboxChangeEvent} event - Custom value change event.
      * @group Emits
@@ -227,7 +238,7 @@ export class Checkbox implements ControlValueAccessor {
 
     focused: boolean = false;
 
-    constructor(public cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
