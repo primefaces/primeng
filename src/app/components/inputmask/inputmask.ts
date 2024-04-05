@@ -48,7 +48,7 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
@@ -179,6 +179,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() title: string | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -332,7 +337,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     focused: Nullable<boolean>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

@@ -2,31 +2,33 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'invalid-doc',
+    selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputMask mask="999-99-9999" [(ngModel)]="value" class="ng-invalid ng-dirty"/>
+            <p-inputMask mask="99-999999" [(ngModel)]="value" variant="filled" placeholder="99-999999" />
         </div>
-        <app-code [code]="code" selector="input-mask-invalid-demo"></app-code>
+        <app-code [code]="code" selector="input-mask-filled-demo"></app-code>
     `
 })
-export class InvalidDoc {
+export class FilledDoc {
     value: string | undefined;
 
     code: Code = {
         basic: `<p-inputMask 
-    mask="999-99-9999" 
+    mask="99-999999" 
     [(ngModel)]="value" 
-    class="ng-invalid ng-dirty"/>`,
+    variant="filled"
+    placeholder="99-999999"/>`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputMask 
-        mask="999-99-9999" 
+        mask="99-999999" 
         [(ngModel)]="value" 
-        class="ng-invalid ng-dirty"/>
+        variant="filled"
+        placeholder="99-999999"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -34,12 +36,12 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-mask-invalid-demo',
-    templateUrl: './input-mask-invalid-demo.html',
+    selector: 'input-mask-filled-demo',
+    templateUrl: './input-mask-filled-demo.html',
     standalone: true,
     imports: [FormsModule, InputMaskModule]
 })
-export class InputMaskInvalidDemo {
+export class InputMaskFilledDemo {
     value: string | undefined;
 }`
     };

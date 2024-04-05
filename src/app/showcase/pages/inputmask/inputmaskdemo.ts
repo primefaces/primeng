@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AccessibilityDoc } from '@doc/inputmask/accessibilitydoc';
 import { BasicDoc } from '@doc/inputmask/basicdoc';
 import { DisabledDoc } from '@doc/inputmask/disableddoc';
+import { FilledDoc } from '@doc/inputmask/filleddoc';
 import { FloatlabelDoc } from '@doc/inputmask/floatlabeldoc';
 import { ImportDoc } from '@doc/inputmask/importdoc';
 import { InvalidDoc } from '@doc/inputmask/invaliddoc';
@@ -50,6 +51,11 @@ export class InputMaskDemo {
             id: 'floatlabel',
             label: 'FloatLabel',
             component: FloatlabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',
