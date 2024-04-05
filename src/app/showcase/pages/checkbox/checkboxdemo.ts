@@ -8,6 +8,7 @@ import { InvalidDoc } from '@doc/checkbox/invaliddoc';
 import { StyleDoc } from '@doc/checkbox/styledoc';
 import { AccessibilityDoc } from '@doc/checkbox/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/checkbox/reactiveformsdoc';
+import { FilledDoc } from '@doc/checkbox/filleddoc';
 
 @Component({
     templateUrl: './checkboxdemo.html'
@@ -43,6 +44,11 @@ export class CheckboxDemo {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'disabled',
