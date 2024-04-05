@@ -9,6 +9,7 @@ import { InvalidDoc } from '@doc/inputtextarea/invaliddoc';
 import { ImportDoc } from '@doc/inputtextarea/importdoc';
 import { KeyfilterDoc } from '@doc/inputtextarea/keyfilterdoc';
 import { StyleDoc } from '@doc/inputtextarea/styledoc';
+import { FilledDoc } from '@doc/inputtextarea/filleddoc';
 
 @Component({
     templateUrl: './inputtextareademo.html'
@@ -44,6 +45,11 @@ export class InputTextareaDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

@@ -17,20 +17,33 @@ export class BasicDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>`,
+        basic: `<textarea 
+    rows="5"
+    cols="30" 
+    pInputTextarea 
+    [(ngModel)]="value">
+</textarea>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
+        html: `<div class="card flex justify-content-center">
+    <textarea 
+        rows="5"
+        cols="30"
+        pInputTextarea 
+        [(ngModel)]="value">
+    </textarea>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-basic-demo',
-    templateUrl: './input-textarea-basic-demo.html'
+    templateUrl: './input-textarea-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextareaModule]
 })
+
 export class InputTextareaBasicDemo {
     value!: string;
 }`
