@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+                <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"/>
             </form>
         </div>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>
@@ -42,19 +42,25 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+    <p-multiSelect 
+        [options]="cities" 
+        formControlName="selectedCities" 
+        optionLabel="name" 
+        placeholder="Select Cities"/>
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+        <p-multiSelect 
+            [options]="cities" 
+            formControlName="selectedCities" 
+            optionLabel="name" 
+            placeholder="Select Cities"/>
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 interface City {
     name: string,
@@ -63,7 +69,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-reactive-forms-demo',
-    templateUrl: './multi-select-reactive-forms-demo.html'
+    templateUrl: './multi-select-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, MultiSelectModule]
 })
 export class MultiSelectReactiveFormsDemo implements OnInit {
     cities!: City[];

@@ -12,6 +12,8 @@ import { InvalidDoc } from '@doc/multiselect/invaliddoc';
 import { StyleDoc } from '@doc/multiselect/styledoc';
 import { TemplateDoc } from '@doc/multiselect/templatedoc';
 import { VirtualScrollDoc } from '@doc/multiselect/virtualscrolldoc';
+import { LoadingStateDoc } from '@doc/multiselect/loadingstatedoc';
+import { FilledDoc } from '@doc/multiselect/filleddoc';
 
 @Component({
     templateUrl: './multiselectdemo.html',
@@ -55,6 +57,11 @@ export class MultiSelectDemo {
             component: FilterDoc
         },
         {
+            id: 'loadingstate',
+            label: 'Loading State',
+            component: LoadingStateDoc
+        },
+        {
             id: 'virtualscroll',
             label: 'VirtualScroll',
             component: VirtualScrollDoc
@@ -63,6 +70,11 @@ export class MultiSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

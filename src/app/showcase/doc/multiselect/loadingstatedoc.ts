@@ -7,21 +7,21 @@ interface City {
 }
 
 @Component({
-    selector: 'filter-doc',
+    selector: 'loading-state-doc',
     template: `
         <app-docsectiontext>
-            <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
+            <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"/>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Select Cities" />
         </div>
-        <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
+        <app-code [code]="code" selector="multi-select-loading-state-demo"></app-code>
     `
 })
-export class FilterDoc implements OnInit {
+export class LoadingStateDoc implements OnInit {
     cities!: City[];
 
-    selectedCities!: City[];
+    selectedCities!: any[];
 
     ngOnInit() {
         this.cities = [
@@ -37,7 +37,7 @@ export class FilterDoc implements OnInit {
         basic: `<p-multiSelect 
     [options]="cities" 
     [(ngModel)]="selectedCities" 
-    [filter]="true" 
+    [loading]="true"
     optionLabel="name" 
     placeholder="Select Cities"/>`,
 
@@ -45,7 +45,7 @@ export class FilterDoc implements OnInit {
     <p-multiSelect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
-        [filter]="true" 
+        [loading]="true"
         optionLabel="name" 
         placeholder="Select Cities"/>
 </div>`,
@@ -60,23 +60,24 @@ interface City {
 }
 
 @Component({
-    selector: 'multi-select-filter-demo',
-    templateUrl: './multi-select-filter-demo.html',
+    selector: 'multi-select-loading-state-demo',
+    templateUrl: './multi-select-loading-state-demo.html',
     standalone: true,
     imports: [FormsModule, MultiSelectModule]
 })
-export class MultiSelectFilterDemo implements OnInit {
+export class MultiSelectLoadingStateDemo implements OnInit {
+
     cities!: City[];
 
     selectedCities!: City[];
 
     ngOnInit() {
         this.cities = [
-            { name: 'New York', code: 'NY' },
-            { name: 'Rome', code: 'RM' },
-            { name: 'London', code: 'LDN' },
-            { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            {name: 'New York', code: 'NY'},
+            {name: 'Rome', code: 'RM'},
+            {name: 'London', code: 'LDN'},
+            {name: 'Istanbul', code: 'IST'},
+            {name: 'Paris', code: 'PRS'}
         ];
     }
 }`

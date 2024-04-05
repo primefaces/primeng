@@ -18,7 +18,6 @@ import { Code } from '@domain/code';
                 [(ngModel)]="selectedItems"
                 optionLabel="label"
                 [virtualScroll]="true"
-                [filter]="true"
                 [virtualScrollItemSize]="43"
                 class="multiselect-custom-virtual-scroll"
                 placeholder="Select Cities"
@@ -54,16 +53,13 @@ export class VirtualScrollDoc {
     [(ngModel)]="selectedItems"
     optionLabel="label"
     [virtualScroll]="true"
-    [filter]="true"
     [virtualScrollItemSize]="43"
     class="multiselect-custom-virtual-scroll"
     placeholder="Select Cities"
     (onSelectAllChange)="onSelectAllChange($event)"
-    (onChange)="onChange($event)"
-></p-multiSelect>`,
+    (onChange)="onChange($event)"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-multiSelect
         [options]="items"
         [showToggleAll]="true"
@@ -71,21 +67,22 @@ export class VirtualScrollDoc {
         [(ngModel)]="selectedItems"
         optionLabel="label"
         [virtualScroll]="true"
-        [filter]="true"
         [virtualScrollItemSize]="43"
         class="multiselect-custom-virtual-scroll"
         placeholder="Select Cities"
         (onSelectAllChange)="onSelectAllChange($event)"
-        (onChange)="onChange($event)"
-    ></p-multiSelect>
+        (onChange)="onChange($event)"/>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 @Component({
     selector: 'multi-select-virtual-scroll-demo',
-    templateUrl: './multi-select-virtual-scroll-demo.html'
+    templateUrl: './multi-select-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectVirtualScrollDemo {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
