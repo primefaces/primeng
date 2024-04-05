@@ -62,11 +62,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="price">Price</label>
-<p-inputNumber inputId="price"></p-inputNumber>
+<p-inputNumber inputId="price"/>
 
 <span id="label_number">Number</span>
-<p-inputNumber ariaLabelledBy="label_number"></p-inputNumber>
+<p-inputNumber ariaLabelledBy="label_number"/>
 
-<p-inputNumber ariaLabel="Number"></p-inputNumber>`
+<p-inputNumber ariaLabel="Number"/>`
     };
 }

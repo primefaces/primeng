@@ -25,8 +25,8 @@ export class InputNumberDemo {
             component: ImportDoc
         },
         {
-            id: 'numeral',
-            label: 'Numeral',
+            id: 'numerals',
+            label: 'Numerals',
             component: NumeralsDoc
         },
         {
