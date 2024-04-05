@@ -17,19 +17,31 @@ export class DisabledDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="value" />`,
+        basic: `<input 
+    id="disabled-input" 
+    type="text"
+    pInputText 
+    [disabled]="true" 
+    [(ngModel)]="value"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <input id="disabled-input" type="text" pInputText [disabled]="true" [(ngModel)]="value" />
+        html: `<div class="card flex justify-content-center">
+    <input 
+        id="disabled-input"
+        type="text"
+        pInputText 
+        [disabled]="true" 
+        [(ngModel)]="value"/>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-text-disabled-demo',
-    templateUrl: './input-text-disabled-demo.html'
+    templateUrl: './input-text-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class InputTextDisabledDemo {
     value: string | undefined;

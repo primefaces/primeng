@@ -11,6 +11,7 @@ import { BasicDoc } from '@doc/inputtext/basicdoc';
 import { KeyFilterDoc } from '@doc/inputtext/keyfilterdoc';
 import { ReactiveFormsDoc } from '@doc/inputtext/reactiveformsdoc';
 import { StyleDoc } from '@doc/inputtext/styledoc';
+import { FilledDoc } from '@doc/inputtext/filleddoc';
 
 @Component({
     templateUrl: './inputtextdemo.html',
@@ -57,6 +58,11 @@ export class InputTextDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

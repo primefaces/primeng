@@ -28,18 +28,19 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `<input type="text" pInputText formControlName="text"/>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <input type="text" pInputText formControlName="text"/>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'input-text-reactive-forms-demo',
-    templateUrl: './input-text-reactive-forms-demo.html'
+    templateUrl: './input-text-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputTextModule]
 })
 export class InputTextReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;

@@ -17,19 +17,27 @@ export class InvalidDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" />`,
+        basic: `<input 
+    pInputText 
+    class="ng-invalid ng-dirty"
+    [(ngModel)]="value" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <input pInputText class="ng-invalid ng-dirty" [(ngModel)]="value" />
+        html: `<div class="card flex justify-content-center">
+    <input 
+        pInputText 
+        class="ng-invalid ng-dirty" 
+        [(ngModel)]="value" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-text-invalid-demo',
-    templateUrl: './input-text-invalid-demo.html'
+    templateUrl: './input-text-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class InputTextInvalidDemo {
     value: string | undefined;
