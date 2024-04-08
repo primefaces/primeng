@@ -38,14 +38,14 @@ export class DisabledDoc implements OnInit {
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         [disabled]="true" 
-        optionLabel="name"/>`,
+        optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 
         [disabled]="true" 
-        optionLabel="name"/>
+        optionLabel="name" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

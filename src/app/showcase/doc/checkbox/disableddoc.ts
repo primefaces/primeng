@@ -19,12 +19,12 @@ export class DisabledDoc {
     code: Code = {
         basic: `<p-checkbox 
     [disabled]="true" 
-    [(ngModel)]="checked"/>`,
+    [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [disabled]="true" 
-        [(ngModel)]="checked"/>
+        [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -39,7 +39,7 @@ export class FilledDoc implements OnInit {
     [(ngModel)]="selectedCity"
     variant="filled"
     optionLabel="name" 
-    placeholder="Select a City"/>`,
+    placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -47,7 +47,7 @@ export class FilledDoc implements OnInit {
         [(ngModel)]="selectedCity"
         variant="filled" 
         optionLabel="name"
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

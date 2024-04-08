@@ -21,13 +21,13 @@ export class FloatlabelDoc {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-inputNumber inputId="integeronly" [(ngModel)]="value1"/>
+    <p-inputNumber inputId="integeronly" [(ngModel)]="value1" />
     <label for="number-input">Number</label>
 </p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <p-inputNumber inputId="integeronly" [(ngModel)]="value1"/>
+        <p-inputNumber inputId="integeronly" [(ngModel)]="value1" />
         <label for="number-input">Number</label>
     </p-floatLabel>
 </div>`,

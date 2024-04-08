@@ -57,7 +57,7 @@ export class VirtualScrollDoc {
     class="multiselect-custom-virtual-scroll"
     placeholder="Select Cities"
     (onSelectAllChange)="onSelectAllChange($event)"
-    (onChange)="onChange($event)"/>`,
+    (onChange)="onChange($event)" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect
@@ -71,7 +71,7 @@ export class VirtualScrollDoc {
         class="multiselect-custom-virtual-scroll"
         placeholder="Select Cities"
         (onSelectAllChange)="onSelectAllChange($event)"
-        (onChange)="onChange($event)"/>
+        (onChange)="onChange($event)" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -17,10 +17,10 @@ export class IntegerOnlyDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-inputOtp [(ngModel)]="value" [integerOnly]="true"/>`,
+        basic: `<p-inputOtp [(ngModel)]="value" [integerOnly]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputOtp [(ngModel)]="value" [integerOnly]="true"/>
+    <p-inputOtp [(ngModel)]="value" [integerOnly]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

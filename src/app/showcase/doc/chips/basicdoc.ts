@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Chips is used as a controlled input with <i>ngModel</i> property where it should be an array.</p>
         </app-docsectiontext>
         <div class="card p-fluid">
-            <p-chips [(ngModel)]="values"/>
+            <p-chips [(ngModel)]="values" />
         </div>
         <app-code [code]="code" selector="chips-basic-demo"></app-code>
     `
@@ -17,10 +17,10 @@ export class BasicDoc {
     values: string[] | undefined;
 
     code: Code = {
-        basic: `<p-chips [(ngModel)]="values"/>`,
+        basic: `<p-chips [(ngModel)]="values" />`,
 
         html: `<div class="card p-fluid">
-    <p-chips [(ngModel)]="values"/>
+    <p-chips [(ngModel)]="values" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

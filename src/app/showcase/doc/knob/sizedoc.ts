@@ -17,10 +17,10 @@ export class SizeDoc {
     value: number = 60;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [size]="200"/>`,
+        basic: `<p-knob [(ngModel)]="value" [size]="200" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [size]="200"/>
+    <p-knob [(ngModel)]="value" [size]="200" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

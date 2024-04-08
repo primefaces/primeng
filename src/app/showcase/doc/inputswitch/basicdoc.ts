@@ -17,10 +17,10 @@ export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked"/>`,
+        basic: `<p-inputSwitch [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked"/>
+    <p-inputSwitch [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

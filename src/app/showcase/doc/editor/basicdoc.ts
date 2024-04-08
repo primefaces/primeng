@@ -17,10 +17,10 @@ export class BasicDoc {
     text: string | undefined;
 
     code: Code = {
-        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }"/>`,
+        basic: `<p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />`,
 
         html: `<div class="card">
-    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }"/>
+    <p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -39,7 +39,7 @@ export class EditableDoc implements OnInit {
     [(ngModel)]="selectedCity" 
     placeholder="Select a City" 
     [editable]="true" 
-    optionLabel="name"/>`,
+    optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -47,7 +47,7 @@ export class EditableDoc implements OnInit {
         [(ngModel)]="selectedCity" 
         placeholder="Select a City" 
         [editable]="true" 
-        optionLabel="name"/>
+        optionLabel="name" />
 </div>`,
 
         typescript: `

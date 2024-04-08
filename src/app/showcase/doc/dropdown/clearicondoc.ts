@@ -39,7 +39,7 @@ export class ClearIconDoc implements OnInit {
     [(ngModel)]="selectedCity" 
     optionLabel="name" 
     [showClear]="true" 
-    placeholder="Select a City"/>`,
+    placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -47,7 +47,7 @@ export class ClearIconDoc implements OnInit {
         [(ngModel)]="selectedCity" 
         optionLabel="name" 
         [showClear]="true"
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

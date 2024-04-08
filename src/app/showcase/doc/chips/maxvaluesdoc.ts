@@ -21,13 +21,13 @@ export class MaxValuesDoc {
         basic: `<p-chips 
     [formControl]="values" 
     [max]="max" 
-    placeholder="Maximum 2 items"/>`,
+    placeholder="Maximum 2 items" />`,
 
         html: `<div class="card p-fluid">
     <p-chips 
         [formControl]="values"
         [max]="max" 
-        placeholder="Maximum 2 items"/> 
+        placeholder="Maximum 2 items" /> 
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

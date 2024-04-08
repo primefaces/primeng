@@ -17,10 +17,10 @@ export class ColorDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise"/>`,
+        basic: `<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />`,
 
         html: `<div class="card flex justify-content-center">
-<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise"/>
+<p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

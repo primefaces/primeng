@@ -17,10 +17,10 @@ export class BasicDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-inputOtp [(ngModel)]="value"/>`,
+        basic: `<p-inputOtp [(ngModel)]="value" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputOtp [(ngModel)]="value"/>
+    <p-inputOtp [(ngModel)]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

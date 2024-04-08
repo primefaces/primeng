@@ -17,10 +17,10 @@ export class MinMaxDoc {
     value: number = 10;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [min]="-50" [max]="50"/>`,
+        basic: `<p-knob [(ngModel)]="value" [min]="-50" [max]="50" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [min]="-50" [max]="50"/>
+    <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

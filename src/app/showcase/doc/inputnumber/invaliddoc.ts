@@ -20,13 +20,13 @@ export class InvalidDoc {
         basic: `<p-inputNumber 
     inputId="integeronly" 
     class="ng-invalid ng-dirty" 
-    [(ngModel)]="value1"/>`,
+    [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputNumber 
         inputId="integeronly"
         class="ng-invalid ng-dirty" 
-        [(ngModel)]="value1"/>
+        [(ngModel)]="value1" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

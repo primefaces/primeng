@@ -117,7 +117,7 @@ export class FloatLabelDoc {
         optionGroupLabel="name"
         [optionGroupChildren]="['states', 'cities']"
         [style]="{ minWidth: '14rem' }"
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
     <label for="cs-city">City</label>
 </p-floatLabel>`,
 
@@ -131,7 +131,7 @@ export class FloatLabelDoc {
             optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
             [style]="{ minWidth: '14rem' }"
-            placeholder="Select a City"/>
+            placeholder="Select a City" />
         <label for="cs-city">City</label>
     </p-floatLabel>
 </div>`,

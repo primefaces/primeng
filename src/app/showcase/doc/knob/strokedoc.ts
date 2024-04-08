@@ -17,10 +17,10 @@ export class StrokeDoc {
     value: number = 40;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [strokeWidth]="5"/>`,
+        basic: `<p-knob [(ngModel)]="value" [strokeWidth]="5" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [strokeWidth]="5"/>
+    <p-knob [(ngModel)]="value" [strokeWidth]="5" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

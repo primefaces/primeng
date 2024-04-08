@@ -27,12 +27,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-colorPicker formControlName="color"/>
+    <p-colorPicker formControlName="color" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-colorPicker formControlName="color"/>
+        <p-colorPicker formControlName="color" />
     </form>
 </div>`,
 

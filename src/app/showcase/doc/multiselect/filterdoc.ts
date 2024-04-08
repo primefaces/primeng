@@ -39,7 +39,7 @@ export class FilterDoc implements OnInit {
     [(ngModel)]="selectedCities" 
     [filter]="true" 
     optionLabel="name" 
-    placeholder="Select Cities"/>`,
+    placeholder="Select Cities" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
@@ -47,7 +47,7 @@ export class FilterDoc implements OnInit {
         [(ngModel)]="selectedCities" 
         [filter]="true" 
         optionLabel="name" 
-        placeholder="Select Cities"/>
+        placeholder="Select Cities" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

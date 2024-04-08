@@ -40,7 +40,7 @@ export class InvalidDoc implements OnInit {
     optionLabel="name" 
     class="ng-invalid ng-dirty" 
     [style]="{ width: '15rem' }" 
-    [listStyle]="{'max-height': '220px'}"/>`,
+    [listStyle]="{'max-height': '220px'}" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-listbox 
@@ -49,7 +49,7 @@ export class InvalidDoc implements OnInit {
         optionLabel="name" 
         class="ng-invalid ng-dirty" 
         [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}"/>
+        [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
         typescript: `import { Component, ngOnInit } from '@angular/core';

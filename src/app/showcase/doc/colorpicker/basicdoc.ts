@@ -17,10 +17,10 @@ export class BasicDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-colorPicker [(ngModel)]="color"/>`,
+        basic: `<p-colorPicker [(ngModel)]="color" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-colorPicker [(ngModel)]="color"/>
+    <p-colorPicker [(ngModel)]="color" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

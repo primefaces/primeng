@@ -20,13 +20,13 @@ export class FilledDoc {
         basic: `<p-checkbox 
     [(ngModel)]="checked" 
     [binary]="true" 
-    variant="filled"/>`,
+    variant="filled" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [(ngModel)]="checked" 
         [binary]="true" 
-        variant="filled"/>
+        variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

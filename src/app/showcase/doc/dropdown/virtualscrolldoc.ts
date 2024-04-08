@@ -35,7 +35,7 @@ export class VirtualScrollDoc {
     [(ngModel)]="selectedItem" 
     placeholder="Select Item" 
     [virtualScroll]="true"
-    [virtualScrollItemSize]="38"/>`,
+    [virtualScrollItemSize]="38" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -43,7 +43,7 @@ export class VirtualScrollDoc {
         [(ngModel)]="selectedItem"
         placeholder="Select Item"
         [virtualScroll]="true"
-        [virtualScrollItemSize]="38"/>
+        [virtualScrollItemSize]="38" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';

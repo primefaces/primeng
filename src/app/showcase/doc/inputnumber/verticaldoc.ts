@@ -37,7 +37,7 @@ export class VerticalDoc {
     decrementButtonClass="p-button-secondary"
     incrementButtonClass="p-button-secondary" 
     incrementButtonIcon="pi pi-plus" 
-    decrementButtonIcon="pi pi-minus"/>`,
+    decrementButtonIcon="pi pi-minus" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputNumber 
@@ -50,7 +50,7 @@ export class VerticalDoc {
         decrementButtonClass="p-button-secondary"
         incrementButtonClass="p-button-secondary" 
         incrementButtonIcon="pi pi-plus" 
-        decrementButtonIcon="pi pi-minus"/>
+        decrementButtonIcon="pi pi-minus" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

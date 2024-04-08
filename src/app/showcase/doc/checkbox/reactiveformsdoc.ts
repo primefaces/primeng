@@ -31,7 +31,7 @@ export class ReactiveFormsDoc implements OnInit {
     <p-checkbox 
         formControlName="city" 
         value="New York" 
-        inputId="ny"/>
+        inputId="ny" />
     <label for="ny">New York</label>
 </form>`,
 
@@ -40,7 +40,7 @@ export class ReactiveFormsDoc implements OnInit {
         <p-checkbox 
             formControlName="city" 
             value="New York" 
-            inputId="ny"/>
+            inputId="ny" />
         <label for="ny">New York</label>
     </form>
 </div>`,

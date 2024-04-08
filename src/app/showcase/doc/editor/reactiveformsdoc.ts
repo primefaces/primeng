@@ -27,12 +27,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-editor formControlName="text" [style]="{ height: '320px' }"/>
+    <p-editor formControlName="text" [style]="{ height: '320px' }" />
 </form>`,
 
         html: `<div class="card">
     <form [formGroup]="formGroup">
-        <p-editor formControlName="text" [style]="{ height: '320px' }"/>
+        <p-editor formControlName="text" [style]="{ height: '320px' }" />
     </form>
 </div>`,
 

@@ -19,12 +19,12 @@ export class DisabledDoc {
     code: Code = {
         basic: `<p-colorPicker 
     [(ngModel)]="color" 
-    [disabled]="true"/>`,
+    [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-colorPicker 
         [(ngModel)]="color" 
-        [disabled]="true"/>
+        [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -35,8 +35,7 @@ export class CustomToolbarDoc {
     </ng-template>
 </p-editor>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
         <ng-template pTemplate="header">
             <span class="ql-formats">

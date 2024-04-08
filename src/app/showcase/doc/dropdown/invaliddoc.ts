@@ -40,7 +40,7 @@ export class InvalidDoc implements OnInit {
     optionLabel="name"
     [showClear]="true" 
     placeholder="Select a City" 
-    class="ng-dirty ng-invalid"/>`,
+    class="ng-dirty ng-invalid" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -49,7 +49,7 @@ export class InvalidDoc implements OnInit {
         optionLabel="name" 
         [showClear]="true" 
         placeholder="Select a City" 
-        class="ng-dirty ng-invalid"/>
+        class="ng-dirty ng-invalid" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

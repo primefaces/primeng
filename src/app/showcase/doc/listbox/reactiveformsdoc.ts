@@ -47,7 +47,7 @@ export class ReactiveFormsDoc implements OnInit {
         formControlName="selectedCity" 
         optionLabel="name" 
         [style]="{ width: '15rem' }" 
-        [listStyle]="{'max-height': '220px'}"/>
+        [listStyle]="{'max-height': '220px'}" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
@@ -57,7 +57,7 @@ export class ReactiveFormsDoc implements OnInit {
             formControlName="selectedCity" 
             optionLabel="name" 
             [style]="{ width: '15rem' }" 
-            [listStyle]="{'max-height': '220px'}"/>
+            [listStyle]="{'max-height': '220px'}" />
     </form>
 </div>`,
 

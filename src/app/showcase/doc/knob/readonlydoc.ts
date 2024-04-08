@@ -17,10 +17,10 @@ export class ReadonlyDoc {
     value: number = 50;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [readonly]="true"/>`,
+        basic: `<p-knob [(ngModel)]="value" [readonly]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [readonly]="true"/>
+    <p-knob [(ngModel)]="value" [readonly]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

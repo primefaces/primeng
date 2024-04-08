@@ -33,7 +33,7 @@ export class DynamicDoc {
         [(ngModel)]="selectedCategories"
         [label]="category.name" 
         name="group" 
-        [value]="category"/>
+        [value]="category" />
 </div>`,
 
         html: `<div class="card flex justify-content-center">
@@ -43,7 +43,7 @@ export class DynamicDoc {
                 [(ngModel)]="selectedCategories"
                 [label]="category.name"
                 name="group"
-                [value]="category"/>
+                [value]="category" />
         </div>
     </div>
 </div>`,

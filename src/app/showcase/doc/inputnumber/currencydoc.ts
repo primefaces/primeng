@@ -46,14 +46,14 @@ export class CurrencyDoc {
     inputId="currency-us" 
     mode="currency" 
     currency="USD" 
-    locale="en-US"/> 
+    locale="en-US" /> 
 
 <p-inputNumber 
     [(ngModel)]="value2" 
     mode="currency"
     inputId="currency-germany"
     currency="EUR" 
-    locale="de-DE"/> 
+    locale="de-DE" /> 
 
 <p-inputNumber 
     [(ngModel)]="value3"
@@ -61,14 +61,14 @@ export class CurrencyDoc {
     inputId="currency-india" 
     currency="INR" 
     currencyDisplay="code" 
-    locale="en-IN"/> 
+    locale="en-IN" /> 
 
 <p-inputNumber 
     [(ngModel)]="value4"
     mode="currency"
     inputId="currency-japan" 
     currency="JPY" 
-    locale="jp-JP"/> `,
+    locale="jp-JP" /> `,
 
         html: `
 <div class="card flex flex-wrap gap-3 p-fluid">
@@ -81,7 +81,7 @@ export class CurrencyDoc {
             inputId="currency-us" 
             mode="currency" 
             currency="USD" 
-            locale="en-US"/> 
+            locale="en-US" /> 
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-germany">
@@ -92,7 +92,7 @@ export class CurrencyDoc {
             mode="currency"
             inputId="currency-germany"
             currency="EUR" 
-            locale="de-DE"/> 
+            locale="de-DE" /> 
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-india">
@@ -104,7 +104,7 @@ export class CurrencyDoc {
             inputId="currency-india" 
             currency="INR" 
             currencyDisplay="code" 
-            locale="en-IN"/> 
+            locale="en-IN" /> 
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-japan">
@@ -115,7 +115,7 @@ export class CurrencyDoc {
             mode="currency" 
             inputId="currency-japan" 
             currency="JPY" 
-            locale="jp-JP"/> 
+            locale="jp-JP" /> 
     </div>
 </div>`,
 

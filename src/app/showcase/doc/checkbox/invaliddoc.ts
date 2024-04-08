@@ -21,14 +21,14 @@ export class InvalidDoc {
     [(ngModel)]="checked"
     [binary]="true"
     inputId="binary"
-    class="ng-invalid ng-dirty"/>`,
+    class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [(ngModel)]="checked"
         [binary]="true"
         inputId="binary"
-        class="ng-invalid ng-dirty"/>
+        class="ng-invalid ng-dirty" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

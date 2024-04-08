@@ -33,28 +33,28 @@ export class MultipleDoc {
         [(ngModel)]="pizza"
         label="Cheese" 
         name="pizza" 
-        value="Cheese"/>
+        value="Cheese" />
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
         [(ngModel)]="pizza"
         label="Mushroom"
         name="pizza" 
-        value="Mushroom"/>
+        value="Mushroom" />
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
         [(ngModel)]="pizza"
         label="Pepper" 
         name="pizza" 
-        value="Pepper"/>
+        value="Pepper" />
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
         [(ngModel)]="pizza"
         label="Onion" 
         name="pizza" 
-        value="Onion"/>
+        value="Onion" />
 </div>`,
 
         html: `<div class="card flex justify-content-center gap-3">
@@ -63,28 +63,28 @@ export class MultipleDoc {
             [(ngModel)]="pizza"
             label="Cheese" 
             name="pizza" 
-            value="Cheese"/>
+            value="Cheese" />
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
             [(ngModel)]="pizza"
             label="Mushroom"
             name="pizza" 
-            value="Mushroom"/>
+            value="Mushroom" />
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
             [(ngModel)]="pizza"
             label="Pepper" 
             name="pizza" 
-            value="Pepper"/>
+            value="Pepper" />
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
             [(ngModel)]="pizza"
             label="Onion" 
             name="pizza" 
-            value="Onion"/>
+            value="Onion" />
     </div>
 </div>`,
 

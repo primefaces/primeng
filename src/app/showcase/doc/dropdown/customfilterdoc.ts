@@ -91,7 +91,7 @@ export class CustomFilterDoc implements OnInit {
                         pInputText
                         placeholder="Filter" 
                         [(ngModel)]="filterValue"
-                        (keyup)="customFilterFunction($event, options)"/>
+                        (keyup)="customFilterFunction($event, options)" />
                 </div>
                 <button pButton icon="pi pi-times" (click)="resetFunction(options)"></button>
             </div>
@@ -101,7 +101,7 @@ export class CustomFilterDoc implements OnInit {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ selectedOption.name }}</div>
             </div>
         </ng-template>
@@ -110,7 +110,7 @@ export class CustomFilterDoc implements OnInit {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()" 
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>

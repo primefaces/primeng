@@ -40,7 +40,7 @@ export class ChipsDoc implements OnInit {
     placeholder="Select Cities"
     optionLabel="name" 
     display="chip" 
-    [showClear]="true"/>`,
+    [showClear]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
@@ -49,7 +49,7 @@ export class ChipsDoc implements OnInit {
         placeholder="Select Cities" 
         optionLabel="name" 
         display="chip" 
-        [showClear]="true"/>
+        [showClear]="true" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

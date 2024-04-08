@@ -53,7 +53,7 @@ export class ButtonsDoc {
     [showButtons]="true" 
     inputId="stacked" 
     mode="currency" 
-    currency="USD"/>
+    currency="USD" />
 
 <p-inputNumber 
     [(ngModel)]="value2" 
@@ -61,7 +61,7 @@ export class ButtonsDoc {
     [showButtons]="true" 
     inputId="minmax-buttons" 
     [min]="0" 
-    [max]="100"/> 
+    [max]="100" /> 
 
 <p-inputNumber 
     [(ngModel)]="value3" 
@@ -75,7 +75,7 @@ export class ButtonsDoc {
     incrementButtonIcon="pi pi-plus" 
     decrementButtonIcon="pi pi-minus" 
     mode="currency" 
-    currency="EUR"/>`,
+    currency="EUR" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
@@ -87,7 +87,7 @@ export class ButtonsDoc {
             [showButtons]="true" 
             inputId="stacked" 
             mode="currency" 
-            currency="USD"/> 
+            currency="USD" /> 
     </div>
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="minmax-buttons">
@@ -99,7 +99,7 @@ export class ButtonsDoc {
             [showButtons]="true" 
             inputId="minmax-buttons" 
             [min]="0" 
-            [max]="100"/>
+            [max]="100" />
     </div>
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="horizontal">
@@ -117,8 +117,7 @@ export class ButtonsDoc {
             incrementButtonIcon="pi pi-plus"
             decrementButtonIcon="pi pi-minus"
             mode="currency"
-            currency="EUR"
-        />
+            currency="EUR" />
     </div>
 </div>`,
 

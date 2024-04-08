@@ -27,12 +27,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-chips formControlName="values"/>
+    <p-chips formControlName="values" />
 </form>`,
 
         html: `<div class="card p-fluid">
     <form [formGroup]="formGroup">
-        <p-chips formControlName="values"/>
+        <p-chips formControlName="values" />
     </form>
 </div>`,
 

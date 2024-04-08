@@ -42,7 +42,7 @@ export class FloatLabelDoc implements OnInit {
         [options]="cities"
         [(ngModel)]="selectedCity"
         optionLabel="name" 
-        inputId="float-label"/>
+        inputId="float-label" />
     <label for="float-label">Select a City</label>
 </p-floatLabel>`,
 
@@ -52,7 +52,7 @@ export class FloatLabelDoc implements OnInit {
             [options]="cities"
             [(ngModel)]="selectedCity"
             optionLabel="name"
-            inputId="float-label"/>
+            inputId="float-label" />
         <label for="float-label">Select a City</label>
     </p-floatLabel>
 </div>`,

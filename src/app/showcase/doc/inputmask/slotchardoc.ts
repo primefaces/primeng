@@ -21,14 +21,14 @@ export class SlotCharDoc {
     [(ngModel)]="value" 
     mask="99/99/9999" 
     placeholder="99/99/9999" 
-    slotChar="mm/dd/yyyy"/>`,
+    slotChar="mm/dd/yyyy" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputMask 
         [(ngModel)]="value" 
         mask="99/99/9999" 
         placeholder="99/99/9999" 
-        slotChar="mm/dd/yyyy"/>
+        slotChar="mm/dd/yyyy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

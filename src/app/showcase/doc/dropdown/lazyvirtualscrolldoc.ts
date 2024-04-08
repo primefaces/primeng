@@ -61,7 +61,7 @@ export class LazyVirtualScrollDoc {
     placeholder="Select Item" 
     [virtualScroll]="true" 
     [virtualScrollItemSize]="38" 
-    [virtualScrollOptions]="options"/>`,
+    [virtualScrollOptions]="options" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -70,7 +70,7 @@ export class LazyVirtualScrollDoc {
         placeholder="Select Item"
         [virtualScroll]="true"
         [virtualScrollItemSize]="38"
-        [virtualScrollOptions]="options"/>
+        [virtualScrollOptions]="options" />
 </div>`,
 
         typescript: `import { SelectItem } from 'primeng/api';

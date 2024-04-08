@@ -22,7 +22,7 @@ export class DisabledDoc {
     type="text"
     pInputText 
     [disabled]="true" 
-    [(ngModel)]="value"/>`,
+    [(ngModel)]="value" />`,
 
         html: `<div class="card flex justify-content-center">
     <input 
@@ -30,7 +30,7 @@ export class DisabledDoc {
         type="text"
         pInputText 
         [disabled]="true" 
-        [(ngModel)]="value"/>
+        [(ngModel)]="value" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

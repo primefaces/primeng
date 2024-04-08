@@ -19,12 +19,12 @@ export class InlineDoc {
     code: Code = {
         basic: `<p-colorPicker 
     [(ngModel)]="color1" 
-    [inline]="true"/>`,
+    [inline]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-colorPicker 
         [(ngModel)]="color" 
-        [inline]="true"/>
+        [inline]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

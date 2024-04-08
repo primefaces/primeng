@@ -41,28 +41,28 @@ export class LocaleDoc {
         basic: `<p-inputNumber 
     [(ngModel)]="value1" 
     inputId="locale-user" 
-    [minFractionDigits]="2"/>
+    [minFractionDigits]="2" />
 
 <p-inputNumber 
     [(ngModel)]="value2" 
     inputId="locale-us" 
     mode="decimal" 
     locale="en-US" 
-    [minFractionDigits]="2"/> 
+    [minFractionDigits]="2" /> 
 
 <p-inputNumber 
     [(ngModel)]="value3" 
     inputId="locale-german" 
     mode="decimal" 
     locale="de-DE" 
-    [minFractionDigits]="2"/> 
+    [minFractionDigits]="2" /> 
 
 <p-inputNumber 
     [(ngModel)]="value4" 
     inputId="locale-indian" 
     mode="decimal" 
     locale="en-IN" 
-    [minFractionDigits]="2"/>`,
+    [minFractionDigits]="2" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
@@ -72,7 +72,7 @@ export class LocaleDoc {
         <p-inputNumber 
             [(ngModel)]="value1" 
             inputId="locale-user" 
-            [minFractionDigits]="2"/>
+            [minFractionDigits]="2" />
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="locale-us">
@@ -83,7 +83,7 @@ export class LocaleDoc {
             inputId="locale-us" 
             mode="decimal" 
             locale="en-US" 
-            [minFractionDigits]="2"/> 
+            [minFractionDigits]="2" /> 
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="locale-german">
@@ -94,7 +94,7 @@ export class LocaleDoc {
             inputId="locale-german" 
             mode="decimal" 
             locale="de-DE" 
-            [minFractionDigits]="2"/> 
+            [minFractionDigits]="2" /> 
     </div>
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="locale-indian">
@@ -105,7 +105,7 @@ export class LocaleDoc {
             inputId="locale-indian" 
             mode="decimal" 
             locale="en-IN" 
-            [minFractionDigits]="2"/> 
+            [minFractionDigits]="2" /> 
     </div>
 </div>`,
 

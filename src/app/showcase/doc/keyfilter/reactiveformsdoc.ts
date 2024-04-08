@@ -29,13 +29,13 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `<form [formGroup]="formGroup">
     <label for="integer" class="font-bold block mb-2"> Integer </label>
-    <input pInputText id="integer" pKeyFilter="int" class="w-full" formControlName="value"/>
+    <input pInputText id="integer" pKeyFilter="int" class="w-full" formControlName="value" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
         <label for="integer" class="font-bold block mb-2"> Integer </label>
-        <input pInputText id="integer" pKeyFilter="int" class="w-full" formControlName="value"/>
+        <input pInputText id="integer" pKeyFilter="int" class="w-full" formControlName="value" />
     </form>
 </div>`,
 

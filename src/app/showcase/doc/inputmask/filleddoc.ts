@@ -21,14 +21,14 @@ export class FilledDoc {
     mask="99-999999" 
     [(ngModel)]="value" 
     variant="filled"
-    placeholder="99-999999"/>`,
+    placeholder="99-999999" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputMask 
         mask="99-999999" 
         [(ngModel)]="value" 
         variant="filled"
-        placeholder="99-999999"/>
+        placeholder="99-999999" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

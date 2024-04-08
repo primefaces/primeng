@@ -39,7 +39,7 @@ export class DisabledDoc {
     [(ngModel)]="selectedCity" 
     placeholder="Select a City" 
     optionLabel="name" 
-    [disabled]="true"/>`,
+    [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-dropdown 
@@ -47,7 +47,7 @@ export class DisabledDoc {
         [(ngModel)]="selectedCity" 
         placeholder="Select a City" 
         optionLabel="name" 
-        [disabled]="true"/>
+        [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

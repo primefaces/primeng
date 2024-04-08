@@ -36,33 +36,35 @@ export class FormatDoc {
 
     code: Code = {
         basic: `<p-colorPicker 
-    [(ngModel)]="color"/>
+    [(ngModel)]="color" />
+
 <p-colorPicker 
     [(ngModel)]="colorRGB" 
-    format="rgb"/>
+    format="rgb" />
+
 <p-colorPicker 
     [(ngModel)]="colorHSB" 
-    format="hsb"/>`,
+    format="hsb" />`,
 
         html: `<div class="card flex flex-wrap gap-3">
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
         <p-colorPicker 
-            [(ngModel)]="color"/>
+            [(ngModel)]="color" />
         <span>{{ color }}</span>
     </div>
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
         <p-colorPicker 
             [(ngModel)]="colorRGB" 
-            format="rgb"/>
+            format="rgb" />
         <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
     </div>
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
         <p-colorPicker 
             [(ngModel)]="colorHSB" 
-            format="hsb"/>
+            format="hsb" />
         <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
     </div>
 </div>`,

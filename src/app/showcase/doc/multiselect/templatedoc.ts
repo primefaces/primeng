@@ -71,7 +71,7 @@ export class TemplateDoc implements OnInit {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + option.code.toLowerCase()" 
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ option.name }},</div>
             </div>
             <div *ngIf="!value || value.length === 0">Select Countries</div>
@@ -81,7 +81,7 @@ export class TemplateDoc implements OnInit {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
@@ -106,7 +106,7 @@ export class TemplateDoc implements OnInit {
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                         [class]="'flag flag-' + option.code.toLowerCase()" 
-                        style="width: 18px"/>
+                        style="width: 18px" />
                     <div>{{ option.name }},</div>
                 </div>
                 <div *ngIf="!value || value.length === 0">Select Countries</div>
@@ -116,7 +116,7 @@ export class TemplateDoc implements OnInit {
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                         [class]="'flag flag-' + country.code.toLowerCase()" 
-                        style="width: 18px"/>
+                        style="width: 18px" />
                     <div>{{ country.name }}</div>
                 </div>
             </ng-template>

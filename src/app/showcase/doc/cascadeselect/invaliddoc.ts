@@ -113,7 +113,7 @@ export class InvalidDoc {
     optionGroupLabel="name"
     [optionGroupChildren]="['states', 'cities']"
     [style]="{ minWidth: '14rem' }"
-    placeholder="Select a City"/>`,
+    placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-cascadeSelect
@@ -124,11 +124,10 @@ export class InvalidDoc {
         optionGroupLabel="name" 
         [optionGroupChildren]="['states', 'cities']"
         [style]="{ minWidth: '14rem' }" 
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 

@@ -17,10 +17,10 @@ export class StepDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [step]="10"/>`,
+        basic: `<p-knob [(ngModel)]="value" [step]="10" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [step]="10"/>
+    <p-knob [(ngModel)]="value" [step]="10" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

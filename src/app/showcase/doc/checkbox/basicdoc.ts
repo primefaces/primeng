@@ -20,13 +20,13 @@ export class BasicDoc {
         basic: `<p-checkbox 
     [(ngModel)]="checked" 
     [binary]="true" 
-    inputId="binary"/>`,
+    inputId="binary" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [(ngModel)]="checked" 
         [binary]="true" 
-        inputId="binary"/>
+        inputId="binary" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

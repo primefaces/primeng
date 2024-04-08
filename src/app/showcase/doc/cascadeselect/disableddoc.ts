@@ -18,17 +18,16 @@ export class DisabledDoc {
         basic: `<p-cascadeSelect
     [disabled]="true" 
     placeholder="Disabled" 
-    [style]="{ minWidth: '14rem' }"/>`,
+    [style]="{ minWidth: '14rem' }" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-cascadeSelect 
         [disabled]="true" 
         placeholder="Disabled" 
-        [style]="{ minWidth: '14rem' }"/>
+        [style]="{ minWidth: '14rem' }" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 

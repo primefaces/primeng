@@ -17,10 +17,10 @@ export class TemplateDoc {
     value: number = 60;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" valueTemplate="{value}%"/>`,
+        basic: `<p-knob [(ngModel)]="value" valueTemplate="{value}%" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" valueTemplate="{value}%"/>
+    <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

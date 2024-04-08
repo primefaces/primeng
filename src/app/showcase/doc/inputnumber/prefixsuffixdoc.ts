@@ -41,18 +41,18 @@ export class PrefixSuffixDoc {
         basic: `<p-inputNumber 
     [(ngModel)]="value1" 
     inputId="mile" 
-    suffix=" mi"/> 
+    suffix=" mi" /> 
 
 <p-inputNumber 
     [(ngModel)]="value2" 
     inputId="percent" 
-    prefix="%"/> 
+    prefix="%" /> 
 
 <p-inputNumber 
     [(ngModel)]="value3"
     inputId="expiry" 
     prefix="Expires in "
-    suffix=" days"/> 
+    suffix=" days" /> 
 
 <p-inputNumber 
     [(ngModel)]="value4" 
@@ -60,7 +60,7 @@ export class PrefixSuffixDoc {
     inputId="temperature" 
     suffix="℃" 
     [min]="0" 
-    [max]="40"/> `,
+    [max]="40" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
@@ -70,7 +70,7 @@ export class PrefixSuffixDoc {
         <p-inputNumber 
             [(ngModel)]="value1" 
             inputId="mile" 
-            suffix=" mi"/> 
+            suffix=" mi" /> 
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="percent">
@@ -79,7 +79,7 @@ export class PrefixSuffixDoc {
         <p-inputNumber 
             [(ngModel)]="value2"
             inputId="percent"
-            prefix="%"/> 
+            prefix="%" /> 
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="expiry">
@@ -89,7 +89,7 @@ export class PrefixSuffixDoc {
             [(ngModel)]="value3"
             inputId="expiry" 
             prefix="Expires in "
-            suffix=" days"/> 
+            suffix=" days" /> 
     </div>
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="temperature">
@@ -101,7 +101,7 @@ export class PrefixSuffixDoc {
             inputId="temperature"
             suffix="℃" 
             [min]="0" 
-            [max]="40"/>
+            [max]="40" />
     </div>
 </div>`,
 

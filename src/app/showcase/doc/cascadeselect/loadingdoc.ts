@@ -19,17 +19,16 @@ export class LoadingDoc {
         basic: `<p-cascadeSelect 
     [loading]="true" 
     [style]="{ minWidth: '14rem' }"
-    placeholder="Loading..."/>`,
+    placeholder="Loading..." />`,
 
         html: `<div class="card flex justify-content-center">
     <p-cascadeSelect 
         [loading]="true"
         [style]="{ minWidth: '14rem' }" 
-        placeholder="Loading..."/>
+        placeholder="Loading..." />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 

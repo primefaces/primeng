@@ -121,7 +121,7 @@ export class ReactiveFormsDoc implements OnInit {
         optionGroupLabel="name" 
         [optionGroupChildren]="['states', 'cities']" 
         [style]="{ minWidth: '14rem' }"
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
@@ -133,12 +133,11 @@ export class ReactiveFormsDoc implements OnInit {
             optionGroupLabel="name" 
             [optionGroupChildren]="['states', 'cities']"
             [style]="{ minWidth: '14rem' }" 
-            placeholder="Select a City"/>
+            placeholder="Select a City" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CascadeSelectModule } from 'primeng/cascadeselect';
 

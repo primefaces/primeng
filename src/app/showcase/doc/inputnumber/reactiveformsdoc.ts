@@ -27,12 +27,12 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-inputNumber inputId="integeronly" formControlName="value"/>
+    <p-inputNumber inputId="integeronly" formControlName="value" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-inputNumber inputId="integeronly" formControlName="value"/>
+        <p-inputNumber inputId="integeronly" formControlName="value" />
     </form>
 </div>`,
 

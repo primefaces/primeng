@@ -20,13 +20,13 @@ export class DisabledDoc {
         basic: `<p-inputMask 
     mask="999-99-9999" 
     [(ngModel)]="value" 
-    [disabled]="true"/>`,
+    [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputMask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
-        [disabled]="true"/>
+        [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

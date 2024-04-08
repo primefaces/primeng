@@ -17,10 +17,10 @@ export class MaskDoc {
     value: any;
 
     code: Code = {
-        basic: `<p-inputOtp [(ngModel)]="value" [mask]="true"/>`,
+        basic: `<p-inputOtp [(ngModel)]="value" [mask]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputOtp [(ngModel)]="value" [mask]="true"/>
+    <p-inputOtp [(ngModel)]="value" [mask]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

@@ -17,10 +17,10 @@ export class InvalidDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid"/>`,
+        basic: `<p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid"/>
+    <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

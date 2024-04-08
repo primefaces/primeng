@@ -52,7 +52,7 @@ export class TemplateDoc {
             (keydown)="events.keydown($event)" 
             type="text" 
             [attr.value]="token" 
-            [maxLength]="1"/>
+            [maxLength]="1" />
     </ng-template>
 </p-inputOtp>`,
 
@@ -66,7 +66,7 @@ export class TemplateDoc {
                 (keydown)="events.keydown($event)" 
                 type="text" 
                 [attr.value]="token" 
-                [maxLength]="1"/>
+                [maxLength]="1" />
         </ng-template>
     </p-inputOtp>
 </div>`,

@@ -46,7 +46,7 @@ export class ReactiveFormsDoc implements OnInit {
         formControlName="selectedCity" 
         [options]="cities"
         optionLabel="name"
-        placeholder="Select a City"/>
+        placeholder="Select a City" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
@@ -55,7 +55,7 @@ export class ReactiveFormsDoc implements OnInit {
             formControlName="selectedCity"
             [options]="cities"
             optionLabel="name"
-            placeholder="Select a City"/>
+            placeholder="Select a City" />
     </form>
 </div>`,
 

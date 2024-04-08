@@ -17,10 +17,10 @@ export class DisabledDoc {
     value: number = 75;
 
     code: Code = {
-        basic: `<p-knob [(ngModel)]="value" [disabled]="true"/>`,
+        basic: `<p-knob [(ngModel)]="value" [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-knob [(ngModel)]="value" [disabled]="true"/>
+    <p-knob [(ngModel)]="value" [disabled]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

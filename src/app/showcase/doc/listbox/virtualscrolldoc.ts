@@ -59,7 +59,7 @@ export class VirtualScrollDoc {
     [metaKeySelection]="false"
     (onSelectAllChange)="onSelectAllChange($event)"
     (onChange)="onChange($event)"
-    scrollHeight="250px"/>`,
+    scrollHeight="250px" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-listbox
@@ -74,7 +74,7 @@ export class VirtualScrollDoc {
         [metaKeySelection]="false"
         (onSelectAllChange)="onSelectAllChange($event)"
         (onChange)="onChange($event)"
-        scrollHeight="250px"/>
+        scrollHeight="250px" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

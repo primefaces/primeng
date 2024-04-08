@@ -24,7 +24,7 @@ export class FloatlabelDoc {
     <p-inputMask 
         mask="999-99-9999" 
         [(ngModel)]="value" 
-        id="ssn_input"/>
+        id="ssn_input" />
     <label for="ssn_input">SSN</label>
 </p-floatLabel>`,
 
@@ -33,7 +33,7 @@ export class FloatlabelDoc {
         <p-inputMask 
             mask="999-99-9999" 
             [(ngModel)]="value" 
-            id="ssn_input"/>
+            id="ssn_input" />
         <label for="ssn_input">SSN</label>
     </p-floatLabel>
 </div>`,

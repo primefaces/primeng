@@ -58,7 +58,7 @@ export class TemplateDoc implements OnInit {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
@@ -77,7 +77,7 @@ export class TemplateDoc implements OnInit {
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + country.code.toLowerCase()" 
-                        style="width: 18px"/>
+                        style="width: 18px" />
                     <div>{{ country.name }}</div>
                 </div>
             </ng-template>

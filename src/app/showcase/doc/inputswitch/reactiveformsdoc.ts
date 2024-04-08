@@ -26,10 +26,10 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-inputSwitch formControlName="checked"/>`,
+        basic: `<p-inputSwitch formControlName="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch formControlName="checked"/>
+    <p-inputSwitch formControlName="checked" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

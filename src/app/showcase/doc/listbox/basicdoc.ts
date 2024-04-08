@@ -43,7 +43,7 @@ export class BasicDoc implements OnInit {
     [(ngModel)]="selectedCity" 
     optionLabel="name" 
     [style]="{'width':'15rem'}" 
-    [listStyle]="{'max-height': '220px'}"/>`,
+    [listStyle]="{'max-height': '220px'}" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-listbox 
@@ -51,7 +51,7 @@ export class BasicDoc implements OnInit {
         [(ngModel)]="selectedCity" 
         optionLabel="name" 
         [style]="{'width':'15rem'}" 
-        [listStyle]="{'max-height': '220px'}"/>
+        [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -21,14 +21,14 @@ export class DisabledDoc {
     inputId="integeronly" 
     [disabled]="true" 
     prefix="%" 
-    [(ngModel)]="value1"/>`,
+    [(ngModel)]="value1" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputNumber 
         inputId="integeronly" 
         [disabled]="true" 
         prefix="%" 
-        [(ngModel)]="value1"/> 
+        [(ngModel)]="value1" /> 
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

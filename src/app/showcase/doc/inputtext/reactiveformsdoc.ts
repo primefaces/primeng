@@ -26,10 +26,10 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<input type="text" pInputText formControlName="text"/>`,
+        basic: `<input type="text" pInputText formControlName="text" />`,
 
         html: `<div class="card flex justify-content-center">
-    <input type="text" pInputText formControlName="text"/>
+    <input type="text" pInputText formControlName="text" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

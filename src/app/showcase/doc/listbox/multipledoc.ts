@@ -44,7 +44,7 @@ export class MultipleDoc implements OnInit {
     [style]="{'width':'15rem'}" 
     [multiple]="true" 
     [metaKeySelection]="false" 
-    [listStyle]="{'max-height': '220px'}"/>`,
+    [listStyle]="{'max-height': '220px'}" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-listbox 
@@ -54,7 +54,7 @@ export class MultipleDoc implements OnInit {
         [style]="{'width':'15rem'}" 
         [multiple]="true" 
         [metaKeySelection]="false" 
-        [listStyle]="{'max-height': '220px'}"/>
+        [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

@@ -39,7 +39,7 @@ export class LoadingStateDoc implements OnInit {
     [(ngModel)]="selectedCities" 
     [loading]="true"
     optionLabel="name" 
-    placeholder="Loading..."/>`,
+    placeholder="Loading..." />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
@@ -47,7 +47,7 @@ export class LoadingStateDoc implements OnInit {
         [(ngModel)]="selectedCities" 
         [loading]="true"
         optionLabel="name" 
-        placeholder="Loading..."/>
+        placeholder="Loading..." />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

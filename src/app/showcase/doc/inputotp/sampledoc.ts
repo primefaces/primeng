@@ -83,7 +83,7 @@ export class SampleDoc {
                 (input)="events.input($event)" 
                 (keydown)="events.keydown($event)" 
                 [attr.value]="token" 
-                class="custom-otp-input"/>
+                class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>
             </div>
@@ -108,7 +108,7 @@ export class SampleDoc {
                     (input)="events.input($event)" 
                     (keydown)="events.keydown($event)" 
                     [attr.value]="token" 
-                    class="custom-otp-input"/>
+                    class="custom-otp-input" />
                 <div *ngIf="index === 3" class="px-3">
                     <i class="pi pi-minus"></i>
                 </div>

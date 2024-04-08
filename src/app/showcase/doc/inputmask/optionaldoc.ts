@@ -20,13 +20,13 @@ export class OptionalDoc {
         basic: `<p-inputMask 
     mask="(999) 999-9999? x99999" 
     [(ngModel)]="value" 
-    placeholder="(999) 999-9999? x99999"/>`,
+    placeholder="(999) 999-9999? x99999" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-inputMask 
         mask="(999) 999-9999? x99999" 
         [(ngModel)]="value" 
-        placeholder="(999) 999-9999? x99999"/>
+        placeholder="(999) 999-9999? x99999" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

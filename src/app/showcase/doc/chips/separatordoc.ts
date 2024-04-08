@@ -15,10 +15,10 @@ export class SeparatorDoc {
     values: string[] | undefined;
 
     code: Code = {
-        basic: `<p-chips [(ngModel)]="values" separator=","/>`,
+        basic: `<p-chips [(ngModel)]="values" separator="," />`,
 
         html: `<div class="card p-fluid">
-    <p-chips [(ngModel)]="values" separator=","/>
+    <p-chips [(ngModel)]="values" separator="," />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
