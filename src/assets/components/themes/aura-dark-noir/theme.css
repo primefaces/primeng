@@ -839,6 +839,7 @@
     color: #ffffff;
     border-radius: 6px;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    outline-color: transparent;
   }
   .p-checkbox .p-checkbox-box .p-checkbox-icon {
     transition-duration: 0.2s;
@@ -1675,6 +1676,7 @@
     color: #ffffff;
     border-radius: 50%;
     transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    outline-color: transparent;
   }
   .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
     border-color: #52525b;
@@ -6552,21 +6554,17 @@
   .p-checkbox .p-checkbox-box.p-focus {
     outline-offset: 2px;
   }
-  .p-checkbox:not(.p-disabled):has(.p-checkbox-input:focus-visible) .p-checkbox-box {
-    outline-width: 1px;
-    outline-offset: 2px;
-  }
-  .p-checkbox:not(.p-disabled):has(.p-checkbox-input:focus-visible).p-highlight .p-checkbox-box {
+  .p-checkbox .p-checkbox-box.p-focus.p-highlight {
     border-color: #fafafa;
   }
-  .p-checkbox.p-disabled {
+  .p-checkbox.p-checkbox-disabled {
     opacity: 1;
   }
-  .p-checkbox.p-disabled .p-checkbox-box {
+  .p-checkbox.p-checkbox-disabled .p-checkbox-box {
     background-color: #3f3f46;
     border: 1px solid #3f3f46;
   }
-  .p-checkbox.p-disabled .p-checkbox-box .p-checkbox-icon {
+  .p-checkbox.p-checkbox-disabled .p-checkbox-box .p-checkbox-icon {
     color: #a1a1aa;
   }
 
@@ -7286,21 +7284,17 @@
   .p-radiobutton .p-radiobutton-box.p-focus {
     outline-offset: 2px;
   }
-  .p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
-    outline-width: 1px;
-    outline-offset: 2px;
-  }
-  .p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:focus-visible).p-highlight .p-radiobutton-box {
+  .p-radiobutton .p-radiobutton-box.p-focus.p-highlight {
     border-color: #fafafa;
   }
-  .p-radiobutton.p-disabled {
+  .p-radiobutton.p-radiobutton-disabled {
     opacity: 1;
   }
-  .p-radiobutton.p-disabled .p-radiobutton-box {
+  .p-radiobutton.p-radiobutton-disabled .p-radiobutton-box {
     border: 1px solid #3f3f46;
     background-color: #3f3f46;
   }
-  .p-radiobutton.p-disabled .p-radiobutton-box .p-radiobutton-icon {
+  .p-radiobutton.p-radiobutton-disabled .p-radiobutton-box .p-radiobutton-icon {
     background-color: #a1a1aa;
   }
 

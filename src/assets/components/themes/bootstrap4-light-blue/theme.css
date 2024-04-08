@@ -822,6 +822,7 @@
     color: #212529;
     border-radius: 4px;
     transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    outline-color: transparent;
   }
   .p-checkbox .p-checkbox-box .p-checkbox-icon {
     transition-duration: 0.15s;
@@ -1662,6 +1663,7 @@
     color: #212529;
     border-radius: 50%;
     transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s;
+    outline-color: transparent;
   }
   .p-radiobutton .p-radiobutton-box:not(.p-disabled):not(.p-highlight):hover {
     border-color: #ced4da;
