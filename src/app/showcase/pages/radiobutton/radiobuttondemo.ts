@@ -7,6 +7,7 @@ import { GroupDoc } from '@doc/radiobutton/groupdoc';
 import { ImportDoc } from '@doc/radiobutton/importdoc';
 import { InvalidDoc } from '@doc/radiobutton/invaliddoc';
 import { StyleDoc } from '@doc/radiobutton/styledoc';
+import { FilledDoc } from '@doc/radiobutton/filleddoc';
 
 @Component({
     templateUrl: './radiobuttondemo.html'
@@ -32,6 +33,11 @@ export class RadioButtonDemo {
             id: 'reactive-forms',
             label: 'Reactive Forms',
             component: ReactiveFormsDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

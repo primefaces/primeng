@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center">
             <form class="flex flex-column gap-3" [formGroup]="formGroup">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory"></p-radioButton>
+                    <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
                 </div>
             </form>
@@ -38,28 +38,39 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `<form class="flex flex-column gap-3" [formGroup]="formGroup">
     <div *ngFor="let category of categories" class="field-checkbox">
-        <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory"></p-radioButton>
-        <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+        <p-radioButton 
+            [inputId]="category.key" 
+            [value]="category"
+            formControlName="selectedCategory" />
+        <label [for]="category.key" class="ml-2">
+            {{ category.name }}
+        </label>
     </div>
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form class="flex flex-column gap-3" [formGroup]="formGroup">
         <div *ngFor="let category of categories" class="field-checkbox">
-            <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory"></p-radioButton>
-            <label [for]="category.key" class="ml-2">{{ category.name }}</label>
+            <p-radioButton 
+                [inputId]="category.key" 
+                [value]="category" 
+                formControlName="selectedCategory" />
+            <label [for]="category.key" class="ml-2">
+                {{ category.name }}
+            </label>
         </div>
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @Component({
     selector: 'radio-button-reactive-forms-demo',
-    templateUrl: './radio-button-reactive-forms-demo.html'
+    templateUrl: './radio-button-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, RadioButtonModule],
 })
 export class RadioButtonReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

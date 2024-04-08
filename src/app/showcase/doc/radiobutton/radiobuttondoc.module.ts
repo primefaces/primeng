@@ -13,10 +13,11 @@ import { ImportDoc } from './importdoc';
 import { InvalidDoc } from './invaliddoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
 import { StyleDoc } from './styledoc';
+import { FilledDoc } from './filleddoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, RadioButtonModule, FormsModule, ReactiveFormsModule, RouterModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc]
+    declarations: [ImportDoc, GroupDoc, DynamicDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc]
 })
 export class RadioButtonDocModule {}
