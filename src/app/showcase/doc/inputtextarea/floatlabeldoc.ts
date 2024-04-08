@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
     selector: 'floatlabel-doc',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused.</p>
+            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-floatLabel>
