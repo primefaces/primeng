@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>SelectButton allows selecting only one item by default and setting <i>multiple</i> option enables choosing more than one item. In multiple case, model property should be an array.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>
+            <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-multiple-demo"></app-code>
     `
@@ -23,19 +23,31 @@ export class MultipleDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>`,
+        basic: `<p-selectButton 
+    [options]="paymentOptions" 
+    [(ngModel)]="value" 
+    [multiple]="true" 
+    optionLabel="name" 
+    optionValue="value" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-selectButton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value"></p-selectButton>
+        html: `<div class="card flex justify-content-center">
+    <p-selectButton 
+        [options]="paymentOptions" 
+        [(ngModel)]="value" 
+        [multiple]="true" 
+        optionLabel="name" 
+        optionValue="value" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'select-button-multiple-demo',
-    templateUrl: './select-button-multiple-demo.html'
+    templateUrl: './select-button-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButtonModule]
 })
 export class SelectButtonMultipleDemo {
     value!: number;
