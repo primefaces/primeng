@@ -44,11 +44,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="pwd1">Password</label>
-<p-password inputId="pwd1"></p-password>
+<p-password inputId="pwd1" />
 
 <span id="pwd2">Password</span>
-<p-password ariaLabelledBy="pwd2"></p-password>
+<p-password ariaLabelledBy="pwd2" />
 
-<p-password ariaLabel="Password"></p-password>`
+<p-password ariaLabel="Password" />`
     };
 }

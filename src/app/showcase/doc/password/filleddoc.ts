@@ -2,31 +2,31 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'disabled-doc',
+    selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-password [(ngModel)]="value" [disabled]="true" placeholder="Disabled" />
+            <p-password [(ngModel)]="value" [feedback]="false" variant="filled" />
         </div>
-        <app-code [code]="code" selector="password-disabled-demo"></app-code>
+        <app-code [code]="code" selector="password-filled-demo"></app-code>
     `
 })
-export class DisabledDoc {
+export class FilledDoc {
     value!: string;
 
     code: Code = {
         basic: `<p-password 
     [(ngModel)]="value" 
-    [disabled]="true" 
-    placeholder="Disabled" />`,
+    [feedback]="false" 
+    variant="filled" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-password 
         [(ngModel)]="value" 
-        [disabled]="true" 
-        placeholder="Disabled" />
+        [feedback]="false" 
+        variant="filled" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -34,12 +34,12 @@ import { PasswordModule } from 'primeng/password';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'password-disabled-demo',
-    templateUrl: './password-disabled-demo.html',
+    selector: 'password-filled-demo',
+    templateUrl: './password-filled-demo.html',
     standalone: true,
     imports: [FormsModule, PasswordModule]
 })
-export class PasswordDisabledDemo {
+export class PasswordFilledDemo {
     value!: string;
 }`
     };

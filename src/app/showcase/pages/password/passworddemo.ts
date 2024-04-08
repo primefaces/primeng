@@ -11,6 +11,7 @@ import { LocaleDoc } from '@doc/password/localedoc';
 import { StyleDoc } from '@doc/password/styledoc';
 import { TemplateDoc } from '@doc/password/templatedoc';
 import { ToggleMaskDoc } from '@doc/password/togglemaskdoc';
+import { FilledDoc } from '@doc/password/filleddoc';
 
 @Component({
     templateUrl: './passworddemo.html'
@@ -56,6 +57,11 @@ export class PasswordDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

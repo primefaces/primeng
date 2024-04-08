@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
                     <h6>Pick a password</h6>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <p-divider></p-divider>
+                    <p-divider />
                     <p class="mt-2">Suggestions</p>
                     <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
                         <li>At least one lowercase</li>
@@ -36,7 +36,7 @@ export class TemplateDoc {
         <h6>Pick a password</h6>
     </ng-template>
     <ng-template pTemplate="footer">
-        <p-divider></p-divider>
+        <p-divider />
         <p class="mt-2">Suggestions</p>
         <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
             <li>At least one lowercase</li>
@@ -47,14 +47,13 @@ export class TemplateDoc {
     </ng-template>
 </p-password>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-password [(ngModel)]="value">
          <ng-template pTemplate="header">
              <h6>Pick a password</h6>
          </ng-template>
          <ng-template pTemplate="footer">
-             <p-divider></p-divider>
+             <p-divider />
              <p class="mt-2">Suggestions</p>
              <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
                  <li>At least one lowercase</li>
@@ -66,12 +65,16 @@ export class TemplateDoc {
      </p-password>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'password-template-demo',
-    templateUrl: './password-template-demo.html'
+    templateUrl: './password-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, PasswordModule, DividerModule]
 })
 export class PasswordTemplateDemo {
     value!: string;
