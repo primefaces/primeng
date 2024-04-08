@@ -54,18 +54,17 @@ export class ObjectsDoc implements OnInit {
     [(ngModel)]="selectedCountry" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
-    field="name"/>`,
+    field="name" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-autoComplete 
         [(ngModel)]="selectedCountry" 
         [suggestions]="filteredCountries" 
         (completeMethod)="filterCountry($event)" 
-        field="name"/>
+        field="name" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';

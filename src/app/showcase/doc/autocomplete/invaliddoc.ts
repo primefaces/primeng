@@ -32,18 +32,17 @@ export class InvalidDoc {
     class="ng-invalid ng-dirty" 
     [(ngModel)]="selectedItem" 
     [suggestions]="suggestions" 
-    (completeMethod)="search($event)"/>`,
+    (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-autoComplete 
         class="ng-invalid ng-dirty" 
         [(ngModel)]="selectedItem" 
         [suggestions]="suggestions" 
-        (completeMethod)="search($event)"/>
+        (completeMethod)="search($event)" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 

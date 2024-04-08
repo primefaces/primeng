@@ -59,7 +59,7 @@ export class ReactiveFormsDoc implements OnInit {
         formControlName="selectedCountry"
         [suggestions]="filteredCountries" 
         (completeMethod)="filterCountry($event)" 
-        field="name"/>
+        field="name" />
 </form>`,
 
         html: `<div class="card flex justify-content-center">
@@ -68,12 +68,11 @@ export class ReactiveFormsDoc implements OnInit {
             formControlName="selectedCountry"
             [suggestions]="filteredCountries" 
             (completeMethod)="filterCountry($event)" 
-            field="name"/>
+            field="name" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { CountryService } from '@service/countryservice';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';

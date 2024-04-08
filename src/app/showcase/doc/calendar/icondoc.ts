@@ -42,13 +42,13 @@ export class IconDoc {
     [(ngModel)]="date1" 
     [showIcon]="true" 
     [showOnFocus]="false" 
-    inputId="buttondisplay"/>
+    inputId="buttondisplay" />
 
 <p-calendar 
     [(ngModel)]="date2" 
     [iconDisplay]="'input'" 
     [showIcon]="true" 
-    inputId="icondisplay"/>
+    inputId="icondisplay" />
 
 <p-calendar 
     [(ngModel)]="date3" 
@@ -68,7 +68,7 @@ export class IconDoc {
         [(ngModel)]="date1" 
         [showIcon]="true" 
         inputId="buttondisplay" 
-        [showOnFocus]="false"/>
+        [showOnFocus]="false" />
 </div>
 
 <div class="flex-auto">
@@ -77,7 +77,7 @@ export class IconDoc {
         [(ngModel)]="date2" 
         [iconDisplay]="'input'" 
         [showIcon]="true" 
-        inputId="icondisplay"/>
+        inputId="icondisplay" />
 </div>
 
 <div class="flex-auto">
@@ -97,8 +97,7 @@ export class IconDoc {
 </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 

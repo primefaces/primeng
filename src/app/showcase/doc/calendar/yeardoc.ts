@@ -20,18 +20,16 @@ export class YearDoc {
         basic: `<p-calendar 
     [(ngModel)]="date" 
     view="year" 
-    dateFormat="yy"/>`,
+    dateFormat="yy" />`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
         view="year" 
-        dateFormat="yy"/>
+        dateFormat="yy" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

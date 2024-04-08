@@ -36,16 +36,18 @@ export class TimeDoc {
     inputId="calendar-12h" 
     [(ngModel)]="datetime12h" 
     [showTime]="true" 
-    [hourFormat]="12"/>
+    [hourFormat]="12" />
+
 <p-calendar 
     inputId="calendar-24h" 
     [(ngModel)]="datetime24h" 
     [showTime]="true" 
-    [hourFormat]="24"/>
+    [hourFormat]="24" />
+
 <p-calendar 
     inputId="calendar-timeonly" 
     [(ngModel)]="time" 
-    [timeOnly]="true"/>`,
+    [timeOnly]="true" />`,
 
         html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
@@ -73,8 +75,7 @@ export class TimeDoc {
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

@@ -19,16 +19,15 @@ export class MultipleMonthDoc {
     code: Code = {
         basic: `<p-calendar 
     [(ngModel)]="date" 
-    [numberOfMonths]="2"/>`,
+    [numberOfMonths]="2" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
-            [(ngModel)]="date" 
-            [numberOfMonths]="2"/>
+        [(ngModel)]="date" 
+        [numberOfMonths]="2" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 
 @Component({

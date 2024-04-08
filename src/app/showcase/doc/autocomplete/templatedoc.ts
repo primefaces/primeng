@@ -87,8 +87,7 @@ export class TemplateDoc {
     </p-autoComplete>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
 import { CountryService } from '@service/countryservice';
 import { AutoCompleteModule } from 'primeng/autocomplete';

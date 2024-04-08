@@ -21,19 +21,17 @@ export class MonthDoc {
     [(ngModel)]="date" 
     view="month" 
     dateFormat="mm/yy" 
-    [readonlyInput]="true"/>`,
+    [readonlyInput]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
         view="month" 
         dateFormat="mm/yy" 
-        [readonlyInput]="true"/>
+        [readonlyInput]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

@@ -33,9 +33,10 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { InvalidDoc } from './invaliddoc';
 import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule, FloatLabelModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,

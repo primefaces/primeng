@@ -32,18 +32,17 @@ export class FilledDoc {
     [(ngModel)]="selectedItem"
     [suggestions]="suggestions"
     (completeMethod)="search($event)"
-    variant="filled"/>`,
+    variant="filled" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-autoComplete
         [(ngModel)]="selectedItem"
         [suggestions]="suggestions"
         (completeMethod)="search($event)"
-        variant="filled"/>
+        variant="filled" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 

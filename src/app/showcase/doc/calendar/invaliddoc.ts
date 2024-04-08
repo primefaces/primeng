@@ -19,16 +19,15 @@ export class InvalidDoc {
     code: Code = {
         basic: `<p-calendar 
     [(ngModel)]="date" 
-    class="ng-invalid ng-dirty"/>`,
+    class="ng-invalid ng-dirty" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
-        class="ng-invalid ng-dirty"/>
+        class="ng-invalid ng-dirty" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

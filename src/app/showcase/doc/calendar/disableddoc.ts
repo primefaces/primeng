@@ -19,16 +19,15 @@ export class DisabledDoc {
     code: Code = {
         basic: `<p-calendar 
     [(ngModel)]="date" 
-    [disabled]="true"/>`,
+    [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
-        [disabled]="true"/>
+        [disabled]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

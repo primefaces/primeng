@@ -17,16 +17,13 @@ export class BasicDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<p-calendar [(ngModel)]="date"/>`,
+        basic: `<p-calendar [(ngModel)]="date" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-calendar 
-        [(ngModel)]="date"/>
+        html: `<div class="card flex justify-content-center">
+    <p-calendar [(ngModel)]="date" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 

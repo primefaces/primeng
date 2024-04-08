@@ -139,8 +139,8 @@ export class AccessibilityDoc {
 <p-autoComplete inputId="ac1"/>
 
 <span id="ac2">Email</span>
-<p-autoComplete ariaLabelledBy="ac2"/>
+<p-autoComplete ariaLabelledBy="ac2" />
 
-<p-autoComplete ariaLabel="City"/>`
+<p-autoComplete ariaLabel="City" />`
     };
 }

@@ -36,7 +36,7 @@ export class FloatLabelDoc {
         [(ngModel)]="selectedItem" 
         [suggestions]="suggestions" 
         (completeMethod)="search($event)" 
-        inputId="float-label"/>
+        inputId="float-label" />
     <label for="float-label">Float Label</label>
 </p-floatLabel>`,
 
@@ -46,7 +46,7 @@ export class FloatLabelDoc {
             [(ngModel)]="selectedItem" 
             [suggestions]="suggestions" 
             (completeMethod)="search($event)" 
-            inputId="float-label"/>
+            inputId="float-label" />
         <label for="float-label">Float Label</label>
     </p-floatLabel>
 </div>`,

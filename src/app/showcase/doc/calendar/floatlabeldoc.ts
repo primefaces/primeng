@@ -5,13 +5,13 @@ import { Code } from '@domain/code';
     selector: 'calendar-float-label-demo',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused.</p>
+            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <span class="p-float-label">
-                <p-calendar [(ngModel)]="date" inputId="birth_date"/>
+            <p-floatLabel>
+                <p-calendar [(ngModel)]="date" inputId="birth_date" />
                 <label for="birth_date">Birth Date</label>
-            </span>
+            </p-floatLabel>
         </div>
         <app-code [code]="code" selector="calendar-float-label-demo"></app-code>
     `
@@ -20,32 +20,32 @@ export class FloatLabelDoc {
     date: Date | undefined;
 
     code: Code = {
-        basic: `<span class="p-float-label">
+        basic: `<p-floatLabel>
     <p-calendar 
         [(ngModel)]="date" 
-        inputId="birth_date"/>
+        inputId="birth_date" />
     <label for="birth_date">Birth Date</label>
-</span>`,
+</p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
-    <span class="p-float-label">
+    <p-floatLabel>
         <p-calendar 
             [(ngModel)]="date" 
-            inputId="birth_date"/>
+            inputId="birth_date" />
         <label for="birth_date">Birth Date</label>
-    </span>
+    </p-floatLabel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     selector: 'calendar-float-label-demo',
     templateUrl: './calendar-float-label-demo.html',
     standalone: true,
-    imports: [FormsModule, CalendarModule]
+    imports: [FormsModule, CalendarModule, FloatLabelModule]
 })
 export class CalendarFloatLabelDemo {
     date: Date | undefined;

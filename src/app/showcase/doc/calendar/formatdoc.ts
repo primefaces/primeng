@@ -38,12 +38,12 @@ export class FormatDoc {
     code: Code = {
         basic: `<p-calendar 
     [(ngModel)]="date" 
-    dateFormat="dd.mm.yy"/>`,
+    dateFormat="dd.mm.yy" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
-        dateFormat="dd.mm.yy"/>
+        dateFormat="dd.mm.yy" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

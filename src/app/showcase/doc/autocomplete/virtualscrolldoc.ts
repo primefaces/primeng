@@ -56,7 +56,7 @@ export class VirtualScrollDoc {
     [virtualScrollItemSize]="34" 
     (completeMethod)="filterItems($event)" 
     field="label" 
-    [dropdown]="true"/>`,
+    [dropdown]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-autoComplete 
@@ -66,11 +66,10 @@ export class VirtualScrollDoc {
         [virtualScrollItemSize]="34" 
         (completeMethod)="filterItems($event)" 
         field="label" 
-        [dropdown]="true"/>
+        [dropdown]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';
 

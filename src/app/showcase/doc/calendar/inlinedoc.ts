@@ -21,18 +21,17 @@ export class InlineDoc {
     class="max-w-full" 
     [(ngModel)]="date" 
     [inline]="true" 
-    [showWeek]="true"/>`,
+    [showWeek]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
         class="max-w-full" 
         [(ngModel)]="date" 
         [inline]="true" 
-        [showWeek]="true"/>
+        [showWeek]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 

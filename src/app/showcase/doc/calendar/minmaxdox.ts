@@ -41,18 +41,17 @@ export class MinMaxDoc {
     [(ngModel)]="date" 
     [minDate]="minDate" 
     [maxDate]="maxDate" 
-    [readonlyInput]="true"/>`,
+    [readonlyInput]="true" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-calendar 
         [(ngModel)]="date" 
         [minDate]="minDate" 
         [maxDate]="maxDate" 
-        [readonlyInput]="true"/>
+        [readonlyInput]="true" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule } from 'primeng/calendar';
 
