@@ -59,8 +59,7 @@ import { ProductService } from '@service/productservice';
                                 <div class="surface-50 flex justify-content-center border-round p-3">
                                     <div class="relative mx-auto">
                                         <img class="border-round w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px;" />
-
-                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute" [style.left.px]="4" [style.top.px]="4" />
                                     </div>
                                 </div>
                                 <div class="pt-4">
@@ -167,7 +166,7 @@ export class LayoutDoc {
                     <div class="surface-50 flex justify-content-center border-round p-3">
                         <div class="relative mx-auto">
                             <img class="border-round w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" style="max-width: 300px;" />
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)"></p-tag>
+                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product)" class="absolute" [style.left.px]="4" [style.top.px]="4" />
                         </div>
                     </div>
                     <div class="pt-4">
