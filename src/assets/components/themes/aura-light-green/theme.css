@@ -7532,6 +7532,9 @@
   .p-tree .p-tree-container .p-treenode:focus > .p-treenode-content {
     outline-offset: -2px;
   }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
+    background: none;
+  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight .p-tree-toggler:hover {
     background-color: #ecfdf5;
   }
