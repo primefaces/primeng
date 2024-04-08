@@ -6979,6 +6979,9 @@
   .p-orderlist .p-orderlist-list:not(:first-child) {
     border: 0 none;
   }
+  .p-orderlist .p-orderlist-filter-container {
+    border: 0 none;
+  }
 
   .p-organizationchart .p-organizationchart-node-content {
     padding: 0.75rem 1rem;
