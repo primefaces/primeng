@@ -14,7 +14,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>
+            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
     `
@@ -37,20 +37,37 @@ export class MultipleDoc {
     };
 
     code: Code = {
-        basic: `<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="w-full md:w-20rem" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    [metaKeySelection]="false" 
+    selectionMode="multiple"
+    placeholder="Select Item" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="w-full md:w-20rem" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        [metaKeySelection]="false" 
+        selectionMode="multiple" 
+        placeholder="Select Item" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-multiple-demo',
-    templateUrl: './tree-select-multiple-demo.html'
+    templateUrl: './tree-select-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectMultipleDemo {
     nodes!: any[];

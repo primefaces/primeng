@@ -3,19 +3,18 @@ import { Code } from '@domain/code';
 import { NodeService } from '@service/nodeservice';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-            <p>TreeSelect is used as a controlled component with <i>ng-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
-            <p>In single selection mode, value binding should be the <i>key</i> value of a node.</p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
         </div>
-        <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
+        <app-code [code]="code" selector="tree-select-filled-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class FilledDoc {
     nodes!: any[];
 
     selectedNodes: any;
@@ -29,6 +28,7 @@ export class BasicDoc {
     class="md:w-20rem w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
+    variant="filled"
     [options]="nodes" 
     placeholder="Select Item" />`,
 
@@ -37,6 +37,7 @@ export class BasicDoc {
         class="md:w-20rem w-full" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
+        variant="filled"
         [options]="nodes" 
         placeholder="Select Item" />
 </div>`,
@@ -47,13 +48,13 @@ import { FormsModule } from '@angular/forms';
 import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
-    selector: 'tree-select-basic-demo',
-    templateUrl: './tree-select-basic-demo.html',
+    selector: 'tree-select-filled-demo',
+    templateUrl: './tree-select-filled-demo.html',
     standalone: true,
     imports: [FormsModule, TreeSelectModule],
     providers: [NodeService]
   })
-export class TreeSelectBasicDemo {
+export class TreeSelectFilledDemo {
     nodes!: any[];
 
     selectedNodes: any;

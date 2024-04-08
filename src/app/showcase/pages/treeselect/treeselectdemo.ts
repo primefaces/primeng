@@ -11,6 +11,7 @@ import { InvalidDoc } from '@doc/treeselect/invaliddoc';
 import { MultipleDoc } from '@doc/treeselect/multipledoc';
 import { StyleDoc } from '@doc/treeselect/styledoc';
 import { VirtualScrollDoc } from '@doc/treeselect/virtualscrolldoc';
+import { FilledDoc } from '@doc/treeselect/filleddoc';
 
 @Component({
     templateUrl: './treeselectdemo.html'
@@ -56,6 +57,11 @@ export class TreeSelectDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',
