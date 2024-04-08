@@ -23,25 +23,38 @@ export class HelpTextDoc {
     code: Code = {
         basic: `<div class="flex flex-column gap-2">
     <label for="username">Username</label>
-    <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-    <small id="username-help">Enter your username to reset your password.</small>
+    <input 
+        pInputText id="username" 
+        aria-describedby="username-help" 
+        [(ngModel)]="value" />
+    <small id="username-help">
+        Enter your username to reset your password.
+    </small>
 </div>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <div class="flex flex-column gap-2">
         <label for="username">Username</label>
-        <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
-        <small id="username-help">Enter your username to reset your password.</small>
+        <input 
+            pInputText
+            id="username" 
+            aria-describedby="username-help" 
+            [(ngModel)]="value" />
+        <small id="username-help">
+            Enter your username to reset your password.
+        </small>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+        
 @Component({
     selector: 'input-text-help-text-demo',
-    templateUrl: './input-text-help-text-demo.html'
+    templateUrl: './input-text-help-text-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class InputTextHelpTextDemo {
     value: string | undefined;

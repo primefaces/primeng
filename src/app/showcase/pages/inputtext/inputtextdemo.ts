@@ -35,21 +35,6 @@ export class InputTextDemo {
             component: ReactiveFormsDoc
         },
         {
-            id: 'icons',
-            label: 'Icons',
-            component: IconsDoc
-        },
-        {
-            id: 'keyfilter',
-            label: 'Key Filter',
-            component: KeyFilterDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
             id: 'helptext',
             label: 'Help Text',
             component: HelpTextDoc

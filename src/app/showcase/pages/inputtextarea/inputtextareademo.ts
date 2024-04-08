@@ -37,11 +37,6 @@ export class InputTextareaDemo {
             component: AutoResizeDoc
         },
         {
-            id: 'keyfilter',
-            label: 'Key Filter',
-            component: KeyfilterDoc
-        },
-        {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
