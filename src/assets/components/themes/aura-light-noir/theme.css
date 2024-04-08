@@ -6747,6 +6747,9 @@
   .p-listbox.p-disabled .p-listbox-list .p-listbox-item {
     color: #64748b;
   }
+  .p-listbox .p-listbox-header:has(.p-checkbox) {
+    padding: 0.5rem 1rem 0 1rem;
+  }
 
   .p-message {
     backdrop-filter: blur(1.5px);
