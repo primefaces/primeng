@@ -13,7 +13,7 @@ interface City {
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Select Cities" />
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="multi-select-loading-state-demo"></app-code>
     `
@@ -39,7 +39,7 @@ export class LoadingStateDoc implements OnInit {
     [(ngModel)]="selectedCities" 
     [loading]="true"
     optionLabel="name" 
-    placeholder="Select Cities"/>`,
+    placeholder="Loading..."/>`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
@@ -47,7 +47,7 @@ export class LoadingStateDoc implements OnInit {
         [(ngModel)]="selectedCities" 
         [loading]="true"
         optionLabel="name" 
-        placeholder="Select Cities"/>
+        placeholder="Loading..."/>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
