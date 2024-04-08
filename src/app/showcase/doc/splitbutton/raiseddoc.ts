@@ -10,13 +10,13 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
             <p-toast></p-toast>
-            <p-splitButton label="Primary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Success" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Info" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-info mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Warning" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Help" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-help mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Danger" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger mr-2 mb-2"></p-splitButton>
+            <p-splitButton label="Primary" [model]="items" (onClick)="save('info')" raised></p-splitButton>
+            <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary"></p-splitButton>
+            <p-splitButton label="Success" [model]="items" (onClick)="save('info')" raised severity="success"></p-splitButton>
+            <p-splitButton label="Info" [model]="items" (onClick)="save('info')" raised severity="info"></p-splitButton>
+            <p-splitButton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warning"></p-splitButton>
+            <p-splitButton label="Help" [model]="items" (onClick)="save('info')" raised severity="help"></p-splitButton>
+            <p-splitButton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-raised-demo"></app-code>
     `,
@@ -60,24 +60,24 @@ export class RaisedDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Primary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Success" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Info" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-info mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Warning" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Help" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-help mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Danger" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger mr-2 mb-2"></p-splitButton>`,
+        basic: `<p-splitButton label="Primary" [model]="items" (onClick)="save('info')" raised></p-splitButton>
+<p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary"></p-splitButton>
+<p-splitButton label="Success" [model]="items" (onClick)="save('info')" raised severity="success"></p-splitButton>
+<p-splitButton label="Info" [model]="items" (onClick)="save('info')" raised severity="info"></p-splitButton>
+<p-splitButton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warning"></p-splitButton>
+<p-splitButton label="Help" [model]="items" (onClick)="save('info')" raised severity="help"></p-splitButton>
+<p-splitButton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center flex-wrap gap-3">
     <p-toast></p-toast>
-    <p-splitButton label="Primary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Success" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-success mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Info" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-info mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Warning" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Help" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-help mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Danger" [model]="items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger mr-2 mb-2"></p-splitButton>
+    <p-splitButton label="Primary" [model]="items" (onClick)="save('info')" raised></p-splitButton>
+    <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" raised severity="secondary"></p-splitButton>
+    <p-splitButton label="Success" [model]="items" (onClick)="save('info')" raised severity="success"></p-splitButton>
+    <p-splitButton label="Info" [model]="items" (onClick)="save('info')" raised severity="info"></p-splitButton>
+    <p-splitButton label="Warning" [model]="items" (onClick)="save('info')" raised severity="warning"></p-splitButton>
+    <p-splitButton label="Help" [model]="items" (onClick)="save('info')" raised severity="help"></p-splitButton>
+    <p-splitButton label="Danger" [model]="items" (onClick)="save('info')" raised severity="danger"></p-splitButton>
 </div>`,
 
         typescript: `

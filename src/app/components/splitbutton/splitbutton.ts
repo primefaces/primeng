@@ -15,12 +15,16 @@ type SplitButtonIconPosition = 'left' | 'right';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">
                 <button
                     class="p-splitbutton-defaultbutton"
                     type="button"
                     pButton
+                    [severity]="severity"
+                    [text]="text"
+                    [outlined]="outlined"
+                    [size]="size"
                     [icon]="icon"
                     [iconPos]="iconPos"
                     (click)="onDefaultButtonClick($event)"
@@ -37,6 +41,10 @@ type SplitButtonIconPosition = 'left' | 'right';
                     class="p-splitbutton-defaultbutton"
                     type="button"
                     pButton
+                    [severity]="severity"
+                    [text]="text"
+                    [outlined]="outlined"
+                    [size]="size"
                     [icon]="icon"
                     [iconPos]="iconPos"
                     [label]="label"
@@ -49,6 +57,10 @@ type SplitButtonIconPosition = 'left' | 'right';
             <button
                 type="button"
                 pButton
+                [size]="size"
+                [severity]="severity"
+                [text]="text"
+                [outlined]="outlined"
                 class="p-splitbutton-menubutton p-button-icon-only"
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
@@ -88,6 +100,41 @@ export class SplitButton {
      */
     @Input() model: MenuItem[] | undefined;
     /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) text: boolean = false;
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined | null = null;
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
+    /**
      * Name of the icon.
      * @group Props
      */
@@ -126,7 +173,6 @@ export class SplitButton {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
@@ -251,6 +297,19 @@ export class SplitButton {
                     break;
             }
         });
+    }
+
+    get containerClass() {
+        const cls = {
+            'p-splitbutton p-component': true,
+            'p-button-raised': this.raised,
+            'p-button-rounded': this.rounded,
+            'p-button-outlined': this.outlined,
+            'p-button-text': this.text,
+            [`p-button-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size
+        };
+
+        return { ...cls };
     }
 
     onDefaultButtonClick(event: MouseEvent) {

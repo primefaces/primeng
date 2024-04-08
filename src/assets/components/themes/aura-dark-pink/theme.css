@@ -6357,6 +6357,9 @@
     border-radius: 4px;
     box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05);
   }
+  .p-checkbox .p-checkbox-box.p-focus {
+    outline-offset: 2px;
+  }
   .p-checkbox:not(.p-disabled):has(.p-checkbox-input:focus-visible) .p-checkbox-box {
     outline-width: 1px;
     outline-offset: 2px;
@@ -7081,6 +7084,9 @@
 
   .p-radiobutton .p-radiobutton-box {
     box-shadow: 0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05);
+  }
+  .p-radiobutton .p-radiobutton-box.p-focus {
+    outline-offset: 2px;
   }
   .p-radiobutton:not(.p-disabled):has(.p-radiobutton-input:focus-visible) .p-radiobutton-box {
     outline-width: 1px;
