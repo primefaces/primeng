@@ -400,7 +400,7 @@
     padding: 0.25rem 0.75rem;
     background: #f1f5f9;
     color: #1e293b;
-    border-radius: 4px;
+    border-radius: 16px;
   }
   .p-autocomplete .p-autocomplete-multiple-container .p-autocomplete-token .p-autocomplete-token-icon {
     margin-left: 0.5rem;
@@ -917,7 +917,7 @@
     margin-right: 0.5rem;
     background: #f1f5f9;
     color: #1e293b;
-    border-radius: 4px;
+    border-radius: 16px;
   }
   .p-chips .p-chips-multiple-container .p-chips-token.p-focus {
     background: #e2e8f0;
@@ -1496,7 +1496,7 @@
     margin-right: 0.5rem;
     background: #f1f5f9;
     color: #1e293b;
-    border-radius: 4px;
+    border-radius: 16px;
   }
   .p-multiselect.p-multiselect-chip .p-multiselect-token .p-multiselect-token-icon {
     margin-left: 0.5rem;
@@ -1932,7 +1932,7 @@
     margin-right: 0.5rem;
     background: #f1f5f9;
     color: #1e293b;
-    border-radius: 4px;
+    border-radius: 16px;
   }
   .p-treeselect .p-treeselect-trigger {
     background: transparent;
@@ -6126,7 +6126,7 @@
   .p-chip {
     background-color: #f1f5f9;
     color: #1e293b;
-    border-radius: 4px;
+    border-radius: 16px;
     padding: 0 0.75rem;
   }
   .p-chip .p-chip-text {
@@ -6602,7 +6602,7 @@
   }
 
   .p-chip {
-    border-radius: 4px;
+    border-radius: 16px;
     padding: 0.25rem 0.75rem;
   }
   .p-chip .p-chip-text {
@@ -7733,5 +7733,8 @@
   }
   .p-treeselect.p-disabled .p-treeselect-label {
     color: #64748b;
+  }
+  .p-treeselect.p-treeselect-chip .p-treeselect-label-container .p-treeselect-token {
+    border-radius: 4px;
   }
 }
