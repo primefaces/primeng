@@ -413,6 +413,9 @@
     transition: box-shadow 0.15s;
     border-radius: 0;
   }
+  .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:first-child {
+    margin-top: 0;
+  }
   .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
     color: #151515;
     background: #8dd0ff;
@@ -751,6 +754,9 @@
     transition: box-shadow 0.15s;
     border-radius: 0;
   }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:first-child {
+    margin-top: 0;
+  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
     color: #151515;
     background: #8dd0ff;
@@ -1023,6 +1029,9 @@
     background: transparent;
     transition: box-shadow 0.15s;
     border-radius: 0;
+  }
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:first-child {
+    margin-top: 0;
   }
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
     color: #151515;
@@ -1393,6 +1402,9 @@
     transition: box-shadow 0.15s;
     border-radius: 0;
   }
+  .p-listbox .p-listbox-list .p-listbox-item:first-child {
+    margin-top: 0;
+  }
   .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
     color: #151515;
     background: #8dd0ff;
@@ -1547,6 +1559,9 @@
     background: transparent;
     transition: box-shadow 0.15s;
     border-radius: 0;
+  }
+  .p-multiselect-panel .p-multiselect-items .p-multiselect-item:first-child {
+    margin-top: 0;
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
     color: #151515;
@@ -2971,6 +2986,9 @@
     transition: box-shadow 0.15s;
     border-radius: 0;
   }
+  .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:first-child {
+    margin-top: 0;
+  }
   .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
     color: #151515;
     background: #8dd0ff;
@@ -3073,6 +3091,9 @@
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
     transition: box-shadow 0.15s;
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item:first-child {
+    margin-top: 0;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
     background: rgba(255, 255, 255, 0.04);
@@ -3289,6 +3310,9 @@
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
     transition: box-shadow 0.15s;
+  }
+  .p-picklist .p-picklist-list .p-picklist-item:first-child {
+    margin-top: 0;
   }
   .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
     background: rgba(255, 255, 255, 0.04);

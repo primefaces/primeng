@@ -443,6 +443,9 @@
     transition: box-shadow 0.3s;
     border-radius: 6px;
   }
+  .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item:first-child {
+    margin-top: 0;
+  }
   .p-autocomplete-panel .p-autocomplete-items .p-autocomplete-item.p-highlight {
     color: #9eade6;
     background: rgba(158, 173, 230, 0.16);
@@ -781,6 +784,9 @@
     transition: box-shadow 0.3s;
     border-radius: 6px;
   }
+  .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item:first-child {
+    margin-top: 0;
+  }
   .p-cascadeselect-panel .p-cascadeselect-items .p-cascadeselect-item.p-highlight {
     color: #9eade6;
     background: rgba(158, 173, 230, 0.16);
@@ -1049,6 +1055,9 @@
     background: transparent;
     transition: box-shadow 0.3s;
     border-radius: 6px;
+  }
+  .p-dropdown-panel .p-dropdown-items .p-dropdown-item:first-child {
+    margin-top: 0;
   }
   .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
     color: #9eade6;
@@ -1419,6 +1428,9 @@
     transition: box-shadow 0.3s;
     border-radius: 6px;
   }
+  .p-listbox .p-listbox-list .p-listbox-item:first-child {
+    margin-top: 0;
+  }
   .p-listbox .p-listbox-list .p-listbox-item.p-highlight {
     color: #9eade6;
     background: rgba(158, 173, 230, 0.16);
@@ -1573,6 +1585,9 @@
     background: transparent;
     transition: box-shadow 0.3s;
     border-radius: 6px;
+  }
+  .p-multiselect-panel .p-multiselect-items .p-multiselect-item:first-child {
+    margin-top: 0;
   }
   .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight {
     color: #9eade6;
@@ -2989,6 +3004,9 @@
     transition: box-shadow 0.3s;
     border-radius: 6px;
   }
+  .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item:first-child {
+    margin-top: 0;
+  }
   .p-column-filter-overlay .p-column-filter-row-items .p-column-filter-row-item.p-highlight {
     color: #9eade6;
     background: rgba(158, 173, 230, 0.16);
@@ -3091,6 +3109,9 @@
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
     transition: box-shadow 0.3s;
+  }
+  .p-orderlist .p-orderlist-list .p-orderlist-item:first-child {
+    margin-top: 0;
   }
   .p-orderlist .p-orderlist-list .p-orderlist-item:not(.p-highlight):hover {
     background: rgba(158, 173, 230, 0.08);
@@ -3307,6 +3328,9 @@
     color: rgba(255, 255, 255, 0.87);
     background: transparent;
     transition: box-shadow 0.3s;
+  }
+  .p-picklist .p-picklist-list .p-picklist-item:first-child {
+    margin-top: 0;
   }
   .p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
     background: rgba(158, 173, 230, 0.08);
