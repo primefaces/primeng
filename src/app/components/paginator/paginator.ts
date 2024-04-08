@@ -392,6 +392,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         if (simpleChange.rowsPerPageOptions) {
             this.updateRowsPerPageOptions();
         }
+
+        if (simpleChange.pageLinkSize) {
+            this.updatePageLinks();
+        }
     }
 
     updateRowsPerPageOptions() {
