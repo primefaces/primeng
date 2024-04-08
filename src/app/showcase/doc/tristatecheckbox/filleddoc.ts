@@ -8,8 +8,7 @@ import { Code } from '@domain/code';
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex flex-column gap-3 align-items-center">
-            <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />
-            <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
+            <p-triStateCheckbox [(ngModel)]="value" variant="filled" inputId="tricheckbox" />
         </div>
         <app-code [code]="code" selector="tri-state-checkbox-filled-demo"></app-code>
     `
@@ -18,11 +17,19 @@ export class FilledDoc {
     value: boolean | null = null;
 
     code: Code = {
-        basic: `<p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />`,
+        basic: `<p-triStateCheckbox 
+    [(ngModel)]="value" 
+    variant="filled" 
+    inputId="tricheckbox" />`,
 
         html: `<div class="card flex flex-column gap-3 align-items-center">
-    <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />
-    <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
+    <p-triStateCheckbox 
+        [(ngModel)]="value"
+        variant="filled" 
+        inputId="tricheckbox" />
+    <label for="tricheckbox">
+        {{ value === null ? 'null' : value }}
+    </label>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
