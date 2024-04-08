@@ -21,7 +21,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div
             [ngStyle]="style"
-            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused,   'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled', }"
+            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused, 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
             [class]="styleClass"
             (click)="onClick($event, input)"
             [attr.data-pc-name]="'tristatecheckbox'"
