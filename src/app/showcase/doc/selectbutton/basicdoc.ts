@@ -15,11 +15,11 @@ import { Code } from '../../domain/code';
 })
 export class BasicDoc {
     stateOptions: any[] = [
-        { label: 'Off', value: 'off' },
-        { label: 'On', value: 'on' }
+        { label: 'One-Way', value: 'one-way' },
+        { label: 'Return', value: 'return' }
     ];
 
-    value: string = 'off';
+    value: string = 'one-way';
 
     code: Code = {
         basic: `<p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value"></p-selectButton>`,
@@ -37,7 +37,7 @@ import { Component } from '@angular/core';
     templateUrl: './select-button-basic-demo.html'
 })
 export class SelectButtonBasicDemo {
-    stateOptions: any[] = [{label: 'Off', value: 'off'}, {label: 'On', value: 'on'}];
+    stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
 
     value: string = 'off';
 }`
