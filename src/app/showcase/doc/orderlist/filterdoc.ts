@@ -10,7 +10,7 @@ import { ProductService } from '@service/productservice';
             <p>Filter value is checked against the property of an object configured with the <i>filterBy</i> property</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
-            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" filterBy="name" filterPlaceholder="Filter by name">
+            <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" filterBy="name" filterPlaceholder="Filter by name">
                 <ng-template let-product pTemplate="item">
                     <div class="flex flex-wrap p-2 align-items-center gap-3">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />
@@ -53,38 +53,55 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" filterBy="name" filterPlaceholder="Filter by name">
-    <ng-template let-product pTemplate="item">
-        <div class="flex flex-wrap p-2 align-items-center gap-3">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />
-            <div class="flex-1 flex flex-column gap-2">
-                <span class="font-bold">{{ product.name }}</span>
-                <div class="flex align-items-center gap-2">
-                    <i class="pi pi-tag text-sm"></i>
-                    <span>{{ product.category }}</span>
-                </div>
-            </div>
-            <span class="font-bold text-900">{{ '$' + product.price }}</span>
-        </div>
-    </ng-template>
-</p-orderList>`,
-
-        html: `
-<div class="card xl:flex xl:justify-content-center">
-    <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="Products" filterBy="name" filterPlaceholder="Filter by name">
+        basic: `<p-orderList 
+    [value]="products" 
+    [listStyle]="{ 'max-height': '30rem' }" header="List of Products"
+    filterBy="name" 
+    filterPlaceholder="Filter by name">
         <ng-template let-product pTemplate="item">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />
-                <div class="flex-1 flex flex-column gap-2">
-                    <span class="font-bold">{{ product.name }}</span>
-                    <div class="flex align-items-center gap-2">
-                        <i class="pi pi-tag text-sm"></i>
-                        <span>{{ product.category }}</span>
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                    [alt]="product.name" 
+                    class="w-4rem shadow-2 flex-shrink-0 border-round" />
+                    <div class="flex-1 flex flex-column gap-2">
+                        <span class="font-bold">{{ product.name }}</span>
+                        <div class="flex align-items-center gap-2">
+                            <i class="pi pi-tag text-sm"></i>
+                            <span>{{ product.category }}</span>
+                        </div>
                     </div>
-                </div>
-                <span class="font-bold text-900">{{ '$' + product.price }}</span>
+                <span class="font-bold text-900">
+                    {{ '$' + product.price }}
+                </span>
             </div>
         </ng-template>
+</p-orderList>`,
+
+        html: `<div class="card xl:flex xl:justify-content-center">
+    <p-orderList 
+        [value]="products" 
+        [listStyle]="{ 'max-height': '30rem' }" header="List of Products" 
+        filterBy="name" 
+        filterPlaceholder="Filter by name">
+            <ng-template let-product pTemplate="item">
+                <div class="flex flex-wrap p-2 align-items-center gap-3">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                        [alt]="product.name" 
+                        class="w-4rem shadow-2 flex-shrink-0 border-round" />
+                            <div class="flex-1 flex flex-column gap-2">
+                                <span class="font-bold">{{ product.name }}</span>
+                                <div class="flex align-items-center gap-2">
+                                    <i class="pi pi-tag text-sm"></i>
+                                    <span>{{ product.category }}</span>
+                                </div>
+                            </div>
+                    <span class="font-bold text-900">
+                        {{ '$' + product.price }}
+                    </span>
+                </div>
+            </ng-template>
     </p-orderList>
 </div>`,
 
@@ -92,10 +109,14 @@ export class FilterDoc implements OnInit {
 import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { OrderListModule } from 'primeng/orderlist';
 
 @Component({
     selector: 'orderlist-filter-demo',
-    templateUrl: './orderlist-filter-demo.html'
+    templateUrl: './orderlist-filter-demo.html',
+    standalone: true,
+    imports: [OrderListModule],
+    providers: [ProductService]
 })
 export class OrderlistFilterDemo implements OnInit {
     products!: Product[];
