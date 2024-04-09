@@ -108,8 +108,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="lb">Options</span>        
-<p-pickList ariaLabelledBy="lb"></p-pickList>
+<p-pickList ariaLabelledBy="lb" />
 
-<p-pickList ariaLabel="City"></p-pickList>`
+<p-pickList ariaLabel="City" />`
     };
 }
