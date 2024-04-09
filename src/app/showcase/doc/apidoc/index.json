@@ -3154,6 +3154,12 @@
                     "description": "Represents a node in a tree data structure.",
                     "props": [
                         {
+                            "name": "checked",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean"
+                        },
+                        {
                             "name": "label",
                             "optional": true,
                             "readonly": false,
@@ -3335,6 +3341,12 @@
                     "name": "TreeTableNode",
                     "description": "Tree table node element.",
                     "props": [
+                        {
+                            "name": "checked",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean"
+                        },
                         {
                             "name": "label",
                             "optional": true,
@@ -4744,6 +4756,61 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether the button is in loading state."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "description": "Defines the style of the button."
+                        },
+                        {
+                            "name": "raised",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a shadow to indicate elevation."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a circular border radius to the button."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a border class without a background initially."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "default": "null",
+                            "description": "Defines the size of the button."
+                        },
+                        {
+                            "name": "plain",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a plain textual class to the button without a background initially."
                         }
                     ]
                 }
@@ -4867,6 +4934,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Add a link style to the button."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Add a tabindex to the button."
                         },
                         {
                             "name": "size",
@@ -21401,6 +21475,61 @@
                             "description": "MenuModel instance to define the overlay items."
                         },
                         {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "description": "Defines the style of the button."
+                        },
+                        {
+                            "name": "raised",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a shadow to indicate elevation."
+                        },
+                        {
+                            "name": "rounded",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a circular border radius to the button."
+                        },
+                        {
+                            "name": "text",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a textual class to the button without a background initially."
+                        },
+                        {
+                            "name": "outlined",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a border class without a background initially."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\"",
+                            "default": "null",
+                            "description": "Defines the size of the button."
+                        },
+                        {
+                            "name": "plain",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Add a plain textual class to the button without a background initially."
+                        },
+                        {
                             "name": "icon",
                             "optional": false,
                             "readonly": false,
@@ -27318,6 +27447,13 @@
                             "type": "number",
                             "description": "Indicates the height of rows to be scrolled.",
                             "deprecated": "use virtualScrollItemSize property instead."
+                        },
+                        {
+                            "name": "selectionKeys",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "A map of keys to control the selection state."
                         }
                     ]
                 },
@@ -27503,6 +27639,16 @@
                                 }
                             ],
                             "description": "Callback to invoke when cell edit is cancelled with escape key."
+                        },
+                        {
+                            "name": "selectionKeysChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when selectionKeys are changed."
                         }
                     ]
                 },
@@ -27785,6 +27931,12 @@
                         "name": "TreeTableNodeSelectEvent",
                         "description": "Custom node select event.",
                         "props": [
+                            {
+                                "name": "checked",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean"
+                            },
                             {
                                 "name": "label",
                                 "optional": true,
