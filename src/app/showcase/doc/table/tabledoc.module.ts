@@ -28,6 +28,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppCodeModule } from 'src/app/showcase/layout/doc/app.code.component';
 import { AppDocModule } from '@layout/doc/app.doc.module';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { ContextMenuDoc } from './contextmenudoc';
 import { BasicDoc } from './basicdoc';
 import { CellEditDoc } from './celleditdoc';
@@ -44,7 +46,7 @@ import { DynamicDoc } from './dynamicdoc';
 import { ExpandableRowGroupDoc } from './expandablerowgroupdoc';
 import { ExportDoc } from './exportdoc';
 import { FilterMenuDoc } from './filtermenudoc';
-import { FilterRowDoc } from './filterrowdoc';
+import { FilterBasicDoc } from './filterbasic';
 import { FlexibleScrollDoc } from './flexiblescrolldoc';
 import { FrozenColumnsDoc } from './frozencolumnsdoc';
 import { FrozenRowsDoc } from './frozenrowsdoc';
@@ -65,7 +67,7 @@ import { RowEditDoc } from './roweditdoc';
 import { RowExpandDoc } from './rowexpanddoc';
 import { RowspanGroupingDoc } from './rowspangroupingdoc';
 import { SingleColumnSortDoc } from './singlecolumnsortdoc';
-import { MultipleColumnSortDoc } from './multiplecolumnsortdoc';
+import { MultipleColumnsSortDoc } from './multiplecolumnssortdoc';
 import { SingleSelectionDoc } from './singleselectiondoc';
 import { SizeDoc } from './sizedoc';
 import { StatefulDoc } from './statefuldoc';
@@ -82,6 +84,7 @@ import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
+import { PreSortDoc } from './presortdoc';
 
 @NgModule({
     imports: [
@@ -114,7 +117,9 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         SelectButtonModule,
         AppCodeModule,
         AppDocModule,
-        DeferredDemo
+        DeferredDemo,
+        IconFieldModule,
+        InputIconModule
     ],
     declarations: [
         ImportDoc,
@@ -136,7 +141,7 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         ExpandableRowGroupDoc,
         ExportDoc,
         FilterMenuDoc,
-        FilterRowDoc,
+        FilterBasicDoc,
         FlexibleScrollDoc,
         FrozenColumnsDoc,
         FrozenRowsDoc,
@@ -158,7 +163,7 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         RowExpandDoc,
         RowspanGroupingDoc,
         SingleColumnSortDoc,
-        MultipleColumnSortDoc,
+        MultipleColumnsSortDoc,
         SingleSelectionDoc,
         SizeDoc,
         StatefulDoc,
@@ -172,7 +177,8 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         StylingDoc,
         SelectionEventsDoc,
         AccessibilityDoc,
-        PaginatorLocaleDoc
+        PaginatorLocaleDoc,
+        PreSortDoc
     ],
     exports: [AppDocModule]
 })

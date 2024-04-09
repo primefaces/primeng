@@ -10,12 +10,11 @@ import { ColumnSelectionDoc } from '@doc/table/columnselectiondoc';
 import { ColumnToggleDoc } from '@doc/table/columntoggledoc';
 import { ControlledSelectionDoc } from '@doc/table/controlledselectiondoc';
 import { CustomersDoc } from '@doc/table/customersdoc';
-import { CustomSortDoc } from '@doc/table/customsortdoc';
 import { DynamicDoc } from '@doc/table/dynamicdoc';
 import { ExpandableRowGroupDoc } from '@doc/table/expandablerowgroupdoc';
 import { ExportDoc } from '@doc/table/exportdoc';
 import { FilterMenuDoc } from '@doc/table/filtermenudoc';
-import { FilterRowDoc } from '@doc/table/filterrowdoc';
+import { FilterBasicDoc } from '@doc/table/filterbasic';
 import { FlexibleScrollDoc } from '@doc/table/flexiblescrolldoc';
 import { FrozenColumnsDoc } from '@doc/table/frozencolumnsdoc';
 import { FrozenRowsDoc } from '@doc/table/frozenrowsdoc';
@@ -36,7 +35,7 @@ import { RowEditDoc } from '@doc/table/roweditdoc';
 import { RowExpandDoc } from '@doc/table/rowexpanddoc';
 import { RowspanGroupingDoc } from '@doc/table/rowspangroupingdoc';
 import { SingleColumnSortDoc } from '@doc/table/singlecolumnsortdoc';
-import { MultipleColumnSortDoc } from '@doc/table/multiplecolumnsortdoc';
+import { MultipleColumnsSortDoc } from '@doc/table/multiplecolumnssortdoc';
 import { SingleSelectionDoc } from '@doc/table/singleselectiondoc';
 import { SizeDoc } from '@doc/table/sizedoc';
 import { StatefulDoc } from '@doc/table/statefuldoc';
@@ -51,7 +50,7 @@ import { ColumnResizeFitModeDoc } from '@doc/table/columnresizefitmodedoc';
 import { SelectionEventsDoc } from '@doc/table/selectioneventsdoc';
 import { StylingDoc } from '@doc/table/stylingdoc';
 import { AccessibilityDoc } from '@doc/table/accessibilitydoc';
-import { PaginatorLocaleDoc } from '@doc/table/paginatorlocaledoc';
+import { PreSortDoc } from '@doc/table/presortdoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -125,11 +124,6 @@ export class TableDemo {
                     component: PaginatorBasicDoc
                 },
                 {
-                    id: 'paginator-locale',
-                    label: 'Locale',
-                    component: PaginatorLocaleDoc
-                },
-                {
                     id: 'paginator-programmatic',
                     label: 'Programmatic',
                     component: PaginatorProgrammaticDoc
@@ -146,14 +140,14 @@ export class TableDemo {
                     component: SingleColumnSortDoc
                 },
                 {
-                    id: 'multiple-column-sort',
-                    label: 'Multiple Column',
-                    component: MultipleColumnSortDoc
+                    id: 'multiple-columns-sort',
+                    label: 'Multiple Columns',
+                    component: MultipleColumnsSortDoc
                 },
                 {
-                    id: 'custom-sort',
-                    label: 'Custom Sort',
-                    component: CustomSortDoc
+                    id: 'pre-sort',
+                    label: 'Presort',
+                    component: PreSortDoc
                 }
             ]
         },
@@ -162,14 +156,9 @@ export class TableDemo {
             label: 'Filter',
             children: [
                 {
-                    id: 'filter-menu',
-                    label: 'Filter Menu',
-                    component: FilterMenuDoc
-                },
-                {
-                    id: 'filter-row',
-                    label: 'Filter Row',
-                    component: FilterRowDoc
+                    id: 'filter-basic',
+                    label: 'Basic',
+                    component: FilterBasicDoc
                 }
             ]
         },

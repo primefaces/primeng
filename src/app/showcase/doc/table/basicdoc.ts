@@ -63,8 +63,8 @@ export class BasicDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+
+        html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -84,17 +84,17 @@ export class BasicDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-basic-demo',
     templateUrl: 'table-basic-demo.html',
     standalone: true,
-    imports: [TableModule],
+    imports: [TableModule, CommonModule],
     providers: [ProductService]
 })
 

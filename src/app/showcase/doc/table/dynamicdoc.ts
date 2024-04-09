@@ -73,8 +73,7 @@ export class DynamicDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [columns]="cols" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -92,10 +91,11 @@ export class DynamicDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -104,7 +104,10 @@ interface Column {
 
 @Component({
     selector: 'table-dynamic-demo',
-    templateUrl: 'table-dynamic-demo.html'
+    templateUrl: 'table-dynamic-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableDynamicDemo {
     products!: Product[];

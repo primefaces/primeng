@@ -4,28 +4,30 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'size-doc',
+    selector: 'presort-doc',
     template: ` <app-docsectiontext>
-            <p>In addition to a regular table, alternatives with alternative sizes are available.</p>
+            <p>
+                Defining a default <i>sortField</i> and <i>sortOrder</i> displays data as sorted initially in single column sorting. In <i>multiple</i> sort mode, <i>multiSortMeta</i> should be used instead by providing an array of
+                <i>DataTableSortMeta</i> objects.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="flex justify-content-center mb-3">
-                    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
-                </div>
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                <p-table [value]="products" sortField="price" [sortOrder]="-1"  [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Code</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
+                            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code" /></th>
+                            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+                            <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price" /></th>
+                            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category" /></th>
+                            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity" /></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                         </tr>
@@ -33,15 +35,11 @@ import { ProductService } from '@service/productservice';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-size-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [code]="code" selector="table-presort-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SizeDoc {
+export class PreSortDoc {
     products!: Product[];
-
-    sizes!: any[];
-
-    selectedSize: any = '';
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -50,89 +48,86 @@ export class SizeDoc {
             this.products = data;
             this.cd.markForCheck();
         });
-
-        this.sizes = [
-            { name: 'Small', class: 'p-datatable-sm' },
-            { name: 'Normal', class: '' },
-            { name: 'Large', class: 'p-datatable-lg' }
-        ];
     }
 
     code: Code = {
-        basic: `<div class="flex justify-content-center mb-3">
-    <p-selectButton 
-        [options]="sizes" 
-        [(ngModel)]="selectedSize" 
-        [multiple]="false" 
-        optionLabel="name" 
-        optionValue="class" />
-</div>
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
+        basic: `<p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
     <ng-template pTemplate="header">
         <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
+            <th pSortableColumn="code" style="width:20%">
+                Code <p-sortIcon field="code" />
+            </th>
+            <th pSortableColumn="name" style="width:20%">
+                Name <p-sortIcon field="name" />
+            </th>
+            <th pSortableColumn="price" style="width:20%">
+                Price <p-sortIcon field="price" />
+            </th>
+            <th pSortableColumn="category" style="width:20%">
+                Category <p-sortIcon field="category" />
+            </th>
+            <th pSortableColumn="quantity" style="width:20%">
+                Quantity <p-sortIcon field="quantity" />
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
+            <td>{{ product.price | currency : 'USD' }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
         </tr>
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <div class="flex justify-content-center mb-3">
-        <p-selectButton 
-            [options]="sizes" 
-            [(ngModel)]="selectedSize" 
-            [multiple]="false" 
-            optionLabel="name" 
-            optionValue="class" />
-    </div>
-    <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
+    <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="header">
             <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
+                <th pSortableColumn="code" style="width:20%">
+                    Code <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="name" style="width:20%">
+                    Name <p-sortIcon field="name" />
+                </th>
+                <th pSortableColumn="price" style="width:20%">
+                    Price <p-sortIcon field="price" />
+                </th>
+                <th pSortableColumn="category" style="width:20%">
+                    Category <p-sortIcon field="category" />
+                </th>
+                <th pSortableColumn="quantity" style="width:20%">
+                    Quantity <p-sortIcon field="quantity" />
+                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{ product.code }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.price | currency : 'USD' }}</td>
                 <td>{{ product.category }}</td>
                 <td>{{ product.quantity }}</td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `import { Component } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { TableModule } from 'primeng/table';
-import { SelectButtonModule } from 'primeng/selectbutton';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'table-size-demo',
-    templateUrl: 'table-size-demo.html',
+    selector: 'table-presort-demo',
+    templateUrl: 'table-presort-demo.html',
     standalone: true,
-    imports: [TableModule, SelectButtonModule, CommonModule],
+    imports: [TableModule, CommonModule],
     providers: [ProductService]
 })
-export class TableSizeDemo {
+export class TablePreSortDemo implements OnInit {
     products!: Product[];
-
-    sizes!: any[];
-
-    selectedSize: any = '';
 
     constructor(private productService: ProductService) {}
 
@@ -140,13 +135,7 @@ export class TableSizeDemo {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
         });
-
-        this.sizes = [
-            { name: 'Small', class: 'p-datatable-sm' },
-            { name: 'Normal', class: '' },
-            { name: 'Large',  class: 'p-datatable-lg' }
-        ];
-    } 
+    }
 }`,
         data: `{
     id: '1000',

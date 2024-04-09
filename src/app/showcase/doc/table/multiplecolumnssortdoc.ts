@@ -4,7 +4,7 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'multiple-column-sort-doc',
+    selector: 'multiple-columns-sort-doc',
     template: `
         <app-docsectiontext>
             <p>Multiple columns can be sorted by defining <i>sortMode</i> as <i>multiple</i>. This mode requires metaKey (e.g. <i>⌘</i>) to be pressed when clicking a header.</p>
@@ -14,11 +14,10 @@ import { ProductService } from '@service/productservice';
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }" sortMode="multiple">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
-                            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
-                            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                            <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
+                            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code" /></th>
+                            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name" /></th>
+                            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category" /></th>
+                            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity" /></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product>
@@ -27,17 +26,16 @@ import { ProductService } from '@service/productservice';
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
-                            <td>{{ product.price | currency : 'USD' }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-multiple-column-sort-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="table-multiple-columns-sort-demo" [extFiles]="extFiles"></app-code>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MultipleColumnSortDoc {
+export class MultipleColumnsSortDoc {
     products: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -53,56 +51,71 @@ export class MultipleColumnSortDoc {
         basic: `<p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="header">
         <tr>
-            <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
-            <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-            <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
+            <th pSortableColumn="code" style="width:20%">
+                Code <p-sortIcon field="code" />
+            </th>
+            <th pSortableColumn="name" style="width:20%">
+                Name <p-sortIcon field="name" />
+            </th>
+            <th pSortableColumn="category" style="width:20%">
+                Category <p-sortIcon field="category" />
+            </th>
+            <th pSortableColumn="quantity" style="width:20%">
+                Quantity <p-sortIcon field="quantity" />
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.price | currency: 'USD'}}</td>
+            <td>{ {product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products1" [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code"></p-sortIcon></th>
-                <th pSortableColumn="name" style="width:20%">Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="category" style="width:20%">Category <p-sortIcon field="category"></p-sortIcon></th>
-                <th pSortableColumn="quantity" style="width:20%">Quantity <p-sortIcon field="quantity"></p-sortIcon></th>
-                <th pSortableColumn="price" style="width:20%">Price <p-sortIcon field="price"></p-sortIcon></th>
+                <th pSortableColumn="code" style="width:20%">
+                    Code <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="name" style="width:20%">
+                    Name <p-sortIcon field="name" />
+                </th>
+                <th pSortableColumn="category" style="width:20%">
+                    Category <p-sortIcon field="category" />
+                </th>
+                <th pSortableColumn="quantity" style="width:20%">
+                    Quantity <p-sortIcon field="quantity" />
+                </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
-                <td>{{product.price | currency: 'USD'}}</td>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.quantity }}</td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'table-multiple-column-sort-demo',
-    templateUrl: 'table-multiple-column-sort-demo.html'
+    selector: 'table-multiple-columns-sort-demo',
+    templateUrl: 'table-multiple-columns-sort-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
 })
-export class TableSingleColumnSortDemo implements OnInit {
+export class TableSingleColumnsSortDemo implements OnInit {
     products: Product[];
 
     constructor(private productService: ProductService) {}

@@ -95,8 +95,7 @@ export class StyleDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -120,15 +119,39 @@ export class StyleDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-style-demo',
     templateUrl: 'table-style-demo.html',
-    styleUrls: ['table-style-demo.scss']
+    styles: [
+        \`.outofstock {
+            font-weight: 700;
+            color: #ff5252;
+            text-decoration: line-through;
+        }
+
+        .lowstock {
+            font-weight: 700;
+            color: #ffa726;
+        }
+
+        .instock {
+            font-weight: 700;
+            color: #66bb6a;
+        }
+
+        :host ::ng-deep .row-accessories {
+            background-color: rgba(0, 0, 0, 0.15) !important;
+        }\`
+    ],
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableStyleDemo implements OnInit{
     products!: Product[];
