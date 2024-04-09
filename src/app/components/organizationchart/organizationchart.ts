@@ -42,15 +42,17 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                         <div *ngIf="chart.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </div>
-                        <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" (keydown.space)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
-                            <ng-container *ngIf="!chart.togglerIconTemplate">
-                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                            </ng-container>
-                            <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'">
-                                <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
-                            </span>
-                        </a>
+                        <ng-container *ngIf="collapsible">
+                            <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" (keydown.space)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
+                                <ng-container *ngIf="!chart.togglerIconTemplate">
+                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                </ng-container>
+                                <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'">
+                                    <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
+                                </span>
+                            </a>
+                        </ng-container>
                     </div>
                 </td>
             </tr>
@@ -95,6 +97,8 @@ export class OrganizationChartNode implements OnDestroy {
     @Input({ transform: booleanAttribute }) first: boolean | undefined;
 
     @Input({ transform: booleanAttribute }) last: boolean | undefined;
+
+    @Input({ transform: booleanAttribute }) collapsible: boolean | undefined;
 
     chart: OrganizationChart;
 
@@ -147,7 +151,7 @@ export class OrganizationChartNode implements OnDestroy {
     selector: 'p-organizationChart',
     template: `
         <div [ngStyle]="style" [class]="styleClass" [ngClass]="{ 'p-organizationchart p-component': true, 'p-organizationchart-preservespace': preserveSpace }" [attr.data-pc-section]="'root'">
-            <table class="p-organizationchart-table" pOrganizationChartNode [node]="root" *ngIf="root"></table>
+            <table class="p-organizationchart-table" [collapsible]="collapsible" pOrganizationChartNode [node]="root" *ngIf="root"></table>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
@@ -176,6 +180,11 @@ export class OrganizationChart implements AfterContentInit {
      * @group Props
      */
     @Input() selectionMode: 'single' | 'multiple' | null | undefined;
+    /**
+     * Whether the nodes can be expanded or toggled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) collapsible: boolean | undefined;
     /**
      * Whether the space allocated by a node is preserved when hidden.
      * @group Props
