@@ -443,10 +443,14 @@ export class Button implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) outlined: boolean = false;
     /**
-     *  Add a link style to the button.
+     * Add a link style to the button.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) link: boolean = false;
+    /**
+     * Add a tabindex to the button.
+     * @group Props
+     */
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Defines the size of the button.
