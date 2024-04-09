@@ -1840,17 +1840,23 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 checked: !this.allSelected()
             });
         } else {
-            const value = this.allSelected()
+            // pre-selected disabled options should always be selected.
+            const selectedDisabledOptions = this.getAllVisibleAndNonVisibleOptions()
+                .filter((option) => this.isSelected(option) && (this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false))
+
+            const visibleOptions = this.allSelected()
                 ? this.visibleOptions()
                       .filter((option) => !this.isValidOption(option) && this.isSelected(option))
-                      .map((option) => this.getOptionValue(option))
                 : this.visibleOptions()
-                      .filter((option) => this.isSelected(option) || this.isValidOption(option))
+                      .filter((option) => this.isSelected(option) || this.isValidOption(option));
+
+            const optionValues = [...selectedDisabledOptions, ...visibleOptions]
                       .map((option) => this.getOptionValue(option));
+            const value = [...new Set(optionValues)];
 
             this.updateModel(value, event);
 
-            // because onToggleAll could have been called during filtering,  this additional test needs to be performed before calling onSelectAllChange.emit
+            // because onToggleAll could have been called during filtering, this additional test needs to be performed before calling onSelectAllChange.emit
             if (!value.length || value.length === this.getAllVisibleAndNonVisibleOptions().length) {
                 this.onSelectAllChange.emit({
                     originalEvent: event,
