@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { MenuItem } from '../api/menuitem';
+import { MenuItem } from 'primeng/api';
 
 /**
  * Defines valid templates in SpeedDial.
