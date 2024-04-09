@@ -1,6 +1,23 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnDestroy, Optional, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnDestroy,
+    Optional,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute
+} from '@angular/core';
 import { Message, MessageService, PrimeTemplate } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
@@ -84,7 +101,7 @@ export class Messages implements AfterContentInit, OnDestroy {
      * Defines if message box can be closed by the click icon.
      * @group Props
      */
-    @Input() closable: boolean = true;
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -99,7 +116,7 @@ export class Messages implements AfterContentInit, OnDestroy {
      * Whether displaying services messages are enabled.
      * @group Props
      */
-    @Input() enableService: boolean = true;
+    @Input({ transform: booleanAttribute }) enableService: boolean = true;
     /**
      * Id to match the key of the message to enable scoping in service based messaging.
      * @group Props
@@ -109,7 +126,7 @@ export class Messages implements AfterContentInit, OnDestroy {
      * Whether displaying messages would be escaped or not.
      * @group Props
      */
-    @Input() escape: boolean = true;
+    @Input({ transform: booleanAttribute }) escape: boolean = true;
     /**
      * Severity level of the message.
      * @group Props
@@ -131,6 +148,12 @@ export class Messages implements AfterContentInit, OnDestroy {
      * @group Emits
      */
     @Output() valueChange: EventEmitter<Message[]> = new EventEmitter<Message[]>();
+    /**
+     * This function is executed when a message is closed.
+     * @param {Message} value - Closed message.
+     * @group Emits
+     */
+    @Output() onClose: EventEmitter<Message> = new EventEmitter<Message>();
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -203,6 +226,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     removeMessage(i: number) {
         this.messages = this.messages?.filter((msg, index) => index !== i);
+        this.messages[i] && this.onClose.emit(this.messages[i]);
         this.valueChange.emit(this.messages);
     }
 

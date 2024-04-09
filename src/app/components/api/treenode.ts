@@ -3,6 +3,7 @@
  * @group Interface
  */
 export interface TreeNode<T = any> {
+    checked?: boolean;
     /**
      * Label of the node.
      */

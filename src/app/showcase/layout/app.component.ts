@@ -1,11 +1,9 @@
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { Theme } from '../domain/theme';
 import { LandingComponent } from '../pages/landing/landing.component';
 import { AppConfigService } from '../service/appconfigservice';
 import { CarService } from '../service/carservice';
@@ -21,7 +19,6 @@ import { AppConfigComponent } from './config/app.config.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
-import { AppConfig } from '../domain/appconfig';
 
 @Component({
     selector: 'app-root',
@@ -40,7 +37,6 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
     }
-
     ngOnInit(): void {
         this.primeng.ripple = true;
     }
@@ -73,7 +69,7 @@ export class AppComponent implements OnInit {
                 }
 
                 const { theme, darkMode } = this.configService.config();
-                const landingTheme = darkMode ? 'lara-dark-blue' : 'lara-light-blue';
+                const landingTheme = darkMode ? 'aura-dark-blue' : 'aura-light-blue';
                 if (event.urlAfterRedirects === '/' && theme !== landingTheme) {
                     this.configService.config.update((config) => ({ ...config, theme: landingTheme, dark: darkMode }));
                 }

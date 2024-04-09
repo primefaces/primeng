@@ -98,11 +98,11 @@ import { CustomerService } from '../../service/customerservice';
                                 <div class="flex align-items-center">
                                     Activity
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
-                                        <ng-template pTemplate="filter" let-filter="filterCallback">
-                                            <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                            <p-slider [ngModel]="value" [range]="true" styleClass="m-3" (onSlideEnd)="filter($event.values)"></p-slider>
                                             <div class="flex align-items-center px-2">
-                                                <span>{{ activityValues[0] }}</span>
-                                                <span>{{ activityValues[1] }}</span>
+                                                <span *ngIf="!value">0</span>
+                                                <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                             </div>
                                         </ng-template>
                                     </p-columnFilter>

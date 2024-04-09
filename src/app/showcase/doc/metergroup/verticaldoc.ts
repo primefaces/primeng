@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-vertical-demo"></app-code>
+        <app-code [code]="code" selector="meter-group-vertical-demo"></app-code>
     `
 })
 export class VerticalDoc {

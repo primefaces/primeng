@@ -130,4 +130,6 @@ export interface Aria {
     listLabel?: string;
     selectColor?: string;
     removeLabel?: string;
+    browseFiles?: string;
+    maximizeLabel?: string;
 }

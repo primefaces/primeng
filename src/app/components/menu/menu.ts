@@ -21,9 +21,11 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     computed,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -252,7 +254,7 @@ export class Menu implements OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -272,12 +274,12 @@ export class Menu implements OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -307,7 +309,7 @@ export class Menu implements OnDestroy {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -449,7 +451,6 @@ export class Menu implements OnDestroy {
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
-                    this.changeFocusedOptionIndex(0);
                 }
                 break;
 
@@ -532,14 +533,6 @@ export class Menu implements OnDestroy {
     onListFocus(event: Event) {
         if (!this.focused) {
             this.focused = true;
-            if (!this.popup) {
-                if (this.selectedOptionIndex() !== -1) {
-                    this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                    this.selectedOptionIndex.set(-1);
-                } else {
-                    this.changeFocusedOptionIndex(0);
-                }
-            }
             this.onFocus.emit(event);
         }
     }

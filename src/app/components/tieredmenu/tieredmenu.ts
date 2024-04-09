@@ -21,8 +21,10 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -195,15 +197,15 @@ export class TieredMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() root: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
-    @Input() autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
 
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -211,13 +213,13 @@ export class TieredMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -231,10 +233,10 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
 
     positionSubmenu() {
-        let sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+        const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
 
         if (sublist) {
             const parentItem = sublist.parentElement.parentElement;
@@ -288,7 +290,15 @@ export class TieredMenuSub {
     }
 
     getAriaPosInset(index: number) {
-        return index - this.items.slice(0, index).filter((processedItem) => this.isItemVisible(processedItem) && this.getItemProp(processedItem, 'separator')).length + 1;
+        return (
+            index -
+            this.items.slice(0, index).filter((processedItem) => {
+                const isItemVisible = this.isItemVisible(processedItem);
+                const isVisibleSeparator = isItemVisible && this.getItemProp(processedItem, 'separator');
+                return !isItemVisible || isVisibleSeparator;
+            }).length +
+            1
+        );
     }
 
     isItemVisible(processedItem: any): boolean {
@@ -394,7 +404,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -414,18 +424,18 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
      * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -455,12 +465,12 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -497,8 +507,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     visible: boolean | undefined;
 
     relativeAlign: boolean | undefined;
-
-    private window: Window;
 
     dirty: boolean = false;
 
@@ -544,7 +552,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
-        this.window = this.document.defaultView as Window;
         effect(() => {
             const path = this.activeItemPath();
 
@@ -625,11 +632,15 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     isValidItem(processedItem: any): boolean {
-        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item);
+        return !!processedItem && !this.isItemDisabled(processedItem.item) && !this.isItemSeparator(processedItem.item) && this.isItemVisible(processedItem.item);
     }
 
     isItemDisabled(item: any): boolean {
         return this.getItemProp(item, 'disabled');
+    }
+
+    isItemVisible(item: any): boolean {
+        return this.getItemProp(item, 'visible') !== false;
     }
 
     isItemSeparator(item: any): boolean {
@@ -848,7 +859,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
             anchorElement ? anchorElement.click() : element && element.click();
 
-            const processedItem = this.visibleItems[this.focusedItemInfo().index];
             if (!this.popup) {
                 const processedItem = this.visibleItems[this.focusedItemInfo().index];
                 const grouped = this.isProccessedItemGroup(processedItem);
@@ -879,8 +889,6 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
-        const focusedItemInfo = this.focusedItemInfo().index !== -1 ? this.focusedItemInfo() : { index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '', item: this.visibleItems[this.findFirstFocusedItemIndex()]?.item };
-        this.focusedItemInfo.set(focusedItemInfo);
     }
 
     onMenuBlur(event: any) {
@@ -984,7 +992,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
             this.relativeAlign = event?.relativeAlign || null;
         }
 
-        this.focusedItemInfo.set({ index: this.findFirstFocusedItemIndex(), level: 0, parentKey: '' });
+        this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '' });
 
         isFocus && DomHandler.focus(this.rootmenu.sublistViewChild.nativeElement);
 

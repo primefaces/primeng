@@ -23,9 +23,11 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
-import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -87,8 +89,8 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 <ng-template #notHeadless>
                     <div *ngIf="resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
                     <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="showHeader">
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
-                        <span [id]="getAriaLabelledBy()" class="p-dialog-title" *ngIf="headerFacet">
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="!headerFacet && !headerTemplate">{{ header }}</span>
+                        <span [id]="ariaLabelledBy" class="p-dialog-title" *ngIf="headerFacet">
                             <ng-content select="p-header"></ng-content>
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -101,6 +103,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (click)="maximize()"
                                 (keydown.enter)="maximize()"
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
+                                [attr.aria-label]="maximizeLabel"
                                 pRipple
                                 pButton
                             >
@@ -167,12 +170,12 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Enables dragging to change the position using header.
      * @group Props
      */
-    @Input() draggable: boolean = true;
+    @Input({ transform: booleanAttribute }) draggable: boolean = true;
     /**
      * Enables resizing of the content.
      * @group Props
      */
-    @Input() resizable: boolean = true;
+    @Input({ transform: booleanAttribute }) resizable: boolean = true;
     /**
      * Defines the left offset of dialog.
      * @group Props
@@ -209,27 +212,27 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Defines if background should be blocked when dialog is displayed.
      * @group Props
      */
-    @Input() modal: boolean = false;
+    @Input({ transform: booleanAttribute }) modal: boolean = false;
     /**
      * Specifies if pressing escape key should hide the dialog.
      * @group Props
      */
-    @Input() closeOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
     /**
      * Specifies if clicking the modal background should hide the dialog.
      * @group Props
      */
-    @Input() dismissableMask: boolean = false;
+    @Input({ transform: booleanAttribute }) dismissableMask: boolean = false;
     /**
      * When enabled dialog is displayed in RTL direction.
      * @group Props
      */
-    @Input() rtl: boolean = false;
+    @Input({ transform: booleanAttribute }) rtl: boolean = false;
     /**
      * Adds a close icon to the header to hide the dialog.
      * @group Props
      */
-    @Input() closable: boolean = true;
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
      * Defines if the component is responsive.
      * @group Props
@@ -270,7 +273,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Whether to show the header or not.
      * @group Props
      */
-    @Input() showHeader: boolean = true;
+    @Input({ transform: booleanAttribute }) showHeader: boolean = true;
     /**
      * Defines the breakpoint of the component responsive.
      * @group Props
@@ -286,47 +289,47 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Whether background scroll should be blocked when dialog is visible.
      * @group Props
      */
-    @Input() blockScroll: boolean = false;
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = false;
     /**
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Minimum value for the left coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minX: number = 0;
+    @Input({ transform: numberAttribute }) minX: number = 0;
     /**
      * Minimum value for the top coordinate of dialog in dragging.
      * @group Props
      */
-    @Input() minY: number = 0;
+    @Input({ transform: numberAttribute }) minY: number = 0;
     /**
      * When enabled, first button receives focus on show.
      * @group Props
      */
-    @Input() focusOnShow: boolean = true;
+    @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
     /**
      * Whether the dialog can be displayed full screen.
      * @group Props
      */
-    @Input() maximizable: boolean = false;
+    @Input({ transform: booleanAttribute }) maximizable: boolean = false;
     /**
      * Keeps dialog in the viewport.
      * @group Props
      */
-    @Input() keepInViewport: boolean = true;
+    @Input({ transform: booleanAttribute }) keepInViewport: boolean = true;
     /**
      * When enabled, can only focus on elements inside the dialog.
      * @group Props
      */
-    @Input() focusTrap: boolean = true;
+    @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
     /**
      * Transition options of the animation.
      * @group Props
@@ -492,7 +495,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     dragging: boolean | undefined;
 
-    ariaLabelledBy: string | undefined;
+    ariaLabelledBy: string = this.getAriaLabelledBy();
 
     documentDragListener: VoidListener;
 
@@ -539,6 +542,10 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     styleElement: any;
 
     private window: Window;
+
+    get maximizeLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
         this.window = this.document.defaultView as Window;

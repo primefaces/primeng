@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -11,6 +12,7 @@ import {
     Inject,
     Input,
     NgModule,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -214,19 +216,19 @@ export class UITreeNode implements OnInit {
 
     @Input() parentNode: TreeNode<any> | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
-    @Input() firstChild: boolean | undefined;
+    @Input({ transform: booleanAttribute }) firstChild: boolean | undefined;
 
-    @Input() lastChild: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lastChild: boolean | undefined;
 
-    @Input() level: number | undefined;
+    @Input({ transform: numberAttribute }) level: number | undefined;
 
-    @Input() indentation: number | undefined;
+    @Input({ transform: numberAttribute }) indentation: number | undefined;
 
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
 
     tree: Tree;
 
@@ -765,6 +767,7 @@ export class UITreeNode implements OnInit {
                             [level]="rowNode.level"
                             [rowNode]="rowNode"
                             [node]="rowNode.node"
+                            [parentNode]="rowNode.parent"
                             [firstChild]="firstChild"
                             [lastChild]="lastChild"
                             [index]="getIndex(scrollerOptions, index)"
@@ -882,32 +885,32 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Whether the nodes are draggable.
      * @group Props
      */
-    @Input() draggableNodes: boolean | undefined;
+    @Input({ transform: booleanAttribute }) draggableNodes: boolean | undefined;
     /**
      * Whether the nodes are droppable.
      * @group Props
      */
-    @Input() droppableNodes: boolean | undefined;
+    @Input({ transform: booleanAttribute }) droppableNodes: boolean | undefined;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * Whether checkbox selections propagate to ancestor nodes.
      * @group Props
      */
-    @Input() propagateSelectionUp: boolean = true;
+    @Input({ transform: booleanAttribute }) propagateSelectionUp: boolean = true;
     /**
      * Whether checkbox selections propagate to descendant nodes.
      * @group Props
      */
-    @Input() propagateSelectionDown: boolean = true;
+    @Input({ transform: booleanAttribute }) propagateSelectionDown: boolean = true;
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -937,12 +940,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * When enabled, drop can be accepted or rejected based on condition defined at onNodeDrop.
      * @group Props
      */
-    @Input() validateDrop: boolean | undefined;
+    @Input({ transform: booleanAttribute }) validateDrop: boolean | undefined;
     /**
      * When specified, displays an input field to filter the items.
      * @group Props
      */
-    @Input() filter: boolean | undefined;
+    @Input({ transform: booleanAttribute }) filter: boolean | undefined;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
@@ -977,17 +980,17 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -997,7 +1000,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Indentation factor for spacing of the nested node when virtual scrolling is enabled.
      * @group Props
      */
-    @Input() indentation: number = 1.5;
+    @Input({ transform: numberAttribute }) indentation: number = 1.5;
     /**
      * Custom templates of the component.
      * @group Props
@@ -1007,7 +1010,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Function to optimize the node list rendering, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() trackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
     /**
      * Height of the node.
      * @group Props

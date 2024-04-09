@@ -8,11 +8,11 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex flex-wrap justify-content-center gap-3">
             <p-toast></p-toast>
-            <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" styleClass="p-button-sm mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')" styleClass="mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>
+            <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
+            <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
+            <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
     `,
@@ -56,16 +56,16 @@ export class SizesDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" styleClass="p-button-sm mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')" styleClass="mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>`,
+        basic: `<p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
+<p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
+<p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-toast></p-toast>
-    <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" styleClass="p-button-sm mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')" styleClass="mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" styleClass="p-button-lg mr-2 mb-2"></p-splitButton>
+    <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
+    <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
+    <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>
 </div>`,
 
         typescript: `

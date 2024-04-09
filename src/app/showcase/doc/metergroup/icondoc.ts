@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-meterGroup [value]="value"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-icon-demo"></app-code>
+        <app-code [code]="code" selector="meter-group-icon-demo"></app-code>
     `
 })
 export class IconDoc {

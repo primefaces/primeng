@@ -21,7 +21,7 @@ interface City {
                             <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
                             <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
                         </div>
-                        <button pButton icon="pi pi-times" (click)="resetFunction(options)"></button>
+                        <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -80,7 +80,7 @@ export class CustomFilterDoc implements OnInit {
                     <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
                     <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
                 </div>
-                <button pButton icon="pi pi-times" (click)="resetFunction(options)"></button>
+                <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
             </div>
         </ng-template>
         <ng-template pTemplate="selectedItem" let-selectedOption>
@@ -105,7 +105,7 @@ export class CustomFilterDoc implements OnInit {
                 <span class="p-inputgroup-addon"><i class="pi pi-search"></i></span>
                 <input type="text" pInputText placeholder="Filter" [(ngModel)]="filterValue" (keyup)="customFilterFunction($event, options)" />
             </div>
-            <button pButton icon="pi pi-times" (click)="resetFunction(options)"></button>
+            <button pButton icon="pi pi-times" (click)="resetFunction(options)" severity="secondary"></button>
         </div>
     </ng-template>
     <ng-template pTemplate="selectedItem" let-selectedOption>

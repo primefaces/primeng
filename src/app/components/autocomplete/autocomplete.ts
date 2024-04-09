@@ -3,6 +3,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -16,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
@@ -83,7 +85,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.aria-required]="required"
                 [attr.aria-expanded]="overlayVisible ?? false"
                 [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-                [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (input)="onInput($event)"
                 (keydown)="onKeyDown($event)"
                 (change)="onInputChange($event)"
@@ -157,7 +159,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.aria-required]="required"
                         [attr.aria-expanded]="overlayVisible ?? false"
                         [attr.aria-controls]="overlayVisible ? id + '_list' : null"
-                        [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         (input)="onInput($event)"
                         (keydown)="onKeyDown($event)"
                         (change)="onInputChange($event)"
@@ -281,12 +283,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Minimum number of characters to initiate a search.
      * @group Props
      */
-    @Input() minLength: number = 1;
+    @Input({ transform: numberAttribute }) minLength: number = 1;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props
      */
-    @Input() delay: number = 300;
+    @Input({ transform: numberAttribute }) delay: number = 300;
     /**
      * Inline style of the component.
      * @group Props
@@ -331,12 +333,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that the input cannot be typed.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Maximum height of the suggestions panel.
      * @group Props
@@ -346,17 +348,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -366,7 +368,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -376,12 +378,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -391,12 +393,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When enabled, highlights the first item in the list by default.
      * @group Props
      */
-    @Input() autoHighlight: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoHighlight: boolean | undefined;
     /**
      * When present, autocomplete clears the manual input if it does not match of the suggestions to force only accepting values from the suggestions.
      * @group Props
      */
-    @Input() forceSelection: boolean | undefined;
+    @Input({ transform: booleanAttribute }) forceSelection: boolean | undefined;
     /**
      * Type of the input, defaults to "text".
      * @group Props
@@ -406,12 +408,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -436,22 +438,22 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Ensures uniqueness of selected items on multiple mode.
      * @group Props
      */
-    @Input() unique: boolean = true;
+    @Input({ transform: booleanAttribute }) unique: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined;
+    @Input({ transform: booleanAttribute }) group: boolean | undefined;
     /**
      * Whether to run a query when input receives focus.
      * @group Props
      */
-    @Input() completeOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) completeOnFocus: boolean = false;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Field of a suggested object to resolve and display.
      * @group Props
@@ -462,12 +464,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Displays a button next to the input field when enabled.
      * @group Props
      */
-    @Input() dropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) dropdown: boolean | undefined;
     /**
      * Whether to show the empty message or not.
      * @group Props
      */
-    @Input() showEmptyMessage: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) showEmptyMessage: boolean | undefined = true;
     /**
      * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
      * @group Props
@@ -477,12 +479,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Specifies if multiple values can be selected.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -507,7 +509,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input() autofocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -583,17 +585,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean | undefined = false;
     /**
      * When enabled, the focused option is selected.
      * @group Props
      */
-    @Input() selectOnFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean | undefined;
     /**
      * Locale to use in searching. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() searchLocale: boolean | undefined;
+    @Input({ transform: booleanAttribute }) searchLocale: boolean | undefined;
     /**
      * Property name or getter function to use as the disabled flag of an option, defaults to false when not defined.
      * @group Props
@@ -603,7 +605,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input() focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
@@ -1370,6 +1372,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             }
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
+        }
+
+        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
+            this.clear();
         }
     }
 

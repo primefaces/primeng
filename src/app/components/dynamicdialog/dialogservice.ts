@@ -12,7 +12,7 @@ import { ObjectUtils } from 'primeng/utils';
  */
 @Injectable()
 export class DialogService {
-    dialogComponentRefMap: Map<DynamicDialogRef, ComponentRef<DynamicDialogComponent>> = new Map();
+    dialogComponentRefMap: Map<DynamicDialogRef<any>, ComponentRef<DynamicDialogComponent>> = new Map();
 
     constructor(private appRef: ApplicationRef, private injector: Injector, @Inject(DOCUMENT) private document: Document) {}
     /**
@@ -22,12 +22,12 @@ export class DialogService {
      * @returns {DynamicDialogRef} DynamicDialog instance.
      * @group Method
      */
-    public open(componentType: Type<any>, config: DynamicDialogConfig): DynamicDialogRef {
+    public open<T>(componentType: Type<T>, config: DynamicDialogConfig): DynamicDialogRef<T> {
         if (!this.duplicationPermission(componentType, config)) {
             return null;
         }
 
-        const dialogRef = this.appendDialogComponentToBody(config);
+        const dialogRef = this.appendDialogComponentToBody<T>(config, componentType);
 
         this.dialogComponentRefMap.get(dialogRef).instance.childComponentType = componentType;
 
@@ -38,15 +38,15 @@ export class DialogService {
      * @param {ref} DynamicDialogRef - DynamicDialog instance.
      * @group Method
      */
-    public getInstance(ref: DynamicDialogRef) {
+    public getInstance(ref: DynamicDialogRef<any>) {
         return this.dialogComponentRefMap.get(ref).instance;
     }
 
-    private appendDialogComponentToBody(config: DynamicDialogConfig) {
+    private appendDialogComponentToBody<T>(config: DynamicDialogConfig, componentType: Type<T>): DynamicDialogRef<T> {
         const map = new WeakMap();
         map.set(DynamicDialogConfig, config);
 
-        const dialogRef = new DynamicDialogRef();
+        const dialogRef = new DynamicDialogRef<T>();
         map.set(DynamicDialogRef, dialogRef);
 
         const sub = dialogRef.onClose.subscribe(() => {
@@ -75,7 +75,7 @@ export class DialogService {
         return dialogRef;
     }
 
-    private removeDialogComponentFromBody(dialogRef: DynamicDialogRef) {
+    private removeDialogComponentFromBody(dialogRef: DynamicDialogRef<any>) {
         if (!dialogRef || !this.dialogComponentRefMap.has(dialogRef)) {
             return;
         }

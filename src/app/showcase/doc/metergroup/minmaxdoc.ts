@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card">
             <p-meterGroup [value]="value" [max]="200"></p-meterGroup>
         </div>
-        <app-code [code]="code" selector="metergroup-min-max-demo"></app-code>
+        <app-code [code]="code" selector="meter-group-min-max-demo"></app-code>
     `
 })
 export class MinMaxDoc {
@@ -31,8 +31,8 @@ export class MinMaxDoc {
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'metergroup-min-max-demo',
-    templateUrl: './metergroup-min-max-demo.html'
+    selector: 'meter-group-min-max-demo',
+    templateUrl: './meter-group-min-max-demo.html'
 })
 export class MeterGroupMinMaxDemo{
    

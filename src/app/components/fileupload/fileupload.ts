@@ -21,7 +21,9 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { BlockableUI, Message, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -57,7 +59,17 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     [class]="chooseStyleClass"
                     [attr.data-pc-section]="'choosebutton'"
                 >
-                    <input #advancedfileinput type="file" (change)="onFileSelect($event)" [multiple]="multiple" [accept]="accept" [disabled]="disabled || isChooseDisabled()" [attr.title]="''" [attr.data-pc-section]="'input'" />
+                    <input
+                        [attr.aria-label]="browseFilesLabel"
+                        #advancedfileinput
+                        type="file"
+                        (change)="onFileSelect($event)"
+                        [multiple]="multiple"
+                        [accept]="accept"
+                        [disabled]="disabled || isChooseDisabled()"
+                        [attr.title]="''"
+                        [attr.data-pc-section]="'input'"
+                    />
                     <span *ngIf="chooseIcon" [ngClass]="'p-button-icon p-button-icon-left'" [class]="chooseIcon" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'"></span>
                     <ng-container *ngIf="!chooseIcon">
                         <PlusIcon *ngIf="!chooseIconTemplate" [styleClass]="'p-button-icon p-button-icon-left'" [attr.aria-label]="true" [attr.data-pc-section]="'chooseicon'" />
@@ -146,7 +158,19 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                     </ng-container>
                 </ng-template>
                 <span *ngIf="basicButtonLabel" class="p-button-label" [attr.data-pc-section]="'label'">{{ basicButtonLabel }}</span>
-                <input #basicfileinput type="file" [accept]="accept" [multiple]="multiple" [disabled]="disabled" (change)="onFileSelect($event)" *ngIf="!hasFiles()" (focus)="onFocus()" (blur)="onBlur()" [attr.data-pc-section]="'input'" />
+                <input
+                    [attr.aria-label]="browseFilesLabel"
+                    #basicfileinput
+                    type="file"
+                    [accept]="accept"
+                    [multiple]="multiple"
+                    [disabled]="disabled"
+                    (change)="onFileSelect($event)"
+                    *ngIf="!hasFiles()"
+                    (focus)="onFocus()"
+                    (blur)="onBlur()"
+                    [attr.data-pc-section]="'input'"
+                />
             </span>
         </div>
     `,
@@ -177,7 +201,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Used to select multiple files at once from file dialog.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Comma-separated list of pattern to restrict the allowed file types. Can be any combination of either the MIME types (such as "image/*") or the file extensions (such as ".jpg").
      * @group Props
@@ -187,22 +211,22 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Disables the upload functionality.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When enabled, upload begins automatically after selection is completed.
      * @group Props
      */
-    @Input() auto: boolean | undefined;
+    @Input({ transform: booleanAttribute }) auto: boolean | undefined;
     /**
      * Cross-site Access-Control requests should be made using credentials such as cookies, authorization headers or TLS client certificates.
      * @group Props
      */
-    @Input() withCredentials: boolean | undefined;
+    @Input({ transform: booleanAttribute }) withCredentials: boolean | undefined;
     /**
      * Maximum file size allowed in bytes.
      * @group Props
      */
-    @Input() maxFileSize: number | undefined;
+    @Input({ transform: numberAttribute }) maxFileSize: number | undefined;
     /**
      * Summary message of the invalid file size.
      * @group Props
@@ -247,7 +271,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Width of the image thumbnail in pixels.
      * @group Props
      */
-    @Input() previewWidth: number = 50;
+    @Input({ transform: numberAttribute }) previewWidth: number = 50;
     /**
      * Label of the choose button. Defaults to PrimeNG Locale configuration.
      * @group Props
@@ -282,12 +306,12 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Whether to show the upload button.
      * @group Props
      */
-    @Input() showUploadButton: boolean = true;
+    @Input({ transform: booleanAttribute }) showUploadButton: boolean = true;
     /**
      * Whether to show the cancel button.
      * @group Props
      */
-    @Input() showCancelButton: boolean = true;
+    @Input({ transform: booleanAttribute }) showCancelButton: boolean = true;
     /**
      * Defines the UI of the component.
      * @group Props
@@ -302,12 +326,12 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Whether to use the default upload or a manual implementation defined in uploadHandler callback. Defaults to PrimeNG Locale configuration.
      * @group Props
      */
-    @Input() customUpload: boolean | undefined;
+    @Input({ transform: booleanAttribute }) customUpload: boolean | undefined;
     /**
      * Maximum number of files that can be uploaded.
      * @group Props
      */
-    @Input() fileLimit: number | undefined;
+    @Input({ transform: numberAttribute }) fileLimit: number | undefined;
     /**
      * Style class of the upload button.
      * @group Props
@@ -560,7 +584,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         // this will check the fileLimit with the uploaded files
         this.checkFileLimit(files);
 
-        if (this.hasFiles() && this.auto && !(this.mode === 'advanced') && !this.isFileLimitExceeded()) {
+        if (this.hasFiles() && this.auto && (!(this.mode === 'advanced') || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -887,6 +911,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     get cancelButtonLabel(): string {
         return this.cancelLabel || this.config.getTranslation(TranslationKeys.CANCEL);
+    }
+
+    get browseFilesLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)[TranslationKeys.BROWSE_FILES];
     }
 
     ngOnDestroy() {

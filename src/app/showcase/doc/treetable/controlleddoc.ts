@@ -6,7 +6,7 @@ import { NodeService } from '../../service/nodeservice';
 @Component({
     selector: 'controlled-doc',
     template: ` <app-docsectiontext>
-            <p>Expansion state is controlled with <i>expandedKeys</i> property. The <i>expandedKeys</i> should be an object whose keys refer to the node key and values represent the expanded state e.g. <i>&#123;'0-0': true&#125;</i>.</p>
+            <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
         <div class="card">
             <button (click)="toggleApplications()" pButton label="Toggle Applications"></button>
