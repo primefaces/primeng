@@ -31,31 +31,58 @@ export class GridDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-scroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">
-            <div *ngFor="let el of item" style="width: 100px">{{ el }}</div>
-        </div>
-    </ng-template>
-</p-scroller>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="[50, 100]" orientation="both" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+        basic: `<p-scroller 
+    [items]="items" 
+    [itemSize]="[50, 100]" 
+    orientation="both" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">
-                <div *ngFor="let el of item" style="width: 100px">{{ el }}</div>
+            <div 
+                class="flex align-items-center p-2" 
+                [ngClass]="{ 'surface-ground' : options.odd }" 
+                style="height: 50px;">
+                <div *ngFor="let el of item" style="width: 100px">
+                    {{ el }}
+                </div>
             </div>
         </ng-template>
+</p-scroller>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        [items]="items" 
+        [itemSize]="[50, 100]"
+        orientation="both" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div 
+                    class="flex align-items-center p-2" 
+                    [ngClass]="{ 'surface-ground' : options.odd }" 
+                    style="height: 50px;">
+                    <div *ngFor="let el of item" style="width: 100px">
+                        {{ el }}
+                    </div>
+                </div>
+            </ng-template>
     </p-scroller>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
 
 @Component({
     selector: 'scroller-grid-demo',
     templateUrl: './scroller-grid-demo.html',
-    styleUrls: ['./scroller-grid-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule]
 })
 export class ScrollerGridDemo implements OnInit {
     items!: string[][];

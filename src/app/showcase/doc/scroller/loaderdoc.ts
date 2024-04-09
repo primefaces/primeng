@@ -40,28 +40,61 @@ export class LoaderDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">{{ item }}</div>
-    </ng-template>
+        basic: `<p-scroller 
+    [items]="items" 
+    [itemSize]="50" 
+    [showLoader]="true" 
+    [delay]="250" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
+        <ng-template pTemplate="item" let-item let-options="options">
+            <div 
+                class="flex align-items-center p-2" 
+                [ngClass]="{ 'surface-ground' : options.odd }" 
+                style="height: 50px;">
+                    {{ item }}
+            </div>
+        </ng-template>
 </p-scroller>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">{{ item }}</div>
-        </ng-template>
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        [items]="items" 
+        [itemSize]="50" 
+        [showLoader]="true" 
+        [delay]="250" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div 
+                    class="flex align-items-center p-2" 
+                    [ngClass]="{ 'surface-ground' : options.odd }" 
+                    style="height: 50px;">
+                        {{ item }}
+                </div>
+            </ng-template>
     </p-scroller>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
 
 @Component({
     selector: 'scroller-loader-demo',
     templateUrl: './scroller-loader-demo.html',
-    styleUrls: ['./scroller-loader-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        
+            p-skeleton {
+                width: 100%;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule]
 })
 export class ScrollerLoaderDemo implements OnInit {
     items!: string[];

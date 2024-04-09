@@ -62,23 +62,50 @@ export class LazyLoadDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
-    </ng-template>
+        basic: `<p-scroller 
+    [items]="items" 
+    [itemSize]="50" 
+    [showLoader]="true" 
+    [delay]="250" 
+    [loading]="lazyLoading" 
+    [lazy]="true" 
+    (onLazyLoad)="onLazyLoad($event)" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
+        <ng-template pTemplate="item" let-item let-options="options">
+            <div 
+                class="flex align-items-center p-2" 
+                [ngClass]="{ 'surface-ground': options.odd }" 
+                style="height: 50px;">
+                    {{ item }}
+            </div>
+        </ng-template>
 </p-scroller>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
-        </ng-template>
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        [items]="items" 
+        [itemSize]="50" 
+        [showLoader]="true" 
+        [delay]="250" 
+        [loading]="lazyLoading" 
+        [lazy]="true" 
+        (onLazyLoad)="onLazyLoad($event)" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div 
+                    class="flex align-items-center p-2" 
+                    [ngClass]="{ 'surface-ground': options.odd }" 
+                    style="height: 50px;">
+                        {{ item }}
+                </div>
+            </ng-template>
     </p-scroller>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
 
 interface LazyEvent {
     first: number;
@@ -88,7 +115,15 @@ interface LazyEvent {
 @Component({
     selector: 'scroller-lazy-load-demo',
     templateUrl: './scroller-lazy-load-demo.html',
-    styleUrls: ['./scroller-lazy-load-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule]
 })
 export class ScrollerLazyLoadDemo implements OnInit {
     items!: string[];
