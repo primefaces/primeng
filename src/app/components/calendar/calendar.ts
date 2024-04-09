@@ -2499,7 +2499,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     };
 
     constrainTime(hour: number, minute: number, second: number, pm: boolean) {
-        let returnTimeTriple: number[] = [ hour, minute, second ]
+        let returnTimeTriple: number[] = [hour, minute, second];
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
@@ -2520,7 +2520,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
-        switch (true) { // intentional fall through
+        switch (
+            true // intentional fall through
+        ) {
             case isMinDate && this.minDate.getHours() > convertedHour:
                 returnTimeTriple[0] = this.minDate.getHours();
             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
@@ -2543,8 +2545,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const prevHour = this.currentHour ?? 0;
         let newHour = (this.currentHour ?? 0) + this.stepHour;
         let newPM = this.pm;
-        if (this.hourFormat == '24')
-            newHour = newHour >= 24 ? newHour - 24 : newHour;
+        if (this.hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
         else if (this.hourFormat == '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
@@ -2552,7 +2553,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         this.pm = newPM;
         event.preventDefault();
     }
@@ -2615,10 +2616,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     decrementHour(event: any) {
-        let newHour = ( this.currentHour ?? 0 ) - this.stepHour;
+        let newHour = (this.currentHour ?? 0) - this.stepHour;
         let newPM = this.pm;
-        if (this.hourFormat == '24')
-            newHour = newHour < 0 ? 24 + newHour : newHour;
+        if (this.hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
         else if (this.hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
@@ -2626,36 +2626,36 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         this.pm = newPM;
         event.preventDefault();
     }
 
     incrementMinute(event: any) {
-        let newMinute = ( this.currentMinute ?? 0 ) + this.stepMinute;
+        let newMinute = (this.currentMinute ?? 0) + this.stepMinute;
         newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
         event.preventDefault();
     }
 
     decrementMinute(event: any) {
-        let newMinute = ( this.currentMinute ?? 0 ) - this.stepMinute;
+        let newMinute = (this.currentMinute ?? 0) - this.stepMinute;
         newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
         event.preventDefault();
     }
 
     incrementSecond(event: any) {
         let newSecond = <any>this.currentSecond + this.stepSecond;
         newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
         event.preventDefault();
     }
 
     decrementSecond(event: any) {
         let newSecond = <any>this.currentSecond - this.stepSecond;
         newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
         event.preventDefault();
     }
 
@@ -2694,7 +2694,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     toggleAMPM(event: any) {
         const newPM = !this.pm;
-        [ this.currentHour, this.currentMinute, this.currentSecond ] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
         this.pm = newPM;
         this.updateTime();
         event.preventDefault();
@@ -2729,11 +2729,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isValidSelection(value: any): boolean {
         if (this.isSingleSelection()) {
             return this.isSelectable(value.getDate(), value.getMonth(), value.getFullYear(), false);
-        } 
-		let isValid = value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false));
-		if (isValid && this.isRangeSelection()) {
-			isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0]);
-		}
+        }
+        let isValid = value.every((v: any) => this.isSelectable(v.getDate(), v.getMonth(), v.getFullYear(), false));
+        if (isValid && this.isRangeSelection()) {
+            isValid = value.length === 1 || (value.length > 1 && value[1] >= value[0]);
+        }
         return isValid;
     }
 
