@@ -13,7 +13,18 @@ import { UltimaSeparator } from './ultimaseparator';
 @Component({
     standalone: true,
     selector: 'ultima-page',
-    imports: [TemplateHeroModule, TemplateSeparatorModule, TemplateFeaturesAnimationModule, TemplateFeaturesModule, TemplateConfigurationModule, TemplateFeaturesAnimationModule, TemplateRelatedModule, TemplateYoutubeModule, TemplateLicenseModule, UltimaSeparator],
+    imports: [
+        TemplateHeroModule,
+        TemplateSeparatorModule,
+        TemplateFeaturesAnimationModule,
+        TemplateFeaturesModule,
+        TemplateConfigurationModule,
+        TemplateFeaturesAnimationModule,
+        TemplateRelatedModule,
+        TemplateYoutubeModule,
+        TemplateLicenseModule,
+        UltimaSeparator
+    ],
     template: `<div class="ultima template">
         <template-hero [templateHeroData]="templateHeroData" [templateLogo]="ultimaLogo"></template-hero>
         <ultima-separator></ultima-separator>
@@ -36,8 +47,7 @@ import { UltimaSeparator } from './ultimaseparator';
     </div>`
 })
 export class UltimaPage {
-
-    ultimaLogo = UltimaLogo
+    ultimaLogo = UltimaLogo;
 
     templateHeroData = {
         pattern: 'https://primefaces.org/cdn/primeng/images/templates/ultima/ultima-hero-pattern.png',

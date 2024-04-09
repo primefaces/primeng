@@ -1841,17 +1841,15 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             });
         } else {
             // pre-selected disabled options should always be selected.
-            const selectedDisabledOptions = this.getAllVisibleAndNonVisibleOptions()
-                .filter((option) => this.isSelected(option) && (this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false))
+            const selectedDisabledOptions = this.getAllVisibleAndNonVisibleOptions().filter(
+                (option) => this.isSelected(option) && (this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false)
+            );
 
             const visibleOptions = this.allSelected()
-                ? this.visibleOptions()
-                      .filter((option) => !this.isValidOption(option) && this.isSelected(option))
-                : this.visibleOptions()
-                      .filter((option) => this.isSelected(option) || this.isValidOption(option));
+                ? this.visibleOptions().filter((option) => !this.isValidOption(option) && this.isSelected(option))
+                : this.visibleOptions().filter((option) => this.isSelected(option) || this.isValidOption(option));
 
-            const optionValues = [...selectedDisabledOptions, ...visibleOptions]
-                      .map((option) => this.getOptionValue(option));
+            const optionValues = [...selectedDisabledOptions, ...visibleOptions].map((option) => this.getOptionValue(option));
             const value = [...new Set(optionValues)];
 
             this.updateModel(value, event);

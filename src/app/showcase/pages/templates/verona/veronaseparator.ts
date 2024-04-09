@@ -41,4 +41,4 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class VeronaSeparator{}
+export class VeronaSeparator {}
