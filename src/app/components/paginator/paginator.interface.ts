@@ -10,6 +10,7 @@ export interface PaginatorState {
     first?: number;
     rows?: number;
     pageCount?: number;
+    totalRecords?: number;
 }
 /**
  * Defines valid templates in PaginatorTemplates.
