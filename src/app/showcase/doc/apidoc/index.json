@@ -20810,7 +20810,7 @@
                             "name": "effectDuration",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "number",
                             "default": "250",
                             "description": "Duration of the sliding animation in milliseconds."
                         },

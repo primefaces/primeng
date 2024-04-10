@@ -271,7 +271,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: Function = (index: number, item: any) => item;
 
     /**
      * A list of values that are currently selected.
