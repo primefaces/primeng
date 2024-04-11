@@ -20,7 +20,7 @@ import { Component } from '@angular/core';
                         <td>Container element.</td>
                     </tr>
                     <tr>
-                        <td>p-panel-titlebar</td>
+                        <td>p-panel-header</td>
                         <td>Header section.</td>
                     </tr>
                     <tr>
@@ -28,7 +28,7 @@ import { Component } from '@angular/core';
                         <td>Title text of panel.</td>
                     </tr>
                     <tr>
-                        <td>p-panel-titlebar-toggler</td>
+                        <td>p-panel-header-icon</td>
                         <td>Toggle icon.</td>
                     </tr>
                     <tr>
