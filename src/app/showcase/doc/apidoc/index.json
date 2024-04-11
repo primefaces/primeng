@@ -9132,7 +9132,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "When enabled, first button receives focus on show."
+                            "description": "When enabled, first focusable element receives focus on show."
                         },
                         {
                             "name": "maximizable",

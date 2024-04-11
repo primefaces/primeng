@@ -52,7 +52,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             *ngIf="maskVisible"
             [class]="maskStyleClass"
             [style]="maskStyle"
-            (focus)="containerFocus($event)"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
@@ -311,7 +310,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) minY: number = 0;
     /**
-     * When enabled, first button receives focus on show.
+     * When enabled, first focusable element receives focus on show.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
@@ -599,12 +598,22 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
-    focus() {
-        let focusable = DomHandler.getFocusableElement(this.container, '[autofocus]');
+    focus(focusParentElement = this.contentViewChild.nativeElement) {
+        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
             });
+            return;
+        }
+        const focusableElement = DomHandler.getFocusableElement(focusParentElement);
+        if (focusableElement) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusableElement.focus(), 5);
+            });
+        } else if (this.footerViewChild) {
+            // If the content section is empty try to focus on footer
+            this.focus(this.footerViewChild.nativeElement);
         }
     }
 
