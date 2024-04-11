@@ -1950,6 +1950,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
+        if (this.overlayOptions?.mode === 'modal') {
+            DomHandler.unblockBodyScroll();
+        }
 
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
         this.onPanelHide.emit();
