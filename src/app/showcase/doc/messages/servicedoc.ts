@@ -32,8 +32,8 @@ export class ServiceDoc {
 
     addMultiple() {
         this.messageService.addAll([
-            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' },
-            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService' }
+            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService', closable: true },
+            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService', closable: false }
         ]);
     }
 
@@ -75,8 +75,8 @@ export class MessagesServiceDemo {
 
     addMultiple() {
         this.messageService.addAll([
-            {severity:'success', summary:'Service Message', detail:'Via MessageService'},
-            {severity:'info', summary:'Info Message', detail:'Via MessageService'}
+            { severity: 'success', summary: 'Service Message', detail: 'Via MessageService', closable: true },
+            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService', closable: false }
         ]);
     }
     
