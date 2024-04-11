@@ -32,6 +32,7 @@ import { AngleUpIcon } from 'primeng/icons/angleup';
 import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { InputNumberInputEvent } from './inputnumber.interface';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
@@ -94,6 +95,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 [attr.data-pc-section]="'input'"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -402,6 +405,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -1454,7 +1462,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, ButtonModule, TimesIcon, AngleUpIcon, AngleDownIcon],
+    imports: [CommonModule, InputTextModule, ButtonModule, AutoFocusModule, TimesIcon, AngleUpIcon, AngleDownIcon],
     exports: [InputNumber, SharedModule],
     declarations: [InputNumber]
 })

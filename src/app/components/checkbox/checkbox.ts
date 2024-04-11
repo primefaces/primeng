@@ -19,6 +19,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -62,6 +63,8 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     [attr.data-pc-section]="'hiddenInput'"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <div
@@ -184,6 +187,11 @@ export class Checkbox implements ControlValueAccessor {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) required: boolean | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props
@@ -322,7 +330,7 @@ export class Checkbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, CheckIcon],
+    imports: [CommonModule, AutoFocusModule, CheckIcon],
     exports: [Checkbox, SharedModule],
     declarations: [Checkbox]
 })

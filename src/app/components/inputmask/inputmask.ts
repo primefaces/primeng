@@ -94,7 +94,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             pAutoFocus
-            [autofocus]="autoFocus"
+            [autofocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
@@ -228,7 +228,16 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * When present, the input gets a focus automatically on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * When present, the input gets a focus automatically on load.
+     * @group Props
+     * @deprecated Use autofocus property instead.
+     */
+    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
+        this.autofocus = value;
+        console.warn('autoFocus is deprecated. Use autofocus property instead.');
+    }
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props

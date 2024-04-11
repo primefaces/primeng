@@ -5,6 +5,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -39,6 +40,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 (blur)="onBlur()"
                 [attr.aria-labelledby]="this.getOptionLabel(option)"
                 [attr.data-pc-section]="'button'"
+                pAutoFocus
+                [autofocus]="autofocus"
             >
                 <ng-container *ngIf="!itemTemplate; else customcontent">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
@@ -124,6 +127,11 @@ export class SelectButton implements ControlValueAccessor {
      * @group Props
      */
     @Input() dataKey: string | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
@@ -312,7 +320,7 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
     exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })

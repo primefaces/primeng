@@ -600,7 +600,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+        let focusable = DomHandler.getFocusableElement(this.container, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
@@ -708,32 +708,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             (this.container as HTMLDivElement).style.margin = '0';
             DomHandler.addClass(this.document.body, 'p-unselectable-text');
-        }
-    }
-
-    onKeydown(event: KeyboardEvent) {
-        if (this.focusTrap) {
-            if (event.which === 9) {
-                event.preventDefault();
-
-                let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
-
-                if (focusableElements && focusableElements.length > 0) {
-                    if (!focusableElements[0].ownerDocument.activeElement) {
-                        focusableElements[0].focus();
-                    } else {
-                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
-
-                        if (event.shiftKey) {
-                            if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
-                            else focusableElements[focusedIndex - 1].focus();
-                        } else {
-                            if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
-                            else focusableElements[focusedIndex + 1].focus();
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -929,7 +903,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.key == 'Escape') {
                 this.close(event);
             }
         });

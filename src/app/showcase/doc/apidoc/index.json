@@ -4976,6 +4976,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Used to define a string that autocomplete attribute the current element."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -5368,6 +5376,14 @@
                             "type": "string",
                             "default": "p-button-text",
                             "description": "Style class of the clear button."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         },
                         {
                             "name": "autoZIndex",
@@ -6377,6 +6393,14 @@
                             "description": "Name of the disabled field of an option."
                         },
                         {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
                             "name": "autoOptionFocus",
                             "optional": false,
                             "readonly": false,
@@ -7070,6 +7094,14 @@
                             "type": "any",
                             "default": "false",
                             "description": "Value in unchecked state."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -7409,6 +7441,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, a clear icon is displayed to clear the value."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -7684,6 +7724,14 @@
                             "type": "string",
                             "default": ".1s linear",
                             "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -13017,12 +13065,21 @@
                             "description": "Regex pattern for alpha characters"
                         },
                         {
-                            "name": "autoFocus",
+                            "name": "autofocus",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, the input gets a focus automatically on load."
+                        },
+                        {
+                            "name": "autoFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, the input gets a focus automatically on load.",
+                            "deprecated": "Use autofocus property instead."
                         },
                         {
                             "name": "autocomplete",
@@ -13437,6 +13494,14 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -13626,6 +13691,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that an input field is integer-only."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -13840,6 +13913,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -15997,6 +16078,14 @@
                             "type": "boolean",
                             "default": "true",
                             "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -18079,6 +18168,14 @@
                             "readonly": false,
                             "type": null,
                             "description": "Sets the visibility of the password field."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 }
@@ -19338,6 +19435,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the label."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -19497,6 +19602,14 @@
                             "readonly": false,
                             "type": "Object",
                             "description": "Inline style of the cancel icon."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -20417,6 +20530,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "A property to uniquely identify a value in options."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -21127,6 +21248,14 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -21638,6 +21767,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -25481,6 +25618,14 @@
                             "type": "\"left\" | \"right\"",
                             "default": "left",
                             "description": "Position of the icon."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -26745,6 +26890,14 @@
                             "type": "string",
                             "description": "Transition options of the hide animation.",
                             "deprecated": "since v14.2.0 use overlayOptions property instead."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },
@@ -28581,6 +28734,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Specifies the icon for checkbox false value."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
                         }
                     ]
                 },

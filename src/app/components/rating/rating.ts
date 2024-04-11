@@ -9,6 +9,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { RatingRateEvent } from './rating.interface';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,6 +38,8 @@ export const RATING_VALUE_ACCESSOR: any = {
                             (focus)="onInputFocus($event, 0)"
                             (blur)="onInputBlur($event)"
                             (change)="onChange($event, 0)"
+                            pAutoFocus
+                            [autofocus]="autofocus"
                         />
                     </span>
                     <span *ngIf="iconCancelClass" class="p-rating-icon p-rating-cancel" [ngClass]="iconCancelClass" [ngStyle]="iconCancelStyle"></span>
@@ -56,6 +59,8 @@ export const RATING_VALUE_ACCESSOR: any = {
                                 (focus)="onInputFocus($event, star + 1)"
                                 (blur)="onInputBlur($event)"
                                 (change)="onChange($event, star + 1)"
+                                pAutoFocus
+                                [autofocus]="autofocus"
                             />
                         </span>
                         <ng-container *ngIf="!value || i >= value">
@@ -138,6 +143,11 @@ export class Rating implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() iconCancelStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Emitted on value change.
      * @param {RatingRateEvent} value - Custom rate event.
@@ -294,7 +304,7 @@ export class Rating implements OnInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, StarFillIcon, StarIcon, BanIcon],
+    imports: [CommonModule, AutoFocusModule, StarFillIcon, StarIcon, BanIcon],
     exports: [Rating, SharedModule],
     declarations: [Rating]
 })

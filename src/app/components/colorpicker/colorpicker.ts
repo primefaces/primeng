@@ -23,6 +23,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
@@ -63,6 +64,8 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
                 [attr.aria-label]="ariaLabel"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
             <div
                 *ngIf="inline || overlayVisible"
@@ -157,6 +160,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
@@ -809,7 +817,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, AutoFocusModule],
     exports: [ColorPicker],
     declarations: [ColorPicker]
 })

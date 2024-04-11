@@ -39,6 +39,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
 
 type Meter = {
@@ -351,6 +352,8 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keyup)="onKeyUp($event)"
                 [attr.maxlength]="maxLength"
                 [attr.data-pc-section]="'input'"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -532,6 +535,12 @@ export class Password implements AfterContentInit, OnInit {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -928,7 +937,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
+    imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })

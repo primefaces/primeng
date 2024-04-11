@@ -5,6 +5,7 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
 import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { TriStateCheckboxChangeEvent } from './tristatecheckbox.interface';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
@@ -43,6 +44,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-label]="ariaLabel"
                     inputmode="none"
                     [attr.data-pc-section]="'hiddenInput'"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
@@ -138,6 +141,11 @@ export class TriStateCheckbox implements ControlValueAccessor {
      */
     @Input() checkboxFalseIcon: string | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Callback to invoke on value change.
      * @param {TriStateCheckboxChangeEvent} event - Custom change event.
      * @group Emits
@@ -228,7 +236,7 @@ export class TriStateCheckbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, CheckIcon, TimesIcon],
+    imports: [CommonModule, SharedModule, AutoFocusModule, CheckIcon, TimesIcon],
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })

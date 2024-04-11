@@ -615,17 +615,20 @@ export class DomHandler {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static getFocusableElements(element, selector = '') {
-        let focusableElements = this.find(
-            element,
-            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`
-        );
+    public static getFocusableSelectorString(selector = ''): string {
+        return `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        .p-inputtext:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        .p-button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`;
+    }
+
+    public static getFocusableElements(element, selector = ''): any[] {
+        let focusableElements = this.find(element, this.getFocusableSelectorString(selector));
 
         let visibleFocusableElements = [];
 
@@ -635,6 +638,17 @@ export class DomHandler {
         }
 
         return visibleFocusableElements;
+    }
+
+    public static getFocusableElement(element, selector = ''): any | null {
+        let focusableElement = this.findSingle(element, this.getFocusableSelectorString(selector));
+
+        if (focusableElement) {
+            const computedStyle = getComputedStyle(focusableElement);
+            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') return focusableElement;
+        }
+
+        return null;
     }
 
     public static getFirstFocusableElement(element, selector) {

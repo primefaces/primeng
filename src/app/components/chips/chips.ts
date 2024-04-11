@@ -21,6 +21,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { InputTextModule } from 'primeng/inputtext';
@@ -107,6 +108,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         [disabled]="disabled || isMaxedOut"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
+                        pAutoFocus
+                        [autofocus]="autofocus"
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
@@ -225,6 +228,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on chip add.
      * @param {ChipsAddEvent} event - Custom chip add event.
@@ -592,7 +600,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, SharedModule, TimesCircleIcon, TimesIcon],
+    imports: [CommonModule, InputTextModule, SharedModule, AutoFocusModule, TimesCircleIcon, TimesIcon],
     exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { InputOtpChangeEvent } from './inputotp.interface';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
@@ -39,6 +40,8 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
                     (blur)="onInputBlur($event)"
                     (paste)="onPaste($event)"
                     (keydown)="onKeyDown($event)"
+                    pAutoFocus
+                    [autofocus]="getAutofocus(i)"
                 />
             </ng-container>
             <ng-container *ngIf="inputTemplate">
@@ -95,6 +98,11 @@ export class InputOtp implements AfterContentInit {
      * @group Props
      */
     @Input() integerOnly: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @group Emits
@@ -213,6 +221,13 @@ export class InputOtp implements AfterContentInit {
         return this.tokens[i - 1] || '';
     }
 
+    getAutofocus(i: number): boolean {
+        if (i === 1) {
+            return this.autofocus;
+        }
+        return false;
+    }
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -326,7 +341,7 @@ export class InputOtp implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, InputTextModule],
+    imports: [CommonModule, SharedModule, InputTextModule, AutoFocusModule],
     exports: [InputOtp, SharedModule],
     declarations: [InputOtp]
 })
