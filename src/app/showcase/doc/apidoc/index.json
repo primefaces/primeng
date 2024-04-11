@@ -22643,7 +22643,7 @@
                             "name": "rowSelectable",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "(row: { data: any; index: number }) => boolean",
                             "description": "Defines if the row is selectable."
                         },
                         {
