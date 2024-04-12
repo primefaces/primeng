@@ -42,7 +42,7 @@ import { Subscription, timer } from 'rxjs';
                     role="alert"
                     [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 >
-                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'">
+                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'" [attr.id]="msg.id || null">
                         <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
                         <span class="p-message-icon" *ngIf="!msg.icon">
                             <ng-container>
