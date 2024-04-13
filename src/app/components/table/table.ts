@@ -1944,7 +1944,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowSelectable(data: any, index: number) {
-        console.log(data, index);
         if (this.rowSelectable && !this.rowSelectable({ data, index })) {
             return false;
         }
@@ -5170,12 +5169,12 @@ export class ColumnFilter implements AfterContentInit {
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
+    @Input() minFractionDigits: number | undefined;
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
+    @Input() maxFractionDigits: number | undefined;
     /**
      * Defines prefix of the filter.
      * @group Props
@@ -5808,9 +5807,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
+    @Input() minFractionDigits: number | undefined;
 
-    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
+    @Input() maxFractionDigits: number | undefined;
 
     @Input() prefix: string | undefined;
 
