@@ -31,14 +31,14 @@ import {
     numberAttribute
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { EyeIcon } from 'primeng/icons/eye';
-import { EyeSlashIcon } from 'primeng/icons/eyeslash';
-import { TimesIcon } from 'primeng/icons/times';
-import { InputTextModule } from 'primeng/inputtext';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@alamote/primeng/dom';
+import { EyeIcon } from '@alamote/primeng/icons/eye';
+import { EyeSlashIcon } from '@alamote/primeng/icons/eyeslash';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { ZIndexUtils } from '@alamote/primeng/utils';
 import { Subscription } from 'rxjs';
 
 type Meter = {

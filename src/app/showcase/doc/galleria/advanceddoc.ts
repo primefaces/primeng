@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
+import { Galleria } from '@alamote/primeng/galleria';
 import { Code } from '../../domain/code';
 import { PhotoService } from '../../service/photoservice';
 
@@ -203,7 +203,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </p-galleria>`,
         html: `
  <div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
+    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -216,7 +216,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 </div>`,
         typescript: `
 import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Galleria } from 'primeng/galleria';
+import { Galleria } from '@alamote/primeng/galleria';
 import { PhotoService } from '../../service/photoservice';
 
 @Component({
@@ -252,7 +252,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
             numVisible: 1
         }
     ];
-    
+
     ngOnInit() {
         this.photoService.getImages().then((images) => (this.images = images));
         this.bindDocumentListeners();
@@ -350,56 +350,56 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
             &.fullscreen {
                 display: flex;
                 flex-direction: column;
-    
+
                 .p-galleria-content {
                     flex-grow: 1;
                     justify-content: center;
                 }
             }
-    
+
             .p-galleria-content {
                 position: relative;
             }
-    
+
             .p-galleria-thumbnail-wrapper {
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 width: 100%;
             }
-    
+
             .p-galleria-thumbnail-items-container {
                 width: 100%;
             }
-    
+
             .custom-galleria-footer {
                 display: flex;
                 align-items: center;
                 background-color: rgba(0, 0, 0, .9);
                 color: #ffffff;
-    
+
                 > button {
                     background-color: transparent;
                     color: #ffffff;
                     border: 0 none;
                     border-radius: 0;
                     margin: .2rem 0;
-    
+
                     &.fullscreen-button {
                         margin-left: auto;
                     }
-    
+
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.1);
                     }
                 }
             }
-    
+
             .title-container {
                 > span {
                     font-size: .9rem;
                     padding-left: .829rem;
-    
+
                     &.title {
                         font-weight: bold;
                     }

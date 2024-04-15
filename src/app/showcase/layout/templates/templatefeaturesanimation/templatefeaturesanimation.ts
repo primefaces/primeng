@@ -1,6 +1,6 @@
 import { CommonModule, NgOptimizedImage, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, NgZone, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from '@alamote/primeng/api';
 import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimationinline';
 
 @Component({

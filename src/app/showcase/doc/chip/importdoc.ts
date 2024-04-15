@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ChipModule } from 'primeng/chip';`
+        typescript: `import { ChipModule } from '@alamote/primeng/chip';`
     };
 }

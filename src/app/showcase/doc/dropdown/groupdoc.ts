@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -84,7 +84,7 @@ export class GroupDoc {
 </div>`,
 
         typescript: `
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from '@alamote/primeng/api';
 import { Component } from '@angular/core';
 
 @Component({

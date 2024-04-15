@@ -26,16 +26,16 @@ import {
     numberAttribute
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BlockableUI, Message, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { PlusIcon } from 'primeng/icons/plus';
-import { TimesIcon } from 'primeng/icons/times';
-import { UploadIcon } from 'primeng/icons/upload';
-import { MessagesModule } from 'primeng/messages';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { RippleModule } from 'primeng/ripple';
-import { VoidListener } from 'primeng/ts-helpers';
+import { BlockableUI, Message, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { DomHandler } from '@alamote/primeng/dom';
+import { PlusIcon } from '@alamote/primeng/icons/plus';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { UploadIcon } from '@alamote/primeng/icons/upload';
+import { MessagesModule } from '@alamote/primeng/messages';
+import { ProgressBarModule } from '@alamote/primeng/progressbar';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { VoidListener } from '@alamote/primeng/ts-helpers';
 import { Subscription } from 'rxjs';
 import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEvent, FileSendEvent, FileUploadErrorEvent, FileUploadEvent, FileUploadHandlerEvent } from './fileupload.interface';
 /**

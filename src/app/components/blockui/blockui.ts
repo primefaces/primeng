@@ -19,9 +19,9 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, PrimeTemplate } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { ZIndexUtils } from '@alamote/primeng/utils';
 /**
  * BlockUI can either block other components or the whole page.
  * @group Components

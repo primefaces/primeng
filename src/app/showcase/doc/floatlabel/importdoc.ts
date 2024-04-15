@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { FloatLabelModule } from 'primeng/floatlabel';`
+        typescript: `import { FloatLabelModule } from '@alamote/primeng/floatlabel';`
     };
 }

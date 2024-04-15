@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { SortEvent } from 'primeng/api';
+import { SortEvent } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -115,7 +115,7 @@ export class CustomSortDoc {
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
-import { SortEvent } from 'primeng/api';
+import { SortEvent } from '@alamote/primeng/api';
 
 @Component({
     selector: 'table-custom-sort-demo',

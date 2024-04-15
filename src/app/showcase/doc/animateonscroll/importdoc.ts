@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AnimateOnScrollModule } from 'primeng/animateonscroll';`
+        typescript: `import { AnimateOnScrollModule } from '@alamote/primeng/animateonscroll';`
     };
 }

@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ButtonModule } from 'primeng/button';`
+        typescript: `import { ButtonModule } from '@alamote/primeng/button';`
     };
 }

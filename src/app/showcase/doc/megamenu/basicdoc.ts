@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -146,7 +146,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuItem } from '@alamote/primeng/api';
 
 @Component({
     selector: 'mega-menu-basic-demo',

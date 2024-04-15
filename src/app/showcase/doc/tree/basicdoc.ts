@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { NodeService } from '../../service/nodeservice';
 
@@ -34,7 +34,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from '@alamote/primeng/api';
 import { NodeService } from '../../service/nodeservice';
 
 @Component({
@@ -48,7 +48,7 @@ export class TreeBasicDemo implements OnInit {
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
-    } 
+    }
 }`,
         service: ['NodeService'],
 

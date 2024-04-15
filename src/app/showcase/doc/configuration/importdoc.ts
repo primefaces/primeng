@@ -12,6 +12,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { PrimeNGConfig } from 'primeng/api';`
+        typescript: `import { PrimeNGConfig } from '@alamote/primeng/api';`
     };
 }

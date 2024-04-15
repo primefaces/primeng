@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { TerminalService } from 'primeng/terminal';
+import { TerminalService } from '@alamote/primeng/terminal';
 import { Subscription } from 'rxjs';
 import { Code } from '../../domain/code';
 

@@ -20,13 +20,13 @@ import {
     ViewEncapsulation,
     ViewRef
 } from '@angular/core';
-import { PrimeNGConfig, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { TimesIcon } from 'primeng/icons/times';
-import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
-import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { PrimeNGConfig, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { WindowMaximizeIcon } from '@alamote/primeng/icons/windowmaximize';
+import { WindowMinimizeIcon } from '@alamote/primeng/icons/windowminimize';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from '@alamote/primeng/utils';
 import { DynamicDialogConfig } from './dynamicdialog-config';
 import { DynamicDialogRef } from './dynamicdialog-ref';
 import { DynamicDialogContent } from './dynamicdialogcontent';

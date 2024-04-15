@@ -24,14 +24,14 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { CheckIcon } from '@alamote/primeng/icons/check';
+import { ExclamationTriangleIcon } from '@alamote/primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from '@alamote/primeng/icons/infocircle';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from '@alamote/primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
 

@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@alamote/primeng/api';
 import { Breadcrumb } from './breadcrumb';
 /**
  * Defines valid templates in Breadcumb.

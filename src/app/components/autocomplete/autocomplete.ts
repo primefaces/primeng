@@ -28,21 +28,21 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { InputTextModule } from 'primeng/inputtext';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { AutoFocusModule } from '@alamote/primeng/autofocus';
+import { ButtonModule } from '@alamote/primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@alamote/primeng/dom';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { Overlay, OverlayModule } from '@alamote/primeng/overlay';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Scroller, ScrollerModule } from '@alamote/primeng/scroller';
+import { ScrollerOptions } from '@alamote/primeng/api';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
+import { SpinnerIcon } from '@alamote/primeng/icons/spinner';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {

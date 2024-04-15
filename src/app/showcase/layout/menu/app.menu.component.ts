@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, OnDestroy, afterNextRender } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { DomHandler } from 'primeng/dom';
-import { StyleClassModule } from 'primeng/styleclass';
+import { AutoCompleteModule } from '@alamote/primeng/autocomplete';
+import { DomHandler } from '@alamote/primeng/dom';
+import { StyleClassModule } from '@alamote/primeng/styleclass';
 import { Subscription } from 'rxjs';
 import { default as MenuData } from 'src/assets/showcase/data/menu.json';
 import { AppConfigService } from '../../service/appconfigservice';

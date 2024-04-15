@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { StyleClassModule } from 'primeng/styleclass';
+import { StyleClassModule } from '@alamote/primeng/styleclass';
 import News from '../../data/news.json';
 import { AppConfigService } from '../../service/appconfigservice';
 

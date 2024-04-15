@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { MultiSelectModule } from 'primeng/multiselect';`
+        typescript: `import { MultiSelectModule } from '@alamote/primeng/multiselect';`
     };
 }

@@ -4,7 +4,7 @@ import { KeyFilter } from './keyfilter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputText } from 'primeng/inputtext';
+import { InputText } from '@alamote/primeng/inputtext';
 
 @Component({
     template: `<input type="text" [pValidateOnly]="validateOnly" [(ngModel)]="cc" pKeyFilter="int" pInputText placeholder="Integers" />`

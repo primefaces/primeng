@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
 export class RippleDoc {
     code: Code = {
         typescript: `import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNGConfig } from '@alamote/primeng/api';
 
 @Component({
     selector: 'app-root',

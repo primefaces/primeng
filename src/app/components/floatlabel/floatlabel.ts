@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, NgModule, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from '@alamote/primeng/api';
 import { RouterModule } from '@angular/router';
 
 /**

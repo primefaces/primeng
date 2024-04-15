@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { OrderListModule, OrderList } from 'primeng/orderlist';
+import { OrderListModule, OrderList } from '@alamote/primeng/orderlist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
 

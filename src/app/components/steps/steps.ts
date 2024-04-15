@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { DomHandler } from 'primeng/dom';
-import { Nullable } from 'primeng/ts-helpers';
-import { MenuItem } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
+import { DomHandler } from '@alamote/primeng/dom';
+import { Nullable } from '@alamote/primeng/ts-helpers';
+import { MenuItem } from '@alamote/primeng/api';
+import { TooltipModule } from '@alamote/primeng/tooltip';
 import { Subscription } from 'rxjs';
 /**
  * Steps components is an indicator for the steps in a wizard workflow.

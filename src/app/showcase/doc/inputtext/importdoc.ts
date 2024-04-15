@@ -9,6 +9,6 @@ export class ImportDoc {
     value1: string;
 
     code: Code = {
-        typescript: `import { InputTextModule } from 'primeng/inputtext';`
+        typescript: `import { InputTextModule } from '@alamote/primeng/inputtext';`
     };
 }

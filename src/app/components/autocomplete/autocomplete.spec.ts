@@ -4,11 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ButtonModule } from 'primeng/button';
-import { OverlayModule } from 'primeng/overlay';
+import { ButtonModule } from '@alamote/primeng/button';
+import { OverlayModule } from '@alamote/primeng/overlay';
 import { AutoComplete } from './autocomplete';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -57,7 +57,7 @@ export class SeverityDoc {
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { MessageService } from '@alamote/primeng/api';
 
 @Component({
     selector: 'toast-severity-demo',

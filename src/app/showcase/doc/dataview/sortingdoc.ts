@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { SelectItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -170,7 +170,7 @@ export class SortingDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { SelectItem } from '@alamote/primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 

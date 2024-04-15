@@ -19,16 +19,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesIcon } from 'primeng/icons/times';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { Nullable } from 'primeng/ts-helpers';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { SearchIcon } from '@alamote/primeng/icons/search';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { Overlay, OverlayModule } from '@alamote/primeng/overlay';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from '@alamote/primeng/tree';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -264,7 +264,7 @@ export class RowEditDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from '@alamote/primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 

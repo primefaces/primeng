@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DynamicDialogModule } from 'primeng/dynamicdialog';`
+        typescript: `import { DynamicDialogModule } from '@alamote/primeng/dynamicdialog';`
     };
 }

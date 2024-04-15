@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -64,7 +64,7 @@ export class BasicDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 
 @Component({
     selector: 'split-button-basic-demo',

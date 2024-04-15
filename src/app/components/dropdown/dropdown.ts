@@ -31,20 +31,20 @@ import {
     ViewRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { SearchIcon } from 'primeng/icons/search';
+import { FilterService, OverlayOptions, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { AutoFocusModule } from '@alamote/primeng/autofocus';
+import { DomHandler } from '@alamote/primeng/dom';
+import { Overlay, OverlayModule } from '@alamote/primeng/overlay';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Scroller, ScrollerModule } from '@alamote/primeng/scroller';
+import { ScrollerOptions } from '@alamote/primeng/api';
+import { TooltipModule } from '@alamote/primeng/tooltip';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { SearchIcon } from '@alamote/primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,

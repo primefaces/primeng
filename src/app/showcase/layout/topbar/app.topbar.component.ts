@@ -3,8 +3,8 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, 
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
-import { DomHandler } from 'primeng/dom';
-import { StyleClassModule } from 'primeng/styleclass';
+import { DomHandler } from '@alamote/primeng/dom';
+import { StyleClassModule } from '@alamote/primeng/styleclass';
 import Versions from '../../data/versions.json';
 import { AppConfigService } from '../../service/appconfigservice';
 

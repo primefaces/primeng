@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ContextMenuModule } from 'primeng/contextmenu';`
+        typescript: `import { ContextMenuModule } from '@alamote/primeng/contextmenu';`
     };
 }

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from '@alamote/primeng/inputtext';
 import { InputtextDocModule } from '../../doc/inputtext/inputtextdoc.module';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 

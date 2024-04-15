@@ -24,14 +24,14 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { TimesIcon } from 'primeng/icons/times';
-import { InputTextModule } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
+import { PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { DomHandler } from '@alamote/primeng/dom';
+import { AngleDownIcon } from '@alamote/primeng/icons/angledown';
+import { AngleUpIcon } from '@alamote/primeng/icons/angleup';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {

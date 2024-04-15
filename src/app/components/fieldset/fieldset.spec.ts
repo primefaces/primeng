@@ -2,7 +2,7 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Fieldset } from './fieldset';
-import { MinusIcon } from 'primeng/icons/minus';
+import { MinusIcon } from '@alamote/primeng/icons/minus';
 
 describe('Fieldset', () => {
     let fieldset: Fieldset;

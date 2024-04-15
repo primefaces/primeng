@@ -24,21 +24,21 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys, TreeDragDropService, TreeNode } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Scroller, ScrollerModule } from '@alamote/primeng/scroller';
+import { ScrollerOptions } from '@alamote/primeng/api';
+import { ObjectUtils } from '@alamote/primeng/utils';
 import { Subscription } from 'rxjs';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { MinusIcon } from 'primeng/icons/minus';
-import { PlusIcon } from 'primeng/icons/plus';
-import { SearchIcon } from 'primeng/icons/search';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { Nullable } from 'primeng/ts-helpers';
+import { CheckIcon } from '@alamote/primeng/icons/check';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { ChevronRightIcon } from '@alamote/primeng/icons/chevronright';
+import { MinusIcon } from '@alamote/primeng/icons/minus';
+import { PlusIcon } from '@alamote/primeng/icons/plus';
+import { SearchIcon } from '@alamote/primeng/icons/search';
+import { SpinnerIcon } from '@alamote/primeng/icons/spinner';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 import {
     TreeFilterEvent,
     TreeLazyLoadEvent,

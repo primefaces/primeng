@@ -2,7 +2,7 @@ import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService } from '@alamote/primeng/api';
 import { ConfirmDialog } from './confirmdialog';
 
 @Component({

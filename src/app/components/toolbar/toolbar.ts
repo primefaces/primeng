@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, PrimeTemplate } from 'primeng/api';
+import { BlockableUI, PrimeTemplate } from '@alamote/primeng/api';
 /**
  * Toolbar is a grouping component for buttons and other content.
  * @group Components

@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ProgressSpinnerModule } from 'primeng/progressspinner';`
+        typescript: `import { ProgressSpinnerModule } from '@alamote/primeng/progressspinner';`
     };
 }

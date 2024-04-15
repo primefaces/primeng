@@ -1,6 +1,6 @@
 {
-    "name": "primeng",
-    "version": "17.13.1",
+    "name": "@alamote/primeng",
+    "version": "17.13.3",
     "license": "SEE LICENSE IN LICENSE.md",
     "scripts": {
         "ng": "ng",
@@ -16,7 +16,9 @@
         "build:check": "npm run format:check && npm run security:check",
         "security:check": "npm audit --production --audit-level high",
         "apidoc": "node ./api-generator/build-apidoc.ts",
-        "vercel-build": "ng build"
+        "vercel-build": "ng build",
+        "publish": "cd dist && npm publish --access public",
+        "deploy": "npm run build:lib && npm run publish"
     },
     "repository": {
         "type": "git",

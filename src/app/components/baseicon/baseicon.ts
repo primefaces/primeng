@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute } from '@angular/core';
-import { ObjectUtils } from 'primeng/utils';
+import { ObjectUtils } from '@alamote/primeng/utils';
 
 @Component({
     template: ` <ng-content></ng-content> `,

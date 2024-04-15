@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PickListModule, PickList } from 'primeng/picklist';
+import { PickListModule, PickList } from '@alamote/primeng/picklist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, EventEmitter } from '@angular/core';
 

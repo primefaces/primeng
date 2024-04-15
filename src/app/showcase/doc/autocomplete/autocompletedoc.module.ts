@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from '@alamote/primeng/autocomplete';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { TemplateDoc } from './templatedoc';

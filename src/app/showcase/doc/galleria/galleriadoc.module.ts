@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
-import { GalleriaModule } from 'primeng/galleria';
+import { GalleriaModule } from '@alamote/primeng/galleria';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from '@alamote/primeng/button';
 import { AdvancedDoc } from './advanceddoc';
 import { AutoPlayDoc } from './autoplaydoc';
 import { BasicDoc } from './basicdoc';
@@ -26,8 +26,8 @@ import { ItemWithoutThumbnailsDoc } from './navigator/itemwithoutthumbnailsdoc';
 import { ResponsiveDoc } from './responsivedoc';
 import { StyleDoc } from './styledoc';
 import { ThumbnailDoc } from './thumbnaildoc';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
+import { RadioButtonModule } from '@alamote/primeng/radiobutton';
+import { CheckboxModule } from '@alamote/primeng/checkbox';
 import { AccessibilityDoc } from './accessibilitydoc';
 
 @NgModule({

@@ -21,10 +21,10 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, TranslationKeys } from '@alamote/primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@alamote/primeng/dom';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { ZIndexUtils } from '@alamote/primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {

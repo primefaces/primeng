@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AvatarModule } from 'primeng/avatar';
-import { BadgeModule } from 'primeng/badge';
-import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
-import { ToastModule } from 'primeng/toast';
+import { AvatarModule } from '@alamote/primeng/avatar';
+import { BadgeModule } from '@alamote/primeng/badge';
+import { ButtonModule } from '@alamote/primeng/button';
+import { MenuModule } from '@alamote/primeng/menu';
+import { ToastModule } from '@alamote/primeng/toast';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { AccessibilityDoc } from './accessibilitydoc';

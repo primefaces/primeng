@@ -1,8 +1,8 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation, booleanAttribute } from '@angular/core';
-import { SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { UniqueComponentId } from 'primeng/utils';
+import { SharedModule } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { UniqueComponentId } from '@alamote/primeng/utils';
 /**
  * Badge Directive is directive usage of badge component.
  * @group Components

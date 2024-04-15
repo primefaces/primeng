@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from '@alamote/primeng/api';
 import { Car } from '../../domain/car';
 import { Code } from '../../domain/code';
 import { CarService } from '../../service/carservice';
@@ -137,7 +137,7 @@ export class VirtualScrollLazyDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { LazyLoadEvent } from 'primeng/api';
+import { LazyLoadEvent } from '@alamote/primeng/api';
 import { Car } from '../../domain/car';
 import { CarService } from '../../service/carservice';
 
@@ -184,7 +184,7 @@ export class TableVirtualScrollLazyDemo implements OnInit{
             //trigger change detection
             event.forceUpdate();
         }, Math.random() * 1000 + 250);
-    } 
+    }
 }`,
         data: `{
     id: 1

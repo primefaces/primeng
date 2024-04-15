@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -72,8 +72,8 @@ export class TemplateDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-        
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
+
 @Component({
     selector: 'confirm-popup-template-demo',
     templateUrl: './confirm-popup-template-demo.html',
@@ -81,7 +81,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 })
 export class ConfirmPopupTemplateDemo {
     constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
-    
+
     confirm(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,

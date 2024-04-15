@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@alamote/primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -20,7 +20,7 @@ export class UsageDoc {
     code: Code = {
         typescript: `
 import { Component, OnDestroy } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@alamote/primeng/dynamicdialog';
 import { Product } from '../../domain/product';
 import { ProductListDemo } from './productlistdemo';
 
@@ -29,7 +29,7 @@ import { ProductListDemo } from './productlistdemo';
     providers: [DialogService]
 })
 export class DynamicDialogDemo implements OnDestroy {
-    
+
     ref: DynamicDialogRef | undefined;
 
     constructor(public dialogService: DialogService) {}

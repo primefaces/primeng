@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, EventEmitter, HostListener, Input, NgModule, NgZone, OnDestroy, Output, Renderer2, booleanAttribute } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
-import { VoidListener } from 'primeng/ts-helpers';
+import { DomHandler } from '@alamote/primeng/dom';
+import { VoidListener } from '@alamote/primeng/ts-helpers';
 /**
  * pDraggable directive apply draggable behavior to any element.
  * @group Components

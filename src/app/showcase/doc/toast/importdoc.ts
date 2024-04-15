@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToastModule } from 'primeng/toast';`
+        typescript: `import { ToastModule } from '@alamote/primeng/toast';`
     };
 }

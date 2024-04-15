@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BaseIcon } from 'primeng/baseicon';
+import { BaseIcon } from '@alamote/primeng/baseicon';
 
 @Component({
     selector: 'ArrowRightIcon',

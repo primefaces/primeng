@@ -18,14 +18,14 @@ import {
     ViewEncapsulation,
     booleanAttribute
 } from '@angular/core';
-import { Message, MessageService, PrimeTemplate } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
-import { CheckIcon } from 'primeng/icons/check';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { RippleModule } from 'primeng/ripple';
+import { Message, MessageService, PrimeTemplate } from '@alamote/primeng/api';
+import { PrimeNGConfig } from '@alamote/primeng/api';
+import { CheckIcon } from '@alamote/primeng/icons/check';
+import { ExclamationTriangleIcon } from '@alamote/primeng/icons/exclamationtriangle';
+import { InfoCircleIcon } from '@alamote/primeng/icons/infocircle';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
+import { RippleModule } from '@alamote/primeng/ripple';
 import { Subscription, timer } from 'rxjs';
 /**
  * Messages is used to display alerts inline.

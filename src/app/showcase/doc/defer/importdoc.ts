@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DeferModule } from 'primeng/defer';`
+        typescript: `import { DeferModule } from '@alamote/primeng/defer';`
     };
 }

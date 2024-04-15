@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { BlockUIModule } from 'primeng/blockui';`
+        typescript: `import { BlockUIModule } from '@alamote/primeng/blockui';`
     };
 }

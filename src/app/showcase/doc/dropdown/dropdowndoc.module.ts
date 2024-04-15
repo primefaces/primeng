@@ -6,7 +6,7 @@ import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
-import { DropdownModule } from 'primeng/dropdown';
+import { DropdownModule } from '@alamote/primeng/dropdown';
 import { EditableDoc } from './editabledoc';
 import { GroupDoc } from './groupdoc';
 import { TemplateDoc } from './templatedoc';
@@ -20,8 +20,8 @@ import { FloatLabelDoc } from './floatlabeldoc';
 import { StyleDoc } from './styledoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ReactiveFormsDoc } from './reactiveformsdoc';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from '@alamote/primeng/button';
+import { InputTextModule } from '@alamote/primeng/inputtext';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule],
     exports: [AppDocModule],

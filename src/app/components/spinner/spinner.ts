@@ -1,6 +1,6 @@
 import { NgModule, Component, ElementRef, OnInit, Input, Output, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputTextModule } from '@alamote/primeng/inputtext';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 export const SPINNER_VALUE_ACCESSOR: any = {

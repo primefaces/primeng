@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputMaskModule } from 'primeng/inputmask';`
+        typescript: `import { InputMaskModule } from '@alamote/primeng/inputmask';`
     };
 }

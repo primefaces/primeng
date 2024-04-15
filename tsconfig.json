@@ -23,7 +23,7 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
+            "@alamote/primeng/*": ["src/app/components/*/public_api"]
         }
     },
     "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],

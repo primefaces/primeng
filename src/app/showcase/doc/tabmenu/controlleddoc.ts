@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -52,7 +52,7 @@ export class ControlledDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@alamote/primeng/api';
 
 @Component({
     selector: 'tab-menu-controlled-demo',
@@ -87,10 +87,10 @@ export class TabMenuControlledDemo implements OnInit {
         module: `
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { ButtonModule } from 'primeng/button';
-import { RippleModule } from 'primeng/ripple';
+import { TabMenuModule } from '@alamote/primeng/tabmenu';
+import { TabMenuModule } from '@alamote/primeng/tabmenu';
+import { ButtonModule } from '@alamote/primeng/button';
+import { RippleModule } from '@alamote/primeng/ripple';
 import { TabMenuDemo } from './tabmenudemo';
 
 @NgModule({

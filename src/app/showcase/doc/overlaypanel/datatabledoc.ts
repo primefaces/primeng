@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { MessageService } from '@alamote/primeng/api';
+import { OverlayPanel } from '@alamote/primeng/overlaypanel';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -147,8 +147,8 @@ export class DataTableDoc implements OnInit {
 
         typescript: `
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { MessageService } from '@alamote/primeng/api';
+import { OverlayPanel } from '@alamote/primeng/overlaypanel';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 
@@ -167,7 +167,7 @@ interface TableRowSelectEvent {
 export class OverlayPanelDataTableDemo implements OnInit {
 
     constructor(private productService: ProductService, private messageService: MessageService, private cdr: ChangeDetectorRef) {}
-    
+
     products: Product[] | undefined;
 
     selectedProduct: Product | undefined;

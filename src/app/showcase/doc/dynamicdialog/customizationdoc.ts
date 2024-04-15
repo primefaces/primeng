@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@alamote/primeng/dynamicdialog';
 import { Code } from '../../domain/code';
 import { ProductListDemo } from './productlistdemo';
 
@@ -33,7 +33,7 @@ export class CustomizationDoc {
     code: Code = {
         typescript: `
 import { Component } from '@angular/core';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from '@alamote/primeng/dynamicdialog';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
@@ -43,7 +43,7 @@ import { ProductListDemo } from './productlistdemo';
 export class CustomizationDemo {
 
     ref: DynamicDialogRef | undefined;
-    
+
     constructor(public dialogService: DialogService) {}
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {

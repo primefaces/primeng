@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Input, NgModule, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from '@alamote/primeng/api';
 
 @Component({
     selector: 'template-features-animation-inline',

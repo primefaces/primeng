@@ -10,7 +10,7 @@ import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
 import { JsonService } from '../service/jsonservice';
-import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AutoCompleteModule } from '@alamote/primeng/autocomplete';
 
 describe('AppComponent', () => {
     beforeEach(async(() => {

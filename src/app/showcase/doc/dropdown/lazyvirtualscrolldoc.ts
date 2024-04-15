@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ScrollerOptions, SelectItem } from 'primeng/api';
+import { ScrollerOptions, SelectItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -55,12 +55,12 @@ export class LazyVirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
-    [options]="items" 
-    [(ngModel)]="selectedItem" 
-    placeholder="Select Item" 
-    [virtualScroll]="true" 
-    [virtualScrollItemSize]="38" 
+        basic: `<p-dropdown
+    [options]="items"
+    [(ngModel)]="selectedItem"
+    placeholder="Select Item"
+    [virtualScroll]="true"
+    [virtualScrollItemSize]="38"
     [virtualScrollOptions]="options"
 ></p-dropdown>`,
 
@@ -70,7 +70,7 @@ export class LazyVirtualScrollDoc {
 </div>`,
 
         typescript: `
-import { SelectItem } from 'primeng/api';
+import { SelectItem } from '@alamote/primeng/api';
 import { Component } from '@angular/core';
 
 @Component({

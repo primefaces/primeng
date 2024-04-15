@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BaseIcon } from 'primeng/baseicon';
-import { UniqueComponentId } from 'primeng/utils';
+import { BaseIcon } from '@alamote/primeng/baseicon';
+import { UniqueComponentId } from '@alamote/primeng/utils';
 
 @Component({
     selector: 'BanIcon',

@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { TabViewModule } from 'primeng/tabview';`
+        typescript: `import { TabViewModule } from '@alamote/primeng/tabview';`
     };
 }

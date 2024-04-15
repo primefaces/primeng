@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputMaskModule } from 'primeng/inputmask';
-import { CheckboxModule } from 'primeng/checkbox';
-import { StepsModule } from 'primeng/steps';
-import { ToastModule } from 'primeng/toast';
-import { CardModule } from 'primeng/card';
+import { DropdownModule } from '@alamote/primeng/dropdown';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { InputMaskModule } from '@alamote/primeng/inputmask';
+import { CheckboxModule } from '@alamote/primeng/checkbox';
+import { StepsModule } from '@alamote/primeng/steps';
+import { ToastModule } from '@alamote/primeng/toast';
+import { CardModule } from '@alamote/primeng/card';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';
@@ -21,7 +21,7 @@ import { SeatDemo } from './seatdemo';
 import { StyleDoc } from './styledoc';
 import { TicketService } from '../../service/ticketservice';
 import { AccessibilityDoc } from './accessibilitydoc';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule } from '@alamote/primeng/button';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMaskModule, CheckboxModule, CardModule, ButtonModule],

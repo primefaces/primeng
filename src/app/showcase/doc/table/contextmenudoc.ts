@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -115,7 +115,7 @@ export class ContextMenuDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MessageService, MenuItem } from 'primeng/api';
+import { MessageService, MenuItem } from '@alamote/primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 

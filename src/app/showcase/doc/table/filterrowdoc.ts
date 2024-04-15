@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from '@alamote/primeng/table';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -370,7 +370,7 @@ export class FilterRowDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from '@alamote/primeng/table';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 

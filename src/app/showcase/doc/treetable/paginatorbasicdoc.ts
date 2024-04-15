@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 interface Column {
@@ -109,7 +109,7 @@ export class PaginatorBasicDoc {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { TreeNode } from 'primeng/api';
+import { TreeNode } from '@alamote/primeng/api';
 
 interface Column {
     field: string;
@@ -129,14 +129,14 @@ export class TreeTablePaginatorBasicDemo implements OnInit {
         this.files = [];
         for(let i = 0; i < 50; i++) {
             let node = {
-                data:{  
+                data:{
                     name: 'Item ' + i,
                     size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                     type: 'Type ' + i
                 },
                 children: [
                     {
-                        data: {  
+                        data: {
                             name: 'Item ' + i + ' - 0',
                             size: Math.floor(Math.random() * 1000) + 1 + 'kb',
                             type: 'Type ' + i

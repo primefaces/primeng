@@ -2,9 +2,9 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Rating } from './rating';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { StarFillIcon } from 'primeng/icons/starfill';
-import { StarIcon } from 'primeng/icons/star';
-import { BanIcon } from 'primeng/icons/ban';
+import { StarFillIcon } from '@alamote/primeng/icons/starfill';
+import { StarIcon } from '@alamote/primeng/icons/star';
+import { BanIcon } from '@alamote/primeng/icons/ban';
 
 describe('Rating', () => {
     let rating: Rating;

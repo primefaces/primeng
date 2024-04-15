@@ -31,20 +31,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { Overlay, OverlayModule } from 'primeng/overlay';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icons/check';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable } from 'primeng/ts-helpers';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { Overlay, OverlayModule } from '@alamote/primeng/overlay';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Scroller, ScrollerModule } from '@alamote/primeng/scroller';
+import { ScrollerOptions } from '@alamote/primeng/api';
+import { TooltipModule } from '@alamote/primeng/tooltip';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
+import { CheckIcon } from '@alamote/primeng/icons/check';
+import { SearchIcon } from '@alamote/primeng/icons/search';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Footer } from 'primeng/api';
+import { Footer } from '@alamote/primeng/api';
 import { DialogService } from './dialogservice';
 import { DynamicDialogModule } from './dynamicdialog';
 import { DynamicDialogConfig } from './dynamicdialog-config';

@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ConfirmPopupModule } from 'primeng/confirmpopup';`
+        typescript: `import { ConfirmPopupModule } from '@alamote/primeng/confirmpopup';`
     };
 }

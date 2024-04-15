@@ -1,7 +1,7 @@
 import { NgModule, Directive, ElementRef, HostListener, DoCheck, Optional, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 
 @Directive({
     selector: '[pInputText]',

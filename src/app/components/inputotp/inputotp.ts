@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
+import { PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { InputTextModule } from '@alamote/primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Nullable } from 'primeng/ts-helpers';
+import { Nullable } from '@alamote/primeng/ts-helpers';
 import { InputOtpChangeEvent } from './inputotp.interface';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {

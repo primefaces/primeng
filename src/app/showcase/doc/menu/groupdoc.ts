@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -80,7 +80,7 @@ export class GroupDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 
 @Component({
     selector: 'menu-group-demo',
@@ -91,7 +91,7 @@ export class MenuGroupDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {

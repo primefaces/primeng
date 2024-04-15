@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Scroller } from 'primeng/scroller';
+import { Scroller } from '@alamote/primeng/scroller';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -52,7 +52,7 @@ export class ProgrammaticDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Scroller } from 'primeng/scroller';
+import { Scroller } from '@alamote/primeng/scroller';
 
 @Component({
     selector: 'scroller-programmatic-demo',
@@ -69,7 +69,7 @@ export class ScrollerProgrammaticDemo implements OnInit {
 
     reset() {
         this.sc.scrollToIndex(0, 'smooth');
-    } 
+    }
 }`
     };
 }

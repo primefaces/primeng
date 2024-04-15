@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -63,24 +63,24 @@ export class DisabledDoc {
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
-    
+
 </div>
 
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [menuButtonDisabled]="true"></p-splitButton>
-    
+
 </div>
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [buttonDisabled]="true"></p-splitButton>
-    
+
 </div>
 `,
 
         typescript: `
 import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 
 @Component({
     selector: 'split-button-disabled-demo',

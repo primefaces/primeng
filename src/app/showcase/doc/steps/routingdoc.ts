@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Subscription } from 'rxjs';
 import { Code } from '../../domain/code';
 import { TicketService } from '../../service/ticketservice';
@@ -72,7 +72,7 @@ export class RoutingDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { TicketService } from '../../service/ticketservice';
 import { Subscription } from 'rxjs';
 

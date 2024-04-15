@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -88,8 +88,8 @@ export class HeadlessDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
-        
+import { ConfirmationService, MessageService, ConfirmEventType } from '@alamote/primeng/api';
+
 @Component({
     selector: 'confirm-dialog-headless-demo',
     templateUrl: './confirm-dialog-headless-demo.html',

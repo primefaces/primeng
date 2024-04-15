@@ -29,23 +29,23 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { ArrowUpIcon } from 'primeng/icons/arrowup';
-import { CheckIcon } from 'primeng/icons/check';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { MinusIcon } from 'primeng/icons/minus';
-import { SortAltIcon } from 'primeng/icons/sortalt';
-import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
-import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { PaginatorModule } from 'primeng/paginator';
-import { RippleModule } from 'primeng/ripple';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils } from 'primeng/utils';
+import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { ArrowDownIcon } from '@alamote/primeng/icons/arrowdown';
+import { ArrowUpIcon } from '@alamote/primeng/icons/arrowup';
+import { CheckIcon } from '@alamote/primeng/icons/check';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { ChevronRightIcon } from '@alamote/primeng/icons/chevronright';
+import { MinusIcon } from '@alamote/primeng/icons/minus';
+import { SortAltIcon } from '@alamote/primeng/icons/sortalt';
+import { SortAmountDownIcon } from '@alamote/primeng/icons/sortamountdown';
+import { SortAmountUpAltIcon } from '@alamote/primeng/icons/sortamountupalt';
+import { SpinnerIcon } from '@alamote/primeng/icons/spinner';
+import { PaginatorModule } from '@alamote/primeng/paginator';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Scroller, ScrollerModule } from '@alamote/primeng/scroller';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { ObjectUtils } from '@alamote/primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
     TreeTableColResizeEvent,

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { ImageModule } from 'primeng/image';
+import { ImageModule } from '@alamote/primeng/image';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { BasicDoc } from './basicdoc';

@@ -22,17 +22,17 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { DomHandler } from '@alamote/primeng/dom';
+import { AngleDoubleDownIcon } from '@alamote/primeng/icons/angledoubledown';
+import { AngleDoubleUpIcon } from '@alamote/primeng/icons/angledoubleup';
+import { AngleDownIcon } from '@alamote/primeng/icons/angledown';
+import { AngleUpIcon } from '@alamote/primeng/icons/angleup';
+import { SearchIcon } from '@alamote/primeng/icons/search';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Nullable } from '@alamote/primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
 /**
  * OrderList is used to managed the order of a collection.

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -494,7 +494,7 @@ export class ProductsDoc {
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
 

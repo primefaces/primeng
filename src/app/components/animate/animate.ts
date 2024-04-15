@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, Input, NgModule, OnInit, Renderer2 } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from '@alamote/primeng/dom';
 /**
  * Animate manages PrimeFlex CSS classes declaratively to during enter/leave animations on scroll or on page load.
  * @group Components

@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ScrollTopModule } from 'primeng/scrolltop';`
+        typescript: `import { ScrollTopModule } from '@alamote/primeng/scrolltop';`
     };
 }

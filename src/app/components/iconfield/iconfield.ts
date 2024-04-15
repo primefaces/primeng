@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
 
-import { SharedModule } from 'primeng/api';
+import { SharedModule } from '@alamote/primeng/api';
 
 /**
  * IconField wraps an input and an icon.

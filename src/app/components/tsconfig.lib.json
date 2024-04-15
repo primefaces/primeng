@@ -17,7 +17,7 @@
         "skipLibCheck": true,
         "types": [],
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
+            "@alamote/primeng/*": ["src/app/components/*/public_api"]
         }
     },
     "angularCompilerOptions": {

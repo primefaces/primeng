@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
-import { ConfirmPopup } from 'primeng/confirmpopup';
+import { ConfirmPopup } from '@alamote/primeng/confirmpopup';
 @Component({
     selector: 'confirm-popup-headless-demo',
     template: `
@@ -85,8 +85,8 @@ export class HeadlessDoc {
 
         typescript: `
 import { Component, ViewChild } from '@angular/core';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopup } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from '@alamote/primeng/api';
+import { ConfirmPopup } from '@alamote/primeng/confirmpopup';
 
 @Component({
     selector: 'confirm-popup-headless-demo',

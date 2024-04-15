@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { SelectButtonModule } from 'primeng/selectbutton';`
+        typescript: `import { SelectButtonModule } from '@alamote/primeng/selectbutton';`
     };
 }

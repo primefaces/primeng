@@ -24,19 +24,19 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@alamote/primeng/dom';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from '@alamote/primeng/utils';
 import { Subscription } from 'rxjs';
-import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
-import { ChevronRightIcon } from 'primeng/icons/chevronright';
-import { ChevronUpIcon } from 'primeng/icons/chevronup';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { TimesIcon } from 'primeng/icons/times';
-import { CalendarIcon } from 'primeng/icons/calendar';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ChevronLeftIcon } from '@alamote/primeng/icons/chevronleft';
+import { ChevronRightIcon } from '@alamote/primeng/icons/chevronright';
+import { ChevronUpIcon } from '@alamote/primeng/icons/chevronup';
+import { ChevronDownIcon } from '@alamote/primeng/icons/chevrondown';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { CalendarIcon } from '@alamote/primeng/icons/calendar';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
 import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {

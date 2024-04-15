@@ -20,12 +20,12 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { TimesIcon } from 'primeng/icons/times';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { InputTextModule } from 'primeng/inputtext';
-import { Nullable } from 'primeng/ts-helpers';
-import { UniqueComponentId } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { TimesIcon } from '@alamote/primeng/icons/times';
+import { TimesCircleIcon } from '@alamote/primeng/icons/timescircle';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { Nullable } from '@alamote/primeng/ts-helpers';
+import { UniqueComponentId } from '@alamote/primeng/utils';
 import { ChipsAddEvent, ChipsClickEvent, ChipsRemoveEvent } from './chips.interface';
 
 export const CHIPS_VALUE_ACCESSOR: any = {

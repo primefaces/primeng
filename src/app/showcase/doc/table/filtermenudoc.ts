@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from '@alamote/primeng/table';
 import { Code } from '../../domain/code';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
@@ -513,7 +513,7 @@ export class FilterMenuDoc {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { Table } from 'primeng/table';
+import { Table } from '@alamote/primeng/table';
 import { Customer, Representative } from '../../domain/customer';
 import { CustomerService } from '../../service/customerservice';
 
@@ -594,7 +594,7 @@ export class TableFilterMenuDemo implements OnInit {
     .p-progressbar {
         height: .5rem;
         background-color: #D8DADC;
-    
+
         .p-progressbar-value {
             background-color: #607D8B;
         }

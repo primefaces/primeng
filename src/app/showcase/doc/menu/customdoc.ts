@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -136,7 +136,7 @@ export class CustomContentDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '@alamote/primeng/api';
 
 @Component({
     selector: 'menu-custom-content-demo',
@@ -144,7 +144,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class MenuCustomContentDemo implements OnInit {
     items: MenuItem[] | undefined;
-    
+
     ngOnInit() {
         this.items = [
             {

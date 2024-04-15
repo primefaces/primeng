@@ -53,7 +53,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" 
+        basic: `<p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries"
     (completeMethod)="filterCountry($event)" field="name">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
@@ -77,7 +77,7 @@ export class TemplateDoc {
 
         typescript: `
 import { Component } from '@angular/core';
-import { SelectItemGroup } from 'primeng/api';
+import { SelectItemGroup } from '@alamote/primeng/api';
 import { CountryService } from 'src/service/countryservice';
 
 interface AutoCompleteCompleteEvent {
@@ -95,7 +95,7 @@ export class AutocompleteTemplateDemo {
 
     selectedCountryAdvanced: any[] | undefined;
 
-    filteredCountries: any[] | undefined; 
+    filteredCountries: any[] | undefined;
 
     constructor(private countryService: CountryService) {}
 

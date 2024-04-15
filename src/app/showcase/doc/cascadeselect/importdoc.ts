@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { CascadeSelectModule } from 'primeng/cascadeselect';`
+        typescript: `import { CascadeSelectModule } from '@alamote/primeng/cascadeselect';`
     };
 }

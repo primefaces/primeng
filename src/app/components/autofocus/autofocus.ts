@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, Input, NgModule, booleanAttribute } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from '@alamote/primeng/dom';
 /**
  * AutoFocus manages focus on focusable element on load.
  * @group Components

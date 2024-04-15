@@ -15,7 +15,7 @@ import { Code } from '../../domain/code';
 })
 export class UsageDoc {
     code: Code = {
-        typescript: `import { ButtonModule } from 'primeng/button';`,
+        typescript: `import { ButtonModule } from '@alamote/primeng/button';`,
         html: `
 <div class="card flex justify-content-center">
     <p-button label="Check" icon="pi pi-check"></p-button>

@@ -19,11 +19,11 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { DomHandler } from 'primeng/dom';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { RippleModule } from 'primeng/ripple';
-import { ObjectUtils } from 'primeng/utils';
+import { PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { DomHandler } from '@alamote/primeng/dom';
+import { SpinnerIcon } from '@alamote/primeng/icons/spinner';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { ObjectUtils } from '@alamote/primeng/utils';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 

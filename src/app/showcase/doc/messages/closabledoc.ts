@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
+import { Message } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -45,7 +45,7 @@ export class ClosableDoc implements OnInit {
 </div>`,
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { Message } from 'primeng/api';
+import { Message } from '@alamote/primeng/api';
 
 @Component({
     selector: 'messages-closable-demo',

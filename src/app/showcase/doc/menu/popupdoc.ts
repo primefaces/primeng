@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 import { Code } from '../../domain/code';
 
 @Component({
@@ -83,7 +83,7 @@ export class PopupDoc implements OnInit {
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from '@alamote/primeng/api';
 
 @Component({
     selector: 'menu-popup-demo',
@@ -94,7 +94,7 @@ export class MenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {

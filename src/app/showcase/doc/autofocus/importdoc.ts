@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { AutoFocusModule } from 'primeng/autofocus';`
+        typescript: `import { AutoFocusModule } from '@alamote/primeng/autofocus';`
     };
 }

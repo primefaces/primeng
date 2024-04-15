@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { DropdownModule } from 'primeng/dropdown';
-import { FocusTrapModule } from 'primeng/focustrap';
+import { ButtonModule } from '@alamote/primeng/button';
+import { InputTextModule } from '@alamote/primeng/inputtext';
+import { DropdownModule } from '@alamote/primeng/dropdown';
+import { FocusTrapModule } from '@alamote/primeng/focustrap';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 

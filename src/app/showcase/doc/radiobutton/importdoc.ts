@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RadioButtonModule } from 'primeng/radiobutton';`
+        typescript: `import { RadioButtonModule } from '@alamote/primeng/radiobutton';`
     };
 }

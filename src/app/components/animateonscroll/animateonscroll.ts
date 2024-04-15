@@ -1,6 +1,6 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, Input, NgModule, Renderer2, OnInit, Inject, PLATFORM_ID, booleanAttribute, numberAttribute } from '@angular/core';
-import { DomHandler } from 'primeng/dom';
+import { DomHandler } from '@alamote/primeng/dom';
 
 interface AnimateOnScrollOptions {
     root?: HTMLElement;

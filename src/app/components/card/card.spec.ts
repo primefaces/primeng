@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Card } from './card';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Footer, Header } from 'primeng/api';
+import { Footer, Header } from '@alamote/primeng/api';
 import { ButtonModule } from '../button/button';
 
 @Component({

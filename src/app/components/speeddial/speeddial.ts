@@ -24,13 +24,13 @@ import {
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { PlusIcon } from 'primeng/icons/plus';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { UniqueComponentId } from 'primeng/utils';
+import { MenuItem, PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { DomHandler } from '@alamote/primeng/dom';
+import { PlusIcon } from '@alamote/primeng/icons/plus';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { TooltipModule } from '@alamote/primeng/tooltip';
+import { UniqueComponentId } from '@alamote/primeng/utils';
 import { asapScheduler } from 'rxjs';
 
 /**

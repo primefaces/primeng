@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
-import { Sidebar } from 'primeng/sidebar';
+import { Sidebar } from '@alamote/primeng/sidebar';
 
 @Component({
     selector: 'headless-doc',
@@ -617,7 +617,7 @@ export class HeadlessDoc {
 
         typescript: `
 import { Component, ViewChild } from '@angular/core';
-import { Sidebar } from 'primeng/sidebar';
+import { Sidebar } from '@alamote/primeng/sidebar';
 
 @Component({
     selector: 'sidebar-headless-demo',

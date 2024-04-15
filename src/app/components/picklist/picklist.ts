@@ -22,22 +22,22 @@ import {
     booleanAttribute,
     numberAttribute
 } from '@angular/core';
-import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
-import { DomHandler } from 'primeng/dom';
-import { AngleDoubleDownIcon } from 'primeng/icons/angledoubledown';
-import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
-import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
-import { AngleDoubleUpIcon } from 'primeng/icons/angledoubleup';
-import { AngleDownIcon } from 'primeng/icons/angledown';
-import { AngleLeftIcon } from 'primeng/icons/angleleft';
-import { AngleRightIcon } from 'primeng/icons/angleright';
-import { AngleUpIcon } from 'primeng/icons/angleup';
-import { HomeIcon } from 'primeng/icons/home';
-import { SearchIcon } from 'primeng/icons/search';
-import { RippleModule } from 'primeng/ripple';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from '@alamote/primeng/api';
+import { ButtonModule } from '@alamote/primeng/button';
+import { DomHandler } from '@alamote/primeng/dom';
+import { AngleDoubleDownIcon } from '@alamote/primeng/icons/angledoubledown';
+import { AngleDoubleLeftIcon } from '@alamote/primeng/icons/angledoubleleft';
+import { AngleDoubleRightIcon } from '@alamote/primeng/icons/angledoubleright';
+import { AngleDoubleUpIcon } from '@alamote/primeng/icons/angledoubleup';
+import { AngleDownIcon } from '@alamote/primeng/icons/angledown';
+import { AngleLeftIcon } from '@alamote/primeng/icons/angleleft';
+import { AngleRightIcon } from '@alamote/primeng/icons/angleright';
+import { AngleUpIcon } from '@alamote/primeng/icons/angleup';
+import { HomeIcon } from '@alamote/primeng/icons/home';
+import { SearchIcon } from '@alamote/primeng/icons/search';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId } from '@alamote/primeng/utils';
 import {
     PickListFilterOptions,
     PickListMoveAllToSourceEvent,

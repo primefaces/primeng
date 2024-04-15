@@ -30,12 +30,12 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
-import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
-import { RippleModule } from 'primeng/ripple';
-import { TooltipModule } from 'primeng/tooltip';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate } from '@alamote/primeng/api';
+import { ConnectedOverlayScrollHandler, DomHandler } from '@alamote/primeng/dom';
+import { RippleModule } from '@alamote/primeng/ripple';
+import { TooltipModule } from '@alamote/primeng/tooltip';
+import { Nullable, VoidListener } from '@alamote/primeng/ts-helpers';
+import { UniqueComponentId, ZIndexUtils } from '@alamote/primeng/utils';
 
 @Pipe({
     name: 'safeHtml'

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDocModule } from '../../layout/doc/app.doc.module';
 import { AppCodeModule } from '../../layout/doc/app.code.component';
-import { ColorPickerModule } from 'primeng/colorpicker';
+import { ColorPickerModule } from '@alamote/primeng/colorpicker';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { InlineDoc } from './inlinedoc';

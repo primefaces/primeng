@@ -7,6 +7,6 @@ import { Code } from '../../domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { RatingModule } from 'primeng/rating';`
+        typescript: `import { RatingModule } from '@alamote/primeng/rating';`
     };
 }
