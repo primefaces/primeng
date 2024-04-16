@@ -5632,7 +5632,7 @@ export class ColumnFilter implements AfterContentInit {
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
 
                 dialogElements.forEach((dialogElement) => {
-                    const appendToBodyExists = dialogElement.querySelector('p-dropdown[appendto="body"]') !== null;
+                    const appendToBodyExists = dialogElement.querySelector('[appendto="body"]') !== null
 
                     if (this.overlayVisible && this.isOutsideClicked(event) && !appendToBodyExists && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                         this.hide();
