@@ -4,19 +4,33 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'cell-edit-doc',
+    selector: 'filter-sort-edit-doc',
     template: ` <app-docsectiontext>
-            <p>In-cell editing is enabled by adding <i>pEditableColumn</i> directive to an editable cell that has a <i>p-cellEditor</i> helper component to define the input-output templates for the edit and view modes respectively.</p>
+            <p>Cell Editing with Sorting and Filter</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
-                            <th style="width:25%">Code</th>
-                            <th style="width:25%">Name</th>
-                            <th style="width:25%">Inventory Status</th>
-                            <th style="width:25%">Price</th>
+                            <th pSortableColumn="code" style="width:25%">Code <p-sortIcon field="code" /></th>
+                            <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
+                            <th pSortableColumn="category" style="width:25%">Quantity <p-sortIcon field="quantity" /></th>
+                            <th pSortableColumn="quantity" style="width:25%">Price <p-sortIcon field="price" /></th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p-columnFilter type="text" field="code" [showClearButton]="false" />
+                            </th>
+                            <th>
+                                <p-columnFilter type="text" field="name" [showClearButton]="false" />
+                            </th>
+                            <th>
+                                <p-columnFilter type="text" field="quantity" [showClearButton]="false" />
+                            </th>
+                            <th>
+                                <p-columnFilter type="text" field="price" [showClearButton]="false" />
+                            </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product let-editing="editing">
@@ -41,13 +55,13 @@ import { ProductService } from '@service/productservice';
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
-                            <td [pEditableColumn]="product.inventoryStatus" pEditableColumnField="inventoryStatus">
+                            <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText [(ngModel)]="product.inventoryStatus" />
+                                        <input pInputText [(ngModel)]="product.quantity" />
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{ product.inventoryStatus }}
+                                        {{ product.quantity }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -66,10 +80,10 @@ import { ProductService } from '@service/productservice';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-cell-edit-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [code]="code" selector="table-filter-sort-edit-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CellEditDoc {
+export class FilterSortEditDoc {
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -242,13 +256,13 @@ import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'table-cell-edit-demo',
-    templateUrl: 'table-cell-edit-demo.html',
+    selector: 'table-filter-sort-edit-demo',
+    templateUrl: 'table-filter-sort-edit-demo.html',
     standalone: true,
     imports: [TableModule, InputTextModule, CommonModule],
     providers: [ProductService]
 })
-export class TableCellEditDemo implements OnInit {
+export class FilterSortEditDoc implements OnInit {
     products!: Product[];
 
     constructor(private productService: ProductService) {}

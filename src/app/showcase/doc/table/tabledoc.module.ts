@@ -64,7 +64,6 @@ import { ReorderDoc } from './reorderdoc';
 import { ResponsiveScrollDoc } from './responsivescrolldoc';
 import { ResponsiveStackDoc } from './responsivestackdoc';
 import { RowEditDoc } from './roweditdoc';
-import { RowExpandDoc } from './rowexpanddoc';
 import { RowspanGroupingDoc } from './rowspangroupingdoc';
 import { SingleColumnSortDoc } from './singlecolumnsortdoc';
 import { MultipleColumnsSortDoc } from './multiplecolumnssortdoc';
@@ -85,6 +84,8 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
 import { PreSortDoc } from './presortdoc';
+import { RowExpansionDoc } from './rowexpansiondoc';
+import { FilterSortEditDoc } from './filtersorteditdoc';
 
 @NgModule({
     imports: [
@@ -160,7 +161,8 @@ import { PreSortDoc } from './presortdoc';
         ResponsiveScrollDoc,
         ResponsiveStackDoc,
         RowEditDoc,
-        RowExpandDoc,
+        FilterSortEditDoc,
+        RowExpansionDoc,
         RowspanGroupingDoc,
         SingleColumnSortDoc,
         MultipleColumnsSortDoc,

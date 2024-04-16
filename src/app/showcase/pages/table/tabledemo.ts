@@ -32,7 +32,7 @@ import { ReorderDoc } from '@doc/table/reorderdoc';
 import { ResponsiveScrollDoc } from '@doc/table/responsivescrolldoc';
 import { ResponsiveStackDoc } from '@doc/table/responsivestackdoc';
 import { RowEditDoc } from '@doc/table/roweditdoc';
-import { RowExpandDoc } from '@doc/table/rowexpanddoc';
+import { RowExpansionDoc } from '@doc/table/rowexpansiondoc';
 import { RowspanGroupingDoc } from '@doc/table/rowspangroupingdoc';
 import { SingleColumnSortDoc } from '@doc/table/singlecolumnsortdoc';
 import { MultipleColumnsSortDoc } from '@doc/table/multiplecolumnssortdoc';
@@ -51,6 +51,7 @@ import { SelectionEventsDoc } from '@doc/table/selectioneventsdoc';
 import { StylingDoc } from '@doc/table/stylingdoc';
 import { AccessibilityDoc } from '@doc/table/accessibilitydoc';
 import { PreSortDoc } from '@doc/table/presortdoc';
+import { FilterSortEditDoc } from '@doc/table/filtersorteditdoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -168,33 +169,23 @@ export class TableDemo {
             children: [
                 {
                     id: 'single-selection',
-                    label: 'Single Selection',
+                    label: 'Single',
                     component: SingleSelectionDoc
                 },
                 {
                     id: 'multiple-selection',
-                    label: 'Multiple Selection',
+                    label: 'Multiple',
                     component: MultipleSelectionDoc
                 },
                 {
-                    id: 'checkbox-selection',
-                    label: 'Checkbox Selection',
-                    component: CheckboxSelectionDoc
-                },
-                {
                     id: 'radio-button-selection',
-                    label: 'Radio Button Selection',
+                    label: 'RadioButton',
                     component: RadioButtonSelectionDoc
                 },
                 {
-                    id: 'controlled-selection',
-                    label: 'Controlled Selection',
-                    component: ControlledSelectionDoc
-                },
-                {
-                    id: 'page-only-selection',
-                    label: 'Page Only Selection',
-                    component: PageOnlySelectionDoc
+                    id: 'checkbox-selection',
+                    label: 'Checkbox',
+                    component: CheckboxSelectionDoc
                 },
                 {
                     id: 'selection-events',
@@ -209,23 +200,28 @@ export class TableDemo {
             component: ColumnSelectionDoc
         },
         {
-            id: 'row-expand',
-            label: 'Row Expand',
-            component: RowExpandDoc
+            id: 'row-expansion',
+            label: 'Row Expansion',
+            component: RowExpansionDoc
         },
         {
             id: 'Edit',
             label: 'Edit',
             children: [
                 {
+                    id: 'cell-edit',
+                    label: 'Cell',
+                    component: CellEditDoc
+                },
+                {
                     id: 'row-edit',
-                    label: 'Row Edit',
+                    label: 'Row',
                     component: RowEditDoc
                 },
                 {
-                    id: 'cell-edit',
-                    label: 'Cell Edit',
-                    component: CellEditDoc
+                    id: 'filter-sort-edit',
+                    label: 'Filter & Sort Cell Edit',
+                    component: FilterSortEditDoc
                 }
             ]
         },

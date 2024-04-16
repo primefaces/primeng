@@ -4,7 +4,7 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 
 @Component({
-    selector: 'row-expand-doc',
+    selector: 'row-expansion-doc',
     template: ` <app-docsectiontext>
             <p>
                 Row expansion allows displaying detailed content for a particular row. To use this feature, add a template named rowexpansion and use the <i>pRowToggler</i> directive whose value is the row data instance on an element of your choice
@@ -18,12 +18,12 @@ import { ProductService } from '@service/productservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 5rem"></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
                             <th>Image</th>
-                            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
+                            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+                            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-product let-expanded="expanded">
@@ -35,9 +35,9 @@ import { ProductService } from '@service/productservice';
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
                             <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
-                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -48,11 +48,11 @@ import { ProductService } from '@service/productservice';
                                     <p-table [value]="product.orders" dataKey="id">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                                <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
+                                                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
+                                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
                                                 <th style="width: 4rem"></th>
                                             </tr>
                                         </ng-template>
@@ -63,9 +63,9 @@ import { ProductService } from '@service/productservice';
                                                 <td>{{ order.date }}</td>
                                                 <td>{{ order.amount | currency : 'USD' }}</td>
                                                 <td>
-                                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                                 </td>
-                                                <td><p-button type="button" icon="pi pi-plus"></p-button></td>
+                                                <td><p-button type="button" icon="pi pi-plus" /></td>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage">
@@ -81,10 +81,10 @@ import { ProductService } from '@service/productservice';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-row-expand-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [code]="code" selector="table-row-expansion-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RowExpandDoc {
+export class RowExpansionDoc {
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
@@ -123,12 +123,12 @@ export class RowExpandDoc {
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 5rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
             <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
+            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-product let-expanded="expanded">
@@ -140,9 +140,9 @@ export class RowExpandDoc {
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
             <td>{{ product.price | currency: 'USD' }}</td>
             <td>{{ product.category }}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
             <td>
-                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
             </td>
         </tr>
     </ng-template>
@@ -153,11 +153,11 @@ export class RowExpandDoc {
                     <p-table [value]="product.orders" dataKey="id">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
+                                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
+                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
                                 <th style="width: 4rem"></th>
                             </tr>
                         </ng-template>
@@ -168,9 +168,9 @@ export class RowExpandDoc {
                                 <td>{{ order.date }}</td>
                                 <td>{{ order.amount | currency: 'USD' }}</td>
                                 <td>
-                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                 </td>
-                                <td><p-button type="button" icon="pi pi-plus"></p-button></td>
+                                <td><p-button type="button" icon="pi pi-plus" /></td>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="emptymessage">
@@ -184,18 +184,17 @@ export class RowExpandDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 5rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
                 <th>Image</th>
-                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-product let-expanded="expanded">
@@ -207,9 +206,9 @@ export class RowExpandDoc {
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
                 <td>{{ product.price | currency: 'USD' }}</td>
                 <td>{{ product.category }}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
                 <td>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                 </td>
             </tr>
         </ng-template>
@@ -220,11 +219,11 @@ export class RowExpandDoc {
                         <p-table [value]="product.orders" dataKey="id">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th pSortableColumn="id">Id <p-sortIcon field="price"></p-sortIcon></th>
-                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer"></p-sortIcon></th>
-                                    <th pSortableColumn="date">Date <p-sortIcon field="date"></p-sortIcon></th>
-                                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount"></p-sortIcon></th>
-                                    <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                                    <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
+                                    <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
+                                    <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
                                     <th style="width: 4rem"></th>
                                 </tr>
                             </ng-template>
@@ -235,9 +234,9 @@ export class RowExpandDoc {
                                     <td>{{ order.date }}</td>
                                     <td>{{ order.amount | currency: 'USD' }}</td>
                                     <td>
-                                        <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)"></p-tag>
+                                        <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                     </td>
-                                    <td><p-button type="button" icon="pi pi-plus"></p-button></td>
+                                    <td><p-button type="button" icon="pi pi-plus" /></td>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="emptymessage">
@@ -252,17 +251,23 @@ export class RowExpandDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { TagModule } from 'primeng/tag';
+import { TableModule } from 'primeng/table';
+import { RatingModule } from 'primeng/rating';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'table-row-expand-demo',
-    templateUrl: 'table-row-expand-demo.html',
-    styleUrls: ['table-row-expand-demo.scss']
+    selector: 'table-row-expansion-demo',
+    templateUrl: 'table-row-expansion-demo.html',
+    standalone: true,
+    imports: [TableModule, TagModule, RatingModule, ButtonModule, CommonModule],
+    providers: [ProductService]
 })
-export class TableRowExpandDemo implements OnInit{
+export class TableRowExpansionDemo implements OnInit{
     products!: Product[];
 
     constructor(private productService: ProductService) {}

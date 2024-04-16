@@ -14,7 +14,7 @@ import { ProductService } from '@service/productservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                <p-tableHeaderCheckbox />
                             </th>
                             <th>Code</th>
                             <th>Name</th>
@@ -25,7 +25,7 @@ import { ProductService } from '@service/productservice';
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>
-                                <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                                <p-tableCheckbox [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -54,37 +54,15 @@ export class CheckboxSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>
-                <p-tableCheckbox [value]="product"></p-tableCheckbox>
-            </td>
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="products" [(selection)]="selectedProducts" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table 
+    [value]="products" 
+    [(selection)]="selectedProducts" 
+    dataKey="code" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 4rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    <p-tableHeaderCheckbox />
                 </th>
                 <th>Code</th>
                 <th>Name</th>
@@ -95,7 +73,7 @@ export class CheckboxSelectionDoc {
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                    <p-tableCheckbox [value]="product" />
                 </td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -103,16 +81,50 @@ export class CheckboxSelectionDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [value]="products" 
+        [(selection)]="selectedProducts" 
+        dataKey="code" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox />
+                    </th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableCheckbox [value]="product" />
+                    </td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-checkbox-selection-demo',
-    templateUrl: 'table-checkbox-selection-demo.html'
+    templateUrl: 'table-checkbox-selection-demo.html',
+    standalone: true,
+    imports: [TableModule, FormsModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableCheckboxSelectionDemo implements OnInit{
     products!: Product[];
