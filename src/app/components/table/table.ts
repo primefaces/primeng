@@ -484,7 +484,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines if the row is selectable.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) rowSelectable: boolean | undefined | any;
+    @Input() rowSelectable: boolean | Function | undefined | any;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
