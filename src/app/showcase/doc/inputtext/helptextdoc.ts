@@ -24,7 +24,8 @@ export class HelpTextDoc {
         basic: `<div class="flex flex-column gap-2">
     <label for="username">Username</label>
     <input 
-        pInputText id="username" 
+        pInputText 
+        id="username" 
         aria-describedby="username-help" 
         [(ngModel)]="value" />
     <small id="username-help">
