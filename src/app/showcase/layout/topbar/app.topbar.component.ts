@@ -32,7 +32,7 @@ export class AppTopBarComponent implements OnDestroy {
 
         afterNextRender(() => {
             this.bindScrollListener();
-            // this.initDocSearch();
+            this.initDocSearch();
         });
     }
 
