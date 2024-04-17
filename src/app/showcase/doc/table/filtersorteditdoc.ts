@@ -10,7 +10,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" (onEditComplete)="onEditComplete($event)">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="code" style="width:25%">Code <p-sortIcon field="code" /></th>
@@ -81,7 +81,15 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-filter-sort-edit-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styles: [
+        `
+            :host ::ng-deep .p-cell-editing {
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
+            }
+        `
+    ]
 })
 export class FilterSortEditDoc {
     products!: Product[];
@@ -93,6 +101,38 @@ export class FilterSortEditDoc {
             this.products = data;
             this.cd.markForCheck();
         });
+    }
+
+    onEditComplete(event) {
+        let { data, newValue, field } = event;
+
+        switch (field) {
+            case 'quantity':
+            case 'price':
+                if (this.isPositiveInteger(newValue)) data[field] = newValue;
+                else event.originalEvent.preventDefault();
+                break;
+
+            default:
+                if (newValue.trim().length > 0) data[field] = newValue;
+                else event.originalEvent.preventDefault();
+                break;
+        }
+    }
+
+    isPositiveInteger(val) {
+        let str = String(val);
+
+        str = str.trim();
+
+        if (!str) {
+            return false;
+        }
+
+        str = str.replace(/^0+/, '') || '0';
+        var n = Math.floor(Number(str));
+
+        return n !== Infinity && String(n) === str && n >= 0;
     }
 
     code: Code = {
@@ -260,7 +300,13 @@ import { InputTextModule } from 'primeng/inputtext';
     templateUrl: 'table-filter-sort-edit-demo.html',
     standalone: true,
     imports: [TableModule, InputTextModule, CommonModule],
-    providers: [ProductService]
+    providers: [ProductService],
+    styles: [
+        \`:host ::ng-deep .p-cell-editing {
+            padding-top: 0 !important;
+            padding-bottom: 0 !important;
+        }\`
+    ],
 })
 export class FilterSortEditDoc implements OnInit {
     products!: Product[];
@@ -286,12 +332,8 @@ export class FilterSortEditDoc implements OnInit {
     rating: 5
 },
 ...`,
-        scss: `
-:host ::ng-deep .p-cell-editing {
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-}`,
-        service: ['ProductService']
+
+     service: ['ProductService']
     };
 
     extFiles = [

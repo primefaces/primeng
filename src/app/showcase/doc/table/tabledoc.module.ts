@@ -52,7 +52,7 @@ import { FrozenColumnsDoc } from './frozencolumnsdoc';
 import { FrozenRowsDoc } from './frozenrowsdoc';
 import { GridlinesDoc } from './gridlinesdoc';
 import { ImportDoc } from './importdoc';
-import { HorizontalAndVerticalScrollDoc } from './horizontalandverticaldoc';
+import { HorizontalScrollDoc } from './horizontalscrolldoc';
 import { LazyLoadDoc } from './lazyloaddoc';
 import { MultipleSelectionDoc } from './multipleselectiondoc';
 import { PageOnlySelectionDoc } from './pageonlyselectiondoc';
@@ -120,7 +120,7 @@ import { FilterSortEditDoc } from './filtersorteditdoc';
         AppDocModule,
         DeferredDemo,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
     ],
     declarations: [
         ImportDoc,
@@ -147,7 +147,7 @@ import { FilterSortEditDoc } from './filtersorteditdoc';
         FrozenColumnsDoc,
         FrozenRowsDoc,
         GridlinesDoc,
-        HorizontalAndVerticalScrollDoc,
+        HorizontalScrollDoc,
         LazyLoadDoc,
         MultipleSelectionDoc,
         PageOnlySelectionDoc,

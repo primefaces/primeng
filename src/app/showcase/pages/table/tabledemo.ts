@@ -8,22 +8,19 @@ import { ColumnResizeExpandModeDoc } from '@doc/table/columnresizeexpandmodedoc'
 import { ColumnResizeScrollableModeDoc } from '@doc/table/columnresizescrollablemodedoc';
 import { ColumnSelectionDoc } from '@doc/table/columnselectiondoc';
 import { ColumnToggleDoc } from '@doc/table/columntoggledoc';
-import { ControlledSelectionDoc } from '@doc/table/controlledselectiondoc';
 import { CustomersDoc } from '@doc/table/customersdoc';
 import { DynamicDoc } from '@doc/table/dynamicdoc';
 import { ExpandableRowGroupDoc } from '@doc/table/expandablerowgroupdoc';
 import { ExportDoc } from '@doc/table/exportdoc';
-import { FilterMenuDoc } from '@doc/table/filtermenudoc';
 import { FilterBasicDoc } from '@doc/table/filterbasic';
 import { FlexibleScrollDoc } from '@doc/table/flexiblescrolldoc';
 import { FrozenColumnsDoc } from '@doc/table/frozencolumnsdoc';
 import { FrozenRowsDoc } from '@doc/table/frozenrowsdoc';
 import { GridlinesDoc } from '@doc/table/gridlinesdoc';
 import { ImportDoc } from '@doc/table/importdoc';
-import { HorizontalAndVerticalScrollDoc } from '@doc/table/horizontalandverticaldoc';
+import { HorizontalScrollDoc } from '@doc/table/horizontalscrolldoc';
 import { LazyLoadDoc } from '@doc/table/lazyloaddoc';
 import { MultipleSelectionDoc } from '@doc/table/multipleselectiondoc';
-import { PageOnlySelectionDoc } from '@doc/table/pageonlyselectiondoc';
 import { PaginatorBasicDoc } from '@doc/table/paginatorbasicdoc';
 import { PaginatorProgrammaticDoc } from '@doc/table/paginatorprogrammaticdoc';
 import { ProductsDoc } from '@doc/table/productsdoc';
@@ -236,18 +233,18 @@ export class TableDemo {
             children: [
                 {
                     id: 'vertical-scroll',
-                    label: 'Vertical Scroll',
+                    label: 'Vertical',
                     component: VerticalScrollDoc
                 },
                 {
-                    id: 'horizontal-and-vertical-scroll',
-                    label: 'Horizontal and Vertical Scroll',
-                    component: HorizontalAndVerticalScrollDoc
+                    id: 'flex-scroll',
+                    label: 'Flexible',
+                    component: FlexibleScrollDoc
                 },
                 {
-                    id: 'flex-scroll',
-                    label: 'Flex Scroll',
-                    component: FlexibleScrollDoc
+                    id: 'horizontal-scroll',
+                    label: 'Horizontal',
+                    component: HorizontalScrollDoc
                 },
                 {
                     id: 'frozen-rows',

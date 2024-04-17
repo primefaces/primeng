@@ -4,9 +4,9 @@ import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
 
 @Component({
-    selector: 'horizontal-and-vertical-scroll-doc',
+    selector: 'horizontal-scroll-doc',
     template: ` <app-docsectiontext>
-            <p>Horizontal and vertical scroll can be used together to enable double axis scrolling.</p>
+            <p>Horizontal scrollbar is displayed when table width exceeds the parent width.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -53,10 +53,10 @@ import { CustomerService } from '@service/customerservice';
                 </p-table>
             </div>
         </p-deferred-demo>
-        <app-code [code]="code" selector="table-horizontal-and-vertical-scroll-demo" [extFiles]="extFiles"></app-code>`,
+        <app-code [code]="code" selector="table-horizontal-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HorizontalAndVerticalScrollDoc {
+export class HorizontalScrollDoc {
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
@@ -114,8 +114,7 @@ export class HorizontalAndVerticalScrollDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="customers" [scrollable]="true" scrollHeight="400px">
         <ng-template pTemplate="header">
             <tr>
@@ -158,16 +157,20 @@ export class HorizontalAndVerticalScrollDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
-    selector: 'table-horizontal-and-vertical-scroll-demo',
-    templateUrl: 'table-horizontal-and-vertical-scroll-demo.html'
+    selector: 'table-horizontal-scroll-demo',
+    templateUrl: 'table-horizontal-scroll-demo.html',
+    standalone: true,
+    imports: [TableModule, HttpClientModule],
+    providers: [CustomerService]
 })
-export class TableHorizontalAndVerticalScrollDemo implements OnInit{
+export class TableHorizontalScrollDemo implements OnInit{
     customers!: Customer[];
 
     constructor(private customerService: CustomerService) {}

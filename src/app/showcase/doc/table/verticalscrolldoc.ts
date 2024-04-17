@@ -19,7 +19,7 @@ import { CustomerService } from '@service/customerservice';
                             <th>Representative</th>
                         </tr>
                     </ng-template>
-                    <ng-template pTemplate="body" let-customer>
+                    <ng-template pTemplate="body" let-customer let-index="index">
                         <tr>
                             <td>{{ customer.name }}</td>
                             <td>{{ customer.country.name }}</td>
@@ -46,27 +46,11 @@ export class VerticalScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Country</th>
-            <th>Company</th>
-            <th>Representative</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-customer>
-        <tr>
-            <td>{{customer.name}}</td>
-            <td>{{customer.country.name}}</td>
-            <td>{{customer.company}}</td>
-            <td>{{customer.representative.name}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table 
+    [value]="customers" 
+    [scrollable]="true" 
+    scrollHeight="400px" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -83,16 +67,43 @@ export class VerticalScrollDoc {
                 <td>{{customer.representative.name}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [value]="customers" 
+        [scrollable]="true" 
+        scrollHeight="400px" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Representative</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer>
+                <tr>
+                    <td>{{customer.name}}</td>
+                    <td>{{customer.country.name}}</td>
+                    <td>{{customer.company}}</td>
+                    <td>{{customer.representative.name}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Customer } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'table-vertical-scroll-demo',
-    templateUrl: 'table-vertical-scroll-demo.html'
+    templateUrl: 'table-vertical-scroll-demo.html',
+    standalone: true,
+    imports: [TableModule, HttpClientModule],
+    providers: [CustomerService]
 })
 export class TableVerticalScrollDemo implements OnInit{
     customers!: Customer[];

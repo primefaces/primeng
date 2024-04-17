@@ -19,7 +19,7 @@ interface Column {
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+                <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="400px" [rows]="100" [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th *ngFor="let col of columns" style="width: 20%;">
@@ -37,7 +37,7 @@ interface Column {
                     <ng-template pTemplate="loadingbody" let-columns="columns">
                         <tr style="height:46px">
                             <td *ngFor="let col of columns; let even = even">
-                                <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }"></p-skeleton>
+                                <p-skeleton [ngStyle]="{ width: even ? (col.field === 'year' ? '30%' : '40%') : '60%' }" />
                             </td>
                         </tr>
                     </ng-template>
@@ -84,34 +84,16 @@ export class VirtualScrollLazyDoc {
     }
 
     code: Code = {
-        basic: `<p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
-    [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns" style="width: 20%;">
-                {{col.header}}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr style="height:46px">
-            <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="loadingbody" let-columns="columns">
-        <tr style="height:46px">
-            <td *ngFor="let col of columns; let even = even">
-                <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [columns]="cols" [value]="virtualCars" [scrollable]="true" scrollHeight="250px" [rows]="100"
-    [virtualScroll]="true" [virtualScrollItemSize]="46" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)">
+        basic: `<p-table 
+    [columns]="cols" 
+    [value]="virtualCars" 
+    [scrollable]="true" 
+    scrollHeight="400px" 
+    [rows]="100"
+    [virtualScroll]="true" 
+    [virtualScrollItemSize]="46" 
+    [lazy]="true" 
+    (onLazyLoad)="loadCarsLazy($event)">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns" style="width: 20%;">
@@ -129,17 +111,51 @@ export class VirtualScrollLazyDoc {
         <ng-template pTemplate="loadingbody" let-columns="columns">
             <tr style="height:46px">
                 <td *ngFor="let col of columns; let even = even">
-                    <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}"></p-skeleton>
+                    <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}" />
                 </td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [columns]="cols" 
+        [value]="virtualCars" 
+        [scrollable]="true" 
+        scrollHeight="400px" 
+        [rows]="100"
+        [virtualScroll]="true" 
+        [virtualScrollItemSize]="46" 
+        [lazy]="true" 
+        (onLazyLoad)="loadCarsLazy($event)">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" style="width: 20%;">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr style="height:46px">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody" let-columns="columns">
+                <tr style="height:46px">
+                    <td *ngFor="let col of columns; let even = even">
+                        <p-skeleton [ngStyle]="{'width': even ? (col.field === 'year' ? '30%' : '40%') : '60%'}" />
+                    </td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -148,7 +164,10 @@ interface Column {
 
 @Component({
     selector: 'table-virtual-scroll-lazy-demo',
-    templateUrl: 'table-virtual-scroll-lazy-demo.html'
+    templateUrl: 'table-virtual-scroll-lazy-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [CarService]
 })
 export class TableVirtualScrollLazyDemo implements OnInit{
     cars!: Car[];
