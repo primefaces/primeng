@@ -61,9 +61,7 @@ export class CheckboxSelectionDoc {
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 4rem">
-                    <p-tableHeaderCheckbox />
-                </th>
+                <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
                 <th>Code</th>
                 <th>Name</th>
                 <th>Category</th>
@@ -90,9 +88,7 @@ export class CheckboxSelectionDoc {
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
-                    <th style="width: 4rem">
-                        <p-tableHeaderCheckbox />
-                    </th>
+                    <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
                     <th>Code</th>
                     <th>Name</th>
                     <th>Category</th>
