@@ -10,7 +10,7 @@
     ],
     "functions": {
         "api/index.js": {
-            "includeFiles": "./dist/primeng/browser/**"
+            "includeFiles": "dist/primeng/browser/**"
         }
     }
 }
