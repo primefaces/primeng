@@ -61,7 +61,11 @@
                             "core-js",
                             "raf",
                             "rgbcolor"
-                        ]
+                        ],
+                        "server": "src/main.server.ts",
+                        "ssr": {
+                            "entry": "server.ts"
+                        }
                     },
                     "configurations": {
                         "production": {
