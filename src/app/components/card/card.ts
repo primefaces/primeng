@@ -33,7 +33,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
             </div>
         </div>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./card.css'],
     host: {
