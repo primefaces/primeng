@@ -5631,13 +5631,9 @@ export class ColumnFilter implements AfterContentInit {
                 const dialogElements = document.querySelectorAll('[role="dialog"]');
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
 
-                dialogElements.forEach((dialogElement) => {
-                    const appendToBodyExists = dialogElement.querySelector('[appendto="body"]') !== null
-
-                    if (this.overlayVisible && this.isOutsideClicked(event) && !appendToBodyExists && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
-                        this.hide();
-                    }
-                });
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
+                    this.hide();
+                }
 
                 this.selfClick = false;
             });
