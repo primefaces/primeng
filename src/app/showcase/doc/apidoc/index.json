@@ -1313,7 +1313,7 @@
             "values": [
                 {
                     "name": "Message",
-                    "description": "Deines valid options for the message.",
+                    "description": "Defines valid options for the message.",
                     "props": [
                         {
                             "name": "severity",
