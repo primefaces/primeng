@@ -70,11 +70,12 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             [attr.data-p-focused]="focused"
             [attr.data-p-highlight]="selected"
             [attr.data-p-disabled]="disabled"
+            [attr.aria-checked]="selected"
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
             <div class="p-checkbox p-component">
-                <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }" [attr.aria-checked]="selected">
+                <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
                     <ng-container *ngIf="selected">
                         <CheckIcon *ngIf="!checkIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
                         <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
