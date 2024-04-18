@@ -10,7 +10,7 @@ import { NodeService } from '@service/nodeservice';
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
+            <p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
@@ -56,20 +56,39 @@ export class LazyVirtualScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>`,
+        basic: `<p-tree 
+    class="w-full md:w-30rem" 
+    scrollHeight="250px" 
+    [virtualScroll]="true" 
+    [lazy]="true" 
+    [virtualScrollItemSize]="46" 
+    [value]="files" 
+    (onNodeExpand)="nodeExpand($event)" 
+    [loading]="loading" />`,
 
         html: `<div class="card flex justify-content-center">
-<p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading"></p-tree>
+    <p-tree 
+        class="w-full md:w-30rem" 
+        scrollHeight="250px" 
+        [virtualScroll]="true" 
+        [lazy]="true" 
+        [virtualScrollItemSize]="46" 
+        [value]="files" 
+        (onNodeExpand)="nodeExpand($event)" 
+        [loading]="loading" />
 </div>`,
 
-        typescript: `
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-virtual-scroll-lazy-demo',
-    templateUrl: './tree-virtual-scroll-lazy-demo.html'
+    templateUrl: './tree-virtual-scroll-lazy-demo.html',
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
 })
 export class TreeVirtualScrollLazyDemo implements OnInit {
     loading: boolean = false;

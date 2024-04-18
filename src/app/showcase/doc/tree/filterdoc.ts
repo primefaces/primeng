@@ -14,8 +14,8 @@ import { NodeService } from '@service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-5">
-            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter"></p-tree>
-            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>
+            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter" />
+            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
     `
@@ -30,23 +30,43 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter"></p-tree>
-<p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>`,
+        basic: `<p-tree 
+    [value]="files" 
+    class="w-full md:w-30rem" 
+    [filter]="true" 
+    filterPlaceholder="Lenient Filter" />
+<p-tree 
+    [value]="files" 
+    class="w-full md:w-30rem" 
+    [filter]="true" 
+    filterMode="strict" 
+    filterPlaceholder="Strict Filter" />`,
 
-        html: `
-<div class="card flex flex-wrap justify-content-center gap-5">
-    <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter"></p-tree>
-    <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter"></p-tree>
+        html: `<div class="card flex flex-wrap justify-content-center gap-5">
+    <p-tree 
+        [value]="files" 
+        class="w-full md:w-30rem" 
+        [filter]="true" 
+        filterPlaceholder="Lenient Filter" />
+    <p-tree 
+        [value]="files"
+        class="w-full md:w-30rem" 
+        [filter]="true" 
+        filterMode="strict" 
+        filterPlaceholder="Strict Filter" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-filter-demo',
-    templateUrl: './tree-filter-demo.html'
+    templateUrl: './tree-filter-demo.html',
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
 })
 export class TreeFilterDemo implements OnInit {
     files!: TreeNode[];

@@ -10,7 +10,7 @@ import { NodeService } from '@service/nodeservice';
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
+            <p-toast />
             <p-tree
                 [value]="files"
                 class="w-full md:w-30rem"
@@ -20,7 +20,7 @@ import { NodeService } from '@service/nodeservice';
                 (onNodeCollapse)="nodeCollapse($event)"
                 (onNodeSelect)="nodeSelect($event)"
                 (onNodeUnselect)="nodeUnselect($event)"
-            ></p-tree>
+            />
         </div>
         <app-code [code]="code" selector="tree-events-demo"></app-code>
     `,
@@ -54,25 +54,41 @@ export class EventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"
-    (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)"(onNodeUnselect)="nodeUnselect($event)"></p-tree>`,
+        basic: `<p-tree 
+    [value]="files" 
+    class="w-full md:w-30rem" 
+    selectionMode="single" 
+    [(selection)]="selectedFile"
+    (onNodeExpand)="nodeExpand($event)"
+    (onNodeCollapse)="nodeCollapse($event)" 
+    (onNodeSelect)="nodeSelect($event)"
+    (onNodeUnselect)="nodeUnselect($event)" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"
-        (onNodeExpand)="nodeExpand($event)" (onNodeCollapse)="nodeCollapse($event)" (onNodeSelect)="nodeSelect($event)"(onNodeUnselect)="nodeUnselect($event)"></p-tree>
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-tree 
+        [value]="files" 
+        class="w-full md:w-30rem" 
+        selectionMode="single" 
+        [(selection)]="selectedFile"
+        (onNodeExpand)="nodeExpand($event)" 
+        (onNodeCollapse)="nodeCollapse($event)" 
+        (onNodeSelect)="nodeSelect($event)"
+        (onNodeUnselect)="nodeUnselect($event)" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'tree-events-demo',
     templateUrl: './tree-events-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [TreeModule, ToastModule],
+    providers: [MessageService, NodeService]
 })
 export class TreeEventsDemo implements OnInit {
     files!: TreeNode[];

@@ -10,9 +10,9 @@ import { NodeService } from '@service/nodeservice';
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
-            <p-contextMenu #cm [model]="items"></p-contextMenu>
-            <p-toast></p-toast>
+            <p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+            <p-contextMenu #cm [model]="items" />
+            <p-toast />
         </div>
         <app-code [code]="code" selector="tree-context-menu-demo"></app-code>
     `,
@@ -45,26 +45,39 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
-<p-contextMenu #cm [model]="items"></p-contextMenu>
-<p-toast></p-toast>`,
+        basic: `<p-tree 
+    class="w-full md:w-30rem" 
+    [value]="files" 
+    selectionMode="single" 
+    [(selection)]="selectedFile" 
+    [contextMenu]="cm" />
+<p-contextMenu #cm [model]="items" />
+<p-toast />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm"></p-tree>
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-toast></p-toast>
+        html: `<div class="card flex justify-content-center">
+    <p-tree 
+        class="w-full md:w-30rem" 
+        [value]="files"
+        selectionMode="single" 
+        [(selection)]="selectedFile" 
+        [contextMenu]="cm" />
+    <p-contextMenu #cm [model]="items" />
+    <p-toast />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'tree-context-menu-demo',
     templateUrl: './tree-context-menu-demo.html',
-    providers:[MessageService]
+    standalone: true,
+    imports: [TreeModule, ContextMenuModule, ToastModule],
+    providers: [MessageService, NodeService]
 })
 export class TreeContextMenuDemo implements OnInit {
     files!: TreeNode[];
