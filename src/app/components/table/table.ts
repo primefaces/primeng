@@ -3305,9 +3305,20 @@ export class FrozenColumn implements AfterViewInit {
     ngAfterViewInit() {
         this.zone.runOutsideAngular(() => {
             setTimeout(() => {
-                this.updateStickyPosition();
+                this.recalculateColumns();
             }, 1000);
         });
+    }
+
+    @HostListener('window:resize', ['$event'])
+    recalculateColumns() {
+        const siblings = DomHandler.siblings(this.el.nativeElement);
+        const index = DomHandler.index(this.el.nativeElement);
+        const time = (siblings.length - index + 1) * 50;
+
+        setTimeout(() => {
+            this.updateStickyPosition();
+        }, time);
     }
 
     _frozen: boolean = true;
