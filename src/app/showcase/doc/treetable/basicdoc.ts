@@ -21,7 +21,7 @@ import { NodeService } from '@service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -58,7 +58,7 @@ export class BasicDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -67,8 +67,7 @@ export class BasicDoc {
     </ng-template>
 </p-treeTable>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -80,7 +79,7 @@ export class BasicDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>
@@ -90,14 +89,17 @@ export class BasicDoc {
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'tree-table-basic-demo',
-    templateUrl: './tree-table-basic-demo.html'
+    templateUrl: './tree-table-basic-demo.html',
+    standalone: true,
+    imports: [TreeTableModule],
+    providers: [NodeService]
 })
 export class TreeTableBasicDemo implements OnInit {
     files!: TreeNode[];

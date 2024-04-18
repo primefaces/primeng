@@ -12,7 +12,6 @@ import { PaginatorBasicDoc } from './paginatorbasicdoc';
 import { PaginatorTemplateDoc } from './paginatortemplatedoc';
 import { RouterModule } from '@angular/router';
 import { SortSingleColumnDoc } from './sortsinglecolumndoc';
-import { SortMultipleColumnDoc } from './sortmultiplecolumndoc';
 import { FilterDoc } from './filterdoc';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -45,6 +44,7 @@ import { SizeDoc } from './sizedoc';
 import { GridlinesDoc } from './gridlinesdoc';
 import { ControlledDoc } from './controlleddoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
+import { SortMultipleColumnsDoc } from './sortmultiplecolumnsdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DeferredDemo],
@@ -57,7 +57,7 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         PaginatorBasicDoc,
         PaginatorTemplateDoc,
         SortSingleColumnDoc,
-        SortMultipleColumnDoc,
+        SortMultipleColumnsDoc,
         FilterDoc,
         SelectionSingleDoc,
         SelectionMultipleDoc,

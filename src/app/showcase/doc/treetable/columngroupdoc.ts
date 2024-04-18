@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.brand }}
                             </td>
                             <td>{{ rowData.lastYearSale }}</td>
@@ -196,7 +196,7 @@ export class ColumnGroupDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr>
             <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.brand }}
             </td>
             <td>{{ rowData.lastYearSale }}</td>
@@ -214,8 +214,7 @@ export class ColumnGroupDoc {
     </ng-template>
 </p-treeTable>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-treeTable [value]="sales" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -236,7 +235,7 @@ export class ColumnGroupDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.brand }}
                 </td>
                 <td>{{ rowData.lastYearSale }}</td>
@@ -255,13 +254,15 @@ export class ColumnGroupDoc {
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
 
 @Component({
     selector: 'tree-table-column-group-demo',
-    templateUrl: './tree-table-column-group-demo.html'
+    templateUrl: './tree-table-column-group-demo.html',
+    standalone: true,
+    imports: [TreeTableModule]
 })
 export class TreeTableColumnGroupDemo implements OnInit {
     sales!: TreeNode[];

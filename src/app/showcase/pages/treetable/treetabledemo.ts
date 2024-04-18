@@ -6,7 +6,6 @@ import { TemplateDoc } from '@doc/treetable/templatedoc';
 import { PaginatorBasicDoc } from '@doc/treetable/paginatorbasicdoc';
 import { PaginatorTemplateDoc } from '@doc/treetable/paginatortemplatedoc';
 import { SortSingleColumnDoc } from '@doc/treetable/sortsinglecolumndoc';
-import { SortMultipleColumnDoc } from '@doc/treetable/sortmultiplecolumndoc';
 import { FilterDoc } from '@doc/treetable/filterdoc';
 import { SelectionSingleDoc } from '@doc/treetable/selectionsingledoc';
 import { SelectionMultipleDoc } from '@doc/treetable/selectionmultipledoc';
@@ -31,6 +30,7 @@ import { ResizeScrollableDoc } from '@doc/treetable/columnresizescrollabledoc';
 import { SizeDoc } from '@doc/treetable/sizedoc';
 import { GridlinesDoc } from '@doc/treetable/gridlinesdoc';
 import { ControlledDoc } from '@doc/treetable/controlleddoc';
+import { SortMultipleColumnsDoc } from '@doc/treetable/sortmultiplecolumnsdoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -103,9 +103,9 @@ export class TreeTableDemo {
                     component: SortSingleColumnDoc
                 },
                 {
-                    id: 'sortmultiplecolumn',
-                    label: 'Multiple Column',
-                    component: SortMultipleColumnDoc
+                    id: 'sortmultiplecolumns',
+                    label: 'Multiple Columns',
+                    component: SortMultipleColumnsDoc
                 }
             ]
         },
