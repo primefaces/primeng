@@ -237,11 +237,19 @@ export class KeyFilter implements Validator {
     onPaste(e: ClipboardEvent) {
         const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
         if (clipboardData) {
+            let pattern = /\{[0-9]+\}/;
             const pastedText = clipboardData.getData('text');
-            for (let char of pastedText.toString()) {
-                if (!this.regex.test(char)) {
+            if (pattern.test(this.regex.toString())) {
+                if (!this.regex.test(pastedText)) {
                     e.preventDefault();
                     return;
+                }
+            } else {
+                for (let char of pastedText.toString()) {
+                    if (!this.regex.test(char)) {
+                        e.preventDefault();
+                        return;
+                    }
                 }
             }
         }
