@@ -39,8 +39,7 @@ export class BasicDoc {
     </ng-template>
 </p-timeline>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-timeline [value]="events">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
@@ -48,12 +47,14 @@ export class BasicDoc {
     </p-timeline>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     selector: 'timeline-basic-demo',
-    templateUrl: './timeline-basic-demo.html'
+    templateUrl: './timeline-basic-demo.html',
+    standalone: true,
+    imports: [TimelineModule]
 })
 export class TimelineBasicDemo {
     events: any[];

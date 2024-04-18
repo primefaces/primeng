@@ -50,8 +50,7 @@ export class OppositeDoc {
     </ng-template>
 </p-timeline>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-timeline [value]="events">
         <ng-template pTemplate="content" let-event>
             <small class="p-text-secondary">{{ event.date }}</small>
@@ -62,8 +61,8 @@ export class OppositeDoc {
     </p-timeline>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -75,7 +74,9 @@ interface EventItem {
 
 @Component({
     selector: 'timeline-opposite-demo',
-    templateUrl: './timeline-opposite-demo.html'
+    templateUrl: './timeline-opposite-demo.html',
+    standalone: true,
+    imports: [TimelineModule]
 })
 export class TimelineOppositeDemo {
     events: EventItem[];

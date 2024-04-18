@@ -720,7 +720,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
     templateUrl: 'table-products-demo.html',
     standalone: true,
     imports: [TableModule, DialogModule, RippleModule, ButtonModule, ToastModule, ToolbarModule, ConfirmDialogModule, InputTextModule, InputTextareaModule, CommonModule, FileUploadModule, DropdownModule, TagModule, RadioButtonModule, RatingModule, InputTextModule, FormsModule, InputNumberModule],
-    providers: [MessageService, ConfirmationService, ProductService]
+    providers: [MessageService, ConfirmationService, ProductService],
+    styles: [
+        \`:host ::ng-deep .p-dialog .product-image {
+            width: 150px;
+            margin: 0 auto 2rem auto;
+            display: block;
+        }\`
+    ]
 })
 export class TableProductsDemo implements OnInit{
     productDialog: boolean = false;

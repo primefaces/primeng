@@ -68,8 +68,7 @@ export class AlignmentDoc {
     </ng-template>
 </p-timeline>`,
 
-        html: `
-<div class="card flex flex-wrap gap-6">
+        html: `<div class="card flex flex-wrap gap-6">
     <p-timeline [value]="events" class="w-full md:w-20rem">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
@@ -87,8 +86,8 @@ export class AlignmentDoc {
     </p-timeline>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -100,7 +99,9 @@ interface EventItem {
 
 @Component({
     selector: 'timeline-alignment-demo',
-    templateUrl: './timeline-alignment-demo.html'
+    templateUrl: './timeline-alignment-demo.html',
+    standalone: true,
+    imports: [TimelineModule]
 })
 export class TimelineAlignmentDemo {
     events: EventItem[];
