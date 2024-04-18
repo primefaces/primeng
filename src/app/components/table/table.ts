@@ -5612,6 +5612,7 @@ export class ColumnFilter implements AfterContentInit {
 
     isOutsideClicked(event: any): boolean {
         return !(
+            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
@@ -5630,7 +5631,6 @@ export class ColumnFilter implements AfterContentInit {
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                 const dialogElements = document.querySelectorAll('[role="dialog"]');
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
-
                 if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
                 }
