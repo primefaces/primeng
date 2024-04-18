@@ -20810,7 +20810,7 @@
                             "name": "effectDuration",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "number",
                             "default": "250",
                             "description": "Duration of the sliding animation in milliseconds."
                         },
@@ -22643,7 +22643,7 @@
                             "name": "rowSelectable",
                             "optional": false,
                             "readonly": false,
-                            "type": "any",
+                            "type": "(row: { data: any; index: number }) => boolean",
                             "description": "Defines if the row is selectable."
                         },
                         {
