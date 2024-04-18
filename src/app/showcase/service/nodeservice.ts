@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TreeNode } from "../../components/api/treenode";
+import { TreeNode } from '../../components/api/treenode';
 
 @Injectable()
 export class NodeService {
@@ -85,7 +85,7 @@ export class NodeService {
                     {
                         key: '0-0',
                         data: {
-                            name: 'React',
+                            name: 'Angular',
                             size: '25kb',
                             type: 'Folder'
                         },
@@ -93,7 +93,7 @@ export class NodeService {
                             {
                                 key: '0-0-0',
                                 data: {
-                                    name: 'react.app',
+                                    name: 'angular.app',
                                     size: '10kb',
                                     type: 'Application'
                                 }
@@ -774,7 +774,7 @@ export class NodeService {
                 children.push({
                     key: `${parentIndex}-${childIndex}`,
                     label: `Child ${parentIndex}-${childIndex}`,
-                    selectable: true,
+                    selectable: true
                 });
             }
 
@@ -782,7 +782,7 @@ export class NodeService {
                 key: parentIndex.toString(),
                 label: `Parent ${parentIndex}`,
                 selectable: true,
-                children: children,
+                children: children
             });
         }
 

@@ -87,7 +87,7 @@ import { Footer } from './footer';
     providers: [DialogService, MessageService]
 })
 export class DynamicDialogExampleDemo implements OnDestroy {
-    
+
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;

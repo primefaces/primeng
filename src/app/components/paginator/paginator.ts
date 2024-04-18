@@ -1,5 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnChanges,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
@@ -154,7 +173,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Number of page links to display.
      * @group Props
      */
-    @Input() pageLinkSize: number = 5;
+    @Input({ transform: numberAttribute }) pageLinkSize: number = 5;
     /**
      * Inline style of the component.
      * @group Props
@@ -169,7 +188,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShow: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShow: boolean = true;
     /**
      * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -206,22 +225,22 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Number of total records.
      * @group Props
      */
-    @Input() totalRecords: number = 0;
+    @Input({ transform: numberAttribute }) totalRecords: number = 0;
     /**
      * Data count to display per page.
      * @group Props
      */
-    @Input() rows: number = 0;
+    @Input({ transform: numberAttribute }) rows: number = 0;
     /**
      * Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}]
      * @group Props
@@ -231,12 +250,12 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * Whether to display a input to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageInput: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
     /**
      * Template instance to inject into the jump to page dropdown item inside in the paginator.
      * @param {Object} context - item instance.
@@ -247,7 +266,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Locale to be used in formatting.
      * @group Props
@@ -372,6 +391,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
         if (simpleChange.rowsPerPageOptions) {
             this.updateRowsPerPageOptions();
+        }
+
+        if (simpleChange.pageLinkSize) {
+            this.updatePageLinks();
         }
     }
 

@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-nested-demo"></app-code>
     `,
@@ -153,12 +153,12 @@ export class NestedDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
+        basic: `<p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
+    <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
 </div>`,
 
         typescript: `

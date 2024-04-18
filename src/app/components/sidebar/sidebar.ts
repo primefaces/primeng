@@ -17,7 +17,9 @@ import {
     QueryList,
     Renderer2,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -111,7 +113,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Whether to block scrolling of the document when sidebar is active.
      * @group Props
      */
-    @Input() blockScroll: boolean = false;
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
@@ -131,32 +133,32 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether an overlay mask is displayed behind the sidebar.
      * @group Props
      */
-    @Input() modal: boolean = true;
+    @Input({ transform: booleanAttribute }) modal: boolean = true;
     /**
      * Whether to dismiss sidebar on click of the mask.
      * @group Props
      */
-    @Input() dismissible: boolean = true;
+    @Input({ transform: booleanAttribute }) dismissible: boolean = true;
     /**
      * Whether to display the close icon.
      * @group Props
      */
-    @Input() showCloseIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showCloseIcon: boolean = true;
     /**
      * Specifies if pressing escape key should hide the sidebar.
      * @group Props
      */
-    @Input() closeOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
     /**
      * Transition options of the animation.
      * @group Props

@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <div>
                 <input type="text" pInputText [(ngModel)]="value" class="w-full" />
-                <p-slider [(ngModel)]="value" class="w-full"></p-slider>
+                <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
@@ -22,14 +22,14 @@ export class InputDoc {
     code: Code = {
         basic: `<div>
     <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
-    <p-slider [(ngModel)]="value" class="w-full"></p-slider>
+    <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
 </div>`,
 
         html: `
 <div class="card flex justify-content-center">
     <div>
         <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
-        <p-slider [(ngModel)]="value" class="w-full"></p-slider>
+        <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
     </div>
 </div>`,
 

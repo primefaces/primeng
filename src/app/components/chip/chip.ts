@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject, booleanAttribute } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 /**
@@ -77,7 +77,7 @@ export class Chip implements AfterContentInit {
      * Whether to display a remove icon.
      * @group Props
      */
-    @Input() removable: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) removable: boolean | undefined = false;
     /**
      * Icon of the remove element.
      * @group Props

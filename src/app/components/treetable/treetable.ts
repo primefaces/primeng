@@ -25,7 +25,9 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { BlockableUI, FilterMetadata, FilterService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, SortMeta, TreeNode, TreeTableNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -285,37 +287,37 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether the cell widths scale according to their content or not.
      * @group Props
      */
-    @Input() autoLayout: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined;
+    @Input({ transform: numberAttribute }) rows: number | undefined;
     /**
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number = 0;
+    @Input({ transform: numberAttribute }) first: number = 0;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
@@ -325,7 +327,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Position of the paginator.
      * @group Props
@@ -350,27 +352,27 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
      */
-    @Input() defaultSortOrder: number = 1;
+    @Input({ transform: numberAttribute }) defaultSortOrder: number = 1;
     /**
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
@@ -380,12 +382,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When true, resets paginator to first page after sorting.
      * @group Props
      */
-    @Input() resetPageOnSort: boolean = true;
+    @Input({ transform: booleanAttribute }) resetPageOnSort: boolean = true;
     /**
      * Whether to use the default sorting or a custom one using sortFunction.
      * @group Props
      */
-    @Input() customSort: boolean | undefined;
+    @Input({ transform: booleanAttribute }) customSort: boolean | undefined;
     /**
      * Specifies the selection mode, valid values are "single" and "multiple".
      * @group Props
@@ -410,7 +412,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Defines whether metaKey is should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean | undefined = false;
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
@@ -420,12 +422,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Adds hover effect to rows without the need for selectionMode.
      * @group Props
      */
-    @Input() rowHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) rowHover: boolean | undefined;
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -435,12 +437,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether to show the loading mask when loading property is true.
      * @group Props
      */
-    @Input() showLoader: boolean = true;
+    @Input({ transform: booleanAttribute }) showLoader: boolean = true;
     /**
      * When specifies, enables horizontal and/or vertical scrolling.
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Height of the scroll viewport in fixed pixels or the "flex" keyword for a dynamic size.
      * @group Props
@@ -450,12 +452,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -465,7 +467,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * The delay (in milliseconds) before triggering the virtual scroll. This determines the time gap between the user's scroll action and the actual rendering of the next set of items in the virtual scroll.
      * @group Props
      */
-    @Input() virtualScrollDelay: number = 150;
+    @Input({ transform: numberAttribute }) virtualScrollDelay: number = 150;
     /**
      * Width of the frozen columns container.
      * @group Props
@@ -480,7 +482,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When enabled, columns can be resized using drag and drop.
      * @group Props
      */
-    @Input() resizableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) resizableColumns: boolean | undefined;
     /**
      * Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
      * @group Props
@@ -490,7 +492,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * When enabled, columns can be reordered using drag and drop.
      * @group Props
      */
-    @Input() reorderableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) reorderableColumns: boolean | undefined;
     /**
      * Local ng-template varilable of a ContextMenu.
      * @group Props
@@ -500,7 +502,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
+    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * An array of FilterMetadata objects to provide external filters.
      * @group Props
@@ -515,7 +517,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Delay in milliseconds before filtering the data.
      * @group Props
      */
-    @Input() filterDelay: number = 300;
+    @Input({ transform: numberAttribute }) filterDelay: number = 300;
     /**
      * Mode for filtering valid values are "lenient" and "strict". Default is lenient.
      * @group Props
@@ -609,7 +611,17 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         this._virtualRowHeight = val;
         console.warn('The virtualRowHeight property is deprecated, use virtualScrollItemSize property instead.');
     }
-    _virtualRowHeight: number = 28;
+    /**
+     * A map of keys to control the selection state.
+     * @group Props
+     */
+    @Input() get selectionKeys(): any {
+        return this._selectionKeys;
+    }
+    set selectionKeys(value: any) {
+        this._selectionKeys = value;
+        this.selectionKeysChange.emit(this._selectionKeys);
+    }
     /**
      * Callback to invoke on selected node change.
      * @param {TreeTableNode} object - Node instance.
@@ -718,6 +730,12 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * @group Emits
      */
     @Output() onEditCancel: EventEmitter<TreeTableEditEvent> = new EventEmitter<TreeTableEditEvent>();
+    /**
+     * Callback to invoke when selectionKeys are changed.
+     * @param {Object} object - updated value of the selectionKeys.
+     * @group Emits
+     */
+    @Output() selectionKeysChange: EventEmitter<any> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
@@ -736,6 +754,10 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
     _value: TreeNode<any>[] | undefined = [];
+
+    _virtualRowHeight: number = 28;
+
+    _selectionKeys: any;
 
     serializedValue: any[] | undefined | null;
 
@@ -815,7 +837,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
 
     _selection: any;
 
-    selectionKeys: any = {};
+    selectedKeys: any = {};
 
     rowTouched: Nullable<boolean>;
 
@@ -999,7 +1021,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
             this._selection = simpleChange.selection.currentValue;
 
             if (!this.preventSelectionSetterPropagation) {
-                this.updateSelectionKeys();
+                this.updateselectedKeys();
                 this.tableService.onSelectionChange();
             }
             this.preventSelectionSetterPropagation = false;
@@ -1054,15 +1076,15 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
     }
 
-    updateSelectionKeys() {
+    updateselectedKeys() {
         if (this.dataKey && this._selection) {
-            this.selectionKeys = {};
+            this.selectedKeys = {};
             if (Array.isArray(this._selection)) {
                 for (let node of this._selection) {
-                    this.selectionKeys[String(ObjectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
+                    this.selectedKeys[String(ObjectUtils.resolveFieldData(node.data, this.dataKey))] = 1;
                 }
             } else {
-                this.selectionKeys[String(ObjectUtils.resolveFieldData((<any>this._selection).data, this.dataKey))] = 1;
+                this.selectedKeys[String(ObjectUtils.resolveFieldData((<any>this._selection).data, this.dataKey))] = 1;
             }
         }
     }
@@ -1585,14 +1607,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 if (selected && metaKey) {
                     if (this.isSingleSelectionMode()) {
                         this._selection = null;
-                        this.selectionKeys = {};
+                        this.selectedKeys = {};
                         this.selectionChange.emit(null);
                     } else {
                         let selectionIndex = this.findIndexInSelection(rowNode.node);
                         this._selection = this.selection.filter((val: TreeTableNode, i: number) => i != selectionIndex);
                         this.selectionChange.emit(this.selection);
                         if (dataKeyValue) {
-                            delete this.selectionKeys[dataKeyValue];
+                            delete this.selectedKeys[dataKeyValue];
                         }
                     }
 
@@ -1602,21 +1624,21 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this._selection = rowNode.node;
                         this.selectionChange.emit(rowNode.node);
                         if (dataKeyValue) {
-                            this.selectionKeys = {};
-                            this.selectionKeys[dataKeyValue] = 1;
+                            this.selectedKeys = {};
+                            this.selectedKeys[dataKeyValue] = 1;
                         }
                     } else if (this.isMultipleSelectionMode()) {
                         if (metaKey) {
                             this._selection = this.selection || [];
                         } else {
                             this._selection = [];
-                            this.selectionKeys = {};
+                            this.selectedKeys = {};
                         }
 
                         this._selection = [...this.selection, rowNode.node];
                         this.selectionChange.emit(this.selection);
                         if (dataKeyValue) {
-                            this.selectionKeys[dataKeyValue] = 1;
+                            this.selectedKeys[dataKeyValue] = 1;
                         }
                     }
 
@@ -1626,7 +1648,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 if (this.selectionMode === 'single') {
                     if (selected) {
                         this._selection = null;
-                        this.selectionKeys = {};
+                        this.selectedKeys = {};
                         this.selectionChange.emit(this.selection);
                         this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: <TreeTableNode>rowNode.node, type: 'row' });
                     } else {
@@ -1634,8 +1656,8 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this.selectionChange.emit(this.selection);
                         this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
                         if (dataKeyValue) {
-                            this.selectionKeys = {};
-                            this.selectionKeys[dataKeyValue] = 1;
+                            this.selectedKeys = {};
+                            this.selectedKeys[dataKeyValue] = 1;
                         }
                     }
                 } else if (this.selectionMode === 'multiple') {
@@ -1645,14 +1667,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this.selectionChange.emit(this.selection);
                         this.onNodeUnselect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row' });
                         if (dataKeyValue) {
-                            delete this.selectionKeys[dataKeyValue];
+                            delete this.selectedKeys[dataKeyValue];
                         }
                     } else {
                         this._selection = this.selection ? [...this.selection, rowNode.node] : [rowNode.node];
                         this.selectionChange.emit(this.selection);
                         this.onNodeSelect.emit({ originalEvent: event.originalEvent, node: rowNode.node, type: 'row', index: event.rowIndex });
                         if (dataKeyValue) {
-                            this.selectionKeys[dataKeyValue] = 1;
+                            this.selectedKeys[dataKeyValue] = 1;
                         }
                     }
                 }
@@ -1693,7 +1715,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                     }
 
                     if (dataKeyValue) {
-                        this.selectionKeys[dataKeyValue] = 1;
+                        this.selectedKeys[dataKeyValue] = 1;
                     }
                 }
 
@@ -1704,6 +1726,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     toggleNodeWithCheckbox(event: any) {
+        // legacy selection support, will be removed in v18
         this.selection = this.selection || [];
         this.preventSelectionSetterPropagation = true;
         let node = event.rowNode.node;
@@ -1729,26 +1752,46 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     toggleNodesWithCheckbox(event: Event, check: boolean) {
+        // legacy selection support, will be removed in v18
         let data = this.filteredNodes || this.value;
         this._selection = check && data ? data.slice() : [];
-        if (check) {
-            if (data && data.length) {
-                for (let node of data) {
-                    this.propagateSelectionDown(node, true);
-                }
-            }
-        } else {
+
+        this.toggleAll(check);
+
+        if (!check) {
             this._selection = [];
-            this.selectionKeys = {};
+            this.selectedKeys = {};
         }
 
         this.preventSelectionSetterPropagation = true;
         this.selectionChange.emit(this._selection);
         this.tableService.onSelectionChange();
+
         this.onHeaderCheckboxToggle.emit({ originalEvent: event, checked: check });
     }
 
+    toggleAll(checked: boolean) {
+        let data = this.filteredNodes || this.value;
+
+        if (!this.selectionKeys) {
+            if (data && data.length) {
+                for (let node of data) {
+                    this.propagateSelectionDown(node, checked);
+                }
+            }
+        } else {
+            // legacy selection support, will be removed in v18
+            if (data && data.length) {
+                for (let node of data) {
+                    this.propagateDown(node, checked);
+                }
+                this.selectionKeysChange.emit(this.selectionKeys);
+            }
+        }
+    }
+
     propagateSelectionUp(node: TreeTableNode, select: boolean) {
+        // legacy selection support, will be removed in v18
         if (node.children && node.children.length) {
             let selectedChildCount: number = 0;
             let childPartialSelected: boolean = false;
@@ -1763,7 +1806,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                 this._selection = [...(this.selection || []), node];
                 node.partialSelected = false;
                 if (dataKeyValue) {
-                    this.selectionKeys[dataKeyValue] = 1;
+                    this.selectedKeys[dataKeyValue] = 1;
                 }
             } else {
                 if (!select) {
@@ -1772,7 +1815,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
                         this._selection = this.selection.filter((val: any, i: number) => i != index);
 
                         if (dataKeyValue) {
-                            delete this.selectionKeys[dataKeyValue];
+                            delete this.selectedKeys[dataKeyValue];
                         }
                     }
                 }
@@ -1783,28 +1826,31 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         let parent = node.parent;
+        node.checked = select;
         if (parent) {
             this.propagateSelectionUp(parent, select);
         }
     }
 
     propagateSelectionDown(node: TreeTableNode, select: boolean) {
+        // legacy selection support, will be removed in v18
         let index = this.findIndexInSelection(node);
         let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(node.data, this.dataKey)) : null;
 
         if (select && index == -1) {
             this._selection = [...(this.selection || []), node];
             if (dataKeyValue) {
-                this.selectionKeys[dataKeyValue] = 1;
+                this.selectedKeys[dataKeyValue] = 1;
             }
         } else if (!select && index > -1) {
             this._selection = this.selection.filter((val: any, i: number) => i != index);
             if (dataKeyValue) {
-                delete this.selectionKeys[dataKeyValue];
+                delete this.selectedKeys[dataKeyValue];
             }
         }
 
         node.partialSelected = false;
+        node.checked = select;
 
         if (node.children && node.children.length) {
             for (let child of node.children) {
@@ -1814,9 +1860,14 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     isSelected(node: TreeTableNode) {
+        // legacy selection support, will be removed in v18
         if (node && this.selection) {
             if (this.dataKey) {
-                return this.selectionKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
+                if (node.hasOwnProperty('checked')) {
+                    return node['checked'];
+                } else {
+                    return this.selectedKeys[ObjectUtils.resolveFieldData(node.data, this.dataKey)] !== undefined;
+                }
             } else {
                 if (Array.isArray(this.selection)) return this.findIndexInSelection(node) > -1;
                 else return this.equals(node, this.selection);
@@ -1824,6 +1875,75 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
         }
 
         return false;
+    }
+
+    isNodeSelected(node) {
+        return this.selectionMode && this.selectionKeys ? this.selectionKeys[this.nodeKey(node)]?.checked === true : false;
+    }
+
+    isNodePartialSelected(node) {
+        return this.selectionMode && this.selectionKeys ? this.selectionKeys[this.nodeKey(node)]?.partialChecked === true : false;
+    }
+
+    nodeKey(node) {
+        return ObjectUtils.resolveFieldData(node, this.dataKey) || ObjectUtils.resolveFieldData(node?.data, this.dataKey);
+    }
+
+    toggleCheckbox(event) {
+        let { rowNode, check, originalEvent } = event;
+        let node = rowNode.node;
+        if (this.selectionKeys) {
+            this.propagateDown(node, check);
+            if (node.parent) {
+                this.propagateUp(node.parent, check);
+            }
+
+            this.selectionKeysChange.emit(this.selectionKeys);
+        } else {
+            this.toggleNodeWithCheckbox({ originalEvent, rowNode });
+        }
+
+        this.tableService.onSelectionChange();
+    }
+
+    propagateDown(node, check) {
+        if (check) {
+            this.selectionKeys[this.nodeKey(node)] = { checked: true, partialChecked: false };
+        } else {
+            delete this.selectionKeys[this.nodeKey(node)];
+        }
+
+        if (node.children && node.children.length) {
+            for (let child of node.children) {
+                this.propagateDown(child, check);
+            }
+        }
+    }
+
+    propagateUp(node, check) {
+        let checkedChildCount = 0;
+        let childPartialSelected = false;
+
+        for (let child of node.children) {
+            if (this.selectionKeys[this.nodeKey(child)] && this.selectionKeys[this.nodeKey(child)].checked) checkedChildCount++;
+            else if (this.selectionKeys[this.nodeKey(child)] && this.selectionKeys[this.nodeKey(child)].partialChecked) childPartialSelected = true;
+        }
+
+        if (check && checkedChildCount === node.children.length) {
+            this.selectionKeys[this.nodeKey(node)] = { checked: true, partialChecked: false };
+        } else {
+            if (!check) {
+                delete this.selectionKeys[this.nodeKey(node)];
+            }
+
+            if (childPartialSelected || (checkedChildCount > 0 && checkedChildCount !== node.children.length)) this.selectionKeys[this.nodeKey(node)] = { checked: false, partialChecked: true };
+            else this.selectionKeys[this.nodeKey(node)] = { checked: false, partialChecked: false };
+        }
+
+        let parent = node.parent;
+        if (parent) {
+            this.propagateUp(parent, check);
+        }
     }
 
     findIndexInSelection(node: any) {
@@ -1849,7 +1969,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     equals(node1: TreeTableNode, node2: TreeTableNode) {
-        return this.compareSelectionBy === 'equals' ? node1 === node2 : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
+        return this.compareSelectionBy === 'equals' ? ObjectUtils.equals(node1, node2) : ObjectUtils.equals(node1.data, node2.data, this.dataKey);
     }
 
     filter(value: string | string[], field: string, matchMode: string) {
@@ -2126,7 +2246,7 @@ export class TTBody {
 
     @Input('pTreeTableBodyTemplate') template: Nullable<TemplateRef<any>>;
 
-    @Input() frozen: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
 
     @Input() serializedNodes: any;
 
@@ -2231,7 +2351,7 @@ export class TTBody {
 export class TTScrollableView implements AfterViewInit, OnDestroy {
     @Input('ttScrollableView') columns: any[] | undefined;
 
-    @Input() frozen: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
 
     @ViewChild('scrollHeader') scrollHeaderViewChild: Nullable<ElementRef>;
 
@@ -2442,7 +2562,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
 export class TTSortableColumn implements OnInit, OnDestroy {
     @Input('ttSortableColumn') field: string | undefined;
 
-    @Input() ttSortableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSortableColumnDisabled: boolean | undefined;
 
     sorted: boolean | undefined;
 
@@ -2566,7 +2686,7 @@ export class TTSortIcon implements OnInit, OnDestroy {
     }
 })
 export class TTResizableColumn implements AfterViewInit, OnDestroy {
-    @Input() ttResizableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
 
@@ -2647,7 +2767,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
     }
 })
 export class TTReorderableColumn implements AfterViewInit, OnDestroy {
-    @Input() ttReorderableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttReorderableColumnDisabled: boolean | undefined;
 
     dragStartListener: VoidListener;
 
@@ -2752,7 +2872,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 export class TTSelectableRow implements OnInit, OnDestroy {
     @Input('ttSelectableRow') rowNode: any;
 
-    @Input() ttSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2835,7 +2955,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 export class TTSelectableRowDblClick implements OnInit, OnDestroy {
     @Input('ttSelectableRowDblClick') rowNode: any;
 
-    @Input() ttSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2887,7 +3007,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 export class TTContextMenuRow {
     @Input('ttContextMenuRow') rowNode: any | undefined;
 
-    @Input() ttContextMenuRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttContextMenuRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -2933,13 +3053,13 @@ export class TTContextMenuRow {
             <div class="p-hidden-accessible">
                 <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" tabindex="-1" />
             </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': rowNode.node.partialSelected, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
+            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': partialChecked, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
                 <ng-container *ngIf="!tt.checkboxIconTemplate">
                     <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
-                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="rowNode.node.partialSelected" />
+                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="partialChecked" />
                 </ng-container>
                 <span *ngIf="tt.checkboxIconTemplate">
-                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: rowNode.node.partialSelected }"></ng-template>
+                    <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: partialChecked }"></ng-template>
                 </span>
             </div>
         </div>
@@ -2951,11 +3071,13 @@ export class TTContextMenuRow {
     }
 })
 export class TTCheckbox {
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input('value') rowNode: any;
 
     checked: boolean | undefined;
+
+    partialChecked: boolean | undefined;
 
     focused: boolean | undefined;
 
@@ -2963,21 +3085,43 @@ export class TTCheckbox {
 
     constructor(public tt: TreeTable, public tableService: TreeTableService, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.tt.isSelected(this.rowNode.node);
+            if (this.tt.selectionKeys) {
+                this.checked = this.tt.isNodeSelected(this.rowNode.node);
+                this.partialChecked = this.tt.isNodePartialSelected(this.rowNode.node);
+            } else {
+                this.checked = this.tt.isSelected(this.rowNode.node);
+                this.partialChecked = this.rowNode.node.partialSelected;
+            }
             this.cd.markForCheck();
         });
     }
 
     ngOnInit() {
-        this.checked = this.tt.isSelected(this.rowNode.node);
+        if (this.tt.selectionKeys) {
+            this.checked = this.tt.isNodeSelected(this.rowNode.node);
+            this.partialChecked = this.tt.isNodePartialSelected(this.rowNode.node);
+        } else {
+            // for backward compatibility
+            this.checked = this.tt.isSelected(this.rowNode.node);
+            this.partialChecked = this.rowNode.node.partialSelected;
+        }
     }
 
     onClick(event: Event) {
         if (!this.disabled) {
-            this.tt.toggleNodeWithCheckbox({
-                originalEvent: event,
-                rowNode: this.rowNode
-            });
+            if (this.tt.selectionKeys) {
+                const _check = !this.checked;
+                this.tt.toggleCheckbox({
+                    originalEvent: event,
+                    check: _check,
+                    rowNode: this.rowNode
+                });
+            } else {
+                this.tt.toggleNodeWithCheckbox({
+                    originalEvent: event,
+                    rowNode: this.rowNode
+                });
+            }
         }
         DomHandler.clearSelection();
     }
@@ -3048,7 +3192,7 @@ export class TTHeaderCheckbox {
     }
 
     onClick(event: Event, checked: boolean) {
-        if (this.tt.value && this.tt.value.length > 0) {
+        if ((this.tt.value || this.tt.filteredNodes) && (this.tt.value.length > 0 || this.tt.filteredNodes.length > 0)) {
             this.tt.toggleNodesWithCheckbox(event, !checked);
         }
 
@@ -3079,12 +3223,25 @@ export class TTHeaderCheckbox {
         const data = this.tt.filteredNodes || this.tt.value;
 
         if (data) {
-            for (let node of data) {
-                if (this.tt.isSelected(node)) {
-                    checked = true;
-                } else {
-                    checked = false;
-                    break;
+            if (this.tt.selectionKeys) {
+                for (let node of data) {
+                    if (this.tt.isNodeSelected(node)) {
+                        checked = true;
+                    } else {
+                        checked = false;
+                        break;
+                    }
+                }
+            }
+            if (!this.tt.selectionKeys) {
+                // legacy selection support, will be removed in v18
+                for (let node of data) {
+                    if (this.tt.isSelected(node)) {
+                        checked = true;
+                    } else {
+                        checked = false;
+                        break;
+                    }
                 }
             }
         } else {
@@ -3106,7 +3263,7 @@ export class TTEditableColumn implements AfterViewInit {
 
     @Input('ttEditableColumnField') field: any;
 
-    @Input() ttEditableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ttEditableColumnDisabled: boolean | undefined;
 
     constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, booleanAttribute } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { StyleClassModule } from 'primeng/styleclass';
 import { MenuItem } from './app.menu.component';
@@ -42,7 +42,7 @@ import { TagModule } from 'primeng/tag';
 export class AppMenuItemComponent {
     @Input() item: MenuItem;
 
-    @Input() root: boolean = true;
+    @Input({ transform: booleanAttribute }) root: boolean = true;
 
     constructor(private router: Router) {}
 

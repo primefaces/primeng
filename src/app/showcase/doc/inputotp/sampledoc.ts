@@ -13,7 +13,7 @@ import { Code } from '../../domain/code';
                 <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
                 <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
                     <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-                        <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="token" class="custom-otp-input" />
+                        <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
                         <div *ngIf="index === 3" class="px-3">
                             <i class="pi pi-minus"></i>
                         </div>
@@ -76,7 +76,7 @@ export class SampleDoc {
     <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-            <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="token" class="custom-otp-input" />
+            <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>
             </div>
@@ -94,7 +94,7 @@ export class SampleDoc {
         <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
         <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-                <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" [attr.value]="token" class="custom-otp-input" />
+                <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
                 <div *ngIf="index === 3" class="px-3">
                     <i class="pi pi-minus"></i>
                 </div>

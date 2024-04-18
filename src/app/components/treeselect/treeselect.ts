@@ -1,6 +1,23 @@
 import { AnimationEvent } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -127,7 +144,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 </span>
                             </button>
                         </div>
-                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }" >
+                        <div class="p-treeselect-items-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
                             <p-tree
                                 #tree
                                 [value]="options"
@@ -210,12 +227,12 @@ export class TreeSelect implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * Defines how the selected items are displayed.
      * @group Props
@@ -300,7 +317,7 @@ export class TreeSelect implements AfterContentInit {
      * When specified, displays an input field to filter the items.
      * @group Props
      */
-    @Input() filter: boolean = false;
+    @Input({ transform: booleanAttribute }) filter: boolean = false;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
@@ -325,27 +342,27 @@ export class TreeSelect implements AfterContentInit {
      * Determines whether the filter input should be automatically focused when the component is rendered.
      * @group Props
      */
-    @Input() filterInputAutoFocus: boolean = true;
+    @Input({ transform: booleanAttribute }) filterInputAutoFocus: boolean = true;
     /**
      * Whether checkbox selections propagate to descendant nodes.
      * @group Props
      */
-    @Input() propagateSelectionDown: boolean = true;
+    @Input({ transform: booleanAttribute }) propagateSelectionDown: boolean = true;
     /**
      * Whether checkbox selections propagate to ancestor nodes.
      * @group Props
      */
-    @Input() propagateSelectionUp: boolean = true;
+    @Input({ transform: booleanAttribute }) propagateSelectionUp: boolean = true;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Clears the filter value when hiding the dropdown.
      * @group Props
      */
-    @Input() resetFilterOnHide: boolean = true;
+    @Input({ transform: booleanAttribute }) resetFilterOnHide: boolean = true;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props

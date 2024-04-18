@@ -4,6 +4,7 @@ import {
     AfterContentInit,
     AfterViewChecked,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -16,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnInit,
     Output,
     QueryList,
@@ -82,17 +84,17 @@ export class DropdownItem {
 
     @Input() option: SelectItem | undefined;
 
-    @Input() selected: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selected: boolean | undefined;
 
-    @Input() focused: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focused: boolean | undefined;
 
     @Input() label: string | undefined;
 
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
-    @Input() visible: boolean | undefined;
+    @Input({ transform: booleanAttribute }) visible: boolean | undefined;
 
-    @Input() itemSize: number | undefined;
+    @Input({ transform: numberAttribute }) itemSize: number | undefined;
 
     @Input() ariaPosInset: string | undefined;
 
@@ -164,6 +166,7 @@ export class DropdownItem {
                 [disabled]="disabled"
                 aria-haspopup="listbox"
                 [attr.placeholder]="modelValue() === undefined || modelValue() === null ? placeholder() : undefined"
+                [attr.aria-label]="ariaLabel || (label() === 'p-emptylabel' ? undefined : label())"
                 (input)="onEditableInput($event)"
                 (keydown)="onKeyDown($event)"
                 (focus)="onInputFocus($event)"
@@ -204,7 +207,6 @@ export class DropdownItem {
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"
-                            [attr.aria-hidden]="true"
                             class="p-hidden-accessible p-hidden-focusable"
                             [attr.tabindex]="0"
                             (focus)="onFirstHiddenFocus($event)"
@@ -222,7 +224,7 @@ export class DropdownItem {
                                     <input
                                         #filter
                                         type="text"
-                                        role="search"
+                                        role="searchbox"
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
@@ -291,14 +293,13 @@ export class DropdownItem {
                                             ></p-dropdownItem>
                                         </ng-container>
                                     </ng-template>
-
-                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                             {{ emptyFilterMessageLabel }}
                                         </ng-container>
                                         <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
                                     </li>
-                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }">
+                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <ng-container *ngIf="!emptyTemplate; else empty">
                                             {{ emptyMessageLabel }}
                                         </ng-container>
@@ -311,7 +312,6 @@ export class DropdownItem {
                         <span
                             #lastHiddenFocusableEl
                             role="presentation"
-                            [attr.aria-hidden]="true"
                             class="p-hidden-accessible p-hidden-focusable"
                             [attr.tabindex]="0"
                             (focus)="onLastHiddenFocus($event)"
@@ -349,7 +349,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * When specified, displays an input field to filter the items on keyup.
      * @group Props
      */
-    @Input() filter: boolean | undefined;
+    @Input({ transform: booleanAttribute }) filter: boolean | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -379,17 +379,17 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * When present, custom value instead of predefined options can be entered using the editable input field.
      * @group Props
      */
-    @Input() editable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) editable: boolean | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -399,7 +399,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * Default text to display when no option is selected.
      * @group Props
@@ -444,12 +444,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input() autofocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Clears the filter value when hiding the dropdown.
      * @group Props
      */
-    @Input() resetFilterOnHide: boolean = false;
+    @Input({ transform: booleanAttribute }) resetFilterOnHide: boolean = false;
     /**
      * Icon class of the dropdown icon.
      * @group Props
@@ -485,17 +485,17 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
-    @Input() autoDisplayFirst: boolean = true;
+    @Input({ transform: booleanAttribute }) autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined;
+    @Input({ transform: booleanAttribute }) group: boolean | undefined;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showClear: boolean | undefined;
     /**
      * Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -510,17 +510,17 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -555,7 +555,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Maximum number of character allows in the editable input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
@@ -580,22 +580,22 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * Fields used when filtering the options, defaults to optionLabel.
      * @group Props
      */
-    @Input() focusOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean = false;
     /**
      * Determines if the option will be selected on focus.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
     /**
      * Applies focus to the filter element when the overlay is shown.
      * @group Props
      */
-    @Input() autofocusFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
@@ -1347,6 +1347,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.clicked.set(false);
         this.searchValue = '';
 
+        if (this.overlayOptions?.mode === 'modal') {
+            DomHandler.unblockBodyScroll();
+        }
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
