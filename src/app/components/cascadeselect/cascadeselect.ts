@@ -29,6 +29,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
+import { AutoFocusModule } from 'primeng/autofocus';
+
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
@@ -252,6 +254,8 @@ export class CascadeSelectSub implements OnInit {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onInputKeyDown($event)"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
         </div>
         <span [ngClass]="labelClass" [attr.data-pc-section]="'label'">
@@ -497,6 +501,11 @@ export class CascadeSelect implements OnInit, AfterContentInit {
      */
     @Input() overlayOptions: OverlayOptions | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Transition options of the show animation.
      * @group Props
      * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
@@ -636,7 +645,6 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     get labelClass() {
         return {
             'p-cascadeselect-label': true,
-            'p-inputtext': true,
             'p-placeholder': this.label() === this.placeholder,
             'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
@@ -1335,7 +1343,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, RippleModule, AutoFocusModule, ChevronDownIcon, AngleRightIcon, TimesIcon],
     exports: [CascadeSelect, OverlayModule, CascadeSelectSub, SharedModule],
     declarations: [CascadeSelect, CascadeSelectSub]
 })

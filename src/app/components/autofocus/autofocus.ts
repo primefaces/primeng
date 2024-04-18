@@ -17,11 +17,18 @@ export class AutoFocus {
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean = false;
 
     focused: boolean = false;
 
     ngAfterContentChecked() {
+        // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
+        if (this.autofocus === false) {
+            this.host.nativeElement.removeAttribute('autofocus');
+        } else {
+            this.host.nativeElement.setAttribute('autofocus', true);
+        }
+
         if (!this.focused) {
             if (this.autofocus) {
                 setTimeout(() => {

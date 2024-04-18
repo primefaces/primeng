@@ -24,6 +24,7 @@ import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -342,6 +343,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
             [attr.tabindex]="tabindex"
+            pAutoFocus
+            [autofocus]="autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -478,6 +481,11 @@ export class Button implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.
@@ -577,7 +585,7 @@ export class Button implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, SpinnerIcon],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon],
     exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })

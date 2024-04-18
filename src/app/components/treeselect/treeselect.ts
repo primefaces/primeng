@@ -29,6 +29,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
@@ -61,6 +62,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     [attr.aria-expanded]="overlayVisible ?? false"
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel || (label === 'p-emptylabel' ? undefined : label)"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <div class="p-treeselect-label-container">
@@ -376,6 +379,11 @@ export class TreeSelect implements AfterContentInit {
      * @group Props
      */
     @Input() virtualScrollOptions: ScrollerOptions | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * An array of treenodes.
      * @defaultValue undefined
@@ -965,7 +973,7 @@ export class TreeSelect implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule, SearchIcon, TimesIcon, ChevronDownIcon],
+    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule, AutoFocusModule, SearchIcon, TimesIcon, ChevronDownIcon],
     exports: [TreeSelect, OverlayModule, SharedModule, TreeModule],
     declarations: [TreeSelect]
 })

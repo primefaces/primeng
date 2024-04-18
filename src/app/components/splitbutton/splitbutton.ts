@@ -5,6 +5,8 @@ import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
 import { UniqueComponentId } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
+
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 
 type SplitButtonIconPosition = 'left' | 'right';
@@ -31,6 +33,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [attr.aria-label]="buttonProps?.['aria-label'] || label"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
@@ -52,6 +56,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
                     [attr.aria-label]="buttonProps?.['aria-label']"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 ></button>
             </ng-template>
             <button
@@ -208,6 +214,11 @@ export class SplitButton {
      */
     @Input() menuButtonProps: MenuButtonProps | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Callback to invoke when default command button is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -332,7 +343,7 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, TieredMenuModule, ChevronDownIcon],
+    imports: [CommonModule, ButtonModule, TieredMenuModule, AutoFocusModule, ChevronDownIcon],
     exports: [SplitButton, ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })

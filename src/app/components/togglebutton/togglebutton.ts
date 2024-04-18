@@ -5,6 +5,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -34,6 +35,8 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             pRipple
             [attr.data-pc-name]="'togglebutton'"
             [attr.data-pc-section]="'root'"
+            pAutoFocus
+            [autofocus]="autofocus"
         >
             @if(!iconTemplate) {
             <span
@@ -116,6 +119,11 @@ export class ToggleButton implements ControlValueAccessor {
      * @group Props
      */
     @Input() iconPos: 'left' | 'right' = 'left';
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @param {ToggleButtonChangeEvent} event - Custom change event.
@@ -207,7 +215,7 @@ export class ToggleButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
     exports: [ToggleButton, SharedModule],
     declarations: [ToggleButton]
 })

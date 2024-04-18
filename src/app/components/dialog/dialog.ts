@@ -52,7 +52,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             *ngIf="maskVisible"
             [class]="maskStyleClass"
             [style]="maskStyle"
-            (focus)="containerFocus($event)"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
@@ -311,7 +310,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input({ transform: numberAttribute }) minY: number = 0;
     /**
-     * When enabled, first button receives focus on show.
+     * When enabled, first focusable element receives focus on show.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
@@ -599,12 +598,22 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
-    focus() {
-        let focusable = DomHandler.findSingle(this.container, '[autofocus]');
+    focus(focusParentElement = this.contentViewChild.nativeElement) {
+        let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusable.focus(), 5);
             });
+            return;
+        }
+        const focusableElement = DomHandler.getFocusableElement(focusParentElement);
+        if (focusableElement) {
+            this.zone.runOutsideAngular(() => {
+                setTimeout(() => focusableElement.focus(), 5);
+            });
+        } else if (this.footerViewChild) {
+            // If the content section is empty try to focus on footer
+            this.focus(this.footerViewChild.nativeElement);
         }
     }
 
@@ -708,32 +717,6 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
             (this.container as HTMLDivElement).style.margin = '0';
             DomHandler.addClass(this.document.body, 'p-unselectable-text');
-        }
-    }
-
-    onKeydown(event: KeyboardEvent) {
-        if (this.focusTrap) {
-            if (event.which === 9) {
-                event.preventDefault();
-
-                let focusableElements = DomHandler.getFocusableElements(this.container as HTMLDivElement);
-
-                if (focusableElements && focusableElements.length > 0) {
-                    if (!focusableElements[0].ownerDocument.activeElement) {
-                        focusableElements[0].focus();
-                    } else {
-                        let focusedIndex = focusableElements.indexOf(focusableElements[0].ownerDocument.activeElement);
-
-                        if (event.shiftKey) {
-                            if (focusedIndex == -1 || focusedIndex === 0) focusableElements[focusableElements.length - 1].focus();
-                            else focusableElements[focusedIndex - 1].focus();
-                        } else {
-                            if (focusedIndex == -1 || focusedIndex === focusableElements.length - 1) focusableElements[0].focus();
-                            else focusableElements[focusedIndex + 1].focus();
-                        }
-                    }
-                }
-            }
         }
     }
 
@@ -929,7 +912,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
         this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
-            if (event.which == 27) {
+            if (event.key == 'Escape') {
                 this.close(event);
             }
         });
