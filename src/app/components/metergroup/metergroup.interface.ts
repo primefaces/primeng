@@ -99,10 +99,25 @@ export interface MeterGroupTemplates {
         class?: string;
     }): TemplateRef<any>;
 }
-
+/**
+ * Represents a meter item configuration.
+ * @group Interface
+ */
 export interface MeterItem {
+    /**
+     * Label of the meter item.
+     */
     label?: string;
+    /**
+     * Value of the meter item.
+     */
     value?: number;
+    /**
+     * Color of the meter item.
+     */
     color?: string;
+    /**
+     * Icon of the meter item.
+     */
     icon?: string;
 }
