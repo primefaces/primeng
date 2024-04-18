@@ -502,7 +502,7 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * An array of FilterMetadata objects to provide external filters.
      * @group Props

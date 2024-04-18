@@ -1010,7 +1010,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * Function to optimize the node list rendering, default algorithm checks for object identity.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) trackBy: Function = (index: number, item: any) => item;
+    @Input() trackBy: Function = (index: number, item: any) => item;
     /**
      * Height of the node.
      * @group Props

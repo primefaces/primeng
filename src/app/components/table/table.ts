@@ -484,12 +484,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines if the row is selectable.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) rowSelectable: boolean | undefined | any;
+    @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
@@ -539,12 +539,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Map instance to keep the expanded rows where key of the map is the data key of the row.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) expandedRowKeys: { [s: string]: boolean } = {};
+    @Input() expandedRowKeys: { [s: string]: boolean } = {};
     /**
      * Map instance to keep the rows being edited where key of the map is the data key of the row.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) editingRowKeys: { [s: string]: boolean } = {};
+    @Input() editingRowKeys: { [s: string]: boolean } = {};
     /**
      * Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".
      * @group Props

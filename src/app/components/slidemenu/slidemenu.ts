@@ -202,7 +202,7 @@ export class SlideMenuSub {
 
     @Input() easing: string = 'ease-out';
 
-    @Input() effectDuration: any;
+    @Input({ transform: numberAttribute }) effectDuration: number;
 
     @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
@@ -406,7 +406,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * Duration of the sliding animation in milliseconds.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) effectDuration: any = 250;
+    @Input({ transform: numberAttribute }) effectDuration: number = 250;
     /**
      * Easing animation to use for sliding.
      * @group Props
