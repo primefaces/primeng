@@ -22,8 +22,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-card header="Simple Card">
     <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
+        Lorem ipsum dolor sit amet...
     </p>
 </p-card>`,
 

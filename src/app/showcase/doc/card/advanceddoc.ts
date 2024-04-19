@@ -34,8 +34,7 @@ export class AdvancedDoc {
         <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
     </ng-template>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
+        Lorem ipsum dolor sit amet...
     </p>
     <ng-template pTemplate="footer">
         <div class="flex gap-3 mt-1">
