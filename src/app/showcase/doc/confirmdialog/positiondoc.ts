@@ -9,21 +9,21 @@ import { Code } from '@domain/code';
             <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap flex-column align-items-center gap-2">
-            <p-toast></p-toast>
-            <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+            <p-toast />
+            <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined" />
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
+                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-                <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
+                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" />
+                <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
+                <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success"></p-button>
-                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-                <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
+                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" />
+                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
+                <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" />
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
@@ -56,49 +56,125 @@ export class PositionDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-    <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
-    <div class="flex flex-wrap justify-content-center gap-2">
-        <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-        <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
-    </div>
-    <div class="flex flex-wrap justify-content-center gap-2">
-        <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
-        <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-        <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
-    </div>
-    <div class="flex flex-wrap justify-content-center gap-2">
-        <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success"></p-button>
-        <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-        <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
+        basic: `<p-toast />
+<p-confirmDialog 
+    key="positionDialog" 
+    [position]="position" 
+    rejectButtonStyleClass="p-button-outlined" />
+
+<div class="flex flex-wrap justify-content-center gap-2">
+    <p-button 
+        (click)="confirmPosition('left')" 
+        icon="pi pi-arrow-right" 
+        label="Left" 
+        severity="secondary" />
+    <p-button 
+        (click)="confirmPosition('right')" 
+        icon="pi pi-arrow-left" 
+        label="Right" 
+        severity="secondary" />
+</div>
+<div class="flex flex-wrap justify-content-center gap-2">
+    <p-button 
+        (click)="confirmPosition('top-left')" 
+        icon="pi pi-arrow-down" 
+        label="TopLeft" 
+        severity="secondary" />
+    <p-button 
+        (click)="confirmPosition('top')" 
+        icon="pi pi-arrow-down" 
+        label="Top" 
+        severity="secondary" />
+    <p-button 
+        (click)="confirmPosition('top-right')" 
+        icon="pi pi-arrow-down" 
+        label="TopRight" 
+        severity="secondary" />
+</div>
+<div class="flex flex-wrap justify-content-center gap-2">
+    <p-button 
+        (click)="confirmPosition('bottom-left')" 
+        icon="pi pi-arrow-up" 
+        label="BottomLeft" 
+        severity="secondary" />
+    <p-button 
+        (click)="confirmPosition('bottom')" 
+        icon="pi pi-arrow-up" 
+        label="Bottom" 
+        severity="secondary" />
+    <p-button 
+        (click)="confirmPosition('bottom-right')" 
+        icon="pi pi-arrow-up" 
+        label="BottomRight" 
+        severity="secondary" />
 </div>`,
 
         html: `<div class="card flex flex-wrap flex-column align-items-center gap-2">
-<p-toast></p-toast>
-<p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
-<div class="flex flex-wrap justify-content-center gap-2">
-    <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-    <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
-</div>
-<div class="flex flex-wrap justify-content-center gap-2">
-    <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" styleClass="p-button-warning"></p-button>
-    <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-    <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" styleClass="p-button-warning"></p-button>
-</div>
-<div class="flex flex-wrap justify-content-center gap-2">
-    <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" styleClass="p-button-success"></p-button>
-    <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-    <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" styleClass="p-button-success"></p-button>
-</div>
+    <p-toast />
+    <p-confirmDialog 
+        key="positionDialog" 
+        [position]="position" 
+        rejectButtonStyleClass="p-button-outlined" />
+
+    <div class="flex flex-wrap justify-content-center gap-2">
+        <p-button 
+            (click)="confirmPosition('left')" 
+            icon="pi pi-arrow-right" 
+            label="Left" 
+            severity="secondary" />
+        <p-button 
+            (click)="confirmPosition('right')" 
+            icon="pi pi-arrow-left" 
+            label="Right" 
+            severity="secondary" />
+    </div>
+    <div class="flex flex-wrap justify-content-center gap-2">
+        <p-button 
+            (click)="confirmPosition('top-left')" 
+            icon="pi pi-arrow-down" 
+            label="TopLeft" 
+            severity="secondary" />
+        <p-button 
+            (click)="confirmPosition('top')" 
+            icon="pi pi-arrow-down" 
+            label="Top" 
+            severity="secondary" />
+        <p-button 
+            (click)="confirmPosition('top-right')" 
+            icon="pi pi-arrow-down" 
+            label="TopRight" 
+            severity="secondary" />
+    </div>
+    <div class="flex flex-wrap justify-content-center gap-2">
+        <p-button 
+            (click)="confirmPosition('bottom-left')" 
+            icon="pi pi-arrow-up" 
+            label="BottomLeft" 
+            severity="secondary" />
+        <p-button 
+            (click)="confirmPosition('bottom')" 
+            icon="pi pi-arrow-up" 
+            label="Bottom" 
+            severity="secondary" />
+        <p-button 
+            (click)="confirmPosition('bottom-right')" 
+            icon="pi pi-arrow-up" 
+            label="BottomRight" 
+            severity="secondary" />
+    </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
-        
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+             
 @Component({
     selector: 'confirm-dialog-position-demo',
     templateUrl: './confirm-dialog-position-demo.html',
+    standalone: true,
+    imports: [ConfirmDialogModule, ButtonModule, ToastModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogPositionDemo {
