@@ -55,8 +55,7 @@ export class BasicDoc {
     </p-accordionTab>
 </p-accordion>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-accordion [activeIndex]="0">
         <p-accordionTab header="Header I">
             <p>
@@ -79,12 +78,14 @@ export class BasicDoc {
     </p-accordion>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
 
 @Component({
     selector: 'accordion-basic-demo',
-    templateUrl: './accordion-basic-demo.html'
+    templateUrl: './accordion-basic-demo.html',
+    standalone: true,
+    imports: [AccordionModule]
 })
 export class AccordionBasicDemo {}`
     };

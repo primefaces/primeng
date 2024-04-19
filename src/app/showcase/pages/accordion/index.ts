@@ -8,6 +8,7 @@ import { MultipleDoc } from '@doc/accordion/multipledoc';
 import { StyleDoc } from '@doc/accordion/styledoc';
 import { TemplateDoc } from '@doc/accordion/templatedoc';
 import { AccordionDocModule } from '@doc/accordion/accordiondoc.module';
+import { DynamicDoc } from '@doc/accordion/dynamicdoc';
 
 @Component({
     template: `<app-doc docTitle="Angular Accordion Component" header="Accordion" description="Accordion groups a collection of contents in tabs." [docs]="docs" [apiDocs]="['Accordion', 'AccordionTab']"></app-doc>`,
@@ -29,6 +30,11 @@ export class AccordionDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'dynamic',
+            label: 'Dynamic',
+            component: DynamicDoc
         },
         {
             id: 'multiple',

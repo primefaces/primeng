@@ -9,9 +9,9 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div class="flex mb-3 gap-2 justify-content-end">
-                <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0"></p-button>
-                <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
-                <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
+                <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0" />
+                <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1" />
+                <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2" />
             </div>
             <p-accordion (activeIndexChange)="activeIndexChange($event)" [activeIndex]="activeIndex">
                 <p-accordionTab header="Header I">
@@ -46,9 +46,24 @@ export class ControlledDoc {
 
     code: Code = {
         basic: `<div class="flex mb-3 gap-2 justify-content-end">
-        <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0"></p-button>
-        <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
-        <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
+    <p-button 
+        (click)="activeIndex = 0" 
+        rounded="true" 
+        label="1" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeIndex !== 0" />
+    <p-button 
+        (click)="activeIndex = 1" 
+        rounded="true" 
+        label="2" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeIndex !== 1" />
+    <p-button 
+        (click)="activeIndex = 2" 
+        rounded="true" 
+        label="3" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeIndex !== 2" />
     </div>
     <p-accordion (activeIndexChange)="activeIndexChange($event)" [activeIndex]="activeIndex">
         <p-accordionTab header="Header I">
@@ -72,10 +87,25 @@ export class ControlledDoc {
     </p-accordion>`,
 
         html: `<div class="card">
-        <div class="flex mb-3 gap-2 justify-content-end">
-        <p-button (click)="activeIndex = 0" rounded="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0"></p-button>
-        <p-button (click)="activeIndex = 1" rounded="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1"></p-button>
-        <p-button (click)="activeIndex = 2" rounded="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2"></p-button>
+    <div class="flex mb-3 gap-2 justify-content-end">
+        <p-button 
+            (click)="activeIndex = 0" 
+            rounded="true" 
+            label="1" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeIndex !== 0" />
+        <p-button 
+            (click)="activeIndex = 1" 
+            rounded="true" 
+            label="2" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeIndex !== 1" />
+        <p-button 
+            (click)="activeIndex = 2" 
+            rounded="true" 
+            label="3" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeIndex !== 2" />
     </div>
     <p-accordion (activeIndexChange)="activeIndexChange($event)" [activeIndex]="activeIndex">
         <p-accordionTab header="Header I">
@@ -99,12 +129,15 @@ export class ControlledDoc {
     </p-accordion>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { AccordionModule } from 'primeng/accordion';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'accordion-controlled-demo',
-    templateUrl: './accordion-controlled-demo.html'
+    templateUrl: './accordion-controlled-demo.html',
+    standalone: true,
+    imports: [AccordionModule, ButtonModule]
 })
 export class AccordionControlledDemo {
     activeIndex: number | undefined = 0;
