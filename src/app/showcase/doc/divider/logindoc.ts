@@ -18,14 +18,14 @@ import { Code } from '@domain/code';
                         <label class="w-6rem">Password</label>
                         <input pInputText id="password" type="password" class="w-12rem" />
                     </div>
-                    <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"></p-button>
+                    <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto" />
                 </div>
                 <div class="w-full md:w-2">
                     <p-divider layout="vertical" styleClass="hidden md:flex"><b>OR</b></p-divider>
                     <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"><b>OR</b></p-divider>
                 </div>
                 <div class="w-full md:w-5 flex align-items-center justify-content-center py-5">
-                    <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem"></p-button>
+                    <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem" />
                 </div>
             </div>
         </div>
@@ -44,19 +44,22 @@ export class LoginDoc {
             <label class="w-6rem">Password</label>
             <input pInputText id="password" type="password" class="w-12rem" />
         </div>
-        <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"></p-button>
+        <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto" />
     </div>
     <div class="w-full md:w-2">
-        <p-divider layout="vertical" styleClass="hidden md:flex"><b>OR</b></p-divider>
-        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"><b>OR</b></p-divider>
+        <p-divider layout="vertical" styleClass="hidden md:flex">
+            <b>OR</b>
+        </p-divider>
+        <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'">
+            <b>OR</b>
+        </p-divider>
     </div>
     <div class="w-full md:w-5 flex align-items-center justify-content-center py-5">
-        <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem"></p-button>
+        <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem" />
     </div>
 </div>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex flex-column md:flex-row">
         <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5">
             <div class="flex flex-wrap justify-content-center align-items-center gap-2">
@@ -67,24 +70,32 @@ export class LoginDoc {
                 <label class="w-6rem">Password</label>
                 <input pInputText id="password" type="password" class="w-12rem" />
             </div>
-            <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto"></p-button>
+            <p-button label="Login" icon="pi pi-user" styleClass="w-10rem mx-auto" />
         </div>
         <div class="w-full md:w-2">
-            <p-divider layout="vertical" styleClass="hidden md:flex"><b>OR</b></p-divider>
-            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'"><b>OR</b></p-divider>
+            <p-divider layout="vertical" styleClass="hidden md:flex">
+                <b>OR</b>
+            </p-divider>
+            <p-divider layout="horizontal" styleClass="flex md:hidden" [align]="'center'">
+                <b>OR</b>
+            </p-divider>
         </div>
         <div class="w-full md:w-5 flex align-items-center justify-content-center py-5">
-            <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem"></p-button>
+            <p-button label="Sign Up" icon="pi pi-user-plus" styleClass="p-button-success w-10rem" />
         </div>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+        
 @Component({
     selector: 'divider-login-demo',
-    templateUrl: './divider-login-demo.html'
+    templateUrl: './divider-login-demo.html',
+    standalone: true,
+    imports: [DividerModule, ButtonModule, InputTextModule]
 })
 export class DividerLoginDemo {}`
     };

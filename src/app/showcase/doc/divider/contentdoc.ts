@@ -114,12 +114,14 @@ export class ContentDoc {
     </p>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
     selector: 'divider-content-demo',
-    templateUrl: './divider-content-demo.html'
+    templateUrl: './divider-content-demo.html',
+    standalone: true,
+    imports: [DividerModule]
 })
 export class DividerContentDemo {}`
     };
