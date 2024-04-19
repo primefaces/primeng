@@ -54,12 +54,15 @@ export class TemplateDoc {
 </p-fieldset>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FieldsetModule } from 'primeng/fieldset';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'fieldset-template-demo',
-    templateUrl: './fieldset-template-demo.html'
+    templateUrl: './fieldset-template-demo.html',
+    standalone: true,
+    imports: [FieldsetModule, AvatarModule]
 })
 export class FieldsetTemplateDemo {}`
     };
