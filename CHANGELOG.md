@@ -516,6 +516,25 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.8-LTS](https://www.npmjs.com/package/primeng/v/16.9.8-lts) (2024-04-19)
+
+**Fixed bugs:**
+- DynamicDialog: accessibility- CloseAriaLabel not working [\#15144](https://github.com/primefaces/primeng/issues/15144)
+- Incorrect type of InputNumberInputEvent.value [\#15206](https://github.com/primefaces/primeng/issues/15206)
+- Component: ConfirmDialog Accessibility [\#15108](https://github.com/primefaces/primeng/issues/15108)
+- TreeTable | selectionKeys support for checkbox selection mode [\#15216](https://github.com/primefaces/primeng/issues/15216)
+- Dropdown, MultiSelect | Accessibility Enhancements [\#15197](https://github.com/primefaces/primeng/issues/15197)
+- Component: MultiSelect use listitem semantically [\#15002](https://github.com/primefaces/primeng/issues/15002)
+- Component: Dropdown | dropdown box missing the required children for the given role. [\#15123](https://github.com/primefaces/primeng/issues/15123)
+- Component: Dropdown | ARIA hidden element must not be focusable or contain focusable elements [\#15116](https://github.com/primefaces/primeng/issues/15116)
+- TreeTable | wrong value comparison [\#15178](https://github.com/primefaces/primeng/issues/15178)
+- p-dropdown: Missing ariaLabel when in editable = true [\#15122](https://github.com/primefaces/primeng/issues/15122)
+- Component: p-listbox missing aria-label [\#15084](https://github.com/primefaces/primeng/issues/15084)
+- Panelmenu: Issue with navigating by Tab through submenu items [\#13630](https://github.com/primefaces/primeng/issues/13630)
+- p-tag: style not change dynamically [\#12665](https://github.com/primefaces/primeng/issues/12665)
+- Table: When removing the filter constraint it should not filter when showApplyButton is visible [\#15032](https://github.com/primefaces/primeng/issues/15032)
+- Picklist: ul item lists are missing a label [\#14944](https://github.com/primefaces/primeng/issues/14944)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.7-LTS](https://www.npmjs.com/package/primeng/v/16.9.7-lts) (2024-03-29)
 
 **Fixed bugs:**
@@ -1087,6 +1106,16 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.18-LTS](https://www.npmjs.com/package/primeng/v/15.4.18-lts) (2024-04-19)
+
+**Fixed bugs:**
+- TreeTable | selectionKeys support for checkbox selection mode [\#15216](https://github.com/primefaces/primeng/issues/15216)
+- Component: Dropdown | dropdown box missing the required children for the given role. [\#15123](https://github.com/primefaces/primeng/issues/15123)
+- TreeTable | wrong value comparison [\#15178](https://github.com/primefaces/primeng/issues/15178)
+- p-tag | style not change dynamically [\#12665](https://github.com/primefaces/primeng/issues/12665)
+- Table: When removing the filter constraint it should not filter when showApplyButton is visible [\#15032](https://github.com/primefaces/primeng/issues/15032)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.17-LTS](https://www.npmjs.com/package/primeng/v/15.4.17-lts) (2024-03-07)
 
