@@ -4004,6 +4004,150 @@
     background: #3f4b5b;
   }
 
+  .p-tabview .p-tabview-nav-content {
+    scroll-padding-inline: 2.357rem;
+  }
+  .p-tabview .p-tabview-nav {
+    background: transparent;
+    border: 1px solid #3f4b5b;
+    border-width: 0 0 1px 0;
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid;
+    border-width: 1px;
+    border-color: #2a323d #2a323d #3f4b5b #2a323d;
+    background: #2a323d;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+    transition: box-shadow 0.15s;
+    margin: 0 0 -1px 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 1px #f0e6f5;
+  }
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: #2a323d;
+    border-color: #3f4b5b;
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #2a323d;
+    border-color: #3f4b5b #3f4b5b #2a323d #3f4b5b;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .p-tabview .p-tabview-left-icon {
+    margin-right: 0.5rem;
+  }
+  .p-tabview .p-tabview-right-icon {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-close {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link {
+    background: #2a323d;
+    color: rgba(255, 255, 255, 0.6);
+    width: 2.357rem;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 1px #f0e6f5;
+  }
+  .p-tabview .p-tabview-panels {
+    background: #2a323d;
+    padding: 1.25rem;
+    border: 0 none;
+    color: rgba(255, 255, 255, 0.87);
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .p-toolbar {
+    background: #2a323d;
+    border: 1px solid #3f4b5b;
+    padding: 1rem 1.25rem;
+    border-radius: 4px;
+    gap: 0.5rem;
+  }
+  .p-toolbar .p-toolbar-separator {
+    margin: 0 0.5rem;
+  }
+
+  .p-stepper .p-stepper-nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    overflow-x: auto;
+  }
+
+  .p-stepper-vertical .p-stepper-nav {
+    flex-direction: column;
+  }
+
+  .p-stepper-header {
+    position: relative;
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+  }
+  .p-stepper-header:last-of-type {
+    flex: initial;
+  }
+
+  .p-stepper-header .p-stepper-action {
+    border: 0 none;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .p-stepper-header .p-stepper-action:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 1px #f0e6f5;
+  }
+
+  .p-stepper.p-stepper-readonly .p-stepper-header {
+    cursor: auto;
+  }
+
+  .p-stepper-header.p-highlight .p-stepper-action {
+    cursor: default;
+  }
+
+  .p-stepper-title {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  .p-stepper-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .p-stepper-separator {
+    flex: 1 1 0;
+  }
+
   .p-stepper .p-stepper-nav {
     display: flex;
     justify-content: space-between;
@@ -4106,86 +4250,6 @@
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
     padding-left: 3rem;
-  }
-
-  .p-tabview .p-tabview-nav-content {
-    scroll-padding-inline: 2.357rem;
-  }
-  .p-tabview .p-tabview-nav {
-    background: transparent;
-    border: 1px solid #3f4b5b;
-    border-width: 0 0 1px 0;
-  }
-  .p-tabview .p-tabview-nav li {
-    margin-right: 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: solid;
-    border-width: 1px;
-    border-color: #2a323d #2a323d #3f4b5b #2a323d;
-    background: #2a323d;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 0.75rem 1rem;
-    font-weight: 600;
-    border-top-right-radius: 4px;
-    border-top-left-radius: 4px;
-    transition: box-shadow 0.15s;
-    margin: 0 0 -1px 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 1px #f0e6f5;
-  }
-  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #2a323d;
-    border-color: #3f4b5b;
-    color: rgba(255, 255, 255, 0.87);
-  }
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #2a323d;
-    border-color: #3f4b5b #3f4b5b #2a323d #3f4b5b;
-    color: rgba(255, 255, 255, 0.6);
-  }
-  .p-tabview .p-tabview-left-icon {
-    margin-right: 0.5rem;
-  }
-  .p-tabview .p-tabview-right-icon {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-close {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link {
-    background: #2a323d;
-    color: rgba(255, 255, 255, 0.6);
-    width: 2.357rem;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 1px #f0e6f5;
-  }
-  .p-tabview .p-tabview-panels {
-    background: #2a323d;
-    padding: 1.25rem;
-    border: 0 none;
-    color: rgba(255, 255, 255, 0.87);
-    border-bottom-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-  }
-
-  .p-toolbar {
-    background: #2a323d;
-    border: 1px solid #3f4b5b;
-    padding: 1rem 1.25rem;
-    border-radius: 4px;
-    gap: 0.5rem;
-  }
-  .p-toolbar .p-toolbar-separator {
-    margin: 0 0.5rem;
   }
 
   .p-confirm-popup {
