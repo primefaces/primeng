@@ -1995,8 +1995,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 if (this.inline) {
                     const headerElements = DomHandler.findSingle(this.containerViewChild?.nativeElement, '.p-datepicker-header');
                     const element = event.target;
-                    if (element == headerElements.children[headerElements.children.length - 1]) {
-                        this.initFocusableCell();
+                    if (this.timeOnly) {
+                        return;
+                    } else {
+                        if (element == headerElements.children[headerElements?.children?.length - 1]) {
+                            this.initFocusableCell();
+                        }
                     }
                 }
                 break;
