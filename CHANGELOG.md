@@ -1,9 +1,39 @@
 # Changelog
+## [17.14.0](https://github.com/primefaces/primeng/tree/17.14.0) (2024-04-19)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.13.0...17.14.0)
+
+**Breaking Changes:**
+- Badge | Deprecate "size" property [\#15314](https://github.com/primefaces/primeng/issues/15314)
+
+**Implemented New Features and Enhancements:**
+- Avatar and Badge use the same size attribute, add badgeSize property for badge [\#12959](https://github.com/primefaces/primeng/issues/12959)
+
+**Fixed bugs:**
+- Badge directive with badgeDisabled condition not working [\#12736](https://github.com/primefaces/primeng/issues/12736)
+- Toast: Close button is missing in Aura theme [\#15285](https://github.com/primefaces/primeng/issues/15285)
+- Messages: OnClose event [\#15295](https://github.com/primefaces/primeng/issues/15295)
+- MeterGroup | Add explanation of MeterItem for docs [\#15284](https://github.com/primefaces/primeng/issues/15284)
+- TabMenu: In Aura theme, active tab underline does not update properly when using routes with asynchronous resolvers [\#15269](https://github.com/primefaces/primeng/issues/15269)
+- Dropdown in Table Filter Menu Fails to Apply Filter When appendTo="body" Is Used [\#15233](https://github.com/primefaces/primeng/issues/15233)
+- Pasting Valid data into a pKeyFilter field not possible [\#12316](https://github.com/primefaces/primeng/issues/12316)
+- p-table passing any expandedRowKeys will cause table to not expand anymore [\#15270](https://github.com/primefaces/primeng/issues/15270)
+- Autofocus [\#13082](https://github.com/primefaces/primeng/issues/13082)
+- In a Dynamic Dialog that is opened from another Dynamic Dialog, we can not press Tab to focus on the next field [\#10472](https://github.com/primefaces/primeng/issues/10472)
+- AutoFocus for Dropdown: Does not work inside dialogComponent. [\#14010](https://github.com/primefaces/primeng/issues/14010)
+- Component: Dynamic Dialog's Autofocus on Close Button [\#13162](https://github.com/primefaces/primeng/issues/13162)
+- Component: Messages [\#15260](https://github.com/primefaces/primeng/issues/15260)
+- MultiSelect: Scroll functionality lost upon closing modal overlay [\#15254](https://github.com/primefaces/primeng/issues/15254)
+- MultiSelect: Aria-checked attribute is not allowed [\#15246](https://github.com/primefaces/primeng/issues/15246)
+- TreeSelect: ARIA hidden element must not be focusable or contain focusable elements [\#15244](https://github.com/primefaces/primeng/issues/15244)
+- p-table: columnFilter of type numeric are no longer working [\#15264](https://github.com/primefaces/primeng/issues/15264)
+- Autocomplete: Down/Up arrows trigger (onSelect) event when autoHighlight="true" [\#15208](https://github.com/primefaces/primeng/issues/15208)
+- Component: pDropdown wrapper [\#15115](https://github.com/primefaces/primeng/issues/15115)
+
 ## [17.13.0](https://github.com/primefaces/primeng/tree/17.13.0) (2024-04-09)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.12.0...17.13.0)
 **Breaking Changes:**
-- SplitButton | new input properties [\#14426](https://github.com/primefaces/primeng/issues/15220)
+- SplitButton | new input properties [\#14426](https://github.com/primefaces/primeng/issues/14426)
 
 **Implemented New Features and Enhancements:**
 - New Theme | Aura [\#15127](https://github.com/primefaces/primeng/issues/15127)
