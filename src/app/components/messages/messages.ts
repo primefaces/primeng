@@ -225,8 +225,9 @@ export class Messages implements AfterContentInit, OnDestroy {
     }
 
     removeMessage(i: number) {
+        const removedMessage = this.messages[i];
         this.messages = this.messages?.filter((msg, index) => index !== i);
-        this.messages[i] && this.onClose.emit(this.messages[i]);
+        removedMessage && this.onClose.emit(removedMessage);
         this.valueChange.emit(this.messages);
     }
 
