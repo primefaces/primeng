@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
             <p>ConfirmPopup is defined using <i>p-confirmPopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast></p-toast>
-            <p-confirmPopup></p-confirmPopup>
-            <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-            <p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" severity="danger"></p-button>
+            <p-toast />
+            <p-confirmPopup />
+            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
         <app-code [code]="code" selector="confirm-popup-basic-demo"></app-code>
     `,
@@ -51,25 +51,43 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-    <p-confirmPopup></p-confirmPopup>
-    <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-<p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" severity="danger"></p-button>`,
+        basic: `<p-toast />
+<p-confirmPopup />
+<p-button 
+    (click)="confirm1($event)" 
+    label="Save" 
+    [outlined]="true" />
+<p-button 
+    (click)="confirm2($event)" 
+    label="Delete" 
+    severity="danger" 
+    [outlined]="true" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <p-confirmPopup></p-confirmPopup>
-    <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-    <p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" severity="danger"></p-button>
+    <p-toast />
+    <p-confirmPopup />
+    <p-button 
+        (click)="confirm1($event)" 
+        label="Save" 
+        [outlined]="true" />
+    <p-button 
+        (click)="confirm2($event)" 
+        label="Delete" 
+        severity="danger" 
+        [outlined]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-        
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+
 @Component({
     selector: 'confirm-popup-basic-demo',
     templateUrl: './confirm-popup-basic-demo.html',
+    standalone: true,
+    imports: [ButtonModule, ToastModule, ConfirmPopupModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPopupBasicDemo {

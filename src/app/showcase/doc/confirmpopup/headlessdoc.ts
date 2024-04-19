@@ -9,19 +9,19 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
+            <p-toast />
             <p-confirmPopup #confirmPopupRef>
                 <ng-template pTemplate="headless" let-message let-test>
-                    <div class="bg-gray-900 text-white border-round p-3">
+                    <div class="border-round p-3">
                         <span>{{ message.message }}</span>
                         <div class="flex align-items-center gap-2 mt-3">
-                            <button (click)="accept()" pButton label="Save" class="p-button-sm p-button-outlined"></button>
-                            <button (click)="reject()" pButton label="Cancel" class="p-button-sm p-button-text"></button>
+                            <p-button (click)="accept()" label="Save" size="small" />
+                            <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                         </div>
                     </div>
                 </ng-template>
             </p-confirmPopup>
-            <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>
+            <p-button (click)="confirm($event)" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-popup-headless-demo"></app-code>
     `,
@@ -43,7 +43,7 @@ export class HeadlessDoc {
     confirm(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
-            message: 'Are you sure? You cannot undo this.',
+            message: 'Save your current process?',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
@@ -54,43 +54,47 @@ export class HeadlessDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
+        basic: `<p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="bg-gray-900 text-white border-round p-3">
+            <div class="border-round p-3">
                 <span>{{ message.message }}</span>
                 <div class="flex align-items-center gap-2 mt-3">
-                    <button (click)="accept()" pButton label="Save" class="p-button-sm p-button-outlined"></button>
-                    <button (click)="reject()" pButton label="Cancel" class="p-button-sm p-button-text"></button>
+                    <p-button (click)="accept()" label="Save" size="small" />
+                    <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                 </div>
             </div>
         </ng-template>
     </p-confirmPopup>
-<p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>`,
+<p-button (click)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
+    <p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="bg-gray-900 text-white border-round p-3">
+            <div class="border-round p-3">
                 <span>{{ message.message }}</span>
                 <div class="flex align-items-center gap-2 mt-3">
-                    <button (click)="accept()" pButton label="Save" class="p-button-sm p-button-outlined"></button>
-                    <button (click)="reject()" pButton label="Cancel" class="p-button-sm p-button-text"></button>
+                    <p-button (click)="accept()" label="Save" size="small" />
+                    <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                 </div>
             </div>
         </ng-template>
     </p-confirmPopup>
-<p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>`,
+<p-button (click)="confirm($event)" label="Save" />
+</div>`,
 
-        typescript: `
-import { Component, ViewChild } from '@angular/core';
+        typescript: `import { Component, ViewChild } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmPopup } from 'primeng/confirmpopup';
+import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'confirm-popup-headless-demo',
     templateUrl: './confirm-popup-headless-demo.html',
+    standalone: true,
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPopupHeadlessDemo {
@@ -109,7 +113,7 @@ export class ConfirmPopupHeadlessDemo {
     confirm(event: Event) {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
-            message: 'Are you sure? You cannot undo this.',
+            message: 'Save your current process?',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
