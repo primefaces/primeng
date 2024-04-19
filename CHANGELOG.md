@@ -1,4 +1,9 @@
 # Changelog
+## [17.14.1](https://github.com/primefaces/primeng/tree/17.14.1) (2024-04-19)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.14.0...17.14.1)
+**Fixed bugs:**
+- Stepper | Core css is overriden and broken [\#15317](https://github.com/primefaces/primeng/issues/15317)
+
 ## [17.14.0](https://github.com/primefaces/primeng/tree/17.14.0) (2024-04-19)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.13.0...17.14.0)
 
