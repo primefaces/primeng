@@ -4059,70 +4059,6 @@
   }
 
   .p-stepper .p-stepper-nav {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    overflow-x: auto;
-  }
-
-  .p-stepper-vertical .p-stepper-nav {
-    flex-direction: column;
-  }
-
-  .p-stepper-header {
-    position: relative;
-    display: flex;
-    flex: 1 1 auto;
-    align-items: center;
-  }
-  .p-stepper-header:last-of-type {
-    flex: initial;
-  }
-
-  .p-stepper-header .p-stepper-action {
-    border: 0 none;
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .p-stepper-header .p-stepper-action:focus-visible {
-    outline: 1px solid var(--p-focus-ring-color);
-    outline-offset: 2px;
-    box-shadow: none;
-  }
-
-  .p-stepper.p-stepper-readonly .p-stepper-header {
-    cursor: auto;
-  }
-
-  .p-stepper-header.p-highlight .p-stepper-action {
-    cursor: default;
-  }
-
-  .p-stepper-title {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
-
-  .p-stepper-number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .p-stepper-separator {
-    flex: 1 1 0;
-  }
-
-  .p-stepper .p-stepper-nav {
     display: flex;
     justify-content: space-between;
     margin: 0;
@@ -7538,11 +7474,9 @@
   .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
     font-size: 0.875rem;
   }
-  .p-toast .p-toast-message .p-toast-icon-close {
+  .p-toast .p-toast-message .p-toast-message-content .p-toast-icon-close {
     width: 1.75rem;
     height: 1.75rem;
-    margin-top: -25%;
-    right: -25%;
     position: relative;
   }
 
