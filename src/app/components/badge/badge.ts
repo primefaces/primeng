@@ -25,6 +25,19 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
      */
     @Input() public badgeSize: 'large' | 'xlarge';
     /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     * @deprecated
+     */
+    @Input() public set size(value: 'large' | 'xlarge') {
+        this._size = value;
+        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+    }
+    get size() {
+        return this._size;
+    }
+    _size: 'large' | 'xlarge';
+    /**
      * Severity type of the badge.
      * @group Props
      */
@@ -111,13 +124,13 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
             return;
         }
 
-        if (this.badgeSize) {
-            if (this.badgeSize === 'large') {
+        if (this.badgeSize || this.size) {
+            if (this.badgeSize === 'large' || this.size === 'large') {
                 DomHandler.addClass(badge, 'p-badge-lg');
                 DomHandler.removeClass(badge, 'p-badge-xl');
             }
 
-            if (this.badgeSize === 'xlarge') {
+            if (this.badgeSize === 'xlarge' || this.size === 'xlarge') {
                 DomHandler.addClass(badge, 'p-badge-xl');
                 DomHandler.removeClass(badge, 'p-badge-lg');
             }
@@ -221,13 +234,26 @@ export class Badge {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) badgeDisabled: boolean = false;
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     * @deprecated
+     */
+    @Input() public set size(value: 'large' | 'xlarge') {
+        this._size = value;
+        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+    }
+    get size() {
+        return this._size;
+    }
+    _size: 'large' | 'xlarge';
 
     containerClass() {
         return {
             'p-badge p-component': true,
             'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
-            'p-badge-lg': this.badgeSize === 'large',
-            'p-badge-xl': this.badgeSize === 'xlarge',
+            'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
+            'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
             'p-badge-info': this.severity === 'info',
             'p-badge-success': this.severity === 'success',
             'p-badge-warning': this.severity === 'warning',
