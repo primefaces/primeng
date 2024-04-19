@@ -49,12 +49,15 @@ export class DynamicDoc implements OnInit {
 </p-tabView>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { TabViewModule } from 'primeng/tabview';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'tab-view-basic-demo',
-    templateUrl: './tab-view-basic-demo.html'
+    templateUrl: './tab-view-basic-demo.html',
+    standalone: true,
+    imports: [TabViewModule, CommonModule]
 })
 export class TabViewBasicDemo imlements onInit {
     tabs: { title: string, content: string }[] = [];

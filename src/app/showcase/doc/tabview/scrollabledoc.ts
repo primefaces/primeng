@@ -29,8 +29,7 @@ export class ScrollableDoc {
     </p-tabPanel>
 </p-tabView>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-tabView [(activeIndex)]="activeIndex" [scrollable]="true">
         <p-tabPanel *ngFor="let tab of scrollableTabs" [header]="tab.title">
             <p>{{ tab.content }}</p>
@@ -38,12 +37,15 @@ export class ScrollableDoc {
     </p-tabView>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TabViewModule } from 'primeng/tabview';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'tab-view-scrollable-demo',
-    templateUrl: './tab-view-scrollable-demo.html'
+    templateUrl: './tab-view-scrollable-demo.html',
+    standalone: true,
+    imports: [TabViewModule, CommonModule]
 })
 export class TabViewScrollableDemo {
     activeIndex: number = 0;
