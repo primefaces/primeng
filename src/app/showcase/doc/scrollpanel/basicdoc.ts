@@ -43,8 +43,7 @@ export class BasicDoc {
     </p>
 </p-scrollPanel>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-scrollPanel [style]="{ width: '100%', height: '150px' }">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -61,12 +60,14 @@ export class BasicDoc {
     </p-scrollPanel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     selector: 'scroll-panel-basic-demo',
-    templateUrl: './scroll-panel-basic-demo.html'
+    templateUrl: './scroll-panel-basic-demo.html',
+    standalone: true,
+    imports: [ScrollPanelModule]
 })
 export class ScrollPanelBasicDemo {}`
     };
