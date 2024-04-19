@@ -11,9 +11,9 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <button pButton icon="pi pi-plus" class="mr-2"></button>
-                    <button pButton icon="pi pi-print" class="mr-2"></button>
-                    <button pButton icon="pi pi-upload"></button>
+                    <p-button icon="pi pi-plus" class="mr-2"/>
+                    <p-button icon="pi pi-print" class="mr-2"/>
+                    <p-button icon="pi pi-upload" />
                 </div>
                 <div class="p-toolbar-group-center">
                     <span class="p-input-icon-left">
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                     </span>
                 </div>
                 <div class="p-toolbar-group-end">
-                    <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
+                    <p-splitButton label="Save" icon="pi pi-check" [model]="items" />
                 </div>
             </p-toolbar>
         </div>
@@ -48,9 +48,9 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-toolbar>
     <div class="p-toolbar-group-start">
-        <button pButton icon="pi pi-plus" class="mr-2"></button>
-        <button pButton icon="pi pi-print" class="mr-2"></button>
-        <button pButton icon="pi pi-upload"></button>
+        <p-button icon="pi pi-plus" class="mr-2"/>
+        <p-button icon="pi pi-print" class="mr-2"/>
+        <p-button icon="pi pi-upload" />
     </div>
     <div class="p-toolbar-group-center">
         <span class="p-input-icon-left">
@@ -59,16 +59,16 @@ export class BasicDoc implements OnInit {
         </span>
     </div>
     <div class="p-toolbar-group-end">
-        <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
+        <p-splitButton label="Save" icon="pi pi-check" [model]="items" />
     </div>
 </p-toolbar>`,
 
         html: `<div class="card">
 <p-toolbar>
 <div class="p-toolbar-group-start">
-    <button pButton icon="pi pi-plus" class="mr-2"></button>
-    <button pButton icon="pi pi-print" class="mr-2"></button>
-    <button pButton icon="pi pi-upload"></button>
+    <p-button icon="pi pi-plus" class="mr-2"/>
+    <p-button icon="pi pi-print" class="mr-2"/>
+    <p-button icon="pi pi-upload" />
 </div>
 <div class="p-toolbar-group-center">
     <span class="p-input-icon-left">
@@ -77,18 +77,23 @@ export class BasicDoc implements OnInit {
     </span>
 </div>
 <div class="p-toolbar-group-end">
-    <p-splitButton label="Save" icon="pi pi-check" [model]="items"></p-splitButton>
+    <p-splitButton label="Save" icon="pi pi-check" [model]="items" />
 </div>
 </p-toolbar>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'toolbar-basic-demo',
-    templateUrl: './toolbar-basic-demo.html'
+    templateUrl: './toolbar-basic-demo.html',
+    standalone: true,
+    imports: [ToolbarModule, ButtonModule, SplitButtonModule, InputTextModule]
 })
 export class ToolbarBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
