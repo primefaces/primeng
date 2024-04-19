@@ -30,8 +30,7 @@ export class ToggleableDoc {
     </p>
 </p-panel>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-panel header="Header" [toggleable]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -40,12 +39,14 @@ export class ToggleableDoc {
     </p-panel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
     selector: 'panel-toggleable-demo',
-    templateUrl: './panel-toggleable-demo.html'
+    templateUrl: './panel-toggleable-demo.html',
+    standalone: true,
+    imports: [PanelModule]
 })
 export class PanelToggleableDemo {}`
     };

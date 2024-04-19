@@ -27,8 +27,7 @@ export class BasicDoc {
     </p>
 </p-panel>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-panel header="Header">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -37,12 +36,14 @@ export class BasicDoc {
     </p-panel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
     selector: 'panel-basic-demo',
-    templateUrl: './panel-basic-demo.html'
+    templateUrl: './panel-basic-demo.html',
+    standalone: true,
+    imports: [PanelModule]
 })
 export class PanelBasicDemo {}`
     };

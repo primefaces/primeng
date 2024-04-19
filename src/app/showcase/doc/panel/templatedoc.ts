@@ -18,8 +18,8 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="footer">
                     <div class="flex flex-wrap align-items-center justify-content-between gap-3">
                         <div class="flex align-items-center gap-2">
-                            <p-button icon="pi pi-user" rounded="true" text="true"></p-button>
-                            <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true"></p-button>
+                            <p-button icon="pi pi-user" rounded="true" text="true" />
+                            <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
                         </div>
                         <span class="p-text-secondary">Updated 2 hours ago</span>
                     </div>
@@ -73,8 +73,8 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="footer">
         <div class="flex flex-wrap align-items-center justify-content-between gap-3">
             <div class="flex align-items-center gap-2">
-                <p-button icon="pi pi-user" rounded="true" text="true"></p-button>
-                <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true"></p-button>
+                <p-button icon="pi pi-user" rounded="true" text="true" />
+                <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
             </div>
             <span class="p-text-secondary">Updated 2 hours ago</span>
         </div>
@@ -102,8 +102,8 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="footer">
         <div class="flex flex-wrap align-items-center justify-content-between gap-3">
             <div class="flex align-items-center gap-2">
-                <p-button icon="pi pi-user" rounded="true" text="true"></p-button>
-                <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true"></p-button>
+                <p-button icon="pi pi-user" rounded="true" text="true" />
+                <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
             </div>
             <span class="p-text-secondary">Updated 2 hours ago</span>
         </div>
@@ -121,12 +121,16 @@ export class TemplateDoc implements OnInit {
     </p-panel>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
+import { AvatarModule } from 'primeng/avatar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'panel-template-demo',
-    templateUrl: './panel-template-demo.html'
+    templateUrl: './panel-template-demo.html',
+    standalone: true,
+    imports: [PanelModule, AvatarModule, ButtonModule]
 })
 export class PanelTemplateDemo implements OnInit {
     items: { label?: string; icon?: string; separator?: boolean }[] = [];
