@@ -665,7 +665,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     parseValue(text: any) {
-        console.log(this.suffix, text)
         let filteredText = text
             .replace(this._suffix as RegExp, '')
             .replace(!isNaN(Number(this.prefix)) ? '' : (this.prefix), '')
