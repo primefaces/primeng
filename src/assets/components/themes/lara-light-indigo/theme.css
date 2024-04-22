@@ -885,6 +885,19 @@
     border-color: #e24c4c;
   }
 
+  .p-input-filled .p-checkbox .p-checkbox-box {
+    background-color: #f3f4f6;
+  }
+  .p-input-filled .p-checkbox .p-checkbox-box.p-highlight {
+    background: #6366F1;
+  }
+  .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    background-color: #f3f4f6;
+  }
+  .p-input-filled .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #4338CA;
+  }
+
   .p-checkbox-label {
     margin-left: 0.5rem;
   }
@@ -1709,6 +1722,18 @@
     border-color: #4338CA;
     background: #4338CA;
     color: #ffffff;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box {
+    background-color: #f3f4f6;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+    background-color: #f3f4f6;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+    background: #6366F1;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    background: #4338CA;
   }
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {

@@ -52,7 +52,13 @@ export class RadioControlRegistry {
     template: `
         <div
             [ngStyle]="style"
-            [ngClass]="{ 'p-radiobutton p-component': true, 'p-radiobutton-checked': checked, 'p-radiobutton-disabled': disabled, 'p-radiobutton-focused': focused, 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
+            [ngClass]="{
+                'p-radiobutton p-component': true,
+                'p-radiobutton-checked': checked,
+                'p-radiobutton-disabled': disabled,
+                'p-radiobutton-focused': focused,
+                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled'
+            }"
             [class]="styleClass"
             [attr.data-pc-name]="'radiobutton'"
             [attr.data-pc-section]="'root'"
