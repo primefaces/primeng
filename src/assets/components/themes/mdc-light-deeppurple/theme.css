@@ -6969,11 +6969,10 @@
   .p-checkbox.p-checkbox-checked:not(.p-checkbox-disabled).p-checkbox-focused {
     box-shadow: 0 0 1px 10px rgba(103, 58, 183, 0.12);
   }
-
-  .p-input-filled .p-checkbox .p-checkbox-box {
+  .p-checkbox.p-variant-filled .p-checkbox-box {
     background-color: #ffffff;
   }
-  .p-input-filled .p-checkbox .p-checkbox-box:not(.p-disabled):hover {
+  .p-checkbox.p-variant-filled .p-checkbox-box:not(.p-disabled):hover {
     background-color: #ffffff;
   }
 
