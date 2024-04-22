@@ -43,7 +43,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                 'p-checkbox-checked': checked(),
                 'p-checkbox-disabled': disabled,
                 'p-checkbox-focused': focused,
-                'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled'
+                'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled'
             }"
             [class]="styleClass"
             [attr.data-pc-name]="'checkbox'"
