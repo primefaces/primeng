@@ -3968,6 +3968,86 @@
     background: #dadada;
   }
 
+  .p-tabview .p-tabview-nav-content {
+    scroll-padding-inline: 2.357rem;
+  }
+  .p-tabview .p-tabview-nav {
+    background: transparent;
+    border: 0 none;
+    border-width: 1px;
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 2px;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: 1px solid #7b95a3;
+    border-width: 1px;
+    border-color: #7b95a3;
+    background: #7b95a3;
+    color: #ffffff;
+    padding: 0.857rem 1rem;
+    font-weight: 700;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    margin: 0 0 -1px 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.2rem #e4e9ec;
+  }
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: #617c8a;
+    border-color: #617c8a;
+    color: #ffffff;
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #afd3c8;
+    border-color: #dadada;
+    color: #385048;
+  }
+  .p-tabview .p-tabview-left-icon {
+    margin-right: 0.5rem;
+  }
+  .p-tabview .p-tabview-right-icon {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-close {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link {
+    background: #afd3c8;
+    color: #385048;
+    width: 2.357rem;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.2rem #e4e9ec;
+  }
+  .p-tabview .p-tabview-panels {
+    background: #ffffff;
+    padding: 0.571rem 1rem;
+    border: 1px solid #dadada;
+    color: #666666;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  .p-toolbar {
+    background: #7b95a3;
+    border: 1px solid #7b95a3;
+    padding: 0.857rem 1rem;
+    border-radius: 2px;
+    gap: 0.5rem;
+  }
+  .p-toolbar .p-toolbar-separator {
+    margin: 0 0.5rem;
+  }
+
   .p-stepper .p-stepper-nav {
     position: relative;
     display: flex;
@@ -4134,86 +4214,6 @@
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
     padding-left: 3rem;
-  }
-
-  .p-tabview .p-tabview-nav-content {
-    scroll-padding-inline: 2.357rem;
-  }
-  .p-tabview .p-tabview-nav {
-    background: transparent;
-    border: 0 none;
-    border-width: 1px;
-  }
-  .p-tabview .p-tabview-nav li {
-    margin-right: 2px;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: 1px solid #7b95a3;
-    border-width: 1px;
-    border-color: #7b95a3;
-    background: #7b95a3;
-    color: #ffffff;
-    padding: 0.857rem 1rem;
-    font-weight: 700;
-    border-top-right-radius: 2px;
-    border-top-left-radius: 2px;
-    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
-    margin: 0 0 -1px 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.2rem #e4e9ec;
-  }
-  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #617c8a;
-    border-color: #617c8a;
-    color: #ffffff;
-  }
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #afd3c8;
-    border-color: #dadada;
-    color: #385048;
-  }
-  .p-tabview .p-tabview-left-icon {
-    margin-right: 0.5rem;
-  }
-  .p-tabview .p-tabview-right-icon {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-close {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link {
-    background: #afd3c8;
-    color: #385048;
-    width: 2.357rem;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.2rem #e4e9ec;
-  }
-  .p-tabview .p-tabview-panels {
-    background: #ffffff;
-    padding: 0.571rem 1rem;
-    border: 1px solid #dadada;
-    color: #666666;
-    border-bottom-right-radius: 2px;
-    border-bottom-left-radius: 2px;
-  }
-
-  .p-toolbar {
-    background: #7b95a3;
-    border: 1px solid #7b95a3;
-    padding: 0.857rem 1rem;
-    border-radius: 2px;
-    gap: 0.5rem;
-  }
-  .p-toolbar .p-toolbar-separator {
-    margin: 0 0.5rem;
   }
 
   .p-confirm-popup {

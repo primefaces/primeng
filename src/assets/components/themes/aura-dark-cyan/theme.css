@@ -4058,6 +4058,86 @@
     background: #3f3f46;
   }
 
+  .p-tabview .p-tabview-nav-content {
+    scroll-padding-inline: 2.5rem;
+  }
+  .p-tabview .p-tabview-nav {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    border-width: 0 0 1px 0;
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid #3f3f46;
+    border-width: 0 0 1px 0;
+    border-color: transparent transparent #3f3f46 transparent;
+    background: #18181b;
+    color: #a1a1aa;
+    padding: 1rem 1.125rem;
+    font-weight: 600;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
+    margin: 0 0 -1px 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
+    outline: 1px solid var(--p-focus-ring-color);
+    outline-offset: 2px;
+    box-shadow: inset none;
+  }
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: #18181b;
+    border-color: #3f3f46;
+    color: #ffffff;
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #18181b;
+    border-color: #3f3f46;
+    color: #22d3ee;
+  }
+  .p-tabview .p-tabview-left-icon {
+    margin-right: 0.5rem;
+  }
+  .p-tabview .p-tabview-right-icon {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-close {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link {
+    background: #18181b;
+    color: #22d3ee;
+    width: 2.5rem;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
+    outline: 1px solid var(--p-focus-ring-color);
+    outline-offset: 2px;
+    box-shadow: inset none;
+  }
+  .p-tabview .p-tabview-panels {
+    background: #18181b;
+    padding: 0.875rem 1.125rem 1.125rem 1.125rem;
+    border: 0 none;
+    color: #ffffff;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  .p-toolbar {
+    background: #18181b;
+    border: 1px solid #3f3f46;
+    padding: 1.125rem;
+    border-radius: 6px;
+    gap: 0.5rem;
+  }
+  .p-toolbar .p-toolbar-separator {
+    margin: 0 0.5rem;
+  }
+
   .p-stepper .p-stepper-nav {
     position: relative;
     display: flex;
@@ -4224,86 +4304,6 @@
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
     padding-left: 3rem;
-  }
-
-  .p-tabview .p-tabview-nav-content {
-    scroll-padding-inline: 2.5rem;
-  }
-  .p-tabview .p-tabview-nav {
-    background: #18181b;
-    border: 1px solid #3f3f46;
-    border-width: 0 0 1px 0;
-  }
-  .p-tabview .p-tabview-nav li {
-    margin-right: 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: solid #3f3f46;
-    border-width: 0 0 1px 0;
-    border-color: transparent transparent #3f3f46 transparent;
-    background: #18181b;
-    color: #a1a1aa;
-    padding: 1rem 1.125rem;
-    font-weight: 600;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s, outline-color 0.2s;
-    margin: 0 0 -1px 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
-    outline: 1px solid var(--p-focus-ring-color);
-    outline-offset: 2px;
-    box-shadow: inset none;
-  }
-  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #18181b;
-    border-color: #3f3f46;
-    color: #ffffff;
-  }
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #18181b;
-    border-color: #3f3f46;
-    color: #22d3ee;
-  }
-  .p-tabview .p-tabview-left-icon {
-    margin-right: 0.5rem;
-  }
-  .p-tabview .p-tabview-right-icon {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-close {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link {
-    background: #18181b;
-    color: #22d3ee;
-    width: 2.5rem;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
-    outline: 1px solid var(--p-focus-ring-color);
-    outline-offset: 2px;
-    box-shadow: inset none;
-  }
-  .p-tabview .p-tabview-panels {
-    background: #18181b;
-    padding: 0.875rem 1.125rem 1.125rem 1.125rem;
-    border: 0 none;
-    color: #ffffff;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-  }
-
-  .p-toolbar {
-    background: #18181b;
-    border: 1px solid #3f3f46;
-    padding: 1.125rem;
-    border-radius: 6px;
-    gap: 0.5rem;
-  }
-  .p-toolbar .p-toolbar-separator {
-    margin: 0 0.5rem;
   }
 
   .p-confirm-popup {
@@ -7538,11 +7538,9 @@
   .p-toast .p-toast-message .p-toast-message-content .p-toast-detail {
     font-size: 0.875rem;
   }
-  .p-toast .p-toast-message .p-toast-icon-close {
+  .p-toast .p-toast-message .p-toast-message-content .p-toast-icon-close {
     width: 1.75rem;
     height: 1.75rem;
-    margin-top: -25%;
-    right: -25%;
     position: relative;
   }
 

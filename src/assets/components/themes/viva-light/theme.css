@@ -4023,6 +4023,86 @@
     background: #ebebeb;
   }
 
+  .p-tabview .p-tabview-nav-content {
+    scroll-padding-inline: 2.857rem;
+  }
+  .p-tabview .p-tabview-nav {
+    background: #ffffff;
+    border: 1px solid #ebebeb;
+    border-width: 0 0 2px 0;
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid #ebebeb;
+    border-width: 0 0 2px 0;
+    border-color: transparent transparent #ebebeb transparent;
+    background: #ffffff;
+    color: #898989;
+    padding: 1rem;
+    font-weight: 600;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    transition: box-shadow 0.3s;
+    margin: 0 0 -2px 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.1rem #bbc7ee;
+  }
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: #ffffff;
+    border-color: #ced6f1;
+    color: #898989;
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #ffffff;
+    border-color: #5472d4;
+    color: #5472d4;
+  }
+  .p-tabview .p-tabview-left-icon {
+    margin-right: 0.5rem;
+  }
+  .p-tabview .p-tabview-right-icon {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-close {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link {
+    background: #ffffff;
+    color: #5472d4;
+    width: 2.857rem;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.1rem #bbc7ee;
+  }
+  .p-tabview .p-tabview-panels {
+    background: #ffffff;
+    padding: 1rem;
+    border: 0 none;
+    color: #6c6c6c;
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  .p-toolbar {
+    background: #ffffff;
+    border: 2px solid #ebebeb;
+    padding: 1rem;
+    border-radius: 6px;
+    gap: 0.5rem;
+  }
+  .p-toolbar .p-toolbar-separator {
+    margin: 0 0.5rem;
+  }
+
   .p-stepper .p-stepper-nav {
     position: relative;
     display: flex;
@@ -4189,86 +4269,6 @@
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
     padding-left: 3rem;
-  }
-
-  .p-tabview .p-tabview-nav-content {
-    scroll-padding-inline: 2.857rem;
-  }
-  .p-tabview .p-tabview-nav {
-    background: #ffffff;
-    border: 1px solid #ebebeb;
-    border-width: 0 0 2px 0;
-  }
-  .p-tabview .p-tabview-nav li {
-    margin-right: 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: solid #ebebeb;
-    border-width: 0 0 2px 0;
-    border-color: transparent transparent #ebebeb transparent;
-    background: #ffffff;
-    color: #898989;
-    padding: 1rem;
-    font-weight: 600;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    transition: box-shadow 0.3s;
-    margin: 0 0 -2px 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.1rem #bbc7ee;
-  }
-  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #ffffff;
-    border-color: #ced6f1;
-    color: #898989;
-  }
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #ffffff;
-    border-color: #5472d4;
-    color: #5472d4;
-  }
-  .p-tabview .p-tabview-left-icon {
-    margin-right: 0.5rem;
-  }
-  .p-tabview .p-tabview-right-icon {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-close {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link {
-    background: #ffffff;
-    color: #5472d4;
-    width: 2.857rem;
-    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.1rem #bbc7ee;
-  }
-  .p-tabview .p-tabview-panels {
-    background: #ffffff;
-    padding: 1rem;
-    border: 0 none;
-    color: #6c6c6c;
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-  }
-
-  .p-toolbar {
-    background: #ffffff;
-    border: 2px solid #ebebeb;
-    padding: 1rem;
-    border-radius: 6px;
-    gap: 0.5rem;
-  }
-  .p-toolbar .p-toolbar-separator {
-    margin: 0 0.5rem;
   }
 
   .p-confirm-popup {

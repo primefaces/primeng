@@ -142,13 +142,13 @@ export class MeterGroup implements AfterContentInit {
 
     iconTemplate: TemplateRef<any> | undefined;
 
-    container = ViewChild('container', { read: ElementRef });
+    @ViewChild('container', { read: ElementRef }) container: ElementRef;
 
-    containerEffect = effect(() => {
-        const _container = this.container();
-        const height = DomHandler.getOuterHeight(_container.nativeElement);
-        this.vertical && (this.container().nativeElement.style.height = height + 'px');
-    });
+    ngAfterViewInit() {
+        const _container = this.container.nativeElement;
+        const height = DomHandler.getOuterHeight(_container);
+        this.vertical && (_container.style.height = height + 'px');
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -179,9 +179,11 @@ export class MeterGroup implements AfterContentInit {
 
         return Math.round(Math.max(0, Math.min(100, percentOfItem)));
     }
+
     percentValue(meter) {
         return this.percent(meter) + '%';
     }
+
     meterStyle(val) {
         return {
             backgroundColor: val.color,

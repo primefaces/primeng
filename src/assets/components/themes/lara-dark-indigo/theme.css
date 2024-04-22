@@ -4034,6 +4034,86 @@
     background: #424b57;
   }
 
+  .p-tabview .p-tabview-nav-content {
+    scroll-padding-inline: 3rem;
+  }
+  .p-tabview .p-tabview-nav {
+    background: transparent;
+    border: 1px solid #424b57;
+    border-width: 0 0 2px 0;
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    border: solid #424b57;
+    border-width: 0 0 2px 0;
+    border-color: transparent transparent #424b57 transparent;
+    background: #1f2937;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 1.25rem;
+    font-weight: 700;
+    border-top-right-radius: 6px;
+    border-top-left-radius: 6px;
+    transition: box-shadow 0.2s;
+    margin: 0 0 -2px 0;
+  }
+  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.2rem rgba(129, 140, 248, 0.2);
+  }
+  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+    background: #1f2937;
+    border-color: #818cf8;
+    color: rgba(255, 255, 255, 0.87);
+  }
+  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
+    background: #1f2937;
+    border-color: #818cf8;
+    color: #818cf8;
+  }
+  .p-tabview .p-tabview-left-icon {
+    margin-right: 0.5rem;
+  }
+  .p-tabview .p-tabview-right-icon {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-close {
+    margin-left: 0.5rem;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link {
+    background: #1f2937;
+    color: #818cf8;
+    width: 3rem;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 0;
+  }
+  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: inset 0 0 0 0.2rem rgba(129, 140, 248, 0.2);
+  }
+  .p-tabview .p-tabview-panels {
+    background: #1f2937;
+    padding: 1.25rem;
+    border: 0 none;
+    color: rgba(255, 255, 255, 0.87);
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  .p-toolbar {
+    background: #1f2937;
+    border: 1px solid #424b57;
+    padding: 1.25rem;
+    border-radius: 6px;
+    gap: 0.5rem;
+  }
+  .p-toolbar .p-toolbar-separator {
+    margin: 0 0.5rem;
+  }
+
   .p-stepper .p-stepper-nav {
     position: relative;
     display: flex;
@@ -4200,86 +4280,6 @@
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel:last-of-type .p-stepper-content {
     padding-left: 3rem;
-  }
-
-  .p-tabview .p-tabview-nav-content {
-    scroll-padding-inline: 3rem;
-  }
-  .p-tabview .p-tabview-nav {
-    background: transparent;
-    border: 1px solid #424b57;
-    border-width: 0 0 2px 0;
-  }
-  .p-tabview .p-tabview-nav li {
-    margin-right: 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link {
-    border: solid #424b57;
-    border-width: 0 0 2px 0;
-    border-color: transparent transparent #424b57 transparent;
-    background: #1f2937;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 1.25rem;
-    font-weight: 700;
-    border-top-right-radius: 6px;
-    border-top-left-radius: 6px;
-    transition: box-shadow 0.2s;
-    margin: 0 0 -2px 0;
-  }
-  .p-tabview .p-tabview-nav li .p-tabview-nav-link:not(.p-disabled):focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.2rem rgba(129, 140, 248, 0.2);
-  }
-  .p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
-    background: #1f2937;
-    border-color: #818cf8;
-    color: rgba(255, 255, 255, 0.87);
-  }
-  .p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link {
-    background: #1f2937;
-    border-color: #818cf8;
-    color: #818cf8;
-  }
-  .p-tabview .p-tabview-left-icon {
-    margin-right: 0.5rem;
-  }
-  .p-tabview .p-tabview-right-icon {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-close {
-    margin-left: 0.5rem;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link {
-    background: #1f2937;
-    color: #818cf8;
-    width: 3rem;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    border-radius: 0;
-  }
-  .p-tabview .p-tabview-nav-btn.p-link:focus-visible {
-    outline: 0 none;
-    outline-offset: 0;
-    box-shadow: inset 0 0 0 0.2rem rgba(129, 140, 248, 0.2);
-  }
-  .p-tabview .p-tabview-panels {
-    background: #1f2937;
-    padding: 1.25rem;
-    border: 0 none;
-    color: rgba(255, 255, 255, 0.87);
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-  }
-
-  .p-toolbar {
-    background: #1f2937;
-    border: 1px solid #424b57;
-    padding: 1.25rem;
-    border-radius: 6px;
-    gap: 0.5rem;
-  }
-  .p-toolbar .p-toolbar-separator {
-    margin: 0 0.5rem;
   }
 
   .p-confirm-popup {

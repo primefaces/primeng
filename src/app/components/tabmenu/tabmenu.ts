@@ -278,7 +278,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     ngAfterViewChecked() {
-        if (isPlatformBrowser(this.platformId) && this.tabChanged) {
+        if (isPlatformBrowser(this.platformId)) {
             this.updateInkBar();
             this.tabChanged = false;
         }
