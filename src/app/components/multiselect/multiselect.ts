@@ -73,7 +73,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
-            <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }">
+            <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': config.inputStyle() === 'filled' }">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }" [attr.aria-checked]="selected">
                     <ng-container *ngIf="selected">
                         <CheckIcon *ngIf="!checkIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
@@ -107,10 +107,6 @@ export class MultiSelectItem {
 
     @Input({ transform: booleanAttribute }) focused: boolean | undefined;
 
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
-
-    @Input() config: PrimeNGConfig;
-
     @Input() ariaPosInset: string | undefined;
 
     @Input() ariaSetSize: string | undefined;
@@ -122,6 +118,8 @@ export class MultiSelectItem {
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
+
+    constructor(public config: PrimeNGConfig) {}
 
     onOptionClick(event: Event) {
         this.onClick.emit({
