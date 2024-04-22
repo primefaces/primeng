@@ -45,10 +45,10 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                         <ng-container *ngIf="collapsible">
                             <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" (keydown.space)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
                                 <ng-container *ngIf="!chart.togglerIconTemplate">
-                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                 </ng-container>
-                                <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [ngStyle]="{ display: 'inline' }" [attr.data-pc-section]="'nodeTogglerIcon'">
+                                <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
                                     <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                                 </span>
                             </a>
@@ -76,7 +76,7 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
             </tr>
             <tr [ngClass]="!leaf && node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-nodes" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
                 <td *ngFor="let child of node.children" colspan="2" [attr.data-pc-section]="'nodeCell'">
-                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child"></table>
+                    <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0"></table>
                 </td>
             </tr>
         </tbody>
