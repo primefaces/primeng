@@ -71,12 +71,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            class="p-inputmask"
+            [ngClass]="inputClass"
+            [class]="styleClass"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
             [ngStyle]="style"
-            [ngClass]="styleClass"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
             [attr.size]="size"
@@ -336,6 +336,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
+
+    get inputClass() {
+        return {
+            'p-inputmask': true
+        };
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
