@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { MessageService } from 'primeng/api';
+import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 
 @Component({
     selector: 'row-expansion-doc',
@@ -14,7 +16,14 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+                <p-toast />
+                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+                    <ng-template pTemplate="caption">
+                        <div class="flex flex-wrap justify-content-end gap-2">
+                            <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+                            <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+                        </div>
+                    </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 5rem"></th>
@@ -82,18 +91,29 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-row-expansion-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [MessageService]
 })
 export class RowExpansionDoc {
     products!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    expandedRows = {};
+
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef, private messageService: MessageService) {}
 
     loadDemoData() {
         this.productService.getProductsWithOrdersSmall().then((data) => {
             this.products = data;
             this.cd.markForCheck();
         });
+    }
+
+    expandAll() {
+        this.expandedRows = this.products.reduce((acc, p) => (acc[p.id] = true) && acc, {});
+    }
+
+    collapseAll() {
+        this.expandedRows = {};
     }
 
     getSeverity(status: string) {
@@ -118,8 +138,22 @@ export class RowExpansionDoc {
         }
     }
 
+    onRowExpand(event: TableRowExpandEvent) {
+        this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+    }
+
+    onRowCollapse(event: TableRowCollapseEvent) {
+        this.messageService.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
+    }
+
     code: Code = {
-        basic: `<p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+        basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+    <ng-template pTemplate="caption">
+        <div class="flex flex-wrap justify-content-end gap-2">
+            <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+            <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+        </div>
+    </ng-template>
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 5rem"></th>
@@ -138,7 +172,7 @@ export class RowExpansionDoc {
             </td>
             <td>{{ product.name }}</td>
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-            <td>{{ product.price | currency: 'USD' }}</td>
+            <td>{{ product.price | currency : 'USD' }}</td>
             <td>{{ product.category }}</td>
             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
             <td>
@@ -166,7 +200,7 @@ export class RowExpansionDoc {
                                 <td>{{ order.id }}</td>
                                 <td>{{ order.customer }}</td>
                                 <td>{{ order.date }}</td>
-                                <td>{{ order.amount | currency: 'USD' }}</td>
+                                <td>{{ order.amount | currency : 'USD' }}</td>
                                 <td>
                                     <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                 </td>
@@ -185,7 +219,14 @@ export class RowExpansionDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-table [value]="products" dataKey="name" [tableStyle]="{ 'min-width': '60rem' }">
+    <p-toast />
+    <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-wrap justify-content-end gap-2">
+                <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+                <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+            </div>
+        </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 5rem"></th>
@@ -204,7 +245,7 @@ export class RowExpansionDoc {
                 </td>
                 <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-                <td>{{ product.price | currency: 'USD' }}</td>
+                <td>{{ product.price | currency : 'USD' }}</td>
                 <td>{{ product.category }}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
                 <td>
@@ -232,7 +273,7 @@ export class RowExpansionDoc {
                                     <td>{{ order.id }}</td>
                                     <td>{{ order.customer }}</td>
                                     <td>{{ order.date }}</td>
-                                    <td>{{ order.amount | currency: 'USD' }}</td>
+                                    <td>{{ order.amount | currency : 'USD' }}</td>
                                     <td>
                                         <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                     </td>
@@ -252,20 +293,23 @@ export class RowExpansionDoc {
     </p-table>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
-import { Product } from '@domain/product';
-import { ProductService } from '@service/productservice';
-import { TagModule } from 'primeng/tag';
 import { TableModule } from 'primeng/table';
+import { Product } from '@domain/product';
+import { TagModule } from 'primeng/tag';
 import { RatingModule } from 'primeng/rating';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
+import { ProductService } from '@service/productservice';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 
 @Component({
     selector: 'table-row-expansion-demo',
     templateUrl: 'table-row-expansion-demo.html',
     standalone: true,
-    imports: [TableModule, TagModule, RatingModule, ButtonModule, CommonModule],
-    providers: [ProductService]
+    imports: [TableModule, TagModule, ToastModule, RatingModule, ButtonModule, CommonModule],
+    providers: [ProductService, MessageService]
 })
 export class TableRowExpansionDemo implements OnInit{
     products!: Product[];
@@ -323,7 +367,7 @@ export class TableRowExpansionDemo implements OnInit{
     ]
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService', 'MessageService']
     };
 
     extFiles = [
