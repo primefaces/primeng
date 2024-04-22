@@ -299,7 +299,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         if (!this.confirmation) {
             return;
         }
-        DomHandler.absolutePosition(this.container, this.confirmation?.target);
+        DomHandler.absolutePosition(this.container, this.confirmation?.target, false);
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.confirmation?.target);

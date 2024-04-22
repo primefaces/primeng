@@ -340,7 +340,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        DomHandler.absolutePosition(this.container, this.target);
+        DomHandler.absolutePosition(this.container, this.target, false);
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);

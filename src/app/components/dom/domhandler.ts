@@ -118,7 +118,7 @@ export class DomHandler {
         }
     }
 
-    public static relativePosition(element: any, target: any): void {
+    public static relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
 
@@ -161,9 +161,10 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
+        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
-    public static absolutePosition(element: any, target: any): void {
+    public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
@@ -192,6 +193,7 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
+        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
     static getParents(element: any, parents: any = []): any {
