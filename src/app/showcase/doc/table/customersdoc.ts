@@ -267,12 +267,14 @@ export class CustomersDoc {
     [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
 >
     <ng-template pTemplate="caption">
-        <div class="table-header">
-            List of Customers
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-            </span>
+        <div class="flex justify-content-between">
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+            <p-iconField iconPosition="left">
+                <p-inputIcon>
+                    <i class="pi pi-search"></i>
+                </p-inputIcon>
+                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
+            </p-iconField>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -385,11 +387,11 @@ export class CustomersDoc {
             </td>
             <td>
                 <span class="p-column-title">Date</span>
-                {{ customer.date | date: 'MM/dd/yyyy' }}
+                {{ customer.date | date : 'MM/dd/yyyy' }}
             </td>
             <td>
                 <span class="p-column-title">Balance</span>
-                {{ customer.balance | currency: 'USD':'symbol' }}
+                {{ customer.balance | currency : 'USD' : 'symbol' }}
             </td>
             <td>
                 <span class="p-column-title">Status</span>
@@ -426,14 +428,16 @@ export class CustomersDoc {
         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [filterDelay]="0"
         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-    >
+        >
         <ng-template pTemplate="caption">
-            <div class="table-header">
-                List of Customers
-                <span class="p-input-icon-left">
-                    <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
-                </span>
+            <div class="flex justify-content-between">
+                <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+                <p-iconField iconPosition="left">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
+                </p-iconField>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -546,11 +550,11 @@ export class CustomersDoc {
                 </td>
                 <td>
                     <span class="p-column-title">Date</span>
-                    {{ customer.date | date: 'MM/dd/yyyy' }}
+                    {{ customer.date | date : 'MM/dd/yyyy' }}
                 </td>
                 <td>
                     <span class="p-column-title">Balance</span>
-                    {{ customer.balance | currency: 'USD':'symbol' }}
+                    {{ customer.balance | currency : 'USD' : 'symbol' }}
                 </td>
                 <td>
                     <span class="p-column-title">Status</span>
