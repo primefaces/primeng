@@ -10,7 +10,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }" (onEditComplete)="onEditComplete($event)">
+                <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="code" style="width:25%">Code <p-sortIcon field="code" /></th>
@@ -58,7 +58,7 @@ import { ProductService } from '@service/productservice';
                             <td [pEditableColumn]="product.quantity" pEditableColumnField="quantity">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText [(ngModel)]="product.quantity" />
+                                        <input pInputText [(ngModel)]="product.quantity" (keydown.enter)="onEdit($event)" />
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{ product.quantity }}
@@ -68,7 +68,7 @@ import { ProductService } from '@service/productservice';
                             <td [pEditableColumn]="product.price" pEditableColumnField="price">
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <input pInputText type="text" [(ngModel)]="product.price" />
+                                        <input pInputText type="text" [(ngModel)]="product.price" (keydown.enter)="onEdit($event)" />
                                     </ng-template>
                                     <ng-template pTemplate="output">
                                         {{ product.price | currency : 'USD' }}
@@ -103,20 +103,9 @@ export class FilterSortEditDoc {
         });
     }
 
-    onEditComplete(event) {
-        let { data, newValue, field } = event;
-
-        switch (field) {
-            case 'quantity':
-            case 'price':
-                if (this.isPositiveInteger(newValue)) data[field] = newValue;
-                else event.originalEvent.preventDefault();
-                break;
-
-            default:
-                if (newValue.trim().length > 0) data[field] = newValue;
-                else event.originalEvent.preventDefault();
-                break;
+    onEdit(event) {
+        if (!this.isPositiveInteger(event.target.value)) {
+            event.stopPropagation();
         }
     }
 
@@ -333,7 +322,7 @@ export class FilterSortEditDoc implements OnInit {
 },
 ...`,
 
-     service: ['ProductService']
+        service: ['ProductService']
     };
 
     extFiles = [
