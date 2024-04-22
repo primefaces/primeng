@@ -484,12 +484,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines if the row is selectable.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) rowSelectable: boolean | undefined | any;
+    @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rowTrackBy: Function = (index: number, item: any) => item;
+    @Input() rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
@@ -539,12 +539,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Map instance to keep the expanded rows where key of the map is the data key of the row.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) expandedRowKeys: { [s: string]: boolean } = {};
+    @Input() expandedRowKeys: { [s: string]: boolean } = {};
     /**
      * Map instance to keep the rows being edited where key of the map is the data key of the row.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) editingRowKeys: { [s: string]: boolean } = {};
+    @Input() editingRowKeys: { [s: string]: boolean } = {};
     /**
      * Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".
      * @group Props
@@ -4609,7 +4609,7 @@ export class TableRadioButton {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled, 'p-variant-filled': dt.config.inputStyle() === 'filled' }" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input
                     type="checkbox"
@@ -4704,7 +4704,7 @@ export class TableCheckbox {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': isDisabled(), 'p-variant-filled': dt.config.inputStyle() === 'filled' }" (click)="onClick($event)">
+        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': isDisabled() }" (click)="onClick($event)">
             <div class="p-hidden-accessible">
                 <input #cb type="checkbox" [tabindex]="disabled ? null : '0'" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
             </div>
@@ -5169,12 +5169,12 @@ export class ColumnFilter implements AfterContentInit {
      * Defines minimum fraction of digits.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
+    @Input() minFractionDigits: number | undefined;
     /**
      * Defines maximum fraction of digits.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
+    @Input() maxFractionDigits: number | undefined;
     /**
      * Defines prefix of the filter.
      * @group Props
@@ -5807,9 +5807,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input({ transform: numberAttribute }) minFractionDigits: number | undefined;
+    @Input() minFractionDigits: number | undefined;
 
-    @Input({ transform: numberAttribute }) maxFractionDigits: number | undefined;
+    @Input() maxFractionDigits: number | undefined;
 
     @Input() prefix: string | undefined;
 
