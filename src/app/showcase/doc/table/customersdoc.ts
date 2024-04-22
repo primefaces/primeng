@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { Code } from '@domain/code';
 import { Customer, Representative } from '@domain/customer';
 import { CustomerService } from '@service/customerservice';
+import { Table } from 'primeng/table';
 
 @Component({
     selector: 'customers-doc',
@@ -27,12 +28,12 @@ import { CustomerService } from '@service/customerservice';
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
-                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="dt.reset();" />
+                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
                             <p-iconField iconPosition="left">
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
-                                <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
+                                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
                             </p-iconField>
                         </div>
                     </ng-template>
@@ -189,7 +190,7 @@ export class CustomersDoc {
 
     activityValues: number[] = [0, 100];
 
-    searchValue : string | undefined
+    searchValue: string | undefined;
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
@@ -242,6 +243,11 @@ export class CustomersDoc {
             case 'renewal':
                 return null;
         }
+    }
+
+    clear(dt: Table) {
+        this.searchValue = '';
+        dt.reset();
     }
 
     code: Code = {
