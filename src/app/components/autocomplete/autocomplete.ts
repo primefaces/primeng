@@ -104,7 +104,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <ul
                 *ngIf="multiple"
                 #multiContainer
-                [class]="multiContainerClass"
+                [ngClass]="multiContainerClass"
                 [tabindex]="-1"
                 role="listbox"
                 [attr.aria-orientation]="'horizontal'"
@@ -807,13 +807,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     get multiContainerClass() {
-        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled' };
+        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
     }
 
     get panelClass() {
         return {
             'p-autocomplete-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
@@ -822,7 +822,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return {
             'p-autocomplete-input p-inputtext p-component': !this.multiple,
             'p-autocomplete-dd-input': this.dropdown,
-            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 
