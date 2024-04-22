@@ -7,6 +7,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
 import { SidebarModule } from 'primeng/sidebar';
 import { AppConfigService } from '@service/appconfigservice';
+import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
     selector: 'app-config',
@@ -27,7 +28,7 @@ export class AppConfigComponent {
 
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService, private config: PrimeNGConfig) {}
 
     get isActive(): boolean {
         return this.configService.state.configActive;
@@ -42,10 +43,10 @@ export class AppConfigComponent {
     }
 
     get inputStyle(): string {
-        return this.configService.config().inputStyle;
+        return this.config.inputStyle();
     }
-    set inputStyle(val: string) {
-        this.configService.config.update((config) => ({ ...config, inputStyle: val }));
+    set inputStyle(val: 'outlined' | 'filled') {
+        this.config.inputStyle.set(val);
     }
 
     get ripple(): boolean {

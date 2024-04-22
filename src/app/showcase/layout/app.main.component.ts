@@ -36,10 +36,6 @@ export class AppMainComponent {
         return this.configService.state.newsActive;
     }
 
-    get isInputFilled(): boolean {
-        return this.configService.config().inputStyle === 'filled';
-    }
-
     get isDarkMode(): boolean {
         return this.configService.config().darkMode;
     }
@@ -59,7 +55,6 @@ export class AppMainComponent {
     get containerClass() {
         return {
             'layout-news-active': this.isNewsActive,
-            'p-input-filled': this.isInputFilled,
             'p-ripple-disabled': this.isRippleDisabled,
             'layout-dark': this.isDarkMode,
             'layout-light': !this.isDarkMode
