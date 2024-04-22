@@ -946,7 +946,7 @@ export class TreeSelect implements AfterContentInit {
             'p-treeselect-chip': this.display === 'chip',
             'p-disabled': this.disabled,
             'p-focus': this.focused,
-            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle() === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 

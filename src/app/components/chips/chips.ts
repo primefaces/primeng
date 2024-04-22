@@ -55,7 +55,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
         >
             <ul
                 #container
-                [ngClass]="{ 'p-inputtext p-chips-multiple-container': true, 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
+                [ngClass]="{ 'p-inputtext p-chips-multiple-container': true, 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }"
                 tabindex="-1"
                 role="listbox"
                 [attr.aria-labelledby]="ariaLabelledBy"

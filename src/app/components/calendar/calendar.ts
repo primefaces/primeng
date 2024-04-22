@@ -908,7 +908,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     get inputClass() {
         return {
             'p-inputtext p-component': true,
-            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 

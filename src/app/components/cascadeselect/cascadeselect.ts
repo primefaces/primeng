@@ -657,7 +657,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             'p-disabled': this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue(),
-            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled',
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-overlay-open': this.overlayVisible
         };

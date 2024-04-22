@@ -248,7 +248,7 @@ export class DropdownItem {
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
-                                        [ngClass]="{ 'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled' }"
+                                        [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }"
                                         [attr.placeholder]="filterPlaceholder"
                                         [attr.aria-owns]="id + '_list'"
                                         (input)="onFilterInputChange($event)"
@@ -928,7 +928,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
-            'p-variant-filled': this.variant ? this.variant === 'filled' : this.config.inputStyle === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 
@@ -944,7 +944,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     get panelClass() {
         return {
             'p-dropdown-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }

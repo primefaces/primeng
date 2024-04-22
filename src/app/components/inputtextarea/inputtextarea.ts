@@ -13,7 +13,7 @@ import { PrimeNGConfig } from 'primeng/api';
         class: 'p-inputtextarea p-inputtext p-component p-element',
         '[class.p-filled]': 'filled',
         '[class.p-inputtextarea-resizable]': 'autoResize',
-        '[p-variant-filled]': 'variant ? variant === "filled" : config.inputStyle === "filled"'
+        '[p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
     }
 })
 export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
@@ -42,7 +42,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
 
     ngControlSubscription: Subscription | undefined;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef,public config: PrimeNGConfig) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.ngModel) {

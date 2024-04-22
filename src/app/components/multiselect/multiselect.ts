@@ -73,7 +73,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
-            <div class="p-checkbox p-component" [ngClass]="{'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled'}">
+            <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }" [attr.aria-checked]="selected">
                     <ng-container *ngIf="selected">
                         <CheckIcon *ngIf="!checkIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
@@ -109,7 +109,7 @@ export class MultiSelectItem {
 
     @Input() variant: 'filled' | 'outlined' = 'outlined';
 
-    @Input() config: PrimeNGConfig
+    @Input() config: PrimeNGConfig;
 
     @Input() ariaPosInset: string | undefined;
 
@@ -251,7 +251,7 @@ export class MultiSelectItem {
                                 <div
                                     class="p-checkbox p-component"
                                     *ngIf="showToggleAll && !selectionLimit"
-                                    [ngClass]="{'p-variant-filled': variant ? variant === 'filled' : config.inputStyle === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled}"
+                                    [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled }"
                                     (click)="onToggleAll($event)"
                                     (keydown)="onHeaderCheckboxKeyDown($event)"
                                 >
@@ -1039,7 +1039,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get panelClass() {
         return {
             'p-multiselect-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
