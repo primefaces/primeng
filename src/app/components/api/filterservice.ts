@@ -236,6 +236,7 @@ export class FilterService {
             if (value === undefined || value === null) {
                 return false;
             }
+            
             return value.getTime() < filter.getTime();
         },
 
@@ -248,6 +249,7 @@ export class FilterService {
                 return false;
             }
             value.setHours(0,0,0,0);
+            
             return value.getTime() > filter.getTime();
         }
     };
