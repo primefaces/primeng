@@ -706,7 +706,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass(event.target, "p-dialog-header-close-icon") || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
