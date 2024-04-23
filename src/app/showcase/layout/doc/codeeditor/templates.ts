@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.1.0',
+    version: '17.14.1',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -489,7 +489,8 @@ const getAngularApp = (props: Props = {}) => {
     const serviceImports = code.service ? getServiceImports(code.service) : '';
     const routerModule = code.routerModule ? code.routerModule : `RouterModule.forRoot([{ path: '', component: ${componentName} }])`;
     const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
-    const providers = ['MessageService', ...(code.service ? [code.service] : [])];
+    const providers = code.service && code.service.length ? code.service.map((s) => s).join(', ') : '';
+
     const app_module_ts = `import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -537,6 +538,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup'
+import { InputOtpModule } from 'primeng/inputotp'
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -546,6 +548,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { MeterGroupModule } from 'primeng/metergroup';
 import { OrderListModule } from 'primeng/orderlist';
 import { OrganizationChartModule } from 'primeng/organizationchart';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
@@ -569,6 +572,7 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { SpinnerModule } from 'primeng/spinner';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { SplitterModule } from 'primeng/splitter';
+import { StepperModule } from 'primeng/stepper';
 import { StepsModule } from 'primeng/steps';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TableModule } from 'primeng/table';
@@ -640,6 +644,7 @@ ${serviceImports}
     InputNumberModule,
     InputGroupModule,
     InputGroupAddonModule,
+    InputOtpModule,
     ImageModule,
     KnobModule,
     ListboxModule,
@@ -649,6 +654,7 @@ ${serviceImports}
     MessageModule,
     MessagesModule,
     MultiSelectModule,
+    MeterGroupModule,
     OrganizationChartModule,
     OrderListModule,
     OverlayPanelModule,
@@ -672,6 +678,7 @@ ${serviceImports}
     SpeedDialModule,
     SpinnerModule,
     SplitterModule,
+    StepperModule,
     SplitButtonModule,
     StepsModule,
     TableModule,

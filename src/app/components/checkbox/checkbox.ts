@@ -1,7 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, forwardRef, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
@@ -25,7 +43,6 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             [class]="styleClass"
             [attr.data-pc-name]="'checkbox'"
             [attr.data-pc-section]="'root'"
-            (click)="onClick($event)"
         >
             <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
                 <input
@@ -42,14 +59,18 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-labelledby]="ariaLabelledBy"
                     [attr.aria-label]="ariaLabel"
                     [attr.aria-checked]="checked()"
+                    (change)="handleChange($event)"
                     (focus)="onInputFocus($event)"
                     (blur)="onInputBlur($event)"
                     [attr.data-pc-section]="'hiddenInput'"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <div
                 class="p-checkbox-box"
                 [ngClass]="{ 'p-highlight': checked(), 'p-disabled': disabled, 'p-focus': focused }"
+                (click)="onClick($event, input, true)"
                 [attr.data-p-highlight]="checked()"
                 [attr.data-p-disabled]="disabled"
                 [attr.data-p-focused]="focused"
@@ -67,7 +88,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
         </div>
         <label
-            (click)="onClick($event)"
+            (click)="onClick($event, input, true)"
             [class]="labelStyleClass"
             [ngClass]="{ 'p-checkbox-label': true, 'p-checkbox-label-active': checked(), 'p-disabled': disabled, 'p-checkbox-label-focus': focused }"
             *ngIf="label"
@@ -100,12 +121,12 @@ export class Checkbox implements ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Allows to select a boolean value instead of multiple values.
      * @group Props
      */
-    @Input() binary: boolean | undefined;
+    @Input({ transform: booleanAttribute }) binary: boolean | undefined;
     /**
      * Label of the checkbox.
      * @group Props
@@ -125,7 +146,7 @@ export class Checkbox implements ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
@@ -160,12 +181,17 @@ export class Checkbox implements ControlValueAccessor {
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that checkbox must be checked before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props
@@ -199,7 +225,7 @@ export class Checkbox implements ControlValueAccessor {
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;
 
-    checkboxIconTemplate!: TemplateRef<any>;
+    checkboxIconTemplate: TemplateRef<any>;
 
     model: any;
 
@@ -212,7 +238,7 @@ export class Checkbox implements ControlValueAccessor {
     constructor(public cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
-        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+        this.templates.forEach((item) => {
             switch (item.getType()) {
                 case 'icon':
                     this.checkboxIconTemplate = item.template;
@@ -221,40 +247,61 @@ export class Checkbox implements ControlValueAccessor {
         });
     }
 
-    onClick(event: Event) {
-        if (!this.disabled && !this.readonly) {
-            this.inputViewChild.nativeElement.focus();
-            let newModelValue;
+    onClick(event, checkbox, focus: boolean) {
+        event.preventDefault();
 
-            if (!this.binary) {
-                if (this.checked()) newModelValue = this.model.filter((val: object) => !ObjectUtils.equals(val, this.value));
-                else newModelValue = this.model ? [...this.model, this.value] : [this.value];
+        if (this.disabled || this.readonly) {
+            return;
+        }
 
-                this.onModelChange(newModelValue);
-                this.model = newModelValue;
+        this.updateModel(event);
 
-                if (this.formControl) {
-                    this.formControl.setValue(newModelValue);
-                }
-            } else {
-                newModelValue = this.checked() ? this.falseValue : this.trueValue;
-                this.model = newModelValue;
-                this.onModelChange(newModelValue);
-            }
-
-            this.onChange.emit({ checked: newModelValue, originalEvent: event });
+        if (focus) {
+            checkbox.focus();
         }
     }
 
-    onInputFocus(event: Event) {
+    updateModel(event) {
+        let newModelValue;
+
+        if (!this.binary) {
+            if (this.checked()) newModelValue = this.model.filter((val) => !ObjectUtils.equals(val, this.value));
+            else newModelValue = this.model ? [...this.model, this.value] : [this.value];
+
+            this.onModelChange(newModelValue);
+            this.model = newModelValue;
+
+            if (this.formControl) {
+                this.formControl.setValue(newModelValue);
+            }
+        } else {
+            newModelValue = this.checked() ? this.falseValue : this.trueValue;
+            this.model = newModelValue;
+            this.onModelChange(newModelValue);
+        }
+
+        this.onChange.emit({ checked: newModelValue, originalEvent: event });
+    }
+
+    handleChange(event) {
+        if (!this.readonly) {
+            this.updateModel(event);
+        }
+    }
+
+    onInputFocus(event) {
         this.focused = true;
         this.onFocus.emit(event);
     }
 
-    onInputBlur(event: Event) {
+    onInputBlur(event) {
         this.focused = false;
-        this.onModelTouched();
         this.onBlur.emit(event);
+        this.onModelTouched();
+    }
+
+    focus() {
+        this.inputViewChild.nativeElement.focus();
     }
 
     writeValue(model: any): void {
@@ -271,8 +318,10 @@ export class Checkbox implements ControlValueAccessor {
     }
 
     setDisabledState(val: boolean): void {
-        this.disabled = val;
-        this.cd.markForCheck();
+        setTimeout(() => {
+            this.disabled = val;
+            this.cd.markForCheck();
+        });
     }
 
     checked() {
@@ -281,7 +330,7 @@ export class Checkbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, CheckIcon],
+    imports: [CommonModule, AutoFocusModule, CheckIcon],
     exports: [Checkbox, SharedModule],
     declarations: [Checkbox]
 })

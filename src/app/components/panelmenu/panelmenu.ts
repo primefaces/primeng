@@ -18,8 +18,10 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     computed,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -43,7 +45,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             [attr.aria-activedescendant]="focusedItemId"
             [attr.data-pc-section]="'menu'"
             [attr.aria-hidden]="!parentExpanded"
-            (focus)="menuFocus.emit($event)"
+            (focusin)="menuFocus.emit($event)"
             (focusout)="menuBlur.emit($event)"
             (keydown)="menuKeyDown.emit($event)"
         >
@@ -128,10 +130,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
                         <p-panelMenuSub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                             [id]="getItemId(processedItem) + '_list'"
                             [panelId]="panelId"
-                            [items]="processedItem.items"
+                            [items]="processedItem?.items"
                             [itemTemplate]="itemTemplate"
                             [transitionOptions]="transitionOptions"
                             [focusedItemId]="focusedItemId"
@@ -177,17 +179,17 @@ export class PanelMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() activeItemPath: any[];
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -285,7 +287,7 @@ export class PanelMenuSub {
             [focusedItemId]="focused ? focusedItemId : undefined"
             [activeItemPath]="activeItemPath()"
             [transitionOptions]="transitionOptions"
-            [items]="processedItems"
+            [items]="processedItems()"
             [parentExpanded]="parentExpanded"
             (itemToggle)="onItemToggle($event)"
             (keydown)="onKeyDown($event)"
@@ -300,14 +302,7 @@ export class PanelMenuSub {
         class: 'p-element'
     }
 })
-export class PanelMenuList {
-    @Input() set model(value: MenuItem[] | undefined) {
-        this._model = value;
-        this._processedItems = this.createProcessedItems(this._model || []);
-    }
-    get model(): MenuItem[] | undefined {
-        return this._model;
-    }
+export class PanelMenuList implements OnChanges {
     @Input() panelId: string | undefined;
 
     @Input() id: string | undefined;
@@ -316,15 +311,15 @@ export class PanelMenuList {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
-    @Input() expanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) expanded: boolean | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
 
@@ -344,19 +339,10 @@ export class PanelMenuList {
 
     activeItemPath = signal<any[]>([]);
 
-    _model: any;
-
-    _processedItems: any[];
-
-    get processedItems() {
-        if (!this._processedItems || !this._processedItems.length) {
-            this._processedItems = this.createProcessedItems(this.model || []);
-        }
-        return this._processedItems;
-    }
+    processedItems = signal<any[]>([]);
 
     visibleItems = computed(() => {
-        const processedItems = this.processedItems;
+        const processedItems = this.processedItems();
         return this.flatItems(processedItems);
     });
 
@@ -365,11 +351,11 @@ export class PanelMenuList {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
-    // ngOnChanges(changes: SimpleChanges) {
-    //     if (changes && changes.items && changes.items.currentValue) {
-    //         this._processedItems = this.createProcessedItems(changes.items.currentValue || []);
-    //     }
-    // }
+    constructor(private el: ElementRef) {}
+
+    ngOnChanges(changes: SimpleChanges) {
+        this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
+    }
 
     getItemProp(processedItem, name) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name]) : undefined;
@@ -421,6 +407,16 @@ export class PanelMenuList {
         return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
     }
 
+    findItemByEventTarget(target: EventTarget): undefined | any {
+        let parentNode = target as ParentNode & Element;
+
+        while (parentNode && parentNode.tagName?.toLowerCase() !== 'li') {
+            parentNode = parentNode?.parentNode as Element;
+        }
+
+        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
+    }
+
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
         const processedItems = [];
         items &&
@@ -445,7 +441,7 @@ export class PanelMenuList {
     }
 
     findProcessedItemByItemKey(key, processedItems?, level = 0) {
-        processedItems = processedItems || this.processedItems;
+        processedItems = processedItems || this.processedItems();
         if (processedItems && processedItems.length) {
             for (let i = 0; i < processedItems.length; i++) {
                 const processedItem = processedItems[i];
@@ -489,19 +485,24 @@ export class PanelMenuList {
     }
 
     onFocus(event) {
-        this.focused = true;
-        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
-        if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        if (!this.focused) {
+            this.focused = true;
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findItemByEventTarget(event.target) || this.findFirstItem() : this.findLastItem());
+            if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        }
     }
 
     onBlur(event) {
-        this.focused = false;
-        this.focusedItem.set(null);
-        this.searchValue = '';
+        const target = event.relatedTarget;
+
+        if (this.focused && !this.el.nativeElement.contains(target)) {
+            this.focused = false;
+            this.focusedItem.set(null);
+            this.searchValue = '';
+        }
     }
 
     onItemToggle(event) {
-        this.focused = true;
         const { processedItem, expanded } = event;
         processedItem.expanded = !processedItem.expanded;
 
@@ -509,9 +510,7 @@ export class PanelMenuList {
         expanded && activeItemPath.push(processedItem);
 
         this.activeItemPath.set(activeItemPath);
-        const processedItems = this.processedItems;
-        const newProcessedItems = processedItems.map((item) => (item === processedItem ? processedItem : item));
-        this._processedItems = newProcessedItems;
+        this.processedItems.update((value) => value.map((i) => (i === processedItem ? processedItem : i)));
         this.focusedItem.set(processedItem);
     }
 
@@ -808,7 +807,6 @@ export class PanelMenuList {
                     >
                         <div class="p-panelmenu-content" [attr.data-pc-section]="'menucontent'">
                             <p-panelMenuList
-                                [model]="model"
                                 [panelId]="getPanelId(i, item)"
                                 [items]="getItemProp(item, 'items')"
                                 [itemTemplate]="itemTemplate"
@@ -855,12 +853,7 @@ export class PanelMenu implements AfterContentInit {
      * An array of menuitems.
      * @group Props
      */
-    @Input() set model(value: MenuItem[] | undefined) {
-        this._model = value;
-    }
-    get model(): MenuItem[] | undefined {
-        return this._model;
-    }
+    @Input() model: MenuItem[] | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -875,7 +868,7 @@ export class PanelMenu implements AfterContentInit {
      * Whether multiple tabs can be activated at the same time or not.
      * @group Props
      */
-    @Input() multiple: boolean = false;
+    @Input({ transform: booleanAttribute }) multiple: boolean = false;
     /**
      * Transition options of the animation.
      * @group Props
@@ -890,7 +883,7 @@ export class PanelMenu implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -903,8 +896,6 @@ export class PanelMenu implements AfterContentInit {
     public animating: boolean | undefined;
 
     activeItem = signal<any>(null);
-
-    _model: MenuItem[] | undefined;
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
@@ -944,6 +935,7 @@ export class PanelMenu implements AfterContentInit {
 
     onToggleDone() {
         this.animating = false;
+        this.cd.markForCheck();
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {

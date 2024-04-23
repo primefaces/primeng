@@ -1,9 +1,29 @@
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, PLATFORM_ID, Renderer2, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    numberAttribute
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayService, PrimeNGConfig } from 'primeng/api';
+import { OverlayService, PrimeNGConfig, TranslationKeys } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
@@ -43,6 +63,9 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 [attr.id]="inputId"
                 [style.backgroundColor]="inputBgColor"
                 [attr.data-pc-section]="'input'"
+                [attr.aria-label]="ariaLabel"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
             <div
                 *ngIf="inline || overlayVisible"
@@ -91,7 +114,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * Whether to display as an overlay or not.
      * @group Props
      */
-    @Input() inline: boolean | undefined;
+    @Input({ transform: booleanAttribute }) inline: boolean | undefined;
     /**
      * Format to use in value binding.
      * @group Props
@@ -106,7 +129,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
@@ -121,12 +144,12 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -137,6 +160,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
      * @group Props
      */
     @Input() hideTransitionOptions: string = '.1s linear';
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @param {ColorPickerChangeEvent} event - Custom value change event.
@@ -228,6 +256,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     @ViewChild('hueHandle') set hueHandle(element: ElementRef) {
         this.hueHandleViewChild = element;
+    }
+
+    get ariaLabel() {
+        return this.config?.getTranslation(TranslationKeys.ARIA)[TranslationKeys.SELECT_COLOR];
     }
 
     onHueMousedown(event: MouseEvent) {
@@ -785,7 +817,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, AutoFocusModule],
     exports: [ColorPicker],
     declarations: [ColorPicker]
 })

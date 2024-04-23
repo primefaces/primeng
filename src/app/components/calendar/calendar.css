@@ -8,6 +8,7 @@
     .p-calendar .p-inputtext {
         flex: 1 1 auto;
         width: 1%;
+        text-overflow: ellipsis;
     }
 
     .p-calendar-w-btn .p-inputtext {
@@ -164,6 +165,10 @@
         top: 50%;
         margin-top: -0.5rem;
         cursor: pointer;
+    }
+
+    .p-datepicker-icon {
+        pointer-events: none;
     }
 
     .p-calendar-clearable {

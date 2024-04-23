@@ -1,7 +1,7 @@
 import { DomHandler } from 'primeng/dom';
 
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, inject, booleanAttribute } from '@angular/core';
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
  * @group Components
@@ -17,17 +17,16 @@ export class FocusTrap {
      * When set as true, focus wouldn't be managed.
      * @group Props
      */
-    @Input() pFocusTrapDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) pFocusTrapDisabled: boolean = false;
 
-    constructor(public el: ElementRef) {}
+    host: ElementRef = inject(ElementRef);
 
     @HostListener('keydown.tab', ['$event'])
     @HostListener('keydown.shift.tab', ['$event'])
     onkeydown(e: KeyboardEvent) {
         if (this.pFocusTrapDisabled !== true) {
             e.preventDefault();
-            const focusableElement = DomHandler.getNextFocusableElement(this.el.nativeElement, e.shiftKey);
-
+            const focusableElement = DomHandler.getNextFocusableElement(this.host.nativeElement, e.shiftKey);
             if (focusableElement) {
                 focusableElement.focus();
                 focusableElement.select?.();

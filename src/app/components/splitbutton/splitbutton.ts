@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute, signal } from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TieredMenu, TieredMenuModule } from 'primeng/tieredmenu';
 import { UniqueComponentId } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
+
 import { ButtonProps, MenuButtonProps } from './splitbutton.interface';
 
 type SplitButtonIconPosition = 'left' | 'right';
@@ -15,18 +17,24 @@ type SplitButtonIconPosition = 'left' | 'right';
 @Component({
     selector: 'p-splitButton',
     template: `
-        <div #container [ngClass]="'p-splitbutton p-component'" [ngStyle]="style" [class]="styleClass">
+        <div #container [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style">
             <ng-container *ngIf="contentTemplate; else defaultButton">
                 <button
                     class="p-splitbutton-defaultbutton"
                     type="button"
                     pButton
+                    [severity]="severity"
+                    [text]="text"
+                    [outlined]="outlined"
+                    [size]="size"
                     [icon]="icon"
                     [iconPos]="iconPos"
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [attr.aria-label]="buttonProps?.['aria-label'] || label"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
@@ -37,24 +45,34 @@ type SplitButtonIconPosition = 'left' | 'right';
                     class="p-splitbutton-defaultbutton"
                     type="button"
                     pButton
+                    [severity]="severity"
+                    [text]="text"
+                    [outlined]="outlined"
+                    [size]="size"
                     [icon]="icon"
                     [iconPos]="iconPos"
                     [label]="label"
                     (click)="onDefaultButtonClick($event)"
-                    [disabled]="disabled"
+                    [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
                     [attr.aria-label]="buttonProps?.['aria-label']"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 ></button>
             </ng-template>
             <button
                 type="button"
                 pButton
+                [size]="size"
+                [severity]="severity"
+                [text]="text"
+                [outlined]="outlined"
                 class="p-splitbutton-menubutton p-button-icon-only"
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
-                [disabled]="disabled"
+                [disabled]="menuButtonDisabled"
                 [attr.aria-label]="menuButtonProps?.['aria-label'] || expandAriaLabel"
-                [attr.aria-aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
+                [attr.aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
                 [attr.aria-expanded]="menuButtonProps?.['aria-expanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['aria-controls'] || ariaId"
             >
@@ -87,6 +105,41 @@ export class SplitButton {
      * @group Props
      */
     @Input() model: MenuItem[] | undefined;
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) text: boolean = false;
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined | null = null;
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
     /**
      * Name of the icon.
      * @group Props
@@ -126,12 +179,7 @@ export class SplitButton {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
-    /**
-     * Index of the element in tabbing order.
-     * @group Prop
-     */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -166,6 +214,11 @@ export class SplitButton {
      */
     @Input() menuButtonProps: MenuButtonProps | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Callback to invoke when default command button is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -176,6 +229,47 @@ export class SplitButton {
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
      */
+    private _disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) set disabled(v: boolean | undefined) {
+        this._disabled = v;
+        this._buttonDisabled = v;
+        this.menuButtonDisabled = v;
+    }
+    public get disabled(): boolean | undefined {
+        return this._disabled;
+    }
+    /**
+     * Index of the element in tabbing order.
+     * @group Prop
+     */
+
+    /**
+     * When present, it specifies that the menu button element should be disabled.
+     * @group Props
+     */
+    private _menuButtonDisabled: boolean | undefined;
+    @Input('menuButtonDisabled') set menuButtonDisabled(v: boolean | undefined) {
+        if (this.disabled) {
+            this._menuButtonDisabled = this.disabled;
+        } else this._menuButtonDisabled = v;
+    }
+    public get menuButtonDisabled(): boolean | undefined {
+        return this._menuButtonDisabled;
+    }
+    /**
+     * When present, it specifies that the button element should be disabled.
+     * @group Props
+     */
+    private _buttonDisabled: boolean | undefined;
+    @Input() set buttonDisabled(v: boolean | undefined) {
+        if (this.disabled) {
+            this.buttonDisabled = this.disabled;
+        } else this._buttonDisabled = v;
+    }
+    public get buttonDisabled(): boolean {
+        return this._buttonDisabled;
+    }
+
     @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
@@ -216,6 +310,19 @@ export class SplitButton {
         });
     }
 
+    get containerClass() {
+        const cls = {
+            'p-splitbutton p-component': true,
+            'p-button-raised': this.raised,
+            'p-button-rounded': this.rounded,
+            'p-button-outlined': this.outlined,
+            'p-button-text': this.text,
+            [`p-button-${this.size === 'small' ? 'sm' : 'lg'}`]: this.size
+        };
+
+        return { ...cls };
+    }
+
     onDefaultButtonClick(event: MouseEvent) {
         this.onClick.emit(event);
         this.menu.hide();
@@ -236,7 +343,7 @@ export class SplitButton {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, TieredMenuModule, ChevronDownIcon],
+    imports: [CommonModule, ButtonModule, TieredMenuModule, AutoFocusModule, ChevronDownIcon],
     exports: [SplitButton, ButtonModule, TieredMenuModule],
     declarations: [SplitButton]
 })

@@ -1,19 +1,19 @@
 .p-scrollpanel {
     p {
-        padding: .5rem;
+        padding: 0.5rem;
         line-height: 1.5;
         margin: 0;
     }
 
     &.custombar1 {
         .p-scrollpanel-wrapper {
-            border-right: 9px solid var(--layer-1);
+            border-right: 10px solid var(--surface-ground);
         }
 
         .p-scrollpanel-bar {
-            background-color: var(--primary-color);
+            background-color: var(--primary-300);
             opacity: 1;
-            transition: background-color .2s;
+            transition: background-color 0.2s;
 
             &:hover {
                 background-color: #007ad9;
@@ -28,10 +28,10 @@
         }
 
         .p-scrollpanel-bar {
-            background-color: var(--layer-2);
+            background-color: var(--surface-300);
             border-radius: 0;
             opacity: 1;
-            transition: background-color .2s;
+            transition: background-color 0.2s;
         }
     }
 }

@@ -81,6 +81,7 @@ import { StylingDoc } from './stylingdoc';
 import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
+import { DeferredDemo } from '../../demo/deferreddemo';
 
 @NgModule({
     imports: [
@@ -112,7 +113,8 @@ import { PaginatorLocaleDoc } from './paginatorlocaledoc';
         SkeletonModule,
         SelectButtonModule,
         AppCodeModule,
-        AppDocModule
+        AppDocModule,
+        DeferredDemo
     ],
     declarations: [
         ImportDoc,

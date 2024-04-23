@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
 import { ProductService } from '../../service/productservice';
@@ -8,35 +8,37 @@ import { ProductService } from '../../service/productservice';
     template: ` <app-docsectiontext>
             <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to <i>true</i>. Fit mode is the default one and the overall table width does not change when a column is resized.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th pResizableColumn>Code</th>
-                        <th pResizableColumn>Name</th>
-                        <th pResizableColumn>Category</th>
-                        <th pResizableColumn>Quantity</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pResizableColumn>Code</th>
+                            <th pResizableColumn>Name</th>
+                            <th pResizableColumn>Category</th>
+                            <th pResizableColumn>Quantity</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-column-resize-fit-mode-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnResizeFitModeDoc implements OnInit {
+export class ColumnResizeFitModeDoc {
     products!: Product[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

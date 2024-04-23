@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Code } from '../../domain/code';
 import { Product } from '../../domain/product';
@@ -21,76 +21,78 @@ import { ProductService } from '../../service/productservice';
                 whose key is the dataKey of the record where the value is any arbitrary number greater than zero.
             </p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast></p-toast>
-            <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:20%">Code</th>
-                        <th style="width:20%">Name</th>
-                        <th style="width:20%">Inventory Status</th>
-                        <th style="width:20%">Price</th>
-                        <th style="width:20%"></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
-                    <tr [pEditableRow]="product">
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.code" />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.code }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.name" required />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.name }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }"></p-dropdown>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.inventoryStatus }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="product.price" />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ product.price | currency : 'USD' }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <div class="flex align-items-center justify-content-center gap-2">
-                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-toast></p-toast>
+                <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:20%">Code</th>
+                            <th style="width:20%">Name</th>
+                            <th style="width:20%">Inventory Status</th>
+                            <th style="width:20%">Price</th>
+                            <th style="width:20%"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="product">
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.code" />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.code }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.name" required />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.name }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }"></p-dropdown>
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.inventoryStatus }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.price" />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.price | currency : 'USD' }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <div class="flex align-items-center justify-content-center gap-2">
+                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-row-edit-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
-export class RowEditDoc implements OnInit {
+export class RowEditDoc {
     products!: Product[];
 
     statuses!: SelectItem[];
@@ -99,7 +101,7 @@ export class RowEditDoc implements OnInit {
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();

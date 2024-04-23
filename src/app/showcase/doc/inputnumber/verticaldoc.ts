@@ -14,7 +14,7 @@ import { Code } from '../../domain/code';
                 buttonLayout="vertical"
                 spinnerMode="vertical"
                 inputId="vertical"
-                [style]="{ width: '4rem' }"
+                [style]="{ width: '3rem' }"
                 decrementButtonClass="p-button-secondary"
                 incrementButtonClass="p-button-secondary"
                 incrementButtonIcon="pi pi-plus"

@@ -9,15 +9,13 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                <ng-template pTemplate="selectedItem">
-                    <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px" />
-                        <div>{{ selectedCountry.name }}</div>
+                <ng-template pTemplate="selectedItem" let-selectedOption>
+                    <div class="flex align-items-center gap-2">
+                        <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
                     <div class="flex align-items-center gap-2">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -48,10 +46,10 @@ export class FilterDoc implements OnInit {
 
     code: Code = {
         basic: `<p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-    <ng-template pTemplate="selectedItem">
-        <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+    <ng-template pTemplate="selectedItem" let-selectedOption>
+        <div class="flex align-items-center gap-2">
             <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
-            <div>{{ selectedCountry.name }}</div>
+            <div>{{ selectedOption.name }}</div>
         </div>
     </ng-template>
     <ng-template let-country pTemplate="item">
@@ -65,10 +63,10 @@ export class FilterDoc implements OnInit {
         html: `
 <div class="card flex justify-content-center">
     <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-        <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+        <ng-template pTemplate="selectedItem" let-selectedOption>
+            <div class="flex align-items-center gap-2">
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedCountry.code.toLowerCase()" style="width: 18px"/>
-                <div>{{ selectedCountry.name }}</div>
+                <div>{{ selectedOption.name }}</div>
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">

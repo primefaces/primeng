@@ -21,7 +21,9 @@ import {
     ViewChild,
     ViewContainerRef,
     ViewEncapsulation,
+    booleanAttribute,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -35,7 +37,6 @@ import { Subscription } from 'rxjs';
 import { TabViewChangeEvent, TabViewCloseEvent } from './tabview.interface';
 import { UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
-import { AnimationStyleMetadata } from '@angular/animations';
 
 /**
  * TabPanel is a helper component for TabView component.
@@ -69,7 +70,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Defines if tab can be removed.
      * @group Props
      */
-    @Input() closable: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) closable: boolean | undefined = false;
     /**
      * Inline style of the tab header.
      * @group Props
@@ -96,7 +97,7 @@ export class TabPanel implements AfterContentInit, OnDestroy {
      * Whether a lazy loaded panel should avoid getting loaded again on reselection.
      * @group Props
      */
-    @Input() cache: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) cache: boolean | undefined = true;
     /**
      * Advisory information to display in a tooltip on hover.
      * @group Props
@@ -372,13 +373,13 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * @defaultValue false
      * @group Props
      */
-    @Input() controlClose: boolean | undefined;
+    @Input({ transform: booleanAttribute }) controlClose: boolean | undefined;
     /**
      * When enabled displays buttons at each side of the tab headers to scroll the tab list.
      * @defaultValue false
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Index of the active tab to change selected tab programmatically.
      * @group Props
@@ -405,7 +406,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * When enabled, the focused tab is activated.
      * @group Props
      */
-    @Input() selectOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean = false;
     /**
      * Used to define a string aria label attribute the forward navigation button.
      * @group Props
@@ -420,12 +421,12 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
      * When activated, navigation buttons will automatically hide or show based on the available space within the container.
      * @group Props
      */
-    @Input() autoHideButtons: boolean = true;
+    @Input({ transform: booleanAttribute }) autoHideButtons: boolean = true;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke on tab change.
      * @param {TabViewChangeEvent} event - Custom tab change event
@@ -496,6 +497,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
         this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
+            this.refreshButtonState();
         });
 
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -524,7 +526,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
 
         this.resizeObserver = new ResizeObserver(() => {
-            if (this.list.offsetWidth > this.container.offsetWidth) {
+            if (this.list.offsetWidth >= this.container.offsetWidth) {
                 this.buttonVisible = true;
             } else {
                 this.buttonVisible = false;
@@ -797,7 +799,10 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
 
     updateScrollBar(index: number) {
         let tabHeader = (this.navbar as ElementRef).nativeElement.children[index];
-        tabHeader.scrollIntoView({ block: 'nearest' });
+
+        if (tabHeader) {
+            tabHeader.scrollIntoView({ block: 'nearest' });
+        }
     }
 
     updateButtonState() {
@@ -806,7 +811,21 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         const width = DomHandler.getWidth(content);
 
         this.backwardIsDisabled = scrollLeft === 0;
-        this.forwardIsDisabled = scrollLeft === scrollWidth - width;
+        this.forwardIsDisabled = Math.round(scrollLeft) === scrollWidth - width;
+    }
+
+    refreshButtonState() {
+        this.container = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="navcontent"]');
+        this.list = DomHandler.findSingle(this.el.nativeElement, '[data-pc-section="nav"]');
+        if (this.list.offsetWidth >= this.container.offsetWidth) {
+            if (this.list.offsetWidth >= this.container.offsetWidth) {
+                this.buttonVisible = true;
+            } else {
+                this.buttonVisible = false;
+            }
+            this.updateButtonState();
+            this.cd.markForCheck();
+        }
     }
 
     onScroll(event: Event) {

@@ -1,6 +1,8 @@
 @layer primeng {
     .p-rating {
         display: inline-flex;
+        position: relative;
+        align-items: center;
     }
 
     .p-rating-icon {

@@ -10,14 +10,13 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
             <p-toast></p-toast>
-            <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-success p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-info p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-help p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger p-button-text mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>
+            <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" raised text></p-splitButton>
+            <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" raised text severity="secondary"></p-splitButton>
+            <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" raised text severity="success"></p-splitButton>
+            <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" raised text severity="info"></p-splitButton>
+            <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" raised text severity="warning"></p-splitButton>
+            <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" raised text severity="help"></p-splitButton>
+            <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" raised text severity="danger"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-raised-text-demo"></app-code>
     `,
@@ -44,7 +43,7 @@ export class RaisedTextDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -61,26 +60,24 @@ export class RaisedTextDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-success p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-info p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-help p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger p-button-text mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>`,
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" raised text></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" raised text severity="secondary"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" raised text severity="success"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" raised text severity="info"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" raised text severity="warning"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" raised text severity="help"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" raised text severity="danger"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center flex-wrap gap-3">
     <p-toast></p-toast>
-    <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-secondary p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-success p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-info p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-warning p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-help p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-danger p-button-text mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Plain" [model]="this.items" (onClick)="save('info')" styleClass="p-button-raised p-button-plain p-button-text mr-2 mb-2"></p-splitButton>
+    <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" raised text></p-splitButton>
+    <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" raised text severity="secondary"></p-splitButton>
+    <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" raised text severity="success"></p-splitButton>
+    <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" raised text severity="info"></p-splitButton>
+    <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" raised text severity="warning"></p-splitButton>
+    <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" raised text severity="help"></p-splitButton>
+    <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" raised text severity="danger"></p-splitButton>
 </div>`,
 
         typescript: `
@@ -113,7 +110,7 @@ export class SplitButtonRaisedTextDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 

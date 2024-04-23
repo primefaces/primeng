@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
@@ -39,6 +40,8 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 (blur)="onBlur()"
                 [attr.aria-labelledby]="this.getOptionLabel(option)"
                 [attr.data-pc-section]="'button'"
+                pAutoFocus
+                [autofocus]="autofocus"
             >
                 <ng-container *ngIf="!itemTemplate; else customcontent">
                     <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
@@ -83,22 +86,22 @@ export class SelectButton implements ControlValueAccessor {
      * Whether selection can be cleared.
      * @group Props
      */
-    @Input() unselectable: boolean = false;
+    @Input({ transform: booleanAttribute }) unselectable: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Whether selection can not be cleared.
      * @group Props
      */
-    @Input() allowEmpty: boolean = true;
+    @Input({ transform: booleanAttribute }) allowEmpty: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -118,12 +121,17 @@ export class SelectButton implements ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
      */
     @Input() dataKey: string | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on input click.
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
@@ -312,7 +320,7 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
     exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })

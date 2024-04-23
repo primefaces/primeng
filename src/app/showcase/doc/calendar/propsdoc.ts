@@ -300,6 +300,12 @@ import { Component, Input } from '@angular/core';
                         <td>Style class of the clear button.</td>
                     </tr>
                     <tr>
+                        <td>autofocus</td>
+                        <td>boolean</td>
+                        <td>false</td>
+                        <td>When present, it specifies that the component should automatically get focus on load.</td>
+                    </tr>
+                    <tr>
                         <td>baseZIndex</td>
                         <td>number</td>
                         <td>0</td>

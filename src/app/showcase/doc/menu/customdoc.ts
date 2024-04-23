@@ -11,7 +11,17 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-menu [model]="items">
                 <ng-template pTemplate="item" let-item>
-                    <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+                    <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+                        <div>
+                            <span [class]="item.icon"></span>
+                            <span> {{ item.label }}</span>
+                        </div>
+                        <div>
+                            <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                            <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                        </div>
+                    </a>
+                    <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url" [attr.target]="'blank'">
                         <div>
                             <span [class]="item.icon"></span>
                             <span> {{ item.label }}</span>
@@ -73,7 +83,17 @@ export class CustomContentDoc implements OnInit {
     code: Code = {
         basic: `<p-menu [model]="items">
     <ng-template pTemplate="item" let-item>
-        <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+        <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+            <div>
+                <span [class]="item.icon"></span>
+                <span> {{ item.label }}</span>
+            </div>
+            <div>
+                <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+            </div>
+        </a>
+        <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url">
             <div>
                 <span [class]="item.icon"></span>
                 <span> {{ item.label }}</span>
@@ -90,7 +110,17 @@ export class CustomContentDoc implements OnInit {
 <div class="card flex justify-content-center">
     <p-menu [model]="items">
         <ng-template pTemplate="item" let-item>
-            <a class="p-menuitem-link flex justify-content-between align-items-center p-3">
+            <a *ngIf="!item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [routerLink]="item.routerLink">
+                <div>
+                    <span [class]="item.icon"></span>
+                    <span> {{ item.label }}</span>
+                </div>
+                <div>
+                    <span *ngIf="item.shortcut" [class]="item.shortcutClass">{{ item.shortcut }}</span>
+                    <p-badge *ngIf="item.badge" [value]="item.badge" [severity]="item.badgeSeverity"></p-badge>
+                </div>
+            </a>
+            <a *ngIf="item?.url" [attr.tabindex]="-1" class="p-menuitem-link flex justify-content-between align-items-center p-3" [attr.href]="item.url">
                 <div>
                     <span [class]="item.icon"></span>
                     <span> {{ item.label }}</span>

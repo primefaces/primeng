@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -101,12 +101,12 @@ export class Fieldset implements AfterContentInit, BlockableUI {
      * @group Props
      * @defaultValue false
      */
-    @Input() toggleable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) toggleable: boolean | undefined;
     /**
      * Defines the default visibility state of the content.
      * * @group Props
      */
-    @Input() collapsed: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) collapsed: boolean | undefined = false;
     /**
      * Inline style of the component.
      * @group Props

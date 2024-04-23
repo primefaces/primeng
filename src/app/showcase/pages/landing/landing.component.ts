@@ -11,6 +11,7 @@ import { HeroSectionComponent } from './herosection.component';
 import { TemplateSectionComponent } from './templatesection.component';
 import { ThemeSectionComponent } from './themesection.component';
 import { UsersSectionComponent } from './userssection.component';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'landing',
@@ -19,15 +20,13 @@ import { UsersSectionComponent } from './userssection.component';
     imports: [CommonModule, NgOptimizedImage, AppNewsComponent, AppTopBarComponent, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
 })
 export class LandingComponent implements OnInit {
-    private tableTheme = 'lara-light-blue';
-
-    constructor(private configService: AppConfigService, private metaService: Meta, private titleService: Title) {
-        afterNextRender(() => {
-            if (this.configService.config.theme !== this.tableTheme) {
-                this.changeTableTheme(this.configService.config.darkMode ? 'lara-dark-blue' : 'lara-light-blue');
-            }
-        });
+    get tableTheme() {
+        return this.configService.config().tableTheme;
     }
+
+    subscription!: Subscription;
+
+    constructor(private configService: AppConfigService, private metaService: Meta, private titleService: Title) {}
 
     get landingClass() {
         return {
@@ -38,7 +37,7 @@ export class LandingComponent implements OnInit {
     }
 
     get isDarkMode() {
-        return this.configService.config.darkMode;
+        return this.configService.config().darkMode;
     }
 
     get isNewsActive() {
@@ -51,37 +50,8 @@ export class LandingComponent implements OnInit {
     }
 
     toggleDarkMode() {
-        const theme = this.isDarkMode ? 'lara-light-blue' : 'lara-dark-blue';
-        const newTableTheme = this.isDarkMode ? this.tableTheme.replace('dark', 'light') : this.tableTheme.replace('light', 'dark');
-
-        this.configService.changeTheme({ name: theme, dark: !this.isDarkMode });
-        this.replaceTableTheme(newTableTheme);
-    }
-
-    changeTableTheme(value: string) {
-        this.replaceTableTheme(value);
-    }
-
-    replaceTableTheme(newTheme: string) {
-        const elementId = 'home-table-link';
-        const linkElement = <HTMLLinkElement>document.getElementById(elementId);
-        const tableThemeTokens = linkElement?.getAttribute('href').split('/') || null;
-        const currentTableTheme = tableThemeTokens ? tableThemeTokens[tableThemeTokens.length - 2] : null;
-
-        if (currentTableTheme !== newTheme && tableThemeTokens) {
-            const newThemeUrl = linkElement.getAttribute('href').replace(currentTableTheme, newTheme);
-
-            const cloneLinkElement = <HTMLLinkElement>linkElement.cloneNode(true);
-
-            cloneLinkElement.setAttribute('id', elementId + '-clone');
-            cloneLinkElement.setAttribute('href', newThemeUrl);
-            cloneLinkElement.addEventListener('load', () => {
-                linkElement.remove();
-                cloneLinkElement.setAttribute('id', elementId);
-            });
-            linkElement.parentNode?.insertBefore(cloneLinkElement, linkElement.nextSibling);
-
-            this.tableTheme = newTheme;
-        }
+        const dark = !this.isDarkMode;
+        const newTableTheme = !dark ? this.tableTheme.replace('dark', 'light') : this.tableTheme.replace('light', 'dark');
+        this.configService.config.update((config) => ({ ...config, darkMode: dark, theme: dark ? 'lara-dark-blue' : 'lara-light-blue', tableTheme: newTableTheme }));
     }
 }

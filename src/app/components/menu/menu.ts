@@ -21,9 +21,11 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     computed,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -159,7 +161,7 @@ export class MenuItemContent {
                 class="p-menu-list p-reset"
                 role="menu"
                 [attr.id]="id + '_list'"
-                [tabindex]="tabindex"
+                [attr.tabindex]="getTabIndexValue()"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
                 [attr.aria-label]="ariaLabel"
@@ -252,7 +254,7 @@ export class Menu implements OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -272,12 +274,12 @@ export class Menu implements OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -307,7 +309,7 @@ export class Menu implements OnDestroy {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -432,6 +434,10 @@ export class Menu implements OnDestroy {
         });
     }
 
+    getTabIndexValue(): string | null {
+        return this.tabindex !== undefined ? this.tabindex.toString() : null;
+    }
+
     onOverlayAnimationStart(event: AnimationEvent) {
         switch (event.toState) {
             case 'visible':
@@ -445,7 +451,6 @@ export class Menu implements OnDestroy {
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
-                    this.changeFocusedOptionIndex(0);
                 }
                 break;
 
@@ -526,24 +531,20 @@ export class Menu implements OnDestroy {
     }
 
     onListFocus(event: Event) {
-        this.focused = true;
-        if (!this.popup) {
-            if (this.selectedOptionIndex() !== -1) {
-                this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                this.selectedOptionIndex.set(-1);
-            } else {
-                this.changeFocusedOptionIndex(0);
-            }
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit(event);
         }
-        this.onFocus.emit(event);
     }
 
     onListBlur(event: FocusEvent | MouseEvent) {
-        this.focused = false;
-        this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(-1);
-        this.focusedOptionIndex.set(-1);
-        this.onBlur.emit(event);
+        if (this.focused) {
+            this.focused = false;
+            this.changeFocusedOptionIndex(-1);
+            this.selectedOptionIndex.set(-1);
+            this.focusedOptionIndex.set(-1);
+            this.onBlur.emit(event);
+        }
     }
 
     onListKeyDown(event) {
@@ -654,6 +655,11 @@ export class Menu implements OnDestroy {
 
     itemClick(event: any, id: string) {
         const { originalEvent, item } = event;
+
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit();
+        }
 
         if (item.disabled) {
             originalEvent.preventDefault();

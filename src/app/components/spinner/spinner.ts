@@ -1,4 +1,4 @@
-import { NgModule, Component, ElementRef, OnInit, Input, Output, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { NgModule, Component, ElementRef, OnInit, Input, Output, EventEmitter, forwardRef, ViewChild, ChangeDetectorRef, ChangeDetectionStrategy, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -82,25 +82,25 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     @Output() onBlur: EventEmitter<any> = new EventEmitter();
 
-    @Input() min: number;
+    @Input({ transform: numberAttribute }) min: number;
 
-    @Input() max: number;
+    @Input({ transform: numberAttribute }) max: number;
 
-    @Input() maxlength: number;
+    @Input({ transform: numberAttribute }) maxlength: number;
 
-    @Input() size: number;
+    @Input({ transform: numberAttribute }) size: number;
 
     @Input() placeholder: string;
 
     @Input() inputId: string;
 
-    @Input() disabled: boolean;
+    @Input({ transform: booleanAttribute }) disabled: boolean;
 
-    @Input() readonly: boolean;
+    @Input({ transform: booleanAttribute }) readonly: boolean;
 
-    @Input() tabindex: number;
+    @Input({ transform: numberAttribute }) tabindex: number;
 
-    @Input() required: boolean;
+    @Input({ transform: booleanAttribute }) required: boolean;
 
     @Input() name: string;
 
@@ -110,13 +110,13 @@ export class Spinner implements OnInit, ControlValueAccessor {
 
     @Input() inputStyleClass: string;
 
-    @Input() formatInput: boolean;
+    @Input({ transform: booleanAttribute }) formatInput: boolean;
 
     @Input() decimalSeparator: string;
 
     @Input() thousandSeparator: string;
 
-    @Input() precision: number;
+    @Input({ transform: numberAttribute }) precision: number;
 
     value: any;
 

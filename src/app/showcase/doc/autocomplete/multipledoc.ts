@@ -13,7 +13,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card">
             <span class="p-fluid">
-                <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete>
+                <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true" placeholder="Search"></p-autoComplete>
             </span>
         </div>
         <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`

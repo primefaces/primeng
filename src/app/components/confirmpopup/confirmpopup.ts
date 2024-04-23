@@ -16,7 +16,9 @@ import {
     QueryList,
     Renderer2,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -138,12 +140,12 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Inline style of the component.
      * @group Props
@@ -297,7 +299,7 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
         if (!this.confirmation) {
             return;
         }
-        DomHandler.absolutePosition(this.container, this.confirmation?.target);
+        DomHandler.absolutePosition(this.container, this.confirmation?.target, false);
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.confirmation?.target);

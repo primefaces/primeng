@@ -20,7 +20,9 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Message, MessageService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
@@ -51,7 +53,7 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
             [attr.data-pc-section]="'root'"
         >
             <ng-container *ngIf="headlessTemplate; else notHeadless">
-                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message }"></ng-container>
+                <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: message, closeFn: onCloseIconClick }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
                 <div class="p-toast-message-content" [ngClass]="message?.contentStyleClass" [attr.data-pc-section]="'content'">
@@ -125,9 +127,9 @@ import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast
 export class ToastItem implements AfterViewInit, OnDestroy {
     @Input() message: Message | null | undefined;
 
-    @Input() index: number | null | undefined;
+    @Input({ transform: numberAttribute }) index: number | null | undefined;
 
-    @Input() life: number;
+    @Input({ transform: numberAttribute }) life: number;
 
     @Input() template: TemplateRef<any> | undefined;
 
@@ -181,7 +183,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         this.initTimeout();
     }
 
-    onCloseIconClick(event: Event) {
+    onCloseIconClick = (event: Event) => {
         this.clearTimeout();
 
         this.onClose.emit({
@@ -190,7 +192,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         });
 
         event.preventDefault();
-    }
+    };
 
     get closeAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.close : undefined;
@@ -245,17 +247,17 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * The default time to display messages for in milliseconds.
      * @group Props
      */
-    @Input() life: number = 3000;
+    @Input({ transform: numberAttribute }) life: number = 3000;
     /**
      * Inline style of the component.
      * @group Props
@@ -284,12 +286,12 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
      * It does not add the new message if there is already a toast displayed with the same content
      * @group Props
      */
-    @Input() preventOpenDuplicates: boolean = false;
+    @Input({ transform: booleanAttribute }) preventOpenDuplicates: boolean = false;
     /**
      * Displays only once a message with the same content.
      * @group Props
      */
-    @Input() preventDuplicates: boolean = false;
+    @Input({ transform: booleanAttribute }) preventDuplicates: boolean = false;
     /**
      * Transform options of the show animation.
      * @group Props

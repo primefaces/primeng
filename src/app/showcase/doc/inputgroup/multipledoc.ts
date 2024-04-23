@@ -12,11 +12,9 @@ import { Code } from '../../domain/code';
                 <p-inputGroupAddon>
                     <i class="pi pi-clock"></i>
                 </p-inputGroupAddon>
-
                 <p-inputGroupAddon>
                     <i class="pi pi-star-fill"></i>
                 </p-inputGroupAddon>
-
                 <input type="text" pInputText placeholder="Price" />
                 <p-inputGroupAddon>$</p-inputGroupAddon>
                 <p-inputGroupAddon>.00</p-inputGroupAddon>
@@ -31,11 +29,9 @@ export class MultipleDoc {
     <p-inputGroupAddon>
         <i class="pi pi-clock"></i>
     </p-inputGroupAddon>
-
     <p-inputGroupAddon>
         <i class="pi pi-star-fill"></i>
     </p-inputGroupAddon>
-
     <input type="text" pInputText placeholder="Price" />
     <p-inputGroupAddon>$</p-inputGroupAddon>
     <p-inputGroupAddon>.00</p-inputGroupAddon>
@@ -46,11 +42,9 @@ export class MultipleDoc {
         <p-inputGroupAddon>
             <i class="pi pi-clock"></i>
         </p-inputGroupAddon>
-
         <p-inputGroupAddon>
             <i class="pi pi-star-fill"></i>
         </p-inputGroupAddon>
-
         <input type="text" pInputText placeholder="Price" />
         <p-inputGroupAddon>$</p-inputGroupAddon>
         <p-inputGroupAddon>.00</p-inputGroupAddon>

@@ -41,6 +41,16 @@ export class DynamicDialogConfig<T = any> {
      */
     closeOnEscape?: boolean;
     /**
+     * Specifies if autofocus should happen on show.
+     * @group Props
+     */
+    focusOnShow?: boolean = true;
+    /**
+     * When enabled, can only focus on elements inside the dialog.
+     * @group Props
+     */
+    focusTrap?: boolean = true;
+    /**
      * Base zIndex value to use in layering.
      * @group Props
      */

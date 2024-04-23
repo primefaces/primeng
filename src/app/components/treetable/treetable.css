@@ -65,6 +65,7 @@
     .p-treetable-scrollable-header,
     .p-treetable-scrollable-footer {
         overflow: hidden;
+        flex-shrink: 0;
     }
 
     .p-treetable-scrollable-body {

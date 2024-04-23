@@ -10,13 +10,13 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
             <p-toast></p-toast>
-            <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-secondary mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-success mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-info mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-warning mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-help mr-2 mb-2"></p-splitButton>
-            <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-danger mr-2 mb-2"></p-splitButton>
+            <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" rounded></p-splitButton>
+            <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" rounded severity="secondary"></p-splitButton>
+            <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" rounded severity="success"></p-splitButton>
+            <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" rounded severity="info"></p-splitButton>
+            <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" rounded severity="warning"></p-splitButton>
+            <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" rounded severity="help"></p-splitButton>
+            <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" rounded severity="danger"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-rounded-demo"></app-code>
     `,
@@ -43,7 +43,7 @@ export class RoundedDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -60,24 +60,24 @@ export class RoundedDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-secondary mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-success mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-info mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-warning mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-help mr-2 mb-2"></p-splitButton>
-<p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-danger mr-2 mb-2"></p-splitButton>`,
+        basic: `<p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" rounded></p-splitButton>
+<p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" rounded severity="secondary"></p-splitButton>
+<p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" rounded severity="success"></p-splitButton>
+<p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" rounded severity="info"></p-splitButton>
+<p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" rounded severity="warning"></p-splitButton>
+<p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" rounded severity="help"></p-splitButton>
+<p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" rounded severity="danger"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center flex-wrap gap-3">
     <p-toast></p-toast>
-    <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-secondary mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-success mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-info mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-warning mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-help mr-2 mb-2"></p-splitButton>
-    <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" styleClass="p-button-rounded p-button-danger mr-2 mb-2"></p-splitButton>
+    <p-splitButton label="Primary" [model]="this.items" (onClick)="save('info')" rounded></p-splitButton>
+    <p-splitButton label="Secondary" [model]="this.items" (onClick)="save('info')" rounded severity="secondary"></p-splitButton>
+    <p-splitButton label="Success" [model]="this.items" (onClick)="save('info')" rounded severity="success"></p-splitButton>
+    <p-splitButton label="Info" [model]="this.items" (onClick)="save('info')" rounded severity="info"></p-splitButton>
+    <p-splitButton label="Warning" [model]="this.items" (onClick)="save('info')" rounded severity="warning"></p-splitButton>
+    <p-splitButton label="Help" [model]="this.items" (onClick)="save('info')" rounded severity="help"></p-splitButton>
+    <p-splitButton label="Danger" [model]="this.items" (onClick)="save('info')" rounded severity="danger"></p-splitButton>
 </div>`,
 
         typescript: `
@@ -110,7 +110,7 @@ export class SplitButtonRoundedDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 

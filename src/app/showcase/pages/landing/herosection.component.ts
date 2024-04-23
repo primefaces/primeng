@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -14,7 +14,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription } from 'rxjs';
+import { Subscription, debounceTime } from 'rxjs';
 import { AppConfigService } from '../../service/appconfigservice';
 
 @Component({
@@ -43,7 +43,7 @@ import { AppConfigService } from '../../service/appconfigservice';
                 <div class="w-full xl:w-6 pt-7 xl:pt-0 hidden md:block">
                     <div class="flex">
                         <div class="flex flex-column w-6 gap-5 pt-8 pr-3">
-                            <div class="box p-4 fadein animation-duration-500">
+                            <div class="box p-4 fadein animation-duration-500 z-1">
                                 <div class="flex gap-2">
                                     <div class="w-6rem flex-shrink-0">
                                         <span class="text-secondary font-medium block mb-3">Amount</span>
@@ -173,9 +173,14 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     rangeValues = [20, 80];
 
-    themeChangeCompleteSubscription: Subscription;
+    subscription!: Subscription;
 
-    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any) {}
+    constructor(private configService: AppConfigService, @Inject(PLATFORM_ID) private platformId: any, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.setChartOptions();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
         this.initChartData();
@@ -198,10 +203,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' }
         ];
-
-        this.themeChangeCompleteSubscription = this.configService.themeChangeComplete$.subscribe(() => {
-            this.setChartOptions();
-        });
     }
 
     initChartData(): void {
@@ -258,9 +259,9 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        if (this.themeChangeCompleteSubscription) {
-            this.themeChangeCompleteSubscription.unsubscribe();
-            this.themeChangeCompleteSubscription = null;
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+            this.subscription = null;
         }
     }
 }

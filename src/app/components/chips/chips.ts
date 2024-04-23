@@ -1,7 +1,27 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    numberAttribute
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { InputTextModule } from 'primeng/inputtext';
@@ -57,7 +77,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                     [attr.ariaLabel]="item"
                     [attr.aria-selected]="true"
                     [attr.aria-setsize]="value.length"
-                    [attr.aria-pointset]="i + 1"
+                    [attr.aria-posinset]="i + 1"
                     [attr.data-p-focused]="focusedIndex === i"
                     [ngClass]="{ 'p-chips-token': true, 'p-focus': focusedIndex === i }"
                     (click)="onItemClick($event, item)"
@@ -77,6 +97,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         #inputtext
                         type="text"
                         [attr.id]="inputId"
+                        [attr.maxlength]="maxLength"
                         [attr.placeholder]="value && value.length ? null : placeholder"
                         [attr.tabindex]="tabindex"
                         (keydown)="onKeyDown($event)"
@@ -87,6 +108,8 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                         [disabled]="disabled || isMaxedOut"
                         [ngStyle]="inputStyle"
                         [class]="inputStyleClass"
+                        pAutoFocus
+                        [autofocus]="autofocus"
                     />
                 </li>
                 <li *ngIf="value != null && filled && !disabled && showClear">
@@ -124,7 +147,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Name of the property to display on a chip.
      * @group Props
@@ -139,7 +162,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Maximum number of entries allowed.
      * @group Props
      */
-    @Input() max: number | undefined;
+    @Input({ transform: numberAttribute }) max: number | undefined;
+    /**
+     * Maximum length of a chip.
+     * @group Props
+     */
+    @Input() maxLength: number | undefined;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -154,7 +182,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
@@ -164,7 +192,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Whether to allow duplicate values or not.
      * @group Props
      */
-    @Input() allowDuplicate: boolean = true;
+    @Input({ transform: booleanAttribute }) allowDuplicate: boolean = true;
+    /**
+     * Defines whether duplication check should be case-sensitive
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) caseSensitiveDuplication: boolean = true;
     /**
      * Inline style of the input field.
      * @group Props
@@ -179,12 +212,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * Whether to add an item on tab key press.
      * @group Props
      */
-    @Input() addOnTab: boolean | undefined;
+    @Input({ transform: booleanAttribute }) addOnTab: boolean | undefined;
     /**
      * Whether to add an item when the input loses focus.
      * @group Props
      */
-    @Input() addOnBlur: boolean | undefined;
+    @Input({ transform: booleanAttribute }) addOnBlur: boolean | undefined;
     /**
      * Separator char to add an item when pressed in addition to the enter key.
      * @group Props
@@ -194,7 +227,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on chip add.
      * @param {ChipsAddEvent} event - Custom chip add event.
@@ -459,7 +497,9 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         this.value = this.value || [];
 
         if (item && item.trim().length) {
-            if ((this.allowDuplicate || this.value.indexOf(item) === -1) && !this.isMaxedOut) {
+            const newItemIsDuplicate = this.caseSensitiveDuplication ? this.value.includes(item) : this.value.some((val) => val.toLowerCase() === item.toLowerCase());
+
+            if ((this.allowDuplicate || !newItemIsDuplicate) && !this.isMaxedOut) {
                 this.value = [...this.value, item];
                 this.onModelChange(this.value);
                 this.onAdd.emit({
@@ -478,7 +518,11 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         }
     }
 
-    clear() {
+    /**
+     * Callback to invoke on filter reset.
+     * @group Method
+     */
+    public clear() {
         this.value = null;
         this.updateFilledState();
         this.onModelChange(this.value);
@@ -500,8 +544,17 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 if (inputValue && inputValue.trim().length && !this.isMaxedOut) {
                     this.addItem(event, inputValue, true);
+                }
+
+                break;
+
+            case 'Tab':
+                if (this.addOnTab && inputValue && inputValue.trim().length && !this.isMaxedOut) {
+                    this.addItem(event, inputValue, true);
+                    event.preventDefault();
                 }
 
                 break;
@@ -547,7 +600,7 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, SharedModule, TimesCircleIcon, TimesIcon],
+    imports: [CommonModule, InputTextModule, SharedModule, AutoFocusModule, TimesCircleIcon, TimesIcon],
     exports: [Chips, InputTextModule, SharedModule],
     declarations: [Chips]
 })

@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
         </div>
         <app-code [code]="code" selector="split-button-basic-demo"></app-code>
     `,
@@ -35,7 +35,7 @@ export class BasicDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -54,12 +54,12 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>`,
+        basic: `<p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
+    <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
 </div>`,
 
         typescript: `
@@ -92,7 +92,7 @@ export class SplitButtonBasicDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 

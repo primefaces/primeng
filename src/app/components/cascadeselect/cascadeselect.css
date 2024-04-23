@@ -43,6 +43,7 @@
 
     .p-cascadeselect-group-icon {
         margin-left: auto;
+        display: inline-flex;
     }
 
     .p-cascadeselect-items {

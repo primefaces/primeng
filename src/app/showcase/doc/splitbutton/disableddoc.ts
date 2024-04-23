@@ -6,7 +6,10 @@ import { Code } from '../../domain/code';
     selector: 'disabled-doc',
     template: `
         <app-docsectiontext>
-            <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
+            <p>
+                When the <i>disabled</i> attribute is present, the element is uneditable and unfocused. Additionally, the disabled states of the button and menu button can be handled independently. The button is disabled when <i>buttonDisabled</i> is
+                present, and the menu button is disabled when <i>menuButtonDisabled</i> is present.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast></p-toast>
@@ -35,7 +38,7 @@ export class DisabledDoc {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 
@@ -60,7 +63,20 @@ export class DisabledDoc {
 <div class="card flex justify-content-center">
     <p-toast></p-toast>
     <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
-</div>`,
+    
+</div>
+
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [menuButtonDisabled]="true"></p-splitButton>
+    
+</div>
+<div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [buttonDisabled]="true"></p-splitButton>
+    
+</div>
+`,
 
         typescript: `
 import { Component } from '@angular/core';
@@ -92,7 +108,7 @@ export class SplitButtonDisabledDemo {
             },
             { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
         ];
     }
 

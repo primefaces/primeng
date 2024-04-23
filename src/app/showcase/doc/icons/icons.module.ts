@@ -12,10 +12,11 @@ import { ListDoc } from './listdoc';
 import { SizeDoc } from './sizedoc';
 import { SpinDoc } from './spindoc';
 import { MenuModule } from 'primeng/menu';
+import { FigmaDoc } from './figmadoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, MenuModule],
-    declarations: [BasicDoc, ColorDoc, ConstantsDoc, DownloadDoc, ImportDoc, ListDoc, SizeDoc, SpinDoc],
+    declarations: [BasicDoc, ColorDoc, ConstantsDoc, DownloadDoc, ImportDoc, ListDoc, SizeDoc, SpinDoc, FigmaDoc],
     exports: [AppDocModule]
 })
 export class IconsDocModule {}

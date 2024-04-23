@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, booleanAttribute } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 /**
@@ -77,7 +77,7 @@ export class StyleClass implements OnDestroy {
      * Whether to trigger leave animation when outside of the element is clicked.
      * @group Props
      */
-    @Input() hideOnOutsideClick: boolean | undefined;
+    @Input({ transform: booleanAttribute }) hideOnOutsideClick: boolean | undefined;
     /**
      * Adds or removes a class when no enter-leave animation is required.
      * @group Props
@@ -87,7 +87,7 @@ export class StyleClass implements OnDestroy {
      * Whether to trigger leave animation when escape key pressed.
      * @group Props
      */
-    @Input() hideOnEscape: boolean | undefined;
+    @Input({ transform: booleanAttribute }) hideOnEscape: boolean | undefined;
 
     eventListener: VoidListener;
 

@@ -1,8 +1,28 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, OnDestroy, Output, PLATFORM_ID, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Output,
+    PLATFORM_ID,
+    Renderer2,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    numberAttribute
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
@@ -59,6 +79,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'handle'"
+                pAutoFocus
+                [autofocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -81,6 +103,8 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-orientation]="orientation"
                 [attr.data-pc-section]="'startHandler'"
+                pAutoFocus
+                [autofocus]="autofocus"
             ></span>
             <span
                 *ngIf="range"
@@ -118,22 +142,22 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
      */
-    @Input() animate: boolean | undefined;
+    @Input({ transform: booleanAttribute }) animate: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Mininum boundary value.
      * @group Props
      */
-    @Input() min: number = 0;
+    @Input({ transform: numberAttribute }) min: number = 0;
     /**
      * Maximum boundary value.
      * @group Props
      */
-    @Input() max: number = 100;
+    @Input({ transform: numberAttribute }) max: number = 100;
     /**
      * Orientation of the slider.
      * @group Props
@@ -143,12 +167,12 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * Step factor to increment/decrement the value.
      * @group Props
      */
-    @Input() step: number | undefined;
+    @Input({ transform: numberAttribute }) step: number | undefined;
     /**
      * When specified, allows two boundary values to be picked.
      * @group Props
      */
-    @Input() range: boolean | undefined;
+    @Input({ transform: booleanAttribute }) range: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -173,7 +197,12 @@ export class Slider implements OnDestroy, ControlValueAccessor {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @param {SliderChangeEvent} event - Custom value change event.
@@ -674,7 +703,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, AutoFocusModule],
     exports: [Slider],
     declarations: [Slider]
 })

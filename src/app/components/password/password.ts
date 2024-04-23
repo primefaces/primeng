@@ -26,7 +26,9 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    forwardRef
+    booleanAttribute,
+    forwardRef,
+    numberAttribute
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -37,6 +39,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
 
 type Meter = {
@@ -79,7 +82,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true;
+    @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Sets the visibility of the password field.
      * @group Props
@@ -349,6 +352,8 @@ export const Password_VALUE_ACCESSOR: any = {
                 (keyup)="onKeyUp($event)"
                 [attr.maxlength]="maxLength"
                 [attr.data-pc-section]="'input'"
+                pAutoFocus
+                [autofocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -390,7 +395,7 @@ export const Password_VALUE_ACCESSOR: any = {
                     <div class="p-password-meter" [attr.data-pc-section]="'meter'">
                         <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
                     </div>
-                    <div className="p-password-info" [attr.data-pc-section]="'info'">{{ infoText }}</div>
+                    <div class="p-password-info" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
@@ -429,7 +434,7 @@ export class Password implements AfterContentInit, OnInit {
      * Indicates whether the component is disabled or not.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -459,7 +464,7 @@ export class Password implements AfterContentInit, OnInit {
      * specifies the maximum number of characters allowed in the input element.
      * @group Props
      */
-    @Input() maxLength: number | undefined;
+    @Input({ transform: numberAttribute }) maxLength: number | undefined;
     /**
      * Text for a strong password. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -474,7 +479,7 @@ export class Password implements AfterContentInit, OnInit {
      * Whether to show the strength indicator or not.
      * @group Props
      */
-    @Input() feedback: boolean = true;
+    @Input({ transform: booleanAttribute }) feedback: boolean = true;
     /**
      * Id of the element or "body" for document where the overlay should be appended to.
      * @group Props
@@ -484,7 +489,7 @@ export class Password implements AfterContentInit, OnInit {
      * Whether to show an icon to display the password as plain text.
      * @group Props
      */
-    @Input() toggleMask: boolean | undefined;
+    @Input({ transform: booleanAttribute }) toggleMask: boolean | undefined;
     /**
      * Style class of the input field.
      * @group Props
@@ -529,7 +534,13 @@ export class Password implements AfterContentInit, OnInit {
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+
     /**
      * Callback to invoke when the component receives focus.
      * @param {Event} event - Browser event.
@@ -926,7 +937,7 @@ export class Password implements AfterContentInit, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, InputTextModule, TimesIcon, EyeSlashIcon, EyeIcon],
+    imports: [CommonModule, InputTextModule, AutoFocusModule, TimesIcon, EyeSlashIcon, EyeIcon],
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })
