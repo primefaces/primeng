@@ -4471,6 +4471,14 @@
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
                         },
                         {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"large\" | \"xlarge\"",
+                            "description": "Size of the badge, valid options are \"large\" and \"xlarge\".",
+                            "deprecated": "use badgeSize instead."
+                        },
+                        {
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
@@ -4534,6 +4542,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When specified, disables the component."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"large\" | \"xlarge\"",
+                            "description": "Size of the badge, valid options are \"large\" and \"xlarge\".",
+                            "deprecated": "use badgeSize instead."
                         }
                     ]
                 }
