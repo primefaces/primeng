@@ -49,6 +49,7 @@ import { StylingDoc } from '@doc/table/stylingdoc';
 import { AccessibilityDoc } from '@doc/table/accessibilitydoc';
 import { PreSortDoc } from '@doc/table/presortdoc';
 import { FilterSortEditDoc } from '@doc/table/filtersorteditdoc';
+import { RemovableSortDoc } from '@doc/table/removablesortdoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -146,6 +147,11 @@ export class TableDemo {
                     id: 'pre-sort',
                     label: 'Presort',
                     component: PreSortDoc
+                },
+                {
+                    id: 'removable-sort',
+                    label: 'Removable',
+                    component: RemovableSortDoc
                 }
             ]
         },

@@ -86,6 +86,7 @@ import { DeferredDemo } from '../../demo/deferreddemo';
 import { PreSortDoc } from './presortdoc';
 import { RowExpansionDoc } from './rowexpansiondoc';
 import { FilterSortEditDoc } from './filtersorteditdoc';
+import { RemovableSortDoc } from './removablesortdoc';
 
 @NgModule({
     imports: [
@@ -180,7 +181,8 @@ import { FilterSortEditDoc } from './filtersorteditdoc';
         SelectionEventsDoc,
         AccessibilityDoc,
         PaginatorLocaleDoc,
-        PreSortDoc
+        PreSortDoc,
+        RemovableSortDoc
     ],
     exports: [AppDocModule]
 })
