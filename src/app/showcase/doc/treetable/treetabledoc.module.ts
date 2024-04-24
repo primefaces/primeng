@@ -47,6 +47,7 @@ import { DeferredDemo } from '../../demo/deferreddemo';
 import { SortMultipleColumnsDoc } from './sortmultiplecolumnsdoc';
 import { ScrollFlexibleDoc } from './flexiblescrolldoc';
 import { DialogModule } from 'primeng/dialog';
+import { SortRemovableDoc } from './sortremovabledoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DialogModule, DeferredDemo],
@@ -60,6 +61,7 @@ import { DialogModule } from 'primeng/dialog';
         PaginatorTemplateDoc,
         SortSingleColumnDoc,
         SortMultipleColumnsDoc,
+        SortRemovableDoc,
         FilterDoc,
         SelectionSingleDoc,
         SelectionMultipleDoc,
