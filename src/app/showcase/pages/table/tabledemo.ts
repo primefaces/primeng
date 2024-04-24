@@ -50,6 +50,7 @@ import { AccessibilityDoc } from '@doc/table/accessibilitydoc';
 import { PreSortDoc } from '@doc/table/presortdoc';
 import { FilterSortEditDoc } from '@doc/table/filtersorteditdoc';
 import { RemovableSortDoc } from '@doc/table/removablesortdoc';
+import { FilterAdvancedDoc } from '@doc/table/filteradvanceddoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -163,6 +164,11 @@ export class TableDemo {
                     id: 'filter-basic',
                     label: 'Basic',
                     component: FilterBasicDoc
+                },
+                {
+                    id: 'filter-advanced',
+                    label: 'Advanced',
+                    component: FilterAdvancedDoc
                 }
             ]
         },

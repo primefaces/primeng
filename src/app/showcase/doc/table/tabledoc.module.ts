@@ -87,6 +87,7 @@ import { PreSortDoc } from './presortdoc';
 import { RowExpansionDoc } from './rowexpansiondoc';
 import { FilterSortEditDoc } from './filtersorteditdoc';
 import { RemovableSortDoc } from './removablesortdoc';
+import { FilterAdvancedDoc } from './filteradvanceddoc';
 
 @NgModule({
     imports: [
@@ -144,6 +145,7 @@ import { RemovableSortDoc } from './removablesortdoc';
         ExportDoc,
         FilterMenuDoc,
         FilterBasicDoc,
+        FilterAdvancedDoc,
         FlexibleScrollDoc,
         FrozenColumnsDoc,
         FrozenRowsDoc,
