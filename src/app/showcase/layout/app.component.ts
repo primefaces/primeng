@@ -10,7 +10,6 @@ import { CarService } from '../service/carservice';
 import { CountryService } from '../service/countryservice';
 import { CustomerService } from '../service/customerservice';
 import { EventService } from '../service/eventservice';
-import { IconService } from '../service/iconservice';
 import { NodeService } from '../service/nodeservice';
 import { PhotoService } from '../service/photoservice';
 import { ProductService } from '../service/productservice';
@@ -25,7 +24,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     templateUrl: './app.component.html',
     standalone: true,
     imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
-    providers: [CarService, CountryService, EventService, NodeService, IconService, CustomerService, PhotoService, AppConfigService, ProductService]
+    providers: [CarService, CountryService, EventService, NodeService, CustomerService, PhotoService, AppConfigService, ProductService]
 })
 export class AppComponent implements OnInit {
     constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
