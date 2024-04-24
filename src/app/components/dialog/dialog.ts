@@ -643,7 +643,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             // for nested dialogs w/modal
-            const scrollBlockers = document.querySelectorAll('.p-dialog-mask-scrollblocker');
+            const scrollBlockers = this.document.querySelectorAll('.p-dialog-mask-scrollblocker');
 
             if (this.modal && scrollBlockers && scrollBlockers.length == 1) {
                 DomHandler.unblockBodyScroll();
