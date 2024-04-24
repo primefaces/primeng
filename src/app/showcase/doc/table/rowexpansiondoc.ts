@@ -38,7 +38,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template pTemplate="body" let-product let-expanded="expanded">
                         <tr>
                             <td>
-                                <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                             </td>
                             <td>{{ product.name }}</td>
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
@@ -74,7 +74,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                                                 <td>
                                                     <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                                 </td>
-                                                <td><p-button type="button" icon="pi pi-plus" /></td>
+                                                <td><p-button type="button" icon="pi pi-search" /></td>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="emptymessage">
@@ -147,79 +147,7 @@ export class RowExpansionDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
-    <ng-template pTemplate="caption">
-        <div class="flex flex-wrap justify-content-end gap-2">
-            <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
-            <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 5rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
-            <th>Image</th>
-            <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
-            <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
-            <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
-            <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product let-expanded="expanded">
-        <tr>
-            <td>
-                <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
-            </td>
-            <td>{{ product.name }}</td>
-            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
-            <td>{{ product.price | currency : 'USD' }}</td>
-            <td>{{ product.category }}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
-            <td>
-                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="rowexpansion" let-product>
-        <tr>
-            <td colspan="7">
-                <div class="p-3">
-                    <p-table [value]="product.orders" dataKey="id">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
-                                <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
-                                <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
-                                <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
-                                <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
-                                <th style="width: 4rem"></th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-order>
-                            <tr>
-                                <td>{{ order.id }}</td>
-                                <td>{{ order.customer }}</td>
-                                <td>{{ order.date }}</td>
-                                <td>{{ order.amount | currency : 'USD' }}</td>
-                                <td>
-                                    <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
-                                </td>
-                                <td><p-button type="button" icon="pi pi-plus" /></td>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="emptymessage">
-                            <tr>
-                                <td colspan="6">There are no order for this product yet.</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                </div>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `<div class="card">
-    <p-toast />
+        basic: `<p-toast />
     <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
         <ng-template pTemplate="caption">
             <div class="flex flex-wrap justify-content-end gap-2">
@@ -241,7 +169,7 @@ export class RowExpansionDoc {
         <ng-template pTemplate="body" let-product let-expanded="expanded">
             <tr>
                 <td>
-                    <button type="button" pButton pRipple [pRowToggler]="product" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                 </td>
                 <td>{{ product.name }}</td>
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
@@ -277,7 +205,80 @@ export class RowExpansionDoc {
                                     <td>
                                         <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
                                     </td>
-                                    <td><p-button type="button" icon="pi pi-plus" /></td>
+                                    <td><p-button type="button" icon="pi pi-search" /></td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr>
+                                    <td colspan="6">There are no order for this product yet.</td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-toast />
+    <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
+        <ng-template pTemplate="caption">
+            <div class="flex flex-wrap justify-content-end gap-2">
+                <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
+                <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 5rem"></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th>Image</th>
+                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
+                <th pSortableColumn="category">Category <p-sortIcon field="category" /></th>
+                <th pSortableColumn="rating">Reviews <p-sortIcon field="rating" /></th>
+                <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus" /></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-expanded="expanded">
+            <tr>
+                <td>
+                    <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+                </td>
+                <td>{{ product.name }}</td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                <td>{{ product.price | currency : 'USD' }}</td>
+                <td>{{ product.category }}</td>
+                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-product>
+            <tr>
+                <td colspan="7">
+                    <div class="p-3">
+                        <p-table [value]="product.orders" dataKey="id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th pSortableColumn="id">Id <p-sortIcon field="price" /></th>
+                                    <th pSortableColumn="customer">Customer <p-sortIcon field="customer" /></th>
+                                    <th pSortableColumn="date">Date <p-sortIcon field="date" /></th>
+                                    <th pSortableColumn="amount">Amount <p-sortIcon field="amount" /></th>
+                                    <th pSortableColumn="status">Status <p-sortIcon field="status" /></th>
+                                    <th style="width: 4rem"></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-order>
+                                <tr>
+                                    <td>{{ order.id }}</td>
+                                    <td>{{ order.customer }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>{{ order.amount | currency : 'USD' }}</td>
+                                    <td>
+                                        <p-tag [value]="order.status" [severity]="getStatusSeverity(order.status)" />
+                                    </td>
+                                    <td><p-button type="button" icon="pi pi-search" /></td>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="emptymessage">
@@ -314,10 +315,20 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 export class TableRowExpansionDemo implements OnInit{
     products!: Product[];
 
-    constructor(private productService: ProductService) {}
+    expandedRows = {};
+
+    constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
         this.productService.getProductsWithOrdersSmall().then((data) => (this.products = data));
+    }
+
+    expandAll() {
+        this.expandedRows = this.products.reduce((acc, p) => (acc[p.id] = true) && acc, {});
+    }
+
+    collapseAll() {
+        this.expandedRows = {};
     }
 
     getSeverity(status: string) {
@@ -331,15 +342,23 @@ export class TableRowExpansionDemo implements OnInit{
         }
     }
 
-    getStatusSeverity(status: string){
+    getStatusSeverity(status: string) {
         switch (status) {
             case 'PENDING':
                 return 'warning';
             case 'DELIVERED':
                 return 'success';
             case 'CANCELLED':
-                return 'danger'
+                return 'danger';
         }
+    }
+
+    onRowExpand(event: TableRowExpandEvent) {
+        this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+    }
+
+    onRowCollapse(event: TableRowCollapseEvent) {
+        this.messageService.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
     }
 }`,
         data: `{
@@ -367,7 +386,7 @@ export class TableRowExpansionDemo implements OnInit{
     ]
 },
 ...`,
-        service: ['ProductService', 'MessageService']
+        service: ['ProductService']
     };
 
     extFiles = [
