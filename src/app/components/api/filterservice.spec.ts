@@ -4,7 +4,7 @@ describe('FilterService Suite', () => {
         { brand: 'VW', year: 2012, color: { name: 'Orange' }, vin: 'dsad231ff', price: '1000.0' },
         { brand: 'Audi', year: 2011, color: { name: 'Black' }, vin: 'gwregre345', price: '4000.0' },
         { brand: 'Renault', year: 2005, color: { name: 'Black' }, vin: 'h354htr', price: '5000.0' },
-        { brand: 'BMW', year: 2003, color: { name: 'Blue' }, vin: 'j6w54qgh', price: '3000.0' },
+        { brand: 'BMW', year: 2003, color: { name: 'Blue' }, vin: 'j6w54qgh', price: '3000.0000000' },
         { brand: 'Mercedes', year: 1995, color: { name: 'Red' }, vin: 'hrtwy34', price: '2000.0' },
         { brand: 'Volvo', year: 2005, color: { name: 'Orange' }, vin: 'jejtyj', price: '2000.0' },
         { brand: 'Honda', year: 2012, color: { name: 'Blue' }, vin: 'g43gr', price: '4000.0' },
@@ -50,6 +50,8 @@ describe('FilterService Suite', () => {
         expect(filteredValue.length).toEqual(0);
         filteredValue = filterService.filter(data, ['price'], 3000, 'equals');
         expect(filteredValue.length).toEqual(1);
+        filteredValue = filterService.filter(data, ['year'], 2012, 'equals');
+        expect(filteredValue.length).toEqual(2);
     });
     it('Should filter by notEquals', () => {
         let filteredValue = filterService.filter(data, ['brand'], 'BMW', 'notEquals');
@@ -60,6 +62,8 @@ describe('FilterService Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = filterService.filter(data, ['price'], 3000, 'notEquals');
         expect(filteredValue.length).toEqual(9);
+        filteredValue = filterService.filter(data, ['year'], 2012, 'notEquals');
+        expect(filteredValue.length).toEqual(8);
     });
     it('Should filter by lt', () => {
         let filteredValue = filterService.filter(timeData, ['date'], 'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', 'lt');
