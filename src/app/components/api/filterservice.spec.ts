@@ -1,16 +1,16 @@
 import { FilterService } from './filterservice';
 describe('FilterService Suite', () => {
     let data: any = [
-        { brand: 'VW', year: 2012, color: { name: 'Orange' }, vin: 'dsad231ff' },
-        { brand: 'Audi', year: 2011, color: { name: 'Black' }, vin: 'gwregre345' },
-        { brand: 'Renault', year: 2005, color: { name: 'Black' }, vin: 'h354htr' },
-        { brand: 'BMW', year: 2003, color: { name: 'Blue' }, vin: 'j6w54qgh' },
-        { brand: 'Mercedes', year: 1995, color: { name: 'Red' }, vin: 'hrtwy34' },
-        { brand: 'Volvo', year: 2005, color: { name: 'Orange' }, vin: 'jejtyj' },
-        { brand: 'Honda', year: 2012, color: { name: 'Blue' }, vin: 'g43gr' },
-        { brand: 'Jaguar', year: 2013, color: { name: 'Black' }, vin: 'greg34' },
-        { brand: 'Ford', year: 2000, color: { name: 'White' }, vin: 'h54hw5' },
-        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s' }
+        { brand: 'VW', year: 2012, color: { name: 'Orange' }, vin: 'dsad231ff', price: '1000.0' },
+        { brand: 'Audi', year: 2011, color: { name: 'Black' }, vin: 'gwregre345', price: '4000.0' },
+        { brand: 'Renault', year: 2005, color: { name: 'Black' }, vin: 'h354htr', price: '5000.0' },
+        { brand: 'BMW', year: 2003, color: { name: 'Blue' }, vin: 'j6w54qgh', price: '3000.0' },
+        { brand: 'Mercedes', year: 1995, color: { name: 'Red' }, vin: 'hrtwy34', price: '2000.0' },
+        { brand: 'Volvo', year: 2005, color: { name: 'Orange' }, vin: 'jejtyj', price: '2000.0' },
+        { brand: 'Honda', year: 2012, color: { name: 'Blue' }, vin: 'g43gr', price: '4000.0' },
+        { brand: 'Jaguar', year: 2013, color: { name: 'Black' }, vin: 'greg34', price: '1000.0' },
+        { brand: 'Ford', year: 2000, color: { name: 'White' }, vin: 'h54hw5', price: '2000.0' },
+        { brand: 'Fiat', year: 2013, color: { name: 'Yellow' }, vin: '245t2s', price: '5000.0' }
     ];
 
     let timeData = [{ date: 'Tue Aug 04 2019 00:00:00 GMT+0300 (GMT+03:00)' }, { date: 'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)' }, { date: 'Tue Aug 07 2019 00:00:00 GMT+0300 (GMT+03:00)' }];
@@ -48,6 +48,8 @@ describe('FilterService Suite', () => {
         expect(filteredValue.length).toEqual(10);
         filteredValue = filterService.filter(data, [''], 'BMW', 'equals');
         expect(filteredValue.length).toEqual(0);
+        filteredValue = filterService.filter(data, ['price'], 3000, 'equals');
+        expect(filteredValue.length).toEqual(1);
     });
     it('Should filter by notEquals', () => {
         let filteredValue = filterService.filter(data, ['brand'], 'BMW', 'notEquals');
@@ -56,6 +58,8 @@ describe('FilterService Suite', () => {
         expect(filteredValue.length).toEqual(0);
         filteredValue = filterService.filter(data, [''], 'BMW', 'notEquals');
         expect(filteredValue.length).toEqual(10);
+        filteredValue = filterService.filter(data, ['price'], 3000, 'notEquals');
+        expect(filteredValue.length).toEqual(9);
     });
     it('Should filter by lt', () => {
         let filteredValue = filterService.filter(timeData, ['date'], 'Tue Aug 05 2019 00:00:00 GMT+0300 (GMT+03:00)', 'lt');
