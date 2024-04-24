@@ -45,9 +45,11 @@ import { GridlinesDoc } from './gridlinesdoc';
 import { ControlledDoc } from './controlleddoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
 import { SortMultipleColumnsDoc } from './sortmultiplecolumnsdoc';
+import { ScrollFlexibleDoc } from './flexiblescrolldoc';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DeferredDemo],
+    imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DialogModule, DeferredDemo],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -68,6 +70,7 @@ import { SortMultipleColumnsDoc } from './sortmultiplecolumnsdoc';
         EditDoc,
         ScrollVerticalDoc,
         ScrollHorizontalDoc,
+        ScrollFlexibleDoc,
         FrozenColumnsDoc,
         ResizeFitDoc,
         ResizeExpandDoc,

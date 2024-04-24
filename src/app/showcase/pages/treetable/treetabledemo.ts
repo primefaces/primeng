@@ -31,6 +31,7 @@ import { SizeDoc } from '@doc/treetable/sizedoc';
 import { GridlinesDoc } from '@doc/treetable/gridlinesdoc';
 import { ControlledDoc } from '@doc/treetable/controlleddoc';
 import { SortMultipleColumnsDoc } from '@doc/treetable/sortmultiplecolumnsdoc';
+import { ScrollFlexibleDoc } from '@doc/treetable/flexiblescrolldoc';
 
 @Component({
     templateUrl: './treetabledemo.html'
@@ -163,6 +164,11 @@ export class TreeTableDemo {
                     id: 'vertical',
                     label: 'Vertical',
                     component: ScrollVerticalDoc
+                },
+                {
+                    id: 'flexible',
+                    label: 'Flexible',
+                    component: ScrollFlexibleDoc
                 },
                 {
                     id: 'horizontal',
