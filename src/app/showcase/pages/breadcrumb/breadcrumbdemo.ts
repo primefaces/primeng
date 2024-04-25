@@ -17,17 +17,17 @@ export class BreadcrumbDemo {
             component: ImportDoc
         },
         {
-            basic: 'basic',
+            id: 'basic',
             label: 'Basic',
             component: BasicDoc
         },
         {
-            basic: 'template',
+            id: 'template',
             label: 'Template',
             component: TemplateDoc
         },
         {
-            basic: 'router',
+            id: 'router',
             label: 'Router',
             component: RouterDoc
         },
