@@ -4943,10 +4943,7 @@ export class ReorderableRow implements AfterViewInit {
         this.unbindEvents();
     }
 }
-/**
- * Column Filter element of Table.
- * @group Components
- */
+
 @Component({
     selector: 'p-columnFilter',
     template: `
@@ -5199,7 +5196,7 @@ export class ColumnFilter implements AfterContentInit {
      * Enables currency input.
      * @group Props
      */
-    @Input() currency: string | undefined;
+    @Input({transform: booleanAttribute}) currency: boolean | undefined;
     /**
      * Defines the display of the currency input.
      * @group Props
