@@ -615,13 +615,19 @@ export class HeadlessDoc {
 <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
 </div>`,
 
-        typescript: `
-import { Component, ViewChild } from '@angular/core';
+        typescript: `import { Component, ViewChild } from '@angular/core';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { AvatarModule } from 'primeng/avatar';
+import { StyleClassModule } from 'primeng/styleclass';
 import { Sidebar } from 'primeng/sidebar';
 
 @Component({
     selector: 'sidebar-headless-demo',
-    templateUrl: './sidebar-headless-demo.html'
+    templateUrl: './sidebar-headless-demo.html',
+    standalone: true,
+    imports: [SidebarModule, ButtonModule, RippleModule, AvatarModule, StyleClassModule]
 })
 export class SidebarHeadlessDemo {
     @ViewChild('sidebarRef') sidebarRef!: Sidebar;

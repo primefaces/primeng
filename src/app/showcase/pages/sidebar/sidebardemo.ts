@@ -30,14 +30,14 @@ export class SidebarDemo {
             component: PositionDoc
         },
         {
-            id: 'fullscreen',
-            label: 'Full Screen',
-            component: FullScreenDoc
-        },
-        {
             id: 'size',
             label: 'Size',
             component: SizeDoc
+        },
+        {
+            id: 'fullscreen',
+            label: 'Full Screen',
+            component: FullScreenDoc
         },
         {
             id: 'template',

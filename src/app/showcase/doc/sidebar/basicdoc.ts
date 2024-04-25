@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
                     consequat.
                 </p>
             </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+            <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="sidebar-basic-demo"></app-code>
     `
@@ -27,14 +27,12 @@ export class BasicDoc {
         basic: `<p-sidebar [(visible)]="sidebarVisible">
     <h3>Sidebar</h3>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Lorem ipsum dolor sit amet...
     </p>
 </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>`,
+<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-sidebar [(visible)]="sidebarVisible">
         <h3>Sidebar</h3>
         <p>
@@ -42,15 +40,18 @@ export class BasicDoc {
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
     </p-sidebar>
-    <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+    <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'sidebar-basic-demo',
-    templateUrl: './sidebar-basic-demo.html'
+    templateUrl: './sidebar-basic-demo.html',
+    standalone: true,
+    imports: [SidebarModule, ButtonModule]
 })
 export class SidebarBasicDemo {
     sidebarVisible: boolean = false;
