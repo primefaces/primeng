@@ -6,6 +6,7 @@ import { ImportDoc } from '@doc/paginator/importdoc';
 import { StyleDoc } from '@doc/paginator/styledoc';
 import { TemplateDoc } from '@doc/paginator/templatedoc';
 import { LocaleDoc } from '@doc/paginator/localedoc';
+import { CurrentPageReportDoc } from '@doc/paginator/currentpagereportdoc';
 
 @Component({
     templateUrl: './paginatordemo.html',
@@ -34,9 +35,9 @@ export class PaginatorDemo {
             component: TemplateDoc
         },
         {
-            id: 'images',
-            label: 'Images',
-            component: ImagesDoc
+            id: 'current-page-report',
+            label: 'Current Page Report',
+            component: CurrentPageReportDoc
         },
         {
             id: 'style',
