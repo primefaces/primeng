@@ -8,20 +8,26 @@ import { Code } from '@domain/code';
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+            <p-button (click)="showDialog()" label="Show" />
+            <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template pTemplate="header">
                     <div class="inline-flex align-items-center justify-content-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold white-space-nowrap">Amy Elsner</span>
                     </div>
                 </ng-template>
-                <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+                <span class="p-text-secondary block mb-5">Update your information.</span>
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="username" class="font-semibold w-6rem">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex align-items-center gap-3 mb-5">
+                    <label for="email" class="font-semibold w-6rem">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
                 <ng-template pTemplate="footer">
-                    <p-button icon="pi pi-check" (click)="visible = false" label="Ok" pAutoFocus [autofocus]="true"></p-button>
+                    <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
                 </ng-template>
             </p-dialog>
         </div>
@@ -36,48 +42,103 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-    <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        basic: `<p-button (click)="showDialog()" label="Show" />
+<p-dialog 
+    header="Header" 
+    [(visible)]="visible" 
+    [modal]="true" 
+    [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">
             <div class="inline-flex align-items-center justify-content-center gap-2">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
-                <span class="font-bold white-space-nowrap">Amy Elsner</span>
+                <p-avatar 
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
+                    shape="circle" />
+                <span class="font-bold white-space-nowrap">
+                    Amy Elsner
+                </span>
             </div>
         </ng-template>
-        <p class="m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <span class="p-text-secondary block mb-5">Update your information.</span>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="username" class="font-semibold w-6rem">
+                Username
+            </label>
+            <input pInputText id="username" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+            <label for="email" class="font-semibold w-6rem">Email</label>
+            <input pInputText id="email" class="flex-auto" autocomplete="off" />
+        </div>
         <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="visible = false" label="Ok" pAutoFocus [autofocus]="true"></p-button>
+            <p-button 
+                label="Cancel" 
+                [text]="true" 
+                severity="secondary" 
+                (click)="visible = false" />
+            <p-button 
+                label="Save" 
+                [outlined]="true" 
+                severity="secondary" 
+                (click)="visible = false" 
+              />
         </ng-template>
 </p-dialog>`,
 
         html: `<div class="card flex justify-content-center">
-<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
-<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
-    <ng-template pTemplate="header">
-        <div class="inline-flex align-items-center justify-content-center gap-2">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
-            <span class="font-bold white-space-nowrap">Amy Elsner</span>
-        </div>
-    </ng-template>
-    <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
-    <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="visible = false" label="Ok" pAutoFocus [autofocus]="true"></p-button>
-    </ng-template>
-</p-dialog>
+    <p-button (click)="showDialog()" label="Show" />
+    <p-dialog 
+        header="Header" 
+        [(visible)]="visible" 
+        [modal]="true" 
+        [style]="{ width: '25rem' }">
+            <ng-template pTemplate="header">
+                <div class="inline-flex align-items-center justify-content-center gap-2">
+                    <p-avatar 
+                        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
+                        shape="circle" />
+                    <span class="font-bold white-space-nowrap">
+                        Amy Elsner
+                    </span>
+                </div>
+            </ng-template>
+            <span class="p-text-secondary block mb-5">Update your information.</span>
+            <div class="flex align-items-center gap-3 mb-3">
+                <label for="username" class="font-semibold w-6rem">
+                    Username
+                </label>
+                <input pInputText id="username" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex align-items-center gap-3 mb-5">
+                <label for="email" class="font-semibold w-6rem">Email</label>
+                <input pInputText id="email" class="flex-auto" autocomplete="off" />
+            </div>
+            <ng-template pTemplate="footer">
+                <p-button 
+                    label="Cancel" 
+                    [text]="true" 
+                    severity="secondary" 
+                    (click)="visible = false" />
+                <p-button 
+                    label="Save" 
+                    [outlined]="true" 
+                    severity="secondary" 
+                    (click)="visible = false" 
+                  />
+            </ng-template>
+    </p-dialog>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { AvatarModule } from 'primeng/avatar';
+        
 @Component({
     selector: 'dialog-template-demo',
-    templateUrl: './dialog-template-demo.html'
+    templateUrl: './dialog-template-demo.html',
+    standalone: true,
+    imports: [DialogModule, ButtonModule, InputTextModule, AvatarModule]
 })
 export class DialogTemplateDemo {
     visible: boolean = false;

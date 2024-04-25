@@ -11,6 +11,7 @@ import { OverlaysInsideDoc } from '@doc/dialog/overlaysinsidedoc';
 import { ModalDoc } from '@doc/dialog/modaldoc';
 import { HeadlessDoc } from '@doc/dialog/headlessdoc';
 import { AccessibilityDoc } from '@doc/dialog/accessibilitydoc';
+import { WithoutModalDoc } from '@doc/dialog/withoutmodaldoc';
 
 @Component({
     templateUrl: './dialogdemo.html'
@@ -28,19 +29,9 @@ export class DialogDemo {
             component: BasicDoc
         },
         {
-            id: 'longcontent',
-            label: 'Long Content',
-            component: LongContentDoc
-        },
-        {
-            id: 'modal',
-            label: 'Modal',
-            component: ModalDoc
-        },
-        {
-            id: 'responsive',
-            label: 'Responsive',
-            component: ResponsiveDoc
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'position',
@@ -53,14 +44,19 @@ export class DialogDemo {
             component: MaximizableDoc
         },
         {
-            id: 'custom',
-            label: 'Custom Content',
-            component: TemplateDoc
+            id: 'longcontent',
+            label: 'Long Content',
+            component: LongContentDoc
         },
         {
-            id: 'overlaysinside',
-            label: 'Overlays Inside',
-            component: OverlaysInsideDoc
+            id: 'withoutmodal',
+            label: 'Without Modal',
+            component: WithoutModalDoc
+        },
+        {
+            id: 'responsive',
+            label: 'Responsive',
+            component: ResponsiveDoc
         },
         {
             id: 'headless',

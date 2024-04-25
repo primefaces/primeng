@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'dialog-basic-demo',
+    selector: 'dialog-without-modal-demo',
     template: `
         <app-docsectiontext>
-            <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property.
+            <p>Mask layer behind the Dialog is configured with the <i>modal</i> property. By default, no modal layer is added.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-button (click)="showDialog()" label="Show" />
-            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+            <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
                 <div class="flex align-items-center gap-3 mb-3">
                     <label for="username" class="font-semibold w-6rem">Username</label>
@@ -25,10 +25,10 @@ import { Code } from '@domain/code';
                 </div>
             </p-dialog>
         </div>
-        <app-code [code]="code" selector="dialog-basic-demo"></app-code>
+        <app-code [code]="code" selector="dialog-without-modal-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class WithoutModalDoc {
     visible: boolean = false;
 
     showDialog() {
@@ -37,7 +37,7 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-button (click)="showDialog()" label="Show" />
-<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+<p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
     <span class="p-text-secondary block mb-5">Update your information.</span>
     <div class="flex align-items-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">Username</label>
@@ -55,7 +55,7 @@ export class BasicDoc {
 
         html: `<div class="card flex justify-content-center">
     <p-button (click)="showDialog()" label="Show" />
-    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
         <span class="p-text-secondary block mb-5">Update your information.</span>
         <div class="flex align-items-center gap-3 mb-3">
             <label for="username" class="font-semibold w-6rem">Username</label>
@@ -78,12 +78,12 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-    selector: 'dialog-basic-demo',
-    templateUrl: './dialog-basic-demo.html',
+    selector: 'dialog-without-modal-demo',
+    templateUrl: './dialog-without-modal-demo.html',
     standalone: true,
     imports: [DialogModule, ButtonModule, InputTextModule]
 })
-export class DialogBasicDemo {
+export class DialogWithoutModalDemo {
     visible: boolean = false;
 
     showDialog() {

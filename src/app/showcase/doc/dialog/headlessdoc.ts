@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" icon="pi pi-user" label="Login"></p-button>
+            <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
             <p-dialog [modal]="true" [maskStyle]="'backdrop-filter: blur(2px)'" [(visible)]="visible">
                 <ng-template pTemplate="headless">
                     <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
@@ -50,8 +50,8 @@ import { Code } from '@domain/code';
                             <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password" />
                         </div>
                         <div class="flex align-items-center gap-2">
-                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
-                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
+                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
+                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
                         </div>
                     </div>
                 </ng-template>
@@ -72,7 +72,7 @@ export class HeadlessDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" icon="pi pi-user" label="Login"></p-button>
+        basic: `<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog [(visible)]="visible">
     <ng-template pTemplate="headless">
         <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
@@ -114,15 +114,15 @@ export class HeadlessDoc {
                 <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"/>
             </div>
             <div class="flex align-items-center gap-2">
-                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" ></p-button>
-                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
+                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"  />
+                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
             </div>
         </div>
     </ng-template>
 </p-dialog>`,
 
         html: `<div class="card flex justify-content-center">
-<p-button (click)="showDialog()" icon="pi pi-user" label="Login"></p-button>
+<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog [(visible)]="visible">
     <ng-template pTemplate="headless">
         <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
@@ -164,20 +164,24 @@ export class HeadlessDoc {
                 <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"/>
             </div>
             <div class="flex align-items-center gap-2">
-                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" ></p-button>
-                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
+                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"  />
+                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
             </div>
         </div>
     </ng-template>
 </p-dialog>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+        
 @Component({
     selector: 'dialog-headless-demo',
-    templateUrl: './dialog-headless-demo.html'
+    templateUrl: './dialog-headless-demo.html',
+    standalone: true,
+    imports: [DialogModule, ButtonModule, InputTextModule]
 })
 export class DialogHeadlessDemo {
     visible: boolean = false;
