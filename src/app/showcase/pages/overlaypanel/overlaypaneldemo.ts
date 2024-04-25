@@ -23,16 +23,6 @@ export class OverlayPanelDemo {
             component: BasicDoc
         },
         {
-            id: 'target',
-            label: 'Target',
-            component: TargetDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
             id: 'datatable',
             label: 'DataTable',
             component: DataTableDoc

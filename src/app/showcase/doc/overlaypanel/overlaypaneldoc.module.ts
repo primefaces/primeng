@@ -14,9 +14,12 @@ import { DataTableDoc } from './datatabledoc';
 import { TemplateDoc } from './templatedoc';
 import { TargetDoc } from './targetdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ChipsModule } from 'primeng/chips';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, OverlayPanelModule, ButtonModule, TableModule, ToastModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, RouterModule, OverlayPanelModule, ButtonModule, TableModule, ToastModule, AppDocModule, InputGroupModule, InputGroupAddonModule, ChipsModule],
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

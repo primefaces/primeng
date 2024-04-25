@@ -19,8 +19,8 @@ interface TableRowSelectEvent {
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
-            <p-toast></p-toast>
-            <p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'"></p-button>
+            <p-toast />
+            <p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
             <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
                 <div class="relative">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" [alt]="selectedProduct.name" />
@@ -36,9 +36,9 @@ interface TableRowSelectEvent {
                     <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
+                                <th pSortableColumn="name">Name<p-sortIcon field="name" /></th>
                                 <th>Image</th>
-                                <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                                <th pSortableColumn="price">Price <p-sortIcon field="price" /></th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowData let-product>
@@ -77,80 +77,140 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'"></p-button>
+        basic: `<p-toast />
+<p-button 
+    (click)="op.toggle($event)" 
+    icon="pi pi-search" 
+    [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
 <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
     <div class="relative">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" [alt]="selectedProduct.name" />
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
+            [alt]="selectedProduct.name" />
     </div>
     <div class="flex align-items-center justify-content-between mt-3 mb-2">
-        <span class="text-900 font-medium text-xl">{{ selectedProduct.name }}</span>
-        <span class="text-900 text-xl ml-3">{{ '$' + selectedProduct.price }}</span>
+        <span class="text-900 font-medium text-xl">
+            {{ selectedProduct.name }}
+        </span>
+        <span class="text-900 text-xl ml-3">
+            {{ '$' + selectedProduct.price }}
+        </span>
     </div>
-    <span class="text-600">{{ selectedProduct.category }}</span>
+    <span class="text-600">
+        {{ selectedProduct.category }}
+    </span>
 </div>
 <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
-        <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
-                    <th>Image</th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-product>
-                <tr [pSelectableRow]="rowData">
-                    <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-5rem shadow-2" /></td>
-                    <td>{{ product.price }}</td>
-                </tr>
-            </ng-template>
+        <p-table 
+            [value]="products" 
+            selectionMode="single" 
+            [(selection)]="selectedProduct" 
+            (onRowSelect)="onRowSelect($event, op)" 
+            [paginator]="true" 
+            [rows]="5" 
+            responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            Name <p-sortIcon field="name" />
+                        </th>
+                        <th>Image</th>
+                        <th pSortableColumn="price">
+                            Price <p-sortIcon field="price" />
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-product>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            {{ product.name }}
+                        </td>
+                        <td>
+                            <img 
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                                [alt]="product.image" 
+                                class="w-5rem shadow-2" />
+                        </td>
+                        <td>{{ product.price }}</td>
+                    </tr>
+                </ng-template>
         </p-table>
     </ng-template>
 </p-overlayPanel>`,
 
         html: `<div class="card flex flex-column align-items-center gap-3">
-<p-toast></p-toast>
-<p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'"></p-button>
+<p-toast />
+<p-button 
+    (click)="op.toggle($event)" 
+    icon="pi pi-search" 
+    [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
 <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
     <div class="relative">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" [alt]="selectedProduct.name" />
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
+            [alt]="selectedProduct.name" />
     </div>
     <div class="flex align-items-center justify-content-between mt-3 mb-2">
-        <span class="text-900 font-medium text-xl">{{ selectedProduct.name }}</span>
-        <span class="text-900 text-xl ml-3">{{ '$' + selectedProduct.price }}</span>
+        <span class="text-900 font-medium text-xl">
+            {{ selectedProduct.name }}
+        </span>
+        <span class="text-900 text-xl ml-3">
+            {{ '$' + selectedProduct.price }}
+        </span>
     </div>
-    <span class="text-600">{{ selectedProduct.category }}</span>
+    <span class="text-600">
+        {{ selectedProduct.category }}
+    </span>
 </div>
 <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
-        <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th pSortableColumn="name">Name<p-sortIcon field="name"></p-sortIcon></th>
-                    <th>Image</th>
-                    <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowData let-product>
-                <tr [pSelectableRow]="rowData">
-                    <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-5rem shadow-2" /></td>
-                    <td>{{ product.price }}</td>
-                </tr>
-            </ng-template>
+        <p-table 
+            [value]="products" 
+            selectionMode="single" 
+            [(selection)]="selectedProduct" 
+            (onRowSelect)="onRowSelect($event, op)" 
+            [paginator]="true" 
+            [rows]="5" 
+            responsiveLayout="scroll">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">
+                            Name <p-sortIcon field="name" />
+                        </th>
+                        <th>Image</th>
+                        <th pSortableColumn="price">
+                            Price <p-sortIcon field="price" />
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-product>
+                    <tr [pSelectableRow]="rowData">
+                        <td>
+                            {{ product.name }}
+                        </td>
+                        <td>
+                            <img 
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                                [alt]="product.image" 
+                                class="w-5rem shadow-2" />
+                        </td>
+                        <td>{{ product.price }}</td>
+                    </tr>
+                </ng-template>
         </p-table>
     </ng-template>
 </p-overlayPanel>
 </div>`,
 
-        typescript: `
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
 
 interface TableRowSelectEvent {
     originalEvent?: Event;
@@ -162,7 +222,9 @@ interface TableRowSelectEvent {
 @Component({
     selector: 'overlay-panel-data-table-demo',
     templateUrl: './overlay-panel-data-table-demo.html',
-    providers: [ MessageService, ProductService ]
+    standalone: true,
+    imports: [OverlayPanelModule, ToastModule, TableModule, ButtonModule],
+    providers: [MessageService, ProductService]
 })
 export class OverlayPanelDataTableDemo implements OnInit {
 
