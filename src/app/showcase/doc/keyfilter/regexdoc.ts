@@ -21,8 +21,7 @@ import { Code } from '../../domain/code';
     `
 })
 export class RegexDoc {
-    blockSpace: RegExp = /[^\s]/;
-
+    blockSpace: RegExp = /^[^\s]+$/;
     blockChars: RegExp = /^[^<>*!]+$/;
 
     code: Code = {
@@ -49,8 +48,8 @@ import { Component } from '@angular/core';
     templateUrl: './key-filter-reg-exp-demo.html'
 })
 export class KeyFilterRegExpDemo {
-    blockSpace: RegExp = /[^\s]/; 
-    
+    blockSpace: RegExp = /[^\s]/;
+
     blockChars: RegExp = /^[^<>*!]+$/;
 }`
     };
