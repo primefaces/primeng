@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-3 mb-5">
-                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
+                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             </div>
             <div class="dock-window">
                 <p-dock [model]="items" [position]="position">
@@ -29,7 +29,7 @@ import { Code } from '@domain/code';
 export class BasicDoc implements OnInit {
     items: MenuItem[] | undefined;
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     positionOptions = [
         {
@@ -78,10 +78,15 @@ export class BasicDoc implements OnInit {
     </ng-template>
 </p-dock>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex flex-wrap gap-3 mb-5">
-        <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
+        <p-radioButton 
+            *ngFor="let option of positionOptions" 
+            [name]="option.label" 
+            [value]="option.value" 
+            [label]="option.label" 
+            [(ngModel)]="position" 
+            [inputId]="label" />
     </div>
     <div class="dock-window">
         <p-dock [model]="items" [position]="position">
@@ -92,18 +97,37 @@ export class BasicDoc implements OnInit {
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { DockModule } from 'primeng/dock';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'dock-basic-demo',
-    templateUrl: './dock-basic-demo.html'
+    templateUrl: './dock-basic-demo.html',
+    styles: [
+        \` .dock-window {
+            width: 100%;
+            height: 450px;
+            position: relative;
+            background-image: url('https://primefaces.org/cdn/primeng/images/dock/window.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    
+        .p-dock {
+            z-index: 1000;
+        }\`
+    ],
+    standalone: true,
+    imports: [DockModule, RadioButtonModule, CommonModule, FormsModule]
 })
-export class BasicDoc implements OnInit {
+export class DockBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
-    position: string = 'top';
+    position: string = 'bottom';
 
     positionOptions = [
         {
