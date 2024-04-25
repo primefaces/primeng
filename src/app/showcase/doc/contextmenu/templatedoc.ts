@@ -3,7 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'context-menu-basic-demo',
+    selector: 'context-menu-template-demo',
     template: `
         <app-docsectiontext>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
@@ -12,10 +12,10 @@ import { Code } from '@domain/code';
             <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="max-w-full" />
             <p-contextMenu [target]="img" [model]="items" />
         </div>
-        <app-code [code]="code" selector="context-menu-basic-demo"></app-code>
+        <app-code [code]="code" selector="context-menu-template-demo"></app-code>
     `
 })
-export class BasicDoc implements OnInit {
+export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
@@ -49,12 +49,12 @@ import { MenuItem } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 
 @Component({
-    selector: 'context-menu-basic-demo',
-    templateUrl: './context-menu-basic-demo.html',
+    selector: 'context-menu-template-demo',
+    templateUrl: './context-menu-template-demo.html',
     standalone: true,
     imports: [ContextMenuModule]
 })
-export class ContextMenuBasicDemo implements OnInit {
+export class ContextMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {

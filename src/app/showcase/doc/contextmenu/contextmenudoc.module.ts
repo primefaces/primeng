@@ -9,10 +9,11 @@ import { BasicDoc } from './basicdoc';
 import { DocumentDoc } from './documentdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, DocumentDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, DocumentDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ContextMenuDocModule {}
