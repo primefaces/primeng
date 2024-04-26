@@ -1050,10 +1050,6 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
             anchorElement ? anchorElement.click() : element && element.click();
 
-            const processedItem = this.visibleItems[this.focusedItemInfo().index];
-            const grouped = this.isProccessedItemGroup(processedItem);
-
-            !grouped && (this.focusedItemInfo().index = this.findFirstFocusedItemIndex());
         }
 
         event.preventDefault();
