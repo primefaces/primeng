@@ -4,6 +4,8 @@ import { BasicDoc } from '@doc/menubar/basicdoc';
 import { ImportDoc } from '@doc/menubar/importdoc';
 import { StyleDoc } from '@doc/menubar/styledoc';
 import { AccessibilityDoc } from '@doc/menubar/accessibilitydoc';
+import { CommandDoc } from '@doc/menubar/commanddoc';
+import { RouterDoc } from '@doc/menubar/routerdoc';
 
 @Component({
     templateUrl: './menubardemo.html'
@@ -24,6 +26,16 @@ export class MenubarDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'command',
+            label: 'Command',
+            component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
         },
         {
             id: 'style',
