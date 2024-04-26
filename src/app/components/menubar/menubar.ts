@@ -1049,7 +1049,6 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
             const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
             anchorElement ? anchorElement.click() : element && element.click();
-
         }
 
         event.preventDefault();
