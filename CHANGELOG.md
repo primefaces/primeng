@@ -1,5 +1,13 @@
 # Changelog
 
+## [16.4.4](https://github.com/primefaces/primeng/tree/16.4.4) (2024-04-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.3...16.4.4)
+
+**Fixed bugs:**
+- TreeTable | selectionKeys support for checkbox selection mode [\#15216](https://github.com/primefaces/primeng/issues/15216)
+- p-treeTableHeaderCheckbox doesn't select/unselect all when TreeTable has dataKey property [\#9188](https://github.com/primefaces/primeng/issues/9188)
+
 ## [16.4.3](https://github.com/primefaces/primeng/tree/16.4.3) (2024-01-04)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/16.4.2...16.4.3)
