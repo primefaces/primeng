@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { BasicDoc } from '@doc/menu/basicdoc';
-import { CustomContentDoc } from '@doc/menu/customdoc';
+import { TemplateDoc } from '@doc/menu/templatedoc';
 import { CommandDoc } from '@doc/menu/commanddoc';
 import { GroupDoc } from '@doc/menu/groupdoc';
 import { ImportDoc } from '@doc/menu/importdoc';
-import { NavigationDoc } from '@doc/menu/navigationdoc';
+import { RouterDoc } from '@doc/menu/routerdoc';
 import { PopupDoc } from '@doc/menu/popupdoc';
 import { StyleDoc } from '@doc/menu/styledoc';
 import { AccessibilityDoc } from '@doc/menu/accessibilitydoc';
@@ -35,19 +35,19 @@ export class MenuDemo {
             component: PopupDoc
         },
         {
-            id: 'custom',
-            label: 'Custom Content',
-            component: CustomContentDoc
-        },
-        {
-            id: 'navigation',
-            label: 'Navigation',
-            component: NavigationDoc
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'command',
             label: 'Command',
             component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
         },
         {
             id: 'style',
