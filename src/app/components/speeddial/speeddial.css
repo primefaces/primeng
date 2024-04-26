@@ -5,6 +5,14 @@
         z-index: 1;
     }
 
+    .p-speeddial:not(.p-speeddial-opened) {
+        pointer-events: none;
+    }
+
+    .p-speeddial:not(.p-speeddial-opened) .p-speeddial-button {
+        pointer-events: auto;
+    }
+
     .p-speeddial-list {
         margin: 0;
         padding: 0;

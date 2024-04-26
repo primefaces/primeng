@@ -6021,7 +6021,7 @@
                             "name": "style",
                             "optional": false,
                             "readonly": false,
-                            "type": "Object",
+                            "type": null,
                             "description": "Inline style of the element."
                         },
                         {
@@ -23396,7 +23396,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "640px",
+                            "default": "960px",
                             "description": "The breakpoint to define the maximum width boundary when using stack responsive layout."
                         },
                         {
