@@ -708,7 +708,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * The breakpoint to define the maximum width boundary when using stack responsive layout.
      * @group Props
      */
-    @Input() breakpoint: string = '640px';
+    @Input() breakpoint: string = '960px';
     /**
      * Locale to be used in paginator formatting.
      * @group Props
@@ -5207,7 +5207,7 @@ export class ColumnFilter implements AfterContentInit {
      * Enables currency input.
      * @group Props
      */
-    @Input({transform: booleanAttribute}) currency: boolean | undefined;
+    @Input({ transform: booleanAttribute }) currency: boolean | undefined;
     /**
      * Defines the display of the currency input.
      * @group Props
