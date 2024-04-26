@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Code } from '../../domain/code';
+import { MultiSelect } from 'primeng/multiselect';
 
 @Component({
     selector: 'virtual-scroll-doc',
@@ -23,13 +24,20 @@ import { Code } from '../../domain/code';
                 class="multiselect-custom-virtual-scroll"
                 placeholder="Select Cities"
                 (onSelectAllChange)="onSelectAllChange($event)"
-                (onChange)="onChange($event)"
-            ></p-multiSelect>
+                #ms
+            >
+                <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
+                    <i class="pi pi-check" *ngIf="allSelected"></i>
+                    <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+                </ng-template>
+            </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-virtual-scroll-demo"></app-code>
     `
 })
 export class VirtualScrollDoc {
+    @ViewChild('ms') ms: MultiSelect;
+
     items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
 
     selectedItems!: any[];
@@ -37,13 +45,8 @@ export class VirtualScrollDoc {
     selectAll: boolean = false;
 
     onSelectAllChange(event) {
-        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectedItems = event.checked ? [...this.ms.visibleOptions()] : [];
         this.selectAll = event.checked;
-    }
-
-    onChange(event) {
-        const { value } = event;
-        if (value) this.selectAll = value.length === this.items.length;
     }
 
     code: Code = {
@@ -59,8 +62,13 @@ export class VirtualScrollDoc {
     class="multiselect-custom-virtual-scroll"
     placeholder="Select Cities"
     (onSelectAllChange)="onSelectAllChange($event)"
-    (onChange)="onChange($event)"
-></p-multiSelect>`,
+    #ms
+>
+    <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
+        <i class="pi pi-check" *ngIf="allSelected"></i>
+        <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+    </ng-template>
+</p-multiSelect>`,
 
         html: `
 <div class="card flex justify-content-center">
@@ -76,32 +84,35 @@ export class VirtualScrollDoc {
         class="multiselect-custom-virtual-scroll"
         placeholder="Select Cities"
         (onSelectAllChange)="onSelectAllChange($event)"
-        (onChange)="onChange($event)"
-    ></p-multiSelect>
+        #ms
+        >
+        <ng-template pTemplate="headercheckboxicon" let-allSelected let-partialSelected="partialSelected">
+            <i class="pi pi-check" *ngIf="allSelected"></i>
+            <i class="pi pi-minus" *ngIf="partialSelected" [ngStyle]="{ color: 'var(--text-color)' }"></i>
+        </ng-template>
+    </p-multiSelect>
 </div>`,
 
         typescript: `
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MultiSelect } from 'primeng/multiselect';
 
 @Component({
     selector: 'multi-select-virtual-scroll-demo',
     templateUrl: './multi-select-virtual-scroll-demo.html'
 })
 export class MultiSelectVirtualScrollDemo {
+    @ViewChild('ms') ms: MultiSelect;
+
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))
 
     selectedItems!: any[];
 
-    selectAll = false;
+    selectAll: boolean = false;
 
     onSelectAllChange(event) {
-        this.selectedItems = event.checked ? [...this.items] : [];
+        this.selectedItems = event.checked ? [...this.ms.visibleOptions()] : [];
         this.selectAll = event.checked;
-    }
-
-    onChange(event) {
-        const { originalEvent, value } = event
-        if(value) this.selectAll = value.length === this.items.length;
     }
 
 }`

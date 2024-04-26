@@ -16546,7 +16546,30 @@
                         "parent": "multiselect",
                         "name": "checkicon",
                         "parameters": [],
-                        "description": "Custom check icon template."
+                        "description": "Custom check icon template.",
+                        "deprecated": "Use headercheckboxicon or itemcheckboxicon instead."
+                    },
+                    {
+                        "parent": "multiselect",
+                        "name": "headercheckboxicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: boolean, // Defines if all items are selected.\n  \t partialSelected: boolean, // Defines if items are partially selected.\n  }"
+                            }
+                        ],
+                        "description": "Custom check icon template for the header checkbox."
+                    },
+                    {
+                        "parent": "multiselect",
+                        "name": "itemcheckboxicon",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: boolean, // Selection status of the item.\n  }"
+                            }
+                        ],
+                        "description": "Custom check icon template for the item checkbox."
                     },
                     {
                         "parent": "multiselect",
