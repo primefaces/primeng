@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { AccessibilityDoc } from '@doc/contextmenu/accessibilitydoc';
 import { BasicDoc } from '@doc/contextmenu/basicdoc';
+import { CommandDoc } from '@doc/contextmenu/commanddoc';
 import { DocumentDoc } from '@doc/contextmenu/documentdoc';
 import { ImportDoc } from '@doc/contextmenu/importdoc';
+import { RouterDoc } from '@doc/contextmenu/routerdoc';
 import { StyleDoc } from '@doc/contextmenu/styledoc';
+import { TableDoc } from '@doc/contextmenu/tabledoc';
 import { TemplateDoc } from '@doc/contextmenu/templatedoc';
 
 @Component({
@@ -30,6 +33,21 @@ export class ContextMenuDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'command',
+            label: 'Command',
+            component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
+        },
+        {
+            id: 'table',
+            label: 'Table',
+            component: TableDoc
         },
         {
             id: 'style',

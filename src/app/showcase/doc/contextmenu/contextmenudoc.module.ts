@@ -10,10 +10,15 @@ import { DocumentDoc } from './documentdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { CommandDoc } from './commanddoc';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { RouterDoc } from './routerdoc';
+import { TableDoc } from './tabledoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, DocumentDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
+    imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule, TagModule, ToastModule],
+    declarations: [BasicDoc, ImportDoc, DocumentDoc, TemplateDoc, CommandDoc, RouterDoc, TableDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class ContextMenuDocModule {}
