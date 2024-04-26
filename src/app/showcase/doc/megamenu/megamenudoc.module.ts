@@ -12,10 +12,13 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { AvatarModule } from 'primeng/avatar';
+import { CommandDoc } from './commanddoc';
+import { RouterDoc } from './routerdoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, MegaMenuModule, InputTextModule, ButtonModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, VerticalDoc, AccessibilityDoc],
+    imports: [CommonModule, AppCodeModule, RouterModule, MegaMenuModule, InputTextModule, ButtonModule, AppDocModule, AvatarModule],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, VerticalDoc, CommandDoc,RouterDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MegaMenuDocModule {}

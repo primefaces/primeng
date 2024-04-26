@@ -5,6 +5,8 @@ import { StyleDoc } from '@doc/megamenu/styledoc';
 import { TemplateDoc } from '@doc/megamenu/templatedoc';
 import { VerticalDoc } from '@doc/megamenu/verticaldoc';
 import { AccessibilityDoc } from '@doc/megamenu/accessibilitydoc';
+import { CommandDoc } from '@doc/megamenu/commanddoc';
+import { RouterDoc } from '@doc/megamenu/routerdoc';
 
 @Component({
     templateUrl: './megamenudemo.html',
@@ -39,6 +41,16 @@ export class MegaMenuDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'command',
+            label: 'Command',
+            component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
         },
         {
             id: 'style',
