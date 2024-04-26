@@ -2483,7 +2483,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
-        this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        if (event.type == 'touchstart') {
+            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        } else {
+            this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        }
         this.onColumnResize(event);
         event.preventDefault();
     }
@@ -2493,8 +2497,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
-
+        if (event.type == 'touchmove') {
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        } else {
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        }
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
 
@@ -3915,6 +3922,12 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
     resizerMouseDownListener: VoidListener;
 
+    resizerTouchStartListener: VoidListener;
+
+    resizerTouchMoveListener: VoidListener;
+
+    resizerTouchEndListener: VoidListener;
+
     documentMouseMoveListener: VoidListener;
 
     documentMouseUpListener: VoidListener;
@@ -3931,6 +3944,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
                 this.zone.runOutsideAngular(() => {
                     this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                    this.resizerTouchStartListener = this.renderer.listen(this.resizer, 'touchstart', this.onTouchStart.bind(this));
                 });
             }
         }
@@ -3940,6 +3954,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
             this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
+            this.resizerTouchMoveListener = this.renderer.listen(this.resizer, 'touchmove', this.onTouchMove.bind(this));
+            this.resizerTouchEndListener = this.renderer.listen(this.resizer, 'touchend', this.onTouchEnd.bind(this));
         });
     }
 
@@ -3953,20 +3969,40 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
             this.documentMouseUpListener();
             this.documentMouseUpListener = null;
         }
-    }
+        if (this.resizerTouchMoveListener) {
+            this.resizerTouchMoveListener();
+            this.resizerTouchMoveListener = null;
+        }
 
-    onMouseDown(event: MouseEvent) {
-        if (event.which === 1) {
-            this.dt.onColumnResizeBegin(event);
-            this.bindDocumentEvents();
+        if (this.resizerTouchEndListener) {
+            this.resizerTouchEndListener();
+            this.resizerTouchEndListener = null;
         }
     }
 
+    onMouseDown(event: MouseEvent) {
+        this.dt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onTouchStart(event: TouchEvent) {
+        this.dt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onTouchMove(event: TouchEvent) {
+        this.dt.onColumnResize(event);
+    }
     onDocumentMouseMove(event: MouseEvent) {
         this.dt.onColumnResize(event);
     }
 
     onDocumentMouseUp(event: MouseEvent) {
+        this.dt.onColumnResizeEnd();
+        this.unbindDocumentEvents();
+    }
+
+    onTouchEnd(event: TouchEvent) {
         this.dt.onColumnResizeEnd();
         this.unbindDocumentEvents();
     }
