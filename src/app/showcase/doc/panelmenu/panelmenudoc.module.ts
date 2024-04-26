@@ -9,10 +9,14 @@ import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { MultipleDoc } from './multipledoc';
 import { StyleDoc } from './styledoc';
+import { ControlledDoc } from './controlleddoc';
+import { ButtonModule } from 'primeng/button';
+import { TemplateDoc } from './templatedoc';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, MultipleDoc, StyleDoc, AccessibilityDoc],
+    imports: [CommonModule, AppCodeModule, RouterModule, PanelMenuModule, AppDocModule, ButtonModule, BadgeModule],
+    declarations: [BasicDoc, ImportDoc, MultipleDoc, ControlledDoc, TemplateDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class PanelMenuDocModule {}

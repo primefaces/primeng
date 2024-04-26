@@ -4,6 +4,8 @@ import { ImportDoc } from '@doc/panelmenu/importdoc';
 import { StyleDoc } from '@doc/panelmenu/styledoc';
 import { MultipleDoc } from '@doc/panelmenu/multipledoc';
 import { AccessibilityDoc } from '@doc/panelmenu/accessibilitydoc';
+import { ControlledDoc } from '@doc/panelmenu/controlleddoc';
+import { TemplateDoc } from '@doc/panelmenu/templatedoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'
@@ -24,6 +26,16 @@ export class PanelMenuDemo {
             id: 'multiple',
             label: 'Multiple',
             component: MultipleDoc
+        },
+        {
+            id: 'controlled',
+            label: 'Controlled',
+            component: ControlledDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'style',
