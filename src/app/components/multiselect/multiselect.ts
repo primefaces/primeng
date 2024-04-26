@@ -170,7 +170,15 @@ export class MultiSelectItem {
                     [autofocus]="autofocus"
                 />
             </div>
-            <div class="p-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
+            <div
+                class="p-multiselect-label-container"
+                [pTooltip]="tooltip"
+                (mouseleave)="labelContainerMouseLeave()"
+                [tooltipDisabled]="_disableTooltip"
+                [tooltipPosition]="tooltipPosition"
+                [positionStyle]="tooltipPositionStyle"
+                [tooltipStyleClass]="tooltipStyleClass"
+            >
                 <div [ngClass]="labelClass">
                     <ng-container *ngIf="!selectedItemsTemplate">
                         <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
@@ -920,6 +928,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     _itemSize: number | undefined;
 
     _selectionLimit: number | undefined;
+
+    _disableTooltip = false;
 
     value: any[];
 
@@ -2025,8 +2035,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateModel(null, event);
         this.selectedOptions = null;
         this.onClear.emit();
+        this._disableTooltip = true;
 
         event.stopPropagation();
+    }
+
+    labelContainerMouseLeave() {
+        if (this._disableTooltip) this._disableTooltip = false;
     }
 
     removeOption(optionValue, event) {
