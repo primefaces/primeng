@@ -200,10 +200,7 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
          */
         afterNextRender(() => {
             this.initQuillElements();
-
-            if (this.isAttachedQuillEditorToDOM) {
-                this.initQuillEditor();
-            }
+            this.initQuillEditor();
         });
     }
 
