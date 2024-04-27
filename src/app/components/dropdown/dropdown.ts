@@ -154,7 +154,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span>{{ label() === 'p-emptylabel' ? '&nbsp;' : displayPlaceholder() ? placeholder() : label() }}</span>
                 </ng-template>
             </span>
             <input
