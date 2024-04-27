@@ -38,14 +38,14 @@ export class FloatLabelDoc implements OnInit {
 
     code: Code = {
         basic: `<span class="p-float-label">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
+    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label"></p-dropdown>
     <label for="float-label">Select a City</label>
 </span>`,
 
         html: `
 <div class="card flex justify-content-center">
     <span class="p-float-label">
-        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
+        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label"></p-dropdown>
         <label for="float-label">Select a City</label>
     </span>
 </div>`,
