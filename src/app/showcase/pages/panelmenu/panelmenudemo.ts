@@ -6,6 +6,8 @@ import { MultipleDoc } from '@doc/panelmenu/multipledoc';
 import { AccessibilityDoc } from '@doc/panelmenu/accessibilitydoc';
 import { ControlledDoc } from '@doc/panelmenu/controlleddoc';
 import { TemplateDoc } from '@doc/panelmenu/templatedoc';
+import { CommandDoc } from '@doc/panelmenu/commanddoc';
+import { RouterDoc } from '@doc/panelmenu/routerdoc';
 
 @Component({
     templateUrl: './panelmenudemo.html'
@@ -36,6 +38,16 @@ export class PanelMenuDemo {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'command',
+            label: 'Command',
+            component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
         },
         {
             id: 'style',

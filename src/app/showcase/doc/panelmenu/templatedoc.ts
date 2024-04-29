@@ -130,21 +130,73 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />`,
+        basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
+    <ng-template pTemplate="headercontent" let-item>
+        <div class="flex justify-content-between align-items-center py-1 px-3">
+            <i [class]="item.icon + ' text-primary'"></i>
+            <span [ngClass]="{ 'ml-2 font-semibold': item.items }">
+                {{ item.label }}
+            </span>
+            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                {{ item.shortcut }}
+            </span>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="item" let-item>
+        <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
+            <i [class]="item.icon + ' text-primary'"></i>
+            <span class="ml-2">
+                {{ item.label }}
+            </span>
+            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                {{ item.shortcut }}
+            </span>
+        </a>
+    </ng-template>
+</p-panelMenu>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+        html: `<div class="card flex flex-column align-items-center">
+    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
+        <ng-template pTemplate="headercontent" let-item>
+            <div class="flex justify-content-between align-items-center py-1 px-3">
+                <i [class]="item.icon + ' text-primary'"></i>
+                <span [ngClass]="{ 'ml-2 font-semibold': item.items }">
+                    {{ item.label }}
+                </span>
+                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                    {{ item.shortcut }}
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="item" let-item>
+            <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
+                <i [class]="item.icon + ' text-primary'"></i>
+                <span class="ml-2">
+                    {{ item.label }}
+                </span>
+                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
+                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                    {{ item.shortcut }}
+                </span>
+            </a>
+        </ng-template>
+    </p-panelMenu>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { BadgeModule } from 'primeng/badge';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'panel-menu-template-demo',
     templateUrl: './panel-menu-template-demo.html',
     standalone: true,
-    imports: [PanelMenuModule]
+    imports: [PanelMenuModule, BadgeModule, RippleModule]
 })
 export class PanelMenuTemplateDemo implements OnInit {
     items: MenuItem[];
