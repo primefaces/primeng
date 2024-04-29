@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
-            <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+            <p-button label="Toggle" (click)="menu.toggle($event)" />
+            <p-tieredMenu #menu [model]="items" [popup]="true" />
         </div>
         <app-code [code]="code" selector="tiered-menu-popup-demo"></app-code>
     `
@@ -91,21 +91,24 @@ export class PopupDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
-<p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>`,
+        basic: `<p-button label="Toggle" (click)="menu.toggle($event)" />
+<p-tieredMenu #menu [model]="items" [popup]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <button #btn type="button" pButton label="Toggle" (click)="menu.toggle($event)"></button>
-    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
+    <p-button label="Toggle" (click)="menu.toggle($event)" />
+    <p-tieredMenu #menu [model]="items" [popup]="true" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tiered-menu-popup-demo',
-    templateUrl: './tiered-menu-popup-demo.html'
+    templateUrl: './tiered-menu-popup-demo.html',
+    standalone: true,
+    imports: [TieredMenuModule, ButtonModule]
 })
 export class TieredMenuPopupDemo implements OnInit {
     items: MenuItem[] | undefined;

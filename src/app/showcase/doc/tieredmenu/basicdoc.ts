@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '@domain/code';
+import { Code } from '../../domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>TieredMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tieredMenu [model]="items"></p-tieredMenu>
+            <p-tieredMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-basic-demo"></app-code>
     `
@@ -90,19 +90,21 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredMenu [model]="items"></p-tieredMenu>`,
+        basic: `<p-tieredMenu [model]="items" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-tieredMenu [model]="items"></p-tieredMenu>
+    <p-tieredMenu [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @Component({
     selector: 'tiered-menu-basic-demo',
-    templateUrl: './tiered-menu-basic-demo.html'
+    templateUrl: './tiered-menu-basic-demo.html',
+    standalone: true,
+    imports: [TieredMenuModule]
 })
 export class TieredMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
