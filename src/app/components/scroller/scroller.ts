@@ -735,7 +735,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     getRenderedRange() {
-        const calculateFirstInViewport = (_pos: number, _size: number) => Math.floor(_pos / (_size || _pos));
+        const calculateFirstInViewport = (_pos: number, _size: number) => (_size || _pos) ? Math.floor(_pos / (_size || _pos)) : 0;
 
         let firstInViewport = this.first;
         let lastInViewport: any = 0;
@@ -767,7 +767,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const contentPos = this.getContentPosition();
         const contentWidth = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0) || 0;
         const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
-        const calculateNumItemsInViewport = (_contentSize: number, _itemSize: number) => Math.ceil(_contentSize / (_itemSize || _contentSize));
+        const calculateNumItemsInViewport = (_contentSize: number, _itemSize: number) => (_itemSize || _contentSize) ? Math.ceil(_contentSize / (_itemSize || _contentSize)) : 0;
         const calculateNumToleratedItems = (_numItems: number) => Math.ceil(_numItems / 2);
         const numItemsInViewport: any = this.both
             ? { rows: calculateNumItemsInViewport(contentHeight, (<number[]>this._itemSize)[0]), cols: calculateNumItemsInViewport(contentWidth, (<number[]>this._itemSize)[1]) }
@@ -897,7 +897,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const target = event.target;
         const contentPos = this.getContentPosition();
         const calculateScrollPos = (_pos: number, _cpos: number) => (_pos ? (_pos > _cpos ? _pos - _cpos : _pos) : 0);
-        const calculateCurrentIndex = (_pos: number, _size: number) => Math.floor(_pos / (_size || _pos));
+        const calculateCurrentIndex = (_pos: number, _size: number) => (_size || _pos) ? Math.floor(_pos / (_size || _pos)) : 0;
         const calculateTriggerIndex = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isScrollDownOrRight: any) => {
             return _currentIndex <= _numT ? _numT : _isScrollDownOrRight ? _last - _num - _numT : _first + _numT - 1;
         };
