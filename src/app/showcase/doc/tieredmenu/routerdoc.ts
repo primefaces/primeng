@@ -41,9 +41,11 @@ import { Router } from '@angular/router';
     `
 })
 export class RouterDoc implements OnInit {
-    constructor(private router: Router) {}
+
     items: MenuItem[] | undefined;
 
+    constructor(private router: Router) {}
+    
     ngOnInit() {
         this.items = [
             {
@@ -113,7 +115,7 @@ export class RouterDoc implements OnInit {
 </p-tieredMenu>`,
 
         html: `<div class="card flex justify-content-center">
-        <p-tieredMenu [model]="items">
+    <p-tieredMenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">
                 <a [routerLink]="item.route" [href]="item.href" class="p-menuitem-link">
@@ -141,18 +143,23 @@ export class RouterDoc implements OnInit {
     </p-tieredMenu>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'tiered-menu-router-demo',
-    templateUrl: './tiered-menu-router-demo.html'
+    templateUrl: './tiered-menu-router-demo.html',
+    standalone: true,
+    imports: [TieredMenuModule, CommonModule]
 })
 export class TieredMenuRouterDemo implements OnInit {
-    constructor(private router: Router) {}
+
     items: MenuItem[] | undefined;
+
+    constructor(private router: Router) {}
 
     ngOnInit() {
         this.items = [
