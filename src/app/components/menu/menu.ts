@@ -426,9 +426,11 @@ export class Menu implements OnDestroy {
                 case 'start':
                     this.startTemplate = item.template;
                     break;
+
                 case 'end':
                     this.endTemplate = item.template;
                     break;
+
                 case 'itemTemplate':
                     this.itemTemplate = item.template;
                     break;
