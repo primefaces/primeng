@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
             <p>In order to add interactivity to the component, disable <i>readonly</i> and use a binding to <i>activeIndex</i> along with <i>activeIndexChange</i> to control the Steps.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-toast></p-toast>
-            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+            <p-toast />
+            <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)" />
         </div>
         <app-code [code]="code" selector="steps-interactive-demo"></app-code>
     `,
@@ -49,22 +49,32 @@ export class InteractiveDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>`,
+        basic: `<p-toast />
+<p-steps 
+    [model]="items" 
+    [readonly]="false" 
+    [activeIndex]="activeIndex" 
+    (activeIndexChange)="onActiveIndexChange($event)" />`,
 
-        html: `
-<div class="card">
-    <p-toast></p-toast>
-    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex" (activeIndexChange)="onActiveIndexChange($event)"></p-steps>
+        html: `<div class="card">
+    <p-toast />
+    <p-steps 
+        [model]="items" 
+        [readonly]="false" 
+        [activeIndex]="activeIndex" 
+        (activeIndexChange)="onActiveIndexChange($event)" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'steps-interactive-demo',
     templateUrl: './steps-interactive-demo.html',
+    standalone: true,
+    imports: [StepsModule, ToastModule],
     providers: [MessageService]
 })
 export class StepsInteractiveDemo implements OnInit {

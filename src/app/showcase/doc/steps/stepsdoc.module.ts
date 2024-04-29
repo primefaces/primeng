@@ -22,10 +22,11 @@ import { StyleDoc } from './styledoc';
 import { TicketService } from '@service/ticketservice';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { ButtonModule } from 'primeng/button';
+import { ControlledDoc } from './controlleddoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, StepsModule, ToastModule, AppDocModule, FormsModule, DropdownModule, InputTextModule, InputMaskModule, CheckboxModule, CardModule, ButtonModule],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, InteractiveDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, InteractiveDoc, ConfirmationDemo, PaymentDemo, PersonalDemo, SeatDemo, RoutingDoc, ControlledDoc, AccessibilityDoc],
     exports: [AppDocModule],
     providers: [TicketService]
 })

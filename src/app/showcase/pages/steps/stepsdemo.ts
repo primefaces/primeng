@@ -5,6 +5,7 @@ import { InteractiveDoc } from '@doc/steps/interactivedoc';
 import { StyleDoc } from '@doc/steps/styledoc';
 import { RoutingDoc } from '@doc/steps/routingdoc';
 import { AccessibilityDoc } from '@doc/steps/accessibilitydoc';
+import { ControlledDoc } from '@doc/steps/controlleddoc';
 
 @Component({
     templateUrl: './stepsdemo.html',
@@ -21,6 +22,11 @@ export class StepsDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'controlled',
+            label: 'Controlled',
+            component: ControlledDoc
         },
         {
             id: 'interactive',
