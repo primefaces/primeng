@@ -436,6 +436,7 @@ export class Menu implements OnDestroy {
                 case 'submenuheader':
                     this.submenuHeaderTemplate = item.template;
                     break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
