@@ -616,16 +616,13 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     getPrefixExpression(): RegExp {
-        console.log("prefix", this.prefix);
 
         if (this.prefix) {
             this.prefixChar = this.prefix;
-            console.log("prefix char", this.prefixChar);
 
         } else {
             const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay });
             this.prefixChar = formatter.format(1).split('1')[0];
-            console.log("prefix char", this.prefixChar);
 
         }
 
@@ -656,9 +653,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 console.log(value);
 
                 if (this.prefix) {
-                    console.log("prefix ", this.prefix);
-                    console.log("formattedValue ", formattedValue);
-
                     formattedValue = this.prefix + formattedValue;
                 }
 
@@ -882,8 +876,20 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             case 'Backspace': {
                 event.preventDefault();
 
+
                 if (selectionStart === selectionEnd) {
-                    const deleteChar = inputValue.charAt(selectionStart - 1);
+                    console.log("SekectionStart ", selectionStart);
+                    console.log("inputValue.length ", inputValue.length);
+
+                    const deleteIndex = selectionStart - 1;
+                    console.log("deleteIndex ", deleteIndex);
+
+                    if(selectionStart == 1 || selectionStart == inputValue.length){
+                        break;
+                    }
+                    const deleteChar = inputValue.charAt(deleteIndex);
+                    console.log("deleteChar ", deleteChar);
+
                     const { decimalCharIndex, decimalCharIndexWithoutPrefix } = this.getDecimalCharIndexes(inputValue);
 
                     if (this.isNumeralChar(deleteChar)) {
@@ -926,7 +932,15 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
+                    console.log("SekectionStart ", selectionStart);
+                    console.log("inputValue.length ", inputValue.length);
+
+                    if(selectionStart == 0 || selectionStart == inputValue.length-1){
+                        break;
+                    }
                     const deleteChar = inputValue.charAt(selectionStart);
+                    console.log("deleteChar ", deleteChar);
+
                     const { decimalCharIndex, decimalCharIndexWithoutPrefix } = this.getDecimalCharIndexes(inputValue);
 
                     if (this.isNumeralChar(deleteChar)) {
