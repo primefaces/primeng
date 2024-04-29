@@ -27,15 +27,6 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         </div>
     `,
     standalone: true,
-    providers: [
-        {
-            provide: IMAGE_CONFIG,
-            useValue: {
-                disableImageSizeWarning: true,
-                disableImageLazyLooadWarning: true
-            }
-        }
-    ],
     imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
