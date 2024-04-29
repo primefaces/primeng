@@ -2505,6 +2505,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 return pm ? 12 : 0;
             } else {
                 return pm ? hours + 12 : hours;
+                // this occurs if min date has sethour for example 17 will cause this to exceed 24 hours it will be 29
+                // if (hours > 24){
+                //     return (hours - 12)
+                // } else{
+                //     return hours
+                // }
             }
         }
         return hours;
@@ -2532,9 +2538,34 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
+
+        // If PM switches to AM
+        // this.mindate.gethours gives the 17 hours 
+
+        // if currentdate is mindate and pm is false then set hours to convertedHour and set pm to true
+
+        // if min hours exceeds 12 
+        let minHours;
+        if (this.minDate.getHours() > 12){
+            minHours = true;
+        } else{
+            minHours = false;
+        }
+
+
+        console.log(convertedHour)
+
         switch (
             true // intentional fall through
         ) {
+            case isMinDate && minHours && this.minDate.getHours() > convertedHour:
+                this.setCurrentHourPM(this.minDate.getHours())
+                returnTimeTriple[0] =   this.convertTo24Hour(this.minDate.getHours(), minHours);
+             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate.getMinutes();
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate.getSeconds();
+                break;
             case isMinDate && this.minDate.getHours() > convertedHour:
                 returnTimeTriple[0] = this.minDate.getHours();
             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
@@ -2566,8 +2597,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
-        this.pm = newPM;
         event.preventDefault();
+    }
+
+    setPM(convertedHour: Number){
+
     }
 
     onTimePickerElementMouseDown(event: Event, type: number, direction: number) {
@@ -2707,7 +2741,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     toggleAMPM(event: any) {
         const newPM = !this.pm;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
-        this.pm = newPM;
+        //this.pm = newPM;
         this.updateTime();
         event.preventDefault();
     }
