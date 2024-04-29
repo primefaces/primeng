@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-chart type="polarArea" [data]="data" [options]="options"></p-chart>
+            <p-chart type="polarArea" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
     `
@@ -75,17 +75,18 @@ export class PolarAreaDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="polarArea" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-chart type="polarArea" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="polarArea" [data]="data" [options]="options" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-chart type="polarArea" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-polar-area-demo',
-    templateUrl: './chart-polar-area-demo.html'
+    templateUrl: './chart-polar-area-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartPolarAreaDemo implements OnInit {
     data: any;

@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>A line chart or line graph is a type of chart which displays information as a series of data points called 'markers' connected by straight line segments.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options"></p-chart>
+            <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-line-demo"></app-code>
     `
@@ -95,17 +95,18 @@ export class LineDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="line" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        html: `<div class="card">
+    <p-chart type="line" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-line-demo',
-    templateUrl: './chart-line-demo.html'
+    templateUrl: './chart-line-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartLineDemo implements OnInit {
     data: any;

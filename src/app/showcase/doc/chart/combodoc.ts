@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Different chart types can be combined in the same graph usign the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options"></p-chart>
+            <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
     `
@@ -102,17 +102,18 @@ export class ComboDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="line" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        html: `<div class="card">
+    <p-chart type="line" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-combo-demo',
-    templateUrl: './chart-combo-demo.html'
+    templateUrl: './chart-combo-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartComboDemo implements OnInit {
     data: any;

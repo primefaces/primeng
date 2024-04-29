@@ -14,7 +14,7 @@ import { Subscription, debounceTime } from 'rxjs';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+            <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
     `
@@ -93,17 +93,18 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+        basic: `<p-chart type="bar" [data]="basicData" [options]="basicOptions" />`,
+        html: `<div class="card">
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-basic-demo',
-    templateUrl: './chart-basic-demo.html'
+    templateUrl: './chart-basic-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartBasicDemo implements OnInit {
     basicData: any;

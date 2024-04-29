@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Multiple axes can be added using the <i>scales</i> option.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options"></p-chart>
+            <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
     `
@@ -111,17 +111,18 @@ export class MultiAxisDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="line" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        html: `<div class="card">
+    <p-chart type="line" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-multi-axis-demo',
-    templateUrl: './chart-multi-axis-demo.html'
+    templateUrl: './chart-multi-axis-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartMultiAxisDemo implements OnInit {
     data: any;
