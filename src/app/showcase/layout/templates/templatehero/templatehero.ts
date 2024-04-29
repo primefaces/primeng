@@ -9,7 +9,7 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
     template: `
         <div class="template-hero">
             <ng-container *ngIf="!!templateHeroData?.pattern">
-                <img class="template-hero-pattern" width="1344" height="315" [ngSrc]="templateHeroData.pattern" alt="Template Hero Pattern" priority />
+                <img class="template-hero-pattern" width="1344" [src]="templateHeroData.pattern" alt="Template Hero Pattern" priority />
             </ng-container>
             <ng-container *ngIf="!!templateHeroData?.light">
                 <template-hero-light></template-hero-light>
@@ -38,10 +38,10 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                 </div>
             </div>
             <ng-container *ngIf="!!templateHeroData?.dashboard1">
-                <img class="template-hero-dashboard1" width="504" height="504" [ngSrc]="templateHeroData?.dashboard1" alt="Template Dashboard Image 1" />
+                <img class="template-hero-dashboard1" eager [src]="templateHeroData?.dashboard1" alt="Template Dashboard Image 1" />
             </ng-container>
             <ng-container *ngIf="!!templateHeroData?.dashboard2">
-                <img class="template-hero-dashboard2" width="504" height="504" [ngSrc]="templateHeroData?.dashboard2" alt="Template Dashboard Image 2" />
+                <img class="template-hero-dashboard2" eager [src]="templateHeroData?.dashboard2" alt="Template Dashboard Image 2" />
             </ng-container>
         </div>
     `,
