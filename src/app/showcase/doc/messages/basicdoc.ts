@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+            <p-messages [(value)]="messages" [enableService]="false" [closable]="false" />
         </div>
         <app-code [code]="code" selector="messages-basic-demo"></app-code>
     `
@@ -21,28 +21,35 @@ export class BasicDoc implements OnInit {
     messages: Message[] | undefined;
 
     ngOnInit() {
-        this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];
+        this.messages = [{ severity: 'info', detail: 'Message Content' }];
     }
 
     code: Code = {
-        basic: `<p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
-        html: `
-<div class="card">
-    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+        basic: `<p-messages 
+    [(value)]="messages" 
+    [enableService]="false" 
+    [closable]="false" />`,
+        html: `<div class="card">
+    <p-messages 
+        [(value)]="messages" 
+        [enableService]="false" 
+        [closable]="false" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
     selector: 'messages-basic-demo',
-    templateUrl: './messages-basic-demo.html'
+    templateUrl: './messages-basic-demo.html',
+    standalone: true,
+    imports: [MessagesModule]
 })
 export class MessagesBasicDemo implements OnInit {
     messages: Message[] | undefined;
 
     ngOnInit() {
-        this.messages = [{ severity: 'success', summary: 'Success', detail: 'Message Content' }];
+        this.messages = [{ severity: 'info', detail: 'Message Content' }];
     }
 }`
     };
