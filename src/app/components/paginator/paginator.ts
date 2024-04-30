@@ -20,7 +20,7 @@ import {
     numberAttribute
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
+import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
 import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
@@ -325,15 +325,15 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         this.updatePaginatorState();
     }
 
-    getAriaLabel(labelType) {
+    getAriaLabel(labelType: keyof Aria): string | undefined {
         return this.config.translation.aria ? this.config.translation.aria[labelType] : undefined;
     }
 
-    getPageAriaLabel(value) {
-        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `Page ${value}`) : undefined;
+    getPageAriaLabel(value: number): string | undefined {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`) : undefined;
     }
 
-    getLocalization(digit: number) {
+    getLocalization(digit: number): string {
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [i, d]));
         if (digit > 9) {
@@ -370,7 +370,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         });
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
+    ngOnChanges(simpleChange: SimpleChanges): void {
         if (simpleChange.totalRecords) {
             this.updatePageLinks();
             this.updatePaginatorState();
@@ -398,7 +398,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    updateRowsPerPageOptions() {
+    updateRowsPerPageOptions(): void {
         if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
             for (let opt of this.rowsPerPageOptions) {
@@ -411,19 +411,19 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    isFirstPage() {
+    isFirstPage(): boolean {
         return this.getPage() === 0;
     }
 
-    isLastPage() {
+    isLastPage(): boolean {
         return this.getPage() === this.getPageCount() - 1;
     }
 
-    getPageCount() {
+    getPageCount(): number {
         return Math.ceil(this.totalRecords / this.rows);
     }
 
-    calculatePageLinkBoundaries() {
+    calculatePageLinkBoundaries(): [number, number] {
         let numberOfPages = this.getPageCount(),
             visiblePages = Math.min(this.pageLinkSize, numberOfPages);
 
@@ -438,7 +438,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return [start, end];
     }
 
-    updatePageLinks() {
+    updatePageLinks(): void {
         this.pageLinks = [];
         let boundaries = this.calculatePageLinkBoundaries(),
             start = boundaries[0],
@@ -456,7 +456,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    changePage(p: number) {
+    changePage(p: number): void {
         var pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
@@ -474,7 +474,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    updateFirst() {
+    updateFirst(): void {
         const page = this.getPage();
         if (page > 0 && this.totalRecords && this.first >= this.totalRecords) {
             Promise.resolve(null).then(() => this.changePage(page - 1));
@@ -485,7 +485,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return Math.floor(this.first / this.rows);
     }
 
-    changePageToFirst(event: Event) {
+    changePageToFirst(event: Event): void {
         if (!this.isFirstPage()) {
             this.changePage(0);
         }
@@ -493,17 +493,17 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         event.preventDefault();
     }
 
-    changePageToPrev(event: Event) {
+    changePageToPrev(event: Event): void {
         this.changePage(this.getPage() - 1);
         event.preventDefault();
     }
 
-    changePageToNext(event: Event) {
+    changePageToNext(event: Event): void {
         this.changePage(this.getPage() + 1);
         event.preventDefault();
     }
 
-    changePageToLast(event: Event) {
+    changePageToLast(event: Event): void {
         if (!this.isLastPage()) {
             this.changePage(this.getPageCount() - 1);
         }
@@ -511,20 +511,20 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         event.preventDefault();
     }
 
-    onPageLinkClick(event: Event, page: number) {
+    onPageLinkClick(event: Event, page: number): void {
         this.changePage(page);
         event.preventDefault();
     }
 
-    onRppChange(event: Event) {
+    onRppChange(event: Event): void {
         this.changePage(this.getPage());
     }
 
-    onPageDropdownChange(event: DropdownChangeEvent) {
+    onPageDropdownChange(event: DropdownChangeEvent): void {
         this.changePage(event.value);
     }
 
-    updatePaginatorState() {
+    updatePaginatorState(): void {
         this.paginatorState = {
             page: this.getPage(),
             pageCount: this.getPageCount(),
@@ -534,15 +534,15 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         };
     }
 
-    empty() {
+    empty(): boolean {
         return this.getPageCount() === 0;
     }
 
-    currentPage() {
+    currentPage(): number {
         return this.getPageCount() > 0 ? this.getPage() + 1 : 0;
     }
 
-    get currentPageReport() {
+    get currentPageReport(): string {
         return this.currentPageReportTemplate
             .replace('{currentPage}', String(this.currentPage()))
             .replace('{totalPages}', String(this.getPageCount()))
