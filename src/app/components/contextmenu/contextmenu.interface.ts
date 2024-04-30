@@ -1,19 +1,19 @@
 import { TemplateRef } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem } from '../api/menuitem';
 
 /**
- * Defines valid templates in PanelMenu.
+ * Defines valid templates in ContextMenu.
  * @group Templates
  */
-export interface PanelMenuTemplates {
+export interface ContextMenuTemplates {
     /**
      * Custom item template.
      */
     item(context: {
-    /**
-     * Item instance.
-     */
-    $implicit: MenuItem
+        /**
+         * Item instance.
+         */
+        $implicit: MenuItem
 
     }): TemplateRef<{ $implicit: MenuItem }>;
     /**
