@@ -874,18 +874,6 @@
     background: #CE93D8;
     color: #121212;
   }
-  .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #CE93D8;
-  }
-  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #CE93D8;
-  }
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
     border-color: #f44435;
@@ -1305,15 +1293,6 @@
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #f44435;
   }
-  .p-inputtext.p-variant-filled {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-  .p-inputtext.p-variant-filled:enabled:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-  .p-inputtext.p-variant-filled:enabled:focus {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
     padding: 0.65625rem 0.65625rem;
@@ -1728,18 +1707,6 @@
     border-color: #CE93D8;
     background: #121212;
     color: #CE93D8;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
-    background: #121212;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
-    background: #121212;
   }
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
@@ -3524,18 +3491,6 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
   }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #CE93D8;
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #CE93D8;
-  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(206, 147, 216, 0.16);
     color: #CE93D8;
@@ -3732,18 +3687,6 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: rgba(255, 255, 255, 0.06);
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #CE93D8;
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #CE93D8;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid transparent;
@@ -6994,10 +6937,11 @@
   .p-checkbox.p-checkbox-checked:not(.p-checkbox-disabled).p-checkbox-focused {
     box-shadow: 0 0 1px 10px rgba(206, 147, 216, 0.12);
   }
-  .p-checkbox.p-variant-filled .p-checkbox-box {
+
+  .p-input-filled .p-checkbox .p-checkbox-box {
     background-color: #1e1e1e;
   }
-  .p-checkbox.p-variant-filled .p-checkbox-box:not(.p-disabled):hover {
+  .p-input-filled .p-checkbox .p-checkbox-box:not(.p-disabled):hover {
     background-color: #1e1e1e;
   }
 

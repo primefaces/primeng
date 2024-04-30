@@ -182,11 +182,11 @@ export class MenuItemContent {
                         role="none"
                         [attr.id]="menuitemId(submenu, id, i)"
                     >
-                     <ng-container *ngIf="!submenuHeaderTemplate">
-                     <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
-                     </ng-container>
-                     <ng-container *ngTemplateOutlet="submenuHeaderTemplate, context:{$implicit: submenu}"></ng-container>
+                        <ng-container *ngIf="!submenuHeaderTemplate">
+                            <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
+                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -426,15 +426,19 @@ export class Menu implements OnDestroy {
                 case 'start':
                     this.startTemplate = item.template;
                     break;
+
                 case 'end':
                     this.endTemplate = item.template;
                     break;
+
                 case 'itemTemplate':
                     this.itemTemplate = item.template;
                     break;
-                    case 'submenuheader':
-                        this.submenuHeaderTemplate = item.template;
-                        break;
+
+                case 'submenuheader':
+                    this.submenuHeaderTemplate = item.template;
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
