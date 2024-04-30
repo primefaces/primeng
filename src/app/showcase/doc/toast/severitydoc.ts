@@ -12,11 +12,11 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast></p-toast>
-            <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-            <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-            <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-            <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
+            <p-toast />
+            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info"  />
+            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning"  />
+            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
     `,
@@ -42,26 +42,69 @@ export class SeverityDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-<button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-<button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-<button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>`,
-        html: `
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-    <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-    <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-    <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
+        basic: `<p-toast />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showSuccess()" 
+    label="Success" 
+    severity="success" />
+<p-button 
+    type="button"
+    pRipple 
+    (click)="showInfo()" 
+    label="Info" 
+    severity="info" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showWarn()" 
+    label="Warn" 
+    severity="warning" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showError()" 
+    label="Error" 
+    severity="danger" />`,
+        html: `<div class="card flex justify-content-center gap-2">
+    <p-toast />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showSuccess()" 
+        label="Success" 
+        severity="success" />
+    <p-button 
+        type="button"
+        pRipple 
+        (click)="showInfo()" 
+        label="Info" 
+        severity="info" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showWarn()" 
+        label="Warn" 
+        severity="warning"  />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showError()" 
+        label="Error" 
+        severity="danger" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-severity-demo',
     templateUrl: './toast-severity-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastSeverityDemo {

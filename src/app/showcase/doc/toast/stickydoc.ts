@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
             <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
+            <p-toast />
             <div class="flex flex-wrap gap-2">
-                <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
-                <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+                <p-button pRipple (click)="show()" severity="success" label="Sticky" />
+                <p-button pRipple (click)="clear()" label="Clear" />
             </div>
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
@@ -31,26 +31,43 @@ export class StickyDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
+        basic: `<p-toast />
 <div class="flex flex-wrap gap-2">
-    <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
-    <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+    <p-button 
+        pRipple 
+        (click)="show()" 
+        severity="success" 
+        label="Sticky" />
+    <p-button 
+        pRipple 
+        (click)="clear()" 
+        label="Clear" />
 </div>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
     <div class="flex flex-wrap gap-2">
-        <button type="button" pButton pRipple (click)="show()" class="p-button-success" label="Show Sticky"></button>
-        <button type="button" pButton pRipple (click)="clear()" label="Clear"></button>
+        <p-button 
+            pRipple 
+            (click)="show()" 
+            severity="success" 
+            label="Sticky" />
+        <p-button 
+            pRipple 
+            (click)="clear()" 
+            label="Clear" />
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-sticky-demo',
     templateUrl: './toast-sticky-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastStickyDemo {
