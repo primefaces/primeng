@@ -55,7 +55,8 @@ export class FilterDoc implements OnInit {
     code: Code = {
         basic: `<p-orderList 
     [value]="products" 
-    [listStyle]="{ 'max-height': '30rem' }" header="List of Products"
+    [listStyle]="{ 'max-height': '30rem' }" 
+    header="List of Products"
     filterBy="name" 
     filterPlaceholder="Filter by name">
         <ng-template let-product pTemplate="item">
@@ -81,7 +82,8 @@ export class FilterDoc implements OnInit {
         html: `<div class="card xl:flex xl:justify-content-center">
     <p-orderList 
         [value]="products" 
-        [listStyle]="{ 'max-height': '30rem' }" header="List of Products" 
+        [listStyle]="{ 'max-height': '30rem' }" 
+        header="List of Products" 
         filterBy="name" 
         filterPlaceholder="Filter by name">
             <ng-template let-product pTemplate="item">
@@ -105,8 +107,7 @@ export class FilterDoc implements OnInit {
     </p-orderList>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { OrderListModule } from 'primeng/orderlist';

@@ -55,7 +55,8 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-orderList 
     [value]="products" 
-    [listStyle]="{ height: '25rem' }" header="List of Products">
+    [listStyle]="{ height: '25rem' }" 
+    header="List of Products">
         <ng-template let-product pTemplate="item">
             <div class="flex flex-wrap p-2 align-items-center gap-3">
                 <img 
@@ -66,10 +67,14 @@ export class BasicDoc implements OnInit {
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex align-items-center gap-2">
                                 <i class="pi pi-tag text-sm"></i>
-                                <span>{{ product.category }}</span>
+                                <span>
+                                    {{ product.category }}
+                                </span>
                             </div>
                         </div>
-                <span class="font-bold text-900">{{ '$' + product.price }}</span>
+                <span class="font-bold text-900">
+                    {{ '$' + product.price }}
+                </span>
             </div>
         </ng-template>
 </p-orderList>`,
@@ -89,10 +94,14 @@ export class BasicDoc implements OnInit {
                                 <span class="font-bold">{{ product.name }}</span>
                                 <div class="flex align-items-center gap-2">
                                     <i class="pi pi-tag text-sm"></i>
-                                    <span>{{ product.category }}</span>
+                                    <span>
+                                        {{ product.category }}
+                                    </span>
                                 </div>
                             </div>
-                    <span class="font-bold text-900">{{ '$' + product.price }}</span>
+                    <span class="font-bold text-900">
+                        {{ '$' + product.price }}
+                    </span>
                 </div>
             </ng-template>
     </p-orderList>
