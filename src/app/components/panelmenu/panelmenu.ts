@@ -913,12 +913,15 @@ export class PanelMenu implements AfterContentInit {
                 case 'headercontent':
                     this.headerContentTemplate = item.template;
                     break;
+                    
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;

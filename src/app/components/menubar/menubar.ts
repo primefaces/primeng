@@ -598,9 +598,11 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
+                    
                 default:
                     this.itemTemplate = item.template;
                     break;
