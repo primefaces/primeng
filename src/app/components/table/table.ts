@@ -3321,18 +3321,29 @@ export class FrozenColumn implements AfterViewInit {
 
     updateStickyPosition() {
         if (this._frozen) {
+            let currentElement = this.el.nativeElement;
             if (this.alignFrozen === 'right') {
                 let right = 0;
-                let next = this.el.nativeElement.nextElementSibling;
-                if (next) {
-                    right = DomHandler.getOuterWidth(next) + (parseFloat(next.style.right) || 0);
+                if (currentElement.nodeName == 'TH') {
+                    while (currentElement.nextElementSibling != null) {
+                        currentElement = currentElement.nextElementSibling;
+                        right += parseFloat(currentElement.style.minWidth);
+                    }
+                } else {
+                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[DomHandler.index(this.el.nativeElement)];
+                    right = parseFloat(currentElementHeader.style.right);
                 }
                 this.el.nativeElement.style.right = right + 'px';
             } else {
                 let left = 0;
-                let prev = this.el.nativeElement.previousElementSibling;
-                if (prev) {
-                    left = DomHandler.getOuterWidth(prev) + (parseFloat(prev.style.left) || 0);
+                if (currentElement.nodeName == 'TH') {
+                    while (currentElement.previousElementSibling != null) {
+                        currentElement = currentElement.previousElementSibling;
+                        left += parseFloat(currentElement.style.minWidth);
+                    }
+                } else {
+                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[DomHandler.index(this.el.nativeElement)];
+                    left = parseFloat(currentElementHeader.style.left);
                 }
                 this.el.nativeElement.style.left = left + 'px';
             }
