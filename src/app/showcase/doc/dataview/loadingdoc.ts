@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
             <p-dataView #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
                     <div class="flex justify-content-end">
-                        <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+                        <p-dataViewLayoutOptions [layout]="layout" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
@@ -100,7 +100,7 @@ export class LoadingDoc {
         basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
         <div class="flex justify-content-end">
-            <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+            <p-dataViewLayoutOptions [layout]="layout" />
         </div>
     </ng-template>
     <ng-template pTemplate="list" let-products>
@@ -153,7 +153,7 @@ export class LoadingDoc {
     <p-dataView #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
             <div class="flex justify-content-end">
-                <p-dataViewLayoutOptions [layout]="layout"></p-dataViewLayoutOptions>
+                <p-dataViewLayoutOptions [layout]="layout" />
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>

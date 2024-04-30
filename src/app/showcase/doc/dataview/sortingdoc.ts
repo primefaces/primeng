@@ -14,7 +14,7 @@ import { ProductService } from '@service/productservice';
             <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
                 <ng-template pTemplate="header">
                     <div class="flex flex-column md:flex-row md:justify-content-between">
-                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
@@ -107,7 +107,7 @@ export class SortingDoc {
         basic: `<p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
     <ng-template pTemplate="header">
         <div class="flex flex-column md:flex-row md:justify-content-between">
-            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+            <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
         </div>
     </ng-template>
         <ng-template pTemplate="list" let-products>
@@ -149,7 +149,7 @@ export class SortingDoc {
     <p-dataView #dv [value]="products" [sortField]="sortField" [sortOrder]="sortOrder">
         <ng-template pTemplate="header">
             <div class="flex flex-column md:flex-row md:justify-content-between">
-                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0"></p-dropdown>
+                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price" (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>
