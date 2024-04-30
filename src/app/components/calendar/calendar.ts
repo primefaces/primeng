@@ -1592,6 +1592,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     formatDateTime(date: any) {
         let formattedValue = this.keepInvalid ? date : null;
+        const isDateValid = this.isValidDateForTimeConstraints(date);
 
         if (this.isValidDate(date)) {
             if (this.timeOnly) {
@@ -1605,7 +1606,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else if (this.dataType === 'string') {
             formattedValue = date;
         }
-
+        formattedValue = isDateValid ? formattedValue : '';
         return formattedValue;
     }
 
@@ -2498,7 +2499,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         this.createMonths(this.currentMonth, this.currentYear);
     }
 
-    convertTo24Hour = function (hours: number, pm: boolean) {
+    convertTo24Hour(hours: number, pm: boolean) {
         //@ts-ignore
         if (this.hourFormat == '12') {
             if (hours === 12) {
@@ -2508,10 +2509,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
         }
         return hours;
-    };
+    }
 
     constrainTime(hour: number, minute: number, second: number, pm: boolean) {
         let returnTimeTriple: number[] = [hour, minute, second];
+        let minHoursExceeds12: boolean;
         let value = this.value;
         const convertedHour = this.convertTo24Hour(hour, pm);
         const isRange = this.isRangeSelection(),
@@ -2533,18 +2535,33 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
         let isMaxDate = this.maxDate && valueDateString && this.maxDate.toDateString() === valueDateString;
 
-        const minHoursExceeds12 = this.minDate.getHours() > 12;
-
-        //current moment decrement capped at 5 unable to decrement past back 
-        // increment also broken for setting PM on days that are not the mindate
+        if (isMinDate) {
+            minHoursExceeds12 = this.minDate.getHours() >= 12;
+        }
 
         switch (
             true // intentional fall through
         ) {
-            case isMinDate && minHoursExceeds12 && this.minDate.getHours() > convertedHour:
-                this.setCurrentHourPM(this.minDate.getHours())
+            case isMinDate && minHoursExceeds12 && this.minDate.getHours() === 12 && this.minDate.getHours() > convertedHour:
+                returnTimeTriple[0] = 11;
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate.getMinutes();
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate.getSeconds();
+                break;
+            case isMinDate && !minHoursExceeds12 && this.minDate.getHours() - 1 === convertedHour && this.minDate.getHours() > convertedHour:
+                returnTimeTriple[0] = 11;
+                this.pm = true;
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
+                returnTimeTriple[1] = this.minDate.getMinutes();
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
+                returnTimeTriple[2] = this.minDate.getSeconds();
+                break;
+
+            case isMinDate && minHoursExceeds12 && this.minDate.getHours() > convertedHour && convertedHour !== 12:
+                this.setCurrentHourPM(this.minDate.getHours());
                 returnTimeTriple[0] = this.currentHour;
-             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
+            case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() > minute:
                 returnTimeTriple[1] = this.minDate.getMinutes();
             case isMinDate && this.minDate.getHours() === convertedHour && this.minDate.getMinutes() === minute && this.minDate.getSeconds() > second:
                 returnTimeTriple[2] = this.minDate.getSeconds();
@@ -2564,6 +2581,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 returnTimeTriple[2] = this.maxDate.getSeconds();
                 break;
         }
+
         return returnTimeTriple;
     }
 
@@ -2579,17 +2597,19 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             newHour = newHour >= 13 ? newHour - 12 : newHour;
         }
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         this.toggleAMPMIfNotMinDate(newPM);
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
         event.preventDefault();
     }
 
-    toggleAMPMIfNotMinDate(newPM:boolean){
+    toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
         const valueDateString = value ? value.toDateString() : null;
         let isMinDate = this.minDate && valueDateString && this.minDate.toDateString() === valueDateString;
-        if (!isMinDate){
-            this.pm = newPM
+        if (isMinDate && this.minDate.getHours() >= 12) {
+            this.pm = true;
+        } else {
+            this.pm = newPM;
         }
     }
 
@@ -2661,8 +2681,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
             newHour = newHour <= 0 ? 12 + newHour : newHour;
         }
+        this.toggleAMPMIfNotMinDate(newPM);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
-        this.pm = newPM;
         event.preventDefault();
     }
 
@@ -2729,8 +2749,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     toggleAMPM(event: any) {
         const newPM = !this.pm;
+        this.pm = newPM;
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, this.currentSecond, newPM);
-        //this.pm = newPM;
         this.updateTime();
         event.preventDefault();
     }
@@ -3392,6 +3412,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     updateFilledState() {
         this.filled = (this.inputFieldValue && this.inputFieldValue != '') as boolean;
+    }
+
+    isValidDateForTimeConstraints(selectedDate: Date) {
+        return (!this.minDate || selectedDate >= this.minDate) && (!this.maxDate || selectedDate <= this.maxDate);
     }
 
     onTodayButtonClick(event: any) {
