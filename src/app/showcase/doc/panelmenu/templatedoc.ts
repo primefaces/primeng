@@ -191,12 +191,13 @@ import { MenuItem } from 'primeng/api';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { BadgeModule } from 'primeng/badge';
 import { RippleModule } from 'primeng/ripple';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'panel-menu-template-demo',
     templateUrl: './panel-menu-template-demo.html',
     standalone: true,
-    imports: [PanelMenuModule, BadgeModule, RippleModule]
+    imports: [PanelMenuModule, BadgeModule, RippleModule, CommonModule]
 })
 export class PanelMenuTemplateDemo implements OnInit {
     items: MenuItem[];
@@ -204,83 +205,88 @@ export class PanelMenuTemplateDemo implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Files',
-                icon: 'pi pi-file',
+                label: 'Mail',
+                icon: 'pi pi-envelope',
+                badge: '5',
                 items: [
                     {
-                        label: 'Documents',
-                        icon: 'pi pi-file',
-                        items: [
-                            {
-                                label: 'Invoices',
-                                icon: 'pi pi-file-pdf',
-                                items: [
-                                    {
-                                        label: 'Pending',
-                                        icon: 'pi pi-stop'
-                                    },
-                                    {
-                                        label: 'Paid',
-                                        icon: 'pi pi-check-circle'
-                                    }
-                                ]
-                            },
-                            {
-                                label: 'Clients',
-                                icon: 'pi pi-users'
-                            }
-                        ]
+                        label: 'Compose',
+                        icon: 'pi pi-file-edit',
+                        shortcut: '⌘+N'
                     },
                     {
-                        label: 'Images',
-                        icon: 'pi pi-image',
-                        items: [
-                            {
-                                label: 'Logos',
-                                icon: 'pi pi-image'
-                            }
-                        ]
+                        label: 'Inbox',
+                        icon: 'pi pi-inbox',
+                        badge: '5'
+                    },
+                    {
+                        label: 'Sent',
+                        icon: 'pi pi-send',
+                        shortcut: '⌘+S'
+                    },
+                    {
+                        label: 'Trash',
+                        icon: 'pi pi-trash',
+                        shortcut: '⌘+T'
                     }
                 ]
             },
             {
-                label: 'Cloud',
-                icon: 'pi pi-cloud',
+                label: 'Reports',
+                icon: 'pi pi-chart-bar',
+                shortcut: '⌘+R',
                 items: [
                     {
-                        label: 'Upload',
-                        icon: 'pi pi-cloud-upload'
+                        label: 'Sales',
+                        icon: 'pi pi-chart-line',
+                        badge: '3'
                     },
                     {
-                        label: 'Download',
-                        icon: 'pi pi-cloud-download'
-                    },
-                    {
-                        label: 'Sync',
-                        icon: 'pi pi-refresh'
+                        label: 'Products',
+                        icon: 'pi pi-list',
+                        badge: '6'
                     }
                 ]
             },
             {
-                label: 'Devices',
-                icon: 'pi pi-desktop',
+                label: 'Profile',
+                icon: 'pi pi-user',
+                shortcut: '⌘+W',
                 items: [
                     {
-                        label: 'Phone',
-                        icon: 'pi pi-mobile'
+                        label: 'Settings',
+                        icon: 'pi pi-cog',
+                        shortcut: '⌘+O'
                     },
                     {
-                        label: 'Desktop',
-                        icon: 'pi pi-desktop'
-                    },
-                    {
-                        label: 'Tablet',
-                        icon: 'pi pi-tablet'
+                        label: 'Privacy',
+                        icon: 'pi pi-shield',
+                        shortcut: '⌘+P'
                     }
                 ]
             }
-        ]
+        ];
     }
+
+    toggleAll() {
+        const expanded = !this.areAllItemsExpanded();
+        this.items = this.toggleAllRecursive(this.items, expanded);
+    }
+
+    private toggleAllRecursive(items: MenuItem[], expanded: boolean): MenuItem[] {
+        return items.map((menuItem) => {
+            menuItem.expanded = expanded;
+            if (menuItem.items) {
+                menuItem.items = this.toggleAllRecursive(menuItem.items, expanded);
+            }
+            return menuItem;
+        });
+    }
+
+    private areAllItemsExpanded(): boolean {
+        return this.items.every((menuItem) => menuItem.expanded);
+    }
+
 }`
     };
 }
