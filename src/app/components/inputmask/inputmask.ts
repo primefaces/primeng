@@ -71,8 +71,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            [ngClass]="inputClass"
             [class]="styleClass"
+            [ngClass]="inputClass"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
@@ -94,6 +94,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             pAutoFocus
+            [variant]="variant"
             [autofocus]="autoFocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
@@ -336,6 +337,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
     androidChrome: boolean = true;
 
     focused: Nullable<boolean>;
+
+    _variant: 'filled' | 'outlined' = 'outlined';
 
     get inputClass() {
         return {

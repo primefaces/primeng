@@ -67,6 +67,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
                 [value]="formattedValue()"
+                [variant]="variant"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuemax]="max"
                 [attr.aria-valuenow]="value"
@@ -367,6 +368,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * @group Props
      */
     @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * The minimum number of fraction digits to use. Possible values are from 0 to 20; the default for plain number and percent formatting is 0; the default for currency formatting is the number of minor unit digits provided by the ISO 4217 currency code list (2 if the list doesn't provide that information).
      * @group Props
