@@ -93,6 +93,7 @@ export class FilterService {
             }
 
             if (value.getTime && filter.getTime) return value.getTime() === filter.getTime();
+            else if (value == filter) return true;
             else return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) == ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
         },
 
@@ -106,6 +107,7 @@ export class FilterService {
             }
 
             if (value.getTime && filter.getTime) return value.getTime() !== filter.getTime();
+            else if (value == filter) return false;
             else return ObjectUtils.removeAccents(value.toString()).toLocaleLowerCase(filterLocale) != ObjectUtils.removeAccents(filter.toString()).toLocaleLowerCase(filterLocale);
         },
 
@@ -248,6 +250,7 @@ export class FilterService {
             if (value === undefined || value === null) {
                 return false;
             }
+            value.setHours(0, 0, 0, 0);
 
             return value.getTime() > filter.getTime();
         }

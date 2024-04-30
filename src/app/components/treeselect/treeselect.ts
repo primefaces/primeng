@@ -26,7 +26,7 @@ import { SearchIcon } from 'primeng/icons/search';
 import { TimesIcon } from 'primeng/icons/times';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
-import { Tree, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
+import { Tree, TreeFilterEvent, TreeModule, TreeNodeSelectEvent, TreeNodeUnSelectEvent } from 'primeng/tree';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -126,7 +126,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             <div class="p-treeselect-filter-container">
                                 <input
                                     #filter
-                                    type="text"
+                                    type="search"
                                     autocomplete="off"
                                     class="p-treeselect-filter p-inputtext p-component"
                                     [attr.placeholder]="filterPlaceholder"
@@ -453,7 +453,7 @@ export class TreeSelect implements AfterContentInit {
      * Callback to invoke when data is filtered.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<any> = new EventEmitter<any>();
+    @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
     /**
      * Callback to invoke when a node is unselected.
      * @param {TreeNodeUnSelectEvent} event - node unselect event.
@@ -699,7 +699,7 @@ export class TreeSelect implements AfterContentInit {
         this.filterValue = (event.target as HTMLInputElement).value;
         this.treeViewChild?._filter(this.filterValue);
         this.onFilter.emit({
-            originalEvent: event,
+            filter: this.filterValue,
             filteredValue: this.treeViewChild?.filteredNodes
         });
         setTimeout(() => {
@@ -937,8 +937,8 @@ export class TreeSelect implements AfterContentInit {
     setDisabledState(val: boolean): void {
         setTimeout(() => {
             this.disabled = val;
+            this.cd.markForCheck();
         });
-        this.cd.markForCheck();
     }
 
     containerClass() {

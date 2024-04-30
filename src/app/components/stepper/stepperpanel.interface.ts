@@ -1,4 +1,15 @@
 import { TemplateRef } from '@angular/core';
+/**
+ * StepperPanel is a helper component for Stepper component.
+ * @group Components
+ */
+export interface StepperPanelProps {
+    /**
+     * Orientation of tab headers.
+     * @group Props
+     */
+    header: string | undefined;
+}
 
 /**
  * Defines valid templates in StepperPanel.
@@ -8,11 +19,11 @@ export interface StepperPanelTemplates {
     /**
      * Custom header template.
      */
-    header(context: StepperPanelHeaderProps): TemplateRef<StepperPanelHeaderProps>;
+    header(context: StepperPanelHeaderTemplate): TemplateRef<StepperPanelHeaderTemplate>;
     /**
      * Custom header template.
      */
-    content(context: StepperPanelContentProps): TemplateRef<StepperPanelContentProps>;
+    content(context: StepperPanelContentTemplate): TemplateRef<StepperPanelContentTemplate>;
     /**
      * Custom separator template.
      */
@@ -23,7 +34,7 @@ export interface StepperPanelTemplates {
  * Props of stepper panel header.
  * @group Interface
  */
-export interface StepperPanelHeaderProps {
+export interface StepperPanelHeaderTemplate {
     /**
      * Index of the stepperpanel.
      */
@@ -62,7 +73,7 @@ export interface StepperPanelHeaderProps {
  * Props of stepper panel content.
  * @group Interface
  */
-export interface StepperPanelContentProps {
+export interface StepperPanelContentTemplate {
     /**
      * Index of the stepperpanel.
      */

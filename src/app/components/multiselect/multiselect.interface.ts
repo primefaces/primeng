@@ -196,8 +196,31 @@ export interface MultiSelectTemplates {
     filtericon(): TemplateRef<any>;
     /**
      * Custom check icon template.
+     * @deprecated Use headercheckboxicon or itemcheckboxicon instead.
      */
     checkicon(): TemplateRef<any>;
+    /**
+     * Custom check icon template for the header checkbox.
+     */
+    headercheckboxicon(context: {
+        /**
+         * Defines if all items are selected.
+         */
+        $implicit: boolean;
+        /**
+         * Defines if items are partially selected.
+         */
+        partialSelected: boolean;
+    }): TemplateRef<{ $implicit: boolean; partialSelected: boolean }>;
+    /**
+     * Custom check icon template for the item checkbox.
+     */
+    itemcheckboxicon(context: {
+        /**
+         * Selection status of the item.
+         */
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
     /**
      * Custom close icon template.
      */

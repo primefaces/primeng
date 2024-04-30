@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { HttpClient, HttpClientModule, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpEventType, HttpHeaders } from '@angular/common/http';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -584,7 +584,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
         // this will check the fileLimit with the uploaded files
         this.checkFileLimit(files);
 
-        if (this.hasFiles() && this.auto && (!(this.mode === 'advanced') || !this.isFileLimitExceeded())) {
+        if (this.hasFiles() && this.auto && (this.mode !== 'advanced' || !this.isFileLimitExceeded())) {
             this.upload();
         }
 
@@ -932,7 +932,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 }
 
 @NgModule({
-    imports: [CommonModule, HttpClientModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
+    imports: [CommonModule, SharedModule, ButtonModule, ProgressBarModule, MessagesModule, RippleModule, PlusIcon, UploadIcon, TimesIcon],
     exports: [FileUpload, SharedModule, ButtonModule, ProgressBarModule, MessagesModule],
     declarations: [FileUpload]
 })

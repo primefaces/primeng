@@ -47,6 +47,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
+import { MinusIcon } from 'primeng/icons/minus';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -78,9 +79,10 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div class="p-checkbox p-component">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
                     <ng-container *ngIf="selected">
-                        <CheckIcon *ngIf="!checkIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
+                        <CheckIcon *ngIf="!checkIconTemplate || !itemCheckboxIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
                         <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="checkIconTemplate && !itemCheckboxIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected }"></ng-template>
                         </span>
                     </ng-container>
                 </div>
@@ -116,6 +118,8 @@ export class MultiSelectItem {
     @Input() template: TemplateRef<any> | undefined;
 
     @Input() checkIconTemplate: TemplateRef<any> | undefined;
+
+    @Input() itemCheckboxIconTemplate: TemplateRef<any> | undefined;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -170,7 +174,15 @@ export class MultiSelectItem {
                     [autofocus]="autofocus"
                 />
             </div>
-            <div class="p-multiselect-label-container" [pTooltip]="tooltip" [tooltipPosition]="tooltipPosition" [positionStyle]="tooltipPositionStyle" [tooltipStyleClass]="tooltipStyleClass">
+            <div
+                class="p-multiselect-label-container"
+                [pTooltip]="tooltip"
+                (mouseleave)="labelContainerMouseLeave()"
+                [tooltipDisabled]="_disableTooltip"
+                [tooltipPosition]="tooltipPosition"
+                [positionStyle]="tooltipPositionStyle"
+                [tooltipStyleClass]="tooltipStyleClass"
+            >
                 <div [ngClass]="labelClass">
                     <ng-container *ngIf="!selectedItemsTemplate">
                         <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
@@ -263,10 +275,16 @@ export class MultiSelectItem {
                                         [attr.aria-checked]="allSelected()"
                                         [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }"
                                     >
-                                        <ng-container *ngIf="allSelected()">
-                                            <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
+                                        <ng-container *ngIf="allSelected() || partialSelected()">
+                                            <ng-container *ngIf="!checkIconTemplate && !headerCheckboxIconTemplate">
+                                                <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="allSelected()" [attr.aria-hidden]="true" />
+                                            </ng-container>
+
                                             <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
                                                 <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
+                                            </span>
+                                            <span *ngIf="headerCheckboxIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
+                                                <ng-template *ngTemplateOutlet="headerCheckboxIconTemplate; context: { $implicit: allSelected(), partialSelected: partialSelected() }"></ng-template>
                                             </span>
                                         </ng-container>
                                     </div>
@@ -349,6 +367,7 @@ export class MultiSelectItem {
                                                 [disabled]="isOptionDisabled(option)"
                                                 [template]="itemTemplate"
                                                 [checkIconTemplate]="checkIconTemplate"
+                                                [itemCheckboxIconTemplate]="itemCheckboxIconTemplate"
                                                 [itemSize]="scrollerOptions.itemSize"
                                                 [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                                 [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
@@ -921,6 +940,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     _selectionLimit: number | undefined;
 
+    _disableTooltip = false;
+
     value: any[];
 
     public _filteredOptions: any[] | undefined | null;
@@ -964,6 +985,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     clearIconTemplate: TemplateRef<any> | undefined;
 
     dropdownIconTemplate: TemplateRef<any> | undefined;
+
+    itemCheckboxIconTemplate: TemplateRef<any> | undefined;
+
+    headerCheckboxIconTemplate: TemplateRef<any> | undefined;
 
     public headerCheckboxFocus: boolean | undefined;
 
@@ -1196,6 +1221,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 case 'checkicon':
                     this.checkIconTemplate = item.template;
+                    console.warn('checkicon is deprecated and will removed in v18. Use itemcheckboxicon or headercheckboxicon templates instead.');
+                    break;
+
+                case 'headercheckboxicon':
+                    this.headerCheckboxIconTemplate = item.template;
                     break;
 
                 case 'filtericon':
@@ -1216,6 +1246,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 case 'dropdownicon':
                     this.dropdownIconTemplate = item.template;
+                    break;
+
+                case 'itemcheckboxicon':
+                    this.itemCheckboxIconTemplate = item.template;
                     break;
 
                 default:
@@ -1872,6 +1906,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             }
         }
 
+        if (this.partialSelected()) {
+            this.selectedOptions = null;
+            this.cd.markForCheck();
+        }
+
         this.onChange.emit({ originalEvent: event, value: this.value });
         DomHandler.focus(this.headerCheckboxViewChild?.nativeElement);
         this.headerCheckboxFocus = true;
@@ -1930,6 +1969,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     allSelected() {
         return this.selectAll !== null ? this.selectAll : ObjectUtils.isNotEmpty(this.visibleOptions()) && this.visibleOptions().every((option) => this.isOptionGroup(option) || this.isOptionDisabled(option) || this.isSelected(option));
+    }
+
+    partialSelected() {
+        return this.selectedOptions && this.selectedOptions.length > 0 && this.selectedOptions.length < this.options.length;
     }
 
     /**
@@ -2025,8 +2068,13 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         this.updateModel(null, event);
         this.selectedOptions = null;
         this.onClear.emit();
+        this._disableTooltip = true;
 
         event.stopPropagation();
+    }
+
+    labelContainerMouseLeave() {
+        if (this._disableTooltip) this._disableTooltip = false;
     }
 
     removeOption(optionValue, event) {
@@ -2160,7 +2208,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, CheckIcon, SearchIcon, TimesCircleIcon, TimesIcon, ChevronDownIcon, CheckIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, CheckIcon, SearchIcon, TimesCircleIcon, TimesIcon, ChevronDownIcon, CheckIcon, MinusIcon],
     exports: [MultiSelect, OverlayModule, SharedModule, ScrollerModule],
     declarations: [MultiSelect, MultiSelectItem]
 })

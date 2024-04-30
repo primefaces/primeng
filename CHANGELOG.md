@@ -1,13 +1,47 @@
 # Changelog
+## [17.15.0](https://github.com/primefaces/primeng/tree/17.15.0) (2024-04-26)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.14.1...17.15.0)
+
+**Deprecated:**
+- MultiSelect | Deprecate checkicon template [\#15374](https://github.com/primefaces/primeng/issues/15374)
+
+**Implemented New Features and Enhancements:**
+- MultiSelect | Add new checkbox templates [\#15373](https://github.com/primefaces/primeng/issues/15373)
+- Autocomplete: optionValue support [\#14599](https://github.com/primefaces/primeng/issues/14599)
+
+**Fixed bugs:**
+- Component: colorPicker - color not updated in selection square with reactive forms [\#15266](https://github.com/primefaces/primeng/issues/15266)
+- Component: Checkbox; Array value not working when using with formControlName [\#15185](https://github.com/primefaces/primeng/issues/15185)
+- Component: p-fileUpload mode=advanced auto=true not uploading on select [\#15212](https://github.com/primefaces/primeng/issues/15212)
+- Dropdown: 'Enter' from numeric pad does not select option [\#15016](https://github.com/primefaces/primeng/issues/15016)
+- Component: TreeSelect onFilter returned object [\#15379](https://github.com/primefaces/primeng/issues/15379)
+- p-calendar "Date After" filters do not exclude date inclusive [\#14886](https://github.com/primefaces/primeng/issues/14886)
+- Dialog: Dialog moves to another position instead of closing after pressing close button [\#15022](https://github.com/primefaces/primeng/issues/15022)
+- FilterService: match modes "equals" and "not equals" do not work with numeric filter on fractional values [\#14978](https://github.com/primefaces/primeng/issues/14978)
+- TreeSelect Disabled State Not Updating Properly [\#15378](https://github.com/primefaces/primeng/issues/15378)
+- Treeselect: Scroll height should be removed when there are no result in treeselect-items. [\#15349](https://github.com/primefaces/primeng/issues/15349)
+- Component: KeyFilter [\#14639](https://github.com/primefaces/primeng/issues/14639)
+- Menubar: Enter key moves focus at first menuitem [\#15040](https://github.com/primefaces/primeng/issues/15040)
+- Fileupload breaks http requests interceptor cycle when imported in a standalone context [\#15360](https://github.com/primefaces/primeng/issues/15360)
+- Divider: dotted vertical divider is not working [\#15350](https://github.com/primefaces/primeng/issues/15350)
+- SpeedDial: Non-linear menu items are misaligned [\#15367](https://github.com/primefaces/primeng/issues/15367)
+- Table: Column resize not working on Ipads/Tablets [\#14803](https://github.com/primefaces/primeng/issues/14803)
+- Table: breakpoint property has wrong default value [\#15306](https://github.com/primefaces/primeng/issues/15306)
+- Component: Table #15302 [\#15303](https://github.com/primefaces/primeng/issues/15303)
+- p-editor only shows unstyled buttons when it's inside of p-sidebar [\#15297](https://github.com/primefaces/primeng/issues/15297)
+- Tooltip does not hide on multiSelect clear [\#15304](https://github.com/primefaces/primeng/issues/15304)
+- Component: Card [\#15013](https://github.com/primefaces/primeng/issues/15013)
+
 ## [17.14.1](https://github.com/primefaces/primeng/tree/17.14.1) (2024-04-19)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.14.0...17.14.1)
+
 **Fixed bugs:**
 - Stepper | Core css is overriden and broken [\#15317](https://github.com/primefaces/primeng/issues/15317)
 
 ## [17.14.0](https://github.com/primefaces/primeng/tree/17.14.0) (2024-04-19)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.13.0...17.14.0)
 
-**Breaking Changes:**
+**Deprecated:**
 - Badge | Deprecate "size" property [\#15314](https://github.com/primefaces/primeng/issues/15314)
 
 **Implemented New Features and Enhancements:**
@@ -778,6 +812,14 @@
 - Editor layer defect [\#13831](https://github.com/primefaces/primeng/issues/13831)
 - p-dialog: ExpressionChangedAfterItHasBeenCheckedError with attr.aria-labelledby [\#13636](https://github.com/primefaces/primeng/issues/13636)
 - Textarea: autoResize doesn't work when used inside a Dialog [\#9231](https://github.com/primefaces/primeng/issues/9231)
+
+## [16.4.4](https://github.com/primefaces/primeng/tree/16.4.4) (2024-04-26)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/16.4.3...16.4.4)
+
+**Fixed bugs:**
+- TreeTable | selectionKeys support for checkbox selection mode [\#15216](https://github.com/primefaces/primeng/issues/15216)
+- p-treeTableHeaderCheckbox doesn't select/unselect all when TreeTable has dataKey property [\#9188](https://github.com/primefaces/primeng/issues/9188)
 
 ## [16.4.3](https://github.com/primefaces/primeng/tree/16.4.3) (2024-01-04)
 

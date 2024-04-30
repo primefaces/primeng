@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import APIDoc from 'src/app/showcase/doc/apidoc/index.json';
 import { AppDocApiTable } from './app.docapitable.component';
+import { ObjectUtils } from 'primeng/utils';
 
 @Component({
     selector: 'app-docapisection',
@@ -62,7 +63,14 @@ export class AppDocApiSection {
             };
 
             if (module) {
-                let props = module.components && module.components[docName] ? module.components[docName].props : module.props ? module.props : undefined;
+                let props =
+                    module.components && module.components[docName]
+                        ? module.components[docName].props
+                        : module.props
+                        ? module.props
+                        : module.interfaces && ObjectUtils.isNotEmpty(module.interfaces.components)
+                        ? module.interfaces.components[`${docName}Props`].props
+                        : undefined;
                 let emits = module.components && module.components[docName] ? module.components[docName].emits : module.emits ? module.emits : undefined;
                 let templates = module.interfaces ? module.interfaces.templates : undefined;
                 let events = module.interfaces ? module.interfaces.events : undefined;

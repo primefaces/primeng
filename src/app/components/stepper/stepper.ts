@@ -129,10 +129,6 @@ export class StepperContent {
     @Output() nextCallback = new EventEmitter<void>();
 }
 
-/**
- * StepperPanel is a helper component for Stepper component.
- * @group Components
- */
 @Component({
     selector: 'p-stepperPanel',
     template: ` <ng-content></ng-content> `,
@@ -141,10 +137,6 @@ export class StepperContent {
     }
 })
 export class StepperPanel {
-    /**
-     * Orientation of tab headers.
-     * @group Props
-     */
     @Input() header: string | undefined;
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<PrimeTemplate>>;

@@ -210,11 +210,13 @@ export class VeronaPage {
             {
                 title: 'Basic License',
                 price: '$49',
+                discount_price: '$29',
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', 'Lifetime Support', 'Unlimited Updates']
             },
             {
                 title: 'Extended License',
                 price: '$490',
+                discount_price: '$290',
                 included: ['Commercial Usage', 'Multiple End Products', 'Lifetime Support', 'Unlimited Updates']
             }
         ]
