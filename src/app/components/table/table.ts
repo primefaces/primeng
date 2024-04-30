@@ -3322,6 +3322,7 @@ export class FrozenColumn implements AfterViewInit {
     updateStickyPosition() {
         if (this._frozen) {
             let currentElement = this.el.nativeElement;
+            let index = DomHandler.index(currentElement);
             if (this.alignFrozen === 'right') {
                 let right = 0;
                 if (currentElement.nodeName == 'TH') {
@@ -3330,7 +3331,7 @@ export class FrozenColumn implements AfterViewInit {
                         right += parseFloat(currentElement.style.minWidth);
                     }
                 } else {
-                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[DomHandler.index(this.el.nativeElement)];
+                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[index];
                     right = parseFloat(currentElementHeader.style.right);
                 }
                 this.el.nativeElement.style.right = right + 'px';
@@ -3342,7 +3343,7 @@ export class FrozenColumn implements AfterViewInit {
                         left += parseFloat(currentElement.style.minWidth);
                     }
                 } else {
-                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[DomHandler.index(this.el.nativeElement)];
+                    let currentElementHeader = currentElement?.parentElement?.parentElement?.previousElementSibling?.firstElementChild?.cells[index];
                     left = parseFloat(currentElementHeader.style.left);
                 }
                 this.el.nativeElement.style.left = left + 'px';
@@ -3351,7 +3352,6 @@ export class FrozenColumn implements AfterViewInit {
             const filterRow = this.el.nativeElement?.parentElement?.nextElementSibling;
 
             if (filterRow) {
-                let index = DomHandler.index(this.el.nativeElement);
                 if (filterRow.children && filterRow.children[index]) {
                     filterRow.children[index].style.left = this.el.nativeElement.style.left;
                     filterRow.children[index].style.right = this.el.nativeElement.style.right;
