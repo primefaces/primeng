@@ -10,7 +10,7 @@ import { PhotoService } from '@service/photoservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-3 mb-5">
-                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
+                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             </div>
             <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
                 <ng-template pTemplate="item" let-item>
@@ -72,39 +72,63 @@ export class ThumbnailDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" />
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <div class="flex flex-wrap gap-3 mb-5">
-        <p-radioButton *ngFor="let option of positionOptions;" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label"></p-radioButton>
-    </div>
-    <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5"> 
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [thumbnailsPosition]="position" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px' }"
+    [numVisible]="5">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
+            <img 
+                [src]="item.itemImageSrc" 
+                style="width: 100%; min-height: 420px; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <div class="flex flex-wrap gap-3 mb-5">
+        <p-radioButton 
+            *ngFor="let option of positionOptions;" 
+            [name]="option.label" 
+            [value]="option.value" 
+            [label]="option.label" 
+            [(ngModel)]="position" 
+            [inputId]="label" />
+    </div>
+    <p-galleria 
+        [(value)]="images" 
+        [thumbnailsPosition]="position" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }" 
+        [numVisible]="5"> 
+            <ng-template pTemplate="item" let-item>
+                <img 
+                    [src]="item.itemImageSrc" 
+                    style="width: 100%; min-height: 420px; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'galleria-thumbnail-demo',
-    templateUrl: './galleria-thumbnail-demo.html'
+    templateUrl: './galleria-thumbnail-demo.html',
+    standalone: true,
+    imports: [GalleriaModule, RadioButtonModule, FormsModule],
+    providers: [PhotoService]
 })
 export class GalleriaThumbnailDemo implements OnInit {
     images: any[] | undefined;

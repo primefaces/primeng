@@ -10,8 +10,8 @@ import { PhotoService } from '@service/photoservice';
         </app-docsectiontext>
         <div class="card">
             <div class="py-2">
-                <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
-                <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
+                <p-button type="button" icon="pi pi-minus" (click)="prev()" severity="secondary" styleClass="mr-2" />
+                <p-button type="button" icon="pi pi-plus" (click)="next()" />
             </div>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
                 <ng-template pTemplate="item" let-item>
@@ -73,26 +73,23 @@ export class ControlledDoc implements OnInit {
 
     code: Code = {
         basic: `<div class="py-2">
-    <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
-    <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
+    <p-button 
+        type="button" 
+        icon="pi pi-minus" 
+        (click)="prev()" 
+        severity="secondary" 
+        styleClass="mr-2" />
+    <p-button 
+        type="button" 
+        icon="pi pi-plus" 
+        (click)="next()" />
 </div>
-<p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" />
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <div class="py-2">
-        <p-button type="button" icon="pi pi-minus" (click)="prev()" styleClass="p-button-secondary mr-2"></p-button>
-        <p-button type="button" icon="pi pi-plus" (click)="next()" styleClass="p-button-primary"></p-button>
-    </div>
-    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex"> 
+<p-galleria 
+    [(value)]="images" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px' }" 
+    [numVisible]="5" 
+    [(activeIndex)]="activeIndex">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
@@ -101,15 +98,47 @@ export class ControlledDoc implements OnInit {
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <div class="py-2">
+        <p-button 
+            type="button" 
+            icon="pi pi-minus" 
+            (click)="prev()" 
+            severity="secondary" 
+            styleClass="mr-2" />
+        <p-button 
+            type="button" 
+            icon="pi pi-plus" 
+            (click)="next()" />
+    </div>
+    <p-galleria 
+        [(value)]="images" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }" 
+        [numVisible]="5" 
+        [(activeIndex)]="activeIndex">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'galleria-controlled-demo',
-    templateUrl: './galleria-controlled-demo.html'
+    templateUrl: './galleria-controlled-demo.html',
+    standalone: true,
+    imports: [GalleriaModule, ButtonModule],
+    providers: [PhotoService]
 })
 export class GalleriaControlledDemo implements OnInit {
     images: any[] | undefined;

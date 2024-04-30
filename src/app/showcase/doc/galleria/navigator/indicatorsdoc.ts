@@ -59,19 +59,14 @@ export class IndicatorsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" style="display: block;" />
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [showItemNavigators]="true" [showThumbnails]="false" [showIndicators]="true" [showIndicatorsOnItem]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px', 'margin-top':'2em' }"> 
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [showItemNavigators]="true" 
+    [showThumbnails]="false" 
+    [showIndicators]="true" 
+    [showIndicatorsOnItem]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px', 'margin-top': '2em' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -80,15 +75,35 @@ export class IndicatorsDoc implements OnInit {
                 <img [src]="item.thumbnailImageSrc" style="display: block;" />
             </div>
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [showItemNavigators]="true" 
+        [showThumbnails]="false" 
+        [showIndicators]="true" 
+        [showIndicatorsOnItem]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px', 'margin-top':'2em' }"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-navigator-indicators-demo',
     templateUrl: './galleria-navigator-indicators-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
     providers: [PhotoService]
 })
 export class GalleriaNavigatorIndicatorsDemo implements OnInit {

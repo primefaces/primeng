@@ -46,26 +46,41 @@ export class ItemWithoutThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [numVisible]="5" [circular]="true" [showItemNavigators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [numVisible]="5" 
+    [circular]="true" 
+    [showItemNavigators]="true" 
+    [showThumbnails]="false" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [numVisible]="5" 
+        [circular]="true" 
+        [showItemNavigators]="true" 
+        [showThumbnails]="false" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-item-without-thumbnails-demo',
     templateUrl: './galleria-item-without-thumbnails-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
     providers: [PhotoService]
 })
 export class GalleriaItemWithoutThumbnailsDemo implements OnInit {
