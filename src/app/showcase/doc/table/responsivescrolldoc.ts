@@ -36,7 +36,7 @@ interface Column {
                             <td>
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
-                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -109,7 +109,7 @@ export class ResponsiveScrollDoc {
                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
             </td>
             <td>
-                <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" />
+                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
             </td>
         </tr>
     </ng-template>
@@ -144,7 +144,7 @@ export class ResponsiveScrollDoc {
                     <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                 </td>
                 <td>
-                    <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" />
+                    <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
                 </td>
             </tr>
         </ng-template>

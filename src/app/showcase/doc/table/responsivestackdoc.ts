@@ -36,7 +36,7 @@ interface Column {
                             <td><span class="p-column-title">Category</span>{{ product.category }}</td>
                             <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
                             <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
-                            <td><span class="p-column-title">Reviews</span><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                            <td><span class="p-column-title">Reviews</span><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -117,7 +117,7 @@ export class ResponsiveStackDoc {
                 <td>
                     <span class="p-column-title">Reviews</span>
                     <p-rating 
-                        [ngModel]="product.rating" 
+                        [(ngModel)]="product.rating" 
                         [readonly]="true" 
                         [cancel]="false" />
                 </td>
@@ -158,7 +158,7 @@ export class ResponsiveStackDoc {
                 <td>
                     <span class="p-column-title">Reviews</span>
                     <p-rating 
-                        [ngModel]="product.rating" 
+                        [(ngModel)]="product.rating" 
                         [readonly]="true" 
                         [cancel]="false" />
                 </td>

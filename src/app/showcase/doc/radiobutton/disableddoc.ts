@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-radioButton [disabled]="true" [ngModel]="checked" />
+            <p-radioButton [disabled]="true" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="radio-button-disabled-demo"></app-code>
     `

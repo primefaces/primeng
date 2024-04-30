@@ -38,7 +38,7 @@ interface Column {
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                             <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
-                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
@@ -109,7 +109,7 @@ export class TemplateDoc {
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
             <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
         </tr>
     </ng-template>
@@ -143,7 +143,7 @@ export class TemplateDoc {
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                 <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
             </tr>
         </ng-template>
@@ -227,4 +227,3 @@ export interface Product {
         }
     ];
 }
-
