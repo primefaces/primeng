@@ -16,9 +16,10 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { AutoDoc } from './autodoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppCodeModule, AppDocModule, ButtonModule, TagModule, ProgressBarModule, ToastModule, FileUploadModule, RouterModule],
+    imports: [CommonModule, FormsModule, AppCodeModule, AppDocModule, ButtonModule, TagModule, ProgressBarModule, ToastModule, FileUploadModule, BadgeModule, RouterModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AdvancedDoc, AutoDoc, AccessibilityDoc]
 })
