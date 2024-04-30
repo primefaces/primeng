@@ -6,7 +6,7 @@ import { Code } from '@domain/code';
     selector: 'controlled-doc',
     template: `
         <app-docsectiontext>
-            <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
+            <p>Menu items can be controlled programmatically.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
             <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
