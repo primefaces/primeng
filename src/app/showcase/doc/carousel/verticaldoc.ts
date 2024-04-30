@@ -12,20 +12,20 @@ import { ProductService } from '@service/productservice';
         <div class="card flex justify-content-center">
             <p-carousel [value]="products" [numVisible]="1" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px">
                 <ng-template let-product pTemplate="item">
-                    <div class="product-item">
-                        <div class="product-item-content">
-                            <div class="mb-3">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="product-image" />
+                    <div class="border-1 surface-border border-round m-2 p-3">
+                        <div class="mb-3">
+                            <div class="relative mx-auto">
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full border-round" />
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
-                            <div>
-                                <h4 class="mb-1">{{ product.name }}</h4>
-                                <h6 class="mt-0 mb-3">{{ product.price }}</h6>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                                <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                                    <p-button icon="pi pi-search" [rounded]="true" />
-                                    <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
-                                </div>
-                            </div>
+                        </div>
+                        <div class="mb-3 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-content-between align-items-center">
+                            <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
+                            <span>
+                                <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                                <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                            </span>
                         </div>
                     </div>
                 </ng-template>
@@ -58,57 +58,91 @@ export class VerticalDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-carousel [value]="products" [numVisible]="3" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px" [responsiveOptions]="responsiveOptions">
-    <ng-template let-product pTemplate="item">
-        <div class="product-item">
-            <div class="product-item-content">
-                <div class="mb-3">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"[alt]="product.name" class="product-image" />
-                </div>
-                <div>
-                    <h4 class="mb-1">{{product.name}}</h4>
-                    <h6 class="mt-0 mb-3">{{product.price}}</h6>
-                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                    <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                    <p-button icon="pi pi-search" [rounded]="true" />
-                    <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
-                </div>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-</p-carousel>`,
-        html: `<div class="card flex justify-content-center">
-    <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" orientation="vertical" verticalViewPortHeight="360px" [responsiveOptions]="responsiveOptions">
+        basic: `<p-carousel 
+    [value]="products" 
+    [numVisible]="1" 
+    [numScroll]="1" 
+    orientation="vertical" 
+    verticalViewPortHeight="360px">
         <ng-template let-product pTemplate="item">
-            <div class="product-item">
-                <div class="product-item-content">
-                    <div class="mb-3">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"[alt]="product.name" class="product-image" />
+            <div class="border-1 surface-border border-round m-2 p-3">
+                <div class="mb-3">
+                    <div class="relative mx-auto">
+                        <img 
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                            [alt]="product.name" 
+                            class="w-full border-round" />
+                        <p-tag 
+                            [value]="product.inventoryStatus" 
+                            [severity]="getSeverity(product.inventoryStatus)" 
+                            class="absolute" 
+                            [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
-                    <div>
-                        <h4 class="mb-1">{{product.name}}</h4>
-                        <h6 class="mt-0 mb-3">{{product.price}}</h6>
-                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                        <div class="mt-5 flex align-items-center justify-content-center gap-2">
-                                <p-button icon="pi pi-search" [rounded]="true" />
-                                <p-button icon="pi pi-star-fill" [rounded]="true" severity="secondary" />
-                        </div>
+                </div>
+                <div class="mb-3 font-medium">
+                    {{ product.name }}
+                </div>
+                <div class="flex justify-content-between align-items-center">
+                    <div class="mt-0 font-semibold text-xl">
+                        {{ '$' + product.price }}
                     </div>
+                    <span>
+                        <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                        <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                    </span>
                 </div>
             </div>
         </ng-template>
+</p-carousel>`,
+        html: `<div class="card flex justify-content-center">
+    <p-carousel 
+        [value]="products" 
+        [numVisible]="1" 
+        [numScroll]="1" 
+        orientation="vertical" 
+        verticalViewPortHeight="360px">
+            <ng-template let-product pTemplate="item">
+                <div class="border-1 surface-border border-round m-2 p-3">
+                    <div class="mb-3">
+                        <div class="relative mx-auto">
+                            <img 
+                                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
+                                [alt]="product.name" 
+                                class="w-full border-round" />
+                            <p-tag 
+                                [value]="product.inventoryStatus" 
+                                [severity]="getSeverity(product.inventoryStatus)" 
+                                class="absolute" 
+                                [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
+                        </div>
+                    </div>
+                    <div class="mb-3 font-medium">{{ product.name }}</div>
+                    <div class="flex justify-content-between align-items-center">
+                        <div class="mt-0 font-semibold text-xl">
+                            {{ '$' + product.price }}
+                        </div>
+                        <span>
+                            <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
+                            <p-button icon="pi pi-shopping-cart" styleClass="ml-2" />
+                        </span>
+                    </div>
+                </div>
+            </ng-template>
     </p-carousel>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
+import { CarouselModule } from 'primeng/carousel';
+import { ButtonModule } from 'primeng/button';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'carousel-vertical-demo',
     templateUrl: './carousel-vertical-demo.html',
-    styleUrls: ['./carousel-vertical-demo.scss']
+    standalone: true,
+    imports: [CarouselModule, ButtonModule, TagModule],
+    providers: [ProductService]
 })
 export class CarouselVerticalDemo implements OnInit {
     products: Product[] | undefined;
