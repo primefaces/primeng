@@ -77,7 +77,8 @@ export class SelectionDoc {
 
     code: Code = {
         basic: `<p-organizationChart 
-    [value]="data" selectionMode="multiple" 
+    [value]="data" 
+    selectionMode="multiple" 
     [(selection)]="selectedNodes" 
     [collapsible]="true">
         <ng-template let-node pTemplate="person">
