@@ -14,7 +14,7 @@ interface Users {
     selector: 'context-menu-command-demo',
     template: `
         <app-docsectiontext>
-            <p>ContextMenu requires a collection of menuitems as its <i>model</i> and the <i>show</i> method needs to be called explicity using an event of the target like <i>contextmenu</i> to display the menu.</p>
+            <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
         <div class="card flex md:justify-content-center">
             <p-toast />
@@ -56,9 +56,9 @@ export class CommandDoc implements OnInit {
 
     @ViewChild('cm') cm: ContextMenu;
 
-    selectedUser : Users
+    selectedUser: Users;
 
-    users : Users[];
+    users: Users[];
 
     constructor(private messageService: MessageService) {}
 
