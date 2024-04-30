@@ -12,9 +12,9 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast key="myKey"></p-toast>
-            <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-            <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>
+            <p-toast key="myKey" />
+            <p-button pRipple (click)="show()" label="Show" />
+            <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
     `,
@@ -32,22 +32,39 @@ export class ClearDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<button type="button" pButton pRipple (click)="show()" label="Show"></button>
-<button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>`,
-        html: `
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-    <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>
+        basic: `<p-toast key="myKey" />
+<p-button 
+    pRipple 
+    (click)="show()" 
+    label="Show" />
+<p-button 
+    pRipple 
+    (click)="clear()" 
+    label="Clear" 
+    severity="secondary" />`,
+        html: `<div class="card flex justify-content-center gap-2">
+    <p-toast key="myKey" />
+    <p-button 
+        pRipple 
+        (click)="show()" 
+        label="Show" />
+    <p-button 
+        pRipple 
+        (click)="clear()" 
+        label="Clear" 
+        severity="secondary" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-clear-demo',
     templateUrl: './toast-clear-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastClearDemo {

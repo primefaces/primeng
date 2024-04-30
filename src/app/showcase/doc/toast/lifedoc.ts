@@ -9,9 +9,9 @@ import { Code } from '@domain/code';
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast [life]="10000"></p-toast>
-            <button type="button" pButton pRipple (click)="showLife()" label="Show Life"></button>
-            <button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>
+            <p-toast [life]="10000" />
+            <p-button pRipple (click)="showLife()" label="Show Life" />
+            <p-button pRipple (click)="showLifeLong()" label="Show Life Long" />
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
     `,
@@ -29,22 +29,37 @@ export class LifeDoc {
     }
 
     code: Code = {
-        basic: `<p-toast [life]="10000"></p-toast>
-<button type="button" pButton pRipple (click)="showLife()" label="Show Life Default"></button>
-<button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast [life]="10000"></p-toast>
-    <button type="button" pButton pRipple (click)="showLife()" label="Show Life Default"></button>
-    <button type="button" pButton pRipple (click)="showLifeLong()" label="Show Life Long"></button>
+        basic: `<p-toast [life]="10000" />
+<p-button 
+    pRipple 
+    (click)="showLife()" 
+    label="Show Life" />
+<p-button 
+    pRipple 
+    (click)="showLifeLong()" 
+    label="Show Life Long" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-toast [life]="10000" />
+    <p-button 
+        pRipple 
+        (click)="showLife()" 
+        label="Show Life" />
+    <p-button
+        pRipple 
+        (click)="showLifeLong()" 
+        label="Show Life Long" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-life-demo',
     templateUrl: './toast-life-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastLifeDemo {

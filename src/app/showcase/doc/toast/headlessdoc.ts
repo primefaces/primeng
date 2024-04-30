@@ -17,31 +17,31 @@ import { Code } from '@domain/code';
                             <p class="m-0 font-semibold text-base text-white">{{ message.summary }}</p>
                             <p class="m-0 text-base text-700">{{ message.detail }}</p>
                             <div class="flex flex-column gap-2">
-                                <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }"></p-progressBar>
+                                <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" />
                                 <label class="text-right text-xs text-white">{{ progress }}% uploaded...</label>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <p-button label="Another Upload?" text="true" styleClass="p-0" (click)="closeFn($event)"></p-button>
-                                <p-button label="Cancel" text="true" styleClass="text-white p-0" (click)="closeFn($event)"></p-button>
+                                <p-button label="Another Upload?" [text]="true" styleClass="p-0" (click)="closeFn($event)" />
+                                <p-button label="Cancel" [text]="true" styleClass="text-white p-0" (click)="closeFn($event)" />
                             </div>
                         </div>
                     </section>
                 </ng-template>
             </p-toast>
-            <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>
+            <p-button pRipple (click)="showConfirm()" label="Confirm" />
         </div>
         <app-code [code]="code" selector="toast-headless-demo"></app-code>
     `,
     providers: [MessageService]
 })
 export class HeadlessDoc {
-    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
-
     visible: boolean = false;
 
     progress: number = 0;
 
     interval = null;
+
+    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
 
     showConfirm() {
         if (!this.visible) {
@@ -72,65 +72,113 @@ export class HeadlessDoc {
     }
 
     code: Code = {
-        basic: `<p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
- <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
-     <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
-         <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
-         <div class="flex flex-column gap-3 w-full">
-             <p class="m-0 font-semibold text-base text-white">{{ message.summary }}</p>
-             <p class="m-0 text-base text-700">{{ message.detail }}</p>
-             <div class="flex flex-column gap-2">
-                 <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }"></p-progressBar>
-                 <label class="text-right text-xs text-white">{{ progress }}% uploaded...</label>
-             </div>
-             <div class="flex gap-3 mb-3">
-                 <p-button label="Another Upload?" text="true" styleClass="p-0" (click)="closeFn($event)"></p-button>
-                 <p-button label="Cancel" text="true" styleClass="text-white p-0" (click)="closeFn($event)"></p-button>
-             </div>
-         </div>
-     </section>
- </ng-template>
+        basic: `<p-toast 
+    position="top-center" 
+    key="confirm" 
+    (onClose)="onClose()" 
+    [baseZIndex]="5000">
+        <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
+            <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
+                <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
+                <div class="flex flex-column gap-3 w-full">
+                    <p class="m-0 font-semibold text-base text-white">
+                        {{ message.summary }}
+                    </p>
+                    <p class="m-0 text-base text-700">
+                        {{ message.detail }}
+                    </p>
+                    <div class="flex flex-column gap-2">
+                        <p-progressBar 
+                            [value]="progress" 
+                            [showValue]="false" 
+                            [style]="{ height: '4px' }" />
+                        <label class="text-right text-xs text-white">
+                            {{ progress }}% uploaded...
+                        </label>
+                    </div>
+                    <div class="flex gap-3 mb-3">
+                        <p-button 
+                            label="Another Upload?" 
+                            [text]="true"
+                            styleClass="p-0" 
+                            (click)="closeFn($event)" />
+                        <p-button 
+                            label="Cancel" 
+                            [text]="true"
+                            styleClass="text-white p-0" 
+                            (click)="closeFn($event)" />
+                    </div>
+                </div>
+            </section>
+        </ng-template>
 </p-toast>
-<button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>`,
+<p-button pRipple (click)="showConfirm()" label="Confirm" />`,
         html: `<div class="card flex justify-content-center">
-    <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
-    <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
-        <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
-            <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
-            <div class="flex flex-column gap-3 w-full">
-                <p class="m-0 font-semibold text-base text-white">{{ message.summary }}</p>
-                <p class="m-0 text-base text-700">{{ message.detail }}</p>
-                <div class="flex flex-column gap-2">
-                    <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }"></p-progressBar>
-                    <label class="text-right text-xs text-white">{{ progress }}% uploaded...</label>
-                </div>
-                <div class="flex gap-3 mb-3">
-                    <p-button label="Another Upload?" text="true" styleClass="p-0" (click)="closeFn($event)"></p-button>
-                    <p-button label="Cancel" text="true" styleClass="text-white p-0" (click)="closeFn($event)"></p-button>
-                </div>
-            </div>
-        </section>
-    </ng-template>
+    <p-toast 
+        position="top-center" 
+        key="confirm" 
+        (onClose)="onClose()" 
+        [baseZIndex]="5000">
+            <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
+                <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
+                    <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
+                    <div class="flex flex-column gap-3 w-full">
+                        <p class="m-0 font-semibold text-base text-white">
+                            {{ message.summary }}
+                        </p>
+                        <p class="m-0 text-base text-700">
+                            {{ message.detail }}
+                        </p>
+                        <div class="flex flex-column gap-2">
+                            <p-progressBar 
+                                [value]="progress" 
+                                [showValue]="false" 
+                                [style]="{ height: '4px' }" />
+                            <label class="text-right text-xs text-white">
+                                {{ progress }}% uploaded...
+                            </label>
+                        </div>
+                        <div class="flex gap-3 mb-3">
+                            <p-button 
+                                label="Another Upload?" 
+                                [text]="true" 
+                                styleClass="p-0" 
+                                (click)="closeFn($event)" />
+                            <p-button 
+                                label="Cancel" 
+                                [text]="true" 
+                                styleClass="text-white p-0" 
+                                (click)="closeFn($event)" />
+                        </div>
+                    </div>
+                </section>
+            </ng-template>
     </p-toast>
-    <button type="button" pButton pRipple (click)="showConfirm()" label="Confirm"></button>
+    <p-button pRipple (click)="showConfirm()" label="Confirm" />
 </div>`,
-        typescript: `
-import { ChangeDetectorRef, Component } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     selector: 'toast-headless-demo',
     templateUrl: './toast-headless-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule, ProgressBarModule],
     providers: [MessageService]
-})
+})  
 export class ToastHeadlessDemo {
-    constructor(private messageService: MessageService,private cdr:ChangeDetectorRef) {}
 
     visible: boolean = false;
 
     progress: number = 0;
 
     interval = null;
+
+    constructor(private messageService: MessageService, private cdr: ChangeDetectorRef) {}
 
     showConfirm() {
         if (!this.visible) {
@@ -151,7 +199,7 @@ export class ToastHeadlessDemo {
                     this.progress = 100;
                     clearInterval(this.interval);
                 }
-                this.cdr.detectChanges()
+                this.cdr.markForCheck();
             }, 1000);
         }
     }
