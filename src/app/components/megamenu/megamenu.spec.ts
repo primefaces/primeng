@@ -466,7 +466,7 @@ describe('MegaMenu', () => {
         expect(tv1Div.className).toContain('p-megamenu-col-2');
     });
 
-    it('should move to the next item onKeyboardArrowKeyDown',() => {
+    it('should move to the next item onKeyboardArrowKeyDown', () => {
         megamenu.model = [
             {
                 label: 'TV',
@@ -507,9 +507,9 @@ describe('MegaMenu', () => {
         //focus on menu
         megamenu.onMenuFocus(new Event(''));
         fixture.detectChanges();
-        
+
         const parentMenuEl = fixture.debugElement.query(By.css('.p-megamenu-root-list'));
-        const tvEl = parentMenuEl.children[0]; 
+        const tvEl = parentMenuEl.children[0];
 
         expect(megamenu.focusedItemInfo().index).toBe(0);
         expect(megamenu.focusedItemInfo().parentKey).toBe('');
@@ -517,11 +517,10 @@ describe('MegaMenu', () => {
         expect(tvEl.attributes['aria-expanded']).toBe('false');
 
         //simulate keyboard arrow down key press
-        const event = new KeyboardEvent('keydown', {key: 'ArrowDown', code: 'ArrowDown'}); 
+        const event = new KeyboardEvent('keydown', { key: 'ArrowDown', code: 'ArrowDown' });
         parentMenuEl.nativeElement.dispatchEvent(event);
         fixture.detectChanges();
 
-        
         expect(onArrowDownKeySpy).toHaveBeenCalled();
         expect(megamenu.focusedItemInfo().index).toBe(0);
         expect(megamenu.focusedItemInfo().parentKey).toBe('0_0_0');
