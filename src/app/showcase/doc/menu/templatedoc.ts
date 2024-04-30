@@ -6,7 +6,10 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Label of a menuitem both supports simple strings and html values as well. By default, html values are escaped, use <i>escape</i> property to allow html.</p>
+        <p>
+            Menu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter. The submenu header has its own <i>submenuheader</i> template, additional slots named <i>start</i> and
+            <i>end</i> are provided to embed content before or after the menu.
+        </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-menu [model]="items" styleClass="w-full md:w-15rem">
