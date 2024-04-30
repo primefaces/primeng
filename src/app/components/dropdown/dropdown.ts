@@ -71,7 +71,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             [ngStyle]="{ height: itemSize + 'px' }"
             [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled, 'p-focus': focused }"
         >
-            <span *ngIf="!template">{{ label ?? 'empty' }}</span>
+            <span *ngIf="!template">{{ label !== null && label !== '' ? label : 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
     `,
@@ -154,7 +154,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' || label() ? '&nbsp;' : placeholder() }}</span>
                 </ng-template>
             </span>
             <input
@@ -952,8 +952,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.getAllVisibleAndNonVisibleOptions();
         // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
         const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
-
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        const optionLabel = this.getOptionLabel(options[selectedOptionIndex]);
+        return selectedOptionIndex !== -1 ? (optionLabel !== '' && optionLabel !== null ? optionLabel : 'p-emptylabel') : (this.placeholder() !== '' ? this.placeholder() : 'p-emptylabel');
     });
 
     filled = computed(() => {
