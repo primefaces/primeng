@@ -504,8 +504,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     get visibleItems() {
         const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
 
-        return processedItem && processedItem.key === this.focusedItemInfo().parentKey
-            ? processedItem.items.reduce((items, col) => {
+        return processedItem ? processedItem.items.reduce((items, col) => {
                   col.forEach((submenu) => {
                       submenu.items.forEach((a) => {
                           items.push(a);

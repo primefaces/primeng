@@ -211,7 +211,7 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
 
         expect(itemClickSpy).toHaveBeenCalled();
-        expect(megamenu.activeItem).toEqual(null);
+        expect(megamenu.activeItem()).toEqual(null);
     });
 
     it("shouldn't  call itemClick ", () => {
@@ -366,7 +366,7 @@ describe('MegaMenu', () => {
         expect(tv1Div.className).toContain('p-megamenu-col-4');
     });
 
-    it('should item get p-megamenu-col-3', () => {
+    it('should item get p-megamenu-col-6', () => {
         megamenu.model = [
             {
                 label: 'TVV',
@@ -405,7 +405,7 @@ describe('MegaMenu', () => {
         let tv1Div = fixture.debugElement.query(By.css('.p-megamenu-grid')).query(By.css('div')).nativeElement;
         fixture.detectChanges();
 
-        expect(tv1Div.className).toContain('p-megamenu-col-3');
+        expect(tv1Div.className).toContain('p-megamenu-col-6');
     });
 
     it('should item get p-megamenu-col-2', () => {
@@ -464,5 +464,82 @@ describe('MegaMenu', () => {
         fixture.detectChanges();
 
         expect(tv1Div.className).toContain('p-megamenu-col-2');
+    });
+
+    it('should move to the next item onKeyboardArrowKeyDown',() => {
+        megamenu.model = [
+            {
+                label: 'TV',
+                icon: 'pi pi-fw pi-check',
+                items: [
+                    [
+                        {
+                            label: 'TV 1',
+                            items: [{ label: 'TV 1.1' }, { label: 'TV 1.2' }]
+                        },
+                        {
+                            label: 'TV 2',
+                            items: [{ label: 'TV 2.1' }, { label: 'TV 2.2' }]
+                        }
+                    ]
+                ]
+            },
+            {
+                label: 'Sports',
+                icon: 'pi pi-fw pi-soccer-ball-o',
+                items: [
+                    [
+                        {
+                            label: 'Sports 1',
+                            items: [{ label: 'Sports 1.1' }, { label: 'Sports 1.2' }]
+                        },
+                        {
+                            label: 'Sports 2',
+                            items: [{ label: 'Sports 2.1' }, { label: 'Sports 2.2' }]
+                        }
+                    ]
+                ]
+            }
+        ];
+
+        const onArrowDownKeySpy = spyOn(megamenu, 'onArrowDownKey').and.callThrough();
+
+        //focus on menu
+        megamenu.onMenuFocus(new Event(''));
+        fixture.detectChanges();
+        
+        const parentMenuEl = fixture.debugElement.query(By.css('.p-megamenu-root-list'));
+        const tvEl = parentMenuEl.children[0]; 
+
+        expect(megamenu.focusedItemInfo().index).toBe(0);
+        expect(megamenu.focusedItemInfo().parentKey).toBe('');
+        expect(megamenu.focusedItemInfo().item.label).toBe('TV');
+        expect(tvEl.attributes['aria-expanded']).toBe('false');
+
+        //simulate keyboard arrow down key press
+        const event = new KeyboardEvent('keydown', {key: 'ArrowDown', code: 'ArrowDown'}); 
+        parentMenuEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+
+        
+        expect(onArrowDownKeySpy).toHaveBeenCalled();
+        expect(megamenu.focusedItemInfo().index).toBe(0);
+        expect(megamenu.focusedItemInfo().parentKey).toBe('0_0_0');
+        expect(megamenu.focusedItemInfo().item.label).toBe('TV 1.1');
+        expect(tvEl.attributes['aria-expanded']).toBe('true');
+
+        //keyboard arrow down key press again
+        parentMenuEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+        expect(megamenu.focusedItemInfo().index).toBe(1);
+        expect(megamenu.focusedItemInfo().parentKey).toBe('0_0_0');
+        expect(megamenu.focusedItemInfo().item.label).toBe('TV 1.2');
+
+        //keyboard arrow down key press again
+        parentMenuEl.nativeElement.dispatchEvent(event);
+        fixture.detectChanges();
+        expect(megamenu.focusedItemInfo().index).toBe(2);
+        expect(megamenu.focusedItemInfo().parentKey).toBe('0_0_1');
+        expect(megamenu.focusedItemInfo().item.label).toBe('TV 2.1');
     });
 });
