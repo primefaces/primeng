@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Transition of the open and hide animations can be customized using the <i>showTransitionOptions</i> and <i>hideTransitionOptions</i> properties, example below disables the animations altogether.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>
+            <p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-animation-demo"></app-code>
     `
@@ -25,18 +25,27 @@ export class AnimationDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>`,
-        html: `
-<div class="card">
-    <p-messages [(value)]="messages" [showTransitionOptions]="'500ms'" [hideTransitionOptions]="'500ms'" [enableService]="false"></p-messages>
+        basic: `<p-messages 
+    [(value)]="messages" 
+    [showTransitionOptions]="'500ms'" 
+    [hideTransitionOptions]="'500ms'" 
+    [enableService]="false" />`,
+        html: `<div class="card">
+    <p-messages 
+        [(value)]="messages" 
+        [showTransitionOptions]="'500ms'" 
+        [hideTransitionOptions]="'500ms'" 
+        [enableService]="false" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
 
 @Component({
     selector: 'messages-animation-demo',
-    templateUrl: './messages-animation-demo.html'
+    templateUrl: './messages-animation-demo.html',
+    standalone: true,
+    imports: [MessagesModule]
 })
 export class MessagesAnimationDemo implements OnInit {
     messages: Message[] | undefined;

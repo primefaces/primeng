@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>The <i>severity</i> option specifies the type of the message.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-messages [(value)]="messages" [enableService]="false" [closable]="false" />
+            <p-messages [(value)]="messages" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-severity-demo"></app-code>
     `
@@ -27,15 +27,9 @@ export class SeverityDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-messages 
-    [(value)]="messages" 
-    [enableService]="false" 
-    [closable]="false" />`,
+        basic: `<p-messages [(value)]="messages" [enableService]="false" />`,
         html: `<div class="card">
-    <p-messages 
-        [(value)]="messages" 
-        [enableService]="false" 
-        [closable]="false" />
+    <p-messages [(value)]="messages" [enableService]="false" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';

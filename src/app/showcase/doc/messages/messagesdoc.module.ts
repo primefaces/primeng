@@ -20,9 +20,10 @@ import { ServiceDoc } from './servicedoc';
 import { InlineDoc } from './inlinedoc';
 import { AnimationDoc } from './animationdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AvatarModule, AppDocModule],
     declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
