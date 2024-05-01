@@ -379,6 +379,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     updateModel(): void {
         this.onModelChange(this.getValueToUpdate());
+        this.cd.markForCheck();
     }
 
     writeValue(value: any): void {

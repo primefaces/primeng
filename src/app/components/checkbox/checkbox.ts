@@ -8,6 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    Injector,
     Input,
     NgModule,
     numberAttribute,
@@ -17,7 +18,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
@@ -235,7 +236,7 @@ export class Checkbox implements ControlValueAccessor {
 
     focused: boolean = false;
 
-    constructor(public cd: ChangeDetectorRef) {}
+    constructor(public cd: ChangeDetectorRef, private readonly injector: Injector) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -264,9 +265,18 @@ export class Checkbox implements ControlValueAccessor {
     updateModel(event) {
         let newModelValue;
 
+        /*
+         * When `formControlName` or `formControl` is used - `writeValue` is not called after control changes.
+         * Otherwise it is causing multiple references to the actual value: there is one array reference inside the component and another one in the control value.
+         * `selfControl` is the source of truth of references, it is made to avoid reference loss.
+         * */
+        const selfControl = this.injector.get<NgControl | null>(NgControl, null, { optional: true, self: true });
+
+        const currentModelValue = selfControl && !this.formControl ? selfControl.value : this.model;
+
         if (!this.binary) {
-            if (this.checked()) newModelValue = this.model.filter((val) => !ObjectUtils.equals(val, this.value));
-            else newModelValue = this.model ? [...this.model, this.value] : [this.value];
+            if (this.checked()) newModelValue = currentModelValue.filter((val) => !ObjectUtils.equals(val, this.value));
+            else newModelValue = currentModelValue ? [...currentModelValue, this.value] : [this.value];
 
             this.onModelChange(newModelValue);
             this.model = newModelValue;

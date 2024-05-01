@@ -46,7 +46,7 @@ import { TemplateFeaturesAnimationInlineModule } from './templatefeaturesanimati
                         ></template-features-animation-inline>
                     </ng-container>
                     <ng-template #featureImage>
-                        <img [ngSrc]="featuresData[selectedID - 1]?.src" width="940" height="960" alt="Animation Feature Image" />
+                        <img [src]="featuresData[selectedID - 1]?.src" alt="Animation Feature Image" />
                     </ng-template>
                 </div>
             </div>

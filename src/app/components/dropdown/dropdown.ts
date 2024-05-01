@@ -1497,6 +1497,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 break;
 
             case 'Enter':
+            case 'NumpadEnter':
                 this.onEnterKey(event, true);
                 break;
 

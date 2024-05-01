@@ -559,6 +559,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input() optionLabel: string | ((item: any) => string) | undefined;
     /**
+     * Property name or getter function to use as the value of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | ((item: any) => string) | undefined;
+    /**
      * Unique identifier of the component.
      * @group Props
      */
@@ -768,9 +773,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+
         if (modelValue) {
-            if (typeof modelValue === 'object') {
-                const label = this.getOptionLabel(modelValue);
+            if (typeof modelValue === 'object' || this.optionValueSelected) {
+                const label = this.getOptionLabel(selectedOption);
 
                 return label != null ? label : modelValue;
             } else {
@@ -854,6 +861,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     get virtualScrollerDisabled() {
         return !this.virtualScroll;
+    }
+
+    get optionValueSelected() {
+        return typeof this.modelValue() === 'string' && this.optionValue;
     }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
@@ -1564,7 +1575,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     getOptionValue(option) {
-        return option; // TODO: The 'optionValue' properties can be added.
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
     }
 
     getOptionIndex(index, scrollerOptions) {

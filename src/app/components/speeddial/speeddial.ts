@@ -92,7 +92,7 @@ import { asapScheduler } from 'rxjs';
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
                         <a
-                            *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
+                            *ngIf="isClickableRouterLink(item); else elseBlock"
                             pRipple
                             [routerLink]="item.routerLink"
                             [queryParams]="item.queryParams"
@@ -117,7 +117,6 @@ import { asapScheduler } from 'rxjs';
                         </a>
                         <ng-template #elseBlock>
                             <a
-                                *ngIf="_visible"
                                 [attr.href]="item.url || null"
                                 class="p-speeddial-action"
                                 role="menuitem"
@@ -499,7 +498,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onEnterKey(event: any) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex);
+        const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
         this.onItemClick(event, this.model[itemIndex]);
         this.onBlur(event);

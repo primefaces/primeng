@@ -66,7 +66,7 @@ export interface DropdownLazyLoadEvent {
  */
 export interface DropdownTemplates {
     /**
-     * Custom header template.
+     * Custom item template.
      * @param {Object} context - item data.
      */
     item(context: {

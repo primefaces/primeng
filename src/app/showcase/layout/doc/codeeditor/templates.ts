@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.14.1',
+    version: '17.15.0',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -529,6 +529,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { EditorModule } from 'primeng/editor';
 import { FieldsetModule } from 'primeng/fieldset';
 import { FileUploadModule } from 'primeng/fileupload';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { GalleriaModule } from 'primeng/galleria';
 import { InplaceModule } from 'primeng/inplace';
 import { InputMaskModule } from 'primeng/inputmask';
@@ -539,6 +540,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputGroupModule } from 'primeng/inputgroup'
 import { InputOtpModule } from 'primeng/inputotp'
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { ImageModule } from 'primeng/image';
 import { KnobModule } from 'primeng/knob';
 import { ListboxModule } from 'primeng/listbox';
@@ -596,6 +599,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
 import { MessageService } from 'primeng/api';
+
 ${serviceImports}
 
 @NgModule({
@@ -635,6 +639,7 @@ ${serviceImports}
     EditorModule,
     FieldsetModule,
     FileUploadModule,
+    FloatLabelModule,
     GalleriaModule,
     InplaceModule,
     InputMaskModule,
@@ -645,6 +650,8 @@ ${serviceImports}
     InputGroupModule,
     InputGroupAddonModule,
     InputOtpModule,
+    IconFieldModule,
+    InputIconModule,
     ImageModule,
     KnobModule,
     ListboxModule,

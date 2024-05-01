@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, SimpleChange, TemplateRef, ViewEncapsulation, signal } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ObjectUtils } from 'primeng/utils';
 /**
  * Card is a flexible container component.
  * @group Components
@@ -8,7 +9,7 @@ import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primen
 @Component({
     selector: 'p-card',
     template: `
-        <div [ngClass]="'p-card p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'card'">
+        <div [ngClass]="'p-card p-component'" [ngStyle]="_style()" [class]="styleClass" [attr.data-pc-name]="'card'">
             <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -55,7 +56,11 @@ export class Card implements AfterContentInit, BlockableUI {
      * Inline style of the element.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() set style(value: { [klass: string]: any } | null | undefined) {
+        if (!ObjectUtils.equals(this._style(), value)) {
+            this._style.set(value);
+        }
+    }
     /**
      * Class of the element.
      * @group Props
@@ -77,6 +82,8 @@ export class Card implements AfterContentInit, BlockableUI {
     contentTemplate: TemplateRef<any> | undefined;
 
     footerTemplate: TemplateRef<any> | undefined;
+
+    _style = signal<{ [klass: string]: any } | null | undefined>(null);
 
     constructor(private el: ElementRef) {}
 
