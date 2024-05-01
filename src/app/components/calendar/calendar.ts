@@ -605,6 +605,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      */
     @Input({ transform: booleanAttribute }) timeOnly: boolean | undefined;
     /**
+     * Years to change per step in yearpicker.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) stepYearPicker: number = 20;
+    /**
      * Hours to change per step.
      * @group Props
      */
@@ -1284,8 +1289,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     yearPickerValues() {
         let yearPickerValues = [];
-        let base = <number>this.currentYear - (<number>this.currentYear % 10);
-        for (let i = 0; i < 10; i++) {
+        let base = <number>this.currentYear - (<number>this.currentYear % this.stepYearPicker);
+        for (let i = 0; i < this.stepYearPicker; i++) {
             yearPickerValues.push(base + i);
         }
 
@@ -1407,7 +1412,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.updateFocus();
             }, 1);
         } else if (this.currentView === 'year') {
-            this.decrementDecade();
+            this.decrementYearPickerStep();
             setTimeout(() => {
                 this.updateFocus();
             }, 1);
@@ -1438,7 +1443,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 this.updateFocus();
             }, 1);
         } else if (this.currentView === 'year') {
-            this.incrementDecade();
+            this.incrementYearPickerStep();
             setTimeout(() => {
                 this.updateFocus();
             }, 1);
@@ -1465,12 +1470,12 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    decrementDecade() {
-        this.currentYear = this.currentYear - 10;
+    decrementYearPickerStep() {
+        this.currentYear = this.currentYear - this.stepYearPicker;
     }
 
-    incrementDecade() {
-        this.currentYear = this.currentYear + 10;
+    incrementYearPickerStep() {
+        this.currentYear = this.currentYear + this.stepYearPicker;
     }
 
     incrementYear() {
