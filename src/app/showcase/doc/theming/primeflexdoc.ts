@@ -7,7 +7,7 @@ import { Code } from '../../domain/code';
         <app-docsectiontext>
             <p>
                 <a href="https://primeflex.org/">PrimeFlex</a> is a lightweight responsive CSS utility library to accompany Prime UI libraries and static webpages as well. PrimeNG can be used with any CSS utility library like bootstrap and tailwind
-                however PrimeFlex has benefits like integration with PrimeNG themes usign CSS variables so that colors classes e.g. <i>bg-blue-500</i> receive the color code from the PrimeNG theme being used. PrimeNG follows the CSS utility approach
+                however PrimeFlex has benefits like integration with PrimeNG themes using CSS variables so that colors classes e.g. <i>bg-blue-500</i> receive the color code from the PrimeNG theme being used. PrimeNG follows the CSS utility approach
                 of PrimeFlex and currently does not provide an extended style property like <i>sx</i>. Same approach is also utilized in <a href="https://blocks.primeng.org">PrimeBlocks for PrimeNG</a> project as well.
             </p>
         </app-docsectiontext>
