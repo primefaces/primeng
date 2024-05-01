@@ -25,9 +25,9 @@ import { BlockableUI, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
+import { UniqueComponentId } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { AccordionTabCloseEvent, AccordionTabOpenEvent } from './accordion.interface';
-import { UniqueComponentId } from 'primeng/utils';
 
 /**
  * AccordionTab is a helper component for Accordion.
@@ -475,7 +475,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabArrowDownKey(event) {
-        if (!this.isInput(event) && !this.isTextArea(event)) {
+        if (!this.isInput(event) && !this.isTextArea(event) && document.activeElement.className == 'p-accordion-header-link') {
             const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
             nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
 
@@ -484,7 +484,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabArrowUpKey(event) {
-        if (!this.isInput(event) && !this.isTextArea(event)) {
+        if (!this.isInput(event) && !this.isTextArea(event)  && document.activeElement.className == 'p-accordion-header-link') {
             const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
             prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
 
@@ -493,9 +493,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabHomeKey(event) {
-        const firstHeaderAction = this.findFirstHeaderAction();
-        this.changeFocusedTab(firstHeaderAction);
-        event.preventDefault();
+        if(document.activeElement.className == 'p-accordion-header-link'){
+            const firstHeaderAction = this.findFirstHeaderAction();
+            this.changeFocusedTab(firstHeaderAction);
+            event.preventDefault();
+        }
     }
 
     changeFocusedTab(element) {
@@ -562,9 +564,11 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabEndKey(event) {
-        const lastHeaderAction = this.findLastHeaderAction();
-        this.changeFocusedTab(lastHeaderAction);
-        event.preventDefault();
+        if(document.activeElement.className == 'p-accordion-header-link'){
+            const lastHeaderAction = this.findLastHeaderAction();
+            this.changeFocusedTab(lastHeaderAction);
+            event.preventDefault();
+        }
     }
 
     ngAfterContentInit() {
