@@ -61,9 +61,9 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-toast />
-    <p-confirmDialog />
-    <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-    <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
+<p-confirmDialog />
+<p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+<p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast />
