@@ -41,159 +41,121 @@ import { PaginatorState } from './paginator.interface';
             <div class="p-paginator-left-content" *ngIf="templateLeft" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
             </div>
-            <ng-container *ngTemplateOutlet="firstPageLinkTemplate"> </ng-container>
-            <ng-container *ngIf="!firstPageLinkTemplate">
+            <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
+            <button
+                *ngIf="showFirstLastIcon"
+                type="button"
+                [disabled]="isFirstPage() || empty()"
+                (click)="changePageToFirst($event)"
+                pRipple
+                class="p-paginator-first p-paginator-element p-link"
+                [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('firstPageLabel')"
+            >
+                <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
+                </span>
+            </button>
+            <button
+                type="button"
+                [disabled]="isFirstPage() || empty()"
+                (click)="changePageToPrev($event)"
+                pRipple
+                class="p-paginator-prev p-paginator-element p-link"
+                [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('prevPageLabel')"
+            >
+                <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
+                </span>
+            </button>
+            <span class="p-paginator-pages" *ngIf="showPageLinks">
                 <button
-                    *ngIf="showFirstLastIcon"
                     type="button"
-                    [disabled]="isFirstPage() || empty()"
-                    (click)="changePageToFirst($event)"
+                    *ngFor="let pageLink of pageLinks"
+                    class="p-paginator-page p-paginator-element p-link"
+                    [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
+                    [attr.aria-label]="getPageAriaLabel(pageLink)"
+                    [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
+                    (click)="onPageLinkClick($event, pageLink - 1)"
                     pRipple
-                    class="p-paginator-first p-paginator-element p-link"
-                    [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
-                    [attr.aria-label]="getAriaLabel('firstPageLabel')"
                 >
-                    <AngleDoubleLeftIcon *ngIf="!firstPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
-                    <span class="p-paginator-icon" *ngIf="firstPageLinkIconTemplate">
-                        <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
-                    </span>
+                    {{ getLocalization(pageLink) }}
                 </button>
-            </ng-container>
-            <ng-container *ngTemplateOutlet="prevPageLinkTemplate"></ng-container>
-            <ng-container *ngIf="!prevPageLinkTemplate">
-                <button
-                    type="button"
-                    [disabled]="isFirstPage() || empty()"
-                    (click)="changePageToPrev($event)"
-                    pRipple
-                    class="p-paginator-prev p-paginator-element p-link"
-                    [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
-                    [attr.aria-label]="getAriaLabel('prevPageLabel')"
-                >
-                    <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
-                    <span class="p-paginator-icon" *ngIf="previousPageLinkIconTemplate">
-                        <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </ng-container>
-            <span class="p-paginator-pages">
-                <span class="p-paginator-current" *ngIf="showCurrentPageReport">{{ currentPageReport }}</span>
-                <ng-container *ngIf="showPageLinks">
-                    <ng-container
-                        *ngTemplateOutlet="
-                            pageLinksTemplate;
-                            context: {
-                                currentPage: currentPage(),
-                                totalPages: getPageCount(),
-                                first: getFirst(),
-                                last: getLast(),
-                                rows: rows,
-                                totalRecords: totalRecords
-                            }
-                        "
-                    ></ng-container>
-                    <ng-container *ngIf="!pageLinksTemplate">
-                        <button
-                            type="button"
-                            *ngFor="let pageLink of pageLinks"
-                            class="p-paginator-page p-paginator-element p-link"
-                            [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
-                            [attr.aria-label]="getPageAriaLabel(pageLink)"
-                            [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
-                            (click)="onPageLinkClick($event, pageLink - 1)"
-                            pRipple
-                        >
-                            {{ getLocalization(pageLink) }}
-                        </button>
-                    </ng-container>
-                </ng-container>
             </span>
-            <ng-container *ngTemplateOutlet="jumpToPageDropdownTemplate"></ng-container>
-            <ng-container *ngIf="!jumpToPageDropdownTemplate">
-                <p-dropdown
-                    [options]="pageItems"
-                    [ngModel]="getPage()"
-                    *ngIf="showJumpToPageDropdown"
-                    [disabled]="empty()"
-                    [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
-                    styleClass="p-paginator-page-options"
-                    (onChange)="onPageDropdownChange($event)"
-                    [appendTo]="dropdownAppendTo"
-                    [scrollHeight]="dropdownScrollHeight"
-                >
-                    <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
-                    <ng-container *ngIf="jumpToPageItemTemplate">
-                        <ng-template let-item pTemplate="item">
-                            <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
-                        </ng-template>
-                    </ng-container>
-                    <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
-                        <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+            <p-dropdown
+                [options]="pageItems"
+                [ngModel]="getPage()"
+                *ngIf="showJumpToPageDropdown"
+                [disabled]="empty()"
+                [attr.aria-label]="getAriaLabel('jumpToPageDropdownLabel')"
+                styleClass="p-paginator-page-options"
+                (onChange)="onPageDropdownChange($event)"
+                [appendTo]="dropdownAppendTo"
+                [scrollHeight]="dropdownScrollHeight"
+            >
+                <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
+                <ng-container *ngIf="jumpToPageItemTemplate">
+                    <ng-template let-item pTemplate="item">
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
-                </p-dropdown>
-            </ng-container>
-            <ng-container *ngTemplateOutlet="nextPageLinkTemplate"></ng-container>
-            <ng-container *ngIf="!nextPageLinkTemplate">
-                <button
-                    type="button"
-                    [disabled]="isLastPage() || empty()"
-                    (click)="changePageToNext($event)"
-                    pRipple
-                    class="p-paginator-next p-paginator-element p-link"
-                    [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
-                    [attr.aria-label]="getAriaLabel('nextPageLabel')"
-                >
-                    <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
-                    <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
-                        <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </ng-container>
-            <ng-container *ngTemplateOutlet="lastPageLinkTemplate"></ng-container>
-            <ng-container *ngIf="!lastPageLinkTemplate">
-                <button
-                    *ngIf="showFirstLastIcon"
-                    type="button"
-                    [disabled]="isLastPage() || empty()"
-                    (click)="changePageToLast($event)"
-                    pRipple
-                    class="p-paginator-last p-paginator-element p-link"
-                    [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
-                    [attr.aria-label]="getAriaLabel('lastPageLabel')"
-                >
-                    <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
-                    <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
-                        <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </ng-container>
-            <ng-container *ngTemplateOutlet="jumpToPageInputTemplate"> </ng-container>
-            <ng-container *ngIf="showJumpToPageInput && !jumpToPageInputTemplate">
-                <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
-            </ng-container>
-            <ng-container *ngTemplateOutlet="rowsPerPageDropdownTemplate"></ng-container>
-            <ng-container *ngIf="!rowsPerPageDropdownTemplate">
-                <p-dropdown
-                    [options]="rowsPerPageItems"
-                    [(ngModel)]="rows"
-                    *ngIf="rowsPerPageOptions"
-                    styleClass="p-paginator-rpp-options"
-                    [disabled]="empty()"
-                    (onChange)="onRppChange($event)"
-                    [appendTo]="dropdownAppendTo"
-                    [scrollHeight]="dropdownScrollHeight"
-                    [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
-                >
-                    <ng-container *ngIf="dropdownItemTemplate">
-                        <ng-template let-item pTemplate="item">
-                            <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
-                        </ng-template>
-                    </ng-container>
-                    <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
-                        <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
+            </p-dropdown>
+            <button
+                type="button"
+                [disabled]="isLastPage() || empty()"
+                (click)="changePageToNext($event)"
+                pRipple
+                class="p-paginator-next p-paginator-element p-link"
+                [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('nextPageLabel')"
+            >
+                <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <span class="p-paginator-icon" *ngIf="nextPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
+                </span>
+            </button>
+            <button
+                *ngIf="showFirstLastIcon"
+                type="button"
+                [disabled]="isLastPage() || empty()"
+                (click)="changePageToLast($event)"
+                pRipple
+                class="p-paginator-last p-paginator-element p-link"
+                [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('lastPageLabel')"
+            >
+                <AngleDoubleRightIcon *ngIf="!lastPageLinkIconTemplate" [styleClass]="'p-paginator-icon'" />
+                <span class="p-paginator-icon" *ngIf="lastPageLinkIconTemplate">
+                    <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
+                </span>
+            </button>
+            <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-page-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
+            <p-dropdown
+                [options]="rowsPerPageItems"
+                [(ngModel)]="rows"
+                *ngIf="rowsPerPageOptions"
+                styleClass="p-paginator-rpp-options"
+                [disabled]="empty()"
+                (onChange)="onRppChange($event)"
+                [appendTo]="dropdownAppendTo"
+                [scrollHeight]="dropdownScrollHeight"
+                [ariaLabel]="getAriaLabel('rowsPerPageLabel')"
+            >
+                <ng-container *ngIf="dropdownItemTemplate">
+                    <ng-template let-item pTemplate="item">
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
-                </p-dropdown>
-            </ng-container>
+                </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
+            </p-dropdown>
             <div class="p-paginator-right-content" *ngIf="templateRight" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
             </div>
@@ -335,22 +297,6 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
 
-    firstPageLinkTemplate: Nullable<TemplateRef<any>>;
-
-    prevPageLinkTemplate: Nullable<TemplateRef<any>>;
-
-    pageLinksTemplate: Nullable<TemplateRef<any>>;
-
-    nextPageLinkTemplate: Nullable<TemplateRef<any>>;
-
-    lastPageLinkTemplate: Nullable<TemplateRef<any>>;
-
-    rowsPerPageDropdownTemplate: Nullable<TemplateRef<any>>;
-
-    jumpToPageDropdownTemplate: Nullable<TemplateRef<any>>;
-
-    jumpToPageInputTemplate: Nullable<TemplateRef<any>>;
-
     dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
@@ -401,38 +347,6 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     ngAfterContentInit(): void {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
-                case 'firstpagelink':
-                    this.firstPageLinkTemplate = item.template;
-                    break;
-
-                case 'prevpagelink':
-                    this.prevPageLinkTemplate = item.template;
-                    break;
-
-                case 'pagelinks':
-                    this.pageLinksTemplate = item.template;
-                    break;
-
-                case 'nextpagelink':
-                    this.nextPageLinkTemplate = item.template;
-                    break;
-
-                case 'lastpagelink':
-                    this.lastPageLinkTemplate = item.template;
-                    break;
-
-                case 'rowsperpagedropdown':
-                    this.rowsPerPageDropdownTemplate = item.template;
-                    break;
-
-                case 'jumptopagedropdown':
-                    this.jumpToPageDropdownTemplate = item.template;
-                    break;
-
-                case 'jumptopageinput':
-                    this.jumpToPageInputTemplate = item.template;
-                    break;
-
                 case 'dropdownicon':
                     this.dropdownIconTemplate = item.template;
                     break;
@@ -571,14 +485,6 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return Math.floor(this.first / this.rows);
     }
 
-    getFirst(): number {
-        return this.totalRecords > 0 ? this._first + 1 : 0;
-    }
-
-    getLast(): number {
-        return Math.min(this._first + this.rows, this.totalRecords);
-    }
-
     changePageToFirst(event: Event) {
         if (!this.isFirstPage()) {
             this.changePage(0);
@@ -645,8 +551,6 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
             .replace('{rows}', String(this.rows))
             .replace('{totalRecords}', String(this.totalRecords));
     }
-
-  
 }
 
 @NgModule({
