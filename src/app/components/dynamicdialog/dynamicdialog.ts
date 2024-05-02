@@ -400,7 +400,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     enableModality() {
-        if (this.config.closable !== false && this.config.dismissableMask) {
+        if (this.config.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
