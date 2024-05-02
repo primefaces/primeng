@@ -10,14 +10,6 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center">
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
-                <ng-template pTemplate="headercontent" let-item>
-                    <div class="flex justify-content-between align-items-center py-1 px-3">
-                        <i [class]="item.icon + ' text-primary'"></i>
-                        <span [ngClass]="{ 'ml-2 font-semibold': item.items }">{{ item.label }}</span>
-                        <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                    </div>
-                </ng-template>
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
                         <i [class]="item.icon + ' text-primary'"></i>
@@ -29,17 +21,7 @@ import { Code } from '@domain/code';
             </p-panelMenu>
         </div>
         <app-code [code]="code" selector="panel-menu-template-demo"></app-code>
-    `,
-
-    styles: [
-        `
-            :host ::ng-deep {
-                .p-panelmenu-content {
-                    padding: 0;
-                }
-            }
-        `
-    ]
+    `
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[];
@@ -49,7 +31,6 @@ export class TemplateDoc implements OnInit {
             {
                 label: 'Mail',
                 icon: 'pi pi-envelope',
-                badge: '5',
                 items: [
                     {
                         label: 'Compose',
@@ -131,18 +112,6 @@ export class TemplateDoc implements OnInit {
 
     code: Code = {
         basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
-    <ng-template pTemplate="headercontent" let-item>
-        <div class="flex justify-content-between align-items-center py-1 px-3">
-            <i [class]="item.icon + ' text-primary'"></i>
-            <span [ngClass]="{ 'ml-2 font-semibold': item.items }">
-                {{ item.label }}
-            </span>
-            <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
-                {{ item.shortcut }}
-            </span>
-        </div>
-    </ng-template>
     <ng-template pTemplate="item" let-item>
         <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
             <i [class]="item.icon + ' text-primary'"></i>
@@ -159,18 +128,6 @@ export class TemplateDoc implements OnInit {
 
         html: `<div class="card flex flex-column align-items-center">
     <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
-        <ng-template pTemplate="headercontent" let-item>
-            <div class="flex justify-content-between align-items-center py-1 px-3">
-                <i [class]="item.icon + ' text-primary'"></i>
-                <span [ngClass]="{ 'ml-2 font-semibold': item.items }">
-                    {{ item.label }}
-                </span>
-                <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
-                    {{ item.shortcut }}
-                </span>
-            </div>
-        </ng-template>
         <ng-template pTemplate="item" let-item>
             <a pRipple class="flex align-items-center px-3 py-2 cursor-pointer">
                 <i [class]="item.icon + ' text-primary'"></i>
@@ -207,7 +164,6 @@ export class PanelMenuTemplateDemo implements OnInit {
             {
                 label: 'Mail',
                 icon: 'pi pi-envelope',
-                badge: '5',
                 items: [
                     {
                         label: 'Compose',
