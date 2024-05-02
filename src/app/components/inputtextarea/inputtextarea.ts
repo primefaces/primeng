@@ -13,7 +13,7 @@ import { PrimeNGConfig } from 'primeng/api';
         class: 'p-inputtextarea p-inputtext p-component p-element',
         '[class.p-filled]': 'filled',
         '[class.p-inputtextarea-resizable]': 'autoResize',
-        '[p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
     }
 })
 export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {

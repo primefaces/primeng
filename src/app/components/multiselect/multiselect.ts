@@ -1022,7 +1022,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             'p-disabled': this.disabled,
             'p-multiselect-clearable': this.showClear && !this.disabled,
             'p-multiselect-chip': this.display === 'chip',
-            'p-focus': this.focused
+            'p-focus': this.focused,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 

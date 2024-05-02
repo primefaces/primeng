@@ -45,7 +45,7 @@ import { CustomerService } from '../../service/customerservice';
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                                 <ng-template let-option pTemplate="item">
                                                     <div class="inline-block vertical-align-middle">
                                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -74,7 +74,7 @@ import { CustomerService } from '../../service/customerservice';
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                                 <ng-template let-option pTemplate="item">
                                                     <p-tag [value]="option.value" [severity]="getSeverity(option.label)"></p-tag>
                                                 </ng-template>
@@ -88,7 +88,7 @@ import { CustomerService } from '../../service/customerservice';
                                     Activity
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-slider [ngModel]="value" [range]="true" styleClass="m-3" (onSlideEnd)="filter($event.values)" />
+                                            <p-slider [(ngModel)]="value" [range]="true" styleClass="m-3" (onSlideEnd)="filter($event.values)" />
                                             <div class="flex align-items-center px-2">
                                                 <span *ngIf="!value">0</span>
                                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
@@ -195,7 +195,7 @@ export class FilterAdvancedDoc {
 
     clear(table: Table) {
         table.clear();
-        this.searchValue = ''
+        this.searchValue = '';
     }
 
     getSeverity(status: string) {
@@ -261,7 +261,7 @@ export class FilterAdvancedDoc {
                             </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -290,7 +290,7 @@ export class FilterAdvancedDoc {
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                 <ng-template let-option pTemplate="item">
                                     <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
                                 </ng-template>
@@ -304,7 +304,7 @@ export class FilterAdvancedDoc {
                     Activity
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
-                            <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
+                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
                             <div class="flex align-items-center px-2">
                                 <span>{{ activityValues[0] }}</span>
                                 <span>{{ activityValues[1] }}</span>
@@ -401,7 +401,7 @@ export class FilterAdvancedDoc {
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
                                         <div class="inline-block vertical-align-middle">
                                             <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -430,7 +430,7 @@ export class FilterAdvancedDoc {
                         Status
                         <p-columnFilter field="status" matchMode="equals" display="menu">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
                                     <ng-template let-option pTemplate="item">
                                         <p-tag [value]="option.value" [severity]="getSeverity(option.label)" />
                                     </ng-template>
@@ -444,7 +444,7 @@ export class FilterAdvancedDoc {
                         Activity
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="filter" let-filter="filterCallback">
-                                <p-slider [ngModel]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
+                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
                                 <div class="flex align-items-center px-2">
                                     <span>{{ activityValues[0] }}</span>
                                     <span>{{ activityValues[1] }}</span>
