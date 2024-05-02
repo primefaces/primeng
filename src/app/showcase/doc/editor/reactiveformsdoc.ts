@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card">
             <form [formGroup]="formGroup">
-                <p-editor formControlName="text" [style]="{ height: '320px' }"></p-editor>
+                <p-editor formControlName="text" [style]="{ height: '320px' }"/>
             </form>
         </div>
         <app-code [code]="code" selector="editor-reactive-forms-demo"></app-code>
@@ -27,24 +27,25 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-editor formControlName="text" [style]="{ height: '320px' }"></p-editor>
+    <p-editor formControlName="text" [style]="{ height: '320px' }" />
 </form>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <form [formGroup]="formGroup">
-        <p-editor formControlName="text" [style]="{ height: '320px' }"></p-editor>
+        <p-editor formControlName="text" [style]="{ height: '320px' }" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
     selector: 'editor-reactive-forms-demo',
-    templateUrl: './editor-reactive-forms-demo.html'
-})
+    templateUrl: './editor-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, EditorModule],
+  })
 export class EditorReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;
 

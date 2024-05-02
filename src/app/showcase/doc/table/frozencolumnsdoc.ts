@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'frozen-columns-doc',
@@ -10,7 +10,7 @@ import { CustomerService } from '../../service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+                <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance" />
 
                 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
                     <ng-template pTemplate="header">
@@ -64,7 +64,12 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        basic: `<p-toggleButton 
+    [(ngModel)]="balanceFrozen" 
+    [onIcon]="'pi pi-lock'"
+    offIcon="pi pi-lock-open" 
+    [onLabel]="'Balance'" 
+    offLabel="Balance" />
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
     <ng-template pTemplate="header">
@@ -94,9 +99,13 @@ export class FrozenColumnsDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
-    <p-toggleButton [(ngModel)]="balanceFrozen" [onIcon]="'pi pi-lock'" offIcon="pi pi-lock-open" [onLabel]="'Balance'" offLabel="Balance"></p-toggleButton>
+        html: `<div class="card">
+    <p-toggleButton 
+        [(ngModel)]="balanceFrozen" 
+        [onIcon]="'pi pi-lock'" 
+        offIcon="pi pi-lock-open" 
+        [onLabel]="'Balance'"
+        offLabel="Balance" />
 
     <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
         <ng-template pTemplate="header">
@@ -127,14 +136,28 @@ export class FrozenColumnsDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'table-frozen-columns-demo',
-    templateUrl: 'table-frozen-columns-demo.html'
+    templateUrl: 'table-frozen-columns-demo.html',
+    standalone: true,
+    imports: [TableModule, ToggleButtonModule, FormsModule, HttpClientModule],
+    providers: [CustomerService],
+    styles: [
+        \`:host ::ng-deep  .p-frozen-column {
+            font-weight: bold;
+        }
+        :host ::ng-deep .p-datatable-frozen-tbody {
+            font-weight: bold;
+        }\`
+    ],
 })
 export class TableFrozenColumnsDemo implements OnInit{
     balanceFrozen: boolean = false;

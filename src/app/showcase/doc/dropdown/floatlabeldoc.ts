@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -13,10 +13,10 @@ interface City {
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <span class="p-float-label">
-                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label"></p-dropdown>
+            <p-floatLabel>
+                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label" />
                 <label for="float-label">Select a City</label>
-            </span>
+            </p-floatLabel>
         </div>
         <app-code [code]="code" selector="dropdown-floatlabel-demo"></app-code>
     `
@@ -37,21 +37,30 @@ export class FloatLabelDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<span class="p-float-label">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
+        basic: `<p-floatLabel>
+    <p-dropdown 
+        [options]="cities"
+        [(ngModel)]="selectedCity"
+        optionLabel="name" 
+        inputId="float-label" />
     <label for="float-label">Select a City</label>
-</span>`,
+</p-floatLabel>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <span class="p-float-label">
-        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" inputId="float-label"></p-dropdown>
+        html: `<div class="card flex justify-content-center">
+    <p-floatLabel>
+        <p-dropdown 
+            [options]="cities"
+            [(ngModel)]="selectedCity"
+            optionLabel="name"
+            inputId="float-label" />
         <label for="float-label">Select a City</label>
-    </span>
+    </p-floatLabel>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
+import { FloatLabelModule } from "primeng/floatlabel"
 
 interface City {
     name: string;
@@ -60,7 +69,9 @@ interface City {
 
 @Component({
     selector: 'dropdown-floatlabel-demo',
-    templateUrl: './dropdown-floatlabel-demo.html'
+    templateUrl: './dropdown-floatlabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, DropdownModule, FloatLabelModule]
 })
 export class DropdownFloatlabelDemo implements OnInit {
     cities: City[] | undefined;

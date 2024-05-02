@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { SizeDoc } from '../../doc/splitter/sizedoc';
-import { HorizontalDoc } from '../../doc/splitter/horizontaldoc';
-import { ImportDoc } from '../../doc/splitter/importdoc';
-import { VerticalDoc } from '../../doc/splitter/verticaldoc';
-import { NestedDoc } from '../../doc/splitter/nesteddoc';
-import { StyleDoc } from '../../doc/splitter/styledoc';
-import { AccessibilityDoc } from '../../doc/splitter/accessibilitydoc';
+import { SizeDoc } from '@doc/splitter/sizedoc';
+import { HorizontalDoc } from '@doc/splitter/horizontaldoc';
+import { ImportDoc } from '@doc/splitter/importdoc';
+import { VerticalDoc } from '@doc/splitter/verticaldoc';
+import { NestedDoc } from '@doc/splitter/nesteddoc';
+import { StyleDoc } from '@doc/splitter/styledoc';
+import { AccessibilityDoc } from '@doc/splitter/accessibilitydoc';
 
 @Component({
     templateUrl: './splitterdemo.html'

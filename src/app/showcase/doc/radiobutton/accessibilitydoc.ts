@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -62,11 +62,11 @@ import { Code } from '../../domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="rb1">One</label>
-<p-radioButton inputId="rb1"></p-radioButton>
+<p-radioButton inputId="rb1" />
 
 <span id="rb2">Two</span>
-<p-radioButton ariaLabelledBy="rb2"></p-radioButton>
+<p-radioButton ariaLabelledBy="rb2" />
 
-<p-radioButton ariaLabel="Three"></p-radioButton>`
+<p-radioButton ariaLabel="Three" />`
     };
 }

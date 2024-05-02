@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-slider formControlName="value"></p-slider>
+                <p-slider formControlName="value" />
             </form>
         </div>
         <app-code [code]="code" selector="slider-reactive-forms-demo"></app-code>
@@ -27,23 +27,24 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-slider formControlName="value"></p-slider>
+    <p-slider formControlName="value" />
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-slider formControlName="value"></p-slider>
+        <p-slider formControlName="value" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
 
 @Component({
     selector: 'slider-reactive-forms-demo',
-    templateUrl: './slider-reactive-forms-demo.html'
+    templateUrl: './slider-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, SliderModule]
 })
 export class SliderReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

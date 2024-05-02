@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { Code } from '@domain/code';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'datatable-doc',
@@ -107,8 +107,8 @@ export class DataTableDoc {
         typescript: `
 import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Car } from '../../domain/car';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'defer-data-table-demo',

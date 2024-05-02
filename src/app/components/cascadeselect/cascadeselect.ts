@@ -275,10 +275,21 @@ export class CascadeSelectSub implements OnInit {
         </ng-container>
 
         <div class="p-cascadeselect-trigger" role="button" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'dropdownIcon'" [attr.aria-hidden]="true">
-            <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
-            <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
-                <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
-            </span>
+            <ng-container *ngIf="loading; else elseBlock">
+                <ng-container *ngIf="loadingIconTemplate">
+                    <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                </ng-container>
+                <ng-container *ngIf="!loadingIconTemplate">
+                    <span *ngIf="loadingIcon" [ngClass]="'p-cascadeselect-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                    <span *ngIf="!loadingIcon" [class]="'p-cascadeselect-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                </ng-container>
+            </ng-container>
+            <ng-template #elseBlock>
+                <ChevronDownIcon *ngIf="!triggerIconTemplate" [styleClass]="'p-cascadeselect-trigger-icon'" />
+                <span *ngIf="triggerIconTemplate" class="p-cascadeselect-trigger-icon">
+                    <ng-template *ngTemplateOutlet="triggerIconTemplate"></ng-template>
+                </span>
+            </ng-template>
         </div>
         <span role="status" aria-live="polite" class="p-hidden-accessible">
             {{ searchResultMessageText }}
@@ -518,6 +529,21 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Whether the dropdown is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
+    /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
      * Transition options of the hide animation.
      * @group Props
      * @deprecated deprecated since v14.2.0, use overlayOptions property instead.
@@ -615,6 +641,8 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     triggerIconTemplate: Nullable<TemplateRef<any>>;
 
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
+
     groupIconTemplate: Nullable<TemplateRef<any>>;
 
     clearIconTemplate: Nullable<TemplateRef<any>>;
@@ -637,6 +665,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
             'p-disabled': this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue(),
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
             'p-overlay-open': this.overlayVisible
         };
@@ -770,7 +799,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     }
 
     onInputKeyDown(event: KeyboardEvent) {
-        if (this.disabled) {
+        if (this.disabled || this.loading) {
             event.preventDefault();
 
             return;
@@ -1053,7 +1082,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     }
 
     onContainerClick(event: MouseEvent) {
-        if (this.disabled) {
+        if (this.disabled || this.loading) {
             return;
         }
 
@@ -1301,6 +1330,10 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
                 case 'triggericon':
                     this.triggerIconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
                     break;
 
                 case 'clearicon':

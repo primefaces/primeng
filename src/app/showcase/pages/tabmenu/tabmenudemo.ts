@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { ControlledDoc } from '../../doc/tabmenu/controlleddoc';
-import { ActiveDoc } from '../../doc/tabmenu/activedoc';
-import { BasicDoc } from '../../doc/tabmenu/basicdoc';
-import { ImportDoc } from '../../doc/tabmenu/importdoc';
-import { StyleDoc } from '../../doc/tabmenu/styledoc';
-import { ScrollableDoc } from '../../doc/tabmenu/scrollabledoc';
-import { TemplateDoc } from '../../doc/tabmenu/templatedoc';
-import { AccessibilityDoc } from '../../doc/tabmenu/accessibilitydoc';
+import { ControlledDoc } from '@doc/tabmenu/controlleddoc';
+import { BasicDoc } from '@doc/tabmenu/basicdoc';
+import { ImportDoc } from '@doc/tabmenu/importdoc';
+import { StyleDoc } from '@doc/tabmenu/styledoc';
+import { TemplateDoc } from '@doc/tabmenu/templatedoc';
+import { AccessibilityDoc } from '@doc/tabmenu/accessibilitydoc';
+import { CommandDoc } from '@doc/tabmenu/commanddoc';
+import { RouterDoc } from '@doc/tabmenu/routerdoc';
 
 @Component({
     templateUrl: './tabmenudemo.html'
@@ -24,24 +24,24 @@ export class TabMenuDemo {
             component: BasicDoc
         },
         {
-            id: 'active',
-            label: 'Active Item',
-            component: ActiveDoc
-        },
-        {
             id: 'controlled',
             label: 'Controlled',
             component: ControlledDoc
         },
         {
-            id: 'scrollable',
-            label: 'Scrollable',
-            component: ScrollableDoc
-        },
-        {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'command',
+            label: 'Command',
+            component: CommandDoc
+        },
+        {
+            id: 'router',
+            label: 'Router',
+            component: RouterDoc
         },
         {
             id: 'style',

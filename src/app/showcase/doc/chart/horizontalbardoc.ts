@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-horizontal-bar-demo',
     template: `
@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
             <p>A bar chart is rendered horizontally when <i>indexAxis</i> option is set as <i>y</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+            <p-chart type="bar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-horizontal-bar-demo"></app-code>
     `
@@ -97,17 +97,18 @@ export class HorizontalBarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="bar" [data]="data" [options]="options" />`,
+        html: `<div class="card">
+    <p-chart type="bar" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-horizontal-bar-demo',
-    templateUrl: './chart-horizontal-bar-demo.html'
+    templateUrl: './chart-horizontal-bar-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartHorizontalBarDemo implements OnInit {
     data: any;

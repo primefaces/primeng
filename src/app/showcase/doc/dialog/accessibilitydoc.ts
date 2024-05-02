@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -70,14 +70,19 @@ import { Code } from '../../domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<button pButton
+        html: `<p-button
     icon="pi pi-external-link" 
     (click)="visible = true" 
     aria-controls="{{visible ? 'dialog' : null}}" 
-    aria-expanded="{{visible ? true : false}}"
-></button>
-<p-dialog id="dialog" header="Header" [(visible)]="visible" [style]="{ width: '50vw' }" (onHide)="visible = false">
-    <p>Content</p>
+    aria-expanded="{{visible ? true : false}}" />
+    
+<p-dialog 
+    id="dialog" 
+    header="Header" 
+    [(visible)]="visible" 
+    [style]="{ width: '50vw' }" 
+    (onHide)="visible = false">
+        <p>Content</p>
 </p-dialog>`
     };
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -19,17 +19,19 @@ export class BasicDoc {
     code: Code = {
         basic: `<input type="text" pInputText [(ngModel)]="value" />`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <input type="text" pInputText [(ngModel)]="value" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-text-basic-demo',
-    templateUrl: './input-text-basic-demo.html'
+    templateUrl: './input-text-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class InputTextBasicDemo {
     value: string;

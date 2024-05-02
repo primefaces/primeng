@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { FilterModeDoc } from '../../doc/configuration/filtermodedoc';
-import { ImportDoc } from '../../doc/configuration/importdoc';
-import { ApiDoc } from '../../doc/configuration/locale/apidoc';
-import { NgxTranslateDoc } from '../../doc/configuration/locale/ngx-translatedoc';
-import { RepositoryDoc } from '../../doc/configuration/locale/repositorydoc';
-import { SetLocaleDoc } from '../../doc/configuration/locale/setlocaledoc';
-import { RippleDoc } from '../../doc/configuration/rippledoc';
-import { ZIndexDoc } from '../../doc/configuration/zindexdoc';
+import { FilterModeDoc } from '@doc/configuration/filtermodedoc';
+import { ImportDoc } from '@doc/configuration/importdoc';
+import { ApiDoc } from '@doc/configuration/locale/apidoc';
+import { NgxTranslateDoc } from '@doc/configuration/locale/ngx-translatedoc';
+import { RepositoryDoc } from '@doc/configuration/locale/repositorydoc';
+import { SetLocaleDoc } from '@doc/configuration/locale/setlocaledoc';
+import { RippleDoc } from '@doc/configuration/rippledoc';
+import { ZIndexDoc } from '@doc/configuration/zindexdoc';
 
 @Component({
     selector: 'configuration',

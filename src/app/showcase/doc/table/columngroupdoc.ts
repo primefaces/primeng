@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'column-group-doc',
@@ -129,8 +129,7 @@ export class ColumnGroupDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -166,12 +165,15 @@ export class ColumnGroupDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-column-group-demo',
-    templateUrl: 'table-column-group-demo.html'
+    templateUrl: 'table-column-group-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule]
 })
 export class TableColumnGroupDemo implements OnInit {
     sales!: any[];

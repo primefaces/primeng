@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RadioButtonDocModule } from '../../doc/radiobutton/radiobuttondoc.module';
+import { RadioButtonDocModule } from '@doc/radiobutton/radiobuttondoc.module';
 import { RadioButtonDemo } from './radiobuttondemo';
 import { RadioButtonDemoRoutingModule } from './radiobuttondemo-routing.module';
 

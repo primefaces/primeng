@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ColorsDoc } from '../../../doc/guides/accessibility/colorsdoc';
-import { FormControlsDoc } from '../../../doc/guides/accessibility/formcontrolsdoc';
-import { IntroductionDoc } from '../../../doc/guides/accessibility/introductiondoc';
-import { SemanticHTMLDoc } from '../../../doc/guides/accessibility/semantichtmldoc';
-import { WAIARIADoc } from '../../../doc/guides/accessibility/waiariadoc';
-import { WCAGDoc } from '../../../doc/guides/accessibility/wcagdoc';
+import { ColorsDoc } from '@doc/guides/accessibility/colorsdoc';
+import { FormControlsDoc } from '@doc/guides/accessibility/formcontrolsdoc';
+import { IntroductionDoc } from '@doc/guides/accessibility/introductiondoc';
+import { SemanticHTMLDoc } from '@doc/guides/accessibility/semantichtmldoc';
+import { WAIARIADoc } from '@doc/guides/accessibility/waiariadoc';
+import { WCAGDoc } from '@doc/guides/accessibility/wcagdoc';
 
 @Component({
     selector: 'accessibility',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../../domain/code';
-import { PhotoService } from '../../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'hover-event-doc',
@@ -45,26 +45,40 @@ export class HoverEventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [changeItemOnIndicatorHover]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }"> 
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [changeItemOnIndicatorHover]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }"> 
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [showIndicators]="true" 
+    [showThumbnails]="false" 
+    [changeItemOnIndicatorHover]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px' }"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [showIndicators]="true" 
+        [showThumbnails]="false" 
+        [changeItemOnIndicatorHover]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-indicator-hover-event-demo',
-    templateUrl: './galleria-indicator-hover-event-demo.html'
+    templateUrl: './galleria-indicator-hover-event-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
 })
 export class GalleriaIndicatorHoverEventDemo implements OnInit {
     images: any[] | undefined;

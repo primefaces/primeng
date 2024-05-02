@@ -23,7 +23,12 @@
         "resolveJsonModule": true,
         "esModuleInterop": true,
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
+            "primeng/*": ["src/app/components/*/public_api"],
+            "@pages/*": ["src/app/showcase/pages/*"],
+            "@doc/*": ["src/app/showcase/doc/*"],
+            "@domain/*": ["src/app/showcase/domain/*"],
+            "@service/*": ["src/app/showcase/service/*"],
+            "@layout/*": ["src/app/showcase/layout/*"]
         }
     },
     "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],

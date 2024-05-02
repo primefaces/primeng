@@ -235,6 +235,11 @@ export class TreeSelect implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Defines how the selected items are displayed.
      * @group Props
      */
@@ -946,7 +951,8 @@ export class TreeSelect implements AfterContentInit {
             'p-treeselect p-component p-inputwrapper': true,
             'p-treeselect-chip': this.display === 'chip',
             'p-disabled': this.disabled,
-            'p-focus': this.focused
+            'p-focus': this.focused,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 

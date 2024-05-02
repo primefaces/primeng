@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'row-edit-doc',
@@ -59,10 +59,10 @@ import { ProductService } from '../../service/productservice';
                             <td>
                                 <p-cellEditor>
                                     <ng-template pTemplate="input">
-                                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }"></p-dropdown>
+                                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{ product.inventoryStatus }}
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -132,6 +132,17 @@ export class RowEditDoc {
         delete this.clonedProducts[product.id as string];
     }
 
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
+
     code: Code = {
         basic: `<p-toast></p-toast>
 <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
@@ -149,7 +160,10 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="product.code">
+                        <input 
+                            pInputText 
+                            type="text" 
+                            [(ngModel)]="product.code" />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{product.code}}
@@ -159,7 +173,10 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="product.name" required>
+                        <input 
+                            pInputText type="text" 
+                            [(ngModel)]="product.name" 
+                            required />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{product.name}}
@@ -169,17 +186,26 @@ export class RowEditDoc {
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
+                        <p-dropdown 
+                            [options]="statuses" 
+                            appendTo="body" 
+                            [(ngModel)]="product.inventoryStatus" 
+                            [style]="{'width':'100%'}" />
                     </ng-template>
                     <ng-template pTemplate="output">
-                        {{product.inventoryStatus}}
+                        <p-tag 
+                            [value]="product.inventoryStatus" 
+                            [severity]="getSeverity(product.inventoryStatus)" />
                     </ng-template>
                 </p-cellEditor>
             </td>
             <td>
                 <p-cellEditor>
                     <ng-template pTemplate="input">
-                        <input pInputText type="text" [(ngModel)]="product.price">
+                        <input 
+                            pInputText 
+                            type="text" 
+                            [(ngModel)]="product.price" />
                     </ng-template>
                     <ng-template pTemplate="output">
                         {{product.price | currency: 'USD'}}
@@ -188,16 +214,41 @@ export class RowEditDoc {
             </td>
             <td>
                 <div class="flex align-items-center justify-content-center gap-2">
-                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                    <button 
+                        *ngIf="!editing" 
+                        pButton 
+                        pRipple 
+                        type="button" 
+                        pInitEditableRow 
+                        icon="pi pi-pencil" 
+                        (click)="onRowEditInit(product)" 
+                        class="p-button-rounded p-button-text">
+                    </button>
+                    <button 
+                        *ngIf="editing" 
+                        pButton 
+                        pRipple 
+                        type="button" 
+                        pSaveEditableRow 
+                        icon="pi pi-check" 
+                        (click)="onRowEditSave(product)" 
+                        class="p-button-rounded p-button-text p-button-success mr-2">
+                    </button>
+                    <button 
+                        *ngIf="editing" 
+                        pButton pRipple 
+                        type="button" 
+                        pCancelEditableRow 
+                        icon="pi pi-times" 
+                        (click)="onRowEditCancel(product, ri)" 
+                        class="p-button-rounded p-button-text p-button-danger">
+                    </button>
                 </div>
             </td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-toast></p-toast>
     <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
@@ -214,7 +265,9 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="product.code">
+                            <input 
+                                pInputText type="text" 
+                                [(ngModel)]="product.code" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{product.code}}
@@ -224,7 +277,10 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="product.name" required>
+                            <input 
+                                pInputText type="text" 
+                                [(ngModel)]="product.name" 
+                                required />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{product.name}}
@@ -234,17 +290,25 @@ export class RowEditDoc {
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{'width':'100%'}"></p-dropdown>
+                            <p-dropdown 
+                                [options]="statuses" 
+                                appendTo="body" 
+                                [(ngModel)]="product.inventoryStatus" 
+                                [style]="{'width':'100%'}" />
                         </ng-template>
                         <ng-template pTemplate="output">
-                            {{product.inventoryStatus}}
+                            <p-tag 
+                                [value]="product.inventoryStatus" 
+                                [severity]="getSeverity(product.inventoryStatus)" />
                         </ng-template>
                     </p-cellEditor>
                 </td>
                 <td>
                     <p-cellEditor>
                         <ng-template pTemplate="input">
-                            <input pInputText type="text" [(ngModel)]="product.price">
+                            <input 
+                                pInputText type="text" 
+                                [(ngModel)]="product.price" />
                         </ng-template>
                         <ng-template pTemplate="output">
                             {{product.price | currency: 'USD'}}
@@ -252,26 +316,60 @@ export class RowEditDoc {
                     </p-cellEditor>
                 </td>
                 <td>
-                    <div class="flex align-items-center justify-content-center gap-2">
-                        <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
-                    </div>
+            <div class="flex align-items-center justify-content-center gap-2">
+                <button 
+                    *ngIf="!editing" 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    pInitEditableRow 
+                    icon="pi pi-pencil" 
+                    (click)="onRowEditInit(product)" 
+                    class="p-button-rounded p-button-text">
+                </button>
+                <button 
+                    *ngIf="editing" 
+                    pButton 
+                    pRipple 
+                    type="button" 
+                    pSaveEditableRow 
+                    icon="pi pi-check" 
+                    (click)="onRowEditSave(product)" 
+                    class="p-button-rounded p-button-text p-button-success mr-2">
+                </button>
+                <button 
+                    *ngIf="editing" 
+                    pButton pRipple 
+                    type="button" 
+                    pCancelEditableRow 
+                    icon="pi pi-times" 
+                    (click)="onRowEditCancel(product, ri)" 
+                    class="p-button-rounded p-button-text p-button-danger">
+                </button>
+            </div>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
+import { TagModule } from 'primeng/tag';
+import { DropdownModule } from 'primeng/dropdown';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'table-row-edit-demo',
     templateUrl: 'table-row-edit-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [TableModule, ToastModule, CommonModule, TagModule, DropdownModule, ButtonModule, InputTextModule],
+    providers: [MessageService, ProductService]
 })
 export class TableRowEditDemo implements OnInit{
 
@@ -311,6 +409,17 @@ export class TableRowEditDemo implements OnInit{
     onRowEditCancel(product: Product, index: number) {
         this.products[index] = this.clonedProducts[product.id as string];
         delete this.clonedProducts[product.id as string];
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
     }
 }`,
         data: `{

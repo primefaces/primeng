@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 interface Column {
     field: string;
@@ -19,7 +19,7 @@ interface Column {
                     <ng-template pTemplate="caption">
                         <div class="flex align-items-center justify-content-between">
                             Products
-                            <p-button icon="pi pi-refresh"></p-button>
+                            <p-button icon="pi pi-refresh" />
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header">
@@ -38,9 +38,9 @@ interface Column {
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                             <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
-                            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
-                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -90,7 +90,7 @@ export class TemplateDoc {
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             Products
-            <p-button icon="pi pi-refresh"></p-button>
+            <p-button icon="pi pi-refresh" />
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -109,8 +109,8 @@ export class TemplateDoc {
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
@@ -119,13 +119,12 @@ export class TemplateDoc {
         </div>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 Products
-                <p-button icon="pi pi-refresh"></p-button>
+                <p-button icon="pi pi-refresh" />
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -144,8 +143,8 @@ export class TemplateDoc {
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -155,14 +154,21 @@ export class TemplateDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'table-template-demo',
-    templateUrl: 'table-template-demo.html'
+    templateUrl: 'table-template-demo.html',
+    standalone: true,
+    imports: [TableModule, TagModule, RatingModule, ButtonModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableTemplateDemo implements OnInit {
     products!: Product[];
