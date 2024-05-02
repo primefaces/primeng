@@ -31,6 +31,24 @@ export class TestDynamicDialogComponent {
         });
     }
 }
+@Component({
+    template: ` <div class="TestDynamicDialogClosableFalse"></div> `
+})
+export class TestDynamicDialogWithClosableFalseComponent {
+    constructor(public dialogService: DialogService) {}
+
+    show() {
+        this.dialogService.open(TestComponent, {
+            header: 'Demo Header',
+            width: '70%',
+            contentStyle: { 'max-height': '350px', overflow: 'auto' },
+            closable: false,
+            closeOnEscape: true,
+            dismissableMask: true,
+            baseZIndex: 0
+        });
+    }
+}
 @NgModule({
     imports: [CommonModule, DynamicDialogModule],
     declarations: [TestComponent, TestDynamicDialogComponent],
@@ -39,20 +57,20 @@ export class TestDynamicDialogComponent {
 })
 export class FakeTestDialogModule {}
 
-describe('DynamicDialog', () => {
-    let fixture: ComponentFixture<TestDynamicDialogComponent>;
-    let testDynamicDialogComponent: TestDynamicDialogComponent;
-
+fdescribe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FakeTestDialogModule],
             declarations: [Footer]
         });
-        fixture = TestBed.createComponent(TestDynamicDialogComponent);
-        testDynamicDialogComponent = fixture.debugElement.componentInstance;
     });
 
     it('should open dialog and close dialog', fakeAsync(() => {
+        let fixture: ComponentFixture<TestDynamicDialogComponent>;
+        let testDynamicDialogComponent: TestDynamicDialogComponent;
+
+        fixture = TestBed.createComponent(TestDynamicDialogComponent);
+        testDynamicDialogComponent = fixture.debugElement.componentInstance;
         fixture.detectChanges();
 
         testDynamicDialogComponent.show();
@@ -67,6 +85,33 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual('PrimeNG ROCKS!');
         let dynamicDialogTitlebarIconEl = document.querySelector('.p-dynamic-dialog .p-dialog-header-icon') as HTMLElement;
         dynamicDialogTitlebarIconEl.click();
+        fixture.detectChanges();
+        tick(700);
+
+        dynamicDialogEl = document.getElementsByClassName('p-dynamic-dialog')[0];
+        expect(dynamicDialogEl).toBeUndefined();
+        flush();
+    }));
+
+    it('should open dialog and close dialog without the closing icon enabled', fakeAsync(() => {
+        let fixture: ComponentFixture<TestDynamicDialogWithClosableFalseComponent>;
+        let testDynamicDialogComponent: TestDynamicDialogWithClosableFalseComponent;
+        fixture = TestBed.createComponent(TestDynamicDialogComponent);
+        testDynamicDialogComponent = fixture.debugElement.componentInstance;
+        fixture.detectChanges();
+
+        testDynamicDialogComponent.show();
+        fixture.detectChanges();
+        tick(300);
+
+        let dynamicDialogEl = document.getElementsByClassName('p-dynamic-dialog')[0];
+        expect(dynamicDialogEl).toBeTruthy();
+        const titleEl = dynamicDialogEl.getElementsByClassName('p-dialog-title')[0];
+        const testComponentHeader = dynamicDialogEl.getElementsByTagName('h2')[0];
+        expect(titleEl.textContent).toEqual('Demo Header');
+        expect(testComponentHeader.textContent).toEqual('PrimeNG ROCKS!');
+        const backdropEl = document.getElementsByClassName('p-dialog-mask')[0];
+        backdropEl.dispatchEvent(new Event('mousedown'));
         fixture.detectChanges();
         tick(700);
 

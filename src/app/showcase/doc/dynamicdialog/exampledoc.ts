@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { ProductListDemo } from './productlistdemo';
 import { Footer } from './footer';
 
@@ -15,8 +15,8 @@ import { Footer } from './footer';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>
+            <p-toast />
+            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
         <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
@@ -64,27 +64,28 @@ export class ExampleDoc implements OnDestroy {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>`,
+        basic: `<p-toast />
+<p-button (click)="show()" icon="pi pi-search" label="Select a Product" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-button (click)="show()" icon="pi pi-search" label="Select a Product"></p-button>
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
 </div>`,
 
-        typescript: `
-import { Component, OnDestroy } from '@angular/core';
+        typescript: `import { Component, OnDestroy } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Product } from '../../domain/product';
-import { ProductListDemo } from './productlistdemo';
-import { Footer } from './footer';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ProductListDemo } from './demo/productlistdemo';
+import { Footer } from './demo/footer';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'dynamic-dialog-example-demo',
     templateUrl: './dynamic-dialog-example-demo.html',
-    providers: [DialogService, MessageService]
+    imports: [DynamicDialogModule, ToastModule, ButtonModule],
+    providers: [DialogService, MessageService],
+    standalone: true,
 })
 export class DynamicDialogExampleDemo implements OnDestroy {
 
@@ -156,13 +157,18 @@ export interface Product {
             path: 'src/app/demo/productlistdemo.ts',
             name: 'ProductListDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { InfoDemo } from './infodemo';
+import { TableModule } from 'primeng/table'
+import { ButtonModule } from 'primeng/button';
+
 @Component({
     providers: [DialogService, MessageService, ProductService],
+    standalone:true,
+    imports:[TableModule, ButtonModule],
     template: \`<div class="flex justify-content-end mt-1 mb-3">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
@@ -187,7 +193,7 @@ import { InfoDemo } from './infodemo';
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>
+                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)" />
                     </td>
                 </tr>
             </ng-template>
@@ -239,14 +245,18 @@ export class ProductListDemo implements OnInit {
             content: `import { Component} from '@angular/core';
 import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+
 @Component({
     providers: [DialogService, MessageService],
+    standalone: true,
+    imports:[ButtonModule],
     template: \`<div>
     <p>
         There are <strong>{{ totalProducts }}</strong> products in total in this list.
     </p>
     <div class="flex justify-content-end">
-        <p-button type="button" label="Close" (click)="close()"></p-button>
+        <p-button type="button" label="Close" (click)="close()" />
     </div>
 </div>\`
 })
@@ -281,12 +291,15 @@ export class InfoDemo {
             name: 'Footer',
             content: `import { Component } from '@angular/core';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'footer',
+    standalone: true,
+    imports: [ButtonModule],
     template:  \`
         <div class="flex w-full justify-content-end mt-3">
-            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })"></p-button>
+            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
         </div> \`
 })
 export class Footer {
