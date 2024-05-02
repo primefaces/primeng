@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'animation-doc',
@@ -9,8 +9,8 @@ import { Code } from '../../domain/code';
             <p>Transition of the animations can be customized using the <i>showTransitionOptions</i>, <i>hideTransitionOptions</i>, <i>showTransformOptions</i> and <i>hideTransformOptions</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
-            <button type="button" pButton pRipple (click)="show()" label="Show"></button>
+            <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
+            <p-button pRipple (click)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-animation-demo"></app-code>
     `,
@@ -24,20 +24,31 @@ export class AnimationDoc {
     }
 
     code: Code = {
-        basic: `<p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
-<button type="button" pButton pRipple (click)="show()" label="Show"></button>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'"></p-toast>
-    <button type="button" pButton pRipple (click)="show()" label="Show"></button>
+        basic: `<p-toast 
+    [showTransformOptions]="'translateY(100%)'" 
+    [showTransitionOptions]="'1000ms'" 
+    [hideTransitionOptions]="'1000ms'" 
+    [showTransformOptions]="'translateX(100%)'" />
+<p-button pRipple (click)="show()" label="Show" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-toast 
+        [showTransformOptions]="'translateY(100%)'" 
+        [showTransitionOptions]="'1000ms'" 
+        [hideTransitionOptions]="'1000ms'" 
+        [showTransformOptions]="'translateX(100%)'" />
+    <p-button pRipple (click)="show()" label="Show" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-animation-demo',
     templateUrl: './toast-animation-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastAnimationDemo {

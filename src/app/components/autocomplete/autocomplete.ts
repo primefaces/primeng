@@ -104,7 +104,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <ul
                 *ngIf="multiple"
                 #multiContainer
-                [class]="multiContainerClass"
+                [ngClass]="multiContainerClass"
                 [tabindex]="-1"
                 role="listbox"
                 [attr.aria-orientation]="'horizontal'"
@@ -612,6 +612,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
      * @group Emits
@@ -809,13 +814,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     get multiContainerClass() {
-        return 'p-autocomplete-multiple-container p-component p-inputtext';
+        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
     }
 
     get panelClass() {
         return {
             'p-autocomplete-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
@@ -823,7 +828,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     get inputClass() {
         return {
             'p-autocomplete-input p-inputtext p-component': !this.multiple,
-            'p-autocomplete-dd-input': this.dropdown
+            'p-autocomplete-dd-input': this.dropdown,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 

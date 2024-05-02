@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -8,27 +8,66 @@ import { Code } from '../../domain/code';
             <p>OverlayPanel is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
+            <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
             <p-overlayPanel #op>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
+                <div class="flex flex-column gap-3 w-25rem">
+                    <div>
+                        <span class="font-medium text-900 block mb-2">Share this document</span>
+                        <p-inputGroup>
+                            <input pInputText value="https://primeng.org/12323ff26t2g243g423g234gg52hy25XADXAG3" readonly class="w-25rem" />
+                            <p-inputGroupAddon>
+                                <i class="pi pi-copy"></i>
+                            </p-inputGroupAddon>
+                        </p-inputGroup>
+                    </div>
+                    <div>
+                        <span class="font-medium text-900 block mb-2">Invite Member</span>
+                        <p-inputGroup>
+                            <p-chips disabled></p-chips>
+                            <p-button label="Invite" icon="pi pi-users"></p-button>
+                        </p-inputGroup>
+                    </div>
+                    <div>
+                        <span class="font-medium text-900 block mb-2">Team Members</span>
+                        <ul class="list-none p-0 m-0 flex flex-column gap-3">
+                            <li *ngFor="let member of members" class="flex align-items-center gap-2">
+                                <img [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + member.image" style="width: 32px" />
+                                <div>
+                                    <span class="font-medium">{{ member.name }}</span>
+                                    <div class="text-sm text-color-secondary">{{ member.email }}</div>
+                                </div>
+                                <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                                    <span>{{ member.role }}</span>
+                                    <i class="pi pi-angle-down"></i>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </p-overlayPanel>
-            <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
+    members = [
+        { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
+        { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },
+        { name: 'Ioni Bowcher', image: 'ionibowcher.png', email: 'ioni@email.com', role: 'Viewer' }
+    ];
+
     code: Code = {
         basic: `<p-overlayPanel #op>
     <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
 </p-overlayPanel>
-<p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,
+<p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />`,
 
         html: `
 <div class="card flex justify-content-center">
     <p-overlayPanel #op>
         <img src="https://primefaces.org/cdn/primeng/images/demo/product/bamboo-watch.jpg" alt="product" />
     </p-overlayPanel>
-    <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+    <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
 </div>`,
 
         typescript: `

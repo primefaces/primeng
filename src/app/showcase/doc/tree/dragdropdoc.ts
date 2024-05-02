@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'drag-drop-doc',
@@ -10,7 +10,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
+            <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
@@ -26,22 +26,35 @@ export class DragDropDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>`,
+        basic: `<p-tree 
+    class="w-full md:w-30rem" 
+    [value]="files" 
+    [draggableNodes]="true" 
+    [droppableNodes]="true" 
+    draggableScope="self" 
+    droppableScope="self" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self"></p-tree>
+        html: `<div class="card flex justify-content-center">
+    <p-tree 
+        class="w-full md:w-30rem" 
+        [value]="files" 
+        [draggableNodes]="true" 
+        [droppableNodes]="true" 
+        draggableScope="self" 
+        droppableScope="self" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeDragDropService, TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-drag-drop-demo',
     templateUrl: './tree-drag-drop-demo.html',
-    providers: [TreeDragDropService]
+    standalone: true,
+    imports: [TreeModule],
+    providers: [TreeDragDropService, NodeService]
 })
 export class TreeDragDropDemo implements OnInit {
     files!: TreeNode[];

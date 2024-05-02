@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'presets-doc',
@@ -49,8 +49,7 @@ export class PresetsDoc {
 <input pInputText pKeyFilter="alpha" />
 <input pInputText pKeyFilter="alphanum" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex flex-wrap gap-3 mb-4">
         <div class="flex-auto">
             <label for="integer" class="font-bold block mb-2"> Integer </label>
@@ -81,12 +80,15 @@ export class PresetsDoc {
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'key-filter-presets-demo',
-    templateUrl: './key-filter-presets-demo.html'
+    templateUrl: './key-filter-presets-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class KeyFilterPresetsDemo {}`
     };

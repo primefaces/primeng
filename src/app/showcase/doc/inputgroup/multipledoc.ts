@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'multiple-doc',
@@ -51,12 +51,17 @@ export class MultipleDoc {
     </p-inputGroup>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'input-group-multiple-demo',
-    templateUrl: './input-group-multiple-demo.html'
+    templateUrl: './input-group-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputGroupModule, InputGroupAddonModule, InputTextModule]
 })
 export class InputGroupMultipleDemo {
 }`

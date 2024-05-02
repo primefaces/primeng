@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Message } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'messages-dynamic-demo',
@@ -9,9 +9,9 @@ import { Code } from '../../domain/code';
             <p>A binding to the value property is required to provide messages to the component.</p>
         </app-docsectiontext>
         <div class="card">
-            <button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
-            <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
-            <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+            <p-button type="button" pRipple (click)="addMessages()" label="Show" styleClass="mr-2" />
+            <p-button type="button" pRipple (click)="clearMessages()" label="Clear" severity="secondary" />
+            <p-messages [(value)]="messages" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-dynamic-demo"></app-code>
     `
@@ -21,10 +21,9 @@ export class DynamicDoc {
 
     addMessages() {
         this.messages = [
-            { severity: 'success', summary: 'Success', detail: 'Message Content' },
-            { severity: 'info', summary: 'Info', detail: 'Message Content' },
-            { severity: 'warn', summary: 'Warning', detail: 'Message Content' },
-            { severity: 'error', summary: 'Error', detail: 'Message Content' }
+            { severity: 'info', summary: 'Dynamic Info Message' },
+            { severity: 'success', summary: 'Dynamic Success Message' },
+            { severity: 'warn', summary: 'Dynamic Warning Message' }
         ];
     }
 
@@ -33,32 +32,54 @@ export class DynamicDoc {
     }
 
     code: Code = {
-        basic: `<button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
-<button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
-<p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>`,
-        html: `
-<div class="card">
-    <button type="button" pButton pRipple (click)="addMessages()" label="Show" class="mr-2"></button>
-    <button type="button" pButton pRipple (click)="clearMessages()" icon="pi pi-times" label="Clear" class="p-button-secondary"></button>
-    <p-messages [(value)]="messages" [enableService]="false" [closable]="false"></p-messages>
+        basic: `<p-button 
+    type="button" 
+    pRipple 
+    (click)="addMessages()" 
+    label="Show" 
+    styleClass="mr-2" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="clearMessages()" 
+    label="Clear" 
+    severity="secondary" />
+<p-messages [(value)]="messages" [enableService]="false" />`,
+        html: `<div class="card">
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="addMessages()" 
+        label="Show" 
+        styleClass="mr-2" />
+    <p-button 
+        type="button"
+        pRipple 
+        (click)="clearMessages()" 
+        label="Clear" 
+        severity="secondary" />
+    <p-messages [(value)]="messages" [enableService]="false" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'messages-dynamic-demo',
-    templateUrl: './messages-dynamic-demo.html'
+    templateUrl: './messages-dynamic-demo.html',
+    standalone: true,
+    imports: [MessagesModule, ButtonModule, RippleModule]
 })
 export class MessagesDynamicDemo {
     messages: Message[] | undefined;
 
     addMessages() {
         this.messages = [
-            { severity: 'success', summary: 'Success', detail: 'Message Content' },
-            { severity: 'info', summary: 'Info', detail: 'Message Content' },
-            { severity: 'warn', summary: 'Warning', detail: 'Message Content' },
-            { severity: 'error', summary: 'Error', detail: 'Message Content' }
+            { severity: 'info', summary: 'Dynamic Info Message' },
+            { severity: 'success', summary: 'Dynamic Success Message' },
+            { severity: 'warn', summary: 'Dynamic Warning Message' }
         ];
     }
 

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/Image/accessibilitydoc';
-import { BasicDoc } from '../../doc/Image/basicdoc';
-import { ImportDoc } from '../../doc/Image/importdoc';
-import { PreviewDoc } from '../../doc/Image/previewdoc';
-import { PreviewImageSourceDoc } from '../../doc/Image/previewimagesourcedoc';
-import { StyleDoc } from '../../doc/Image/styledoc';
-import { TemplateDoc } from '../../doc/Image/templatedoc';
+import { AccessibilityDoc } from '@doc/Image/accessibilitydoc';
+import { BasicDoc } from '@doc/Image/basicdoc';
+import { ImportDoc } from '@doc/Image/importdoc';
+import { PreviewDoc } from '@doc/Image/previewdoc';
+import { PreviewImageSourceDoc } from '@doc/Image/previewimagesourcedoc';
+import { StyleDoc } from '@doc/Image/styledoc';
+import { TemplateDoc } from '@doc/Image/templatedoc';
 
 @Component({
     templateUrl: './imagedemo.html'

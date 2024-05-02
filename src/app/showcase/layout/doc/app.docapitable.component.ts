@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-docapitable',

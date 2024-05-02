@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
-import { Code } from '../../domain/code';
-import { PhotoService } from '../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-doc',
@@ -179,10 +179,11 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     [autoPlay]="true"
     [transitionInterval]="3000"
     [containerStyle]="{ 'max-width': '640px' }"
-    [containerClass]="galleriaClass()"
->
+    [containerClass]="galleriaClass()">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
+        <img 
+            [src]="item.itemImageSrc" 
+            [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
         <div class="grid grid-nogutter justify-content-center">
@@ -191,38 +192,133 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     </ng-template>
     <ng-template pTemplate="footer" let-item>
         <div class="custom-galleria-footer">
-            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()"></button>
+            <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()">
+            </button>
             <span *ngIf="images" class="title-container">
                 <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
                 <span class="title">{{ images[activeIndex].title }}</span>
                 <span>{{ images[activeIndex].alt }}</span>
             </span>
-            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button"></button>
+            <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button">
+            </button>
         </div>
     </ng-template>
 </p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria #galleria [(value)]="images" [(activeIndex)]="activeIndex" [numVisible]="5" [showThumbnails]="showThumbnails" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true" [circular]="true" [autoPlay]="true" [transitionInterval]="3000" [containerStyle]="{'width':'100%'}" [containerClass]="galleriaClass()"> 
+        html: `<div class="card">
+    <p-galleria
+        #galleria
+        [(value)]="images"
+        [(activeIndex)]="activeIndex"
+        [numVisible]="5"
+        [showThumbnails]="showThumbnails"
+        [showItemNavigators]="true"
+        [showItemNavigatorsOnHover]="true"
+        [circular]="true"
+        [autoPlay]="true"
+        [transitionInterval]="3000"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [containerClass]="galleriaClass()"
+    >
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            <img 
+                [src]="item.itemImageSrc" 
+                [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
             <div class="grid grid-nogutter justify-content-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
-    </p-galleria>
-</div>`,
-        typescript: `
-import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+        <ng-template pTemplate="footer" let-item>
+            <div class="custom-galleria-footer">
+                <button type="button" pButton icon="pi pi-list" (click)="onThumbnailButtonClick()">
+                </button>
+                <span *ngIf="images" class="title-container">
+                    <span>{{ activeIndex + 1 }}/{{ images.length }}</span>
+                    <span class="title">{{ images[activeIndex].title }}</span>
+                    <span>{{ images[activeIndex].alt }}</span>
+                </span>
+                <button type="button" pButton [icon]="fullScreenIcon()" (click)="toggleFullScreen()" class="fullscreen-button">
+                </button>
+            </div>
+        </ng-template>
+    </p-galleria>`,
+        typescript: `import { ChangeDetectorRef, Component, OnInit, OnDestroy, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
 import { Galleria } from 'primeng/galleria';
-import { PhotoService } from '../../service/photoservice';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-advanced-demo',
     templateUrl: './galleria-advanced-demo.html',
-    styleUrls: ['./galleria-advanced-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .custom-galleria {
+                &.p-galleria {
+                    &.fullscreen {
+                        display: flex;
+                        flex-direction: column;
+            
+                        .p-galleria-content {
+                            flex-grow: 1;
+                            justify-content: center;
+                        }
+                    }
+            
+                    .p-galleria-content {
+                        position: relative;
+                    }
+            
+                    .p-galleria-thumbnail-wrapper {
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        width: 100%;
+                    }
+            
+                    .p-galleria-thumbnail-items-container {
+                        width: 100%;
+                    }
+            
+                    .custom-galleria-footer {
+                        display: flex;
+                        align-items: center;
+                        background-color: rgba(0, 0, 0, .9);
+                        color: #ffffff;
+            
+                        > button {
+                            background-color: transparent;
+                            color: #ffffff;
+                            border: 0 none;
+                            border-radius: 0;
+                            margin: .2rem 0;
+            
+                            &.fullscreen-button {
+                                margin-left: auto;
+                            }
+            
+                            &:hover {
+                                background-color: rgba(255, 255, 255, 0.1);
+                            }
+                        }
+                    }
+            
+                    .title-container {
+                        > span {
+                            font-size: .9rem;
+                            padding-left: .829rem;
+            
+                            &.title {
+                                font-weight: bold;
+                            }
+                        }
+                    }
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ButtonModule, GalleriaModule],
+    providers: [PhotoService]
 })
 export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
 
@@ -237,6 +333,8 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     onFullScreenListener: any;
 
     @ViewChild('galleria') galleria: Galleria | undefined;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) {}
 
     responsiveOptions: any[] = [
         {
@@ -343,71 +441,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     title: 'Title 1'
 },
 ...`,
-        scss: `
-:host ::ng-deep {
-    .custom-galleria {
-        &.p-galleria {
-            &.fullscreen {
-                display: flex;
-                flex-direction: column;
-    
-                .p-galleria-content {
-                    flex-grow: 1;
-                    justify-content: center;
-                }
-            }
-    
-            .p-galleria-content {
-                position: relative;
-            }
-    
-            .p-galleria-thumbnail-wrapper {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-            }
-    
-            .p-galleria-thumbnail-items-container {
-                width: 100%;
-            }
-    
-            .custom-galleria-footer {
-                display: flex;
-                align-items: center;
-                background-color: rgba(0, 0, 0, .9);
-                color: #ffffff;
-    
-                > button {
-                    background-color: transparent;
-                    color: #ffffff;
-                    border: 0 none;
-                    border-radius: 0;
-                    margin: .2rem 0;
-    
-                    &.fullscreen-button {
-                        margin-left: auto;
-                    }
-    
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.1);
-                    }
-                }
-            }
-    
-            .title-container {
-                > span {
-                    font-size: .9rem;
-                    padding-left: .829rem;
-    
-                    &.title {
-                        font-weight: bold;
-                    }
-                }
-            }
-        }
-    }
-}`,
+     
         service: ['PhotoService']
     };
 }

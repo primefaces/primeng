@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'radio-button-selection-doc',
@@ -23,7 +23,7 @@ import { ProductService } from '../../service/productservice';
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>
-                                <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                                <p-tableRadioButton [value]="product" />
                             </td>
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
@@ -52,31 +52,11 @@ export class RadioButtonSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th style="width: 4rem"></th>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>
-                <p-tableRadioButton [value]="product"></p-tableRadioButton>
-            </td>
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="products" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table 
+    [value]="products" 
+    [(selection)]="selectedProduct"
+    dataKey="code" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 4rem"></th>
@@ -89,7 +69,7 @@ export class RadioButtonSelectionDoc {
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>
-                    <p-tableRadioButton [value]="product"></p-tableRadioButton>
+                    <p-tableRadioButton [value]="product" />
                 </td>
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
@@ -97,16 +77,48 @@ export class RadioButtonSelectionDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [value]="products" 
+        [(selection)]="selectedProduct" 
+        dataKey="code" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 4rem"></th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>
+                        <p-tableRadioButton [value]="product" />
+                    </td>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-radio-button-selection-demo',
-    templateUrl: 'table-radio-button-selection-demo.html'
+    templateUrl: 'table-radio-button-selection-demo.html',
+    standalone: true,
+    imports: [TableModule, FormsModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableRadioButtonSelectionDemo implements OnInit{
     products!: Product[];

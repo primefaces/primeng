@@ -100,14 +100,24 @@ import {
                 >
                     <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
-                            <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
-                            <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                            <ng-container *ngIf="!node.loading">
+                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                            </ng-container>
+                            <ng-container *ngIf="loadingMode === 'icon' && node.loading">
+                                <SpinnerIcon [spin]="true" [styleClass]="'p-tree-node-toggler-icon'" />
+                            </ng-container>
                         </ng-container>
                         <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
-                    <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-disabled p-disabled': node.selectable === false }" *ngIf="tree.selectionMode == 'checkbox'" aria-hidden="true">
+                    <div
+                        class="p-checkbox p-component"
+                        [ngClass]="{ 'p-checkbox-disabled p-disabled': node.selectable === false, 'p-variant-filled': tree?.config.inputStyle() === 'filled' }"
+                        *ngIf="tree.selectionMode == 'checkbox'"
+                        aria-hidden="true"
+                    >
                         <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }" role="checkbox">
                             <ng-container *ngIf="!tree.checkboxIconTemplate">
                                 <CheckIcon *ngIf="!node.partialSelected && isSelected()" [styleClass]="'p-checkbox-icon'" />
@@ -229,6 +239,8 @@ export class UITreeNode implements OnInit {
     @Input({ transform: numberAttribute }) indentation: number | undefined;
 
     @Input({ transform: numberAttribute }) itemSize: number | undefined;
+
+    @Input() loadingMode: string;
 
     tree: Tree;
 
@@ -726,7 +738,7 @@ export class UITreeNode implements OnInit {
             (dragenter)="onDragEnter()"
             (dragleave)="onDragLeave($event)"
         >
-            <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading">
+            <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading && loadingMode === 'mask'">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
@@ -773,6 +785,7 @@ export class UITreeNode implements OnInit {
                                 [index]="getIndex(scrollerOptions, index)"
                                 [itemSize]="scrollerOptions.itemSize"
                                 [indentation]="indentation"
+                                [loadingMode]="loadingMode"
                             ></p-treeNode>
                         </ul>
                     </ng-template>
@@ -792,6 +805,7 @@ export class UITreeNode implements OnInit {
                                 [lastChild]="lastChild"
                                 [index]="index"
                                 [level]="0"
+                                [loadingMode]="loadingMode"
                             ></p-treeNode>
                         </ul>
                     </div>
@@ -847,6 +861,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      * @group Props
      */
     @Input() selectionMode: 'single' | 'multiple' | 'checkbox' | null | undefined;
+    /**
+     * Loading mode display.
+     * @group Props
+     */
+    @Input() loadingMode: 'mask' | 'icon' = 'mask';
     /**
      * A single treenode instance or an array to refer to the selections.
      * @group Props

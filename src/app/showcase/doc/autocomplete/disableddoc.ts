@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -12,7 +12,7 @@ interface AutoCompleteCompleteEvent {
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Search" (completeMethod)="search($event)" [disabled]="true"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Search" (completeMethod)="search($event)" [disabled]="true"/>
         </div>
         <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>`
 })
@@ -28,15 +28,23 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [disabled]="true"></p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedItem" 
+    [suggestions]="suggestions"
+    (completeMethod)="search($event)" 
+    [disabled]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" [disabled]="true"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        [(ngModel)]="selectedItem" 
+        [suggestions]="suggestions" 
+        (completeMethod)="search($event)" 
+        [disabled]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -46,7 +54,8 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-disabled-demo',
     templateUrl: './autocomplete-disabled-demo.html',
-    styleUrls: ['./autocomplete-disabled-demo.scss']
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteDisabledDemo {
     items: any[] | undefined;

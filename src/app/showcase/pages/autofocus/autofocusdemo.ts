@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/autofocus/importdoc';
-import { BasicDoc } from '../../doc/autofocus/basicdoc';
+import { ImportDoc } from '@doc/autofocus/importdoc';
+import { BasicDoc } from '@doc/autofocus/basicdoc';
 
 @Component({
     selector: 'autofocusdemo',

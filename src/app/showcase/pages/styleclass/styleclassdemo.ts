@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/styleclass/importdoc';
-import { AnimationDoc } from '../../doc/styleclass/animationdoc';
-import { ToggleClassDoc } from '../../doc/styleclass/toggleclassdoc';
+import { ImportDoc } from '@doc/styleclass/importdoc';
+import { AnimationDoc } from '@doc/styleclass/animationdoc';
+import { ToggleClassDoc } from '@doc/styleclass/toggleclassdoc';
 
 @Component({
     templateUrl: './styleclassdemo.html'

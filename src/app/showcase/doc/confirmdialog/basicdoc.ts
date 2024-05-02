@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'confirm-dialog-basic-demo',
@@ -9,10 +9,10 @@ import { Code } from '../../domain/code';
             <p>ConfirmDialog is defined using <i>p-confirmDialog</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast></p-toast>
-            <p-confirmDialog></p-confirmDialog>
-            <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-            <p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" styleClass="p-button-danger"></p-button>
+            <p-toast />
+            <p-confirmDialog />
+            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-basic-demo"></app-code>
     `,
@@ -60,25 +60,29 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-        <p-confirmDialog></p-confirmDialog>
-        <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-<p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" styleClass="p-button-danger"></p-button>`,
+        basic: `<p-toast />
+<p-confirmDialog />
+<p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+<p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <p-confirmDialog></p-confirmDialog>
-    <p-button (click)="confirm1($event)" icon="pi pi-check" label="Confirm"></p-button>
-    <p-button (click)="confirm2($event)" icon="pi pi-times" label="Delete" styleClass="p-button-danger"></p-button>
+    <p-toast />
+    <p-confirmDialog />
+    <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
+    <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
-        
+        typescript: `import { Component } from '@angular/core';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+                  
 @Component({
     selector: 'confirm-dialog-basic-demo',
     templateUrl: './confirm-dialog-basic-demo.html',
+    standalone: true,
+    imports: [ConfirmDialogModule, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmDialogBasicDemo {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'size-doc',
@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-content-center mb-3">
-                <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+                <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
@@ -25,7 +25,7 @@ import { NodeService } from '../../service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -35,7 +35,7 @@ import { NodeService } from '../../service/nodeservice';
                 </p-treeTable>
             </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-basic-demo"></app-code>
+        <app-code [code]="code" selector="tree-table-size-demo"></app-code>
     </section>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -59,33 +59,19 @@ export class SizeDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex justify-content-center mb-3">
-    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+        basic: `<div class="flex justify-content-center mb-3">
+    <p-selectButton 
+        [options]="sizes" 
+        [(ngModel)]="selectedSize" 
+        [multiple]="false" 
+        optionLabel="name" 
+        optionValue="class" />
 </div>
-<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Type</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode">
-            <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{ rowData.name }}
-            </td>
-            <td>{{ rowData.size }}</td>
-            <td>{{ rowData.type }}</td>
-        </tr>
-    </ng-template>
-</p-treeTable>`,
-
-        html: `
-<div class="card">
-    <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}" [styleClass]="selectedSize">
+<p-treeTable 
+    [value]="files" 
+    [scrollable]="true" 
+    [tableStyle]="{'min-width':'50rem'}" 
+    [styleClass]="selectedSize">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -96,24 +82,62 @@ export class SizeDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
                 <td>{{ rowData.size }}</td>
                 <td>{{ rowData.type }}</td>
             </tr>
         </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+    <div class="flex justify-content-center mb-3">
+        <p-selectButton 
+            [options]="sizes" 
+            [(ngModel)]="selectedSize" 
+            [multiple]="false" 
+            optionLabel="name" 
+            optionValue="class" />
+    </div>
+    <p-treeTable 
+        [value]="files" 
+        [scrollable]="true" 
+        [tableStyle]="{'min-width':'50rem'}" 
+        [styleClass]="selectedSize">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Size</th>
+                    <th>Type</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode" />
+                        {{ rowData.name }}
+                    </td>
+                    <td>{{ rowData.size }}</td>
+                    <td>{{ rowData.type }}</td>
+                </tr>
+            </ng-template>
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'tree-table-size-demo',
-    templateUrl: './tree-table-size-demo.html'
+    templateUrl: './tree-table-size-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, SelectButtonModule, FormsModule],
+    providers: [NodeService]
 })
 export class TreeTableSizeDemo implements OnInit {
     files!: TreeNode[];

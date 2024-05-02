@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -11,7 +11,7 @@ import { NodeService } from '../../service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <form class="flex justify-content-center" [formGroup]="formGroup">
-                <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+                <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
             </form>
         </div>
         <app-code [code]="code" selector="tree-select-reactive-forms-demo"></app-code>
@@ -34,24 +34,35 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+    <p-treeSelect 
+        class="md:w-20rem w-full" 
+        containerStyleClass="w-full" 
+        formControlName="selectedNodes" 
+        [options]="nodes" 
+        placeholder="Select Item" />
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+        <p-treeSelect 
+            class="md:w-20rem w-full" 
+            containerStyleClass="w-full" 
+            formControlName="selectedNodes" 
+            [options]="nodes" 
+            placeholder="Select Item" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'tree-select-reactive-forms-demo',
-    templateUrl: './tree-select-reactive-forms-demo.html'
+    templateUrl: './tree-select-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectReactiveFormsDemo implements OnInit {
     nodes!: any[];

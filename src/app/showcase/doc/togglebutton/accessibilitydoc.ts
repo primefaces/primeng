@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -45,8 +45,8 @@ import { Code } from '../../domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="rememberme">Remember Me</span>
-<p-toggleButton ariaLabelledBy="rememberme"></p-toggleButton>
+<p-toggleButton ariaLabelledBy="rememberme" />
 
-<p-toggleButton ariaLabel="Remember Me"></p-toggleButton>`
+<p-toggleButton ariaLabel="Remember Me" />`
     };
 }

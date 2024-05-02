@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'prime-icons-constants-demo',

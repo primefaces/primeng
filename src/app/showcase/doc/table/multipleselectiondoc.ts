@@ -1,24 +1,23 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'multiple-selection-doc',
     template: ` <app-docsectiontext>
             <p>
-                In multiple mode, selection binding should be an array. For touch enabled devices, selection is managed by tapping and for other devices metakey or <i>shiftkey</i> are required. Setting <i>metaKeySelection</i> property as false
-                enables multiple selection without meta key.
+                More than one row is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is not necessary to add to existing selections. When the optional
+                <i>metaKeySelection</i> is present, behavior is changed in a way that selecting a new row requires meta key to be present. Note that in touch enabled devices, DataTable always ignores metaKey.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="flex justify-content-center align-items-center gap-2 mb-3">
-                    <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
-                    <span>MetaKey</span>
+                <div class="flex justify-content-center align-items-center mb-4 gap-2">
+                    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <label for="input-metakey">MetaKey</label>
                 </div>
-                <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKeySelection" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="caption"> Multiple Selection with MetaKey </ng-template>
+                <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKey" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -46,7 +45,7 @@ export class MultipleSelectionDoc {
 
     selectedProducts!: Product;
 
-    metaKeySelection: boolean = true;
+    metaKey: boolean = true;
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
@@ -58,37 +57,17 @@ export class MultipleSelectionDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex justify-content-center align-items-center gap-2 mb-3">
-    <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
-    <span>MetaKey</span>
+        basic: `<div class="flex justify-content-center align-items-center mb-4 gap-2">
+    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+    <label for="input-metakey">MetaKey</label>
 </div>
-<p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKeySelection" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="caption"> Multiple Selection with MetaKey </ng-template>
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
-        <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
-            <td>{{ product.code }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.quantity }}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <div class="flex justify-content-center align-items-center gap-2 mb-3">
-        <p-inputSwitch inputId="metakey" [(ngModel)]="metaKeySelection" label="MetaKey"></p-inputSwitch>
-        <span>MetaKey</span>
-    </div>
-    <p-table [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [metaKeySelection]="metaKeySelection" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
-        <ng-template pTemplate="caption"> Multiple Selection with MetaKey </ng-template>
+<p-table 
+    [value]="products" 
+    selectionMode="multiple" 
+    [(selection)]="selectedProducts" 
+    [metaKeySelection]="metaKey"
+    dataKey="code" 
+    [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -105,23 +84,58 @@ export class MultipleSelectionDoc {
                 <td>{{ product.quantity }}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <div class="flex justify-content-center align-items-center mb-4 gap-2">
+        <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <label for="input-metakey">MetaKey</label>
+    </div>
+    <p-table 
+        [value]="products" 
+        selectionMode="multiple" 
+        [(selection)]="selectedProducts" 
+        [metaKeySelection]="metaKey" 
+        dataKey="code" 
+        [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product let-rowIndex="rowIndex">
+                <tr [pSelectableRow]="product" [pSelectableRowIndex]="rowIndex">
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-multiple-selection-demo',
-    templateUrl: 'table-multiple-selection-demo.html'
+    templateUrl: 'table-multiple-selection-demo.html',
+    standalone: true,
+    imports: [TableModule, InputSwitchModule, FormsModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableMultipleSelectionDemo implements OnInit{
     products!: Product[];
 
     selectedProducts!: Product;
 
-    metaKeySelection: boolean = true;
+    metaKey: boolean = true;
 
     constructor(private productService: ProductService) {}
 

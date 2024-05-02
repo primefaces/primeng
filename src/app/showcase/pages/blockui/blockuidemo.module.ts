@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BlockUIDocModule } from '../../doc/blockui/blockuidoc.module';
+import { BlockUIDocModule } from '@doc/blockui/blockuidoc.module';
 import { BlockUIDemo } from './blockuidemo';
 import { BlockUIDemoRoutingModule } from './blockuidemo-routing.module';
 

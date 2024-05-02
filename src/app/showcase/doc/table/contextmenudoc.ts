@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'context-menu-doc',
@@ -15,7 +15,7 @@ import { ProductService } from '../../service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-contextMenu #cm [model]="items"></p-contextMenu>
+                <p-contextMenu #cm [model]="items" />
                 <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
@@ -50,7 +50,7 @@ export class ContextMenuDoc {
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
-        this.productService.getProductsSmall().then((data) => {
+        this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
         });
@@ -72,29 +72,13 @@ export class ContextMenuDoc {
     }
 
     code: Code = {
-        basic: `<p-contextMenu #cm [model]="items"></p-contextMenu>
-<p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Price</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr [pContextMenuRow]="product">
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.price | currency: 'USD'}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
-    <p-table [value]="products" [(contextMenuSelection)]="selectedProduct" [contextMenu]="cm" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-contextMenu #cm [model]="items" />
+<p-table 
+    [value]="products" 
+    [(contextMenuSelection)]="selectedProduct" 
+    [contextMenu]="cm" 
+    dataKey="code" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -111,18 +95,48 @@ export class ContextMenuDoc {
                 <td>{{product.price | currency: 'USD'}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-contextMenu #cm [model]="items" />
+    <p-table 
+        [value]="products" 
+        [(contextMenuSelection)]="selectedProduct" 
+        [contextMenu]="cm" 
+        dataKey="code" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr [pContextMenuRow]="product">
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.price | currency: 'USD'}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MessageService, MenuItem } from 'primeng/api';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-context-menu-demo',
     templateUrl: 'table-context-menu-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [TableModule, ContextMenuModule, HttpClientModule, CommonModule],
+    providers: [MessageService, ProductService]
 })
 export class TableContextMenuDemo implements OnInit{
     products!: Product[];
@@ -134,7 +148,7 @@ export class TableContextMenuDemo implements OnInit{
     constructor(private productService: ProductService, private messageService: MessageService) {}
 
     ngOnInit() {
-        this.productService.getProductsSmall().then((data) => (this.products = data));
+        this.productService.getProductsMini().then((data) => (this.products = data));
 
         this.items = [
             { label: 'View', icon: 'pi pi-fw pi-search', command: () => this.viewProduct(this.selectedProduct) },

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { FontAwesomeDoc } from '../../doc/customicons/fontawesomedoc';
-import { ImageDoc } from '../../doc/customicons/imagedoc';
-import { MaterialDoc } from '../../doc/customicons/materialdoc';
-import { SVGDoc } from '../../doc/customicons/svgdoc';
+import { FontAwesomeDoc } from '@doc/customicons/fontawesomedoc';
+import { ImageDoc } from '@doc/customicons/imagedoc';
+import { MaterialDoc } from '@doc/customicons/materialdoc';
+import { SVGDoc } from '@doc/customicons/svgdoc';
 
 @Component({
     templateUrl: './customiconsdemo.component.html'

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { StyleDoc } from '../../doc/skeleton/styledoc';
-import { CardDoc } from '../../doc/skeleton/carddoc';
-import { DataTableDoc } from '../../doc/skeleton/datatabledoc';
-import { ImportDoc } from '../../doc/skeleton/importdoc';
-import { ListDoc } from '../../doc/skeleton/listdoc';
-import { ShapesDoc } from '../../doc/skeleton/shapesdoc';
-import { AccessibilityDoc } from '../../doc/skeleton/accessibilitydoc';
+import { StyleDoc } from '@doc/skeleton/styledoc';
+import { CardDoc } from '@doc/skeleton/carddoc';
+import { DataTableDoc } from '@doc/skeleton/datatabledoc';
+import { ImportDoc } from '@doc/skeleton/importdoc';
+import { ListDoc } from '@doc/skeleton/listdoc';
+import { ShapesDoc } from '@doc/skeleton/shapesdoc';
+import { AccessibilityDoc } from '@doc/skeleton/accessibilitydoc';
 
 @Component({
     templateUrl: './skeletondemo.html',

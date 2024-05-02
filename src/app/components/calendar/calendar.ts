@@ -93,7 +93,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
-                    [ngClass]="'p-inputtext p-component'"
+                    [ngClass]="inputClass"
                     autocomplete="off"
                     pAutoFocus
                     [autofocus]="autofocus"
@@ -745,6 +745,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * The minimum selectable date.
      * @group Props
      */
@@ -908,6 +913,13 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.createMonths(this.currentMonth, this.currentYear);
         }
     }
+    get inputClass() {
+        return {
+            'p-inputtext p-component': true,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
+        };
+    }
+
     /**
      * Callback to invoke on focus of input field.
      * @param {Event} event - browser event.

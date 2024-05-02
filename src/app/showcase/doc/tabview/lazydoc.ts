@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'lazy-doc',
@@ -48,12 +48,14 @@ export class LazyDoc {
     </p-tabView>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TabViewModule } from 'primeng/tabview';
 
 @Component({
     selector: 'tab-view-lazy-demo',
-    templateUrl: './tab-view-lazy-demo.html'
+    templateUrl: './tab-view-lazy-demo.html',
+    standalone: true,
+    imports: [TabViewModule]
 })
 export class TabViewLazyDemo {}`
     };

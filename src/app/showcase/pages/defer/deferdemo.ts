@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { BasicDoc } from '../../doc/defer/basicdoc';
-import { ImportDoc } from '../../doc/defer/importdoc';
-import { DataTableDoc } from '../../doc/defer/datatabledoc';
-import { CarService } from '../../service/carservice';
+import { BasicDoc } from '@doc/defer/basicdoc';
+import { ImportDoc } from '@doc/defer/importdoc';
+import { DataTableDoc } from '@doc/defer/datatabledoc';
+import { CarService } from '@service/carservice';
 import { Car } from '../domain/car';
 
 @Component({

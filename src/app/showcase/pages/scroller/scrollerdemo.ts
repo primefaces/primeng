@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/scroller/basicdoc';
-import { DelayDoc } from '../../doc/scroller/delaydoc';
-import { HorizontalDoc } from '../../doc/scroller/horizontaldoc';
-import { GridDoc } from '../../doc/scroller/griddoc';
-import { ImportDoc } from '../../doc/scroller/importdoc';
-import { LazyLoadDoc } from '../../doc/scroller/lazyloaddoc';
-import { LoaderDoc } from '../../doc/scroller/loaderdoc';
-import { ScrollOptionsDoc } from '../../doc/scroller/scrolloptionsdoc';
-import { StyleDoc } from '../../doc/scroller/styledoc';
-import { TemplateDoc } from '../../doc/scroller/templatedoc';
-import { ProgrammaticDoc } from '../../doc/scroller/programmaticdoc';
-import { AccessibilityDoc } from '../../doc/scroller/accessibilitydoc';
+import { BasicDoc } from '@doc/scroller/basicdoc';
+import { DelayDoc } from '@doc/scroller/delaydoc';
+import { HorizontalDoc } from '@doc/scroller/horizontaldoc';
+import { GridDoc } from '@doc/scroller/griddoc';
+import { ImportDoc } from '@doc/scroller/importdoc';
+import { LazyLoadDoc } from '@doc/scroller/lazyloaddoc';
+import { LoaderDoc } from '@doc/scroller/loaderdoc';
+import { ScrollOptionsDoc } from '@doc/scroller/scrolloptionsdoc';
+import { StyleDoc } from '@doc/scroller/styledoc';
+import { TemplateDoc } from '@doc/scroller/templatedoc';
+import { ProgrammaticDoc } from '@doc/scroller/programmaticdoc';
+import { AccessibilityDoc } from '@doc/scroller/accessibilitydoc';
 
 @Component({
     templateUrl: './scrollerdemo.html',
