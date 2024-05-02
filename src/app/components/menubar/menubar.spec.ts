@@ -4,7 +4,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Menubar, MenubarModule, MenubarService, MenubarSub } from './menubar';
 import { RouterModule } from '@angular/router';
 
-fdescribe('Menubar', () => {
+describe('Menubar', () => {
     let menubar: Menubar;
     let fixture: ComponentFixture<Menubar>;
 
