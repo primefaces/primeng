@@ -20,18 +20,19 @@ export class TemplateDoc {
         basic: `<p-avatar size="xlarge">
     <span class="text-base">Content</span>
 </p-avatar>`,
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-avatar size="xlarge">
         <span class="text-base">Content</span>
     </p-avatar>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { AvatarModule } from 'primeng/avatar';
 
 @Component({
     selector: 'avatar-template-demo',
-    templateUrl: './avatar-template-demo.html'
+    templateUrl: './avatar-template-demo.html',
+    standalone: true,
+    imports: [AvatarModule]
 })
 export class AvatarTemplateDemo {}`
     };
