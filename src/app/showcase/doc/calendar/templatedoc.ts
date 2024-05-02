@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'calendar-template-demo',
@@ -25,16 +25,14 @@ export class TemplateDoc {
     <ng-template pTemplate="footer">Footer</ng-template>
 </p-calendar>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-calendar [(ngModel)]="date">
         <ng-template pTemplate="header">Header</ng-template>
         <ng-template pTemplate="footer">Footer</ng-template>
     </p-calendar>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar-template-demo',

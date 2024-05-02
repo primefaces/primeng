@@ -2,7 +2,7 @@ import { CommonModule, DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { Component, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
-import { AppConfigService } from '../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 import { AppConfigComponent } from './config/app.config.component';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
@@ -36,10 +36,6 @@ export class AppMainComponent {
         return this.configService.state.newsActive;
     }
 
-    get isInputFilled(): boolean {
-        return this.configService.config().inputStyle === 'filled';
-    }
-
     get isDarkMode(): boolean {
         return this.configService.config().darkMode;
     }
@@ -59,7 +55,6 @@ export class AppMainComponent {
     get containerClass() {
         return {
             'layout-news-active': this.isNewsActive,
-            'p-input-filled': this.isInputFilled,
             'p-ripple-disabled': this.isRippleDisabled,
             'layout-dark': this.isDarkMode,
             'layout-light': !this.isDarkMode

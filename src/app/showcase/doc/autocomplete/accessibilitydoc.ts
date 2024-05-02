@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -136,11 +136,11 @@ import { Code } from '../../domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="ac1">Username</label>
-<p-autoComplete inputId="ac1"></p-autoComplete>
+<p-autoComplete inputId="ac1"/>
 
 <span id="ac2">Email</span>
-<p-autoComplete ariaLabelledBy="ac2"></p-autoComplete>
+<p-autoComplete ariaLabelledBy="ac2" />
 
-<p-autoComplete ariaLabel="City"></p-autoComplete>`
+<p-autoComplete ariaLabel="City" />`
     };
 }

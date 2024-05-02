@@ -122,4 +122,8 @@ export interface MegaMenuItem {
     state?: {
         [k: string]: any;
     };
+    /**
+     * Optional
+     */
+    [key: string]: any;
 }

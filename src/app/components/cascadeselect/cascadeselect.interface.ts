@@ -102,4 +102,8 @@ export interface CascadeSelectTemplates {
      * Custom option group icon template.
      */
     optiongroupicon(): TemplateRef<any>;
+    /**
+     * Custom loading icon template.
+     */
+    loadingicon(): TemplateRef<any>;
 }

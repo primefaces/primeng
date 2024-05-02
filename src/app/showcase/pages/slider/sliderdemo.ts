@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsDoc } from '../../doc/slider/reactiveformsdoc';
-import { AccessibilityDoc } from '../../doc/slider/accessibilitydoc';
-import { BasicDoc } from '../../doc/slider/basicdoc';
-import { ImportDoc } from '../../doc/slider/importdoc';
-import { InputDoc } from '../../doc/slider/inputdoc';
-import { RangeDoc } from '../../doc/slider/rangedoc';
-import { StepDoc } from '../../doc/slider/stepdoc';
-import { StyleDoc } from '../../doc/slider/styledoc';
-import { VerticalDoc } from '../../doc/slider/verticaldoc';
+import { ReactiveFormsDoc } from '@doc/slider/reactiveformsdoc';
+import { AccessibilityDoc } from '@doc/slider/accessibilitydoc';
+import { BasicDoc } from '@doc/slider/basicdoc';
+import { ImportDoc } from '@doc/slider/importdoc';
+import { InputDoc } from '@doc/slider/inputdoc';
+import { RangeDoc } from '@doc/slider/rangedoc';
+import { StepDoc } from '@doc/slider/stepdoc';
+import { StyleDoc } from '@doc/slider/styledoc';
+import { VerticalDoc } from '@doc/slider/verticaldoc';
 
 @Component({
     templateUrl: './sliderdemo.html',

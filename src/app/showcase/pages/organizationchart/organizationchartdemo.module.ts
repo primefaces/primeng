@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OrganizationChartDocModule } from '../../doc/organizationchart/organizationchartdoc.module';
+import { OrganizationChartDocModule } from '@doc/organizationchart/organizationchartdoc.module';
 import { OrganizationChartDemo } from './organizationchartdemo';
 import { OrganizationChartDemoRoutingModule } from './organizationchartdemo-routing.module';
 

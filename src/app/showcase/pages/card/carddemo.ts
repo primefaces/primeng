@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/card/accessibilitydoc';
-import { AdvancedDoc } from '../../doc/card/advanceddoc';
-import { BasicDoc } from '../../doc/card/basicdoc';
-import { ImportDoc } from '../../doc/card/importdoc';
-import { StyleDoc } from '../../doc/card/styledoc';
+import { AccessibilityDoc } from '@doc/card/accessibilitydoc';
+import { AdvancedDoc } from '@doc/card/advanceddoc';
+import { BasicDoc } from '@doc/card/basicdoc';
+import { ImportDoc } from '@doc/card/importdoc';
+import { StyleDoc } from '@doc/card/styledoc';
 
 @Component({
     templateUrl: './carddemo.html'

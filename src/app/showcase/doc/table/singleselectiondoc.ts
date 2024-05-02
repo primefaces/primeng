@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'single-selection-doc',
@@ -17,7 +17,11 @@ import { ProductService } from '../../service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{ 'min-width': '50rem' }">
+                <div class="flex justify-content-center align-items-center mb-4 gap-2">
+                    <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+                    <label for="input-metakey">MetaKey</label>
+                </div>
+                <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -45,6 +49,8 @@ export class SingleSelectionDoc {
 
     selectedProduct!: Product;
 
+    metaKey: boolean = true;
+
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
@@ -55,27 +61,37 @@ export class SingleSelectionDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr [pSelectableRow]="product">
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+    <p-table 
+        [value]="products" 
+        selectionMode="single" 
+        [(selection)]="selectedProduct" 
+        [metaKeySelection]="metaKey" dataKey="id" 
+        [tableStyle]="{ 'min-width': '50rem' }">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr [pSelectableRow]="product">
+                    <td>{{ product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.category }}</td>
+                    <td>{{ product.quantity }}</td>
+                </tr>
+            </ng-template>
+    </p-table>`,
+
+        html: `<div class="card">
+    <div class="flex justify-content-center align-items-center mb-4 gap-2">
+        <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
+        <label for="input-metakey">MetaKey</label>
+    </div>
+    <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" [metaKeySelection]="metaKey" dataKey="id" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -86,27 +102,35 @@ export class SingleSelectionDoc {
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr [pSelectableRow]="product">
-                <td>{{product.code}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.quantity }}</td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-single-selection-demo',
-    templateUrl: 'table-single-selection-demo.html'
+    templateUrl: 'table-single-selection-demo.html',
+    standalone: true,
+    imports: [TableModule, InputSwitchModule, FormsModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableSingleSelectionDemo implements OnInit{
     products!: Product[];
 
     selectedProduct!: Product;
+
+    metaKey: boolean = true;
 
     constructor(private productService: ProductService) {}
 

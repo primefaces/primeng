@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
+import { Code } from '@domain/code';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -13,7 +13,7 @@ interface AutoCompleteCompleteEvent {
             <p>ForceSelection mode validates the manual input to check whether it also exists in the suggestions list, if not the input value is cleared to make sure the value passed to the model is always one of the suggestions.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"/>
         </div>
         <app-code [code]="code" selector="autocomplete-force-selection-demo"></app-code>`
 })
@@ -51,16 +51,26 @@ export class ForceSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedCountry" 
+    [forceSelection]="true" 
+    [suggestions]="filteredCountries" 
+    (completeMethod)="filterCountry($event)"
+    field="name" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedCountry" [forceSelection]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        [(ngModel)]="selectedCountry" 
+        [forceSelection]="true" 
+        [suggestions]="filteredCountries" 
+        (completeMethod)="filterCountry($event)" 
+        field="name" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { CountryService } from 'src/service/countryservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { CountryService } from '@service/countryservice';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { FormsModule } from '@angular/forms';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -69,9 +79,12 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-force-selection-demo',
-    templateUrl: './autocomplete-force-selection-demo.html'
+    templateUrl: './autocomplete-force-selection-demo.html',
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule],
+    providers: [CountryService]
 })
-export class ForceSelectionDoc implements OnInit {
+export class AutocompleteForceSelectionDemo implements OnInit {
     countries: any[] | undefined;
 
     selectedCountry: any;

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { KeyFilterDocModule } from '../../doc/keyfilter/keyfilterdoc.module';
+import { KeyFilterDocModule } from '@doc/keyfilter/keyfilterdoc.module';
 import { KeyFilterDemo } from './keyfilterdemo';
 import { KeyFilterDemoRoutingModule } from './keyfilterdemo-routing.module';
 

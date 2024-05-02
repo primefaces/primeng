@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { ImportDoc } from '../../doc/tree/importdoc';
-import { BasicDoc } from '../../doc/tree/basicdoc';
-import { ControlledDoc } from '../../doc/tree/controlleddoc';
-import { SingleDoc } from '../../doc/tree/singledoc';
-import { MultipleDoc } from '../../doc/tree/multipledoc';
-import { CheckboxDoc } from '../../doc/tree/checkboxdoc';
-import { EventDoc } from '../../doc/tree/eventdoc';
-import { LazyDoc } from '../../doc/tree/lazydoc';
-import { TemplateDoc } from '../../doc/tree/templatedoc';
-import { DragDropDoc } from '../../doc/tree/dragdropdoc';
-import { ContextMenuDoc } from '../../doc/tree/contextmenudoc';
-import { FilterDoc } from '../../doc/tree/filterdoc';
-import { StyleDoc } from '../../doc/tree/styledoc';
-import { AccessibilityDoc } from '../../doc/tree/accessibilitydoc';
-import { VirtualScrollDoc } from '../../doc/tree/virtualscrolldoc';
-import { LazyVirtualScrollDoc } from '../../doc/tree/virtualscrolllazydoc';
+import { ImportDoc } from '@doc/tree/importdoc';
+import { BasicDoc } from '@doc/tree/basicdoc';
+import { ControlledDoc } from '@doc/tree/controlleddoc';
+import { SingleDoc } from '@doc/tree/singledoc';
+import { MultipleDoc } from '@doc/tree/multipledoc';
+import { CheckboxDoc } from '@doc/tree/checkboxdoc';
+import { EventDoc } from '@doc/tree/eventdoc';
+import { LazyDoc } from '@doc/tree/lazydoc';
+import { TemplateDoc } from '@doc/tree/templatedoc';
+import { DragDropDoc } from '@doc/tree/dragdropdoc';
+import { ContextMenuDoc } from '@doc/tree/contextmenudoc';
+import { FilterDoc } from '@doc/tree/filterdoc';
+import { StyleDoc } from '@doc/tree/styledoc';
+import { AccessibilityDoc } from '@doc/tree/accessibilitydoc';
+import { VirtualScrollDoc } from '@doc/tree/virtualscrolldoc';
+import { LazyVirtualScrollDoc } from '@doc/tree/virtualscrolllazydoc';
 
 @Component({
     templateUrl: './treedemo.html'

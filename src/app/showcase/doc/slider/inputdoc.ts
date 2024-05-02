@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'input-doc',
@@ -9,8 +9,8 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full" />
-                <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
+                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3" />
+                <p-slider [(ngModel)]="value" class="w-full" />
             </div>
         </div>
         <app-code [code]="code" selector="slider-input-demo"></app-code>
@@ -21,24 +21,27 @@ export class InputDoc {
 
     code: Code = {
         basic: `<div>
-    <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
-    <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
+    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3"/>
+    <p-slider [(ngModel)]="value" class="w-full" />
 </div>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <div>
-        <input type="text" pInputText [(ngModel)]="value" class="w-full"/>
-        <p-slider [(ngModel)]="value" styleClass="w-full mt-3"></p-slider>
+        <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3"/>
+        <p-slider [(ngModel)]="value" class="w-full" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'slider-input-demo',
-    templateUrl: './slider-input-demo.html'
+    templateUrl: './slider-input-demo.html',
+    standalone: true,
+    imports: [FormsModule, SliderModule, InputTextModule]
 })
 export class SliderInputDemo {
     value: number = 50;

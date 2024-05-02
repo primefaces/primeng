@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -19,6 +19,6 @@ import { Code } from '../../domain/code';
 })
 export class AccessibilityDoc {
     code: Code = {
-        html: `<p-chart type="line" [data]="data" ariaLabbel="Data"></p-chart>`
+        html: `<p-chart type="line" [data]="data" ariaLabbel="Data" />`
     };
 }

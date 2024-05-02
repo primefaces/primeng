@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;
@@ -39,7 +39,7 @@ interface Column {
                     <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode" style="height: 57px">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                         </tr>
@@ -83,39 +83,15 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="colgroup" let-columns>
-        <colgroup>
-            <col *ngFor="let col of columns" style="width:250px" />
-        </colgroup>
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" style="height: 57px">
-            <td *ngFor="let col of columns; let i = index">
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
-        <tr [ttRow]="rowNode" style="height: 57px">
-            <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                {{ rowData.name }}
-            </td>
-        </tr>
-    </ng-template>
-</p-treeTable>`,
-
-        html: `
-<div class="card">
-    <p-treeTable [value]="files" [columns]="scrollableCols" [frozenColumns]="frozenCols" [scrollable]="true" scrollHeight="250px" frozenWidth="200px" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable 
+    [value]="files" 
+    [columns]="scrollableCols" 
+    [frozenColumns]="frozenCols" 
+    [scrollable]="true" 
+    scrollHeight="250px" 
+    frozenWidth="200px" 
+    [scrollable]="true" 
+    [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <col *ngFor="let col of columns" style="width:250px" />
@@ -138,18 +114,58 @@ export class FrozenColumnsDoc {
         <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
             <tr [ttRow]="rowNode" style="height: 57px">
                 <td>
-                    <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" />
                     {{ rowData.name }}
                 </td>
             </tr>
         </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+    <p-treeTable 
+        [value]="files" 
+        [columns]="scrollableCols" 
+        [frozenColumns]="frozenCols" 
+        [scrollable]="true" 
+        scrollHeight="250px" 
+        frozenWidth="200px" 
+        [scrollable]="true" 
+        [tableStyle]="{'min-width':'50rem'}">
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:250px" />
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{ col.header }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" style="height: 57px">
+                    <td *ngFor="let col of columns; let i = index">
+                        {{ rowData[col.field] }}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="frozenbody" let-rowNode let-rowData="rowData">
+                <tr [ttRow]="rowNode" style="height: 57px">
+                    <td>
+                        <p-treeTableToggler [rowNode]="rowNode" />
+                        {{ rowData.name }}
+                    </td>
+                </tr>
+            </ng-template>
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -158,7 +174,10 @@ interface Column {
 
 @Component({
     selector: 'tree-table-scroll-frozen-columns-demo',
-    templateUrl: './tree-table-scroll-frozen-columns-demo.html'
+    templateUrl: './tree-table-scroll-frozen-columns-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, CommonModule],
+    providers: [NodeService]
 })
 export class TreeTableScrollFrozenColumnsDemo implements OnInit {
     files!: TreeNode[];

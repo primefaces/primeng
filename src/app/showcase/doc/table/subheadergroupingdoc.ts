@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'subheader-grouping-doc',
@@ -49,7 +49,7 @@ import { CustomerService } from '../../service/customerservice';
                                 {{ customer.company }}
                             </td>
                             <td>
-                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
                                 {{ customer.date }}
@@ -108,53 +108,15 @@ export class SubheaderGroupingDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Name</th>
-            <th>Country</th>
-            <th>Company</th>
-            <th>Status</th>
-            <th>Date</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="groupheader" let-customer>
-        <tr pRowGroupHeader>
-            <td colspan="5">
-                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
-                <span class="font-bold ml-2">{{customer.representative.name}}</span>
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="groupfooter" let-customer>
-        <tr>
-            <td colspan="5" class="text-right font-bold pr-6">Total Customers: {{calculateCustomerTotal(customer.representative.name)}}</td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
-        <tr>
-            <td>
-                {{customer.name}}
-            </td>
-            <td>
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px">
-                <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
-            </td>
-            <td>
-                {{customer.company}}
-            </td>
-            <td>
-                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
-            </td>
-            <td>
-                {{customer.date}}
-            </td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="400px" rowGroupMode="subheader" groupRowsBy="representative.name" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table 
+    [value]="customers" 
+    sortField="representative.name" 
+    sortMode="single" 
+    [scrollable]="true" 
+    scrollHeight="400px" 
+    rowGroupMode="subheader" 
+    groupRowsBy="representative.name" 
+    [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -167,14 +129,20 @@ export class SubheaderGroupingDoc {
         <ng-template pTemplate="groupheader" let-customer>
             <tr pRowGroupHeader>
                 <td colspan="5">
-                    <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" width="32" style="vertical-align: middle" />
+                    <img 
+                        [alt]="customer.representative.name" 
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" 
+                        width="32" 
+                        style="vertical-align: middle" />
                     <span class="font-bold ml-2">{{customer.representative.name}}</span>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="groupfooter" let-customer>
             <tr>
-                <td colspan="5" class="text-right font-bold pr-6">Total Customers: {{calculateCustomerTotal(customer.representative.name)}}</td>
+                <td colspan="5" class="text-right font-bold pr-6">
+                    Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+                </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
@@ -183,30 +151,100 @@ export class SubheaderGroupingDoc {
                     {{customer.name}}
                 </td>
                 <td>
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag-' + customer.country.code" style="width: 20px">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                        [class]="'flag flag-' + customer.country.code" 
+                        style="width: 20px">
                     <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     {{customer.company}}
                 </td>
                 <td>
-                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)"></p-tag>
+                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                 </td>
                 <td>
                     {{customer.date}}
                 </td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [value]="customers"
+        sortField="representative.name" 
+        sortMode="single" 
+        [scrollable]="true" 
+        scrollHeight="400px" 
+        rowGroupMode="subheader" 
+        groupRowsBy="representative.name" 
+        [tableStyle]="{'min-width': '60rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Company</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="groupheader" let-customer>
+                <tr pRowGroupHeader>
+                    <td colspan="5">
+                        <img 
+                            [alt]="customer.representative.name" 
+                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{customer.representative.image}}" 
+                            width="32" 
+                            style="vertical-align: middle" />
+                        <span class="font-bold ml-2">{{customer.representative.name}}</span>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="groupfooter" let-customer>
+                <tr>
+                    <td colspan="5" class="text-right font-bold pr-6">
+                        Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
+                <tr>
+                    <td>
+                        {{customer.name}}
+                    </td>
+                    <td>
+                        <img 
+                            src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                            [class]="'flag-' + customer.country.code" 
+                            style="width: 20px">
+                        <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                    </td>
+                    <td>
+                        {{customer.company}}
+                    </td>
+                    <td>
+                        <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+                    </td>
+                    <td>
+                        {{customer.date}}
+                    </td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { HttpClientModule } from '@angular/common/http';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'table-subheader-grouping-demo',
-    templateUrl: 'table-subheader-grouping-demo.html'
+    templateUrl: 'table-subheader-grouping-demo.html',
+    standalone: true,
+    imports: [TableModule, HttpClientModule, TagModule],
+    providers: [CustomerService]
 })
 export class TableSubheaderGroupingDemo implements OnInit{
     customers!: Customer[];

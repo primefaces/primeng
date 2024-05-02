@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
@@ -9,7 +9,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
+            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-checkbox-demo"></app-code>
     `
@@ -24,20 +24,39 @@ export class CheckboxDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="w-full md:w-20rem" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    display="chip" 
+    [metaKeySelection]="false" 
+    selectionMode="checkbox" 
+    placeholder="Select Item" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" display="chip" [metaKeySelection]="false" selectionMode="checkbox" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="w-full md:w-20rem" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        display="chip" 
+        [metaKeySelection]="false" 
+        selectionMode="checkbox" 
+        placeholder="Select Item" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-checkbox-demo',
-    templateUrl: './tree-select-checkbox-demo.html'
+    templateUrl: './tree-select-checkbox-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectCheckboxDemo {
     nodes!: any[];

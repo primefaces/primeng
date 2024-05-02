@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'horizontal-doc',
@@ -24,31 +24,40 @@ export class HorizontalDoc {
     code: Code = {
         basic: `<p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
     <ng-template pTemplate>
-        <div class="col flex align-items-center justify-content-center">Panel 1</div>
+        <div class="col flex align-items-center justify-content-center">
+            Panel 1
+        </div>
     </ng-template>
     <ng-template pTemplate>
-        <div class="col flex align-items-center justify-content-center">Panel 2</div>
+        <div class="col flex align-items-center justify-content-center">
+            Panel 2
+        </div>
     </ng-template>
 </p-splitter>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-splitter [style]="{ height: '300px' }" styleClass="mb-5">
         <ng-template pTemplate>
-            <div class="col flex align-items-center justify-content-center">Panel 1</div>
+            <div class="col flex align-items-center justify-content-center">
+                Panel 1
+            </div>
         </ng-template>
         <ng-template pTemplate>
-            <div class="col flex align-items-center justify-content-center">Panel 2</div>
+            <div class="col flex align-items-center justify-content-center">
+                Panel 2
+            </div>
         </ng-template>
     </p-splitter>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { SplitterModule } from 'primeng/splitter';      
 
 @Component({
     selector: 'splitter-horizontal-demo',
-    templateUrl: './splitter-horizontal-demo.html'
+    templateUrl: './splitter-horizontal-demo.html',
+    standalone: true,
+    imports: [SplitterModule]
 })
 export class SplitterHorizontalDemo {}`
     };

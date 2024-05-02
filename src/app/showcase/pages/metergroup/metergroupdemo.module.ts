@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MeterGroupDocModule } from '../../doc/metergroup/metergroupdoc.module';
+import { MeterGroupDocModule } from '@doc/metergroup/metergroupdoc.module';
 import { MeterGroupDemo } from './metergroupdemo';
 import { MeterGroupDemoRoutingModule } from './metergroupdemo-routing.module';
 

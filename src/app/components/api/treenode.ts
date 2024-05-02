@@ -75,4 +75,9 @@ export interface TreeNode<T = any> {
      * Mandatory unique key of the node.
      */
     key?: string;
+     /**
+     * Mandatory unique key of the node.
+     */
+    loading?: boolean;
+    
 }

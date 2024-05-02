@@ -3,7 +3,7 @@ import { Component, OnInit, afterNextRender } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { AppNewsComponent } from '../../layout/news/app.news.component';
 import { AppTopBarComponent } from '../../layout/topbar/app.topbar.component';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 import { BlockSectionComponent } from './blocksection.component';
 import { FeaturesSectionComponent } from './featuressection.component';
 import { FooterSectionComponent } from './footersection.component';

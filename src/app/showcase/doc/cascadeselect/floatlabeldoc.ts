@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'cascade-select-float-label-demo',
     template: `
         <app-docsectiontext>
-            <p>A floating label appears on top of the input field when focused.</p>
+            <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <span class="p-float-label">
+            <p-floatLabel>
                 <p-cascadeSelect
                     inputId="cs-city"
                     [(ngModel)]="selectedCity"
@@ -18,9 +18,9 @@ import { Code } from '../../domain/code';
                     [optionGroupChildren]="['states', 'cities']"
                     [style]="{ minWidth: '14rem' }"
                     placeholder="Select a City"
-                ></p-cascadeSelect>
+                />
                 <label for="cs-city">City</label>
-            </span>
+            </p-floatLabel>
         </div>
         <app-code [code]="code" selector="cascade-select-float-label-demo"></app-code>
     `
@@ -108,22 +108,21 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `<span class="p-float-label">
-        <p-cascadeSelect
-            inputId="cs-city"
-            [(ngModel)]="selectedCity"
-            [options]="countries"
-            optionLabel="cname"
-            optionGroupLabel="name"
-            [optionGroupChildren]="['states', 'cities']"
-            [style]="{ minWidth: '14rem' }"
-            placeholder="Select a City"
-        ></p-cascadeSelect>
-        <label for="cs-city">City</label>
-</span>`,
+        basic: `<p-floatLabel>
+    <p-cascadeSelect
+        inputId="cs-city"
+        [(ngModel)]="selectedCity"
+        [options]="countries"
+        optionLabel="cname"
+        optionGroupLabel="name"
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ minWidth: '14rem' }"
+        placeholder="Select a City" />
+    <label for="cs-city">City</label>
+</p-floatLabel>`,
 
         html: `<div class="card flex justify-content-center">
-        <span class="p-float-label">
+    <p-floatLabel>
         <p-cascadeSelect
             inputId="cs-city"
             [(ngModel)]="selectedCity"
@@ -132,18 +131,21 @@ export class FloatLabelDoc {
             optionGroupLabel="name"
             [optionGroupChildren]="['states', 'cities']"
             [style]="{ minWidth: '14rem' }"
-            placeholder="Select a City"
-        ></p-cascadeSelect>
+            placeholder="Select a City" />
         <label for="cs-city">City</label>
-        </span>
+    </p-floatLabel>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     selector: 'cascade-select-float-label-demo',
-    templateUrl: './cascade-select-float-label-demo.html'
+    templateUrl: './cascade-select-float-label-demo.html',
+    standalone: true,
+    imports: [FormsModule, CascadeSelectModule, FloatLabelModule]
 })
 export class CascadeSelectFloatLabelDemo implements OnInit {
     countries: any[] | undefined;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -38,11 +38,11 @@ import { Code } from '../../domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="address1">Address 1</label>
-<textarea pInputTextarea id="address1" />
+<textarea pInputTextarea id="address1"></textarea>
 
 <span id="address2">Address 2</span>
-<textarea pInputTextarea aria-labelledby="address2" />
+<textarea pInputTextarea aria-labelledby="address2"></textarea>
 
-<textarea pInputTextarea aria-label="Address Details"/>`
+<textarea pInputTextarea aria-label="Address Details"></textarea>`
     };
 }

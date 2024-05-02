@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'vertical-doc',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Layout of the MegaMenu is changed with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as options.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu [model]="items" orientation="vertical"></p-megaMenu>
+            <p-megaMenu [model]="items" orientation="vertical" />
         </div>
         <app-code [code]="code" selector="mega-menu-vertical-demo"></app-code>
     `
@@ -20,137 +20,118 @@ export class VerticalDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Videos',
-                icon: 'pi pi-fw pi-video',
+                label: 'Furniture',
+                icon: 'pi pi-box',
                 items: [
                     [
                         {
-                            label: 'Video 1',
-                            items: [{ label: 'Video 1.1' }, { label: 'Video 1.2' }]
-                        },
-                        {
-                            label: 'Video 2',
-                            items: [{ label: 'Video 2.1' }, { label: 'Video 2.2' }]
+                            label: 'Living Room',
+                            items: [{ label: 'Accessories' }, { label: 'Armchair' }, { label: 'Coffee Table' }, { label: 'Couch' }, { label: 'TV Stand' }]
                         }
                     ],
                     [
                         {
-                            label: 'Video 3',
-                            items: [{ label: 'Video 3.1' }, { label: 'Video 3.2' }]
+                            label: 'Kitchen',
+                            items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }]
                         },
                         {
-                            label: 'Video 4',
-                            items: [{ label: 'Video 4.1' }, { label: 'Video 4.2' }]
+                            label: 'Bathroom',
+                            items: [{ label: 'Accessories' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Bedroom',
+                            items: [{ label: 'Bed' }, { label: 'Chaise lounge' }, { label: 'Cupboard' }, { label: 'Dresser' }, { label: 'Wardrobe' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Office',
+                            items: [{ label: 'Bookcase' }, { label: 'Cabinet' }, { label: 'Chair' }, { label: 'Desk' }, { label: 'Executive Chair' }]
                         }
                     ]
                 ]
             },
             {
-                label: 'Users',
-                icon: 'pi pi-fw pi-users',
+                label: 'Electronics',
+                icon: 'pi pi-mobile',
                 items: [
                     [
                         {
-                            label: 'User 1',
-                            items: [{ label: 'User 1.1' }, { label: 'User 1.2' }]
-                        },
-                        {
-                            label: 'User 2',
-                            items: [{ label: 'User 2.1' }, { label: 'User 2.2' }]
+                            label: 'Computer',
+                            items: [{ label: 'Monitor' }, { label: 'Mouse' }, { label: 'Notebook' }, { label: 'Keyboard' }, { label: 'Printer' }, { label: 'Storage' }]
                         }
                     ],
                     [
                         {
-                            label: 'User 3',
-                            items: [{ label: 'User 3.1' }, { label: 'User 3.2' }]
-                        },
-                        {
-                            label: 'User 4',
-                            items: [{ label: 'User 4.1' }, { label: 'User 4.2' }]
+                            label: 'Home Theather',
+                            items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }]
                         }
                     ],
                     [
                         {
-                            label: 'User 5',
-                            items: [{ label: 'User 5.1' }, { label: 'User 5.2' }]
-                        },
+                            label: 'Gaming',
+                            items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }]
+                        }
+                    ],
+                    [
                         {
-                            label: 'User 6',
-                            items: [{ label: 'User 6.1' }, { label: 'User 6.2' }]
+                            label: 'Appliances',
+                            items: [{ label: 'Coffee Machine' }, { label: 'Fridge' }, { label: 'Oven' }, { label: 'Vaccum Cleaner' }, { label: 'Washing Machine' }]
                         }
                     ]
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
+                label: 'Sports',
+                icon: 'pi pi-clock',
                 items: [
                     [
                         {
-                            label: 'Event 1',
-                            items: [{ label: 'Event 1.1' }, { label: 'Event 1.2' }]
-                        },
-                        {
-                            label: 'Event 2',
-                            items: [{ label: 'Event 2.1' }, { label: 'Event 2.2' }]
+                            label: 'Football',
+                            items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }]
                         }
                     ],
                     [
                         {
-                            label: 'Event 3',
-                            items: [{ label: 'Event 3.1' }, { label: 'Event 3.2' }]
-                        },
-                        {
-                            label: 'Event 4',
-                            items: [{ label: 'Event 4.1' }, { label: 'Event 4.2' }]
-                        }
-                    ]
-                ]
-            },
-            {
-                label: 'Settings',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    [
-                        {
-                            label: 'Setting 1',
-                            items: [{ label: 'Setting 1.1' }, { label: 'Setting 1.2' }]
-                        },
-                        {
-                            label: 'Setting 2',
-                            items: [{ label: 'Setting 2.1' }, { label: 'Setting 2.2' }]
-                        },
-                        {
-                            label: 'Setting 3',
-                            items: [{ label: 'Setting 3.1' }, { label: 'Setting 3.2' }]
+                            label: 'Running',
+                            items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }]
                         }
                     ],
                     [
                         {
-                            label: 'Technology 4',
-                            items: [{ label: 'Setting 4.1' }, { label: 'Setting 4.2' }]
+                            label: 'Swimming',
+                            items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Tennis',
+                            items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }]
                         }
                     ]
                 ]
             }
-        ];
+        ]
     }
 
     code: Code = {
-        basic: `<p-megaMenu [model]="items"></p-megaMenu>`,
+        basic: `<p-megaMenu [model]="items" orientation="vertical" />`,
 
-        html: `
-<div class="card">
-    <p-megaMenu [model]="items"></p-megaMenu>
+        html: `<div class="card">
+    <p-megaMenu [model]="items" orientation="vertical" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MegaMenuItem } from 'primeng/api';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 @Component({
     selector: 'mega-menu-vertical-demo',
-    templateUrl: './mega-menu-vertical-demo.html'
+    templateUrl: './mega-menu-vertical-demo.html',
+    standalone: true,
+    imports: [MegaMenuModule]
 })
 export class MegaMenuVerticalDemo implements OnInit {
     items: MegaMenuItem[] | undefined;
@@ -158,120 +139,100 @@ export class MegaMenuVerticalDemo implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Videos',
-                icon: 'pi pi-fw pi-video',
+                label: 'Furniture',
+                icon: 'pi pi-box',
                 items: [
                     [
                         {
-                            label: 'Video 1',
-                            items: [{ label: 'Video 1.1' }, { label: 'Video 1.2' }]
-                        },
-                        {
-                            label: 'Video 2',
-                            items: [{ label: 'Video 2.1' }, { label: 'Video 2.2' }]
+                            label: 'Living Room',
+                            items: [{ label: 'Accessories' }, { label: 'Armchair' }, { label: 'Coffee Table' }, { label: 'Couch' }, { label: 'TV Stand' }]
                         }
                     ],
                     [
                         {
-                            label: 'Video 3',
-                            items: [{ label: 'Video 3.1' }, { label: 'Video 3.2' }]
+                            label: 'Kitchen',
+                            items: [{ label: 'Bar stool' }, { label: 'Chair' }, { label: 'Table' }]
                         },
                         {
-                            label: 'Video 4',
-                            items: [{ label: 'Video 4.1' }, { label: 'Video 4.2' }]
+                            label: 'Bathroom',
+                            items: [{ label: 'Accessories' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Bedroom',
+                            items: [{ label: 'Bed' }, { label: 'Chaise lounge' }, { label: 'Cupboard' }, { label: 'Dresser' }, { label: 'Wardrobe' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Office',
+                            items: [{ label: 'Bookcase' }, { label: 'Cabinet' }, { label: 'Chair' }, { label: 'Desk' }, { label: 'Executive Chair' }]
                         }
                     ]
                 ]
             },
             {
-                label: 'Users',
-                icon: 'pi pi-fw pi-users',
+                label: 'Electronics',
+                icon: 'pi pi-mobile',
                 items: [
                     [
                         {
-                            label: 'User 1',
-                            items: [{ label: 'User 1.1' }, { label: 'User 1.2' }]
-                        },
-                        {
-                            label: 'User 2',
-                            items: [{ label: 'User 2.1' }, { label: 'User 2.2' }]
+                            label: 'Computer',
+                            items: [{ label: 'Monitor' }, { label: 'Mouse' }, { label: 'Notebook' }, { label: 'Keyboard' }, { label: 'Printer' }, { label: 'Storage' }]
                         }
                     ],
                     [
                         {
-                            label: 'User 3',
-                            items: [{ label: 'User 3.1' }, { label: 'User 3.2' }]
-                        },
-                        {
-                            label: 'User 4',
-                            items: [{ label: 'User 4.1' }, { label: 'User 4.2' }]
+                            label: 'Home Theather',
+                            items: [{ label: 'Projector' }, { label: 'Speakers' }, { label: 'TVs' }]
                         }
                     ],
                     [
                         {
-                            label: 'User 5',
-                            items: [{ label: 'User 5.1' }, { label: 'User 5.2' }]
-                        },
+                            label: 'Gaming',
+                            items: [{ label: 'Accessories' }, { label: 'Console' }, { label: 'PC' }, { label: 'Video Games' }]
+                        }
+                    ],
+                    [
                         {
-                            label: 'User 6',
-                            items: [{ label: 'User 6.1' }, { label: 'User 6.2' }]
+                            label: 'Appliances',
+                            items: [{ label: 'Coffee Machine' }, { label: 'Fridge' }, { label: 'Oven' }, { label: 'Vaccum Cleaner' }, { label: 'Washing Machine' }]
                         }
                     ]
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
+                label: 'Sports',
+                icon: 'pi pi-clock',
                 items: [
                     [
                         {
-                            label: 'Event 1',
-                            items: [{ label: 'Event 1.1' }, { label: 'Event 1.2' }]
-                        },
-                        {
-                            label: 'Event 2',
-                            items: [{ label: 'Event 2.1' }, { label: 'Event 2.2' }]
+                            label: 'Football',
+                            items: [{ label: 'Kits' }, { label: 'Shoes' }, { label: 'Shorts' }, { label: 'Training' }]
                         }
                     ],
                     [
                         {
-                            label: 'Event 3',
-                            items: [{ label: 'Event 3.1' }, { label: 'Event 3.2' }]
-                        },
-                        {
-                            label: 'Event 4',
-                            items: [{ label: 'Event 4.1' }, { label: 'Event 4.2' }]
-                        }
-                    ]
-                ]
-            },
-            {
-                label: 'Settings',
-                icon: 'pi pi-fw pi-cog',
-                items: [
-                    [
-                        {
-                            label: 'Setting 1',
-                            items: [{ label: 'Setting 1.1' }, { label: 'Setting 1.2' }]
-                        },
-                        {
-                            label: 'Setting 2',
-                            items: [{ label: 'Setting 2.1' }, { label: 'Setting 2.2' }]
-                        },
-                        {
-                            label: 'Setting 3',
-                            items: [{ label: 'Setting 3.1' }, { label: 'Setting 3.2' }]
+                            label: 'Running',
+                            items: [{ label: 'Accessories' }, { label: 'Shoes' }, { label: 'T-Shirts' }, { label: 'Shorts' }]
                         }
                     ],
                     [
                         {
-                            label: 'Technology 4',
-                            items: [{ label: 'Setting 4.1' }, { label: 'Setting 4.2' }]
+                            label: 'Swimming',
+                            items: [{ label: 'Kickboard' }, { label: 'Nose Clip' }, { label: 'Swimsuits' }, { label: 'Paddles' }]
+                        }
+                    ],
+                    [
+                        {
+                            label: 'Tennis',
+                            items: [{ label: 'Balls' }, { label: 'Rackets' }, { label: 'Shoes' }, { label: 'Training' }]
                         }
                     ]
                 ]
             }
-        ];
+        ]
     }
 }`
     };

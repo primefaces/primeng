@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
@@ -8,7 +8,7 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
-    inputStyle: 'outlined' | 'filled' = 'outlined';
+    inputStyle = signal<'outlined' | 'filled'>('outlined');
 
     overlayOptions: OverlayOptions = {};
 

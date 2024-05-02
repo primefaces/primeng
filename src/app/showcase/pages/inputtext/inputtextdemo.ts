@@ -6,11 +6,12 @@ import { IconsDoc } from 'src/app/showcase/doc/inputtext/iconsdoc';
 import { ImportDoc } from 'src/app/showcase/doc/inputtext/importdoc';
 import { InvalidDoc } from 'src/app/showcase/doc/inputtext/invaliddoc';
 import { SizesDoc } from 'src/app/showcase/doc/inputtext/sizesdoc';
-import { AccessibilityDoc } from '../../doc/inputtext/accessibilitydoc';
-import { BasicDoc } from '../../doc/inputtext/basicdoc';
-import { KeyFilterDoc } from '../../doc/inputtext/keyfilterdoc';
-import { ReactiveFormsDoc } from '../../doc/inputtext/reactiveformsdoc';
-import { StyleDoc } from '../../doc/inputtext/styledoc';
+import { AccessibilityDoc } from '@doc/inputtext/accessibilitydoc';
+import { BasicDoc } from '@doc/inputtext/basicdoc';
+import { KeyFilterDoc } from '@doc/inputtext/keyfilterdoc';
+import { ReactiveFormsDoc } from '@doc/inputtext/reactiveformsdoc';
+import { StyleDoc } from '@doc/inputtext/styledoc';
+import { FilledDoc } from '@doc/inputtext/filleddoc';
 
 @Component({
     templateUrl: './inputtextdemo.html',
@@ -34,21 +35,6 @@ export class InputTextDemo {
             component: ReactiveFormsDoc
         },
         {
-            id: 'icons',
-            label: 'Icons',
-            component: IconsDoc
-        },
-        {
-            id: 'keyfilter',
-            label: 'Key Filter',
-            component: KeyFilterDoc
-        },
-        {
-            id: 'sizes',
-            label: 'Sizes',
-            component: SizesDoc
-        },
-        {
             id: 'helptext',
             label: 'Help Text',
             component: HelpTextDoc
@@ -57,6 +43,11 @@ export class InputTextDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

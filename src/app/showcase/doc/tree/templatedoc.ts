@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -52,18 +52,21 @@ export class TemplateDoc implements OnInit {
     code: Code = {
         basic: `<p-tree [value]="nodes" class="w-full md:w-30rem">
     <ng-template let-node pTemplate="url">
-         <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
+        <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">
+            {{ node.label }}
+        </a>
     </ng-template>
     <ng-template let-node pTemplate="default">
         <b>{{ node.label }}</b>
     </ng-template>
 </p-tree>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-tree [value]="nodes" class="w-full md:w-30rem">
         <ng-template let-node pTemplate="url">
-             <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
+            <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">
+               {{ node.label }}
+            </a>
         </ng-template>
         <ng-template let-node pTemplate="default">
             <b>{{ node.label }}</b>
@@ -71,13 +74,15 @@ export class TemplateDoc implements OnInit {
     </p-tree>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-template-demo',
-    templateUrl: './tree-template-demo.html'
+    templateUrl: './tree-template-demo.html',
+    standalone: true,
+    imports: [TreeModule]
 })
 export class TreeTemplateDemo implements OnInit {
     nodes!: TreeNode[];

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
+                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"/>
                 </div>
             </div>
         </div>
@@ -29,24 +29,34 @@ export class DynamicDoc {
 
     code: Code = {
         basic: `<div *ngFor="let category of categories" class="field-checkbox">
-    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
+    <p-checkbox 
+        [(ngModel)]="selectedCategories"
+        [label]="category.name" 
+        name="group" 
+        [value]="category" />
 </div>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <div class="flex flex-column gap-2">
         <div *ngFor="let category of categories" class="field-checkbox">
-        <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"></p-checkbox>
+            <p-checkbox 
+                [(ngModel)]="selectedCategories"
+                [label]="category.name"
+                name="group"
+                [value]="category" />
         </div>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-dynamic-demo',
-    templateUrl: './checkbox-dynamic-demo.html'
+    templateUrl: './checkbox-dynamic-demo.html',
+    standalone: true,
+    imports: [FormsModule, CheckboxModule]
 })
 export class CheckboxDynamicDemo {
     selectedCategories: any[] = [];

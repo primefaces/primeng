@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CalendarDocModule } from '../../doc/calendar/calendardoc.module';
+import { CalendarDocModule } from '@doc/calendar/calendardoc.module';
 import { CalendarDemo } from './calendardemo';
 import { CalendarDemoRoutingModule } from './calendardemo-routing.module';
 

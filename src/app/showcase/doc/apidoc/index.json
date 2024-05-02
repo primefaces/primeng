@@ -3277,6 +3277,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Mandatory unique key of the node."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Mandatory unique key of the node."
                         }
                     ]
                 }
@@ -3457,6 +3464,13 @@
                             "optional": true,
                             "readonly": false,
                             "type": "string",
+                            "description": "Mandatory unique key of the node."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
                             "description": "Mandatory unique key of the node."
                         },
                         {
@@ -3986,6 +4000,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, the hovered option will be focused."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -5488,6 +5510,14 @@
                             "description": "Index of the element in tabbing order."
                         },
                         {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
                             "name": "minDate",
                             "optional": false,
                             "readonly": false,
@@ -6576,6 +6606,29 @@
                             "deprecated": "deprecated since v14.2.0, use overlayOptions property instead."
                         },
                         {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the dropdown is in loading state."
+                        },
+                        {
+                            "name": "loadingIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in loading state."
+                        },
+                        {
                             "name": "hideTransitionOptions",
                             "optional": false,
                             "readonly": false,
@@ -6868,6 +6921,12 @@
                         "name": "optiongroupicon",
                         "parameters": [],
                         "description": "Custom option group icon template."
+                    },
+                    {
+                        "parent": "cascadeselect",
+                        "name": "loadingicon",
+                        "parameters": [],
+                        "description": "Custom loading icon template."
                     }
                 ]
             }
@@ -7111,6 +7170,14 @@
                             "type": "any",
                             "default": "false",
                             "description": "Value in unchecked state."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -7458,6 +7525,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -9750,6 +9825,13 @@
                             "description": "Default text to display when no option is selected."
                         },
                         {
+                            "name": "loadingIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in loading state."
+                        },
+                        {
                             "name": "filterPlaceholder",
                             "optional": false,
                             "readonly": false,
@@ -9762,6 +9844,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Locale to use in filtering. The default locale is the host environment's current locale."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "inputId",
@@ -9808,11 +9898,27 @@
                             "description": "Clears the filter value when hiding the dropdown."
                         },
                         {
+                            "name": "checkmark",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the selected option will be shown with a check mark."
+                        },
+                        {
                             "name": "dropdownIcon",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
                             "description": "Icon class of the dropdown icon."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the dropdown is in loading state."
                         },
                         {
                             "name": "optionLabel",
@@ -12371,6 +12477,9 @@
     "bars": {
         "components": {}
     },
+    "blank": {
+        "components": {}
+    },
     "caretleft": {
         "components": {}
     },
@@ -13011,6 +13120,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Title text of the input text."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "ariaLabel",
@@ -13987,7 +14104,24 @@
         }
     },
     "inputtext": {
-        "components": {}
+        "components": {
+            "InputText": {
+                "description": "InputText directive is an extension to standard input element with theming.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Button directive is an extension to button component."
+                        }
+                    ]
+                }
+            }
+        }
     },
     "inputtextarea": {
         "components": {
@@ -14003,6 +14137,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, textarea size changes as being typed."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -15724,7 +15866,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "true",
+                            "default": "false",
                             "description": "When specified, displays an input field to filter the items on keyup."
                         },
                         {
@@ -15756,6 +15898,14 @@
                             "type": "number",
                             "default": "0",
                             "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "appendTo",
@@ -15929,11 +16079,26 @@
                             "description": "Whether the data should be loaded on demand during scroll."
                         },
                         {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the multiselect is in loading state."
+                        },
+                        {
                             "name": "virtualScrollItemSize",
                             "optional": false,
                             "readonly": false,
                             "type": "number",
                             "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "loadingIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in loading state."
                         },
                         {
                             "name": "virtualScrollOptions",
@@ -17047,6 +17212,14 @@
                             "readonly": false,
                             "type": "\"multiple\" | \"single\"",
                             "description": "Defines the selection mode."
+                        },
+                        {
+                            "name": "collapsible",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the nodes can be expanded or toggled."
                         },
                         {
                             "name": "preserveSpace",
@@ -19464,6 +19637,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Label of the radiobutton."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "tabindex",
@@ -25997,6 +26178,14 @@
                             "description": "Defines the selection mode."
                         },
                         {
+                            "name": "loadingMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"mask\" | \"icon\"",
+                            "default": "mask",
+                            "description": "Loading mode display."
+                        },
+                        {
                             "name": "selection",
                             "optional": false,
                             "readonly": false,
@@ -26732,6 +26921,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "display",
@@ -28284,6 +28481,13 @@
                                 "description": "Mandatory unique key of the node."
                             },
                             {
+                                "name": "loading",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "boolean",
+                                "description": "Mandatory unique key of the node."
+                            },
+                            {
                                 "name": "originalEvent",
                                 "optional": true,
                                 "readonly": false,
@@ -28758,6 +28962,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         },
                         {
                             "name": "tabindex",
