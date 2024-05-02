@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
     selector: 'router-doc',
     template: `
         <app-docsectiontext>
-            <p>Menubar requires nested menuitems as its model.</p>
+            <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
         <div class="card">
             <p-menubar [model]="items">
