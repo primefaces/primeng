@@ -636,7 +636,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindGlobalListeners() {
-        if (this.config.closeOnEscape !== false && this.config.closable !== false) {
+        if (this.config.closeOnEscape !== false) {
             this.bindDocumentEscapeListener();
         }
 
