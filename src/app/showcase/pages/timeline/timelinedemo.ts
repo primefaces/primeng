@@ -9,7 +9,8 @@ import { StyleDoc } from '../../doc/timeline/styledoc';
 import { AccessibilityDoc } from '../../doc/timeline/accessibilitydoc';
 
 @Component({
-    templateUrl: './timelinedemo.html'
+    templateUrl: './timelinedemo.html',
+    styleUrls: ['./timelinedemo.scss']
 })
 export class TimelineDemo {
     docs = [
