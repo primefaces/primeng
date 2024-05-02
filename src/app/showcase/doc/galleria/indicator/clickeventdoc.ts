@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../../domain/code';
-import { PhotoService } from '../../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'click-event-doc',
@@ -45,26 +45,38 @@ export class ClickEventDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [showIndicators]="true" 
+    [showThumbnails]="false" 
+    [responsiveOptions]="responsiveOptions" 
+    [containerStyle]="{ 'max-width': '640px' }">
     <ng-template pTemplate="item" let-item>
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [showIndicators]="true" [showThumbnails]="false" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
-        <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-        </ng-template>
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [showIndicators]="true" 
+        [showThumbnails]="false" 
+        [responsiveOptions]="responsiveOptions" 
+        [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-indicator-click-event-demo',
-    templateUrl: './galleria-indicator-click-event-demo.html'
+    templateUrl: './galleria-indicator-click-event-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
 })
 export class GalleriaIndicatorClickEventDemo implements OnInit {
     images: any[] | undefined;

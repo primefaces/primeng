@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'dialog-position-demo',
@@ -9,24 +9,33 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-2">
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
+                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" styleClass="p-button-warning"></p-button>
-                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-                <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" styleClass="p-button-warning"></p-button>
+                <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
+                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
+                <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" styleClass="p-button-success"></p-button>
-                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-                <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" styleClass="p-button-success"></p-button>
+                <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
+                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
+                <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
             </div>
-            <p-dialog header="Header" [(visible)]="visible" [position]="position" [style]="{ width: '50vw' }">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+            <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
+                <span class="p-text-secondary block mb-5">Update your information.</span>
+                <div class="flex align-items-center gap-3 mb-3">
+                    <label for="username" class="font-semibold w-6rem">Username</label>
+                    <input pInputText id="username" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex align-items-center gap-3 mb-5">
+                    <label for="email" class="font-semibold w-6rem">Email</label>
+                    <input pInputText id="email" class="flex-auto" autocomplete="off" />
+                </div>
+                <div class="flex justify-content-end gap-2">
+                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                    <p-button label="Save" (click)="visible = false" />
+                </div>
             </p-dialog>
         </div>
         <app-code [code]="code" selector="dialog-position-demo"></app-code>
@@ -44,56 +53,163 @@ export class PositionDoc {
 
     code: Code = {
         basic: `<div class="flex flex-wrap gap-2">
-    <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-    <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+    <p-button 
+        (click)="showDialog('left')" 
+        icon="pi pi-arrow-right" 
+        label="Left" 
+        severity="secondary" />
+    <p-button 
+        (click)="showDialog('right')" 
+        icon="pi pi-arrow-left" 
+        label="Right" 
+        severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
-    <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" styleClass="p-button-warning"></p-button>
-    <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-    <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" styleClass="p-button-warning"></p-button>
+    <p-button 
+        (click)="showDialog('top-left')" 
+        icon="pi pi-arrow-down-right" 
+        label="TopLeft" 
+        severity="secondary" />
+    <p-button 
+        (click)="showDialog('top')"
+        icon="pi pi-arrow-down" 
+        label="Top" 
+        severity="secondary" />
+    <p-button 
+        (click)="showDialog('top-right')" 
+        icon="pi pi-arrow-down-left" 
+        label="TopRight" 
+        severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
-    <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" styleClass="p-button-success"></p-button>
-    <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-    <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" styleClass="p-button-success"></p-button>
+    <p-button 
+        (click)="showDialog('bottom-left')" 
+        icon="pi pi-arrow-up-right" 
+        label="BottomLeft" 
+        severity="secondary" />
+    <p-button 
+        (click)="showDialog('bottom')" 
+        icon="pi pi-arrow-up" 
+        label="Bottom" 
+        severity="secondary" />
+    <p-button 
+        (click)="showDialog('bottom-right')" 
+        icon="pi pi-arrow-up-left" 
+        label="BottomRight" 
+        severity="secondary" />
 </div>
-<p-dialog header="Header" [(visible)]="visible" [position]="position" [style]="{ width: '50vw' }">
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </p>
+<p-dialog 
+    header="Edit Profile" 
+    [modal]="true"
+    [(visible)]="visible" 
+    [position]="position" 
+    [style]="{ width: '25rem' }">
+        <span class="p-text-secondary block mb-5">
+            Update your information.
+        </span>
+        <div class="flex align-items-center gap-3 mb-3">
+            <label for="username" class="font-semibold w-6rem">
+                Username
+            </label>
+            <input pInputText id="username" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5">
+            <label for="email" class="font-semibold w-6rem">
+                Email
+            </label>
+            <input pInputText id="email" class="flex-auto" autocomplete="off" />
+        </div>
+        <div class="flex justify-content-end gap-2">
+            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+            <p-button label="Save" (click)="visible = false" />
+        </div>
 </p-dialog>`,
 
-        html: `
-<div class="card flex flex-column align-items-center gap-2">
+        html: `<div class="card flex flex-column align-items-center gap-2">
     <div class="flex flex-wrap gap-2">
-        <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" styleClass="p-button-help"></p-button>
-        <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" styleClass="p-button-help"></p-button>
+        <p-button 
+            (click)="showDialog('left')" 
+            icon="pi pi-arrow-right" 
+            label="Left" 
+            severity="secondary" />
+        <p-button 
+            (click)="showDialog('right')" 
+            icon="pi pi-arrow-left" 
+            label="Right" 
+            severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
-        <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" styleClass="p-button-warning"></p-button>
-        <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" styleClass="p-button-warning"></p-button>
-        <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" styleClass="p-button-warning"></p-button>
+        <p-button 
+            (click)="showDialog('top-left')" 
+            icon="pi pi-arrow-down-right" 
+            label="TopLeft" 
+            severity="secondary" />
+        <p-button 
+            (click)="showDialog('top')" 
+            icon="pi pi-arrow-down" 
+            label="Top" 
+            severity="secondary" />
+        <p-button 
+            (click)="showDialog('top-right')" 
+            icon="pi pi-arrow-down-left" 
+            label="TopRight" 
+            severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
-        <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" styleClass="p-button-success"></p-button>
-        <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" styleClass="p-button-success"></p-button>
-        <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" styleClass="p-button-success"></p-button>
+        <p-button 
+            (click)="showDialog('bottom-left')" 
+            icon="pi pi-arrow-up-right" 
+            label="BottomLeft" 
+            severity="secondary" />
+        <p-button 
+            (click)="showDialog('bottom')" 
+            icon="pi pi-arrow-up" 
+            label="Bottom" 
+            severity="secondary" />
+        <p-button 
+            (click)="showDialog('bottom-right')" 
+            icon="pi pi-arrow-up-left" 
+            label="BottomRight" 
+            severity="secondary" />
     </div>
-    <p-dialog header="Header" [(visible)]="visible" [position]="position" [style]="{ width: '50vw' }">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+    <p-dialog 
+        header="Edit Profile" 
+        [modal]="true"
+        [(visible)]="visible" 
+        [position]="position" 
+        [style]="{ width: '25rem' }">
+            <span class="p-text-secondary block mb-5">
+                Update your information.
+            </span>
+            <div class="flex align-items-center gap-3 mb-3">
+                <label for="username" class="font-semibold w-6rem">
+                    Username
+                </label>
+                <input pInputText id="username" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex align-items-center gap-3 mb-5">
+                <label for="email" class="font-semibold w-6rem">
+                    Email
+                </label>
+                <input pInputText id="email" class="flex-auto" autocomplete="off" />
+            </div>
+            <div class="flex justify-content-end gap-2">
+                <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+                <p-button label="Save" (click)="visible = false" />
+            </div>
     </p-dialog>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+        
 @Component({
     selector: 'dialog-position-demo',
-    templateUrl: './dialog-position-demo.html'
+    templateUrl: './dialog-position-demo.html',
+    standalone: true,
+    imports: [DialogModule, ButtonModule, InputTextModule]
 })
 export class DialogPositionDemo {
     visible: boolean = false;

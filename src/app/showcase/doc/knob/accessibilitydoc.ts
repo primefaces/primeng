@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -80,8 +80,8 @@ import { Code } from '../../domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="label_number">Number</span>
-<p-knob ariaLabelledBy="label_number"></p-knob>
+<p-knob ariaLabelledBy="label_number"/>
 
-<p-knob ariaLabel="Number"></p-knob>`
+<p-knob ariaLabel="Number"/>`
     };
 }

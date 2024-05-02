@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -28,27 +28,35 @@ export class TemplateDoc {
     ];
 
     code: Code = {
-        basic: `<p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
-    <ng-template let-item pTemplate>
-        <i [class]="item.icon"></i>
-    </ng-template>
-</p-selectButton>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
+        basic: `<p-selectButton 
+    [options]="justifyOptions" 
+    [(ngModel)]="value" 
+    optionLabel="icon">
         <ng-template let-item pTemplate>
             <i [class]="item.icon"></i>
         </ng-template>
+</p-selectButton>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-selectButton 
+        [options]="justifyOptions" 
+        [(ngModel)]="value" 
+        optionLabel="icon">
+            <ng-template let-item pTemplate>
+                <i [class]="item.icon"></i>
+            </ng-template>
     </p-selectButton>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @Component({
     selector: 'select-button-template-demo',
-    templateUrl: './select-button-template-demo.html'
+    templateUrl: './select-button-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, SelectButtonModule]
 })
 export class SelectButtonTemplateDemo {
     value: any;

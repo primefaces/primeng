@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -29,28 +29,49 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
-    </ng-template>
+        basic: `<p-scroller 
+    [items]="items" 
+    [itemSize]="50" 
+    scrollHeight="200px" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
+        <ng-template pTemplate="item" let-item let-options="options">
+            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                {{ item }}
+            </div>
+        </ng-template>
 </p-scroller>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
-        </ng-template>
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        [items]="items" 
+        [itemSize]="50" 
+        scrollHeight="200px" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                    {{ item }}
+                </div>
+            </ng-template>
     </p-scroller>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
 
 @Component({
     selector: 'scroller-basic-demo',
     templateUrl: './scroller-basic-demo.html',
-    styleUrls: ['./scroller-basic-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule]
 })
 export class ScrollerBasicDemo implements OnInit {
     items!: string[];

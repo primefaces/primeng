@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [showClear]="true" placeholder="Select Cities"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-basic-demo"></app-code>
     `
@@ -38,15 +38,23 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>`,
+        basic: `<p-multiSelect 
+    [options]="cities" 
+    [(ngModel)]="selectedCities" 
+    optionLabel="name" 
+    placeholder="Select Cities" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" optionLabel="name"></p-multiSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-multiSelect 
+        [options]="cities" 
+        [(ngModel)]="selectedCities" 
+        optionLabel="name" 
+        placeholder="Select Cities" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
     name: string,
@@ -55,7 +63,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-basic-demo',
-    templateUrl: './multi-select-basic-demo.html'
+    templateUrl: './multi-select-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectBasicDemo implements OnInit {
 

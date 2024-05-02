@@ -76,7 +76,7 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
-            <div class="p-checkbox p-component">
+            <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': config.inputStyle() === 'filled' }">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
                     <ng-container *ngIf="selected">
                         <CheckIcon *ngIf="!checkIconTemplate || !itemCheckboxIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
@@ -124,6 +124,8 @@ export class MultiSelectItem {
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
     @Output() onMouseEnter: EventEmitter<any> = new EventEmitter();
+
+    constructor(public config: PrimeNGConfig) {}
 
     onOptionClick(event: Event) {
         this.onClick.emit({
@@ -209,13 +211,24 @@ export class MultiSelectItem {
                 </ng-container>
             </div>
             <div class="p-multiselect-trigger">
-                <ng-container *ngIf="!dropdownIconTemplate">
-                    <span *ngIf="dropdownIcon" class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-trigger-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
+                <ng-container *ngIf="loading; else elseBlock">
+                    <ng-container *ngIf="loadingIconTemplate">
+                        <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!loadingIconTemplate">
+                        <span *ngIf="loadingIcon" [ngClass]="'p-multiselect-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                        <span *ngIf="!loadingIcon" [class]="'p-multiselect-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                    </ng-container>
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate" class="p-multiselect-trigger-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
-                </span>
+                <ng-template #elseBlock>
+                    <ng-container *ngIf="!dropdownIconTemplate">
+                        <span *ngIf="dropdownIcon" class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
+                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-trigger-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
+                    </ng-container>
+                    <span *ngIf="dropdownIconTemplate" class="p-multiselect-trigger-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
+                        <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                    </span>
+                </ng-template>
             </div>
             <p-overlay
                 #overlay
@@ -252,7 +265,7 @@ export class MultiSelectItem {
                                 <div
                                     class="p-checkbox p-component"
                                     *ngIf="showToggleAll && !selectionLimit"
-                                    [ngClass]="{ 'p-checkbox-disabled': disabled || toggleAllDisabled }"
+                                    [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled }"
                                     (click)="onToggleAll($event)"
                                     (keydown)="onHeaderCheckboxKeyDown($event)"
                                 >
@@ -477,7 +490,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * When specified, displays an input field to filter the items on keyup.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) filter: boolean = true;
+    @Input({ transform: booleanAttribute }) filter: boolean = false;
     /**
      * Defines placeholder of the filter input.
      * @group Props
@@ -498,6 +511,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      */
     @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -626,10 +644,20 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      */
     @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
+     * Whether the multiselect is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
+    /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
     @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
+    /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -976,6 +1004,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     checkIconTemplate: TemplateRef<any> | undefined;
 
+    loadingIconTemplate: TemplateRef<any> | undefined;
+
     filterIconTemplate: TemplateRef<any> | undefined;
 
     removeTokenIconTemplate: TemplateRef<any> | undefined;
@@ -1026,7 +1056,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             'p-disabled': this.disabled,
             'p-multiselect-clearable': this.showClear && !this.disabled,
             'p-multiselect-chip': this.display === 'chip',
-            'p-focus': this.focused
+            'p-focus': this.focused,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 
@@ -1041,7 +1072,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     get panelClass() {
         return {
             'p-multiselect-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
@@ -1226,6 +1257,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 case 'headercheckboxicon':
                     this.headerCheckboxIconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
                     break;
 
                 case 'filtericon':
@@ -1762,7 +1797,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
+        if (this.disabled || this.loading || this.readonly || (event.target as Node).isSameNode(this.focusInputViewChild?.nativeElement)) {
             return;
         }
 

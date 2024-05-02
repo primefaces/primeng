@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/focustrap/basicdoc';
-import { ImportDoc } from '../../doc/focustrap/importdoc';
+import { BasicDoc } from '@doc/focustrap/basicdoc';
+import { ImportDoc } from '@doc/focustrap/importdoc';
 
 @Component({
     templateUrl: './focustrapdemo.html'

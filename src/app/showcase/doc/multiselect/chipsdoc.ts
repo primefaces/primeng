@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -13,7 +13,7 @@ interface City {
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true" />
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
     `
@@ -34,15 +34,27 @@ export class ChipsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>`,
+        basic: `<p-multiSelect 
+    [options]="cities" 
+    [(ngModel)]="selectedCities" 
+    placeholder="Select Cities"
+    optionLabel="name" 
+    display="chip" 
+    [showClear]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true"></p-multiSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-multiSelect 
+        [options]="cities" 
+        [(ngModel)]="selectedCities" 
+        placeholder="Select Cities" 
+        optionLabel="name" 
+        display="chip" 
+        [showClear]="true" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
     name: string,
@@ -51,7 +63,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-chips-demo',
-    templateUrl: './multi-select-chips-demo.html'
+    templateUrl: './multi-select-chips-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectChipsDemo implements OnInit {
     cities!: City[];

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'lazy-load-doc',
@@ -34,28 +34,28 @@ import { CustomerService } from '../../service/customerservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 4rem"></th>
-                            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-                            <th pSortableColumn="company">Company <p-sortIcon field="company"></p-sortIcon></th>
-                            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                            <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
+                            <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
+                            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
                         </tr>
                         <tr>
                             <th style="width: 4rem">
-                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                <p-tableHeaderCheckbox />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="name"></p-columnFilter>
+                                <p-columnFilter type="text" field="name" />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                                <p-columnFilter type="text" field="country.name" />
                             </th>
                             <th>
-                                <p-columnFilter type="text" field="company"></p-columnFilter>
+                                <p-columnFilter type="text" field="company" />
                             </th>
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
+                                        <p-multiSelect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                                             <ng-template let-option pTemplate="item">
                                                 <div class="inline-block vertical-align-middle">
                                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -171,28 +171,36 @@ export class LazyLoadDoc implements OnInit {
     <ng-template pTemplate="header">
         <tr>
             <th style="width: 4rem"></th>
-            <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-            <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-            <th pSortableColumn="company">Company <p-sortIcon field="company"></p-sortIcon></th>
-            <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+            <th pSortableColumn="name">
+                Name <p-sortIcon field="name" />
+            </th>
+            <th pSortableColumn="country.name">
+                Country <p-sortIcon field="country.name" />
+            </th>
+            <th pSortableColumn="company">
+                Company <p-sortIcon field="company" />
+            </th>
+            <th pSortableColumn="representative.name">
+                Representative <p-sortIcon field="representative.name" />
+            </th>
         </tr>
         <tr>
             <th style="width: 4rem">
-                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                <p-tableHeaderCheckbox />
             </th>
             <th>
-                <p-columnFilter type="text" field="name"></p-columnFilter>
+                <p-columnFilter type="text" field="name" />
             </th>
             <th>
-                <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                <p-columnFilter type="text" field="country.name" />
             </th>
             <th>
-                <p-columnFilter type="text" field="company"></p-columnFilter>
+                <p-columnFilter type="text" field="company" />
             </th>
             <th>
                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                        <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
+                        <p-multiSelect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                             <ng-template let-option pTemplate="item">
                                 <div class="inline-block vertical-align-middle">
                                     <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -217,8 +225,7 @@ export class LazyLoadDoc implements OnInit {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table
         [value]="customers"
         [lazy]="true"
@@ -238,28 +245,28 @@ export class LazyLoadDoc implements OnInit {
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 4rem"></th>
-                <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                <th pSortableColumn="country.name">Country <p-sortIcon field="country.name"></p-sortIcon></th>
-                <th pSortableColumn="company">Company <p-sortIcon field="company"></p-sortIcon></th>
-                <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name"></p-sortIcon></th>
+                <th pSortableColumn="name">Name <p-sortIcon field="name" /></th>
+                <th pSortableColumn="country.name">Country <p-sortIcon field="country.name" /></th>
+                <th pSortableColumn="company">Company <p-sortIcon field="company" /></th>
+                <th pSortableColumn="representative.name">Representative <p-sortIcon field="representative.name" /></th>
             </tr>
             <tr>
                 <th style="width: 4rem">
-                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    <p-tableHeaderCheckbox />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="name"></p-columnFilter>
+                    <p-columnFilter type="text" field="name" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="country.name"></p-columnFilter>
+                    <p-columnFilter type="text" field="country.name" />
                 </th>
                 <th>
-                    <p-columnFilter type="text" field="company"></p-columnFilter>
+                    <p-columnFilter type="text" field="company" />
                 </th>
                 <th>
                     <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                            <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
+                            <p-multiSelect [(ngModel)]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
                                 <ng-template let-option pTemplate="item">
                                     <div class="inline-block vertical-align-middle">
                                         <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
@@ -285,15 +292,20 @@ export class LazyLoadDoc implements OnInit {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { LazyLoadEvent } from 'primeng/api';
-import { Customer, Representative } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Customer, Representative } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'table-lazy-load-demo',
-    templateUrl: 'table-lazy-load-demo.html'
+    templateUrl: 'table-lazy-load-demo.html',
+    standalone: true,
+    imports: [TableModule, MultiSelectModule, HttpClientModule],
+    providers: [CustomerService]
 })
 export class TableLazyLoadDemo implements OnInit{
     customers!: Customer[];

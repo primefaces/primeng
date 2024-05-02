@@ -1,31 +1,27 @@
 import { Component } from '@angular/core';
-import { IconDoc } from '../../doc/calendar/icondoc';
-import { BasicDoc } from '../../doc/calendar/basicdoc';
-import { FormatDoc } from '../../doc/calendar/formatdoc';
-import { ImportDoc } from '../../doc/calendar/importdoc';
-import { LocaleDoc } from '../../doc/calendar/localedoc';
-import { MinMaxDoc } from '../../doc/calendar/minmaxdox';
-import { MultipleDoc } from '../../doc/calendar/multipledoc';
-import { RangeDoc } from '../../doc/calendar/rangedoc';
-import { ButtonBarDoc } from '../../doc/calendar/buttonbardoc';
-import { TimeDoc } from '../../doc/calendar/timedoc';
-import { MonthDoc } from '../../doc/calendar/monthdoc';
-import { YearDoc } from '../../doc/calendar/yeardoc';
-import { MultipleMonthDoc } from '../../doc/calendar/multiplemonths.doc';
-import { TemplateDoc } from '../../doc/calendar/templatedoc';
-import { InlineDoc } from '../../doc/calendar/inlinedoc';
-import { TouchUIDoc } from '../../doc/calendar/touchuidoc';
-import { DateTemplateDoc } from '../../doc/calendar/datetemplatedoc';
-import { PropsDoc } from '../../doc/calendar/propsdoc';
-import { StyleDoc } from '../../doc/calendar/styledoc';
-import { TemplatesDoc } from '../../doc/calendar/templatesdoc';
-import { EventsDoc } from '../../doc/calendar/eventsdoc';
-import { MethodsDoc } from '../../doc/calendar/methodsdoc';
-import { AccessibilityDoc } from '../../doc/calendar/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/calendar/reactiveformsdoc';
-import { FloatLabelDoc } from '../../doc/calendar/floatlabeldoc';
-import { InvalidDoc } from '../../doc/calendar/invaliddoc';
-import { DisabledDoc } from '../../doc/calendar/disableddoc';
+import { IconDoc } from '@doc/calendar/icondoc';
+import { BasicDoc } from '@doc/calendar/basicdoc';
+import { FormatDoc } from '@doc/calendar/formatdoc';
+import { ImportDoc } from '@doc/calendar/importdoc';
+import { LocaleDoc } from '@doc/calendar/localedoc';
+import { MinMaxDoc } from '@doc/calendar/minmaxdox';
+import { MultipleDoc } from '@doc/calendar/multipledoc';
+import { RangeDoc } from '@doc/calendar/rangedoc';
+import { ButtonBarDoc } from '@doc/calendar/buttonbardoc';
+import { TimeDoc } from '@doc/calendar/timedoc';
+import { MonthDoc } from '@doc/calendar/monthdoc';
+import { YearDoc } from '@doc/calendar/yeardoc';
+import { MultipleMonthDoc } from '@doc/calendar/multiplemonths.doc';
+import { InlineDoc } from '@doc/calendar/inlinedoc';
+import { TouchUIDoc } from '@doc/calendar/touchuidoc';
+import { DateTemplateDoc } from '@doc/calendar/datetemplatedoc';
+import { StyleDoc } from '@doc/calendar/styledoc';
+import { AccessibilityDoc } from '@doc/calendar/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/calendar/reactiveformsdoc';
+import { FloatLabelDoc } from '@doc/calendar/floatlabeldoc';
+import { InvalidDoc } from '@doc/calendar/invaliddoc';
+import { DisabledDoc } from '@doc/calendar/disableddoc';
+import { FilledDoc } from '@doc/calendar/filleddoc';
 @Component({
     templateUrl: './calendardemo.html'
 })
@@ -102,11 +98,6 @@ export class CalendarDemo {
             component: MultipleMonthDoc
         },
         {
-            id: 'customcontent',
-            label: 'Custom Content',
-            component: TemplateDoc
-        },
-        {
             id: 'datetemplate',
             label: 'Date Template',
             component: DateTemplateDoc
@@ -125,6 +116,11 @@ export class CalendarDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

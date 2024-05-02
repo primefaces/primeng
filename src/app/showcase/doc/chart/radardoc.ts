@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-radar-demo',
     template: `
@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-chart type="radar" [data]="data" [options]="options"></p-chart>
+            <p-chart type="radar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
     `
@@ -86,17 +86,18 @@ export class RadarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="radar" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-chart type="radar" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="radar" [data]="data" [options]="options" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-chart type="radar" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-radar-demo',
-    templateUrl: './chart-radar-demo.html'
+    templateUrl: './chart-radar-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartRadarDemo implements OnInit {
     data: any;

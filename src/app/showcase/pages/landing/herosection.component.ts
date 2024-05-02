@@ -15,7 +15,7 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'hero-section',

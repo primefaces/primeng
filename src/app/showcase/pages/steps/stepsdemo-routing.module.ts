@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ConfirmationDemo } from '../../doc/steps/confirmationdemo';
-import { PaymentDemo } from '../../doc/steps/paymentdemo';
-import { PersonalDemo } from '../../doc/steps/personaldemo';
-import { SeatDemo } from '../../doc/steps/seatdemo';
+import { ConfirmationDemo } from '@doc/steps/confirmationdemo';
+import { PaymentDemo } from '@doc/steps/paymentdemo';
+import { PersonalDemo } from '@doc/steps/personaldemo';
+import { SeatDemo } from '@doc/steps/seatdemo';
 import { StepsDemo } from './stepsdemo';
 
 @NgModule({

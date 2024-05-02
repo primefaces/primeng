@@ -5,7 +5,18 @@ import { Breadcrumb } from './breadcrumb';
  * Defines valid templates in Breadcumb.
  * @group Templates
  */
+
 export interface BreadcumbTemplates {
+    /**
+     * Custom template of item.
+     */
+    item(context: {
+        /**
+         * Data of the item.
+         */
+        $implicit: MenuItem;
+    }): TemplateRef<{ $implicit: MenuItem }>;
+
     /**
      * Custom template of separator.
      */

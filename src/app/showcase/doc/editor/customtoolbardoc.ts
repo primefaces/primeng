@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'editor-customtoolbar-demo',
@@ -35,8 +35,7 @@ export class CustomToolbarDoc {
     </ng-template>
 </p-editor>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-editor [(ngModel)]="text" [style]="{ height: '320px' }">
         <ng-template pTemplate="header">
             <span class="ql-formats">

@@ -1,11 +1,11 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ImportDoc } from '../../doc/inputotp/importdoc';
-import { BasicDoc } from '../../doc/inputotp/basicdoc';
-import { MaskDoc } from '../../doc/inputotp/maskdoc';
-import { IntegerOnlyDoc } from '../../doc/inputotp/integeronlydoc';
-import { TemplateDoc } from '../../doc/inputotp/templatedoc';
-import { SampleDoc } from '../../doc/inputotp/sampledoc';
-import { AccessibilityDoc } from '../../doc/inputotp/accessibilitydoc';
+import { ImportDoc } from '@doc/inputotp/importdoc';
+import { BasicDoc } from '@doc/inputotp/basicdoc';
+import { MaskDoc } from '@doc/inputotp/maskdoc';
+import { IntegerOnlyDoc } from '@doc/inputotp/integeronlydoc';
+import { TemplateDoc } from '@doc/inputotp/templatedoc';
+import { SampleDoc } from '@doc/inputotp/sampledoc';
+import { AccessibilityDoc } from '@doc/inputotp/accessibilitydoc';
 
 @Component({
     templateUrl: './inputotp.html',

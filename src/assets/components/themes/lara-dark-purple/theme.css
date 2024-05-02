@@ -752,6 +752,15 @@
   .p-cascadeselect.p-invalid.p-component {
     border-color: #fca5a5;
   }
+  .p-cascadeselect.p-variant-filled {
+    background-color: #424b57;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:hover {
+    background-color: #424b57;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:focus {
+    background-color: #424b57;
+  }
 
   .p-cascadeselect-panel {
     background: #1f2937;
@@ -867,6 +876,18 @@
     border-color: #ddd6fe;
     background: #ddd6fe;
     color: #030712;
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #424b57;
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #a78bfa;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    background-color: #424b57;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #ddd6fe;
   }
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
@@ -1006,6 +1027,15 @@
   }
   .p-dropdown.p-invalid.p-component {
     border-color: #fca5a5;
+  }
+  .p-dropdown.p-variant-filled {
+    background-color: #424b57;
+  }
+  .p-dropdown.p-variant-filled:enabled:hover {
+    background-color: #424b57;
+  }
+  .p-dropdown.p-variant-filled:enabled:focus {
+    background-color: #424b57;
   }
 
   .p-dropdown-panel {
@@ -1190,6 +1220,16 @@
     right: 0.75rem;
   }
 
+  .p-inputmask.p-variant-filled {
+    background-color: #424b57;
+  }
+  .p-inputmask.p-variant-filled:enabled:hover {
+    background-color: #424b57;
+  }
+  .p-inputmask.p-variant-filled:enabled:focus {
+    background-color: #424b57;
+  }
+
   p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: #fca5a5;
   }
@@ -1207,6 +1247,16 @@
   }
   p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
     right: 3.75rem;
+  }
+
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input {
+    background-color: #424b57;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:hover {
+    background-color: #424b57;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:focus {
+    background-color: #424b57;
   }
 
   .p-inputotp {
@@ -1286,6 +1336,15 @@
   }
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #fca5a5;
+  }
+  .p-inputtext.p-variant-filled {
+    background-color: #424b57;
+  }
+  .p-inputtext.p-variant-filled:enabled:hover {
+    background-color: #424b57;
+  }
+  .p-inputtext.p-variant-filled:enabled:focus {
+    background-color: #424b57;
   }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
@@ -1503,6 +1562,15 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
+  .p-multiselect.p-variant-filled {
+    background: #424b57;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background-color: #424b57;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
+    background-color: #424b57;
+  }
 
   .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.375rem 0.75rem;
@@ -1701,6 +1769,18 @@
     border-color: #ddd6fe;
     background: #ddd6fe;
     color: #030712;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box {
+    background-color: #424b57;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+    background-color: #424b57;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+    background: #a78bfa;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    background: #ddd6fe;
   }
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
@@ -1932,6 +2012,15 @@
     width: 3rem;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
+  }
+  .p-treeselect.p-variant-filled {
+    background-color: #424b57;
+  }
+  .p-treeselect.p-variant-filled:enabled:hover {
+    background-color: #424b57;
+  }
+  .p-treeselect.p-variant-filled:enabled:focus {
+    background-color: #424b57;
   }
 
   p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
@@ -3485,6 +3574,18 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
   }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #424b57;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #a78bfa;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #424b57;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #ddd6fe;
+  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(167, 139, 250, 0.16);
     color: rgba(255, 255, 255, 0.87);
@@ -3681,6 +3782,18 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #424b57;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #a78bfa;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #424b57;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #ddd6fe;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid rgba(167, 139, 250, 0.2);

@@ -1,8 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-doughnut-demo',
     template: `
@@ -10,7 +10,7 @@ import { AppConfigService } from '../../service/appconfigservice';
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+            <p-chart type="doughnut" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
     `
@@ -62,17 +62,18 @@ export class DoughnutDoc implements OnInit {
         }
     }
     code: Code = {
-        basic: `<p-chart type="doughnut" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-chart type="doughnut" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="doughnut" [data]="data" [options]="options" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-chart type="doughnut" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-doughnut-demo',
-    templateUrl: './chart-doughnut-demo.html'
+    templateUrl: './chart-doughnut-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartDoughnutDemo implements OnInit {
     data: any;

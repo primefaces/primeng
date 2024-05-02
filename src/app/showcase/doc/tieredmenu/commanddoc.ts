@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { MessageService } from 'primeng/api';
 
 @Component({
@@ -10,15 +10,18 @@ import { MessageService } from 'primeng/api';
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tieredMenu [model]="items"></p-tieredMenu>
             <p-toast />
+            <p-tieredMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tiered-menu-command-demo"></app-code>
     `
 })
 export class CommandDoc implements OnInit {
-    constructor(private messageService: MessageService) {}
-    items: MenuItem[] | undefined;
+
+  items: MenuItem[] | undefined;
+
+  constructor(private messageService: MessageService) {}
+
     ngOnInit() {
         this.items = [
             {
@@ -75,26 +78,32 @@ export class CommandDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tieredMenu [model]="items"></p-tieredMenu>
-<p-toast/>`,
+        basic: `<p-toast/>
+<p-tieredMenu [model]="items" />`,
 
         html: `<div class="card flex justify-content-center">
-        <p-tieredMenu [model]="items"></p-tieredMenu>
-        <p-toast/>
+    <p-toast/>
+    <p-tieredMenu [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { MessageService } from 'primeng/api';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'tiered-menu-command-demo',
-    templateUrl: './tiered-menu-command-demo.html'
+    templateUrl: './tiered-menu-command-demo.html',
+    standalone: true,
+    imports: [TieredMenuModule, ToastModule],
+    providers: [MessageService]
 })
 export class TieredMenuCommandDemo implements OnInit {
-    constructor(private messageService: MessageService) {} 
+  
     items: MenuItem[] | undefined;
+
+    constructor(private messageService: MessageService) {} 
 
     ngOnInit() {
         this.items = [

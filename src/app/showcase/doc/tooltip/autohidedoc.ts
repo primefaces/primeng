@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'auto-hide-doc',
@@ -16,21 +16,41 @@ import { Code } from '../../domain/code';
 })
 export class AutoHideDoc {
     code: Code = {
-        basic: `<input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false">
-<input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true">`,
+        basic: `<input 
+    type="text"
+    pInputText 
+    pTooltip="Enter your username" 
+    [autoHide]="false" 
+    placeholder="autoHide: false" />
+<input 
+    type="text" 
+    pInputText 
+    pTooltip="Enter your username" 
+    placeholder="autoHide: true" />`,
 
-        html: `
-<div class="card flex flex-wrap justify-content-center gap-2">
-    <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false">
-    <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true">
+        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+    <input 
+        type="text" 
+        pInputText 
+        pTooltip="Enter your username" 
+        [autoHide]="false" 
+        placeholder="autoHide: false" />
+    <input 
+        type="text" 
+        pInputText 
+        pTooltip="Enter your username" 
+        placeholder="autoHide: true">
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TooltipModule } from 'primeng/tooltip';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'tooltip-auto-hide-demo',
-    templateUrl: './tooltip-auto-hide-demo.html'
+    templateUrl: './tooltip-auto-hide-demo.html',
+    standalone: true,
+    imports: [TooltipModule, InputTextModule]
 })
 export class TooltipAutoHideDemo {}`
     };

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'invalid-doc',
@@ -9,7 +9,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+            <p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-invalid-demo"></app-code>
     `
@@ -24,20 +24,33 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="md:w-20rem w-full ng-invalid ng-dirty" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes"
+    placeholder="Select Item" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="md:w-20rem w-full ng-invalid ng-dirty" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        placeholder="Select Item" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-invalid-demo',
-    templateUrl: './tree-select-invalid-demo.html'
+    templateUrl: './tree-select-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectInvalidDemo {
     nodes!: any[];

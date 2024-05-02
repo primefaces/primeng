@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/progressbar/basicdoc';
-import { StyleDoc } from '../../doc/progressbar/styledoc';
-import { ImportDoc } from '../../doc/progressbar/importdoc';
-import { TemplateDoc } from '../../doc/progressbar/templatedoc';
-import { IndeterminateDoc } from '../../doc/progressbar/indeterminatedoc';
-import { DynamicDoc } from '../../doc/progressbar/dynamicdoc';
-import { AccessibilityDoc } from '../../doc/progressbar/accessibilitydoc';
+import { BasicDoc } from '@doc/progressbar/basicdoc';
+import { StyleDoc } from '@doc/progressbar/styledoc';
+import { ImportDoc } from '@doc/progressbar/importdoc';
+import { TemplateDoc } from '@doc/progressbar/templatedoc';
+import { IndeterminateDoc } from '@doc/progressbar/indeterminatedoc';
+import { DynamicDoc } from '@doc/progressbar/dynamicdoc';
+import { AccessibilityDoc } from '@doc/progressbar/accessibilitydoc';
 
 @Component({
     templateUrl: './progressbardemo.html'

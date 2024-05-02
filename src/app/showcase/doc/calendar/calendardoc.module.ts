@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/app.code.component';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { AppCodeModule } from '@layout/doc/app.code.component';
 import { CalendarModule } from 'primeng/calendar';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
@@ -32,9 +32,11 @@ import { TemplatesDoc } from './templatesdoc';
 import { FloatLabelDoc } from './floatlabeldoc';
 import { InvalidDoc } from './invaliddoc';
 import { DisabledDoc } from './disableddoc';
+import { FilledDoc } from './filleddoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule, FloatLabelModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -62,6 +64,7 @@ import { DisabledDoc } from './disableddoc';
         AccessibilityDoc,
         ReactiveFormsDoc,
         FloatLabelDoc,
+        FilledDoc,
         InvalidDoc,
         DisabledDoc
     ]
