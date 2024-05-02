@@ -752,15 +752,6 @@
   .p-cascadeselect.p-invalid.p-component {
     border-color: #fca5a5;
   }
-  .p-cascadeselect.p-variant-filled {
-    background-color: #27272a;
-  }
-  .p-cascadeselect.p-variant-filled:enabled:hover {
-    background-color: #27272a;
-  }
-  .p-cascadeselect.p-variant-filled:enabled:focus {
-    background-color: #27272a;
-  }
 
   .p-cascadeselect-panel {
     background: #18181b;
@@ -876,18 +867,6 @@
     border-color: #fcd34d;
     background: #fcd34d;
     color: #020617;
-  }
-  .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: #27272a;
-  }
-  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #fbbf24;
-  }
-  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
-    background-color: #27272a;
-  }
-  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #fcd34d;
   }
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
@@ -1027,15 +1006,6 @@
   }
   .p-dropdown.p-invalid.p-component {
     border-color: #fca5a5;
-  }
-  .p-dropdown.p-variant-filled {
-    background-color: #27272a;
-  }
-  .p-dropdown.p-variant-filled:enabled:hover {
-    background-color: #27272a;
-  }
-  .p-dropdown.p-variant-filled:enabled:focus {
-    background-color: #27272a;
   }
 
   .p-dropdown-panel {
@@ -1220,16 +1190,6 @@
     right: 0.75rem;
   }
 
-  .p-inputmask.p-variant-filled {
-    background-color: #27272a;
-  }
-  .p-inputmask.p-variant-filled:enabled:hover {
-    background-color: #27272a;
-  }
-  .p-inputmask.p-variant-filled:enabled:focus {
-    background-color: #27272a;
-  }
-
   p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: #fca5a5;
   }
@@ -1247,16 +1207,6 @@
   }
   p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
     right: 3.25rem;
-  }
-
-  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input {
-    background-color: #27272a;
-  }
-  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:hover {
-    background-color: #27272a;
-  }
-  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:focus {
-    background-color: #27272a;
   }
 
   .p-inputotp {
@@ -1336,15 +1286,6 @@
   }
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #fca5a5;
-  }
-  .p-inputtext.p-variant-filled {
-    background-color: #27272a;
-  }
-  .p-inputtext.p-variant-filled:enabled:hover {
-    background-color: #27272a;
-  }
-  .p-inputtext.p-variant-filled:enabled:focus {
-    background-color: #27272a;
   }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
@@ -1562,15 +1503,6 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
-  .p-multiselect.p-variant-filled {
-    background: #27272a;
-  }
-  .p-multiselect.p-variant-filled:not(.p-disabled):hover {
-    background-color: #27272a;
-  }
-  .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
-    background-color: #27272a;
-  }
 
   .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.75rem;
@@ -1769,18 +1701,6 @@
     border-color: #fcd34d;
     background: #020617;
     color: #fcd34d;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box {
-    background-color: #27272a;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
-    background-color: #27272a;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
-    background: #020617;
-  }
-  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
-    background: #020617;
   }
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
@@ -2012,15 +1932,6 @@
     width: 2.5rem;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
-  }
-  .p-treeselect.p-variant-filled {
-    background-color: #27272a;
-  }
-  .p-treeselect.p-variant-filled:enabled:hover {
-    background-color: #27272a;
-  }
-  .p-treeselect.p-variant-filled:enabled:focus {
-    background-color: #27272a;
   }
 
   p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
@@ -3574,18 +3485,6 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #ffffff;
   }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: #27272a;
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #fbbf24;
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
-    background-color: #27272a;
-  }
-  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #fcd34d;
-  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(251, 191, 36, 0.16);
     color: rgba(255, 255, 255, 0.87);
@@ -3782,18 +3681,6 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #ffffff;
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
-    background-color: #27272a;
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
-    background: #fbbf24;
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
-    background-color: #27272a;
-  }
-  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
-    background: #fcd34d;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid var(--p-focus-ring-color);
@@ -6467,7 +6354,7 @@
     font-size: 1rem;
   }
 }
-@layer primevue {
+@layer primeng {
   .p-accordion .p-accordion-header .p-accordion-header-link {
     border-radius: 6px !important;
     flex-direction: row-reverse;
