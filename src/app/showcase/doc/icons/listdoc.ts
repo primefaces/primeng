@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { IconService } from '@service/iconservice';
+import { Component } from '@angular/core';
+import { default as IconData } from 'src/assets/showcase/data/icons.json';
 
 @Component({
     selector: 'list-doc',

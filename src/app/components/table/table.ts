@@ -485,12 +485,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * @group Props
      */
     @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
-    @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
      */
-    @Input() rowTrackBy: Function = (index: number, item: any) => item;
     @Input() rowTrackBy: Function = (index: number, item: any) => item;
     /**
      * Defines if data is loaded and interacted with in lazy manner.

@@ -1,7 +1,6 @@
 import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
-import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
@@ -11,7 +10,6 @@ import { CarService } from '@service/carservice';
 import { CountryService } from '@service/countryservice';
 import { CustomerService } from '@service/customerservice';
 import { EventService } from '@service/eventservice';
-import { IconService } from '@service/iconservice';
 import { NodeService } from '@service/nodeservice';
 import { PhotoService } from '@service/photoservice';
 import { ProductService } from '@service/productservice';

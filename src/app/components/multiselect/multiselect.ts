@@ -1263,10 +1263,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.loadingIconTemplate = item.template;
                     break;
 
-                case 'loadingicon':
-                    this.loadingIconTemplate = item.template;
-                    break;
-
                 case 'filtericon':
                     this.filterIconTemplate = item.template;
                     break;
