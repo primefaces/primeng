@@ -108,12 +108,12 @@ export class TreeTableDemo {
                     id: 'sortmultiplecolumns',
                     label: 'Multiple Columns',
                     component: SortMultipleColumnsDoc
-                },
-                {
-                    id: 'sortremovable',
-                    label: 'Removable Sort',
-                    component: SortRemovableDoc
                 }
+                // {
+                //     id: 'sortremovable',
+                //     label: 'Removable Sort',
+                //     component: SortRemovableDoc
+                // }
             ]
         },
         {
