@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ImportDoc } from 'src/app/showcase/doc/avatar/importdoc';
 import { LabelDoc } from 'src/app/showcase/doc/avatar/labeldoc';
-import { GroupDoc } from '../../doc/avatar/avatargroupdoc';
-import { AvatarStyleDoc } from '../../doc/avatar/avatarstyledoc';
-import { AvatarGroupStyleDoc } from '../../doc/avatar/avatargroupstyledoc';
-import { IconDoc } from '../../doc/avatar/icondoc';
-import { ImageDoc } from '../../doc/avatar/imagedoc';
-import { ShapeDoc } from '../../doc/avatar/shapedoc';
-import { SizeDoc } from '../../doc/avatar/sizedoc';
-import { BadgeDoc } from '../../doc/avatar/badgedoc';
-import { TemplateDoc } from '../../doc/avatar/templatedoc';
-import { AccessibilityDoc } from '../../doc/avatar/accessibilitydoc';
+import { GroupDoc } from '@doc/avatar/avatargroupdoc';
+import { AvatarStyleDoc } from '@doc/avatar/avatarstyledoc';
+import { AvatarGroupStyleDoc } from '@doc/avatar/avatargroupstyledoc';
+import { IconDoc } from '@doc/avatar/icondoc';
+import { ImageDoc } from '@doc/avatar/imagedoc';
+import { ShapeDoc } from '@doc/avatar/shapedoc';
+import { SizeDoc } from '@doc/avatar/sizedoc';
+import { BadgeDoc } from '@doc/avatar/badgedoc';
+import { TemplateDoc } from '@doc/avatar/templatedoc';
+import { AccessibilityDoc } from '@doc/avatar/accessibilitydoc';
 
 @Component({
     templateUrl: './avatardemo.html'

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'selection-events-doc',
@@ -11,7 +11,7 @@ import { ProductService } from '../../service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-toast></p-toast>
+                <p-toast />
                 <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code" (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
@@ -59,31 +59,15 @@ export class SelectionEventsDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code"
-    (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr [pSelectableRow]="product">
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-toast></p-toast>
-    <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" dataKey="code"
-        (onRowSelect)="onRowSelect($event)" (onRowUnselect)="onRowUnselect($event)" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-toast />
+<p-table 
+    [value]="products" 
+    selectionMode="single" 
+    [(selection)]="selectedProduct" 
+    dataKey="code" 
+    (onRowSelect)="onRowSelect($event)" 
+    (onRowUnselect)="onRowUnselect($event)" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -100,18 +84,48 @@ export class SelectionEventsDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-toast />
+    <p-table 
+        [value]="products" 
+        selectionMode="single" 
+        [(selection)]="selectedProduct" 
+        dataKey="code"
+        (onRowSelect)="onRowSelect($event)" 
+        (onRowUnselect)="onRowUnselect($event)" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr [pSelectableRow]="product">
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, Input, OnInit } from '@angular/core';
+        typescript: `import { Component, Input, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'table-selection-events-demo',
     templateUrl: 'table-selection-events-demo.html',
-    providers: [MessageService]
+    standalone:true,
+    imports: [TableModule, ToastModule],
+    providers: [MessageService, ProductService]
 })
 export class TableSelectionEventsDemo implements OnInit{
     products!: Product[];

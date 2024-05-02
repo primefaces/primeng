@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'sizes-doc',
@@ -27,8 +27,7 @@ export class SizesDoc {
 <input pInputText type="text" placeholder="Normal" [(ngModel)]="value2" />
 <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />`,
 
-        html: `
-<div class="card flex flex-column align-items-center gap-3 ">
+        html: `<div class="card flex flex-column align-items-center gap-3 ">
     <input pInputText type="text" class="p-inputtext-sm" placeholder="Small" [(ngModel)]="value" />
     <input pInputText type="text" placeholder="Normal" [(ngModel)]="value2" />
     <input pInputText type="text" class="p-inputtext-lg" placeholder="Large" [(ngModel)]="value3" />

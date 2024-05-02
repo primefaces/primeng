@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;
@@ -38,8 +38,8 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
                         </tr>
@@ -99,8 +99,7 @@ export class SelectionCheckboxDoc {
     </ng-template>
 </p-treeTable>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="caption">
             <div class="flex">
@@ -118,19 +117,19 @@ export class SelectionCheckboxDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttSelectableRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0"></p-treeTableCheckbox>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
-    </p-treeTable>
-</div>`,
+</p-treeTable>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -139,7 +138,10 @@ interface Column {
 
 @Component({
     selector: 'tree-table-selection-checkbox-demo',
-    templateUrl: './tree-table-selection-checkbox-demo.html'
+    templateUrl: './tree-table-selection-checkbox-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, CommonModule],
+    providers: [NodeService]
 })
 export class TreeTableSelectionCheckboxDemo implements OnInit {
     files!: TreeNode[];

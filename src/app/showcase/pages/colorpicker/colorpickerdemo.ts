@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { InlineDoc } from '../../doc/colorpicker/inlinedoc';
-import { BasicDoc } from '../../doc/colorpicker/basicdoc';
-import { ImportDoc } from '../../doc/colorpicker/importdoc';
-import { FormatDoc } from '../../doc/colorpicker/formatdoc';
-import { DisabledDoc } from '../../doc/colorpicker/disableddoc';
-import { StyleDoc } from '../../doc/colorpicker/styledoc';
-import { AccessibilityDoc } from '../../doc/colorpicker/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/colorpicker/reactiveformsdoc';
+import { InlineDoc } from '@doc/colorpicker/inlinedoc';
+import { BasicDoc } from '@doc/colorpicker/basicdoc';
+import { ImportDoc } from '@doc/colorpicker/importdoc';
+import { FormatDoc } from '@doc/colorpicker/formatdoc';
+import { DisabledDoc } from '@doc/colorpicker/disableddoc';
+import { StyleDoc } from '@doc/colorpicker/styledoc';
+import { AccessibilityDoc } from '@doc/colorpicker/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/colorpicker/reactiveformsdoc';
 
 @Component({
     templateUrl: './colorpickerdemo.html'

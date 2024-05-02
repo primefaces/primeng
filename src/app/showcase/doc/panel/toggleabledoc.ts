@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'toggleable-doc',
@@ -25,13 +25,11 @@ export class ToggleableDoc {
     code: Code = {
         basic: `<p-panel header="Header" [toggleable]="true">
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet...
     </p>
 </p-panel>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-panel header="Header" [toggleable]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -40,12 +38,14 @@ export class ToggleableDoc {
     </p-panel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
     selector: 'panel-toggleable-demo',
-    templateUrl: './panel-toggleable-demo.html'
+    templateUrl: './panel-toggleable-demo.html',
+    standalone: true,
+    imports: [PanelModule]
 })
 export class PanelToggleableDemo {}`
     };

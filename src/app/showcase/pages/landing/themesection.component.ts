@@ -4,10 +4,10 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { Customer } from '../../domain/customer';
+import { Customer } from '@domain/customer';
 import { AppComponent } from '../../layout/app.component';
-import { AppConfigService } from '../../service/appconfigservice';
-import { CustomerService } from '../../service/customerservice';
+import { AppConfigService } from '@service/appconfigservice';
+import { CustomerService } from '@service/customerservice';
 import { Subscription } from 'rxjs';
 
 @Component({

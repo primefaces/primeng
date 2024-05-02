@@ -766,6 +766,18 @@
   .p-cascadeselect.p-invalid.p-component {
     border-color: #f88c79;
   }
+<<<<<<< HEAD
+=======
+  .p-cascadeselect.p-variant-filled {
+    background-color: #f2f2f2;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:focus {
+    background-color: #f2f2f2;
+  }
+>>>>>>> demo-update-new-2
 
   .p-cascadeselect-panel {
     background: #ffffff;
@@ -882,6 +894,21 @@
     background: #3c5ece;
     color: #ffffff;
   }
+<<<<<<< HEAD
+=======
+  .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #f2f2f2;
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #5472d4;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    background-color: #f2f2f2;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #3c5ece;
+  }
+>>>>>>> demo-update-new-2
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
     border-color: #f88c79;
@@ -1021,6 +1048,18 @@
   .p-dropdown.p-invalid.p-component {
     border-color: #f88c79;
   }
+<<<<<<< HEAD
+=======
+  .p-dropdown.p-variant-filled {
+    background-color: #f2f2f2;
+  }
+  .p-dropdown.p-variant-filled:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  .p-dropdown.p-variant-filled:enabled:focus {
+    background-color: #f2f2f2;
+  }
+>>>>>>> demo-update-new-2
 
   .p-dropdown-panel {
     background: #ffffff;
@@ -1204,6 +1243,19 @@
     right: 0.75rem;
   }
 
+<<<<<<< HEAD
+=======
+  .p-inputmask.p-variant-filled {
+    background-color: #f2f2f2;
+  }
+  .p-inputmask.p-variant-filled:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  .p-inputmask.p-variant-filled:enabled:focus {
+    background-color: #f2f2f2;
+  }
+
+>>>>>>> demo-update-new-2
   p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: #f88c79;
   }
@@ -1223,6 +1275,19 @@
     right: 3.607rem;
   }
 
+<<<<<<< HEAD
+=======
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input {
+    background-color: #f2f2f2;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:focus {
+    background-color: #f2f2f2;
+  }
+
+>>>>>>> demo-update-new-2
   .p-inputotp {
     display: flex;
     align-items: center;
@@ -1300,6 +1365,15 @@
   }
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #f88c79;
+  }
+  .p-inputtext.p-variant-filled {
+    background-color: #f2f2f2;
+  }
+  .p-inputtext.p-variant-filled:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  .p-inputtext.p-variant-filled:enabled:focus {
+    background-color: #f2f2f2;
   }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
@@ -1517,6 +1591,18 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
+<<<<<<< HEAD
+=======
+  .p-multiselect.p-variant-filled {
+    background: #f2f2f2;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background-color: #f2f2f2;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
+    background-color: #f2f2f2;
+  }
+>>>>>>> demo-update-new-2
 
   .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.75rem;
@@ -1716,6 +1802,21 @@
     background: #3c5ece;
     color: #ffffff;
   }
+<<<<<<< HEAD
+=======
+  .p-radiobutton.p-variant-filled .p-radiobutton-box {
+    background-color: #f2f2f2;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+    background-color: #f2f2f2;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+    background: #5472d4;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    background: #3c5ece;
+  }
+>>>>>>> demo-update-new-2
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
     border-color: #f88c79;
@@ -1947,6 +2048,18 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
   }
+<<<<<<< HEAD
+=======
+  .p-treeselect.p-variant-filled {
+    background-color: #f2f2f2;
+  }
+  .p-treeselect.p-variant-filled:enabled:hover {
+    background-color: #f2f2f2;
+  }
+  .p-treeselect.p-variant-filled:enabled:focus {
+    background-color: #f2f2f2;
+  }
+>>>>>>> demo-update-new-2
 
   p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
     border-color: #f88c79;
@@ -3450,6 +3563,18 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #6c6c6c;
   }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #f2f2f2;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #5472d4;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #f2f2f2;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #3c5ece;
+  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: #ced6f1;
     color: #585858;
@@ -3646,6 +3771,18 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #6c6c6c;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #f2f2f2;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #5472d4;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #f2f2f2;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #3c5ece;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid #bbc7ee;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'invalid-doc',
@@ -17,19 +17,33 @@ export class InvalidDoc {
     value!: string;
 
     code: Code = {
-        basic: `<textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value" class="ng-invalid ng-dirty"></textarea>`,
+        basic: `<textarea 
+    rows="5" 
+    cols="30" 
+    pInputTextarea 
+    [(ngModel)]="value" 
+    class="ng-invalid ng-dirty">
+</textarea>`,
 
-        html: `
-<div class="card flex justify-content-center">
-<textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value" class="ng-invalid ng-dirty"></textarea>
+        html: `<div class="card flex justify-content-center">
+    <textarea 
+        rows="5" 
+        cols="30" 
+        pInputTextarea 
+        [(ngModel)]="value"
+        class="ng-invalid ng-dirty">
+    </textarea>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-invalid-demo',
-    templateUrl: './input-textarea-invalid-demo.html'
+    templateUrl: './input-textarea-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextareaModule]
 })
 export class InputTextareaInvalidDemo {
     value!: string;

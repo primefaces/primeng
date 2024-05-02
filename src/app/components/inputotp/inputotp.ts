@@ -77,7 +77,7 @@ export class InputOtp implements AfterContentInit {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: string | null = null;
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Index of the element in tabbing order.
      * @group Props

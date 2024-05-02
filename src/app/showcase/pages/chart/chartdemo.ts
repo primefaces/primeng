@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
-import { ChartjsDoc } from '../../doc/chart/chartjsdoc';
-import { ImportDoc } from '../../doc/chart/importdoc';
-import { BasicDoc } from '../../doc/chart/basicdoc';
-import { PieDoc } from '../../doc/chart/piedoc';
-import { DoughnutDoc } from '../../doc/chart/doughnutdoc';
-import { ComboDoc } from '../../doc/chart/combodoc';
-import { HorizontalBarDoc } from '../../doc/chart/horizontalbardoc';
-import { LineDoc } from '../../doc/chart/linedoc';
-import { MultiAxisDoc } from '../../doc/chart/multiaxisdoc';
-import { PolarAreaDoc } from '../../doc/chart/polarareadoc';
-import { RadarDoc } from '../../doc/chart/radardoc';
-import { StackedBarDoc } from '../../doc/chart/stackedbardoc';
-import { VerticalBarDoc } from '../../doc/chart/verticalbardoc';
-import { LineStyleDoc } from '../../doc/chart/linestyledoc';
-import { PropsDoc } from '../../doc/chart/propsdoc';
-import { MethodsDoc } from '../../doc/chart/methodsdoc';
-import { AccessibilityDoc } from '../../doc/chart/accessibilitydoc';
+import { ChartjsDoc } from '@doc/chart/chartjsdoc';
+import { ImportDoc } from '@doc/chart/importdoc';
+import { BasicDoc } from '@doc/chart/basicdoc';
+import { PieDoc } from '@doc/chart/piedoc';
+import { DoughnutDoc } from '@doc/chart/doughnutdoc';
+import { ComboDoc } from '@doc/chart/combodoc';
+import { HorizontalBarDoc } from '@doc/chart/horizontalbardoc';
+import { LineDoc } from '@doc/chart/linedoc';
+import { MultiAxisDoc } from '@doc/chart/multiaxisdoc';
+import { PolarAreaDoc } from '@doc/chart/polarareadoc';
+import { RadarDoc } from '@doc/chart/radardoc';
+import { StackedBarDoc } from '@doc/chart/stackedbardoc';
+import { VerticalBarDoc } from '@doc/chart/verticalbardoc';
+import { LineStyleDoc } from '@doc/chart/linestyledoc';
+import { PropsDoc } from '@doc/chart/propsdoc';
+import { MethodsDoc } from '@doc/chart/methodsdoc';
+import { AccessibilityDoc } from '@doc/chart/accessibilitydoc';
 
 @Component({
     templateUrl: './chartdemo.html'

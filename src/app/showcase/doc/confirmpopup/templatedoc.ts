@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'confirm-popup-template-demo',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Content section can be customized using <i>content</i> template.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
+            <p-toast />
             <p-confirmPopup>
                 <ng-template pTemplate="content" let-message>
                     <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
@@ -18,7 +18,7 @@ import { Code } from '../../domain/code';
                     </div>
                 </ng-template>
             </p-confirmPopup>
-            <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>
+            <p-button (click)="confirm($event)" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-popup-template-demo"></app-code>
     `,
@@ -34,8 +34,10 @@ export class TemplateDoc {
             icon: 'pi pi-exclamation-circle',
             acceptIcon: 'pi pi-check mr-1',
             rejectIcon: 'pi pi-times mr-1',
-            rejectButtonStyleClass: 'p-button-danger p-button-sm',
-            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+            acceptLabel: 'Confirm',
+            rejectLabel: 'Cancel',
+            rejectButtonStyleClass: 'p-button-outlined p-button-sm',
+            acceptButtonStyleClass: 'p-button-sm',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
@@ -46,7 +48,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-toast></p-toast>
+        basic: `<p-toast />
     <p-confirmPopup>
         <ng-template pTemplate="content" let-message>
             <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
@@ -55,10 +57,10 @@ export class TemplateDoc {
             </div>
         </ng-template>
     </p-confirmPopup>
-<p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>`,
+<p-button (click)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
-        <p-toast></p-toast>
+        <p-toast />
         <p-confirmPopup>
             <ng-template pTemplate="content" let-message>
                 <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
@@ -67,16 +69,20 @@ export class TemplateDoc {
                 </div>
             </ng-template>
         </p-confirmPopup>
-    <p-button (click)="confirm($event)" icon="pi pi-check" label="Confirm"></p-button>
+    <p-button (click)="confirm($event)" label="Save" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { ConfirmationService, MessageService } from 'primeng/api';
-        
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+
 @Component({
     selector: 'confirm-popup-template-demo',
     templateUrl: './confirm-popup-template-demo.html',
+    standalone: true,
+    imports: [ConfirmPopupModule, ToastModule, ButtonModule],
     providers: [ConfirmationService, MessageService]
 })
 export class ConfirmPopupTemplateDemo {
@@ -89,8 +95,10 @@ export class ConfirmPopupTemplateDemo {
             icon: 'pi pi-exclamation-circle',
             acceptIcon: 'pi pi-check mr-1',
             rejectIcon: 'pi pi-times mr-1',
-            rejectButtonStyleClass: 'p-button-danger p-button-sm',
-            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+            acceptLabel: 'Confirm',
+            rejectLabel: 'Cancel',
+            rejectButtonStyleClass: 'p-button-outlined p-button-sm',
+            acceptButtonStyleClass: 'p-button-sm',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },

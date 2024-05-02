@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OverlayPanelDocModule } from '../../doc/overlaypanel/overlaypaneldoc.module';
+import { OverlayPanelDocModule } from '@doc/overlaypanel/overlaypaneldoc.module';
 import { OverlayPanelDemo } from './overlaypaneldemo';
 import { OverlayPanelDemoRoutingModule } from './overlaypaneldemo-routing.module';
 

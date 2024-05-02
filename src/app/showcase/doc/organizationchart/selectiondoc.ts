@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'selection-doc',
@@ -11,7 +11,7 @@ import { Code } from '../../domain/code';
             </p></app-docsectiontext
         >
         <div class="card flex justify-content-center overflow-x-auto">
-            <p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
+            <p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="p-2 text-center">
                         <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
@@ -76,36 +76,57 @@ export class SelectionDoc {
     ];
 
     code: Code = {
-        basic: `<p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
-    <ng-template let-node pTemplate="person">
-        <div class="p-2 text-center">
-            <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
-            <div class="font-bold">{{ node.data.name }}</div>
-            <div>{{ node.data.title }}</div>
-        </div>
-    </ng-template>
-</p-organizationChart>`,
-
-        html: `
-<div class="card flex justify-content-center overflow-x-auto">
-    <p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes">
+        basic: `<p-organizationChart 
+    [value]="data" 
+    selectionMode="multiple" 
+    [(selection)]="selectedNodes" 
+    [collapsible]="true">
         <ng-template let-node pTemplate="person">
             <div class="p-2 text-center">
-                <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
-                <div class="font-bold">{{ node.data.name }}</div>
-                <div>{{ node.data.title }}</div>
+                <img 
+                    [src]="node.data.image" 
+                    class="mb-3 w-3rem h-3rem" />
+                <div class="font-bold">
+                    {{ node.data.name }}
+                </div>
+                <div>
+                    {{ node.data.title }}
+                </div>
             </div>
         </ng-template>
+</p-organizationChart>`,
+
+        html: `<div class="card flex justify-content-center overflow-x-auto">
+    <p-organizationChart 
+        [value]="data" 
+        selectionMode="multiple" 
+        [(selection)]="selectedNodes" 
+        [collapsible]="true">
+            <ng-template let-node pTemplate="person">
+                <div class="p-2 text-center">
+                    <img 
+                        [src]="node.data.image" 
+                        class="mb-3 w-3rem h-3rem" />
+                    <div class="font-bold">
+                        {{ node.data.name }}
+                    </div>
+                    <div>
+                        {{ node.data.title }}
+                    </div>
+                </div>
+            </ng-template>
     </p-organizationChart>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
 @Component({
     selector: 'organization-chart-selection-demo',
     templateUrl: './organization-chart-selection-demo.html',
+    standalone: true,
+    imports: [OrganizationChartModule]
 })
 export class OrganizationChartSelectionDemo {
     selectedNodes!: TreeNode[];

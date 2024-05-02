@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { DisabledDoc } from '../../doc/rating/disableddoc';
-import { BasicDoc } from '../../doc/rating/basicdoc';
-import { ImportDoc } from '../../doc/rating/importdoc';
-import { NumberOfStarsDoc } from '../../doc/rating/numberofstarsdoc';
-import { ReadOnlyDoc } from '../../doc/rating/readonlydoc';
-import { TemplateDoc } from '../../doc/rating/templatedoc';
-import { WithoutCancelDoc } from '../../doc/rating/withoutcanceldoc';
-import { StyleDoc } from '../../doc/rating/styledoc';
-import { AccessibilityDoc } from '../../doc/rating/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/rating/reactiveformsdoc';
+import { DisabledDoc } from '@doc/rating/disableddoc';
+import { BasicDoc } from '@doc/rating/basicdoc';
+import { ImportDoc } from '@doc/rating/importdoc';
+import { NumberOfStarsDoc } from '@doc/rating/numberofstarsdoc';
+import { ReadOnlyDoc } from '@doc/rating/readonlydoc';
+import { TemplateDoc } from '@doc/rating/templatedoc';
+import { WithoutCancelDoc } from '@doc/rating/withoutcanceldoc';
+import { StyleDoc } from '@doc/rating/styledoc';
+import { AccessibilityDoc } from '@doc/rating/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/rating/reactiveformsdoc';
 
 @Component({
     templateUrl: './ratingdemo.html'

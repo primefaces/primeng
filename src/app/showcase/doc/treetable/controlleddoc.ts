@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'controlled-doc',
@@ -9,7 +9,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <button (click)="toggleApplications()" pButton label="Toggle Applications"></button>
+            <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
                     <ng-template pTemplate="header">
@@ -22,7 +22,7 @@ import { NodeService } from '../../service/nodeservice';
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
                             <td>
-                                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
                             <td>{{ rowData.size }}</td>
@@ -56,7 +56,7 @@ export class ControlledDoc {
     }
 
     code: Code = {
-        basic: `<button (click)="toggleApplications()" pButton label="Toggle Applications"></button>
+        basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
     <ng-template pTemplate="header">
         <tr>
@@ -68,7 +68,7 @@ export class ControlledDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -78,7 +78,7 @@ export class ControlledDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-<button (click)="toggleApplications()" pButton label="Toggle Applications"></button>
+<p-button (click)="toggleApplications()" label="Toggle Applications" />
 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
     <ng-template pTemplate="header">
         <tr>
@@ -90,7 +90,7 @@ export class ControlledDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
         <tr [ttRow]="rowNode">
             <td>
-                <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" />
                 {{ rowData.name }}
             </td>
             <td>{{ rowData.size }}</td>
@@ -100,15 +100,18 @@ export class ControlledDoc {
 </p-treeTable>
 </div>`,
 
-        typescript: `
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+        typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
-
+import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tree-table-controlled-demo',
-    templateUrl: './tree-table-controlled-demo.html'
+    templateUrl: './tree-table-controlled-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, ButtonModule],
+    providers: [NodeService]
 })
 export class TreeTableControlledDemo implements OnInit {
     files!: TreeNode[];

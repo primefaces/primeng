@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/confirmpopup/basicdoc';
-import { ImportDoc } from '../../doc/confirmpopup/importdoc';
-import { TemplateDoc } from '../../doc/confirmpopup/templatedoc';
-import { StyleDoc } from '../../doc/confirmpopup/styledoc';
-import { AccessibilityDoc } from '../../doc/confirmpopup/accessibilitydoc';
-import { HeadlessDoc } from '../../doc/confirmpopup/headlessdoc';
+import { BasicDoc } from '@doc/confirmpopup/basicdoc';
+import { ImportDoc } from '@doc/confirmpopup/importdoc';
+import { TemplateDoc } from '@doc/confirmpopup/templatedoc';
+import { StyleDoc } from '@doc/confirmpopup/styledoc';
+import { AccessibilityDoc } from '@doc/confirmpopup/accessibilitydoc';
+import { HeadlessDoc } from '@doc/confirmpopup/headlessdoc';
 @Component({
     templateUrl: './confirmpopupdemo.html'
 })

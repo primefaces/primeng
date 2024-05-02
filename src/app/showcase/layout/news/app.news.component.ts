@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, afterNextRender 
 import { FormsModule } from '@angular/forms';
 import { StyleClassModule } from 'primeng/styleclass';
 import News from '../../data/news.json';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-news',

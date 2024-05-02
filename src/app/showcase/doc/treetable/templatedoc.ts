@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;
@@ -28,18 +28,18 @@ interface Column {
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
                             <td *ngFor="let col of columns; let i = index; let last = last">
-                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                                 <ng-container *ngIf="last">
-                                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
-                                    <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                                 </ng-container>
                             </td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="summary">
                         <div style="text-align:left">
-                            <p-button icon="pi pi-refresh" label="Reload"></p-button>
+                            <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
                         </div>
                     </ng-template>
                 </p-treeTable>
@@ -78,18 +78,18 @@ export class TemplateDoc {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index; let last = last">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                     <ng-container *ngIf="last">
-                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
-                        <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                        <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                        <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                     </ng-container>
                 </td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
             <div style="text-align:left">
-                <p-button icon="pi pi-refresh" label="Reload"></p-button>
+                <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
             </div>
         </ng-template>
 </p-treeTable>`,
@@ -107,27 +107,29 @@ export class TemplateDoc {
     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
         <tr [ttRow]="rowNode">
             <td *ngFor="let col of columns; let i = index; let last = last">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                 {{ rowData[col.field] }}
                 <ng-container *ngIf="last">
-                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }"></p-button>
-                    <p-button icon="pi pi-pencil" rounded="true" severity="success"></p-button>
+                    <p-button icon="pi pi-search" rounded="true" [style]="{ 'margin-right': '.5em' }" />
+                    <p-button icon="pi pi-pencil" rounded="true" severity="success" />
                 </ng-container>
             </td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
         <div style="text-align:left">
-            <p-button icon="pi pi-refresh" label="Reload"></p-button>
+            <p-button icon="pi pi-refresh" label="Reload" severity="warning" />
         </div>
     </ng-template>
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { ButtonModule } from 'primeng/button';
+import { TreeTableModule } from 'primeng/treetable';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -136,7 +138,10 @@ interface Column {
 
 @Component({
     selector: 'tree-table-template-demo',
-    templateUrl: './tree-table-template-demo.html'
+    templateUrl: './tree-table-template-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, ButtonModule, CommonModule],
+    providers: [NodeService]
 })
 export class TreeTableTemplateDemo implements OnInit {
     files!: TreeNode[];

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DataViewDocModule } from '../../doc/dataview/dataviewdoc.module';
+import { DataViewDocModule } from '@doc/dataview/dataviewdoc.module';
 import { DataViewDemo } from './dataviewdemo';
 import { DataViewDemoRoutingModule } from './dataviewdemo-routing.module';
 

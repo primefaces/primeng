@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'filter-doc',
@@ -13,7 +13,7 @@ import { NodeService } from '../../service/nodeservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>
+            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
     `
@@ -28,20 +28,37 @@ export class FilterDoc {
     }
 
     code: Code = {
-        basic: `<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="md:w-20rem w-full" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    placeholder="Select Item" 
+    [filter]="true" 
+    [filterInputAutoFocus]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="md:w-20rem w-full" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes"
+        placeholder="Select Item" 
+        [filter]="true" 
+        [filterInputAutoFocus]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-filter-demo',
-    templateUrl: './tree-select-filter-demo.html'
+    templateUrl: './tree-select-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectFilterDemo {
     nodes!: any[];

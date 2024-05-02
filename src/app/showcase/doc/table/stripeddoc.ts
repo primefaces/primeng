@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'striped-doc',
@@ -46,27 +46,10 @@ export class StripedDoc {
     }
 
     code: Code = {
-        basic: `<p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Quantity</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-product>
-        <tr>
-            <td>{{product.code}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </ng-template>
-</p-table>`,
-        html: `
-<div class="card">
-    <p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table 
+    [value]="products" 
+    styleClass="p-datatable-striped" 
+    [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
                 <th>Code</th>
@@ -83,16 +66,42 @@ export class StripedDoc {
                 <td>{{product.quantity}}</td>
             </tr>
         </ng-template>
+</p-table>`,
+        html: `<div class="card">
+    <p-table 
+        [value]="products" 
+        styleClass="p-datatable-striped" 
+        [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-product>
+                <tr>
+                    <td>{{product.code}}</td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>{{product.quantity}}</td>
+                </tr>
+            </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-striped-demo',
-    templateUrl: 'table-striped-demo.html'
+    templateUrl: 'table-striped-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableStripedDemo {
     products!: Product[];

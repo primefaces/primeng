@@ -758,6 +758,18 @@
   .p-cascadeselect.p-invalid.p-component {
     border-color: #f44435;
   }
+<<<<<<< HEAD
+=======
+  .p-cascadeselect.p-variant-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-cascadeselect.p-variant-filled:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-cascadeselect.p-variant-filled:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+>>>>>>> demo-update-new-2
 
   .p-cascadeselect-panel {
     background: #2b2b2b;
@@ -874,6 +886,21 @@
     background: #CE93D8;
     color: #121212;
   }
+<<<<<<< HEAD
+=======
+  .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #CE93D8;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #CE93D8;
+  }
+>>>>>>> demo-update-new-2
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
     border-color: #f44435;
@@ -1013,6 +1040,18 @@
   .p-dropdown.p-invalid.p-component {
     border-color: #f44435;
   }
+<<<<<<< HEAD
+=======
+  .p-dropdown.p-variant-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-dropdown.p-variant-filled:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-dropdown.p-variant-filled:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+>>>>>>> demo-update-new-2
 
   .p-dropdown-panel {
     background: #2b2b2b;
@@ -1196,6 +1235,19 @@
     right: 0.75rem;
   }
 
+<<<<<<< HEAD
+=======
+  .p-inputmask.p-variant-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-inputmask.p-variant-filled:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-inputmask.p-variant-filled:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+>>>>>>> demo-update-new-2
   p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: #f44435;
   }
@@ -1215,6 +1267,19 @@
     right: 3.5rem;
   }
 
+<<<<<<< HEAD
+=======
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+>>>>>>> demo-update-new-2
   .p-inputotp {
     display: flex;
     align-items: center;
@@ -1292,6 +1357,15 @@
   }
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #f44435;
+  }
+  .p-inputtext.p-variant-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-inputtext.p-variant-filled:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-inputtext.p-variant-filled:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
   }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
@@ -1509,6 +1583,18 @@
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
+<<<<<<< HEAD
+=======
+  .p-multiselect.p-variant-filled {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+>>>>>>> demo-update-new-2
 
   .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.375rem 0.75rem;
@@ -1708,6 +1794,21 @@
     background: #121212;
     color: #CE93D8;
   }
+<<<<<<< HEAD
+=======
+  .p-radiobutton.p-variant-filled .p-radiobutton-box {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+    background: #121212;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    background: #121212;
+  }
+>>>>>>> demo-update-new-2
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
     border-color: #f44435;
@@ -1939,6 +2040,18 @@
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
+<<<<<<< HEAD
+=======
+  .p-treeselect.p-variant-filled {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-treeselect.p-variant-filled:enabled:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-treeselect.p-variant-filled:enabled:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+>>>>>>> demo-update-new-2
 
   p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
     border-color: #f44435;
@@ -3491,6 +3604,18 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
   }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #CE93D8;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #CE93D8;
+  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: rgba(206, 147, 216, 0.16);
     color: #CE93D8;
@@ -3687,6 +3812,18 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: rgba(255, 255, 255, 0.87);
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #CE93D8;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #CE93D8;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid transparent;
@@ -4071,10 +4208,17 @@
     background: transparent;
     border: solid rgba(255, 255, 255, 0.12);
     border-width: 0 0 1px 0;
+<<<<<<< HEAD
   }
   .p-tabview .p-tabview-nav li {
     margin-right: 0;
   }
+=======
+  }
+  .p-tabview .p-tabview-nav li {
+    margin-right: 0;
+  }
+>>>>>>> demo-update-new-2
   .p-tabview .p-tabview-nav li .p-tabview-nav-link {
     border: solid rgba(255, 255, 255, 0.12);
     border-width: 0 0 1px 0;
@@ -4298,6 +4442,7 @@
   .p-stepper.p-stepper-vertical .p-stepper-panel .p-stepper-content {
     width: 100%;
     padding-left: 1rem;
+<<<<<<< HEAD
   }
   .p-stepper.p-stepper-vertical .p-stepper-panel .p-stepper-separator {
     flex: 0 0 auto;
@@ -4305,6 +4450,15 @@
     height: auto;
     margin-inline-start: calc(1.75rem + 2px);
   }
+=======
+  }
+  .p-stepper.p-stepper-vertical .p-stepper-panel .p-stepper-separator {
+    flex: 0 0 auto;
+    width: 2px;
+    height: auto;
+    margin-inline-start: calc(1.75rem + 2px);
+  }
+>>>>>>> demo-update-new-2
   .p-stepper.p-stepper-vertical .p-stepper-panel:has(~ .p-stepper-panel-active) .p-stepper-separator {
     background-color: #CE93D8;
   }
@@ -6937,11 +7091,15 @@
   .p-checkbox.p-checkbox-checked:not(.p-checkbox-disabled).p-checkbox-focused {
     box-shadow: 0 0 1px 10px rgba(206, 147, 216, 0.12);
   }
+<<<<<<< HEAD
 
   .p-input-filled .p-checkbox .p-checkbox-box {
+=======
+  .p-checkbox.p-variant-filled .p-checkbox-box {
+>>>>>>> demo-update-new-2
     background-color: #1e1e1e;
   }
-  .p-input-filled .p-checkbox .p-checkbox-box:not(.p-disabled):hover {
+  .p-checkbox.p-variant-filled .p-checkbox-box:not(.p-disabled):hover {
     background-color: #1e1e1e;
   }
 
@@ -7058,6 +7216,21 @@
   .p-dropdown:not(.p-disabled).p-focus {
     box-shadow: inset 0 0 0 1px #CE93D8, inset 0 0 0 1px #CE93D8, inset 0 0 0 1px #CE93D8, inset 0 0 0 1px #CE93D8;
   }
+<<<<<<< HEAD
+=======
+  .p-dropdown.p-variant-filled {
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .p-dropdown.p-variant-filled:not(.p-disabled):hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .p-dropdown.p-variant-filled:not(.p-disabled).p-focus {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .p-dropdown.p-variant-filled:not(.p-disabled).p-focus .p-inputtext {
+    background-color: transparent;
+  }
+>>>>>>> demo-update-new-2
 
   .p-dropdown-item .p-ink {
     background-color: rgba(206, 147, 216, 0.16);

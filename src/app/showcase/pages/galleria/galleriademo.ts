@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/galleria/accessibilitydoc';
-import { AdvancedDoc } from '../../doc/galleria/advanceddoc';
-import { AutoPlayDoc } from '../../doc/galleria/autoplaydoc';
-import { BasicDoc } from '../../doc/galleria/basicdoc';
-import { CaptionDoc } from '../../doc/galleria/captiondoc';
-import { ControlledDoc } from '../../doc/galleria/controlleddoc';
-import { FullScreenTemplateDoc } from '../../doc/galleria/fullscreen/customcontentdoc';
-import { WithoutThumbnailsDoc } from '../../doc/galleria/fullscreen/withoutthumbnailsdoc';
-import { WithThumbnailsDoc } from '../../doc/galleria/fullscreen/withthumbnailsdoc';
-import { ImportDoc } from '../../doc/galleria/importdoc';
-import { ClickEventDoc } from '../../doc/galleria/indicator/clickeventdoc';
-import { HoverEventDoc } from '../../doc/galleria/indicator/hovereventdoc';
-import { PositionedDoc } from '../../doc/galleria/indicator/positioneddoc';
-import { TemplateDoc } from '../../doc/galleria/indicator/templatedoc';
-import { HoverDoc } from '../../doc/galleria/navigator/hoverdoc';
-import { IndicatorsDoc } from '../../doc/galleria/navigator/indicatorsdoc';
-import { ItemThumbnailsDoc } from '../../doc/galleria/navigator/itemthumbnailsdoc';
-import { ItemWithoutThumbnailsDoc } from '../../doc/galleria/navigator/itemwithoutthumbnailsdoc';
-import { ResponsiveDoc } from '../../doc/galleria/responsivedoc';
-import { StyleDoc } from '../../doc/galleria/styledoc';
-import { ThumbnailDoc } from '../../doc/galleria/thumbnaildoc';
+import { AccessibilityDoc } from '@doc/galleria/accessibilitydoc';
+import { AdvancedDoc } from '@doc/galleria/advanceddoc';
+import { AutoPlayDoc } from '@doc/galleria/autoplaydoc';
+import { BasicDoc } from '@doc/galleria/basicdoc';
+import { CaptionDoc } from '@doc/galleria/captiondoc';
+import { ControlledDoc } from '@doc/galleria/controlleddoc';
+import { FullScreenTemplateDoc } from '@doc/galleria/fullscreen/customcontentdoc';
+import { WithoutThumbnailsDoc } from '@doc/galleria/fullscreen/withoutthumbnailsdoc';
+import { WithThumbnailsDoc } from '@doc/galleria/fullscreen/withthumbnailsdoc';
+import { ImportDoc } from '@doc/galleria/importdoc';
+import { ClickEventDoc } from '@doc/galleria/indicator/clickeventdoc';
+import { HoverEventDoc } from '@doc/galleria/indicator/hovereventdoc';
+import { PositionedDoc } from '@doc/galleria/indicator/positioneddoc';
+import { TemplateDoc } from '@doc/galleria/indicator/templatedoc';
+import { HoverDoc } from '@doc/galleria/navigator/hoverdoc';
+import { IndicatorsDoc } from '@doc/galleria/navigator/indicatorsdoc';
+import { ItemThumbnailsDoc } from '@doc/galleria/navigator/itemthumbnailsdoc';
+import { ItemWithoutThumbnailsDoc } from '@doc/galleria/navigator/itemwithoutthumbnailsdoc';
+import { ResponsiveDoc } from '@doc/galleria/responsivedoc';
+import { StyleDoc } from '@doc/galleria/styledoc';
+import { ThumbnailDoc } from '@doc/galleria/thumbnaildoc';
 
 @Component({
     templateUrl: './galleriademo.html',

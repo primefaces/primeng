@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'custom-doc',
@@ -62,8 +62,7 @@ export class CusstomDoc {
     </p>
 </p-scrollPanel>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex flex-column md:flex-row gap-5">
         <div class="flex-auto">
             <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">
@@ -102,12 +101,14 @@ export class CusstomDoc {
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 @Component({
     selector: 'scroll-panel-custom-demo',
-    templateUrl: './scroll-panel-custom-demo.html'
+    templateUrl: './scroll-panel-custom-demo.html',
+    standalone: true,
+    imports: [ScrollPanelModule]
 })
 export class ScrollPanelCustomDemo {}`
     };

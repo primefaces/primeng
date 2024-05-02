@@ -48,7 +48,7 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
@@ -71,12 +71,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            class="p-inputmask"
+            [class]="styleClass"
+            [ngClass]="inputClass"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
             [ngStyle]="style"
-            [ngClass]="styleClass"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
             [attr.size]="size"
@@ -94,6 +94,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             pAutoFocus
+            [variant]="variant"
             [autofocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
@@ -179,6 +180,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() title: string | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -341,7 +347,15 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     focused: Nullable<boolean>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    _variant: 'filled' | 'outlined' = 'outlined';
+
+    get inputClass() {
+        return {
+            'p-inputmask': true
+        };
+    }
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
