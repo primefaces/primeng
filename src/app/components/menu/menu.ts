@@ -581,6 +581,10 @@ export class Menu implements OnDestroy {
                 this.onEnterKey(event);
                 break;
 
+            case 'NumpadEnter':
+                this.onEnterKey(event);
+                break;
+
             case 'Space':
                 this.onSpaceKey(event);
                 break;
