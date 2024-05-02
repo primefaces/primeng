@@ -6,16 +6,19 @@ import { MenuItem } from 'primeng/api';
  * @group Templates
  */
 export interface MenubarTemplates {
-      /**
+    /**
      * Custom item template.
      */
-      item(context: {
+    item(context: {
         /**
          * Item instance.
          */
-        $implicit: MenuItem
-
-    }): TemplateRef<{ $implicit: MenuItem }>;
+        $implicit: MenuItem;
+        /**
+         * Whether root or not
+         */
+        root: boolean;
+    }): TemplateRef<{ $implicit: MenuItem; root: boolean }>;
     /**
      * Custom template of start.
      */
