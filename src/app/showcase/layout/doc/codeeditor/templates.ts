@@ -417,6 +417,7 @@ const getAngularApp = (props: Props = {}) => {
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
     import { DynamicDialogModule } from 'primeng/dynamicdialog';
+    import { DeferModule } from 'primeng/defer';
     import { EditorModule } from 'primeng/editor';
     import { FieldsetModule } from 'primeng/fieldset';
     import { FileUploadModule } from 'primeng/fileupload';
@@ -526,6 +527,7 @@ const getAngularApp = (props: Props = {}) => {
         DragDropModule,
         DropdownModule,
         DynamicDialogModule,
+        DeferModule,
         EditorModule,
         FieldsetModule,
         FileUploadModule,
