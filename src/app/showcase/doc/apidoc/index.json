@@ -3935,6 +3935,13 @@
                             "description": "Property name or getter function to use as the label of an option."
                         },
                         {
+                            "name": "optionValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | Function",
+                            "description": "Property name or getter function to use as the value of an option."
+                        },
+                        {
                             "name": "id",
                             "optional": false,
                             "readonly": false,
@@ -4735,6 +4742,17 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "breadcrumb",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Data of the item.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
                     {
                         "parent": "breadcrumb",
                         "name": "separator",
@@ -8460,6 +8478,31 @@
                         }
                     ]
                 }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "contextmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "contextmenu",
+                        "name": "submenuicon",
+                        "parameters": [],
+                        "description": "Custom template of submenuicon."
+                    }
+                ]
             }
         }
     },
@@ -13572,6 +13615,14 @@
                             "description": "Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators."
                         },
                         {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
                             "name": "minFractionDigits",
                             "optional": false,
                             "readonly": false,
@@ -13789,8 +13840,8 @@
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "default": "null",
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -14116,7 +14167,7 @@
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
-                            "description": "Button directive is an extension to button component."
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 }
@@ -15123,6 +15174,17 @@
                 "values": [
                     {
                         "parent": "megamenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "megamenu",
                         "name": "start",
                         "parameters": [],
                         "description": "Custom template of start."
@@ -15327,6 +15389,48 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "menu",
+                        "name": "start",
+                        "parameters": [],
+                        "description": "Custom template of start."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "end",
+                        "parameters": [],
+                        "description": "Custom template of end."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of item."
+                    },
+                    {
+                        "parent": "menu",
+                        "name": "submenuheader",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of submenuheader."
+                    }
+                ]
+            }
         }
     },
     "menubar": {
@@ -15452,6 +15556,17 @@
             "templates": {
                 "description": "Defines the templates used by the component.",
                 "values": [
+                    {
+                        "parent": "menubar",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  \t root: boolean, // Whether root or not\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
                     {
                         "parent": "menubar",
                         "name": "start",
@@ -15866,7 +15981,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "default": "true",
                             "description": "When specified, displays an input field to filter the items on keyup."
                         },
                         {
@@ -18358,6 +18473,17 @@
                 "values": [
                     {
                         "parent": "panelmenu",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: MenuItem, // Item instance.\n  }"
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "panelmenu",
                         "name": "submenuicon",
                         "parameters": [],
                         "description": "Custom template of submenuicon."
@@ -18419,6 +18545,14 @@
                             "readonly": false,
                             "type": null,
                             "description": "Sets the visibility of the password field."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 }
@@ -18611,6 +18745,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
                         }
                     ]
                 },
@@ -27236,8 +27378,8 @@
                             "name": "onFilter",
                             "parameters": [
                                 {
-                                    "name": "value",
-                                    "type": "any"
+                                    "name": "event",
+                                    "type": "TreeFilterEvent"
                                 }
                             ],
                             "description": "Callback to invoke when data is filtered."
