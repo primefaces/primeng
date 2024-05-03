@@ -240,7 +240,7 @@ export class TieredMenuSub implements AfterContentInit {
             if (ObjectUtils.isNotEmpty(path)) {
                 this.positionSubmenu();
             }
-        })
+        });
     }
 
     ngAfterContentInit(): void {
@@ -591,7 +591,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
-                    
+
                 default:
                     this.itemTemplate = item.template;
                     break;

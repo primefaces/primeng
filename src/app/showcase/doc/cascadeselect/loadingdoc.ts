@@ -14,7 +14,6 @@ import { Code } from '@domain/code';
     `
 })
 export class LoadingDoc {
-
     code: Code = {
         basic: `<p-cascadeSelect 
     [loading]="true" 

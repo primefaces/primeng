@@ -20,8 +20,8 @@ import { Code } from '@domain/code';
                     </ng-template>
                 </p-inputOtp>
                 <div class="flex justify-content-between mt-5 align-self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0"/>
-                    <p-button label="Submit Code"/>
+                    <p-button label="Resend Code" [link]="true" class="p-0" />
+                    <p-button label="Submit Code" />
                 </div>
             </div>
         </div>

@@ -10,10 +10,10 @@ interface City {
     selector: 'filled-doc',
     template: `
         <app-docsectiontext>
-        <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
+            <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities"/>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" variant="filled" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-filled-demo"></app-code>
     `

@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <form [formGroup]="formGroup">
-                <p-editor formControlName="text" [style]="{ height: '320px' }"/>
+                <p-editor formControlName="text" [style]="{ height: '320px' }" />
             </form>
         </div>
         <app-code [code]="code" selector="editor-reactive-forms-demo"></app-code>

@@ -10,18 +10,18 @@ import { Code } from '@domain/code';
         <div class="card flex flex-column md:flex-row gap-3">
             <p-inputGroup>
                 <input type="text" pInputText placeholder="Price" />
-                <p-inputGroupAddon><p-radioButton [(ngModel)]="radioValue1" name="rb1" value="rb1"/></p-inputGroupAddon>
+                <p-inputGroupAddon><p-radioButton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputGroupAddon>
             </p-inputGroup>
 
             <p-inputGroup>
-                <p-inputGroupAddon><p-checkbox [(ngModel)]="checked1" [binary]="true"/></p-inputGroupAddon>
+                <p-inputGroupAddon><p-checkbox [(ngModel)]="checked1" [binary]="true" /></p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Username" />
             </p-inputGroup>
 
             <p-inputGroup>
-                <p-inputGroupAddon><p-checkbox [(ngModel)]="checked2" [binary]="true"/></p-inputGroupAddon>
+                <p-inputGroupAddon><p-checkbox [(ngModel)]="checked2" [binary]="true" /></p-inputGroupAddon>
                 <input type="text" pInputText placeholder="Website" />
-                <p-inputGroupAddon><p-radioButton name="rb2" value="rb2" [(ngModel)]="category"/></p-inputGroupAddon>
+                <p-inputGroupAddon><p-radioButton name="rb2" value="rb2" [(ngModel)]="category" /></p-inputGroupAddon>
             </p-inputGroup>
         </div>
         <app-code [code]="code" selector="input-group-checkbox-demo"></app-code>

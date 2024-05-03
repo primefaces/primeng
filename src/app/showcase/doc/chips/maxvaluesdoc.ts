@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Chips can have a maximum number of entered items. To set this limit, the <i>max</i> property is used, which accepts a numeric value that represents the maximum number of items in the chip list</p>
         </app-docsectiontext>
         <div class="card p-fluid">
-            <p-chips [formControl]="values" [max]="2" placeholder="Maximum 2 items"/>
+            <p-chips [formControl]="values" [max]="2" placeholder="Maximum 2 items" />
         </div>
         <app-code [code]="code" selector="chips-max-values-demo"></app-code>
     `

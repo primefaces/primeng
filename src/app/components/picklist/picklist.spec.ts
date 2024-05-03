@@ -106,7 +106,7 @@ describe('PickList', () => {
         fixture.detectChanges();
 
         const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
-       //expect(picklist.visibleOptionsSource).toBeDefined();
+        //expect(picklist.visibleOptionsSource).toBeDefined();
         expect(picklist.visibleOptionsSource.length).toEqual(2);
         expect(picklist.visibleOptionsSource[0].brand).toEqual('VW');
         expect(picklist.visibleOptionsSource[1].brand).toEqual('Volvo');

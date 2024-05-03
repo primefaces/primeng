@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using the standard <i>ngModel</i> directive referencing to a <i>Date</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date"/>
+            <p-calendar [(ngModel)]="date" />
         </div>
         <app-code [code]="code" selector="calendar-basic-demo"></app-code>
     `

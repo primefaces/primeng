@@ -17,10 +17,9 @@ import { MessageService } from 'primeng/api';
     `
 })
 export class CommandDoc implements OnInit {
+    items: MenuItem[] | undefined;
 
-  items: MenuItem[] | undefined;
-
-  constructor(private messageService: MessageService) {}
+    constructor(private messageService: MessageService) {}
 
     ngOnInit() {
         this.items = [

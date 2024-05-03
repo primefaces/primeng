@@ -14,8 +14,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast />
             <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info"  />
-            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning"  />
+            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning" />
             <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>

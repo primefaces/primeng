@@ -5,8 +5,9 @@ import { Code } from '@domain/code';
     selector: 'dialog-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property.
-        </app-docsectiontext>
+            <p>Dialog is used as a container and visibility is controlled with <i>visible</i> property.</p></app-docsectiontext
+        >
+
         <div class="card flex justify-content-center">
             <p-button (click)="showDialog()" label="Show" />
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">

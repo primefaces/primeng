@@ -602,7 +602,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
-                    
+
                 default:
                     this.itemTemplate = item.template;
                     break;

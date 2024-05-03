@@ -6,7 +6,7 @@ import { Code } from '@domain/code';
     selector: 'dropdown-lazy-virtualscroll-demo',
     template: `
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options"/>
+            <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" />
         </div>
         <app-code [code]="code" selector="dropdown-lazy-virtualscroll-demo"></app-code>
     `

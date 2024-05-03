@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Knob is an input component and used with the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-knob [(ngModel)]="value"/>
+            <p-knob [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="knob-basic-demo"></app-code>
     `

@@ -1418,7 +1418,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     hasFilterActive() {
-      return this.filter && this.filterViewChild?.nativeElement?.value.length > 0
+        return this.filter && this.filterViewChild?.nativeElement?.value.length > 0;
     }
 
     getNodeWithKey(key: string, nodes: TreeNode<any>[]): TreeNode<any> | undefined {
