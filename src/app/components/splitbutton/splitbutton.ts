@@ -32,7 +32,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
-                    [attr.aria-label]="buttonProps?.['aria-label'] || label"
+                    [ariaLabel]="buttonProps?.['ariaLabel'] || label"
                     pAutoFocus
                     [autofocus]="autofocus"
                 >
@@ -55,7 +55,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     (click)="onDefaultButtonClick($event)"
                     [disabled]="buttonDisabled"
                     [attr.tabindex]="tabindex"
-                    [attr.aria-label]="buttonProps?.['aria-label']"
+                    [ariaLabel]="buttonProps?.['ariaLabel']"
                     pAutoFocus
                     [autofocus]="autofocus"
                 ></button>
@@ -71,10 +71,10 @@ type SplitButtonIconPosition = 'left' | 'right';
                 (click)="onDropdownButtonClick($event)"
                 (keydown)="onDropdownButtonKeydown($event)"
                 [disabled]="menuButtonDisabled"
-                [attr.aria-label]="menuButtonProps?.['aria-label'] || expandAriaLabel"
-                [attr.aria-haspopup]="menuButtonProps?.['aria-haspopup'] || true"
-                [attr.aria-expanded]="menuButtonProps?.['aria-expanded'] || isExpanded()"
-                [attr.aria-controls]="menuButtonProps?.['aria-controls'] || ariaId"
+                [ariaLabel]="menuButtonProps?.['ariaLabel'] || expandAriaLabel"
+                [attr.aria-haspopup]="menuButtonProps?.['ariaHasPopup'] || true"
+                [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
+                [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
             >
                 <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
