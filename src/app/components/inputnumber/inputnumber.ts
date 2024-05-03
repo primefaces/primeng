@@ -832,7 +832,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowUp':
                 this.spin(event, 1);
                 event.preventDefault();
