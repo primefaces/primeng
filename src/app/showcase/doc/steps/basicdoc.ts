@@ -28,7 +28,7 @@ export class BasicDoc implements OnInit {
             {
                 label: 'Review'
             }
-        ]
+        ];
     }
 
     code: Code = {

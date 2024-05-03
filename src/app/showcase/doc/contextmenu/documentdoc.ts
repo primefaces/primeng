@@ -45,7 +45,7 @@ export class DocumentDoc implements OnInit {
                 label: 'Print',
                 icon: 'pi pi-print'
             }
-        ]
+        ];
     }
 
     code: Code = {

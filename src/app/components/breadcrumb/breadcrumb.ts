@@ -224,7 +224,7 @@ export class Breadcrumb implements AfterContentInit {
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
-                    
+
                 default:
                     this.itemTemplate = item.template;
                     break;

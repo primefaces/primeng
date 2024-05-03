@@ -113,7 +113,7 @@ export class VerticalDoc implements OnInit {
                     ]
                 ]
             }
-        ]
+        ];
     }
 
     code: Code = {

@@ -63,7 +63,7 @@ export class BasicDoc implements OnInit {
                 label: 'Contact',
                 icon: 'pi pi-envelope'
             }
-        ]
+        ];
     }
 
     code: Code = {

@@ -41,11 +41,10 @@ import { Router } from '@angular/router';
     `
 })
 export class RouterDoc implements OnInit {
-
     items: MenuItem[] | undefined;
 
     constructor(private router: Router) {}
-    
+
     ngOnInit() {
         this.items = [
             {

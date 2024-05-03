@@ -122,7 +122,7 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         AppDocModule,
         DeferredDemo,
         IconFieldModule,
-        InputIconModule,
+        InputIconModule
     ],
     declarations: [
         ImportDoc,

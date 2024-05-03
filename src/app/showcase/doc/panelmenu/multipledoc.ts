@@ -95,7 +95,7 @@ export class MultipleDoc implements OnInit {
                     }
                 ]
             }
-        ]
+        ];
     }
 
     code: Code = {

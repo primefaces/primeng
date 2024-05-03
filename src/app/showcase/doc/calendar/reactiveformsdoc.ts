@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-calendar formControlName="date"/>
+                <p-calendar formControlName="date" />
             </form>
         </div>
         <app-code [code]="code" selector="calendar-reactive-forms-demo"></app-code>

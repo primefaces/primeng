@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card p-fluid">
             <form [formGroup]="formGroup">
-                <p-chips formControlName="values"/>
+                <p-chips formControlName="values" />
             </form>
         </div>
         <app-code [code]="code" selector="chips-reactive-forms-demo"></app-code>

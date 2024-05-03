@@ -1578,7 +1578,7 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.5rem 1rem;
   }
 
@@ -1902,9 +1902,12 @@
     margin-left: -10px;
   }
   .p-slider.p-slider-vertical {
+    height: 100%;
     width: 2px;
   }
   .p-slider.p-slider-vertical .p-slider-handle {
+    height: 20px;
+    width: 20px;
     margin-left: -10px;
     margin-bottom: -10px;
   }

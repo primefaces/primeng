@@ -242,7 +242,6 @@ describe('Menubar', () => {
 
         expect(firstParentEl?.parent?.parent?.nativeElement.className).toContain('p-menuitem-active');
         expect(secondParentEl?.parent?.parent?.nativeElement.className).not.toContain('p-menuitem-active');
-
     });
 
     it('should show router items', () => {

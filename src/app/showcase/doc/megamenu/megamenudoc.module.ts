@@ -18,7 +18,7 @@ import { RouterDoc } from './routerdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, MegaMenuModule, InputTextModule, ButtonModule, AppDocModule, AvatarModule],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, VerticalDoc, CommandDoc,RouterDoc, AccessibilityDoc],
+    declarations: [BasicDoc, ImportDoc, StyleDoc, TemplateDoc, VerticalDoc, CommandDoc, RouterDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class MegaMenuDocModule {}

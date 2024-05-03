@@ -13,13 +13,7 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="customers"
-                    [paginator]="true"
-                    [rows]="5"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                    [rowsPerPageOptions]="[5, 10, 20]"
-                >
+                <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:25%">Name</th>

@@ -490,7 +490,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * When specified, displays an input field to filter the items on keyup.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) filter: boolean = false;
+    @Input({ transform: booleanAttribute }) filter: boolean = true;
     /**
      * Defines placeholder of the filter input.
      * @group Props

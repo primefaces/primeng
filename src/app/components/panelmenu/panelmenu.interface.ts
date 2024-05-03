@@ -10,11 +10,10 @@ export interface PanelMenuTemplates {
      * Custom item template.
      */
     item(context: {
-    /**
-     * Item instance.
-     */
-    $implicit: MenuItem
-
+        /**
+         * Item instance.
+         */
+        $implicit: MenuItem;
     }): TemplateRef<{ $implicit: MenuItem }>;
     /**
      * Custom template of submenuicon.

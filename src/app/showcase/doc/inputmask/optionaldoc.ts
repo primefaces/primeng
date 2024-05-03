@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When the input does not complete the mask definition, it is cleared by default. Use <i>autoClear</i> property to control this behavior. In addition, <i>?</i> is used to mark anything after the question mark optional.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999"/>
+            <p-inputMask mask="(999) 999-9999? x99999" [(ngModel)]="value" placeholder="(999) 999-9999? x99999" />
         </div>
         <app-code [code]="code" selector="input-mask-optional-demo"></app-code>
     `

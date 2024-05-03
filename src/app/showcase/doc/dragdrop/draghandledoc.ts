@@ -47,7 +47,7 @@ import { PanelModule } from 'primeng/panel';
     imports: [DragDropModule, PanelModule]
 })
 export class DragDropDragHandleDemo {}`,
-        
+
         service: ['ProductService']
     };
 

@@ -13,7 +13,7 @@ interface City {
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"/>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
     `

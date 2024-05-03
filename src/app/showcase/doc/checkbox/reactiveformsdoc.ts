@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <form [formGroup]="formGroup" class="flex align-items-center justify-content-center gap-1">
-                <p-checkbox formControlName="city" value="New York" inputId="ny"/>
+                <p-checkbox formControlName="city" value="New York" inputId="ny" />
                 <label for="ny">New York</label>
             </form>
         </div>

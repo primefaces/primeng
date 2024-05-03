@@ -24,6 +24,7 @@ import {
     booleanAttribute,
     effect,
     forwardRef,
+    input,
     numberAttribute,
     signal
 } from '@angular/core';
@@ -176,7 +177,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                         [itemTemplate]="itemTemplate"
                         [autoDisplay]="autoDisplay"
                         [menuId]="menuId"
-                        [activeItemPath]="activeItemPath"
+                        [activeItemPath]="activeItemPath()"
                         [focusedItemId]="focusedItemId"
                         [ariaLabelledBy]="getItemId(processedItem)"
                         [level]="level + 1"
@@ -217,7 +218,7 @@ export class TieredMenuSub implements AfterContentInit {
 
     @Input() focusedItemId: string | undefined;
 
-    @Input() activeItemPath: any[];
+    activeItemPath = input<any[]>([]);
 
     @Input({ transform: numberAttribute }) tabindex: number = 0;
 
@@ -233,7 +234,14 @@ export class TieredMenuSub implements AfterContentInit {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {
+        effect(() => {
+            const path = this.activeItemPath();
+            if (ObjectUtils.isNotEmpty(path)) {
+                this.positionSubmenu();
+            }
+        });
+    }
 
     ngAfterContentInit(): void {
         this.positionSubmenu();
@@ -242,11 +250,11 @@ export class TieredMenuSub implements AfterContentInit {
     positionSubmenu() {
         const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
 
-        if (sublist) {
+        if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
             const parentItem = sublist.parentElement.parentElement;
             const containerOffset = DomHandler.getOffset(parentItem);
             const viewport = DomHandler.getViewport();
-            const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getHiddenElementOuterWidth(sublist);
+            const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
             const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
 
             if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
@@ -310,8 +318,8 @@ export class TieredMenuSub implements AfterContentInit {
     }
 
     isItemActive(processedItem: any): boolean {
-        if (this.activeItemPath) {
-            return this.activeItemPath.some((path) => path.key === processedItem.key);
+        if (this.activeItemPath()) {
+            return this.activeItemPath().some((path) => path.key === processedItem.key);
         }
     }
 
@@ -583,7 +591,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
-                    
+
                 default:
                     this.itemTemplate = item.template;
                     break;

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Colors are customized with the <i>textColor</i>, <i>rangeColor</i> and <i>valueColor</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise"/>
+            <p-knob [(ngModel)]="value" valueColor="SlateGray" rangeColor="MediumTurquoise" />
         </div>
         <app-code [code]="code" selector="knob-color-demo"></app-code>
     `

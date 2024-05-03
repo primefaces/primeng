@@ -21,18 +21,15 @@ export interface MenuTemplates {
         /**
          * Item instance.
          */
-        $implicit: MenuItem
-
+        $implicit: MenuItem;
     }): TemplateRef<{ $implicit: MenuItem }>;
-      /**
+    /**
      * Custom template of submenuheader.
      */
     submenuheader(context: {
         /**
          * Item instance.
          */
-        $implicit: MenuItem
-
+        $implicit: MenuItem;
     }): TemplateRef<{ $implicit: MenuItem }>;
- 
 }

@@ -28,7 +28,7 @@ export class ControlledDoc implements OnInit {
         this.items = [
             { label: 'Dashboard', icon: 'pi pi-home' },
             { label: 'Transactions', icon: 'pi pi-chart-line' },
-            { label: 'Products', icon: 'pi pi-list' },
+            { label: 'Products', icon: 'pi pi-list' }
         ];
 
         this.activeItem = this.items[0];

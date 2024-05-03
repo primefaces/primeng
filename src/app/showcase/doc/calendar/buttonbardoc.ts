@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" [showButtonBar]="true"/>
+            <p-calendar [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="calendar-buttonbar-demo"></app-code>
     `

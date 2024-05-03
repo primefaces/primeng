@@ -27,7 +27,7 @@ import { Code } from '@domain/code';
             </ul>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"/>
+            <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="calendar-format-demo"></app-code>
     `

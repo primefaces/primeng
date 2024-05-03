@@ -30,6 +30,26 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule, FloatLabelModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, EditableDoc, GroupDoc, TemplateDoc, DisabledDoc, InvalidDoc, VirtualScrollDoc, LazyVirtualScrollDoc, CustomFilterDoc, FilterDoc, FloatLabelDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, CheckmarkDoc, ClearIconDoc, LoadingStateDoc, FilledDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        EditableDoc,
+        GroupDoc,
+        TemplateDoc,
+        DisabledDoc,
+        InvalidDoc,
+        VirtualScrollDoc,
+        LazyVirtualScrollDoc,
+        CustomFilterDoc,
+        FilterDoc,
+        FloatLabelDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        ReactiveFormsDoc,
+        CheckmarkDoc,
+        ClearIconDoc,
+        LoadingStateDoc,
+        FilledDoc
+    ]
 })
 export class DropdownDocModule {}

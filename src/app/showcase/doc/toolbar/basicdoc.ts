@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-toolbar>
                 <div class="p-toolbar-group-start">
-                    <p-button icon="pi pi-plus" class="mr-2"/>
-                    <p-button icon="pi pi-print" class="mr-2"/>
+                    <p-button icon="pi pi-plus" class="mr-2" />
+                    <p-button icon="pi pi-print" class="mr-2" />
                     <p-button icon="pi pi-upload" />
                 </div>
                 <div class="p-toolbar-group-center">
