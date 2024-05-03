@@ -18,7 +18,7 @@ import { CarService } from '@service/carservice';
                     </tr>
                     <tr>
                         <th *ngFor="let col of columns">
-                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
                         </th>
                     </tr>
                 </ng-template>
@@ -83,7 +83,11 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
         <tr>
             <th *ngFor="let col of columns">
-                <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                <p-columnFilter 
+                    type="text" 
+                    [field]="col.field" 
+                    [matchModeOptions]="matchModeOptions" 
+                    [matchMode]="'custom-equals'" />
             </th>
         </tr>
     </ng-template>
@@ -95,8 +99,7 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -104,7 +107,11 @@ export class TableIntegrationDoc implements OnInit {
             </tr>
             <tr>
                 <th *ngFor="let col of columns">
-                    <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                    <p-columnFilter 
+                        type="text" 
+                        [field]="col.field" 
+                        [matchModeOptions]="matchModeOptions" 
+                        [matchMode]="'custom-equals'" />
                 </th>
             </tr>
         </ng-template>
@@ -115,16 +122,19 @@ export class TableIntegrationDoc implements OnInit {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
     templateUrl: './filter-service-table-integration-demo.html',
-    providers: [FilterService]
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [FilterService, CarService]
 })
 export class FilterServiceTableIntegrationDemo implements OnInit {
     cars: Car[];
