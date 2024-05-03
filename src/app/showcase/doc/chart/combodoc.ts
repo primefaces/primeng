@@ -7,7 +7,7 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-combo-demo',
     template: `
         <app-docsectiontext>
-            <p>Different chart types can be combined in the same graph usign the <i>type</i> option of a dataset.</p>
+            <p>Different chart types can be combined in the same graph using the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="line" [data]="data" [options]="options" />
