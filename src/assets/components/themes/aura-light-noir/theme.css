@@ -1578,7 +1578,7 @@
     background-color: #ffffff;
   }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.75rem;
   }
 
@@ -1906,9 +1906,12 @@
     margin-left: -10px;
   }
   .p-slider.p-slider-vertical {
+    height: 100%;
     width: 3px;
   }
   .p-slider.p-slider-vertical .p-slider-handle {
+    height: 20px;
+    width: 20px;
     margin-left: -10px;
     margin-bottom: -10px;
   }
