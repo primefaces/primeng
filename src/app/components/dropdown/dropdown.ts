@@ -1581,6 +1581,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         // !this.overlayVisible && this.show();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     changeFocusedOptionIndex(event, index) {
@@ -1681,15 +1682,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
 
             this.overlayVisible && this.hide();
-            event.preventDefault();
         } else {
             const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
             !this.overlayVisible && this.show();
-            event.preventDefault();
         }
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowLeftKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
@@ -1790,6 +1791,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.overlayVisible && this.hide(this.filter);
             }
         }
+        event.stopPropagation();
     }
 
     onFirstHiddenFocus(event) {
