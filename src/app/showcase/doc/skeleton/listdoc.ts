@@ -12,37 +12,37 @@ import { Code } from '@domain/code';
                 <ul class="m-0 p-0 list-none">
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                                <p-skeleton width="75%"></p-skeleton>
+                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                                <p-skeleton width="75%"></p-skeleton>
+                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li class="mb-3">
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                                <p-skeleton width="75%"></p-skeleton>
+                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
                     <li>
                         <div class="flex">
-                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
-                                <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                                <p-skeleton width="75%"></p-skeleton>
+                                <p-skeleton width="100%" styleClass="mb-2" />
+                                <p-skeleton width="75%" />
                             </div>
                         </div>
                     </li>
@@ -58,91 +58,92 @@ export class ListDoc {
     <ul class="m-0 p-0 list-none">
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                    <p-skeleton width="75%"></p-skeleton>
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                    <p-skeleton width="75%"></p-skeleton>
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li class="mb-3">
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                    <p-skeleton width="75%"></p-skeleton>
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
         <li>
             <div class="flex">
-                <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
-                    <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                    <p-skeleton width="75%"></p-skeleton>
+                    <p-skeleton width="100%" styleClass="mb-2" />
+                    <p-skeleton width="75%" />
                 </div>
             </div>
         </li>
     </ul>
 </div>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="border-round border-1 surface-border p-4 surface-card">
         <ul class="m-0 p-0 list-none">
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                        <p-skeleton width="75%"></p-skeleton>
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                        <p-skeleton width="75%"></p-skeleton>
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li class="mb-3">
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                        <p-skeleton width="75%"></p-skeleton>
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
             <li>
                 <div class="flex">
-                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2"></p-skeleton>
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
-                        <p-skeleton width="100%" styleClass="mb-2"></p-skeleton>
-                        <p-skeleton width="75%"></p-skeleton>
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
                     </div>
                 </div>
             </li>
         </ul>
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'skeleton-list-demo,
-    templateUrl: './skeleton-list-demo.html'
+    templateUrl: './skeleton-list-demo.html',
+    standalone: true,
+    imports: [SkeletonModule]
 })
 export class SkeletonListDemo {}`
     };
