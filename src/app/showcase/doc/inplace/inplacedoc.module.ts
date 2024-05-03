@@ -13,10 +13,11 @@ import { ImageDoc } from './imagedoc';
 import { ImportDoc } from './importdoc';
 import { InputDoc } from './inputdoc';
 import { StyleDoc } from './styledoc';
+import { LazyDoc } from './lazydoc';
 
 @NgModule({
     imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, InplaceModule, InputTextModule, TableModule],
-    declarations: [BasicDoc, DataDoc, ImageDoc, ImportDoc, InputDoc, StyleDoc, AccessibilityDoc],
+    declarations: [BasicDoc, DataDoc, ImageDoc, ImportDoc, InputDoc, StyleDoc, LazyDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class InplaceDocModule {}
