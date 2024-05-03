@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
+            <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
         </div>
         <app-code [code]="code" selector="terminal-basic-demo"></app-code>
     `,
@@ -35,20 +35,21 @@ export class BasicDoc implements OnDestroy {
 
     code: Code = {
         basic: `<p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>`,
-        html: `
-<div class="card">
+<p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />`,
+        html: `<div class="card">
     <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet {0}</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
-    <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $"></p-terminal>
+    <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
 </div>`,
-        typescript: `
-import { Component, OnDestroy } from '@angular/core';
-import { TerminalService } from '../../../components/terminal/terminalservice';
+        typescript: `import { Component, OnDestroy } from '@angular/core';
+import { TerminalService } from 'primeng/terminal';
+import { TerminalModule } from 'primeng/terminal';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'terminal-basic-demo',
     templateUrl: './terminal-basic-demo.html',
+    standalone: true,
+    imports: [TerminalModule],
     providers: [TerminalService]
 })
 export class TerminalBasicDemo implements OnDestroy {
