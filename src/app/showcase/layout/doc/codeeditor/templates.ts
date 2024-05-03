@@ -421,6 +421,7 @@ const getAngularApp = (props: Props = {}) => {
     import { EditorModule } from 'primeng/editor';
     import { FieldsetModule } from 'primeng/fieldset';
     import { FileUploadModule } from 'primeng/fileupload';
+    import { FocusTrapModule } from 'primeng/focustrap';
     import { GalleriaModule } from 'primeng/galleria';
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
@@ -531,6 +532,7 @@ const getAngularApp = (props: Props = {}) => {
         EditorModule,
         FieldsetModule,
         FileUploadModule,
+        FocusTrapModule,
         GalleriaModule,
         InplaceModule,
         InputMaskModule,
@@ -596,6 +598,8 @@ const getAngularApp = (props: Props = {}) => {
         CardModule,
         RippleModule,
         StyleClassModule,
+        IconFieldModule,
+        InputIconModule
       ],
       exports: [
         AvatarModule,
@@ -624,6 +628,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DeferModule,
         DockModule,
         DragDropModule,
         DropdownModule,
@@ -631,6 +636,7 @@ const getAngularApp = (props: Props = {}) => {
         EditorModule,
         FieldsetModule,
         FileUploadModule,
+        FocusTrapModule,
         GalleriaModule,
         InplaceModule,
         InputMaskModule,
