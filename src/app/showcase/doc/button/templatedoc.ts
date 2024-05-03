@@ -106,12 +106,14 @@ export class TemplateDoc {
 </p-button>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-template-demo',
-    templateUrl: './button-template-demo.html'
+    templateUrl: './button-template-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
 })
 export class ButtonTemplateDemo { }`
     };
