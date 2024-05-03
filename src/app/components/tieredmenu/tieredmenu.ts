@@ -192,7 +192,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
         class: 'p-element'
     }
 })
-export class TieredMenuSub {
+export class TieredMenuSub implements AfterContentInit {
     @Input() items: any[];
 
     @Input() itemTemplate: HTMLElement | undefined;
@@ -234,6 +234,10 @@ export class TieredMenuSub {
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
     constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {}
+
+    ngAfterContentInit(): void {
+        this.positionSubmenu();
+    }
 
     positionSubmenu() {
         const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
