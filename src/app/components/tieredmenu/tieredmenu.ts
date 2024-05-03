@@ -189,7 +189,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
         class: 'p-element'
     }
 })
-export class TieredMenuSub implements AfterContentInit {
+export class TieredMenuSub {
     @Input() items: any[];
 
     @Input() itemTemplate: HTMLElement | undefined;
@@ -239,21 +239,20 @@ export class TieredMenuSub implements AfterContentInit {
         });
     }
 
-    ngAfterContentInit(): void {
-        this.positionSubmenu();
-    }
-
     positionSubmenu() {
         if (isPlatformBrowser(this.tieredMenu.platformId)) {
             const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
-            if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
+            if (sublist) {
                 const parentItem = sublist.parentElement.parentElement;
                 const containerOffset = DomHandler.getOffset(parentItem);
                 const viewport = DomHandler.getViewport();
                 const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
                 const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+                const sublistFlippedClass = 'p-submenu-list-flipped';
                 if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-                    DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+                    DomHandler.addClass(sublist, sublistFlippedClass);
+                } else if (DomHandler.hasClass(sublist, sublistFlippedClass)) {
+                    DomHandler.removeClass(sublist, sublistFlippedClass);
                 }
             }
         }
