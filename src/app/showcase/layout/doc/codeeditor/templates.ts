@@ -491,6 +491,7 @@ const getAngularApp = (props: Props = {}) => {
     import { IconFieldModule } from 'primeng/iconfield';
     import { InputIconModule } from 'primeng/inputicon';
     import { StyleClassModule } from 'primeng/styleclass';
+    import { AutoFocusModule } from 'primeng/autofocus';
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
@@ -599,7 +600,8 @@ const getAngularApp = (props: Props = {}) => {
         RippleModule,
         StyleClassModule,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
+        AutoFocusModule
       ],
       exports: [
         AvatarModule,
@@ -704,7 +706,8 @@ const getAngularApp = (props: Props = {}) => {
         StyleClassModule,
         FloatLabelModule,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
+        AutoFocusModule
       ],
       providers: [ ${providers} ]
     })
