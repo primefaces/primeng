@@ -336,7 +336,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * Maximum number of files that can be uploaded.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) fileLimit: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) fileLimit: number | undefined;
     /**
      * Style class of the upload button.
      * @group Props
