@@ -6,10 +6,10 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-        <p>
-            Menu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter. The submenu header has its own <i>submenuheader</i> template, additional slots named <i>start</i> and
-            <i>end</i> are provided to embed content before or after the menu.
-        </p>
+            <p>
+                Menu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter. The submenu header has its own <i>submenuheader</i> template, additional slots named <i>start</i> and
+                <i>end</i> are provided to embed content before or after the menu.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-menu [model]="items" styleClass="w-full md:w-15rem">
@@ -60,7 +60,7 @@ import { Code } from '@domain/code';
                 </ng-template>
                 <ng-template pTemplate="end">
                     <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                         <span class="inline-flex flex-column">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
@@ -174,7 +174,7 @@ export class TemplateDoc implements OnInit {
     </ng-template>
     <ng-template pTemplate="end">
         <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" class="mr-2" shape="circle" />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
             <span class="inline-flex flex-column">
                 <span class="font-bold">Amy Elsner</span>
                 <span class="text-sm">Admin</span>
@@ -232,7 +232,7 @@ export class TemplateDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="end">
             <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" class="mr-2" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
                 <span class="inline-flex flex-column">
                     <span class="font-bold">Amy Elsner</span>
                     <span class="text-sm">Admin</span>

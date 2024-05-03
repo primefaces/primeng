@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-tabMenu [model]="items" [activeItem]="activeItem">
                 <ng-template pTemplate="item" let-item>
                     <a pRipple class="flex align-items-center gap-2 p-menuitem-link">
-                        <img [alt]="item.name" [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + item.image" style="width: 32px" />
+                        <img [alt]="item.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + item.image" style="width: 32px" />
                         <span class="font-bold">{{ item.name }}</span>
                     </a>
                 </ng-template>
@@ -41,7 +41,7 @@ export class TemplateDoc implements OnInit {
         <a pRipple class="flex align-items-center gap-2 p-menuitem-link">
             <img 
                 [alt]="item.name" 
-                [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + item.image" 
+                [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + item.image" 
                 style="width: 32px" />
             <span class="font-bold">
                 {{ item.name }}
@@ -56,7 +56,7 @@ export class TemplateDoc implements OnInit {
             <a pRipple class="flex align-items-center gap-2 p-menuitem-link">
                 <img 
                     [alt]="item.name" 
-                    [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + item.image" 
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + item.image" 
                     style="width: 32px" />
                 <span class="font-bold">
                     {{ item.name }}

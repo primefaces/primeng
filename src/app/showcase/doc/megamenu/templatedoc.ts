@@ -62,7 +62,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+                    <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                 </ng-template>
             </p-megaMenu>
         </div>
@@ -177,7 +177,7 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="end">
-        <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
     </ng-template>
 </p-megaMenu>`,
 
@@ -235,7 +235,7 @@ export class TemplateDoc implements OnInit {
             </div>
         </ng-template>
         <ng-template pTemplate="end">
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </ng-template>
     </p-megaMenu>
 </div>`,

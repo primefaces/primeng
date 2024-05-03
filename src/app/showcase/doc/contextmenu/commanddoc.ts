@@ -37,7 +37,7 @@ interface Users {
                     (contextmenu)="onContextMenu($event, user)"
                 >
                     <div class="flex align-items-center gap-2">
-                        <img [alt]="user.name" [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + user.image" style="width: 32px" />
+                        <img [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" style="width: 32px" />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
                     <p-tag [value]="user.role" [severity]="getBadge(user)" />
@@ -143,7 +143,7 @@ export class CommandDoc implements OnInit {
         <div class="flex align-items-center gap-2">
             <img 
                 [alt]="user.name" 
-                [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + user.image" 
+                [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 
                 style="width: 32px" />
             <span class="font-bold">
                 {{ user.name }}
@@ -176,7 +176,7 @@ export class CommandDoc implements OnInit {
             <div class="flex align-items-center gap-2">
                 <img 
                     [alt]="user.name" 
-                    [src]="'https://primefaces.org/cdn/primevue/images/avatar/' + user.image" 
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 
                     style="width: 32px" />
                 <span class="font-bold">
                     {{ user.name }}
