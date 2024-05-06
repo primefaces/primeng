@@ -15,6 +15,7 @@ import { Code } from '@domain/code';
             <p-button label="Warning" severity="warning" />
             <p-button label="Help" severity="help" />
             <p-button label="Danger" severity="danger" />
+            <p-button label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-severity-demo"></app-code>
     `
@@ -27,7 +28,8 @@ export class SeverityDoc {
 <p-button label="Info" severity="info" />
 <p-button label="Warning" severity="warning" />
 <p-button label="Help" severity="help" />
-<p-button label="Danger" severity="danger" />`,
+<p-button label="Danger" severity="danger" />
+<p-button label="Contrast" severity="contrast" />`,
 
         html: `<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-button label="Primary" />
@@ -37,6 +39,7 @@ export class SeverityDoc {
     <p-button label="Warning" severity="warning" />
     <p-button label="Help" severity="help" />
     <p-button label="Danger" severity="danger" />
+    <p-button label="Contrast" severity="contrast" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
