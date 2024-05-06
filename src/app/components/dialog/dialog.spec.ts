@@ -3,12 +3,12 @@ import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer } from 'primeng/api';
-import { ButtonModule } from '../button/button';
-import { FocusTrapModule } from '../focustrap/focustrap';
-import { Dialog } from './dialog';
 import { TimesIcon } from 'primeng/icons/times';
 import { WindowMaximizeIcon } from 'primeng/icons/windowmaximize';
 import { WindowMinimizeIcon } from 'primeng/icons/windowminimize';
+import { ButtonModule } from '../button/button';
+import { FocusTrapModule } from '../focustrap/focustrap';
+import { Dialog } from './dialog';
 
 @Component({
     template: `
@@ -36,8 +36,8 @@ describe('Dialog', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
-            declarations: [Dialog, Footer, TestDialogComponent]
+            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, Footer],
+            declarations: [Dialog, TestDialogComponent]
         });
 
         fixture = TestBed.createComponent(TestDialogComponent);
