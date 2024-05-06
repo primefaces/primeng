@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, Input, NgModule, booleanAttribute } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 /**
@@ -7,6 +6,7 @@ import { DomHandler } from 'primeng/dom';
  */
 @Directive({
     selector: '[pAutoFocus]',
+    standalone: true,
     host: {
         class: 'p-element'
     }
@@ -49,8 +49,7 @@ export class AutoFocus {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [AutoFocus],
-    declarations: [AutoFocus]
+    imports: [AutoFocus],
+    exports: [AutoFocus]
 })
 export class AutoFocusModule {}
