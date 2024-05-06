@@ -5264,6 +5264,18 @@ export class ColumnFilter implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Callback to invoke on overlay is shown.
+     * @param {AnimationEvent} originalEvent - animation event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<{originalEvent: AnimationEvent}> = new EventEmitter<{originalEvent: AnimationEvent}>();
+    /**
+     * Callback to invoke on overlay is hidden.
+     * @param {AnimationEvent} originalEvent - animation event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<{originalEvent: AnimationEvent}> = new EventEmitter<{originalEvent: AnimationEvent}>();
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
 
@@ -5596,6 +5608,7 @@ export class ColumnFilter implements AfterContentInit {
                 };
 
                 this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+                this.onShow.emit({originalEvent: event})
                 break;
 
             case 'void':
@@ -5615,6 +5628,7 @@ export class ColumnFilter implements AfterContentInit {
                 break;
             case 'void':
                 ZIndexUtils.clear(event.element);
+                this.onHide.emit({originalEvent: event})
                 break;
         }
     }
