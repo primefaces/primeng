@@ -47,7 +47,7 @@ class TestAutocompleteComponent {
     }
 }
 
-fdescribe('AutoComplete', () => {
+describe('AutoComplete', () => {
     let autocomplete: AutoComplete;
     let autocomplete2: AutoComplete;
     let testComponent: TestAutocompleteComponent;
