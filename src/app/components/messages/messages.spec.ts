@@ -1,17 +1,16 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Messages } from './messages';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { Button } from 'primeng/button';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { MessageService } from 'primeng/api';
-import { Message } from 'primeng/api';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Message, MessageService } from 'primeng/api';
+import { Button } from 'primeng/button';
 import { CheckIcon } from 'primeng/icons/check';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesIcon } from 'primeng/icons/times';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { Messages } from './messages';
 
 @Component({
     template: `
@@ -84,8 +83,8 @@ describe('Messages', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon],
-            declarations: [Messages, Button, TestMessagesComponent],
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon, TimesCircleIcon, ExclamationTriangleIcon, InfoCircleIcon, TimesIcon, Button],
+            declarations: [Messages, TestMessagesComponent],
             providers: [MessageService]
         });
 
