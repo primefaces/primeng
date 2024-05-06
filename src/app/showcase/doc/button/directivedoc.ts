@@ -15,10 +15,20 @@ import { Code } from '@domain/code';
 })
 export class DirectiveDoc {
     code: Code = {
-        basic: `<button pButton pRipple label="Submit" class="p-button-success"></button>`,
+        basic: `<button 
+    pButton 
+    pRipple 
+    label="Submit" 
+    class="p-button-success">
+</button>`,
 
         html: `<div class="card flex justify-content-center">
-    <button pButton pRipple label="Submit" class="p-button-success"></button>
+    <button 
+        pButton 
+        pRipple 
+        label="Submit" 
+        class="p-button-success">
+    </button>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
