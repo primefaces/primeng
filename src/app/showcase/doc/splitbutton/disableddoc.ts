@@ -12,8 +12,8 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
+            <p-toast />
+            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="split-button-disabled-demo"></app-code>
     `,
@@ -24,21 +24,19 @@ export class DisabledDoc {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 
@@ -57,35 +55,55 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>`,
+        basic: `<p-splitButton 
+    label="Save" 
+    icon="pi pi-plus" 
+    (onClick)="save('info')" 
+    [model]="items" 
+    [disabled]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true"></p-splitButton>
-    
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-splitButton 
+        label="Save" 
+        icon="pi pi-plus" 
+        (onClick)="save('info')" 
+        [model]="items" 
+        [disabled]="true" />
 </div>
 
 <div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [menuButtonDisabled]="true"></p-splitButton>
-    
+    <p-toast />
+    <p-splitButton 
+        label="Save" 
+        icon="pi pi-plus" 
+        (onClick)="save('info')" 
+        [model]="items" 
+        [menuButtonDisabled]="true" />
 </div>
+
 <div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [buttonDisabled]="true"></p-splitButton>
-    
+    <p-toast />
+    <p-splitButton 
+        label="Save"
+        icon="pi pi-plus"
+        (onClick)="save('info')" 
+        [model]="items" 
+        [buttonDisabled]="true" />
 </div>
 `,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'split-button-disabled-demo',
     templateUrl: './split-button-disabled-demo.html',
-    providers: [ MessageService ]
+    standalone: true,
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitButtonDisabledDemo {
     items: MenuItem[];
@@ -94,21 +112,19 @@ export class SplitButtonDisabledDemo {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 

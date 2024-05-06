@@ -3,20 +3,27 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'basic-doc',
+    selector: 'template-doc',
     template: `
         <app-docsectiontext>
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
+            <p-splitButton label="Save" (onClick)="save('info')" severity="warning" [model]="items">
+                <ng-template pTemplate="content">
+                    <span class="flex align-items-center font-bold">
+                        <img alt="logo" src="https://primefaces.org/cdn/primevue/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
+                        <span>PrimeNG</span>
+                    </span>
+                </ng-template>
+            </p-splitButton>
         </div>
-        <app-code [code]="code" selector="split-button-basic-demo"></app-code>
+        <app-code [code]="code" selector="split-button-template-demo"></app-code>
     `,
     providers: [MessageService]
 })
-export class BasicDoc {
+export class TemplateDoc {
     constructor(private messageService: MessageService) {
         this.items = [
             {
@@ -71,13 +78,13 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-    selector: 'split-button-basic-demo',
-    templateUrl: './split-button-basic-demo.html',
+    selector: 'split-button-template-demo',
+    templateUrl: './split-button-template-demo.html',
     standalone: true,
     imports: [SplitButtonModule, ToastModule],
     providers: [MessageService]
 })
-export class SplitButtonBasicDemo {
+export class SplitButtonTemplateDemo {
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {
