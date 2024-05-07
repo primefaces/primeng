@@ -15,6 +15,7 @@ import { Code } from '@domain/code';
             <p-button label="Warning" [outlined]="true" severity="warning" />
             <p-button label="Help" [outlined]="true" severity="help" />
             <p-button label="Danger" [outlined]="true" severity="danger" />
+            <p-button label="Contrast" [outlined]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-outlined-demo"></app-code>
     `
@@ -27,7 +28,8 @@ export class OutlinedDoc {
 <p-button label="Info" [outlined]="true" severity="info" />
 <p-button label="Warning" [outlined]="true" severity="warning" />
 <p-button label="Help" [outlined]="true" severity="help" />
-<p-button label="Danger" [outlined]="true" severity="danger" />`,
+<p-button label="Danger" [outlined]="true" severity="danger" />
+<p-button label="Contrast" [outlined]="true" severity="contrast" />`,
 
         html: `<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-button label="Primary" [outlined]="true" />
@@ -37,6 +39,7 @@ export class OutlinedDoc {
     <p-button label="Warning" [outlined]="true" severity="warning" />
     <p-button label="Help" [outlined]="true" severity="help" />
     <p-button label="Danger" [outlined]="true" severity="danger" />
+    <p-button label="Contrast" [outlined]="true" severity="contrast" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

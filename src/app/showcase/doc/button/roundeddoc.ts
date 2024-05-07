@@ -15,6 +15,7 @@ import { Code } from '@domain/code';
             <p-button label="Warning" [rounded]="true" severity="warning" />
             <p-button label="Help" [rounded]="true" severity="help" />
             <p-button label="Danger" [rounded]="true" severity="danger" />
+            <p-button label="Contrast" [rounded]="true" severity="contrast" />
         </div>
         <app-code [code]="code" selector="button-rounded-demo"></app-code>
     `
@@ -27,7 +28,8 @@ export class RoundedDoc {
 <p-button label="Info" [rounded]="true" severity="info" />
 <p-button label="Warning" [rounded]="true" severity="warning" />
 <p-button label="Help" [rounded]="true" severity="help" />
-<p-button label="Danger" [rounded]="true" severity="danger" />`,
+<p-button label="Danger" [rounded]="true" severity="danger" />
+<p-button label="Contrast" [rounded]="true" severity="contrast" />`,
 
         html: `<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-button label="Primary" [rounded]="true" />
@@ -37,6 +39,7 @@ export class RoundedDoc {
     <p-button label="Warning" [rounded]="true" severity="warning" />
     <p-button label="Help" [rounded]="true" severity="help" />
     <p-button label="Danger" [rounded]="true" severity="danger" />
+    <p-button label="Contrast" [rounded]="true" severity="contrast" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
