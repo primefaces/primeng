@@ -37,10 +37,10 @@ export class BasicDoc {
     (completeMethod)="search($event)" />`,
 
         html: `<div class="card flex justify-content-center">
-<p-autoComplete 
-    [(ngModel)]="selectedItem"
-    [suggestions]="suggestions"
-    (completeMethod)="search($event)" />
+    <p-autoComplete 
+        [(ngModel)]="selectedItem"
+        [suggestions]="suggestions"
+        (completeMethod)="search($event)" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
