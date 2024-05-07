@@ -421,7 +421,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         this.create();
-        this.align();
+
+        setTimeout(() => {
+            this.align();
+        }, 100);
+        
         DomHandler.fadeIn(this.container, 250);
 
         if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);
