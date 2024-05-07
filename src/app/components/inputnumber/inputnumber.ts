@@ -651,11 +651,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 let formatter = new Intl.NumberFormat(this.locale, this.getOptions());
                 let formattedValue = formatter.format(value);
 
-                if (this.prefix) {
+                if (this.prefix && value != this.prefix) {
                     formattedValue = this.prefix + formattedValue;
                 }
 
-                if (this.suffix) {
+                if (this.suffix && value != this.suffix) {
                     formattedValue = formattedValue + this.suffix;
                 }
 
