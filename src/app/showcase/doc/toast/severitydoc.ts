@@ -17,6 +17,8 @@ import { Code } from '@domain/code';
             <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
             <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning" />
             <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
     `,
@@ -39,6 +41,14 @@ export class SeverityDoc {
 
     showError() {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showContrast() {
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showSecondary() {
+        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
     }
 
     code: Code = {
@@ -66,7 +76,19 @@ export class SeverityDoc {
     pRipple 
     (click)="showError()" 
     label="Error" 
-    severity="danger" />`,
+    severity="danger" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showSecondary()" 
+    label="Secondary" 
+    severity="secondary" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showContrast()" 
+    label="Contrast" 
+    severity="contrast" />`,
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast />
     <p-button 
@@ -93,6 +115,18 @@ export class SeverityDoc {
         (click)="showError()" 
         label="Error" 
         severity="danger" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showSecondary()" 
+        label="Secondary" 
+        severity="secondary" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showContrast()" 
+        label="Contrast" 
+        severity="contrast" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
@@ -124,6 +158,14 @@ export class ToastSeverityDemo {
 
     showError() {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showContrast() {
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showSecondary() {
+        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
     }
 }`
     };
