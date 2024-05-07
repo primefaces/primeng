@@ -1326,12 +1326,11 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         let listElement = this.getListElement(listType);
         const selectedFirstItem = DomHandler.findSingle(listElement, 'li.p-picklist-item.p-highlight') || DomHandler.findSingle(listElement, 'li.p-picklist-item');
         const findIndex = ObjectUtils.findIndexInList(selectedFirstItem, listElement.children);
+
         this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
-
         const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : selectedFirstItem ? findIndex : -1;
-        const filteredIndex = this.findIndexInList(this.source[index], this.visibleOptionsSource);
 
-        this.changeFocusedOptionIndex(filteredIndex, listType);
+        this.changeFocusedOptionIndex(index, listType);
         this.onFocus.emit(event);
     }
 
