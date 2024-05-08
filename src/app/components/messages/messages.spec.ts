@@ -82,10 +82,9 @@ class TestMessagesComponent {
     clearWithServiceAndKey() {
         this.messageService.clear('primeng');
     }
-
 }
 
-fdescribe('Messages', () => {
+describe('Messages', () => {
     let messages: Messages;
     let fixture: ComponentFixture<TestMessagesComponent>;
 
@@ -263,6 +262,5 @@ fdescribe('Messages', () => {
 
         expect(clearButton).toBeFalsy();
         expect(detailEl.nativeElement.innerHTML).toContain('Not closable');
-
-    })
+    });
 });

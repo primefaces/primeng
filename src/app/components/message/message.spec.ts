@@ -7,7 +7,7 @@ import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { CheckIcon } from 'primeng/icons/check';
 
-fdescribe('UIMessage', () => {
+describe('UIMessage', () => {
     let message: UIMessage;
     let fixture: ComponentFixture<UIMessage>;
 
