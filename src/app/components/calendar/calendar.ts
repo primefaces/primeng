@@ -3427,6 +3427,9 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isValidDateForTimeConstraints(selectedDate: Date) {
+        if (this.keepInvalid) {
+            return true; // If we are keeping invalid dates, we don't need to check for time constraints
+        }
         return (!this.minDate || selectedDate >= this.minDate) && (!this.maxDate || selectedDate <= this.maxDate);
     }
 
