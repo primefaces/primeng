@@ -783,7 +783,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     onArrowRightKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const grouped = this.isProccessedItemGroup(processedItem);
-        const item = processedItem.item;
+        const item = processedItem?.item;
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
@@ -900,6 +900,9 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
+        if (this.focusedItemInfo().index === -1 && !this.popup) {
+            // this.onArrowDownKey(event);
+        }
     }
 
     onMenuBlur(event: any) {
