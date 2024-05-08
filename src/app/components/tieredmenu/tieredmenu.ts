@@ -245,17 +245,17 @@ export class TieredMenuSub implements AfterContentInit {
     }
 
     positionSubmenu() {
-        const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
-
-        if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
-            const parentItem = sublist.parentElement.parentElement;
-            const containerOffset = DomHandler.getOffset(parentItem);
-            const viewport = DomHandler.getViewport();
-            const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
-            const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-
-            if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-                DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+        if (isPlatformBrowser(this.tieredMenu.platformId)) {
+            const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+            if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
+                const parentItem = sublist.parentElement.parentElement;
+                const containerOffset = DomHandler.getOffset(parentItem);
+                const viewport = DomHandler.getViewport();
+                const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
+                const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                    DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+                }
             }
         }
     }
@@ -554,7 +554,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(PLATFORM_ID) public platformId: any,
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
