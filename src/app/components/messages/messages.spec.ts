@@ -26,6 +26,7 @@ import { TimesIcon } from 'primeng/icons/times';
         <button type="button" pButton (click)="showAllViaService()" label="Use Service"></button>
         <button type="button" pButton (click)="clearWithService()" label="Use Service"></button>
         <button type="button" pButton (click)="clearWithServiceAndKey()" label="Use Service"></button>
+        <button type="button" pButton (click)="showClosableFalse()" label="Not Closable"></button>
     `
 })
 class TestMessagesComponent {
@@ -69,6 +70,11 @@ class TestMessagesComponent {
         ]);
     }
 
+    showClosableFalse() {
+        this.msgs = [];
+        this.msgs.push({ summary: 'Not Closable Message', detail: 'Not closable', closable: false });
+    }
+
     clearWithService() {
         this.messageService.clear();
     }
@@ -76,9 +82,10 @@ class TestMessagesComponent {
     clearWithServiceAndKey() {
         this.messageService.clear('primeng');
     }
+
 }
 
-describe('Messages', () => {
+fdescribe('Messages', () => {
     let messages: Messages;
     let fixture: ComponentFixture<TestMessagesComponent>;
 
@@ -243,4 +250,19 @@ describe('Messages', () => {
         const messageEl = fixture.debugElement.queryAll(By.css('.p-message-icon'));
         expect(messageEl.length).toEqual(2);
     });
+
+    it('should disable closable messages', () => {
+        fixture.detectChanges();
+
+        const closableButton = fixture.debugElement.queryAll(By.css('button'))[9];
+        closableButton.nativeElement.click();
+        fixture.detectChanges();
+
+        const detailEl = fixture.debugElement.query(By.css('.p-message-detail'));
+        const clearButton = fixture.debugElement.query(By.css('.p-message-close'));
+
+        expect(clearButton).toBeFalsy();
+        expect(detailEl.nativeElement.innerHTML).toContain('Not closable');
+
+    })
 });

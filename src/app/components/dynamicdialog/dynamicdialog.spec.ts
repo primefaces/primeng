@@ -57,7 +57,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
 })
 export class FakeTestDialogModule {}
 
-fdescribe('DynamicDialog', () => {
+describe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FakeTestDialogModule],

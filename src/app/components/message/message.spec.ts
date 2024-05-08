@@ -7,7 +7,7 @@ import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { CheckIcon } from 'primeng/icons/check';
 
-describe('UIMessage', () => {
+fdescribe('UIMessage', () => {
     let message: UIMessage;
     let fixture: ComponentFixture<UIMessage>;
 
@@ -46,19 +46,19 @@ describe('UIMessage', () => {
         expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('infocircleicon');
     });
 
-    it('should change severity to error', () => {
-        message.severity = 'error';
+    it('should change severity to danger', () => {
+        message.severity = 'danger';
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
         const iconEl = fixture.debugElement.query(By.css('.p-inline-message-icon'));
         expect(messageEl.nativeElement).toBeTruthy();
-        expect(messageEl.nativeElement.className).toContain('p-inline-message-error');
+        expect(messageEl.nativeElement.className).toContain('p-inline-message-danger');
         expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('timescircleicon');
     });
 
     it('should change severity to warning', () => {
-        message.severity = 'warn';
+        message.severity = 'warning';
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
@@ -67,8 +67,9 @@ describe('UIMessage', () => {
         expect(messageEl.nativeElement.className).toContain('p-inline-message-warn');
         expect(iconEl.nativeElement.parentElement.tagName.toLowerCase()).toEqual('exclamationtriangleicon');
     });
+
     it('should change severity to default', () => {
-        message.severity = ' ';
+        message.severity = 'primary';
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
