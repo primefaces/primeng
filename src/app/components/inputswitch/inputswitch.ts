@@ -145,7 +145,6 @@ export class InputSwitch {
                 checked: this.modelValue
             });
 
-            event.preventDefault();
             this.input.nativeElement.focus();
         }
     }
