@@ -44,3 +44,4 @@ Thumbs.db
 # type doc
 api-generator/typedoc.json
 .vercel
+.nx
