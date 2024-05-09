@@ -13,7 +13,7 @@ import { CarService } from '@service/carservice';
         <div class="card">
             <p style="margin-bottom: 70rem;">Table is not loaded yet, scroll down to initialize it.</p>
 
-            <p-toast></p-toast>
+            <p-toast />
             <div pDefer (onLoad)="initData()">
                 <ng-template>
                     <p-table [value]="cars" responsiveLayout="scroll">
@@ -74,13 +74,12 @@ export class DataTableDoc {
         </p-table>
     </ng-template>
 </div>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p style="margin-bottom: 70rem;">
         Table is not loaded yet, scroll down to initialize it.
     </p>
 
-    <p-toast></p-toast>
+    <p-toast />
     <div pDefer (onLoad)="initData()">
         <ng-template>
             <p-table [value]="cars" responsiveLayout="scroll">
@@ -104,15 +103,18 @@ export class DataTableDoc {
         </ng-template>
     </div>
 </div>`,
-        typescript: `
-import { Component, Input } from '@angular/core';
+        typescript: `import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
+import { DeferModule } from 'primeng/defer';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'defer-data-table-demo',
     templateUrl: './defer-data-table-demo.html',
+    standalone: true,
+    imports: [DeferModule, ToastModule],
     providers: [MessageService, CarService]
 })
 export class DeferDataTableDemo {

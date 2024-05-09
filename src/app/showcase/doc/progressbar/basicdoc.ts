@@ -8,24 +8,25 @@ import { Code } from '@domain/code';
             <p>ProgressBar is used with the <i>value</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-progressBar [value]="50"></p-progressBar>
+            <p-progressBar [value]="50" />
         </div>
         <app-code [code]="code" selector="progress-bar-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<p-progressBar [value]="50"></p-progressBar>`,
-        html: `
-<div class="card">
-    <p-progressBar [value]="50"></p-progressBar>
+        basic: `<p-progressBar [value]="50" />`,
+        html: `<div class="card">
+    <p-progressBar [value]="50" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     selector: 'progress-bar-basic-demo',
-    templateUrl: './progress-bar-basic-demo.html'
+    templateUrl: './progress-bar-basic-demo.html',
+    standalone: true,
+    imports: [ProgressBarModule]
 })
 export class ProgressBarBasicDemo {}`
     };

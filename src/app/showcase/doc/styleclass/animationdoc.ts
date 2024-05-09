@@ -12,8 +12,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center">
             <div>
-                <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
-                <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
+                <p-button label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein" />
+                <p-button label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden" />
             </div>
 
             <div class="hidden animation-duration-500 box">
@@ -26,30 +26,54 @@ import { Code } from '@domain/code';
 export class AnimationDoc {
     code: Code = {
         basic: `<div>
-    <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
-    <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
+    <p-button 
+        label="Show" 
+        class="mr-2" 
+        pStyleClass=".box" 
+        enterFromClass="hidden" 
+        enterActiveClass="fadein" />
+    <p-button 
+        label="Hide" 
+        pStyleClass=".box" 
+        leaveActiveClass="fadeout" 
+        leaveToClass="hidden" />
 </div>
 
 <div class="hidden animation-duration-500 box">
-    <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">Content</div>
+    <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">
+        Content
+    </div>
 </div>`,
-        html: `
-<div class="card flex flex-column align-items-center">
+        html: `<div class="card flex flex-column align-items-center">
     <div>
-        <button pButton label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein"></button>
-        <button pButton label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden"></button>
+        <p-button 
+            label="Show"
+            class="mr-2"
+            pStyleClass=".box"
+            enterFromClass="hidden" 
+            enterActiveClass="fadein" />
+        <p-button 
+            label="Hide" 
+            pStyleClass=".box" 
+            leaveActiveClass="fadeout" 
+            leaveToClass="hidden" />
     </div>
 
     <div class="hidden animation-duration-500 box">
-        <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">Content</div>
+        <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">
+            Content
+        </div>
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { StyleClassModule } from 'primeng/styleclass';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: './style-class-animation-demo',
-    templateUrl: './style-class-animation-demo.html'
+    templateUrl: './style-class-animation-demo.html',
+    standalone: true,
+    imports: [StyleClassModule, ButtonModule]
 })
 export class StyleClassAnimationDemo {}`
     };

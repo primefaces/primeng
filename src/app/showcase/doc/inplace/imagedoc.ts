@@ -33,11 +33,12 @@ export class ImageDoc {
         </div>
     </ng-template>
     <ng-template pTemplate="content">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" 
+            alt="Nature" />
     </ng-template>
 </p-inplace>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-inplace>
         <ng-template pTemplate="display">
             <div class="inline-flex align-items-center">
@@ -46,16 +47,20 @@ export class ImageDoc {
             </div>
         </ng-template>
         <ng-template pTemplate="content">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" alt="Nature" />
+            <img 
+                src="https://primefaces.org/cdn/primeng/images/demo/galleria/galleria5.jpg" 
+                alt="Nature" />
         </ng-template>
     </p-inplace>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
 
 @Component({
     selector: 'inplace-image-demo',
-    templateUrl: './inplace-image-demo.html'
+    templateUrl: './inplace-image-demo.html',
+    standalone: true,
+    imports: [InplaceModule]
 })
 export class InplaceImageDemo {}`
     };

@@ -7,27 +7,37 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Buttons have built-in support for badges to display a badge inline.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-button label="Emails" badge="8" styleClass="mr-2"></p-button>
-            <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+
+        <div class="card flex flex-wrap justify-content-center gap-2">
+            <p-button label="Emails" badge="8" />
+            <p-button label="Messages" icon="pi pi-users" severity="secondary" badge="8" badgeClass="p-badge-info" />
         </div>
+
         <app-code [code]="code" selector="badge-button-demo"></app-code>
     `
 })
 export class ButtonDoc {
     code: Code = {
-        basic: `<p-button label="Emails" badge="8" styleClass="mr-2"></p-button>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-button label="Emails" badge="8" styleClass="mr-2"></p-button>
-    <p-button label="Messages" icon="pi pi-users" styleClass="p-button-warning" badge="8" badgeClass="p-badge-danger"></p-button>
+        basic: `<p-button label="Emails" badge="8" />`,
+        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+    <p-button 
+        label="Emails" 
+        badge="8" />
+    <p-button 
+        label="Messages" 
+        icon="pi pi-users" 
+        severity="secondary" 
+        badge="8" 
+        badgeClass="p-badge-info" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'badge-button-demo',
-    templateUrl: './badge-button-demo.html'
+    templateUrl: './badge-button-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
 })
 export class BadgeButtonDemo {}`
     };

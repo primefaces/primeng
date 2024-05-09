@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <p style="margin-bottom: 70rem;">Content is not loaded yet, scroll down to initialize it.</p>
-            <p-toast></p-toast>
+            <p-toast />
             <div pDefer (onLoad)="onLoad()">
                 <ng-template>
                     <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
@@ -31,28 +31,36 @@ export class BasicDoc {
     code: Code = {
         basic: `<div pDefer (onLoad)="onLoad()">
     <ng-template>
-        <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
+        <img 
+            class="w-full md:w-30rem md:block md:mx-auto" 
+            src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+            alt="Prime" />
     </ng-template>
 </div>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p style="margin-bottom: 70rem;">
         Content is not loaded yet, scroll down to initialize it.
     </p>
-    <p-toast></p-toast>
+    <p-toast />
     <div pDefer (onLoad)="onLoad()">
         <ng-template>
-            <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
+            <img 
+                class="w-full md:w-30rem md:block md:mx-auto" 
+                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+                alt="Prime" />
         </ng-template>
     </div>
 </div>`,
-        typescript: `
-import { Component, Input } from '@angular/core';
+        typescript: `import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { DeferModule } from 'primeng/defer';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'defer-basic-demo',
     templateUrl: './defer-basic-demo.html',
+    standalone: true,
+    imports: [DeferModule, ToastModule],
     providers: [MessageService]
 })
 export class DeferBasicDemo {

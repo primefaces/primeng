@@ -130,12 +130,17 @@ export class TemplateDoc {
     </p-meterGroup>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
+import { CardModule } from 'primeng/card';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'meter-group-template-demo',
-    templateUrl: './meter-group-template-demo.html'
+    templateUrl: './meter-group-template-demo.html',
+    standalone: true,
+    imports: [MeterGroupModule, CardModule, ButtonModule, CommonModule]
 })
 export class MeterGroupTemplateDemo {
     value = [

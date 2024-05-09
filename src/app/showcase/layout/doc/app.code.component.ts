@@ -96,7 +96,7 @@ export class AppCodeComponent {
 
     @Input({ transform: booleanAttribute }) hideCodeSandbox: boolean = false;
 
-    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = true;
+    @Input({ transform: booleanAttribute }) hideStackBlitz: boolean = false;
 
     @ViewChild('codeElement') codeElement: ElementRef;
 
@@ -152,26 +152,28 @@ export class AppCodeComponent {
 
     openStackBlitz() {
         if (this.code) {
-            if (this.code.typescript) {
-                const str = this.code.typescript;
-                const importModuleStatement = "import { ImportsModule } from './imports';";
+            let str = this.code.typescript;
 
-                if (!str.includes(importModuleStatement)) {
-                    let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
-                        if (match.includes('Module') && !match.includes('ReactiveFormsModule')) {
-                            return '';
-                        }
-                        return match;
-                    });
+            const importModuleStatement = "import { ImportsModule } from './imports';";
 
-                    modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
+            if (!str.includes(importModuleStatement)) {
+                let modifiedCodeWithImportsModule = str.replace(/import\s+{[^{}]*}\s+from\s+'[^']+';[\r\n]*/g, (match) => {
+                    if (match.includes('Module') && !match.includes('ReactiveFormsModule')) {
+                        return '';
+                    }
+                    return match;
+                });
 
-                    const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
+                modifiedCodeWithImportsModule = modifiedCodeWithImportsModule.replace(/\bimports:\s*\[[^\]]*\]/, 'imports: [ImportsModule]');
 
-                    this.code.typescript = finalModifiedCode;
-                }
+                const finalModifiedCode = modifiedCodeWithImportsModule.replace(/import\s+\{[^{}]*\}\s+from\s+'@angular\/core';/, (match) => match + '\n' + importModuleStatement);
+
+                str = finalModifiedCode;
             }
-            useStackBlitz({ code: this.code, selector: this.selector, extFiles: this.extFiles, routeFiles: this.routeFiles });
+
+            const stackBlitzObject = { ...this.code, typescript: str };
+
+            useStackBlitz({ code: stackBlitzObject, selector: this.selector, extFiles: this.extFiles, routeFiles: this.routeFiles });
         }
     }
 

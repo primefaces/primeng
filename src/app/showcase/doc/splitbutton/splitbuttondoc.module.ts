@@ -17,10 +17,11 @@ import { SeverityDoc } from './severitydoc';
 import { SizesDoc } from './sizesdoc';
 import { StyleDoc } from './styledoc';
 import { TextDoc } from './textdoc';
+import { TemplateDoc } from './templatedoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, SplitButtonModule, ToastModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, NestedDoc, SeverityDoc, RaisedDoc, RoundedDoc, TextDoc, RaisedTextDoc, OutlinedDoc, SizesDoc, DisabledDoc, StyleDoc, AccessibilityDoc]
+    declarations: [ImportDoc, BasicDoc, NestedDoc, SeverityDoc, RaisedDoc, RoundedDoc, TextDoc, RaisedTextDoc, OutlinedDoc, SizesDoc, DisabledDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
 export class SplitButtonDocModule {}

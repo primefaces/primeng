@@ -12,6 +12,7 @@ import { DisabledDoc } from '@doc/inputnumber/disableddoc';
 import { StyleDoc } from '@doc/inputnumber/styledoc';
 import { AccessibilityDoc } from '@doc/inputnumber/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/inputnumber/reactiveformsdoc';
+import { FilledDoc } from '@doc/inputnumber/filleddoc';
 
 @Component({
     templateUrl: './inputnumberdemo.html',
@@ -63,6 +64,11 @@ export class InputNumberDemo {
             id: 'floatlabel',
             label: 'Float Label',
             component: FloatlabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',

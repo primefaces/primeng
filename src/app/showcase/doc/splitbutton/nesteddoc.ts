@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
+            <p-toast />
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
         </div>
         <app-code [code]="code" selector="split-button-nested-demo"></app-code>
     `,
@@ -153,22 +153,30 @@ export class NestedDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>`,
+        basic: `<p-splitButton 
+    label="Save" 
+    (onClick)="save('info')" 
+    [model]="items" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-splitButton label="Save" (onClick)="save('info')" [model]="items"></p-splitButton>
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('info')" 
+        [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'split-button-nested-demo',
     templateUrl: './split-button-nested-demo.html',
-    providers: [ MessageService ]
+    standalone: true,
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitButtonNestedDemo {
     items: MenuItem[];

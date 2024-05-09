@@ -21,8 +21,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         html: `<span id="label_status">Status</span>
-<p-progressBar aria-labelledby="label_status"></p-progressBar>
+<p-progressBar aria-labelledby="label_status" />
 
-<p-progressBar aria-label="Status"></p-progressBar>`
+<p-progressBar aria-label="Status" />`
     };
 }

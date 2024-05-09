@@ -15,19 +15,31 @@ import { Code } from '@domain/code';
 })
 export class DirectiveDoc {
     code: Code = {
-        basic: `<button pButton pRipple label="Submit" class="p-button-success"></button>`,
+        basic: `<button 
+    pButton 
+    pRipple 
+    label="Submit" 
+    class="p-button-success">
+</button>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <button pButton pRipple label="Submit" class="p-button-success"></button>
+        html: `<div class="card flex justify-content-center">
+    <button 
+        pButton 
+        pRipple 
+        label="Submit" 
+        class="p-button-success">
+    </button>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+        
 @Component({
     selector: 'button-directive-demo',
-    templateUrl: './button-directive-demo.html'
+    templateUrl: './button-directive-demo.html',
+    standalone: true,
+    imports: [ButtonModule, RippleModule]
 })
 export class ButtonDirectiveDemo { }`
     };

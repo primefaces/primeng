@@ -31,12 +31,14 @@ export class TemplateDoc {
          </ng-template>
      </p-progressBar>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 @Component({
     selector: 'progress-bar-template-demo',
-    templateUrl: './progress-bar-template-demo.html'
+    templateUrl: './progress-bar-template-demo.html',
+    standalone: true,
+    imports: [ProgressBarModule]
 })
 export class ProgressBarTemplateDemo {}`
     };

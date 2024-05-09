@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>
+            <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
         <app-code [code]="code" selector="meter-group-vertical-demo"></app-code>
     `
@@ -21,18 +21,28 @@ export class VerticalDoc {
         { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
-        basic: `<p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>`,
+        basic: `<p-meterGroup 
+    [value]="value" 
+    orientation="vertical" 
+    labelOrientation="vertical" 
+    [style]="{ height: '300px' }" />`,
 
         html: `<div class="card flex justify-content-center">
-<p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }"></p-meterGroup>
+    <p-meterGroup 
+        [value]="value" 
+        orientation="vertical" 
+        labelOrientation="vertical" 
+        [style]="{ height: '300px' }" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-vertical-demo',
-    templateUrl: './meter-group-vertical-demo.html'
+    templateUrl: './meter-group-vertical-demo.html',
+    standalone: true,
+    imports: [MeterGroupModule]
 })
 export class MeterGroupVerticalDemo {
     value = [

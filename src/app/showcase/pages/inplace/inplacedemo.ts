@@ -6,6 +6,7 @@ import { DataDoc } from '@doc/inplace/datadoc';
 import { ImportDoc } from '@doc/inplace/importdoc';
 import { InputDoc } from '@doc/inplace/inputdoc';
 import { AccessibilityDoc } from '@doc/inplace/accessibilitydoc';
+import { LazyDoc } from '@doc/inplace/lazydoc';
 
 @Component({
     templateUrl: './inplacedemo.html'
@@ -31,6 +32,11 @@ export class InplaceDemo {
             id: 'image',
             label: 'Image',
             component: ImageDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'data',

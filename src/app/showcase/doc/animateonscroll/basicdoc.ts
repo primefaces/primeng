@@ -113,8 +113,7 @@ export class BasicDoc {
 <div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
     <span class="text-3xl font-bold">scalein</span>
 </div>`,
-        html: `
-<div class="card flex flex-column align-items-center overflow-hidden">
+        html: `<div class="card flex flex-column align-items-center overflow-hidden">
     <div class="flex flex-column align-items-center gap-2">
         <span class="text-xl font-medium">Scroll Down</span>
         <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
@@ -150,12 +149,14 @@ export class BasicDoc {
         <span class="text-3xl font-bold">scalein</span>
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 
 @Component({
     selector: 'animate-on-scroll-basic-demo',
     templateUrl: './animate-on-scroll-basic-demo.html',
+    standalone: true,
+    imports: [AnimateOnScrollModule],
     styles: [
         \`
             :host {
