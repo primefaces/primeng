@@ -25,7 +25,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
      * Event to show the tooltip.
      * @group Props
      */
-    @Input() tooltipEvent: 'hover' | 'focus' | string | any = 'hover';
+    @Input() tooltipEvent: 'hover' | 'focus' | 'both' | string | any = 'hover';
     /**
      *  Target element to attach the overlay, valid values are "body", "target" or a local ng-F variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -429,7 +429,11 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         }
 
         this.create();
-        this.align();
+
+        setTimeout(() => {
+            this.align();
+        }, 100);
+        
         DomHandler.fadeIn(this.container, 250);
 
         if (this.getOption('tooltipZIndex') === 'auto') ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip);

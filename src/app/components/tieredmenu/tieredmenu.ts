@@ -77,7 +77,6 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                     [attr.aria-disabled]="isItemDisabled(processedItem) || undefined"
                     [attr.aria-haspopup]="isItemGroup(processedItem) && !getItemProp(processedItem, 'to') ? 'menu' : undefined"
                     [attr.aria-expanded]="isItemGroup(processedItem) ? isItemActive(processedItem) : undefined"
-                    [attr.aria-level]="level + 1"
                     [attr.aria-setsize]="getAriaSetSize()"
                     [attr.aria-posinset]="getAriaPosInset(index)"
                     [ngStyle]="getItemProp(processedItem, 'style')"
@@ -91,7 +90,6 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
                                 [attr.href]="getItemProp(processedItem, 'url')"
-                                [attr.aria-hidden]="true"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
@@ -105,7 +103,6 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
-                                    [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
@@ -127,7 +124,6 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 [routerLink]="getItemProp(processedItem, 'routerLink')"
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.tabindex]="-1"
-                                [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
                                 [routerLinkActive]="'p-menuitem-link-active'"
@@ -248,17 +244,17 @@ export class TieredMenuSub implements AfterContentInit {
     }
 
     positionSubmenu() {
-        const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
-
-        if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
-            const parentItem = sublist.parentElement.parentElement;
-            const containerOffset = DomHandler.getOffset(parentItem);
-            const viewport = DomHandler.getViewport();
-            const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
-            const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-
-            if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-                DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+        if (isPlatformBrowser(this.tieredMenu.platformId)) {
+            const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
+            if (sublist && !DomHandler.hasClass(sublist, 'p-submenu-list-flipped')) {
+                const parentItem = sublist.parentElement.parentElement;
+                const containerOffset = DomHandler.getOffset(parentItem);
+                const viewport = DomHandler.getViewport();
+                const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
+                const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
+                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
+                    DomHandler.addClass(sublist, 'p-submenu-list-flipped');
+                }
             }
         }
     }
@@ -557,7 +553,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(PLATFORM_ID) public platformId: any,
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
@@ -786,7 +782,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
     onArrowRightKey(event: KeyboardEvent) {
         const processedItem = this.visibleItems[this.focusedItemInfo().index];
         const grouped = this.isProccessedItemGroup(processedItem);
-        const item = processedItem.item;
+        const item = processedItem?.item;
 
         if (grouped) {
             this.onItemChange({ originalEvent: event, processedItem });
@@ -903,6 +899,9 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 
     onMenuFocus(event: any) {
         this.focused = true;
+        if (this.focusedItemInfo().index === -1 && !this.popup) {
+            // this.onArrowDownKey(event);
+        }
     }
 
     onMenuBlur(event: any) {

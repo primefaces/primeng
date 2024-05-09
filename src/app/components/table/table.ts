@@ -5471,8 +5471,11 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     onRowMatchModeChange(matchMode: string) {
-        (<FilterMetadata>this.dt.filters[<string>this.field]).matchMode = matchMode;
-        this.dt._filter();
+        const fieldFilter = <FilterMetadata>this.dt.filters[<string>this.field];
+        fieldFilter.matchMode = matchMode;
+        if (fieldFilter.value) {
+            this.dt._filter();
+        }
         this.hide();
     }
 
