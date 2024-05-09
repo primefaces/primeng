@@ -58,15 +58,15 @@ export class TemplateDoc {
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
     field="name">
-    <ng-template let-country pTemplate="item">
-        <div class="flex align-items-center gap-2">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                [class]="'flag flag-' + country.code.toLowerCase()" 
-                style="width: 18px"/>
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
+        <ng-template let-country pTemplate="item">
+            <div class="flex align-items-center gap-2">
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                    [class]="'flag flag-' + country.code.toLowerCase()" 
+                    style="width: 18px" />
+                <div>{{ country.name }}</div>
+            </div>
+        </ng-template>
 </p-autoComplete>`,
 
         html: `<div class="card flex justify-content-center">
@@ -80,7 +80,7 @@ export class TemplateDoc {
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 
-                    style="width: 18px"/>
+                    style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>

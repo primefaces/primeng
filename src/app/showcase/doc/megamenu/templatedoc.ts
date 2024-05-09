@@ -107,7 +107,7 @@ export class TemplateDoc implements OnInit {
                     ],
                     [
                         {
-                            items: [{ image: 'https://primefaces.org/cdn/primevue/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
+                            items: [{ image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
                         }
                     ]
                 ]
@@ -292,7 +292,7 @@ export class MegaMenuTemplateDemo implements OnInit {
                     ],
                     [
                         {
-                            items: [{ image: 'https://primefaces.org/cdn/primevue/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
+                            items: [{ image: 'https://primefaces.org/cdn/primeng/images/uikit/uikit-system.png', label: 'GET STARTED', subtext: 'Build spectacular apps in no time.' }]
                         }
                     ]
                 ]

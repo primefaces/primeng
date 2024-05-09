@@ -11,30 +11,31 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex align-items-center gap-2 flex-wrap">
-            <p-chip label="Action"></p-chip>
-            <p-chip label="Comedy"></p-chip>
-            <p-chip label="Mystery"></p-chip>
-            <p-chip label="Thriller" [removable]="true"></p-chip>
+            <p-chip label="Action" />
+            <p-chip label="Comedy" />
+            <p-chip label="Mystery" />
+            <p-chip label="Thriller" [removable]="true" />
         </div>
         <app-code [code]="code" selector="chip-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<p-chip label="Action"></p-chip>`,
-        html: `
-<div class="card flex align-items-center gap-2 flex-wrap">
-    <p-chip label="Action"></p-chip>
-    <p-chip label="Comedy"></p-chip>
-    <p-chip label="Mystery"></p-chip>
-    <p-chip label="Thriller" [removable]="true"></p-chip>
+        basic: `<p-chip label="Action" />`,
+        html: `<div class="card flex align-items-center gap-2 flex-wrap">
+    <p-chip label="Action" />
+    <p-chip label="Comedy" />
+    <p-chip label="Mystery" />
+    <p-chip label="Thriller" [removable]="true" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
     selector: 'chip-basic-demo',
-    templateUrl: './chip-basic-demo.html'
+    templateUrl: './chip-basic-demo.html',
+    standalone: true,
+    imports: [ChipModule]
 })
 export class ChipBasicDemo {}`
     };

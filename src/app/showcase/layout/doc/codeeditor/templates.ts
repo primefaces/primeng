@@ -417,9 +417,11 @@ const getAngularApp = (props: Props = {}) => {
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
     import { DynamicDialogModule } from 'primeng/dynamicdialog';
+    import { DeferModule } from 'primeng/defer';
     import { EditorModule } from 'primeng/editor';
     import { FieldsetModule } from 'primeng/fieldset';
     import { FileUploadModule } from 'primeng/fileupload';
+    import { FocusTrapModule } from 'primeng/focustrap';
     import { GalleriaModule } from 'primeng/galleria';
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
@@ -481,6 +483,7 @@ const getAngularApp = (props: Props = {}) => {
     import { TreeSelectModule } from 'primeng/treeselect';
     import { TreeTableModule } from 'primeng/treetable';
     import { AnimateModule } from 'primeng/animate';
+    import { AnimateOnScrollModule } from 'primeng/animateonscroll';
     import { CardModule } from 'primeng/card';
     import { BlockUIModule } from 'primeng/blockui';
     import { ProgressSpinnerModule } from 'primeng/progressspinner';
@@ -489,6 +492,7 @@ const getAngularApp = (props: Props = {}) => {
     import { IconFieldModule } from 'primeng/iconfield';
     import { InputIconModule } from 'primeng/inputicon';
     import { StyleClassModule } from 'primeng/styleclass';
+    import { AutoFocusModule } from 'primeng/autofocus';
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
@@ -498,6 +502,7 @@ const getAngularApp = (props: Props = {}) => {
       imports: [
         AvatarModule,
         AvatarGroupModule,
+        AnimateOnScrollModule,
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
@@ -526,9 +531,11 @@ const getAngularApp = (props: Props = {}) => {
         DragDropModule,
         DropdownModule,
         DynamicDialogModule,
+        DeferModule,
         EditorModule,
         FieldsetModule,
         FileUploadModule,
+        FocusTrapModule,
         GalleriaModule,
         InplaceModule,
         InputMaskModule,
@@ -594,10 +601,14 @@ const getAngularApp = (props: Props = {}) => {
         CardModule,
         RippleModule,
         StyleClassModule,
+        IconFieldModule,
+        InputIconModule,
+        AutoFocusModule
       ],
       exports: [
         AvatarModule,
         AvatarGroupModule,
+        AnimateOnScrollModule,
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,
@@ -622,6 +633,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DeferModule,
         DockModule,
         DragDropModule,
         DropdownModule,
@@ -629,6 +641,7 @@ const getAngularApp = (props: Props = {}) => {
         EditorModule,
         FieldsetModule,
         FileUploadModule,
+        FocusTrapModule,
         GalleriaModule,
         InplaceModule,
         InputMaskModule,
@@ -696,7 +709,8 @@ const getAngularApp = (props: Props = {}) => {
         StyleClassModule,
         FloatLabelModule,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
+        AutoFocusModule
       ],
       providers: [ ${providers} ]
     })

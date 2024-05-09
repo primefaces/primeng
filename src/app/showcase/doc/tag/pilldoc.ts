@@ -22,8 +22,7 @@ import { Code } from '@domain/code';
 export class PillDoc {
     code: Code = {
         basic: `<p-tag value="Primary" [rounded]="true" />`,
-        html: `
-<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-content-center gap-2">
     <p-tag value="Primary" [rounded]="true" />
     <p-tag severity="success" value="Success" [rounded]="true" />
     <p-tag severity="info" value="Info" [rounded]="true" />
@@ -32,12 +31,14 @@ export class PillDoc {
     <p-tag severity="danger" value="Danger" [rounded]="true" />
     <p-tag severity="contrast" value="Contrast" [rounded]="true" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TagModule } from 'primeng/tag';
 
 @Component({
     selector: 'tag-pill-demo',
-    templateUrl: './tag-pill-demo.html'
+    templateUrl: './tag-pill-demo.html',
+    standalone: true,
+    imports: [TagModule]
 })
 export class TagPillDemo {}`
     };

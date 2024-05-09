@@ -30,8 +30,7 @@ export class InputDoc {
         <input type="text" value="PrimeNG" pInputText />
     </ng-template>
 </p-inplace>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-inplace closable="closable">
         <ng-template pTemplate="display">
             <span>Click to Edit</span>
@@ -41,12 +40,15 @@ export class InputDoc {
         </ng-template>
     </p-inplace>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'inplace-input-demo',
-    templateUrl: './inplace-input-demo.html'
+    templateUrl: './inplace-input-demo.html',
+    standalone: true,
+    imports: [InplaceModule, InputTextModule]
 })
 export class InplaceInputDemo {}`
     };

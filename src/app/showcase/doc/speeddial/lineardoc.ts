@@ -10,11 +10,11 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" direction="up"></p-speedDial>
-                <p-speedDial [model]="items" direction="down"></p-speedDial>
-                <p-speedDial [model]="items" direction="left"></p-speedDial>
-                <p-speedDial [model]="items" direction="right"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" direction="up" />
+                <p-speedDial [model]="items" direction="down" />
+                <p-speedDial [model]="items" direction="left" />
+                <p-speedDial [model]="items" direction="right" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-linear-demo"></app-code>
@@ -59,30 +59,56 @@ export class LinearDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial [model]="items" direction="up"></p-speedDial>
-<p-speedDial [model]="items" direction="down"></p-speedDial>
-<p-speedDial [model]="items" direction="left"></p-speedDial>
-<p-speedDial [model]="items" direction="right"></p-speedDial>`,
+        basic: `<p-speedDial [model]="items" direction="up" />
+<p-speedDial [model]="items" direction="down" />
+<p-speedDial [model]="items" direction="left" />
+<p-speedDial [model]="items" direction="right" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" direction="up"></p-speedDial>
-        <p-speedDial [model]="items" direction="down"></p-speedDial>
-        <p-speedDial [model]="items" direction="left"></p-speedDial>
-        <p-speedDial [model]="items" direction="right"></p-speedDial>
+        <p-toast />
+        <p-speedDial [model]="items" direction="up" />
+        <p-speedDial [model]="items" direction="down" />
+        <p-speedDial [model]="items" direction="left" />
+        <p-speedDial [model]="items" direction="right" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-linear-demo',
     templateUrl: './speed-dial-linear-demo.html',
-    styleUrls: ['./speed-dial-linear-demo.scss'],
+    styles: [
+        \`:host ::ng-deep {
+            .speeddial-linear-demo {
+                .p-speeddial-direction-up {
+                    left: calc(50% - 2rem);
+                    bottom: 0;
+                }
+        
+                .p-speeddial-direction-down {
+                    left: calc(50% - 2rem);
+                    top: 0;
+                }
+        
+                .p-speeddial-direction-left {
+                    right: 0;
+                    top: calc(50% - 2rem);
+                }
+        
+                .p-speeddial-direction-right {
+                    left: 0;
+                    top: calc(50% - 2rem);
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialLinearDemo implements OnInit {
@@ -123,8 +149,7 @@ export class SpeedDialLinearDemo implements OnInit {
     }
 }`,
 
-        scss: `
-:host ::ng-deep {
+        scss: `:host ::ng-deep {
     .speeddial-linear-demo {
         .p-speeddial-direction-up {
             left: calc(50% - 2rem);

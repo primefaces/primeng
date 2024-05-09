@@ -8,9 +8,7 @@ import { Code } from '@domain/code';
             <p>Busy state is controlled with the <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-3">
-            <p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
-
-            <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>
+            <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
     `
@@ -30,21 +28,28 @@ export class LoadingDoc {
     }
 
     code: Code = {
-        basic: `<p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
-<p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>`,
+        basic: `<p-button 
+    label="Search" 
+    icon="pi pi-check" 
+    [loading]="loading" 
+    (onClick)="load()" />`,
 
-        html: `
-<div class="card flex justify-content-center gap-3">
-    <p-button label="Submit" [loading]="loading" (onClick)="load()"></p-button>
-    <p-button label="Loading custom icon" [loading]="loading" loadingIcon="pi pi-bell" (onClick)="load()"></p-button>
+        html: `<div class="card flex justify-content-center gap-3">
+    <p-button 
+        label="Search" 
+        icon="pi pi-check" 
+        [loading]="loading" 
+        (onClick)="load()" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-loading-demo',
-    templateUrl: './button-loading-demo.html'
+    templateUrl: './button-loading-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
 })
 export class ButtonLoadingDemo {
     loading: boolean = false;

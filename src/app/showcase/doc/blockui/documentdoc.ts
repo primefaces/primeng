@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>If the target element is not specified, BlockUI blocks the document by default.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-blockUI [blocked]="blockedDocument"></p-blockUI>
-            <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
+            <p-blockUI [blocked]="blockedDocument" />
+            <p-button pRipple label="Block" (click)="blockDocument()" />
         </div>
         <app-code [code]="code" selector="block-ui-document-demo"></app-code>
     `
@@ -28,18 +28,21 @@ export class DocumentDoc {
     }
 
     code: Code = {
-        basic: `<p-blockUI [blocked]="blockedDocument"></p-blockUI>`,
-        html: `
-<div class="card">
-    <p-blockUI [blocked]="blockedDocument"></p-blockUI>
-    <button type="button" pButton pRipple label="Block" (click)="blockDocument()"></button>
+        basic: `<p-blockUI [blocked]="blockedDocument" />`,
+        html: `<div class="card">
+    <p-blockUI [blocked]="blockedDocument" />
+    <p-button pRipple label="Block" (click)="blockDocument()" />
 </div>`,
-        typescript: `
-import { Component, ChangeDetectorRef } from '@angular/core';
-
+        typescript: `import { Component, ChangeDetectorRef } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+        
 @Component({
     selector: 'block-ui-document-demo',
-    templateUrl: './block-ui-document-demo.html'
+    templateUrl: './block-ui-document-demo.html',
+    standalone: true,
+    imports: [BlockUIModule, ButtonModule, RippleModule]
 })
 export class BlockUiDocumentDemo {
     blockedDocument: boolean = false;

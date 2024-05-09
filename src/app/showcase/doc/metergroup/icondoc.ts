@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Icons can be displayed next to the labels instead of the default marker.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-meterGroup [value]="value"></p-meterGroup>
+            <p-meterGroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-icon-demo"></app-code>
     `
@@ -21,19 +21,20 @@ export class IconDoc {
         { label: 'System', color: '#c084fc', value: 10, icon: 'pi pi-cog' }
     ];
     code: Code = {
-        basic: `<p-meterGroup [value]="value"></p-meterGroup>`,
+        basic: `<p-meterGroup [value]="value" />`,
 
         html: `<div class="card">
-<p-meterGroup [value]="value"></p-meterGroup>
+    <p-meterGroup [value]="value" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-icon-demo',
-    templateUrl: './meter-group-icon-demo.html'
+    templateUrl: './meter-group-icon-demo.html',
+    standalone: true,
+    imports: [MeterGroupModule]
 })
 export class MeterGroupIconDemo {
     value = [

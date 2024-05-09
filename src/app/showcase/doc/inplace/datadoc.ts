@@ -77,8 +77,7 @@ export class DataDoc {
         </p-table>
     </ng-template>
 </p-inplace>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-inplace>
         <ng-template pTemplate="display">
             <div class="inline-flex align-items-center">
@@ -108,14 +107,18 @@ export class DataDoc {
         </ng-template>
     </p-inplace>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { Car } from '@domain/car';
 import { CarService } from '@service/carservice';
+import { InplaceModule } from 'primeng/inplace';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'inplace-data-demo',
-    templateUrl: './inplace-data-demo.html'
+    templateUrl: './inplace-data-demo.html',
+    standalone: true,
+    imports: [InplaceModule, TableModule],
+    providers: [CarService]
 })
 export class InplaceDataDemo {
     cars: Car[] | undefined;

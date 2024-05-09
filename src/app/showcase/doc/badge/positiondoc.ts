@@ -18,18 +18,19 @@ import { Code } from '@domain/code';
 export class PositionDoc {
     code: Code = {
         basic: `<i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>`,
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <i class="pi pi-bell mr-4 p-text-secondary" pBadge style="font-size: 2rem" value="2"></i>
     <i class="pi pi-calendar mr-4 p-text-secondary" pBadge style="font-size: 2rem" [value]="'10+'" severity="danger"></i>
     <i class="pi pi-envelope p-text-secondary" pBadge style="font-size: 2rem" severity="danger"></i>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'badge-position-demo',
-    templateUrl: './badge-position-demo.html'
+    templateUrl: './badge-position-demo.html',
+    standalone: true,
+    imports: [BadgeModule]
 })
 export class BadgePositionDemo {}`
     };
