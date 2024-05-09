@@ -162,7 +162,7 @@ export class DropdownItem {
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="displayPlaceholder()">{{ label() === 'p-emptylabel' ? '&nbsp;' : placeholder() }}</span>
+                    <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
                 </ng-template>
             </span>
             <input
@@ -1038,10 +1038,6 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.modelValue() === null && !this.isOptionValueEqualsModelValue(this.selectedOption);
     }
 
-    displayPlaceholder() {
-        return ObjectUtils.isEmpty(this.selectedOption) && this.label() === this.placeholder();
-    }
-
     private getAllVisibleAndNonVisibleOptions() {
         return this.group ? this.flatOptions(this.options) : this.options || [];
     }
@@ -1219,6 +1215,18 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     ngAfterViewInit() {
         if (this.editable) {
             this.updateEditableLabel();
+        }
+        this.updatePlaceHolderForFloatingLabel();
+    }
+
+    updatePlaceHolderForFloatingLabel(): void {
+        const parentElement = this.el.nativeElement.parentElement;
+        const isInFloatingLabel = parentElement.classList.contains('p-float-label');
+        if(parentElement && isInFloatingLabel && !this.selectedOption) {
+            const label = parentElement.querySelector('label');
+            if (label) {
+                this._placeholder.set(label.textContent);
+            }
         }
     }
 
