@@ -68,7 +68,7 @@ export class SizesDoc {
     [model]="items" 
     (onClick)="save('info')" 
     size="lg" />`,
-        
+
         html: `<div class="card flex flex-wrap gap-3 justify-content-center">
     <p-toast />
     <p-splitButton 

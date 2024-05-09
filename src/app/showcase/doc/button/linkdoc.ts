@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-3">
             <p-button label="Link" [link]="true" />
             <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">External</a>
-            <a routerLink="/"  class="p-button font-bold">Router</a>
+            <a routerLink="/" class="p-button font-bold">Router</a>
         </div>
         <app-code [code]="code" selector="button-link-demo"></app-code>
     `
