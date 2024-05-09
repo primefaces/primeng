@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DropdownDocModule } from '../../doc/dropdown/dropdowndoc.module';
+import { DropdownDocModule } from '@doc/dropdown/dropdowndoc.module';
 import { DropdownDemo } from './dropdowndemo';
 import { DropdownDemoRoutingModule } from './dropdowndemo-routing.module';
 

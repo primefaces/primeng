@@ -27,7 +27,9 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
 import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { AppCodeModule } from 'src/app/showcase/layout/doc/app.code.component';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 import { ContextMenuDoc } from './contextmenudoc';
 import { BasicDoc } from './basicdoc';
 import { CellEditDoc } from './celleditdoc';
@@ -43,14 +45,13 @@ import { CustomSortDoc } from './customsortdoc';
 import { DynamicDoc } from './dynamicdoc';
 import { ExpandableRowGroupDoc } from './expandablerowgroupdoc';
 import { ExportDoc } from './exportdoc';
-import { FilterMenuDoc } from './filtermenudoc';
-import { FilterRowDoc } from './filterrowdoc';
+import { FilterBasicDoc } from './filterbasic';
 import { FlexibleScrollDoc } from './flexiblescrolldoc';
 import { FrozenColumnsDoc } from './frozencolumnsdoc';
 import { FrozenRowsDoc } from './frozenrowsdoc';
 import { GridlinesDoc } from './gridlinesdoc';
 import { ImportDoc } from './importdoc';
-import { HorizontalAndVerticalScrollDoc } from './horizontalandverticaldoc';
+import { HorizontalScrollDoc } from './horizontalscrolldoc';
 import { LazyLoadDoc } from './lazyloaddoc';
 import { MultipleSelectionDoc } from './multipleselectiondoc';
 import { PageOnlySelectionDoc } from './pageonlyselectiondoc';
@@ -62,10 +63,9 @@ import { ReorderDoc } from './reorderdoc';
 import { ResponsiveScrollDoc } from './responsivescrolldoc';
 import { ResponsiveStackDoc } from './responsivestackdoc';
 import { RowEditDoc } from './roweditdoc';
-import { RowExpandDoc } from './rowexpanddoc';
 import { RowspanGroupingDoc } from './rowspangroupingdoc';
 import { SingleColumnSortDoc } from './singlecolumnsortdoc';
-import { MultipleColumnSortDoc } from './multiplecolumnsortdoc';
+import { MultipleColumnsSortDoc } from './multiplecolumnssortdoc';
 import { SingleSelectionDoc } from './singleselectiondoc';
 import { SizeDoc } from './sizedoc';
 import { StatefulDoc } from './statefuldoc';
@@ -82,6 +82,11 @@ import { SelectionEventsDoc } from './selectioneventsdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { PaginatorLocaleDoc } from './paginatorlocaledoc';
 import { DeferredDemo } from '../../demo/deferreddemo';
+import { PreSortDoc } from './presortdoc';
+import { RowExpansionDoc } from './rowexpansiondoc';
+import { FilterSortEditDoc } from './filtersorteditdoc';
+import { RemovableSortDoc } from './removablesortdoc';
+import { FilterAdvancedDoc } from './filteradvanceddoc';
 
 @NgModule({
     imports: [
@@ -114,7 +119,9 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         SelectButtonModule,
         AppCodeModule,
         AppDocModule,
-        DeferredDemo
+        DeferredDemo,
+        IconFieldModule,
+        InputIconModule
     ],
     declarations: [
         ImportDoc,
@@ -135,13 +142,13 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         DynamicDoc,
         ExpandableRowGroupDoc,
         ExportDoc,
-        FilterMenuDoc,
-        FilterRowDoc,
+        FilterBasicDoc,
+        FilterAdvancedDoc,
         FlexibleScrollDoc,
         FrozenColumnsDoc,
         FrozenRowsDoc,
         GridlinesDoc,
-        HorizontalAndVerticalScrollDoc,
+        HorizontalScrollDoc,
         LazyLoadDoc,
         MultipleSelectionDoc,
         PageOnlySelectionDoc,
@@ -155,10 +162,11 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         ResponsiveScrollDoc,
         ResponsiveStackDoc,
         RowEditDoc,
-        RowExpandDoc,
+        FilterSortEditDoc,
+        RowExpansionDoc,
         RowspanGroupingDoc,
         SingleColumnSortDoc,
-        MultipleColumnSortDoc,
+        MultipleColumnsSortDoc,
         SingleSelectionDoc,
         SizeDoc,
         StatefulDoc,
@@ -172,7 +180,9 @@ import { DeferredDemo } from '../../demo/deferreddemo';
         StylingDoc,
         SelectionEventsDoc,
         AccessibilityDoc,
-        PaginatorLocaleDoc
+        PaginatorLocaleDoc,
+        PreSortDoc,
+        RemovableSortDoc
     ],
     exports: [AppDocModule]
 })

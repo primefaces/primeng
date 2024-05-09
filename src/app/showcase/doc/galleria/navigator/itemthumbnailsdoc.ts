@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../../domain/code';
-import { PhotoService } from '../../../service/photoservice';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'itemthumbnails-doc',
@@ -51,19 +51,13 @@ export class ItemThumbnailsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true" [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" style="display: block;" />
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [circular]="true"  [numVisible]="5" [containerStyle]="{ 'max-width': '640px' }">
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [showItemNavigators]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    [circular]="true" 
+    [numVisible]="5" 
+    [containerStyle]="{ 'max-width': '640px' }">
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
@@ -72,15 +66,34 @@ export class ItemThumbnailsDoc implements OnInit {
                 <img [src]="item.thumbnailImageSrc" style="display: block;" />
             </div>
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [showItemNavigators]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [circular]="true" 
+        [numVisible]="5" 
+        [containerStyle]="{ 'max-width': '640px' }">
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
+                </div>
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-navigator-item-thumbnails-demo',
     templateUrl: './galleria-navigator-item-thumbnails-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
     providers: [PhotoService]
 })
 export class GalleriaNavigatorItemThumbnailsDemo implements OnInit {

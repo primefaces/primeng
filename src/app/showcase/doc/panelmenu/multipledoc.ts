@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'multiple-doc',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-panelMenu [model]="items" [style]="{ width: '300px' }" [multiple]="true"></p-panelMenu>
+            <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
     `
@@ -20,116 +20,78 @@ export class MultipleDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
+                label: 'Files',
+                icon: 'pi pi-file',
                 items: [
                     {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        label: 'Documents',
+                        icon: 'pi pi-file',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
-                            },
-                            {
-                                label: 'Video',
-                                icon: 'pi pi-fw pi-video'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
-                    }
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
+                                label: 'Invoices',
+                                icon: 'pi pi-file-pdf',
                                 items: [
                                     {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
+                                        label: 'Pending',
+                                        icon: 'pi pi-stop'
+                                    },
+                                    {
+                                        label: 'Paid',
+                                        icon: 'pi pi-check-circle'
                                     }
                                 ]
                             },
                             {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
+                                label: 'Clients',
+                                icon: 'pi pi-users'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Images',
+                        icon: 'pi pi-image',
+                        items: [
+                            {
+                                label: 'Logos',
+                                icon: 'pi pi-image'
                             }
                         ]
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
+                label: 'Cloud',
+                icon: 'pi pi-cloud',
                 items: [
                     {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
+                        label: 'Upload',
+                        icon: 'pi pi-cloud-upload'
                     },
                     {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
+                        label: 'Download',
+                        icon: 'pi pi-cloud-download'
+                    },
+                    {
+                        label: 'Sync',
+                        icon: 'pi pi-refresh'
+                    }
+                ]
+            },
+            {
+                label: 'Devices',
+                icon: 'pi pi-desktop',
+                items: [
+                    {
+                        label: 'Phone',
+                        icon: 'pi pi-mobile'
+                    },
+                    {
+                        label: 'Desktop',
+                        icon: 'pi pi-desktop'
+                    },
+                    {
+                        label: 'Tablet',
+                        icon: 'pi pi-tablet'
                     }
                 ]
             }
@@ -137,20 +99,21 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true"></p-panelMenu>`,
+        basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true"></p-panelMenu>
+        html: `<div class="card flex justify-content-center">
+    <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { PanelMenuModule } from 'primeng/panelmenu';
 
 @Component({
     selector: 'panel-menu-multiple-demo',
-    templateUrl: './panel-menu-multiple-demo.html'
+    templateUrl: './panel-menu-multiple-demo.html',
+    standalone: true,
+    imports: [PanelMenuModule]
 })
 export class PanelMenuMultipleDemo implements OnInit {
     items: MenuItem[];
@@ -158,120 +121,82 @@ export class PanelMenuMultipleDemo implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
+                label: 'Files',
+                icon: 'pi pi-file',
                 items: [
                     {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        label: 'Documents',
+                        icon: 'pi pi-file',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
-                            },
-                            {
-                                label: 'Video',
-                                icon: 'pi pi-fw pi-video'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
-                    }
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
+                                label: 'Invoices',
+                                icon: 'pi pi-file-pdf',
                                 items: [
                                     {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
+                                        label: 'Pending',
+                                        icon: 'pi pi-stop'
+                                    },
+                                    {
+                                        label: 'Paid',
+                                        icon: 'pi pi-check-circle'
                                     }
                                 ]
                             },
                             {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
+                                label: 'Clients',
+                                icon: 'pi pi-users'
+                            }
+                        ]
+                    },
+                    {
+                        label: 'Images',
+                        icon: 'pi pi-image',
+                        items: [
+                            {
+                                label: 'Logos',
+                                icon: 'pi pi-image'
                             }
                         ]
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
+                label: 'Cloud',
+                icon: 'pi pi-cloud',
                 items: [
                     {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
+                        label: 'Upload',
+                        icon: 'pi pi-cloud-upload'
                     },
                     {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
+                        label: 'Download',
+                        icon: 'pi pi-cloud-download'
+                    },
+                    {
+                        label: 'Sync',
+                        icon: 'pi pi-refresh'
+                    }
+                ]
+            },
+            {
+                label: 'Devices',
+                icon: 'pi pi-desktop',
+                items: [
+                    {
+                        label: 'Phone',
+                        icon: 'pi pi-mobile'
+                    },
+                    {
+                        label: 'Desktop',
+                        icon: 'pi pi-desktop'
+                    },
+                    {
+                        label: 'Tablet',
+                        icon: 'pi pi-tablet'
                     }
                 ]
             }
-        ];
+        ]
     }
 }`
     };

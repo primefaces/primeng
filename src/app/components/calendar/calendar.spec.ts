@@ -1941,4 +1941,31 @@ describe('Calendar', () => {
         calendar.updateTime();
         expect((calendar.value as Date).toISOString()).toBe(maxDateISO);
     });
+
+    it('should set input element date to minDate including the set time', () => {
+        const minDate = new Date(2022, 0, 1, 20, 30, 0);
+        const date = new Date(2022, 0, 2);
+        calendar.minDate = minDate;
+        calendar.defaultDate = date;
+        calendar.hourFormat = '12';
+        jasmine.clock().mockDate(date);
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        calendar.currentHour = 11;
+        calendar.currentMinute = 30;
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const selectdateSpy = spyOn(calendar, 'selectDate').and.callThrough();
+        const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(selectdateSpy).toHaveBeenCalled();
+        expect(calendar.value).toEqual(minDate);
+    });
 });

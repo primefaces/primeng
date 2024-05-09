@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'menu-group-demo',
@@ -9,8 +9,7 @@ import { Code } from '../../domain/code';
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            <p-menu [model]="items"></p-menu>
+            <p-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
     `,
@@ -24,120 +23,86 @@ export class GroupDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Options',
+                label: 'Documents',
                 items: [
                     {
-                        label: 'Update',
-                        icon: 'pi pi-refresh',
-                        command: () => {
-                            this.update();
-                        }
+                        label: 'New',
+                        icon: 'pi pi-plus'
                     },
                     {
-                        label: 'Delete',
-                        icon: 'pi pi-times',
-                        command: () => {
-                            this.delete();
-                        }
+                        label: 'Search',
+                        icon: 'pi pi-search'
                     }
                 ]
             },
             {
-                label: 'Navigate',
+                label: 'Profile',
                 items: [
                     {
-                        label: 'Angular',
-                        icon: 'pi pi-external-link',
-                        url: 'http://angular.io'
+                        label: 'Settings',
+                        icon: 'pi pi-cog'
                     },
                     {
-                        label: 'Router',
-                        icon: 'pi pi-upload',
-                        routerLink: '/fileupload'
+                        label: 'Logout',
+                        icon: 'pi pi-sign-out'
                     }
                 ]
             }
         ];
     }
 
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
-    }
-
     code: Code = {
-        basic: `<p-toast></p-toast>
-<p-menu [model]="items"></p-menu>`,
+        basic: `<p-menu [model]="items" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-menu [model]="items"></p-menu>
+        html: `<div class="card flex justify-content-center">
+    <p-menu [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
+        
 @Component({
     selector: 'menu-group-demo',
     templateUrl: './menu-group-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [MenuModule, ToastModule]
 })
 export class MenuGroupDemo implements OnInit {
     items: MenuItem[] | undefined;
-
-    constructor(private messageService: MessageService) {}
     
     ngOnInit() {
         this.items = [
             {
-                label: 'Options',
+                label: 'Documents',
                 items: [
                     {
-                        label: 'Update',
-                        icon: 'pi pi-refresh',
-                        command: () => {
-                            this.update();
-                        }
+                        label: 'New',
+                        icon: 'pi pi-plus'
                     },
                     {
-                        label: 'Delete',
-                        icon: 'pi pi-times',
-                        command: () => {
-                            this.delete();
-                        }
+                        label: 'Search',
+                        icon: 'pi pi-search'
                     }
                 ]
             },
             {
-                label: 'Navigate',
+                label: 'Profile',
                 items: [
                     {
-                        label: 'Angular',
-                        icon: 'pi pi-external-link',
-                        url: 'http://angular.io'
+                        label: 'Settings',
+                        icon: 'pi pi-cog'
                     },
                     {
-                        label: 'Router',
-                        icon: 'pi pi-upload',
-                        routerLink: '/fileupload'
+                        label: 'Logout',
+                        icon: 'pi pi-sign-out'
                     }
                 ]
             }
         ];
     }
 
-    update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
-    }
-
-    delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
-    }
 }`
     };
 }

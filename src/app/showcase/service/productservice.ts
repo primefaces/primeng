@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Product } from '../domain/product';
+import { Product } from '@domain/product';
 
 @Injectable()
 export class ProductService {
@@ -1254,7 +1254,7 @@ export class ProductService {
     }
 
     getProductsWithOrdersSmall() {
-        return Promise.resolve(this.getProductsData().slice(0, 10));
+        return Promise.resolve(this.getProductsWithOrdersData().slice(0, 10));
     }
 
     generatePrduct(): Product {

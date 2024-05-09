@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -13,7 +13,7 @@ interface City {
             <p>MultiSelect provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-filter-demo"></app-code>
     `
@@ -34,15 +34,25 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>`,
+        basic: `<p-multiSelect 
+    [options]="cities" 
+    [(ngModel)]="selectedCities" 
+    [filter]="true" 
+    optionLabel="name" 
+    placeholder="Select Cities" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [filter]="true" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-multiSelect 
+        [options]="cities" 
+        [(ngModel)]="selectedCities" 
+        [filter]="true" 
+        optionLabel="name" 
+        placeholder="Select Cities" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
     name: string,
@@ -51,7 +61,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-filter-demo',
-    templateUrl: './multi-select-filter-demo.html'
+    templateUrl: './multi-select-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectFilterDemo implements OnInit {
     cities!: City[];

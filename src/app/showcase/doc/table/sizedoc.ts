@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'size-doc',
@@ -11,7 +11,7 @@ import { ProductService } from '../../service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-content-center mb-3">
-                    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+                    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
                 </div>
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
                     <ng-template pTemplate="header">
@@ -60,7 +60,12 @@ export class SizeDoc {
 
     code: Code = {
         basic: `<div class="flex justify-content-center mb-3">
-    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+    <p-selectButton 
+        [options]="sizes" 
+        [(ngModel)]="selectedSize" 
+        [multiple]="false" 
+        optionLabel="name" 
+        optionValue="class" />
 </div>
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
     <ng-template pTemplate="header">
@@ -80,10 +85,14 @@ export class SizeDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex justify-content-center mb-3">
-        <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class"></p-selectButton>
+        <p-selectButton 
+            [options]="sizes" 
+            [(ngModel)]="selectedSize" 
+            [multiple]="false" 
+            optionLabel="name" 
+            optionValue="class" />
     </div>
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize.class">
         <ng-template pTemplate="header">
@@ -104,14 +113,19 @@ export class SizeDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-size-demo',
-    templateUrl: 'table-size-demo.html'
+    templateUrl: 'table-size-demo.html',
+    standalone: true,
+    imports: [TableModule, SelectButtonModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableSizeDemo {
     products!: Product[];

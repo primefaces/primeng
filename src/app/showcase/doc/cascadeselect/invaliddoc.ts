@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'cascade-select-invalid-demo',
@@ -17,7 +17,7 @@ import { Code } from '../../domain/code';
                 [optionGroupChildren]="['states', 'cities']"
                 [style]="{ minWidth: '14rem' }"
                 placeholder="Select a City"
-            ></p-cascadeSelect>
+            />
         </div>
         <app-code [code]="code" selector="cascade-select-invalid-demo"></app-code>
     `
@@ -105,18 +105,37 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `<p-cascadeSelect class="ng-invalid ng-dirty" [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>`,
+        basic: `<p-cascadeSelect 
+    class="ng-invalid ng-dirty"
+    [(ngModel)]="selectedCity"
+    [options]="countries"
+    optionLabel="cname"
+    optionGroupLabel="name"
+    [optionGroupChildren]="['states', 'cities']"
+    [style]="{ minWidth: '14rem' }"
+    placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-cascadeSelect class="ng-invalid ng-dirty" [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+    <p-cascadeSelect
+        class="ng-invalid ng-dirty"
+        [(ngModel)]="selectedCity"
+        [options]="countries"
+        optionLabel="cname"
+        optionGroupLabel="name" 
+        [optionGroupChildren]="['states', 'cities']"
+        [style]="{ minWidth: '14rem' }" 
+        placeholder="Select a City" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-invalid-demo',
-    templateUrl: './cascade-select-invalid-demo.html'
+    templateUrl: './cascade-select-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, CascadeSelectModule]
 })
 export class CascadeSelectInvalidDemo implements OnInit {
     countries: any[] | undefined;

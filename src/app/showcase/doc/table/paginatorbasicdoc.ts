@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Code } from '@domain/code';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'paginator-basic-doc',
@@ -13,15 +13,7 @@ import { CustomerService } from '../../service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table
-                    [value]="customers"
-                    [paginator]="true"
-                    [rows]="5"
-                    [showCurrentPageReport]="true"
-                    [tableStyle]="{ 'min-width': '50rem' }"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                    [rowsPerPageOptions]="[5, 10, 20]"
-                >
+                <p-table [value]="customers" [paginator]="true" [rows]="5" [tableStyle]="{ 'min-width': '50rem' }" [rowsPerPageOptions]="[5, 10, 20]">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width:25%">Name</th>
@@ -37,12 +29,6 @@ import { CustomerService } from '../../service/customerservice';
                             <td>{{ customer.company }}</td>
                             <td>{{ customer.representative.name }}</td>
                         </tr>
-                    </ng-template>
-                    <ng-template pTemplate="paginatorleft">
-                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-                    </ng-template>
-                    <ng-template pTemplate="paginatorright">
-                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
                     </ng-template>
                 </p-table>
             </div>
@@ -67,9 +53,7 @@ export class PaginatorBasicDoc {
     [value]="customers"
     [paginator]="true"
     [rows]="5"
-    [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '50rem' }"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [rowsPerPageOptions]="[5, 10, 20]"
 >
     <ng-template pTemplate="header">
@@ -88,22 +72,13 @@ export class PaginatorBasicDoc {
             <td>{{ customer.representative.name }}</td>
         </tr>
     </ng-template>
-    <ng-template pTemplate="paginatorleft">
-        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-    </ng-template>
-    <ng-template pTemplate="paginatorright">
-        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-    </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table
         [value]="customers"
         [paginator]="true"
         [rows]="5"
-        [showCurrentPageReport]="true"
         [tableStyle]="{ 'min-width': '50rem' }"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
         [rowsPerPageOptions]="[5, 10, 20]"
     >
         <ng-template pTemplate="header">
@@ -122,22 +97,20 @@ export class PaginatorBasicDoc {
                 <td>{{ customer.representative.name }}</td>
             </tr>
         </ng-template>
-        <ng-template pTemplate="paginatorleft">
-            <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-        </ng-template>
-        <ng-template pTemplate="paginatorright">
-            <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-        </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+        typescript: `import { Component } from '@angular/core';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-paginator-basic-demo',
-    templateUrl: 'table-paginator-basic-demo.html'
+    templateUrl: 'table-paginator-basic-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [ProductService]
 })
 export class TablePaginatorBasicDemo {
     customers!: Customer[];

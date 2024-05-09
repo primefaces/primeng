@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'service-doc',
@@ -13,11 +13,11 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card">
             <div class="flex justify-content-center gap-2">
-                <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Show Single"></button>
-                <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Show Multiple"></button>
-                <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear All"></button>
+                <p-button (click)="addSingle()" label="Show Single" />
+                <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
+                <p-button severity="secondary" (click)="clear()" label="Clear All" />
             </div>
-            <p-messages></p-messages>
+            <p-messages />
         </div>
         <app-code [code]="code" selector="messages-service-demo"></app-code>
     `,
@@ -43,27 +43,29 @@ export class ServiceDoc {
 
     code: Code = {
         basic: `<div class="flex justify-content-center gap-2">
-    <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Single"></button>
-    <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Multiple"></button>
-    <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear"></button>
+    <p-button (click)="addSingle()" label="Show Single" />
+    <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
+    <p-button severity="secondary" (click)="clear()" label="Clear All" />
 </div>
-<p-messages></p-messages>`,
-        html: `
-<div class="card">
+<p-messages />`,
+        html: `<div class="card">
     <div class="flex justify-content-center gap-2">
-        <button type="button" pButton class="p-button-primary" (click)="addSingle()" label="Single"></button>
-        <button type="button" pButton class="p-button-success" (click)="addMultiple()" label="Multiple"></button>
-        <button type="button" pButton class="p-button-secondary" (click)="clear()" label="Clear"></button>
+        <p-button (click)="addSingle()" label="Show Single" />
+        <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
+        <p-button severity="secondary" (click)="clear()" label="Clear All" />
     </div>
-    <p-messages></p-messages>
+    <p-messages />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Message, MessageService } from 'primeng/api';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'messages-service-demo',
     templateUrl: './messages-service-demo.html',
+    standalone: true,
+    imports: [MessagesModule, ButtonModule],
     providers: [MessageService]
 })
 export class MessagesServiceDemo {

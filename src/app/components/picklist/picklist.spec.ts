@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { PickListModule, PickList } from 'primeng/picklist';
+import { PickListModule, PickList } from './picklist';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, EventEmitter } from '@angular/core';
 
@@ -106,6 +106,7 @@ describe('PickList', () => {
         fixture.detectChanges();
 
         const sourceListItems = fixture.debugElement.query(By.css('.p-picklist-source-wrapper')).queryAll(By.css('.p-picklist-item'));
+        //expect(picklist.visibleOptionsSource).toBeDefined();
         expect(picklist.visibleOptionsSource.length).toEqual(2);
         expect(picklist.visibleOptionsSource[0].brand).toEqual('VW');
         expect(picklist.visibleOptionsSource[1].brand).toEqual('Volvo');
@@ -250,7 +251,7 @@ describe('PickList', () => {
 
         let event = { ctrlKey: true };
         let callback = new EventEmitter();
-        picklist.onItemClick(event, picklist.source[0], picklist.selectedItemsSource, callback);
+        picklist.onItemClick(event, picklist.source, picklist.selectedItemsSource, picklist.SOURCE_LIST, callback);
         fixture.detectChanges();
 
         picklist.cd.detectChanges();

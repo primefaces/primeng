@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/dragdrop/importdoc';
-import { BasicDoc } from '../../doc/dragdrop/basicdoc';
-import { DataTableDoc } from '../../doc/dragdrop/datatabledoc';
-import { DropIndicatorDoc } from '../../doc/dragdrop/dropindicatordoc';
-import { DragHandleDoc } from '../../doc/dragdrop/draghandledoc';
+import { ImportDoc } from '@doc/dragdrop/importdoc';
+import { BasicDoc } from '@doc/dragdrop/basicdoc';
+import { DataTableDoc } from '@doc/dragdrop/datatabledoc';
+import { DropIndicatorDoc } from '@doc/dragdrop/dropindicatordoc';
+import { DragHandleDoc } from '@doc/dragdrop/draghandledoc';
 
 @Component({
     templateUrl: './dragdropdemo.html',

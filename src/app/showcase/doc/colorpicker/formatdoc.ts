@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'color-picker-format-demo',
@@ -10,17 +10,17 @@ import { Code } from '../../domain/code';
         <div class="card flex flex-wrap gap-3">
             <div class="flex-1 flex flex-column align-items-center gap-3">
                 <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-                <p-colorPicker [(ngModel)]="color"></p-colorPicker>
+                <p-colorPicker [(ngModel)]="color" />
                 <span>{{ color }}</span>
             </div>
             <div class="flex-1 flex flex-column align-items-center gap-3">
                 <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-                <p-colorPicker [(ngModel)]="colorRGB" format="rgb"></p-colorPicker>
+                <p-colorPicker [(ngModel)]="colorRGB" format="rgb" />
                 <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
             </div>
             <div class="flex-1 flex flex-column align-items-center gap-3">
                 <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-                <p-colorPicker [(ngModel)]="colorHSB" format="hsb"></p-colorPicker>
+                <p-colorPicker [(ngModel)]="colorHSB" format="hsb" />
                 <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
             </div>
         </div>
@@ -35,35 +35,49 @@ export class FormatDoc {
     colorHSB: any = { h: 239, s: 59, b: 95 };
 
     code: Code = {
-        basic: `<p-colorPicker [(ngModel)]="color"></p-colorPicker>
-<p-colorPicker [(ngModel)]="colorRGB" format="rgb"></p-colorPicker>
-<p-colorPicker [(ngModel)]="colorHSB" format="hsb"></p-colorPicker>`,
+        basic: `<p-colorPicker 
+    [(ngModel)]="color" />
 
-        html: `
-<div class="card flex flex-wrap gap-3">
+<p-colorPicker 
+    [(ngModel)]="colorRGB" 
+    format="rgb" />
+
+<p-colorPicker 
+    [(ngModel)]="colorHSB" 
+    format="hsb" />`,
+
+        html: `<div class="card flex flex-wrap gap-3">
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-hex" class="font-bold block mb-2"> HEX </label>
-        <p-colorPicker [(ngModel)]="color"></p-colorPicker>
+        <p-colorPicker 
+            [(ngModel)]="color" />
         <span>{{ color }}</span>
     </div>
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-rgb" class="font-bold block mb-2"> RGB </label>
-        <p-colorPicker [(ngModel)]="colorRGB" format="rgb"></p-colorPicker>
+        <p-colorPicker 
+            [(ngModel)]="colorRGB" 
+            format="rgb" />
         <span>{{ 'r:' + colorRGB.r + ' g:' + colorRGB.g + ' b:' + colorRGB.b }}</span>
     </div>
     <div class="flex-1 flex flex-column align-items-center gap-3">
         <label for="cp-hsb" class="font-bold block mb-2"> HSB </label>
-        <p-colorPicker [(ngModel)]="colorHSB" format="hsb"></p-colorPicker>
+        <p-colorPicker 
+            [(ngModel)]="colorHSB" 
+            format="hsb" />
         <span>{{ 'h:' + colorHSB.h + ' s:' + colorHSB.s + ' b:' + colorHSB.b }}</span>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-format-demo',
-    templateUrl: './color-picker-format-demo.html'
+    templateUrl: './color-picker-format-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPickerModule]
 })
 export class ColorPickerFormatDemo {
     color: string = '#6466f1';

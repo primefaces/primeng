@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'severity-doc',
@@ -12,11 +12,13 @@ import { Code } from '../../domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast></p-toast>
-            <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-            <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-            <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-            <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
+            <p-toast />
+            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
+            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
+            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning" />
+            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
+            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
+            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
     `,
@@ -41,27 +43,102 @@ export class SeverityDoc {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
     }
 
+    showContrast() {
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showSecondary() {
+        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
+    }
+
     code: Code = {
-        basic: `<p-toast></p-toast>
-<button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-<button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-<button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-<button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>`,
-        html: `
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="showSuccess()" label="Success" class="p-button-success"></button>
-    <button type="button" pButton pRipple (click)="showInfo()" label="Info" class="p-button-info"></button>
-    <button type="button" pButton pRipple (click)="showWarn()" label="Warn" class="p-button-warning"></button>
-    <button type="button" pButton pRipple (click)="showError()" label="Error" class="p-button-danger"></button>
+        basic: `<p-toast />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showSuccess()" 
+    label="Success" 
+    severity="success" />
+<p-button 
+    type="button"
+    pRipple 
+    (click)="showInfo()" 
+    label="Info" 
+    severity="info" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showWarn()" 
+    label="Warn" 
+    severity="warning" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showError()" 
+    label="Error" 
+    severity="danger" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showSecondary()" 
+    label="Secondary" 
+    severity="secondary" />
+<p-button 
+    type="button" 
+    pRipple 
+    (click)="showContrast()" 
+    label="Contrast" 
+    severity="contrast" />`,
+        html: `<div class="card flex justify-content-center gap-2">
+    <p-toast />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showSuccess()" 
+        label="Success" 
+        severity="success" />
+    <p-button 
+        type="button"
+        pRipple 
+        (click)="showInfo()" 
+        label="Info" 
+        severity="info" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showWarn()" 
+        label="Warn" 
+        severity="warning"  />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showError()" 
+        label="Error" 
+        severity="danger" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showSecondary()" 
+        label="Secondary" 
+        severity="secondary" />
+    <p-button 
+        type="button" 
+        pRipple 
+        (click)="showContrast()" 
+        label="Contrast" 
+        severity="contrast" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-severity-demo',
     templateUrl: './toast-severity-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastSeverityDemo {
@@ -81,6 +158,14 @@ export class ToastSeverityDemo {
 
     showError() {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showContrast() {
+        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+    }
+
+    showSecondary() {
+        this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
     }
 }`
     };

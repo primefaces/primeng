@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'checkbox-doc',
@@ -10,7 +10,7 @@ import { NodeService } from '../../service/nodeservice';
             <p>Selection of multiple nodes via checkboxes is enabled by configuring <i>selectionMode</i> as <i>checkbox</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center justify-content-center">
-            <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
+            <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-checkbox-demo"></app-code>
     `
@@ -27,21 +27,31 @@ export class CheckboxDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>`,
+        basic: `<p-tree 
+    [value]="files" 
+    selectionMode="checkbox" 
+    class="w-full md:w-30rem" 
+    [(selection)]="selectedFiles" />`,
 
-        html: `
-<div class="card flex flex-column align-items-center justify-content-center">
-    <p-tree [value]="files" selectionMode="checkbox" class="w-full md:w-30rem" [(selection)]="selectedFiles"></p-tree>
+        html: `<div class="card flex flex-column align-items-center justify-content-center">
+    <p-tree 
+        [value]="files" 
+        selectionMode="checkbox" 
+        class="w-full md:w-30rem" 
+        [(selection)]="selectedFiles" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-checkbox-demo',
-    templateUrl: './tree-checkbox-demo.html'
+    templateUrl: './tree-checkbox-demo.html',
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
 })
 export class TreeCheckboxDemo implements OnInit {
     files!: TreeNode[];

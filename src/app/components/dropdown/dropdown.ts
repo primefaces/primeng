@@ -41,6 +41,8 @@ import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { TimesIcon } from 'primeng/icons/times';
+import { CheckIcon } from 'primeng/icons/check';
+import { BlankIcon } from 'primeng/icons/blank';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
@@ -71,6 +73,10 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             [ngStyle]="{ height: itemSize + 'px' }"
             [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled, 'p-focus': focused }"
         >
+            <ng-container *ngIf="checkmark">
+                <CheckIcon *ngIf="selected" [styleClass]="'p-dropdown-check-icon'" />
+                <BlankIcon *ngIf="!selected" [styleClass]="'p-dropdown-blank-icon'" />
+            </ng-container>
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
@@ -101,6 +107,8 @@ export class DropdownItem {
     @Input() ariaSetSize: string | undefined;
 
     @Input() template: TemplateRef<any> | undefined;
+
+    @Input({ transform: booleanAttribute }) checkmark: boolean;
 
     @Output() onClick: EventEmitter<any> = new EventEmitter();
 
@@ -183,13 +191,25 @@ export class DropdownItem {
             </ng-container>
 
             <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
-                <ng-container *ngIf="!dropdownIconTemplate">
-                    <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
-                    <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                <ng-container *ngIf="loading; else elseBlock">
+                    <ng-container *ngIf="loadingIconTemplate">
+                        <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!loadingIconTemplate">
+                        <span *ngIf="loadingIcon" [ngClass]="'p-dropdown-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                        <span *ngIf="!loadingIcon" [class]="'p-dropdown-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                    </ng-container>
                 </ng-container>
-                <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
-                    <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
-                </span>
+
+                <ng-template #elseBlock>
+                    <ng-container *ngIf="!dropdownIconTemplate">
+                        <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                    </ng-container>
+                    <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
+                        <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                    </span>
+                </ng-template>
             </div>
 
             <p-overlay
@@ -231,6 +251,7 @@ export class DropdownItem {
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
+                                        [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }"
                                         [attr.placeholder]="filterPlaceholder"
                                         [attr.aria-owns]="id + '_list'"
                                         (input)="onFilterInputChange($event)"
@@ -246,7 +267,7 @@ export class DropdownItem {
                                 </div>
                             </ng-template>
                         </div>
-                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" role="section">
+                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -284,6 +305,7 @@ export class DropdownItem {
                                             <p-dropdownItem
                                                 [id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                                 [option]="option"
+                                                [checkmark]="checkmark"
                                                 [selected]="isSelected(option)"
                                                 [label]="getOptionLabel(option)"
                                                 [disabled]="isOptionDisabled(option)"
@@ -414,6 +436,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this._placeholder.asReadonly();
     }
     /**
+     * Icon to display in loading state.
+     * @group Props
+     */
+    @Input() loadingIcon: string | undefined;
+    /**
      * Placeholder text to show when filter input is empty.
      * @group Props
      */
@@ -423,6 +450,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      * @group Props
      */
     @Input() filterLocale: string | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Identifier of the accessible input element.
      * @group Props
@@ -454,10 +486,20 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input({ transform: booleanAttribute }) resetFilterOnHide: boolean = false;
     /**
+     * Whether the selected option will be shown with a check mark.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) checkmark: boolean = false;
+    /**
      * Icon class of the dropdown icon.
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
+    /**
+     * Whether the dropdown is in loading state.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
     /**
      * Name of the label field of an option.
      * @group Props
@@ -807,6 +849,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
+    loadingIconTemplate: Nullable<TemplateRef<any>>;
+
     clearIconTemplate: Nullable<TemplateRef<any>>;
 
     filterIconTemplate: Nullable<TemplateRef<any>>;
@@ -886,7 +930,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             'p-dropdown-clearable': this.showClear && !this.disabled,
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
-            'p-inputwrapper-focus': this.focused || this.overlayVisible
+            'p-inputwrapper-focus': this.focused || this.overlayVisible,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 
@@ -902,7 +947,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     get panelClass() {
         return {
             'p-dropdown-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
@@ -1072,6 +1117,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
                 case 'dropdownicon':
                     this.dropdownIconTemplate = item.template;
+                    break;
+
+                case 'loadingicon':
+                    this.loadingIconTemplate = item.template;
                     break;
 
                 case 'clearicon':
@@ -1262,7 +1311,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onContainerClick(event: any) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || this.loading) {
             return;
         }
 
@@ -1400,7 +1449,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean) {
-        if (this.disabled || this.readonly) {
+        if (this.disabled || this.readonly || this.loading) {
             return;
         }
 
@@ -1540,6 +1589,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
         // !this.overlayVisible && this.show();
         event.preventDefault();
+        event.stopPropagation();
     }
 
     changeFocusedOptionIndex(event, index) {
@@ -1640,15 +1690,15 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
 
             this.overlayVisible && this.hide();
-            event.preventDefault();
         } else {
             const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
             !this.overlayVisible && this.show();
-            event.preventDefault();
         }
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     onArrowLeftKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
@@ -1749,6 +1799,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 this.overlayVisible && this.hide(this.filter);
             }
         }
+        event.stopPropagation();
     }
 
     onFirstHiddenFocus(event) {
@@ -1865,7 +1916,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon, BlankIcon, CheckIcon],
     exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
     declarations: [Dropdown, DropdownItem]
 })

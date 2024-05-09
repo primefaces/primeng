@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { IconDoc } from '../../doc/tag/icondoc';
-import { ImportDoc } from '../../doc/tag/importdoc';
-import { SeverityDoc } from '../../doc/tag/severitydoc';
-import { BasicDoc } from '../../doc/tag/basicdoc';
-import { StyleDoc } from '../../doc/tag/styledoc';
-import { PillDoc } from '../../doc/tag/pilldoc';
-import { TemplateDoc } from '../../doc/tag/templatedoc';
-import { AccessibilityDoc } from '../../doc/tag/accessibilitydoc';
+import { IconDoc } from '@doc/tag/icondoc';
+import { ImportDoc } from '@doc/tag/importdoc';
+import { SeverityDoc } from '@doc/tag/severitydoc';
+import { BasicDoc } from '@doc/tag/basicdoc';
+import { StyleDoc } from '@doc/tag/styledoc';
+import { PillDoc } from '@doc/tag/pilldoc';
+import { TemplateDoc } from '@doc/tag/templatedoc';
+import { AccessibilityDoc } from '@doc/tag/accessibilitydoc';
 
 @Component({
     templateUrl: './tagdemo.html'

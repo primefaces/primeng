@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { TemplateDoc } from '../../doc/panel/templatedoc';
-import { BasicDoc } from '../../doc/panel/basicdoc';
-import { ImportDoc } from '../../doc/panel/importdoc';
-import { ToggleableDoc } from '../../doc/panel/toggleabledoc';
-import { StyleDoc } from '../../doc/panel/styledoc';
-import { AccessibilityDoc } from '../../doc/panel/accessibilitydoc';
+import { TemplateDoc } from '@doc/panel/templatedoc';
+import { BasicDoc } from '@doc/panel/basicdoc';
+import { ImportDoc } from '@doc/panel/importdoc';
+import { ToggleableDoc } from '@doc/panel/toggleabledoc';
+import { StyleDoc } from '@doc/panel/styledoc';
+import { AccessibilityDoc } from '@doc/panel/accessibilitydoc';
 
 @Component({
     templateUrl: './paneldemo.html'

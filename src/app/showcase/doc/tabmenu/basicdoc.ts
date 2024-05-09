@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>TabMenu requires a collection of menuitems as its model.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-tabMenu [model]="items"></p-tabMenu>
+            <p-tabMenu [model]="items" />
         </div>
         <app-code [code]="code" selector="tab-menu-basic-demo"></app-code>
     `
@@ -19,41 +19,40 @@ export class BasicDoc implements OnInit {
 
     ngOnInit() {
         this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-            { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+            { label: 'Dashboard', icon: 'pi pi-home' },
+            { label: 'Transactions', icon: 'pi pi-chart-line' },
+            { label: 'Products', icon: 'pi pi-list' },
+            { label: 'Messages', icon: 'pi pi-inbox' }
         ];
     }
 
     code: Code = {
-        basic: `<p-tabMenu [model]="items"></p-tabMenu>`,
+        basic: `<p-tabMenu [model]="items" />`,
 
-        html: `
-<div class="card">
-    <p-tabMenu [model]="items"></p-tabMenu>
+        html: `<div class="card">
+    <p-tabMenu [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @Component({
     selector: 'tab-menu-basic-demo',
-    templateUrl: './tab-menu-basic-demo.html'
+    templateUrl: './tab-menu-basic-demo.html',
+    standalone: true,
+    imports: [TabMenuModule]
 })
 export class TabMenuBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     ngOnInit() {
         this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-            { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
-        ];
+            { label: 'Dashboard', icon: 'pi pi-home' },
+            { label: 'Transactions', icon: 'pi pi-chart-line' },
+            { label: 'Products', icon: 'pi pi-list' },
+            { label: 'Messages', icon: 'pi pi-inbox' }
+        ]
     }
 }`
     };

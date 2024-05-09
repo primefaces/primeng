@@ -735,6 +735,15 @@
   .p-cascadeselect.p-invalid.p-component {
     border-color: #dc3545;
   }
+  .p-cascadeselect.p-variant-filled {
+    background-color: #efefef;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:hover {
+    background-color: #efefef;
+  }
+  .p-cascadeselect.p-variant-filled:enabled:focus {
+    background-color: #efefef;
+  }
 
   .p-cascadeselect-panel {
     background: #ffffff;
@@ -850,6 +859,18 @@
     border-color: #0062cc;
     background: #0062cc;
     color: #ffffff;
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #efefef;
+  }
+  .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #007bff;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+    background-color: #efefef;
+  }
+  .p-checkbox.p-variant-filled:not(.p-checkbox-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #0062cc;
   }
 
   p-checkbox.ng-dirty.ng-invalid > .p-checkbox > .p-checkbox-box {
@@ -993,6 +1014,15 @@
   }
   .p-dropdown.p-invalid.p-component {
     border-color: #dc3545;
+  }
+  .p-dropdown.p-variant-filled {
+    background-color: #efefef;
+  }
+  .p-dropdown.p-variant-filled:enabled:hover {
+    background-color: #efefef;
+  }
+  .p-dropdown.p-variant-filled:enabled:focus {
+    background-color: #efefef;
   }
 
   .p-dropdown-panel {
@@ -1177,6 +1207,16 @@
     right: 0.75rem;
   }
 
+  .p-inputmask.p-variant-filled {
+    background-color: #efefef;
+  }
+  .p-inputmask.p-variant-filled:enabled:hover {
+    background-color: #efefef;
+  }
+  .p-inputmask.p-variant-filled:enabled:focus {
+    background-color: #efefef;
+  }
+
   p-inputnumber.ng-dirty.ng-invalid > .p-inputnumber > .p-inputtext {
     border-color: #dc3545;
   }
@@ -1194,6 +1234,16 @@
   }
   p-inputnumber.p-inputnumber-clearable .p-inputnumber-buttons-horizontal .p-inputnumber-clear-icon {
     right: 3.107rem;
+  }
+
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input {
+    background-color: #efefef;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:hover {
+    background-color: #efefef;
+  }
+  p-inputnumber.p-inputnumber.p-variant-filled > .p-inputnumber-input:enabled:focus {
+    background-color: #efefef;
   }
 
   .p-inputotp {
@@ -1273,6 +1323,15 @@
   }
   .p-inputtext.ng-dirty.ng-invalid {
     border-color: #dc3545;
+  }
+  .p-inputtext.p-variant-filled {
+    background-color: #efefef;
+  }
+  .p-inputtext.p-variant-filled:enabled:hover {
+    background-color: #efefef;
+  }
+  .p-inputtext.p-variant-filled:enabled:focus {
+    background-color: #efefef;
   }
   .p-inputtext.p-inputtext-sm {
     font-size: 0.875rem;
@@ -1490,8 +1549,17 @@
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
   }
+  .p-multiselect.p-variant-filled {
+    background: #efefef;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled):hover {
+    background-color: #efefef;
+  }
+  .p-multiselect.p-variant-filled:not(.p-disabled).p-focus {
+    background-color: #efefef;
+  }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.75rem;
   }
 
@@ -1689,6 +1757,18 @@
     background: #0062cc;
     color: #ffffff;
   }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box {
+    background-color: #efefef;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box:not(.p-disabled):hover {
+    background-color: #efefef;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight {
+    background: #007bff;
+  }
+  .p-radiobutton.p-variant-filled .p-radiobutton-box.p-highlight:not(.p-disabled):hover {
+    background: #0062cc;
+  }
 
   p-radiobutton.ng-dirty.ng-invalid > .p-radiobutton > .p-radiobutton-box {
     border-color: #dc3545;
@@ -1811,9 +1891,12 @@
     margin-left: -0.5715rem;
   }
   .p-slider.p-slider-vertical {
+    height: 100%;
     width: 0.286rem;
   }
   .p-slider.p-slider-vertical .p-slider-handle {
+    height: 1.143rem;
+    width: 1.143rem;
     margin-left: -0.5715rem;
     margin-bottom: -0.5715rem;
   }
@@ -1927,6 +2010,15 @@
     width: 2.357rem;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+  }
+  .p-treeselect.p-variant-filled {
+    background-color: #efefef;
+  }
+  .p-treeselect.p-variant-filled:enabled:hover {
+    background-color: #efefef;
+  }
+  .p-treeselect.p-variant-filled:enabled:focus {
+    background-color: #efefef;
   }
 
   p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
@@ -2460,6 +2552,55 @@
     background: rgba(220, 53, 69, 0.16);
     border-color: transparent;
     color: #dc3545;
+  }
+
+  .p-button.p-button-contrast, .p-button-group.p-button-contrast > .p-button, .p-splitbutton.p-button-contrast > .p-button {
+    color: #ffffff;
+    background: #212529;
+    border: 1px solid #212529;
+  }
+  .p-button.p-button-contrast:not(:disabled):hover, .p-button-group.p-button-contrast > .p-button:not(:disabled):hover, .p-splitbutton.p-button-contrast > .p-button:not(:disabled):hover {
+    background: #343a40;
+    color: #ffffff;
+    border-color: #343a40;
+  }
+  .p-button.p-button-contrast:not(:disabled):focus, .p-button-group.p-button-contrast > .p-button:not(:disabled):focus, .p-splitbutton.p-button-contrast > .p-button:not(:disabled):focus {
+    box-shadow: none;
+  }
+  .p-button.p-button-contrast:not(:disabled):active, .p-button-group.p-button-contrast > .p-button:not(:disabled):active, .p-splitbutton.p-button-contrast > .p-button:not(:disabled):active {
+    background: #495057;
+    color: #ffffff;
+    border-color: #495057;
+  }
+  .p-button.p-button-contrast.p-button-outlined, .p-button-group.p-button-contrast > .p-button.p-button-outlined, .p-splitbutton.p-button-contrast > .p-button.p-button-outlined {
+    background-color: transparent;
+    color: #212529;
+    border: 1px solid;
+  }
+  .p-button.p-button-contrast.p-button-outlined:not(:disabled):hover, .p-button-group.p-button-contrast > .p-button.p-button-outlined:not(:disabled):hover, .p-splitbutton.p-button-contrast > .p-button.p-button-outlined:not(:disabled):hover {
+    background: rgba(33, 37, 41, 0.04);
+    color: #212529;
+    border: 1px solid;
+  }
+  .p-button.p-button-contrast.p-button-outlined:not(:disabled):active, .p-button-group.p-button-contrast > .p-button.p-button-outlined:not(:disabled):active, .p-splitbutton.p-button-contrast > .p-button.p-button-outlined:not(:disabled):active {
+    background: rgba(33, 37, 41, 0.16);
+    color: #212529;
+    border: 1px solid;
+  }
+  .p-button.p-button-contrast.p-button-text, .p-button-group.p-button-contrast > .p-button.p-button-text, .p-splitbutton.p-button-contrast > .p-button.p-button-text {
+    background-color: transparent;
+    color: #212529;
+    border-color: transparent;
+  }
+  .p-button.p-button-contrast.p-button-text:not(:disabled):hover, .p-button-group.p-button-contrast > .p-button.p-button-text:not(:disabled):hover, .p-splitbutton.p-button-contrast > .p-button.p-button-text:not(:disabled):hover {
+    background: rgba(33, 37, 41, 0.04);
+    border-color: transparent;
+    color: #212529;
+  }
+  .p-button.p-button-contrast.p-button-text:not(:disabled):active, .p-button-group.p-button-contrast > .p-button.p-button-text:not(:disabled):active, .p-splitbutton.p-button-contrast > .p-button.p-button-text:not(:disabled):active {
+    background: rgba(33, 37, 41, 0.16);
+    border-color: transparent;
+    color: #212529;
   }
 
   .p-button.p-button-link {
@@ -3431,6 +3572,18 @@
   .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #212529;
   }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #efefef;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #007bff;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #efefef;
+  }
+  .p-tree .p-tree-container .p-treenode .p-treenode-content .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #0062cc;
+  }
   .p-tree .p-tree-container .p-treenode .p-treenode-content.p-highlight {
     background: #007bff;
     color: #ffffff;
@@ -3627,6 +3780,18 @@
   }
   .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox .p-indeterminate .p-checkbox-icon {
     color: #212529;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box {
+    background-color: #efefef;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled .p-checkbox-box.p-highlight {
+    background: #007bff;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box:hover {
+    background-color: #efefef;
+  }
+  .p-treetable .p-treetable-tbody > tr > td p-treetablecheckbox .p-checkbox.p-variant-filled:not(.p-disabled) .p-checkbox-box.p-highlight:hover {
+    background: #0062cc;
   }
   .p-treetable .p-treetable-tbody > tr:focus-visible {
     outline: 0.15rem solid rgba(38, 143, 255, 0.5);

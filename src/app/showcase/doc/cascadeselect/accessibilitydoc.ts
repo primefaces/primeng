@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
@@ -123,8 +123,8 @@ export class AccessibilityDoc {
 
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-cascadeSelect ariaLabelledBy="dd1"></p-cascadeSelect>
+<p-cascadeSelect ariaLabelledBy="dd1"/>
 
-<p-cascadeSelect ariaLabel="Options"></p-cascadeSelect>`
+<p-cascadeSelect ariaLabel="Options"/>`
     };
 }

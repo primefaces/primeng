@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'disabled-doc',
@@ -15,19 +15,31 @@ import { Code } from '../../domain/code';
 })
 export class DisabledDoc {
     code: Code = {
-        basic: `<textarea rows="5" cols="30" pInputTextarea [disabled]="true"></textarea>`,
+        basic: `<textarea 
+    rows="5"
+    cols="30" 
+    pInputTextarea 
+    [disabled]="true">
+</textarea>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <textarea rows="5" cols="30" pInputTextarea [disabled]="true"></textarea>
+        html: `<div class="card flex justify-content-center">
+    <textarea 
+        rows="5"
+        cols="30"
+        pInputTextarea 
+        [disabled]="true">
+    </textarea>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-textarea-disabled-demo',
-    templateUrl: './input-textarea-disabled-demo.html'
+    templateUrl: './input-textarea-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextareaModule]
 })
 export class InputTextareaDisabledDemo {
 }`

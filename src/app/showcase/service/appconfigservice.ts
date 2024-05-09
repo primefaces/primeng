@@ -11,7 +11,6 @@ export class AppConfigService {
     _config: AppConfig = {
         theme: 'aura-light-blue',
         darkMode: false,
-        inputStyle: 'outlined',
         ripple: true,
         scale: 14,
         tableTheme: 'lara-light-blue'

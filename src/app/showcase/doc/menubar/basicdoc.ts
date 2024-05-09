@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Menubar requires nested menuitems as its model.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-menubar [model]="items"></p-menubar>
+            <p-menubar [model]="items" />
         </div>
         <app-code [code]="code" selector="menubar-basic-demo"></app-code>
     `
@@ -20,144 +20,68 @@ export class BasicDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
+                label: 'Home',
+                icon: 'pi pi-home'
+            },
+            {
+                label: 'Features',
+                icon: 'pi pi-star'
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
                 items: [
                     {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        label: 'Components',
+                        icon: 'pi pi-bolt'
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server'
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil'
+                    },
+                    {
+                        label: 'Templates',
+                        icon: 'pi pi-palette',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
+                                label: 'Apollo',
+                                icon: 'pi pi-palette'
                             },
                             {
-                                label: 'Video',
-                                icon: 'pi pi-fw pi-video'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
-                    },
-                    {
-                        separator: true
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
-                    }
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
-                                items: [
-                                    {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
-                                    }
-                                ]
-                            },
-                            {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
+                                label: 'Ultima',
+                                icon: 'pi pi-palette'
                             }
                         ]
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
-                items: [
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off'
+                label: 'Contact',
+                icon: 'pi pi-envelope'
             }
         ];
     }
 
     code: Code = {
-        basic: `<p-menubar [model]="items"></p-menubar>`,
+        basic: `<p-menubar [model]="items" />`,
 
-        html: `
-<div class="card">
-    <p-menubar [model]="items"></p-menubar>
+        html: `<div class="card">
+    <p-menubar [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { MenubarModule } from 'primeng/menubar';
 
 @Component({
     selector: 'menubar-basic-demo',
-    templateUrl: './menubar-basic-demo.html'
+    templateUrl: './menubar-basic-demo.html',
+    standalone: true,
+    imports: [MenubarModule]
 })
 export class MenubarBasicDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -165,127 +89,50 @@ export class MenubarBasicDemo implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'File',
-                icon: 'pi pi-fw pi-file',
+                label: 'Home',
+                icon: 'pi pi-home'
+            },
+            {
+                label: 'Features',
+                icon: 'pi pi-star'
+            },
+            {
+                label: 'Projects',
+                icon: 'pi pi-search',
                 items: [
                     {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-plus',
+                        label: 'Components',
+                        icon: 'pi pi-bolt'
+                    },
+                    {
+                        label: 'Blocks',
+                        icon: 'pi pi-server'
+                    },
+                    {
+                        label: 'UI Kit',
+                        icon: 'pi pi-pencil'
+                    },
+                    {
+                        label: 'Templates',
+                        icon: 'pi pi-palette',
                         items: [
                             {
-                                label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
+                                label: 'Apollo',
+                                icon: 'pi pi-palette'
                             },
                             {
-                                label: 'Video',
-                                icon: 'pi pi-fw pi-video'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
-                    },
-                    {
-                        separator: true
-                    },
-                    {
-                        label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
-                    }
-                ]
-            },
-            {
-                label: 'Edit',
-                icon: 'pi pi-fw pi-pencil',
-                items: [
-                    {
-                        label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
-                    },
-                    {
-                        label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
-                    },
-                    {
-                        label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
-                    },
-                    {
-                        label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
-            },
-            {
-                label: 'Users',
-                icon: 'pi pi-fw pi-user',
-                items: [
-                    {
-                        label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
-                    },
-                    {
-                        label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
-                    },
-                    {
-                        label: 'Search',
-                        icon: 'pi pi-fw pi-users',
-                        items: [
-                            {
-                                label: 'Filter',
-                                icon: 'pi pi-fw pi-filter',
-                                items: [
-                                    {
-                                        label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
-                                    }
-                                ]
-                            },
-                            {
-                                icon: 'pi pi-fw pi-bars',
-                                label: 'List'
+                                label: 'Ultima',
+                                icon: 'pi pi-palette'
                             }
                         ]
                     }
                 ]
             },
             {
-                label: 'Events',
-                icon: 'pi pi-fw pi-calendar',
-                items: [
-                    {
-                        label: 'Edit',
-                        icon: 'pi pi-fw pi-pencil',
-                        items: [
-                            {
-                                label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
-                            },
-                            {
-                                label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    },
-                    {
-                        label: 'Archieve',
-                        icon: 'pi pi-fw pi-calendar-times',
-                        items: [
-                            {
-                                label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                label: 'Quit',
-                icon: 'pi pi-fw pi-power-off'
+                label: 'Contact',
+                icon: 'pi pi-envelope'
             }
-        ];
+        ]
     }
 }`
     };

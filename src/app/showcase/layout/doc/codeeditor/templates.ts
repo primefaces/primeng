@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.15.0',
+    version: '17.16.0',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -160,32 +160,6 @@ module.exports = function (config) {
   });
 };`;
 
-const polyfills_ts = `/**
-* This file includes polyfills needed by Angular and is loaded before the app.
-* You can add your own extra polyfills to this file.
-*
-* This file is divided into 2 sections:
-*   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
-*   2. Application imports. Files imported after ZoneJS that should be loaded before your main
-*      file.
-*
-* The current setup is for so-called "evergreen" browsers; the last versions of browsers that
-* automatically update themselves. This includes recent versions of Safari, Chrome (including
-* Opera), Edge on the desktop, and iOS and Chrome on mobile.
-*
-* Learn more in https://angular.io/guide/browser-support
-*/
-
-/***************************************************************************************************
-* BROWSER POLYFILLS
-*/
-
-import 'zone.js';
-
-/***************************************************************************************************
-* APPLICATION IMPORTS
-*/
-`;
 const test_ts = `
 // This file is required by karma.conf.js and loads recursively all the .spec and framework files
 
@@ -224,45 +198,7 @@ max_line_length = off
 trim_trailing_whitespace = false
 `;
 
-const main_ts = `
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app/app.module';
-import { environment } from './environments/environment';
-
-if (environment.production) {
-  enableProdMode();
-}
-
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
-`;
-
-const environment_ts = `
-// This file can be replaced during build by using the \`fileReplacements\` array.
-// \`ng build\` replaces \`environment.ts\` with \`environment.prod.ts\`.
-// The list of file replacements can be found in \`angular.json\`.
-
-export const environment = {
-  production: false
-};
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as \`zone.run\`, \`zoneDelegate.invokeTask\`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/plugins/zone-error';  // Included with Angular CLI.`;
-const environment_prod_ts = `
-export const environment = {
-    production: true
-};`;
-
-const angular_json = `
-{
+const angular_json = `{
     "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
     "version": 1,
     "cli": {
@@ -290,12 +226,10 @@ const angular_json = `
               "outputPath": "dist/example-app",
               "index": "src/index.html",
               "main": "src/main.ts",
-              "polyfills": "src/polyfills.ts",
+              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.app.json",
               "inlineStyleLanguage": "scss",
-              "assets": [
-                "src/assets"
-              ],
+              "assets": ["src/assets"],
               "styles": [
                 "src/styles.scss",
                 "node_modules/primeicons/primeicons.css",
@@ -321,12 +255,6 @@ const angular_json = `
                     "maximumError": "4kb"
                   }
                 ],
-                "fileReplacements": [
-                  {
-                    "replace": "src/environments/environment.ts",
-                    "with": "src/environments/environment.prod.ts"
-                  }
-                ],
                 "outputHashing": "all"
               },
               "development": {
@@ -344,10 +272,10 @@ const angular_json = `
             "builder": "@angular-devkit/build-angular:dev-server",
             "configurations": {
               "production": {
-                "browserTarget": "example-app:build:production"
+                "buildTarget": "example-app:build:production"
               },
               "development": {
-                "browserTarget": "example-app:build:development"
+                "buildTarget": "example-app:build:development"
               }
             },
             "defaultConfiguration": "development"
@@ -362,17 +290,13 @@ const angular_json = `
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "main": "src/test.ts",
-              "polyfills": "src/polyfills.ts",
+              "polyfills": ["zone.js"],
               "tsConfig": "tsconfig.spec.json",
               "karmaConfig": "karma.conf.js",
               "inlineStyleLanguage": "scss",
-              "assets": [
-                "src/assets"
-              ],
+              "assets": ["src/assets"],
               "stylePreprocessorOptions": {
-                "includePaths": [
-                  "node_modules/"
-                ]
+                "includePaths": ["node_modules/"]
               },
               "styles": [
                 "src/styles.scss",
@@ -393,9 +317,8 @@ const angular_json = `
           }
         }
       }
-    },
-    "defaultProject": "example-app"
-}`;
+    }
+  }`;
 
 const tsconfig_app_json = `{
     "extends": "./tsconfig.json",
@@ -404,8 +327,7 @@ const tsconfig_app_json = `{
       "types": []
     },
     "files": [
-      "src/main.ts",
-      "src/polyfills.ts"
+      "src/main.ts"
     ],
     "include": [
       "src/**/*.d.ts"
@@ -430,7 +352,11 @@ const tsconfig_json = `{
       "lib": [
         "es2022",
         "dom"
-      ]
+      ],
+      "paths": {
+        "@domain/*": ["src/domain/*"],
+        "@service/*": ["src/service/*"]
+      }
     }
 }`;
 
@@ -444,40 +370,13 @@ const tsconfig_spec_json = `{
       ]
     },
     "files": [
-      "test.ts",
-      "polyfills.ts"
+      "test.ts"
     ],
     "include": [
       "**/*.spec.ts",
       "**/*.d.ts"
     ]
 }`;
-
-const browserlistrc = `
-# This file is used by the build system to adjust CSS and JS output to support the specified browsers below.
-# For additional information regarding the format and rule options, please see:
-# https://github.com/browserslist/browserslist#queries
-
-# You can see what browsers were selected by your queries by running:
-#   npx browserslist
-
-[production]
-last 1 Chrome version
-last 1 Firefox version
-last 2 Edge major versions
-last 2 Safari major versions
-last 2 iOS major versions
-Firefox ESR
-
-[library]
-last 1 Chrome version
-last 1 Firefox version
-last 2 Edge major versions
-last 2 Safari major versions
-last 2 iOS major versions
-Firefox ESR
-not ios_saf 15.2-15.3
-not safari 15.2-15.3`;
 
 const getAngularApp = (props: Props = {}) => {
     const { code, extFiles, routeFiles, selector } = props;
@@ -491,222 +390,318 @@ const getAngularApp = (props: Props = {}) => {
     const declarations = routeFiles && routeFiles.length ? (componentName ? routeFiles.map((r) => r.name).join(', ') + ',' + componentName : routeFiles.map((r) => r.name).join(', ')) : `${componentName}`;
     const providers = code.service && code.service.length ? code.service.map((s) => s).join(', ') : '';
 
-    const app_module_ts = `import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-${routeImports}
-
-// Import PrimeNG modules
-import { AccordionModule } from 'primeng/accordion';
-import { AutoCompleteModule } from 'primeng/autocomplete';
-import { AvatarModule } from 'primeng/avatar';
-import { AvatarGroupModule } from 'primeng/avatargroup';
-import { BadgeModule } from 'primeng/badge';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
-import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
-import { CarouselModule } from 'primeng/carousel';
-import { CascadeSelectModule } from 'primeng/cascadeselect';
-import { ChartModule } from 'primeng/chart';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ChipModule } from 'primeng/chip';
-import { ChipsModule } from 'primeng/chips';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ColorPickerModule } from 'primeng/colorpicker';
-import { ContextMenuModule } from 'primeng/contextmenu';
-import { DataViewModule } from 'primeng/dataview';
-import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import { DialogModule } from 'primeng/dialog';
-import { DividerModule } from 'primeng/divider';
-import { DockModule } from 'primeng/dock';
-import { DragDropModule } from 'primeng/dragdrop';
-import { DropdownModule } from 'primeng/dropdown';
-import { DynamicDialogModule } from 'primeng/dynamicdialog';
-import { EditorModule } from 'primeng/editor';
-import { FieldsetModule } from 'primeng/fieldset';
-import { FileUploadModule } from 'primeng/fileupload';
-import { GalleriaModule } from 'primeng/galleria';
-import { InplaceModule } from 'primeng/inplace';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextareaModule } from 'primeng/inputtextarea';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { InputGroupModule } from 'primeng/inputgroup'
-import { InputOtpModule } from 'primeng/inputotp'
-import { ImageModule } from 'primeng/image';
-import { KnobModule } from 'primeng/knob';
-import { ListboxModule } from 'primeng/listbox';
-import { MegaMenuModule } from 'primeng/megamenu';
-import { MenuModule } from 'primeng/menu';
-import { MenubarModule } from 'primeng/menubar';
-import { MessageModule } from 'primeng/message';
-import { MessagesModule } from 'primeng/messages';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { MeterGroupModule } from 'primeng/metergroup';
-import { OrderListModule } from 'primeng/orderlist';
-import { OrganizationChartModule } from 'primeng/organizationchart';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { PaginatorModule } from 'primeng/paginator';
-import { PanelModule } from 'primeng/panel';
-import { PanelMenuModule } from 'primeng/panelmenu';
-import { PasswordModule } from 'primeng/password';
-import { PickListModule } from 'primeng/picklist';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { ScrollerModule } from 'primeng/scroller';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-import { ScrollTopModule } from 'primeng/scrolltop';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SidebarModule } from 'primeng/sidebar';
-import { SkeletonModule } from 'primeng/skeleton';
-import { SlideMenuModule } from 'primeng/slidemenu';
-import { SliderModule } from 'primeng/slider';
-import { SpeedDialModule } from 'primeng/speeddial';
-import { SpinnerModule } from 'primeng/spinner';
-import { SplitButtonModule } from 'primeng/splitbutton';
-import { SplitterModule } from 'primeng/splitter';
-import { StepperModule } from 'primeng/stepper';
-import { StepsModule } from 'primeng/steps';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { TableModule } from 'primeng/table';
-import { TabViewModule } from 'primeng/tabview';
-import { TagModule } from 'primeng/tag';
-import { TerminalModule } from 'primeng/terminal';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { TimelineModule } from 'primeng/timeline';
-import { ToastModule } from 'primeng/toast';
-import { ToggleButtonModule } from 'primeng/togglebutton';
-import { ToolbarModule } from 'primeng/toolbar';
-import { TooltipModule } from 'primeng/tooltip';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { TreeModule } from 'primeng/tree';
-import { TreeSelectModule } from 'primeng/treeselect';
-import { TreeTableModule } from 'primeng/treetable';
-import { AnimateModule } from 'primeng/animate';
-import { CardModule } from 'primeng/card';
-import { BlockUIModule } from 'primeng/blockui';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { RippleModule } from 'primeng/ripple';
-import { StyleClassModule } from 'primeng/styleclass';
-import { MessageService } from 'primeng/api';
-${serviceImports}
-
-@NgModule({
-  imports: [
-    AvatarModule,
-    AvatarGroupModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AccordionModule,
-    AutoCompleteModule,
-    BadgeModule,
-    BreadcrumbModule,
-    BlockUIModule,
-    ButtonModule,
-    CalendarModule,
-    CarouselModule,
-    CascadeSelectModule,
-    ChartModule,
-    CheckboxModule,
-    ChipsModule,
-    ChipModule,
-    ColorPickerModule,
-    ConfirmDialogModule,
-    ConfirmPopupModule,
-    ContextMenuModule,
-    VirtualScrollerModule,
-    DataViewModule,
-    DialogModule,
-    DividerModule,
-    DockModule,
-    DragDropModule,
-    DropdownModule,
-    DynamicDialogModule,
-    EditorModule,
-    FieldsetModule,
-    FileUploadModule,
-    GalleriaModule,
-    InplaceModule,
-    InputMaskModule,
-    InputSwitchModule,
-    InputTextModule,
-    InputTextareaModule,
-    InputNumberModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    InputOtpModule,
-    ImageModule,
-    KnobModule,
-    ListboxModule,
-    MegaMenuModule,
-    MenuModule,
-    MenubarModule,
-    MessageModule,
-    MessagesModule,
-    MultiSelectModule,
-    MeterGroupModule,
-    OrganizationChartModule,
-    OrderListModule,
-    OverlayPanelModule,
-    PaginatorModule,
-    PanelModule,
-    PanelMenuModule,
-    PasswordModule,
-    PickListModule,
-    ProgressSpinnerModule,
-    ProgressBarModule,
-    RadioButtonModule,
-    RatingModule,
-    SelectButtonModule,
-    SidebarModule,
-    ScrollerModule,
-    ScrollPanelModule,
-    ScrollTopModule,
-    SkeletonModule,
-    SlideMenuModule,
-    SliderModule,
-    SpeedDialModule,
-    SpinnerModule,
-    SplitterModule,
-    StepperModule,
-    SplitButtonModule,
-    StepsModule,
-    TableModule,
-    TabMenuModule,
-    TabViewModule,
-    TagModule,
-    TerminalModule,
-    TieredMenuModule,
-    TimelineModule,
-    ToastModule,
-    ToggleButtonModule,
-    ToolbarModule,
-    TooltipModule,
-    TriStateCheckboxModule,
-    TreeModule,
-    TreeSelectModule,
-    TreeTableModule,
-    AnimateModule,
-    CardModule,
-    RippleModule,
-    StyleClassModule,
-    ${routerModule}],
-    declarations: [ ${declarations} ],
-    bootstrap: [ ${componentName} ],
-    providers: [ ${providers} ]
-})
-
-export class AppModule {}`;
+    const imports_ts = `// Import PrimeNG modules
+    import { AccordionModule } from 'primeng/accordion';
+    import { AutoCompleteModule } from 'primeng/autocomplete';
+    import { AvatarModule } from 'primeng/avatar';
+    import { AvatarGroupModule } from 'primeng/avatargroup';
+    import { BadgeModule } from 'primeng/badge';
+    import { BreadcrumbModule } from 'primeng/breadcrumb';
+    import { ButtonModule } from 'primeng/button';
+    import { CalendarModule } from 'primeng/calendar';
+    import { CarouselModule } from 'primeng/carousel';
+    import { CascadeSelectModule } from 'primeng/cascadeselect';
+    import { ChartModule } from 'primeng/chart';
+    import { CheckboxModule } from 'primeng/checkbox';
+    import { ChipModule } from 'primeng/chip';
+    import { ChipsModule } from 'primeng/chips';
+    import { ConfirmDialogModule } from 'primeng/confirmdialog';
+    import { ConfirmPopupModule } from 'primeng/confirmpopup';
+    import { ColorPickerModule } from 'primeng/colorpicker';
+    import { ContextMenuModule } from 'primeng/contextmenu';
+    import { DataViewModule } from 'primeng/dataview';
+    import { VirtualScrollerModule } from 'primeng/virtualscroller';
+    import { DialogModule } from 'primeng/dialog';
+    import { DividerModule } from 'primeng/divider';
+    import { DockModule } from 'primeng/dock';
+    import { DragDropModule } from 'primeng/dragdrop';
+    import { DropdownModule } from 'primeng/dropdown';
+    import { DynamicDialogModule } from 'primeng/dynamicdialog';
+    import { EditorModule } from 'primeng/editor';
+    import { FieldsetModule } from 'primeng/fieldset';
+    import { FileUploadModule } from 'primeng/fileupload';
+    import { GalleriaModule } from 'primeng/galleria';
+    import { InplaceModule } from 'primeng/inplace';
+    import { InputMaskModule } from 'primeng/inputmask';
+    import { InputSwitchModule } from 'primeng/inputswitch';
+    import { InputTextModule } from 'primeng/inputtext';
+    import { InputNumberModule } from 'primeng/inputnumber';
+    import { InputTextareaModule } from 'primeng/inputtextarea';
+    import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+    import { InputGroupModule } from 'primeng/inputgroup';
+    import { InputOtpModule } from 'primeng/inputotp';
+    import { ImageModule } from 'primeng/image';
+    import { KnobModule } from 'primeng/knob';
+    import { ListboxModule } from 'primeng/listbox';
+    import { MegaMenuModule } from 'primeng/megamenu';
+    import { MenuModule } from 'primeng/menu';
+    import { MenubarModule } from 'primeng/menubar';
+    import { MessageModule } from 'primeng/message';
+    import { MessagesModule } from 'primeng/messages';
+    import { MultiSelectModule } from 'primeng/multiselect';
+    import { MeterGroupModule } from 'primeng/metergroup';
+    import { OrderListModule } from 'primeng/orderlist';
+    import { OrganizationChartModule } from 'primeng/organizationchart';
+    import { OverlayPanelModule } from 'primeng/overlaypanel';
+    import { PaginatorModule } from 'primeng/paginator';
+    import { PanelModule } from 'primeng/panel';
+    import { PanelMenuModule } from 'primeng/panelmenu';
+    import { PasswordModule } from 'primeng/password';
+    import { PickListModule } from 'primeng/picklist';
+    import { ProgressBarModule } from 'primeng/progressbar';
+    import { RadioButtonModule } from 'primeng/radiobutton';
+    import { RatingModule } from 'primeng/rating';
+    import { ScrollerModule } from 'primeng/scroller';
+    import { ScrollPanelModule } from 'primeng/scrollpanel';
+    import { ScrollTopModule } from 'primeng/scrolltop';
+    import { SelectButtonModule } from 'primeng/selectbutton';
+    import { SidebarModule } from 'primeng/sidebar';
+    import { SkeletonModule } from 'primeng/skeleton';
+    import { SlideMenuModule } from 'primeng/slidemenu';
+    import { SliderModule } from 'primeng/slider';
+    import { SpeedDialModule } from 'primeng/speeddial';
+    import { SpinnerModule } from 'primeng/spinner';
+    import { SplitButtonModule } from 'primeng/splitbutton';
+    import { SplitterModule } from 'primeng/splitter';
+    import { StepperModule } from 'primeng/stepper';
+    import { StepsModule } from 'primeng/steps';
+    import { TabMenuModule } from 'primeng/tabmenu';
+    import { TableModule } from 'primeng/table';
+    import { TabViewModule } from 'primeng/tabview';
+    import { TagModule } from 'primeng/tag';
+    import { TerminalModule } from 'primeng/terminal';
+    import { TieredMenuModule } from 'primeng/tieredmenu';
+    import { TimelineModule } from 'primeng/timeline';
+    import { ToastModule } from 'primeng/toast';
+    import { ToggleButtonModule } from 'primeng/togglebutton';
+    import { ToolbarModule } from 'primeng/toolbar';
+    import { TooltipModule } from 'primeng/tooltip';
+    import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+    import { TreeModule } from 'primeng/tree';
+    import { TreeSelectModule } from 'primeng/treeselect';
+    import { TreeTableModule } from 'primeng/treetable';
+    import { AnimateModule } from 'primeng/animate';
+    import { CardModule } from 'primeng/card';
+    import { BlockUIModule } from 'primeng/blockui';
+    import { ProgressSpinnerModule } from 'primeng/progressspinner';
+    import { RippleModule } from 'primeng/ripple';
+    import { FloatLabelModule } from 'primeng/floatlabel';
+    import { IconFieldModule } from 'primeng/iconfield';
+    import { InputIconModule } from 'primeng/inputicon';
+    import { StyleClassModule } from 'primeng/styleclass';
+    import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+    import { HttpClientModule } from '@angular/common/http';
+    import { NgModule } from '@angular/core';
+    ${serviceImports}
+    
+    @NgModule({
+      imports: [
+        AvatarModule,
+        AvatarGroupModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AccordionModule,
+        AutoCompleteModule,
+        BadgeModule,
+        BreadcrumbModule,
+        BlockUIModule,
+        ButtonModule,
+        CalendarModule,
+        CarouselModule,
+        CascadeSelectModule,
+        ChartModule,
+        CheckboxModule,
+        ChipsModule,
+        ChipModule,
+        ColorPickerModule,
+        ConfirmDialogModule,
+        ConfirmPopupModule,
+        ContextMenuModule,
+        VirtualScrollerModule,
+        DataViewModule,
+        DialogModule,
+        DividerModule,
+        DockModule,
+        DragDropModule,
+        DropdownModule,
+        DynamicDialogModule,
+        EditorModule,
+        FieldsetModule,
+        FileUploadModule,
+        GalleriaModule,
+        InplaceModule,
+        InputMaskModule,
+        InputSwitchModule,
+        InputTextModule,
+        InputTextareaModule,
+        InputNumberModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        InputOtpModule,
+        ImageModule,
+        KnobModule,
+        ListboxModule,
+        MegaMenuModule,
+        MenuModule,
+        MenubarModule,
+        MessageModule,
+        MessagesModule,
+        MultiSelectModule,
+        MeterGroupModule,
+        OrganizationChartModule,
+        OrderListModule,
+        OverlayPanelModule,
+        PaginatorModule,
+        PanelModule,
+        PanelMenuModule,
+        PasswordModule,
+        PickListModule,
+        ProgressSpinnerModule,
+        ProgressBarModule,
+        RadioButtonModule,
+        RatingModule,
+        SelectButtonModule,
+        SidebarModule,
+        ScrollerModule,
+        ScrollPanelModule,
+        ScrollTopModule,
+        SkeletonModule,
+        SlideMenuModule,
+        SliderModule,
+        SpeedDialModule,
+        SpinnerModule,
+        SplitterModule,
+        StepperModule,
+        SplitButtonModule,
+        StepsModule,
+        TableModule,
+        TabMenuModule,
+        TabViewModule,
+        TagModule,
+        TerminalModule,
+        TieredMenuModule,
+        TimelineModule,
+        ToastModule,
+        ToggleButtonModule,
+        ToolbarModule,
+        TooltipModule,
+        TriStateCheckboxModule,
+        TreeModule,
+        TreeSelectModule,
+        TreeTableModule,
+        AnimateModule,
+        CardModule,
+        RippleModule,
+        StyleClassModule,
+      ],
+      exports: [
+        AvatarModule,
+        AvatarGroupModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        AccordionModule,
+        AutoCompleteModule,
+        BadgeModule,
+        BreadcrumbModule,
+        BlockUIModule,
+        ButtonModule,
+        CalendarModule,
+        CarouselModule,
+        CascadeSelectModule,
+        ChartModule,
+        CheckboxModule,
+        ChipsModule,
+        ChipModule,
+        ColorPickerModule,
+        ConfirmDialogModule,
+        ConfirmPopupModule,
+        ContextMenuModule,
+        VirtualScrollerModule,
+        DataViewModule,
+        DialogModule,
+        DividerModule,
+        DockModule,
+        DragDropModule,
+        DropdownModule,
+        DynamicDialogModule,
+        EditorModule,
+        FieldsetModule,
+        FileUploadModule,
+        GalleriaModule,
+        InplaceModule,
+        InputMaskModule,
+        InputSwitchModule,
+        InputTextModule,
+        InputTextareaModule,
+        InputNumberModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        InputOtpModule,
+        ImageModule,
+        KnobModule,
+        ListboxModule,
+        MegaMenuModule,
+        MenuModule,
+        MenubarModule,
+        MessageModule,
+        MessagesModule,
+        MultiSelectModule,
+        MeterGroupModule,
+        OrganizationChartModule,
+        OrderListModule,
+        OverlayPanelModule,
+        PaginatorModule,
+        PanelModule,
+        PanelMenuModule,
+        PasswordModule,
+        PickListModule,
+        ProgressSpinnerModule,
+        ProgressBarModule,
+        RadioButtonModule,
+        RatingModule,
+        SelectButtonModule,
+        SidebarModule,
+        ScrollerModule,
+        ScrollPanelModule,
+        ScrollTopModule,
+        SkeletonModule,
+        SlideMenuModule,
+        SliderModule,
+        SpeedDialModule,
+        SpinnerModule,
+        SplitterModule,
+        StepperModule,
+        SplitButtonModule,
+        StepsModule,
+        TableModule,
+        TabMenuModule,
+        TabViewModule,
+        TagModule,
+        TerminalModule,
+        TieredMenuModule,
+        TimelineModule,
+        ToastModule,
+        ToggleButtonModule,
+        ToolbarModule,
+        TooltipModule,
+        TriStateCheckboxModule,
+        TreeModule,
+        TreeSelectModule,
+        TreeTableModule,
+        AnimateModule,
+        CardModule,
+        RippleModule,
+        StyleClassModule,
+        FloatLabelModule,
+        IconFieldModule,
+        InputIconModule
+      ],
+      providers: [ ${providers} ]
+    })
+    export class ImportsModule {}
+    `;
 
     const index_html = `
 <!doctype html>
@@ -727,19 +722,23 @@ export class AppModule {}`;
     </body>
 </html>`;
 
+    const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
+    import { ${componentName} } from './app/${selector}';
+    import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+    bootstrapApplication(${componentName}, {
+    providers: [provideAnimationsAsync()],
+    }).catch((err) => console.error(err));`;
+
     const defaultFiles = {
         'src/main.ts': { content: main_ts },
-        'src/polyfills.ts': { content: polyfills_ts },
         'src/test.ts': { content: test_ts },
         'tsconfig.json': { content: tsconfig_json },
         'tsconfig.app.json': { content: tsconfig_app_json },
         'tsconfig.spec.json': { content: tsconfig_spec_json },
         '.editorconfig': { content: editorconfig },
-        'src/environments/environment.ts': { content: environment_ts },
-        'src/environments/environment.prod.ts': { content: environment_prod_ts },
         'angular.json': { content: angular_json },
-        '.browserslistrc': { content: browserlistrc },
-        'src/app/app.module.ts': { content: app_module_ts },
+        'src/app/imports.ts': { content: imports_ts },
         'src/index.html': { content: index_html },
         'src/karma.conf.js': { content: karma_conf_js },
         'src/styles.scss': { content: staticStyles.global },
@@ -764,9 +763,9 @@ export class AppModule {}`;
                 }
             }
         },
-        [`src/app/demo/${selector}.html`]: { content: code.html.trim() },
-        [`src/app/demo/${selector}.ts`]: { content: code.typescript.trim() },
-        [`src/app/demo/${selector}.scss`]: { content: code.scss ? code.scss.trim() : '' },
+
+        [`src/app/${selector}.ts`]: { content: code.typescript.trim() },
+        [`src/app/${selector}.html`]: { content: code.html.trim() },
         ...defaultFiles,
         ...externalFiles,
         ..._routeFiles

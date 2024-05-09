@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -17,7 +17,7 @@ interface City {
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-basic-demo"></app-code>
     `
@@ -38,15 +38,25 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
+        basic: `<p-listbox 
+    [options]="cities" 
+    [(ngModel)]="selectedCity" 
+    optionLabel="name" 
+    [style]="{'width':'15rem'}" 
+    [listStyle]="{'max-height': '220px'}" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [style]="{'width':'15rem'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+        html: `<div class="card flex justify-content-center">
+    <p-listbox 
+        [options]="cities" 
+        [(ngModel)]="selectedCity" 
+        optionLabel="name" 
+        [style]="{'width':'15rem'}" 
+        [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -55,7 +65,9 @@ interface City {
 
 @Component({
     selector: 'listbox-basic-demo',
-    templateUrl: './listbox-basic-demo.html'
+    templateUrl: './listbox-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxBasicDemo implements OnInit {
     cities!: City[];

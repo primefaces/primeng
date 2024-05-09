@@ -1,4 +1,29 @@
 # Changelog
+## [17.16.0](https://github.com/primefaces/primeng/tree/17.16.0) (2024-05-03)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.15.0...17.16.0)
+
+**Implemented New Features and Enhancements:**
+- Add variant input property for form components. [\#15328](https://github.com/primefaces/primeng/issues/15328)
+- Fileupload | add headerTemplate & emptyTemplate. [\#15430](https://github.com/primefaces/primeng/issues/15430)
+- Multiselect | add loadingIconTemplate [\#15431](https://github.com/primefaces/primeng/issues/15431)
+
+**Fixed bugs:**
+- Split Button: Aria Label not correctly working [\#15342](https://github.com/primefaces/primeng/issues/15342)
+- Scroller: When itemSize is not set, scrolling to top results in component crash [\#15395](https://github.com/primefaces/primeng/issues/15395)
+- Tree: Search results are not updated when new data is added [\#15193](https://github.com/primefaces/primeng/issues/15193)
+- MegaMenu | Keyboard navigation is broken [\#15110](https://github.com/primefaces/primeng/issues/15110)
+- Component: Paginator aria replacement problem [\#15413](https://github.com/primefaces/primeng/issues/15413)
+- primeNg timeline vertical alignment broken in case of small devices [\#14582](https://github.com/primefaces/primeng/issues/14582)
+- Dropdown loses focus in accordion when using arrow keys [\#14953](https://github.com/primefaces/primeng/issues/14953)
+- Calendar: minDate bug when using 12 hourFormat [\#15286](https://github.com/primefaces/primeng/issues/15286)
+- p-timeline not mobile responsive in the template section of the timeline documentation [\#15424](https://github.com/primefaces/primeng/issues/15424)
+- Fileupload and autocomplete: problems with input transform function [\#15332](https://github.com/primefaces/primeng/issues/15332)
+- DynamicDialog: closeOnEscape and dismissableMask not working in combination with closable=false [\#15401](https://github.com/primefaces/primeng/issues/15401)
+- TieredMenu Submenus do not display within viewport [\#13929](https://github.com/primefaces/primeng/issues/13929)
+- keyboard event code is coming as empty for backspace [\#15442](https://github.com/primefaces/primeng/issues/15442)
+- p-menu w/ popup: enter key on number pad doesn't select menu item (accessibility issue) [\#15415](https://github.com/primefaces/primeng/issues/15415)
+- Broken Unit Tests [\#15416](https://github.com/primefaces/primeng/issues/15416)
+
 ## [17.15.0](https://github.com/primefaces/primeng/tree/17.15.0) (2024-04-26)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.14.1...17.15.0)
 

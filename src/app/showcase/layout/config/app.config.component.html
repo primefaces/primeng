@@ -18,17 +18,17 @@
 
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Input Style</span>
-            <p-selectButton [options]="inputStyles" [ngModel]="inputStyle" (onChange)="onInputStyleChange($event)"
+            <p-selectButton [options]="inputStyles" [(ngModel)]="inputStyle" (onChange)="onInputStyleChange($event)"
                 optionLabel="label" optionValue="value" allowEmpty="false"></p-selectButton>
         </section>
 
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span class="text-xl font-semibold">Ripple Effect</span>
-            <p-inputSwitch [ngModel]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
+            <p-inputSwitch [(ngModel)]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
         </section>
         <section class="py-4 flex align-items-center justify-content-between border-bottom-1 surface-border">
             <span [ngClass]="{ 'p-disabled': isDarkToggleDisabled }" class="text-xl font-semibold">Dark Mode</span>
-            <p-inputSwitch [ngModel]="isDarkMode" (onChange)="toggleDarkMode()" [disabled]="isDarkToggleDisabled" />
+            <p-inputSwitch [(ngModel)]="isDarkMode" (onChange)="toggleDarkMode()" [disabled]="isDarkToggleDisabled" />
         </section>
 
         <section class="py-4 border-bottom-1 surface-border">

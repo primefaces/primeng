@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'severity-doc',
@@ -10,9 +10,11 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-tag value="Primary"></p-tag>
             <p-tag severity="success" value="Success"></p-tag>
+            <p-tag severity="secondary" value="Secondary"></p-tag>
             <p-tag severity="info" value="Info"></p-tag>
             <p-tag severity="warning" value="Warning"></p-tag>
             <p-tag severity="danger" value="Danger"></p-tag>
+            <p-tag severity="contrast" value="Contrast"></p-tag>
         </div>
         <app-code [code]="code" selector="tag-severity-demo"></app-code>
     `
@@ -24,9 +26,11 @@ export class SeverityDoc {
 <div class="card flex justify-content-center gap-2">
     <p-tag value="Primary"></p-tag>
     <p-tag severity="success" value="Success"></p-tag>
+    <p-tag severity="secondary" value="Secondary"></p-tag>
     <p-tag severity="info" value="Info"></p-tag>
     <p-tag severity="warning" value="Warning"></p-tag>
     <p-tag severity="danger" value="Danger"></p-tag>
+    <p-tag severity="contrast" value="Contrast"></p-tag>
 </div>`,
         typescript: `
 import { Component } from '@angular/core';

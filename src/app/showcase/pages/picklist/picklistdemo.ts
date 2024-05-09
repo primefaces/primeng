@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FilterDoc } from '../../doc/picklist/filterdoc';
-import { BasicDoc } from '../../doc/picklist/basicdoc';
-import { ImportDoc } from '../../doc/picklist/importdoc';
-import { StyleDoc } from '../../doc/picklist/styledoc';
-import { AccessibilityDoc } from '../../doc/picklist/accessibilitydoc';
+import { FilterDoc } from '@doc/picklist/filterdoc';
+import { BasicDoc } from '@doc/picklist/basicdoc';
+import { ImportDoc } from '@doc/picklist/importdoc';
+import { StyleDoc } from '@doc/picklist/styledoc';
+import { AccessibilityDoc } from '@doc/picklist/accessibilitydoc';
 
 @Component({
     templateUrl: './picklistdemo.html',

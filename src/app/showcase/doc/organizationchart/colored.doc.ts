@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'organization-chart-colored-demo',
@@ -9,7 +9,7 @@ import { Code } from '../../domain/code';
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
         <div class="card flex justify-content-center overflow-x-auto">
-            <p-organizationChart [value]="data">
+            <p-organizationChart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="p-2 text-center">
                         <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
@@ -81,36 +81,49 @@ export class ColoredDoc {
     ];
 
     code: Code = {
-        basic: `<p-organizationChart [value]="data">
+        basic: `<p-organizationChart [value]="data" [collapsible]="true">
     <ng-template let-node pTemplate="person">
         <div class="p-2 text-center">
-            <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
-            <div class="font-bold">{{ node.data.name }}</div>
-            <div>{{ node.data.title }}</div>
+            <img 
+                [src]="node.data.image" 
+                class="mb-3 w-3rem h-3rem" />
+            <div class="font-bold">
+                {{ node.data.name }}
+            </div>
+            <div>
+                {{ node.data.title }}
+            </div>
         </div>
     </ng-template>
 </p-organizationChart>`,
 
-        html: `
-<div class="card flex justify-content-center overflow-x-auto">
-    <p-organizationChart [value]="data">
+        html: `<div class="card flex justify-content-center overflow-x-auto">
+    <p-organizationChart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="person">
             <div class="p-2 text-center">
-                <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
-                <div class="font-bold">{{ node.data.name }}</div>
-                <div>{{ node.data.title }}</div>
+                <img 
+                    [src]="node.data.image" 
+                    class="mb-3 w-3rem h-3rem" />
+                <div class="font-bold">
+                    {{ node.data.name }}
+                </div>
+                <div>
+                    {{ node.data.title }}
+                </div>
             </div>
         </ng-template>
     </p-organizationChart>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
 @Component({
     selector: 'organization-chart-colored-demo',
     templateUrl: './organization-chart-colored-demo.html',
+    standalone: true,
+    imports: [OrganizationChartModule]
 })
 export class OrganizationChartColoredDemo {
     data: TreeNode[] = [

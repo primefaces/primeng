@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;
@@ -112,7 +112,7 @@ export class ScrollHorizontalDoc {
         typescript: `
 import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;

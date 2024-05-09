@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -120,12 +120,17 @@ export class TemplateDoc {
 </p-iconField>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-        
+        typescript: `import { Component } from '@angular/core';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+
 @Component({
     selector: 'iconfield-template-demo',
-    templateUrl: './iconfield-template-demo.html'
+    templateUrl: './iconfield-template-demo.html',
+    standalone: true,
+    imports: [InputIconModule, IconFieldModule, InputTextModule, FormsModule]
 })
 export class IconFieldTemplateDemo {}`
     };

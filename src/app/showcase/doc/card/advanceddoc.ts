@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'card-advanced-demo',
@@ -10,15 +10,17 @@ import { Code } from '../../domain/code';
         <div class="card flex justify-content-center">
             <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
                 <ng-template pTemplate="header">
-                    <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+                    <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
                 </ng-template>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
                     quas!
                 </p>
                 <ng-template pTemplate="footer">
-                    <p-button label="Save" icon="pi pi-check"></p-button>
-                    <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+                    <div class="flex gap-3 mt-1">
+                        <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+                        <p-button label="Save" class="w-full" styleClass="w-full" />
+                    </div>
                 </ng-template>
             </p-card>
         </div>
@@ -29,41 +31,46 @@ export class AdvancedDoc {
     code: Code = {
         basic: `<p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
     <ng-template pTemplate="header">
-        <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
     </ng-template>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-        quas!
+        Lorem ipsum dolor sit amet...
     </p>
     <ng-template pTemplate="footer">
-        <p-button label="Save" icon="pi pi-check"></p-button>
-        <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+        <div class="flex gap-3 mt-1">
+            <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+            <p-button label="Save" class="w-full" styleClass="w-full" />
+        </div>
     </ng-template>
 </p-card>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
         <ng-template pTemplate="header">
-            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+            <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
         </ng-template>
         <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
             quas!
         </p>
         <ng-template pTemplate="footer">
-            <p-button label="Save" icon="pi pi-check"></p-button>
-            <p-button label="Cancel" icon="pi pi-times" styleClass="p-button-secondary" [style]="{ 'margin-left': '.5em' }"></p-button>
+            <div class="flex gap-3 mt-1">
+                <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
+                <p-button label="Save" class="w-full" styleClass="w-full" />
+            </div>
         </ng-template>
     </p-card>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
+        
 @Component({
     selector: 'card-advanced-demo',
-    templateUrl: './card-advanced-demo.html'
+    templateUrl: './card-advanced-demo.html',
+    standalone: true,
+    imports: [CardModule, ButtonModule]
 })
 export class CardAdvancedDemo {}`
     };

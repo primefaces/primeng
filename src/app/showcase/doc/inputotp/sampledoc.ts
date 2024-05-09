@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'sample-doc',
@@ -20,8 +20,8 @@ import { Code } from '../../domain/code';
                     </ng-template>
                 </p-inputOtp>
                 <div class="flex justify-content-between mt-5 align-self-stretch">
-                    <p-button label="Resend Code" [link]="true" class="p-0"></p-button>
-                    <p-button label="Submit Code"></p-button>
+                    <p-button label="Resend Code" [link]="true" class="p-0" />
+                    <p-button label="Submit Code" />
                 </div>
             </div>
         </div>
@@ -76,15 +76,22 @@ export class SampleDoc {
     <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-            <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+            <input 
+                pInputText
+                type="text" 
+                [maxLength]="1" 
+                (input)="events.input($event)" 
+                (keydown)="events.keydown($event)" 
+                [attr.value]="token" 
+                class="custom-otp-input" />
             <div *ngIf="index === 3" class="px-3">
                 <i class="pi pi-minus"></i>
             </div>
         </ng-template>
     </p-inputOtp>
     <div class="flex justify-content-between mt-5 align-self-stretch">
-        <p-button label="Resend Code" [link]="true" class="p-0"></p-button>
-        <p-button label="Submit Code"></p-button>
+        <p-button label="Resend Code" [link]="true" class="p-0"/>
+        <p-button label="Submit Code"/>
     </div>
 </div>`,
 
@@ -94,25 +101,36 @@ export class SampleDoc {
         <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
         <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-                <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+                <input 
+                    pInputText 
+                    type="text" 
+                    [maxLength]="1" 
+                    (input)="events.input($event)" 
+                    (keydown)="events.keydown($event)" 
+                    [attr.value]="token" 
+                    class="custom-otp-input" />
                 <div *ngIf="index === 3" class="px-3">
                     <i class="pi pi-minus"></i>
                 </div>
             </ng-template>
         </p-inputOtp>
         <div class="flex justify-content-between mt-5 align-self-stretch">
-            <p-button label="Resend Code" [link]="true" class="p-0"></p-button>
-            <p-button label="Submit Code"></p-button>
+            <p-button label="Resend Code" [link]="true" class="p-0"/>
+            <p-button label="Submit Code"/>
         </div>
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputOtpModule } from 'primeng/inputotp';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'input-otp-sample-demo',
     templateUrl: './input-otp-sample-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputOtpModule, ButtonModule],
     styles: [
         \`
         .custom-otp-input {

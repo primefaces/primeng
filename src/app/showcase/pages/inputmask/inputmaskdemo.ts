@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { AccessibilityDoc } from '../../doc/inputmask/accessibilitydoc';
-import { BasicDoc } from '../../doc/inputmask/basicdoc';
-import { DisabledDoc } from '../../doc/inputmask/disableddoc';
-import { FloatlabelDoc } from '../../doc/inputmask/floatlabeldoc';
-import { ImportDoc } from '../../doc/inputmask/importdoc';
-import { InvalidDoc } from '../../doc/inputmask/invaliddoc';
-import { MaskDoc } from '../../doc/inputmask/maskdoc';
-import { OptionalDoc } from '../../doc/inputmask/optionaldoc';
-import { ReactiveFormsDoc } from '../../doc/inputmask/reactiveformsdoc';
-import { SlotCharDoc } from '../../doc/inputmask/slotchardoc';
-import { StyleDoc } from '../../doc/inputmask/styledoc';
+import { AccessibilityDoc } from '@doc/inputmask/accessibilitydoc';
+import { BasicDoc } from '@doc/inputmask/basicdoc';
+import { DisabledDoc } from '@doc/inputmask/disableddoc';
+import { FilledDoc } from '@doc/inputmask/filleddoc';
+import { FloatlabelDoc } from '@doc/inputmask/floatlabeldoc';
+import { ImportDoc } from '@doc/inputmask/importdoc';
+import { InvalidDoc } from '@doc/inputmask/invaliddoc';
+import { MaskDoc } from '@doc/inputmask/maskdoc';
+import { OptionalDoc } from '@doc/inputmask/optionaldoc';
+import { ReactiveFormsDoc } from '@doc/inputmask/reactiveformsdoc';
+import { SlotCharDoc } from '@doc/inputmask/slotchardoc';
+import { StyleDoc } from '@doc/inputmask/styledoc';
 
 @Component({
     templateUrl: './inputmaskdemo.html'
@@ -37,14 +38,14 @@ export class InputMaskDemo {
             component: MaskDoc
         },
         {
-            id: 'slotchar',
-            label: 'Slot Char',
-            component: SlotCharDoc
-        },
-        {
             id: 'optional',
             label: 'Optional',
             component: OptionalDoc
+        },
+        {
+            id: 'slotchar',
+            label: 'Slot Char',
+            component: SlotCharDoc
         },
         {
             id: 'floatlabel',
@@ -52,14 +53,19 @@ export class InputMaskDemo {
             component: FloatlabelDoc
         },
         {
-            id: 'disabled',
-            label: 'Disabled',
-            component: DisabledDoc
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
         },
         {
             id: 'invalid',
             label: 'Invalid',
             component: InvalidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'style',

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'dropdown-group-demo',
@@ -62,34 +62,50 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
+        basic: `<p-dropdown 
+    [options]="groupedCities" 
+    [(ngModel)]="selectedCity" 
+    placeholder="Select a City" 
+    [group]="true">
     <ng-template let-group pTemplate="group">
         <div class="flex align-items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+            <img 
+                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                [class]="'mr-2 flag flag-' + group.value"
+                style="width: 20px" />
             <span>{{ group.label }}</span>
         </div>
     </ng-template>
 </p-dropdown>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
-        <ng-template let-group pTemplate="group">
-            <div class="flex align-items-center">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-                <span>{{ group.label }}</span>
-            </div>
-        </ng-template>
+        html: `<div class="card flex justify-content-center">
+    <p-dropdown 
+        [options]="groupedCities" 
+        [(ngModel)]="selectedCity" 
+        placeholder="Select a City" 
+        [group]="true">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'mr-2 flag flag-' + group.value" 
+                        style="width: 20px" />
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
     </p-dropdown>
 </div>`,
 
-        typescript: `
-import { SelectItemGroup } from 'primeng/api';
+        typescript: `import { SelectItemGroup } from 'primeng/api';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
     selector: 'dropdown-group-demo',
-    templateUrl: './dropdown-group-demo.html'
+    templateUrl: './dropdown-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, DropdownModule]
 })
 export class DropdownGroupDemo {
     groupedCities: SelectItemGroup[];

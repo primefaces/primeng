@@ -27,7 +27,7 @@ describe('ProgressBar', () => {
         expect(progressbarLabelEl.textContent).toEqual('50%');
     });
 
-    it('should not show value', () => {
+    it('should not show value when showValue is set to false', () => {
         progressbar.value = 50;
         progressbar.showValue = false;
         fixture.detectChanges();
@@ -35,7 +35,7 @@ describe('ProgressBar', () => {
         const progressbarValueEl = fixture.debugElement.query(By.css('.p-progressbar-value')).nativeElement;
         const progressbarLabelEl = fixture.debugElement.query(By.css('.p-progressbar-label'));
         expect(progressbarValueEl.style.width).toEqual('50%');
-        expect(progressbarLabelEl).toBeFalsy();
+        expect(progressbarLabelEl.children.length).toBe(0);
     });
 
     it('should change style and styleClass', () => {

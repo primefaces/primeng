@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BadgeDemo } from './badgedemo';
-import { BadgeDocModule } from '../../doc/badge/badgedoc.module';
+import { BadgeDocModule } from '@doc/badge/badgedoc.module';
 import { BadgeDemoRoutingModule } from './badgedemo-routing.module';
 
 @NgModule({

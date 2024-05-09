@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -13,7 +13,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card">
             <span class="p-fluid">
-                <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true" placeholder="Search"></p-autoComplete>
+                <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true" />
             </span>
         </div>
         <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`
@@ -29,18 +29,26 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `<span class="p-fluid">
-    <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="filterCountry($event)" [multiple]="true"></p-autoComplete>
+    <p-autoComplete 
+        [(ngModel)]="selectedItems" 
+        [suggestions]="items" 
+        (completeMethod)="search($event)" 
+        [multiple]="true" />
 </span>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <span class="p-fluid">
-        <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="filterCountry($event)" [multiple]="true"></p-autoComplete>
+        <p-autoComplete 
+            [(ngModel)]="selectedItems" 
+            [suggestions]="items" 
+            (completeMethod)="search($event)" 
+            [multiple]="true" />
     </span>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -49,7 +57,9 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-multiple-demo',
-    templateUrl: './autocomplete-multiple-demo.html'
+    templateUrl: './autocomplete-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteMultipleDemo {
     selectedItems: any[] | undefined;

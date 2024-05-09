@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({

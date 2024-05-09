@@ -742,27 +742,30 @@ export class PanelMenuList implements OnChanges {
                         (keydown)="onHeaderKeyDown($event, item, i)"
                     >
                         <div class="p-panelmenu-header-content">
-                            <a
-                                *ngIf="!getItemProp(item, 'routerLink')"
-                                [attr.href]="getItemProp(item, 'url')"
-                                [attr.tabindex]="-1"
-                                [target]="getItemProp(item, 'target')"
-                                [attr.title]="getItemProp(item, 'title')"
-                                class="p-panelmenu-header-action"
-                                [attr.data-pc-section]="'headeraction'"
-                            >
-                                <ng-container *ngIf="isItemGroup(item)">
-                                    <ng-container *ngIf="!submenuIconTemplate">
-                                        <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                            <ng-container *ngIf="!headerContentTemplate">
+                                <a
+                                    *ngIf="!getItemProp(item, 'routerLink')"
+                                    [attr.href]="getItemProp(item, 'url')"
+                                    [attr.tabindex]="-1"
+                                    [target]="getItemProp(item, 'target')"
+                                    [attr.title]="getItemProp(item, 'title')"
+                                    class="p-panelmenu-header-action"
+                                    [attr.data-pc-section]="'headeraction'"
+                                >
+                                    <ng-container *ngIf="isItemGroup(item)">
+                                        <ng-container *ngIf="!submenuIconTemplate">
+                                            <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
+                                            <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                        </ng-container>
+                                        <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
-                                </ng-container>
-                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
-                            </a>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                    <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                </a>
+                            </ng-container>
+                            <ng-container *ngTemplateOutlet="headerContentTemplate; context: { $implicit: item }"></ng-container>
                             <a
                                 *ngIf="getItemProp(item, 'routerLink')"
                                 [routerLink]="getItemProp(item, 'routerLink')"
@@ -891,6 +894,8 @@ export class PanelMenu implements AfterContentInit {
 
     submenuIconTemplate: TemplateRef<any> | undefined;
 
+    headerContentTemplate: TemplateRef<any> | undefined;
+
     itemTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
@@ -904,12 +909,18 @@ export class PanelMenu implements AfterContentInit {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
+                case 'headercontent':
+                    this.headerContentTemplate = item.template;
+                    break;
+
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;

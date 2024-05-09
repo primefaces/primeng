@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { TemplateDoc } from '../../doc/timeline/templatedoc';
-import { AlignmentDoc } from '../../doc/timeline/alignmentdoc';
-import { BasicDoc } from '../../doc/timeline/basicdoc';
-import { ImportDoc } from '../../doc/timeline/importdoc';
-import { OppositeDoc } from '../../doc/timeline/oppositedoc';
-import { HorizontalDoc } from '../../doc/timeline/horizontaldoc';
-import { StyleDoc } from '../../doc/timeline/styledoc';
-import { AccessibilityDoc } from '../../doc/timeline/accessibilitydoc';
+import { TemplateDoc } from '@doc/timeline/templatedoc';
+import { AlignmentDoc } from '@doc/timeline/alignmentdoc';
+import { BasicDoc } from '@doc/timeline/basicdoc';
+import { ImportDoc } from '@doc/timeline/importdoc';
+import { OppositeDoc } from '@doc/timeline/oppositedoc';
+import { HorizontalDoc } from '@doc/timeline/horizontaldoc';
+import { StyleDoc } from '@doc/timeline/styledoc';
+import { AccessibilityDoc } from '@doc/timeline/accessibilitydoc';
 
 @Component({
-    templateUrl: './timelinedemo.html'
+    templateUrl: './timelinedemo.html',
+    styleUrls: ['./timelinedemo.scss']
 })
 export class TimelineDemo {
     docs = [

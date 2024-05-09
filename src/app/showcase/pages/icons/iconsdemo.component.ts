@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/icons/basicdoc';
-import { ColorDoc } from '../../doc/icons/colordoc';
-import { ConstantsDoc } from '../../doc/icons/constantsdoc';
-import { DownloadDoc } from '../../doc/icons/downloaddoc';
-import { ImportDoc } from '../../doc/icons/importdoc';
-import { ListDoc } from '../../doc/icons/listdoc';
-import { SizeDoc } from '../../doc/icons/sizedoc';
-import { SpinDoc } from '../../doc/icons/spindoc';
-import { FigmaDoc } from '../../doc/icons/figmadoc';
+import { BasicDoc } from '@doc/icons/basicdoc';
+import { ColorDoc } from '@doc/icons/colordoc';
+import { ConstantsDoc } from '@doc/icons/constantsdoc';
+import { DownloadDoc } from '@doc/icons/downloaddoc';
+import { ImportDoc } from '@doc/icons/importdoc';
+import { ListDoc } from '@doc/icons/listdoc';
+import { SizeDoc } from '@doc/icons/sizedoc';
+import { SpinDoc } from '@doc/icons/spindoc';
+import { FigmaDoc } from '@doc/icons/figmadoc';
 
 @Component({
     templateUrl: './iconsdemo.component.html',

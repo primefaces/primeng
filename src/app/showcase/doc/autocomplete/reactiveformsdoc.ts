@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Code } from '@domain/code';
+import { CountryService } from '@service/countryservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" placeholder="Search"></p-autoComplete>
+                <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" placeholder="Search" />
             </form>
         </div>
         <app-code [code]="code" selector="autocomplete-reactive-forms-demo"></app-code>`
@@ -55,20 +55,27 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+    <p-autoComplete 
+        formControlName="selectedCountry"
+        [suggestions]="filteredCountries" 
+        (completeMethod)="filterCountry($event)" 
+        field="name" />
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-autoComplete formControlName="selectedCountry" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+        <p-autoComplete 
+            formControlName="selectedCountry"
+            [suggestions]="filteredCountries" 
+            (completeMethod)="filterCountry($event)" 
+            field="name" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { CountryService } from '../../service/countryservice';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { CountryService } from '@service/countryservice';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -77,7 +84,10 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-reactive-forms-demo',
-    templateUrl: './autocomplete-reactive-forms-demo.html'
+    templateUrl: './autocomplete-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, AutoCompleteModule],
+    providers: [CountryService]
 })
 export class AutocompleteReactiveFormsDemo implements OnInit {
     countries: any[] | undefined;

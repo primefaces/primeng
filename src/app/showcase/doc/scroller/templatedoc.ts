@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'template-doc',
@@ -45,65 +45,147 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
-            <div class="flex align-items-center px-2" style="height: 25px">Item: {{item}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">Index: {{options.index}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">Count: {{options.count}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">First: {{options.first}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">Last: {{options.last}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">Even: {{options.even}}</div>
-            <div class="flex align-items-center px-2" style="height: 25px">Odd: {{options.odd}}</div>
-        </div>
-    </ng-template>
-    <ng-template pTemplate="loader" let-options="options">
-        <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-            <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-        </div>
-    </ng-template>
-</p-scroller>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller class="custom-loading" [items]="items" [itemSize]="25 * 7" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
+        basic: `<p-scroller 
+    class="custom-loading" 
+    [items]="items" 
+    [itemSize]="25 * 7" 
+    [showLoader]="true" 
+    [delay]="250" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
             <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
-                <div class="flex align-items-center px-2" style="height: 25px">Item: {{item}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">Index: {{options.index}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">Count: {{options.count}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">First: {{options.first}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">Last: {{options.last}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">Even: {{options.even}}</div>
-                <div class="flex align-items-center px-2" style="height: 25px">Odd: {{options.odd}}</div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Item: {{item}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Index: {{options.index}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Count: {{options.count}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    First: {{options.first}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Last: {{options.last}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Even: {{options.even}}
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    Odd: {{options.odd}}
+                </div>
             </div>
         </ng-template>
         <ng-template pTemplate="loader" let-options="options">
             <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="50%" height="1.2rem"></p-skeleton></div>
-                <div class="flex align-items-center px-2" style="height: 25px"><p-skeleton width="60%" height="1.2rem"></p-skeleton></div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="60%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="50%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="60%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="50%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="60%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="50%" height="1.2rem" />
+                </div>
+                <div class="flex align-items-center px-2" style="height: 25px">
+                    <p-skeleton width="60%" height="1.2rem" />
+                </div>
             </div>
         </ng-template>
-    </p-scroller>
+</p-scroller>`,
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        class="custom-loading" 
+        [items]="items"
+        [itemSize]="25 * 7" 
+        [showLoader]="true" 
+        [delay]="250" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Item: {{item}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Index: {{options.index}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Count: {{options.count}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        First: {{options.first}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Last: {{options.last}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Even: {{options.even}}
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        Odd: {{options.odd}}
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="loader" let-options="options">
+                <div class="flex flex-column align-items-strech" [ngClass]="{'surface-ground': options.odd}">
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="60%" height="1.2rem" />
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="50%" height="1.2rem" /><
+                    /div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="60%" height="1.2rem" />
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="50%" height="1.2rem" />
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="60%" height="1.2rem" />
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="50%" height="1.2rem" />
+                    </div>
+                    <div class="flex align-items-center px-2" style="height: 25px">
+                        <p-skeleton width="60%" height="1.2rem" />
+                    </div>
+                </div>
+            </ng-template>
+        </p-scroller>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
     selector: 'scroller-template-demo',
     templateUrl: './scroller-template-demo.html',
-    styleUrls: ['./scroller-template-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        
+            p-skeleton {
+                width: 100%;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule, SkeletonModule]
 })
 export class ScrollerTemplateDemo implements OnInit {
     items!: string[];

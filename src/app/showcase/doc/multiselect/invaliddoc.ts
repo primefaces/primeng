@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -13,7 +13,7 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" placeholder="Select Cities"></p-multiSelect>
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-invalid-demo"></app-code>
     `
@@ -34,15 +34,23 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name"></p-multiSelect>`,
+        basic: `<p-multiSelect 
+        [options]="cities" 
+        [(ngModel)]="selectedCities" 
+        class="ng-dirty ng-invalid" 
+        optionLabel="name" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" class="ng-dirty ng-invalid" optionLabel="name"></p-multiSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-multiSelect 
+        [options]="cities" 
+        [(ngModel)]="selectedCities" 
+        class="ng-dirty ng-invalid" 
+        optionLabel="name" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
     name: string,
@@ -51,7 +59,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-invalid-demo',
-    templateUrl: './multi-select-invalid-demo.html'
+    templateUrl: './multi-select-invalid-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectInvalidDemo implements OnInit {
     cities!: City[];

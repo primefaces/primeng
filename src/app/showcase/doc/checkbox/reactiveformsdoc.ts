@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
@@ -10,7 +10,7 @@ import { Code } from '../../domain/code';
         </app-docsectiontext>
         <div class="card">
             <form [formGroup]="formGroup" class="flex align-items-center justify-content-center gap-1">
-                <p-checkbox formControlName="city" value="New York" inputId="ny"></p-checkbox>
+                <p-checkbox formControlName="city" value="New York" inputId="ny" />
                 <label for="ny">New York</label>
             </form>
         </div>
@@ -28,25 +28,32 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form class="flex align-items-center gap-1" [formGroup]="formGroup">
-    <p-checkbox formControlName="city" value="New York" inputId="ny"></p-checkbox>
+    <p-checkbox 
+        formControlName="city" 
+        value="New York" 
+        inputId="ny" />
     <label for="ny">New York</label>
 </form>`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <form class="flex align-items-center gap-1" [formGroup]="formGroup">
-        <p-checkbox formControlName="city" value="New York" inputId="ny"></p-checkbox>
+        <p-checkbox 
+            formControlName="city" 
+            value="New York" 
+            inputId="ny" />
         <label for="ny">New York</label>
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-reactive-forms-demo',
-    templateUrl: './checkbox-reactive-forms-demo.html'
+    templateUrl: './checkbox-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, CheckboxModule]
 })
 export class CheckboxReactiveFormsDemo implements OnInit{
     formGroup: FormGroup | undefined;

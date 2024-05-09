@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'color-picker-inline-demo',
@@ -8,7 +8,7 @@ import { Code } from '../../domain/code';
             <p>ColorPicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-colorPicker [(ngModel)]="color" [inline]="true"></p-colorPicker>
+            <p-colorPicker [(ngModel)]="color" [inline]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-inline-demo"></app-code>
     `
@@ -17,19 +17,25 @@ export class InlineDoc {
     color: string | undefined;
 
     code: Code = {
-        basic: `<p-colorPicker [(ngModel)]="color1" [inline]="true"></p-colorPicker>`,
+        basic: `<p-colorPicker 
+    [(ngModel)]="color1" 
+    [inline]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-colorPicker [(ngModel)]="color" [inline]="true"></p-colorPicker>
+        html: `<div class="card flex justify-content-center">
+    <p-colorPicker 
+        [(ngModel)]="color" 
+        [inline]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-inline-demo',
-    templateUrl: './color-picker-inline-demo.html'
+    templateUrl: './color-picker-inline-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPickerModule]
 })
 export class ColorPickerInlineDemo {
     color: string | undefined;

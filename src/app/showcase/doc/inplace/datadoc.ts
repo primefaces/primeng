@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { Code } from '@domain/code';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'data-doc',
@@ -110,8 +110,8 @@ export class DataDoc {
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
-import { Car } from '../../domain/car';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'inplace-data-demo',
