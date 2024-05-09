@@ -445,6 +445,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         } else if (this.footerViewChild) {
             // If the content section is empty try to focus on footer
             this.focus(this.footerViewChild.nativeElement);
+        } else if (!focusableElement && this.headerViewChild) {
+            this.focus(this.headerViewChild.nativeElement);
         }
     }
 
