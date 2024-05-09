@@ -76,7 +76,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.placeholder]="placeholder"
                 [attr.size]="size"
-                [maxlength]="maxlength"
+                [attr.maxlength]="maxlength"
                 [tabindex]="!disabled ? tabindex : -1"
                 [readonly]="readonly"
                 [disabled]="disabled"
@@ -150,7 +150,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [attr.placeholder]="!filled ? placeholder : null"
                         [attr.size]="size"
                         aria-autocomplete="list"
-                        [maxlength]="maxlength"
+                        [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
                         [readonly]="readonly"
                         [disabled]="disabled"
@@ -1537,18 +1537,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     hide(isFocus = false) {
-        const _hide = () => {
-            this.dirty = isFocus;
-            this.overlayVisible = false;
-            this.focusedOptionIndex.set(-1);
-            isFocus && DomHandler.focus(this.inputEL.nativeElement);
-            this.onHide.emit();
-            this.cd.markForCheck();
-        };
-
-        setTimeout(() => {
-            _hide();
-        }, 0); // For ScreenReaders
+        this.dirty = isFocus;
+        this.overlayVisible = false;
+        this.focusedOptionIndex.set(-1);
+        isFocus && DomHandler.focus(this.inputEL.nativeElement);
+        this.onHide.emit();
+        this.cd.markForCheck();
     }
 
     clear() {
