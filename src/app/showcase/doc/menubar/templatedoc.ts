@@ -53,7 +53,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="end">
                     <div class="flex align-items-center gap-2">
                         <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
-                        <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+                        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
             </p-menubar>
@@ -167,7 +167,7 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="end">
         <div class="flex align-items-center gap-2">
             <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </div>
     </ng-template>
 </p-menubar>`,
@@ -217,7 +217,7 @@ export class TemplateDoc implements OnInit {
         <ng-template pTemplate="end">
             <div class="flex align-items-center gap-2">
                 <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
             </div>
         </ng-template>
     </p-menubar>

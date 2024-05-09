@@ -439,7 +439,7 @@ export class Button implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' | 'contrast' | string | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a border class without a background initially.
      * @group Props

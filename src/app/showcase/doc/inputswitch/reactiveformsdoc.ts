@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-inputSwitch formControlName="checked"/>
+                <p-inputSwitch formControlName="checked" />
             </form>
         </div>
         <app-code [code]="code" selector="input-switch-reactive-forms-demo"></app-code>

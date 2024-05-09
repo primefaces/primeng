@@ -1578,7 +1578,7 @@
     background-color: #ffffff;
   }
 
-  .p-inputwrapper-filled.p-multiselect.p-multiselect-chip .p-multiselect-label {
+  .p-inputwrapper-filled .p-multiselect.p-multiselect-chip .p-multiselect-label {
     padding: 0.25rem 0.75rem;
   }
 
@@ -1906,9 +1906,12 @@
     margin-left: -10px;
   }
   .p-slider.p-slider-vertical {
+    height: 100%;
     width: 3px;
   }
   .p-slider.p-slider-vertical .p-slider-handle {
+    height: 20px;
+    width: 20px;
     margin-left: -10px;
     margin-bottom: -10px;
   }
@@ -5933,6 +5936,30 @@
   .p-message .p-message-detail {
     margin-left: 0.5rem;
   }
+  .p-message.p-message-secondary {
+    background: #f1f5f9;
+    border: solid #e2e8f0;
+    border-width: 1px;
+    color: #475569;
+  }
+  .p-message.p-message-secondary .p-message-icon {
+    color: #475569;
+  }
+  .p-message.p-message-secondary .p-message-close {
+    color: #475569;
+  }
+  .p-message.p-message-contrast {
+    background: #020617;
+    border: solid #64748b;
+    border-width: 1px;
+    color: #f8fafc;
+  }
+  .p-message.p-message-contrast .p-message-icon {
+    color: #f8fafc;
+  }
+  .p-message.p-message-contrast .p-message-close {
+    color: #f8fafc;
+  }
 
   .p-toast {
     opacity: 1;
@@ -6016,6 +6043,26 @@
   .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
     color: #dc2626;
+  }
+  .p-toast .p-toast-message.p-toast-message-secondary {
+    background: #f1f5f9;
+    border: solid #e2e8f0;
+    border-width: 1px;
+    color: #475569;
+  }
+  .p-toast .p-toast-message.p-toast-message-secondary .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-secondary .p-toast-icon-close {
+    color: #475569;
+  }
+  .p-toast .p-toast-message.p-toast-message-contrast {
+    background: #020617;
+    border: solid #64748b;
+    border-width: 1px;
+    color: #f8fafc;
+  }
+  .p-toast .p-toast-message.p-toast-message-contrast .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-contrast .p-toast-icon-close {
+    color: #f8fafc;
   }
 
   .p-galleria .p-galleria-close {
@@ -6463,6 +6510,14 @@
   .p-tag .p-icon {
     width: 0.75rem;
     height: 0.75rem;
+  }
+  .p-tag.p-tag-secondary {
+    background-color: #f1f5f9;
+    color: #475569;
+  }
+  .p-tag.p-tag-contrast {
+    background-color: #020617;
+    color: #ffffff;
   }
 
   .p-terminal {

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Diameter of the knob is defined in pixels using the <i>size</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-knob [(ngModel)]="value" [size]="200"/>
+            <p-knob [(ngModel)]="value" [size]="200" />
         </div>
         <app-code [code]="code" selector="knob-size-demo"></app-code>
     `

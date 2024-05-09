@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-knob [(ngModel)]="value" [step]="10"/>
+            <p-knob [(ngModel)]="value" [step]="10" />
         </div>
         <app-code [code]="code" selector="knob-step-demo"></app-code>
     `

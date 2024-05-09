@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999"/>
+                <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999" />
             </form>
         </div>
         <app-code [code]="code" selector="input-mask-reactive-forms-demo"></app-code>

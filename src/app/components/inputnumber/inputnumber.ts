@@ -25,6 +25,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
@@ -32,7 +33,6 @@ import { AngleUpIcon } from 'primeng/icons/angleup';
 import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
 import { InputNumberInputEvent } from './inputnumber.interface';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
@@ -622,11 +622,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     getPrefixExpression(): RegExp {
+
         if (this.prefix) {
             this.prefixChar = this.prefix;
+
         } else {
             const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay });
             this.prefixChar = formatter.format(1).split('1')[0];
+
         }
 
         return new RegExp(`${this.escapeRegExp(this.prefixChar || '')}`, 'g');
@@ -653,11 +656,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             if (this.format) {
                 let formatter = new Intl.NumberFormat(this.locale, this.getOptions());
                 let formattedValue = formatter.format(value);
-                if (this.prefix) {
+
+                if (this.prefix && value != this.prefix) {
                     formattedValue = this.prefix + formattedValue;
                 }
 
-                if (this.suffix) {
+                if (this.suffix && value != this.suffix) {
                     formattedValue = formattedValue + this.suffix;
                 }
 
@@ -671,12 +675,16 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     parseValue(text: any) {
+        const suffixRegex = new RegExp(this._suffix, '');
+        const prefixRegex = new RegExp(this._prefix, '');
+        const currencyRegex = new RegExp(this._currency, '');
+
         let filteredText = text
-            .replace(this._suffix as RegExp, '')
-            .replace(this._prefix as RegExp, '')
+            .replace(suffixRegex, '')
+            .replace(prefixRegex, '')
             .trim()
             .replace(/\s/g, '')
-            .replace(this._currency as RegExp, '')
+            .replace(currencyRegex, '')
             .replace(this._group, '')
             .replace(this._minusSign, '-')
             .replace(this._decimal, '.')
@@ -832,7 +840,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             event.preventDefault();
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowUp':
                 this.spin(event, 1);
                 event.preventDefault();
@@ -873,7 +881,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             case 'Backspace': {
                 event.preventDefault();
 
+
                 if (selectionStart === selectionEnd) {
+
+                    if((selectionStart == 1 && this.prefix)|| (selectionStart == inputValue.length && this.suffix)){
+
+                        break;
+                    }
+
                     const deleteChar = inputValue.charAt(selectionStart - 1);
                     const { decimalCharIndex, decimalCharIndexWithoutPrefix } = this.getDecimalCharIndexes(inputValue);
 
@@ -917,6 +932,10 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
+
+                    if((selectionStart == 0 && this.prefix)|| (selectionStart == inputValue.length-1  && this.suffix)){
+                        break;
+                    }
                     const deleteChar = inputValue.charAt(selectionStart);
                     const { decimalCharIndex, decimalCharIndexWithoutPrefix } = this.getDecimalCharIndexes(inputValue);
 
@@ -991,7 +1010,6 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             char = this._decimalChar;
             code = char.charCodeAt(0);
         }
-
         const newValue = this.parseValue(this.input.nativeElement.value + char);
         const newValueStr = newValue != null ? newValue.toString() : '';
 

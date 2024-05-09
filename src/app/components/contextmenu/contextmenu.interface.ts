@@ -13,8 +13,7 @@ export interface ContextMenuTemplates {
         /**
          * Item instance.
          */
-        $implicit: MenuItem
-
+        $implicit: MenuItem;
     }): TemplateRef<{ $implicit: MenuItem }>;
     /**
      * Custom template of submenuicon.

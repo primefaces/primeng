@@ -147,7 +147,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
      */
-    @Input({ transform: numberAttribute }) rowsPerPageOptions: number[] | any[] | undefined;
+    @Input() rowsPerPageOptions: number[] | any[] | undefined;
     /**
      * Position of the paginator.
      * @group Props

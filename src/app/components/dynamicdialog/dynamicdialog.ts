@@ -400,7 +400,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     enableModality() {
-        if (this.config.closable !== false && this.config.dismissableMask) {
+        if (this.config.dismissableMask) {
             this.maskClickListener = this.renderer.listen(this.wrapper, 'mousedown', (event: any) => {
                 if (this.wrapper && this.wrapper.isSameNode(event.target)) {
                     this.hide();
@@ -445,6 +445,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         } else if (this.footerViewChild) {
             // If the content section is empty try to focus on footer
             this.focus(this.footerViewChild.nativeElement);
+        } else if (!focusableElement && this.headerViewChild) {
+            this.focus(this.headerViewChild.nativeElement);
         }
     }
 
@@ -636,7 +638,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     bindGlobalListeners() {
-        if (this.config.closeOnEscape !== false && this.config.closable !== false) {
+        if (this.config.closeOnEscape !== false) {
             this.bindDocumentEscapeListener();
         }
 

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Calendar is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"/>
+            <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
         <app-code [code]="code" selector="calendar-inline-demo"></app-code>
     `

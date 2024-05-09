@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City"/>
+                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
             </form>
         </div>
         <app-code [code]="code" selector="dropdown-reactive-forms-demo"></app-code>

@@ -45,7 +45,6 @@ import { CustomSortDoc } from './customsortdoc';
 import { DynamicDoc } from './dynamicdoc';
 import { ExpandableRowGroupDoc } from './expandablerowgroupdoc';
 import { ExportDoc } from './exportdoc';
-import { FilterMenuDoc } from './filtermenudoc';
 import { FilterBasicDoc } from './filterbasic';
 import { FlexibleScrollDoc } from './flexiblescrolldoc';
 import { FrozenColumnsDoc } from './frozencolumnsdoc';
@@ -122,7 +121,7 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         AppDocModule,
         DeferredDemo,
         IconFieldModule,
-        InputIconModule,
+        InputIconModule
     ],
     declarations: [
         ImportDoc,
@@ -143,7 +142,6 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         DynamicDoc,
         ExpandableRowGroupDoc,
         ExportDoc,
-        FilterMenuDoc,
         FilterBasicDoc,
         FilterAdvancedDoc,
         FlexibleScrollDoc,

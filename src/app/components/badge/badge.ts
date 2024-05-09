@@ -223,7 +223,7 @@ export class Badge {
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -254,10 +254,7 @@ export class Badge {
             'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
             'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
             'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
-            'p-badge-info': this.severity === 'info',
-            'p-badge-success': this.severity === 'success',
-            'p-badge-warning': this.severity === 'warning',
-            'p-badge-danger': this.severity === 'danger'
+            [`p-badge-${this.severity}`]: this.severity
         };
     }
 }

@@ -58,11 +58,13 @@
     .p-timeline-event-opposite {
         flex: 1;
         padding: 0 1rem;
+        min-width: 100px;
     }
 
     .p-timeline-event-content {
         flex: 1;
         padding: 0 1rem;
+        min-width: 100px;
     }
 
     .p-timeline-event-separator {

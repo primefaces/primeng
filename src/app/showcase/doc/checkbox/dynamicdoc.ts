@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center">
             <div class="flex flex-column gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
-                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories"/>
+                    <p-checkbox [label]="category.name" name="group" [value]="category" [(ngModel)]="selectedCategories" />
                 </div>
             </div>
         </div>

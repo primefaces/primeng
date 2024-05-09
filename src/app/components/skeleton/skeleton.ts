@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation 
  */
 @Component({
     selector: 'p-skeleton',
-    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle()" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
+    template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./skeleton.css'],
@@ -41,10 +41,10 @@ export class Skeleton {
      */
     @Input() borderRadius: string | undefined;
     /**
-     * Size of the Circle or Square.
+     * Size of the skeleton.
      * @group Props
      */
-    @Input() size: string | undefined;
+    @Input() size: 'circle' | 'square' | undefined;
     /**
      * Width of the element.
      * @group Props
@@ -64,9 +64,9 @@ export class Skeleton {
         };
     }
 
-    containerStyle() {
+    get containerStyle() {
         if (this.size) return { ...this.style, width: this.size, height: this.size, borderRadius: this.borderRadius };
-        else return { ...this.style, width: this.width, height: this.height, borderRadius: this.borderRadius };
+        else return { width: this.width, height: this.height, borderRadius: this.borderRadius, ...this.style };
     }
 }
 

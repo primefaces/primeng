@@ -386,7 +386,7 @@ export class DragDropDataTableDemo implements OnInit {
         }
     }
 }`,
-       
+
         data: `
 ...
 {

@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-password formControlName="value" [feedback]="false"/>
+                <p-password formControlName="value" [feedback]="false" />
             </form>
         </div>
         <app-code [code]="code" selector="password-reactive-forms-demo"></app-code>

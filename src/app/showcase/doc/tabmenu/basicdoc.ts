@@ -23,7 +23,7 @@ export class BasicDoc implements OnInit {
             { label: 'Transactions', icon: 'pi pi-chart-line' },
             { label: 'Products', icon: 'pi pi-list' },
             { label: 'Messages', icon: 'pi pi-inbox' }
-        ]
+        ];
     }
 
     code: Code = {

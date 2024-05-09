@@ -10,12 +10,12 @@ import { Code } from '@domain/code';
         <div class="card flex flex-wrap gap-3 p-fluid">
             <div class="flex-auto">
                 <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
-                <p-calendar [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false"/>
+                <p-calendar [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
             </div>
 
             <div class="flex-auto">
                 <label for="icondisplay" class="font-bold block mb-2"> Default Icon </label>
-                <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay"/>
+                <p-calendar [(ngModel)]="date2" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
             </div>
 
             <div class="flex-auto">

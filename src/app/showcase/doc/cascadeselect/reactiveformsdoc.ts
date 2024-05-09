@@ -10,15 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-cascadeSelect
-                    formControlName="selectedCity"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    [style]="{ minWidth: '14rem' }"
-                    placeholder="Select a City"
-                />
+                <p-cascadeSelect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
             </form>
         </div>
         <app-code [code]="code" selector="cascade-select-reactive-forms-demo"></app-code>

@@ -13,15 +13,15 @@ import { Code } from '@domain/code';
         <div class="card p-fluid flex flex-wrap gap-3">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
-                <p-inputMask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999"/>
+                <p-inputMask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Phone</span>
-                <p-inputMask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999"/>
+                <p-inputMask mask="(999) 999-9999" [(ngModel)]="value2" placeholder="(999) 999-9999" />
             </div>
             <div class="flex-auto">
                 <span class="font-bold block mb-2">Serial Number</span>
-                <p-inputMask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999"/>
+                <p-inputMask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
             </div>
         </div>
         <app-code [code]="code" selector="input-mask-mask-demo"></app-code>

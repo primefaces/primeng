@@ -1181,6 +1181,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     ngOnChanges(simpleChange: SimpleChanges) {
         if (simpleChange.value) {
             this.updateSerializedValue();
+            if (this.hasFilterActive()) {
+                this._filter(this.filterViewChild.nativeElement.value);
+            }
         }
     }
 
@@ -1412,6 +1415,10 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     hasFilteredNodes() {
         return this.filter && this.filteredNodes && this.filteredNodes.length;
+    }
+
+    hasFilterActive() {
+        return this.filter && this.filterViewChild?.nativeElement?.value.length > 0;
     }
 
     getNodeWithKey(key: string, nodes: TreeNode<any>[]): TreeNode<any> | undefined {

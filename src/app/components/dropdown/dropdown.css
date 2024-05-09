@@ -41,7 +41,7 @@
     .p-dropdown .p-dropdown-panel {
         min-width: 100%;
     }
-    
+
     .p-dropdown-items-wrapper {
         overflow: auto;
     }
@@ -84,5 +84,9 @@
 
     .p-fluid .p-dropdown .p-dropdown-label {
         width: 1%;
+    }
+
+    .p-float-label .p-dropdown .p-placeholder {
+        opacity: 0;
     }
 }

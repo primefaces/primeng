@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-knob formControlName="value"/>
+                <p-knob formControlName="value" />
             </form>
         </div>
         <app-code [code]="code" selector="knob-reactive-forms-demo"></app-code>

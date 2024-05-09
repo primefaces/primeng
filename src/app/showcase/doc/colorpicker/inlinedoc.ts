@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>ColorPicker is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-colorPicker [(ngModel)]="color" [inline]="true"/>
+            <p-colorPicker [(ngModel)]="color" [inline]="true" />
         </div>
         <app-code [code]="code" selector="color-picker-inline-demo"></app-code>
     `

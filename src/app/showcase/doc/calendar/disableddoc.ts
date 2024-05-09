@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" [disabled]="true"/>
+            <p-calendar [(ngModel)]="date" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="calendar-disabled-demo"></app-code>
     `

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked"/>
+            <p-inputSwitch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="input-switch-basic-demo"></app-code>
     `

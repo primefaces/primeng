@@ -441,7 +441,7 @@ export class GalleriaAdvancedDemo implements OnInit, OnDestroy {
     title: 'Title 1'
 },
 ...`,
-     
+
         service: ['PhotoService']
     };
 }

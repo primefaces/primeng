@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <p-tabPanel>
                     <ng-template pTemplate="header">
                         <div class="flex align-items-center gap-2">
-                            <p-avatar image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" shape="circle" />
+                            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                             <span class="font-bold white-space-nowrap m-0">Amy Elsner</span>
                         </div>
                     </ng-template>
@@ -58,7 +58,7 @@ export class TemplateDoc {
         <ng-template pTemplate="header">
             <div class="flex align-items-center gap-2">
                 <p-avatar 
-                    image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" 
+                    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                     shape="circle" />
                 <span class="font-bold white-space-nowrap m-0">
                     Amy Elsner
@@ -108,7 +108,7 @@ export class TemplateDoc {
             <ng-template pTemplate="header">
                 <div class="flex align-items-center gap-2">
                     <p-avatar 
-                        image="https://primefaces.org/cdn/primeng/images/avatar/amyelsner.png" 
+                        image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                         shape="circle" />
                     <span class="font-bold white-space-nowrap m-0">
                         Amy Elsner

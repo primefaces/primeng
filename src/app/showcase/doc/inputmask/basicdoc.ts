@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>InputMask is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999"/>
+            <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999" />
         </div>
         <app-code [code]="code" selector="input-mask-basic-demo"></app-code>
     `

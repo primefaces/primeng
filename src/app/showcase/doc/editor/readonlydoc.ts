@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>readonly</i> is present, the value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"/>
+            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
         </div>
         <app-code [code]="code" selector="editor-readonly-demo"></app-code>
     `

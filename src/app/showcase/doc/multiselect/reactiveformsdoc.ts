@@ -15,7 +15,7 @@ interface City {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities"/>
+                <p-multiSelect [options]="cities" formControlName="selectedCities" optionLabel="name" placeholder="Select Cities" />
             </form>
         </div>
         <app-code [code]="code" selector="multi-select-reactive-forms-demo"></app-code>

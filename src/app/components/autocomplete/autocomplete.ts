@@ -368,7 +368,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) maxlength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -1084,7 +1084,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             clearTimeout(this.searchTimeout);
         }
 
-        let query = event.target.value.split('').slice(0, this.maxlength).join('');
+        let query = event.target.value;
+        if (this.maxlength !== null) {
+            query = query.split('').slice(0, this.maxlength).join('');
+        }
 
         if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);

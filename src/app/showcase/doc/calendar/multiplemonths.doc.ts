@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Number of months to display is configured with the <i>numberOfMonths</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" [numberOfMonths]="2"/>
+            <p-calendar [(ngModel)]="date" [numberOfMonths]="2" />
         </div>
         <app-code [code]="code" selector="calendar-multiplemonths-demo"></app-code>
     `

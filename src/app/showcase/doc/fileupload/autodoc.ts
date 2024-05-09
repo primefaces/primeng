@@ -15,7 +15,7 @@ interface UploadEvent {
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-fileUpload  mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
+            <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
         </div>
         <app-code [code]="code" selector="file-upload-auto-demo"></app-code>
     `,

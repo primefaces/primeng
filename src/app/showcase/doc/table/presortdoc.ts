@@ -13,7 +13,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" sortField="price" [sortOrder]="-1"  [tableStyle]="{ 'min-width': '60rem' }">
+                <p-table [value]="products" sortField="price" [sortOrder]="-1" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="code" style="width:20%">Code <p-sortIcon field="code" /></th>
