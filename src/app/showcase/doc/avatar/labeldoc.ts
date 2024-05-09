@@ -110,7 +110,8 @@ export class LabelDoc {
             pBadge 
             styleClass="mr-2" 
             value="4" 
-            size="xlarge" />
+            size="xlarge" 
+            badgeSize="large" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
