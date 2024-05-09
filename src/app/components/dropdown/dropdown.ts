@@ -1222,7 +1222,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     updatePlaceHolderForFloatingLabel(): void {
         const parentElement = this.el.nativeElement.parentElement;
         const isInFloatingLabel = parentElement.classList.contains('p-float-label');
-        if(parentElement && isInFloatingLabel && !this.selectedOption) {
+        if (parentElement && isInFloatingLabel && !this.selectedOption) {
             const label = parentElement.querySelector('label');
             if (label) {
                 this._placeholder.set(label.textContent);

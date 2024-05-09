@@ -622,14 +622,11 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     getPrefixExpression(): RegExp {
-
         if (this.prefix) {
             this.prefixChar = this.prefix;
-
         } else {
             const formatter = new Intl.NumberFormat(this.locale, { style: this.mode, currency: this.currency, currencyDisplay: this.currencyDisplay });
             this.prefixChar = formatter.format(1).split('1')[0];
-
         }
 
         return new RegExp(`${this.escapeRegExp(this.prefixChar || '')}`, 'g');
@@ -881,11 +878,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             case 'Backspace': {
                 event.preventDefault();
 
-
                 if (selectionStart === selectionEnd) {
-
-                    if((selectionStart == 1 && this.prefix)|| (selectionStart == inputValue.length && this.suffix)){
-
+                    if ((selectionStart == 1 && this.prefix) || (selectionStart == inputValue.length && this.suffix)) {
                         break;
                     }
 
@@ -932,8 +926,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
                 event.preventDefault();
 
                 if (selectionStart === selectionEnd) {
-
-                    if((selectionStart == 0 && this.prefix)|| (selectionStart == inputValue.length-1  && this.suffix)){
+                    if ((selectionStart == 0 && this.prefix) || (selectionStart == inputValue.length - 1 && this.suffix)) {
                         break;
                     }
                     const deleteChar = inputValue.charAt(selectionStart);
