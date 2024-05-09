@@ -6162,10 +6162,6 @@
     height: 1.5rem;
     line-height: 1.5rem;
   }
-  .p-badge.p-badge-secondary {
-    background-color: #b4bfcd;
-    color: #0e1315;
-  }
   .p-badge.p-badge-success {
     background-color: #cede9c;
     color: #0e1315;
