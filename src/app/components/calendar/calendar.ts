@@ -243,6 +243,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                                                         [ngClass]="{ 'p-highlight': isSelected(date) && date.selectable, 'p-disabled': !date.selectable }"
                                                         (click)="onDateSelect($event, date)"
                                                         draggable="false"
+                                                        [attr.data-date]="formatDateKey(formatDateMetaToDate(date))"
                                                         (keydown)="onDateCellKeydown($event, date, i)"
                                                         pRipple
                                                     >
@@ -1143,6 +1144,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     _defaultDate!: Date;
 
+    _focusKey: Nullable<string> = null;
+
     private window: Window;
 
     get locale() {
@@ -1622,6 +1625,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return formattedValue;
     }
 
+    formatDateMetaToDate(dateMeta: any): Date {
+        return new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+    }
+
+    formatDateKey(date: Date): string {
+        return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    }
+
     setCurrentHourPM(hours: number) {
         if (this.hourFormat == '12') {
             this.pm = hours > 11;
@@ -1642,7 +1653,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     selectDate(dateMeta: any) {
-        let date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+        let date = this.formatDateMetaToDate(dateMeta);
 
         if (this.showTime) {
             if (this.hourFormat == '12') {
@@ -1837,7 +1848,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     isDateBetween(start: Date, end: Date, dateMeta: any) {
         let between: boolean = false;
         if (ObjectUtils.isDate(start) && ObjectUtils.isDate(end)) {
-            let date: Date = new Date(dateMeta.year, dateMeta.month, dateMeta.day);
+            let date: Date = this.formatDateMetaToDate(dateMeta);
             return start.getTime() <= date.getTime() && end.getTime() >= date.getTime();
         }
 
@@ -2054,10 +2065,10 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    onDateCellKeydown(event: any, date: Date, groupIndex: number) {
+    onDateCellKeydown(event: any, dateMeta: any, groupIndex: number) {
         const cellContent = event.currentTarget;
         const cell = cellContent.parentElement;
-
+        const currentDate = this.formatDateMetaToDate(dateMeta);
         switch (event.which) {
             //down arrow
             case 40: {
@@ -2145,7 +2156,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             //space
             case 13:
             case 32: {
-                this.onDateSelect(event, date);
+                this.onDateSelect(event, dateMeta);
                 event.preventDefault();
                 break;
             }
@@ -2165,6 +2176,52 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                 }
                 break;
             }
+
+            // page up
+            case 33: {
+                cellContent.tabIndex = '-1';
+                const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate());
+                const focusKey = this.formatDateKey(dateToFocus);
+                this.navigateToMonth(true, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
+                event.preventDefault();
+                break;
+            }
+
+            // page down
+            case 34: {
+                cellContent.tabIndex = '-1';
+                const dateToFocus = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, currentDate.getDate());
+                const focusKey = this.formatDateKey(dateToFocus);
+                this.navigateToMonth(false, groupIndex, `span[data-date='${focusKey}']:not(.p-disabled):not(.p-ink)`);
+                event.preventDefault();
+                break;
+            }
+
+            //home
+            case 36:
+                cellContent.tabIndex = '-1';
+                const firstDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const firstDayDateKey = this.formatDateKey(firstDayDate);
+                const firstDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${firstDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                if (firstDayCell) {
+                    firstDayCell.tabIndex = '0';
+                    firstDayCell.focus();
+                }
+                event.preventDefault();
+                break;
+
+            //end
+            case 35:
+                cellContent.tabIndex = '-1';
+                const lastDayDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                const lastDayDateKey = this.formatDateKey(lastDayDate);
+                const lastDayCell = DomHandler.findSingle(cellContent.offsetParent, `span[data-date='${lastDayDateKey}']:not(.p-disabled):not(.p-ink)`);
+                if (lastDayDate) {
+                    lastDayCell.tabIndex = '0';
+                    lastDayCell.focus();
+                }
+                event.preventDefault();
+                break;
 
             default:
                 //no op
@@ -2333,27 +2390,41 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         }
     }
 
-    navigateToMonth(prev: any, groupIndex: number) {
+    navigateToMonth(prev: boolean, groupIndex: number, focusKey?: string) {
         if (prev) {
             if (this.numberOfMonths === 1 || groupIndex === 0) {
                 this.navigationState = { backward: true };
+                this._focusKey = focusKey;
                 this.navBackward(event);
             } else {
                 let prevMonthContainer = this.contentViewChild.nativeElement.children[groupIndex - 1];
-                let cells = DomHandler.find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
-                let focusCell = cells[cells.length - 1];
-                focusCell.tabIndex = '0';
-                focusCell.focus();
+                if (focusKey) {
+                    const firstDayCell = DomHandler.findSingle(prevMonthContainer, focusKey);
+                    firstDayCell.tabIndex = '0';
+                    firstDayCell.focus();
+                } else {
+                    let cells = DomHandler.find(prevMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    let focusCell = cells[cells.length - 1];
+                    focusCell.tabIndex = '0';
+                    focusCell.focus();
+                }
             }
         } else {
             if (this.numberOfMonths === 1 || groupIndex === this.numberOfMonths - 1) {
                 this.navigationState = { backward: false };
+                this._focusKey = focusKey;
                 this.navForward(event);
             } else {
                 let nextMonthContainer = this.contentViewChild.nativeElement.children[groupIndex + 1];
-                let focusCell = DomHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
-                focusCell.tabIndex = '0';
-                focusCell.focus();
+                if (focusKey) {
+                    const firstDayCell = DomHandler.findSingle(nextMonthContainer, focusKey);
+                    firstDayCell.tabIndex = '0';
+                    firstDayCell.focus();
+                } else {
+                    let focusCell = DomHandler.findSingle(nextMonthContainer, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                    focusCell.tabIndex = '0';
+                    focusCell.focus();
+                }
             }
         }
     }
@@ -2376,7 +2447,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     } else if (this.currentView === 'year') {
                         cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cells = DomHandler.find(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cells = DomHandler.find(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
 
                     if (cells && cells.length > 0) {
@@ -2388,7 +2459,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     } else if (this.currentView === 'year') {
                         cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-yearpicker .p-yearpicker-year:not(.p-disabled)');
                     } else {
-                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
+                        cell = DomHandler.findSingle(this.contentViewChild.nativeElement, this._focusKey || '.p-datepicker-calendar td span:not(.p-disabled):not(.p-ink)');
                     }
                 }
 
@@ -2399,6 +2470,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             this.navigationState = null;
+            this._focusKey = null;
         } else {
             this.initFocusableCell();
         }
