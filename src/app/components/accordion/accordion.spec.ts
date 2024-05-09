@@ -196,12 +196,12 @@ describe('Accordion', () => {
     });
 
     describe('onKeydown', () => {
-        let firstAccordionTabOpenEl;
-        let secondAccordionTabOpenEl;
+        let firstAccordionTabEl;
+        let secondAccordionTabEl;
 
         beforeEach(() => {
-            firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
-            secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+            firstAccordionTabEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
+            secondAccordionTabEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
         });
 
         const testKeyBoardEvent = (keyCode, eventTarget, activeTab) => {
@@ -217,19 +217,19 @@ describe('Accordion', () => {
         };
 
         it('ArrowDown should focus on the next tab', () => {
-            testKeyBoardEvent('ArrowDown', firstAccordionTabOpenEl, secondAccordionTabOpenEl);
+            testKeyBoardEvent('ArrowDown', firstAccordionTabEl, secondAccordionTabEl);
         });
 
         it('ArrowUp should focus on the next tab', () => {
-            testKeyBoardEvent('ArrowUp', secondAccordionTabOpenEl, firstAccordionTabOpenEl);
+            testKeyBoardEvent('ArrowUp', secondAccordionTabEl, firstAccordionTabEl);
         });
 
         it('Home should focus on the first tab', () => {
-            testKeyBoardEvent('Home', secondAccordionTabOpenEl, firstAccordionTabOpenEl);
+            testKeyBoardEvent('Home', secondAccordionTabEl, firstAccordionTabEl);
         });
 
         it('End should focus on the last tab', () => {
-            testKeyBoardEvent('End', firstAccordionTabOpenEl, secondAccordionTabOpenEl);
+            testKeyBoardEvent('End', firstAccordionTabEl, secondAccordionTabEl);
         });
     });
 });
