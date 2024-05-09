@@ -66,7 +66,8 @@ export class LabelDoc {
     pBadge 
     styleClass="mr-2" 
     value="4" 
-    size="xlarge" />`,
+    size="xlarge"
+    badgeSize="large" />`,
         html: `<div class="card grid grid-nogutter">
     <div class="col-12 md:col-4">
         <h5>Label</h5>

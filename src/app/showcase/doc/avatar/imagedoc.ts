@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
                 </div>
                 <div class="flex-auto">
                     <h5>Badge</h5>
-                    <p-avatar pBadge value="4" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" />
+                    <p-avatar pBadge value="4" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" badgeSize="large"/>
                 </div>
                 <div class="flex-auto">
                     <h5>Gravatar</h5>
@@ -48,7 +48,8 @@ export class ImageDoc {
     pBadge 
     value="4" 
     image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" 
-    size="xlarge" />
+    size="xlarge"
+    badgeSize="large" />
 
 <p-avatar 
     image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" 
@@ -78,7 +79,8 @@ export class ImageDoc {
                 pBadge 
                 value="4" 
                 image="https://primefaces.org/cdn/primeng/demo/avatar/walter.jpg" 
-                size="xlarge" />
+                size="xlarge"
+                badgeSize="large" />
         </div>
         <div class="flex-auto">
             <h5>Gravatar</h5>
