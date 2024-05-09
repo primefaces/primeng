@@ -6198,6 +6198,10 @@
     background-color: #64748b;
     color: #ffffff;
   }
+  .p-badge.p-badge-contrast {
+    background-color: #1f2937;
+    color: #ffffff;
+  }
   .p-badge.p-badge-success {
     background-color: #22c55e;
     color: #ffffff;
