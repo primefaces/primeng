@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Accordion } from './accordion';
 import { AccordionTab } from './accordion';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 
 @Component({
     template: `<p-accordion [collapseIcon]="collapseIcon" [expandIcon]="expandIcon" [styleClass]="styleClass" [style]="style">
@@ -175,15 +175,61 @@ describe('Accordion', () => {
         expect(secondAccordionTabHeaderEl.className).toContain('p-highlight');
     });
 
-    it('should be closed', () => {
-        fixture.detectChanges();
-
-        const secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
-        let spaceEvent = { which: 32, preventDefault() {} };
-        secondAccordionTab.onKeydown(spaceEvent as KeyboardEvent);
+    it('should be toggle on space and enter keydown event', () => {
         fixture.detectChanges();
 
         const secondAccordionTabHeaderEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('.p-accordion-header')).nativeElement;
+        expect(secondAccordionTabHeaderEl.className).not.toContain('p-highlight');
+
+        //toggle when enter is pressed
+        const spaceEvent = new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter' });
+        secondAccordionTab.onKeydown(spaceEvent);
+
         expect(secondAccordionTabHeaderEl.className).toContain('p-highlight');
+
+        //toggle when space is pressed
+        const keyDownEvent = new KeyboardEvent('keydown', { key: 'Space', code: 'Space' });
+        secondAccordionTab.onKeydown(keyDownEvent);
+        fixture.detectChanges();
+
+        expect(secondAccordionTabHeaderEl.className).not.toContain('p-highlight');
+    });
+
+    describe('onKeydown', () => {
+        let firstAccordionTabOpenEl;
+        let secondAccordionTabOpenEl;
+
+        beforeEach(() => {
+            firstAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[0].query(By.css('a')).nativeElement;
+            secondAccordionTabOpenEl = fixture.debugElement.children[0].children[0].children[1].query(By.css('a')).nativeElement;
+        });
+
+        const testKeyBoardEvent = (keyCode, eventTarget, activeTab) => {
+            fixture.detectChanges();
+
+            const keyDownEvent = new KeyboardEvent('keydown', { code: keyCode });
+            spyOnProperty(keyDownEvent, 'target', 'get').and.returnValue(eventTarget);
+
+            accordion.onKeydown(keyDownEvent);
+            fixture.detectChanges();
+
+            expect(document.activeElement).toEqual(activeTab);
+        };
+
+        it('ArrowDown should focus on the next tab', () => {
+            testKeyBoardEvent('ArrowDown', firstAccordionTabOpenEl, secondAccordionTabOpenEl);
+        });
+
+        it('ArrowUp should focus on the next tab', () => {
+            testKeyBoardEvent('ArrowUp', secondAccordionTabOpenEl, firstAccordionTabOpenEl);
+        });
+
+        it('Home should focus on the first tab', () => {
+            testKeyBoardEvent('Home', secondAccordionTabOpenEl, firstAccordionTabOpenEl);
+        });
+
+        it('End should focus on the last tab', () => {
+            testKeyBoardEvent('End', firstAccordionTabOpenEl, secondAccordionTabOpenEl);
+        });
     });
 });
