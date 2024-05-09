@@ -283,7 +283,7 @@ export class InputOtp implements AfterContentInit {
         if (event.altKey || event.ctrlKey || event.metaKey) {
             return;
         }
-        
+
         switch (event.code) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
