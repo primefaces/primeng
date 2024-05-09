@@ -27,11 +27,11 @@ export class FileUploadDemo {
             label: 'Auto',
             component: AutoDoc
         },
-        // {
-        //     id: 'template',
-        //     label: 'Template',
-        //     component: TemplateDoc
-        // },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
         {
             id: 'advanced',
             label: 'Advanced',
