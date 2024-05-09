@@ -13,6 +13,20 @@ export interface UploadEvent {
     originalEvent: HttpEvent<any>;
 }
 /**
+ * Remove uploaded file event.
+ * @group Events
+ */
+export interface RemoveUploadedFileEvent {
+    /**
+     * Removed file.
+     */
+    file: any;
+    /**
+     * Uploaded files.
+     */
+    files: any[];
+}
+/**
  * Form data event.
  * @group Events
  */
@@ -129,6 +143,31 @@ export interface FileUploadTemplates {
      */
     file(): TemplateRef<any>;
     /**
+     * Custom template of file.
+     */
+    header(context: {
+        /**
+         * File list.
+         */
+        $implicit: any;
+        /**
+         * Uploaded files list.
+         */
+        uploadedFiles: any;
+        /**
+         * Callback to invoke on choose button click.
+         */
+        chooseCallback: VoidFunction;
+        /**
+         * Callback to invoke on clear button click.
+         */
+        clearCallback: VoidFunction;
+        /**
+         * Callback to invoke on upload.
+         */
+        uploadCallback: VoidFunction;
+    }): TemplateRef<any>;
+    /**
      * Custom template of content.
      */
     content(context: {
@@ -136,7 +175,40 @@ export interface FileUploadTemplates {
          * File list.
          */
         $implicit: any;
-    }): TemplateRef<{ $implicit: any }>;
+        /**
+         * Uploaded files list.
+         */
+        uploadedFiles: any;
+        /**
+         * Upload progress.
+         */
+        progress: any;
+        /**
+         * Status messages about upload process.
+         */
+        messages: any;
+        /**
+         * Callback to invoke on choose button click.
+         */
+        chooseCallback: VoidFunction;
+        /**
+         * Callback to invoke on clear button click.
+         */
+        removeFileCallback: VoidFunction;
+        /**
+         * Callback to invoke on clear button click.
+         */
+        clearCallback: VoidFunction;
+        /**
+         * Callback to invoke on upload.
+         */
+        uploadCallback: VoidFunction;
+        /**
+         * Callback to invoke on remove uploaded file, accepts index as a parameter.
+         * @param index Index of the file to remove.
+         */
+        removeUploadedFileCallback: VoidFunction;
+    }): TemplateRef<any>;
     /**
      * Custom template of toolbar.
      */
