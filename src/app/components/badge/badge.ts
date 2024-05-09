@@ -124,13 +124,23 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
             return;
         }
 
-        if (this.badgeSize || this.size) {
-            if (this.badgeSize === 'large' || this.size === 'large') {
+        if (this.badgeSize) {
+            if (this.badgeSize === 'large') {
                 DomHandler.addClass(badge, 'p-badge-lg');
                 DomHandler.removeClass(badge, 'p-badge-xl');
             }
 
-            if (this.badgeSize === 'xlarge' || this.size === 'xlarge') {
+            if (this.badgeSize === 'xlarge') {
+                DomHandler.addClass(badge, 'p-badge-xl');
+                DomHandler.removeClass(badge, 'p-badge-lg');
+            }
+        } else if (this.size && !this.badgeSize) {
+            if (this.size === 'large') {
+                DomHandler.addClass(badge, 'p-badge-lg');
+                DomHandler.removeClass(badge, 'p-badge-xl');
+            }
+
+            if (this.size === 'xlarge') {
                 DomHandler.addClass(badge, 'p-badge-xl');
                 DomHandler.removeClass(badge, 'p-badge-lg');
             }
