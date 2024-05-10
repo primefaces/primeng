@@ -431,7 +431,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.create();
 
         setTimeout(() => {
-            this.align();
+            this.container && this.align();
         }, 100);
 
         DomHandler.fadeIn(this.container, 250);
