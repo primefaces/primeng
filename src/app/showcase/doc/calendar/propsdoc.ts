@@ -223,7 +223,7 @@ import { Component, Input } from '@angular/core';
                     </tr>
                     <tr>
                         <td>dataType</td>
-                        <td>string</td>
+                        <td>'date' | 'string'</td>
                         <td>date</td>
                         <td>Type of the value to write back to ngModel, default is date and alternative is string.</td>
                     </tr>
