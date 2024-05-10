@@ -6,7 +6,7 @@ import { StarFillIcon } from 'primeng/icons/starfill';
 import { StarIcon } from 'primeng/icons/star';
 import { BanIcon } from 'primeng/icons/ban';
 
-fdescribe('Rating', () => {
+describe('Rating', () => {
     let rating: Rating;
     let fixture: ComponentFixture<Rating>;
 
