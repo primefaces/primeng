@@ -18,15 +18,15 @@ import { PhotoService } from '@service/photoservice';
         <div class="card">
             <p-menubar [model]="menubarItems">
                 <ng-template pTemplate="start">
-                    <i class="pi pi-apple"></i>
+                    <i class="pi pi-apple px-2"></i>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <i class="pi pi-video"></i>
-                    <i class="pi pi-wifi"></i>
-                    <i class="pi pi-volume-up"></i>
+                    <i class="pi pi-video px-2"></i>
+                    <i class="pi pi-wifi px-2"></i>
+                    <i class="pi pi-volume-up px-2"></i>
                     <span>Fri 13:07</span>
-                    <i class="pi pi-search"></i>
-                    <i class="pi pi-bars"></i>
+                    <i class="pi pi-search px-2"></i>
+                    <i class="pi pi-bars px-2"></i>
                 </ng-template>
             </p-menubar>
             <div class="dock-window dock-advanced">
@@ -36,7 +36,7 @@ import { PhotoService } from '@service/photoservice';
                     </ng-template>
                 </p-dock>
 
-                <p-toast />
+                <p-toast position="top-center" key="tc" />
 
                 <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
                     <p-tree [value]="nodes" />
@@ -59,7 +59,7 @@ import { PhotoService } from '@service/photoservice';
                     [fullScreen]="true"
                 >
                     <ng-template pTemplate="item" let-item>
-                        <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                     </ng-template>
                 </p-galleria>
             </div>
@@ -130,7 +130,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
                 command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
+                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE', key: 'tc' });
                 }
             },
             {
@@ -144,7 +144,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
                 command: () => {
-                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working' });
+                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working', key: 'tc' });
                 }
             },
             {
@@ -183,7 +183,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Empty Trash' });
+                    this.messageService.add({ severity: 'info', summary: 'Empty Trash', key: 'tc' });
                 }
             }
         ];
@@ -369,15 +369,15 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     code: Code = {
         basic: `<p-menubar [model]="menubarItems">
     <ng-template pTemplate="start">
-        <i class="pi pi-apple"></i>
+        <i class="pi pi-apple px-2"></i>
     </ng-template>
     <ng-template pTemplate="end">
-        <i class="pi pi-video"></i>
-        <i class="pi pi-wifi"></i>
-        <i class="pi pi-volume-up"></i>
+        <i class="pi pi-video px-2"></i>
+        <i class="pi pi-wifi px-2"></i>
+        <i class="pi pi-volume-up px-2"></i>
         <span>Fri 13:07</span>
-        <i class="pi pi-search"></i>
-        <i class="pi pi-bars"></i>
+        <i class="pi pi-search px-2"></i>
+        <i class="pi pi-bars px-2"></i>
     </ng-template>
 </p-menubar>
 <div class="dock-window dock-advanced">
@@ -387,7 +387,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         </ng-template>
     </p-dock>
 
-    <p-toast />
+    <p-toast position="top-center" key="tc" />
 
     <p-dialog 
         [(visible)]="displayFinder" 
@@ -422,7 +422,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         [circular]="true"
         [fullScreen]="true">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
@@ -430,15 +430,15 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         html: `<div class="card">
     <p-menubar [model]="menubarItems">
         <ng-template pTemplate="start">
-            <i class="pi pi-apple"></i>
+            <i class="pi pi-apple px-2"></i>
         </ng-template>
         <ng-template pTemplate="end">
-            <i class="pi pi-video"></i>
-            <i class="pi pi-wifi"></i>
-            <i class="pi pi-volume-up"></i>
+            <i class="pi pi-video px-2"></i>
+            <i class="pi pi-wifi px-2"></i>
+            <i class="pi pi-volume-up px-2"></i>
             <span>Fri 13:07</span>
-            <i class="pi pi-search"></i>
-            <i class="pi pi-bars"></i>
+            <i class="pi pi-search px-2"></i>
+            <i class="pi pi-bars px-2"></i>
         </ng-template>
     </p-menubar>
     <div class="dock-window dock-advanced">
@@ -448,7 +448,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             </ng-template>
         </p-dock>
 
-        <p-toast />
+        <p-toast position="top-center" key="tc" />
 
         <p-dialog 
             [(visible)]="displayFinder" 
@@ -484,7 +484,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             [fullScreen]="true"
         >
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.previewImageSrc" style="width: 100%; display: block;" />
+                <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
         </p-galleria>
     </div>
@@ -684,7 +684,7 @@ export class DockAdvancedDemo implements OnInit {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
                 command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE' });
+                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE', key: 'tc' });
                 }
             },
             {
@@ -698,7 +698,7 @@ export class DockAdvancedDemo implements OnInit {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
                 command: () => {
-                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working' });
+                    this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working', key: 'tc' });
                 }
             },
             {
@@ -737,7 +737,7 @@ export class DockAdvancedDemo implements OnInit {
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
-                    this.messageService.add({ severity: 'info', summary: 'Empty Trash' });
+                    this.messageService.add({ severity: 'info', summary: 'Empty Trash', key: 'tc' });
                 }
             }
         ];
