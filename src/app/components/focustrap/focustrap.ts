@@ -79,8 +79,6 @@ export class FocusTrap {
 
         DomHandler.focus(focusableElement);
     }
-
-    ngOnDestroy() {}
 }
 
 @NgModule({
