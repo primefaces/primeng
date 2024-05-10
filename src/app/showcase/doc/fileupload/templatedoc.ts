@@ -241,12 +241,13 @@ import { CommonModule } from '@angular/common';
 import { BadgeModule } from 'primeng/badge';
 import { HttpClientModule } from '@angular/common/http';
 import { ProgressBarModule } from 'primeng/progressbar';
-        
+import { ToastModule } from 'primeng/toast';
+
 @Component({
     selector: 'file-upload-template-demo',
     templateUrl: './file-upload-template-demo.html',
     standalone: true,
-    imports: [FileUploadModule, ButtonModule, BadgeModule, ProgressBarModule, HttpClientModule, CommonModule],
+    imports: [FileUploadModule, ButtonModule, BadgeModule, ProgressBarModule, ToastModule, HttpClientModule, CommonModule],
     providers: [MessageService]
 })
 export class FileUploadTemplateDemo {
