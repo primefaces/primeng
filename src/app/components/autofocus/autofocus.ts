@@ -35,20 +35,18 @@ export class AutoFocus {
         }
 
         if (!this.focused) {
-            if (this.autofocus) {
-                this.focus();
-            }
+            this.autoFocus();
         }
     }
 
     ngAfterViewChecked() {
         if (!this.focused) {
-            this.focus();
+            this.autoFocus();
         }
     }
 
-    focus() {
-        if (isPlatformBrowser(this.platformId)) {
+    autoFocus() {
+        if (isPlatformBrowser(this.platformId) && this.autofocus) {
             setTimeout(() => {
                 const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
 
