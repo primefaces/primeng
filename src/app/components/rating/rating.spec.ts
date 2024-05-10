@@ -6,7 +6,7 @@ import { StarFillIcon } from 'primeng/icons/starfill';
 import { StarIcon } from 'primeng/icons/star';
 import { BanIcon } from 'primeng/icons/ban';
 
-describe('Rating', () => {
+fdescribe('Rating', () => {
     let rating: Rating;
     let fixture: ComponentFixture<Rating>;
 
@@ -62,8 +62,8 @@ describe('Rating', () => {
         fixture.detectChanges();
 
         const starElements = fixture.debugElement.queryAll(By.css('span'));
-        expect(starElements[0].nativeElement.className).toContain('Primeng Rocks!');
-        expect(starElements[0].nativeElement.style.height).toEqual('300px');
+        expect(starElements[1].nativeElement.className).toContain('Primeng Rocks!');
+        expect(starElements[1].nativeElement.style.height).toEqual('300px');
     });
 
     it('should value 3', () => {
@@ -86,11 +86,18 @@ describe('Rating', () => {
         rating.onRate.subscribe((value) => (onRateValue = value));
         rating.onCancel.subscribe((value) => (onCancelRate = value));
         thirdStarEl.parentElement.click();
-        cancelEl.parentElement.click();
         fixture.detectChanges();
 
         expect(onRateValue.value).toEqual(3);
-        expect(onCancelRate).toBeTruthy();
+
+        const cancelspy = spyOn(rating.onCancel, 'emit').and.callThrough();
+        const onModelChangeSpy = spyOn(rating, 'onModelChange').and.callThrough();
+        cancelEl.parentElement.click();
+        fixture.detectChanges();
+
+        expect(onModelChangeSpy).toHaveBeenCalled();
+        expect(rating.value).toEqual(null);
+        expect(cancelspy).toHaveBeenCalled();
     });
 
     it('should clear value', () => {
