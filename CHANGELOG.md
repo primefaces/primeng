@@ -610,6 +610,18 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.9-LTS](https://www.npmjs.com/package/primeng/v/16.9.9-lts) (2024-05-10)
+
+**Fixed bugs:**
+-  Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
+-  Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
+-  Tooltip | tooltipEvent - "focus" | "hover" combined [\#15468](https://github.com/primefaces/primeng/issues/15468)
+-  Dropdown head is empty if no value is provided [\#14954](https://github.com/primefaces/primeng/issues/14954)
+-  inputNumber with numeric prefix is not working as expected [\#15311](https://github.com/primefaces/primeng/issues/15311)
+-  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
+-  Dialog | tabbing order is broken because of pFocusTrap [\#15482](https://github.com/primefaces/primeng/issues/15482)
+- AutoFocus | doesn't work in dialog #15524 [\#15524](https://github.com/primefaces/primeng/issues/15524)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.8-LTS](https://www.npmjs.com/package/primeng/v/16.9.8-lts) (2024-04-19)
 
 **Fixed bugs:**
@@ -1208,6 +1220,16 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.19-LTS](https://www.npmjs.com/package/primeng/v/15.4.19-lts) (2024-05-10)
+
+**Fixed bugs:**
+- Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
+- Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
+-  Tooltip | tooltipEvent - "focus" | "hover" combined [\#15468](https://github.com/primefaces/primeng/issues/15468)
+-  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
+
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.18-LTS](https://www.npmjs.com/package/primeng/v/15.4.18-lts) (2024-04-19)
 
