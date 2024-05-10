@@ -139,7 +139,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files, uploadedFiles: uploadedFiles, removeUploadedFileCallback: removeUploadedFile.bind(this), progress: progress, messages: msgs }"></ng-container>
+                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files, uploadedFiles: uploadedFiles, chooseCallback: choose.bind(this), clearCallback: clear.bind(this), removeUploadedFileCallback: removeUploadedFile.bind(this), progress: progress, messages: msgs }"></ng-container>
                 <div *ngIf="emptyTemplate && !hasFiles() && !uploadedFileCount" class="p-fileupload-empty">
                     <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                 </div>

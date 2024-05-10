@@ -12084,7 +12084,7 @@
                                 "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  }"
                             }
                         ],
-                        "description": "Custom template of file."
+                        "description": "Custom template of header."
                     },
                     {
                         "parent": "fileupload",
@@ -12092,7 +12092,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t progress: any, // Upload progress.\n  \t messages: any, // Status messages about upload process.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t removeFileCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  \t removeUploadedFileCallback: VoidFunction, // Callback to invoke on remove uploaded file, accepts index as a parameter.\n  }"
+                                "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t progress: any, // Upload progress.\n  \t messages: any, // Status messages about upload process.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  \t removeUploadedFileCallback: VoidFunction, // Callback to invoke on remove uploaded file, accepts index as a parameter.\n  }"
                             }
                         ],
                         "description": "Custom template of content."
