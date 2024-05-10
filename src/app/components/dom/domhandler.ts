@@ -653,7 +653,7 @@ export class DomHandler {
         return null;
     }
 
-    public static getFirstFocusableElement(element, selector) {
+    public static getFirstFocusableElement(element, selector = '') {
         const focusableElements = this.getFocusableElements(element, selector);
 
         return focusableElements.length > 0 ? focusableElements[0] : null;
@@ -764,5 +764,78 @@ export class DomHandler {
     public static unblockBodyScroll(className = 'p-overflow-hidden') {
         document.body.style.removeProperty('--scrollbar-width');
         this.removeClass(document.body, className);
+    }
+
+    public static createElement(type, attributes = {}, ...children) {
+        if (type) {
+            const element = document.createElement(type);
+
+            this.setAttributes(element, attributes);
+            element.append(...children);
+
+            return element;
+        }
+
+        return undefined;
+    }
+
+    public static setAttribute(element, attribute = '', value) {
+        if (this.isElement(element) && value !== null && value !== undefined) {
+            element.setAttribute(attribute, value);
+        }
+    }
+
+    public static setAttributes(element, attributes = {}) {
+        if (this.isElement(element)) {
+            const computedStyles = (rule, value) => {
+                const styles = element?.$attrs?.[rule] ? [element?.$attrs?.[rule]] : [];
+
+                return [value].flat().reduce((cv, v) => {
+                    if (v !== null && v !== undefined) {
+                        const type = typeof v;
+
+                        if (type === 'string' || type === 'number') {
+                            cv.push(v);
+                        } else if (type === 'object') {
+                            const _cv = Array.isArray(v)
+                                ? computedStyles(rule, v)
+                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : !!_v ? _k : undefined));
+
+                            cv = _cv.length ? cv.concat(_cv.filter((c) => !!c)) : cv;
+                        }
+                    }
+
+                    return cv;
+                }, styles);
+            };
+
+            Object.entries(attributes).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    const matchedEvent = key.match(/^on(.+)/);
+
+                    if (matchedEvent) {
+                        element.addEventListener(matchedEvent[1].toLowerCase(), value);
+                    } else if (key === 'pBind') {
+                        this.setAttributes(element, value);
+                    } else {
+                        value = key === 'class' ? [...new Set(computedStyles('class', value))].join(' ').trim() : key === 'style' ? computedStyles('style', value).join(';').trim() : value;
+                        (element.$attrs = element.$attrs || {}) && (element.$attrs[key] = value);
+                        element.setAttribute(key, value);
+                    }
+                }
+            });
+        }
+    }
+
+    public static isFocusableElement(element, selector = '') {
+        return this.isElement(element)
+            ? element.matches(`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`)
+            : false;
     }
 }
