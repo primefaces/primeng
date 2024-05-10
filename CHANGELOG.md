@@ -620,7 +620,8 @@
 -  inputNumber with numeric prefix is not working as expected [\#15311](https://github.com/primefaces/primeng/issues/15311)
 -  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
 -  Dialog | tabbing order is broken because of pFocusTrap [\#15482](https://github.com/primefaces/primeng/issues/15482)
-- AutoFocus | doesn't work in dialog #15524 [\#15524](https://github.com/primefaces/primeng/issues/15524)
+- AutoFocus | doesn't work in dialog [\#15524](https://github.com/primefaces/primeng/issues/15524)
+- Tooltip | Tooltip is out of position after dialog opens [\#15529](https://github.com/primefaces/primeng/issues/15529)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.8-LTS](https://www.npmjs.com/package/primeng/v/16.9.8-lts) (2024-04-19)
 
