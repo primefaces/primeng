@@ -908,7 +908,7 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeSelect.emit(event);
 
         if (this.selectionMode === 'single') {
-            // this.hide();
+            this.hide();
             this.focusInput?.nativeElement.focus();
         }
     }
