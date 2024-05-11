@@ -925,7 +925,7 @@ export class TreeSelect implements AfterContentInit {
             this.focusInput?.nativeElement.focus();
         }
     }
-t
+
     onUnselect(event: TreeNodeUnSelectEvent) {
         this.onNodeUnselect.emit(event);
     }
