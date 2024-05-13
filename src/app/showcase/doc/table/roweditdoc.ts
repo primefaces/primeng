@@ -3,7 +3,6 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
-import { Valuation } from './valutationInterface';
 
 @Component({
     selector: 'row-edit-doc',
@@ -22,56 +21,127 @@ import { Valuation } from './valutationInterface';
                 whose key is the dataKey of the record where the value is any arbitrary number greater than zero.
             </p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast></p-toast>
-            <p-table [value]="valuations" dataKey="valuationDate" editMode="row">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width: 40%">Valuation Date</th>
-                        <th style="width: 40%">Land Value</th>
-                        <th style="width: 20%"></th>
-                    </tr>
-                </ng-template>
-
-                <ng-template pTemplate="body" let-valuation let-editing="editing" let-ri="rowIndex">
-                    <tr [pEditableRow]="valuation">
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <p-calendar [(ngModel)]="valuation.valuationDate" appendTo="body"> </p-calendar>
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ valuation.valuationDate | date }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <p-cellEditor>
-                                <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="valuation.landValue" />
-                                </ng-template>
-                                <ng-template pTemplate="output">
-                                    {{ valuation.landValue }}
-                                </ng-template>
-                            </p-cellEditor>
-                        </td>
-                        <td>
-                            <div class="flex align-items-center justify-content-center gap-2">
-                                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" class="p-button-rounded p-button-text"></button>
-                                <button *ngIf="editing" pButton pRipple pSaveEditableRow type="submit" icon="pi pi-check" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger"></button>
-                            </div>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-toast></p-toast>
+                <p-table [value]="products" dataKey="id" editMode="row" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:20%">Code</th>
+                            <th style="width:20%">Name</th>
+                            <th style="width:20%">Inventory Status</th>
+                            <th style="width:20%">Price</th>
+                            <th style="width:20%"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-editing="editing" let-ri="rowIndex">
+                        <tr [pEditableRow]="product">
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.code" />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.code }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.name" required />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.name }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <p-dropdown [options]="statuses" appendTo="body" [(ngModel)]="product.inventoryStatus" [style]="{ width: '100%' }" />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <p-cellEditor>
+                                    <ng-template pTemplate="input">
+                                        <input pInputText type="text" [(ngModel)]="product.price" />
+                                    </ng-template>
+                                    <ng-template pTemplate="output">
+                                        {{ product.price | currency : 'USD' }}
+                                    </ng-template>
+                                </p-cellEditor>
+                            </td>
+                            <td>
+                                <div class="flex align-items-center justify-content-center gap-2">
+                                    <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
         <app-code [code]="code" selector="table-row-edit-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
 export class RowEditDoc {
-    valuations: Valuation[] = [{ valuationDate: new Date('2022-01-01'), landValue: 100.0 }];
+    products!: Product[];
+
+    statuses!: SelectItem[];
+
+    clonedProducts: { [s: string]: Product } = {};
+
+    constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
+
+    loadDemoData() {
+        this.productService.getProductsMini().then((data) => {
+            this.products = data;
+            this.cd.markForCheck();
+        });
+
+        this.statuses = [
+            { label: 'In Stock', value: 'INSTOCK' },
+            { label: 'Low Stock', value: 'LOWSTOCK' },
+            { label: 'Out of Stock', value: 'OUTOFSTOCK' }
+        ];
+    }
+
+    onRowEditInit(product: Product) {
+        this.clonedProducts[product.id as string] = { ...product };
+    }
+
+    onRowEditSave(product: Product) {
+        if (product.price > 0) {
+            delete this.clonedProducts[product.id as string];
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Product is updated' });
+        } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Invalid Price' });
+        }
+    }
+
+    onRowEditCancel(product: Product, index: number) {
+        this.products[index] = this.clonedProducts[product.id as string];
+        delete this.clonedProducts[product.id as string];
+    }
+
+    getSeverity(status: string) {
+        switch (status) {
+            case 'INSTOCK':
+                return 'success';
+            case 'LOWSTOCK':
+                return 'warning';
+            case 'OUTOFSTOCK':
+                return 'danger';
+        }
+    }
 
     code: Code = {
         basic: `<p-toast></p-toast>

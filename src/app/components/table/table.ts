@@ -2433,8 +2433,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     cancelRowEdit(rowData: any) {
         let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
-        console.log(rowData);
-        console.log(this.dataKey);
         delete this.editingRowKeys[dataKeyValue];
         this.isRowEditiable = false;
     }
@@ -2478,7 +2476,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowEditing(rowData: any): boolean {
-        return this.isRowEditiable;
+        this.isRowEditiable = this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isSingleSelectionMode() {
