@@ -139,8 +139,10 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                         <ng-template ngFor [ngForOf]="files" [ngForTemplate]="fileTemplate"></ng-template>
                     </div>
                 </div>
-                <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: files, uploadedFiles: uploadedFiles, removeUploadedFileCallback: removeUploadedFile.bind(this), progress: progress, messages: msgs }"></ng-container>
-                <div *ngIf="emptyTemplate && !hasFiles() && !uploadedFileCount" class="p-fileupload-empty">
+                <ng-container
+                    *ngTemplateOutlet="contentTemplate; context: { $implicit: files, uploadedFiles: uploadedFiles, removeUploadedFileCallback: removeUploadedFile.bind(this), removeFileCallback: remove.bind(this), progress: progress, messages: msgs }"
+                ></ng-container>
+                <div *ngIf="emptyTemplate && !hasFiles() && !hasUploadedFiles()" class="p-fileupload-empty">
                     <ng-container *ngTemplateOutlet="emptyTemplate"></ng-container>
                 </div>
             </div>
@@ -868,6 +870,10 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
 
     hasFiles(): boolean {
         return this.files && this.files.length > 0;
+    }
+
+    hasUploadedFiles() {
+        return this.uploadedFiles && this.uploadedFiles.length > 0;
     }
 
     onDragEnter(e: DragEvent) {

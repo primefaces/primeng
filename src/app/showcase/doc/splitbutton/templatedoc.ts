@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-splitButton label="Save" (onClick)="save('info')" severity="warning" [model]="items">
+            <p-splitButton label="Save" (onClick)="save('info')" severity="contrast" [model]="items">
                 <ng-template pTemplate="content">
                     <span class="flex align-items-center font-bold">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
@@ -24,6 +24,8 @@ import { Code } from '@domain/code';
     providers: [MessageService]
 })
 export class TemplateDoc {
+    items: MenuItem[];
+
     constructor(private messageService: MessageService) {
         this.items = [
             {
@@ -44,8 +46,6 @@ export class TemplateDoc {
         ];
     }
 
-    items: MenuItem[];
-
     save(severity: string) {
         this.messageService.add({ severity: severity, summary: 'Success', detail: 'Data Saved' });
     }
@@ -62,14 +62,36 @@ export class TemplateDoc {
         basic: `<p-splitButton 
     label="Save" 
     (onClick)="save('info')" 
-    [model]="items" />`,
+    severity="contrast" 
+    [model]="items">
+        <ng-template pTemplate="content">
+            <span class="flex align-items-center font-bold">
+                <img 
+                    alt="logo" 
+                    src="https://primefaces.org/cdn/primeng/images/logo.svg" 
+                    style="height: 1rem; margin-right: 0.5rem" />
+                <span>PrimeNG</span>
+            </span>
+        </ng-template>
+</p-splitButton>`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
     <p-splitButton 
         label="Save" 
         (onClick)="save('info')" 
-        [model]="items" />
+        severity="contrast" 
+        [model]="items">
+            <ng-template pTemplate="content">
+                <span class="flex align-items-center font-bold">
+                    <img 
+                        alt="logo" 
+                        src="https://primefaces.org/cdn/primeng/images/logo.svg" 
+                        style="height: 1rem; margin-right: 0.5rem" />
+                    <span>PrimeNG</span>
+                </span>
+            </ng-template>
+    </p-splitButton>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -86,7 +108,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class SplitButtonTemplateDemo {
     items: MenuItem[];
-
+    
     constructor(private messageService: MessageService) {
         this.items = [
             {

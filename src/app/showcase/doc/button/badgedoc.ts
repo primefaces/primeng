@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
-            <p-button label="Emails" badge="8" styleClass="m-0" />
-            <p-button label="Messages" icon="pi pi-users" badge="8" badgeClass="p-badge-danger" styleClass="m-0" outlined="true" />
+            <p-button label="Emails" badge="2" styleClass="m-0" />
+            <p-button label="Messages" icon="pi pi-users" badge="2" badgeClass="p-badge-contrast" styleClass="m-0" outlined="true" />
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
     `
@@ -20,17 +20,17 @@ export class BadgeDoc {
 <p-button 
     label="Messages" 
     icon="pi pi-users" 
-    badge="8" 
-    badgeClass="p-badge-danger" 
+    badge="2" 
+    badgeClass="p-badge-contrast" 
     outlined="true" />`,
 
         html: `<div class="card flex justify-content-center flex-wrap gap-3">
-    <p-button label="Emails" badge="8" />
+    <p-button label="Emails" badge="2" />
     <p-button 
         label="Messages" 
         icon="pi pi-users" 
         badge="8" 
-        badgeClass="p-badge-danger" 
+        badgeClass="p-badge-contrast" 
         outlined="true" />
 </div>`,
 

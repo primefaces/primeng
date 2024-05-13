@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="col-12 md:col-4">
                 <h5>Badge</h5>
-                <p-avatar icon="pi pi-user" pBadge value="4" size="xlarge" />
+                <p-avatar icon="pi pi-user" pBadge value="4" size="xlarge" badgeSize="large" />
             </div>
         </div>
         <app-code [code]="code" selector="avatar-icon-demo"></app-code>
@@ -64,7 +64,8 @@ export class IconDoc {
     icon="pi pi-user" 
     pBadge 
     value="4" 
-    size="xlarge" />`,
+    size="xlarge"
+    badgeSize="large" />`,
         html: `<div class="col-12 md:col-4">
         <h5>Icon</h5>
         <p-avatar 
@@ -106,7 +107,8 @@ export class IconDoc {
             icon="pi pi-user" 
             pBadge 
             value="4" 
-            size="xlarge" />
+            size="xlarge"
+            badgeSize="large" />
     </div>`,
         typescript: `import { Component } from '@angular/core';
 import { AvatarModule } from 'primeng/avatar';

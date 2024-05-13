@@ -183,7 +183,12 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.getTarget(this.el.nativeElement);
+                    let target = this.el.nativeElement.querySelector('.p-component');
+
+                    if (!target) {
+                        target = this.getTarget(this.el.nativeElement);
+                    }
+
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
                 }
@@ -426,7 +431,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
         this.create();
 
         setTimeout(() => {
-            this.align();
+            this.container && this.align();
         }, 100);
 
         DomHandler.fadeIn(this.container, 250);
@@ -648,12 +653,15 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-            let target = this.getTarget(this.el.nativeElement);
+            let target = this.el.nativeElement.querySelector('.p-component');
+
+            if (!target) {
+                target = this.getTarget(this.el.nativeElement);
+            }
 
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
         }
-
         this.unbindDocumentResizeListener();
     }
 

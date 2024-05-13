@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
             </div>
             <div class="col-12 md:col-4">
                 <h5>Badge</h5>
-                <p-avatar label="U" pBadge styleClass="mr-2" value="4" size="xlarge" />
+                <p-avatar label="U" pBadge styleClass="mr-2" value="4" size="xlarge" badgeSize="large" />
             </div>
         </div>
         <app-code [code]="code" selector="avatar-label-demo"></app-code>
@@ -66,7 +66,8 @@ export class LabelDoc {
     pBadge 
     styleClass="mr-2" 
     value="4" 
-    size="xlarge" />`,
+    size="xlarge"
+    badgeSize="large" />`,
         html: `<div class="card grid grid-nogutter">
     <div class="col-12 md:col-4">
         <h5>Label</h5>
@@ -110,7 +111,8 @@ export class LabelDoc {
             pBadge 
             styleClass="mr-2" 
             value="4" 
-            size="xlarge" />
+            size="xlarge" 
+            badgeSize="large" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
