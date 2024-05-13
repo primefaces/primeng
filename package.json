@@ -47,7 +47,7 @@
         "@types/node": "^16.18.67",
         "@types/react": "^18.2.41",
         "@typescript-eslint/eslint-plugin": "^6.6.0",
-        "chart.js": "3.3.2",
+        "chart.js": "4.4.2",
         "codelyzer": "^0.0.28",
         "del": "^7.1.0",
         "domino": "^2.1.6",
