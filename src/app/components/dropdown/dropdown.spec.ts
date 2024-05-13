@@ -72,7 +72,7 @@ class TestDropdownComponent {
         this.selectedCity = { name: 'New York', code: 'NY' };
     }
 }
-fdescribe('Dropdown', () => {
+describe('Dropdown', () => {
     let dropdown: Dropdown;
     let testDropdown: Dropdown;
     let groupDropdown: Dropdown;
