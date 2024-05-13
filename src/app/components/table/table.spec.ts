@@ -6,10 +6,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SharedModule } from 'primeng/api';
 import { ContextMenu, ContextMenuModule } from 'primeng/contextmenu';
+import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
-import { EditableColumn, Table, TableModule } from './table';
+import { CellEditor, EditableColumn, EditableRow, Table, TableModule } from './table';
 import type { Paginator } from '../paginator/paginator';
-
+import e from 'express';
 @Component({
     template: `
         <p-table class="basicTable" [value]="cars">
@@ -324,6 +325,58 @@ import type { Paginator } from '../paginator/paginator';
                 </tr>
             </ng-template>
         </p-table>
+
+        <p-table class="editableRowTable" [value]="carsEditRow" editMode="row" dataKey="vin">
+            <ng-template pTemplate="caption"> List of Cars </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Brand</th>
+                    <th>Color</th>
+                    <th>Date Bought</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-editing="editing" let-ri="rowIndex" let-car>
+                <tr pEditableRow>
+                    <td>
+                        <p-cellEditor id="brandinput">
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="car.brand" name="brand" required />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ car.brand }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor id="colorInput">
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="car.color" name="color" required />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ car.color }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <p-cellEditor id="calendar_input">
+                            <ng-template pTemplate="input">
+                                <p-calendar [(ngModel)]="car.datebought" appendTo="body" name="datebought"> </p-calendar>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{ car.datebought | date : 'dd/MM/yyyy' }}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td>
+                        <div>
+                            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(car)" class="p-button-rounded p-button-text"></button>
+                            <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(car)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(car, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
     `
 })
 class TestBasicTableComponent {
@@ -367,6 +420,7 @@ class TestBasicTableComponent {
         { brand: 'Ford', year: 2000, color: 'Black', vin: 'h54hw5' },
         { brand: 'Fiat', year: 2013, color: 'Red', vin: '245t2s' }
     ];
+    carsEditRow = [{ brand: 'Renault', year: 2005, color: 'Gray', vin: 3, datebought: '2021-01-01' }];
 
     customSort(event) {
         event.data.sort((data1, data2) => {
@@ -383,8 +437,23 @@ class TestBasicTableComponent {
             return event.order * result;
         });
     }
+
+    clonedProducts: { [s: string]: any } = {};
+
+    onRowEditInit(car) {
+        this.clonedProducts[car.vin] = { ...car };
+    }
+
+    onRowEditSave(car) {
+        delete this.clonedProducts[car.vin];
+    }
+
+    onRowEditCancel(car, index) {
+        this.cars[index] = this.clonedProducts[car.vin];
+        delete this.clonedProducts[car.vin];
+    }
 }
-describe('Table', () => {
+fdescribe('Table', () => {
     let table: Table;
     let filterTable: Table;
     let sortTable: Table;
@@ -397,13 +466,14 @@ describe('Table', () => {
     let reorderableTable: Table;
     let contextMenuTable: Table;
     let stateTable: Table;
+    let editableRowTable: Table;
     let testComponent: TestBasicTableComponent;
     let fixture: ComponentFixture<TestBasicTableComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, SharedModule, DropdownModule, ContextMenuModule, TableModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }])],
-            declarations: [TestBasicTableComponent, EditableColumn]
+            imports: [NoopAnimationsModule, FormsModule, SharedModule, DropdownModule, ContextMenuModule, CalendarModule, TableModule, RouterTestingModule.withRoutes([{ path: 'test', component: ContextMenu }])],
+            declarations: [TestBasicTableComponent, EditableColumn, CellEditor, EditableRow]
         });
 
         fixture = TestBed.createComponent(TestBasicTableComponent);
@@ -420,6 +490,7 @@ describe('Table', () => {
         reorderableTable = fixture.debugElement.children[9].componentInstance;
         contextMenuTable = fixture.debugElement.children[10].componentInstance;
         stateTable = fixture.debugElement.children[12].componentInstance;
+        editableRowTable = fixture.debugElement.children[13].componentInstance;
     });
 
     it('should display by default', () => {
@@ -1617,5 +1688,42 @@ describe('Table', () => {
 
         state = JSON.parse(stateTable.getStorage().getItem(stateTable.stateKey));
         expect(state).toBeNull();
+    });
+
+    fit('should not end editing for a row if data changes uses p-calendar', () => {
+        fixture.detectChanges();
+        let editableRowTableEl = fixture.debugElement.query(By.css('.editableRowTable'));
+        const rowEls = editableRowTableEl.queryAll(By.css('tbody tr'));
+        const numberOfRows = rowEls.length;
+
+        expect(numberOfRows).toEqual(1);
+        expect(editableRowTable.isRowEditiable).toBeFalsy();
+
+        const editButton = editableRowTableEl.query(By.css('button'));
+        editButton.nativeElement.click();
+        fixture.detectChanges();
+
+        // Check if editing is true
+        expect(editableRowTable.isRowEditiable).toBeTruthy();
+
+        // Change the data
+        const calendarEl = rowEls[0].query(By.css('p-calendar'));
+        calendarEl.nativeElement.click();
+        fixture.detectChanges();
+
+        const calendarInputEl = document.querySelector('input');
+        calendarInputEl.value = '10/10/2024';
+        calendarInputEl.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        // check editing is still true
+        expect(editableRowTable.isRowBeingEdited).toBeTruthy();
+        // Save the data
+        const saveButton = editableRowTableEl.queryAll(By.css('button'))[1];
+        saveButton.nativeElement.click();
+        fixture.detectChanges();
+
+        // Check if editing is false
+        expect(editableRowTable.isRowBeingEdited).toBeFalsy();
     });
 });

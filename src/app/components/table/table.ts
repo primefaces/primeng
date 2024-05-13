@@ -549,7 +549,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Whether to show the row expand icon.
      * @group Props
      */
-    @Input() isRowEditiable: boolean | undefined = false;
+    @Input() isRowBeingEdited: boolean | undefined = false;
     /**
      * Whether multiple rows can be expanded at any time. Valid values are "multiple" and "single".
      * @group Props
@@ -2420,21 +2420,21 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     initRowEdit(rowData: any) {
         let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
         this.editingRowKeys[dataKeyValue] = true;
-        this.isRowEditiable = true;
+        this.isRowBeingEdited = true;
     }
 
     saveRowEdit(rowData: any, rowElement: HTMLTableRowElement) {
         if (DomHandler.find(rowElement, '.ng-invalid.ng-dirty').length === 0) {
             let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
             delete this.editingRowKeys[dataKeyValue];
-            this.isRowEditiable = false;
+            this.isRowBeingEdited = false;
         }
     }
 
     cancelRowEdit(rowData: any) {
         let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
         delete this.editingRowKeys[dataKeyValue];
-        this.isRowEditiable = false;
+        this.isRowBeingEdited = false;
     }
 
     toggleRow(rowData: any, event?: Event) {
@@ -2476,7 +2476,6 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowEditing(rowData: any): boolean {
-        this.isRowEditiable = this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
         return this.editingRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
