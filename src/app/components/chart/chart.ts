@@ -23,7 +23,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
      * Type of the chart.
      * @group Props
      */
-    @Input() type: string | undefined;
+    @Input() type: 'bar' | 'line' | 'scatter' | 'bubble' | 'pie' | 'doughnut' | 'polarArea' | 'radar' | undefined;
     /**
      * Array of per-chart plugins to customize the chart behaviour.
      * @group Props
