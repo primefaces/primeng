@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
         <div class="card flex justify-content-center">
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
                 <ng-template pTemplate="item" let-item>
-                    <ng-container *ngIf="item.route; else tests">
+                    <ng-container *ngIf="item.route; else urlRef">
                         <a [routerLink]="item.route" class="flex align-items-center cursor-pointer text-color px-3 py-2">
                             <span [class]="item.icon"></span>
                             <span class="ml-2 text-color">{{ item.label }}</span>
                         </a>
                     </ng-container>
-                    <ng-template #tests>
+                    <ng-template #urlRef>
                         <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center cursor-pointer text-color px-3 py-2">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
@@ -90,14 +90,14 @@ export class RouterDoc implements OnInit {
     code: Code = {
         basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
     <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route; else tests">
+        <ng-container *ngIf="item.route; else urlRef">
             <a [routerLink]="item.route" class="flex align-items-center 
                 cursor-pointer text-color px-3 py-2">
                 <span [class]="item.icon"></span>
                 <span class="ml-2 text-color">{{ item.label }}</span>
             </a>
         </ng-container>
-        <ng-template #tests>
+        <ng-template #urlRef>
             <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center 
                 cursor-pointer text-color px-3 py-2">
                 <span [class]="item.icon"></span>
@@ -117,14 +117,14 @@ export class RouterDoc implements OnInit {
         html: `<div class="card flex justify-content-center">
     <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
         <ng-template pTemplate="item" let-item>
-            <ng-container *ngIf="item.route; else tests">
+            <ng-container *ngIf="item.route; else urlRef">
                 <a [routerLink]="item.route" class="flex align-items-center 
                     cursor-pointer text-color px-3 py-2">
                     <span [class]="item.icon"></span>
                     <span class="ml-2 text-color">{{ item.label }}</span>
                 </a>
             </ng-container>
-            <ng-template #tests>
+            <ng-template #urlRef>
                 <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center 
                     cursor-pointer text-color px-3 py-2">
                     <span [class]="item.icon"></span>
