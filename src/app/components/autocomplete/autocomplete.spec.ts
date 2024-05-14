@@ -47,7 +47,7 @@ class TestAutocompleteComponent {
     }
 }
 
-fdescribe('AutoComplete', () => {
+describe('AutoComplete', () => {
     let autocomplete: AutoComplete;
     let autocomplete2: AutoComplete;
     let testComponent: TestAutocompleteComponent;
@@ -72,7 +72,7 @@ fdescribe('AutoComplete', () => {
         fixture.detectChanges();
 
         autocomplete.cd.detectChanges();
-        const inputDefaultEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const inputDefaultEl = fixture.debugElement.query(By.css('.p-autocomplete-input')).nativeElement;
         expect(inputDefaultEl.disabled).toEqual(true);
         fixture.detectChanges();
 
@@ -82,7 +82,7 @@ fdescribe('AutoComplete', () => {
 
         autocomplete.cd.detectChanges();
         const inputMultipleEl = fixture.debugElement.query(By.css('ul')).query(By.css('input'));
-        const multiContainer = fixture.debugElement.query(By.css('ul'));
+        const multiContainer = fixture.debugElement.query(By.css('div'));
         expect(inputMultipleEl.properties.disabled).toEqual(true);
         expect(multiContainer.nativeElement.className).toContain('p-disabled');
     });
@@ -477,7 +477,7 @@ fdescribe('AutoComplete', () => {
         autocomplete.multiple = true;
         fixture.detectChanges();
 
-        const spanEl = fixture.debugElement.query(By.css('span'));
+        const spanEl = fixture.debugElement.query(By.css('div'));
         const listEl = fixture.debugElement.query(By.css('ul'));
         expect(spanEl.nativeElement.className).toContain('p-autocomplete-multiple');
         expect(listEl.nativeElement.className).toContain('p-autocomplete-multiple-container');
@@ -540,7 +540,7 @@ fdescribe('AutoComplete', () => {
         flush();
     }));
 
-    fit('should delete chip with backspace', fakeAsync(() => {
+    it('should delete chip with backspace', fakeAsync(() => {
         autocomplete.multiple = true;
         fixture.detectChanges();
 
@@ -555,20 +555,15 @@ fdescribe('AutoComplete', () => {
         tick(300);
         fixture.detectChanges();
 
-        const firstItemEl = fixture.debugElement.queryAll(By.css('.p-autocomplete-item'))[0].nativeElement;
-        firstItemEl.click();
-        firstItemEl.dispatchEvent(new Event('click'));
-        tick(300);
+        autocomplete.onOptionSelect(new Event('click'), 'Volvo');
         fixture.detectChanges();
 
-        //expect(autocomplete.value).toEqual('Volvo');
-        //expect(autocomplete.value.length).toEqual(1);
+        expect(autocomplete.value[0]).toEqual('Volvo');
+        expect(autocomplete.value.length).toEqual(1);
         expect(onOptionSelectSpy).toHaveBeenCalled();
         expect(testComponent.brand).toEqual(autocomplete.value);
-        let backspaceEvent = new Event('keydown');
-        Object.defineProperty(backspaceEvent, 'which', { value: 8 });
-        Object.defineProperty(backspaceEvent, 'preventDefault', { value: () => {} });
-        autocomplete.onKeyDown(new KeyboardEvent('keydown', {code: 'Backspace'}));
+
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'Backspace' }));
         fixture.detectChanges();
 
         expect(autocomplete.value[0]).toEqual(undefined);
@@ -620,8 +615,8 @@ fdescribe('AutoComplete', () => {
         const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        autocomplete.onKeyDown(new KeyboardEvent('keydown', {code: 'ArrowDown'}));
-        autocomplete.onKeyDown(new KeyboardEvent('keydown', {code: 'Enter'}));
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
         expect(autocomplete.value).toEqual('Volvo');
@@ -639,9 +634,9 @@ fdescribe('AutoComplete', () => {
 
         const onOptionSelectSpy = spyOn(autocomplete, 'onOptionSelect').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
-        autocomplete.overlayVisible = true;      
-        autocomplete.onKeyDown(new KeyboardEvent('keydown', {code:'ArrowDown'}));
-        autocomplete.onKeyDown(new KeyboardEvent('keydown', {code: 'Tab'}));
+        autocomplete.overlayVisible = true;
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'Tab' }));
         fixture.detectChanges();
 
         expect(autocomplete.value).toEqual('Volvo');
@@ -649,10 +644,10 @@ fdescribe('AutoComplete', () => {
         expect(testComponent.brand).toEqual(autocomplete.value);
     });
 
-    it('should escape with esc key', () => {
+    it('should escape with esc key', fakeAsync(() => {
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input'));
+        const inputEl = fixture.debugElement.query(By.css('.p-autocomplete-input'));
         inputEl.nativeElement.dispatchEvent(new Event('focus'));
         inputEl.nativeElement.click();
         fixture.detectChanges();
@@ -661,16 +656,13 @@ fdescribe('AutoComplete', () => {
         const hideSpy = spyOn(autocomplete, 'hide').and.callThrough();
         autocomplete.suggestions = ['Volvo', 'VW'];
         autocomplete.overlayVisible = true;
-        let event = new Event('keydown');
-        Object.defineProperty(event, 'which', { value: 27 });
-        Object.defineProperty(event, 'preventDefault', { value: () => {} });
-
-        autocomplete.onKeyDown(event);
+        autocomplete.onKeyDown(new KeyboardEvent('keydown', { code: 'Escape' }));
+        tick(300);
         fixture.detectChanges();
 
-        expect(autocomplete.value).toEqual(null);
+        expect(autocomplete.value).toEqual(undefined);
         expect(onOptionSelectSpy).not.toHaveBeenCalled();
         expect(hideSpy).toHaveBeenCalled();
         expect(autocomplete.overlayVisible).toEqual(false);
-    });
+    }));
 });
