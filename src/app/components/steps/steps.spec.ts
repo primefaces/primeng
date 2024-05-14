@@ -1,8 +1,8 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Steps, StepsModule } from './steps';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Component, NO_ERRORS_SCHEMA, ViewEncapsulation } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MenuItem } from 'primeng/api';
@@ -10,7 +10,7 @@ import { MenuItem } from 'primeng/api';
 @Component({
     template: `<p-steps [model]="items"></p-steps> `
 })
-class TestStpesComponent {
+class TestStepsComponent {
     items: MenuItem[];
 
     activeIndex: number = 1;
@@ -49,17 +49,17 @@ class TestStpesComponent {
 
 describe('Steps', () => {
     let steps: Steps;
-    let testComponent: TestStpesComponent;
-    let fixture: ComponentFixture<TestStpesComponent>;
+    let testComponent: TestStepsComponent;
+    let fixture: ComponentFixture<TestStepsComponent>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
             imports: [NoopAnimationsModule, RouterTestingModule, StepsModule],
-            declarations: [Toast, TestStpesComponent]
+            declarations: [Toast, TestStepsComponent]
         });
 
-        fixture = TestBed.createComponent(TestStpesComponent);
+        fixture = TestBed.createComponent(TestStepsComponent);
         steps = fixture.debugElement.children[0].componentInstance;
         testComponent = fixture.debugElement.componentInstance;
     });
@@ -69,7 +69,7 @@ describe('Steps', () => {
         steps.styleClass = 'Primeng ROCKS!';
         fixture.detectChanges();
 
-        const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
+        const stepsEl = fixture.debugElement.children[0].query(By.css('nav')).nativeElement;
         expect(stepsEl.className).toContain('Primeng ROCKS!');
         expect(stepsEl.style.height).toContain('300px');
     });
@@ -89,7 +89,7 @@ describe('Steps', () => {
         steps.readonly = false;
         fixture.detectChanges();
 
-        const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
+        const stepsEl = fixture.debugElement.children[0].query(By.css('nav')).nativeElement;
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         expect(stepsEl.className).not.toContain('p-steps-readonly');
         for (let x = 0; x < testComponent.items.length; x++) {
@@ -100,7 +100,6 @@ describe('Steps', () => {
     it('should show the step number', () => {
         fixture.detectChanges();
 
-        const stepsEl = fixture.debugElement.children[0].query(By.css('div')).nativeElement;
         const items = fixture.debugElement.children[0].queryAll(By.css('li'));
         for (let x = 0; x < testComponent.items.length; x++) {
             expect(items[x].query(By.css('.p-steps-number')).nativeElement.textContent).toEqual((x + 1).toString());
