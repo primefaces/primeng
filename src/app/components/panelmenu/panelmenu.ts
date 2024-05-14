@@ -894,8 +894,6 @@ export class PanelMenu implements AfterContentInit {
 
     submenuIconTemplate: TemplateRef<any> | undefined;
 
-    headerContentTemplate: TemplateRef<any> | undefined;
-
     itemTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
@@ -909,10 +907,6 @@ export class PanelMenu implements AfterContentInit {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
-                case 'headercontent':
-                    this.headerContentTemplate = item.template;
-                    break;
-
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
