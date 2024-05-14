@@ -430,9 +430,16 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
         this.create();
 
-        setTimeout(() => {
-            this.container && this.align();
-        }, 100);
+        const nativeElement = this.el.nativeElement;
+        const pDialogWrapper = nativeElement.closest('p-dialog');
+
+        if (pDialogWrapper) {
+            setTimeout(() => {
+                this.container && this.align();
+            }, 100);
+        } else {
+            this.align();
+        }
 
         DomHandler.fadeIn(this.container, 250);
 
