@@ -169,6 +169,7 @@ export class DropdownItem {
                 *ngIf="editable"
                 #editableInput
                 type="text"
+                [attr.id]="inputId"
                 [attr.maxlength]="maxlength"
                 [ngClass]="inputClass"
                 [disabled]="disabled"
