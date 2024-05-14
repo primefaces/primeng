@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ContextMenu, ContextMenuModule } from './contextmenu';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Component } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ContextMenuService } from 'primeng/api';
-import { ContextMenu, ContextMenuModule } from './contextmenu';
 
 @Component({
     template: `
@@ -90,7 +90,7 @@ class TestContextMenuTest {
     ];
 }
 
-describe('ContextMenu', () => {
+describe('ConextMenu', () => {
     let contextmenu: ContextMenu;
     let contextmenuP: ContextMenu;
     let fixture: ComponentFixture<TestContextMenuTest>;

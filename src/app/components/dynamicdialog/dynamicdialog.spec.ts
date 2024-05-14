@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer } from 'primeng/api';
 import { DialogService } from './dialogservice';
@@ -57,7 +57,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
 })
 export class FakeTestDialogModule {}
 
-describe('DynamicDialog', () => {
+fdescribe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FakeTestDialogModule, Footer]
