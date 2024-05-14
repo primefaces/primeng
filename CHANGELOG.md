@@ -1,4 +1,34 @@
 # Changelog
+## [17.16.1](https://github.com/primefaces/primeng/tree/17.16.1) (2024-05-09)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.16.0...17.16.1)
+
+**Enhancements:**
+- Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
+- Fileupload | template enhancement [\#15435](https://github.com/primefaces/primeng/issues/15435)
+- Badge | Add contrast severity styles [\#15504](https://github.com/primefaces/primeng/issues/15504)
+- Tag, Badge, Toast, Message | Add contrast and secondary severity options. [\#15470](https://github.com/primefaces/primeng/issues/15470)
+- ColumnFilter | Add onShow & onHide events [\#15462](https://github.com/primefaces/primeng/issues/15462)
+
+**Fixed bugs:**
+- Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
+- Tooltip | Tooltip is out of position after dialog opens [\#15485](https://github.com/primefaces/primeng/issues/15485)
+- Colourpicker: fix broken unit test [\#15501](https://github.com/primefaces/primeng/issues/15501)
+- Dropdown head is empty if no value is provided [\#14954](https://github.com/primefaces/primeng/issues/14954)
+- inputNumber with numeric prefix is not working as expected [\#15311](https://github.com/primefaces/primeng/issues/15311)
+- Component: Nested dialog keyboard navigation not working [\#15370](https://github.com/primefaces/primeng/issues/15370)
+- Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
+- Missing icons in the import PrimeIcons from primeng/api [\#15454](https://github.com/primefaces/primeng/issues/15454)
+- Dropdown: Invalid abstract role 'section' in p-dropdown-items-wrapper [\#15339](https://github.com/primefaces/primeng/issues/15339)
+- SplitButton: menu item is using 'aria-level' attribute incorrectly [\#15130](https://github.com/primefaces/primeng/issues/15130)
+- DataView rowsPerPageOption not working [\#15455](https://github.com/primefaces/primeng/issues/15455)
+- Component: PickList element selection problem after filtering with ScrollBar [\#15011](https://github.com/primefaces/primeng/issues/15011)
+- TieredMenu: Items are not read by NVDA on hover [\#15187](https://github.com/primefaces/primeng/issues/15187)
+- OrderList: documentation doesn't indicate it needs @angular/cdk [\#15480](https://github.com/primefaces/primeng/issues/15480)
+- InputOtp: paste (ctrl/ cmd + V) not work in integer-only [\#15483](https://github.com/primefaces/primeng/issues/15483)
+- Calendar component: date input value is removed when a date before mindDate is entered [\#15487](https://github.com/primefaces/primeng/issues/15487)
+- InputSwitch | Accessibility issue changing the inputswitch status with keyboard [\#15490](https://github.com/primefaces/primeng/issues/15490)
+- Fix message and messages component unit test [\#15492](https://github.com/primefaces/primeng/issues/15492)
+
 ## [17.16.0](https://github.com/primefaces/primeng/tree/17.16.0) (2024-05-03)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.15.0...17.16.0)
 
@@ -579,6 +609,19 @@
 **Implemented New Features and Enhancements:**
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.9-LTS](https://www.npmjs.com/package/primeng/v/16.9.9-lts) (2024-05-10)
+
+**Fixed bugs:**
+-  Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
+-  Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
+-  Tooltip | tooltipEvent - "focus" | "hover" combined [\#15468](https://github.com/primefaces/primeng/issues/15468)
+-  Dropdown head is empty if no value is provided [\#14954](https://github.com/primefaces/primeng/issues/14954)
+-  inputNumber with numeric prefix is not working as expected [\#15311](https://github.com/primefaces/primeng/issues/15311)
+-  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
+-  Dialog | tabbing order is broken because of pFocusTrap [\#15482](https://github.com/primefaces/primeng/issues/15482)
+- AutoFocus | doesn't work in dialog [\#15524](https://github.com/primefaces/primeng/issues/15524)
+- Tooltip | Tooltip is out of position after dialog opens [\#15529](https://github.com/primefaces/primeng/issues/15529)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.8-LTS](https://www.npmjs.com/package/primeng/v/16.9.8-lts) (2024-04-19)
 
@@ -1178,6 +1221,16 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.19-LTS](https://www.npmjs.com/package/primeng/v/15.4.20-lts) (2024-05-10)
+
+**Fixed bugs:**
+- Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
+- Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
+-  Tooltip | tooltipEvent - "focus" | "hover" combined [\#15468](https://github.com/primefaces/primeng/issues/15468)
+-  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
+
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.18-LTS](https://www.npmjs.com/package/primeng/v/15.4.18-lts) (2024-04-19)
 

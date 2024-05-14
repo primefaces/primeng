@@ -332,11 +332,7 @@ describe('Dialog', () => {
         fixture.detectChanges();
 
         tick(300);
-        const escapeEvent: any = document.createEvent('CustomEvent');
-        escapeEvent.which = 27;
-        escapeEvent.initEvent('keydown', true, true);
-        document.dispatchEvent(escapeEvent);
-        document.dispatchEvent(escapeEvent as KeyboardEvent);
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
         fixture.detectChanges();
 
         expect(closeSpy).toHaveBeenCalled();

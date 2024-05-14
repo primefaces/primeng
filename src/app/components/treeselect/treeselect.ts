@@ -53,8 +53,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                     [attr.id]="inputId"
                     readonly
                     [disabled]="disabled"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
                     (keydown)="onKeyDown($event)"
                     [attr.tabindex]="!disabled ? tabindex : -1"
                     [attr.aria-controls]="overlayVisible ? listId : null"
@@ -437,6 +437,7 @@ export class TreeSelect implements AfterContentInit {
      * @group Emits
      */
     @Output() onNodeCollapse: EventEmitter<TreeSelectNodeCollapseEvent> = new EventEmitter<TreeSelectNodeCollapseEvent>();
+
     /**
      * Callback to invoke when the overlay is shown.
      * @param {Event} event - Browser event.
@@ -459,6 +460,18 @@ export class TreeSelect implements AfterContentInit {
      * @group Emits
      */
     @Output() onFilter: EventEmitter<TreeFilterEvent> = new EventEmitter<TreeFilterEvent>();
+    /**
+     * Callback to invoke when treeselect gets focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
+    /**
+     * Callback to invoke when treeselect loses focus.
+     * @param {Event} event - Browser event.
+     * @group Emits
+     */
+    @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke when a node is unselected.
      * @param {TreeNodeUnSelectEvent} event - node unselect event.
@@ -908,7 +921,7 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeSelect.emit(event);
 
         if (this.selectionMode === 'single') {
-            // this.hide();
+            this.hide();
             this.focusInput?.nativeElement.focus();
         }
     }
@@ -917,12 +930,20 @@ export class TreeSelect implements AfterContentInit {
         this.onNodeUnselect.emit(event);
     }
 
-    onFocus() {
+    onInputFocus(event: Event) {
+        if (this.disabled) {
+            // For ScreenReaders
+            return;
+        }
+
         this.focused = true;
+        this.onFocus.emit(event);
     }
 
-    onBlur() {
+    onInputBlur(event: Event) {
         this.focused = false;
+        this.onBlur.emit(event);
+        this.onModelTouched();
     }
 
     writeValue(value: any): void {

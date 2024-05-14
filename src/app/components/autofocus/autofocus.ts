@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, NgModule, booleanAttribute } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Directive, ElementRef, Input, NgModule, PLATFORM_ID, booleanAttribute, inject } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 /**
  * AutoFocus manages focus on focusable element on load.
@@ -12,7 +13,6 @@ import { DomHandler } from 'primeng/dom';
     }
 })
 export class AutoFocus {
-    constructor(private host: ElementRef) {}
     /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
@@ -20,6 +20,12 @@ export class AutoFocus {
     @Input({ transform: booleanAttribute }) autofocus: boolean = false;
 
     focused: boolean = false;
+
+    platformId = inject(PLATFORM_ID);
+
+    document: Document = inject(DOCUMENT);
+
+    host: ElementRef = inject(ElementRef);
 
     ngAfterContentChecked() {
         // This sets the `attr.autofocus` which is different than the Input `autofocus` attribute.
@@ -30,20 +36,30 @@ export class AutoFocus {
         }
 
         if (!this.focused) {
-            if (this.autofocus) {
-                setTimeout(() => {
-                    const focusableElements = DomHandler.getFocusableElements(this.host.nativeElement);
+            this.autoFocus();
+        }
+    }
 
-                    if (focusableElements.length === 0) {
-                        this.host.nativeElement.focus();
-                    }
-                    if (focusableElements.length > 0) {
-                        focusableElements[0].focus();
-                    }
+    ngAfterViewChecked() {
+        if (!this.focused) {
+            this.autoFocus();
+        }
+    }
 
-                    this.focused = true;
-                });
-            }
+    autoFocus() {
+        if (isPlatformBrowser(this.platformId) && this.autofocus) {
+            setTimeout(() => {
+                const focusableElements = DomHandler.getFocusableElements(this.host?.nativeElement);
+
+                if (focusableElements.length === 0) {
+                    this.host.nativeElement.focus();
+                }
+                if (focusableElements.length > 0) {
+                    focusableElements[0].focus();
+                }
+
+                this.focused = true;
+            });
         }
     }
 }

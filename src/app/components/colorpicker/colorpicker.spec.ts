@@ -136,19 +136,15 @@ describe('ColorPicker', () => {
         fixture.detectChanges();
 
         const hideSpy = spyOn(colorpicker, 'hide').and.callThrough();
+        const keydownSpy = spyOn(colorpicker, 'onInputKeydown').and.callThrough();
         const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
-        const openEvent: any = document.createEvent('CustomEvent');
-        openEvent.which = 32;
-        openEvent.initEvent('keydown', true, true);
-        inputEl.nativeElement.dispatchEvent(openEvent);
+        inputEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space', keyCode: 32 }));
         fixture.detectChanges();
 
+        expect(keydownSpy).toHaveBeenCalled();
         let selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));
         expect(selectorEl).toBeTruthy();
-        const escapeEvent: any = document.createEvent('CustomEvent');
-        escapeEvent.which = 27;
-        escapeEvent.initEvent('keydown', true, true);
-        inputEl.nativeElement.dispatchEvent(escapeEvent);
+        inputEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape', keyCode: 27 }));
         fixture.detectChanges();
 
         selectorEl = fixture.debugElement.query(By.css('.p-colorpicker-panel'));

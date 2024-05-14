@@ -22,7 +22,6 @@ import { TemplateDoc } from './templatedoc';
 import { InlineDoc } from './inlinedoc';
 import { TouchUIDoc } from './touchuidoc';
 import { DateTemplateDoc } from './datetemplatedoc';
-import { PropsDoc } from './propsdoc';
 import { StyleDoc } from './styledoc';
 import { EventsDoc } from './eventsdoc';
 import { MethodsDoc } from './methodsdoc';
@@ -56,7 +55,6 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         InlineDoc,
         TouchUIDoc,
         DateTemplateDoc,
-        PropsDoc,
         StyleDoc,
         EventsDoc,
         MethodsDoc,

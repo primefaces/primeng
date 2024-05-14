@@ -19,10 +19,10 @@ import { Code } from '@domain/code';
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
                     <tr>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -49,15 +49,14 @@ export class DataTableDoc implements OnInit {
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
@@ -69,20 +68,23 @@ export class DataTableDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+        
 @Component({
     selector: 'skeleton-data-table-demo',
-    templateUrl: './skeleton-data-table-demo.html'
+    templateUrl: './skeleton-data-table-demo.html',
+    standalone: true,
+    imports: [SkeletonModule, TableModule]
 })
 export class SkeletonDataTableDemo implements OnInit {
     products: any[] | undefined;

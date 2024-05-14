@@ -22,7 +22,9 @@ export class SeverityDoc implements OnInit {
             { severity: 'info', detail: 'Info Message' },
             { severity: 'success', detail: 'Success Message' },
             { severity: 'warn', detail: 'Warning Message' },
-            { severity: 'error', detail: 'Error Message' }
+            { severity: 'error', detail: 'Error Message' },
+            { severity: 'secondary', detail: 'Secondary Message' },
+            { severity: 'contrast', detail: 'Contrast Message' }
         ];
     }
 
@@ -49,7 +51,9 @@ export class MessagesSeverityDemo implements OnInit {
             { severity: 'info', detail: 'Info Message' },
             { severity: 'success', detail: 'Success Message' },
             { severity: 'warn', detail: 'Warning Message' },
-            { severity: 'error', detail: 'Error Message' }
+            { severity: 'error', detail: 'Error Message' },
+            { severity: 'secondary', detail: 'Secondary Message' },
+            { severity: 'contrast', detail: 'Contrast Message' }
         ];
     }
 }`

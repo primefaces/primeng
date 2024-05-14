@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
-            <p-toast></p-toast>
-            <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
-            <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
-            <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>
+            <p-toast />
+            <p-splitButton label="Small" [model]="items" (onClick)="save('info')" size="sm" />
+            <p-splitButton label="Normal" [model]="items" (onClick)="save('info')" />
+            <p-splitButton label="Large" [model]="items" (onClick)="save('info')" size="lg" />
         </div>
         <app-code [code]="code" selector="split-button-sizes-demo"></app-code>
     `,
@@ -23,21 +23,19 @@ export class SizesDoc {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 
@@ -56,26 +54,50 @@ export class SizesDoc {
     }
 
     code: Code = {
-        basic: `<p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
-<p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
-<p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>`,
+        basic: `<p-splitButton 
+    label="Small" 
+    [model]="items" 
+    (onClick)="save('info')" 
+    size="sm" />
+<p-splitButton 
+    label="Normal" 
+    [model]="items" 
+    (onClick)="save('info')" />
+<p-splitButton 
+    label="Large" 
+    [model]="items" 
+    (onClick)="save('info')" 
+    size="lg" />`,
 
-        html: `
-<div class="card flex flex-wrap gap-3 justify-content-center">
-    <p-toast></p-toast>
-    <p-splitButton label="Small" [model]="this.items" (onClick)="save('info')" size="sm"></p-splitButton>
-    <p-splitButton label="Normal" [model]="this.items" (onClick)="save('info')"></p-splitButton>
-    <p-splitButton label="Large" [model]="this.items" (onClick)="save('info')" size="lg"></p-splitButton>
+        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+    <p-toast />
+    <p-splitButton 
+        label="Small" 
+        [model]="items" 
+        (onClick)="save('info')" 
+        size="sm" />
+    <p-splitButton 
+        label="Normal" 
+        [model]="items" 
+        (onClick)="save('info')" />
+    <p-splitButton 
+        label="Large" 
+        [model]="items" 
+        (onClick)="save('info')" 
+        size="lg" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'split-button-sizes-demo',
     templateUrl: './split-button-sizes-demo.html',
-    providers: [ MessageService ]
+    standalone: true,
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitButtonSizesDemo {
     items: MenuItem[];
@@ -84,21 +106,19 @@ export class SplitButtonSizesDemo {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Installation', icon: 'pi pi-cog', routerLink: ['/installation'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 

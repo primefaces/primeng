@@ -57,6 +57,11 @@
         opacity: 1;
     }
 
+    .p-galleria-item-nav-onhover .p-galleria-item-nav-focused {
+        pointer-events: all;
+        opacity: 1;
+    }
+
     .p-galleria-item-nav-onhover .p-galleria-item-wrapper:hover .p-galleria-item-nav.p-disabled {
         pointer-events: none;
     }

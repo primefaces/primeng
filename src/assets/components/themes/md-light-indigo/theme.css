@@ -5932,6 +5932,30 @@
   .p-message .p-message-detail {
     margin-left: 0.5rem;
   }
+  .p-message.p-message-secondary {
+    background: #ff4081;
+    border: solid transparent;
+    border-width: 0 0 0 0;
+    color: #ffffff;
+  }
+  .p-message.p-message-secondary .p-message-icon {
+    color: #ffffff;
+  }
+  .p-message.p-message-secondary .p-message-close {
+    color: #ffffff;
+  }
+  .p-message.p-message-contrast {
+    background: #212121;
+    border: solid transparent;
+    border-width: 0 0 0 0;
+    color: #ffffff;
+  }
+  .p-message.p-message-contrast .p-message-icon {
+    color: #ffffff;
+  }
+  .p-message.p-message-contrast .p-message-close {
+    color: #ffffff;
+  }
 
   .p-toast {
     opacity: 0.9;
@@ -6015,6 +6039,26 @@
   .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
 .p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
     color: #b71c1c;
+  }
+  .p-toast .p-toast-message.p-toast-message-secondary {
+    background: #ff4081;
+    border: solid transparent;
+    border-width: 0 0 0 0;
+    color: #ffffff;
+  }
+  .p-toast .p-toast-message.p-toast-message-secondary .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-secondary .p-toast-icon-close {
+    color: #ffffff;
+  }
+  .p-toast .p-toast-message.p-toast-message-contrast {
+    background: #212121;
+    border: solid transparent;
+    border-width: 0 0 0 0;
+    color: #ffffff;
+  }
+  .p-toast .p-toast-message.p-toast-message-contrast .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-contrast .p-toast-icon-close {
+    color: #ffffff;
   }
 
   .p-galleria .p-galleria-close {
@@ -6206,6 +6250,10 @@
   }
   .p-badge.p-badge-secondary {
     background-color: #ff4081;
+    color: #ffffff;
+  }
+  .p-badge.p-badge-contrast {
+    background-color: #212121;
     color: #ffffff;
   }
   .p-badge.p-badge-success {
@@ -6462,6 +6510,14 @@
   .p-tag .p-icon {
     width: 0.75rem;
     height: 0.75rem;
+  }
+  .p-tag.p-tag-secondary {
+    background-color: #ff4081;
+    color: #ffffff;
+  }
+  .p-tag.p-tag-contrast {
+    background-color: #212121;
+    color: #ffffff;
   }
 
   .p-terminal {

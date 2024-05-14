@@ -10,8 +10,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px" class="flex align-items-center justify-content-center">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
@@ -56,23 +56,33 @@ export class CircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="items" 
+    type="circle" 
+    [radius]="80" 
+    buttonClassName="p-button-warning" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 500px" class="flex align-items-center justify-content-center">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="items" 
+            type="circle" 
+            [radius]="80"
+            buttonClassName="p-button-warning" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-circle-demo',
     templateUrl: './speed-dial-circle-demo.html',
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialCircleDemo implements OnInit {

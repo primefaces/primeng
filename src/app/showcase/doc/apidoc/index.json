@@ -1272,7 +1272,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity level of the message."
                         },
                         {
@@ -4554,7 +4554,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4965,7 +4965,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -11803,6 +11803,16 @@
                                 }
                             ],
                             "description": "This event is triggered if an error occurs while loading an image file."
+                        },
+                        {
+                            "name": "onRemoveUploadedFile",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "RemoveUploadedFileEvent"
+                                }
+                            ],
+                            "description": "This event is triggered if an error occurs while loading an image file."
                         }
                     ]
                 },
@@ -11818,6 +11828,33 @@
                             "name": "clear",
                             "parameters": [],
                             "description": "Clears the files list."
+                        },
+                        {
+                            "name": "remove",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event",
+                                    "description": "Browser event."
+                                },
+                                {
+                                    "name": "index",
+                                    "type": "number",
+                                    "description": "Index of the file."
+                                }
+                            ],
+                            "description": "Removes a single file."
+                        },
+                        {
+                            "name": "removeUploadedFile",
+                            "parameters": [
+                                {
+                                    "name": "index",
+                                    "type": "any",
+                                    "description": "Index of the file to be removed."
+                                }
+                            ],
+                            "description": "Removes uploaded file."
                         }
                     ]
                 }
@@ -11838,6 +11875,26 @@
                                 "readonly": false,
                                 "type": "HttpEvent<any>",
                                 "description": "HTTP event."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "RemoveUploadedFileEvent",
+                        "description": "Remove uploaded file event.",
+                        "props": [
+                            {
+                                "name": "file",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Removed file."
+                            },
+                            {
+                                "name": "files",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any[]",
+                                "description": "Uploaded files."
                             }
                         ]
                     },
@@ -12020,11 +12077,22 @@
                     },
                     {
                         "parent": "fileupload",
+                        "name": "header",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  }"
+                            }
+                        ],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "fileupload",
                         "name": "content",
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: any, // File list.\n  }"
+                                "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t progress: any, // Upload progress.\n  \t messages: any, // Status messages about upload process.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t removeFileCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  \t removeUploadedFileCallback: VoidFunction, // Callback to invoke on remove uploaded file, accepts index as a parameter.\n  }"
                             }
                         ],
                         "description": "Custom template of content."
@@ -21274,8 +21342,8 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
-                            "description": "Size of the Circle or Square."
+                            "type": "\"square\" | \"circle\"",
+                            "description": "Size of the skeleton."
                         },
                         {
                             "name": "width",
@@ -25321,7 +25389,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Severity type of the tag."
                         },
                         {

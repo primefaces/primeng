@@ -301,6 +301,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
             }
         }
     }
@@ -445,6 +446,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         } else if (this.footerViewChild) {
             // If the content section is empty try to focus on footer
             this.focus(this.footerViewChild.nativeElement);
+        } else if (!focusableElement && this.headerViewChild) {
+            this.focus(this.headerViewChild.nativeElement);
         }
     }
 

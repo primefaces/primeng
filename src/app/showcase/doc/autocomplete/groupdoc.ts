@@ -93,15 +93,15 @@ export class GroupDoc implements OnInit {
     [suggestions]="filteredGroups" 
     (completeMethod)="filterGroupedCity($event)" 
     placeholder="Hint: type 'a'">
-    <ng-template let-group pTemplate="group">
-        <div class="flex align-items-center">
-            <img 
-                src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                [class]="'mr-2 flag flag-' + group.value" 
-                style="width: 20px"/>
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
+        <ng-template let-group pTemplate="group">
+            <div class="flex align-items-center">
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                    [class]="'mr-2 flag flag-' + group.value" 
+                    style="width: 20px" />
+                <span>{{ group.label }}</span>
+            </div>
+        </ng-template>
 </p-autoComplete>`,
 
         html: `<div class="card flex justify-content-center">
@@ -111,20 +111,19 @@ export class GroupDoc implements OnInit {
         [suggestions]="filteredGroups" 
         (completeMethod)="filterGroupedCity($event)" 
         placeholder="Hint: type 'a'">
-        <ng-template let-group pTemplate="group">
-            <div class="flex align-items-center">
-                <img 
-                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
-                    [class]="'mr-2 flag flag-' + group.value" 
-                    style="width: 20px"/>
-                <span>{{ group.label }}</span>
-            </div>
-        </ng-template>
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'mr-2 flag flag-' + group.value" 
+                        style="width: 20px" />
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
     </p-autoComplete>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FilterService, SelectItemGroup } from 'primeng/api';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FormsModule } from '@angular/forms';

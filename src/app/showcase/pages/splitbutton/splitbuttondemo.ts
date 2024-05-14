@@ -10,6 +10,7 @@ import { RaisedTextDoc } from '@doc/splitbutton/raisedtextdoc';
 import { OutlinedDoc } from '@doc/splitbutton/outlineddoc';
 import { SizesDoc } from '@doc/splitbutton/sizesdoc';
 import { DisabledDoc } from '@doc/splitbutton/disableddoc';
+import { TemplateDoc } from '@doc/splitbutton/templatedoc';
 import { StyleDoc } from '@doc/splitbutton/styledoc';
 import { AccessibilityDoc } from '@doc/splitbutton/accessibilitydoc';
 
@@ -72,6 +73,11 @@ export class SplitButtonDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'style',

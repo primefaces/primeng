@@ -7,7 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'drag-drop-doc',
     template: `
         <app-docsectiontext>
-            <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property.</p>
+            <p>Items can be reordered using drag and drop by enabling <i>dragdrop</i> property. Depends on <i>&#64;angular/cdk</i> package.</p>
         </app-docsectiontext>
         <div class="card xl:flex xl:justify-content-center">
             <p-orderList [value]="products" [listStyle]="{ 'max-height': '30rem' }" header="List of Products" [dragdrop]="true">

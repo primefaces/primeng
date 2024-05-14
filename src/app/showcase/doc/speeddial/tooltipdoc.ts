@@ -10,9 +10,9 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
-                <p-toast></p-toast>
-                <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
-                <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up" />
+                <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-tooltip-demo"></app-code>
@@ -122,26 +122,56 @@ export class TooltipDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
-<p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="leftTooltipItems" 
+    className="speeddial-right" 
+    direction="up" />
+<p-speedDial 
+    [model]="tooltipItems" 
+    className="speeddial-left" 
+    direction="up" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-tooltip-demo">
-        <p-toast></p-toast>
-        <p-speedDial [model]="leftTooltipItems" className="speeddial-right" direction="up"></p-speedDial>
-        <p-speedDial [model]="tooltipItems" className="speeddial-left" direction="up"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="leftTooltipItems" 
+            className="speeddial-right" 
+            direction="up" />
+        <p-speedDial 
+            [model]="tooltipItems" 
+            className="speeddial-left" 
+            direction="up" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-tooltip-demo',
     templateUrl: './speed-dial-tooltip-demo.html',
-    styleUrls: ['./speed-dial-tooltip-demo.scss'],
+    styles: [
+        \`:host ::ng-deep {
+            .speeddial-tooltip-demo {
+                .p-speeddial-direction-up {
+                    &.speeddial-left {
+                        left: 0;
+                        bottom: 0;
+                    }
+        
+                    &.speeddial-right {
+                        right: 0;
+                        bottom: 0;
+                    }
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialTooltipDemo implements OnInit {
@@ -245,8 +275,7 @@ export class SpeedDialTooltipDemo implements OnInit {
     }
 }`,
 
-        scss: `
-:host ::ng-deep {
+        scss: `:host ::ng-deep {
     .speeddial-tooltip-demo {
         .p-speeddial-direction-up {
             &.speeddial-left {

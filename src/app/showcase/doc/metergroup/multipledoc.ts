@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Adding more items to the array displays the meters in a group.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-meterGroup [value]="value"></p-meterGroup>
+            <p-meterGroup [value]="value" />
         </div>
         <app-code [code]="code" selector="meter-group-multiple-demo"></app-code>
     `
@@ -21,18 +21,20 @@ export class MultipleDoc {
         { label: 'System', color: '#c084fc', value: 10 }
     ];
     code: Code = {
-        basic: `<p-meterGroup [value]="value"></p-meterGroup>`,
+        basic: `<p-meterGroup [value]="value" />`,
 
         html: `<div class="card">
-<p-meterGroup [value]="value"></p-meterGroup>
+    <p-meterGroup [value]="value" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { MeterGroupModule } from 'primeng/metergroup';
 
 @Component({
     selector: 'meter-group-multiple-demo',
-    templateUrl: './meter-group-multiple-demo.html'
+    templateUrl: './meter-group-multiple-demo.html',
+    standalone: true,
+    imports: [MeterGroupModule]
 })
 export class MeterGroupMultipleDemo {
     value = [

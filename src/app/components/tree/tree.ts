@@ -1271,7 +1271,10 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
+                node.style = '--p-focus-ring-color: none;';
                 return;
+            } else {
+                node.style = '--p-focus-ring-color: var(--primary-color)';
             }
 
             if (this.hasFilteredNodes()) {

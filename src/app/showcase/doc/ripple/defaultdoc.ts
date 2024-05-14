@@ -15,22 +15,44 @@ import { Code } from '@domain/code';
 })
 export class DefaultDoc {
     code: Code = {
-        basic: `<div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>`,
-        html: `
-<div class="card card-container flex justify-content-center align-items-center">
-    <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">Default</div>
+        basic: `<div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">
+    Default
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        html: `<div class="card card-container flex justify-content-center align-items-center">
+    <div pRipple class="card text-primary bg-primary flex select-none justify-content-center align-items-center shadow-2">
+        Default
+    </div>
+</div>`,
+        typescript: `import { Component } from '@angular/core';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
+    selector: 'ripple-default-demo',
     templateUrl: './ripple-default-demo.html',
-    styleUrls: ['./ripple-default-demo.scss']
+    styles: [
+        \`:host ::ng-deep .card-container {
+            .card {
+                width: 75px;
+                height: 75px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 1rem;
+                user-select: none;
+                padding: 0;
+        
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [RippleModule]
 })
 export class RippleDefaultDemo {
 }`,
-        scss: `
-:host ::ng-deep .card-container {
+        scss: `:host ::ng-deep .card-container {
     .card {
         width: 75px;
         height: 75px;
