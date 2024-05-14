@@ -616,6 +616,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             this.styleElement.innerHTML = innerHTML;
+            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

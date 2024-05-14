@@ -2975,6 +2975,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
         this.renderer.appendChild(this.document.head, this.styleElement);
+        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
     }
 
     getGroupRowsMeta() {

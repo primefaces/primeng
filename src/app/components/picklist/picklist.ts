@@ -1651,6 +1651,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }
