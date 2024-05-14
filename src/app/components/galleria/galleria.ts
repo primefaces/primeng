@@ -1074,6 +1074,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         this.thumbnailsStyle.innerHTML = innerHTML;
+        DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
     calculatePosition() {

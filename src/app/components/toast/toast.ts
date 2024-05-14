@@ -34,6 +34,7 @@ import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { ToastCloseEvent, ToastItemCloseEvent, ToastPositionType } from './toast.interface';
+import { DomHandler } from 'primeng/dom';
 
 @Component({
     selector: 'p-toastItem',
@@ -480,6 +481,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
             }
 
             this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
