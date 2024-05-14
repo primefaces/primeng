@@ -12,25 +12,25 @@ import { Router } from '@angular/router';
         <div class="card flex justify-content-center">
             <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
                 <ng-template pTemplate="item" let-item>
-                    <ng-container *ngIf="item.route">
+                    <ng-container *ngIf="item.route; else urlRef">
                         <a [routerLink]="item.route" class="flex align-items-center cursor-pointer text-color px-3 py-2">
                             <span [class]="item.icon"></span>
                             <span class="ml-2 text-color">{{ item.label }}</span>
                         </a>
                     </ng-container>
-                    <ng-container *ngIf="item.url">
-                        <a [href]="item.url" class="p-menuitem-link">
+                    <ng-template #urlRef>
+                        <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center cursor-pointer text-color px-3 py-2">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
                         </a>
-                    </ng-container>
-                </ng-template>
-                <ng-template pTemplate="headercontent" let-item>
-                    <div class="flex align-items-center cursor-pointer text-color px-3 py-2">
-                        <span [class]="item.icon"></span>
-                        <span class="ml-2">{{ item.label }}</span>
-                        <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-                    </div>
+                        <ng-template #noLink>
+                            <span class="flex align-items-center cursor-pointer text-color px-3 py-2">
+                                <span [class]="item.icon"></span>
+                                <span class="ml-2">{{ item.label }}</span>
+                                <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
+                            </span>
+                        </ng-template>
+                    </ng-template>
                 </ng-template>
             </p-panelMenu>
         </div>
@@ -90,51 +90,57 @@ export class RouterDoc implements OnInit {
     code: Code = {
         basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
     <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route">
-            <a [routerLink]="item.route" class="flex align-items-center cursor-pointer text-color px-3 py-2">
+        <ng-container *ngIf="item.route; else urlRef">
+            <a [routerLink]="item.route" class="flex align-items-center 
+                cursor-pointer text-color px-3 py-2">
                 <span [class]="item.icon"></span>
                 <span class="ml-2 text-color">{{ item.label }}</span>
             </a>
         </ng-container>
-        <ng-container *ngIf="item.url">
-            <a [href]="item.url" class="p-menuitem-link">
+        <ng-template #urlRef>
+            <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center 
+                cursor-pointer text-color px-3 py-2">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
             </a>
-        </ng-container>
-    </ng-template>
-    <ng-template pTemplate="headercontent" let-item>
-        <div class="flex align-items-center cursor-pointer text-color px-3 py-2">
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-        </div>
+            <ng-template #noLink>
+                <span class="flex align-items-center cursor-pointer text-color px-3 py-2">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                    <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
+                </span>
+            </ng-template>
+        </ng-template>
     </ng-template>
 </p-panelMenu>`,
 
-        html: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
-    <ng-template pTemplate="item" let-item>
-        <ng-container *ngIf="item.route">
-            <a [routerLink]="item.route" class="flex align-items-center cursor-pointer text-color px-3 py-2">
-                <span [class]="item.icon"></span>
-                <span class="ml-2 text-color">{{ item.label }}</span>
-            </a>
-        </ng-container>
-        <ng-container *ngIf="item.url">
-            <a [href]="item.url" class="p-menuitem-link">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-container>
-    </ng-template>
-    <ng-template pTemplate="headercontent" let-item>
-        <div class="flex align-items-center cursor-pointer text-color px-3 py-2">
-            <span [class]="item.icon"></span>
-            <span class="ml-2">{{ item.label }}</span>
-            <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
-        </div>
-    </ng-template>
-</p-panelMenu>`,
+        html: `<div class="card flex justify-content-center">
+    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem">
+        <ng-template pTemplate="item" let-item>
+            <ng-container *ngIf="item.route; else urlRef">
+                <a [routerLink]="item.route" class="flex align-items-center 
+                    cursor-pointer text-color px-3 py-2">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2 text-color">{{ item.label }}</span>
+                </a>
+            </ng-container>
+            <ng-template #urlRef>
+                <a *ngIf="item.url; else noLink" [href]="item.url" class="flex align-items-center 
+                    cursor-pointer text-color px-3 py-2">
+                    <span [class]="item.icon"></span>
+                    <span class="ml-2">{{ item.label }}</span>
+                </a>
+                <ng-template #noLink>
+                    <span class="flex align-items-center cursor-pointer text-color px-3 py-2">
+                        <span [class]="item.icon"></span>
+                        <span class="ml-2">{{ item.label }}</span>
+                        <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
+                    </span>
+                </ng-template>
+            </ng-template>
+        </ng-template>
+    </p-panelMenu>
+</div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';

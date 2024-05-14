@@ -742,7 +742,7 @@ export class PanelMenuList implements OnChanges {
                         (keydown)="onHeaderKeyDown($event, item, i)"
                     >
                         <div class="p-panelmenu-header-content">
-                            <ng-container *ngIf="!headerContentTemplate">
+                            <ng-container *ngIf="!itemTemplate">
                                 <a
                                     *ngIf="!getItemProp(item, 'routerLink')"
                                     [attr.href]="getItemProp(item, 'url')"
@@ -765,7 +765,7 @@ export class PanelMenuList implements OnChanges {
                                     <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
                                 </a>
                             </ng-container>
-                            <ng-container *ngTemplateOutlet="headerContentTemplate; context: { $implicit: item }"></ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             <a
                                 *ngIf="getItemProp(item, 'routerLink')"
                                 [routerLink]="getItemProp(item, 'routerLink')"
@@ -894,8 +894,6 @@ export class PanelMenu implements AfterContentInit {
 
     submenuIconTemplate: TemplateRef<any> | undefined;
 
-    headerContentTemplate: TemplateRef<any> | undefined;
-
     itemTemplate: TemplateRef<any> | undefined;
 
     public animating: boolean | undefined;
@@ -909,10 +907,6 @@ export class PanelMenu implements AfterContentInit {
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
-                case 'headercontent':
-                    this.headerContentTemplate = item.template;
-                    break;
-
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
