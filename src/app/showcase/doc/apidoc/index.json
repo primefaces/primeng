@@ -12084,7 +12084,7 @@
                                 "type": "{\n  \t $implicit: any, // File list.\n  \t uploadedFiles: any, // Uploaded files list.\n  \t chooseCallback: VoidFunction, // Callback to invoke on choose button click.\n  \t clearCallback: VoidFunction, // Callback to invoke on clear button click.\n  \t uploadCallback: VoidFunction, // Callback to invoke on upload.\n  }"
                             }
                         ],
-                        "description": "Custom template of file."
+                        "description": "Custom template of header."
                     },
                     {
                         "parent": "fileupload",
