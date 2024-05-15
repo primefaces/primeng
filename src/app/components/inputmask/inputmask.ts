@@ -94,7 +94,7 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             pAutoFocus
-            [variant]="variant"
+            [attr.variant]="variant"
             [autofocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
