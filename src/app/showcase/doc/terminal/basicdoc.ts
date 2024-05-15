@@ -37,7 +37,7 @@ export class BasicDoc implements OnDestroy {
         basic: `<p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
 <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />`,
         html: `<div class="card">
-    <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet {0}</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
+    <p>Enter "<strong>date</strong>" to display the current date, "<strong>greet &#123;0&#125;</strong>" for a message and "<strong>random</strong>" to get a random number.</p>
     <p-terminal welcomeMessage="Welcome to PrimeNG" prompt="primeng $" />
 </div>`,
         typescript: `import { Component, OnDestroy } from '@angular/core';
