@@ -321,18 +321,20 @@ export class InputOtp implements AfterContentInit {
     }
 
     onPaste(event) {
-        let paste = event.clipboardData.getData('text');
+        if (!this.disabled && !this.readonly) {
+            let paste = event.clipboardData.getData('text');
 
-        if (paste.length) {
-            let pastedCode = paste.substring(0, this.length + 1);
+            if (paste.length) {
+                let pastedCode = paste.substring(0, this.length + 1);
 
-            if (!this.integerOnly || !isNaN(pastedCode)) {
-                this.tokens = pastedCode.split('');
-                this.updateModel(event);
+                if (!this.integerOnly || !isNaN(pastedCode)) {
+                    this.tokens = pastedCode.split('');
+                    this.updateModel(event);
+                }
             }
-        }
 
-        event.preventDefault();
+            event.preventDefault();
+        }
     }
 
     getRange(n: number): number[] {
