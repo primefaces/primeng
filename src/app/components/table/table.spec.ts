@@ -10,7 +10,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CellEditor, EditableColumn, EditableRow, Table, TableModule } from './table';
 import type { Paginator } from '../paginator/paginator';
-import e from 'express';
+
 @Component({
     template: `
         <p-table class="basicTable" [value]="cars">
@@ -369,9 +369,9 @@ import e from 'express';
                     </td>
                     <td>
                         <div>
-                            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(car)" class="p-button-rounded p-button-text"></button>
-                            <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(car)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
-                            <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(car, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
+                            <button pButton type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(car)" class="p-button-rounded p-button-text"></button>
+                            <button pButton type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(car)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
+                            <button pButton type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(car, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
                         </div>
                     </td>
                 </tr>
@@ -453,7 +453,7 @@ class TestBasicTableComponent {
         delete this.clonedProducts[car.vin];
     }
 }
-fdescribe('Table', () => {
+describe('Table', () => {
     let table: Table;
     let filterTable: Table;
     let sortTable: Table;
@@ -1690,40 +1690,38 @@ fdescribe('Table', () => {
         expect(state).toBeNull();
     });
 
-    fit('should not end editing for a row if data changes uses p-calendar', () => {
+    it('should not end editing for a row if data changes uses p-calendar', () => {
         fixture.detectChanges();
         let editableRowTableEl = fixture.debugElement.query(By.css('.editableRowTable'));
         const rowEls = editableRowTableEl.queryAll(By.css('tbody tr'));
         const numberOfRows = rowEls.length;
 
         expect(numberOfRows).toEqual(1);
-        expect(editableRowTable.isRowEditiable).toBeFalsy();
+        expect(editableRowTable.isRowBeingEdited).toBeFalsy();
 
-        const editButton = editableRowTableEl.query(By.css('button'));
+        const actionButtons = editableRowTableEl.queryAll(By.css('button'));
+        expect(actionButtons.length).toEqual(3);
+        const editButton = actionButtons[0];
         editButton.nativeElement.click();
         fixture.detectChanges();
 
         // Check if editing is true
-        expect(editableRowTable.isRowEditiable).toBeTruthy();
-
-        // Change the data
-        const calendarEl = rowEls[0].query(By.css('p-calendar'));
-        calendarEl.nativeElement.click();
-        fixture.detectChanges();
-
-        const calendarInputEl = document.querySelector('input');
-        calendarInputEl.value = '10/10/2024';
-        calendarInputEl.dispatchEvent(new Event('input'));
-        fixture.detectChanges();
-
-        // check editing is still true
         expect(editableRowTable.isRowBeingEdited).toBeTruthy();
-        // Save the data
-        const saveButton = editableRowTableEl.queryAll(By.css('button'))[1];
+
+        const calendarEl = rowEls[0].query(By.css('p-calendar'));
+        const calendarInputEl = calendarEl.query(By.css('input'));
+        calendarInputEl.nativeElement.value = '2021-01-03';
+        calendarInputEl.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(editableRowTable.isRowBeingEdited).toBeTruthy();
+        const saveButton = actionButtons[1];
         saveButton.nativeElement.click();
         fixture.detectChanges();
 
         // Check if editing is false
+        const rowData = editableRowTable.value[0];
+        expect(rowData.datebought).toEqual('2021-01-03');
         expect(editableRowTable.isRowBeingEdited).toBeFalsy();
     });
 });
