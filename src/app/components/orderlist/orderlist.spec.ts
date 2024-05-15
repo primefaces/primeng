@@ -493,30 +493,24 @@ describe('OrderList', () => {
     });
 
     it('should select item with keyboard navigation', () => {
-        const findNextItemSpy = spyOn(orderlist, 'findNextItem').and.callThrough();
-        const findPrevItemSpy = spyOn(orderlist, 'findPrevItem').and.callThrough();
+        const onArrowDownKeySpy = spyOn(orderlist, 'onArrowDownKey').and.callThrough();
+        const onArrowUpKeySpy = spyOn(orderlist, 'onArrowUpKey').and.callThrough();
         fixture.detectChanges();
 
-        const itemListEl = fixture.debugElement.query(By.css('ul'));
-        const bmwEl = itemListEl.queryAll(By.css('.p-orderlist-item'))[3].nativeElement;
-        const event: any = document.createEvent('CustomEvent');
-        event.which = 40;
-        event.initEvent('keydown');
-        bmwEl.dispatchEvent(event);
-        fixture.detectChanges();
+        const itemListEl = fixture.debugElement.query(By.css('.p-orderlist-list')).nativeElement;
 
-        event.which = 38;
-        bmwEl.dispatchEvent(event);
+        itemListEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
         fixture.detectChanges();
-
-        event.which = 13;
-        bmwEl.dispatchEvent(event);
+        itemListEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+        fixture.detectChanges();
+        itemListEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
+        fixture.detectChanges();
+        itemListEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
         expect(orderlist.selection.length).toEqual(1);
-        expect(orderlist.selection[0].brand).toEqual('BMW');
-        expect(findNextItemSpy).toHaveBeenCalled();
-        expect(findPrevItemSpy).toHaveBeenCalled();
-        expect(bmwEl.className).toContain('p-highlight');
+        expect(orderlist.selection[0].brand).toEqual('VW');
+        expect(onArrowDownKeySpy).toHaveBeenCalled();
+        expect(onArrowUpKeySpy).toHaveBeenCalled();
     });
 });
