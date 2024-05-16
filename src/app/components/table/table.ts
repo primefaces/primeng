@@ -2975,6 +2975,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
         this.renderer.appendChild(this.document.head, this.styleElement);
+        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
     }
 
     getGroupRowsMeta() {
@@ -4710,7 +4711,7 @@ export class TableCheckbox {
 
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value);
+            this.checked = this.dt.isSelected(this.value) && !this.disabled;
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
@@ -5243,7 +5244,7 @@ export class ColumnFilter implements AfterContentInit {
      * Enables currency input.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) currency: boolean | undefined;
+    @Input() currency: string | undefined;
     /**
      * Defines the display of the currency input.
      * @group Props

@@ -43,7 +43,7 @@ describe('Listbox', () => {
             { label: 'VW', value: 'VW' },
             { label: 'Volvo', value: 'Volvo' }
         ];
-        const onOptionSelectSpy = spyOn(listbox, 'onOptionSelect').and.callThrough();
+        const onClickSpy = spyOn(listbox.onClick, 'emit').and.callThrough();
         fixture.detectChanges();
 
         const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
@@ -52,7 +52,7 @@ describe('Listbox', () => {
 
         const filterInputEl = fixture.debugElement.query(By.css('.p-listbox-filter-container')).query(By.css('input')).nativeElement;
         expect(filterInputEl.disabled).toEqual(true);
-        expect(onOptionSelectSpy).not.toHaveBeenCalled();
+        expect(onClickSpy).not.toHaveBeenCalled();
     });
 
     it('should call onOptionTouchEnd', () => {
@@ -101,7 +101,7 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         expect(onOptionTouchEndSpy).toHaveBeenCalled();
-        expect(listbox.optionTouched).toEqual(undefined);
+        expect(listbox.optionTouched).toBeTrue();
     });
 
     it('should change style and styleClass', () => {
@@ -259,7 +259,6 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         expect(listbox.value.length).toEqual(10);
-        expect(listbox.selectAll).toEqual(true);
         expect(selectAllEl.className).toContain('p-highlight');
         expect(onToggleAllSpy).toHaveBeenCalled();
     });
@@ -278,6 +277,7 @@ describe('Listbox', () => {
             { label: 'Volvo', value: 'Volvo' }
         ];
         listbox.filter = true;
+        listbox.optionLabel = 'label';
         fixture.detectChanges();
 
         const filterInputEl = fixture.debugElement.query(By.css('.p-listbox-filter-container')).children[0].nativeElement;
@@ -503,7 +503,6 @@ describe('Listbox', () => {
         fixture.detectChanges();
 
         expect(listbox.value.length).toEqual(0);
-        expect(listbox.selectAll).toEqual(false);
         expect(selectAllEl.className).not.toContain('p-highlight');
         expect(toggleAllSpy).toHaveBeenCalledTimes(2);
     });
@@ -577,6 +576,7 @@ describe('Listbox', () => {
         listbox.checkbox = true;
         listbox.filter = true;
         listbox.filterValue = 'o';
+        listbox.optionLabel = 'label';
         fixture.detectChanges();
 
         const headerCheckBoxReadonlyEl = fixture.debugElement.query(By.css('.p-checkbox.p-component')).query(By.css('input'));
@@ -609,27 +609,22 @@ describe('Listbox', () => {
             { label: 'VW', value: 'VW' },
             { label: 'Volvo', value: 'Volvo' }
         ];
-        const findNextOptionIndexSpy = spyOn(listbox, 'findNextOptionIndex').and.callThrough();
-        const findPrevOptionIndexSpy = spyOn(listbox, 'findPrevOptionIndex').and.callThrough();
+        const onArrowDownKeySpy = spyOn(listbox, 'onArrowDownKey').and.callThrough();
+        const onArrowUpKeySpy = spyOn(listbox, 'onArrowUpKey').and.callThrough();
         fixture.detectChanges();
 
-        const bmwEl = fixture.debugElement.query(By.css('ul')).children[1].nativeElement;
-        const event: any = document.createEvent('CustomEvent');
-        event.which = 40;
-        event.initEvent('keydown');
-        bmwEl.dispatchEvent(event);
+        const bmwEl = fixture.debugElement.query(By.css('.p-listbox-list')).nativeElement;
+        bmwEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
         fixture.detectChanges();
 
-        event.which = 38;
-        bmwEl.dispatchEvent(event);
+        bmwEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
         fixture.detectChanges();
 
-        event.which = 13;
-        bmwEl.dispatchEvent(event);
+        bmwEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
-        expect(findNextOptionIndexSpy).toHaveBeenCalled();
-        expect(findPrevOptionIndexSpy).toHaveBeenCalled();
-        expect(listbox.value).toEqual('BMW');
+        expect(onArrowDownKeySpy).toHaveBeenCalled();
+        expect(onArrowUpKeySpy).toHaveBeenCalled();
+        expect(listbox.value).toEqual('Audi');
     });
 });

@@ -48,7 +48,7 @@ import { Subscription } from 'rxjs';
                         [skipLocationChange]="item.skipLocationChange"
                         [replaceUrl]="item.replaceUrl"
                         [state]="item.state"
-                        [ariaCurrentWhenActive]="exact ? 'step' : undefined"
+                        [attr.ariaCurrentWhenActive]="exact ? 'step' : undefined"
                     >
                         <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
@@ -65,7 +65,7 @@ import { Subscription } from 'rxjs';
                             [attr.tabindex]="getItemTabIndex(item, i)"
                             [attr.aria-expanded]="i === activeIndex"
                             [attr.aria-disabled]="item.disabled || (readonly && i !== activeIndex)"
-                            [ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
+                            [attr.ariaCurrentWhenActive]="exact && (!item.disabled || readonly) ? 'step' : undefined"
                         >
                             <span class="p-steps-number">{{ i + 1 }}</span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>

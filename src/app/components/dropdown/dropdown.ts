@@ -169,6 +169,7 @@ export class DropdownItem {
                 *ngIf="editable"
                 #editableInput
                 type="text"
+                [attr.id]="inputId"
                 [attr.maxlength]="maxlength"
                 [ngClass]="inputClass"
                 [disabled]="disabled"
@@ -1221,7 +1222,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updatePlaceHolderForFloatingLabel(): void {
         const parentElement = this.el.nativeElement.parentElement;
-        const isInFloatingLabel = parentElement.classList.contains('p-float-label');
+        const isInFloatingLabel = parentElement?.classList.contains('p-float-label');
         if (parentElement && isInFloatingLabel && !this.selectedOption) {
             const label = parentElement.querySelector('label');
             if (label) {

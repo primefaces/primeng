@@ -10,6 +10,7 @@ import {
     DoCheck,
     ElementRef,
     EventEmitter,
+    HostListener,
     Inject,
     Input,
     KeyValueDiffers,
@@ -67,6 +68,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (maskHide)="onMaskHide()"
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
+                    [fullScreen]="fullScreen"
                 ></p-galleriaContent>
             </div>
         </div>
@@ -417,6 +419,7 @@ export class Galleria implements OnChanges, OnDestroy {
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}"
             [class]="galleriaClass()"
             pFocusTrap
+            [pFocusTrapDisabled]="!fullScreen"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
                 <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
@@ -480,6 +483,8 @@ export class GalleriaContent implements DoCheck {
 
     @Input({ transform: numberAttribute }) numVisible: number | undefined;
 
+    @Input({ transform: booleanAttribute }) fullScreen: boolean;
+
     @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
 
     @Output() activeItemChange: EventEmitter<number> = new EventEmitter();
@@ -498,9 +503,19 @@ export class GalleriaContent implements DoCheck {
 
     private differ: any;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig) {
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig, private elementRef: ElementRef) {
         this.id = this.galleria.id || UniqueComponentId();
         this.differ = this.differs.find(this.galleria).create();
+    }
+
+    // For custom fullscreen
+    @HostListener('document:fullscreenchange', ['$event'])
+    handleFullscreenChange(event: Event) {
+        if (document?.fullscreenElement === this.elementRef.nativeElement?.children[0]) {
+            this.fullScreen = true;
+        } else {
+            this.fullScreen = false;
+        }
     }
 
     ngDoCheck(): void {
@@ -649,10 +664,12 @@ export class GalleriaItemSlot {
                     *ngIf="showItemNavigators"
                     type="button"
                     role="navigation"
-                    [ngClass]="{ 'p-galleria-item-prev p-galleria-item-nav p-link': true, 'p-disabled': this.isNavBackwardDisabled() }"
+                    [ngClass]="{ 'p-galleria-item-prev p-galleria-item-nav p-link': true, 'p-galleria-item-nav-focused': leftButtonFocused, 'p-disabled': this.isNavBackwardDisabled() }"
                     (click)="navBackward($event)"
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
+                    (focus)="onButtonFocus('left')"
+                    (blur)="onButtonBlur('left')"
                 >
                     <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
@@ -663,11 +680,13 @@ export class GalleriaItemSlot {
                 <button
                     *ngIf="showItemNavigators"
                     type="button"
-                    [ngClass]="{ 'p-galleria-item-next p-galleria-item-nav p-link': true, 'p-disabled': this.isNavForwardDisabled() }"
+                    [ngClass]="{ 'p-galleria-item-next p-galleria-item-nav p-link': true, 'p-galleria-item-nav-focused': rightButtonFocused, 'p-disabled': this.isNavForwardDisabled() }"
                     (click)="navForward($event)"
                     [disabled]="isNavForwardDisabled()"
                     pRipple
                     role="navigation"
+                    (focus)="onButtonFocus('right')"
+                    (blur)="onButtonBlur('right')"
                 >
                     <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
@@ -739,6 +758,10 @@ export class GalleriaItem implements OnChanges {
 
     _activeIndex: number = 0;
 
+    leftButtonFocused: boolean = false;
+
+    rightButtonFocused: boolean = false;
+
     constructor(public galleria: Galleria) {}
 
     ngOnChanges({ autoPlay }: SimpleChanges): void {
@@ -761,6 +784,18 @@ export class GalleriaItem implements OnChanges {
         let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
         let activeIndex = this.circular && this.activeIndex === 0 ? (<any[]>this.value).length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
+    }
+
+    onButtonFocus(pos: 'left' | 'right') {
+        if (pos === 'left') {
+            this.leftButtonFocused = true;
+        } else this.rightButtonFocused = true;
+    }
+
+    onButtonBlur(pos: 'left' | 'right') {
+        if (pos === 'left') {
+            this.leftButtonFocused = false;
+        } else this.rightButtonFocused = false;
     }
 
     stopTheSlideShow() {
@@ -1074,6 +1109,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         this.thumbnailsStyle.innerHTML = innerHTML;
+        DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
     calculatePosition() {

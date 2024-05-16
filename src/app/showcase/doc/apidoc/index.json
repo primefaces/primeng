@@ -5087,13 +5087,23 @@
                     {
                         "parent": "button",
                         "name": "icon",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: NgClass, // Icon class.\n  }"
+                            }
+                        ],
                         "description": "Custom template of icon."
                     },
                     {
                         "parent": "button",
                         "name": "loadingicon",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: NgClass, // Icon class.\n  }"
+                            }
+                        ],
                         "description": "Custom template of loadingicon."
                     }
                 ]
@@ -6961,7 +6971,7 @@
                             "name": "type",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "\"line\" | \"bar\" | \"scatter\" | \"bubble\" | \"pie\" | \"doughnut\" | \"polarArea\" | \"radar\"",
                             "description": "Type of the chart."
                         },
                         {
@@ -21342,7 +21352,7 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"square\" | \"circle\"",
+                            "type": "string",
                             "description": "Size of the skeleton."
                         },
                         {
@@ -27386,6 +27396,14 @@
                             "type": "string",
                             "description": "Transition options of the hide animation.",
                             "deprecated": "since v14.2.0 use overlayOptions property instead."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Displays a loader to indicate data load is in progress."
                         }
                     ]
                 },
@@ -27451,6 +27469,26 @@
                                 }
                             ],
                             "description": "Callback to invoke when data is filtered."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when treeselect gets focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when treeselect loses focus."
                         },
                         {
                             "name": "onNodeUnselect",

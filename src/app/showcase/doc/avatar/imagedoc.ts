@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
                 </div>
                 <div class="flex-auto">
                     <h5>Badge</h5>
-                    <p-avatar pBadge value="4" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" badgeSize="large"/>
+                    <p-avatar pBadge value="4" image="https://primefaces.org/cdn/primeng/images/demo/avatar/walter.jpg" size="xlarge" badgeSize="large" />
                 </div>
                 <div class="flex-auto">
                     <h5>Gravatar</h5>

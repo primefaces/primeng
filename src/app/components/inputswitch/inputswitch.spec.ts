@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { InputSwitch } from './inputswitch';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,6 +29,7 @@ describe('InputSwitch', () => {
         fixture.detectChanges();
 
         const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
+        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
         const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
         inputSwitchEl.click();
@@ -36,7 +37,8 @@ describe('InputSwitch', () => {
 
         expect(inputSwitchEl.className).toContain('p-disabled');
         expect(inputEl.disabled).toEqual(true);
-        expect(onClickSpy).not.toHaveBeenCalled();
+        expect(onClickSpy).toHaveBeenCalled();
+        expect(onModelChangeSpy).not.toHaveBeenCalled();
     });
 
     it('should change style and styleClass', () => {
@@ -120,6 +122,7 @@ describe('InputSwitch', () => {
         fixture.detectChanges();
 
         const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
+        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
         const inputSwitchEl = fixture.debugElement.query(By.css('div')).nativeElement;
         const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
         inputSwitchEl.click();
@@ -127,20 +130,27 @@ describe('InputSwitch', () => {
 
         expect(inputSwitchEl.className).toContain('p-disabled');
         expect(inputEl.disabled).toEqual(true);
-        expect(onClickSpy).not.toHaveBeenCalled();
+        expect(onClickSpy).toHaveBeenCalled();
+        expect(onModelChangeSpy).not.toHaveBeenCalled();
     });
 
     it('should toggle the modelValue and call necessary functions when not disabled and not readonly', () => {
-        spyOn(inputswitch, 'onClick');
+        const onClickSpy = spyOn(inputswitch, 'onClick').and.callThrough();
+        const onChangeSpy = spyOn(inputswitch.onChange, 'emit').and.callThrough();
+        const onModelChangeSpy = spyOn(inputswitch, 'onModelChange').and.callThrough();
+
         const divElement: HTMLElement = fixture.debugElement.query(By.css('div')).nativeElement;
         divElement.click();
-        expect(inputswitch.onClick).toHaveBeenCalledWith(jasmine.anything());
+        fixture.detectChanges();
+
+        expect(onClickSpy).toHaveBeenCalledWith(jasmine.anything());
 
         const initialModelValue = inputswitch.modelValue;
         inputswitch.onClick(new Event('click'));
+
         expect(inputswitch.modelValue).toEqual(initialModelValue ? inputswitch.falseValue : inputswitch.trueValue);
-        expect(inputswitch.onModelChange).toHaveBeenCalledWith(inputswitch.modelValue);
-        expect(inputswitch.onChange.emit).toHaveBeenCalledWith({
+        expect(onModelChangeSpy).toHaveBeenCalled();
+        expect(onChangeSpy).toHaveBeenCalledWith({
             originalEvent: jasmine.anything(),
             checked: inputswitch.modelValue
         });
