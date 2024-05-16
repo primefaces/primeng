@@ -142,7 +142,7 @@ describe('InputSwitch', () => {
         const divElement: HTMLElement = fixture.debugElement.query(By.css('div')).nativeElement;
         divElement.click();
         fixture.detectChanges();
-        
+
         expect(onClickSpy).toHaveBeenCalledWith(jasmine.anything());
 
         const initialModelValue = inputswitch.modelValue;

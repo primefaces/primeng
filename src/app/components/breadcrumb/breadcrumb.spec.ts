@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-fdescribe('Breadcrumb', () => {
+describe('Breadcrumb', () => {
     let breadcrumb: Breadcrumb;
     let fixture: ComponentFixture<Breadcrumb>;
 
