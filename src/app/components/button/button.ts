@@ -61,7 +61,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * Text of the button.
      * @group Props
      */
-    @Input() get label(): string {
+    @Input() get label(): string | undefined {
         return this._label as string;
     }
     set label(val: string) {
