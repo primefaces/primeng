@@ -5244,7 +5244,7 @@ export class ColumnFilter implements AfterContentInit {
      * Enables currency input.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) currency: boolean | undefined;
+    @Input() currency: string | undefined;
     /**
      * Defines the display of the currency input.
      * @group Props
