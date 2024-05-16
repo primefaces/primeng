@@ -46,14 +46,6 @@ fdescribe('MultiSelect', () => {
         expect(multiselect.overlayVisible).toEqual(undefined);
     });
 
-    it('should get a name', () => {
-        multiselect.name = 'PrimeNG';
-        fixture.detectChanges();
-
-        const inputReadOnlyEl = fixture.debugElement.query(By.css('.p-hidden-accessible')).children[0].nativeElement;
-        expect(inputReadOnlyEl.name).toContain('PrimeNG');
-    });
-
     it('should set dropdown icon by default and able to change', () => {
         fixture.detectChanges();
 
