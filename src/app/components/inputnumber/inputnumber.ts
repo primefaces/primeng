@@ -1192,10 +1192,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
         // Will allow selecting whole prefix. But not a part of it.
         // Negative values will trigger clauses after this to fix the cursor position.
-        if (selectionStart === selectionEnd
-            || selectionStart !== 0 
-            || selectionEnd < prefixLength)
-        {
+        if (selectionStart === selectionEnd || selectionStart !== 0 || selectionEnd < prefixLength) {
             selectionStart -= prefixLength;
         }
 

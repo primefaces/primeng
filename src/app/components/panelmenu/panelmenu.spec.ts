@@ -215,7 +215,7 @@ describe('PanelMenu', () => {
         expect(panelHeaderLinkEl.nativeElement.target).toEqual('primeng');
         expect(panelHeaderLinkEl.nativeElement.disabled).toBeTruthy;
         expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain('Primeng ROCKS!');
-        expect(panelHeaderLinkEl.nativeElement.innerHTML).toContain("New");
+        expect(panelHeaderLinkEl.nativeElement.innerHTML).toContain('New');
     });
 
     it('should show items and call toggle', () => {
