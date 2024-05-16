@@ -112,34 +112,26 @@ fdescribe('MultiSelect', () => {
     });
 
     it('should open and close with keydown', () => {
+        const onShowSpy = spyOn(multiselect, 'show').and.callThrough();
+        const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
+
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input'));
-        const onKeyDownSpy = spyOn(multiselect, 'onKeyDown').and.callThrough();
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.altKey = true;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
+        const multiselectEl = fixture.debugElement.query(By.css('input')).nativeElement;
+
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab' }));
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
-        const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
-        let multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
+        const multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel')).nativeElement;
+        fixture.detectChanges();
         expect(multiselect.overlayVisible).toEqual(true);
         expect(multiselectPanelEl).toBeTruthy();
-        expect(onKeyDownSpy).toHaveBeenCalled();
-        keydownEvent.which = 27;
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
-        fixture.detectChanges();
 
-        expect(hideSpy).toHaveBeenCalled();
-        keydownEvent.which = 32;
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
         fixture.detectChanges();
-
-        multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
-        expect(multiselect.overlayVisible).toEqual(true);
-        expect(multiselectPanelEl).toBeTruthy();
+        expect(onShowSpy).toHaveBeenCalled();
+        expect(onHideSpy).toHaveBeenCalled();
     });
 
     it('should close when double click', () => {
