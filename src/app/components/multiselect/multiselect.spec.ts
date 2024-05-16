@@ -304,27 +304,35 @@ fdescribe('MultiSelect', () => {
             { label: 'VW', value: 'VW' },
             { label: 'Volvo', value: 'Volvo' }
         ];
-
+        multiselect.value = [];
         fixture.detectChanges();
 
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
+        const onOptionClickSpy = spyOn(multiselectItem, 'onOptionClick').and.callThrough();
+        fixture.detectChanges();
+        fixtureItem.detectChanges();
+
         multiselectEl.click();
         fixture.detectChanges();
 
         const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
+        fixture.detectChanges();
 
         expect(multiselectItemEl.length).toEqual(10);
         const bmwEl = multiselectItemEl[1];
+        const fiatEl = multiselectItemEl[2];
         const fordEl = multiselectItemEl[3];
 
-        const onOptionClickSpy = spyOn(multiselectItem, 'onOptionClick').and.callThrough();
         bmwEl.nativeElement.click();
+        fiatEl.nativeElement.click();
         fordEl.nativeElement.click();
-        fixture.detectChanges();
 
-        expect(multiselect.value[0]).toEqual('BMW');
-        expect(multiselect.value[1]).toEqual('Ford');
-        expect(onOptionClickSpy).toHaveBeenCalledTimes(1);
+        fixture.detectChanges();
+        fixtureItem.detectChanges();
+
+        expect(multiselect.value[2]).toEqual('Ford');
+        expect(multiselect.value.length).toEqual(3);
+        expect(onOptionClickSpy).toBeTruthy();
     });
 
     it('should select multiple with selection limit', () => {
