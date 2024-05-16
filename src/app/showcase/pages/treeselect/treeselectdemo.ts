@@ -12,6 +12,7 @@ import { MultipleDoc } from '@doc/treeselect/multipledoc';
 import { StyleDoc } from '@doc/treeselect/styledoc';
 import { VirtualScrollDoc } from '@doc/treeselect/virtualscrolldoc';
 import { FilledDoc } from '@doc/treeselect/filleddoc';
+import { LazyDoc } from '@doc/treeselect/lazydoc';
 
 @Component({
     templateUrl: './treeselectdemo.html'
@@ -47,6 +48,11 @@ export class TreeSelectDemo {
             id: 'virtual-scroll-doc',
             label: 'Virtual Scroll',
             component: VirtualScrollDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'filter',

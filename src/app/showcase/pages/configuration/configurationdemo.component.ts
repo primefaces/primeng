@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CspDoc } from '@doc/configuration/cspdoc';
 import { FilterModeDoc } from '@doc/configuration/filtermodedoc';
 import { ImportDoc } from '@doc/configuration/importdoc';
 import { ApiDoc } from '@doc/configuration/locale/apidoc';
@@ -28,6 +29,17 @@ export class ConfigurationDemoComponent {
             id: 'zIndex',
             label: 'ZIndex',
             component: ZIndexDoc
+        },
+        {
+            id: 'csp',
+            label: 'CSP',
+            children: [
+                {
+                    id: 'csp-nonce',
+                    label: 'Nonce',
+                    component: CspDoc
+                }
+            ]
         },
         {
             id: 'filter-mode',

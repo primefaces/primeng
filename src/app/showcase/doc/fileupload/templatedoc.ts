@@ -73,9 +73,9 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
 export class TemplateDoc {
     files = [];
 
-    totalSize : number = 0;
+    totalSize: number = 0;
 
-    totalSizePercent : number = 0;
+    totalSizePercent: number = 0;
 
     constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
 

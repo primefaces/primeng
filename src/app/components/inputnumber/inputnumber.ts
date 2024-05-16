@@ -68,7 +68,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
                 [value]="formattedValue()"
-                [variant]="variant"
+                [attr.variant]="variant"
                 [attr.aria-valuemin]="min"
                 [attr.aria-valuemax]="max"
                 [attr.aria-valuenow]="value"
@@ -1181,6 +1181,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     initCursor() {
         let selectionStart = this.input?.nativeElement.selectionStart;
+        let selectionEnd = this.input?.nativeElement.selectionEnd;
         let inputValue = this.input?.nativeElement.value;
         let valueLength = inputValue.length;
         let index = null;
@@ -1188,7 +1189,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         // remove prefix
         let prefixLength = (this.prefixChar || '').length;
         inputValue = inputValue.replace(this._prefix, '');
-        selectionStart = selectionStart - prefixLength;
+
+        // Will allow selecting whole prefix. But not a part of it.
+        // Negative values will trigger clauses after this to fix the cursor position.
+        if (selectionStart === selectionEnd || selectionStart !== 0 || selectionEnd < prefixLength) {
+            selectionStart -= prefixLength;
+        }
 
         let char = inputValue.charAt(selectionStart);
         if (this.isNumeralChar(char)) {

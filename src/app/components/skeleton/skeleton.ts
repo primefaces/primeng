@@ -44,7 +44,7 @@ export class Skeleton {
      * Size of the skeleton.
      * @group Props
      */
-    @Input() size: 'circle' | 'square' | undefined;
+    @Input() size: string | undefined;
     /**
      * Width of the element.
      * @group Props

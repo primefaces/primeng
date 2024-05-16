@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -20,7 +20,8 @@ describe('InputMask', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule, FormsModule],
-            declarations: [InputMask, TestInputMaskComponent]
+            declarations: [InputMask, TestInputMaskComponent],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(TestInputMaskComponent);

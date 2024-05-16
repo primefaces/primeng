@@ -301,6 +301,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
             }
         }
     }

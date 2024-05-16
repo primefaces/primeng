@@ -19,10 +19,11 @@ import { StyleDoc } from './styledoc';
 import { VirtualScrollDoc } from './virtualscrolldoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { FilledDoc } from './filleddoc';
+import { LazyDoc } from './lazydoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, AppDocModule, TreeSelectModule, FormsModule, ReactiveFormsModule, RouterModule, FloatLabelModule],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc]
+    declarations: [ImportDoc, BasicDoc, MultipleDoc, CheckboxDoc, LazyDoc, VirtualScrollDoc, FilterDoc, FloatLabelDoc, InvalidDoc, DisabledDoc, StyleDoc, AccessibilityDoc, ReactiveFormsDoc, FilledDoc]
 })
 export class TreeSelectDocModule {}

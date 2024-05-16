@@ -1,6 +1,6 @@
 import { DomHandler } from 'primeng/dom';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATFORM_ID } from '@angular/core';
+import { Directive, ElementRef, Input, NgModule, inject, booleanAttribute, PLATFORM_ID, SimpleChanges } from '@angular/core';
 
 /**
  * Focus Trap keeps focus within a certain DOM element while tabbing.
@@ -31,10 +31,29 @@ export class FocusTrap {
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId) && !this.pFocusTrapDisabled) {
-            this.createHiddenFocusableElements();
+            !this.firstHiddenFocusableElement && !this.lastHiddenFocusableElement && this.createHiddenFocusableElements();
         }
     }
 
+    ngOnChanges(changes: SimpleChanges) {
+        if (changes.pFocusTrapDisabled && isPlatformBrowser(this.platformId)) {
+            if (changes.pFocusTrapDisabled.currentValue) {
+                this.removeHiddenFocusableElements();
+            } else {
+                this.createHiddenFocusableElements();
+            }
+        }
+    }
+
+    removeHiddenFocusableElements() {
+        if (this.firstHiddenFocusableElement && this.firstHiddenFocusableElement.parentNode) {
+            this.firstHiddenFocusableElement.parentNode.removeChild(this.firstHiddenFocusableElement);
+        }
+
+        if (this.lastHiddenFocusableElement && this.lastHiddenFocusableElement.parentNode) {
+            this.lastHiddenFocusableElement.parentNode.removeChild(this.lastHiddenFocusableElement);
+        }
+    }
     getComputedSelector(selector) {
         return `:not(.p-hidden-focusable):not([data-p-hidden-focusable="true"])${selector ?? ''}`;
     }

@@ -3558,6 +3558,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
+            DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

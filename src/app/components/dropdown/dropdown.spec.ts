@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Dropdown, DropdownItem } from './dropdown';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -94,17 +94,15 @@ describe('Dropdown', () => {
         dropdown = fixture.componentInstance;
     });
 
-    it('should disabled', () => {
+    it('should disable', () => {
         fixture.componentInstance.disabled = true;
         fixture.componentInstance.editable = true;
         fixture.detectChanges();
 
         dropdown.cd.detectChanges();
         const containerEl = fixture.debugElement.query(By.css('.p-dropdown')).nativeElement;
-        const hiddenEl = fixture.debugElement.queryAll(By.css('.p-hidden-accessible'))[0].children[0].nativeElement;
-        const editableInputEl = fixture.debugElement.queryAll(By.css('input'))[1].nativeElement;
+        const editableInputEl = fixture.debugElement.query(By.css('input')).nativeElement;
         expect(containerEl.className).toContain('p-disabled');
-        expect(hiddenEl.disabled).toEqual(true);
         expect(editableInputEl.disabled).toEqual(true);
     });
 
@@ -161,8 +159,8 @@ describe('Dropdown', () => {
         fixture.detectChanges();
 
         const dropdownPanel = fixture.debugElement.query(By.css('.p-dropdown-panel'));
-        expect(container.className).toContain('p-dropdown-open');
         expect(dropdownPanel).toBeTruthy();
+        expect(dropdown.overlayVisible).toBeTrue();
     });
 
     it('should close', () => {
@@ -234,7 +232,7 @@ describe('Dropdown', () => {
         expect(items.children[2].nativeElement.className).not.toContain('p-highlight');
     });
 
-    it('should filtered', async(() => {
+    it('should filter', fakeAsync(() => {
         dropdown.filter = true;
         dropdown.filterValue = 'n';
         fixture.detectChanges();
@@ -253,7 +251,7 @@ describe('Dropdown', () => {
         fixture.detectChanges();
 
         let items = fixture.debugElement.query(By.css('.p-dropdown-items'));
-        expect(items.nativeElement.children.length).toEqual(3);
+        expect(items.nativeElement.children.length).toEqual(5);
         const filterDiv = fixture.debugElement.query(By.css('.p-dropdown-filter-container'));
         expect(filterDiv).toBeTruthy();
         const filterInputEl = fixture.debugElement.query(By.css('.p-dropdown-filter'));
@@ -265,9 +263,10 @@ describe('Dropdown', () => {
 
         items = fixture.debugElement.query(By.css('.p-dropdown-items'));
         expect(items.nativeElement.children.length).toEqual(3);
+        flush();
     }));
 
-    it('should filtered and display not found warning', async(() => {
+    it('should filtered and display not found warning', fakeAsync(() => {
         dropdown.options = [
             { label: 'New York', code: 'NY' },
             { label: 'Rome', code: 'RM' },
@@ -296,9 +295,10 @@ describe('Dropdown', () => {
         expect(items.nativeElement.children.length).toEqual(1);
         expect(emptyMesage).toBeTruthy();
         expect(emptyMesage.nativeElement.textContent).toContain('No results found');
+        flush();
     }));
 
-    it('should open with down and altkey', () => {
+    it('should open with down key', () => {
         dropdown.options = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -309,14 +309,8 @@ describe('Dropdown', () => {
         dropdown.appendTo = 'body';
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        keydownEvent.altKey = true;
-        inputEl.dispatchEvent(new Event('focus'));
-        inputEl.dispatchEvent(keydownEvent);
-        inputEl.dispatchEvent(new Event('blur'));
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
         fixture.detectChanges();
 
         const dropdownPanel = fixture.debugElement.query(By.css('.p-dropdown-panel'));
@@ -335,58 +329,48 @@ describe('Dropdown', () => {
         dropdown.appendTo = 'body';
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 32;
-        keydownEvent.initEvent('keydown', true, true);
-        keydownEvent.altKey = true;
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Space' })); //open overlay
         fixture.detectChanges();
 
         const dropdownPanel = fixture.debugElement.query(By.css('.p-dropdown-panel'));
         expect(dropdownPanel).toBeTruthy();
         expect(dropdown.overlayVisible).toBeTruthy();
-        keydownEvent.which = 27;
-        inputEl.dispatchEvent(keydownEvent);
+
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
         fixture.detectChanges();
 
         expect(dropdown.overlayVisible).toBeFalsy();
     });
 
-    it('should select with down key', () => {
-        groupFixture.detectChanges();
+    it('should select with down key when selectOnFocus = true', () => {
+        fixture.detectChanges();
 
-        testDropdown.options = [
+        dropdown.options = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
             { name: 'Paris', code: 'PRS' }
         ];
-        testDropdown.appendTo = document.body;
-        testDropdown.optionValue = 'code';
-        testDropdown.optionLabel = 'name';
-        testDropdown.filter = true;
-        testDropdown.filterValue = 'n';
-        groupFixture.detectChanges();
+        dropdown.appendTo = document.body;
+        dropdown.optionValue = 'code';
+        dropdown.optionLabel = 'name';
+        dropdown.selectOnFocus = true;
+        fixture.detectChanges();
 
-        groupFixture.debugElement.children[2].nativeElement.click();
-        groupFixture.detectChanges();
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        const downKeyboardEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+        inputEl.dispatchEvent(downKeyboardEvent); //open overlay and focus on first item
+        inputEl.dispatchEvent(downKeyboardEvent); //focus next item
+        fixture.detectChanges();
 
-        expect(testDropdown.selectedOption.name).toEqual('New York');
-        const inputEl = groupFixture.debugElement.children[1].query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        keydownEvent.altKey = true;
-        inputEl.dispatchEvent(keydownEvent);
-        groupFixture.detectChanges();
+        expect(dropdown.overlayVisible).toBeTrue();
+        expect(dropdown.modelValue()).toBe('RM');
 
-        keydownEvent.altKey = false;
-        inputEl.dispatchEvent(keydownEvent);
-        groupFixture.detectChanges();
-
-        expect(testDropdown.selectedOption.name).toEqual('London');
+        inputEl.dispatchEvent(downKeyboardEvent); //focus next item
+        fixture.detectChanges();
+        expect(dropdown.modelValue()).toBe('LDN');
     });
 
     it('should select with enter key and close the overlay', () => {
@@ -400,22 +384,20 @@ describe('Dropdown', () => {
         dropdown.appendTo = document.body;
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        keydownEvent.altKey = true;
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' })); // open overlay and focus on first item
         fixture.detectChanges();
 
-        keydownEvent.which = 13;
-        inputEl.dispatchEvent(keydownEvent);
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); // select and close overlay
         fixture.detectChanges();
 
         expect(dropdown.overlayVisible).toBeFalsy();
+        expect(dropdown.selectedOption.code).toBe('NY');
     });
 
     it('should select with up key', () => {
+        fixture.detectChanges();
+        dropdown.selectOnFocus = true;
         dropdown.options = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -425,18 +407,18 @@ describe('Dropdown', () => {
         ];
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 38;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
         fixture.detectChanges();
 
-        expect(dropdown.selectedOption.name).toEqual('Paris');
+        expect(dropdown.value.name).toEqual('Paris');
     });
 
     it('should select with up key and skip disabled options', () => {
+        fixture.detectChanges();
+
         dropdown.optionDisabled = 'inactive';
+        dropdown.selectOnFocus = true;
         dropdown.options = [
             { name: 'New York', code: 'NY' },
             { name: 'Rome', code: 'RM' },
@@ -446,14 +428,11 @@ describe('Dropdown', () => {
         ];
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 38;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
         fixture.detectChanges();
 
-        expect(dropdown.selectedOption.name).toEqual('London');
+        expect(dropdown.value.name).toEqual('London');
     });
 
     it('should select with filter', () => {
@@ -466,94 +445,82 @@ describe('Dropdown', () => {
         ];
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.altKey = true;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' })); //open overlay
         fixture.detectChanges();
 
-        keydownEvent.which = 76;
-        keydownEvent.keyCode = 76;
-        keydownEvent.key = 'l';
-        inputEl.dispatchEvent(keydownEvent);
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'l' })); // type 'l' key
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); // select field
         fixture.detectChanges();
 
         expect(dropdown.selectedOption.label).toEqual('London');
     });
 
-    it('should groupSelect with down key', () => {
+    it('should focus on next grouped item with down key', () => {
+        groupDropdown.selectOnFocus = true;
         groupFixture.detectChanges();
 
-        const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
-        groupFixture.detectChanges();
-
-        expect(groupDropdown.selectedOption.label).toEqual('Audi');
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = groupFixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        const downKeyboardEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+        inputEl.dispatchEvent(downKeyboardEvent); //open overlay
+        inputEl.dispatchEvent(downKeyboardEvent); //focus on first item
         groupFixture.detectChanges();
 
         expect(groupDropdown.selectedOption.label).toEqual('BMW');
-        inputEl.dispatchEvent(keydownEvent);
-        inputEl.dispatchEvent(keydownEvent);
+        inputEl.dispatchEvent(downKeyboardEvent);
         groupFixture.detectChanges();
 
-        expect(groupDropdown.selectedOption.label).toEqual('Cadillac');
+        expect(groupDropdown.selectedOption.label).toEqual('Mercedes');
+        inputEl.dispatchEvent(downKeyboardEvent);
+        inputEl.dispatchEvent(downKeyboardEvent);
+        groupFixture.detectChanges();
+
+        expect(groupDropdown.selectedOption.label).toEqual('Ford');
     });
 
     it('should groupSelect with up key', () => {
         groupFixture.detectChanges();
 
-        const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
-        inputEl.dispatchEvent(keydownEvent);
-        inputEl.dispatchEvent(keydownEvent);
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = groupFixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        const keyDownEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+        const keyEnterEvent = new KeyboardEvent('keydown', { code: 'Enter' });
+        inputEl.dispatchEvent(keyDownEvent); //open overlay and focus on first item
+        inputEl.dispatchEvent(keyDownEvent); //move down
+        inputEl.dispatchEvent(keyDownEvent); //move down
+        inputEl.dispatchEvent(keyDownEvent); //move down
+        inputEl.dispatchEvent(keyDownEvent); //move down
+        inputEl.dispatchEvent(keyEnterEvent); //select
+        groupFixture.detectChanges();
+
+        expect(groupDropdown.selectedOption.label).toEqual('Ford');
+
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' })); //open overlay
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' })); // move up
+        inputEl.dispatchEvent(keyEnterEvent); //select
         groupFixture.detectChanges();
 
         expect(groupDropdown.selectedOption.label).toEqual('Cadillac');
-        keydownEvent.which = 38;
-        inputEl.dispatchEvent(keydownEvent);
+        inputEl.dispatchEvent(keyDownEvent); //open overlay
+        inputEl.dispatchEvent(keyDownEvent); //move down
+        inputEl.dispatchEvent(keyEnterEvent); //select
         groupFixture.detectChanges();
 
-        expect(groupDropdown.selectedOption.label).toEqual('Mercedes');
-        inputEl.dispatchEvent(keydownEvent);
-        groupFixture.detectChanges();
-
-        expect(groupDropdown.selectedOption.label).toEqual('BMW');
+        expect(groupDropdown.selectedOption.label).toEqual('Ford');
     });
 
     it('should groupSelect with filter', () => {
         groupFixture.detectChanges();
 
-        const inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.altKey = true;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.dispatchEvent(keydownEvent);
+        const inputEl = groupFixture.debugElement.query(By.css('.p-inputtext')).nativeElement;
+        const downKeyboardEvent = new KeyboardEvent('keydown', { code: 'ArrowDown' });
+        inputEl.dispatchEvent(downKeyboardEvent); //open overlay
         groupFixture.detectChanges();
 
-        keydownEvent.which = 77;
-        keydownEvent.keyCode = 77;
-        keydownEvent.key = 'm';
-        keydownEvent.altKey = false;
-        inputEl.dispatchEvent(keydownEvent);
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { key: 'm' })); // type 'm' key
+        inputEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' })); // select field
+        groupFixture.detectChanges();
 
         expect(groupDropdown.selectedOption.label).toEqual('Mercedes');
-    });
-
-    it('should alternateGroup auto select with alternate children field', () => {
-        groupFixture.detectChanges();
-
-        expect(alternateGroupDropdown.selectedOption.label).toEqual('Audi');
     });
 
     [null, undefined, ''].map((value) =>
@@ -561,7 +528,7 @@ describe('Dropdown', () => {
             dropdown.value = value;
             fixture.detectChanges();
 
-            expect(dropdown.filled).toBeFalsy();
+            expect(dropdown.filled()).toBeFalsy();
         })
     );
 });
