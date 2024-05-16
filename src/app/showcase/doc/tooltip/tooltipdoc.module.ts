@@ -6,7 +6,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { AppDocModule } from '@layout/doc/app.doc.module';
 import { AppCodeModule } from '@layout/doc/app.code.component';
-import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { PositionDoc } from './positiondoc';
@@ -19,7 +18,7 @@ import { CustomDoc } from './customdoc';
 
 @NgModule({
     imports: [CommonModule, AppCodeModule, RouterModule, TooltipModule, ButtonModule, InputTextModule, AppDocModule],
-    declarations: [BasicDoc, ImportDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, CustomDoc, OptionsDoc, AccessibilityDoc],
+    declarations: [ImportDoc, StyleDoc, PositionDoc, EventDoc, AutoHideDoc, DelayDoc, CustomDoc, OptionsDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class TooltipDocModule {}

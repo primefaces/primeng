@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '@doc/tooltip/basicdoc';
 import { ImportDoc } from '@doc/tooltip/importdoc';
 import { StyleDoc } from '@doc/tooltip/styledoc';
 import { PositionDoc } from '@doc/tooltip/positiondoc';
