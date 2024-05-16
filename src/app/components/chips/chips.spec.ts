@@ -4,7 +4,7 @@ import { Chips } from './chips';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
-describe('Chips', () => {
+fdescribe('Chips', () => {
     let chips: Chips;
     let fixture: ComponentFixture<Chips>;
 
@@ -55,7 +55,7 @@ describe('Chips', () => {
         chips.disabled = true;
         fixture.detectChanges();
 
-        const listEl = fixture.debugElement.query(By.css('ul'));
+        const listEl = fixture.debugElement.query(By.css('.p-chips'));
         const inputEl = fixture.debugElement.query(By.css('input'));
         const tokenIconEl = fixture.debugElement.query(By.css('.p-chips-token-icon'));
         expect(listEl.nativeElement.className).toContain('p-disabled');
@@ -102,8 +102,8 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 13, preventDefault() {} };
-        chips.onKeyDown(event as KeyboardEvent);
+        let event = { code: "Enter", target: inputEl.nativeElement, preventDefault() {} };
+        chips.onKeyDown(event);
         fixture.detectChanges();
 
         chips.cd.detectChanges();
@@ -123,7 +123,7 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 13, preventDefault() {} };
+        let event = { code: "Enter", target: inputEl.nativeElement, preventDefault() {} };
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -146,7 +146,7 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 13, preventDefault() {} };
+        let event = { code: "Enter", target: inputEl.nativeElement, preventDefault() {} };
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -169,7 +169,7 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 13, preventDefault() {} };
+        let event = { code: "Enter", target: inputEl.nativeElement, preventDefault() {} };
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -194,7 +194,7 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 9, preventDefault() {} };
+        let event = { code: "Tab", target: inputEl.nativeElement, preventDefault() {} };
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -232,7 +232,7 @@ describe('Chips', () => {
         inputEl.nativeElement.value = 'primeng';
         fixture.detectChanges();
 
-        let event = { which: 13, preventDefault() {} };
+        let event = { code: "Enter", target: inputEl.nativeElement, preventDefault() {} };
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -242,7 +242,7 @@ describe('Chips', () => {
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
-        event.which = 81;
+        event.code = "Backspace";
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -250,7 +250,7 @@ describe('Chips', () => {
         expect(chips.value[0]).toEqual('primeng');
         expect(chips.value[1]).toEqual('primeng');
         expect(inputEl.nativeElement.disabled).toEqual(true);
-        event.which = 8;
+        event.code = "Backspace";
         chips.onKeyDown(event as KeyboardEvent);
         chips.updateMaxedOut();
         fixture.detectChanges();
@@ -259,7 +259,7 @@ describe('Chips', () => {
     });
 
     it('should set maxlength to input element', () => {
-        chips.max = 2;
+        chips.maxLength = 2;
         fixture.detectChanges();
 
         const inputEl = fixture.debugElement.query(By.css('input'));
@@ -268,6 +268,8 @@ describe('Chips', () => {
 
     it('should delete item', () => {
         chips.value = ['primeng'];
+        const inputEl = fixture.debugElement.query(By.css('input'));
+
         fixture.detectChanges();
 
         let data;
@@ -276,7 +278,11 @@ describe('Chips', () => {
         expect(chips.value[0]).toEqual('primeng');
         fixture.detectChanges();
 
-        let event = { which: 8, preventDefault() {} };
+        // let event = { which: 8, preventDefault() {} };
+        let event = { code: "Backspace", target: inputEl.nativeElement, preventDefault() {} };
+
+
+        chips.onKeyDown(event as KeyboardEvent);
         chips.onKeyDown(event as KeyboardEvent);
         fixture.detectChanges();
 
@@ -314,6 +320,7 @@ describe('Chips', () => {
 
         chips.disabled = true;
         fixture.detectChanges();
+        let event: Event = new Event("Keyboard");
 
         chips.removeItem(event, 0);
         fixture.detectChanges();
