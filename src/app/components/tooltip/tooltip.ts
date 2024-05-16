@@ -550,11 +550,17 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     alignRight() {
         this.preAlign('right');
-        let hostOffset = this.getHostOffset();
-        let left = hostOffset.left + DomHandler.getOuterWidth(this.el.nativeElement);
-        let top = hostOffset.top + (DomHandler.getOuterHeight(this.el.nativeElement) - DomHandler.getOuterHeight(this.container)) / 2;
+        const el = this.activeElement;
+
+        const hostOffset = this.getHostOffset();
+        const left = hostOffset.left + DomHandler.getOuterWidth(el);
+        const top = hostOffset.top + (DomHandler.getOuterHeight(el) - DomHandler.getOuterHeight(this.container)) / 2;
         this.container.style.left = left + this.getOption('positionLeft') + 'px';
         this.container.style.top = top + this.getOption('positionTop') + 'px';
+    }
+
+    private get activeElement(): HTMLElement {
+        return this.el.nativeElement.nodeName.includes('P-') ? DomHandler.findSingle(this.el.nativeElement, '.p-component') : this.el.nativeElement;
     }
 
     alignLeft() {

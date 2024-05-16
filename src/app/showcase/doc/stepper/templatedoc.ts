@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             <p-stepper [(activeStep)]="active">
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
@@ -53,7 +53,7 @@ import { Code } from '@domain/code';
                 </p-stepperPanel>
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
@@ -89,7 +89,7 @@ import { Code } from '@domain/code';
                 </p-stepperPanel>
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                             <span
                                 class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                                 [ngClass]="{
@@ -158,7 +158,7 @@ export class TemplateDoc {
         basic: `<p-stepper [(activeStep)]="active">
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                 <span
                     class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                     [ngClass]="{
@@ -200,7 +200,7 @@ export class TemplateDoc {
     </p-stepperPanel>
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                 <span
                     class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                     [ngClass]="{
@@ -236,7 +236,7 @@ export class TemplateDoc {
     </p-stepperPanel>
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                 <span
                     class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                     [ngClass]="{
@@ -266,7 +266,7 @@ export class TemplateDoc {
     <p-stepper [(activeStep)]="active">
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                     <span
                         class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                         [ngClass]="{
@@ -308,7 +308,7 @@ export class TemplateDoc {
         </p-stepperPanel>
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                     <span
                         class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                         [ngClass]="{
@@ -344,7 +344,7 @@ export class TemplateDoc {
         </p-stepperPanel>
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (onClick)="onClick.emit()">
+                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
                     <span
                         class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
                         [ngClass]="{
@@ -394,8 +394,7 @@ import { CommonModule } from '@angular/common';
       CommonModule
     ],
     styles: [
-        \`
-        .p-stepper {
+        \`.p-stepper {
             flex-basis: 40rem;
         } 
         \`

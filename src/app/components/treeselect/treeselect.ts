@@ -170,6 +170,7 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                                 [virtualScrollItemSize]="virtualScrollItemSize"
                                 [virtualScrollOptions]="virtualScrollOptions"
                                 [_templateMap]="templateMap"
+                                [loading]="loading"
                             >
                                 <ng-container *ngIf="emptyTemplate">
                                     <ng-template pTemplate="empty">
@@ -425,6 +426,11 @@ export class TreeSelect implements AfterContentInit {
         this._hideTransitionOptions = val;
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
+    /**
+     * Displays a loader to indicate data load is in progress.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * Callback to invoke when a node is expanded.
      * @param {TreeSelectNodeExpandEvent} event - Custom node expand event.
