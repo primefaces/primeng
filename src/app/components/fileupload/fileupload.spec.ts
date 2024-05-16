@@ -11,7 +11,7 @@ import { PlusIcon } from 'primeng/icons/plus';
 import { TimesIcon } from 'primeng/icons/times';
 import { UploadIcon } from 'primeng/icons/upload';
 
-fdescribe('FileUpload', () => {
+describe('FileUpload', () => {
     let fileupload: FileUpload;
     let fixture: ComponentFixture<FileUpload>;
 
