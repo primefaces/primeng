@@ -1,4 +1,40 @@
 # Changelog
+## [17.17.0](https://github.com/primefaces/primeng/tree/17.17.0) (2024-05-16)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.16.1...17.17.0)
+
+**Implemented New Features and Enhancements:**
+- PrimeNGConfig | Add csp [\#15560](https://github.com/primefaces/primeng/issues/15560)
+- TreeSelect: ng-touched not working & add onFocus, onBlur events [\#15537](https://github.com/primefaces/primeng/issues/15537)
+- TreeSelect | lazy support [\#15579](https://github.com/primefaces/primeng/issues/15579)
+
+**Fixed bugs:**
+- Table: Numeric Filter [\#15512](https://github.com/primefaces/primeng/issues/15512)
+- Table's select all checkbox shouldn't select the checkbox which are disabled [\#15338](https://github.com/primefaces/primeng/issues/15338)
+- InputNumber: Selection lost when not selecting all content from left to right when prefix is enabled on the left. [\#15293](https://github.com/primefaces/primeng/issues/15293)
+- Button/p-button and tooltip: Doesn't work correctly [\#15390](https://github.com/primefaces/primeng/issues/15390)
+- Button Directive | label input type mismatch [\#15590](https://github.com/primefaces/primeng/issues/15590)
+- Tooltip: Uncaught TypeError: Cannot read properties of null (reading 'style') [\#15518](https://github.com/primefaces/primeng/issues/15518)
+- Tooltip | Tooltip is out of position after dialog opens [\#15529](https://github.com/primefaces/primeng/issues/15529)
+- TreeSelect: Panel does not hide on selected item [\#15539](https://github.com/primefaces/primeng/issues/15539)
+- Button | Remove wrapper span elements from icon templates [\#15582](https://github.com/primefaces/primeng/issues/15582)
+- InputOtp: Paste function works when readonly set to true [\#15567](https://github.com/primefaces/primeng/issues/15567)
+- p-tree: Node which is not selectable shouldn't have focus [\#14822](https://github.com/primefaces/primeng/issues/14822)
+- Skeleton size property is no longer a string accepting rem values but instead expects shapes [\#15535](https://github.com/primefaces/primeng/issues/15535)
+- Dropdown: attr.id not applied to input element when editable: true [\#15542](https://github.com/primefaces/primeng/issues/15542)
+- Tooltip visual issue in 17.16.1 [\#15545](https://github.com/primefaces/primeng/issues/15545)
+- Keyboard Trap within Galleria component [\#15546](https://github.com/primefaces/primeng/issues/15546)
+- AutoFocus | doesn't work in dialog [\#15524](https://github.com/primefaces/primeng/issues/15524)
+- Dialog | tabbing order is broken because of pFocusTrap [\#15482](https://github.com/primefaces/primeng/issues/15482)
+- Autocomplete Component: Fix unit test [\#15554](https://github.com/primefaces/primeng/issues/15554)
+- Orderlist Unit Test Fix [\#15571](https://github.com/primefaces/primeng/issues/15571)
+- InputSwitch Component: Fix unit test [\#15573](https://github.com/primefaces/primeng/issues/15573)
+- Autocomplete broken unit tests [\#15596](https://github.com/primefaces/primeng/issues/15596)
+- Listbox unit test fix [\#15564](https://github.com/primefaces/primeng/issues/15564)
+- Rating: Fix broken unit tests [\#15522](https://github.com/primefaces/primeng/issues/15522)
+- Dialog: Fix broken unit test [\#15526](https://github.com/primefaces/primeng/issues/15526)
+- Autocomplete Component: Fix unit test [\#15554](https://github.com/primefaces/primeng/issues/15554)
+- Dropdown: Fix unit test [\#15511](https://github.com/primefaces/primeng/issues/15511)
+
 ## [17.16.1](https://github.com/primefaces/primeng/tree/17.16.1) (2024-05-09)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.16.0...17.16.1)
 
