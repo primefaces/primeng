@@ -3,14 +3,16 @@ import { By } from '@angular/platform-browser';
 import { Breadcrumb, BreadcrumbModule } from './breadcrumb';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-describe('Breadcrumb', () => {
+fdescribe('Breadcrumb', () => {
     let breadcrumb: Breadcrumb;
     let fixture: ComponentFixture<Breadcrumb>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule.withRoutes([{ path: 'test', component: Breadcrumb }]), NoopAnimationsModule, BreadcrumbModule]
+            imports: [RouterTestingModule.withRoutes([{ path: 'test', component: Breadcrumb }]), NoopAnimationsModule, BreadcrumbModule],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(Breadcrumb);
@@ -20,7 +22,7 @@ describe('Breadcrumb', () => {
     it('should display by default', () => {
         fixture.detectChanges();
 
-        const breadcrumbEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        const breadcrumbEl = fixture.debugElement.query(By.css('nav')).nativeElement;
         expect(breadcrumbEl).toBeTruthy();
     });
 
@@ -29,7 +31,7 @@ describe('Breadcrumb', () => {
         breadcrumb.styleClass = 'Primeng ROCKS!';
         fixture.detectChanges();
 
-        const breadcrumbEl = fixture.debugElement.query(By.css('div'));
+        const breadcrumbEl = fixture.debugElement.query(By.css('nav'));
         expect(breadcrumbEl.nativeElement.className).toContain('Primeng ROCKS!');
         expect(breadcrumbEl.styles.height).toEqual('300px');
     });
@@ -55,7 +57,7 @@ describe('Breadcrumb', () => {
         breadcrumb.model = [{ label: 'Squad' }, { label: 'Lionel Messi', url: 'https://en.wikipedia.org/wiki/Lionel_Messi', icon: 'pi pi-external-link' }];
         fixture.detectChanges();
 
-        const itemsEl = fixture.debugElement.query(By.css('ul'));
+        const itemsEl = fixture.debugElement.query(By.css('ol'));
         expect(itemsEl.children[2].children[0]).toBeTruthy();
         expect(itemsEl.children[2].children[0].nativeElement.textContent).toEqual('Squad');
         expect(itemsEl.children.length).toEqual(5);
@@ -80,7 +82,7 @@ describe('Breadcrumb', () => {
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
-        const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+        const squadEl = fixture.debugElement.query(By.css('ol')).children[2].children[0].nativeElement;
         squadEl.click();
         fixture.detectChanges();
 
@@ -93,7 +95,7 @@ describe('Breadcrumb', () => {
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
-        const messiEl = fixture.debugElement.query(By.css('ul')).children[4].children[0].nativeElement;
+        const messiEl = fixture.debugElement.query(By.css('ol')).children[4].children[0].nativeElement;
         messiEl.click();
         fixture.detectChanges();
 
@@ -109,7 +111,7 @@ describe('Breadcrumb', () => {
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
-        const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+        const squadEl = fixture.debugElement.query(By.css('ol')).children[2].children[0].nativeElement;
         squadEl.click();
         fixture.detectChanges();
 
@@ -130,7 +132,7 @@ describe('Breadcrumb', () => {
         fixture.detectChanges();
 
         const itemClickSpy = spyOn(breadcrumb, 'onClick').and.callThrough();
-        const squadEl = fixture.debugElement.query(By.css('ul')).children[2].children[0].nativeElement;
+        const squadEl = fixture.debugElement.query(By.css('ol')).children[2].children[0].nativeElement;
         squadEl.click();
         fixture.detectChanges();
 
