@@ -4,7 +4,7 @@ import { Chips } from './chips';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 
-fdescribe('Chips', () => {
+describe('Chips', () => {
     let chips: Chips;
     let fixture: ComponentFixture<Chips>;
 
