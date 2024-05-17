@@ -3,7 +3,6 @@ import { By } from '@angular/platform-browser';
 import { InputTextarea } from './inputtextarea';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, DebugElement } from '@angular/core';
-import e from 'express';
 
 @Component({
     template: `<textarea rows="1" cols="1" (onResize)="onResize($event)" [autoResize]="autoResize" pInputTextarea></textarea> `
@@ -14,7 +13,7 @@ class TestInputTextArea {
     onResize(event) {}
 }
 
-fdescribe('InputTextarea', () => {
+describe('InputTextarea', () => {
     let fixture: ComponentFixture<TestInputTextArea>;
     let component: TestInputTextArea;
     beforeEach(() => {
@@ -50,7 +49,7 @@ fdescribe('InputTextarea', () => {
         expect(onResizeSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('should change autoResize and resize textarea', () => {
+    it('should change autoResize and resize scrollheight of textarea', () => {
         component.autoResize = true;
         fixture.detectChanges();
 
