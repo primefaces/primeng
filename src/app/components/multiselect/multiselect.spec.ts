@@ -10,7 +10,7 @@ import { SearchIcon } from 'primeng/icons/search';
 import { TimesIcon } from 'primeng/icons/times';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-fdescribe('MultiSelect', () => {
+describe('MultiSelect', () => {
     let multiselect: MultiSelect;
     let multiselectItem: MultiSelectItem;
     let fixture: ComponentFixture<MultiSelect>;
