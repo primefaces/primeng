@@ -1895,7 +1895,9 @@ export class TreeTable implements AfterContentInit, OnInit, OnDestroy, Blockable
     }
 
     nodeKey(node) {
-        return ObjectUtils.resolveFieldData(node, this.dataKey) || ObjectUtils.resolveFieldData(node?.data, this.dataKey);
+        if (this.dataKey) {
+            return ObjectUtils.resolveFieldData(node, this.dataKey) || ObjectUtils.resolveFieldData(node?.data, this.dataKey);
+        } else return node?.key;
     }
 
     toggleCheckbox(event) {
