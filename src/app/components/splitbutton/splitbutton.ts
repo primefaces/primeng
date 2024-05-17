@@ -1,5 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute, signal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
+    signal
+} from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -35,6 +51,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [ariaLabel]="buttonProps?.['ariaLabel'] || label"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [pTooltip]="tooltip"
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
@@ -58,6 +75,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [ariaLabel]="buttonProps?.['ariaLabel']"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [pTooltip]="tooltip"
                 ></button>
             </ng-template>
             <button
@@ -155,6 +173,11 @@ export class SplitButton {
      * @group Props
      */
     @Input() label: string | undefined;
+    /**
+     * Tooltip for the main button.
+     * @group Props
+     */
+    @Input() tooltip: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
