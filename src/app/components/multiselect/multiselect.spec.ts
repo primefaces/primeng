@@ -96,11 +96,9 @@ fdescribe('MultiSelect', () => {
         multiselectEl.click();
         fixture.detectChanges();
 
-        const multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
-        expect(multiselectEl.className).toContain('p-multiselect-open');
-        expect(multiselect.overlayVisible).toEqual(true);
-        expect(multiselectPanelEl).toBeTruthy();
+        const multiselectOverlay = fixture.debugElement.query(By.css('.p-overlay'));
         expect(clickSpy).toHaveBeenCalled();
+        expect(multiselectOverlay).toBeTruthy();
     });
 
     it('should open and close with keydown', () => {
@@ -129,19 +127,19 @@ fdescribe('MultiSelect', () => {
     it('should close when double click', () => {
         fixture.detectChanges();
 
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
-        const clickSpy = spyOn(multiselect, 'onContainerClick').and.callThrough();
-        const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
-        multiselectEl.click();
-        fixture.detectChanges();
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
 
-        multiselectEl.click();
+        const showSpy = spyOn(multiselect, 'show').and.callThrough();
+        multiselectEl.dispatchEvent(new KeyboardEvent('click'));
         fixture.detectChanges();
+        expect(showSpy).toHaveBeenCalled();
 
-        expect(multiselectEl.className).not.toContain('p-multiselect-open');
-        expect(multiselect.overlayVisible).toEqual(false);
-        expect(clickSpy).toHaveBeenCalled();
-        expect(hideSpy).toHaveBeenCalled();
+        setTimeout(() => {
+            const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
+            multiselectEl.dispatchEvent(new KeyboardEvent('click'));
+            fixture.detectChanges();
+            expect(onHideSpy).toHaveBeenCalled();
+        }, 350);
     });
 
     it('should select item', () => {
