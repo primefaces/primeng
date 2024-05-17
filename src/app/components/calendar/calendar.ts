@@ -2689,7 +2689,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     toggleAMPMIfNotMinDate(newPM: boolean) {
         let value = this.value;
 
-        if (this.selectionMode === 'range' && Array.isArray(value) && value.length > 0) {
+        if ((this.selectionMode === 'range' || this.selectionMode === 'multiple') && Array.isArray(value) && value.length > 0) {
             value = value[value.length - 1];
         }
         const valueDateString = value ? value.toDateString() : null;

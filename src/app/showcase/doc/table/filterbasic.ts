@@ -54,14 +54,19 @@ import { CustomerService } from '@service/customerservice';
                             <th>
                                 <p-columnFilter field="representative" matchMode="in" [showMenu]="false">
                                     <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                        <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
-                                            <ng-template let-option pTemplate="item">
-                                                <div class="inline-block vertical-align-middle">
-                                                    <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
-                                                    <span class="ml-1 mt-1">{{ option.name }}</span>
-                                                </div>
-                                            </ng-template>
-                                        </p-multiSelect>
+                                    <p-calendar
+inputId="timestampRange"
+[ngModel]="value"
+[readonlyInput]="true"
+[showTime]="true"
+[showIcon]="true"
+hourFormat="24"
+selectionMode="multiple"
+[showSeconds]="true"
+dateFormat="yy-mm-dd"
+[required]="true"
+/>
+
                                     </ng-template>
                                 </p-columnFilter>
                             </th>
