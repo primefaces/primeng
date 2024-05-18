@@ -284,7 +284,7 @@ export class InputOtp implements AfterContentInit {
             return;
         }
 
-        switch (event.code) {
+        switch (event.key) {
             case 'ArrowLeft':
                 this.moveToPrev(event);
                 event.preventDefault();
