@@ -36,6 +36,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     pAutoFocus
                     [autofocus]="autofocus"
                     [pTooltip]="tooltip"
+                    [tooltipOptions]="tooltipOptions"
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
@@ -60,6 +61,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                     pAutoFocus
                     [autofocus]="autofocus"
                     [pTooltip]="tooltip"
+                    [tooltipOptions]="tooltipOptions"
                 ></button>
             </ng-template>
             <button
@@ -162,6 +164,11 @@ export class SplitButton {
      * @group Props
      */
     @Input() tooltip: string | undefined;
+    /**
+     * Tooltip options for the main button.
+     * @group Props
+     */
+    @Input() tooltipOptions: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
