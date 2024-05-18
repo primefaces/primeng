@@ -363,6 +363,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
                 this.onBackspaceKeyOn(event);
                 break;
 
+            case 'Space':
+                if (this.focusedIndex !== null && this.value && this.value.length > 0) {
+                  this.onItemClick(event, this.value[this.focusedIndex]);
+                }
+                break;
+
             default:
                 break;
         }
