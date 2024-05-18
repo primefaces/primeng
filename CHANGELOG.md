@@ -3070,3 +3070,4 @@
 **Closed issues:**
 
 - Pass the option as a template variable in Select Components without wrapping to SelectItem [\#9505](https://github.com/primefaces/primeng/issues/9505)
+
