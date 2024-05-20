@@ -7,6 +7,7 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { ToolbarModule } from 'primeng/toolbar';`
+        typescript: `import { ToolbarModule } from 'primeng/toolbar';
+import { SharedModule } from 'primeng/api'; // Required if you will use Template`
     };
 }
