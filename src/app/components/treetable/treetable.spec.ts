@@ -631,7 +631,7 @@ class TestTreeTableComponent {
     ];
 }
 
-fdescribe('TreeTable', () => {
+describe('TreeTable', () => {
     let testcomponent: TestTreeTableComponent;
     let basicTreetable: TreeTable;
     let paginationTreeTable: TreeTable;
