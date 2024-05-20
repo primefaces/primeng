@@ -474,10 +474,6 @@ import { CommonModule } from '@angular/common';
     imports: [TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, DropdownModule, HttpClientModule, CommonModule],
     providers: [CustomerService]
 })
-@Component({
-    selector: 'table-filter-basic-demo',
-    templateUrl: 'table-filter-basic-demo.html'
-})
 export class TableFilterBasicDemo implements OnInit {
     customers!: Customer[];
 
