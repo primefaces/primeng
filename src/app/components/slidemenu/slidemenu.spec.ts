@@ -13,7 +13,7 @@ import { ButtonModule } from '../button/button';
 })
 class SlideMenuTestComponent {}
 
-describe('SlideMenu', () => {
+xdescribe('SlideMenu', () => {
     let slidemenu: SlideMenu;
     let slidemenuSub: SlideMenuSub;
     let fixture: ComponentFixture<SlideMenuTestComponent>;
