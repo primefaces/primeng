@@ -1113,7 +1113,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onInputChange(event) {
-        if (this.forceSelection) {
+        setTimeout(() => {
+            if (this.focused) return;
+
+            if (!this.forceSelection) return;
+
             let valid = false;
 
             if (this.visibleOptions()) {
@@ -1129,7 +1133,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
                 this.inputEL.nativeElement.value = '';
                 !this.multiple && this.updateModel(null);
             }
-        }
+        }, 150);
     }
 
     onInputFocus(event) {
