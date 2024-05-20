@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -12,47 +12,46 @@ interface Column {
     template: ` <app-docsectiontext>
             <p>This demo uses a multiselect component to implement toggleable columns.</p>
         </app-docsectiontext>
-        <p-deferred-demo (load)="loadDemoData()">
-            <div class="card">
-                <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                    <ng-template pTemplate="caption">
-                        <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
-                    </ng-template>
-                    <ng-template pTemplate="header" let-columns>
-                        <tr>
-                            <th>Code</th>
-                            <th *ngFor="let col of columns">
-                                {{ col.header }}
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template pTemplate="body" let-product let-columns="columns">
-                        <tr>
-                            <td>{{ product.code }}</td>
-                            <td *ngFor="let col of columns">
-                                {{ product[col.field] }}
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </p-deferred-demo>
+
+        <div class="card">
+            <p-table [columns]="selectedColumns" [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="caption">
+                    <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header" selectedItemsLabel="{0} columns selected" [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Code</th>
+                        <th *ngFor="let col of columns">
+                            {{ col.header }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-columns="columns">
+                    <tr>
+                        <td>{{ product.code }}</td>
+                        <td *ngFor="let col of columns">
+                            {{ product[col.field] }}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
         <app-code [code]="code" selector="table-column-toggle-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnToggleDoc {
-    products!: Product[];
+    products: Product[];
 
-    cols!: Column[];
+    cols: Column[];
 
-    selectedColumns!: Column[];
+    _selectedColumns: Column[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(private productService: ProductService) {}
 
-    loadDemoData() {
+    ngOnInit() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
-            this.cd.markForCheck();
         });
 
         this.cols = [
@@ -61,7 +60,16 @@ export class ColumnToggleDoc {
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this.selectedColumns = this.cols;
+        this._selectedColumns = this.cols;
+    }
+
+    get selectedColumns(): Column[] {
+        return this._selectedColumns;
+    }
+
+    set selectedColumns(val: Column[]) {
+        //restore original order
+        this._selectedColumns = this.cols.filter((col) => val.includes(col));
     }
 
     code: Code = {
@@ -148,18 +156,17 @@ interface Column {
     providers: [ProductService]
 })
 export class TableColumnToggleDemo implements OnInit{
-    products!: Product[];
+    products: Product[];
 
-    cols!: Column[];
+    cols: Column[];
 
-    selectedColumns!: Column[];
+    _selectedColumns: Column[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
-            this.cd.markForCheck();
         });
 
         this.cols = [
@@ -168,9 +175,17 @@ export class TableColumnToggleDemo implements OnInit{
             { field: 'quantity', header: 'Quantity' }
         ];
 
-        this.selectedColumns = this.cols;
+        this._selectedColumns = this.cols;
     }
 
+    get selectedColumns(): Column[] {
+        return this._selectedColumns;
+    }
+
+    set selectedColumns(val: Column[]) {
+        //restore original order
+        this._selectedColumns = this.cols.filter((col) => val.includes(col));
+    }
 }`,
         data: `{
     id: '1000',
