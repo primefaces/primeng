@@ -726,7 +726,7 @@ fdescribe('TreeTable', () => {
 
         const basicTreeTableEl = fixture.debugElement.query(By.css('.basicTreeTable'));
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
-        rowEls[2].nativeElement.dispatchEvent(new KeyboardEvent('keydown', {code:'ArrowDown'}));
+        rowEls[2].nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
 
         fixture.detectChanges();
         rowEls = basicTreeTableEl.queryAll(By.css('tr'));
@@ -738,7 +738,7 @@ fdescribe('TreeTable', () => {
 
         const basicTreeTableEl = fixture.debugElement.query(By.css('.basicTreeTable'));
         let rowEls = basicTreeTableEl.queryAll(By.css('tr'));
-        rowEls[3].nativeElement.dispatchEvent(new KeyboardEvent('keydown', {code:'ArrowUp'}));
+        rowEls[3].nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
 
         fixture.detectChanges();
         rowEls = basicTreeTableEl.queryAll(By.css('tr'));
@@ -1103,13 +1103,13 @@ fdescribe('TreeTable', () => {
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, keyCode: 9, preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, code: 'Tab', preventDefault() {} });
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
         expect(editableColumns[2].nativeElement.className).toContain('p-cell-editing');
-        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, keyCode: 9, preventDefault() {} });
+        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, code: 'Tab', preventDefault() {} });
         fixture.detectChanges();
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
@@ -1117,18 +1117,18 @@ fdescribe('TreeTable', () => {
         expect(editableColumns[3].nativeElement.className).toContain('p-cell-editing');
 
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[3].triggerEventHandler('keydown', { target: editableColumns[3].nativeElement, shiftKey: true, keyCode: 9, code: 'Tab', preventDefault() {} });
+        editableColumns[3].triggerEventHandler('keydown', { target: editableColumns[3].nativeElement, shiftKey: true, code: 'Tab', preventDefault() {} });
         fixture.detectChanges();
 
         expect(editableColumns[3].nativeElement.className).not.toContain('p-cell-editing');
         expect(editableColumns[2].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, shiftKey: true, keyCode: 9, code: 'Tab', preventDefault() {} });
+        editableColumns[2].triggerEventHandler('keydown', { target: editableColumns[2].nativeElement, shiftKey: true, code: 'Tab', preventDefault() {} });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, keyCode: 27, code: 'Escape', preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: true, code: 'Escape', preventDefault() {} });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');
@@ -1138,7 +1138,7 @@ fdescribe('TreeTable', () => {
 
         expect(editableColumns[1].nativeElement.className).toContain('p-cell-editing');
         editableColumns = editableTreeTableEl.queryAll(By.css('td'));
-        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: false, keyCode: 13, code: 'Enter', preventDefault() {} });
+        editableColumns[1].triggerEventHandler('keydown', { target: editableColumns[1].nativeElement, shiftKey: false, code: 'Enter', preventDefault() {} });
         fixture.detectChanges();
 
         expect(editableColumns[1].nativeElement.className).not.toContain('p-cell-editing');

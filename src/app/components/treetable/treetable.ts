@@ -3326,8 +3326,7 @@ export class TTEditableColumn implements AfterViewInit {
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
         if (this.isEnabled()) {
-            //enter
-            if (event.keyCode == 13 && !event.shiftKey) {
+            if (event.code == 'Enter' && !event.shiftKey) {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
@@ -3335,10 +3334,7 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            }
-
-            //escape
-            else if (event.keyCode == 27) {
+            } else if (event.code == 'Escape') {
                 if (this.tt.isEditingCellValid()) {
                     DomHandler.removeClass(this.tt.editingCell, 'p-cell-editing');
                     this.closeEditingCell();
@@ -3346,10 +3342,7 @@ export class TTEditableColumn implements AfterViewInit {
                 }
 
                 event.preventDefault();
-            }
-
-            //tab
-            else if (event.keyCode == 9) {
+            } else if (event.code == 'Tab') {
                 this.tt.onEditComplete.emit({ field: this.field, data: this.data });
 
                 if (event.shiftKey) this.moveToPreviousCell(event);
