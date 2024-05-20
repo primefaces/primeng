@@ -192,7 +192,7 @@ export class MultiSelectItem {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
                                 <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
                                 <ng-container *ngIf="!disabled">
-                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [ngClass]="{'p-disabled': item.disabled}" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
                                     <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                                         <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
                                     </span>
