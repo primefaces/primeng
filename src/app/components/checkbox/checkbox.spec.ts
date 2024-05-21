@@ -19,8 +19,8 @@ describe('Checkbox', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FormsModule, CheckIcon],
-            declarations: [Checkbox, TestCheckboxComponent]
+            imports: [NoopAnimationsModule, FormsModule, CheckIcon, Checkbox],
+            declarations: [TestCheckboxComponent]
         });
 
         fixture = TestBed.createComponent(TestCheckboxComponent);
