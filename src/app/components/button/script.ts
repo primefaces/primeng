@@ -14,7 +14,7 @@ const getKey = (value) => {
 const _theme = theme.theme;
 const k = _theme({ dt: (key) => `${getKey(key)}` });
 
-fs.writeFile('src/app/components/button/button.css', k, (err) => {
+fs.writeFile('./button.css', k, (err) => {
     if (err) throw err;
     console.log('File has been saved');
 });
