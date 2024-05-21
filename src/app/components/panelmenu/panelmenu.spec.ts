@@ -118,7 +118,7 @@ describe('PanelMenu', () => {
         ];
         fixture.detectChanges();
 
-        const panelHeaderLinkEl = fixture.debugElement.query(By.css('.p-panelmenu-header-link'));
+        const panelHeaderLinkEl = fixture.debugElement.query(By.css('.p-panelmenu-header-action'));
         expect(panelHeaderLinkEl.nativeElement.href).toContain('primeng');
         expect(panelHeaderLinkEl.nativeElement.title).toEqual('primeng');
         expect(panelHeaderLinkEl.nativeElement.target).toEqual('primeng');
@@ -175,7 +175,7 @@ describe('PanelMenu', () => {
         }
     });
 
-    it('should change child url target icon disabled and title', () => {
+    it('should change child url target icon disabled and label', () => {
         panelmenu.model = [
             {
                 label: 'File',
@@ -212,9 +212,10 @@ describe('PanelMenu', () => {
 
         const panelHeaderLinkEl = fixture.debugElement.query(By.css('.p-menuitem-link'));
         expect(panelHeaderLinkEl.nativeElement.href).toContain('primeng');
-        expect(panelHeaderLinkEl.nativeElement.title).toEqual('primeng');
         expect(panelHeaderLinkEl.nativeElement.target).toEqual('primeng');
+        expect(panelHeaderLinkEl.nativeElement.disabled).toBeTruthy;
         expect(panelHeaderLinkEl.query(By.css('.p-menuitem-icon')).nativeElement.className).toContain('Primeng ROCKS!');
+        expect(panelHeaderLinkEl.nativeElement.innerHTML).toContain('New');
     });
 
     it('should show items and call toggle', () => {
@@ -241,12 +242,11 @@ describe('PanelMenu', () => {
         headerLinks[0].nativeElement.click();
         fixture.detectChanges();
 
-        const iconEl = fixture.debugElement.query(By.css('.p-panelmenu-icon'));
-        const firstSubMenuComponent = fixture.debugElement.query(By.css('.p-panelmenu-root-submenu')).componentInstance as PanelMenuSub;
+        const icon = fixture.debugElement.query(By.css('.p-icon'));
         expect(handleClickSpy).toHaveBeenCalled();
         expect(panelmenu.animating).toEqual(true);
         expect(panelmenu.model[0].expanded).toEqual(true);
-        expect(iconEl.nativeElement.tagName.toLowerCase()).toContain('svg');
+        expect(icon.nativeElement.tagName.toLowerCase()).toContain('svg');
     });
 
     it('should select multiple', () => {
@@ -265,16 +265,14 @@ describe('PanelMenu', () => {
                 ]
             }
         ];
+        panelmenu.multiple = true;
         fixture.detectChanges();
 
-        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-link'));
+        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-content'));
         headerLinks[0].nativeElement.click();
         headerLinks[1].nativeElement.click();
         fixture.detectChanges();
 
-        const subMenuEls = fixture.debugElement.queryAll(By.css('.p-panelmenu-root-submenu'));
-        const firstSubMenuComponent = subMenuEls[0].componentInstance as PanelMenuSub;
-        const seconSubMenuComponent = subMenuEls[1].componentInstance as PanelMenuSub;
         const activeEls = fixture.debugElement.queryAll(By.css('.p-highlight'));
         expect(activeEls.length).toEqual(2);
         let x = 0;
@@ -284,9 +282,6 @@ describe('PanelMenu', () => {
         }
         expect(panelmenu.model[0].expanded).toEqual(true);
         expect(panelmenu.model[1].expanded).toEqual(true);
-        expect(subMenuEls.length).toEqual(2);
-        // expect(firstSubMenuComponent.expanded).toEqual(true);
-        // expect(seconSubMenuComponent.expanded).toEqual(true);
     });
 
     it('should not select multiple', () => {
@@ -308,7 +303,7 @@ describe('PanelMenu', () => {
         panelmenu.multiple = false;
         fixture.detectChanges();
 
-        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-link'));
+        const headerLinks = fixture.debugElement.queryAll(By.css('.p-panelmenu-header-content'));
         headerLinks[0].nativeElement.click();
         headerLinks[1].nativeElement.click();
         fixture.detectChanges();

@@ -58,14 +58,14 @@ jobs:
             #    message: |
             #      Thanks a lot for your contribution! But, Unit tests failed. You can check the unit tests with the command 'npm run test:headless' and commit the changes.
 
-            - name: Add Label
-              if: ${{ failure() }}
-              uses: actions-ecosystem/action-add-labels@v1
-              with:
-                  labels: 'Resolution: Needs Revision'
+            # - name: Add Label
+            #   if: ${{ failure() }}
+            #   uses: actions-ecosystem/action-add-labels@v1
+            #   with:
+            #       labels: 'Resolution: Needs Revision'
 
-            - name: Remove Label
-              uses: actions-ecosystem/action-remove-labels@v1
-              if: ${{ success() }}
-              with:
-                  labels: 'Resolution: Needs Revision'
+            # - name: Remove Label
+            #   uses: actions-ecosystem/action-remove-labels@v1
+            #   if: ${{ success() }}
+            #   with:
+            #       labels: 'Resolution: Needs Revision'
