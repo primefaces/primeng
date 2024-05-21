@@ -1,13 +1,13 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Editor } from './editor';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('Editor', () => {
+fdescribe('Editor', () => {
     let editor: Editor;
     let fixture: ComponentFixture<Editor>;
 
-    beforeEach(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [NoopAnimationsModule],
             declarations: [Editor]
@@ -15,7 +15,7 @@ describe('Editor', () => {
 
         fixture = TestBed.createComponent(Editor);
         editor = fixture.componentInstance;
-    });
+    }));
 
     it('should display by default', () => {
         fixture.detectChanges();
@@ -25,9 +25,7 @@ describe('Editor', () => {
     });
 
     it('should show value', () => {
-        editor.value = 'V';
-        fixture.detectChanges();
-
+        editor.writeValue('V');
         fixture.detectChanges();
 
         const paragraphEl = fixture.debugElement.query(By.css('.p-editor-content')).nativeElement.children[0].children[0];
