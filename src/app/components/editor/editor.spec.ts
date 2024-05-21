@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Editor } from './editor';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-fdescribe('Editor', () => {
+describe('Editor', () => {
     let editor: Editor;
     let fixture: ComponentFixture<Editor>;
 
