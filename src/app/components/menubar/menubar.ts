@@ -734,6 +734,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     hide(event?, isFocus?: boolean) {
         if (this.mobileActive) {
+            this.mobileActive = false;
             setTimeout(() => {
                 DomHandler.focus(this.menubutton.nativeElement);
             }, 0);
@@ -1098,8 +1099,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
                     const isOutsideContainer = this.rootmenu.el.nativeElement !== event.target && !this.rootmenu.el.nativeElement.contains(event.target);
                     const isOutsideMenuButton = this.mobileActive && this.menubutton.nativeElement !== event.target && !this.menubutton.nativeElement.contains(event.target);
 
-                    if (isOutsideContainer) {
-                        isOutsideMenuButton ? (this.mobileActive = false) : this.hide();
+                    if (isOutsideContainer && isOutsideMenuButton) {
+                        this.hide();
                     }
                 });
             }
