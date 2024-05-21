@@ -8,19 +8,19 @@ import { Code } from '@domain/code';
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-slider [(ngModel)]="value" orientation="vertical" />
+            <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
     `
 })
 export class VerticalDoc {
-    value!: number;
+    value: number = 50;
 
     code: Code = {
-        basic: `<p-slider [(ngModel)]="value" orientation="vertical" />`,
+        basic: `<p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-slider [(ngModel)]="value" orientation="vertical" />
+    <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -34,7 +34,7 @@ import { SliderModule } from 'primeng/slider';
     imports: [FormsModule, SliderModule]
 })
 export class SliderVerticalDemo {
-    value!: number;
+    value: number = 50;
 }`
     };
 }
