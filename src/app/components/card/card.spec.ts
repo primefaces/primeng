@@ -37,8 +37,8 @@ describe('Card', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
-            imports: [NoopAnimationsModule, ButtonModule],
-            declarations: [Card, TestCardComponent, Header, Footer]
+            imports: [NoopAnimationsModule, ButtonModule, Header, Footer],
+            declarations: [Card, TestCardComponent]
         });
     }));
     beforeEach(() => {

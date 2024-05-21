@@ -36,8 +36,8 @@ describe('Dialog', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
-            declarations: [Dialog, Footer, TestDialogComponent]
+            imports: [NoopAnimationsModule, FocusTrapModule, ButtonModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, Footer],
+            declarations: [Dialog, TestDialogComponent]
         });
 
         fixture = TestBed.createComponent(TestDialogComponent);

@@ -17,8 +17,8 @@ describe('FileUpload', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon],
-            declarations: [FileUpload, PrimeTemplate]
+            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon, PrimeTemplate],
+            declarations: [FileUpload]
         });
 
         fixture = TestBed.createComponent(FileUpload);

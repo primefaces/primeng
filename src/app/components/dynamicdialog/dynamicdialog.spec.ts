@@ -60,8 +60,8 @@ export class FakeTestDialogModule {}
 describe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FakeTestDialogModule],
-            declarations: [Footer]
+            imports: [NoopAnimationsModule, FakeTestDialogModule, Footer],
+            declarations: []
         });
     });
 
