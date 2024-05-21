@@ -1355,9 +1355,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
         let selected = this.isSelected(option);
         let value = null;
-
         if (selected) {
             value = this.modelValue().filter((val) => !ObjectUtils.equals(val, this.getOptionValue(option), this.equalityKey()));
+            this.onRemove.emit({ newValue: this.value, removed: this.getOptionValue(option) });
         } else {
             value = [...(this.modelValue() || []), this.getOptionValue(option)];
         }
