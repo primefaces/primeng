@@ -23,7 +23,6 @@ import {
     ViewRef,
     booleanAttribute,
     computed,
-    effect,
     forwardRef,
     numberAttribute,
     signal
@@ -36,6 +35,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Icon } from '../icon/icon';
 
 @Pipe({
     name: 'safeHtml'
@@ -103,7 +103,10 @@ export class SafeHtmlPipe implements PipeTransform {
             </ng-container>
 
             <ng-template #itemContent>
-                <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                @if(item.icon) {
+                <p-icon class="p-menuitem-icon" [icon]="item.icon" [iconStyle]="item.iconStyle" />
+                }
+
                 <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                 <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
                 <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
@@ -821,7 +824,7 @@ export class Menu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, Icon],
     exports: [Menu, RouterModule, TooltipModule],
     declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
