@@ -1238,9 +1238,9 @@ describe('Table', () => {
         fixture.detectChanges();
 
         expect(onColumnResizeEndSpy).toHaveBeenCalled();
-        expect(resizerEls[0].parentElement.clientWidth).toEqual(firstWidth - 30);
-        expect(resizerEls[0].parentElement.clientWidth).not.toEqual(firstWidth);
-        expect(defaultWidth).toEqual(resizerEls[0].parentElement.parentElement.clientWidth);
+        expect(resizerEls[0]?.parentElement?.clientWidth).toEqual(firstWidth - 30);
+        expect(resizerEls[0]?.parentElement?.clientWidth).not.toEqual(firstWidth);
+        expect(defaultWidth).toEqual(resizerEls[0]!.parentElement!.parentElement!.clientWidth);
     });
 
     it('should call resize and resizeColGroup with scrollableTable (fit)', () => {
@@ -1249,13 +1249,13 @@ describe('Table', () => {
         fixture.detectChanges();
 
         let resizerEls = document.getElementsByClassName('p-column-resizer');
-        let defaultWidth = resizerEls[0].parentElement.parentElement.clientWidth;
+        let defaultWidth = resizerEls[0]?.parentElement?.parentElement?.clientWidth;
         const onColumnResizeBeginSpy = spyOn(colResizeTable, 'onColumnResizeBegin').and.callThrough();
         const event: any = document.createEvent('CustomEvent');
         event.pageX = 450;
         event.which = 1;
         event.initEvent('mousedown');
-        let firstWidth = resizerEls[0].parentElement.clientWidth;
+        let firstWidth = resizerEls[0]?.parentElement?.clientWidth;
         resizerEls[0].dispatchEvent(event as MouseEvent);
         fixture.detectChanges();
 
@@ -1443,7 +1443,7 @@ describe('Table', () => {
     it('should open contextMenu and select row', () => {
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css('.p-contextmenu')).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
         const showSpy = spyOn(contextMenu, 'show').and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css('.contextMenuTable'));
         const rowEls = contextMenuTableEl.queryAll(By.css('tr'));
@@ -1465,7 +1465,7 @@ describe('Table', () => {
         contextMenuTable.contextMenuSelectionMode = 'joint';
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css('.p-contextmenu')).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
         const showSpy = spyOn(contextMenu, 'show').and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css('.contextMenuTable'));
         const rowEls = contextMenuTableEl.queryAll(By.css('tr'));
@@ -1487,7 +1487,7 @@ describe('Table', () => {
         contextMenuTable.contextMenuSelectionMode = 'joint';
         fixture.detectChanges();
 
-        const contextMenu = fixture.debugElement.query(By.css('.p-contextmenu')).componentInstance as ContextMenu;
+        const contextMenu = fixture.debugElement.query(By.directive(ContextMenu)).componentInstance;
         const showSpy = spyOn(contextMenu, 'show').and.callThrough();
         const contextMenuTableEl = fixture.debugElement.query(By.css('.contextMenuTable'));
         const rowEls = contextMenuTableEl.queryAll(By.css('tr'));
