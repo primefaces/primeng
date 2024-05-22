@@ -94,17 +94,16 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <div class="p-dialog-header-icons">
-                            <button
+                            <p-button
                                 *ngIf="maximizable"
                                 role="button"
                                 type="button"
-                                [ngClass]="{ 'p-dialog-header-icon p-dialog-header-maximize p-link': true }"
+                                [styleClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'"
                                 (click)="maximize()"
                                 (keydown.enter)="maximize()"
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
                                 [attr.aria-label]="maximizeLabel"
                                 pRipple
-                                pButton
                             >
                                 <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon">
@@ -117,16 +116,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 <ng-container *ngIf="maximized">
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
-                            </button>
-                            <button
+                            </p-button>
+                            <p-button
                                 *ngIf="closable"
                                 type="button"
-                                [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }"
+                                [styleClass]="'p-dialog-header-icon p-dialog-header-close p-link'"
                                 [attr.aria-label]="closeAriaLabel"
                                 (click)="close($event)"
                                 (keydown.enter)="close($event)"
                                 pRipple
-                                pButton
                                 [attr.tabindex]="closeTabindex"
                             >
                                 <ng-container *ngIf="!closeIconTemplate">
@@ -136,7 +134,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 <span *ngIf="closeIconTemplate">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                                 </span>
-                            </button>
+                            </p-button>
                         </div>
                     </div>
                     <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
