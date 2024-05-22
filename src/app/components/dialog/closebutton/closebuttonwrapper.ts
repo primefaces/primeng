@@ -89,7 +89,7 @@ export class CloseButtonWrapper {
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    closeIconTemplate: Nullable<TemplateRef<any>>;
+    @Input() closeIconTemplate: Nullable<TemplateRef<any>>;
 
     getCombinedClasses(): string {
         const fixedClasses = 'p-dialog-header-icon p-dialog-header-close p-link';

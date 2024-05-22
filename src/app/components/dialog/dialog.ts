@@ -105,9 +105,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
                                 [attr.aria-label]="maximizeLabel"
                                 pRipple
-                                [text]="maximizeButtonProps.text"
-                                [severity]="maximizeButtonProps.severity"
-                                [rounded]="maximizeButtonProps.rounded"
                             >
                                 <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon">
@@ -121,7 +118,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
-                            <p-closeButtonWrapper [closeButtonProps]="closeButtonProps" (visibleChange)="visibleChange.emit()" />
+                            <p-closeButtonWrapper [closeButtonProps]="closeButtonProps" [closeIconTemplate]="closeIconTemplate" (visibleChange)="visibleChange.emit()" />
                         </div>
                     </div>
                     <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
