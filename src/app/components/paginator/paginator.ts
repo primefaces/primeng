@@ -1,7 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, OnChanges, OnInit, Output, QueryList, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    OnChanges,
+    OnInit,
+    Output,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
+import { Aria, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { AngleDoubleLeftIcon } from 'primeng/icons/angledoubleleft';
 import { AngleDoubleRightIcon } from 'primeng/icons/angledoubleright';
@@ -58,7 +77,8 @@ import { PaginatorState } from './paginator.interface';
                     *ngFor="let pageLink of pageLinks"
                     class="p-paginator-page p-paginator-element p-link"
                     [ngClass]="{ 'p-highlight': pageLink - 1 == getPage() }"
-                    [attr.aria-label]="getAriaLabel('pageLabel')"
+                    [attr.aria-label]="getPageAriaLabel(pageLink)"
+                    [attr.aria-current]="pageLink - 1 == getPage() ? 'page' : undefined"
                     (click)="onPageLinkClick($event, pageLink - 1)"
                     pRipple
                 >
@@ -77,6 +97,14 @@ import { PaginatorState } from './paginator.interface';
                 [scrollHeight]="dropdownScrollHeight"
             >
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
+                <ng-container *ngIf="jumpToPageItemTemplate">
+                    <ng-template let-item pTemplate="item">
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
+                    </ng-template>
+                </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
             </p-dropdown>
             <button
                 type="button"
@@ -124,6 +152,9 @@ import { PaginatorState } from './paginator.interface';
                         <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
                     </ng-template>
                 </ng-container>
+                <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
+                </ng-template>
             </p-dropdown>
             <div class="p-paginator-right-content" *ngIf="templateRight" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
@@ -142,7 +173,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Number of page links to display.
      * @group Props
      */
-    @Input() pageLinkSize: number = 5;
+    @Input({ transform: numberAttribute }) pageLinkSize: number = 5;
     /**
      * Inline style of the component.
      * @group Props
@@ -157,7 +188,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShow: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShow: boolean = true;
     /**
      * Target element to attach the dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -194,22 +225,22 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Number of total records.
      * @group Props
      */
-    @Input() totalRecords: number = 0;
+    @Input({ transform: numberAttribute }) totalRecords: number = 0;
     /**
      * Data count to display per page.
      * @group Props
      */
-    @Input() rows: number = 0;
+    @Input({ transform: numberAttribute }) rows: number = 0;
     /**
      * Array of integer/object values to display inside rows per page dropdown. A object that have 'showAll' key can be added to it to show all data. Exp; [10,20,30,{showAll:'All'}]
      * @group Props
@@ -219,24 +250,30 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * Whether to display a input to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageInput: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
+    /**
+     * Template instance to inject into the jump to page dropdown item inside in the paginator.
+     * @param {Object} context - item instance.
+     * @group Props
+     */
+    @Input() jumpToPageItemTemplate: TemplateRef<{ $implicit: any }> | undefined;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Locale to be used in formatting.
      * @group Props
      */
     @Input() locale: string | undefined;
     /**
-     * Template instance to inject into the dropdown item inside in the paginator.
+     * Template instance to inject into the rows per page dropdown item inside in the paginator.
      * @param {Object} context - item instance.
      * @group Props
      */
@@ -259,6 +296,8 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     @Output() onPageChange: EventEmitter<PaginatorState> = new EventEmitter<PaginatorState>();
 
     @ContentChildren(PrimeTemplate) templates: Nullable<QueryList<any>>;
+
+    dropdownIconTemplate: Nullable<TemplateRef<any>>;
 
     firstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
@@ -286,11 +325,15 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         this.updatePaginatorState();
     }
 
-    getAriaLabel(labelType) {
+    getAriaLabel(labelType: keyof Aria): string | undefined {
         return this.config.translation.aria ? this.config.translation.aria[labelType] : undefined;
     }
 
-    getLocalization(digit: number) {
+    getPageAriaLabel(value: number): string | undefined {
+        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`) : undefined;
+    }
+
+    getLocalization(digit: number): string {
         const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
         const index = new Map(numerals.map((d, i) => [i, d]));
         if (digit > 9) {
@@ -304,6 +347,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
     ngAfterContentInit(): void {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
+                case 'dropdownicon':
+                    this.dropdownIconTemplate = item.template;
+                    break;
+
                 case 'firstpagelinkicon':
                     this.firstPageLinkIconTemplate = item.template;
                     break;
@@ -323,7 +370,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         });
     }
 
-    ngOnChanges(simpleChange: SimpleChanges) {
+    ngOnChanges(simpleChange: SimpleChanges): void {
         if (simpleChange.totalRecords) {
             this.updatePageLinks();
             this.updatePaginatorState();
@@ -345,9 +392,13 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         if (simpleChange.rowsPerPageOptions) {
             this.updateRowsPerPageOptions();
         }
+
+        if (simpleChange.pageLinkSize) {
+            this.updatePageLinks();
+        }
     }
 
-    updateRowsPerPageOptions() {
+    updateRowsPerPageOptions(): void {
         if (this.rowsPerPageOptions) {
             this.rowsPerPageItems = [];
             for (let opt of this.rowsPerPageOptions) {
@@ -360,19 +411,19 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    isFirstPage() {
+    isFirstPage(): boolean {
         return this.getPage() === 0;
     }
 
-    isLastPage() {
+    isLastPage(): boolean {
         return this.getPage() === this.getPageCount() - 1;
     }
 
-    getPageCount() {
+    getPageCount(): number {
         return Math.ceil(this.totalRecords / this.rows);
     }
 
-    calculatePageLinkBoundaries() {
+    calculatePageLinkBoundaries(): [number, number] {
         let numberOfPages = this.getPageCount(),
             visiblePages = Math.min(this.pageLinkSize, numberOfPages);
 
@@ -387,7 +438,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return [start, end];
     }
 
-    updatePageLinks() {
+    updatePageLinks(): void {
         this.pageLinks = [];
         let boundaries = this.calculatePageLinkBoundaries(),
             start = boundaries[0],
@@ -405,7 +456,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    changePage(p: number) {
+    changePage(p: number): void {
         var pc = this.getPageCount();
 
         if (p >= 0 && p < pc) {
@@ -423,7 +474,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         }
     }
 
-    updateFirst() {
+    updateFirst(): void {
         const page = this.getPage();
         if (page > 0 && this.totalRecords && this.first >= this.totalRecords) {
             Promise.resolve(null).then(() => this.changePage(page - 1));
@@ -434,7 +485,7 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         return Math.floor(this.first / this.rows);
     }
 
-    changePageToFirst(event: Event) {
+    changePageToFirst(event: Event): void {
         if (!this.isFirstPage()) {
             this.changePage(0);
         }
@@ -442,17 +493,17 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         event.preventDefault();
     }
 
-    changePageToPrev(event: Event) {
+    changePageToPrev(event: Event): void {
         this.changePage(this.getPage() - 1);
         event.preventDefault();
     }
 
-    changePageToNext(event: Event) {
+    changePageToNext(event: Event): void {
         this.changePage(this.getPage() + 1);
         event.preventDefault();
     }
 
-    changePageToLast(event: Event) {
+    changePageToLast(event: Event): void {
         if (!this.isLastPage()) {
             this.changePage(this.getPageCount() - 1);
         }
@@ -460,20 +511,20 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         event.preventDefault();
     }
 
-    onPageLinkClick(event: Event, page: number) {
+    onPageLinkClick(event: Event, page: number): void {
         this.changePage(page);
         event.preventDefault();
     }
 
-    onRppChange(event: Event) {
+    onRppChange(event: Event): void {
         this.changePage(this.getPage());
     }
 
-    onPageDropdownChange(event: DropdownChangeEvent) {
+    onPageDropdownChange(event: DropdownChangeEvent): void {
         this.changePage(event.value);
     }
 
-    updatePaginatorState() {
+    updatePaginatorState(): void {
         this.paginatorState = {
             page: this.getPage(),
             pageCount: this.getPageCount(),
@@ -483,15 +534,15 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
         };
     }
 
-    empty() {
+    empty(): boolean {
         return this.getPageCount() === 0;
     }
 
-    currentPage() {
+    currentPage(): number {
         return this.getPageCount() > 0 ? this.getPage() + 1 : 0;
     }
 
-    get currentPageReport() {
+    get currentPageReport(): string {
         return this.currentPageReportTemplate
             .replace('{currentPage}', String(this.currentPage()))
             .replace('{totalPages}', String(this.getPageCount()))

@@ -1,37 +1,25 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, Output, PLATFORM_ID, Renderer2, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2, afterNextRender } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
-import { Subscription } from 'rxjs';
+import { DomHandler } from 'primeng/dom';
+import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
-import { AppConfig } from '../../domain/appconfig';
-import { AppConfigService } from '../../service/appconfigservice';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'app-topbar',
+    standalone: true,
     templateUrl: './app.topbar.component.html',
-    animations: [
-        trigger('overlayMenuAnimation', [
-            transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('.12s cubic-bezier(0, 0, 0.2, 1)', style({ opacity: 1, transform: '*' }))]),
-            transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])
-        ])
-    ]
+    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule]
 })
-export class AppTopBarComponent implements OnInit, OnDestroy {
-    @Output() menuButtonClick: EventEmitter<any> = new EventEmitter();
+export class AppTopBarComponent implements OnDestroy {
+    @Input() showConfigurator = true;
 
-    @ViewChild('topbarMenu') topbarMenu: ElementRef;
+    @Input() showMenuButton = true;
 
-    @ViewChild('containerElement') containerElement: ElementRef;
-
-    activeMenuIndex: number;
-
-    outsideClickListener: VoidFunction | null;
-
-    config: AppConfig;
-
-    subscription: Subscription;
+    @Output() onDarkModeSwitch = new EventEmitter<any>();
 
     versions: any[] = Versions;
 
@@ -39,24 +27,35 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
 
     private window: Window;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
+    constructor(@Inject(DOCUMENT) private document: Document, private el: ElementRef, private renderer: Renderer2, private router: Router, private configService: AppConfigService) {
         this.window = this.document.defaultView as Window;
-    }
 
-    ngOnInit() {
-        this.config = this.configService.config;
-        this.subscription = this.configService.configUpdate$.subscribe((config) => (this.config = config));
-
-        this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                this.activeMenuIndex = null;
-            }
-        });
-
-        if (isPlatformBrowser(this.platformId)) {
+        afterNextRender(() => {
             this.bindScrollListener();
             this.initDocSearch();
+        });
+    }
+
+    get isDarkMode() {
+        return this.configService.config().darkMode;
+    }
+
+    toggleMenu() {
+        if (this.configService.state.menuActive) {
+            this.configService.hideMenu();
+            DomHandler.unblockBodyScroll('blocked-scroll');
+        } else {
+            this.configService.showMenu();
+            DomHandler.blockBodyScroll('blocked-scroll');
         }
+    }
+
+    showConfig() {
+        this.configService.showConfig();
+    }
+
+    toggleDarkMode() {
+        this.onDarkModeSwitch.emit(null);
     }
 
     initDocSearch() {
@@ -64,69 +63,19 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
             appId: 'XG1L2MUWT9',
             apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
             indexName: 'primeng',
-            container: '#docsearch',
-            transformItems: this.handleDocSearchTransformItems.bind(this)
-        });
-    }
-
-    handleDocSearchTransformItems(results) {
-        const valid = process.env.NODE_ENV !== 'production';
-        return results.map((result) => {
-            if (valid) {
-                const url = new URL(result.url);
-
-                url.protocol = this.window.location.protocol;
-                url.hostname = this.window.location.hostname;
-                url.port = this.window.location.port;
-                result.url = url.toString();
-            }
-
-            return result;
+            container: '#docsearch'
         });
     }
 
     bindScrollListener() {
         if (!this.scrollListener) {
-            this.scrollListener = this.renderer.listen(this.window, 'scroll', (event) => {
+            this.scrollListener = this.renderer.listen(this.window, 'scroll', () => {
                 if (this.window.scrollY > 0) {
-                    this.containerElement.nativeElement.classList.add('layout-topbar-sticky');
+                    this.el.nativeElement.children[0].classList.add('layout-topbar-sticky');
                 } else {
-                    this.containerElement.nativeElement.classList.remove('layout-topbar-sticky');
+                    this.el.nativeElement.children[0].classList.remove('layout-topbar-sticky');
                 }
             });
-        }
-    }
-
-    onMenuButtonClick(event: Event) {
-        this.menuButtonClick.emit();
-        event.preventDefault();
-    }
-
-    onConfigButtonClick(event: Event) {
-        this.configService.toggleConfig();
-        event.preventDefault();
-    }
-
-    changeTheme(event: Event, theme: string, dark: boolean) {
-        this.configService.updateConfig({ ...this.config, ...{ theme, dark } });
-        this.activeMenuIndex = null;
-        event.preventDefault();
-    }
-
-    bindOutsideClickListener() {
-        if (!this.outsideClickListener) {
-            this.outsideClickListener = this.renderer.listen(this.document, 'click', (event) => {
-                if (this.isOutsideTopbarMenuClicked(event)) {
-                    this.activeMenuIndex = null;
-                }
-            });
-        }
-    }
-
-    unbindOutsideClickListener() {
-        if (this.outsideClickListener) {
-            this.outsideClickListener();
-            this.outsideClickListener = null;
         }
     }
 
@@ -137,32 +86,7 @@ export class AppTopBarComponent implements OnInit, OnDestroy {
         }
     }
 
-    toggleMenu(event: Event, index: number) {
-        this.activeMenuIndex = this.activeMenuIndex === index ? null : index;
-        event.preventDefault();
-    }
-
-    isOutsideTopbarMenuClicked(event): boolean {
-        return !(this.topbarMenu.nativeElement.isSameNode(event.target) || this.topbarMenu.nativeElement.contains(event.target));
-    }
-
-    onOverlayMenuEnter(event: AnimationEvent) {
-        switch (event.toState) {
-            case 'visible':
-                this.bindOutsideClickListener();
-                break;
-
-            case 'void':
-                this.unbindOutsideClickListener();
-                break;
-        }
-    }
-
     ngOnDestroy() {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
-
         this.unbindScrollListener();
     }
 }

@@ -123,8 +123,8 @@ describe('Checkbox', () => {
         const input = fixture.nativeElement.querySelector('input');
         const boxEl = fixture.nativeElement.querySelector('.p-checkbox-box');
         const labelEl = fixture.nativeElement.querySelector('.p-checkbox-label');
-        const onBlurSpy = spyOn(checkbox, 'onBlur').and.callThrough();
-        const onFocusSpy = spyOn(checkbox, 'onFocus').and.callThrough();
+        const onBlurSpy = spyOn(checkbox, 'onInputBlur').and.callThrough();
+        const onFocusSpy = spyOn(checkbox, 'onInputFocus').and.callThrough();
         input.dispatchEvent(new Event('focus'));
         fixture.detectChanges();
 
@@ -165,17 +165,5 @@ describe('Checkbox', () => {
         const iconEl = fixture.nativeElement.querySelector('.p-checkbox-box .p-checkbox-icon');
 
         expect(iconEl.className).toContain('pi pi-new-check');
-    });
-
-    it('should call handleChange', () => {
-        fixture.detectChanges();
-
-        checkbox.binary = true;
-        const handleChangeSpy = spyOn(checkbox, 'handleChange').and.callThrough();
-        const input = fixture.nativeElement.querySelector('input');
-        input.dispatchEvent(new Event('change'));
-        fixture.detectChanges();
-
-        expect(handleChangeSpy).toHaveBeenCalled();
     });
 });

@@ -1,49 +1,47 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'floatlabel-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <span class="p-float-label">
+            <p-floatLabel>
                 <input pInputText id="username" [(ngModel)]="value" />
-                <label htmlFor="username">Username</label>
-            </span>
+                <label for="username">Username</label>
+            </p-floatLabel>
         </div>
         <app-code [code]="code" selector="input-text-floatlabel-demo"></app-code>
-    </section>`
+    `
 })
 export class FloatLabelDoc {
     value: string | undefined;
 
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<span class="p-float-label">
+        basic: `<p-floatLabel>
     <input pInputText id="username" [(ngModel)]="value" />
-    <label htmlFor="username">Username</label>
-</span>`,
+    <label for="username">Username</label>
+</p-floatLabel>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <span class="p-float-label">
+        html: `<div class="card flex justify-content-center">
+    <p-floatLabel>
         <input pInputText id="username" [(ngModel)]="value" />
-        <label htmlFor="username">Username</label>
-    </span>
+        <label for="username">Username</label>
+    </p-floatLabel>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @Component({
     selector: 'input-text-floatlabel-demo',
-    templateUrl: './input-text-floatlabel-demo.html'
+    templateUrl: './input-text-floatlabel-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule, FloatLabelModule]
 })
 export class InputTextFloatlabelDemo {
     value: string | undefined;

@@ -1,56 +1,56 @@
 import { Component } from '@angular/core';
-import { ContextMenuDoc } from '../../doc/table/contextmenudoc';
-import { BasicDoc } from '../../doc/table/basicdoc';
-import { CellEditDoc } from '../../doc/table/celleditdoc';
-import { CheckboxSelectionDoc } from '../../doc/table/checkboxselectiondoc';
-import { ColumnGroupDoc } from '../../doc/table/columngroupdoc';
-import { ColumnResizeExpandModeDoc } from '../../doc/table/columnresizeexpandmodedoc';
-import { ColumnResizeScrollableModeDoc } from '../../doc/table/columnresizescrollablemodedoc';
-import { ColumnSelectionDoc } from '../../doc/table/columnselectiondoc';
-import { ColumnToggleDoc } from '../../doc/table/columntoggledoc';
-import { ControlledSelectionDoc } from '../../doc/table/controlledselectiondoc';
-import { CustomersDoc } from '../../doc/table/customersdoc';
-import { CustomSortDoc } from '../../doc/table/customsortdoc';
-import { DynamicDoc } from '../../doc/table/dynamicdoc';
-import { ExpandableRowGroupDoc } from '../../doc/table/expandablerowgroupdoc';
-import { ExportDoc } from '../../doc/table/exportdoc';
-import { FilterMenuDoc } from '../../doc/table/filtermenudoc';
-import { FilterRowDoc } from '../../doc/table/filterrowdoc';
-import { FlexibleScrollDoc } from '../../doc/table/flexiblescrolldoc';
-import { FrozenColumnsDoc } from '../../doc/table/frozencolumnsdoc';
-import { FrozenRowsDoc } from '../../doc/table/frozenrowsdoc';
-import { GridlinesDoc } from '../../doc/table/gridlinesdoc';
-import { ImportDoc } from '../../doc/table/importdoc';
-import { HorizontalAndVerticalScrollDoc } from '../../doc/table/horizontalandverticaldoc';
-import { LazyLoadDoc } from '../../doc/table/lazyloaddoc';
-import { MultipleSelectionDoc } from '../../doc/table/multipleselectiondoc';
-import { PageOnlySelectionDoc } from '../../doc/table/pageonlyselectiondoc';
-import { PaginatorBasicDoc } from '../../doc/table/paginatorbasicdoc';
-import { PaginatorProgrammaticDoc } from '../../doc/table/paginatorprogrammaticdoc';
-import { ProductsDoc } from '../../doc/table/productsdoc';
-import { RadioButtonSelectionDoc } from '../../doc/table/radiobuttonselectiondoc';
-import { ReorderDoc } from '../../doc/table/reorderdoc';
-import { ResponsiveScrollDoc } from '../../doc/table/responsivescrolldoc';
-import { ResponsiveStackDoc } from '../../doc/table/responsivestackdoc';
-import { RowEditDoc } from '../../doc/table/roweditdoc';
-import { RowExpandDoc } from '../../doc/table/rowexpanddoc';
-import { RowspanGroupingDoc } from '../../doc/table/rowspangroupingdoc';
-import { SingleColumnSortDoc } from '../../doc/table/singlecolumnsortdoc';
-import { SingleSelectionDoc } from '../../doc/table/singleselectiondoc';
-import { SizeDoc } from '../../doc/table/sizedoc';
-import { StatefulDoc } from '../../doc/table/statefuldoc';
-import { StripedDoc } from '../../doc/table/stripeddoc';
-import { StyleDoc } from '../../doc/table/styledoc';
-import { SubheaderGroupingDoc } from '../../doc/table/subheadergroupingdoc';
-import { TemplateDoc } from '../../doc/table/templatedoc';
-import { VerticalScrollDoc } from '../../doc/table/verticalscrolldoc';
-import { VirtualScrollDoc } from '../../doc/table/virtualscrolldoc';
-import { VirtualScrollLazyDoc } from '../../doc/table/virtualscrolllazydoc';
-import { ColumnResizeFitModeDoc } from '../../doc/table/columnresizefitmodedoc';
-import { SelectionEventsDoc } from '../../doc/table/selectioneventsdoc';
-import { StylingDoc } from '../../doc/table/stylingdoc';
-import { AccessibilityDoc } from '../../doc/table/accessibilitydoc';
-import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
+import { ContextMenuDoc } from '@doc/table/contextmenudoc';
+import { BasicDoc } from '@doc/table/basicdoc';
+import { CellEditDoc } from '@doc/table/celleditdoc';
+import { CheckboxSelectionDoc } from '@doc/table/checkboxselectiondoc';
+import { ColumnGroupDoc } from '@doc/table/columngroupdoc';
+import { ColumnResizeExpandModeDoc } from '@doc/table/columnresizeexpandmodedoc';
+import { ColumnResizeScrollableModeDoc } from '@doc/table/columnresizescrollablemodedoc';
+import { ColumnSelectionDoc } from '@doc/table/columnselectiondoc';
+import { ColumnToggleDoc } from '@doc/table/columntoggledoc';
+import { CustomersDoc } from '@doc/table/customersdoc';
+import { DynamicDoc } from '@doc/table/dynamicdoc';
+import { ExpandableRowGroupDoc } from '@doc/table/expandablerowgroupdoc';
+import { ExportDoc } from '@doc/table/exportdoc';
+import { FilterBasicDoc } from '@doc/table/filterbasic';
+import { FlexibleScrollDoc } from '@doc/table/flexiblescrolldoc';
+import { FrozenColumnsDoc } from '@doc/table/frozencolumnsdoc';
+import { FrozenRowsDoc } from '@doc/table/frozenrowsdoc';
+import { GridlinesDoc } from '@doc/table/gridlinesdoc';
+import { ImportDoc } from '@doc/table/importdoc';
+import { HorizontalScrollDoc } from '@doc/table/horizontalscrolldoc';
+import { LazyLoadDoc } from '@doc/table/lazyloaddoc';
+import { MultipleSelectionDoc } from '@doc/table/multipleselectiondoc';
+import { PaginatorBasicDoc } from '@doc/table/paginatorbasicdoc';
+import { PaginatorProgrammaticDoc } from '@doc/table/paginatorprogrammaticdoc';
+import { ProductsDoc } from '@doc/table/productsdoc';
+import { RadioButtonSelectionDoc } from '@doc/table/radiobuttonselectiondoc';
+import { ReorderDoc } from '@doc/table/reorderdoc';
+import { ResponsiveScrollDoc } from '@doc/table/responsivescrolldoc';
+import { ResponsiveStackDoc } from '@doc/table/responsivestackdoc';
+import { RowEditDoc } from '@doc/table/roweditdoc';
+import { RowExpansionDoc } from '@doc/table/rowexpansiondoc';
+import { RowspanGroupingDoc } from '@doc/table/rowspangroupingdoc';
+import { SingleColumnSortDoc } from '@doc/table/singlecolumnsortdoc';
+import { MultipleColumnsSortDoc } from '@doc/table/multiplecolumnssortdoc';
+import { SingleSelectionDoc } from '@doc/table/singleselectiondoc';
+import { SizeDoc } from '@doc/table/sizedoc';
+import { StatefulDoc } from '@doc/table/statefuldoc';
+import { StripedDoc } from '@doc/table/stripeddoc';
+import { StyleDoc } from '@doc/table/styledoc';
+import { SubheaderGroupingDoc } from '@doc/table/subheadergroupingdoc';
+import { TemplateDoc } from '@doc/table/templatedoc';
+import { VerticalScrollDoc } from '@doc/table/verticalscrolldoc';
+import { VirtualScrollDoc } from '@doc/table/virtualscrolldoc';
+import { VirtualScrollLazyDoc } from '@doc/table/virtualscrolllazydoc';
+import { ColumnResizeFitModeDoc } from '@doc/table/columnresizefitmodedoc';
+import { SelectionEventsDoc } from '@doc/table/selectioneventsdoc';
+import { StylingDoc } from '@doc/table/stylingdoc';
+import { AccessibilityDoc } from '@doc/table/accessibilitydoc';
+import { PreSortDoc } from '@doc/table/presortdoc';
+import { FilterSortEditDoc } from '@doc/table/filtersorteditdoc';
+import { RemovableSortDoc } from '@doc/table/removablesortdoc';
+import { FilterAdvancedDoc } from '@doc/table/filteradvanceddoc';
 
 @Component({
     templateUrl: './tabledemo.html',
@@ -59,7 +59,7 @@ import { PaginatorLocaleDoc } from '../../doc/table/paginatorlocaledoc';
 export class TableDemo {
     docs = [
         {
-            id: 'import',
+            id: 'import-demo',
             label: 'Import',
             component: ImportDoc
         },
@@ -124,11 +124,6 @@ export class TableDemo {
                     component: PaginatorBasicDoc
                 },
                 {
-                    id: 'paginator-locale',
-                    label: 'Locale',
-                    component: PaginatorLocaleDoc
-                },
-                {
                     id: 'paginator-programmatic',
                     label: 'Programmatic',
                     component: PaginatorProgrammaticDoc
@@ -145,9 +140,19 @@ export class TableDemo {
                     component: SingleColumnSortDoc
                 },
                 {
-                    id: 'custom-sort',
-                    label: 'Custom Sort',
-                    component: CustomSortDoc
+                    id: 'multiple-columns-sort',
+                    label: 'Multiple Columns',
+                    component: MultipleColumnsSortDoc
+                },
+                {
+                    id: 'pre-sort',
+                    label: 'Presort',
+                    component: PreSortDoc
+                },
+                {
+                    id: 'removable-sort',
+                    label: 'Removable',
+                    component: RemovableSortDoc
                 }
             ]
         },
@@ -156,14 +161,14 @@ export class TableDemo {
             label: 'Filter',
             children: [
                 {
-                    id: 'filter-menu',
-                    label: 'Filter Menu',
-                    component: FilterMenuDoc
+                    id: 'filter-basic',
+                    label: 'Basic',
+                    component: FilterBasicDoc
                 },
                 {
-                    id: 'filter-row',
-                    label: 'Filter Row',
-                    component: FilterRowDoc
+                    id: 'filter-advanced',
+                    label: 'Advanced',
+                    component: FilterAdvancedDoc
                 }
             ]
         },
@@ -173,33 +178,23 @@ export class TableDemo {
             children: [
                 {
                     id: 'single-selection',
-                    label: 'Single Selection',
+                    label: 'Single',
                     component: SingleSelectionDoc
                 },
                 {
                     id: 'multiple-selection',
-                    label: 'Multiple Selection',
+                    label: 'Multiple',
                     component: MultipleSelectionDoc
                 },
                 {
-                    id: 'checkbox-selection',
-                    label: 'Checkbox Selection',
-                    component: CheckboxSelectionDoc
-                },
-                {
                     id: 'radio-button-selection',
-                    label: 'Radio Button Selection',
+                    label: 'RadioButton',
                     component: RadioButtonSelectionDoc
                 },
                 {
-                    id: 'controlled-selection',
-                    label: 'Controlled Selection',
-                    component: ControlledSelectionDoc
-                },
-                {
-                    id: 'page-only-selection',
-                    label: 'Page Only Selection',
-                    component: PageOnlySelectionDoc
+                    id: 'checkbox-selection',
+                    label: 'Checkbox',
+                    component: CheckboxSelectionDoc
                 },
                 {
                     id: 'selection-events',
@@ -214,23 +209,28 @@ export class TableDemo {
             component: ColumnSelectionDoc
         },
         {
-            id: 'row-expand',
-            label: 'Row Expand',
-            component: RowExpandDoc
+            id: 'row-expansion',
+            label: 'Row Expansion',
+            component: RowExpansionDoc
         },
         {
             id: 'Edit',
             label: 'Edit',
             children: [
                 {
+                    id: 'cell-edit',
+                    label: 'Cell',
+                    component: CellEditDoc
+                },
+                {
                     id: 'row-edit',
-                    label: 'Row Edit',
+                    label: 'Row',
                     component: RowEditDoc
                 },
                 {
-                    id: 'cell-edit',
-                    label: 'Cell Edit',
-                    component: CellEditDoc
+                    id: 'filter-sort-edit',
+                    label: 'Filter & Sort Cell Edit',
+                    component: FilterSortEditDoc
                 }
             ]
         },
@@ -245,18 +245,18 @@ export class TableDemo {
             children: [
                 {
                     id: 'vertical-scroll',
-                    label: 'Vertical Scroll',
+                    label: 'Vertical',
                     component: VerticalScrollDoc
                 },
                 {
-                    id: 'horizontal-and-vertical-scroll',
-                    label: 'Horizontal and Vertical Scroll',
-                    component: HorizontalAndVerticalScrollDoc
+                    id: 'flex-scroll',
+                    label: 'Flexible',
+                    component: FlexibleScrollDoc
                 },
                 {
-                    id: 'flex-scroll',
-                    label: 'Flex Scroll',
-                    component: FlexibleScrollDoc
+                    id: 'horizontal-scroll',
+                    label: 'Horizontal',
+                    component: HorizontalScrollDoc
                 },
                 {
                     id: 'frozen-rows',

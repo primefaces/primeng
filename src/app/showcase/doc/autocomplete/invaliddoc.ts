@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -8,21 +8,15 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'invalid-doc',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)" />
         </div>
-        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
 })
 export class InvalidDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: any[] | undefined;
 
     selectedItem: any;
@@ -34,16 +28,23 @@ export class InvalidDoc {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>`,
+        basic: `<p-autoComplete
+    class="ng-invalid ng-dirty" 
+    [(ngModel)]="selectedItem" 
+    [suggestions]="suggestions" 
+    (completeMethod)="search($event)" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        class="ng-invalid ng-dirty" 
+        [(ngModel)]="selectedItem" 
+        [suggestions]="suggestions" 
+        (completeMethod)="search($event)" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -53,7 +54,8 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-invalid-demo',
     templateUrl: './autocomplete-invalid-demo.html',
-    styleUrls: ['./autocomplete-invalid-demo.scss']
+    standalone: true,
+    imports: [FormsModule, AutoCompleteModule]
 })
 export class AutocompleteInvalidDemo {
     items: any[] | undefined;

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'position-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sidebar location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-2">
@@ -24,19 +24,15 @@ import { Code } from '../../domain/code';
                 <h3>Bottom Sidebar</h3>
             </p-sidebar>
 
-            <p-button type="button" class="mr-2" (click)="sidebarVisible1 = true" icon="pi pi-arrow-right"></p-button>
-            <p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-arrow-left"></p-button>
-            <p-button type="button" class="mr-2" (click)="sidebarVisible3 = true" icon="pi pi-arrow-down"></p-button>
-            <p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up"></p-button>
+            <p-button type="button" class="mr-2" (click)="sidebarVisible1 = true" icon="pi pi-arrow-right" />
+            <p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-arrow-left" />
+            <p-button type="button" class="mr-2" (click)="sidebarVisible3 = true" icon="pi pi-arrow-down" />
+            <p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up" />
         </div>
         <app-code [code]="code" selector="sidebar-position-demo"></app-code>
-    </section>`
+    `
 })
 export class PositionDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sidebarVisible1: boolean = false;
 
     sidebarVisible2: boolean = false;
@@ -46,8 +42,7 @@ export class PositionDoc {
     sidebarVisible4: boolean = false;
 
     code: Code = {
-        basic: `
-<p-sidebar [(visible)]="sidebarVisible1" position="left">
+        basic: `<p-sidebar [(visible)]="sidebarVisible1" position="left">
     <h3>Left Sidebar</h3>
 </p-sidebar>
 
@@ -63,13 +58,28 @@ export class PositionDoc {
     <h3>Bottom Sidebar</h3>
 </p-sidebar>
 
-<p-button type="button" class="mr-2" (click)="sidebarVisible1 = true" icon="pi pi-arrow-right"></p-button>
-<p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-arrow-left"></p-button>
-<p-button type="button" class="mr-2" (click)="sidebarVisible3 = true" icon="pi pi-arrow-down"></p-button>
-<p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up"></p-button>`,
+<p-button 
+    type="button" 
+    class="mr-2" 
+    (click)="sidebarVisible1 = true" 
+    icon="pi pi-arrow-right" />
+<p-button 
+    type="button" 
+    class="mr-2" 
+    (click)="sidebarVisible2 = true" 
+    icon="pi pi-arrow-left" />
+<p-button 
+    type="button" 
+    class="mr-2" 
+    (click)="sidebarVisible3 = true" 
+    icon="pi pi-arrow-down" />
+<p-button 
+    type="button" 
+    class="mr-2" 
+    (click)="sidebarVisible4 = true" 
+    icon="pi pi-arrow-up" />`,
 
-        html: `
-<div class="card flex flex-wrap justify-content-center gap-2">
+        html: `<div class="card flex flex-wrap justify-content-center gap-2">
     <p-sidebar [(visible)]="sidebarVisible1" position="left">
         <h3>Left Sidebar</h3>
     </p-sidebar>
@@ -86,18 +96,37 @@ export class PositionDoc {
         <h3>Bottom Sidebar</h3>
     </p-sidebar>
 
-    <p-button type="button" class="mr-2" (click)="sidebarVisible1 = true" icon="pi pi-arrow-right"></p-button>
-    <p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-arrow-left"></p-button>
-    <p-button type="button" class="mr-2" (click)="sidebarVisible3 = true" icon="pi pi-arrow-down"></p-button>
-    <p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up"></p-button>
+    <p-button 
+        type="button"
+        class="mr-2" 
+        (click)="sidebarVisible1 = true" 
+        icon="pi pi-arrow-right" />
+    <p-button 
+        type="button" 
+        class="mr-2" 
+        (click)="sidebarVisible2 = true" 
+        icon="pi pi-arrow-left" />
+    <p-button 
+        type="button"
+        class="mr-2" 
+        (click)="sidebarVisible3 = true" 
+        icon="pi pi-arrow-down" />
+    <p-button 
+        type="button" 
+        class="mr-2" 
+        (click)="sidebarVisible4 = true" 
+        icon="pi pi-arrow-up" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'sidebar-position-demo',
-    templateUrl: './sidebar-position-demo.html'
+    templateUrl: './sidebar-position-demo.html',
+    standalone: true,
+    imports: [SidebarModule, ButtonModule]
 })
 export class SidebarPositionDemo {
     sidebarVisible1: boolean = false;

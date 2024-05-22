@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/chips/importdoc';
-import { BasicDoc } from '../../doc/chips/basicdoc';
-import { CommaSeparatorDoc } from '../../doc/chips/commaseparator.doc';
-import { RegexpSeparatorDoc } from '../../doc/chips/regexpseparator.doc';
-import { TemplateDoc } from '../../doc/chips/templatedoc';
-import { StyleDoc } from '../../doc/chips/styledoc';
-import { AccessibilityDoc } from '../../doc/chips/accessibilitydoc';
-import { ReactiveFormsDoc } from '../../doc/chips/reactiveformsdoc';
-import { MaxValuesDoc } from '../../doc/chips/maxvaluesdoc';
+import { ImportDoc } from '@doc/chips/importdoc';
+import { BasicDoc } from '@doc/chips/basicdoc';
+import { SeparatorDoc } from '@doc/chips/separatordoc';
+import { TemplateDoc } from '@doc/chips/templatedoc';
+import { StyleDoc } from '@doc/chips/styledoc';
+import { AccessibilityDoc } from '@doc/chips/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/chips/reactiveformsdoc';
+import { MaxValuesDoc } from '@doc/chips/maxvaluesdoc';
+import { FilledDoc } from '@doc/chips/filleddoc';
+import { FloatLabelDoc } from '@doc/chips/floatlabeldoc';
+import { InvalidDoc } from '@doc/chips/invaliddoc';
+import { DisabledDoc } from '@doc/chips/disableddoc';
 
 @Component({
     templateUrl: './chipsdemo.html'
@@ -35,19 +38,34 @@ export class ChipsDemo {
             component: MaxValuesDoc
         },
         {
-            id: 'commaseparator',
-            label: 'Comma Seperator',
-            component: CommaSeparatorDoc
-        },
-        {
-            id: 'regexpseparator',
-            label: 'RegExp Separator',
-            component: RegexpSeparatorDoc
+            id: 'separator',
+            label: 'Separator',
+            component: SeparatorDoc
         },
         {
             id: 'template',
             label: 'Template',
             component: TemplateDoc
+        },
+        {
+            id: 'floatlabel',
+            label: 'Float Label',
+            component: FloatLabelDoc
+        },
+        {
+            id: 'filled',
+            label: 'Filled',
+            component: FilledDoc
+        },
+        {
+            id: 'invalid',
+            label: 'Invalid',
+            component: InvalidDoc
+        },
+        {
+            id: 'disabled',
+            label: 'Disabled',
+            component: DisabledDoc
         },
         {
             id: 'style',

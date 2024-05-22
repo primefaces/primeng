@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
@@ -8,9 +8,11 @@ import { Translation } from './translation';
 export class PrimeNGConfig {
     ripple: boolean = false;
 
-    inputStyle: 'outlined' | 'filled' = 'outlined';
+    inputStyle = signal<'outlined' | 'filled'>('outlined');
 
     overlayOptions: OverlayOptions = {};
+
+    csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
@@ -136,7 +138,12 @@ export class PrimeNGConfig {
             zoomIn: 'Zoom In',
             zoomOut: 'Zoom Out',
             rotateRight: 'Rotate Right',
-            rotateLeft: 'Rotate Left'
+            rotateLeft: 'Rotate Left',
+            listLabel: 'Option List',
+            selectColor: 'Select a color',
+            removeLabel: 'Remove',
+            browseFiles: 'Browse Files',
+            maximizeLabel: 'Maximize'
         }
     };
 

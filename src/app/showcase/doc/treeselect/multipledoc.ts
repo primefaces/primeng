@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'multiple-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 More than one node is selectable by setting <i>selectionMode</i> to <i>multiple</i>. By default in multiple selection mode, metaKey press (e.g. <i>⌘</i>) is necessary to add to existing selections however this can be configured with
                 disabling the <i>metaKeySelection</i> property. Note that in touch enabled devices, TreeSelect always ignores metaKey.
@@ -14,16 +14,12 @@ import { NodeService } from '../../service/nodeservice';
         </app-docsectiontext>
         <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>
+            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
-    </section>`
+    `
 })
 export class MultipleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     nodes!: any[];
 
     selectedNodes: any;
@@ -41,21 +37,37 @@ export class MultipleDoc {
     };
 
     code: Code = {
-        basic: `
-<p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="w-full md:w-20rem" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    [metaKeySelection]="false" 
+    selectionMode="multiple"
+    placeholder="Select Item" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="w-full md:w-20rem" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        [metaKeySelection]="false" 
+        selectionMode="multiple" 
+        placeholder="Select Item" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-multiple-demo',
-    templateUrl: './tree-select-multiple-demo.html'
+    templateUrl: './tree-select-multiple-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectMultipleDemo {
     nodes!: any[];

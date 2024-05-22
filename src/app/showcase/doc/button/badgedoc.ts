@@ -1,41 +1,47 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'button-badge-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Buttons have built-in <i>badge</i> support with badge and <i>badgeClass</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-button label="Emails" badge="8"></p-button>
-            <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
+        <div class="card flex justify-content-center flex-wrap gap-3">
+            <p-button label="Emails" badge="2" styleClass="m-0" />
+            <p-button label="Messages" icon="pi pi-users" badge="2" badgeClass="p-badge-contrast" styleClass="m-0" outlined="true" />
         </div>
         <app-code [code]="code" selector="button-badge-demo"></app-code>
-    </section>`
+    `
 })
 export class BadgeDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-button label="Emails" badge="8"></p-button>
-<p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>`,
+        basic: `<p-button label="Emails" badge="8" />
+<p-button 
+    label="Messages" 
+    icon="pi pi-users" 
+    badge="2" 
+    badgeClass="p-badge-contrast" 
+    outlined="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-button label="Emails" badge="8"></p-button>
-    <p-button label="Messages" icon="pi pi-users" severity="warning" badge="8" badgeClass="p-badge-danger"></p-button>
+        html: `<div class="card flex justify-content-center flex-wrap gap-3">
+    <p-button label="Emails" badge="2" />
+    <p-button 
+        label="Messages" 
+        icon="pi pi-users" 
+        badge="8" 
+        badgeClass="p-badge-contrast" 
+        outlined="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'button-badge-demo',
-    templateUrl: './button-badge-demo.html'
+    templateUrl: './button-badge-demo.html',
+    standalone: true,
+    imports: [ButtonModule]
 })
 export class ButtonBadgeDemo { }`
     };

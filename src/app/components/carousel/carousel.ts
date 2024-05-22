@@ -19,7 +19,9 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -62,8 +64,8 @@ import { DomHandler } from 'primeng/dom';
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </button>
-                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }">
-                        <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                        <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()">
                             <div
                                 *ngFor="let item of clonedItemsForStarting; let index = index"
                                 [ngClass]="{
@@ -81,6 +83,9 @@ import { DomHandler } from 'primeng/dom';
                             <div
                                 *ngFor="let item of value; let index = index"
                                 [ngClass]="{ 'p-carousel-item': true, 'p-carousel-item-active': firstIndex() <= index && lastIndex() >= index, 'p-carousel-item-start': firstIndex() === index, 'p-carousel-item-end': lastIndex() === index }"
+                                [attr.aria-hidden]="!(totalShiftedItems * -1 === value.length)"
+                                [attr.aria-label]="ariaSlideNumber(index)"
+                                [attr.aria-roledescription]="ariaSlideLabel()"
                             >
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </div>
@@ -245,22 +250,22 @@ export class Carousel implements AfterContentInit {
      * Defines if scrolling would be infinite.
      * @group Props
      */
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
     /**
      * Whether to display indicator container.
      * @group Props
      */
-    @Input() showIndicators: boolean = true;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = true;
     /**
      * Whether to display navigation buttons in container.
      * @group Props
      */
-    @Input() showNavigators: boolean = true;
+    @Input({ transform: booleanAttribute }) showNavigators: boolean = true;
     /**
      * Time in milliseconds to scroll items automatically.
      * @group Props
      */
-    @Input() autoplayInterval: number = 0;
+    @Input({ transform: numberAttribute }) autoplayInterval: number = 0;
     /**
      * Inline style of the component.
      * @group Props
@@ -515,6 +520,7 @@ export class Carousel implements AfterContentInit {
         if (!this.carouselStyle) {
             this.carouselStyle = this.renderer.createElement('style');
             this.carouselStyle.type = 'text/css';
+            DomHandler.setAttribute(this.carouselStyle, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.carouselStyle);
         }
 

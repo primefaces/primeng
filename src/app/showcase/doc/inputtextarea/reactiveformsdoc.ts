@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>InputTextarea can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -14,13 +14,9 @@ import { Code } from '../../domain/code';
             </form>
         </div>
         <app-code [code]="code" selector="input-textarea-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     formGroup!: FormGroup;
 
     ngOnInit() {
@@ -30,25 +26,35 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
-    <textarea rows="5" cols="30" pInputTextarea formControlName="text"></textarea>
+        basic: `<form [formGroup]="formGroup">
+    <textarea 
+        rows="5" 
+        cols="30" 
+        pInputTextarea 
+        formControlName="text">
+    </textarea>
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <textarea rows="5" cols="30" pInputTextarea formControlName="text"></textarea>
+        <textarea 
+            rows="5"
+            cols="30" 
+            pInputTextarea 
+            formControlName="text">
+        </textarea>
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
     selector: 'input-textarea-reactive-forms-demo',
-    templateUrl: './input-textarea-reactive-forms-demo.html'
+    templateUrl: './input-textarea-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputTextareaModule],
 })
 export class InputTextareaReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

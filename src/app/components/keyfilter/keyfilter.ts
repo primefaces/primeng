@@ -1,7 +1,7 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, forwardRef, Output, EventEmitter, Inject, PLATFORM_ID, Provider } from '@angular/core';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, NgModule, Output, PLATFORM_ID, Provider, booleanAttribute, forwardRef } from '@angular/core';
+import { AbstractControl, NG_VALIDATORS, Validator } from '@angular/forms';
 import { DomHandler } from 'primeng/dom';
-import { Validator, AbstractControl, NG_VALIDATORS } from '@angular/forms';
 import { KeyFilterPattern } from './keyfilter.interface';
 
 export const KEYFILTER_VALIDATOR: Provider = {
@@ -31,15 +31,15 @@ type Keys = {
 };
 
 const DEFAULT_MASKS: Record<KeyFilterPattern, RegExp> = {
-    pint: /[\d]/,
-    int: /[\d\-]/,
-    pnum: /[\d\.]/,
-    money: /[\d\.\s,]/,
-    num: /[\d\-\.]/,
-    hex: /[0-9a-f]/i,
-    email: /[a-z0-9_\.\-@]/i,
-    alpha: /[a-z_]/i,
-    alphanum: /[a-z0-9_]/i
+    pint: /^[\d]*$/,
+    int: /^[-]?[\d]*$/,
+    pnum: /^[\d\.]*$/,
+    money: /^[\d\.\s,]*$/,
+    num: /^[-]?[\d\.]*$/,
+    hex: /^[0-9a-f]*$/i,
+    email: /^[a-z0-9_\.\-@]*$/i,
+    alpha: /^[a-z_]*$/i,
+    alphanum: /^[a-z0-9_]*$/i
 };
 
 const KEYS: Keys = {
@@ -77,7 +77,7 @@ export class KeyFilter implements Validator {
      * When enabled, instead of blocking keys, input is validated internally to test against the regular expression.
      * @group Props
      */
-    @Input() pValidateOnly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pValidateOnly: boolean | undefined;
     /**
      * Sets the pattern for key filtering.
      * @group Props
@@ -225,8 +225,8 @@ export class KeyFilter implements Validator {
         if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
-
-        ok = (<RegExp>this.regex).test(cc);
+        let val = this.el.nativeElement.value + cc;
+        ok = (<RegExp>this.regex).test(val);
 
         if (!ok) {
             e.preventDefault();
@@ -237,11 +237,19 @@ export class KeyFilter implements Validator {
     onPaste(e: ClipboardEvent) {
         const clipboardData = e.clipboardData || (<any>this.document.defaultView).clipboardData.getData('text');
         if (clipboardData) {
+            let pattern = /\{[0-9]+\}/;
             const pastedText = clipboardData.getData('text');
-            for (let char of pastedText.toString()) {
-                if (!this.regex.test(char)) {
+            if (pattern.test(this.regex.toString())) {
+                if (!this.regex.test(pastedText)) {
                     e.preventDefault();
                     return;
+                }
+            } else {
+                for (let char of pastedText.toString()) {
+                    if (!this.regex.test(char)) {
+                        e.preventDefault();
+                        return;
+                    }
                 }
             }
         }

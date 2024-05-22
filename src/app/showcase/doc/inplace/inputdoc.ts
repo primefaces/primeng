@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'input-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Inplace can be used within a form to display a value as read only before making it editable. The <i>closable</i> property adds a close button next to the content to switch back to read only mode.</p>
         </app-docsectiontext>
         <div class="card">
@@ -18,16 +18,11 @@ import { Code } from '../../domain/code';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-input-demo"></app-code>
-    </section>`
+    `
 })
 export class InputDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-inplace closable="closable">
+        basic: `<p-inplace closable="closable">
     <ng-template pTemplate="display">
         <span>Click to Edit</span>
     </ng-template>
@@ -35,8 +30,7 @@ export class InputDoc {
         <input type="text" value="PrimeNG" pInputText />
     </ng-template>
 </p-inplace>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-inplace closable="closable">
         <ng-template pTemplate="display">
             <span>Click to Edit</span>
@@ -46,12 +40,15 @@ export class InputDoc {
         </ng-template>
     </p-inplace>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InplaceModule } from 'primeng/inplace';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'inplace-input-demo',
-    templateUrl: './inplace-input-demo.html'
+    templateUrl: './inplace-input-demo.html',
+    standalone: true,
+    imports: [InplaceModule, InputTextModule]
 })
 export class InplaceInputDemo {}`
     };

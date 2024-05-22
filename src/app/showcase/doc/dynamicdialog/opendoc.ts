@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'open-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The <i>open</i> method of the <i>DialogService</i> is used to open a Dialog. First parameter is the component to load and second one is the configuration object to customize the Dialog.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`,
+    `,
     providers: [DialogService]
 })
 export class OpenDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(public dialogService: DialogService) {}
 
     ref: DynamicDialogRef | undefined;

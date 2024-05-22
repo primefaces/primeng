@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { FilterDoc } from '../../doc/orderlist/filterdoc';
-import { BasicDoc } from '../../doc/orderlist/basicdoc';
-import { ImportDoc } from '../../doc/orderlist/importdoc';
-import { DragDropDoc } from '../../doc/orderlist/dragdropdoc';
-import { StyleDoc } from '../../doc/orderlist/styledoc';
-import { AccessibilityDoc } from '../../doc/orderlist/accessibilitydoc';
+import { FilterDoc } from '@doc/orderlist/filterdoc';
+import { BasicDoc } from '@doc/orderlist/basicdoc';
+import { ImportDoc } from '@doc/orderlist/importdoc';
+import { DragDropDoc } from '@doc/orderlist/dragdropdoc';
+import { StyleDoc } from '@doc/orderlist/styledoc';
+import { AccessibilityDoc } from '@doc/orderlist/accessibilitydoc';
 
 @Component({
     templateUrl: './orderlistdemo.html',

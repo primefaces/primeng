@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'presets-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>
         <div class="card">
@@ -38,24 +38,18 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="key-filter-presets-demo"></app-code>
-    </section>`
+    `
 })
 export class PresetsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<input pInputText pKeyFilter="int" />
+        basic: `<input pInputText pKeyFilter="int" />
 <input pInputText pKeyFilter="num" />
 <input pInputText pKeyFilter="money" />
 <input pInputText pKeyFilter="hex" />
 <input pInputText pKeyFilter="alpha" />
 <input pInputText pKeyFilter="alphanum" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div class="flex flex-wrap gap-3 mb-4">
         <div class="flex-auto">
             <label for="integer" class="font-bold block mb-2"> Integer </label>
@@ -86,12 +80,15 @@ export class PresetsDoc {
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
     selector: 'key-filter-presets-demo',
-    templateUrl: './key-filter-presets-demo.html'
+    templateUrl: './key-filter-presets-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputTextModule]
 })
 export class KeyFilterPresetsDemo {}`
     };

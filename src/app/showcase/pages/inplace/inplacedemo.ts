@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { ImageDoc } from '../../doc/inplace/imagedoc';
-import { StyleDoc } from '../../doc/inplace/styledoc';
-import { BasicDoc } from '../../doc/inplace/basicdoc';
-import { DataDoc } from '../../doc/inplace/datadoc';
-import { ImportDoc } from '../../doc/inplace/importdoc';
-import { InputDoc } from '../../doc/inplace/inputdoc';
-import { AccessibilityDoc } from '../../doc/inplace/accessibilitydoc';
+import { ImageDoc } from '@doc/inplace/imagedoc';
+import { StyleDoc } from '@doc/inplace/styledoc';
+import { BasicDoc } from '@doc/inplace/basicdoc';
+import { DataDoc } from '@doc/inplace/datadoc';
+import { ImportDoc } from '@doc/inplace/importdoc';
+import { InputDoc } from '@doc/inplace/inputdoc';
+import { AccessibilityDoc } from '@doc/inplace/accessibilitydoc';
+import { LazyDoc } from '@doc/inplace/lazydoc';
 
 @Component({
     templateUrl: './inplacedemo.html'
@@ -31,6 +32,11 @@ export class InplaceDemo {
             id: 'image',
             label: 'Image',
             component: ImageDoc
+        },
+        {
+            id: 'lazy',
+            label: 'Lazy',
+            component: LazyDoc
         },
         {
             id: 'data',

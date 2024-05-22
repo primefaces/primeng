@@ -1,40 +1,37 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+            <p-inputSwitch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="input-switch-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>`,
+        basic: `<p-inputSwitch [(ngModel)]="checked" />`,
 
-        html: ` 
-<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+        html: `<div class="card flex justify-content-center">
+    <p-inputSwitch [(ngModel)]="checked" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-switch-basic-demo',
-    templateUrl: './input-switch-basic-demo.html'
+    templateUrl: './input-switch-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputSwitchModule]
 })
 export class InputSwitchBasicDemo {
     checked: boolean = false;

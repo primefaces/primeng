@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -11,19 +11,7 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 @Component({
     selector: 'p-message',
     template: `
-        <div
-            aria-live="polite"
-            class="p-inline-message p-component p-inline-message"
-            [ngStyle]="style"
-            [class]="styleClass"
-            [ngClass]="{
-                'p-inline-message-info': severity === 'info',
-                'p-inline-message-warn': severity === 'warn',
-                'p-inline-message-error': severity === 'error',
-                'p-inline-message-success': severity === 'success',
-                'p-inline-message-icon-only': this.text == null
-            }"
-        >
+        <div aria-live="polite" class="p-inline-message p-component p-inline-message" [ngStyle]="style" [class]="styleClass" [ngClass]="containerClass">
             <CheckIcon *ngIf="icon === 'success'" [styleClass]="'p-inline-message-icon'" />
             <InfoCircleIcon *ngIf="icon === 'info'" [styleClass]="'p-inline-message-icon'" />
             <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'" />
@@ -48,7 +36,7 @@ export class UIMessage {
      * Severity level of the message.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'error' | string | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Text content.
      * @group Props
@@ -58,7 +46,7 @@ export class UIMessage {
      * Whether displaying messages would be escaped or not.
      * @group Props
      */
-    @Input() escape: boolean = true;
+    @Input({ transform: booleanAttribute }) escape: boolean = true;
     /**
      * Inline style of the component.
      * @group Props
@@ -71,11 +59,18 @@ export class UIMessage {
     @Input() styleClass: string | undefined;
 
     get icon() {
-        if (this.severity && this.severity.trim()) {
-            return this.severity;
+        if (this.severity) {
+            return this.severity === 'success' ? 'success' : this.severity === 'info' ? 'info' : this.severity === 'warning' ? 'warn' : this.severity === 'danger' ? 'error' : 'info';
         } else {
             return 'info';
         }
+    }
+
+    get containerClass() {
+        return {
+            [`p-inline-message-${this.severity}`]: this.severity,
+            'p-inline-message-icon-only': this.text == null
+        };
     }
 }
 

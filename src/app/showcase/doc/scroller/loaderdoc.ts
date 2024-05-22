@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'loader-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Busy state is enabled by adding <i>showLoader</i> property which blocks the UI with a modal by default. Alternatively, <i>loader</i> template can be used to customize items e.g. with <a href="/skeleton" class="">Skeleton</a>.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
@@ -29,14 +29,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="scroller-loader-demo"></app-code>
-    </section>`,
+    `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoaderDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items!: string[];
 
     ngOnInit() {
@@ -44,29 +40,61 @@ export class LoaderDoc {
     }
 
     code: Code = {
-        basic: `
-<p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-    <ng-template pTemplate="item" let-item let-options="options">
-        <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">{{ item }}</div>
-    </ng-template>
+        basic: `<p-scroller 
+    [items]="items" 
+    [itemSize]="50" 
+    [showLoader]="true" 
+    [delay]="250" 
+    styleClass="border-1 surface-border" 
+    [style]="{'width': '200px', 'height': '200px'}">
+        <ng-template pTemplate="item" let-item let-options="options">
+            <div 
+                class="flex align-items-center p-2" 
+                [ngClass]="{ 'surface-ground' : options.odd }" 
+                style="height: 50px;">
+                    {{ item }}
+            </div>
+        </ng-template>
 </p-scroller>`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" styleClass="border-1 surface-border" [style]="{'width': '200px', 'height': '200px'}">
-        <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground' : options.odd }" style="height: 50px;">{{ item }}</div>
-        </ng-template>
+        html: `<div class="card flex justify-content-center">
+    <p-scroller 
+        [items]="items" 
+        [itemSize]="50" 
+        [showLoader]="true" 
+        [delay]="250" 
+        styleClass="border-1 surface-border" 
+        [style]="{'width': '200px', 'height': '200px'}">
+            <ng-template pTemplate="item" let-item let-options="options">
+                <div 
+                    class="flex align-items-center p-2" 
+                    [ngClass]="{ 'surface-ground' : options.odd }" 
+                    style="height: 50px;">
+                        {{ item }}
+                </div>
+            </ng-template>
     </p-scroller>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ScrollerModule } from 'primeng/scroller';
 
 @Component({
     selector: 'scroller-loader-demo',
     templateUrl: './scroller-loader-demo.html',
-    styleUrls: ['./scroller-loader-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            .p-scroller-viewport {
+                flex: none;
+            }
+        
+            p-skeleton {
+                width: 100%;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [ScrollerModule]
 })
 export class ScrollerLoaderDemo implements OnInit {
     items!: string[];

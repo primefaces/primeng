@@ -1,38 +1,40 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
         <app-code [code]="code" selector="image-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>`,
+        basic: `<p-image 
+    src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" 
+    alt="Image" 
+    width="250" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" alt="Image" width="250"></p-image>
+        html: `<div class="card flex justify-content-center">
+    <p-image 
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
+        alt="Image"
+        width="250" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-        
+        typescript: `import { Component } from '@angular/core';
+import { ImageModule } from 'primeng/image';
+
 @Component({
     selector: 'image-basic-demo',
-    templateUrl: './image-basic-demo.html'
+    templateUrl: './image-basic-demo.html',
+    standalone: true,
+    imports: [ImageModule]
 })
 export class ImageBasicDemo {}`
     };

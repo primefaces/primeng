@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -8,21 +8,17 @@ interface City {
 
 @Component({
     selector: 'filter-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }"></p-listbox>
+            <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-filter-demo"></app-code>
-    </section>`
+    `
 })
 export class FilterDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities!: City[];
 
     selectedCity!: City;
@@ -38,16 +34,27 @@ export class FilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>`,
+        basic: `<p-listbox 
+    [options]="cities" 
+    [(ngModel)]="selectedCity"
+    optionLabel="name" 
+    [filter]="true" 
+    [style]="{ width: '15rem' }" 
+    [listStyle]="{'max-height': '220px'}" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}"></p-listbox>
+        html: `<div class="card flex justify-content-center">
+    <p-listbox 
+        [options]="cities" 
+        [(ngModel)]="selectedCity" 
+        optionLabel="name" 
+        [filter]="true" 
+        [style]="{ width: '15rem' }" 
+        [listStyle]="{'max-height': '220px'}" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 interface City {
     name: string,
@@ -56,7 +63,9 @@ interface City {
 
 @Component({
     selector: 'listbox-filter-demo',
-    templateUrl: './listbox-filter-demo.html'
+    templateUrl: './listbox-filter-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxFilterDemo implements OnInit {
     cities!: City[];

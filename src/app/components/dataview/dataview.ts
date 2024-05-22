@@ -16,7 +16,9 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     ViewEncapsulation,
-    OnDestroy
+    OnDestroy,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -72,18 +74,16 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
                 [showPageLinks]="showPageLinks"
                 [styleClass]="paginatorStyleClass"
             ></p-paginator>
+
             <div class="p-dataview-content">
-                <div class="p-grid p-nogutter grid grid-nogutter" [ngClass]="gridStyleClass">
-                    <ng-template ngFor let-rowData let-rowIndex="index" [ngForOf]="paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value" [ngForTrackBy]="trackBy">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: rowData, rowIndex: rowIndex }"></ng-container>
-                    </ng-template>
-                    <div *ngIf="isEmpty() && !loading" class="p-col col">
-                        <div class="p-dataview-emptymessage">
-                            <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
-                                {{ emptyMessageLabel }}
-                            </ng-container>
-                            <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
-                        </div>
+                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value }"></ng-container>
+
+                <div *ngIf="isEmpty() && !loading">
+                    <div class="p-dataview-emptymessage">
+                        <ng-container *ngIf="!emptyMessageTemplate; else empty">
+                            {{ emptyMessageLabel }}
+                        </ng-container>
+                        <ng-container #empty *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
                     </div>
                 </div>
             </div>
@@ -127,22 +127,22 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of rows to display per page.
      * @group Props
      */
-    @Input() rows: number | undefined;
+    @Input({ transform: numberAttribute }) rows: number | undefined;
     /**
      * Number of total records, defaults to length of value when not defined.
      * @group Props
      */
-    @Input() totalRecords: number | undefined;
+    @Input({ transform: numberAttribute }) totalRecords: number | undefined;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
@@ -162,7 +162,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Target element to attach the paginator dropdown overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -182,32 +182,32 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean | undefined;
+    @Input({ transform: booleanAttribute }) lazy: boolean | undefined;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * Text to display when there is no data. Defaults to global value in i18n translation configuration.
      * @group Props
@@ -247,7 +247,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -257,7 +257,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Index of the first row to be displayed.
      * @group Props
      */
-    @Input() first: number | undefined = 0;
+    @Input({ transform: numberAttribute }) first: number | undefined = 0;
     /**
      * Property name of data to use in sorting by default.
      * @group Props
@@ -267,7 +267,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
      * Order to sort the data by default.
      * @group Props
      */
-    @Input() sortOrder: number | undefined;
+    @Input({ transform: numberAttribute }) sortOrder: number | undefined;
     /**
      * An array of objects to display.
      * @group Props
@@ -320,9 +320,9 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
 
     _value: Nullable<any[]>;
 
-    listItemTemplate: Nullable<TemplateRef<any>>;
+    listTemplate: Nullable<TemplateRef<any>>;
 
-    gridItemTemplate: Nullable<TemplateRef<any>>;
+    gridTemplate: Nullable<TemplateRef<any>>;
 
     itemTemplate: Nullable<TemplateRef<any>>;
 
@@ -393,11 +393,13 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
             switch (item.getType()) {
                 case 'listItem':
-                    this.listItemTemplate = item.template;
+                case 'list':
+                    this.listTemplate = item.template;
                     break;
 
                 case 'gridItem':
-                    this.gridItemTemplate = item.template;
+                case 'grid':
+                    this.gridTemplate = item.template;
                     break;
 
                 case 'paginatorleft':
@@ -444,11 +446,11 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     updateItemTemplate() {
         switch (this.layout) {
             case 'list':
-                this.itemTemplate = this.listItemTemplate;
+                this.itemTemplate = this.listTemplate;
                 break;
 
             case 'grid':
-                this.itemTemplate = this.gridItemTemplate;
+                this.itemTemplate = this.gridTemplate;
                 break;
         }
     }

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { CountryService } from '../../service/countryservice';
-import { PlatformService } from '../../service/platformservice';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
+import { CountryService } from '@service/countryservice';
+import { PlatformService } from '@service/platformservice';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -10,24 +10,18 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'dropdown-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>
                 Enabling <i>dropdown</i> property displays a button next to the input field where click behavior of the button is defined using <i>dropdownMode</i> property that takes <strong>blank</strong> or <strong>current</strong> as possible
                 values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+            <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
         </div>
-        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
 })
 export class DropdownDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCountry: any;
@@ -59,17 +53,26 @@ export class DropdownDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>`,
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedCountry" 
+    [dropdown]="true" 
+    [suggestions]="filteredCountries" 
+    (completeMethod)="filterCountry($event)" 
+    field="name" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name"></p-autoComplete>
+        html: `<div class="card flex justify-content-center">
+    <p-autoComplete 
+        [(ngModel)]="selectedCountry" 
+        [dropdown]="true" 
+        [suggestions]="filteredCountries" 
+        (completeMethod)="filterCountry($event)" 
+        field="name" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { CountryService } from 'src/service/countryservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { CountryService } from '@service/countryservice';
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 interface AutoCompleteCompleteEvent {
     originalEvent: Event;
@@ -78,7 +81,10 @@ interface AutoCompleteCompleteEvent {
 
 @Component({
     selector: 'autocomplete-dropdown-demo',
-    templateUrl: './autocomplete-dropdown-demo.html'
+    templateUrl: './autocomplete-dropdown-demo.html',
+    standalone:true,
+    imports: [FormsModule, AutoCompleteModule],
+    providers:[CountryService]
 })
 export class AutocompleteDropdownDemo implements OnInit {
     countries: any[] | undefined;

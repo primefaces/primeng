@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface Country {
     name: string;
@@ -9,8 +9,8 @@ interface Country {
 
 @Component({
     selector: 'group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,13 +24,9 @@ interface Country {
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-group-demo"></app-code>
-    </section>`
+    `
 })
 export class GroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     groupedCities!: SelectItemGroup[];
 
     selectedCountry!: Country;
@@ -71,31 +67,46 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `
-<p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
-    <ng-template let-group pTemplate="group">
-        <div class="flex align-items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
-</p-listbox>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
+        basic: `<p-listbox 
+    [options]="groupedCities" 
+    [group]="true" 
+    [(ngModel)]="selectedCountry" 
+    [listStyle]="{ 'max-height': '250px' }" 
+    [style]="{ width: '15rem' }">
         <ng-template let-group pTemplate="group">
             <div class="flex align-items-center">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'mr-2 flag flag-' + group.value" 
+                    style="width: 20px" />
                 <span>{{ group.label }}</span>
             </div>
         </ng-template>
+</p-listbox>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-listbox 
+        [options]="groupedCities" 
+        [group]="true" 
+        [(ngModel)]="selectedCountry" 
+        [listStyle]="{ 'max-height': '250px' }" 
+        [style]="{ width: '15rem' }">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'mr-2 flag flag-' + group.value" 
+                        style="width: 20px" />
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
     </p-listbox>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 interface Country {
     name: string,
@@ -104,7 +115,9 @@ interface Country {
 
 @Component({
     selector: 'listbox-group-demo',
-    templateUrl: './listbox-group-demo.html'
+    templateUrl: './listbox-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxGroupDemo {
     groupedCities!: SelectItemGroup[];

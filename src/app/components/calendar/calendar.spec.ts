@@ -1901,4 +1901,71 @@ describe('Calendar', () => {
         expect(calendar.currentMinute).toEqual(10);
         expect(calendar.pm).toEqual(false);
     });
+
+    it('should allow changing time when min and max date times are within the hour', () => {
+        const event = { preventDefault: () => {} };
+        const now = new Date('2023-01-01T12:14:00.000Z'); // 1 minute before max date
+        const minDate = new Date('2023-01-01T11:45:00.000Z'); // quarter to now date hour
+        const maxDate = new Date('2023-01-01T12:15:01.000Z'); // quarter past now date hour, 1 minute and 1 second after now date
+        const maxDateISO = maxDate.toISOString();
+        const minDateISO = minDate.toISOString();
+        calendar.defaultDate = now;
+        calendar.value = now;
+        calendar.showTime = true;
+        calendar.showSeconds = true;
+        calendar.minDate = minDate;
+        calendar.maxDate = maxDate;
+        fixture.detectChanges();
+
+        calendar.incrementMinute(event);
+        // increment 2 seconds, should clamp to max date
+        calendar.incrementSecond(event);
+        calendar.incrementSecond(event);
+        calendar.updateTime();
+        expect((calendar.value as Date).toISOString()).toBe(maxDateISO);
+        // decrement back 1  minute and 1 second
+        calendar.decrementMinute(event);
+        calendar.decrementSecond(event);
+        calendar.updateTime();
+        // try increment 2 minutes, should clamp to max date
+        calendar.incrementMinute(event);
+        calendar.incrementMinute(event);
+        calendar.updateTime();
+        expect((calendar.value as Date).toISOString()).toBe(maxDateISO);
+        // now time should be 12:15, min time should be 11:45, decrementing hour should clamp to min date
+        calendar.decrementHour(event);
+        calendar.updateTime();
+        expect((calendar.value as Date).toISOString()).toBe(minDateISO);
+        // increment hour should clamp to max date
+        calendar.incrementHour(event);
+        calendar.updateTime();
+        expect((calendar.value as Date).toISOString()).toBe(maxDateISO);
+    });
+
+    it('should set input element date to minDate including the set time', () => {
+        const minDate = new Date(2022, 0, 1, 20, 30, 0);
+        const date = new Date(2022, 0, 2);
+        calendar.minDate = minDate;
+        calendar.defaultDate = date;
+        calendar.hourFormat = '12';
+        jasmine.clock().mockDate(date);
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        const focusEvent = new Event('focus');
+        inputEl.click();
+        calendar.currentHour = 11;
+        calendar.currentMinute = 30;
+        inputEl.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const selectdateSpy = spyOn(calendar, 'selectDate').and.callThrough();
+        const calendarContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = calendarContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        fixture.detectChanges();
+
+        expect(selectdateSpy).toHaveBeenCalled();
+        expect(calendar.value).toEqual(minDate);
+    });
 });

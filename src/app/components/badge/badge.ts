@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, OnDestroy, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
@@ -13,117 +13,108 @@ import { UniqueComponentId } from 'primeng/utils';
         class: 'p-element'
     }
 })
-export class BadgeDirective implements AfterViewInit, OnDestroy {
-    /**
-     * Icon position of the component.
-     * @group Props
-     */
-    @Input() iconPos: 'left' | 'right' | 'top' | 'bottom' = 'left';
+export class BadgeDirective implements OnChanges, AfterViewInit {
     /**
      * When specified, disables the component.
      * @group Props
      */
-    @Input('badgeDisabled') get disabled(): boolean {
-        return this._disabled;
-    }
-    set disabled(val: boolean) {
-        this._disabled = val;
-    }
+    @Input('badgeDisabled') public disabled: boolean;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public get size(): 'large' | 'xlarge' {
+    @Input() public badgeSize: 'large' | 'xlarge';
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     * @deprecated use badgeSize instead.
+     */
+    @Input() public set size(value: 'large' | 'xlarge') {
+        this._size = value;
+        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+    }
+    get size() {
         return this._size;
     }
-    set size(val: 'large' | 'xlarge') {
-        this._size = val;
-
-        if (this.initialized) {
-            this.setSizeClasses();
-        }
-    }
-    /**
-     * Value to display inside the badge.
-     * @group Props
-     */
-    @Input() get value(): string {
-        return this._value;
-    }
-    set value(val: string) {
-        if (val !== this._value) {
-            this._value = val;
-
-            if (this.initialized) {
-                let badge: HTMLElement = document.getElementById(this.id) as HTMLElement;
-
-                if (this._value) {
-                    if (DomHandler.hasClass(badge, 'p-badge-dot')) DomHandler.removeClass(badge, 'p-badge-dot');
-
-                    if (String(this._value).length === 1) {
-                        DomHandler.addClass(badge, 'p-badge-no-gutter');
-                    } else {
-                        DomHandler.removeClass(badge, 'p-badge-no-gutter');
-                    }
-                } else if (!this._value && !DomHandler.hasClass(badge, 'p-badge-dot')) {
-                    DomHandler.addClass(badge, 'p-badge-dot');
-                }
-
-                badge.innerHTML = '';
-                this.renderer.appendChild(badge, document.createTextNode(this._value));
-            }
-        }
-    }
+    _size: 'large' | 'xlarge';
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
-
-    public _value!: string;
-
-    public initialized: boolean = false;
+    @Input() public severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    /**
+     * Value to display inside the badge.
+     * @group Props
+     */
+    @Input() public value: string | number;
 
     private id!: string;
 
-    private _disabled: boolean = false;
+    private get activeElement(): HTMLElement {
+        return this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
+    }
 
-    private _size!: 'large' | 'xlarge';
+    private get canUpdateBadge(): boolean {
+        return this.id && !this.disabled;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
 
-    ngAfterViewInit() {
+    public ngOnChanges({ value, size, severity, disabled }: SimpleChanges): void {
+        if (disabled) {
+            this.toggleDisableState();
+        }
+
+        if (!this.canUpdateBadge) {
+            return;
+        }
+
+        if (severity) {
+            this.setSeverity(severity.previousValue);
+        }
+
+        if (size) {
+            this.setSizeClasses();
+        }
+
+        if (value) {
+            this.setValue();
+        }
+    }
+
+    public ngAfterViewInit(): void {
         this.id = UniqueComponentId() + '_badge';
-        let el = this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
+        this.renderBadgeContent();
+    }
 
-        if (this._disabled) {
-            return null;
+    private setValue(element?: HTMLElement): void {
+        const badge = element ?? this.document.getElementById(this.id);
+
+        if (!badge) {
+            return;
         }
-
-        let badge = this.document.createElement('span');
-        badge.id = this.id;
-        badge.className = 'p-badge p-component';
-
-        if (this.severity) {
-            DomHandler.addClass(badge, 'p-badge-' + this.severity);
-        }
-
-        this.setSizeClasses(badge);
 
         if (this.value != null) {
-            this.renderer.appendChild(badge, this.document.createTextNode(this.value));
+            if (DomHandler.hasClass(badge, 'p-badge-dot')) {
+                DomHandler.removeClass(badge, 'p-badge-dot');
+            }
 
-            if (String(this.value).length === 1) {
+            if (this.value && String(this.value).length === 1) {
                 DomHandler.addClass(badge, 'p-badge-no-gutter');
+            } else {
+                DomHandler.removeClass(badge, 'p-badge-no-gutter');
             }
         } else {
-            DomHandler.addClass(badge, 'p-badge-dot');
+            if (!DomHandler.hasClass(badge, 'p-badge-dot')) {
+                DomHandler.addClass(badge, 'p-badge-dot');
+            }
+
+            DomHandler.removeClass(badge, 'p-badge-no-gutter');
         }
 
-        DomHandler.addClass(el, 'p-overlay-badge');
-        this.renderer.appendChild(el, badge);
-
-        this.initialized = true;
+        badge.innerHTML = '';
+        const badgeValue = this.value != null ? String(this.value) : '';
+        this.renderer.appendChild(badge, this.document.createTextNode(badgeValue));
     }
 
     private setSizeClasses(element?: HTMLElement): void {
@@ -133,13 +124,23 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
             return;
         }
 
-        if (this._size) {
-            if (this._size === 'large') {
+        if (this.badgeSize) {
+            if (this.badgeSize === 'large') {
                 DomHandler.addClass(badge, 'p-badge-lg');
                 DomHandler.removeClass(badge, 'p-badge-xl');
             }
 
-            if (this._size === 'xlarge') {
+            if (this.badgeSize === 'xlarge') {
+                DomHandler.addClass(badge, 'p-badge-xl');
+                DomHandler.removeClass(badge, 'p-badge-lg');
+            }
+        } else if (this.size && !this.badgeSize) {
+            if (this.size === 'large') {
+                DomHandler.addClass(badge, 'p-badge-lg');
+                DomHandler.removeClass(badge, 'p-badge-xl');
+            }
+
+            if (this.size === 'xlarge') {
                 DomHandler.addClass(badge, 'p-badge-xl');
                 DomHandler.removeClass(badge, 'p-badge-lg');
             }
@@ -149,8 +150,53 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
         }
     }
 
-    ngOnDestroy() {
-        this.initialized = false;
+    private renderBadgeContent(): void {
+        if (this.disabled) {
+            return null;
+        }
+
+        const el = this.activeElement;
+        const badge = this.document.createElement('span');
+        badge.id = this.id;
+        badge.className = 'p-badge p-component';
+
+        this.setSeverity(null, badge);
+        this.setSizeClasses(badge);
+        this.setValue(badge);
+        DomHandler.addClass(el, 'p-overlay-badge');
+        this.renderer.appendChild(el, badge);
+    }
+
+    private setSeverity(oldSeverity?: 'success' | 'info' | 'warning' | 'danger' | null, element?: HTMLElement): void {
+        const badge = element ?? this.document.getElementById(this.id);
+
+        if (!badge) {
+            return;
+        }
+
+        if (this.severity) {
+            DomHandler.addClass(badge, `p-badge-${this.severity}`);
+        }
+
+        if (oldSeverity) {
+            DomHandler.removeClass(badge, `p-badge-${oldSeverity}`);
+        }
+    }
+
+    private toggleDisableState(): void {
+        if (!this.id) {
+            return;
+        }
+
+        if (this.disabled) {
+            const badge = this.activeElement?.querySelector(`#${this.id}`);
+
+            if (badge) {
+                this.renderer.removeChild(this.activeElement, badge);
+            }
+        } else {
+            this.renderBadgeContent();
+        }
     }
 }
 /**
@@ -182,33 +228,43 @@ export class Badge {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() size: 'large' | 'xlarge' | undefined;
+    @Input() badgeSize: 'large' | 'xlarge' | undefined;
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
      */
-    @Input() value: string | null | undefined;
+    @Input() value: string | number | null | undefined;
     /**
      * When specified, disables the component.
      * @group Props
      */
-    @Input() badgeDisabled: boolean = false;
+    @Input({ transform: booleanAttribute }) badgeDisabled: boolean = false;
+    /**
+     * Size of the badge, valid options are "large" and "xlarge".
+     * @group Props
+     * @deprecated use badgeSize instead.
+     */
+    @Input() public set size(value: 'large' | 'xlarge') {
+        this._size = value;
+        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+    }
+    get size() {
+        return this._size;
+    }
+    _size: 'large' | 'xlarge';
 
     containerClass() {
         return {
             'p-badge p-component': true,
             'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
-            'p-badge-lg': this.size === 'large',
-            'p-badge-xl': this.size === 'xlarge',
-            'p-badge-info': this.severity === 'info',
-            'p-badge-success': this.severity === 'success',
-            'p-badge-warning': this.severity === 'warning',
-            'p-badge-danger': this.severity === 'danger'
+            'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
+            'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
+            [`p-badge-${this.severity}`]: this.severity
         };
     }
 }

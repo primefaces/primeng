@@ -1,26 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>InputMask can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999"></p-inputMask>
+                <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999" />
             </form>
         </div>
         <app-code [code]="code" selector="input-mask-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     formGroup: FormGroup | undefined;
 
     ngOnInit() {
@@ -30,21 +26,27 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999"></p-inputMask>`,
+        basic: `<p-inputMask 
+    mask="99-999999" 
+    formControlName="value" 
+    placeholder="99-999999" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-inputMask mask="99-999999" [(ngModel)]="value" placeholder="99-999999"></p-inputMask>
+        html: `<div class="card flex justify-content-center">
+    <p-inputMask 
+        mask="99-999999" 
+        formControlName="value" 
+        placeholder="99-999999" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @Component({
     selector: 'input-mask-reactive-forms-demo',
-    templateUrl: './input-mask-reactive-forms-demo.html'
+    templateUrl: './input-mask-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputMaskModule]
 })
 export class InputMaskReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;

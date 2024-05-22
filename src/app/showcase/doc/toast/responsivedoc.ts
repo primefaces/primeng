@@ -1,29 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'responsive-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Toast styling can be adjusted per screen size with the <i>breakpoints</i> option. The value of <i>breakpoints</i> should be an object literal whose keys are the maximum screen sizes and values are the styles per screen. In example
                 below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }"></p-toast>
-            <button type="button" pButton pRipple (click)="show()" label="Show"></button>
+            <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+            <p-button pRipple (click)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-responsive-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class ResponsiveDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     show() {
@@ -31,21 +27,23 @@ export class ResponsiveDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
-<button type="button" pButton pRipple (click)="show()" label="Show"></button>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast [breakpoints]="{'920px': {width: '100%', right: '0', left: '0'}}"></p-toast>
-    <button type="button" pButton pRipple (click)="show()" label="Show"></button>
+        basic: `<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+<p-button pRipple (click)="show()" label="Show" />`,
+        html: `<div class="card flex justify-content-center">
+    <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
+    <p-button pRipple (click)="show()" label="Show" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-responsive-demo',
     templateUrl: './toast-responsive-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastResponsiveDemo {

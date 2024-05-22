@@ -1,38 +1,34 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'locale-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2"></p-inputNumber>
+                <p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-                <p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-                <p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2"> </p-inputNumber>
+                <p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2" />
             </div>
         </div>
         <app-code [code]="code" selector="input-number-locale-demo"></app-code>
-    </section>`
+    `
 })
 export class LocaleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value1: number = 151351;
 
     value2: number = 115744;
@@ -42,38 +38,86 @@ export class LocaleDoc {
     value4: number = 732762;
 
     code: Code = {
-        basic: `
-<p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2"></p-inputNumber>
-<p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
-<p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2"> </p-inputNumber>
-<p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2"> </p-inputNumber>`,
+        basic: `<p-inputNumber 
+    [(ngModel)]="value1" 
+    inputId="locale-user" 
+    [minFractionDigits]="2" />
 
-        html: `
-<div class="card flex flex-wrap gap-3 p-fluid">
+<p-inputNumber 
+    [(ngModel)]="value2" 
+    inputId="locale-us" 
+    mode="decimal" 
+    locale="en-US" 
+    [minFractionDigits]="2" /> 
+
+<p-inputNumber 
+    [(ngModel)]="value3" 
+    inputId="locale-german" 
+    mode="decimal" 
+    locale="de-DE" 
+    [minFractionDigits]="2" /> 
+
+<p-inputNumber 
+    [(ngModel)]="value4" 
+    inputId="locale-indian" 
+    mode="decimal" 
+    locale="en-IN" 
+    [minFractionDigits]="2" />`,
+
+        html: `<div class="card flex flex-wrap gap-3 p-fluid">
     <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-        <p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2"></p-inputNumber>
+        <label class="block font-bold mb-2" for="locale-user">
+            User Locale
+        </label>
+        <p-inputNumber 
+            [(ngModel)]="value1" 
+            inputId="locale-user" 
+            [minFractionDigits]="2" />
     </div>
     <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-        <p-inputNumber [(ngModel)]="value2" inputId="locale-us" mode="decimal" locale="en-US" [minFractionDigits]="2"> </p-inputNumber>
+        <label class="block font-bold mb-2" for="locale-us">
+            United States Locale
+        </label>
+        <p-inputNumber 
+            [(ngModel)]="value2" 
+            inputId="locale-us" 
+            mode="decimal" 
+            locale="en-US" 
+            [minFractionDigits]="2" /> 
     </div>
     <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-german">German Locale</label>
-        <p-inputNumber [(ngModel)]="value3" inputId="locale-german" mode="decimal" locale="de-DE" [minFractionDigits]="2"> </p-inputNumber>
+        <label class="block font-bold mb-2" for="locale-german">
+            German Locale
+        </label>
+        <p-inputNumber 
+            [(ngModel)]="value3" 
+            inputId="locale-german" 
+            mode="decimal" 
+            locale="de-DE" 
+            [minFractionDigits]="2" /> 
     </div>
     <div class="flex-auto">
-        <label class="block font-bold mb-2" for="locale-indian">Indian Locale</label>
-        <p-inputNumber [(ngModel)]="value4" inputId="locale-indian" mode="decimal" locale="en-IN" [minFractionDigits]="2"> </p-inputNumber>
+        <label class="block font-bold mb-2" for="locale-indian">
+            Indian Locale
+        </label>
+        <p-inputNumber 
+            [(ngModel)]="value4" 
+            inputId="locale-indian" 
+            mode="decimal" 
+            locale="en-IN" 
+            [minFractionDigits]="2" /> 
     </div>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'input-number-locale-demo',
-    templateUrl: './input-number-locale-demo.html'
+    templateUrl: './input-number-locale-demo.html',
+    standalone: true,
+    imports: [FormsModule, InputNumberModule]
 })
 export class InputNumberLocaleDemo {
     value1: number = 151351;

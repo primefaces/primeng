@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { StyleDoc } from '../../doc/dataview/styledoc';
-import { BasicDoc } from '../../doc/dataview/basicdoc';
-import { ImportDoc } from '../../doc/dataview/importdoc';
-import { LayoutDoc } from '../../doc/dataview/layoutdoc';
-import { PaginationDoc } from '../../doc/dataview/paginationdoc';
-import { PrimeflexDoc } from '../../doc/dataview/primeflexdoc';
-import { SortingDoc } from '../../doc/dataview/sortingdoc';
-import { AccessibilityDoc } from '../../doc/dataview/accessibilitydoc';
+import { StyleDoc } from '@doc/dataview/styledoc';
+import { BasicDoc } from '@doc/dataview/basicdoc';
+import { ImportDoc } from '@doc/dataview/importdoc';
+import { LayoutDoc } from '@doc/dataview/layoutdoc';
+import { PaginationDoc } from '@doc/dataview/paginationdoc';
+import { SortingDoc } from '@doc/dataview/sortingdoc';
+import { AccessibilityDoc } from '@doc/dataview/accessibilitydoc';
+import { LoadingDoc } from '@doc/dataview/loadingdoc';
 
 @Component({
     templateUrl: './dataviewdemo.html',
@@ -18,11 +18,6 @@ export class DataViewDemo {
             id: 'import',
             label: 'Import',
             component: ImportDoc
-        },
-        {
-            id: 'primeflex',
-            label: 'PrimeFlex',
-            component: PrimeflexDoc
         },
         {
             id: 'basic',
@@ -43,6 +38,11 @@ export class DataViewDemo {
             id: 'layout',
             label: 'Layout',
             component: LayoutDoc
+        },
+        {
+            id: 'loading',
+            label: 'Loading',
+            component: LoadingDoc
         },
         {
             id: 'style',

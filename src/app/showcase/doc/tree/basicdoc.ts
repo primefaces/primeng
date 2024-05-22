@@ -1,25 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
+            <p-tree class="w-full md:w-30rem" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
@@ -29,22 +25,23 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree class="w-full md:w-30rem" [value]="files"></p-tree>`,
+        basic: `<p-tree class="w-full md:w-30rem" [value]="files" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-tree class="w-full md:w-30rem" [value]="files"></p-tree>
+        html: `<div class="card flex justify-content-center">
+    <p-tree class="w-full md:w-30rem" [value]="files" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-basic-demo',
-    templateUrl: './tree-basic-demo.html'
+    templateUrl: './tree-basic-demo.html',
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
 })
 export class TreeBasicDemo implements OnInit {
     files!: TreeNode[];

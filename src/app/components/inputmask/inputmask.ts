@@ -26,9 +26,29 @@
     OTHER DEALINGS IN THE SOFTWARE.
 */
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, OnInit, Output, PLATFORM_ID, QueryList, TemplateRef, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    numberAttribute
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
@@ -51,12 +71,12 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
         <input
             #input
             pInputText
-            class="p-inputmask"
+            [class]="styleClass"
+            [ngClass]="inputClass"
             [attr.id]="inputId"
             [attr.type]="type"
             [attr.name]="name"
             [ngStyle]="style"
-            [ngClass]="styleClass"
             [attr.placeholder]="placeholder"
             [attr.title]="title"
             [attr.size]="size"
@@ -74,7 +94,8 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             (keydown)="onInputKeydown($event)"
             (keypress)="onKeyPress($event)"
             pAutoFocus
-            [autofocus]="autoFocus"
+            [variant]="variant"
+            [autofocus]="autofocus"
             (input)="onInputChange($event)"
             (paste)="handleInputChange($event)"
             [attr.data-pc-name]="'inputmask'"
@@ -113,12 +134,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Clears the incomplete value on blur.
      * @group Props
      */
-    @Input() autoClear: boolean = true;
+    @Input({ transform: booleanAttribute }) autoClear: boolean = true;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Inline style of the input field.
      * @group Props
@@ -143,12 +164,12 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: numberAttribute }) maxlength: number | undefined;
     /**
      * Specifies tab order of the element.
      * @group Props
@@ -159,6 +180,11 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * @group Props
      */
     @Input() title: string | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Used to define a string that labels the input element.
      * @group Props
@@ -173,22 +199,22 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * Used to indicate that user input is required on an element before a form can be submitted.
      * @group Props
      */
-    @Input() ariaRequired: boolean | undefined;
+    @Input({ transform: booleanAttribute }) ariaRequired: boolean | undefined;
     /**
      * When present, it specifies that the element value cannot be altered.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, it specifies that an input field is read-only.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Defines if ngModel sets the raw unmasked value to bound value or the formatted mask value.
      * @group Props
      */
-    @Input() unmask: boolean | undefined;
+    @Input({ transform: booleanAttribute }) unmask: boolean | undefined;
     /**
      * Name of the input field.
      * @group Props
@@ -198,7 +224,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * Regex pattern for alpha characters
      * @group Props
@@ -208,7 +234,16 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * When present, the input gets a focus automatically on load.
      * @group Props
      */
-    @Input() autoFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * When present, the input gets a focus automatically on load.
+     * @group Props
+     * @deprecated Use autofocus property instead.
+     */
+    @Input({ transform: booleanAttribute }) set autoFocus(value: boolean | undefined) {
+        this.autofocus = value;
+        console.warn('autoFocus is deprecated. Use autofocus property instead.');
+    }
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -218,7 +253,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
      * When present, it specifies that whether to clean buffer value from model.
      * @group Props
      */
-    @Input() keepBuffer: boolean = false;
+    @Input({ transform: booleanAttribute }) keepBuffer: boolean = false;
     /**
      * Mask pattern.
      * @group Props
@@ -312,7 +347,15 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     focused: Nullable<boolean>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef) {}
+    _variant: 'filled' | 'outlined' = 'outlined';
+
+    get inputClass() {
+        return {
+            'p-inputmask': true
+        };
+    }
+
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

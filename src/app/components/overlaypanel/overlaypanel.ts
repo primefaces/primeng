@@ -2,6 +2,7 @@ import { animate, AnimationEvent, state, style, transition, trigger } from '@ang
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
@@ -13,6 +14,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
     PLATFORM_ID,
@@ -47,8 +49,10 @@ import { Subscription } from 'rxjs';
             (@animation.done)="onAnimationEnd($event)"
             role="dialog"
             [attr.aria-modal]="overlayVisible"
+            [attr.aria-label]="ariaLabel"
+            [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-overlaypanel-content" (click)="onContentClick()" (mousedown)="onContentClick()">
+            <div class="p-overlaypanel-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
@@ -95,15 +99,25 @@ import { Subscription } from 'rxjs';
 })
 export class OverlayPanel implements AfterContentInit, OnDestroy {
     /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
      * Enables to hide the overlay when outside is clicked.
      * @group Props
      */
-    @Input() dismissable: boolean = true;
+    @Input({ transform: booleanAttribute }) dismissable: boolean = true;
     /**
      * When enabled, displays a close icon at top right corner.
      * @group Props
      */
-    @Input() showCloseIcon: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCloseIcon: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -123,7 +137,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Aria label of the close icon.
      * @group Props
@@ -133,12 +147,12 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * When enabled, first button receives focus on show.
      * @group Props
      */
-    @Input() focusOnShow: boolean = true;
+    @Input({ transform: booleanAttribute }) focusOnShow: boolean = true;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -230,10 +244,11 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target)) {
+                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
                         this.hide();
                     }
 
+                    this.selfClick = false;
                     this.cd.markForCheck();
                 });
             }
@@ -298,8 +313,9 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.selfClick = true;
     }
 
-    onContentClick() {
-        this.selfClick = true;
+    onContentClick(event: MouseEvent) {
+        const targetElement = event.target as HTMLElement;
+        this.selfClick = event.offsetX < targetElement.clientWidth && event.offsetY < targetElement.clientHeight;
     }
 
     hasTargetChanged(event: any, target: any) {
@@ -324,7 +340,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
             ZIndexUtils.set('overlay', this.container, this.baseZIndex + this.config.zIndex.overlay);
         }
 
-        DomHandler.absolutePosition(this.container, this.target);
+        DomHandler.absolutePosition(this.container, this.target, false);
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);

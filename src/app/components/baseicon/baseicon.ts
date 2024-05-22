@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
 
 @Component({
@@ -13,7 +13,7 @@ import { ObjectUtils } from 'primeng/utils';
 export class BaseIcon {
     @Input() label: string;
 
-    @Input() spin: boolean = false;
+    @Input({ transform: booleanAttribute }) spin: boolean = false;
 
     @Input() styleClass: string;
 

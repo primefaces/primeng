@@ -1,5 +1,5 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation, numberAttribute } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -90,17 +90,17 @@ export class Splitter {
      * Size of the divider in pixels.
      * @group Props
      */
-    @Input() gutterSize: number = 4;
+    @Input({ transform: numberAttribute }) gutterSize: number = 4;
     /**
      * Step factor to increment/decrement the size of the panels while pressing the arrow keys.
      * @group Props
      */
-    @Input() step: number = 5;
+    @Input({ transform: numberAttribute }) step: number = 5;
     /**
      * Minimum size of the elements relative to 100%.
      * @group Props
      */
-    @Input() minSizes: number[] = [];
+    @Input({ transform: numberAttribute }) minSizes: number[] = [];
     /**
      * Size of the elements relative to 100%.
      * @group Props
@@ -200,26 +200,28 @@ export class Splitter {
     }
 
     ngAfterViewInit() {
-        if (this.panels && this.panels.length) {
-            let initialized = false;
-            if (this.isStateful() && isPlatformBrowser(this.platformId)) {
-                initialized = this.restoreState();
-            }
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.panels && this.panels.length) {
+                let initialized = false;
+                if (this.isStateful()) {
+                    initialized = this.restoreState();
+                }
 
-            if (!initialized) {
-                let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
-                let _panelSizes = [];
+                if (!initialized) {
+                    let children = [...this.el.nativeElement.children[0].children].filter((child) => DomHandler.hasClass(child, 'p-splitter-panel'));
+                    let _panelSizes = [];
 
-                this.panels.map((panel, i) => {
-                    let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
-                    let panelSize = panelInitialSize || 100 / this.panels.length;
-                    _panelSizes[i] = panelSize;
-                    children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
-                });
+                    this.panels.map((panel, i) => {
+                        let panelInitialSize = this.panelSizes.length - 1 >= i ? this.panelSizes[i] : null;
+                        let panelSize = panelInitialSize || 100 / this.panels.length;
+                        _panelSizes[i] = panelSize;
+                        children[i].style.flexBasis = 'calc(' + panelSize + '% - ' + (this.panels.length - 1) * (this.gutterSize as number) + 'px)';
+                    });
 
-                this._panelSizes = _panelSizes;
+                    this._panelSizes = _panelSizes;
 
-                this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                    this.prevSize = parseFloat(_panelSizes[0]).toFixed(4);
+                }
             }
         }
     }

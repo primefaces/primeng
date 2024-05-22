@@ -1,40 +1,45 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'calendar-inline-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Calendar is displayed as a popup by default, add <i>inline</i> property to customize this behavior.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>
+            <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true" />
         </div>
         <app-code [code]="code" selector="calendar-inline-demo"></app-code>
-    </section>`
+    `
 })
 export class InlineDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>`,
+        basic: `<p-calendar 
+    class="max-w-full" 
+    [(ngModel)]="date" 
+    [inline]="true" 
+    [showWeek]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>
+        html: `<div class="card flex justify-content-center">
+    <p-calendar 
+        class="max-w-full" 
+        [(ngModel)]="date" 
+        [inline]="true" 
+        [showWeek]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'calendar-inline-demo',
-    templateUrl: './calendar-inline-demo.html'
+    templateUrl: './calendar-inline-demo.html',
+    standalone: true,
+    imports: [FormsModule, CalendarModule]
 })
 export class CalendarInlineDemo {
     date: Date[] | undefined;

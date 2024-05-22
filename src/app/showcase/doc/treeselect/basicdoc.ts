@@ -1,25 +1,21 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TreeSelect is used as a controlled component with <i>ng-model</i> directive along with an <i>options</i> collection. Internally <a routerLink="/tree">Tree</a> component is used so the options model is based on TreeNode API.</p>
             <p>In single selection mode, value binding should be the <i>key</i> value of a node.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"> </p-treeSelect>
+            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     nodes!: any[];
 
     selectedNodes: any;
@@ -29,22 +25,34 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="md:w-20rem w-full" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    placeholder="Select Item" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="md:w-20rem w-full" 
+        containerStyleClass="w-full" 
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        placeholder="Select Item" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-basic-demo',
-    templateUrl: './tree-select-basic-demo.html'
-})
+    templateUrl: './tree-select-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
+  })
 export class TreeSelectBasicDemo {
     nodes!: any[];
 

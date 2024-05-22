@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-rating [(ngModel)]="value" stars="5">
-                <ng-template pTemplate="cancel">
+                <ng-template pTemplate="cancelicon">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
                 </ng-template>
                 <ng-template pTemplate="onicon">
@@ -21,50 +21,65 @@ import { Code } from '../../domain/code';
             </p-rating>
         </div>
         <app-code [code]="code" selector="rating-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     value!: number;
 
     code: Code = {
-        basic: `
-<p-rating [(ngModel)]="value" stars="5">
-    <ng-template pTemplate="cancel">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
-    </ng-template>
-    <ng-template pTemplate="onicon">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" width="25px" height="25px" />
-    </ng-template>
-    <ng-template pTemplate="officon">
-        <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" width="25px" height="25px" />
-    </ng-template>
-</p-rating>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-rating [(ngModel)]="value" stars="5">
-        <ng-template pTemplate="cancel">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
+        basic: `<p-rating [(ngModel)]="value" stars="5">
+        <ng-template pTemplate="cancelicon">
+            <img 
+                src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" 
+                width="25px" 
+                height="25px" />
         </ng-template>
         <ng-template pTemplate="onicon">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" width="25px" height="25px" />
+            <img 
+                src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png" 
+                width="25px" 
+                height="25px" />
         </ng-template>
         <ng-template pTemplate="officon">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" width="25px" height="25px" />
+            <img 
+                src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png"
+                width="25px"
+                height="25px" />
         </ng-template>
+</p-rating>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-rating [(ngModel)]="value" stars="5">
+    <ng-template pTemplate="cancelicon">
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" 
+            width="25px" 
+            height="25px" />
+    </ng-template>
+    <ng-template pTemplate="onicon">
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon-active.png"
+            width="25px" 
+            height="25px" />
+    </ng-template>
+    <ng-template pTemplate="officon">
+        <img 
+            src="https://primefaces.org/cdn/primeng/images/demo/rating/custom-icon.png" 
+            width="25px" 
+            height="25px" />
+    </ng-template>
     </p-rating>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RatingModule } from 'primeng/rating';
 
 @Component({
     selector: 'rating-template-demo',
-    templateUrl: './rating-template-demo.html'
+    templateUrl: './rating-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, RatingModule]
 })
 export class RatingTemplateDemo {
     value!: number;

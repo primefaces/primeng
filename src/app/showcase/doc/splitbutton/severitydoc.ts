@@ -1,53 +1,47 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'severity-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
-            <p>Severity defines the type of button.</p>
+    template: `
+        <app-docsectiontext>
+            <p>The <i>severity</i> property defines the type of button.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center flex-wrap gap-3">
-            <p-toast></p-toast>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success mb-2"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info mb-2"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning mb-2"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help mb-2"></p-splitButton>
-            <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>
+            <p-toast />
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="secondary" />
+            <p-splitButton label="Save" (onClick)="save('success')" [model]="items" severity="success" />
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="info" />
+            <p-splitButton label="Save" (onClick)="save('warn')" [model]="items" severity="warning" />
+            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="help" />
+            <p-splitButton label="Save" (onClick)="save('error')" [model]="items" severity="danger" />
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SeverityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     constructor(private messageService: MessageService) {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 
@@ -64,35 +58,90 @@ export class SeverityDoc {
     }
 
     code: Code = {
-        basic: `
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success mb-2"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info mb-2"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning mb-2"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help mb-2"></p-splitButton>
-<p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>`,
+        basic: `<p-splitButton 
+    label="Save" 
+    (onClick)="save('info')" 
+    [model]="items" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('info')" 
+    [model]="items" 
+    severity="secondary" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('success')" 
+    [model]="items" 
+    severity="success" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('info')" 
+    [model]="items" 
+    severity="info" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('warn')" 
+    [model]="items" 
+    severity="warning" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('info')" 
+    [model]="items" 
+    severity="help" />
+<p-splitButton 
+    label="Save" 
+    (onClick)="save('error')" 
+    [model]="items" 
+    severity="danger" />`,
 
-        html: `
-<div class="card flex justify-content-center flex-wrap gap-3">
-    <p-toast></p-toast>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-secondary mb-2"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('success')" [model]="items" styleClass="p-button-success mb-2"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-info mb-2"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('warn')" [model]="items" styleClass="p-button-warning mb-2"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" styleClass="p-button-help mb-2"></p-splitButton>
-    <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('error')" [model]="items" styleClass="p-button-danger mb-2"></p-splitButton>
+        html: `<div class="card flex justify-content-center flex-wrap gap-3">
+    <p-toast />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('info')" 
+        [model]="items" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('info')" 
+        [model]="items" 
+        severity="secondary" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('success')" 
+        [model]="items" 
+        severity="success" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('info')" 
+        [model]="items" 
+        severity="info" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('warn')" 
+        [model]="items" 
+        severity="warning" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('info')" 
+        [model]="items" 
+        severity="help" />
+    <p-splitButton 
+        label="Save" 
+        (onClick)="save('error')" 
+        [model]="items"
+        severity="danger" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SplitButtonModule } from 'primeng/splitbutton';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'split-button-severity-demo',
     templateUrl: './split-button-severity-demo.html',
-    providers: [ MessageService ]
+    standalone: true,
+    imports: [SplitButtonModule, ToastModule],
+    providers: [MessageService]
 })
 export class SplitButtonSeverityDemo {
     items: MenuItem[];
@@ -101,21 +150,19 @@ export class SplitButtonSeverityDemo {
         this.items = [
             {
                 label: 'Update',
-                icon: 'pi pi-refresh',
                 command: () => {
                     this.update();
                 }
             },
             {
                 label: 'Delete',
-                icon: 'pi pi-times',
                 command: () => {
                     this.delete();
                 }
             },
-            { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' },
+            { label: 'Angular Website', url: 'http://angular.io' },
             { separator: true },
-            { label: 'Setup', icon: 'pi pi-cog', routerLink: ['/setup'] }
+            { label: 'Upload', routerLink: ['/fileupload'] }
         ];
     }
 

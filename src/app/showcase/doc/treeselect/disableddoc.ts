@@ -1,24 +1,20 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'disabled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="Select Item"></p-treeSelect>
+            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="TreeSelect" />
         </div>
         <app-code [code]="code" selector="tree-select-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     nodes!: any[];
 
     selectedNodes: any;
@@ -28,21 +24,35 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `
-<p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="Select Item"></p-treeSelect>`,
+        basic: `<p-treeSelect 
+    class="md:w-20rem w-full" 
+    containerStyleClass="w-full" 
+    [(ngModel)]="selectedNodes" 
+    [options]="nodes" 
+    [disabled]="true" 
+    placeholder="TreeSelect" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [disabled]="true" placeholder="Select Item"></p-treeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-treeSelect 
+        class="md:w-20rem w-full"
+        containerStyleClass="w-full"
+        [(ngModel)]="selectedNodes" 
+        [options]="nodes" 
+        [disabled]="true" 
+        placeholder="TreeSelect" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { NodeService } from '../../service/nodeservice';
+        typescript: `import { Component } from '@angular/core';
+import { NodeService } from '@service/nodeservice';
+import { FormsModule } from '@angular/forms';
+import { TreeSelectModule } from 'primeng/treeselect';
 
 @Component({
     selector: 'tree-select-disabled-demo',
-    templateUrl: './tree-select-disabled-demo.html'
+    templateUrl: './tree-select-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, TreeSelectModule],
+    providers: [NodeService]
 })
 export class TreeSelectDisabledDemo {
     nodes!: any[];

@@ -1,24 +1,20 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'scrollable-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Setting <i>scrollable</i> property to <i>true</i> enables scrolling if content overflows.</p>
         </app-docsectiontext>
         <div class="card">
             <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>
         </div>
         <app-code [code]="code" selector="tab-menu-scrollable-demo"></app-code>
-    </section>`
+    `
 })
 export class ScrollableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;
@@ -29,8 +25,7 @@ export class ScrollableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
+        basic: `<p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem"></p-tabMenu>`,
 
         html: `
 <div class="card">

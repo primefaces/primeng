@@ -1,34 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>CascadeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-cascadeSelect
-                    formControlName="selectedCity"
-                    [options]="countries"
-                    optionLabel="cname"
-                    optionGroupLabel="name"
-                    [optionGroupChildren]="['states', 'cities']"
-                    [style]="{ minWidth: '14rem' }"
-                    placeholder="Select a City"
-                ></p-cascadeSelect>
+                <p-cascadeSelect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
             </form>
         </div>
         <app-code [code]="code" selector="cascade-select-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCity: any;
@@ -117,25 +105,39 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
-    <p-cascadeSelect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+        basic: `<form [formGroup]="formGroup">
+    <p-cascadeSelect 
+        formControlName="selectedCity" 
+        [options]="countries" 
+        optionLabel="cname" 
+        optionGroupLabel="name" 
+        [optionGroupChildren]="['states', 'cities']" 
+        [style]="{ minWidth: '14rem' }"
+        placeholder="Select a City" />
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-cascadeSelect formControlName="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+        <p-cascadeSelect 
+            formControlName="selectedCity"
+            [options]="countries"
+            optionLabel="cname"
+            optionGroupLabel="name" 
+            [optionGroupChildren]="['states', 'cities']"
+            [style]="{ minWidth: '14rem' }" 
+            placeholder="Select a City" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-reactive-forms-demo',
-    templateUrl: './cascade-select-reactive-forms-demo.html'
+    templateUrl: './cascade-select-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, CascadeSelectModule]
 })
 export class CascadeSelectReactiveFormsDemo implements OnInit {
     countries: any[] | undefined;

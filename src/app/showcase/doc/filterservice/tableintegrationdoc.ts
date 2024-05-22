@@ -1,13 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
-import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { Code } from '@domain/code';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A custom equals filter that checks for exact case sensitive value is registered and defined as a match mode of a column filter.</p>
         </app-docsectiontext>
         <div class="card">
@@ -18,7 +18,7 @@ import { CarService } from '../../service/carservice';
                     </tr>
                     <tr>
                         <th *ngFor="let col of columns">
-                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                            <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'" />
                         </th>
                     </tr>
                 </ng-template>
@@ -30,14 +30,10 @@ import { CarService } from '../../service/carservice';
             </p-table>
         </div>
         <app-code [code]="code" selector="filter-service-table-integration-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+    `,
     providers: [FilterService]
 })
 export class TableIntegrationDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cars: Car[];
 
     cols: any[];
@@ -78,8 +74,7 @@ export class TableIntegrationDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
+        basic: `<p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th *ngFor="let col of columns">
@@ -88,7 +83,11 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
         <tr>
             <th *ngFor="let col of columns">
-                <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                <p-columnFilter 
+                    type="text" 
+                    [field]="col.field" 
+                    [matchModeOptions]="matchModeOptions" 
+                    [matchMode]="'custom-equals'" />
             </th>
         </tr>
     </ng-template>
@@ -100,8 +99,7 @@ export class TableIntegrationDoc implements OnInit {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table #dt [columns]="cols" [value]="cars" [paginator]="true" [rows]="10" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -109,7 +107,11 @@ export class TableIntegrationDoc implements OnInit {
             </tr>
             <tr>
                 <th *ngFor="let col of columns">
-                    <p-columnFilter type="text" [field]="col.field" [matchModeOptions]="matchModeOptions" [matchMode]="'custom-equals'"></p-columnFilter>
+                    <p-columnFilter 
+                        type="text" 
+                        [field]="col.field" 
+                        [matchModeOptions]="matchModeOptions" 
+                        [matchMode]="'custom-equals'" />
                 </th>
             </tr>
         </ng-template>
@@ -120,16 +122,19 @@ export class TableIntegrationDoc implements OnInit {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FilterMatchMode, FilterService, SelectItem } from 'primeng/api';
-import { Car } from '../../domain/car';
-import { CarService } from '../../service/carservice';
+import { Car } from '@domain/car';
+import { CarService } from '@service/carservice';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'filter-service-table-integration-demo',
     templateUrl: './filter-service-table-integration-demo.html',
-    providers: [FilterService]
+    standalone: true,
+    imports: [TableModule, CommonModule],
+    providers: [FilterService, CarService]
 })
 export class FilterServiceTableIntegrationDemo implements OnInit {
     cars: Car[];

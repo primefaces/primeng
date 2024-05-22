@@ -1,16 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Defer is applied to a container element with pDefer directive where content needs to be placed inside an ng-template.</p>
         </app-docsectiontext>
         <div class="card">
             <p style="margin-bottom: 70rem;">Content is not loaded yet, scroll down to initialize it.</p>
-            <p-toast></p-toast>
+            <p-toast />
             <div pDefer (onLoad)="onLoad()">
                 <ng-template>
                     <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
@@ -18,14 +18,10 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="defer-basic-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     onLoad() {
@@ -33,31 +29,38 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<div pDefer (onLoad)="onLoad()">
+        basic: `<div pDefer (onLoad)="onLoad()">
     <ng-template>
-        <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
+        <img 
+            class="w-full md:w-30rem md:block md:mx-auto" 
+            src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+            alt="Prime" />
     </ng-template>
 </div>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p style="margin-bottom: 70rem;">
         Content is not loaded yet, scroll down to initialize it.
     </p>
-    <p-toast></p-toast>
+    <p-toast />
     <div pDefer (onLoad)="onLoad()">
         <ng-template>
-            <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
+            <img 
+                class="w-full md:w-30rem md:block md:mx-auto" 
+                src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
+                alt="Prime" />
         </ng-template>
     </div>
 </div>`,
-        typescript: `
-import { Component, Input } from '@angular/core';
+        typescript: `import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { DeferModule } from 'primeng/defer';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'defer-basic-demo',
     templateUrl: './defer-basic-demo.html',
+    standalone: true,
+    imports: [DeferModule, ToastModule],
     providers: [MessageService]
 })
 export class DeferBasicDemo {

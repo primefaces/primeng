@@ -1,28 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'circle-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px" class="flex align-items-center justify-content-center">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-circle-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class CircleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -60,24 +56,33 @@ export class CircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="items" 
+    type="circle" 
+    [radius]="80" 
+    buttonClassName="p-button-warning" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 500px" class="flex align-items-center justify-content-center">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="items" 
+            type="circle" 
+            [radius]="80"
+            buttonClassName="p-button-warning" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-circle-demo',
     templateUrl: './speed-dial-circle-demo.html',
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialCircleDemo implements OnInit {

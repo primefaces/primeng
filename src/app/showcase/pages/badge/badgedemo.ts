@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/badge/importdoc';
-import { SizeDoc } from '../../doc/badge/sizedoc';
-import { BasicDoc } from '../../doc/badge/basicdoc';
-import { ButtonDoc } from '../../doc/badge/buttondoc';
-import { DirectiveDoc } from '../../doc/badge/directivedoc';
-import { PositionDoc } from '../../doc/badge/positiondoc';
-import { SeverityDoc } from '../../doc/badge/severitydoc';
-import { StyleDoc } from '../../doc/badge/styledoc';
-import { AccessibilityDoc } from '../../doc/badge/accessibilitydoc';
+import { ImportDoc } from '@doc/badge/importdoc';
+import { SizeDoc } from '@doc/badge/sizedoc';
+import { BasicDoc } from '@doc/badge/basicdoc';
+import { ButtonDoc } from '@doc/badge/buttondoc';
+import { DirectiveDoc } from '@doc/badge/directivedoc';
+import { PositionDoc } from '@doc/badge/positiondoc';
+import { SeverityDoc } from '@doc/badge/severitydoc';
+import { StyleDoc } from '@doc/badge/styledoc';
+import { AccessibilityDoc } from '@doc/badge/accessibilitydoc';
 
 @Component({
     templateUrl: './badgedemo.html'

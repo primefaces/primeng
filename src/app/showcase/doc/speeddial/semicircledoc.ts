@@ -1,31 +1,27 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'semi-circle-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>type</i> is defined as <i>semi-circle</i>, items are displayed in a half-circle around the button.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
-                <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
-                <p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle"></p-speedDial>
-                <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle" />
+                <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle" />
+                <p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle" />
+                <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-semi-circle-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class SemiCircleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -63,31 +59,88 @@ export class SemiCircleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
-<p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
-<p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle"></p-speedDial>
-<p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="items" 
+    direction="up" 
+    [radius]="80" 
+    type="semi-circle" />
+<p-speedDial 
+    [model]="items" 
+    direction="down" 
+    [radius]="80" 
+    type="semi-circle" />
+<p-speedDial 
+    [model]="items" 
+    direction="left" 
+    [radius]="80" 
+    type="semi-circle" />
+<p-speedDial 
+    [model]="items"
+    direction="right" 
+    [radius]="80" 
+    type="semi-circle" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 500px; position: relative;" class="speeddial-linear-demo">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" direction="up" [radius]="80" type="semi-circle"></p-speedDial>
-        <p-speedDial [model]="items" direction="down" [radius]="80" type="semi-circle"></p-speedDial>
-        <p-speedDial [model]="items" direction="left" [radius]="80" type="semi-circle"></p-speedDial>
-        <p-speedDial [model]="items" direction="right" [radius]="80" type="semi-circle"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="items" 
+            direction="up" 
+            [radius]="80" 
+            type="semi-circle" />
+        <p-speedDial 
+            [model]="items"
+            direction="down" 
+            [radius]="80" 
+            type="semi-circle" />
+        <p-speedDial 
+            [model]="items" 
+            direction="left" 
+            [radius]="80" 
+            type="semi-circle" />
+        <p-speedDial 
+            [model]="items" 
+            direction="right" 
+            [radius]="80" 
+            type="semi-circle" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-semi-circle-demo',
     templateUrl: './speed-dial-semi-circle-demo.html',
-    styleUrls: ['./speed-dial-semi-circle-demo.scss'],
+    styles: [
+        \`:host ::ng-deep {
+            .speeddial-linear-demo {
+                .p-speeddial-direction-up {
+                    left: calc(50% - 2rem);
+                    bottom: 0;
+                }
+        
+                .p-speeddial-direction-down {
+                    left: calc(50% - 2rem);
+                    top: 0;
+                }
+        
+                .p-speeddial-direction-left {
+                    right: 0;
+                    top: calc(50% - 2rem);
+                }
+        
+                .p-speeddial-direction-right {
+                    left: 0;
+                    top: calc(50% - 2rem);
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialSemiCircleDemo implements OnInit {
@@ -128,8 +181,7 @@ export class SpeedDialSemiCircleDemo implements OnInit {
     }
 }`,
 
-        scss: `
-:host ::ng-deep {
+        scss: `:host ::ng-deep {
     .speeddial-linear-demo {
         .p-speeddial-direction-up {
             left: calc(50% - 2rem);

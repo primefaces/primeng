@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputSwitchOnChangeEvent } from './inputswitch.interface';
+import { AutoFocusModule } from 'primeng/autofocus';
+import { InputSwitchChangeEvent } from './inputswitch.interface';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,6 +40,8 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
                     (focus)="onFocus()"
                     (blur)="onBlur()"
                     [attr.data-pc-section]="'hiddenInput'"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <span class="p-inputswitch-slider" [attr.data-pc-section]="'slider'"></span>
@@ -67,7 +70,7 @@ export class InputSwitch {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Identifier of the input element.
      * @group Props
@@ -82,12 +85,12 @@ export class InputSwitch {
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Value in checked state.
      * @group Props
@@ -109,11 +112,16 @@ export class InputSwitch {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
      * Callback to invoke when the on value change.
-     * @param {InputSwitchOnChangeEvent} event - Custom change event.
+     * @param {InputSwitchChangeEvent} event - Custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<InputSwitchOnChangeEvent> = new EventEmitter<InputSwitchOnChangeEvent>();
+    @Output() onChange: EventEmitter<InputSwitchChangeEvent> = new EventEmitter<InputSwitchChangeEvent>();
 
     @ViewChild('input') input!: ElementRef;
 
@@ -137,7 +145,6 @@ export class InputSwitch {
                 checked: this.modelValue
             });
 
-            event.preventDefault();
             this.input.nativeElement.focus();
         }
     }
@@ -175,7 +182,7 @@ export class InputSwitch {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [CommonModule, AutoFocusModule],
     exports: [InputSwitch],
     declarations: [InputSwitch]
 })

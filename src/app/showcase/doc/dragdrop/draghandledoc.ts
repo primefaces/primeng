@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'drag-drop-drag-handle-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
         </app-docsectiontext>
         <div class="card">
@@ -13,43 +13,41 @@ import { Code } from '../../domain/code';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-drag-handle-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DragHandleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<div pDraggable dragHandle=".p-panel-header" class="w-15rem">
+        basic: `<div pDraggable dragHandle=".p-panel-header" class="w-15rem">
     <p-panel header="Drag Header">
         Content
     </p-panel>
 </div>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div pDraggable dragHandle=".p-panel-header" class="w-15rem">
         <p-panel header="Drag Header">
             Content
         </p-panel>
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { DragDropModule } from 'primeng/dragdrop';
+import { PanelModule } from 'primeng/panel';
 
 @Component({
     selector: 'drag-drop-drag-handle-demo',
     templateUrl: './drag-drop-drag-handle-demo.html',
-    styleUrls: ['./drag-drop-drag-handle-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            [pDraggable] {
+                cursor: move;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [DragDropModule, PanelModule]
 })
 export class DragDropDragHandleDemo {}`,
-        scss: `
-:host ::ng-deep {
-    [pDraggable] {
-        cursor: move;
-    }
-}`,
+
         service: ['ProductService']
     };
 

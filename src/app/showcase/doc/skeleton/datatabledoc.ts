@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'datatable-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Sample DataTable implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
@@ -19,22 +19,18 @@ import { Code } from '../../domain/code';
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
                     <tr>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
-                        <td><p-skeleton></p-skeleton></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
+                        <td><p-skeleton /></td>
                     </tr>
                 </ng-template>
             </p-table>
         </div>
         <app-code [code]="code" selector="skeleton-data-table-demo"></app-code>
-    </section>`
+    `
 })
 export class DataTableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     products: any[] | undefined;
 
     ngOnInit() {
@@ -42,8 +38,7 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        basic: `<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
             <th>Code</th>
@@ -54,15 +49,14 @@ export class DataTableDoc implements OnInit {
     </ng-template>
     <ng-template pTemplate="body" let-product>
         <tr>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
-            <td><p-skeleton></p-skeleton></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
+            <td><p-skeleton /></td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" responsiveLayout="scroll">
         <ng-template pTemplate="header">
             <tr>
@@ -74,20 +68,23 @@ export class DataTableDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="body" let-product>
             <tr>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
-                <td><p-skeleton></p-skeleton></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
+                <td><p-skeleton /></td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { SkeletonModule } from 'primeng/skeleton';
+import { TableModule } from 'primeng/table';
+        
 @Component({
     selector: 'skeleton-data-table-demo',
-    templateUrl: './skeleton-data-table-demo.html'
+    templateUrl: './skeleton-data-table-demo.html',
+    standalone: true,
+    imports: [SkeletonModule, TableModule]
 })
 export class SkeletonDataTableDemo implements OnInit {
     products: any[] | undefined;

@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
     template: ` <div>
-        <app-docsectiontext [title]="title" [id]="id">
+        <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
                 InputSwitch component uses a hidden native checkbox element with <i>switch</i> role internally that is only visible to screen readers. Value to describe the component can either be provided via <i>label</i> tag combined with
@@ -42,17 +42,13 @@ import { Code } from '../../domain/code';
     </div>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         basic: `<label for="switch1">Remember Me</label>
-<p-inputSwitch inputId="switch1"></p-inputSwitch>
+<p-inputSwitch inputId="switch1" />
 
 <span id="switch2">Remember Me</span>
-<p-inputSwitch ariaLabelledBy="switch2"></p-inputSwitch>
+<p-inputSwitch ariaLabelledBy="switch2" />
 
-<p-inputSwitch ariaLabel="Remember Me"></p-inputSwitch>`
+<p-inputSwitch ariaLabel="Remember Me" />`
     };
 }

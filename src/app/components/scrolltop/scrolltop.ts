@@ -1,6 +1,6 @@
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, OnInit, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, OnInit, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation, numberAttribute } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
@@ -17,7 +17,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
-            [attr.aria-label]="scrollTopAriaLabel"
+            [attr.aria-label]="buttonAriaLabel"
             [ngClass]="containerClass()"
             (click)="onClick()"
             [class]="styleClass"
@@ -76,7 +76,7 @@ export class ScrollTop implements OnInit, OnDestroy {
      * Defines the threshold value of the vertical scroll position of the target to toggle the visibility.
      * @group Props
      */
-    @Input() threshold: number = 400;
+    @Input({ transform: numberAttribute }) threshold: number = 400;
     /**
      * Name of the icon or JSX.Element for icon.
      * @group Props

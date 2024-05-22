@@ -1,16 +1,14 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentChecked,
     AfterContentInit,
-    AfterViewChecked,
     AfterViewInit,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
-    DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -19,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -33,29 +32,33 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Subject, Subscription } from 'rxjs';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
+import { PlusIcon } from 'primeng/icons/plus';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TrashIcon } from 'primeng/icons/trash';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Subject, Subscription } from 'rxjs';
 import {
+    ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
     TableContextMenuSelectEvent,
@@ -73,9 +76,6 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { FilterSlashIcon } from 'primeng/icons/filterslash';
-import { platformBrowser } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -148,7 +148,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-top"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -164,9 +163,13 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-top')"
                 [locale]="paginatorLocale"
             >
+                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate"></ng-container>
+                </ng-template>
+
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
@@ -263,7 +266,6 @@ export class TableService {
                 [first]="first"
                 [totalRecords]="totalRecords"
                 [pageLinkSize]="pageLinks"
-                styleClass="p-paginator-bottom"
                 [alwaysShow]="alwaysShowPaginator"
                 (onPageChange)="onPageChange($event)"
                 [rowsPerPageOptions]="rowsPerPageOptions"
@@ -279,9 +281,13 @@ export class TableService {
                 [showJumpToPageDropdown]="showJumpToPageDropdown"
                 [showJumpToPageInput]="showJumpToPageInput"
                 [showPageLinks]="showPageLinks"
-                [styleClass]="paginatorStyleClass"
+                [styleClass]="getPaginatorStyleClasses('p-paginator-bottom')"
                 [locale]="paginatorLocale"
             >
+                <ng-template pTemplate="dropdownicon" *ngIf="paginatorDropdownIconTemplate">
+                    <ng-container *ngTemplateOutlet="paginatorDropdownIconTemplate"></ng-container>
+                </ng-template>
+
                 <ng-template pTemplate="firstpagelinkicon" *ngIf="paginatorFirstPageLinkIconTemplate">
                     <ng-container *ngTemplateOutlet="paginatorFirstPageLinkIconTemplate"></ng-container>
                 </ng-template>
@@ -357,12 +363,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * When specified as true, enables the pagination.
      * @group Props
      */
-    @Input() paginator: boolean | undefined;
+    @Input({ transform: booleanAttribute }) paginator: boolean | undefined;
     /**
      * Number of page links to display in paginator.
      * @group Props
      */
-    @Input() pageLinks: number = 5;
+    @Input({ transform: numberAttribute }) pageLinks: number = 5;
     /**
      * Array of integer/object values to display inside rows per page dropdown of paginator
      * @group Props
@@ -372,7 +378,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Whether to show it even there is only one page.
      * @group Props
      */
-    @Input() alwaysShowPaginator: boolean = true;
+    @Input({ transform: booleanAttribute }) alwaysShowPaginator: boolean = true;
     /**
      * Position of the paginator, options are "top", "bottom" or "both".
      * @group Props
@@ -402,32 +408,32 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Whether to display current page report.
      * @group Props
      */
-    @Input() showCurrentPageReport: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showCurrentPageReport: boolean | undefined;
     /**
      * Whether to display a dropdown to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageDropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageDropdown: boolean | undefined;
     /**
      * Whether to display a input to navigate to any page.
      * @group Props
      */
-    @Input() showJumpToPageInput: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showJumpToPageInput: boolean | undefined;
     /**
      * When enabled, icons are displayed on paginator to go first and last page.
      * @group Props
      */
-    @Input() showFirstLastIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showFirstLastIcon: boolean = true;
     /**
      * Whether to show page links.
      * @group Props
      */
-    @Input() showPageLinks: boolean = true;
+    @Input({ transform: booleanAttribute }) showPageLinks: boolean = true;
     /**
      * Sort order to use when an unsorted column gets sorted by user interaction.
      * @group Props
      */
-    @Input() defaultSortOrder: number = 1;
+    @Input({ transform: numberAttribute }) defaultSortOrder: number = 1;
     /**
      * Defines whether sorting works on single column or on multiple columns.
      * @group Props
@@ -437,7 +443,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * When true, resets paginator to first page after sorting. Available only when sortMode is set to single.
      * @group Props
      */
-    @Input() resetPageOnSort: boolean = true;
+    @Input({ transform: booleanAttribute }) resetPageOnSort: boolean = true;
     /**
      * Specifies the selection mode, valid values are "single" and "multiple".
      * @group Props
@@ -447,7 +453,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * When enabled with paginator and checkbox selection mode, the select all checkbox in the header will select all rows on the current page.
      * @group Props
      */
-    @Input() selectionPageOnly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selectionPageOnly: boolean | undefined;
     /**
      * Selected row with a context menu.
      * @group Props
@@ -473,12 +479,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean | undefined = false;
     /**
      * Defines if the row is selectable.
      * @group Props
      */
-    @Input() rowSelectable: boolean | undefined | any;
+    @Input() rowSelectable: (row: { data: any; index: number }) => boolean | undefined;
     /**
      * Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity.
      * @group Props
@@ -488,12 +494,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether to call lazy loading on initialization.
      * @group Props
      */
-    @Input() lazyLoadOnInit: boolean = true;
+    @Input({ transform: booleanAttribute }) lazyLoadOnInit: boolean = true;
     /**
      * Algorithm to define if a row is selected, valid values are "equals" that compares by reference and "deepEquals" that compares all fields.
      * @group Props
@@ -523,7 +529,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Delay in milliseconds before filtering the data.
      * @group Props
      */
-    @Input() filterDelay: number = 300;
+    @Input({ transform: numberAttribute }) filterDelay: number = 300;
     /**
      * Locale to use in filtering. The default locale is the host environment's current locale.
      * @group Props
@@ -548,7 +554,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Enables scrollable tables.
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Orientation of the scrolling, options are "vertical", "horizontal" and "both".
      * @group Props
@@ -569,12 +575,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of a row to use in calculations of virtual scrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -584,7 +590,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Threshold in milliseconds to delay lazy loading during scrolling.
      * @group Props
      */
-    @Input() virtualScrollDelay: number = 250;
+    @Input({ transform: numberAttribute }) virtualScrollDelay: number = 250;
     /**
      * Width of the frozen columns container.
      * @group Props
@@ -612,7 +618,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * When enabled, columns can be resized using drag and drop.
      * @group Props
      */
-    @Input() resizableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) resizableColumns: boolean | undefined;
     /**
      * Defines whether the overall table width should change on column resize, valid values are "fit" and "expand".
      * @group Props
@@ -622,12 +628,12 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * When enabled, columns can be reordered using drag and drop.
      * @group Props
      */
-    @Input() reorderableColumns: boolean | undefined;
+    @Input({ transform: booleanAttribute }) reorderableColumns: boolean | undefined;
     /**
      * Displays a loader to indicate data load is in progress.
      * @group Props
      */
-    @Input() loading: boolean | undefined;
+    @Input({ transform: booleanAttribute }) loading: boolean | undefined;
     /**
      * The icon to show while indicating data load is in progress.
      * @group Props
@@ -637,27 +643,27 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Whether to show the loading mask when loading property is true.
      * @group Props
      */
-    @Input() showLoader: boolean = true;
+    @Input({ transform: booleanAttribute }) showLoader: boolean = true;
     /**
      * Adds hover effect to rows without the need for selectionMode. Note that tr elements that can be hovered need to have "p-selectable-row" class for rowHover to work.
      * @group Props
      */
-    @Input() rowHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) rowHover: boolean | undefined;
     /**
      * Whether to use the default sorting or a custom one using sortFunction.
      * @group Props
      */
-    @Input() customSort: boolean | undefined;
+    @Input({ transform: booleanAttribute }) customSort: boolean | undefined;
     /**
      * Whether to use the initial sort badge or not.
      * @group Props
      */
-    @Input() showInitialSortBadge: boolean = true;
+    @Input({ transform: booleanAttribute }) showInitialSortBadge: boolean = true;
     /**
      * Whether the cell widths scale according to their content or not.  Deprecated:  Table layout is always "auto".
      * @group Props
      */
-    @Input() autoLayout: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoLayout: boolean | undefined;
     /**
      * Export function.
      * @group Props
@@ -692,7 +698,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Order to sort when default row grouping is enabled.
      * @group Props
      */
-    @Input() groupRowsByOrder: number = 1;
+    @Input({ transform: numberAttribute }) groupRowsByOrder: number = 1;
     /**
      * Defines the responsive mode, valid options are "stack" and "scroll".
      * @group Props
@@ -1047,6 +1053,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
     headerCheckboxIconTemplate: Nullable<TemplateRef<any>>;
 
+    paginatorDropdownIconTemplate: Nullable<TemplateRef<any>>;
+
     paginatorFirstPageLinkIconTemplate: Nullable<TemplateRef<any>>;
 
     paginatorLastPageLinkIconTemplate: Nullable<TemplateRef<any>>;
@@ -1161,7 +1169,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        if (this.responsiveLayout === 'stack' && !this.scrollable) {
+        if (this.responsiveLayout === 'stack') {
             this.createResponsiveStyle();
         }
 
@@ -1251,6 +1259,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this.paginatorRightTemplate = item.template;
                     break;
 
+                case 'paginatordropdownicon':
+                    this.paginatorDropdownIconTemplate = item.template;
+                    break;
+
                 case 'paginatordropdownitem':
                     this.paginatorDropdownItemTemplate = item.template;
                     break;
@@ -1328,11 +1340,15 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (simpleChange.columns) {
-            this._columns = simpleChange.columns.currentValue;
-            this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            if (!this.isStateful()) {
+                this._columns = simpleChange.columns.currentValue;
+                this.tableService.onColumnsChange(simpleChange.columns.currentValue);
+            }
 
             if (this._columns && this.isStateful() && this.reorderableColumns && !this.columnOrderStateRestored) {
                 this.restoreColumnOrder();
+
+                this.tableService.onColumnsChange(this._columns);
             }
         }
 
@@ -1849,6 +1865,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.lazy && this.paginator) {
             (rangeStart as number) -= <number>this.first;
+            (rangeEnd as number) -= <number>this.first;
         }
 
         let rangeRowsData = [];
@@ -2243,10 +2260,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
     /**
      * Data export method.
-     * @param {Object} object - Export options.
+     * @param {ExportCSVOptions} object - Export options.
      * @group Method
      */
-    public exportCSV(options?: any) {
+    public exportCSV(options?: ExportCSVOptions) {
         let data;
         let csv = '';
         let columns = this.columns;
@@ -2263,45 +2280,38 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        //headers
-        for (let i = 0; i < (<any[]>columns).length; i++) {
-            let column = (<any[]>columns)[i];
-            if (column.exportable !== false && column.field) {
-                csv += '"' + this.getExportHeader(column) + '"';
+        const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
-                if (i < (<any[]>columns).length - 1) {
-                    csv += this.csvSeparator;
-                }
-            }
-        }
+        //headers
+        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
 
         //body
-        data.forEach((record: any, i: number) => {
-            csv += '\n';
-            for (let i = 0; i < (<any[]>columns).length; i++) {
-                let column = (<any[]>columns)[i];
-                if (column.exportable !== false && column.field) {
-                    let cellData = ObjectUtils.resolveFieldData(record, column.field);
+        const body = data
+            .map((record: any) =>
+                exportableColumns
+                    .map((column) => {
+                        let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
-                    if (cellData != null) {
-                        if (this.exportFunction) {
-                            cellData = this.exportFunction({
-                                data: cellData,
-                                field: column.field
-                            });
-                        } else cellData = String(cellData).replace(/"/g, '""');
-                    } else cellData = '';
+                        if (cellData != null) {
+                            if (this.exportFunction) {
+                                cellData = this.exportFunction({
+                                    data: cellData,
+                                    field: column.field
+                                });
+                            } else cellData = String(cellData).replace(/"/g, '""');
+                        } else cellData = '';
 
-                    csv += '"' + cellData + '"';
+                        return '"' + cellData + '"';
+                    })
+                    .join(this.csvSeparator)
+            )
+            .join('\n');
 
-                    if (i < (<any[]>columns).length - 1) {
-                        csv += this.csvSeparator;
-                    }
-                }
-            }
-        });
+        if (body.length) {
+            csv += '\n' + body;
+        }
 
-        let blob = new Blob([csv], {
+        let blob = new Blob([new Uint8Array([0xef, 0xbb, 0xbf]), csv], {
             type: 'text/csv;charset=utf-8;'
         });
 
@@ -2420,11 +2430,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     toggleRow(rowData: any, event?: Event) {
-        if (!this.dataKey) {
-            throw new Error('dataKey must be defined to use row expansion');
+        if (!this.dataKey && !this.groupRowsBy) {
+            throw new Error('dataKey or groupRowsBy must be defined to use row expansion');
         }
 
-        let dataKeyValue = String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
+        let dataKeyValue = this.groupRowsBy ? String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy)) : String(ObjectUtils.resolveFieldData(rowData, this.dataKey));
 
         if (this.expandedRowKeys[dataKeyValue] != null) {
             delete this.expandedRowKeys[dataKeyValue];
@@ -2454,7 +2464,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     }
 
     isRowExpanded(rowData: any): boolean {
-        return this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
+        return this.groupRowsBy ? this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.groupRowsBy))] === true : this.expandedRowKeys[String(ObjectUtils.resolveFieldData(rowData, this.dataKey))] === true;
     }
 
     isRowEditing(rowData: any): boolean {
@@ -2473,7 +2483,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let containerLeft = DomHandler.getOffset(this.containerViewChild?.nativeElement).left;
         this.resizeColumnElement = event.target.parentElement;
         this.columnResizing = true;
-        this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        if (event.type == 'touchstart') {
+            this.lastResizerHelperX = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        } else {
+            this.lastResizerHelperX = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft;
+        }
         this.onColumnResize(event);
         event.preventDefault();
     }
@@ -2483,8 +2497,11 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         DomHandler.addClass(this.containerViewChild?.nativeElement, 'p-unselectable-text');
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.height = this.containerViewChild?.nativeElement.offsetHeight + 'px';
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.top = 0 + 'px';
-        (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
-
+        if (event.type == 'touchmove') {
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.changedTouches[0].clientX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        } else {
+            (<ElementRef>this.resizeHelperViewChild).nativeElement.style.left = event.pageX - containerLeft + this.containerViewChild?.nativeElement.scrollLeft + 'px';
+        }
         (<ElementRef>this.resizeHelperViewChild).nativeElement.style.display = 'block';
     }
 
@@ -2615,7 +2632,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             }
 
-            if (this.resizableColumns && this.resizeColumnElement && this.resizeColumnElement.isSameNode(this.draggedColumn)) {
+            if (this.resizableColumns && this.resizeColumnElement) {
                 let width = this.columnResizeMode === 'expand' ? this._initialColWidths : this._totalTableWidth();
                 ObjectUtils.reorderArray(width, dragIndex + 1, dropIndex + 1);
                 this.updateStyleElement(width, dragIndex, null, null);
@@ -2847,6 +2864,10 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.tableWidthState = state.tableWidth;
             }
 
+            // if (this.reorderableColumns) {
+            //     this.restoreColumnOrder();
+            // }
+
             if (state.expandedRowKeys) {
                 this.expandedRowKeys = state.expandedRowKeys;
             }
@@ -2923,6 +2944,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         if (stateString) {
             let state: TableState = JSON.parse(stateString);
             let columnOrder = state.columnOrder;
+
             if (columnOrder) {
                 let reorderedColumns: any[] = [];
 
@@ -2953,6 +2975,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
         this.renderer.appendChild(this.document.head, this.styleElement);
+        DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
     }
 
     getGroupRowsMeta() {
@@ -3021,6 +3044,13 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         this.destroyStyleElement();
         this.destroyResponsiveStyle();
+    }
+
+    getPaginatorStyleClasses(className?: string) {
+        return [this.paginatorStyleClass, className]
+            .filter((c) => !!c)
+            .join(' ')
+            .trim();
     }
 }
 
@@ -3132,9 +3162,9 @@ export class TableBody implements AfterViewInit, OnDestroy {
         }
     }
 
-    @Input() frozen: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozen: boolean | undefined;
 
-    @Input() frozenRows: boolean | undefined;
+    @Input({ transform: booleanAttribute }) frozenRows: boolean | undefined;
 
     @Input() scrollerOptions: any;
 
@@ -3162,7 +3192,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupHeader(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let prevRowData = value[i - 1];
+        let prevRowData = value[i - (1 + this.dt._first)];
         if (prevRowData) {
             let previousRowFieldData = ObjectUtils.resolveFieldData(prevRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== previousRowFieldData;
@@ -3173,7 +3203,7 @@ export class TableBody implements AfterViewInit, OnDestroy {
 
     shouldRenderRowGroupFooter(value: any, rowData: any, i: number) {
         let currentRowFieldData = ObjectUtils.resolveFieldData(rowData, this.dt.groupRowsBy);
-        let nextRowData = value[i + 1];
+        let nextRowData = value[i + (1 + this.dt._first)];
         if (nextRowData) {
             let nextRowFieldData = ObjectUtils.resolveFieldData(nextRowData, this.dt.groupRowsBy);
             return currentRowFieldData !== nextRowFieldData;
@@ -3273,17 +3303,30 @@ export class FrozenColumn implements AfterViewInit {
 
     set frozen(val: boolean) {
         this._frozen = val;
-        this.updateStickyPosition();
+        Promise.resolve(null).then(() => this.updateStickyPosition());
     }
 
     @Input() alignFrozen: string = 'left';
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, private zone: NgZone) {}
 
     ngAfterViewInit() {
+        this.zone.runOutsideAngular(() => {
+            setTimeout(() => {
+                this.recalculateColumns();
+            }, 1000);
+        });
+    }
+
+    @HostListener('window:resize', ['$event'])
+    recalculateColumns() {
+        const siblings = DomHandler.siblings(this.el.nativeElement);
+        const index = DomHandler.index(this.el.nativeElement);
+        const time = (siblings.length - index + 1) * 50;
+
         setTimeout(() => {
             this.updateStickyPosition();
-        }, 1000);
+        }, time);
     }
 
     _frozen: boolean = true;
@@ -3332,7 +3375,7 @@ export class FrozenColumn implements AfterViewInit {
 export class SortableColumn implements OnInit, OnDestroy {
     @Input('pSortableColumn') field: string | undefined;
 
-    @Input() pSortableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pSortableColumnDisabled: boolean | undefined;
 
     sorted: boolean | undefined;
 
@@ -3499,7 +3542,7 @@ export class SelectableRow implements OnInit, OnDestroy {
 
     @Input('pSelectableRowIndex') index: number | undefined;
 
-    @Input() pSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -3571,8 +3614,8 @@ export class SelectableRow implements OnInit, OnDestroy {
                 break;
 
             default:
-                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey)) {
-                    const data = this.dt.dataToRender(this.dt.rows);
+                if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dt.selectionMode === 'multiple') {
+                    const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
                     this.dt.selectRange(event, data.length - 1);
 
@@ -3656,28 +3699,33 @@ export class SelectableRow implements OnInit, OnDestroy {
     }
 
     onSpaceKey(event) {
-        this.onEnterKey(event);
+        const isInput = event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLTextAreaElement;
+        if (isInput) {
+            return;
+        } else {
+            this.onEnterKey(event);
 
-        if (event.shiftKey && this.dt.selection !== null) {
-            const data = this.dt.dataToRender(this.dt.rows);
-            let index;
+            if (event.shiftKey && this.dt.selection !== null) {
+                const data = this.dt.dataToRender(this.dt.rows);
+                let index;
 
-            if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
-                let firstSelectedRowIndex, lastSelectedRowIndex;
-                firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
-                lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
+                if (ObjectUtils.isNotEmpty(this.dt.selection) && this.dt.selection.length > 0) {
+                    let firstSelectedRowIndex, lastSelectedRowIndex;
+                    firstSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[0], data);
+                    lastSelectedRowIndex = ObjectUtils.findIndexInList(this.dt.selection[this.dt.selection.length - 1], data);
 
-                index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
-            } else {
-                index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                    index = this.index <= firstSelectedRowIndex ? lastSelectedRowIndex : firstSelectedRowIndex;
+                } else {
+                    index = ObjectUtils.findIndexInList(this.dt.selection, data);
+                }
+
+                this.dt.anchorRowIndex = index;
+                this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
+                this.dt.selectRange(event, this.index);
             }
 
-            this.dt.anchorRowIndex = index;
-            this.dt.selection = index !== this.index ? data.slice(Math.min(index, this.index), Math.max(index, this.index) + 1) : [this.data];
-            this.dt.selectRange(event, this.index);
+            event.preventDefault();
         }
-
-        event.preventDefault();
     }
 
     focusRowChange(firstFocusableRow, currentFocusedRow) {
@@ -3742,7 +3790,7 @@ export class SelectableRowDblClick implements OnInit, OnDestroy {
 
     @Input('pSelectableRowIndex') index: number | undefined;
 
-    @Input() pSelectableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pSelectableRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -3797,7 +3845,7 @@ export class ContextMenuRow {
 
     @Input('pContextMenuRowIndex') index: number | undefined;
 
-    @Input() pContextMenuRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pContextMenuRowDisabled: boolean | undefined;
 
     selected: boolean | undefined;
 
@@ -3845,7 +3893,7 @@ export class ContextMenuRow {
 export class RowToggler {
     @Input('pRowToggler') data: any;
 
-    @Input() pRowTogglerDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pRowTogglerDisabled: boolean | undefined;
 
     constructor(public dt: Table) {}
 
@@ -3869,11 +3917,17 @@ export class RowToggler {
     }
 })
 export class ResizableColumn implements AfterViewInit, OnDestroy {
-    @Input() pResizableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pResizableColumnDisabled: boolean | undefined;
 
     resizer: HTMLSpanElement | undefined;
 
     resizerMouseDownListener: VoidListener;
+
+    resizerTouchStartListener: VoidListener;
+
+    resizerTouchMoveListener: VoidListener;
+
+    resizerTouchEndListener: VoidListener;
 
     documentMouseMoveListener: VoidListener;
 
@@ -3891,6 +3945,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 
                 this.zone.runOutsideAngular(() => {
                     this.resizerMouseDownListener = this.renderer.listen(this.resizer, 'mousedown', this.onMouseDown.bind(this));
+                    this.resizerTouchStartListener = this.renderer.listen(this.resizer, 'touchstart', this.onTouchStart.bind(this));
                 });
             }
         }
@@ -3900,6 +3955,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
         this.zone.runOutsideAngular(() => {
             this.documentMouseMoveListener = this.renderer.listen(this.document, 'mousemove', this.onDocumentMouseMove.bind(this));
             this.documentMouseUpListener = this.renderer.listen(this.document, 'mouseup', this.onDocumentMouseUp.bind(this));
+            this.resizerTouchMoveListener = this.renderer.listen(this.resizer, 'touchmove', this.onTouchMove.bind(this));
+            this.resizerTouchEndListener = this.renderer.listen(this.resizer, 'touchend', this.onTouchEnd.bind(this));
         });
     }
 
@@ -3913,20 +3970,40 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
             this.documentMouseUpListener();
             this.documentMouseUpListener = null;
         }
-    }
+        if (this.resizerTouchMoveListener) {
+            this.resizerTouchMoveListener();
+            this.resizerTouchMoveListener = null;
+        }
 
-    onMouseDown(event: MouseEvent) {
-        if (event.which === 1) {
-            this.dt.onColumnResizeBegin(event);
-            this.bindDocumentEvents();
+        if (this.resizerTouchEndListener) {
+            this.resizerTouchEndListener();
+            this.resizerTouchEndListener = null;
         }
     }
 
+    onMouseDown(event: MouseEvent) {
+        this.dt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onTouchStart(event: TouchEvent) {
+        this.dt.onColumnResizeBegin(event);
+        this.bindDocumentEvents();
+    }
+
+    onTouchMove(event: TouchEvent) {
+        this.dt.onColumnResize(event);
+    }
     onDocumentMouseMove(event: MouseEvent) {
         this.dt.onColumnResize(event);
     }
 
     onDocumentMouseUp(event: MouseEvent) {
+        this.dt.onColumnResizeEnd();
+        this.unbindDocumentEvents();
+    }
+
+    onTouchEnd(event: TouchEvent) {
         this.dt.onColumnResizeEnd();
         this.unbindDocumentEvents();
     }
@@ -3952,7 +4029,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     }
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
-    @Input() pReorderableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pReorderableColumnDisabled: boolean | undefined;
 
     dragStartListener: VoidListener;
 
@@ -4065,7 +4142,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     @Input('pEditableColumnRowIndex') rowIndex: number | undefined;
 
-    @Input() pEditableColumnDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pEditableColumnDisabled: boolean | undefined;
 
     @Input() pFocusCellSelector: string | undefined;
 
@@ -4074,7 +4151,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
     constructor(public dt: Table, public el: ElementRef, public zone: NgZone) {}
 
     public ngOnChanges(changes: SimpleChanges): void {
-        if (this.el.nativeElement && (!changes.data?.firstChange)) {
+        if (this.el.nativeElement && !changes.data?.firstChange) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
         }
     }
@@ -4300,6 +4377,10 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
                 DomHandler.invokeElementMethod(event.target, 'blur');
                 DomHandler.invokeElementMethod(targetCell, 'click');
                 event.preventDefault();
+            } else {
+                if (this.dt.isEditingCellValid()) {
+                    this.closeEditingCell(true, event);
+                }
             }
         }
     }
@@ -4392,7 +4473,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 export class EditableRow {
     @Input('pEditableRow') data: any;
 
-    @Input() pEditableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pEditableRowDisabled: boolean | undefined;
 
     constructor(public el: ElementRef) {}
 
@@ -4511,11 +4592,11 @@ export class CellEditor implements AfterContentInit {
     }
 })
 export class TableRadioButton {
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input() value: any;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() inputId: string | undefined;
 
@@ -4608,17 +4689,17 @@ export class TableRadioButton {
     }
 })
 export class TableCheckbox {
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input() value: any;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() inputId: string | undefined;
 
     @Input() name: string | undefined;
 
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
 
     @Input() ariaLabel: string | undefined;
 
@@ -4630,7 +4711,7 @@ export class TableCheckbox {
 
     constructor(public dt: Table, public tableService: TableService, public cd: ChangeDetectorRef) {
         this.subscription = this.dt.tableService.selectionSource$.subscribe(() => {
-            this.checked = this.dt.isSelected(this.value);
+            this.checked = this.dt.isSelected(this.value) && !this.disabled;
             this.ariaLabel = this.ariaLabel || this.dt.config.translation.aria ? (this.checked ? this.dt.config.translation.aria.selectRow : this.dt.config.translation.aria.unselectRow) : undefined;
             this.cd.markForCheck();
         });
@@ -4692,7 +4773,7 @@ export class TableCheckbox {
     }
 })
 export class TableHeaderCheckbox {
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
 
     @Input() inputId: string | undefined;
 
@@ -4793,7 +4874,7 @@ export class ReorderableRowHandle implements AfterViewInit {
 export class ReorderableRow implements AfterViewInit {
     @Input('pReorderableRow') index: number | undefined;
 
-    @Input() pReorderableRowDisabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) pReorderableRowDisabled: boolean | undefined;
 
     mouseDownListener: VoidListener;
 
@@ -4858,8 +4939,21 @@ export class ReorderableRow implements AfterViewInit {
     }
 
     onMouseDown(event: Event) {
-        if (DomHandler.hasClass(event.target, 'p-datatable-reorderablerow-handle')) this.el.nativeElement.draggable = true;
-        else this.el.nativeElement.draggable = false;
+        const targetElement = event.target as HTMLElement;
+        const isHandleClicked = this.isHandleElement(targetElement);
+        this.el.nativeElement.draggable = isHandleClicked;
+    }
+
+    isHandleElement(element: HTMLElement): boolean {
+        if (element?.classList.contains('p-datatable-reorderablerow-handle')) {
+            return true;
+        }
+
+        if (element?.parentElement && !['TD', 'TR'].includes(element?.parentElement?.tagName)) {
+            return this.isHandleElement(element?.parentElement);
+        }
+
+        return false;
     }
 
     onDragStart(event: DragEvent) {
@@ -4907,6 +5001,7 @@ export class ReorderableRow implements AfterViewInit {
                 class="p-fluid"
                 [type]="type"
                 [field]="field"
+                [ariaLabel]="ariaLabel"
                 [filterConstraint]="dt.filters[field]"
                 [filterTemplate]="filterTemplate"
                 [placeholder]="placeholder"
@@ -4927,8 +5022,9 @@ export class ReorderableRow implements AfterViewInit {
                 type="button"
                 class="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
-                [attr.aria-controls]="overlayId"
-                [attr.aria-expanded]="overlayVisible"
+                [attr.aria-label]="filterMenuButtonAriaLabel"
+                [attr.aria-controls]="overlayVisible ? overlayId : null"
+                [attr.aria-expanded]="overlayVisible ?? false"
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
                 (keydown)="onToggleButtonKeyDown($event)"
@@ -4938,9 +5034,9 @@ export class ReorderableRow implements AfterViewInit {
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>
             </button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()">
-                <FilterSlashIcon *ngIf="!clearIconTemplate" />
-                <ng-template *ngTemplateOutlet="clearFilterIcon"></ng-template>
+            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel">
+                <FilterSlashIcon *ngIf="!clearFilterIconTemplate" />
+                <ng-template *ngTemplateOutlet="clearFilterIconTemplate"></ng-template>
             </button>
             <div
                 *ngIf="showMenu && overlayVisible"
@@ -5000,22 +5096,31 @@ export class ReorderableRow implements AfterViewInit {
                                 [useGrouping]="useGrouping"
                             ></p-columnFilterFormElement>
                             <div>
-                                <button *ngIf="showRemoveIcon" type="button" pButton class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm" (click)="removeConstraint(fieldConstraint)" pRipple [label]="removeRuleButtonLabel">
-                                    <TrashIcon *ngIf="!removeRuleIconTemplate" />
+                                <button
+                                    *ngIf="showRemoveIcon"
+                                    type="button"
+                                    pButton
+                                    class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
+                                    (click)="removeConstraint(fieldConstraint)"
+                                    pRipple
+                                    [attr.aria-label]="removeRuleButtonLabel"
+                                    [label]="removeRuleButtonLabel"
+                                >
+                                    <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
-                            <PlusIcon *ngIf="!addRuleIconTemplate" />
+                        <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
+                            <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple></button>
+                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
+                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
@@ -5029,55 +5134,149 @@ export class ReorderableRow implements AfterViewInit {
     }
 })
 export class ColumnFilter implements AfterContentInit {
+    /**
+     * Property represented by the column.
+     * @group Props
+     */
     @Input() field: string | undefined;
-
+    /**
+     * Type of the input.
+     * @group Props
+     */
     @Input() type: string = 'text';
-
+    /**
+     * Filter display.
+     * @group Props
+     */
     @Input() display: string = 'row';
-
-    @Input() showMenu: boolean = true;
-
+    /**
+     * Decides whether to display filter menu popup.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showMenu: boolean = true;
+    /**
+     * Filter match mode.
+     * @group Props
+     */
     @Input() matchMode: string | undefined;
-
+    /**
+     * Filter operator.
+     * @defaultValue 'AND'
+     * @group Props
+     */
     @Input() operator: string = FilterOperator.AND;
-
-    @Input() showOperator: boolean = true;
-
-    @Input() showClearButton: boolean = true;
-
-    @Input() showApplyButton: boolean = true;
-
-    @Input() showMatchModes: boolean = true;
-
-    @Input() showAddButton: boolean = true;
-
-    @Input() hideOnClear: boolean = false;
-
+    /**
+     * Decides whether to display filter operator.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showOperator: boolean = true;
+    /**
+     * Decides whether to display clear filter button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showClearButton: boolean = true;
+    /**
+     * Decides whether to display apply filter button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showApplyButton: boolean = true;
+    /**
+     * Decides whether to display filter match modes.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showMatchModes: boolean = true;
+    /**
+     * Decides whether to display add filter button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showAddButton: boolean = true;
+    /**
+     * Decides whether to close popup on clear button click.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) hideOnClear: boolean = false;
+    /**
+     * Filter placeholder.
+     * @group Props
+     */
     @Input() placeholder: string | undefined;
-
+    /**
+     * Filter match mode options.
+     * @group Props
+     */
     @Input() matchModeOptions: SelectItem[] | undefined;
-
-    @Input() maxConstraints: number = 2;
-
-    @Input() minFractionDigits: number | undefined;
-
-    @Input() maxFractionDigits: number | undefined;
-
+    /**
+     * Defines maximum amount of constraints.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) maxConstraints: number = 2;
+    /**
+     * Defines minimum fraction of digits.
+     * @group Props
+     */
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
+    /**
+     * Defines maximum fraction of digits.
+     * @group Props
+     */
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
+    /**
+     * Defines prefix of the filter.
+     * @group Props
+     */
     @Input() prefix: string | undefined;
-
+    /**
+     * Defines suffix of the filter.
+     * @group Props
+     */
     @Input() suffix: string | undefined;
-
+    /**
+     * Defines filter locale.
+     * @group Props
+     */
     @Input() locale: string | undefined;
-
+    /**
+     * Defines filter locale matcher.
+     * @group Props
+     */
     @Input() localeMatcher: string | undefined;
-
+    /**
+     * Enables currency input.
+     * @group Props
+     */
     @Input() currency: string | undefined;
-
+    /**
+     * Defines the display of the currency input.
+     * @group Props
+     */
     @Input() currencyDisplay: string | undefined;
-
-    @Input() useGrouping: boolean = true;
-
-    @Input() showButtons: boolean = true;
+    /**
+     * Defines if filter grouping will be enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+    /**
+     * Defines the visibility of buttons.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) showButtons: boolean = true;
+    /**
+     * Defines the aria-label of the form element.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Callback to invoke on overlay is shown.
+     * @param {AnimationEvent} originalEvent - animation event.
+     * @group Emits
+     */
+    @Output() onShow: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{ originalEvent: AnimationEvent }>();
+    /**
+     * Callback to invoke on overlay is hidden.
+     * @param {AnimationEvent} originalEvent - animation event.
+     * @group Emits
+     */
+    @Output() onHide: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{ originalEvent: AnimationEvent }>();
 
     @ViewChild('icon') icon: Nullable<ElementRef>;
 
@@ -5098,6 +5297,8 @@ export class ColumnFilter implements AfterContentInit {
     removeRuleIconTemplate: Nullable<TemplateRef<any>>;
 
     addRuleIconTemplate: Nullable<TemplateRef<any>>;
+
+    clearFilterIconTemplate: Nullable<TemplateRef<any>>;
 
     operatorOptions: any[] | undefined;
 
@@ -5124,6 +5325,66 @@ export class ColumnFilter implements AfterContentInit {
     private window: Window;
 
     overlayId: any;
+
+    get fieldConstraints(): FilterMetadata[] | undefined | null {
+        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
+    }
+
+    get showRemoveIcon(): boolean {
+        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
+    }
+
+    get showMenuButton(): boolean {
+        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
+    }
+
+    get isShowOperator(): boolean {
+        return this.showOperator && this.type !== 'boolean';
+    }
+
+    get isShowAddConstraint(): boolean | undefined | null {
+        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
+    }
+
+    get showMenuButtonLabel() {
+        return this.config.getTranslation(TranslationKeys.SHOW_FILTER_MENU);
+    }
+
+    get applyButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.APPLY);
+    }
+
+    get clearButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.CLEAR);
+    }
+
+    get addRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ADD_RULE);
+    }
+
+    get removeRuleButtonLabel(): string {
+        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
+    }
+
+    get noFilterLabel(): string {
+        return this.config.getTranslation(TranslationKeys.NO_FILTER);
+    }
+
+    get filterMenuButtonAriaLabel() {
+        return this.config.translation ? (this.overlayVisible ? this.config.translation.aria.hideFilterMenu : this.config.translation.aria.showFilterMenu) : undefined;
+    }
+
+    get removeRuleButtonAriaLabel() {
+        return this.config.translation ? this.config.translation.removeRule : undefined;
+    }
+
+    get filterOperatorAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterOperator : undefined;
+    }
+
+    get filterConstraintAriaLabel() {
+        return this.config.translation ? this.config.translation.aria.filterConstraint : undefined;
+    }
 
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public dt: Table, public renderer: Renderer2, public config: PrimeNGConfig, public overlayService: OverlayService, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
@@ -5178,6 +5439,10 @@ export class ColumnFilter implements AfterContentInit {
                     this.filterIconTemplate = item.template;
                     break;
 
+                case 'clearfiltericon':
+                    this.clearFilterIconTemplate = item.template;
+                    break;
+
                 case 'removeruleicon':
                     this.removeRuleIconTemplate = item.template;
                     break;
@@ -5207,8 +5472,11 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     onRowMatchModeChange(matchMode: string) {
-        (<FilterMetadata>this.dt.filters[<string>this.field]).matchMode = matchMode;
-        this.dt._filter();
+        const fieldFilter = <FilterMetadata>this.dt.filters[<string>this.field];
+        fieldFilter.matchMode = matchMode;
+        if (fieldFilter.value) {
+            this.dt._filter();
+        }
         this.hide();
     }
 
@@ -5256,7 +5524,9 @@ export class ColumnFilter implements AfterContentInit {
 
     removeConstraint(filterMeta: FilterMetadata) {
         this.dt.filters[<string>this.field] = (<FilterMetadata[]>this.dt.filters[<string>this.field]).filter((meta) => meta !== filterMeta);
-        this.dt._filter();
+        if (!this.showApplyButton) {
+            this.dt._filter();
+        }
         DomHandler.focus(this.clearButtonViewChild.nativeElement);
     }
 
@@ -5293,6 +5563,10 @@ export class ColumnFilter implements AfterContentInit {
                     this.overlayVisible = true;
                     event.preventDefault();
                 }
+                break;
+            case 'Enter':
+                this.toggleMenu();
+                event.preventDefault();
                 break;
         }
     }
@@ -5338,6 +5612,7 @@ export class ColumnFilter implements AfterContentInit {
                 };
 
                 this.overlaySubscription = this.overlayService.clickObservable.subscribe(this.overlayEventListener);
+                this.onShow.emit({ originalEvent: event });
                 break;
 
             case 'void':
@@ -5357,6 +5632,7 @@ export class ColumnFilter implements AfterContentInit {
                 break;
             case 'void':
                 ZIndexUtils.clear(event.element);
+                this.onHide.emit({ originalEvent: event });
                 break;
         }
     }
@@ -5386,46 +5662,6 @@ export class ColumnFilter implements AfterContentInit {
         return this.dt.filters[<string>this.field] && !this.dt.isFilterBlank((<FilterMetadata>this.dt.filters[<string>this.field]).value);
     }
 
-    get fieldConstraints(): FilterMetadata[] | undefined | null {
-        return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
-    }
-
-    get showRemoveIcon(): boolean {
-        return this.fieldConstraints ? this.fieldConstraints.length > 1 : false;
-    }
-
-    get showMenuButton(): boolean {
-        return this.showMenu && (this.display === 'row' ? this.type !== 'boolean' : true);
-    }
-
-    get isShowOperator(): boolean {
-        return this.showOperator && this.type !== 'boolean';
-    }
-
-    get isShowAddConstraint(): boolean | undefined | null {
-        return this.showAddButton && this.type !== 'boolean' && this.fieldConstraints && this.fieldConstraints.length < this.maxConstraints;
-    }
-
-    get applyButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.APPLY);
-    }
-
-    get clearButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.CLEAR);
-    }
-
-    get addRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.ADD_RULE);
-    }
-
-    get removeRuleButtonLabel(): string {
-        return this.config.getTranslation(TranslationKeys.REMOVE_RULE);
-    }
-
-    get noFilterLabel(): string {
-        return this.config.getTranslation(TranslationKeys.NO_FILTER);
-    }
-
     hasFilter(): boolean {
         let fieldFilter = this.dt.filters[<string>this.field];
         if (fieldFilter) {
@@ -5438,6 +5674,7 @@ export class ColumnFilter implements AfterContentInit {
 
     isOutsideClicked(event: any): boolean {
         return !(
+            DomHandler.hasClass(this.overlay?.nextElementSibling, 'p-overlay') ||
             this.overlay?.isSameNode(event.target) ||
             this.overlay?.contains(event.target) ||
             this.icon?.nativeElement.isSameNode(event.target) ||
@@ -5453,8 +5690,10 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
+                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
                 }
 
@@ -5580,7 +5819,16 @@ export class ColumnFilter implements AfterContentInit {
         </ng-container>
         <ng-template #builtInElement>
             <ng-container [ngSwitch]="type">
-                <input *ngSwitchCase="'text'" type="text" pInputText [value]="filterConstraint?.value" (input)="onModelChange($event.target.value)" (keydown.enter)="onTextInputEnterKeyDown($event)" [attr.placeholder]="placeholder" />
+                <input
+                    *ngSwitchCase="'text'"
+                    type="text"
+                    [ariaLabel]="ariaLabel"
+                    pInputText
+                    [value]="filterConstraint?.value"
+                    (input)="onModelChange($event.target.value)"
+                    (keydown.enter)="onTextInputEnterKeyDown($event)"
+                    [attr.placeholder]="placeholder"
+                />
                 <p-inputNumber
                     *ngSwitchCase="'numeric'"
                     [ngModel]="filterConstraint?.value"
@@ -5589,6 +5837,7 @@ export class ColumnFilter implements AfterContentInit {
                     [showButtons]="showButtons"
                     [minFractionDigits]="minFractionDigits"
                     [maxFractionDigits]="maxFractionDigits"
+                    [ariaLabel]="ariaLabel"
                     [prefix]="prefix"
                     [suffix]="suffix"
                     [placeholder]="placeholder"
@@ -5599,8 +5848,8 @@ export class ColumnFilter implements AfterContentInit {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
-                <p-triStateCheckbox *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
-                <p-calendar *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-calendar>
+                <p-triStateCheckbox [ariaLabel]="ariaLabel" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
+                <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
             </ng-container>
         </ng-template>
     `,
@@ -5620,9 +5869,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() placeholder: string | undefined;
 
-    @Input() minFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) minFractionDigits: number | undefined;
 
-    @Input() maxFractionDigits: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxFractionDigits: number | undefined;
 
     @Input() prefix: string | undefined;
 
@@ -5636,7 +5885,9 @@ export class ColumnFilterFormElement implements OnInit {
 
     @Input() currencyDisplay: string | undefined;
 
-    @Input() useGrouping: boolean = true;
+    @Input({ transform: booleanAttribute }) useGrouping: boolean = true;
+
+    @Input() ariaLabel: string | undefined;
 
     get showButtons(): boolean {
         return this.colFilter.showButtons;
@@ -5695,7 +5946,9 @@ export class ColumnFilterFormElement implements OnInit {
         SortAmountDownIcon,
         CheckIcon,
         FilterIcon,
-        FilterSlashIcon
+        FilterSlashIcon,
+        PlusIcon,
+        TrashIcon
     ],
     exports: [
         Table,

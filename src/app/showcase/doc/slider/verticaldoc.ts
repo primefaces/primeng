@@ -1,43 +1,40 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'vertical-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Default layout of slider is <i>horizontal</i>, use <i>orientation</i> property for the alternative <i>vertical</i> mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-slider [(ngModel)]="value" orientation="vertical"></p-slider>
+            <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />
         </div>
         <app-code [code]="code" selector="slider-vertical-demo"></app-code>
-    </section>`
+    `
 })
 export class VerticalDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    value!: number;
+    value: number = 50;
 
     code: Code = {
-        basic: `
-<p-slider [(ngModel)]="value" orientation="vertical"></p-slider>`,
+        basic: `<p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-slider [(ngModel)]="value" orientation="vertical"></p-slider>
+        html: `<div class="card flex justify-content-center">
+    <p-slider [(ngModel)]="value" orientation="vertical" styleClass="h-14rem" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { SliderModule } from 'primeng/slider';
+        
 @Component({
     selector: 'slider-vertical-demo',
-    templateUrl: './slider-vertical-demo.html'
+    templateUrl: './slider-vertical-demo.html',
+    standalone: true,
+    imports: [FormsModule, SliderModule]
 })
 export class SliderVerticalDemo {
-    value!: number;
+    value: number = 50;
 }`
     };
 }

@@ -1,30 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'clear-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Clicking the close icon on the toast, removes it manually. Same can also be achieved programmatically using the clear function of the <i>messageService</i>. Calling it without any arguments, removes all displayed messages whereas
                 calling it with a key, removes the messages displayed on a toast having the same key.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
-            <p-toast key="myKey"></p-toast>
-            <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-            <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>
+            <p-toast key="myKey" />
+            <p-button pRipple (click)="show()" label="Show" />
+            <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
         </div>
         <app-code [code]="code" selector="toast-clear-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class ClearDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(private messageService: MessageService) {}
 
     show() {
@@ -36,23 +32,39 @@ export class ClearDoc {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
-<button type="button" pButton pRipple (click)="show()" label="Show"></button>
-<button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>`,
-        html: `
-<div class="card flex justify-content-center gap-2">
-    <p-toast></p-toast>
-    <button type="button" pButton pRipple (click)="show()" label="Show"></button>
-    <button type="button" pButton pRipple (click)="clear()" label="Clear" class="p-button-secondary"></button>
+        basic: `<p-toast key="myKey" />
+<p-button 
+    pRipple 
+    (click)="show()" 
+    label="Show" />
+<p-button 
+    pRipple 
+    (click)="clear()" 
+    label="Clear" 
+    severity="secondary" />`,
+        html: `<div class="card flex justify-content-center gap-2">
+    <p-toast key="myKey" />
+    <p-button 
+        pRipple 
+        (click)="show()" 
+        label="Show" />
+    <p-button 
+        pRipple 
+        (click)="clear()" 
+        label="Clear" 
+        severity="secondary" />
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'toast-clear-demo',
     templateUrl: './toast-clear-demo.html',
+    standalone: true,
+    imports: [ToastModule, ButtonModule, RippleModule],
     providers: [MessageService]
 })
 export class ToastClearDemo {

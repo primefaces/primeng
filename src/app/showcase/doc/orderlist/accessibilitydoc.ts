@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
             Value to describe the source listbox and target listbox can be provided with <i>sourceListProps</i> and <i>targetListProps</i> by passing <i>aria-labelledby</i> or <i>aria-label</i> props. The list elements has a <i>listbox</i> role with
@@ -106,14 +106,10 @@ import { Code } from '../../domain/code';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         html: `<span id="lb">Options</span>        
-<p-orderList ariaLabelledBy="lb"></p-orderList>
+<p-orderList ariaLabelledBy="lb" />
 
-<p-orderList ariaLabel="City"></p-orderList>`
+<p-orderList ariaLabel="City" />`
     };
 }

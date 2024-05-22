@@ -1,4 +1,12 @@
 export class ObjectUtils {
+    public static isArray(value, empty = true) {
+        return Array.isArray(value) && (empty || value.length !== 0);
+    }
+
+    public static isObject(value, empty = true) {
+        return typeof value === 'object' && !Array.isArray(value) && value != null && (empty || Object.keys(value).length !== 0);
+    }
+
     public static equals(obj1: any, obj2: any, field?: string): boolean {
         if (field) return this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field);
         else return this.equalsByValue(obj1, obj2);
@@ -134,29 +142,8 @@ export class ObjectUtils {
     }
 
     public static removeAccents(str) {
-        if (str && str.search(/[\xC0-\xFF]/g) > -1) {
-            str = str
-                .replace(/[\xC0-\xC5]/g, 'A')
-                .replace(/[\xC6]/g, 'AE')
-                .replace(/[\xC7]/g, 'C')
-                .replace(/[\xC8-\xCB]/g, 'E')
-                .replace(/[\xCC-\xCF]/g, 'I')
-                .replace(/[\xD0]/g, 'D')
-                .replace(/[\xD1]/g, 'N')
-                .replace(/[\xD2-\xD6\xD8]/g, 'O')
-                .replace(/[\xD9-\xDC]/g, 'U')
-                .replace(/[\xDD]/g, 'Y')
-                .replace(/[\xDE]/g, 'P')
-                .replace(/[\xE0-\xE5]/g, 'a')
-                .replace(/[\xE6]/g, 'ae')
-                .replace(/[\xE7]/g, 'c')
-                .replace(/[\xE8-\xEB]/g, 'e')
-                .replace(/[\xEC-\xEF]/g, 'i')
-                .replace(/[\xF1]/g, 'n')
-                .replace(/[\xF2-\xF6\xF8]/g, 'o')
-                .replace(/[\xF9-\xFC]/g, 'u')
-                .replace(/[\xFE]/g, 'p')
-                .replace(/[\xFD\xFF]/g, 'y');
+        if (str) {
+            str = str.normalize('NFKD').replace(/\p{Diacritic}/gu, '');
         }
 
         return str;
@@ -190,8 +177,12 @@ export class ObjectUtils {
 
     public static sort(value1, value2, order = 1, locale, nullSortOrder = 1) {
         const result = ObjectUtils.compare(value1, value2, locale, order);
+        let finalSortOrder = order;
+
         // nullSortOrder == 1 means Excel like sort nulls at bottom
-        const finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+        if (ObjectUtils.isEmpty(value1) || ObjectUtils.isEmpty(value2)) {
+            finalSortOrder = nullSortOrder === 1 ? order : nullSortOrder;
+        }
 
         return finalSortOrder * result;
     }
@@ -242,5 +233,56 @@ export class ObjectUtils {
         }
 
         return item;
+    }
+
+    public static deepEquals(a, b) {
+        if (a === b) return true;
+
+        if (a && b && typeof a == 'object' && typeof b == 'object') {
+            var arrA = Array.isArray(a),
+                arrB = Array.isArray(b),
+                i,
+                length,
+                key;
+
+            if (arrA && arrB) {
+                length = a.length;
+                if (length != b.length) return false;
+                for (i = length; i-- !== 0; ) if (!this.deepEquals(a[i], b[i])) return false;
+
+                return true;
+            }
+
+            if (arrA != arrB) return false;
+
+            var dateA = a instanceof Date,
+                dateB = b instanceof Date;
+
+            if (dateA != dateB) return false;
+            if (dateA && dateB) return a.getTime() == b.getTime();
+
+            var regexpA = a instanceof RegExp,
+                regexpB = b instanceof RegExp;
+
+            if (regexpA != regexpB) return false;
+            if (regexpA && regexpB) return a.toString() == b.toString();
+
+            var keys = Object.keys(a);
+
+            length = keys.length;
+
+            if (length !== Object.keys(b).length) return false;
+
+            for (i = length; i-- !== 0; ) if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+            for (i = length; i-- !== 0; ) {
+                key = keys[i];
+                if (!this.deepEquals(a[key], b[key])) return false;
+            }
+
+            return true;
+        }
+
+        return a !== a && b !== b;
     }
 }

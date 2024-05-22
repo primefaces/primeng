@@ -118,7 +118,7 @@ export class DomHandler {
         }
     }
 
-    public static relativePosition(element: any, target: any): void {
+    public static relativePosition(element: any, target: any, gutter: boolean = true): void {
         const getClosestRelativeElement = (el) => {
             if (!el) return;
 
@@ -161,9 +161,10 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
+        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
-    public static absolutePosition(element: any, target: any): void {
+    public static absolutePosition(element: any, target: any, gutter: boolean = true): void {
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
@@ -192,6 +193,7 @@ export class DomHandler {
 
         element.style.top = top + 'px';
         element.style.left = left + 'px';
+        gutter && (element.style.marginTop = origin === 'bottom' ? 'calc(var(--p-anchor-gutter) * -1)' : 'calc(var(--p-anchor-gutter))');
     }
 
     static getParents(element: any, parents: any = []): any {
@@ -615,28 +617,43 @@ export class DomHandler {
         element && document.activeElement !== element && element.focus(options);
     }
 
-    public static getFocusableElements(element, selector = '') {
-        let focusableElements = this.find(
-            element,
-            `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
-                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`
-        );
+    public static getFocusableSelectorString(selector = ''): string {
+        return `button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        .p-inputtext:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+        .p-button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`;
+    }
+
+    public static getFocusableElements(element, selector = ''): any[] {
+        let focusableElements = this.find(element, this.getFocusableSelectorString(selector));
 
         let visibleFocusableElements = [];
 
         for (let focusableElement of focusableElements) {
-            if (getComputedStyle(focusableElement).display != 'none' && getComputedStyle(focusableElement).visibility != 'hidden') visibleFocusableElements.push(focusableElement);
+            const computedStyle = getComputedStyle(focusableElement);
+            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') visibleFocusableElements.push(focusableElement);
         }
 
         return visibleFocusableElements;
     }
 
-    public static getFirstFocusableElement(element, selector) {
+    public static getFocusableElement(element, selector = ''): any | null {
+        let focusableElement = this.findSingle(element, this.getFocusableSelectorString(selector));
+
+        if (focusableElement) {
+            const computedStyle = getComputedStyle(focusableElement);
+            if (this.isVisible(focusableElement) && computedStyle.display != 'none' && computedStyle.visibility != 'hidden') return focusableElement;
+        }
+
+        return null;
+    }
+
+    public static getFirstFocusableElement(element, selector = '') {
         const focusableElements = this.getFocusableElements(element, selector);
 
         return focusableElements.length > 0 ? focusableElements[0] : null;
@@ -747,5 +764,78 @@ export class DomHandler {
     public static unblockBodyScroll(className = 'p-overflow-hidden') {
         document.body.style.removeProperty('--scrollbar-width');
         this.removeClass(document.body, className);
+    }
+
+    public static createElement(type, attributes = {}, ...children) {
+        if (type) {
+            const element = document.createElement(type);
+
+            this.setAttributes(element, attributes);
+            element.append(...children);
+
+            return element;
+        }
+
+        return undefined;
+    }
+
+    public static setAttribute(element, attribute = '', value) {
+        if (this.isElement(element) && value !== null && value !== undefined) {
+            element.setAttribute(attribute, value);
+        }
+    }
+
+    public static setAttributes(element, attributes = {}) {
+        if (this.isElement(element)) {
+            const computedStyles = (rule, value) => {
+                const styles = element?.$attrs?.[rule] ? [element?.$attrs?.[rule]] : [];
+
+                return [value].flat().reduce((cv, v) => {
+                    if (v !== null && v !== undefined) {
+                        const type = typeof v;
+
+                        if (type === 'string' || type === 'number') {
+                            cv.push(v);
+                        } else if (type === 'object') {
+                            const _cv = Array.isArray(v)
+                                ? computedStyles(rule, v)
+                                : Object.entries(v).map(([_k, _v]) => (rule === 'style' && (!!_v || _v === 0) ? `${_k.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}:${_v}` : !!_v ? _k : undefined));
+
+                            cv = _cv.length ? cv.concat(_cv.filter((c) => !!c)) : cv;
+                        }
+                    }
+
+                    return cv;
+                }, styles);
+            };
+
+            Object.entries(attributes).forEach(([key, value]) => {
+                if (value !== undefined && value !== null) {
+                    const matchedEvent = key.match(/^on(.+)/);
+
+                    if (matchedEvent) {
+                        element.addEventListener(matchedEvent[1].toLowerCase(), value);
+                    } else if (key === 'pBind') {
+                        this.setAttributes(element, value);
+                    } else {
+                        value = key === 'class' ? [...new Set(computedStyles('class', value))].join(' ').trim() : key === 'style' ? computedStyles('style', value).join(';').trim() : value;
+                        (element.$attrs = element.$attrs || {}) && (element.$attrs[key] = value);
+                        element.setAttribute(key, value);
+                    }
+                }
+            });
+        }
+    }
+
+    public static isFocusableElement(element, selector = '') {
+        return this.isElement(element)
+            ? element.matches(`button:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [href][clientHeight][clientWidth]:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                input:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                select:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                textarea:not([tabindex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [tabIndex]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector},
+                [contenteditable]:not([tabIndex = "-1"]):not([disabled]):not([style*="display:none"]):not([hidden])${selector}`)
+            : false;
     }
 }

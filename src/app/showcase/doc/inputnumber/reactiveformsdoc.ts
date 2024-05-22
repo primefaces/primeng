@@ -1,26 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'reactive-forms-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>InputNumber can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-inputNumber inputId="integeronly" formControlName="value"></p-inputNumber>
+                <p-inputNumber inputId="integeronly" formControlName="value" />
             </form>
         </div>
         <app-code [code]="code" selector="input-number-reactive-forms-demo"></app-code>
-    </section>`
+    `
 })
 export class ReactiveFormsDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     formGroup!: FormGroup;
 
     ngOnInit() {
@@ -30,25 +26,25 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<form [formGroup]="formGroup">
-    <p-inputNumber inputId="integeronly" formControlName="value"></p-inputNumber>
+        basic: `<form [formGroup]="formGroup">
+    <p-inputNumber inputId="integeronly" formControlName="value" />
 </form>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-inputNumber inputId="integeronly" formControlName="value"></p-inputNumber>
+        <p-inputNumber inputId="integeronly" formControlName="value" />
     </form>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
     selector: 'input-number-reactive-forms-demo',
-    templateUrl: './input-number-reactive-forms-demo.html'
+    templateUrl: './input-number-reactive-forms-demo.html',
+    standalone: true,
+    imports: [ReactiveFormsModule, InputNumberModule],
 })
 export class InputNumberReactiveFormsDemo implements OnInit {
     formGroup!: FormGroup;

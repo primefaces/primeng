@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
-import { ProductService } from '../../service/productservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 interface Column {
     field: string;
@@ -11,55 +10,49 @@ interface Column {
 
 @Component({
     selector: 'responsive-scroll-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>When there is not enough space for the table to fit all the content efficiently, table displays a horizontal scrollbar. It is suggested to give a min-width to the table to avoid design issues due wrapping of cell contents.</p>
             <p>Following table displays a horizontal scrollbar when viewport is smaller than 50rem.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Reviews</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product let-columns="columns">
-                    <tr>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.price | currency : 'USD' }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                        </td>
-                        <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-responsive-scroll-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Status</th>
+                            <th>Reviews</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-columns="columns">
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            </td>
+                            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-responsive-scroll-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResponsiveScrollDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
+export class ResponsiveScrollDoc {
     products!: Product[];
 
     cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
@@ -87,8 +80,7 @@ export class ResponsiveScrollDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Name </th>
@@ -101,17 +93,28 @@ export class ResponsiveScrollDoc implements OnInit {
     </ng-template>
     <ng-template pTemplate="body" let-product let-columns="columns">
         <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price | currency:'USD'}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.quantity}}</td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+            <td>
+                {{product.name}}
+            </td>
+            <td>
+                {{product.price | currency:'USD'}}
+            </td>
+            <td>
+                {{product.category}}
+            </td>
+            <td>
+                {{product.quantity}}
+            </td>
+            <td>
+                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+            </td>
+            <td>
+                <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+            </td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
@@ -125,20 +128,35 @@ export class ResponsiveScrollDoc implements OnInit {
         </ng-template>
         <ng-template pTemplate="body" let-product let-columns="columns">
             <tr>
-                <td>{{product.name}}</td>
-                <td>{{product.price | currency:'USD'}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.quantity}}</td>
-                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
+                <td>
+                    {{product.name}}
+                </td>
+                <td>
+                    {{product.price | currency:'USD'}}
+                </td>
+                <td>
+                    {{product.category}}
+                </td>
+                <td>
+                    {{product.quantity}}
+                </td>
+                <td>
+                    <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                </td>
+                <td>
+                    <p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" />
+                </td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -147,7 +165,10 @@ interface Column {
 
 @Component({
     selector: 'table-responsive-scroll-demo',
-    templateUrl: 'table-responsive-scroll-demo.html'
+    templateUrl: 'table-responsive-scroll-demo.html',
+    standalone: true,
+    imports: [TableModule, TagModule, RatingModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableResponsiveScrollDemo implements OnInit{
     products!: Product[];

@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'accessibility-doc',
-    template: ` <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
         <h3>Screen Reader</h3>
         <p>
             Value to describe the source listbox and target listbox can be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The list elements has a <i>listbox</i> role with the <i>aria-multiselectable</i> attribute. Each list item has
@@ -106,14 +106,10 @@ import { Code } from '../../domain/code';
     </app-docsectiontext>`
 })
 export class AccessibilityDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
         html: `<span id="lb">Options</span>        
-<p-pickList ariaLabelledBy="lb"></p-pickList>
+<p-pickList ariaLabelledBy="lb" />
 
-<p-pickList ariaLabel="City"></p-pickList>`
+<p-pickList ariaLabel="City" />`
     };
 }

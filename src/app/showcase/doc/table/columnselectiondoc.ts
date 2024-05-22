@@ -1,57 +1,53 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 @Component({
     selector: 'column-selection-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Selection using custom elements.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-toast></p-toast>
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Category</th>
-                        <th>Quantity</th>
-                        <th style="width: 5rem"></th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>{{ product.code }}</td>
-                        <td>{{ product.name }}</td>
-                        <td>{{ product.category }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td>
-                            <button type="button" pButton pRipple icon="pi pi-plus" (click)="selectProduct(product)"></button>
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-column-selection-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-toast />
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th style="width: 5rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>
+                                <button type="button" pButton pRipple icon="pi pi-plus" (click)="selectProduct(product)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-column-selection-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [MessageService]
 })
-export class ColumnSelectionDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
+export class ColumnSelectionDoc {
     products!: Product[];
 
     selectedProduct!: Product;
 
     constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
@@ -63,8 +59,7 @@ export class ColumnSelectionDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
+        basic: `<p-toast />
 <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
     <ng-template pTemplate="header">
         <tr>
@@ -82,14 +77,19 @@ export class ColumnSelectionDoc implements OnInit {
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
             <td>
-                <button type="button" pButton pRipple icon="pi pi-plus" (click)="selectProduct(product)"></button>
+                <button 
+                    type="button" 
+                    pButton 
+                    pRipple 
+                    icon="pi pi-plus" 
+                    (click)="selectProduct(product)">
+                </button>
             </td>
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
-    <p-toast></p-toast>
+        html: `<div class="card">
+    <p-toast />
     <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -107,22 +107,33 @@ export class ColumnSelectionDoc implements OnInit {
                 <td>{{ product.category }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>
-                    <button type="button" pButton pRipple icon="pi pi-plus" (click)="selectProduct(product)"></button>
+                    <button 
+                        type="button" 
+                        pButton 
+                        pRipple 
+                        icon="pi pi-plus" 
+                        (click)="selectProduct(product)">
+                    </button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ToastModule } from 'primeng/toast';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'table-column-selection-demo',
     templateUrl: 'table-column-selection-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [ButtonModule, RippleModule, ToastModule, TableModule],
+    providers: [MessageService, ProductService]
 })
 export class TableColumnSelectionDemo implements OnInit{
     products!: Product[];

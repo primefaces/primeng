@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
 
 @Component({
     selector: 'drag-drop-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 <i>pDraggable</i> and <i>pDroppable</i> are attached to a target element to add drag-drop behavior. The value of a Directive attribute is required and it defines the scope to match draggables with droppables. Droppable scope can also
                 be an array to accept multiple droppables.
@@ -29,13 +29,9 @@ import { Product } from '../../domain/product';
             </div>
         </div>
         <app-code [code]="code" selector="drag-drop-basic-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     availableProducts: Product[] | undefined;
 
     selectedProducts: Product[] | undefined;
@@ -79,28 +75,38 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="p-2 border-1 surface-border border-round w-15rem">
+        basic: `<div class="p-2 border-1 surface-border border-round w-15rem">
     <ul class="list-none flex flex-column gap-2 p-0 m-0">
-        <li *ngFor="let product of availableProducts" class="p-2 border-round shadow-1" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-            {{product.name}}
+        <li 
+            *ngFor="let product of availableProducts"
+            class="p-2 border-round shadow-1" 
+            pDraggable 
+            (onDragStart)="dragStart(product)" 
+            (onDragEnd)="dragEnd()">
+                {{product.name}}
         </li>
     </ul>
 </div>
 <div class="p-2 border-1 surface-border border-round w-15rem" pDroppable (onDrop)="drop()">
-    <p class="text-center surface-border border-bottom-1">Drop Zone</p>
+    <p class="text-center surface-border border-bottom-1">
+        Drop Zone
+    </p>
     <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedProducts" >
         <li *ngFor="let product of selectedProducts" class="p-2 border-round shadow-1">
             {{product.name}}
         </li>
     </ul>
 </div>`,
-        html: `
-<div class="card flex flex-wrap gap-3">
+        html: `<div class="card flex flex-wrap gap-3">
     <div class="p-2 border-1 surface-border border-round w-15rem">
         <ul class="list-none flex flex-column gap-2 p-0 m-0">
-            <li *ngFor="let product of availableProducts" class="p-2 border-round shadow-1" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
-                {{product.name}}
+            <li 
+                *ngFor="let product of availableProducts" 
+                class="p-2 border-round shadow-1"
+                pDraggable 
+                (onDragStart)="dragStart(product)" 
+                (onDragEnd)="dragEnd()">
+                    {{product.name}}
             </li>
         </ul>
     </div>
@@ -113,15 +119,23 @@ export class BasicDoc implements OnInit {
         </ul>
     </div>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
-
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { DragDropModule } from 'primeng/dragdrop';
+import { CommonModule } from '@angular/common';
+        
 @Component({
     selector: 'drag-drop-basic-demo',
     templateUrl: './drag-drop-basic-demo.html',
-    styleUrls: ['./drag-drop-basic-demo.scss']
+    styles: [
+        \`:host ::ng-deep {
+            [pDraggable] {
+                cursor: move;
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [DragDropModule, CommonModule]
 })
 export class DragDropBasicDemo implements OnInit {
     availableProducts: Product[] | undefined;

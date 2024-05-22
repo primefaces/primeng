@@ -1,57 +1,53 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'column-group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Columns can be grouped using rowspan and <i>colspan</i> properties.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th rowspan="3">Product</th>
-                        <th colspan="4">Sale Rate</th>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Sales</th>
-                        <th colspan="2">Profits</th>
-                    </tr>
-                    <tr>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                        <th>Last Year</th>
-                        <th>This Year</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-sale>
-                    <tr>
-                        <td>{{ sale.product }}</td>
-                        <td>{{ sale.lastYearSale }}%</td>
-                        <td>{{ sale.thisYearSale }}%</td>
-                        <td>{{ sale.lastYearProfit | currency : 'USD' }}</td>
-                        <td>{{ sale.thisYearProfit | currency : 'USD' }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="footer">
-                    <tr>
-                        <td colspan="3" class="text-right">Totals</td>
-                        <td>{{ lastYearTotal | currency : 'USD' }}</td>
-                        <td>{{ thisYearTotal | currency : 'USD' }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-column-group-demo"></app-code>
-    </section>`,
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="sales" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th rowspan="3">Product</th>
+                            <th colspan="4">Sale Rate</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Sales</th>
+                            <th colspan="2">Profits</th>
+                        </tr>
+                        <tr>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                            <th>Last Year</th>
+                            <th>This Year</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-sale>
+                        <tr>
+                            <td>{{ sale.product }}</td>
+                            <td>{{ sale.lastYearSale }}%</td>
+                            <td>{{ sale.thisYearSale }}%</td>
+                            <td>{{ sale.lastYearProfit | currency : 'USD' }}</td>
+                            <td>{{ sale.thisYearProfit | currency : 'USD' }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                        <tr>
+                            <td colspan="3" class="text-right">Totals</td>
+                            <td>{{ lastYearTotal | currency : 'USD' }}</td>
+                            <td>{{ thisYearTotal | currency : 'USD' }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-column-group-demo"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ColumnGroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     sales!: any[];
 
     lastYearTotal!: number;
@@ -60,7 +56,7 @@ export class ColumnGroupDoc {
 
     constructor(private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.sales = [
             { product: 'Bamboo Watch', lastYearSale: 51, thisYearSale: 40, lastYearProfit: 54406, thisYearProfit: 43342 },
             { product: 'Black Watch', lastYearSale: 83, thisYearSale: 9, lastYearProfit: 423132, thisYearProfit: 312122 },
@@ -99,8 +95,7 @@ export class ColumnGroupDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
+        basic: `<p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr>
             <th rowspan="3">Product</th>
@@ -134,8 +129,7 @@ export class ColumnGroupDoc {
         </tr>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="sales" [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -171,12 +165,15 @@ export class ColumnGroupDoc {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'table-column-group-demo',
-    templateUrl: 'table-column-group-demo.html'
+    templateUrl: 'table-column-group-demo.html',
+    standalone: true,
+    imports: [TableModule, CommonModule]
 })
 export class TableColumnGroupDemo implements OnInit {
     sales!: any[];

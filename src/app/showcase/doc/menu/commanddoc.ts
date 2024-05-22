@@ -1,26 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'command-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
-            <p-menu [model]="items"></p-menu>
+            <p-toast />
+            <p-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="menu-command-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class CommandDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -28,15 +24,15 @@ export class CommandDoc implements OnInit {
     ngOnInit() {
         this.items = [
             {
-                label: 'Update',
-                icon: 'pi pi-refresh',
+                label: 'New',
+                icon: 'pi pi-plus',
                 command: () => {
                     this.update();
                 }
             },
             {
-                label: 'Delete',
-                icon: 'pi pi-times',
+                label: 'Search',
+                icon: 'pi pi-search',
                 command: () => {
                     this.delete();
                 }
@@ -45,49 +41,51 @@ export class CommandDoc implements OnInit {
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
     }
 
     delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Search Completed', detail: 'No results found', life: 3000 });
     }
 
     code: Code = {
-        basic: `
-<p-toast></p-toast>
-<p-menu [model]="items"></p-menu>`,
+        basic: `<p-toast />
+<p-menu [model]="items" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-menu [model]="items"></p-menu>
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-menu [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'menu-command-demo',
     templateUrl: './menu-command-demo.html',
+    standalone: true,
+    imports: [MenuModule, ToastModule],
     providers: [MessageService]
 })
 export class MenuCommandDemo implements OnInit {
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
-    
+
     ngOnInit() {
         this.items = [
             {
-                label: 'Update',
-                icon: 'pi pi-refresh',
+                label: 'New',
+                icon: 'pi pi-plus',
                 command: () => {
                     this.update();
                 }
             },
             {
-                label: 'Delete',
-                icon: 'pi pi-times',
+                label: 'Search',
+                icon: 'pi pi-search',
                 command: () => {
                     this.delete();
                 }
@@ -96,11 +94,11 @@ export class MenuCommandDemo implements OnInit {
     }
 
     update() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Data Updated' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'File created', life: 3000 });
     }
 
     delete() {
-        this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
+        this.messageService.add({ severity: 'warn', summary: 'Search Completed', detail: 'No results found', life: 3000 });
     }
 }`
     };

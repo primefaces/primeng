@@ -1,5 +1,24 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, QueryList, Renderer2, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
@@ -15,7 +34,7 @@ import { ZIndexUtils } from 'primeng/utils';
             [class]="styleClass"
             [attr.aria-busy]="blocked"
             [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }"
-            [ngStyle]="{ display: blocked ? 'flex' : 'none' }"
+            [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
         >
@@ -40,12 +59,12 @@ export class BlockUI implements AfterViewInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Class of the element.
      * @group Props
@@ -77,9 +96,11 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2, @Inject(PLATFORM_ID) public platformId: any) {}
 
     ngAfterViewInit() {
+        if (this._blocked) this.block();
+
         if (this.target && !this.target.getBlockableElement) {
             throw 'Target of BlockUI must implement BlockableUI interface';
         }
@@ -100,23 +121,26 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     }
 
     block() {
-        this._blocked = true;
+        if (isPlatformBrowser(this.platformId)) {
+            this._blocked = true;
+            (this.mask as ElementRef).nativeElement.style.display = 'flex';
 
-        if (this.target) {
-            this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
-            this.target.getBlockableElement().style.position = 'relative';
-        } else {
-            this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
-            DomHandler.blockBodyScroll();
-        }
+            if (this.target) {
+                this.target.getBlockableElement().appendChild((this.mask as ElementRef).nativeElement);
+                this.target.getBlockableElement().style.position = 'relative';
+            } else {
+                this.renderer.appendChild(this.document.body, (this.mask as ElementRef).nativeElement);
+                DomHandler.blockBodyScroll();
+            }
 
-        if (this.autoZIndex) {
-            ZIndexUtils.set('modal', (this.mask as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
+            if (this.autoZIndex) {
+                ZIndexUtils.set('modal', (this.mask as ElementRef).nativeElement, this.baseZIndex + this.config.zIndex.modal);
+            }
         }
     }
 
     unblock() {
-        if (this.mask && !this.animationEndListener) {
+        if (isPlatformBrowser(this.platformId) && this.mask && !this.animationEndListener) {
             this.animationEndListener = this.renderer.listen(this.mask.nativeElement, 'animationend', this.destroyModal.bind(this));
             DomHandler.addClass(this.mask.nativeElement, 'p-component-overlay-leave');
         }
@@ -124,7 +148,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     destroyModal() {
         this._blocked = false;
-        if (this.mask) {
+        if (this.mask && isPlatformBrowser(this.platformId)) {
             ZIndexUtils.clear(this.mask.nativeElement);
             DomHandler.removeClass(this.mask.nativeElement, 'p-component-overlay-leave');
             this.renderer.removeChild(this.el.nativeElement, this.mask.nativeElement);

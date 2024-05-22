@@ -1,66 +1,59 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewChild } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Customer } from '../../domain/customer';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
-import { CustomerService } from '../../service/customerservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { Code } from '@domain/code';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'paginator-locale-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>paginator localization information such as page numbers and rows per page options are defined with the <i>paginatorLocale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table
-                [value]="customers"
-                [paginator]="true"
-                [rows]="5"
-                [showCurrentPageReport]="true"
-                [tableStyle]="{ 'min-width': '50rem' }"
-                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                [rowsPerPageOptions]="[10, 25, 50]"
-                paginatorLocale="fa-IR"
-            >
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th style="width:25%">Name</th>
-                        <th style="width:25%">Country</th>
-                        <th style="width:25%">Company</th>
-                        <th style="width:25%">Representative</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-customer>
-                    <tr>
-                        <td>{{ customer.name }}</td>
-                        <td>{{ customer.country.name }}</td>
-                        <td>{{ customer.company }}</td>
-                        <td>{{ customer.representative.name }}</td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="paginatorleft">
-                    <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
-                </ng-template>
-                <ng-template pTemplate="paginatorright">
-                    <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-paginator-locale-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table
+                    [value]="customers"
+                    [paginator]="true"
+                    [rows]="5"
+                    [showCurrentPageReport]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [rowsPerPageOptions]="[10, 25, 50]"
+                    paginatorLocale="fa-IR"
+                >
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width:25%">Name</th>
+                            <th style="width:25%">Country</th>
+                            <th style="width:25%">Company</th>
+                            <th style="width:25%">Representative</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-customer>
+                        <tr>
+                            <td>{{ customer.name }}</td>
+                            <td>{{ customer.country.name }}</td>
+                            <td>{{ customer.company }}</td>
+                            <td>{{ customer.representative.name }}</td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorleft">
+                        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+                    </ng-template>
+                    <ng-template pTemplate="paginatorright">
+                        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-paginator-locale-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaginatorLocaleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     customers!: Customer[];
 
     constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
             this.customers = customers;
             this.cd.markForCheck();
@@ -68,8 +61,7 @@ export class PaginatorLocaleDoc {
     }
 
     code: Code = {
-        basic: `
-<p-table
+        basic: `<p-table
     [value]="customers"
     [paginator]="true"
     [rows]="5"
@@ -140,8 +132,8 @@ export class PaginatorLocaleDoc {
 </div>`,
         typescript: `
 import { Component } from '@angular/core';
-import { Customer } from '../../domain/customer';
-import { CustomerService } from '../../service/customerservice';
+import { Customer } from '@domain/customer';
+import { CustomerService } from '@service/customerservice';
 
 @Component({
     selector: 'table-paginator-locale-demo',

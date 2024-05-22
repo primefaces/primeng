@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 /**
  * Tag component is used to categorize content.
@@ -31,7 +31,13 @@ export class Tag {
      * Inline style of the component.
      * @group Props
      */
-    @Input() style: { [klass: string]: any } | null | undefined;
+    @Input() get style(): { [klass: string]: any } | null | undefined {
+        return this._style;
+    }
+    set style(value: { [klass: string]: any } | null | undefined) {
+        this._style = value;
+        this.cd.markForCheck();
+    }
     /**
      * Style class of the component.
      * @group Props
@@ -41,7 +47,7 @@ export class Tag {
      * Severity type of the tag.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | string | undefined;
+    @Input() severity: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined;
     /**
      * Value to display inside the tag.
      * @group Props
@@ -57,11 +63,13 @@ export class Tag {
      * Whether the corners of the tag are rounded.
      * @group Props
      */
-    @Input() rounded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) rounded: boolean | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     iconTemplate: TemplateRef<any> | undefined;
+
+    _style: { [klass: string]: any } | null | undefined;
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -73,13 +81,12 @@ export class Tag {
         });
     }
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     containerClass() {
         return {
             'p-tag p-component': true,
-            'p-tag-info': this.severity === 'info',
-            'p-tag-success': this.severity === 'success',
-            'p-tag-warning': this.severity === 'warning',
-            'p-tag-danger': this.severity === 'danger',
+            [`p-tag-${this.severity}`]: this.severity,
             'p-tag-rounded': this.rounded
         };
     }

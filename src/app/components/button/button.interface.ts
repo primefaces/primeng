@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { TemplateRef } from '@angular/core';
 
 /**
@@ -12,9 +13,19 @@ export interface ButtonTemplates {
     /**
      * Custom template of icon.
      */
-    icon(): TemplateRef<any>;
+    icon(context: {
+        /**
+         * Icon class.
+         */
+        class: NgClass;
+    }): TemplateRef<NgClass>;
     /**
      * Custom template of loadingicon.
      */
-    loadingicon(): TemplateRef<any>;
+    loadingicon(context: {
+        /**
+         * Icon class.
+         */
+        class: NgClass;
+    }): TemplateRef<NgClass>;
 }

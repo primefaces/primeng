@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -9,8 +9,8 @@ interface City {
 
 @Component({
     selector: 'group-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -24,13 +24,9 @@ interface City {
             </p-multiSelect>
         </div>
         <app-code [code]="code" selector="multi-select-group-demo"></app-code>
-    </section>`
+    `
 })
 export class GroupDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     groupedCities!: SelectItemGroup[];
 
     selectedCities!: City[];
@@ -71,31 +67,48 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `
-<p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
-    <ng-template let-group pTemplate="group">
-        <div class="flex align-items-center">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
-            <span>{{ group.label }}</span>
-        </div>
-    </ng-template>
-</p-multiSelect>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-multiSelect [options]="groupedCities" [group]="true" [(ngModel)]="selectedCities" placeholder="Select Cities" scrollHeight="250px" display="chip">
+        basic: `<p-multiSelect 
+    [options]="groupedCities" 
+    [group]="true" 
+    [(ngModel)]="selectedCities" 
+    placeholder="Select Cities"
+    scrollHeight="250px" 
+    display="chip">
         <ng-template let-group pTemplate="group">
             <div class="flex align-items-center">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'mr-2 flag flag-' + group.value" 
+                    style="width: 20px" />
                 <span>{{ group.label }}</span>
             </div>
         </ng-template>
+</p-multiSelect>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-multiSelect 
+        [options]="groupedCities" 
+        [group]="true" 
+        [(ngModel)]="selectedCities" 
+        placeholder="Select Cities" 
+        scrollHeight="250px" 
+        display="chip">
+            <ng-template let-group pTemplate="group">
+                <div class="flex align-items-center">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                        [class]="'mr-2 flag flag-' + group.value" 
+                        style="width: 20px" />
+                    <span>{{ group.label }}</span>
+                </div>
+            </ng-template>
     </p-multiSelect>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { SelectItemGroup } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
 
 interface City {
     name: string,
@@ -104,7 +117,9 @@ interface City {
 
 @Component({
     selector: 'multi-select-group-demo',
-    templateUrl: './multi-select-group-demo.html'
+    templateUrl: './multi-select-group-demo.html',
+    standalone: true,
+    imports: [FormsModule, MultiSelectModule]
 })
 export class MultiSelectGroupDemo {
     groupedCities!: SelectItemGroup[];

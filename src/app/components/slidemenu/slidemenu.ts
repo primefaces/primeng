@@ -21,8 +21,10 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -194,21 +196,21 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
 export class SlideMenuSub {
     @Input() items: any[];
 
-    @Input() menuWidth: number;
+    @Input({ transform: numberAttribute }) menuWidth: number;
 
-    @Input() root: boolean | undefined = false;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined = false;
 
     @Input() easing: string = 'ease-out';
 
-    @Input() effectDuration: any;
+    @Input({ transform: numberAttribute }) effectDuration: number;
 
-    @Input() autoDisplay: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
 
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
 
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
 
     @Input() menuId: string | undefined;
 
@@ -216,13 +218,13 @@ export class SlideMenuSub {
 
     @Input() ariaLabelledBy: string | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() focusedItemId: string | undefined;
 
     @Input() activeItemPath: any[];
 
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
 
@@ -394,17 +396,17 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * Width of the submenus.
      * @group Props
      */
-    @Input() menuWidth: number = 190;
+    @Input({ transform: numberAttribute }) menuWidth: number = 190;
     /**
      * Height of the scrollable area, a scrollbar appears if a menu height is longer than this value.
      * @group Props
      */
-    @Input() viewportHeight: number = 180;
+    @Input({ transform: numberAttribute }) viewportHeight: number = 180;
     /**
      * Duration of the sliding animation in milliseconds.
      * @group Props
      */
-    @Input() effectDuration: any = 250;
+    @Input({ transform: numberAttribute }) effectDuration: number = 250;
     /**
      * Easing animation to use for sliding.
      * @group Props
@@ -419,17 +421,17 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -449,18 +451,18 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether to show a root submenu on mouse over.
      * @defaultValue true
      * @group Props
      */
-    @Input() autoDisplay: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined = true;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -709,14 +711,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             }
             const { originalEvent, processedItem } = event;
             const grouped = this.isProcessedItemGroup(processedItem);
+            const focusedItemInfo = this.focusedItemInfo();
 
             if (grouped) {
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = -1;
-                    value.level = value.level + 1;
-                    value.parentKey = processedItem.key;
-                    value.item = processedItem.item;
-                });
+                this.focusedItemInfo.set({ ...focusedItemInfo, index: -1, level: focusedItemInfo.level + 1, parentKey: processedItem.key, item: processedItem.item });
                 this.animate('right');
             } else {
                 this.onItemChange(event);
@@ -796,9 +794,11 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.onArrowLeftKey(event);
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = -1;
-                    value.item = null;
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: -1,
+                    item: null
                 });
                 break;
             default:
@@ -909,9 +909,11 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
     onEscapeKey(event: KeyboardEvent) {
         if (this.popup) {
             this.hide(event, true);
-            this.focusedItemInfo.mutate((value) => {
-                value.index = this.findLastFocusedItemIndex();
-                value.item = null;
+            const focusedItemInfo = this.focusedItemInfo();
+            this.focusedItemInfo.set({
+                ...focusedItemInfo,
+                index: this.findLastFocusedItemIndex(),
+                item: null
             });
 
             event.preventDefault();
@@ -941,9 +943,12 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
                 const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
 
                 anchorElement ? anchorElement.click() : element && element.click();
-                this.focusedItemInfo.mutate((value) => {
-                    value.index = processedItem.index;
-                    value.item = processedItem.item;
+
+                const focusedItemInfo = this.focusedItemInfo();
+                this.focusedItemInfo.set({
+                    ...focusedItemInfo,
+                    index: processedItem.index,
+                    item: processedItem.item
                 });
             }
         }
@@ -976,7 +981,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         }
 
         if (this.focusedItemInfo().index === -1 && this.left < 0) {
-            this.focusedItemInfo.mutate((value) => (value.index = 0));
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index: 0 });
         }
 
         if (this.focusedItemInfo().index === -1 && !this.left) {
@@ -988,9 +993,10 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
         this.focused = false;
         this.popup && this.focusedItemInfo.set({ index: -1, level: 0, parentKey: '', item: null });
         if (!this.popup) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = -1;
-                value.item = null;
+            this.focusedItemInfo.set({
+                ...this.focusedItemInfo(),
+                index: -1,
+                item: null
             });
         }
         this.searchValue = '';
@@ -1217,9 +1223,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 
     changeFocusedItemIndex(event: any, index: number) {
         if (this.focusedItemInfo().index !== index) {
-            this.focusedItemInfo.mutate((value) => {
-                value.index = index;
-            });
+            this.focusedItemInfo.set({ ...this.focusedItemInfo(), index });
             this.scrollInView();
         }
     }

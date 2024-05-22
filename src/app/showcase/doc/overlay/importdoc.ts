@@ -1,12 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'import-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
-        <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code>`
 })
 export class ImportDoc {
     @Input() id: string;

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
+import { Code } from '@domain/code';
 
 interface Column {
     field: string;
@@ -10,44 +9,38 @@ interface Column {
 
 @Component({
     selector: 'paginator-basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: ` <app-docsectiontext>
             <p>Pagination is enabled by adding <i>paginator</i> property and defining <i>rows</i> per page.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode">
-                        <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 10, 25]" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode">
+                            <td *ngFor="let col of columns; let i = index">
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
         </div>
-        <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="tree-table-paginator-basic-demo"></app-code>`,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginatorBasicDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
+export class PaginatorBasicDoc {
     files!: TreeNode[];
 
     cols!: Column[];
-
-    ngOnInit() {
+    loadDemoData() {
         this.files = [];
         for (let i = 0; i < 50; i++) {
             let node = {
@@ -78,28 +71,14 @@ export class PaginatorBasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-</p-treeTable>`,
-
-        html: `
-<div class="card">
-    <p-treeTable [value]="files" [columns]="cols" [paginator]="true" [rows]="10" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+        basic: `<p-treeTable 
+    [value]="files" 
+    [columns]="cols" 
+    [paginator]="true" 
+    [rows]="5" 
+    [rowsPerPageOptions]="[5, 10, 25]" 
+    [scrollable]="true" 
+    [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -110,17 +89,44 @@ export class PaginatorBasicDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+    <p-treeTable 
+        [value]="files" 
+        [columns]="cols" 
+        [paginator]="true" 
+        [rows]="5" 
+        [rowsPerPageOptions]="[5, 10, 25]" 
+        [scrollable]="true" 
+        [tableStyle]="{'min-width':'50rem'}">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{ col.header }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        {{ rowData[col.field] }}
+                    </td>
+                </tr>
+            </ng-template>
     </p-treeTable>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
+import { TreeTableModule } from 'primeng/treetable';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -129,7 +135,9 @@ interface Column {
 
 @Component({
     selector: 'tree-table-paginator-basic-demo',
-    templateUrl: './tree-table-paginator-basic-demo.html'
+    templateUrl: './tree-table-paginator-basic-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, CommonModule]
 })
 export class TreeTablePaginatorBasicDemo implements OnInit {
     files!: TreeNode[];

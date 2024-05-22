@@ -1,12 +1,11 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AppDocSectionTextComponent } from 'src/app/showcase/layout/doc/docsectiontext/app.docsectiontext.component';
-import { Code } from '../../../domain/code';
-import { PhotoService } from '../../../service/photoservice';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>Using <i>activeIndex</i>, Galleria is displayed with a specific initial image.</p>
         </app-docsectiontext>
         <div class="card">
@@ -32,16 +31,10 @@ import { PhotoService } from '../../../service/photoservice';
                 </ng-template>
             </p-galleria>
         </div>
-        <app-code [code]="code" selector="galleria-full-secreen-template-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="galleria-full-screen-template-demo"></app-code>
+    `
 })
 export class FullScreenTemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     displayCustom: boolean | undefined;
 
     activeIndex: number = 0;
@@ -79,8 +72,7 @@ export class FullScreenTemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria
+        basic: `<p-galleria
     [(value)]="images"
     [(visible)]="displayCustom"
     [(activeIndex)]="activeIndex"
@@ -90,18 +82,22 @@ export class FullScreenTemplateDoc implements OnInit {
     [circular]="true"
     [fullScreen]="true"
     [showItemNavigators]="true"
-    [showThumbnails]="false"
->
+    [showThumbnails]="false">
     <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+        <img 
+            [src]="item.itemImageSrc" 
+            style="width: 100%; display: block;" />
     </ng-template>
 </p-galleria>
         `,
-        html: `
- <div class="card">
+        html: `<div class="card">
     <div *ngIf="images" class="grid" style="max-width: 800px;">
         <div *ngFor="let image of images; let index = index" class="col-3" key="index">
-            <img [src]="image.thumbnailImageSrc" [alt]="image.alt" style="cursor: pointer" (click)="imageClick(index)" />
+            <img 
+                [src]="image.thumbnailImageSrc" 
+                [alt]="image.alt" 
+                style="cursor: pointer" 
+                (click)="imageClick(index)" />
         </div>
     </div>
     <p-galleria
@@ -114,20 +110,26 @@ export class FullScreenTemplateDoc implements OnInit {
         [circular]="true"
         [fullScreen]="true"
         [showItemNavigators]="true"
-        [showThumbnails]="false"
-    >
+        [showThumbnails]="false">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
+            <img 
+                [src]="item.itemImageSrc" 
+                style="width: 100%; display: block;" />
         </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '@service/photoservice';
+import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'galleria-full-secreen-template-demo',
-    templateUrl: './galleria-full-secreen-template-demo.html'
+    selector: 'galleria-full-screen-template-demo',
+    templateUrl: './galleria-full-screen-template-demo.html',
+    standalone: true,
+    imports: [GalleriaModule, CommonModule],
+    providers: [PhotoService]
 })
 export class GalleriaFullScreenTemplateDemo implements OnInit {
     displayCustom: boolean | undefined;

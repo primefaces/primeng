@@ -1,42 +1,47 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'image-preview-source-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>In case that you want to show different image on preview, you can set <i>previewImageSrc</i> attribute. It could come handy when wanted to use smaller image version at first and bigger one on preview.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg" alt="Image" width="250" [preview]="true"></p-image>
+            <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" alt="Image" width="250" [preview]="true" />
         </div>
-        <app-code [code]="code" selector="image-preview-demo"></app-code>
-    </section>`
+        <app-code [code]="code" selector="image-preview-source-demo"></app-code>
+    `
 })
 export class PreviewImageSourceDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg" alt="Image" width="250" [preview]="true"></p-image>`,
+        basic: `<p-image 
+    src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" 
+    previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" 
+    alt="Image" 
+    width="250" 
+    [preview]="true" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria1.jpg" previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria2.jpg" alt="Image" width="250" [preview]="true"></p-image>
+        html: `<div class="card flex justify-content-center">
+    <p-image 
+        src="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" 
+        previewImageSrc="https://primefaces.org/cdn/primeng/images/galleria/galleria11.jpg" 
+        alt="Image" 
+        width="250" 
+        [preview]="true" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component } from '@angular/core';
+import { ImageModule } from 'primeng/image';
         
 @Component({
     selector: 'image-preview-source-demo',
-    templateUrl: './image-preview-source-demo.html'
+    templateUrl: './image-preview-source-demo.html',
+    standalone: true,
+    imports: [ImageModule]
 })
-export class ImagePreviewDemo {
-    constructor(private photoService: PhotoService) {}
+export class ImagePreviewSourceDemo {
+
 }`,
         service: ['PhotoService']
     };

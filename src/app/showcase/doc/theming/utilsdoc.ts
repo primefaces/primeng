@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'utils-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A couple of utility classes are provided as a solution to common requirements.</p>
         </app-docsectiontext>
         <div class="doc-tablewrapper">
@@ -46,10 +46,6 @@ import { Component, Input } from '@angular/core';
                 </tbody>
             </table>
         </div>
-    </section>`
+    `
 })
-export class UtilsDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-}
+export class UtilsDoc {}

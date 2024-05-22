@@ -37,7 +37,7 @@ export interface AutoCompleteDropdownClickEvent {
  * @see {@link AutoComplete.onSelect}
  * @group Events
  */
-export interface AutoCompleteOnSelectEvent {
+export interface AutoCompleteSelectEvent {
     /**
      * Browser event.
      */
@@ -107,7 +107,7 @@ export interface AutoCompleteTemplates {
         $implicit: any | any[];
     }): TemplateRef<{ $implicit: any | any[] }>;
     /**
-     * Custom selected item template.
+     * Custom selected item template, only supported in multiple mode.
      * @param {Object} context - selected item data.
      */
     selectedItem(context: {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/progressspinner/importdoc';
-import { BasicDoc } from '../../doc/progressspinner/basicdoc';
-import { StyleDoc } from '../../doc/progressspinner/styledoc';
-import { TemplateDoc } from '../../doc/progressspinner/templatedoc';
-import { AccessibilityDoc } from '../../doc/progressspinner/accessibilitydoc';
+import { ImportDoc } from '@doc/progressspinner/importdoc';
+import { BasicDoc } from '@doc/progressspinner/basicdoc';
+import { StyleDoc } from '@doc/progressspinner/styledoc';
+import { CustomDoc } from '@doc/progressspinner/customdoc';
+import { AccessibilityDoc } from '@doc/progressspinner/accessibilitydoc';
 
 @Component({
     templateUrl: './progressspinnerdemo.html',
@@ -22,9 +22,9 @@ export class ProgressSpinnerDemo {
             component: BasicDoc
         },
         {
-            id: 'templating',
-            label: 'Template',
-            component: TemplateDoc
+            id: 'custom',
+            label: 'Custom',
+            component: CustomDoc
         },
         {
             id: 'style',

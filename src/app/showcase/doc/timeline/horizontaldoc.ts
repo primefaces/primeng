@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'horizontal-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
         </app-docsectiontext>
         <div class="card flex flex-column gap-3">
@@ -26,13 +26,9 @@ import { Code } from '../../domain/code';
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-horizontal-demo"></app-code>
-    </section>`
+    `
 })
 export class HorizontalDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     events: string[];
 
     constructor() {
@@ -40,8 +36,7 @@ export class HorizontalDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" layout="horizontal" align="top">
+        basic: `<p-timeline [value]="events" layout="horizontal" align="top">
     <ng-template pTemplate="content" let-event>
         {{ event }}
     </ng-template>
@@ -57,11 +52,12 @@ export class HorizontalDoc {
     <ng-template pTemplate="content" let-event>
         {{ event }}
     </ng-template>
-    <ng-template pTemplate="opposite" let-event><span>&nbsp;</span></ng-template>
+    <ng-template pTemplate="opposite" let-event>
+        <span>&nbsp;</span>
+    </ng-template>
 </p-timeline>`,
 
-        html: `
-<div class="card flex flex-column gap-3">
+        html: `<div class="card flex flex-column gap-3">
     <p-timeline [value]="events" layout="horizontal" align="top">
         <ng-template pTemplate="content" let-event>
             {{ event }}
@@ -76,16 +72,20 @@ export class HorizontalDoc {
         <ng-template pTemplate="content" let-event>
             {{ event }}
         </ng-template>
-        <ng-template pTemplate="opposite" let-event><span>&nbsp;</span></ng-template>
+        <ng-template pTemplate="opposite" let-event>
+            <span>&nbsp;</span>
+        </ng-template>
     </p-timeline>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
 
 @Component({
     selector: 'timeline-horizontal-demo',
-    templateUrl: './timeline-horizontal-demo.html'
+    templateUrl: './timeline-horizontal-demo.html',
+    standalone: true,
+    imports: [TimelineModule]
 })
 export class TimelineHorizontalDemo {
     events: string[];

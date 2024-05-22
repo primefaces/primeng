@@ -1,28 +1,21 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { AppDocSectionTextComponent } from '../../layout/doc/docsectiontext/app.docsectiontext.component';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'single-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id" [level]="3" #docsectiontext>
+    template: `
+        <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"></p-tree>
+            <p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile" />
         </div>
         <app-code [code]="code" selector="tree-single-demo"></app-code>
-    </section>`
+    `
 })
 export class SingleDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
-    @ViewChild('docsectiontext', { static: true }) docsectiontext: AppDocSectionTextComponent;
-
     files!: TreeNode[];
 
     selectedFile!: TreeNode;
@@ -34,22 +27,31 @@ export class SingleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"></p-tree>`,
+        basic: `<p-tree 
+    [value]="files" 
+    class="w-full md:w-30rem" 
+    selectionMode="single" 
+    [(selection)]="selectedFile" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile"></p-tree>
+        html: `<div class="card flex justify-content-center">
+    <p-tree 
+        [value]="files" 
+        class="w-full md:w-30rem" 
+        selectionMode="single" 
+        [(selection)]="selectedFile" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeModule } from 'primeng/tree';
 
 @Component({
     selector: 'tree-single-demo',
-    templateUrl: './tree-single-demo.html'
+    templateUrl: './tree-single-demo.html',
+    standalone: true,
+    imports: [TreeModule],
+    providers: [NodeService]
 })
 export class TreeSingleDemo implements OnInit {
     files!: TreeNode[];

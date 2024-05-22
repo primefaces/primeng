@@ -1,15 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>
         </app-docsectiontext>
         <div class="card">
-            <button type="button" pButton pRipple label="Block" (click)="blockedPanel = true"></button>
-            <button type="button" pButton pRipple label="Unblock" (click)="blockedPanel = false"></button>
+            <p-button pRipple label="Block" (click)="blockedPanel = true" />
+            <p-button pRipple label="Unblock" (click)="blockedPanel = false" />
             <p-blockUI [target]="pnl" [blocked]="blockedPanel">
                 <i class="pi pi-lock" style="font-size: 3rem"></i>
             </p-blockUI>
@@ -21,32 +21,25 @@ import { Code } from '../../domain/code';
             </p-panel>
         </div>
         <app-code [code]="code" selector="block-ui-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
     blockedPanel: boolean = false;
 
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple label="Block" (click)="blockedPanel = true"></button>
-<button type="button" pButton pRipple label="Unblock" (click)="blockedPanel = false"></button>
+        basic: `<p-button pRipple label="Block" (click)="blockedPanel = true" />
+<p-button pRipple label="Unblock" (click)="blockedPanel = false" />
 <p-blockUI [target]="pnl" [blocked]="blockedPanel">
     <i class="pi pi-lock" style="font-size: 3rem"></i>
 </p-blockUI>
 <p-panel #pnl header="Header" styleClass="mt-4">
     <p class="m-0">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit...
     </p>
 </p-panel>`,
-        html: `
-<div class="card">
-    <button type="button" pButton pRipple label="Block" (click)="blockedPanel=true"></button>
-    <button type="button" pButton pRipple label="Unblock" (click)="blockedPanel=false"></button>
+        html: `<div class="card">
+    <p-button pRipple label="Block" (click)="blockedPanel = true" />
+    <p-button pRipple label="Unblock" (click)="blockedPanel = false" />
     <p-blockUI [target]="pnl" [blocked]="blockedPanel">
         <i class="pi pi-lock" style="font-size: 3rem"></i>
     </p-blockUI>
@@ -57,12 +50,17 @@ export class BasicDoc {
             cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
     </p-panel>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { BlockUIModule } from 'primeng/blockui';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { RippleModule } from 'primeng/ripple';
 
 @Component({
     selector: 'block-ui-basic-demo',
-    templateUrl: './block-ui-basic-demo.html'
+    templateUrl: './block-ui-basic-demo.html',
+    standalone: true,
+    imports: [BlockUIModule, ButtonModule, PanelModule, RippleModule]
 })
 export class BlockUiBasicDemo {
     blockedPanel: boolean = false;

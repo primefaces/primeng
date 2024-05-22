@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'focus-trap-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>FocusTrap is applied to a container element with the <i>pFocusTrap</i> directive.</p>
         </app-docsectiontext>
         <div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
@@ -29,21 +29,17 @@ import { Code } from '../../domain/code';
             </div>
             <div>
                 <h4>Button</h4>
-                <button pButton type="button" icon="pi pi-check" label="Check"></button>
+                <p-button icon="pi pi-check" label="Check" />
             </div>
             <div>
                 <h4>Dropdown</h4>
-                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
+                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true" />
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     selectedCity: string | undefined;
 
     cities = [
@@ -55,8 +51,7 @@ export class BasicDoc {
     ];
 
     code: Code = {
-        basic: `
-<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
+        basic: `<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
     <div>
         <h4>Input</h4>
         <input id="input" type="text" size="30" pInputText>
@@ -69,8 +64,7 @@ export class BasicDoc {
         </span>
     </div>
 </div>`,
-        html: `
-<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
+        html: `<div pFocusTrap class="card flex align-items-center justify-content-center flex-wrap gap-3">
     <div>
         <h4>Input</h4>
         <input id="input" type="text" size="30" pInputText>
@@ -92,19 +86,30 @@ export class BasicDoc {
     </div>
     <div>
         <h4>Button</h4>
-        <button pButton type="button" icon="pi pi-check" label="Check"></button>
+        <p-button icon="pi pi-check" label="Check" />
     </div>
     <div>
         <h4>Dropdown</h4>
-        <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true"></p-dropdown>
+        <p-dropdown 
+            [options]="cities" 
+            [(ngModel)]="selectedCity" 
+            placeholder="Select a City" 
+            optionLabel="name" 
+            [showClear]="true" />
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
-
+        typescript: `import { Component } from '@angular/core';
+import { FocusTrapModule } from 'primeng/focustrap';
+import { ButtonModule } from 'primeng/button';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+        
 @Component({
     selector: 'focus-trap-basic-demo',
-    templateUrl: './focus-trap-basic-demo.html'
+    templateUrl: './focus-trap-basic-demo.html',
+    standalone: true,
+    imports: [FocusTrapModule, ButtonModule, DropdownModule, FormsModule, InputTextModule]
 })
 export class FocusTrapBasicDemo {
     selectedCity: string | undefined;

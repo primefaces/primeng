@@ -1,7 +1,8 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, booleanAttribute } from '@angular/core';
 import { NgModel, NgControl, FormControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { PrimeNGConfig } from 'primeng/api';
 /**
  * InputTextarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
@@ -11,15 +12,21 @@ import { Subscription } from 'rxjs';
     host: {
         class: 'p-inputtextarea p-inputtext p-component p-element',
         '[class.p-filled]': 'filled',
-        '[class.p-inputtextarea-resizable]': 'autoResize'
+        '[class.p-inputtextarea-resizable]': 'autoResize',
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
     }
 })
-export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
      */
-    @Input() autoResize: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoResize: boolean | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.
@@ -35,7 +42,7 @@ export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, O
 
     ngControlSubscription: Subscription | undefined;
 
-    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef) {}
+    constructor(public el: ElementRef, @Optional() public ngModel: NgModel, @Optional() public control: NgControl, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.ngModel) {
@@ -49,10 +56,6 @@ export class InputTextarea implements OnInit, AfterViewInit, AfterViewChecked, O
                 this.updateState();
             });
         }
-    }
-
-    ngAfterViewChecked() {
-        this.updateState();
     }
 
     ngAfterViewInit() {

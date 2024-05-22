@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { TimesIcon } from 'primeng/icons/times';
 import { Nullable } from 'primeng/ts-helpers';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { TriStateCheckboxChangeEvent } from './tristatecheckbox.interface';
 
 export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
@@ -21,7 +22,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     template: `
         <div
             [ngStyle]="style"
-            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused }"
+            [ngClass]="{ 'p-checkbox p-component': true, 'p-checkbox-disabled': disabled, 'p-checkbox-focused': focused, 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }"
             [class]="styleClass"
             (click)="onClick($event, input)"
             [attr.data-pc-name]="'tristatecheckbox'"
@@ -43,6 +44,8 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                     [attr.aria-label]="ariaLabel"
                     inputmode="none"
                     [attr.data-pc-section]="'hiddenInput'"
+                    pAutoFocus
+                    [autofocus]="autofocus"
                 />
             </div>
             <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="value === true" [ngClass]="{ 'p-highlight': value != null, 'p-disabled': disabled, 'p-focus': focused }">
@@ -66,7 +69,7 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
                 </ng-container>
             </div>
         </div>
-        <label class="p-tristatecheckbox-label" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
+        <label class="p-checkbox-label" (click)="onClick($event, input)" [ngClass]="{ 'p-checkbox-label-active': value != null, 'p-disabled': disabled, 'p-checkbox-label-focus': focused }" *ngIf="label" [attr.for]="inputId">{{ label }}</label>
     `,
     providers: [TRISTATECHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -76,12 +79,12 @@ export const TRISTATECHECKBOX_VALUE_ACCESSOR: any = {
     }
 })
 export class TriStateCheckbox implements ControlValueAccessor {
-    constructor(private cd: ChangeDetectorRef) {}
+    constructor(private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Name of the component.
      * @group Props
@@ -98,10 +101,15 @@ export class TriStateCheckbox implements ControlValueAccessor {
      */
     @Input() ariaLabelledBy: string | undefined;
     /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Identifier of the focus input to match a label defined for the component.
      * @group Props
@@ -126,7 +134,7 @@ export class TriStateCheckbox implements ControlValueAccessor {
      * When present, it specifies that the component cannot be edited.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * Specifies the icon for checkbox true value.
      * @group Props
@@ -137,6 +145,11 @@ export class TriStateCheckbox implements ControlValueAccessor {
      * @group Props
      */
     @Input() checkboxFalseIcon: string | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to invoke on value change.
      * @param {TriStateCheckboxChangeEvent} event - Custom change event.
@@ -228,7 +241,7 @@ export class TriStateCheckbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, CheckIcon, TimesIcon],
+    imports: [CommonModule, SharedModule, AutoFocusModule, CheckIcon, TimesIcon],
     exports: [TriStateCheckbox, SharedModule],
     declarations: [TriStateCheckbox]
 })

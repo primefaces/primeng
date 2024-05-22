@@ -21,8 +21,11 @@ import {
     ViewChild,
     ViewEncapsulation,
     ViewRef,
+    booleanAttribute,
     computed,
+    effect,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -117,8 +120,6 @@ export class MenuItemContent {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() id: string;
-
     @Output() onMenuItemClick: EventEmitter<any> = new EventEmitter<any>();
 
     menu: Menu;
@@ -128,7 +129,7 @@ export class MenuItemContent {
     }
 
     onItemClick(event, item) {
-        this.onMenuItemClick.emit({ originalEvent: event, item: { ...item, id: this.id } });
+        this.onMenuItemClick.emit({ originalEvent: event, item });
     }
 }
 /**
@@ -160,7 +161,7 @@ export class MenuItemContent {
                 class="p-menu-list p-reset"
                 role="menu"
                 [attr.id]="id + '_list'"
-                [tabindex]="tabindex"
+                [attr.tabindex]="getTabIndexValue()"
                 [attr.data-pc-section]="'menu'"
                 [attr.aria-activedescendant]="activedescendant()"
                 [attr.aria-label]="ariaLabel"
@@ -181,8 +182,11 @@ export class MenuItemContent {
                         role="none"
                         [attr.id]="menuitemId(submenu, id, i)"
                     >
-                        <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
-                        <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                        <ng-container *ngIf="!submenuHeaderTemplate">
+                            <span *ngIf="submenu.escape !== false; else htmlSubmenuLabel">{{ submenu.label }}</span>
+                            <ng-template #htmlSubmenuLabel><span [innerHTML]="submenu.label | safeHtml"></span></ng-template>
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
                         <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
@@ -194,7 +198,7 @@ export class MenuItemContent {
                             [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                             [ngStyle]="item.style"
                             [class]="item.styleClass"
-                            (onMenuItemClick)="itemClick($event)"
+                            (onMenuItemClick)="itemClick($event, menuitemId(item, id, i, j))"
                             pTooltip
                             [tooltipOptions]="item.tooltipOptions"
                             role="menuitem"
@@ -217,7 +221,7 @@ export class MenuItemContent {
                         [ngClass]="{ 'p-hidden': item.visible === false, 'p-focus': focusedOptionId() && menuitemId(item, id, i, j) === focusedOptionId(), 'p-disabled': disabled(item.disabled) }"
                         [ngStyle]="item.style"
                         [class]="item.styleClass"
-                        (onMenuItemClick)="itemClick($event)"
+                        (onMenuItemClick)="itemClick($event, menuitemId(item, id, i))"
                         pTooltip
                         [tooltipOptions]="item.tooltipOptions"
                         role="menuitem"
@@ -253,7 +257,7 @@ export class Menu implements OnDestroy {
      * Defines if menu would displayed as a popup.
      * @group Props
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the component.
      * @group Props
@@ -273,12 +277,12 @@ export class Menu implements OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the show animation.
      * @group Props
@@ -308,7 +312,7 @@ export class Menu implements OnDestroy {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number = 0;
+    @Input({ transform: numberAttribute }) tabindex: number = 0;
     /**
      * Callback to invoke when overlay menu is shown.
      * @group Emits
@@ -343,6 +347,8 @@ export class Menu implements OnDestroy {
     endTemplate: TemplateRef<any> | undefined;
 
     itemTemplate: TemplateRef<any> | undefined;
+
+    submenuHeaderTemplate: TemplateRef<any> | undefined;
 
     container: HTMLDivElement | undefined;
 
@@ -420,17 +426,28 @@ export class Menu implements OnDestroy {
                 case 'start':
                     this.startTemplate = item.template;
                     break;
+
                 case 'end':
                     this.endTemplate = item.template;
                     break;
+
                 case 'itemTemplate':
                     this.itemTemplate = item.template;
                     break;
+
+                case 'submenuheader':
+                    this.submenuHeaderTemplate = item.template;
+                    break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
             }
         });
+    }
+
+    getTabIndexValue(): string | null {
+        return this.tabindex !== undefined ? this.tabindex.toString() : null;
     }
 
     onOverlayAnimationStart(event: AnimationEvent) {
@@ -446,7 +463,6 @@ export class Menu implements OnDestroy {
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
-                    this.changeFocusedOptionIndex(0);
                 }
                 break;
 
@@ -527,24 +543,20 @@ export class Menu implements OnDestroy {
     }
 
     onListFocus(event: Event) {
-        this.focused = true;
-        if (!this.popup) {
-            if (this.selectedOptionIndex() !== -1) {
-                this.changeFocusedOptionIndex(this.selectedOptionIndex());
-                this.selectedOptionIndex.set(-1);
-            } else {
-                this.changeFocusedOptionIndex(0);
-            }
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit(event);
         }
-        this.onFocus.emit(event);
     }
 
     onListBlur(event: FocusEvent | MouseEvent) {
-        this.focused = false;
-        this.changeFocusedOptionIndex(-1);
-        this.selectedOptionIndex.set(-1);
-        this.focusedOptionIndex.set(-1);
-        this.onBlur.emit(event);
+        if (this.focused) {
+            this.focused = false;
+            this.changeFocusedOptionIndex(-1);
+            this.selectedOptionIndex.set(-1);
+            this.focusedOptionIndex.set(-1);
+            this.onBlur.emit(event);
+        }
     }
 
     onListKeyDown(event) {
@@ -569,18 +581,20 @@ export class Menu implements OnDestroy {
                 this.onEnterKey(event);
                 break;
 
+            case 'NumpadEnter':
+                this.onEnterKey(event);
+                break;
+
             case 'Space':
                 this.onSpaceKey(event);
                 break;
 
             case 'Escape':
+            case 'Tab':
                 if (this.popup) {
                     DomHandler.focus(this.target);
                     this.hide();
                 }
-                break;
-
-            case 'Tab':
                 this.overlayVisible && this.hide();
                 break;
 
@@ -655,8 +669,13 @@ export class Menu implements OnDestroy {
         }
     }
 
-    itemClick(event: any) {
+    itemClick(event: any, id: string) {
         const { originalEvent, item } = event;
+
+        if (!this.focused) {
+            this.focused = true;
+            this.onFocus.emit();
+        }
 
         if (item.disabled) {
             originalEvent.preventDefault();
@@ -678,8 +697,8 @@ export class Menu implements OnDestroy {
             this.hide();
         }
 
-        if (!this.popup && this.focusedOptionIndex() !== item.id) {
-            this.focusedOptionIndex.set(item.id);
+        if (!this.popup && this.focusedOptionIndex() !== id) {
+            this.focusedOptionIndex.set(id);
         }
     }
 

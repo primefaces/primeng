@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 interface Column {
     field: string;
@@ -10,42 +10,39 @@ interface Column {
 
 @Component({
     selector: 'context-menu-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>TreeTable has exclusive integration with ContextMenu using the <i>contextMenu</i> event to open a menu on right click alont with <i>contextMenuSelection</i> properties to control the selection via the menu.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-toast [style]="{ marginTop: '80px' }"></p-toast>
-
-            <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
-                <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns">
-                            {{ col.header }}
-                        </th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-                    <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-                        <td *ngFor="let col of columns; let i = index">
-                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                            {{ rowData[col.field] }}
-                        </td>
-                    </tr>
-                </ng-template>
-            </p-treeTable>
-
-            <p-contextMenu #cm [model]="items"></p-contextMenu>
+            <p-toast [style]="{ marginTop: '80px' }" />
+            <p-deferred-demo (load)="loadDemoData()">
+                <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{ col.header }}
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                        <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
+                            <td *ngFor="let col of columns; let i = index">
+                                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                                {{ rowData[col.field] }}
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-treeTable>
+            </p-deferred-demo>
+            <p-contextMenu #cm [model]="items" />
         </div>
         <app-code [code]="code" selector="tree-table-context-menu-demo"></app-code>
-    </section>`,
-    providers: [MessageService]
+    `,
+    providers: [MessageService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContextMenuDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
+export class ContextMenuDoc {
     files!: TreeNode[];
 
     selectedNode!: TreeNode;
@@ -56,7 +53,7 @@ export class ContextMenuDoc implements OnInit {
 
     constructor(private nodeService: NodeService, private messageService: MessageService) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.nodeService.getFilesystem().then((files) => (this.files = files));
 
         this.cols = [
@@ -81,34 +78,16 @@ export class ContextMenuDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-toast [style]="{ marginTop: '80px' }"></p-toast>
+        basic: `<p-toast [style]="{ marginTop: '80px' }" />
 
-<p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
-    <ng-template pTemplate="header" let-columns>
-        <tr>
-            <th *ngFor="let col of columns">
-                {{ col.header }}
-            </th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
-        <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
-            <td *ngFor="let col of columns; let i = index">
-                <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
-                {{ rowData[col.field] }}
-            </td>
-        </tr>
-    </ng-template>
-</p-treeTable>
-
-<p-contextMenu #cm [model]="items"></p-contextMenu>`,
-
-        html: `
-<div class="card">
-    <p-toast [style]="{ marginTop: '80px' }"></p-toast>
-
-    <p-treeTable [value]="files" [columns]="cols" dataKey="name" [(contextMenuSelection)]="selectedNode" [contextMenu]="cm" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+<p-treeTable 
+    [value]="files" 
+    [columns]="cols" 
+    dataKey="name" 
+    [(contextMenuSelection)]="selectedNode" 
+    [contextMenu]="cm" 
+    [scrollable]="true" 
+    [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">
@@ -119,20 +98,53 @@ export class ContextMenuDoc implements OnInit {
         <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
             <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
                 <td *ngFor="let col of columns; let i = index">
-                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                     {{ rowData[col.field] }}
                 </td>
             </tr>
         </ng-template>
+</p-treeTable>
+
+<p-contextMenu #cm [model]="items" />`,
+
+        html: `<div class="card">
+    <p-toast [style]="{ marginTop: '80px' }" />
+
+    <p-treeTable 
+        [value]="files" 
+        [columns]="cols"
+        dataKey="name" 
+        [(contextMenuSelection)]="selectedNode" 
+        [contextMenu]="cm" 
+        [scrollable]="true" 
+        [tableStyle]="{'min-width':'50rem'}">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{ col.header }}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr [ttRow]="rowNode" [ttContextMenuRow]="rowNode">
+                    <td *ngFor="let col of columns; let i = index">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
+                        {{ rowData[col.field] }}
+                    </td>
+                </tr>
+            </ng-template>
     </p-treeTable>
 
-    <p-contextMenu #cm [model]="items"></p-contextMenu>
+    <p-contextMenu #cm [model]="items" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService, TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { TreeTableModule } from 'primeng/treetable';
+import { ToastModule } from 'primeng/toast';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { CommonModule } from '@angular/common';
 
 interface Column {
     field: string;
@@ -141,8 +153,10 @@ interface Column {
 
 @Component({
     selector: 'tree-table-context-menu-demo',
-    templateUrl: './tree-table-context-menu-demo.html'
-    providers: [MessageService]
+    templateUrl: './tree-table-context-menu-demo.html',
+    standalone: true,
+    imports: [TreeTableModule, ToastModule, ContextMenuModule, CommonModule],
+    providers: [MessageService, NodeService]
 })
 export class TreeTableContextMenuDemo implements OnInit{
     files!: TreeNode[];

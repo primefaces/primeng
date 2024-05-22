@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsDoc } from '../../doc/keyfilter/reactiveformsdoc';
-import { AccessibilityDoc } from '../../doc/keyfilter/accessibilitydoc';
-import { ImportDoc } from '../../doc/keyfilter/importdoc';
-import { PresetsDoc } from '../../doc/keyfilter/presetsdoc';
-import { RegexDoc } from '../../doc/keyfilter/regexdoc';
+import { ReactiveFormsDoc } from '@doc/keyfilter/reactiveformsdoc';
+import { AccessibilityDoc } from '@doc/keyfilter/accessibilitydoc';
+import { ImportDoc } from '@doc/keyfilter/importdoc';
+import { PresetsDoc } from '@doc/keyfilter/presetsdoc';
+import { RegexDoc } from '@doc/keyfilter/regexdoc';
 
 @Component({
     templateUrl: './keyfilterdemo.html'

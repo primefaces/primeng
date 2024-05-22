@@ -1,36 +1,34 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>For controlled mode, use <i>activeItem</i> property along with <i>activeItemChange</i> event are needed to manage the active item.</p>
         </app-docsectiontext>
         <div class="card">
-            <button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
-            <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+            <div class="flex mb-2 gap-2 justify-content-end">
+                <p-button (click)="activeItem = items[0]" [rounded]="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[0]" />
+                <p-button (click)="activeItem = items[1]" [rounded]="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[1]" />
+                <p-button (click)="activeItem = items[2]" [rounded]="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[2]" />
+            </div>
+            <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)" />
         </div>
         <app-code [code]="code" selector="tab-menu-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     activeItem: MenuItem | undefined;
 
     ngOnInit() {
         this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-            { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+            { label: 'Dashboard', icon: 'pi pi-home' },
+            { label: 'Transactions', icon: 'pi pi-chart-line' },
+            { label: 'Products', icon: 'pi pi-list' }
         ];
 
         this.activeItem = this.items[0];
@@ -40,28 +38,68 @@ export class ControlledDoc implements OnInit {
         this.activeItem = event;
     }
 
-    activateLast() {
-        this.activeItem = (this.items as MenuItem[])[(this.items as MenuItem[]).length - 1];
-    }
-
     code: Code = {
-        basic: `
-<button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
-<p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>`,
+        basic: `<div class="flex mb-2 gap-2 justify-content-end">
+    <p-button 
+        (click)="activeItem = items[0]" 
+        [rounded]="true" 
+        label="1" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeItem !== items[0]" />
+    <p-button 
+        (click)="activeItem = items[1]" 
+        [rounded]="true" 
+        label="2" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeItem !== items[1]" />
+    <p-button 
+        (click)="activeItem = items[2]" 
+        [rounded]="true" 
+        label="3" 
+        styleClass="w-2rem h-2rem p-0" 
+        [outlined]="activeItem !== items[2]" />
+</div>
+<p-tabMenu 
+    [model]="items" 
+    [activeItem]="activeItem" 
+    (activeItemChange)="onActiveItemChange($event)" />`,
 
-        html: `
-<div class="card">
-    <button type="button" pButton pRipple label="Activate Last" (click)="activateLast()" class="mb-3"></button>
-    <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+        html: `<div class="card">
+    <div class="flex mb-2 gap-2 justify-content-end">
+        <p-button 
+            (click)="activeItem = items[0]" 
+            [rounded]="true" label="1" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeItem !== items[0]" />
+        <p-button 
+            (click)="activeItem = items[1]" 
+            [rounded]="true" 
+            label="2" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeItem !== items[1]" />
+        <p-button 
+            (click)="activeItem = items[2]" 
+            [rounded]="true" 
+            label="3" 
+            styleClass="w-2rem h-2rem p-0" 
+            [outlined]="activeItem !== items[2]" />
+    </div>
+    <p-tabMenu 
+        [model]="items" 
+        [activeItem]="activeItem" 
+        (activeItemChange)="onActiveItemChange($event)" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tab-menu-controlled-demo',
-    templateUrl: './tab-menu-controlled-demo.html'
+    templateUrl: './tab-menu-controlled-demo.html',
+    standalone: true,
+    imports: [TabMenuModule, ButtonModule]
 })
 export class TabMenuControlledDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -70,11 +108,9 @@ export class TabMenuControlledDemo implements OnInit {
 
     ngOnInit() {
         this.items = [
-            { label: 'Home', icon: 'pi pi-fw pi-home' },
-            { label: 'Calendar', icon: 'pi pi-fw pi-calendar' },
-            { label: 'Edit', icon: 'pi pi-fw pi-pencil' },
-            { label: 'Documentation', icon: 'pi pi-fw pi-file' },
-            { label: 'Settings', icon: 'pi pi-fw pi-cog' }
+            { label: 'Dashboard', icon: 'pi pi-home' },
+            { label: 'Transactions', icon: 'pi pi-chart-line' },
+            { label: 'Products', icon: 'pi pi-list' },
         ];
 
         this.activeItem = this.items[0];
@@ -82,10 +118,6 @@ export class TabMenuControlledDemo implements OnInit {
 
     onActiveItemChange(event: MenuItem) {
         this.activeItem = event;
-    }
-
-    activateLast() {
-        this.activeItem = (this.items as MenuItem[])[(this.items as MenuItem[]).length - 1];
     }
 }`,
 

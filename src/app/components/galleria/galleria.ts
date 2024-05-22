@@ -10,6 +10,7 @@ import {
     DoCheck,
     ElementRef,
     EventEmitter,
+    HostListener,
     Inject,
     Input,
     KeyValueDiffers,
@@ -24,7 +25,9 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -61,16 +64,17 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.done)="onAnimationEnd($event)"
                     [value]="value"
                     [activeIndex]="activeIndex"
-                    [numVisible]="numVisible"
+                    [numVisible]="numVisibleLimit || numVisible"
                     (maskHide)="onMaskHide()"
                     (activeItemChange)="onActiveItemChange($event)"
                     [ngStyle]="containerStyle"
+                    [fullScreen]="fullScreen"
                 ></p-galleriaContent>
             </div>
         </div>
 
         <ng-template #windowed>
-            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
+            <p-galleriaContent [value]="value" [activeIndex]="activeIndex" [numVisible]="numVisibleLimit || numVisible" (activeItemChange)="onActiveItemChange($event)"></p-galleriaContent>
         </ng-template>
     `,
     animations: [
@@ -101,7 +105,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display the component on fullscreen.
      * @group Props
      */
-    @Input() fullScreen: boolean = false;
+    @Input({ transform: booleanAttribute }) fullScreen: boolean = false;
     /**
      * Unique identifier of the element.
      * @group Props
@@ -116,7 +120,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Number of items per page.
      * @group Props
      */
-    @Input() numVisible: number = 3;
+    @Input({ transform: numberAttribute }) numVisible: number = 3;
     /**
      * An array of options for responsive design.
      * @see {GalleriaResponsiveOptions}
@@ -127,47 +131,47 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display navigation buttons in item section.
      * @group Props
      */
-    @Input() showItemNavigators: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigators: boolean = false;
     /**
      * Whether to display navigation buttons in thumbnail container.
      * @group Props
      */
-    @Input() showThumbnailNavigators: boolean = true;
+    @Input({ transform: booleanAttribute }) showThumbnailNavigators: boolean = true;
     /**
      * Whether to display navigation buttons on item hover.
      * @group Props
      */
-    @Input() showItemNavigatorsOnHover: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigatorsOnHover: boolean = false;
     /**
      * When enabled, item is changed on indicator hover.
      * @group Props
      */
-    @Input() changeItemOnIndicatorHover: boolean = false;
+    @Input({ transform: booleanAttribute }) changeItemOnIndicatorHover: boolean = false;
     /**
      * Defines if scrolling would be infinite.
      * @group Props
      */
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
     /**
      * Items are displayed with a slideshow in autoPlay mode.
      * @group Props
      */
-    @Input() autoPlay: boolean = false;
+    @Input({ transform: booleanAttribute }) autoPlay: boolean = false;
     /**
      * When enabled, autorun should stop by click.
      * @group Props
      */
-    @Input() shouldStopAutoplayByClick: boolean = true;
+    @Input({ transform: booleanAttribute }) shouldStopAutoplayByClick: boolean = true;
     /**
      * Time in milliseconds to scroll items.
      * @group Props
      */
-    @Input() transitionInterval: number = 4000;
+    @Input({ transform: numberAttribute }) transitionInterval: number = 4000;
     /**
      * Whether to display thumbnail container.
      * @group Props
      */
-    @Input() showThumbnails: boolean = true;
+    @Input({ transform: booleanAttribute }) showThumbnails: boolean = true;
     /**
      * Position of thumbnails.
      * @group Props
@@ -182,12 +186,12 @@ export class Galleria implements OnChanges, OnDestroy {
      * Whether to display indicator container.
      * @group Props
      */
-    @Input() showIndicators: boolean = false;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = false;
     /**
      * When enabled, indicator container is displayed on item container.
      * @group Props
      */
-    @Input() showIndicatorsOnItem: boolean = false;
+    @Input({ transform: booleanAttribute }) showIndicatorsOnItem: boolean = false;
     /**
      * Position of indicators.
      * @group Props
@@ -197,7 +201,7 @@ export class Galleria implements OnChanges, OnDestroy {
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Style class of the mask on fullscreen mode.
      * @group Props
@@ -280,6 +284,8 @@ export class Galleria implements OnChanges, OnDestroy {
 
     maskVisible: boolean = false;
 
+    numVisibleLimit = 0;
+
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
@@ -326,7 +332,9 @@ export class Galleria implements OnChanges, OnDestroy {
 
     ngOnChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.value && simpleChanges.value.currentValue?.length < this.numVisible) {
-            this.numVisible = simpleChanges.value.currentValue.length;
+            this.numVisibleLimit = simpleChanges.value.currentValue.length;
+        } else {
+            this.numVisibleLimit = 0;
         }
     }
 
@@ -400,6 +408,7 @@ export class Galleria implements OnChanges, OnDestroy {
     template: `
         <div
             [attr.id]="id"
+            [attr.role]="'region'"
             *ngIf="value && value.length > 0"
             [ngClass]="{
                 'p-galleria p-component': true,
@@ -410,6 +419,7 @@ export class Galleria implements OnChanges, OnDestroy {
             [ngStyle]="!galleria.fullScreen ? galleria.containerStyle : {}"
             [class]="galleriaClass()"
             pFocusTrap
+            [pFocusTrapDisabled]="!fullScreen"
         >
             <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close p-link" (click)="maskHide.emit()" pRipple [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
                 <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
@@ -471,7 +481,9 @@ export class GalleriaContent implements DoCheck {
 
     @Input() value: any[] = [];
 
-    @Input() numVisible: number | undefined;
+    @Input({ transform: numberAttribute }) numVisible: number | undefined;
+
+    @Input({ transform: booleanAttribute }) fullScreen: boolean;
 
     @Output() maskHide: EventEmitter<boolean> = new EventEmitter();
 
@@ -491,20 +503,31 @@ export class GalleriaContent implements DoCheck {
 
     private differ: any;
 
-    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig) {
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig, private elementRef: ElementRef) {
         this.id = this.galleria.id || UniqueComponentId();
         this.differ = this.differs.find(this.galleria).create();
     }
 
-    ngDoCheck(): void {
-        const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
+    // For custom fullscreen
+    @HostListener('document:fullscreenchange', ['$event'])
+    handleFullscreenChange(event: Event) {
+        if (document?.fullscreenElement === this.elementRef.nativeElement?.children[0]) {
+            this.fullScreen = true;
+        } else {
+            this.fullScreen = false;
+        }
+    }
 
-        if (changes && changes.forEachItem.length > 0) {
-            // Because we change the properties of the parent component,
-            // and the children take our entity from the injector.
-            // We can tell the children to redraw themselves when we change the properties of the parent component.
-            // Since we have an onPush strategy
-            this.cd.markForCheck();
+    ngDoCheck(): void {
+        if (isPlatformBrowser(this.galleria.platformId)) {
+            const changes = this.differ.diff(this.galleria as unknown as Record<string, unknown>);
+            if (changes && changes.forEachItem.length > 0) {
+                // Because we change the properties of the parent component,
+                // and the children take our entity from the injector.
+                // We can tell the children to redraw themselves when we change the properties of the parent component.
+                // Since we have an onPush strategy
+                this.cd.markForCheck();
+            }
         }
     }
 
@@ -574,7 +597,7 @@ export class GalleriaContent implements DoCheck {
 export class GalleriaItemSlot {
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() index: number | undefined;
+    @Input({ transform: numberAttribute }) index: number | undefined;
 
     @Input() get item(): any {
         return this._item;
@@ -641,10 +664,12 @@ export class GalleriaItemSlot {
                     *ngIf="showItemNavigators"
                     type="button"
                     role="navigation"
-                    [ngClass]="{ 'p-galleria-item-prev p-galleria-item-nav p-link': true, 'p-disabled': this.isNavBackwardDisabled() }"
+                    [ngClass]="{ 'p-galleria-item-prev p-galleria-item-nav p-link': true, 'p-galleria-item-nav-focused': leftButtonFocused, 'p-disabled': this.isNavBackwardDisabled() }"
                     (click)="navBackward($event)"
                     [disabled]="isNavBackwardDisabled()"
                     pRipple
+                    (focus)="onButtonFocus('left')"
+                    (blur)="onButtonBlur('left')"
                 >
                     <ChevronLeftIcon *ngIf="!galleria.itemPreviousIconTemplate" [styleClass]="'p-galleria-item-prev-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemPreviousIconTemplate"></ng-template>
@@ -655,11 +680,13 @@ export class GalleriaItemSlot {
                 <button
                     *ngIf="showItemNavigators"
                     type="button"
-                    [ngClass]="{ 'p-galleria-item-next p-galleria-item-nav p-link': true, 'p-disabled': this.isNavForwardDisabled() }"
+                    [ngClass]="{ 'p-galleria-item-next p-galleria-item-nav p-link': true, 'p-galleria-item-nav-focused': rightButtonFocused, 'p-disabled': this.isNavForwardDisabled() }"
                     (click)="navForward($event)"
                     [disabled]="isNavForwardDisabled()"
                     pRipple
                     role="navigation"
+                    (focus)="onButtonFocus('right')"
+                    (blur)="onButtonBlur('right')"
                 >
                     <ChevronRightIcon *ngIf="!galleria.itemNextIconTemplate" [styleClass]="'p-galleria-item-next-icon'" />
                     <ng-template *ngTemplateOutlet="galleria.itemNextIconTemplate"></ng-template>
@@ -691,19 +718,19 @@ export class GalleriaItemSlot {
 export class GalleriaItem implements OnChanges {
     @Input() id: string | undefined;
 
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
 
     @Input() value: any[] | undefined;
 
-    @Input() showItemNavigators: boolean = false;
+    @Input({ transform: booleanAttribute }) showItemNavigators: boolean = false;
 
-    @Input() showIndicators: boolean = true;
+    @Input({ transform: booleanAttribute }) showIndicators: boolean = true;
 
-    @Input() slideShowActive: boolean = true;
+    @Input({ transform: booleanAttribute }) slideShowActive: boolean = true;
 
-    @Input() changeItemOnIndicatorHover: boolean = true;
+    @Input({ transform: booleanAttribute }) changeItemOnIndicatorHover: boolean = true;
 
-    @Input() autoPlay: boolean = false;
+    @Input({ transform: booleanAttribute }) autoPlay: boolean = false;
 
     @Input() templates: QueryList<PrimeTemplate> | undefined;
 
@@ -731,6 +758,10 @@ export class GalleriaItem implements OnChanges {
 
     _activeIndex: number = 0;
 
+    leftButtonFocused: boolean = false;
+
+    rightButtonFocused: boolean = false;
+
     constructor(public galleria: Galleria) {}
 
     ngOnChanges({ autoPlay }: SimpleChanges): void {
@@ -753,6 +784,18 @@ export class GalleriaItem implements OnChanges {
         let prevItemIndex = this.activeIndex !== 0 ? this.activeIndex - 1 : 0;
         let activeIndex = this.circular && this.activeIndex === 0 ? (<any[]>this.value).length - 1 : prevItemIndex;
         this.onActiveIndexChange.emit(activeIndex);
+    }
+
+    onButtonFocus(pos: 'left' | 'right') {
+        if (pos === 'left') {
+            this.leftButtonFocused = true;
+        } else this.rightButtonFocused = true;
+    }
+
+    onButtonBlur(pos: 'left' | 'right') {
+        if (pos === 'left') {
+            this.leftButtonFocused = false;
+        } else this.rightButtonFocused = false;
     }
 
     stopTheSlideShow() {
@@ -911,11 +954,11 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     @Input() value: any[] | undefined;
 
-    @Input() isVertical: boolean = false;
+    @Input({ transform: booleanAttribute }) isVertical: boolean = false;
 
-    @Input() slideShowActive: boolean = false;
+    @Input({ transform: booleanAttribute }) slideShowActive: boolean = false;
 
-    @Input() circular: boolean = false;
+    @Input({ transform: booleanAttribute }) circular: boolean = false;
 
     @Input() responsiveOptions: GalleriaResponsiveOptions[] | undefined;
 
@@ -977,10 +1020,12 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.createStyle();
+        if (isPlatformBrowser(this.platformId)) {
+            this.createStyle();
 
-        if (this.responsiveOptions) {
-            this.bindDocumentListeners();
+            if (this.responsiveOptions) {
+                this.bindDocumentListeners();
+            }
         }
     }
 
@@ -1017,7 +1062,9 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
     }
 
     ngAfterViewInit() {
-        this.calculatePosition();
+        if (isPlatformBrowser(this.platformId)) {
+            this.calculatePosition();
+        }
     }
 
     createStyle() {
@@ -1062,26 +1109,29 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
         }
 
         this.thumbnailsStyle.innerHTML = innerHTML;
+        DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
     calculatePosition() {
-        if (this.itemsContainer && this.sortedResponsiveOptions) {
-            let windowWidth = window.innerWidth;
-            let matchedResponsiveData = {
-                numVisible: this._numVisible
-            };
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.itemsContainer && this.sortedResponsiveOptions) {
+                let windowWidth = window.innerWidth;
+                let matchedResponsiveData = {
+                    numVisible: this._numVisible
+                };
 
-            for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
-                let res = this.sortedResponsiveOptions[i];
+                for (let i = 0; i < this.sortedResponsiveOptions.length; i++) {
+                    let res = this.sortedResponsiveOptions[i];
 
-                if (parseInt(res.breakpoint, 10) >= windowWidth) {
-                    matchedResponsiveData = res;
+                    if (parseInt(res.breakpoint, 10) >= windowWidth) {
+                        matchedResponsiveData = res;
+                    }
                 }
-            }
 
-            if (this.d_numVisible !== matchedResponsiveData.numVisible) {
-                this.d_numVisible = matchedResponsiveData.numVisible;
-                this.cd.markForCheck();
+                if (this.d_numVisible !== matchedResponsiveData.numVisible) {
+                    this.d_numVisible = matchedResponsiveData.numVisible;
+                    this.cd.markForCheck();
+                }
             }
         }
     }

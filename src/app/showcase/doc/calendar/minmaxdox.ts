@@ -1,23 +1,19 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'calendar-minmax-demo',
-    template: ` <section>
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Boundaries for the permitted dates that can be entered are defined with <i>minDate</i> and <i>maxDate</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+            <p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="calendar-minmax-demo"></app-code>
-    </section>`
+    `
 })
 export class MinMaxDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     date: Date | undefined;
 
     minDate: Date | undefined;
@@ -41,24 +37,33 @@ export class MinMaxDoc {
     }
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>`,
+        basic: `<p-calendar 
+    [(ngModel)]="date" 
+    [minDate]="minDate" 
+    [maxDate]="maxDate" 
+    [readonlyInput]="true" />`,
 
-        html: ` 
-<div class="card flex justify-content-center">
-    <p-calendar [(ngModel)]="date" [minDate]="minDate" [maxDate]="maxDate" [readonlyInput]="true"></p-calendar>
+        html: `<div class="card flex justify-content-center">
+    <p-calendar 
+        [(ngModel)]="date" 
+        [minDate]="minDate" 
+        [maxDate]="maxDate" 
+        [readonlyInput]="true" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'calendar-minmax-demo',
-    templateUrl: './calendar-minmax-demo.html'
+    templateUrl: './calendar-minmax-demo.html',
+    standalone: true,
+    imports: [FormsModule, CalendarModule]
 })
-export class CalendarMinmaxDemo implements OnInit {        
+export class CalendarMinmaxDemo implements OnInit {
     date: Date | undefined;
-    
+
     minDate: Date | undefined;
 
     maxDate: Date | undefined;

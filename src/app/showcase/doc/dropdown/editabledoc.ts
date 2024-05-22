@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface City {
     name: string;
@@ -8,21 +8,17 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>
+            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
-    </section>`
+    `
 })
 export class EditableDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cities: City[] | undefined;
 
     selectedCity: City | undefined;
@@ -38,16 +34,26 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>`,
+        basic: `<p-dropdown 
+    [options]="cities" 
+    [(ngModel)]="selectedCity" 
+    placeholder="Select a City" 
+    [editable]="true" 
+    optionLabel="name" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name"></p-dropdown>
+        html: `<div class="card flex justify-content-center">
+    <p-dropdown 
+        [options]="cities" 
+        [(ngModel)]="selectedCity" 
+        placeholder="Select a City" 
+        [editable]="true" 
+        optionLabel="name" />
 </div>`,
 
         typescript: `
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from 'primeng/dropdown';
 
 interface City {
     name: string;
@@ -56,7 +62,9 @@ interface City {
 
 @Component({
     selector: 'dropdown-editable-demo',
-    templateUrl: './dropdown-editable-demo.html'
+    templateUrl: './dropdown-editable-demo.html',
+    standalone: true,
+    imports: [FormsModule, DropdownModule]
 })
 export class DropdownEditableDemo implements OnInit {
     cities: City[] | undefined;

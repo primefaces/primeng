@@ -34,7 +34,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         [target]="home.target"
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
-                        [ariaCurrentWhenActive]="isCurrentUrl(home)"
+                        [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                     >
                         <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iprivateyle"></span>
                         <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
@@ -55,7 +55,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         [target]="home.target"
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
-                        [ariaCurrentWhenActive]="isCurrentUrl(home)"
+                        [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                         [fragment]="home.fragment"
                         [queryParamsHandling]="home.queryParamsHandling"
                         [preserveFragment]="home.preserveFragment"
@@ -85,7 +85,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [target]="item.target"
                             [attr.title]="item.title"
                             [attr.tabindex]="item.disabled ? null : '0'"
-                            [ariaCurrentWhenActive]="isCurrentUrl(item)"
+                            [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
                                 <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
@@ -115,7 +115,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [skipLocationChange]="item.skipLocationChange"
                             [replaceUrl]="item.replaceUrl"
                             [state]="item.state"
-                            [ariaCurrentWhenActive]="isCurrentUrl(item)"
+                            [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
                                 <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
@@ -220,9 +220,11 @@ export class Breadcrumb implements AfterContentInit {
                 case 'separator':
                     this.separatorTemplate = item.template;
                     break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;

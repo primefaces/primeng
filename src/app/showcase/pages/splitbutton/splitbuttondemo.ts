@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { TextDoc } from '../../doc/splitbutton/textdoc';
-import { BasicDoc } from '../../doc/splitbutton/basicdoc';
-import { ImportDoc } from '../../doc/splitbutton/importdoc';
-import { NestedDoc } from '../../doc/splitbutton/nesteddoc';
-import { RaisedDoc } from '../../doc/splitbutton/raiseddoc';
-import { RoundedDoc } from '../../doc/splitbutton/roundeddoc';
-import { SeverityDoc } from '../../doc/splitbutton/severitydoc';
-import { RaisedTextDoc } from '../../doc/splitbutton/raisedtextdoc';
-import { OutlinedDoc } from '../../doc/splitbutton/outlineddoc';
-import { SizesDoc } from '../../doc/splitbutton/sizesdoc';
-import { DisabledDoc } from '../../doc/splitbutton/disableddoc';
-import { StyleDoc } from '../../doc/splitbutton/styledoc';
-import { AccessibilityDoc } from '../../doc/splitbutton/accessibilitydoc';
+import { TextDoc } from '@doc/splitbutton/textdoc';
+import { BasicDoc } from '@doc/splitbutton/basicdoc';
+import { ImportDoc } from '@doc/splitbutton/importdoc';
+import { NestedDoc } from '@doc/splitbutton/nesteddoc';
+import { RaisedDoc } from '@doc/splitbutton/raiseddoc';
+import { RoundedDoc } from '@doc/splitbutton/roundeddoc';
+import { SeverityDoc } from '@doc/splitbutton/severitydoc';
+import { RaisedTextDoc } from '@doc/splitbutton/raisedtextdoc';
+import { OutlinedDoc } from '@doc/splitbutton/outlineddoc';
+import { SizesDoc } from '@doc/splitbutton/sizesdoc';
+import { DisabledDoc } from '@doc/splitbutton/disableddoc';
+import { TemplateDoc } from '@doc/splitbutton/templatedoc';
+import { StyleDoc } from '@doc/splitbutton/styledoc';
+import { AccessibilityDoc } from '@doc/splitbutton/accessibilitydoc';
 
 @Component({
     templateUrl: './splitbuttondemo.html'
@@ -72,6 +73,11 @@ export class SplitButtonDemo {
             id: 'disabled',
             label: 'Disabled',
             component: DisabledDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
         },
         {
             id: 'style',

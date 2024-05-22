@@ -19,6 +19,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -85,48 +87,52 @@ import { asapScheduler } from 'rxjs';
                     role="menuitem"
                     [attr.data-pc-section]="'menuitem'"
                 >
-                    <a
-                        *ngIf="_visible && isClickableRouterLink(item); else elseBlock"
-                        pRipple
-                        [routerLink]="item.routerLink"
-                        [queryParams]="item.queryParams"
-                        class="p-speeddial-action"
-                        [ngClass]="{ 'p-disabled': item.disabled }"
-                        role="menuitem"
-                        [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                        (click)="onItemClick($event, item)"
-                        (keydown.enter)="onItemClick($event, item, i)"
-                        [attr.target]="item.target"
-                        [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        [fragment]="item.fragment"
-                        [queryParamsHandling]="item.queryParamsHandling"
-                        [preserveFragment]="item.preserveFragment"
-                        [skipLocationChange]="item.skipLocationChange"
-                        [replaceUrl]="item.replaceUrl"
-                        [state]="item.state"
-                        [attr.aria-label]="item.label"
-                        [attr.data-pc-section]="'action'"
-                    >
-                        <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                    </a>
-                    <ng-template #elseBlock>
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="!itemTemplate">
                         <a
-                            *ngIf="_visible"
-                            [attr.href]="item.url || null"
-                            class="p-speeddial-action"
-                            role="menuitem"
+                            *ngIf="isClickableRouterLink(item); else elseBlock"
                             pRipple
-                            (click)="onItemClick($event, item)"
+                            [routerLink]="item.routerLink"
+                            [queryParams]="item.queryParams"
+                            class="p-speeddial-action"
                             [ngClass]="{ 'p-disabled': item.disabled }"
+                            role="menuitem"
+                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                            (click)="onItemClick($event, item)"
                             (keydown.enter)="onItemClick($event, item, i)"
                             [attr.target]="item.target"
-                            [attr.data-pc-section]="'action'"
+                            [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            [fragment]="item.fragment"
+                            [queryParamsHandling]="item.queryParamsHandling"
+                            [preserveFragment]="item.preserveFragment"
+                            [skipLocationChange]="item.skipLocationChange"
+                            [replaceUrl]="item.replaceUrl"
+                            [state]="item.state"
                             [attr.aria-label]="item.label"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            [attr.data-pc-section]="'action'"
                         >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
                         </a>
-                    </ng-template>
+                        <ng-template #elseBlock>
+                            <a
+                                [attr.href]="item.url || null"
+                                class="p-speeddial-action"
+                                role="menuitem"
+                                pRipple
+                                (click)="onItemClick($event, item)"
+                                [ngClass]="{ 'p-disabled': item.disabled }"
+                                (keydown.enter)="onItemClick($event, item, i)"
+                                [attr.target]="item.target"
+                                [attr.data-pc-section]="'action'"
+                                [attr.aria-label]="item.label"
+                                [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
+                            >
+                                <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
+                            </a>
+                        </ng-template>
+                    </ng-container>
                 </li>
             </ul>
         </div>
@@ -186,7 +192,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Transition delay step for each action item.
      * @group Props
      */
-    @Input() transitionDelay: number = 30;
+    @Input({ transform: numberAttribute }) transitionDelay: number = 30;
     /**
      * Specifies the opening type of actions.
      * @group Props
@@ -196,22 +202,22 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Radius for *circle types.
      * @group Props
      */
-    @Input() radius: number = 0;
+    @Input({ transform: numberAttribute }) radius: number = 0;
     /**
      * Whether to show a mask element behind the speeddial.
      * @group Props
      */
-    @Input() mask: boolean = false;
+    @Input({ transform: booleanAttribute }) mask: boolean = false;
     /**
      * Whether the component is disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Whether the actions close when clicked outside.
      * @group Props
      */
-    @Input() hideOnClickOutside: boolean = true;
+    @Input({ transform: booleanAttribute }) hideOnClickOutside: boolean = true;
     /**
      * Inline style of the button element.
      * @group Props
@@ -246,7 +252,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * Defined to rotate showIcon when hideIcon is not present.
      * @group Props
      */
-    @Input() rotateAnimation: boolean = true;
+    @Input({ transform: booleanAttribute }) rotateAnimation: boolean = true;
     /**
      * Defines a string value that labels an interactive element.
      * @group Props
@@ -296,6 +302,8 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     buttonTemplate: TemplateRef<any> | undefined;
 
+    itemTemplate: TemplateRef<any> | undefined;
+
     isItemClicked: boolean = false;
 
     _visible: boolean = false;
@@ -337,6 +345,9 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
             switch (item.getType()) {
                 case 'button':
                     this.buttonTemplate = item.template;
+                    break;
+                case 'item':
+                    this.itemTemplate = item.template;
                     break;
             }
         });
@@ -487,7 +498,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     onEnterKey(event: any) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex);
+        const itemIndex = [...items].findIndex((item) => item.id === this.focusedOptionIndex());
 
         this.onItemClick(event, this.model[itemIndex]);
         this.onBlur(event);

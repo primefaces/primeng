@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'calendar-datetemplate-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content can be placed inside date cells with the <i>ng-template</i> property that takes a Date as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -15,38 +15,39 @@ import { Code } from '../../domain/code';
             </p-calendar>
         </div>
         <app-code [code]="code" selector="calendar-datetemplate-demo"></app-code>
-    </section>`
+    `
 })
 export class DateTemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     date: Date[] | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date">
+        basic: `<p-calendar [(ngModel)]="date">
     <ng-template pTemplate="date" let-date>
-        <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">{{date.day}}</span>
+        <span [ngStyle]="{textDecoration: (date.day < 21 && date.day > 10) ? 'line-through' : 'inherit'}">
+            {{date.day}}
+        </span>
     </ng-template>
 </p-calendar>`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-calendar [(ngModel)]="date">
         <ng-template pTemplate="date" let-date>
-            <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">{{ date.day }}</span>
+            <span [ngStyle]="{ textDecoration: date.day < 21 && date.day > 10 ? 'line-through' : 'inherit' }">
+                {{ date.day }}
+            </span>
         </ng-template>
     </p-calendar>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'calendar-datetemplate-demo',
-    templateUrl: './calendar-datetemplate-demo.html'
+    templateUrl: './calendar-datetemplate-demo.html',
+    standalone: true,
+    imports: [FormsModule, CalendarModule]
 })
 export class CalendarDatetemplateDemo {
     date: Date[] | undefined;

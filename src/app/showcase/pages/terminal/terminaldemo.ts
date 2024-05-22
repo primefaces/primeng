@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '../../doc/terminal/basicdoc';
-import { StyleDoc } from '../../doc/terminal/styledoc';
-import { ImportDoc } from '../../doc/terminal/importdoc';
-import { AccessibilityDoc } from '../../doc/terminal/accessibilitydoc';
+import { BasicDoc } from '@doc/terminal/basicdoc';
+import { StyleDoc } from '@doc/terminal/styledoc';
+import { ImportDoc } from '@doc/terminal/importdoc';
+import { AccessibilityDoc } from '@doc/terminal/accessibilitydoc';
 
 @Component({
     templateUrl: './terminaldemo.html'

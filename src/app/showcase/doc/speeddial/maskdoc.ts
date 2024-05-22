@@ -1,28 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'mask-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Adding <i>mask</i> property displays a modal layer behind the popup items.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" direction="up" [mask]="true" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-mask-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class MaskDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -60,25 +56,41 @@ export class MaskDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="items" 
+    direction="up" 
+    [mask]="true" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 350px; position: relative;" class="speeddial-mask-demo">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" direction="up" [mask]="true"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="items" 
+            direction="up" 
+            [mask]="true" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-mask-demo',
     templateUrl: './speed-dial-mask-demo.html',
-    styleUrls: ['./speed-dial-mask-demo.scss'],
+    styles: [
+        \`:host ::ng-deep {
+            .speeddial-mask-demo {
+                .p-speeddial-direction-up {
+                    right: 0;
+                    bottom: 0;
+                }
+            }
+        }\`
+    ],
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialMaskDemo implements OnInit {
@@ -119,8 +131,7 @@ export class SpeedDialMaskDemo implements OnInit {
     }
 }`,
 
-        scss: `
-:host ::ng-deep {
+        scss: `:host ::ng-deep {
     .speeddial-mask-demo {
         .p-speeddial-direction-up {
             right: 0;

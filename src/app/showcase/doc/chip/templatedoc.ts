@@ -1,42 +1,49 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'chip-template-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
         <div class="card flex align-items-center">
-            <p-chip>
-                <div class="p-2">Content</div>
+            <p-chip styleClass="pl-0 pr-3">
+                <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">P</span>
+                <span class="ml-2 font-medium">PRIME</span>
             </p-chip>
         </div>
         <app-code [code]="code" selector="chip-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-chip>
-    <div class="p-2">Content</div>
+        basic: `<p-chip styleClass="pl-0 pr-3">
+    <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">
+        P
+    </span>
+    <span class="ml-2 font-medium">
+        PRIME
+    </span>
 </p-chip>`,
-        html: `
-<div class="card flex align-items-center">
-    <p-chip>
-        <div class="p-2">Content</div>
+        html: `<div class="card flex align-items-center">
+    <p-chip styleClass="pl-0 pr-3">
+        <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">
+            P
+        </span>
+        <span class="ml-2 font-medium">
+            PRIME
+        </span>
     </p-chip>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ChipModule } from 'primeng/chip';
 
 @Component({
     selector: 'chip-template-demo',
-    templateUrl: './chip-template-demo.html'
+    templateUrl: './chip-template-demo.html',
+    standalone: true,
+    imports: [ChipModule]
 })
 export class ChipTemplateDemo {}`
     };

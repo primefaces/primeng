@@ -1,11 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { PhotoService } from '../../service/photoservice';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
+import { PhotoService } from '@service/photoservice';
 
 @Component({
     selector: 'galleria-autoplay-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>A slideshow implementation is defined by adding <i>circular</i> and <i>autoPlay</i> properties.</p>
         </app-docsectiontext>
         <div class="card">
@@ -21,13 +21,9 @@ import { PhotoService } from '../../service/photoservice';
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-autoplay-demo"></app-code>
-    </section>`
+    `
 })
 export class AutoPlayDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     images: any[] | undefined;
 
     responsiveOptions: any[] = [
@@ -52,20 +48,13 @@ export class AutoPlayDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5"  [containerStyle]="{ 'max-width': '640px' }"> 
-    <ng-template pTemplate="item" let-item>
-        <img [src]="item.itemImageSrc" style="width: 100%;" />
-    </ng-template>
-    <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
-            <img [src]="item.thumbnailImageSrc" />
-        </div>
-    </ng-template>
-</p-galleria>`,
-        html: `
- <div class="card">
-    <p-galleria [(value)]="images" [autoPlay]="true" [circular]="true" [responsiveOptions]="responsiveOptions" [numVisible]="5"  [containerStyle]="{ 'max-width': '640px' }"> 
+        basic: `<p-galleria 
+    [(value)]="images" 
+    [autoPlay]="true" 
+    [circular]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    [numVisible]="5" 
+    [containerStyle]="{ 'max-width': '640px' }"> 
         <ng-template pTemplate="item" let-item>
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
@@ -74,15 +63,35 @@ export class AutoPlayDoc implements OnInit {
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
+</p-galleria>`,
+        html: `<div class="card">
+    <p-galleria 
+        [(value)]="images" 
+        [autoPlay]="true" 
+        [circular]="true" 
+        [responsiveOptions]="responsiveOptions" 
+        [numVisible]="5" 
+        [containerStyle]="{ 'max-width': '640px' }"> 
+            <ng-template pTemplate="item" let-item>
+                <img [src]="item.itemImageSrc" style="width: 100%;" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+                <div class="grid grid-nogutter justify-content-center">
+                    <img [src]="item.thumbnailImageSrc" />
+                </div>
+            </ng-template>
     </p-galleria>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { PhotoService } from '../../service/photoservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '@service/photoservice';
+import { GalleriaModule } from 'primeng/galleria';
 
 @Component({
     selector: 'galleria-autoplay-demo',
-    templateUrl: './galleria-autoplay-demo.html'
+    templateUrl: './galleria-autoplay-demo.html',
+    standalone: true,
+    imports: [GalleriaModule],
+    providers: [PhotoService]
 })
 export class GalleriaAutoplayDemo implements OnInit {
     images: any[] | undefined;

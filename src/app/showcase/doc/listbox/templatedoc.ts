@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component, OnInit } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface Country {
     name: string;
@@ -8,8 +8,8 @@ interface Country {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
@@ -23,13 +23,9 @@ interface Country {
             </p-listbox>
         </div>
         <app-code [code]="code" selector="listbox-template-demo"></app-code>
-    </section>`
+    `
 })
 export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries!: Country[];
 
     selectedCountry!: Country;
@@ -50,30 +46,47 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}">
-    <ng-template let-country pTemplate="item">
-        <div class="flex align-items-center gap-2">
-            <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
-            <div>{{ country.name }}</div>
-        </div>
-    </ng-template>
-</p-listbox>`,
-
-        html: `
-<div class="card flex justify-content-center">
-    <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{'max-height': '220px'}">
+        basic: `<p-listbox 
+    [options]="countries" 
+    [(ngModel)]="selectedCountry" 
+    optionLabel="name" 
+    [listStyle]="{ 'max-height': '250px' }" 
+    [style]="{ width: '15rem' }" 
+    [listStyle]="{'max-height': '220px'}">
         <ng-template let-country pTemplate="item">
             <div class="flex align-items-center gap-2">
-                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px"/>
+                <img 
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
+                    [class]="'flag flag-' + country.code.toLowerCase()" 
+                    style="width: 18px" />
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
+</p-listbox>`,
+
+        html: `<div class="card flex justify-content-center">
+    <p-listbox 
+        [options]="countries" 
+        [(ngModel)]="selectedCountry" 
+        optionLabel="name" 
+        [listStyle]="{ 'max-height': '250px' }"
+        [style]="{ width: '15rem' }" 
+        [listStyle]="{'max-height': '220px'}">
+            <ng-template let-country pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <img 
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + country.code.toLowerCase()" 
+                        style="width: 18px" />
+                    <div>{{ country.name }}</div>
+                </div>
+            </ng-template>
     </p-listbox>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 interface Country {
     name: string,
@@ -82,7 +95,9 @@ interface Country {
 
 @Component({
     selector: 'listbox-template-demo',
-    templateUrl: './listbox-template-demo.html'
+    templateUrl: './listbox-template-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxTemplateDemo implements OnInit {
     countries!: Country[];

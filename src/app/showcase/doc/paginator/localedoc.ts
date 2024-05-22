@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface PageEvent {
     first: number;
@@ -10,32 +10,28 @@ interface PageEvent {
 
 @Component({
     selector: 'locale-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-3 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
-                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-us">United States Locale</label>
-                <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
             </div>
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-indian">Persian Locale</label>
-                <p-paginator locale="fa-IR" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+                <p-paginator locale="fa-IR" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
             </div>
         </div>
         <app-code [code]="code" selector="paginator-locale-demo"></app-code>
-    </section>`
+    `
 })
 export class LocaleDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     first: number = 0;
 
     rows: number = 10;
@@ -46,32 +42,68 @@ export class LocaleDoc {
     }
 
     code: Code = {
-        basic: `
-<div class="flex-auto">
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        basic: `<div class="flex-auto">
+    <p-paginator 
+        (onPageChange)="onPageChange($event)" 
+        [first]="first" 
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
+
 <div class="flex-auto">
-    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    <p-paginator 
+        locale="en-US" 
+        (onPageChange)="onPageChange($event)" 
+        [first]="first"
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
+
 <div class="flex-auto">
-    <p-paginator locale="fa-IR" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    <p-paginator 
+        locale="fa-IR" 
+        (onPageChange)="onPageChange($event)" 
+        [first]="first" 
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 `,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        html: `<div class="card flex justify-content-center">
+    <p-paginator 
+        (onPageChange)="onPageChange($event)"
+        [first]="first" 
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
+
 <div class="card flex justify-content-center">
-    <p-paginator locale="en-US" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    <p-paginator 
+        locale="en-US" 
+        (onPageChange)="onPageChange($event)"
+        [first]="first"
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
+
 <div class="card flex justify-content-center">
-    <p-paginator locale="fa-IR" (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+    <p-paginator 
+        locale="fa-IR" 
+        (onPageChange)="onPageChange($event)" 
+        [first]="first"
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 `,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { PaginatorModule } from 'primeng/paginator';
 
 interface PageEvent {
     first: number;
@@ -82,7 +114,9 @@ interface PageEvent {
 
 @Component({
     selector: 'paginator-locale-demo',
-    templateUrl: './paginator-locale-demo.html'
+    templateUrl: './paginator-locale-demo.html',
+    standalone: true,
+    imports: [PaginatorModule]
 })
 export class PaginatorLocaleDemo {
     first: number = 0;

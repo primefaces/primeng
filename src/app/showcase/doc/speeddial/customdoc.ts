@@ -1,28 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'custom-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>SpeedDial sample with an outlined button, custom icons and <i>transitionDelay</i>.</p>
         </app-docsectiontext>
         <div class="card">
             <div style="height: 500px" class="flex justify-content-center">
-                <p-toast></p-toast>
-                <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial>
+                <p-toast />
+                <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
             </div>
         </div>
         <app-code [code]="code" selector="speed-dial-custom-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class CustomDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[] | undefined;
 
     constructor(private messageService: MessageService) {}
@@ -60,24 +56,37 @@ export class CustomDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial>`,
+        basic: `<p-speedDial 
+    [model]="items" 
+    direction="up" 
+    transitionDelay="80" 
+    showIcon="pi pi-bars" 
+    hideIcon="pi pi-times" 
+    buttonClassName="p-button-outlined" />`,
 
-        html: `
-<div class="card">
+        html: `<div class="card">
     <div style="height: 500px" class="flex justify-content-center">
-        <p-toast></p-toast>
-        <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined"></p-speedDial>
+        <p-toast />
+        <p-speedDial 
+            [model]="items" 
+            direction="up" 
+            transitionDelay="80" 
+            showIcon="pi pi-bars" 
+            hideIcon="pi pi-times" 
+            buttonClassName="p-button-outlined" />
     </div>
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'speed-dial-custom-demo',
     templateUrl: './speed-dial-custom-demo.html',
+    standalone: true,
+    imports: [SpeedDialModule, ToastModule],
     providers: [MessageService]
 })
 export class SpeedDialCustomDemo implements OnInit {

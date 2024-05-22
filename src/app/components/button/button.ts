@@ -1,10 +1,30 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, OnDestroy, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -41,7 +61,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * Text of the button.
      * @group Props
      */
-    @Input() get label(): string {
+    @Input() get label(): string | undefined {
         return this._label as string;
     }
     set label(val: string) {
@@ -83,6 +103,41 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
+    /**
+     * Defines the style of the button.
+     * @group Props
+     */
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    /**
+     * Add a shadow to indicate elevation.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
+    /**
+     * Add a circular border radius to the button.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
+    /**
+     * Add a textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) text: boolean = false;
+    /**
+     * Add a border class without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
+    /**
+     * Defines the size of the button.
+     * @group Props
+     */
+    @Input() size: 'small' | 'large' | undefined | null = null;
+    /**
+     * Add a plain textual class to the button without a background initially.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
 
     public _label: string | undefined;
 
@@ -142,6 +197,42 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             }
         }
 
+        if (this.text) {
+            styleClass.push('p-button-text');
+        }
+
+        if (this.severity) {
+            styleClass.push(`p-button-${this.severity}`);
+        }
+
+        if (this.plain) {
+            styleClass.push('p-button-plain');
+        }
+
+        if (this.raised) {
+            styleClass.push('p-button-raised');
+        }
+
+        if (this.size) {
+            styleClass.push(`p-button-${this.size}`);
+        }
+
+        if (this.outlined) {
+            styleClass.push('p-button-outlined');
+        }
+
+        if (this.rounded) {
+            styleClass.push('p-button-rounded');
+        }
+
+        if (this.size === 'small') {
+            styleClass.push('p-button-sm');
+        }
+
+        if (this.size === 'large') {
+            styleClass.push('p-button-lg');
+        }
+
         return styleClass;
     }
 
@@ -152,7 +243,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createLabel() {
-        if (this.label) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-label');
+        if (!created && this.label) {
             let labelElement = this.document.createElement('span');
             if (this.icon && !this.label) {
                 labelElement.setAttribute('aria-hidden', 'true');
@@ -166,7 +258,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     }
 
     createIcon() {
-        if (this.icon || this.loading) {
+        const created = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
+        if (!created && (this.icon || this.loading)) {
             let iconElement = this.document.createElement('span');
             iconElement.className = 'p-button-icon';
             iconElement.setAttribute('aria-hidden', 'true');
@@ -240,33 +333,31 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         <button
             [attr.type]="type"
             [attr.aria-label]="ariaLabel"
-            [class]="styleClass"
             [ngStyle]="style"
             [disabled]="disabled || loading"
-            [ngClass]="buttonClass()"
+            [ngClass]="buttonClass"
             (click)="onClick.emit($event)"
             (focus)="onFocus.emit($event)"
             (blur)="onBlur.emit($event)"
             pRipple
             [attr.data-pc-name]="'button'"
             [attr.data-pc-section]="'root'"
+            [attr.tabindex]="tabindex"
+            pAutoFocus
+            [autofocus]="autofocus"
         >
             <ng-content></ng-content>
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [class]="'p-button-loading-icon pi-spin ' + loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
+                    <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
                     <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
                 </ng-container>
-                <span *ngIf="loadingIconTemplate" class="p-button-loading-icon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'">
-                    <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
-                </span>
+                <ng-template [ngIf]="loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
                 <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                <span *ngIf="!icon && iconTemplate" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'">
-                    <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate"></ng-template>
-                </span>
+                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
             <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge" [attr.data-pc-section]="'badge'">{{ badge }}</span>
@@ -309,12 +400,12 @@ export class Button implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Whether the button is in loading state.
      * @group Props
      */
-    @Input() loading: boolean = false;
+    @Input({ transform: booleanAttribute }) loading: boolean = false;
     /**
      * Icon to display in loading state.
      * @group Props
@@ -324,37 +415,42 @@ export class Button implements AfterContentInit {
      * Add a shadow to indicate elevation.
      * @group Props
      */
-    @Input() raised: boolean = false;
+    @Input({ transform: booleanAttribute }) raised: boolean = false;
     /**
      * Add a circular border radius to the button.
      * @group Props
      */
-    @Input() rounded: boolean = false;
+    @Input({ transform: booleanAttribute }) rounded: boolean = false;
     /**
      * Add a textual class to the button without a background initially.
      * @group Props
      */
-    @Input() text: boolean = false;
+    @Input({ transform: booleanAttribute }) text: boolean = false;
     /**
      * Add a plain textual class to the button without a background initially.
      * @group Props
      */
-    @Input() plain: boolean = false;
+    @Input({ transform: booleanAttribute }) plain: boolean = false;
     /**
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'secondary' | 'success' | 'info' | 'warning' | 'help' | 'danger' | string | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a border class without a background initially.
      * @group Props
      */
-    @Input() outlined: boolean = false;
+    @Input({ transform: booleanAttribute }) outlined: boolean = false;
     /**
-     *  Add a link style to the button.
+     * Add a link style to the button.
      * @group Props
      */
-    @Input() link: boolean = false;
+    @Input({ transform: booleanAttribute }) link: boolean = false;
+    /**
+     * Add a tabindex to the button.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * Defines the size of the button.
      * @group Props
@@ -380,6 +476,11 @@ export class Button implements AfterContentInit {
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
@@ -410,6 +511,8 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
+    constructor(public el: ElementRef) {}
+
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
             .filter(([, value]) => !!value)
@@ -418,6 +521,7 @@ export class Button implements AfterContentInit {
 
     iconClass() {
         return {
+            [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
             'p-button-icon': true,
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
@@ -426,7 +530,7 @@ export class Button implements AfterContentInit {
         };
     }
 
-    buttonClass() {
+    get buttonClass() {
         return {
             'p-button p-component': true,
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
@@ -442,7 +546,8 @@ export class Button implements AfterContentInit {
             'p-button-outlined': this.outlined,
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
-            'p-button-plain': this.plain
+            'p-button-plain': this.plain,
+            [`${this.styleClass}`]: this.styleClass
         };
     }
 
@@ -477,7 +582,7 @@ export class Button implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, SpinnerIcon],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon],
     exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })

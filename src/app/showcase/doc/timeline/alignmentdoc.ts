@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface EventItem {
     status?: string;
@@ -11,8 +11,8 @@ interface EventItem {
 
 @Component({
     selector: 'alignment-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Content location relative the line is defined with the <i>align</i> property.</p>
         </app-docsectiontext>
         <div class="card flex flex-wrap gap-6">
@@ -35,13 +35,9 @@ interface EventItem {
             </p-timeline>
         </div>
         <app-code [code]="code" selector="timeline-alignment-demo"></app-code>
-    </section>`
+    `
 })
 export class AlignmentDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     events: EventItem[];
 
     constructor() {
@@ -54,8 +50,7 @@ export class AlignmentDoc {
     }
 
     code: Code = {
-        basic: `
-<p-timeline [value]="events" class="w-full md:w-20rem">
+        basic: `<p-timeline [value]="events" class="w-full md:w-20rem">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>
@@ -73,8 +68,7 @@ export class AlignmentDoc {
     </ng-template>
 </p-timeline>`,
 
-        html: `
-<div class="card flex flex-wrap gap-6">
+        html: `<div class="card flex flex-wrap gap-6">
     <p-timeline [value]="events" class="w-full md:w-20rem">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
@@ -92,8 +86,8 @@ export class AlignmentDoc {
     </p-timeline>
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { TimelineModule } from 'primeng/timeline';
 
 interface EventItem {
     status?: string;
@@ -105,7 +99,9 @@ interface EventItem {
 
 @Component({
     selector: 'timeline-alignment-demo',
-    templateUrl: './timeline-alignment-demo.html'
+    templateUrl: './timeline-alignment-demo.html',
+    standalone: true,
+    imports: [TimelineModule]
 })
 export class TimelineAlignmentDemo {
     events: EventItem[];

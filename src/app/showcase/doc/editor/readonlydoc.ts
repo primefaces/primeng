@@ -1,40 +1,37 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'editor-readonly-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>readonly</i> is present, the value cannot be edited.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>
+            <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
         </div>
         <app-code [code]="code" selector="editor-readonly-demo"></app-code>
-    </section>`
+    `
 })
 export class ReadOnlyDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     text: string = 'Always bet on Prime!';
 
     code: Code = {
-        basic: `
-<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>`,
+        basic: `<p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />`,
 
-        html: `
-<div class="card">
-    <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }"></p-editor>
+        html: `<div class="card">
+    <p-editor [(ngModel)]="text" [readonly]="true" [style]="{ height: '320px' }" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { EditorModule } from 'primeng/editor';
 
 @Component({
     selector: 'editor-readonly-demo',
-    templateUrl: './editor-readonly-demo.html'
+    templateUrl: './editor-readonly-demo.html',
+    standalone: true,
+    imports: [FormsModule, EditorModule]
 })
 export class EditorReadonlyDemo {
     text: string = 'Always bet on Prime!';

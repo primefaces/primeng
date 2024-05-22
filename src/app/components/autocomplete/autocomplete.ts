@@ -3,11 +3,13 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewChecked,
+    booleanAttribute,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     computed,
     ContentChildren,
+    effect,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -15,6 +17,7 @@ import {
     Input,
     NgModule,
     NgZone,
+    numberAttribute,
     OnDestroy,
     Output,
     QueryList,
@@ -25,7 +28,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -40,7 +43,7 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteOnSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -73,16 +76,16 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 role="combobox"
                 [attr.placeholder]="placeholder"
                 [attr.size]="size"
-                [maxlength]="maxlength"
+                [attr.maxlength]="maxlength"
                 [tabindex]="!disabled ? tabindex : -1"
                 [readonly]="readonly"
                 [disabled]="disabled"
                 [attr.aria-label]="ariaLabel"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-required]="required"
-                [attr.aria-expanded]="overlayVisible"
-                [attr.aria-controls]="id + '_list'"
-                [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 (input)="onInput($event)"
                 (keydown)="onKeyDown($event)"
                 (change)="onInputChange($event)"
@@ -101,7 +104,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <ul
                 *ngIf="multiple"
                 #multiContainer
-                [class]="multiContainerClass"
+                [ngClass]="multiContainerClass"
                 [tabindex]="-1"
                 role="listbox"
                 [attr.aria-orientation]="'horizontal'"
@@ -123,7 +126,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
                     <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ getOptionLabel(option) }}</span>
-                    <span class="p-autocomplete-token-icon" (click)="removeOption($event, i)">
+                    <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
                         <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" [attr.aria-hidden]="true" />
                         <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
@@ -144,19 +147,19 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                         [required]="required"
                         [attr.name]="name"
                         role="combobox"
-                        [attr.placeholder]="placeholder"
+                        [attr.placeholder]="!filled ? placeholder : null"
                         [attr.size]="size"
                         aria-autocomplete="list"
-                        [maxlength]="maxlength"
+                        [attr.maxlength]="maxlength"
                         [tabindex]="!disabled ? tabindex : -1"
                         [readonly]="readonly"
                         [disabled]="disabled"
                         [attr.aria-label]="ariaLabel"
                         [attr.aria-labelledby]="ariaLabelledBy"
                         [attr.aria-required]="required"
-                        [attr.aria-expanded]="overlayVisible"
-                        [attr.aria-controls]="id + '_list'"
-                        [attr.aria-aria-activedescendant]="focused ? focusedOptionId : undefined"
+                        [attr.aria-expanded]="overlayVisible ?? false"
+                        [attr.aria-controls]="overlayVisible ? id + '_list' : null"
+                        [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         (input)="onInput($event)"
                         (keydown)="onKeyDown($event)"
                         (change)="onInputChange($event)"
@@ -218,7 +221,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'">
+                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
                                     <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -255,12 +258,12 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                                 <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                             </li>
                         </ul>
-                        <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: items }"></ng-container>
-                        <span role="status" aria-live="polite" class="p-hidden-accessible">
-                            {{ selectedMessageText }}
-                        </span>
                     </ng-template>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
+                <span role="status" aria-live="polite" class="p-hidden-accessible">
+                    {{ selectedMessageText }}
+                </span>
             </p-overlay>
         </div>
     `,
@@ -280,12 +283,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Minimum number of characters to initiate a search.
      * @group Props
      */
-    @Input() minLength: number = 1;
+    @Input({ transform: numberAttribute }) minLength: number = 1;
     /**
      * Delay between keystrokes to wait before sending a query.
      * @group Props
      */
-    @Input() delay: number = 300;
+    @Input({ transform: numberAttribute }) delay: number = 300;
     /**
      * Inline style of the component.
      * @group Props
@@ -330,12 +333,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that the input cannot be typed.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * Maximum height of the suggestions panel.
      * @group Props
@@ -345,17 +348,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -365,7 +368,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Maximum number of character allows in the input field.
      * @group Props
      */
-    @Input() maxlength: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) maxlength: number | undefined;
     /**
      * Name of the input element.
      * @group Props
@@ -375,12 +378,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that an input field must be filled out before submitting the form.
      * @group Props
      */
-    @Input() required: boolean | undefined;
+    @Input({ transform: booleanAttribute }) required: boolean | undefined;
     /**
      * Size of the input field.
      * @group Props
      */
-    @Input() size: number | undefined;
+    @Input({ transform: numberAttribute }) size: number | undefined;
     /**
      * Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -390,12 +393,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When enabled, highlights the first item in the list by default.
      * @group Props
      */
-    @Input() autoHighlight: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoHighlight: boolean | undefined;
     /**
      * When present, autocomplete clears the manual input if it does not match of the suggestions to force only accepting values from the suggestions.
      * @group Props
      */
-    @Input() forceSelection: boolean | undefined;
+    @Input({ transform: booleanAttribute }) forceSelection: boolean | undefined;
     /**
      * Type of the input, defaults to "text".
      * @group Props
@@ -405,12 +408,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -435,22 +438,22 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Ensures uniqueness of selected items on multiple mode.
      * @group Props
      */
-    @Input() unique: boolean = true;
+    @Input({ transform: booleanAttribute }) unique: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined;
+    @Input({ transform: booleanAttribute }) group: boolean | undefined;
     /**
      * Whether to run a query when input receives focus.
      * @group Props
      */
-    @Input() completeOnFocus: boolean = false;
+    @Input({ transform: booleanAttribute }) completeOnFocus: boolean = false;
     /**
      * When enabled, a clear icon is displayed to clear the value.
      * @group Props
      */
-    @Input() showClear: boolean = false;
+    @Input({ transform: booleanAttribute }) showClear: boolean = false;
     /**
      * Field of a suggested object to resolve and display.
      * @group Props
@@ -461,12 +464,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Displays a button next to the input field when enabled.
      * @group Props
      */
-    @Input() dropdown: boolean | undefined;
+    @Input({ transform: booleanAttribute }) dropdown: boolean | undefined;
     /**
      * Whether to show the empty message or not.
      * @group Props
      */
-    @Input() showEmptyMessage: boolean | undefined;
+    @Input({ transform: booleanAttribute }) showEmptyMessage: boolean | undefined = true;
     /**
      * Specifies the behavior dropdown button. Default "blank" mode sends an empty string and "current" mode sends the input value.
      * @group Props
@@ -476,12 +479,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Specifies if multiple values can be selected.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -506,7 +509,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
-    @Input() autofocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -554,7 +557,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Property name or getter function to use as the label of an option.
      * @group Props
      */
-    @Input() optionLabel: string | undefined;
+    @Input() optionLabel: string | ((item: any) => string) | undefined;
+    /**
+     * Property name or getter function to use as the value of an option.
+     * @group Props
+     */
+    @Input() optionValue: string | ((item: any) => string) | undefined;
     /**
      * Unique identifier of the component.
      * @group Props
@@ -582,17 +590,17 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean | undefined = false;
     /**
      * When enabled, the focused option is selected.
      * @group Props
      */
-    @Input() selectOnFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean | undefined;
     /**
      * Locale to use in searching. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() searchLocale: boolean | undefined;
+    @Input({ transform: booleanAttribute }) searchLocale: boolean | undefined;
     /**
      * Property name or getter function to use as the disabled flag of an option, defaults to false when not defined.
      * @group Props
@@ -602,7 +610,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input() focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
+    /**
+     * Specifies the input variant of the component.
+     * @group Props
+     */
+    @Input() variant: 'filled' | 'outlined' = 'outlined';
     /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
@@ -611,10 +624,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     @Output() completeMethod: EventEmitter<AutoCompleteCompleteEvent> = new EventEmitter<AutoCompleteCompleteEvent>();
     /**
      * Callback to invoke when a suggestion is selected.
-     * @param {AutoCompleteOnSelectEvent} event - custom select event.
+     * @param {AutoCompleteSelectEvent} event - custom select event.
      * @group Emits
      */
-    @Output() onSelect: EventEmitter<AutoCompleteOnSelectEvent> = new EventEmitter<AutoCompleteOnSelectEvent>();
+    @Output() onSelect: EventEmitter<AutoCompleteSelectEvent> = new EventEmitter<AutoCompleteSelectEvent>();
     /**
      * Callback to invoke when a selected value is removed.
      * @param {AutoCompleteUnselectEvent} event - custom unselect event.
@@ -734,7 +747,14 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     focused: boolean = false;
 
-    filled: number | boolean | undefined;
+    _filled: boolean;
+
+    get filled() {
+        return this._filled;
+    }
+    set filled(value: any) {
+        this._filled = value;
+    }
 
     loading: Nullable<boolean>;
 
@@ -758,10 +778,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+
         if (modelValue) {
-            if (typeof modelValue === 'object') {
-                const label = this.getOptionLabel(modelValue);
+            if (typeof modelValue === 'object' || this.optionValueSelected) {
+                const label = this.getOptionLabel(selectedOption);
 
                 return label != null ? label : modelValue;
             } else {
@@ -787,20 +808,19 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             'p-focus': this.focused,
             'p-autocomplete-dd': this.dropdown,
             'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-filled': this.modelValue() || ObjectUtils.isNotEmpty(this.inputValue),
             'p-inputwrapper-focus': this.focused,
             'p-overlay-open': this.overlayVisible
         };
     }
 
     get multiContainerClass() {
-        return 'p-autocomplete-multiple-container p-component p-inputtext';
+        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
     }
 
     get panelClass() {
         return {
             'p-autocomplete-panel p-component': true,
-            'p-input-filled': this.config.inputStyle === 'filled',
+            'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
     }
@@ -808,7 +828,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     get inputClass() {
         return {
             'p-autocomplete-input p-inputtext p-component': !this.multiple,
-            'p-autocomplete-dd-input': this.dropdown
+            'p-autocomplete-dd-input': this.dropdown,
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
 
@@ -840,14 +861,27 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return this.visibleOptions().filter((option) => !this.isOptionGroup(option)).length;
     }
 
+    get listLabel(): string {
+        return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
+    }
+
     get virtualScrollerDisabled() {
         return !this.virtualScroll;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {}
+    get optionValueSelected() {
+        return typeof this.modelValue() === 'string' && this.optionValue;
+    }
+
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
+        effect(() => {
+            this.filled = ObjectUtils.isNotEmpty(this.modelValue());
+        });
+    }
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
+        this.cd.detectChanges();
     }
 
     ngAfterViewChecked() {
@@ -999,6 +1033,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isSelected(option) {
+        if (this.multiple) {
+            return this.unique ? this.modelValue()?.find((model) => ObjectUtils.equals(model, this.getOptionValue(option), this.equalityKey())) : false;
+        }
         return ObjectUtils.equals(this.modelValue(), this.getOptionValue(option), this.equalityKey());
     }
 
@@ -1007,8 +1044,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     isInputClicked(event) {
-        if (this.multiple) return event.target === this.multiContainerEL.nativeElement || this.multiContainerEL.nativeElement.contains(event.target);
-        else return event.target === this.inputEL.nativeElement;
+        return event.target === this.inputEL.nativeElement;
     }
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target) : false;
@@ -1049,8 +1085,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         }
 
         let query = event.target.value;
+        if (this.maxlength !== null) {
+            query = query.split('').slice(0, this.maxlength).join('');
+        }
 
-        if (!this.multiple) {
+        if (!this.multiple && !this.forceSelection) {
             this.updateModel(query);
         }
 
@@ -1354,6 +1393,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
             event.stopPropagation(); // To prevent onBackspaceKeyOnMultiple method
         }
+
+        if (!this.multiple && this.showClear && this.findSelectedOptionIndex() != -1) {
+            this.clear();
+        }
     }
 
     onArrowLeftKeyOnMultiple(event) {
@@ -1417,6 +1460,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     removeOption(event, index) {
+        event.stopPropagation();
+
         const removedOption = this.modelValue()[index];
         const value = this.modelValue()
             .filter((_, i) => i !== index)
@@ -1472,7 +1517,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.focusedOptionIndex.set(index);
             this.scrollInView();
 
-            if (this.selectOnFocus || this.autoHighlight) {
+            if (this.selectOnFocus) {
                 this.onOptionSelect(event, this.visibleOptions()[index], false);
             }
         }
@@ -1514,7 +1559,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     writeValue(value: any): void {
         this.value = value;
-        this.filled = this.value && this.value.length ? true : false;
         this.modelValue.set(value);
         this.updateInputValue();
         this.cd.markForCheck();
@@ -1540,7 +1584,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     getOptionValue(option) {
-        return option; // TODO: The 'optionValue' properties can be added.
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
     }
 
     getOptionIndex(index, scrollerOptions) {

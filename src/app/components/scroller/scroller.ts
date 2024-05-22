@@ -69,7 +69,7 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                             <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon'" [attr.data-pc-section]="'loadingIcon'" />
+                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -504,10 +504,6 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    get isPageChanged() {
-        return this._step ? this.page !== this.getPageByFirst() : true;
-    }
-
     constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
@@ -607,7 +603,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     viewInit() {
-        if (isPlatformBrowser(this.platformId)) {
+        if (isPlatformBrowser(this.platformId) && !this.initialized) {
             if (DomHandler.isVisible(this.elementViewChild?.nativeElement)) {
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
@@ -653,33 +649,50 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this.elementViewChild;
     }
 
-    getPageByFirst() {
-        return Math.floor((this.first + this.d_numToleratedItems * 4) / (this._step || 1));
+    getPageByFirst(first?: any) {
+        return Math.floor(((first ?? this.first) + this.d_numToleratedItems * 4) / (this._step || 1));
+    }
+
+    isPageChanged(first?: any) {
+        return this._step ? this.page !== this.getPageByFirst(first ?? this.first) : true;
     }
 
     scrollTo(options: ScrollToOptions) {
-        this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
+        // this.lastScrollPos = this.both ? { top: 0, left: 0 } : 0;
         this.elementViewChild?.nativeElement?.scrollTo(options);
     }
 
-    scrollToIndex(index: number, behavior: ScrollBehavior = 'auto') {
-        const { numToleratedItems } = this.calculateNumItems();
-        const contentPos = this.getContentPosition();
-        const calculateFirst = (_index = 0, _numT: number) => (_index <= _numT ? 0 : _index);
-        const calculateCoord = (_first: number, _size: number, _cpos: number) => _first * _size + _cpos;
-        const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
-        let newFirst: any = 0;
+    scrollToIndex(index: number | number[], behavior: ScrollBehavior = 'auto') {
+        const valid = this.both ? (index as number[]).every((i) => i > -1) : (index as number) > -1;
 
-        if (this.both) {
-            newFirst = { rows: calculateFirst((<any>index)[0], numToleratedItems[0]), cols: calculateFirst((<any>index)[1], numToleratedItems[1]) };
-            scrollTo(calculateCoord(newFirst.cols, (<number[]>this._itemSize)[1], contentPos.left), calculateCoord(newFirst.rows, (<number[]>this._itemSize)[0], contentPos.top));
-        } else {
-            newFirst = calculateFirst(index, numToleratedItems);
-            this.horizontal ? scrollTo(calculateCoord(newFirst, <number>this._itemSize, contentPos.left), 0) : scrollTo(0, calculateCoord(newFirst, <number>this._itemSize, contentPos.top));
+        if (valid) {
+            const first = this.first;
+            const { scrollTop = 0, scrollLeft = 0 } = this.elementViewChild?.nativeElement;
+            const { numToleratedItems } = this.calculateNumItems();
+            const contentPos = this.getContentPosition();
+            const itemSize = this.itemSize;
+            const calculateFirst = (_index = 0, _numT) => (_index <= _numT ? 0 : _index);
+            const calculateCoord = (_first, _size, _cpos) => _first * _size + _cpos;
+            const scrollTo = (left = 0, top = 0) => this.scrollTo({ left, top, behavior });
+            let newFirst = this.both ? { rows: 0, cols: 0 } : 0;
+            let isRangeChanged = false,
+                isScrollChanged = false;
+
+            if (this.both) {
+                newFirst = { rows: calculateFirst(index[0], numToleratedItems[0]), cols: calculateFirst(index[1], numToleratedItems[1]) };
+                scrollTo(calculateCoord(newFirst.cols, itemSize[1], contentPos.left), calculateCoord(newFirst.rows, itemSize[0], contentPos.top));
+                isScrollChanged = this.lastScrollPos.top !== scrollTop || this.lastScrollPos.left !== scrollLeft;
+                isRangeChanged = newFirst.rows !== first.rows || newFirst.cols !== first.cols;
+            } else {
+                newFirst = calculateFirst(index as number, numToleratedItems);
+                this.horizontal ? scrollTo(calculateCoord(newFirst, itemSize, contentPos.left), scrollTop) : scrollTo(scrollLeft, calculateCoord(newFirst, itemSize, contentPos.top));
+                isScrollChanged = this.lastScrollPos !== (this.horizontal ? scrollLeft : scrollTop);
+                isRangeChanged = newFirst !== first;
+            }
+
+            this.isRangeChanged = isRangeChanged;
+            isScrollChanged && (this.first = newFirst);
         }
-
-        this.isRangeChanged = this.first !== newFirst;
-        this.first = newFirst;
     }
 
     scrollInView(index: number, to: ScrollerToType, behavior: ScrollBehavior = 'auto') {
@@ -722,7 +735,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     getRenderedRange() {
-        const calculateFirstInViewport = (_pos: number, _size: number) => Math.floor(_pos / (_size || _pos));
+        const calculateFirstInViewport = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
 
         let firstInViewport = this.first;
         let lastInViewport: any = 0;
@@ -754,7 +767,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const contentPos = this.getContentPosition();
         const contentWidth = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetWidth - contentPos.left : 0) || 0;
         const contentHeight = (this.elementViewChild?.nativeElement ? this.elementViewChild.nativeElement.offsetHeight - contentPos.top : 0) || 0;
-        const calculateNumItemsInViewport = (_contentSize: number, _itemSize: number) => Math.ceil(_contentSize / (_itemSize || _contentSize));
+        const calculateNumItemsInViewport = (_contentSize: number, _itemSize: number) => (_itemSize || _contentSize ? Math.ceil(_contentSize / (_itemSize || _contentSize)) : 0);
         const calculateNumToleratedItems = (_numItems: number) => Math.ceil(_numItems / 2);
         const numItemsInViewport: any = this.both
             ? { rows: calculateNumItemsInViewport(contentHeight, (<number[]>this._itemSize)[0]), cols: calculateNumItemsInViewport(contentWidth, (<number[]>this._itemSize)[1]) }
@@ -884,7 +897,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         const target = event.target;
         const contentPos = this.getContentPosition();
         const calculateScrollPos = (_pos: number, _cpos: number) => (_pos ? (_pos > _cpos ? _pos - _cpos : _pos) : 0);
-        const calculateCurrentIndex = (_pos: number, _size: number) => Math.floor(_pos / (_size || _pos));
+        const calculateCurrentIndex = (_pos: number, _size: number) => (_size || _pos ? Math.floor(_pos / (_size || _pos)) : 0);
         const calculateTriggerIndex = (_currentIndex: number, _first: number, _last: number, _num: number, _numT: number, _isScrollDownOrRight: any) => {
             return _currentIndex <= _numT ? _numT : _isScrollDownOrRight ? _last - _num - _numT : _first + _numT - 1;
         };
@@ -970,10 +983,10 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
             this.handleEvents('onScrollIndexChange', newState);
 
-            if (this._lazy && this.isPageChanged) {
+            if (this._lazy && this.isPageChanged(first)) {
                 const lazyLoadState = {
-                    first: this._step ? Math.min(this.getPageByFirst() * this._step, (<any[]>this.items).length - this._step) : first,
-                    last: Math.min(this._step ? (this.getPageByFirst() + 1) * this._step : last, (<any[]>this.items).length)
+                    first: this._step ? Math.min(this.getPageByFirst(first) * this._step, (<any[]>this.items).length - this._step) : first,
+                    last: Math.min(this._step ? (this.getPageByFirst(first) + 1) * this._step : last, (<any[]>this.items).length)
                 };
                 const isLazyStateChanged = this.lazyLoadState.first !== lazyLoadState.first || this.lazyLoadState.last !== lazyLoadState.last;
 
@@ -986,14 +999,14 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     onContainerScroll(event: Event) {
         this.handleEvents('onScroll', { originalEvent: event });
 
-        if (this._delay && this.isPageChanged) {
+        if (this._delay && this.isPageChanged()) {
             if (this.scrollTimeout) {
                 clearTimeout(this.scrollTimeout);
             }
 
             if (!this.d_loading && this.showLoader) {
                 const { isRangeChanged } = this.onScrollPositionChange(event);
-                const changed = isRangeChanged || (this._step ? this.isPageChanged : false);
+                const changed = isRangeChanged || (this._step ? this.isPageChanged() : false);
 
                 if (changed) {
                     this.d_loading = true;

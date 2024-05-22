@@ -1,31 +1,39 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
-import { Code } from '../../domain/code';
-
+import { Component, Inject, OnInit, PLATFORM_ID, ChangeDetectorRef } from '@angular/core';
+import { Code } from '@domain/code';
+import { Subscription, debounceTime } from 'rxjs';
+import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'chart-stacked-bar-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+            <p-chart type="bar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-stacked-bar-demo"></app-code>
-    </section>`
+    `
 })
 export class StackedBarDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     data: any;
 
     options: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    subscription!: Subscription;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
+        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
+            this.initChart();
+            this.cd.markForCheck();
+        });
+    }
 
     ngOnInit() {
+        this.initChart();
+    }
+
+    initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
             const textColor = documentStyle.getPropertyValue('--text-color');
@@ -60,7 +68,7 @@ export class StackedBarDoc implements OnInit {
                 maintainAspectRatio: false,
                 aspectRatio: 0.8,
                 plugins: {
-                    tooltips: {
+                    tooltip: {
                         mode: 'index',
                         intersect: false
                     },
@@ -97,18 +105,18 @@ export class StackedBarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-chart type="bar" [data]="data" [options]="options"></p-chart>`,
-        html: `
-<div class="card">
-    <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+        basic: `<p-chart type="bar" [data]="data" [options]="options" />`,
+        html: `<div class="card">
+    <p-chart type="bar" [data]="data" [options]="options" />
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { ChartModule } from 'primeng/chart';
 
 @Component({
     selector: 'chart-stacked-bar-demo',
-    templateUrl: './chart-stacked-bar-demo.html'
+    templateUrl: './chart-stacked-bar-demo.html',
+    standalone: true,
+    imports: [ChartModule]
 })
 export class ChartStackedBarDemo implements OnInit {
     data: any;
@@ -149,7 +157,7 @@ export class ChartStackedBarDemo implements OnInit {
             maintainAspectRatio: false,
             aspectRatio: 0.8,
             plugins: {
-                tooltips: {
+                tooltip: {
                     mode: 'index',
                     intersect: false
                 },

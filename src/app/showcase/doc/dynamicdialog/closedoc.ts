@@ -1,28 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({
     selector: 'close-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Most of the time, requirement is returning a value from the dialog. DialogRef's close method is used for this purpose where the parameter passed will be available at the <i>onClose</i> event at the caller. Here is an example on how to
                 close the dialog from the ProductListDemo by passing a selected product.
             </p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-    </section>`,
+    `,
     providers: [DialogService, MessageService]
 })
 export class CloseDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;
@@ -48,7 +44,7 @@ export class CloseDoc {
 import { Component, Input } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { Product } from '../../domain/product';
+import { Product } from '@domain/product';
 import { ProductListDemo } from './productlistdemo';
 
 @Component({

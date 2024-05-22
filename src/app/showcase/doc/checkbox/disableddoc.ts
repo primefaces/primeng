@@ -1,40 +1,41 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'checkbox-disabled-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-checkbox [disabled]="true" [(ngModel)]="checked"></p-checkbox>
+            <p-checkbox [disabled]="true" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="checkbox-disabled-demo"></app-code>
-    </section>`
+    `
 })
 export class DisabledDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-checkbox [disabled]="true" [(ngModel)]="checked"></p-checkbox>`,
+        basic: `<p-checkbox 
+    [disabled]="true" 
+    [(ngModel)]="checked" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-checkbox [disabled]="true" [(ngModel)]="checked"></p-checkbox>
+        html: `<div class="card flex justify-content-center">
+    <p-checkbox 
+        [disabled]="true" 
+        [(ngModel)]="checked" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
     selector: 'checkbox-disabled-demo',
-    templateUrl: './checkbox-disabled-demo.html'
+    templateUrl: './checkbox-disabled-demo.html',
+    standalone: true,
+    imports: [FormsModule, CheckboxModule]
 })
 export class CheckboxDisabledDemo {
     checked: boolean = false;

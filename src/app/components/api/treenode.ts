@@ -3,6 +3,7 @@
  * @group Interface
  */
 export interface TreeNode<T = any> {
+    checked?: boolean;
     /**
      * Label of the node.
      */
@@ -74,4 +75,8 @@ export interface TreeNode<T = any> {
      * Mandatory unique key of the node.
      */
     key?: string;
+    /**
+     * Mandatory unique key of the node.
+     */
+    loading?: boolean;
 }

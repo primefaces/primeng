@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewChildren,
     ViewEncapsulation,
+    booleanAttribute,
     signal
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -150,16 +151,24 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
      * Defines the default active menuitem
      * @group Props
      */
-    @Input() activeItem: MenuItem | undefined;
+    @Input() set activeItem(value: MenuItem | undefined) {
+        this._activeItem = value;
+        this.activeItemChange.emit(value);
+        this.tabChanged = true;
+    }
+
+    get activeItem(): MenuItem | undefined {
+        return this._activeItem;
+    }
     /**
      * When enabled displays buttons at each side of the tab headers to scroll the tab list.
      * @group Props
      */
-    @Input() scrollable: boolean | undefined;
+    @Input({ transform: booleanAttribute }) scrollable: boolean | undefined;
     /**
      * Defines if popup mode enabled.
      */
-    @Input() popup: boolean | undefined;
+    @Input({ transform: booleanAttribute }) popup: boolean | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -221,6 +230,8 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     _model: MenuItem[] | undefined;
 
+    _activeItem: MenuItem | undefined;
+
     focusedItemInfo = signal<any>(null);
 
     get focusableItems() {
@@ -267,7 +278,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     }
 
     ngAfterViewChecked() {
-        if (this.tabChanged) {
+        if (isPlatformBrowser(this.platformId)) {
             this.updateInkBar();
             this.tabChanged = false;
         }

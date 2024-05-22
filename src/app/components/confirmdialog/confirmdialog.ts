@@ -21,7 +21,9 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { ConfirmEventType, Confirmation, ConfirmationService, Footer, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -53,74 +55,79 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 (@animation.done)="onAnimationEnd($event)"
                 role="alertdialog"
                 *ngIf="visible"
-                [attr.aria-labelledby]="getAriaLabelledBy()"
+                [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
-                <div class="p-dialog-header" *ngIf="headerTemplate">
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                </div>
-                <div class="p-dialog-header" *ngIf="!headerTemplate">
-                    <span class="p-dialog-title" [id]="getAriaLabelledBy()" *ngIf="option('header')">{{ option('header') }}</span>
-                    <div class="p-dialog-header-icons">
-                        <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
-                            <TimesIcon />
+                <ng-container *ngIf="headlessTemplate; else notHeadless">
+                    <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: confirmation }"></ng-container>
+                </ng-container>
+                <ng-template #notHeadless>
+                    <div class="p-dialog-header" *ngIf="headerTemplate">
+                        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    </div>
+                    <div class="p-dialog-header" *ngIf="!headerTemplate">
+                        <span class="p-dialog-title" [id]="ariaLabelledBy" *ngIf="option('header')">{{ option('header') }}</span>
+                        <div class="p-dialog-header-icons">
+                            <button *ngIf="closable" type="button" role="button" [attr.aria-label]="closeAriaLabel" [ngClass]="{ 'p-dialog-header-icon p-dialog-header-close p-link': true }" (click)="close($event)" (keydown.enter)="close($event)">
+                                <TimesIcon />
+                            </button>
+                        </div>
+                    </div>
+                    <div #content class="p-dialog-content">
+                        <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="!iconTemplate && option('icon')"></i>
+                        <ng-container *ngIf="iconTemplate">
+                            <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
+                        </ng-container>
+                        <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
+                        <ng-container *ngIf="messageTemplate">
+                            <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
+                        </ng-container>
+                    </div>
+                    <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
+                        <ng-content select="p-footer"></ng-content>
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                    <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
+                        <button
+                            type="button"
+                            pRipple
+                            pButton
+                            [label]="rejectButtonLabel"
+                            (click)="reject()"
+                            [ngClass]="'p-confirm-dialog-reject'"
+                            [class]="option('rejectButtonStyleClass')"
+                            *ngIf="option('rejectVisible')"
+                            [attr.aria-label]="rejectAriaLabel"
+                        >
+                            <ng-container *ngIf="!rejectIconTemplate">
+                                <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
+                                <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'" />
+                            </ng-container>
+                            <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
+                            </span>
+                        </button>
+                        <button
+                            type="button"
+                            pRipple
+                            pButton
+                            [label]="acceptButtonLabel"
+                            (click)="accept()"
+                            [ngClass]="'p-confirm-dialog-accept'"
+                            [class]="option('acceptButtonStyleClass')"
+                            *ngIf="option('acceptVisible')"
+                            [attr.aria-label]="acceptAriaLabel"
+                        >
+                            <ng-container *ngIf="!acceptIconTemplate">
+                                <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
+                                <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'" />
+                            </ng-container>
+                            <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
+                                <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
+                            </span>
                         </button>
                     </div>
-                </div>
-                <div #content class="p-dialog-content">
-                    <i [ngClass]="'p-confirm-dialog-icon'" [class]="option('icon')" *ngIf="!iconTemplate && option('icon')"></i>
-                    <ng-container *ngIf="iconTemplate">
-                        <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    </ng-container>
-                    <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
-                    <ng-container *ngIf="messageTemplate">
-                        <ng-template *ngTemplateOutlet="messageTemplate"></ng-template>
-                    </ng-container>
-                </div>
-                <div class="p-dialog-footer" *ngIf="footer || footerTemplate">
-                    <ng-content select="p-footer"></ng-content>
-                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-                </div>
-                <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
-                    <button
-                        type="button"
-                        pRipple
-                        pButton
-                        [label]="rejectButtonLabel"
-                        (click)="reject()"
-                        [ngClass]="'p-confirm-dialog-reject'"
-                        [class]="option('rejectButtonStyleClass')"
-                        *ngIf="option('rejectVisible')"
-                        [attr.aria-label]="rejectAriaLabel"
-                    >
-                        <ng-container *ngIf="!rejectIconTemplate">
-                            <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                            <TimesIcon *ngIf="!option('rejectIcon')" [styleClass]="'p-button-icon-left'" />
-                        </ng-container>
-                        <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
-                        </span>
-                    </button>
-                    <button
-                        type="button"
-                        pRipple
-                        pButton
-                        [label]="acceptButtonLabel"
-                        (click)="accept()"
-                        [ngClass]="'p-confirm-dialog-accept'"
-                        [class]="option('acceptButtonStyleClass')"
-                        *ngIf="option('acceptVisible')"
-                        [attr.aria-label]="acceptAriaLabel"
-                    >
-                        <ng-container *ngIf="!acceptIconTemplate">
-                            <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                            <CheckIcon *ngIf="!option('acceptIcon')" [styleClass]="'p-button-icon-left'" />
-                        </ng-container>
-                        <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
-                            <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
-                        </span>
-                    </button>
-                </div>
+                </ng-template>
             </div>
         </div>
     `,
@@ -193,7 +200,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Visibility of the accept button.
      * @group Props
      */
-    @Input() acceptVisible: boolean = true;
+    @Input({ transform: booleanAttribute }) acceptVisible: boolean = true;
     /**
      * Icon of the reject button.
      * @group Props
@@ -213,7 +220,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Visibility of the reject button.
      * @group Props
      */
-    @Input() rejectVisible: boolean = true;
+    @Input({ transform: booleanAttribute }) rejectVisible: boolean = true;
     /**
      * Style class of the accept button.
      * @group Props
@@ -228,27 +235,27 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Specifies if pressing escape key should hide the dialog.
      * @group Props
      */
-    @Input() closeOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
     /**
      * Specifies if clicking the modal background should hide the dialog.
      * @group Props
      */
-    @Input() dismissableMask: boolean | undefined;
+    @Input({ transform: booleanAttribute }) dismissableMask: boolean | undefined;
     /**
      * Determines whether scrolling behavior should be blocked within the component.
      * @group Props
      */
-    @Input() blockScroll: boolean = true;
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = true;
     /**
      * When enabled dialog is displayed in RTL direction.
      * @group Props
      */
-    @Input() rtl: boolean = false;
+    @Input({ transform: booleanAttribute }) rtl: boolean = false;
     /**
      * Adds a close icon to the header to hide the dialog.
      * @group Props
      */
-    @Input() closable: boolean = true;
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -263,12 +270,12 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Transition options of the animation.
      * @group Props
@@ -278,7 +285,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
      * When enabled, can only focus on elements inside the confirm dialog.
      * @group Props
      */
-    @Input() focusTrap: boolean = true;
+    @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
     /**
      * Element to receive the focus when the dialog gets visible.
      * @group Props
@@ -377,6 +384,10 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 case 'accepticon':
                     this.acceptIconTemplate = item.template;
                     break;
+
+                case 'headless':
+                    this.headlessTemplate = item.template;
+                    break;
             }
         });
     }
@@ -392,6 +403,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     messageTemplate: Nullable<TemplateRef<any>>;
 
     iconTemplate: Nullable<TemplateRef<any>>;
+
+    headlessTemplate: Nullable<TemplateRef<any>>;
 
     confirmation: Nullable<Confirmation>;
 
@@ -422,6 +435,8 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     styleElement: any;
 
     id = UniqueComponentId();
+
+    ariaLabelledBy: string = this.getAriaLabelledBy();
 
     confirmationOptions: Nullable<Confirmation>;
 
@@ -601,6 +616,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             this.styleElement.innerHTML = innerHTML;
+            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

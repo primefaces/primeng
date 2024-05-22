@@ -17,7 +17,9 @@ import {
     QueryList,
     Renderer2,
     TemplateRef,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -56,35 +58,41 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             role="complementary"
             [attr.data-pc-name]="'sidebar'"
             [attr.data-pc-section]="'root'"
-            [attr.aria-modal]="modal"
             (keydown)="onKeyDown($event)"
         >
-            <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
-                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <button
-                    type="button"
-                    class="p-sidebar-close p-sidebar-icon p-link"
-                    (click)="close($event)"
-                    (keydown.enter)="close($event)"
-                    [attr.aria-label]="ariaCloseLabel"
-                    *ngIf="showCloseIcon"
-                    pRipple
-                    [attr.data-pc-section]="'closebutton'"
-                    [attr.data-pc-group-section]="'iconcontainer'"
-                >
-                    <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                    <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
-                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                    </span>
-                </button>
-            </div>
-            <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
-                <ng-content></ng-content>
-                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-            </div>
-            <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-            </div>
+            <ng-container *ngIf="headlessTemplate; else notHeadless">
+                <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
+            </ng-container>
+            <ng-template #notHeadless>
+                <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
+                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                    <button
+                        type="button"
+                        class="p-sidebar-close p-sidebar-icon p-link"
+                        (click)="close($event)"
+                        (keydown.enter)="close($event)"
+                        [attr.aria-label]="ariaCloseLabel"
+                        *ngIf="showCloseIcon"
+                        pRipple
+                        [attr.data-pc-section]="'closebutton'"
+                        [attr.data-pc-group-section]="'iconcontainer'"
+                    >
+                        <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
+                        <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                            <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                        </span>
+                    </button>
+                </div>
+                <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
+                <ng-container *ngIf="footerTemplate">
+                    <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
+                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                    </div>
+                </ng-container>
+            </ng-template>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
@@ -105,7 +113,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Whether to block scrolling of the document when sidebar is active.
      * @group Props
      */
-    @Input() blockScroll: boolean = false;
+    @Input({ transform: booleanAttribute }) blockScroll: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
@@ -125,32 +133,32 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      * Whether to automatically manage layering.
      * @group Props
      */
-    @Input() autoZIndex: boolean = true;
+    @Input({ transform: booleanAttribute }) autoZIndex: boolean = true;
     /**
      * Base zIndex value to use in layering.
      * @group Props
      */
-    @Input() baseZIndex: number = 0;
+    @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
      * Whether an overlay mask is displayed behind the sidebar.
      * @group Props
      */
-    @Input() modal: boolean = true;
+    @Input({ transform: booleanAttribute }) modal: boolean = true;
     /**
      * Whether to dismiss sidebar on click of the mask.
      * @group Props
      */
-    @Input() dismissible: boolean = true;
+    @Input({ transform: booleanAttribute }) dismissible: boolean = true;
     /**
      * Whether to display the close icon.
      * @group Props
      */
-    @Input() showCloseIcon: boolean = true;
+    @Input({ transform: booleanAttribute }) showCloseIcon: boolean = true;
     /**
      * Specifies if pressing escape key should hide the sidebar.
      * @group Props
      */
-    @Input() closeOnEscape: boolean = true;
+    @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
     /**
      * Transition options of the animation.
      * @group Props
@@ -250,6 +258,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     closeIconTemplate: Nullable<TemplateRef<any>>;
 
+    headlessTemplate: Nullable<TemplateRef<any>>;
+
     constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
@@ -270,6 +280,9 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
                     break;
                 case 'closeicon':
                     this.closeIconTemplate = item.template;
+                    break;
+                case 'headless':
+                    this.headlessTemplate = item.template;
                     break;
 
                 default:
@@ -309,7 +322,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     close(event: Event) {
-        this.hide(false);
+        this.hide();
         this.visibleChange.emit(false);
         event.preventDefault();
     }
@@ -374,8 +387,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     onAnimationEnd(event: any) {
         switch (event.toState) {
             case 'void':
-                this.hide();
-
+                this.hide(false);
                 ZIndexUtils.clear(this.container);
                 this.unbindGlobalListeners();
                 break;

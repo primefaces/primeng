@@ -19,7 +19,9 @@ import {
     OnDestroy,
     computed,
     signal,
-    Renderer2
+    Renderer2,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig, ScrollerOptions } from 'primeng/api';
@@ -177,7 +179,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     [attr.aria-selected]="isSelected(option)"
                                     [attr.aria-disabled]="isOptionDisabled(option)"
                                     [attr.aria-setsize]="ariaSetSize"
-                                    [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
+                                    [attr.ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                     (click)="onOptionSelect($event, option, getOptionIndex(i, scrollerOptions))"
                                     (dblclick)="onOptionDoubleClick($event, option)"
                                     (mousedown)="onOptionMouseDown($event, getOptionIndex(i, scrollerOptions))"
@@ -207,7 +209,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         </li>
                         <li *ngIf="!hasFilter() && isEmpty()" class="p-listbox-empty-message" role="option">
                             <ng-container *ngIf="!emptyTemplate; else empty">
-                                {{ emptyMessageText }}
+                                {{ emptyMessage }}
                             </ng-container>
                             <ng-container #empty *ngTemplateOutlet="emptyTemplate"></ng-container>
                         </li>
@@ -219,7 +221,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
             </div>
             <span *ngIf="isEmpty()" role="status" aria-live="polite" class="p-hidden-accessible">
-                {{ emptyMessageText }}
+                {{ emptyMessage }}
             </span>
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
@@ -272,22 +274,27 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether to focus on the first visible or selected element when the overlay panel is shown.
      * @group Props
      */
-    @Input() autoOptionFocus: boolean | undefined = true;
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean | undefined = true;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
     /**
      * When enabled, the focused option is selected.
      * @group Props
      */
-    @Input() selectOnFocus: boolean | undefined;
+    @Input({ transform: booleanAttribute }) selectOnFocus: boolean | undefined;
     /**
      * Locale to use in searching. The default locale is the host environment's current locale.
      * @group Props
      */
-    @Input() searchLocale: boolean | undefined;
+    @Input({ transform: booleanAttribute }) searchLocale: boolean | undefined;
     /**
      * When enabled, the hovered option will be focused.
      * @group Props
      */
-    @Input() focusOnHover: boolean | undefined;
+    @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
      * Text to display when filtering.
      * @group Props
@@ -302,17 +309,17 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
-    @Input() lazy: boolean = false;
+    @Input({ transform: booleanAttribute }) lazy: boolean = false;
     /**
      * Whether the data should be loaded on demand during scroll.
      * @group Props
      */
-    @Input() virtualScroll: boolean | undefined;
+    @Input({ transform: booleanAttribute }) virtualScroll: boolean | undefined;
     /**
      * Height of an item in the list for VirtualScrolling.
      * @group Props
      */
-    @Input() virtualScrollItemSize: number | undefined;
+    @Input({ transform: numberAttribute }) virtualScrollItemSize: number | undefined;
     /**
      * Whether to use the scroller feature. The properties of scroller component can be used like an object in it.
      * @group Props
@@ -327,12 +334,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * When specified, allows selecting multiple values.
      * @group Props
      */
-    @Input() multiple: boolean | undefined;
+    @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
     /**
      * Inline style of the container.
      * @group Props
@@ -357,22 +364,22 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * When present, it specifies that the element value cannot be changed.
      * @group Props
      */
-    @Input() readonly: boolean | undefined;
+    @Input({ transform: booleanAttribute }) readonly: boolean | undefined;
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean | undefined;
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
     /**
      * When specified, allows selecting items with checkboxes.
      * @group Props
      */
-    @Input() checkbox: boolean = false;
+    @Input({ transform: booleanAttribute }) checkbox: boolean = false;
     /**
      * When specified, displays a filter input at header.
      * @group Props
      */
-    @Input() filter: boolean = false;
+    @Input({ transform: booleanAttribute }) filter: boolean = false;
     /**
      * When filtering is enabled, filterBy decides which field or fields (comma separated) to search against.
      * @group Props
@@ -392,7 +399,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = false;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * A property to uniquely identify a value in options.
      * @group Props
@@ -402,7 +409,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether header checkbox is shown in multiple mode.
      * @group Props
      */
-    @Input() showToggleAll: boolean = true;
+    @Input({ transform: booleanAttribute }) showToggleAll: boolean = true;
     /**
      * Name of the label field of an option.
      * @group Props
@@ -452,7 +459,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * Whether to display options as grouped when nested options are provided.
      * @group Props
      */
-    @Input() group: boolean | undefined;
+    @Input({ transform: booleanAttribute }) group: boolean | undefined;
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -589,7 +596,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     get containerClass() {
         return {
             'p-listbox p-component': true,
-            'p-focus': this.focused,
             'p-disabled': this.disabled
         };
     }
@@ -780,7 +786,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     onOptionSelect(event, option, index = -1) {
-        if (this.disabled || this.isOptionDisabled(option)) {
+        if (this.disabled || this.isOptionDisabled(option) || this.readonly) {
             return;
         }
 
@@ -1037,6 +1043,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
             case 'Enter':
             case 'Space':
+            case 'NumpadEnter':
                 this.onSpaceKey(event);
                 break;
 
@@ -1411,7 +1418,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options()?.length || !this.visibleOptions()?.length;
     }
 
     hasFilter() {

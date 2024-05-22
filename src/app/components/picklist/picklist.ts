@@ -18,7 +18,9 @@ import {
     Renderer2,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -112,7 +114,7 @@ import {
                 </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-source-wrapper" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
-                <div class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate" [attr.data-pc-section]="'sourceHeader'" [attr.data-pc-group-section]="'header'">
+                <div [id]="idSource + '_header'" class="p-picklist-header" *ngIf="sourceHeader || sourceHeaderTemplate" [attr.data-pc-section]="'sourceHeader'" [attr.data-pc-group-section]="'header'">
                     <div class="p-picklist-title" *ngIf="!sourceHeaderTemplate">{{ sourceHeader }}</div>
                     <ng-container *ngTemplateOutlet="sourceHeaderTemplate"></ng-container>
                 </div>
@@ -145,6 +147,7 @@ import {
                     #sourcelist
                     class="p-picklist-list p-picklist-source"
                     [id]="idSource + '_list'"
+                    [attr.aria-labelledby]="idSource + '_header'"
                     (keydown)="onItemKeyDown($event, selectedItemsSource, onSourceSelect, SOURCE_LIST)"
                     (focus)="onListFocus($event, SOURCE_LIST)"
                     (blur)="onListBlur($event, SOURCE_LIST)"
@@ -168,7 +171,7 @@ import {
                             [ngClass]="itemClass(item, idSource + '_' + i, selectedItemsSource)"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsSource, onSourceSelect, idSource + '_' + i)"
+                            (click)="onItemClick($event, item, selectedItemsSource, SOURCE_LIST, onSourceSelect, idSource + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, SOURCE_LIST)"
                             (dblclick)="onSourceItemDblClick()"
                             (touchend)="onItemTouchEnd()"
@@ -221,7 +224,7 @@ import {
                 </button>
             </div>
             <div class="p-picklist-list-wrapper p-picklist-target-wrapper" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
-                <div class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate" [attr.data-pc-section]="'targetHead'" [attr.data-pc-group-section]="'header'">
+                <div [id]="idTarget + '_header'" class="p-picklist-header" *ngIf="targetHeader || targetHeaderTemplate" [attr.data-pc-section]="'targetHead'" [attr.data-pc-group-section]="'header'">
                     <div class="p-picklist-title" *ngIf="!targetHeaderTemplate">{{ targetHeader }}</div>
                     <ng-container *ngTemplateOutlet="targetHeaderTemplate"></ng-container>
                 </div>
@@ -253,6 +256,7 @@ import {
                     #targetlist
                     class="p-picklist-list p-picklist-target"
                     [id]="idTarget + '_list'"
+                    [attr.aria-labelledby]="idTarget + '_header'"
                     (keydown)="onItemKeyDown($event, selectedItemsTarget, onTargetSelect, TARGET_LIST)"
                     (focus)="onListFocus($event, TARGET_LIST)"
                     (blur)="onListBlur($event, TARGET_LIST)"
@@ -276,7 +280,7 @@ import {
                             [ngClass]="itemClass(item, idTarget + '_' + i, selectedItemsTarget)"
                             [cdkDragData]="item"
                             [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, selectedItemsTarget, onTargetSelect, idTarget + '_' + i)"
+                            (click)="onItemClick($event, item, selectedItemsTarget, TARGET_LIST, onTargetSelect, idTarget + '_' + i)"
                             (mousedown)="onOptionMouseDown(i, TARGET_LIST)"
                             (dblclick)="onTargetItemDblClick()"
                             (touchend)="onItemTouchEnd()"
@@ -381,7 +385,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
     /**
      * Defines a string that labels the move to right button for accessibility.
      * @group Props
@@ -431,7 +435,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * When enabled orderlist adjusts its controls based on screen size.
      * @group Props
      */
-    @Input() responsive: boolean | undefined;
+    @Input({ transform: booleanAttribute }) responsive: boolean | undefined;
     /**
      * When specified displays an input field to filter the items on keyup and decides which field to search (Accepts multiple fields with a comma).
      * @group Props
@@ -461,22 +465,22 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to show filter input for source list when filterBy is enabled.
      * @group Props
      */
-    @Input() showSourceFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) showSourceFilter: boolean = true;
     /**
      * Whether to show filter input for target list when filterBy is enabled.
      * @group Props
      */
-    @Input() showTargetFilter: boolean = true;
+    @Input({ transform: booleanAttribute }) showTargetFilter: boolean = true;
     /**
      * Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean = true;
+    @Input({ transform: booleanAttribute }) metaKeySelection: boolean = false;
     /**
      * Whether to enable dragdrop based reordering.
      * @group Props
      */
-    @Input() dragdrop: boolean = false;
+    @Input({ transform: booleanAttribute }) dragdrop: boolean = false;
     /**
      * Inline style of the component.
      * @group Props
@@ -501,12 +505,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to show buttons of source list.
      * @group Props
      */
-    @Input() showSourceControls: boolean = true;
+    @Input({ transform: booleanAttribute }) showSourceControls: boolean = true;
     /**
      * Whether to show buttons of target list.
      * @group Props
      */
-    @Input() showTargetControls: boolean = true;
+    @Input({ transform: booleanAttribute }) showTargetControls: boolean = true;
     /**
      * Placeholder text on source filter input.
      * @group Props
@@ -521,7 +525,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-    @Input() disabled: boolean = false;
+    @Input({ transform: booleanAttribute }) disabled: boolean = false;
     /**
      * Defines a string that labels the filter input of source list.
      * @group Props
@@ -541,12 +545,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
      * Whether to displays rows with alternating colors.
      * @group Props
      */
-    @Input() stripedRows: boolean | undefined;
+    @Input({ transform: booleanAttribute }) stripedRows: boolean | undefined;
     /**
      * Keeps selection on the transfer list.
      * @group Props
      */
-    @Input() keepSelection: boolean = false;
+    @Input({ transform: booleanAttribute }) keepSelection: boolean = false;
     /**
      * Indicates the width of the screen at which the component should change its behavior.
      * @group Props
@@ -673,7 +677,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
     }
 
     get moveToSourceAriaLabel() {
-        return this.allLeftButtonAriaLabel ? this.allLeftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
+        return this.leftButtonAriaLabel ? this.leftButtonAriaLabel : this.config.translation.aria ? this.config.translation.aria.moveToSource : undefined;
     }
 
     get moveAllToSourceAriaLabel() {
@@ -915,7 +919,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         }
     }
 
-    onItemClick(event: Event | any, item: any, selectedItems: any[], callback: EventEmitter<any>, itemId?: string) {
+    onItemClick(event: Event | any, item: any, selectedItems: any[], listType: number, callback: EventEmitter<any>, itemId?: string) {
         if (this.disabled) {
             return;
         }
@@ -929,18 +933,21 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             let metaKey = (<KeyboardEvent>event).metaKey || (<KeyboardEvent>event).ctrlKey || (<KeyboardEvent>event).shiftKey;
 
             if (selected && metaKey) {
-                selectedItems.splice(index, 1);
+                selectedItems = selectedItems.filter((_, i) => i !== index);
             } else {
                 if (!metaKey) {
-                    selectedItems.length = 0;
+                    selectedItems = [];
                 }
                 selectedItems.push(item);
             }
         } else {
-            if (selected) selectedItems.splice(index, 1);
-            else selectedItems.push(item);
+            if (selected) {
+                selectedItems = selectedItems.filter((_, i) => i !== index); // Creating a new array without the selected item
+            } else {
+                selectedItems.push(item);
+            }
         }
-
+        this.setSelectionList(listType, selectedItems);
         callback.emit({ originalEvent: event, items: selectedItems });
 
         this.itemTouched = false;
@@ -1130,7 +1137,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.target) == -1) {
                     this.target?.push(this.source?.splice(ObjectUtils.findIndexInList(selectedItem, this.source), 1)[0]);
 
-                    if (this.visibleOptionsSource) this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    if (this.visibleOptionsSource?.includes(selectedItem)) {
+                        this.visibleOptionsSource.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsSource), 1);
+                    }
                 }
             }
 
@@ -1188,7 +1197,9 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 if (ObjectUtils.findIndexInList(selectedItem, this.source) == -1) {
                     this.source?.push(this.target?.splice(ObjectUtils.findIndexInList(selectedItem, this.target), 1)[0]);
 
-                    if (this.visibleOptionsTarget) this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    if (this.visibleOptionsTarget?.includes(selectedItem)) {
+                        this.visibleOptionsTarget.splice(ObjectUtils.findIndexInList(selectedItem, this.visibleOptionsTarget), 1)[0];
+                    }
                 }
             }
 
@@ -1315,11 +1326,12 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         let listElement = this.getListElement(listType);
         const selectedFirstItem = DomHandler.findSingle(listElement, 'li.p-picklist-item.p-highlight') || DomHandler.findSingle(listElement, 'li.p-picklist-item');
         const findIndex = ObjectUtils.findIndexInList(selectedFirstItem, listElement.children);
-
         this.focused[listType === this.SOURCE_LIST ? 'sourceList' : 'targetList'] = true;
-        const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : selectedFirstItem ? findIndex : -1;
 
-        this.changeFocusedOptionIndex(index, listType);
+        const sourceIndex = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : selectedFirstItem ? findIndex : -1;
+        const filteredIndex = this.findIndexInList(this.source[sourceIndex], this.visibleOptionsSource);
+
+        this.changeFocusedOptionIndex(filteredIndex, listType);
         this.onFocus.emit(event);
     }
 
@@ -1395,7 +1407,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 break;
 
             case 'Enter':
-                this.onEnterKey(event, selectedItems, callback);
+                this.onEnterKey(event, selectedItems, callback, listType);
                 break;
 
             case 'Space':
@@ -1426,12 +1438,13 @@ export class PickList implements AfterViewChecked, AfterContentInit {
 
     changeFocusedOptionIndex(index, listType) {
         const items = this.getListItems(listType);
+        if (items?.length > 0) {
+            let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
-        let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
-
-        this.focusedOptionIndex = items[order].getAttribute('id');
-        this.focusedOption = this.getFocusedOption(order, listType);
-        this.scrollInView(items[order].getAttribute('id'), listType);
+            this.focusedOptionIndex = items[order].getAttribute('id');
+            this.focusedOption = this.getFocusedOption(order, listType);
+            this.scrollInView(items[order].getAttribute('id'), listType);
+        }
     }
 
     scrollInView(id, listType) {
@@ -1448,7 +1461,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.changeFocusedOptionIndex(optionIndex, listType);
 
         if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback);
+            this.onEnterKey(event, selectedItems, callback, listType);
         }
 
         event.preventDefault();
@@ -1460,14 +1473,14 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.changeFocusedOptionIndex(optionIndex, listType);
 
         if (event.shiftKey) {
-            this.onEnterKey(event, selectedItems, callback);
+            this.onEnterKey(event, selectedItems, callback, listType);
         }
 
         event.preventDefault();
     }
 
-    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>) {
-        this.onItemClick(event, this.focusedOption, selectedItems, callback);
+    onEnterKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
+        this.onItemClick(event, this.focusedOption, selectedItems, listType, callback);
         event.preventDefault();
     }
 
@@ -1489,7 +1502,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
             }
         }
 
-        this.onEnterKey(event, selectedItems, callback);
+        this.onEnterKey(event, selectedItems, callback, listType);
     }
 
     onHomeKey(event: Event | any, selectedItems: any[], callback: EventEmitter<any>, listType: number) {
@@ -1566,38 +1579,6 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         this.resetTargetFilter();
     }
 
-    onItemKeydown(event: KeyboardEvent, item: any, selectedItems: any[], callback: EventEmitter<any>) {
-        let listItem = <HTMLLIElement>event.currentTarget;
-
-        switch (event.which) {
-            //down
-            case 40:
-                var nextItem = this.findNextItem(listItem);
-                if (nextItem) {
-                    nextItem.focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            //up
-            case 38:
-                var prevItem = this.findPrevItem(listItem);
-                if (prevItem) {
-                    prevItem.focus();
-                }
-
-                event.preventDefault();
-                break;
-
-            //enter
-            case 13:
-                this.onItemClick(event, item, selectedItems, callback);
-                event.preventDefault();
-                break;
-        }
-    }
-
     findNextItem(item: any): HTMLElement | null {
         let nextItem = item.nextElementSibling;
 
@@ -1670,6 +1651,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }

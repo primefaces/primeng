@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { ImportDoc } from '../../doc/carousel/importdoc';
-import { BasicDoc } from '../../doc/carousel/basicdoc';
-import { StyleDoc } from '../../doc/carousel/styledoc';
-import { CircularDoc } from '../../doc/carousel/circulardoc';
-import { NumScrollDoc } from '../../doc/carousel/numscrolldoc';
-import { ResponsiveDoc } from '../../doc/carousel/responsivedoc';
-import { VerticalDoc } from '../../doc/carousel/verticaldoc';
-import { TemplateDoc } from '../../doc/carousel/templatedoc';
-import { AccessibilityDoc } from '../../doc/carousel/accessibilitydoc';
+import { ImportDoc } from '@doc/carousel/importdoc';
+import { BasicDoc } from '@doc/carousel/basicdoc';
+import { StyleDoc } from '@doc/carousel/styledoc';
+import { CircularDoc } from '@doc/carousel/circulardoc';
+import { NumScrollDoc } from '@doc/carousel/numscrolldoc';
+import { ResponsiveDoc } from '@doc/carousel/responsivedoc';
+import { VerticalDoc } from '@doc/carousel/verticaldoc';
+import { TemplateDoc } from '@doc/carousel/templatedoc';
+import { AccessibilityDoc } from '@doc/carousel/accessibilitydoc';
 
 @Component({
     templateUrl: './carouseldemo.html',

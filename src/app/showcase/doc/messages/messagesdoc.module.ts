@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
 import { MessagesStyleDoc } from './messagesstyledoc';
@@ -20,9 +20,10 @@ import { ServiceDoc } from './servicedoc';
 import { InlineDoc } from './inlinedoc';
 import { AnimationDoc } from './animationdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AppDocModule],
+    imports: [CommonModule, AppCodeModule, FormsModule, RouterModule, MessagesModule, ButtonModule, MessageModule, InputTextModule, AvatarModule, AppDocModule],
     declarations: [BasicDoc, ImportDoc, ClosableDoc, StaticDoc, DynamicDoc, ServiceDoc, SeverityDoc, InlineDoc, MessagesStyleDoc, AnimationDoc, MessageStyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })

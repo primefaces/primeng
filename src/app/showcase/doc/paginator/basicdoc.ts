@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 interface PageEvent {
     first: number;
@@ -10,24 +10,20 @@ interface PageEvent {
 
 @Component({
     selector: 'basic-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 Paginator is used as a controlled component with <i>first</i>, <i>rows</i> and <i>onPageChange</i> properties to manage the first index and number of records to display per page. Total number of records need to be with
                 <i>totalRecords</i> property. Default template includes a dropdown to change the <i>rows</i> so <i>rowsPerPageOptions</i> is also necessary for the dropdown options.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
         <app-code [code]="code" selector="paginator-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     first: number = 0;
 
     rows: number = 10;
@@ -38,16 +34,24 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>`,
+        basic: `<p-paginator 
+    (onPageChange)="onPageChange($event)" 
+    [first]="first"
+    [rows]="rows" 
+    [totalRecords]="120" 
+    [rowsPerPageOptions]="[10, 20, 30]" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]"></p-paginator>
+        html: `<div class="card flex justify-content-center">
+    <p-paginator 
+        (onPageChange)="onPageChange($event)" 
+        [first]="first" 
+        [rows]="rows" 
+        [totalRecords]="120" 
+        [rowsPerPageOptions]="[10, 20, 30]" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { PaginatorModule } from 'primeng/paginator';
 
 interface PageEvent {
     first: number;
@@ -58,7 +62,9 @@ interface PageEvent {
 
 @Component({
     selector: 'paginator-basic-demo',
-    templateUrl: './paginator-basic-demo.html'
+    templateUrl: './paginator-basic-demo.html',
+    standalone: true,
+    imports: [PaginatorModule]
 })
 export class PaginatorBasicDemo {
     first: number = 0;

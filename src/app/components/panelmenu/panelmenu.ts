@@ -18,8 +18,10 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
+    booleanAttribute,
     computed,
     forwardRef,
+    numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -128,10 +130,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     </div>
                     <div class="p-toggleable-content" [@submenu]="getAnimation(processedItem)">
                         <p-panelMenuSub
-                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)"
+                            *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem) && isItemExpanded(processedItem)"
                             [id]="getItemId(processedItem) + '_list'"
                             [panelId]="panelId"
-                            [items]="processedItem.items"
+                            [items]="processedItem?.items"
                             [itemTemplate]="itemTemplate"
                             [transitionOptions]="transitionOptions"
                             [focusedItemId]="focusedItemId"
@@ -177,17 +179,17 @@ export class PanelMenuSub {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() level: number = 0;
+    @Input({ transform: numberAttribute }) level: number = 0;
 
     @Input() activeItemPath: any[];
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
     @Output() itemToggle: EventEmitter<any> = new EventEmitter<any>();
 
@@ -309,15 +311,15 @@ export class PanelMenuList implements OnChanges {
 
     @Input() itemTemplate: HTMLElement | undefined;
 
-    @Input() parentExpanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) parentExpanded: boolean | undefined;
 
-    @Input() expanded: boolean | undefined;
+    @Input({ transform: booleanAttribute }) expanded: boolean | undefined;
 
     @Input() transitionOptions: string | undefined;
 
-    @Input() root: boolean | undefined;
+    @Input({ transform: booleanAttribute }) root: boolean | undefined;
 
-    @Input() tabindex: number | undefined;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
 
     @Input() activeItem: any;
 
@@ -349,10 +351,10 @@ export class PanelMenuList implements OnChanges {
         return focusedItem && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(this.focusedItem()) ? `${this.panelId}_${this.focusedItem().key}` : undefined;
     }
 
+    constructor(private el: ElementRef) {}
+
     ngOnChanges(changes: SimpleChanges) {
-        if (changes && changes.items && changes.items.currentValue) {
-            this.processedItems.set(this.createProcessedItems(changes.items.currentValue || []));
-        }
+        this.processedItems.set(this.createProcessedItems(changes?.items?.currentValue || this.items || []));
     }
 
     getItemProp(processedItem, name) {
@@ -403,6 +405,16 @@ export class PanelMenuList implements OnChanges {
 
     findLastItem() {
         return ObjectUtils.findLast(this.visibleItems(), (processedItem) => this.isValidItem(processedItem));
+    }
+
+    findItemByEventTarget(target: EventTarget): undefined | any {
+        let parentNode = target as ParentNode & Element;
+
+        while (parentNode && parentNode.tagName?.toLowerCase() !== 'li') {
+            parentNode = parentNode?.parentNode as Element;
+        }
+
+        return parentNode?.id && this.visibleItems().find((processedItem) => this.isValidItem(processedItem) && `${this.panelId}_${processedItem.key}` === parentNode.id);
     }
 
     createProcessedItems(items, level = 0, parent = {}, parentKey = '') {
@@ -473,15 +485,21 @@ export class PanelMenuList implements OnChanges {
     }
 
     onFocus(event) {
-        this.focused = true;
-        const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findFirstItem() : this.findLastItem());
-        if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        if (!this.focused) {
+            this.focused = true;
+            const focusedItem = this.focusedItem() || (this.isElementInPanel(event, event.relatedTarget) ? this.findItemByEventTarget(event.target) || this.findFirstItem() : this.findLastItem());
+            if (event.relatedTarget !== null) this.focusedItem.set(focusedItem);
+        }
     }
 
     onBlur(event) {
-        this.focused = false;
-        this.focusedItem.set(null);
-        this.searchValue = '';
+        const target = event.relatedTarget;
+
+        if (this.focused && !this.el.nativeElement.contains(target)) {
+            this.focused = false;
+            this.focusedItem.set(null);
+            this.searchValue = '';
+        }
     }
 
     onItemToggle(event) {
@@ -492,7 +510,7 @@ export class PanelMenuList implements OnChanges {
         expanded && activeItemPath.push(processedItem);
 
         this.activeItemPath.set(activeItemPath);
-        this.processedItems.mutate((value) => value.map((i) => (i === processedItem ? processedItem : i)));
+        this.processedItems.update((value) => value.map((i) => (i === processedItem ? processedItem : i)));
         this.focusedItem.set(processedItem);
     }
 
@@ -724,27 +742,30 @@ export class PanelMenuList implements OnChanges {
                         (keydown)="onHeaderKeyDown($event, item, i)"
                     >
                         <div class="p-panelmenu-header-content">
-                            <a
-                                *ngIf="!getItemProp(item, 'routerLink')"
-                                [attr.href]="getItemProp(item, 'url')"
-                                [attr.tabindex]="-1"
-                                [target]="getItemProp(item, 'target')"
-                                [attr.title]="getItemProp(item, 'title')"
-                                class="p-panelmenu-header-action"
-                                [attr.data-pc-section]="'headeraction'"
-                            >
-                                <ng-container *ngIf="isItemGroup(item)">
-                                    <ng-container *ngIf="!submenuIconTemplate">
-                                        <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
-                                        <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                            <ng-container *ngIf="!itemTemplate">
+                                <a
+                                    *ngIf="!getItemProp(item, 'routerLink')"
+                                    [attr.href]="getItemProp(item, 'url')"
+                                    [attr.tabindex]="-1"
+                                    [target]="getItemProp(item, 'target')"
+                                    [attr.title]="getItemProp(item, 'title')"
+                                    class="p-panelmenu-header-action"
+                                    [attr.data-pc-section]="'headeraction'"
+                                >
+                                    <ng-container *ngIf="isItemGroup(item)">
+                                        <ng-container *ngIf="!submenuIconTemplate">
+                                            <ChevronDownIcon [styleClass]="'p-submenu-icon'" *ngIf="isItemActive(item)" />
+                                            <ChevronRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!isItemActive(item)" />
+                                        </ng-container>
+                                        <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
                                     </ng-container>
-                                    <ng-template *ngTemplateOutlet="submenuIconTemplate"></ng-template>
-                                </ng-container>
-                                <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
-                            </a>
+                                    <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
+                                    <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
+                                </a>
+                            </ng-container>
+                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             <a
                                 *ngIf="getItemProp(item, 'routerLink')"
                                 [routerLink]="getItemProp(item, 'routerLink')"
@@ -850,7 +871,7 @@ export class PanelMenu implements AfterContentInit {
      * Whether multiple tabs can be activated at the same time or not.
      * @group Props
      */
-    @Input() multiple: boolean = false;
+    @Input({ transform: booleanAttribute }) multiple: boolean = false;
     /**
      * Transition options of the animation.
      * @group Props
@@ -865,7 +886,7 @@ export class PanelMenu implements AfterContentInit {
      * Index of the element in tabbing order.
      * @group Props
      */
-    @Input() tabindex: number | undefined = 0;
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -889,9 +910,11 @@ export class PanelMenu implements AfterContentInit {
                 case 'submenuicon':
                     this.submenuIconTemplate = item.template;
                     break;
+
                 case 'item':
                     this.itemTemplate = item.template;
                     break;
+
                 default:
                     this.itemTemplate = item.template;
                     break;
@@ -917,6 +940,7 @@ export class PanelMenu implements AfterContentInit {
 
     onToggleDone() {
         this.animating = false;
+        this.cd.markForCheck();
     }
 
     changeActiveItem(event, item, index?: number, selfActive = false) {

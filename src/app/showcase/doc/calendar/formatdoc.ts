@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'calendar-format-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
             <ul class="mb-4 line-height-4">
                 <li><i>d</i> - day of month (no leading zero)</li>
@@ -19,7 +19,7 @@ import { Code } from '../../domain/code';
                 <li><i>MM</i> - month name long</li>
                 <li><i>y</i> - year (two digit)</li>
                 <li><i>yy</i> - year (four digit)</li>
-                <li><i>@</i> - Unix timestamp (ms since 01/01/1970)</li>
+                <li><i>&#64;</i> - Unix timestamp (ms since 01/01/1970)</li>
                 <li><i>!</i> - Windows ticks (100ns since 01/01/0001)</li>
                 <li><i>'...'</i> - literal text</li>
                 <li><i>''</i> - single quote</li>
@@ -27,33 +27,34 @@ import { Code } from '../../domain/code';
             </ul>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>
+            <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="calendar-format-demo"></app-code>
-    </section>`
+    `
 })
 export class FormatDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     date: Date | undefined;
 
     code: Code = {
-        basic: `
-<p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>`,
+        basic: `<p-calendar 
+    [(ngModel)]="date" 
+    dateFormat="dd.mm.yy" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-calendar [(ngModel)]="date" dateFormat="dd.mm.yy"></p-calendar>
+        html: `<div class="card flex justify-content-center">
+    <p-calendar 
+        [(ngModel)]="date" 
+        dateFormat="dd.mm.yy" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
 
 @Component({
     selector: 'calendar-format-demo',
-    templateUrl: './calendar-format-demo.html'
+    templateUrl: './calendar-format-demo.html',
+    standalone: true,
+    imports: [FormsModule, CalendarModule]
 })
 export class CalendarFormatDemo {
     date: Date | undefined;

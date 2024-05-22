@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'virtual-scroll-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 VirtualScrolling is an efficient way of rendering the options by displaying a small subset of data in the viewport at any time. When dealing with huge number of options, it is suggested to enable VirtualScrolling to avoid performance
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
@@ -18,26 +18,18 @@ import { Code } from '../../domain/code';
                 optionLabel="label"
                 [style]="{ width: '15rem' }"
                 [virtualScroll]="true"
-                [filter]="true"
-                [virtualScrollItemSize]="43"
+                [virtualScrollItemSize]="38"
                 [multiple]="true"
-                [checkbox]="true"
-                [showToggleAll]="false"
                 [metaKeySelection]="false"
-                [showToggleAll]="true"
                 (onSelectAllChange)="onSelectAllChange($event)"
                 (onChange)="onChange($event)"
-                [listStyle]="{ 'max-height': '220px' }"
-            ></p-listbox>
+                scrollHeight="250px"
+            />
         </div>
         <app-code [code]="code" selector="listbox-virtual-scroll-demo"></app-code>
-    </section>`
+    `
 })
 export class VirtualScrollDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items = Array.from({ length: 100000 }, (_, i) => ({ label: `Item #${i}`, value: i }));
 
     selectedItems!: any[];
@@ -55,28 +47,21 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `
-<p-listbox
+        basic: `<p-listbox
     [options]="items"
     [(ngModel)]="selectedItems"
     [selectAll]="selectAll"
     optionLabel="label"
     [style]="{ width: '15rem' }"
     [virtualScroll]="true"
-    [filter]="true"
-    [virtualScrollItemSize]="43"
+    [virtualScrollItemSize]="38"
     [multiple]="true"
-    [checkbox]="true"
-    [showToggleAll]="false"
     [metaKeySelection]="false"
-    [showToggleAll]="true"
     (onSelectAllChange)="onSelectAllChange($event)"
     (onChange)="onChange($event)"
-    [listStyle]="{ 'max-height': '220px' }"
-></p-listbox>`,
+    scrollHeight="250px" />`,
 
-        html: `
-<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-content-center">
     <p-listbox
         [options]="items"
         [(ngModel)]="selectedItems"
@@ -84,25 +69,23 @@ export class VirtualScrollDoc {
         optionLabel="label"
         [style]="{ width: '15rem' }"
         [virtualScroll]="true"
-        [filter]="true"
-        [virtualScrollItemSize]="43"
+        [virtualScrollItemSize]="38"
         [multiple]="true"
-        [checkbox]="true"
-        [showToggleAll]="false"
         [metaKeySelection]="false"
-        [showToggleAll]="true"
         (onSelectAllChange)="onSelectAllChange($event)"
         (onChange)="onChange($event)"
-        [listStyle]="{ 'max-height': '220px' }"
-    ></p-listbox>
+        scrollHeight="250px" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ListboxModule } from 'primeng/listbox';
 
 @Component({
     selector: 'listbox-virtual-scroll-demo',
-    templateUrl: './listbox-virtual-scroll-demo.html'
+    templateUrl: './listbox-virtual-scroll-demo.html',
+    standalone: true,
+    imports: [FormsModule, ListboxModule]
 })
 export class ListboxVirtualScrollDemo {
     items = Array.from({ length: 100000 }, (_, i) => ({ label: \`Item #\${i}\`, value: i }))

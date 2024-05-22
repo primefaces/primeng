@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Code } from '../../domain/code';
+import { Code } from '@domain/code';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -9,13 +9,13 @@ interface UploadEvent {
 
 @Component({
     selector: 'file-upload-advanced-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"> </app-docsectiontext>
+    template: `
+        <app-docsectiontext> <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p></app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toast></p-toast>
+            <p-toast />
             <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template pTemplate="toolbar">
-                    <div class="py-3">Drag and drop files</div>
+                    <div class="py-3">Drag and drop files to here to upload.</div>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
@@ -25,14 +25,10 @@ interface UploadEvent {
             </p-fileUpload>
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class AdvancedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     uploadedFiles: any[] = [];
 
     constructor(private messageService: MessageService) {}
@@ -46,28 +42,44 @@ export class AdvancedDoc {
     }
 
     code: Code = {
-        basic: `
-<p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
-    <ng-template pTemplate="content">
-        <ul *ngIf="uploadedFiles.length">
-            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
-        </ul>
-    </ng-template>
-</p-fileUpload>`,
-        html: `
-<div class="card flex justify-content-center">
-    <p-toast></p-toast>
-    <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000">
+        basic: `<p-fileUpload 
+    name="demo[]" 
+    url="https://www.primefaces.org/cdn/api/upload.php" 
+    (onUpload)="onUpload($event)" 
+    [multiple]="true" 
+    accept="image/*" 
+    maxFileSize="1000000">
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                <li *ngFor="let file of uploadedFiles">
+                    {{ file.name }} - {{ file.size }} bytes
+                </li>
             </ul>
         </ng-template>
+</p-fileUpload>`,
+        html: `<div class="card flex justify-content-center">
+    <p-toast />
+    <p-fileUpload 
+        name="demo[]" 
+        url="https://www.primefaces.org/cdn/api/upload.php" 
+        (onUpload)="onUpload($event)" 
+        [multiple]="true" 
+        accept="image/*" 
+        maxFileSize="1000000">
+            <ng-template pTemplate="content">
+                <ul *ngIf="uploadedFiles.length">
+                    <li *ngFor="let file of uploadedFiles">
+                        {{ file.name }} - {{ file.size }} bytes
+                    </li>
+                </ul>
+            </ng-template>
     </p-fileUpload>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
+import { CommonModule } from '@angular/common';
 
 interface UploadEvent {
     originalEvent: Event;
@@ -77,6 +89,8 @@ interface UploadEvent {
 @Component({
     selector: 'file-upload-advanced-demo',
     templateUrl: './file-upload-advanced-demo.html',
+    standalone: true,
+    imports: [FileUploadModule, ToastModule, CommonModule],
     providers: [MessageService]
 })
 export class FileUploadAdvancedDemo {

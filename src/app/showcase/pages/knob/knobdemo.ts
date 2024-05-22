@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { ReactiveFormsDoc } from '../../doc/knob/reactiveformsdoc';
-import { AccessibilityDoc } from '../../doc/knob/accessibilitydoc';
-import { BasicDoc } from '../../doc/knob/basicdoc';
-import { ColorDoc } from '../../doc/knob/colordoc';
-import { DisabledDoc } from '../../doc/knob/disableddoc';
-import { ImportDoc } from '../../doc/knob/importdoc';
-import { MinMaxDoc } from '../../doc/knob/minmaxdoc';
-import { ReadonlyDoc } from '../../doc/knob/readonlydoc';
-import { SizeDoc } from '../../doc/knob/sizedoc';
-import { StepDoc } from '../../doc/knob/stepdoc';
-import { StrokeDoc } from '../../doc/knob/strokedoc';
-import { StyleDoc } from '../../doc/knob/styledoc';
-import { TemplateDoc } from '../../doc/knob/templatedoc';
+import { ReactiveFormsDoc } from '@doc/knob/reactiveformsdoc';
+import { AccessibilityDoc } from '@doc/knob/accessibilitydoc';
+import { BasicDoc } from '@doc/knob/basicdoc';
+import { ColorDoc } from '@doc/knob/colordoc';
+import { ReactiveDoc } from '@doc/knob/reactivedoc';
+import { DisabledDoc } from '@doc/knob/disableddoc';
+import { ImportDoc } from '@doc/knob/importdoc';
+import { MinMaxDoc } from '@doc/knob/minmaxdoc';
+import { ReadonlyDoc } from '@doc/knob/readonlydoc';
+import { SizeDoc } from '@doc/knob/sizedoc';
+import { StepDoc } from '@doc/knob/stepdoc';
+import { StrokeDoc } from '@doc/knob/strokedoc';
+import { StyleDoc } from '@doc/knob/styledoc';
+import { TemplateDoc } from '@doc/knob/templatedoc';
 
 @Component({
     templateUrl: './knobdemo.html'
@@ -62,6 +63,11 @@ export class KnobDemo {
             id: 'color',
             label: 'Color',
             component: ColorDoc
+        },
+        {
+            id: 'reactive',
+            label: 'Reactive',
+            component: ReactiveDoc
         },
         {
             id: 'readonly',

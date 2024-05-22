@@ -12,6 +12,7 @@
 - FileUpload - long filename [\#10275](https://github.com/primefaces/primeng/issues/10275)
 - Sidebar wrong animation and close button display [\#10261](https://github.com/primefaces/primeng/issues/10261)
 
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [10.1.4-LTS](https://www.npmjs.com/package/primeng-lts/v/10.1.4) (2021-10-18)
 - float-label chips problem [\#10725](https://github.com/primefaces/primeng/issues/10725)
 - pButton Directive throws error when label is set when async pipe [\#10719](https://github.com/primefaces/primeng/issues/10719)

@@ -1,29 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Code } from '../../domain/code';
-import { NodeService } from '../../service/nodeservice';
+import { Code } from '@domain/code';
+import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'controlled-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center justify-content-center">
             <div class="mb-3">
-                <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
-                <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+                <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" class="mr-2" />
+                <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
             </div>
-            <p-tree [value]="files" class="w-full md:w-30rem"></p-tree>
+            <p-tree [value]="files" class="w-full md:w-30rem" />
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
-    </section>`
+    `
 })
 export class ControlledDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     files!: TreeNode[];
 
     constructor(private nodeService: NodeService) {}
@@ -54,30 +50,45 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<div class="mb-3">
-    <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
-    <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+        basic: `<div class="mb-3">
+    <p-button 
+        icon="pi pi-plus" 
+        label="Expand all" 
+        (click)="expandAll()" 
+        class="mr-2" />
+    <p-button 
+        icon="pi pi-minus" 
+        label="Collapse all" 
+        (click)="collapseAll()" />
 </div>
-<p-tree [value]="files" class="w-full md:w-30rem"></p-tree>`,
+<p-tree [value]="files" class="w-full md:w-30rem" />`,
 
-        html: `
-<div class="card flex flex-column align-items-center justify-content-center">
+        html: `<div class="card flex flex-column align-items-center justify-content-center">
     <div class="mb-3">
-        <button pButton type="button" label="Expand all" (click)="expandAll()" class="mr-2"></button>
-        <button pButton type="button" label="Collapse all" (click)="collapseAll()"></button>
+        <p-button 
+            icon="pi pi-plus" 
+            label="Expand all" 
+            (click)="expandAll()" 
+            class="mr-2" />
+        <p-button
+            icon="pi pi-minus" 
+            label="Collapse all" 
+            (click)="collapseAll()" />
     </div>
-    <p-tree [value]="files" class="w-full md:w-30rem"></p-tree>
+    <p-tree [value]="files" class="w-full md:w-30rem" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { NodeService } from '../../service/nodeservice';
+import { NodeService } from '@service/nodeservice';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'tree-controlled-demo',
-    templateUrl: './tree-controlled-demo.html'
+    templateUrl: './tree-controlled-demo.html',
+    standalone: true,
+    imports: [TreeModule, ButtonModule],
+    providers: [NodeService]
 })
 export class TreeControlledDemo implements OnInit {
     files!: TreeNode[];

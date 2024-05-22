@@ -1,12 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { Car } from '../../domain/car';
-import { Code } from '../../domain/code';
-import { CarService } from '../../service/carservice';
+import { Component } from '@angular/core';
+import { Car } from '@domain/car';
+import { Code } from '@domain/code';
+import { CarService } from '@service/carservice';
 
 @Component({
     selector: 'data-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id"></app-docsectiontext>
+    template: `
         <div class="card">
             <p-inplace>
                 <ng-template pTemplate="display">
@@ -38,13 +37,9 @@ import { CarService } from '../../service/carservice';
             </p-inplace>
         </div>
         <app-code [code]="code" selector="inplace-data-demo" [extFiles]="extFiles"></app-code>
-    </section>`
+    `
 })
 export class DataDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     cars: Car[] | undefined;
 
     constructor(private carService: CarService) {}
@@ -54,8 +49,7 @@ export class DataDoc {
     }
 
     code: Code = {
-        basic: `
-<p-inplace>
+        basic: `<p-inplace>
     <ng-template pTemplate="display">
         <div class="inline-flex align-items-center">
             <span class="pi pi-table" style="vertical-align: middle"></span>
@@ -83,8 +77,7 @@ export class DataDoc {
         </p-table>
     </ng-template>
 </p-inplace>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-inplace>
         <ng-template pTemplate="display">
             <div class="inline-flex align-items-center">
@@ -114,14 +107,18 @@ export class DataDoc {
         </ng-template>
     </p-inplace>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
-import { Car } from '../../domain/car';
-import { CarService } from '../../service/carservice';
+        typescript: `import { Component } from '@angular/core';
+import { Car } from '@domain/car';
+import { CarService } from '@service/carservice';
+import { InplaceModule } from 'primeng/inplace';
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'inplace-data-demo',
-    templateUrl: './inplace-data-demo.html'
+    templateUrl: './inplace-data-demo.html',
+    standalone: true,
+    imports: [InplaceModule, TableModule],
+    providers: [CarService]
 })
 export class InplaceDataDemo {
     cars: Car[] | undefined;

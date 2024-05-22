@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Code } from '../../domain/code';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { Code } from '@domain/code';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
 
 interface Column {
     field: string;
@@ -10,61 +10,57 @@ interface Column {
 
 @Component({
     selector: 'template-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: ` <app-docsectiontext>
             <p>Custom content at <i>header</i>, <i>body</i> and <i>footer</i> sections are supported via templating.</p>
         </app-docsectiontext>
-        <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
-                <ng-template pTemplate="caption">
-                    <div class="flex align-items-center justify-content-between">
-                        Products
-                        <p-button icon="pi pi-refresh"></p-button>
-                    </div>
-                </ng-template>
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Reviews</th>
-                        <th>Status</th>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-product>
-                    <tr>
-                        <td>{{ product.name }}</td>
-                        <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-                        <td>{{ product.price | currency : 'USD' }}</td>
-                        <td>{{ product.category }}</td>
-                        <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                        <td>
-                            <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag>
-                        </td>
-                    </tr>
-                </ng-template>
-                <ng-template pTemplate="summary">
-                    <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
-                </ng-template>
-            </p-table>
-        </div>
-        <app-code [code]="code" selector="table-template-demo" [extFiles]="extFiles"></app-code>
-    </section>`,
+        <p-deferred-demo (load)="loadDemoData()">
+            <div class="card">
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
+                    <ng-template pTemplate="caption">
+                        <div class="flex align-items-center justify-content-between">
+                            Products
+                            <p-button icon="pi pi-refresh" />
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>Name</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Reviews</th>
+                            <th>Status</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.category }}</td>
+                            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                            <td>
+                                <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="summary">
+                        <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-deferred-demo>
+        <app-code [code]="code" selector="table-template-demo" [extFiles]="extFiles"></app-code>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TemplateDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
+export class TemplateDoc {
     products!: Product[];
 
     cols!: Column[];
 
     constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
-    ngOnInit() {
+    loadDemoData() {
         this.productService.getProductsMini().then((data) => {
             this.products = data;
             this.cd.markForCheck();
@@ -90,12 +86,11 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `
-<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
+        basic: `<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-between">
             Products
-            <p-button icon="pi pi-refresh"></p-button>
+            <p-button icon="pi pi-refresh" />
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -114,8 +109,8 @@ export class TemplateDoc implements OnInit {
             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
-            <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+            <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+            <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
@@ -124,13 +119,12 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
 </p-table>`,
-        html: `
-<div class="card">
+        html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="caption">
             <div class="flex align-items-center justify-content-between">
                 Products
-                <p-button icon="pi pi-refresh"></p-button>
+                <p-button icon="pi pi-refresh" />
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -149,8 +143,8 @@ export class TemplateDoc implements OnInit {
                 <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
-                <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating></td>
-                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)"></p-tag></td>
+                <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
+                <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
@@ -160,14 +154,21 @@ export class TemplateDoc implements OnInit {
         </ng-template>
     </p-table>
 </div>`,
-        typescript: `
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../domain/product';
-import { ProductService } from '../../service/productservice';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { Product } from '@domain/product';
+import { ProductService } from '@service/productservice';
+import { TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { RatingModule } from 'primeng/rating';
+import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'table-template-demo',
-    templateUrl: 'table-template-demo.html'
+    templateUrl: 'table-template-demo.html',
+    standalone: true,
+    imports: [TableModule, TagModule, RatingModule, ButtonModule, CommonModule],
+    providers: [ProductService]
 })
 export class TableTemplateDemo implements OnInit {
     products!: Product[];

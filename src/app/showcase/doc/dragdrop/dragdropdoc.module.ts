@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AppDocModule } from '../../layout/doc/app.doc.module';
-import { AppCodeModule } from '../../layout/doc/code/app.code.component';
+import { AppDocModule } from '@layout/doc/app.doc.module';
+import { AppCodeModule } from '@layout/doc/app.code.component';
 import { ImportDoc } from './importdoc';
 import { DataTableDoc } from './datatabledoc';
 import { DragDropModule } from 'primeng/dragdrop';

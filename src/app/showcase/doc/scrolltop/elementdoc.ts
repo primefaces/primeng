@@ -1,13 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'element-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Setting the <i>target</i> property to <i>parent</i> binds ScrollTop to its parent element that has scrolling content.</p>
         </app-docsectiontext>
-        <div class="card">
+        <div class="card flex justify-content-center">
             <div style="width: 250px; height: 200px; overflow: auto">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
@@ -16,22 +16,20 @@ import { Code } from '../../domain/code';
                     Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
                     in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
                 </p>
-                <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+                <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
             </div>
         </div>
         <app-code [code]="code" selector="scroll-top-element-demo"></app-code>
-    </section>`
+    `
 })
 export class ElementDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     code: Code = {
-        basic: `
-<p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>`,
-        html: `
-<div class="card">
+        basic: `<p-scrollTop 
+    target="parent" 
+    styleClass="custom-scrolltop" 
+    [threshold]="100" 
+    icon="pi pi-arrow-up" />`,
+        html: `<div class="card">
     <div style="width: 250px; height: 200px; overflow: auto">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae et leo duis ut diam. Ultricies mi quis hendrerit dolor magna eget est lorem. Amet consectetur
@@ -40,15 +38,17 @@ export class ElementDoc {
             Cursus sit amet dictum sit amet. Tristique senectus et netus et malesuada fames ac turpis egestas. Et tortor consequat id porta nibh venenatis cras sed. Diam maecenas ultricies mi eget mauris. Eget egestas purus viverra accumsan
             in nisl nisi. Suscipit adipiscing bibendum est ultricies integer. Mattis aliquam faucibus purus in massa tempor nec.
         </p>
-        <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+        <p-scrollTop target="parent" styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up" />
     </div>
 </div>`,
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { ScrollTopModule } from 'primeng/scrolltop';
 
 @Component({
     selector: 'scroll-top-element-demo',
-    templateUrl: './scroll-top-element-demo.html'
+    templateUrl: './scroll-top-element-demo.html',
+    standalone: true,
+    imports: [ScrollTopModule]
 })
 export class ScrollTopElementDemo {}`
     };

@@ -1,40 +1,37 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'color-picker-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>ColorPicker is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-colorPicker [(ngModel)]="color"></p-colorPicker>
+            <p-colorPicker [(ngModel)]="color" />
         </div>
         <app-code [code]="code" selector="color-picker-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     color: string | undefined;
 
     code: Code = {
-        basic: `
-<p-colorPicker [(ngModel)]="color"></p-colorPicker>`,
+        basic: `<p-colorPicker [(ngModel)]="color" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-colorPicker [(ngModel)]="color"></p-colorPicker>
+        html: `<div class="card flex justify-content-center">
+    <p-colorPicker [(ngModel)]="color" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 @Component({
     selector: 'color-picker-basic-demo',
-    templateUrl: './color-picker-basic-demo.html'
+    templateUrl: './color-picker-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, ColorPickerModule]
 })
 export class ColorPickerBasicDemo {
     color: string | undefined;

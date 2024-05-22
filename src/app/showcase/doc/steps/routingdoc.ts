@@ -1,29 +1,25 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
-import { Code } from '../../domain/code';
-import { TicketService } from '../../service/ticketservice';
+import { Code } from '@domain/code';
+import { TicketService } from '@service/ticketservice';
 
 @Component({
     selector: 'routing-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Example below uses nested routes with Steps.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-toast></p-toast>
-            <p-steps [model]="items" [readonly]="false"></p-steps>
+            <p-toast />
+            <p-steps [model]="items" [readonly]="false" />
         </div>
         <router-outlet></router-outlet>
         <app-code [code]="code" selector="steps-routing-demo" [routeFiles]="routeFiles"></app-code>
-    </section>`,
+    `,
     providers: [MessageService]
 })
 export class RoutingDoc implements OnInit {
-    @Input() id: string;
-
-    @Input() title: string;
-
     items: MenuItem[];
 
     subscription: Subscription;
@@ -61,30 +57,32 @@ export class RoutingDoc implements OnInit {
         }
     }
     code: Code = {
-        basic: `
-<div class="card">
-    <p-toast></p-toast>
-    <p-steps [model]="items" [readonly]="false"></p-steps>
+        basic: `<div class="card">
+    <p-toast />
+    <p-steps [model]="items" [readonly]="false" />
 </div>
 <router-outlet></router-outlet>`,
 
         html: `
 <div class="card">
-    <p-toast></p-toast>
-    <p-steps [model]="items" [readonly]="false"></p-steps>
+    <p-toast />
+    <p-steps [model]="items" [readonly]="false" />
 </div>
 <router-outlet></router-outlet>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Subscription } from 'rxjs';
+import { StepsModule } from 'primeng/steps';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
     selector: 'steps-routing-demo',
     templateUrl: './steps-routing-demo.html',
-    providers: [MessageService]
+    standalone: true,
+    imports: [StepsModule, ToastModule],
+    providers: [MessageService, TicketService]
 })
 export class StepsRoutingDemo implements OnInit {
     items: MenuItem[];
@@ -131,7 +129,7 @@ export class StepsRoutingDemo implements OnInit {
             children: [
                 { path: 'personal', component: PersonalDemo },
                 { path: 'seat', component: SeatDemo },
-                { path: 'payment', component: PaymentDemo }
+                { path: 'payment', component: PaymentDemo },
                 { path: 'confirmation', component: ConfirmationDemo },
                 { path: '', redirectTo: 'personal', pathMatch: 'full' },
             ]
@@ -145,7 +143,7 @@ export class StepsRoutingDemo implements OnInit {
             path: 'src/app/demo/paymentdemo.ts',
             name: 'PaymentDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -211,7 +209,7 @@ export class PaymentDemo implements OnInit {
             path: 'src/app/demo/personaldemo.ts',
             name: 'PersonalDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -283,7 +281,7 @@ export class PersonalDemo implements OnInit {
             path: 'src/app/demo/seatdemo.ts',
             name: 'SeatDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({
@@ -372,7 +370,7 @@ export class SeatDemo implements OnInit {
             path: 'src/app/demo/confirmationdemo.ts',
             name: 'ConfirmationDemo',
             content: `import { Component, OnInit } from '@angular/core';
-import { TicketService } from '../../service/ticketservice';
+import { TicketService } from '@service/ticketservice';
 import { Router } from '@angular/router';
 
 @Component({

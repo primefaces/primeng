@@ -1,26 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'cascade-select-basic-demo',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>
                 CascadeSelect requires a value to bind and a collection of arbitrary objects with a nested hierarchy. <i>optionGroupLabel</i> is used for the text of a category and <i>optionGroupChildren</i> is to define the children of the category.
                 Note that order of the <i>optionGroupChildren</i> matters and it should correspond to the data hierarchy.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+            <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="cascade-select-basic-demo"></app-code>
-    </section>`
+    `
 })
 export class BasicDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     countries: any[] | undefined;
 
     selectedCity: any;
@@ -103,20 +99,35 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `
-<p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>`,
+        basic: `<p-cascadeSelect 
+    [(ngModel)]="selectedCity" 
+    [options]="countries" 
+    optionLabel="cname" 
+    optionGroupLabel="name" 
+    [optionGroupChildren]="['states', 'cities']" 
+    [style]="{ minWidth: '14rem' }"
+    placeholder="Select a City" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City"></p-cascadeSelect>
+        html: `<div class="card flex justify-content-center">
+    <p-cascadeSelect 
+        [(ngModel)]="selectedCity" 
+        [options]="countries" 
+        optionLabel="cname"
+        optionGroupLabel="name" 
+        [optionGroupChildren]="['states', 'cities']" 
+        [style]="{ minWidth: '14rem' }" 
+        placeholder="Select a City" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CascadeSelectModule } from 'primeng/cascadeselect';
 
 @Component({
     selector: 'cascade-select-basic-demo',
-    templateUrl: './cascade-select-basic-demo.html'
+    templateUrl: './cascade-select-basic-demo.html',
+    standalone: true,
+    imports: [FormsModule, CascadeSelectModule]
 })
 export class CascadeSelectBasicDemo implements OnInit {
     countries: any[] | undefined;

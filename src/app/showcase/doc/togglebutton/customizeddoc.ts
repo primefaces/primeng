@@ -1,40 +1,55 @@
-import { Component, Input } from '@angular/core';
-import { Code } from '../../domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
 @Component({
     selector: 'customized-doc',
-    template: ` <section class="py-4">
-        <app-docsectiontext [title]="title" [id]="id">
+    template: `
+        <app-docsectiontext>
             <p>Icons and Labels can be customized using <i>onLabel</i>, <i>offLabel</i>, <i>onIcon</i> and <i>offIcon</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-toggleButton [(ngModel)]="checked" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{ width: '10em' }"></p-toggleButton>
+            <p-toggleButton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" styleClass="w-9rem" ariaLabel="Do you confirm" />
         </div>
         <app-code [code]="code" selector="toggle-button-customized-demo"></app-code>
-    </section>`
+    `
 })
 export class CustomizedDoc {
-    @Input() id: string;
-
-    @Input() title: string;
-
     checked: boolean = false;
 
     code: Code = {
-        basic: `
-<p-toggleButton [(ngModel)]="checked" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{ width: '10em' }"></p-toggleButton>`,
+        basic: `<p-toggleButton 
+    [(ngModel)]="checked" 
+    onLabel="Locked" 
+    offLabel="Unlocked" 
+    onIcon="pi pi-check" 
+    offIcon="pi pi-times" 
+    onIcon="pi pi-lock" 
+    offIcon="pi pi-lock-open" 
+    styleClass="w-9rem"
+    ariaLabel="Do you confirm" />`,
 
-        html: `
-<div class="card flex justify-content-center">
-    <p-toggleButton [(ngModel)]="checked" onLabel="I confirm" offLabel="I reject" onIcon="pi pi-check" offIcon="pi pi-times" [style]="{ width: '10em' }"></p-toggleButton>
+        html: `<div class="card flex justify-content-center">
+    <p-toggleButton 
+        [(ngModel)]="checked" 
+        onLabel="Locked"
+        offLabel="Unlocked" 
+        onIcon="pi pi-check" 
+        offIcon="pi pi-times" 
+        onIcon="pi pi-lock"
+        offIcon="pi pi-lock-open" 
+        styleClass="w-9rem"
+        ariaLabel="Do you confirm" />
 </div>`,
 
-        typescript: `
-import { Component } from '@angular/core';
+        typescript: `import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @Component({
     selector: 'toggle-button-customized-demo',
-    templateUrl: './toggle-button-customized-demo.html'
+    templateUrl: './toggle-button-customized-demo.html',
+    standalone: true,
+    imports: [FormsModule, ToggleButtonModule]
 })
 export class ToggleButtonCustomizedDemo {
     checked: boolean = false;
