@@ -482,11 +482,6 @@ export class Button implements AfterContentInit {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Used to define a string that autocomplete attribute the current element.
-     * @group Props
-     */
-    @Input() buttonProps: any
-    /**
      * Callback to execute when button is clicked.
      * This event is intended to be used with the <p-button> component. Using a regular <button> element, use (click).
      * @param {MouseEvent} event - Mouse event.

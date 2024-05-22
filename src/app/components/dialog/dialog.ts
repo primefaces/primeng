@@ -37,7 +37,6 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ButtonModule } from 'primeng/button';
-import { Bind } from 'primeng/bind';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -127,7 +126,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (keydown.enter)="close($event)"
                                 pRipple
                                 [attr.tabindex]="closeTabindex"
-                                [pBind]="ptm('button')"
+                                [text]="buttonProps.text"
+                                [severity]="buttonProps.severity"
+                                [rounded]="buttonProps.rounded"
                             >
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
@@ -359,6 +360,19 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * @group Props
      */
     @Input() maximizeIcon: string | undefined;
+    /**
+     * Props of the button.
+     * @group Props
+     */
+    @Input() buttonProps: {
+        severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+        text?: boolean;
+        rounded?: boolean;
+    } = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
     /**
      * Specifies the visibility of the dialog.
      * @group Props
