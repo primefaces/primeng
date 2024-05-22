@@ -32,7 +32,6 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
                 class="p-button p-component"
                 [class]="option.styleClass"
                 [ngClass]="{ 'p-highlight': isSelected(option), 'p-disabled': disabled || isOptionDisabled(option), 'p-button-icon-only': option.icon && !getOptionLabel(option) }"
-                [attr.aria-pressed]="isSelected(option)"
                 (click)="onOptionSelect($event, option, i)"
                 (keydown)="onKeyDown($event, option, i)"
                 [attr.title]="option.title"
