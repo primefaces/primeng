@@ -104,6 +104,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
                                 [attr.aria-label]="maximizeLabel"
                                 pRipple
+                                [text]="maximizeButtonProps.text"
+                                [severity]="maximizeButtonProps.severity"
+                                [rounded]="maximizeButtonProps.rounded"
                             >
                                 <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon">
@@ -126,9 +129,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 (keydown.enter)="close($event)"
                                 pRipple
                                 [attr.tabindex]="closeTabindex"
-                                [text]="buttonProps.text"
-                                [severity]="buttonProps.severity"
-                                [rounded]="buttonProps.rounded"
+                                [text]="closeButtonProps.text"
+                                [severity]="closeButtonProps.severity"
+                                [rounded]="closeButtonProps.rounded"
                             >
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
@@ -361,10 +364,23 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      */
     @Input() maximizeIcon: string | undefined;
     /**
-     * Props of the button.
+     * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() buttonProps: {
+    @Input() closeButtonProps: {
+        severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+        text?: boolean;
+        rounded?: boolean;
+    } = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() maximizeButtonProps: {
         severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
         text?: boolean;
         rounded?: boolean;
