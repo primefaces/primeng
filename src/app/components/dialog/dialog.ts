@@ -37,7 +37,8 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ButtonModule } from 'primeng/button';
-
+import { CloseButtonWrapperModule } from './closebutton/closebuttonwrapper';
+import { ButtonWrapperProps } from './closebutton/closebuttonwrapper.interface';
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
@@ -120,27 +121,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
-                            <p-button
-                                *ngIf="closable"
-                                type="button"
-                                [styleClass]="'p-dialog-header-icon p-dialog-header-close p-link'"
-                                [attr.aria-label]="closeAriaLabel"
-                                (click)="close($event)"
-                                (keydown.enter)="close($event)"
-                                pRipple
-                                [attr.tabindex]="closeTabindex"
-                                [text]="closeButtonProps.text"
-                                [severity]="closeButtonProps.severity"
-                                [rounded]="closeButtonProps.rounded"
-                            >
-                                <ng-container *ngIf="!closeIconTemplate">
-                                    <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
-                                    <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'" />
-                                </ng-container>
-                                <span *ngIf="closeIconTemplate">
-                                    <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                </span>
-                            </p-button>
+                            <p-closeButtonWrapper [closeButtonProps]="closeButtonProps" (visibleChange)="visibleChange.emit()" />
                         </div>
                     </div>
                     <div #content [ngClass]="'p-dialog-content'" [ngStyle]="contentStyle" [class]="contentStyleClass">
@@ -367,11 +348,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() closeButtonProps: {
-        severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
-        text?: boolean;
-        rounded?: boolean;
-    } = {
+    @Input() closeButtonProps: ButtonWrapperProps = {
         severity: 'secondary',
         text: true,
         rounded: true
@@ -380,11 +357,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() maximizeButtonProps: {
-        severity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
-        text?: boolean;
-        rounded?: boolean;
-    } = {
+    @Input() maximizeButtonProps: ButtonWrapperProps = {
         severity: 'secondary',
         text: true,
         rounded: true
@@ -1061,7 +1034,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, FocusTrapModule, ButtonModule, RippleModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon],
+    imports: [CommonModule, FocusTrapModule, ButtonModule, RippleModule, TimesIcon, WindowMaximizeIcon, WindowMinimizeIcon, CloseButtonWrapperModule],
     exports: [Dialog, SharedModule],
     declarations: [Dialog]
 })
