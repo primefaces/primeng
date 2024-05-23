@@ -62,12 +62,14 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 *ngIf="!multiple"
                 #focusInput
                 pAutoFocus
+                pInputText
                 [autofocus]="autofocus"
                 [ngClass]="inputClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
                 [type]="type"
                 [attr.value]="inputValue()"
+                [variant]="variant"
                 [attr.id]="inputId"
                 [autocomplete]="autocomplete"
                 [required]="required"
@@ -827,11 +829,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     get inputClass() {
         return {
-            'p-autocomplete-input p-inputtext p-component': !this.multiple,
+            'p-autocomplete-input': !this.multiple,
             'p-autocomplete-dd-input': this.dropdown,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
         };
     }
+
 
     get searchResultMessageText() {
         return ObjectUtils.isNotEmpty(this.visibleOptions()) && this.overlayVisible ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
