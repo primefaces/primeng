@@ -128,8 +128,8 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="true"
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <p-chip *ngIf="!selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true" [chipProps]="chipProps">
-                        <ng-container *ngIf="!removeIconTemplate && !chipProps?.removeIcon">
+                    <p-chip *ngIf="!selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true">
+                        <ng-container *ngIf="!removeIconTemplate">
                             <ng-template pTemplate="removeicon">
                                 <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
                                     <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" [attr.aria-hidden]="true" />
@@ -137,7 +137,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                             </ng-template>
                         </ng-container>
                     </p-chip>
-                    <span *ngIf="removeIconTemplate && !chipProps?.removeIcon" [attr.aria-hidden]="true">
+                    <span *ngIf="removeIconTemplate" [attr.aria-hidden]="true">
                         <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                     </span>
                 </li>
@@ -187,7 +187,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <p-button
                 #ddBtn
                 type="button"
-                [buttonProps]="dropdownButtonProps"
                 [attr.aria-label]="dropdownAriaLabel"
                 styleClass="p-autocomplete-dropdown p-button-icon-only"
                 [disabled]="disabled"
@@ -197,7 +196,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 [attr.tabindex]="tabindex"
             >
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
-                <ng-container *ngIf="!dropdownIcon && !dropdownButtonProps?.icon">
+                <ng-container *ngIf="!dropdownIcon">
                     <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
@@ -549,16 +548,6 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * @group Props
      */
     @Input() overlayOptions: OverlayOptions | undefined;
-    /**
-     * Used to pass all properties of the chipProps to the Chip component.
-     * @group Props
-     */
-    @Input() chipProps: ChipProps
-    /**
-     * Used to pass all properties of the ButtonProps to the Button component.
-     * @group Props
-     */
-    @Input() dropdownButtonProps: ButtonProps;
     /**
      * An array of suggestions to display.
      * @group Props
