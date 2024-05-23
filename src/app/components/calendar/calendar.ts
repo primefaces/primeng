@@ -39,6 +39,7 @@ import { CalendarIcon } from 'primeng/icons/calendar';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { NavigationState, CalendarResponsiveOptions, CalendarTypeView, LocaleSettings, Month, CalendarMonthChangeEvent, CalendarYearChangeEvent } from './calendar.interface';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { InputTextModule } from '../inputtext/inputtext';
 
 export const CALENDAR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -68,6 +69,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
             <ng-template [ngIf]="!inline">
                 <input
                     #inputfield
+                    pInputText
                     type="text"
                     role="combobox"
                     [attr.id]="inputId"
@@ -93,10 +95,10 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
                     [disabled]="disabled"
                     [attr.tabindex]="tabindex"
                     [attr.inputmode]="touchUI ? 'off' : null"
-                    [ngClass]="inputClass"
                     autocomplete="off"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [variant]="variant"
                 />
                 <ng-container *ngIf="showClear && !disabled && value != null">
                     <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-calendar-clear-icon'" (click)="clear()" />
@@ -749,7 +751,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Specifies the input variant of the component.
      * @group Props
      */
-    @Input() variant: 'filled' | 'outlined' = 'outlined';
+    @Input() variant: 'filled' | 'outlined';
     /**
      * The minimum selectable date.
      * @group Props
@@ -913,12 +915,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             this.initTime(date);
             this.createMonths(this.currentMonth, this.currentYear);
         }
-    }
-    get inputClass() {
-        return {
-            'p-inputtext p-component': true,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
-        };
     }
 
     /**
@@ -3677,7 +3673,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, ChevronLeftIcon, ChevronRightIcon, ChevronUpIcon, ChevronDownIcon, TimesIcon, CalendarIcon, AutoFocusModule, InputTextModule],
     exports: [Calendar, ButtonModule, SharedModule],
     declarations: [Calendar]
 })
