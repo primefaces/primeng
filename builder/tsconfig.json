@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./",
+        "target": "ESNext",
+        "module": "CommonJS",
+        "rootDir": "./src",
+        "outDir": "./dist"
+    },
+    "exclude": ["node_modules"]
+}

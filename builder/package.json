@@ -1,0 +1,17 @@
+{
+    "name": "builder",
+    "version": "1.0.0",
+    "description": "Builder for PrimeNG component styles",
+    "builders": "builders.json",
+    "author": "",
+    "license": "ISC",
+    "scripts": {
+        "build": "tsc",
+        "postbuild": "cp src/*.json dist/"
+    },
+    "devDependencies": {
+        "@angular-devkit/architect": "^0.1703.7",
+        "@angular-devkit/core": "^17.3.7",
+        "typescript": "^5.4.5"
+    }
+}

@@ -119,6 +119,12 @@
                         ],
                         "scripts": []
                     }
+                },
+                "validate-build": {
+                    "builder": "./team-builders:validate-build"
+                },
+                "build-styles": {
+                    "builder": "./builder:build-styles"
                 }
             }
         }

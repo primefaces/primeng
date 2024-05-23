@@ -1,0 +1,9 @@
+{
+    "builders": {
+        "build-styles": {
+            "implementation": "./dist/index.js",
+            "schema": "./dist/schema.json",
+            "description": "Checks for build command in package.json"
+        }
+    }
+}
