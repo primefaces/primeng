@@ -7,8 +7,6 @@
         overflow: auto;
     }
 
-    
-
     .p-datatable-table {
         border-spacing: 0px;
         width: 100%;
@@ -154,7 +152,6 @@
     .p-datatable-reorderablerow-handle {
         cursor: move;
     }
-
 
     [pReorderableColumn] {
         cursor: move;
