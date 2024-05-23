@@ -30,7 +30,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
@@ -178,13 +178,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <button #ddBtn type="button" pButton [attr.aria-label]="dropdownAriaLabel" class="p-autocomplete-dropdown p-button-icon-only" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
+            <p-button #ddBtn type="button" [buttonProps]="dropdownButtonProps" [attr.aria-label]="dropdownAriaLabel" styleClass="p-autocomplete-dropdown p-button-icon-only" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
-                <ng-container *ngIf="!dropdownIcon">
+                <ng-container *ngIf="!dropdownIcon && !dropdownButtonProps?.icon">
                     <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
-            </button>
+            </p-button>
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -532,6 +532,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      * @group Props
      */
     @Input() overlayOptions: OverlayOptions | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() dropdownButtonProps: ButtonProps;
     /**
      * An array of suggestions to display.
      * @group Props
