@@ -44,6 +44,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
+import { ChipModule, ChipProps } from 'primeng/chip';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -118,7 +119,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li
                     #token
                     *ngFor="let option of modelValue(); let i = index"
-                    [ngClass]="{ 'p-autocomplete-token': true, 'p-focus': focusedMultipleOptionIndex() === i }"
+                    [ngClass]="{ 'p-focus': focusedMultipleOptionIndex() === i }"
                     [attr.id]="id + '_multiple_option_' + i"
                     role="option"
                     [attr.aria-label]="getOptionLabel(option)"
@@ -127,12 +128,17 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="true"
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ getOptionLabel(option) }}</span>
-                    <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
-                        <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" [attr.aria-hidden]="true" />
-                        <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
-                        </span>
+                    <p-chip *ngIf="!selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true" [chipProps]="chipProps">
+                        <ng-container *ngIf="!removeIconTemplate && !chipProps?.removeIcon">
+                            <ng-template pTemplate="removeicon">
+                                <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                    <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" [attr.aria-hidden]="true" />
+                                </span>
+                            </ng-template>
+                        </ng-container>
+                    </p-chip>
+                    <span *ngIf="removeIconTemplate && !chipProps?.removeIcon" [attr.aria-hidden]="true">
+                        <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                     </span>
                 </li>
                 <li class="p-autocomplete-input-token" role="option">
@@ -178,7 +184,18 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <p-button #ddBtn type="button" [buttonProps]="dropdownButtonProps" [attr.aria-label]="dropdownAriaLabel" styleClass="p-autocomplete-dropdown p-button-icon-only" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
+            <p-button
+                #ddBtn
+                type="button"
+                [buttonProps]="dropdownButtonProps"
+                [attr.aria-label]="dropdownAriaLabel"
+                styleClass="p-autocomplete-dropdown p-button-icon-only"
+                [disabled]="disabled"
+                pRipple
+                (click)="handleDropdownClick($event)"
+                *ngIf="dropdown"
+                [attr.tabindex]="tabindex"
+            >
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
                 <ng-container *ngIf="!dropdownIcon && !dropdownButtonProps?.icon">
                     <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
@@ -533,6 +550,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input() overlayOptions: OverlayOptions | undefined;
     /**
+     * Used to pass all properties of the chipProps to the Chip component.
+     * @group Props
+     */
+    @Input() chipProps: ChipProps
+    /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
@@ -835,10 +857,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     get inputClass() {
         return {
             'p-autocomplete-input': !this.multiple,
-            'p-autocomplete-dd-input': this.dropdown,
+            'p-autocomplete-dd-input': this.dropdown
         };
     }
-
 
     get searchResultMessageText() {
         return ObjectUtils.isNotEmpty(this.visibleOptions()) && this.overlayVisible ? this.searchMessageText.replaceAll('{0}', this.visibleOptions().length) : this.emptySearchMessageText;
@@ -1654,7 +1675,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon],
+    imports: [CommonModule, OverlayModule, InputTextModule, ButtonModule, SharedModule, RippleModule, ScrollerModule, AutoFocusModule, TimesCircleIcon, SpinnerIcon, TimesIcon, ChevronDownIcon, ChipModule],
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })

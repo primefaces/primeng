@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject, booleanAttribute } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject, booleanAttribute, SimpleChanges } from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { ChipProps } from './chip.interface';
 /**
  * Chip represents people using icons, labels and images.
  * @group Components
@@ -105,8 +106,54 @@ export class Chip implements AfterContentInit {
     get removeAriaLabel() {
         return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
     }
+    _chipProps: ChipProps;
+    /**
+     * Used to pass all properties of the chipProps to the Chip component.
+     * @group Props
+     */
+    @Input() get chipProps(): ChipProps{
+        return this._chipProps;
+    }
+    set chipProps(val: ChipProps | undefined) {
+        this._chipProps = val;
+
+        if (val && typeof val === 'object') {
+            //@ts-ignore
+            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+        }
+    }
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        if (simpleChanges.chipProps && simpleChanges.chipProps.currentValue) {
+            const { currentValue } = simpleChanges.chipProps;
+
+            if (currentValue.label !== undefined) {
+                this.label = currentValue.label;
+            }
+            if (currentValue.icon !== undefined) {
+                this.icon = currentValue.icon;
+            }
+            if (currentValue.image !== undefined) {
+                this.image = currentValue.image;
+            }
+            if (currentValue.alt !== undefined) {
+                this.alt = currentValue.alt;
+            }
+            if (currentValue.style !== undefined) {
+                this.style = currentValue.style;
+            }
+            if (currentValue.styleClass !== undefined) {
+                this.styleClass = currentValue.styleClass;
+            }
+            if (currentValue.removable !== undefined) {
+                this.removable = currentValue.removable;
+            }
+            if (currentValue.removeIcon !== undefined) {
+                this.removeIcon = currentValue.removeIcon;
+            }
+        }
+    }
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
