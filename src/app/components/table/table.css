@@ -7,6 +7,8 @@
         overflow: auto;
     }
 
+    
+
     .p-datatable-table {
         border-spacing: 0px;
         width: 100%;
@@ -153,8 +155,13 @@
         cursor: move;
     }
 
+
     [pReorderableColumn] {
         cursor: move;
+    } 
+    
+    .p-reorder-column-disabled {
+        cursor: default;
     }
 
     /* Loader */
