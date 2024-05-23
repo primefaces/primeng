@@ -8,6 +8,8 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { ButtonProps } from '../button/button.interface';
+import { ButtonModule } from '../button/button';
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -23,20 +25,21 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 <div class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                    <button
+                    <p-button
                         *ngIf="toggleable"
                         [attr.id]="id + '_header'"
                         pRipple
                         type="button"
                         role="button"
-                        class="p-panel-header-icon p-panel-toggler p-link"
+                        styleClass="p-panel-header-icon p-panel-toggler p-link"
                         [attr.aria-label]="buttonAriaLabel"
                         [attr.aria-controls]="id + '_content'"
                         [attr.aria-expanded]="!collapsed"
                         (click)="onIconClick($event)"
                         (keydown)="onKeyDown($event)"
+                        [buttonProps]="toggleButtonProps"
                     >
-                        <ng-container *ngIf="!headerIconTemplate">
+                        <ng-container *ngIf="!headerIconTemplate && !toggleButtonProps?.icon">
                             <ng-container *ngIf="!collapsed">
                                 <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass"></span>
                                 <MinusIcon *ngIf="!expandIcon" [styleClass]="iconClass" />
@@ -49,7 +52,7 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
                         </ng-container>
 
                         <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
-                    </button>
+                    </p-button>
                 </div>
             </div>
             <div
@@ -170,6 +173,11 @@ export class Panel implements AfterContentInit, BlockableUI {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() toggleButtonProps: ButtonProps;
     /**
      * Emitted when the collapsed changes.
      * @param {boolean} value - New Value.
@@ -299,7 +307,7 @@ export class Panel implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon],
+    imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon, ButtonModule],
     exports: [Panel, SharedModule],
     declarations: [Panel]
 })
