@@ -104,6 +104,22 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             this.setStyleClass();
         }
     }
+    _buttonProps: any | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() get buttonProps(): any | undefined {
+        return this._buttonProps;
+    }
+    set buttonProps(val: any | undefined) {
+        this._buttonProps = val;
+
+        if (val && typeof val === 'object') {
+            //@ts-ignore
+            Object.entries(val).forEach(([k, v]) => this[`_${k}`] !== v && (this[`_${k}`] = v));
+        }
+    }
     /**
      * Defines the style of the button.
      * @group Props
@@ -178,7 +194,51 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         this.initialized = true;
     }
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        if (simpleChanges.buttonProps && simpleChanges.buttonProps.currentValue) {
+            const { currentValue } = simpleChanges.buttonProps;
 
+            if (currentValue.iconPos !== undefined) {
+                this.iconPos = currentValue.iconPos;
+            }
+            if (currentValue.icon !== undefined) {
+                this.icon = currentValue.icon;
+            }
+
+            if (currentValue.label !== undefined) {
+                this.label = currentValue.label;
+            }
+
+            if (currentValue.loading !== undefined) {
+                this.loading = currentValue.loading;
+            }
+            if (currentValue.loadingIcon !== undefined) {
+                this.loadingIcon = currentValue.loadingIcon;
+            }
+            if (currentValue.raised !== undefined) {
+                this.raised = currentValue.raised;
+            }
+            if (currentValue.rounded !== undefined) {
+                this.rounded = currentValue.rounded;
+            }
+            if (currentValue.text !== undefined) {
+                this.text = currentValue.text;
+            }
+            if (currentValue.plain !== undefined) {
+                this.plain = currentValue.plain;
+            }
+            if (currentValue.severity !== undefined) {
+                this.severity = currentValue.severity;
+            }
+            if (currentValue.outlined !== undefined) {
+                this.outlined = currentValue.outlined;
+            }
+
+            if (currentValue.size !== undefined) {
+                this.size = currentValue.size;
+            }
+        }
+    }
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
 
@@ -530,7 +590,7 @@ export class Button implements AfterContentInit {
     }
 
     constructor(public el: ElementRef) {}
-    
+
     ngOnChanges(simpleChanges: SimpleChanges) {
         if (simpleChanges.buttonProps && simpleChanges.buttonProps.currentValue) {
             const { currentValue } = simpleChanges.buttonProps;
