@@ -2474,7 +2474,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         } else {
             this.initFocusableCell();
         }
-        this.alignOverlay();
     }
 
     initFocusableCell() {
