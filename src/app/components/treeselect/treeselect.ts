@@ -31,6 +31,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { TreeSelectNodeCollapseEvent, TreeSelectNodeExpandEvent } from './treeselect.interface';
+import { ChipModule } from 'primeng/chip';
 
 export const TREESELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -76,8 +77,8 @@ export const TREESELECT_VALUE_ACCESSOR: any = {
                             {{ label || 'empty' }}
                         </ng-container>
                         <ng-template #chipsValueTemplate>
-                            <div *ngFor="let node of value" class="p-treeselect-token">
-                                <span class="p-treeselect-token-label">{{ node.label }}</span>
+                            <div *ngFor="let node of value" class="p-treeselect-chip-item">
+                                <p-chip [label]="node.label" styleClass="p-treeselect-chip" />
                             </div>
                             <ng-container *ngIf="emptyValue">{{ placeholder || 'empty' }}</ng-container>
                         </ng-template>
@@ -1006,7 +1007,7 @@ export class TreeSelect implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule, AutoFocusModule, SearchIcon, TimesIcon, ChevronDownIcon],
+    imports: [CommonModule, OverlayModule, RippleModule, SharedModule, TreeModule, AutoFocusModule, SearchIcon, TimesIcon, ChevronDownIcon, ChipModule],
     exports: [TreeSelect, OverlayModule, SharedModule, TreeModule],
     declarations: [TreeSelect]
 })
