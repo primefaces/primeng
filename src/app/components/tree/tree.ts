@@ -51,6 +51,9 @@ import {
     TreeScrollEvent,
     TreeScrollIndexChangeEvent
 } from './tree.interface';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
 
 @Component({
     selector: 'p-treeNode',
@@ -748,13 +751,15 @@ export class UITreeNode implements OnInit {
                 </ng-container>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <div *ngIf="filter" class="p-tree-filter-container">
-                <input #filter type="search" autocomplete="off" class="p-tree-filter p-inputtext p-component" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
-                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-tree-filter-icon'" />
-                <span *ngIf="filterIconTemplate" class="p-tree-filter-icon">
-                    <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                </span>
-            </div>
+            <p-iconField *ngIf="filter" class="p-tree-filter-container">
+                <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
+                <p-inputIcon>
+                    <SearchIcon *ngIf="!filterIconTemplate" />
+                    <span *ngIf="filterIconTemplate">
+                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                    </span>
+                </p-inputIcon>
+            </p-iconField>
             <ng-container *ngIf="getRootNode()?.length">
                 <p-scroller
                     #scroller
@@ -1764,7 +1769,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 }
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon, InputTextModule, IconFieldModule, InputIconModule],
     exports: [Tree, SharedModule, ScrollerModule],
     declarations: [Tree, UITreeNode]
 })
