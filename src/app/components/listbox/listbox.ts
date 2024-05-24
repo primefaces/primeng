@@ -35,6 +35,8 @@ import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { IconFieldModule } from '../iconfield/iconfield';
+import { InputTextModule } from '../inputtext/inputtext';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -91,26 +93,31 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #builtInFilterElement>
                     <div class="p-listbox-filter-container" *ngIf="filter">
-                        <input
-                            #filterInput
-                            type="text"
-                            class="p-listbox-filter p-inputtext p-component"
-                            role="searchbox"
-                            [value]="_filterValue() || ''"
-                            [disabled]="disabled"
-                            [attr.aria-owns]="id + '_list'"
-                            [attr.aria-activedescendant]="focusedOptionId"
-                            [attr.placeholder]="filterPlaceHolder"
-                            [attr.aria-label]="ariaFilterLabel"
-                            [tabindex]="!disabled && !focused ? tabindex : -1"
-                            (input)="onFilterChange($event)"
-                            (keydown)="onFilterKeyDown($event)"
-                            (blur)="onFilterBlur($event)"
-                        />
-                        <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
-                        <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                        </span>
+                        <p-iconField>
+                            <input
+                                #filterInput
+                                pInputText
+                                type="text"
+                                class="p-listbox-filter"
+                                role="searchbox"
+                                [value]="_filterValue() || ''"
+                                [disabled]="disabled"
+                                [attr.aria-owns]="id + '_list'"
+                                [attr.aria-activedescendant]="focusedOptionId"
+                                [attr.placeholder]="filterPlaceHolder"
+                                [attr.aria-label]="ariaFilterLabel"
+                                [tabindex]="!disabled && !focused ? tabindex : -1"
+                                (input)="onFilterChange($event)"
+                                (keydown)="onFilterKeyDown($event)"
+                                (blur)="onFilterBlur($event)"
+                            />
+                            <p-inputIcon>
+                                <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
+                                <span *ngIf="filterIconTemplate" class="p-listbox-filter-icon" [attr.aria-hidden]="true">
+                                    <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                </span>
+                            </p-inputIcon>
+                        </p-iconField>
                     </div>
                     <span role="status" attr.aria-live="polite" class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                         {{ filterResultMessageText }}
@@ -1441,7 +1448,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, SearchIcon, CheckIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, SearchIcon, CheckIcon, IconFieldModule, InputTextModule],
     exports: [Listbox, SharedModule, ScrollerModule],
     declarations: [Listbox]
 })
