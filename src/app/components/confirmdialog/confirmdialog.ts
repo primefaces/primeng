@@ -88,14 +88,13 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </div>
                     <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
-                        <button
+                      <p-button
                             type="button"
                             pRipple
-                            pButton
                             [label]="rejectButtonLabel"
                             (click)="reject()"
                             [ngClass]="'p-confirm-dialog-reject'"
-                            [class]="option('rejectButtonStyleClass')"
+                            [styleClass]="option('rejectButtonStyleClass')"
                             *ngIf="option('rejectVisible')"
                             [attr.aria-label]="rejectAriaLabel"
                         >
@@ -106,15 +105,14 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <span *ngIf="rejectIconTemplate" class="p-button-icon-left">
                                 <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
                             </span>
-                        </button>
-                        <button
+                        </p-button>
+                        <p-button
                             type="button"
                             pRipple
-                            pButton
                             [label]="acceptButtonLabel"
                             (click)="accept()"
                             [ngClass]="'p-confirm-dialog-accept'"
-                            [class]="option('acceptButtonStyleClass')"
+                            [styleClass]="option('acceptButtonStyleClass')"
                             *ngIf="option('acceptVisible')"
                             [attr.aria-label]="acceptAriaLabel"
                         >
@@ -125,7 +123,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <span *ngIf="acceptIconTemplate" class="p-button-icon-left">
                                 <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
                             </span>
-                        </button>
+                        </p-button>
                     </div>
                 </ng-template>
             </div>
