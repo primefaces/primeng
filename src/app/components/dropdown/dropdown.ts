@@ -47,6 +47,9 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { Nullable } from 'primeng/ts-helpers';
+import { InputTextModule } from '../inputtext/inputtext';
+import { IconFieldModule } from '../iconfield/iconfield';
+import { InputIconModule } from '../inputicon/inputicon';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -245,14 +248,17 @@ export class DropdownItem {
                             </ng-container>
                             <ng-template #builtInFilterElement>
                                 <div class="p-dropdown-filter-container">
-                                    <input
+                                    <p-iconField>
+
+                                        <input
                                         #filter
+                                        pInputText
                                         type="text"
                                         role="searchbox"
                                         autocomplete="off"
                                         [value]="_filterValue() || ''"
                                         class="p-dropdown-filter p-inputtext p-component"
-                                        [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled' }"
+                                        [variant]="variant"
                                         [attr.placeholder]="filterPlaceholder"
                                         [attr.aria-owns]="id + '_list'"
                                         (input)="onFilterInputChange($event)"
@@ -260,12 +266,16 @@ export class DropdownItem {
                                         [attr.aria-activedescendant]="focusedOptionId"
                                         (keydown)="onFilterKeyDown($event)"
                                         (blur)="onFilterBlur($event)"
-                                    />
-                                    <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-dropdown-filter-icon'" />
-                                    <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
-                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                                    </span>
-                                </div>
+                                        />
+                                        <p-inputIcon>
+
+                                            <SearchIcon *ngIf="!filterIconTemplate" />
+                                            <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
+                                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                            </span>
+                                        </p-inputIcon>
+                                    </p-iconField>
+                                    </div>
                             </ng-template>
                         </div>
                         <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
@@ -1917,7 +1927,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon, BlankIcon, CheckIcon],
+    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon, BlankIcon, CheckIcon, InputTextModule, IconFieldModule, InputIconModule],
     exports: [Dropdown, OverlayModule, SharedModule, ScrollerModule],
     declarations: [Dropdown, DropdownItem]
 })
