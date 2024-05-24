@@ -341,13 +341,6 @@ export class MultiSelectItem {
                                         </p-inputIcon>
                                     </p-iconField>
                                 </div>
-
-                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple [attr.aria-label]="closeAriaLabel">
-                                    <TimesIcon [styleClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate" />
-                                    <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
-                                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                    </span>
-                                </button>
                             </ng-template>
                         </div>
                         <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
@@ -1031,8 +1024,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     chipIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any> | undefined;
-
     clearIconTemplate: TemplateRef<any> | undefined;
 
     dropdownIconTemplate: TemplateRef<any> | undefined;
@@ -1294,10 +1285,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 case 'chipicon':
                     this.chipIconTemplate = item.template;
-                    break;
-
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
                     break;
 
                 case 'clearicon':
