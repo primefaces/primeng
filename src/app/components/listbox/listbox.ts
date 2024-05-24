@@ -35,8 +35,8 @@ import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { IconFieldModule } from '../iconfield/iconfield';
-import { InputTextModule } from '../inputtext/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
