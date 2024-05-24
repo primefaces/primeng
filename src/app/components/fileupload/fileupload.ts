@@ -61,8 +61,8 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
             />
             <div class="p-fileupload-buttonbar" [attr.data-pc-section]="'buttonbar'">
                 <ng-container *ngIf="!headerTemplate">
-                    <span
-                        class="p-button p-component p-fileupload-choose"
+                    <p-button
+                        styleClass="p-fileupload-choose"
                         [ngClass]="{ 'p-focus': focus, 'p-disabled': disabled || isChooseDisabled() }"
                         (focus)="onFocus()"
                         (blur)="onBlur()"
@@ -92,7 +92,7 @@ import { FileBeforeUploadEvent, FileProgressEvent, FileRemoveEvent, FileSelectEv
                             </span>
                         </ng-container>
                         <span class="p-button-label" [attr.data-pc-section]="'choosebuttonlabel'">{{ chooseButtonLabel }}</span>
-                    </span>
+                    </p-button>
 
                     <p-button *ngIf="!auto && showUploadButton" type="button" [label]="uploadButtonLabel" (onClick)="upload()" [disabled]="!hasFiles() || isFileLimitExceeded()" [styleClass]="uploadStyleClass">
                         <span *ngIf="uploadIcon" [ngClass]="uploadIcon" [attr.aria-hidden]="true" class="p-button-icon p-button-icon-left"></span>
