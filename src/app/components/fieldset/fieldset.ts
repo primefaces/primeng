@@ -8,6 +8,8 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
+import { ButtonModule } from '../button/button';
+import { ButtonProps } from 'primeng/button';
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -26,7 +28,19 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
         >
             <legend class="p-fieldset-legend" [attr.data-pc-section]="'legend'">
                 <ng-container *ngIf="toggleable; else legendContent">
-                    <a [attr.id]="id + '_header'" pRipple tabindex="0" role="button" [attr.aria-controls]="id + '_content'" [attr.aria-expanded]="!collapsed" [attr.aria-label]="buttonAriaLabel" (click)="toggle($event)" (keydown)="onKeyDown($event)">
+                    <p-button
+                        [attr.id]="id + '_header'"
+                        pRipple
+                        tabindex="0"
+                        role="button"
+                        [attr.aria-controls]="id + '_content'"
+                        [attr.aria-expanded]="!collapsed"
+                        [attr.aria-label]="buttonAriaLabel"
+                        (click)="toggle($event)"
+                        (keydown)="onKeyDown($event)"
+                        styleClass="p-fieldset-toggle-button"
+                        [buttonProps]="toggleButtonProps"
+                    >
                         <ng-container *ngIf="collapsed">
                             <PlusIcon *ngIf="!expandIconTemplate" [styleClass]="'p-fieldset-toggler'" [attr.data-pc-section]="'togglericon'" />
                             <span *ngIf="expandIconTemplate" class="p-fieldset-toggler" [attr.data-pc-section]="'togglericon'">
@@ -40,7 +54,7 @@ import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.
                             </span>
                         </ng-container>
                         <ng-container *ngTemplateOutlet="legendContent"></ng-container>
-                    </a>
+                    </p-button>
                 </ng-container>
                 <ng-template #legendContent>
                     <span class="p-fieldset-legend-text" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
@@ -122,6 +136,11 @@ export class Fieldset implements AfterContentInit, BlockableUI {
      * @group Props
      */
     @Input() transitionOptions: string = '400ms cubic-bezier(0.86, 0, 0.07, 1)';
+    /**
+     * Used to pass all properties of the buttonProps to the Button component.
+     * @group Props
+     */
+    @Input() toggleButtonProps: ButtonProps;
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
@@ -227,7 +246,7 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, MinusIcon, PlusIcon],
+    imports: [CommonModule, RippleModule, MinusIcon, PlusIcon, ButtonModule],
     exports: [Fieldset, SharedModule],
     declarations: [Fieldset]
 })
