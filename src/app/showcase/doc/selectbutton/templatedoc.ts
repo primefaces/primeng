@@ -31,7 +31,7 @@ export class TemplateDoc {
         basic: `<p-selectButton 
     [options]="justifyOptions" 
     [(ngModel)]="value" 
-    optionLabel="icon">
+    optionLabel="justify">
         <ng-template let-item pTemplate>
             <i [class]="item.icon"></i>
         </ng-template>
@@ -41,7 +41,7 @@ export class TemplateDoc {
     <p-selectButton 
         [options]="justifyOptions" 
         [(ngModel)]="value" 
-        optionLabel="icon">
+        optionLabel="justify">
             <ng-template let-item pTemplate>
                 <i [class]="item.icon"></i>
             </ng-template>
