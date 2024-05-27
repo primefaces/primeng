@@ -21,7 +21,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <div
+        <button
             [ngClass]="{ 'p-togglebutton p-button p-component': true, 'p-button-icon-only': onIcon && offIcon && !hasOnLabel && !hasOffLabel, 'p-highlight': checked, 'p-disabled': disabled }"
             [ngStyle]="style"
             [class]="styleClass"
@@ -49,7 +49,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
             }
             <span class="p-button-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
-        </div>
+        </button>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
