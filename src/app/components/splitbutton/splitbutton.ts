@@ -92,6 +92,7 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
+                (onHide)="isExpanded.set(false)"
             ></p-tieredMenu>
         </div>
     `,
