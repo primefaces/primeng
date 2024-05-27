@@ -22240,6 +22240,14 @@
                             "description": "When present, it specifies that the component should automatically get focus on load."
                         },
                         {
+                            "name": "chevronRotate",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, the chevron will rotate 180 degrees while the menu is open."
+                        },
+                        {
                             "name": "_menuButtonDisabled",
                             "optional": false,
                             "readonly": false,

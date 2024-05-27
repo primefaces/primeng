@@ -1,5 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, numberAttribute, signal } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
+    signal,
+    computed, input
+} from '@angular/core';
 import { MenuItem, PrimeTemplate } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
@@ -76,7 +93,10 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [attr.aria-expanded]="menuButtonProps?.['ariaExpanded'] || isExpanded()"
                 [attr.aria-controls]="menuButtonProps?.['ariaControls'] || ariaId"
             >
-                <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
+                <ChevronDownIcon
+                    *ngIf="!dropdownIconTemplate"
+                    [styleClass]="rotateClass()"
+                />
                 <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
             </button>
             <p-tieredMenu
@@ -219,6 +239,11 @@ export class SplitButton {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * When true the chevron will rotate 180 degrees while the menu is open.
+     * @group Props
+     */
+    chevronRotate = input<boolean>(false);
+    /**
      * Callback to invoke when default command button is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -287,6 +312,10 @@ export class SplitButton {
     ariaId: string | undefined;
 
     isExpanded = signal<boolean>(false);
+
+    rotateClass = computed(() => {
+        return (this.chevronRotate() && this.isExpanded()) ? 'p-icon-rotate-180' : undefined;
+    });
 
     ngOnInit() {
         this.ariaId = UniqueComponentId();

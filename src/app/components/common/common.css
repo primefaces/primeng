@@ -155,6 +155,11 @@
         -webkit-animation: p-icon-spin 2s infinite linear;
         animation: p-icon-spin 2s infinite linear;
     }
+
+    .p-icon-rotate-180 {
+        transform: rotate(180deg);
+        transition: transform .2s;
+    }
 }
 
 @-webkit-keyframes p-icon-spin {
