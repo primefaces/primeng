@@ -36,11 +36,13 @@ async function styleBuilder(options: Options, ctx: BuilderContext): Promise<Buil
 
         for (let component in components) {
             const _c = components[component];
-            const { theme } = await import(`${componentsPath}/${_c}/style.ts`);
-            theme &&
-                writeFile(`${componentsPath}/${_c}/${_c}.css`, theme({ dt: (key) => `${getKey(key)}` }), (err) => {
-                    if (err) throw err;
-                });
+            if (_c === 'button') {
+                const { theme } = await import(`${componentsPath}/${_c}/style.ts`);
+                theme &&
+                    writeFile(`${componentsPath}/${_c}/${_c}.css`, theme({ dt: (key) => `${getKey(key)}` }), (err) => {
+                        if (err) throw err;
+                    });
+            }
         }
     } catch (err) {}
     return { success: true };

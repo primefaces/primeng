@@ -25,16 +25,17 @@ async function styleBuilder(options, ctx) {
             const _f = (0, fs_1.readdirSync)(_path.join(componentsPath, folder));
             return _f.some((file) => _path.extname(file) === '.css');
         });
-        console.log(components);
-        // const path = `${getSystemPath(normalize(ctx.workspaceRoot))}/`;
-        // for (let component in components) {
-        //     const _c = components[component];
-        //     const { theme } = await import(`${path}/src/app/components/${_c}/style.ts`);
-        //     writeFile(`${path}/src/app/components/${_c}/${_c}.css`, theme({ dt: (key) => `${getKey(key)}` }), (err) => {
-        //         if (err) throw err;
-        //         ctx.logger.info('File has been saved');
-        //     });
-        // }
+        for (let component in components) {
+            const _c = components[component];
+            if (_c === 'button') {
+                const { theme } = await Promise.resolve(`${`${componentsPath}/${_c}/style.ts`}`).then(s => require(s));
+                theme &&
+                    (0, fs_1.writeFile)(`${componentsPath}/${_c}/${_c}.css`, theme({ dt: (key) => `${getKey(key)}` }), (err) => {
+                        if (err)
+                            throw err;
+                    });
+            }
+        }
     }
     catch (err) { }
     return { success: true };

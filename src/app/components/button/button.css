@@ -10,8 +10,6 @@
         text-align: center;
         overflow: hidden;
         position: relative;
-        color: red !important;
-        background: blue !important;
     }
 
     .p-button-label {
