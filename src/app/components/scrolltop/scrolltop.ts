@@ -5,6 +5,8 @@ import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
+import { ButtonModule } from '../button/button';
+import { ButtonProps } from 'primeng/button';
 /**
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
  * @group Components
@@ -12,24 +14,24 @@ import { ZIndexUtils } from 'primeng/utils';
 @Component({
     selector: 'p-scrollTop',
     template: `
-        <button
+        <p-button
             *ngIf="visible"
             [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
-            [ngClass]="containerClass()"
             (click)="onClick()"
-            [class]="styleClass"
+            [styleClass]="getStyleClass()"
             [ngStyle]="style"
             type="button"
+            [buttonProps]="buttonProps"
         >
             <ng-container *ngIf="!iconTemplate">
                 <span *ngIf="icon" [class]="icon" [ngClass]="'p-scrolltop-icon'"></span>
                 <ChevronUpIcon *ngIf="!icon" [styleClass]="'p-scrolltop-icon'" [ngStyle]="{ 'font-size': '1rem', scale: '1.5' }" />
             </ng-container>
             <ng-template [ngIf]="!icon" *ngTemplateOutlet="iconTemplate; context: { styleClass: 'p-scrolltop-icon' }"></ng-template>
-        </button>
+        </p-button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -102,6 +104,11 @@ export class ScrollTop implements OnInit, OnDestroy {
      * @group Props
      */
     @Input() buttonAriaLabel: string | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -201,11 +208,8 @@ export class ScrollTop implements OnInit, OnDestroy {
         }
     }
 
-    containerClass() {
-        return {
-            'p-scrolltop p-link p-component': true,
-            'p-scrolltop-sticky': this.target !== 'window'
-        };
+    getStyleClass() {
+        return `p-scrolltop p-button${this.styleClass ? ` ${this.styleClass}` : ''}${this.target !== 'window' ? ' p-scrolltop-sticky' : ''}`;
     }
 
     ngOnDestroy() {
@@ -220,7 +224,7 @@ export class ScrollTop implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ChevronUpIcon, SharedModule],
+    imports: [CommonModule, ChevronUpIcon, SharedModule, ButtonModule],
     exports: [ScrollTop, SharedModule],
     declarations: [ScrollTop]
 })

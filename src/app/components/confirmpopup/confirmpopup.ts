@@ -58,32 +58,30 @@ import { Subscription } from 'rxjs';
                     </ng-template>
                 </div>
                 <div class="p-confirm-popup-footer">
-                    <button
+                    <p-button
                         type="button"
-                        pButton
                         [label]="rejectButtonLabel"
                         (click)="reject()"
                         [ngClass]="'p-confirm-popup-reject p-button-sm'"
-                        [class]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
+                        [styleClass]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
                         *ngIf="confirmation?.rejectVisible !== false"
                         [attr.aria-label]="rejectButtonLabel"
                     >
                         <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
                         <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
-                    </button>
-                    <button
+                    </p-button>
+                    <p-button
                         type="button"
-                        pButton
                         [label]="acceptButtonLabel"
                         (click)="accept()"
                         [ngClass]="'p-confirm-popup-accept p-button-sm'"
-                        [class]="confirmation?.acceptButtonStyleClass"
+                        [styleClass]="confirmation?.acceptButtonStyleClass"
                         *ngIf="confirmation?.acceptVisible !== false"
                         [attr.aria-label]="acceptButtonLabel"
                     >
                         <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
                         <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
-                    </button>
+                    </p-button>
                 </div>
             </ng-template>
         </div>

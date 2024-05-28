@@ -7,6 +7,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
+import { ToggleButtonModule } from '../togglebutton/togglebutton';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,36 +22,15 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-selectButton',
     template: `
         <div #container [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass" role="group" [attr.aria-labelledby]="ariaLabelledBy" [attr.data-pc-name]="'selectbutton'" [attr.data-pc-section]="'root'">
-            <div
-                *ngFor="let option of options; let i = index"
-                pRipple
-                [attr.tabindex]="i === focusedIndex ? '0' : '-1'"
-                [attr.aria-label]="option.label"
-                [role]="multiple ? 'checkbox' : 'radio'"
-                [attr.aria-checked]="isSelected(option)"
-                [attr.aria-disabled]="optionDisabled"
-                class="p-button p-component"
-                [class]="option.styleClass"
-                [ngClass]="{ 'p-highlight': isSelected(option), 'p-disabled': disabled || isOptionDisabled(option), 'p-button-icon-only': option.icon && !getOptionLabel(option) }"
-                [attr.aria-pressed]="isSelected(option)"
-                (click)="onOptionSelect($event, option, i)"
-                (keydown)="onKeyDown($event, option, i)"
-                [attr.title]="option.title"
-                (focus)="onFocus($event, i)"
-                (blur)="onBlur()"
-                [attr.aria-labelledby]="this.getOptionLabel(option)"
-                [attr.data-pc-section]="'button'"
-                pAutoFocus
-                [autofocus]="autofocus"
-            >
-                <ng-container *ngIf="!itemTemplate; else customcontent">
-                    <span [ngClass]="'p-button-icon p-button-icon-left'" [class]="option.icon" *ngIf="option.icon" [attr.data-pc-section]="'icon'"></span>
-                    <span class="p-button-label" [attr.data-pc-section]="'label'">{{ getOptionLabel(option) }}</span>
-                </ng-container>
-                <ng-template #customcontent>
-                    <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
-                </ng-template>
-            </div>
+            <ng-container *ngFor="let option of options; let i = index">
+                <p-toggleButton [ngModel]="isSelected(option)" [onLabel]="this.getOptionLabel(option)" [offLabel]="this.getOptionLabel(option)" [disabled]="disabled || isOptionDisabled(option)" (onChange)="onOptionSelect($event, option, i)">
+                    <ng-container *ngIf="itemTemplate">
+                        <ng-template pTemplate="icon">
+                            <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
+                        </ng-template>
+                    </ng-container>
+                </p-toggleButton>
+            </ng-container>
         </div>
     `,
     providers: [SELECTBUTTON_VALUE_ACCESSOR],
@@ -320,7 +300,7 @@ export class SelectButton implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, ToggleButtonModule],
     exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })

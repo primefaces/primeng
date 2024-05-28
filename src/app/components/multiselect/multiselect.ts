@@ -48,6 +48,10 @@ import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 import { MinusIcon } from 'primeng/icons/minus';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputIconModule } from 'primeng/inputicon';
+import { ChipModule } from 'primeng/chip';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -189,14 +193,18 @@ export class MultiSelectItem {
                     <ng-container *ngIf="!selectedItemsTemplate">
                         <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
                         <ng-container *ngIf="display === 'chip'">
-                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
-                                <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
-                                <ng-container *ngIf="!disabled">
-                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-                                    <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                                        <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
-                                    </span>
-                                </ng-container>
+                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-chip-item">
+                                <p-chip [label]="getLabelByValue(item)" [removable]="true" (onRemove)="removeOption(item, $event)" [removeIcon]="chipIcon">
+                                    <ng-container *ngIf="chipIconTemplate || removeTokenIconTemplate">
+                                        <ng-template pTemplate="removeicon">
+                                            <ng-container *ngIf="!disabled">
+                                                <span *ngIf="chipIconTemplate || removeTokenIconTemplate" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                                                    <ng-container *ngTemplateOutlet="chipIconTemplate || removeTokenIconTemplate"></ng-container>
+                                                </span>
+                                            </ng-container>
+                                        </ng-template>
+                                    </ng-container>
+                                </p-chip>
                             </div>
                             <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
                         </ng-container>
@@ -303,37 +311,36 @@ export class MultiSelectItem {
                                     </div>
                                 </div>
                                 <div class="p-multiselect-filter-container" *ngIf="filter">
-                                    <input
-                                        #filterInput
-                                        type="text"
-                                        role="searchbox"
-                                        [attr.autocomplete]="autocomplete"
-                                        [attr.placeholder]="filterPlaceHolder"
-                                        role="searchbox"
-                                        [attr.aria-owns]="id + '_list'"
-                                        [attr.aria-activedescendant]="focusedOptionId"
-                                        [value]="_filterValue() || ''"
-                                        (input)="onFilterInputChange($event)"
-                                        (keydown)="onFilterKeyDown($event)"
-                                        (click)="onInputClick($event)"
-                                        (blur)="onFilterBlur($event)"
-                                        class="p-multiselect-filter p-inputtext p-component"
-                                        [disabled]="disabled"
-                                        [attr.placeholder]="filterPlaceHolder"
-                                        [attr.aria-label]="ariaFilterLabel"
-                                    />
-                                    <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate" />
-                                    <span *ngIf="filterIconTemplate" class="p-multiselect-filter-icon">
-                                        <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                                    </span>
+                                    <p-iconField>
+                                        <input
+                                            #filterInput
+                                            pInputText
+                                            [variant]="variant"
+                                            type="text"
+                                            role="searchbox"
+                                            [attr.autocomplete]="autocomplete"
+                                            [attr.placeholder]="filterPlaceHolder"
+                                            role="searchbox"
+                                            [attr.aria-owns]="id + '_list'"
+                                            [attr.aria-activedescendant]="focusedOptionId"
+                                            [value]="_filterValue() || ''"
+                                            (input)="onFilterInputChange($event)"
+                                            (keydown)="onFilterKeyDown($event)"
+                                            (click)="onInputClick($event)"
+                                            (blur)="onFilterBlur($event)"
+                                            class="p-multiselect-filter p-inputtext p-component"
+                                            [disabled]="disabled"
+                                            [attr.placeholder]="filterPlaceHolder"
+                                            [attr.aria-label]="ariaFilterLabel"
+                                        />
+                                        <p-inputIcon>
+                                            <SearchIcon [styleClass]="'p-multiselect-filter-icon'" *ngIf="!filterIconTemplate" />
+                                            <span *ngIf="filterIconTemplate" class="p-multiselect-filter-icon">
+                                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                            </span>
+                                        </p-inputIcon>
+                                    </p-iconField>
                                 </div>
-
-                                <button class="p-multiselect-close p-link p-button-icon-only" type="button" (click)="close($event)" pRipple [attr.aria-label]="closeAriaLabel">
-                                    <TimesIcon [styleClass]="'p-multiselect-close-icon'" *ngIf="!closeIconTemplate" />
-                                    <span *ngIf="closeIconTemplate" class="p-multiselect-close-icon">
-                                        <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                                    </span>
-                                </button>
                             </ng-template>
                         </div>
                         <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
@@ -593,6 +600,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
+    /**
+     * Icon class of the chip icon.
+     * @group Props
+     */
+    @Input() chipIcon: string | undefined;
     /**
      * Name of the label field of an option.
      * @group Props
@@ -1010,7 +1022,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     removeTokenIconTemplate: TemplateRef<any> | undefined;
 
-    closeIconTemplate: TemplateRef<any> | undefined;
+    chipIconTemplate: TemplateRef<any> | undefined;
 
     clearIconTemplate: TemplateRef<any> | undefined;
 
@@ -1271,8 +1283,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.removeTokenIconTemplate = item.template;
                     break;
 
-                case 'closeicon':
-                    this.closeIconTemplate = item.template;
+                case 'chipicon':
+                    this.chipIconTemplate = item.template;
                     break;
 
                 case 'clearicon':
@@ -2243,7 +2255,26 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, CheckIcon, SearchIcon, TimesCircleIcon, TimesIcon, ChevronDownIcon, CheckIcon, MinusIcon],
+    imports: [
+        CommonModule,
+        OverlayModule,
+        SharedModule,
+        TooltipModule,
+        RippleModule,
+        ScrollerModule,
+        AutoFocusModule,
+        CheckIcon,
+        SearchIcon,
+        TimesCircleIcon,
+        TimesIcon,
+        ChevronDownIcon,
+        CheckIcon,
+        MinusIcon,
+        IconFieldModule,
+        InputIconModule,
+        InputTextModule,
+        ChipModule
+    ],
     exports: [MultiSelect, OverlayModule, SharedModule, ScrollerModule],
     declarations: [MultiSelect, MultiSelectItem]
 })

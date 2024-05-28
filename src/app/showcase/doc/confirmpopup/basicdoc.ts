@@ -40,7 +40,7 @@ export class BasicDoc {
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass: 'p-button-danger p-button-sm',
+            acceptButtonStyleClass: 'p-button-danger',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
             },
@@ -112,7 +112,7 @@ export class ConfirmPopupBasicDemo {
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass: 'p-button-danger p-button-sm',
+            acceptButtonStyleClass: 'p-button-danger',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
             },

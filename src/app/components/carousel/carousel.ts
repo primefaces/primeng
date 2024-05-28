@@ -33,6 +33,8 @@ import { UniqueComponentId } from 'primeng/utils';
 import { CarouselPageEvent, CarouselResponsiveOptions } from './carousel.interface';
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
+import { ButtonModule } from '../button/button';
+import { ButtonProps } from 'primeng/button';
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -47,23 +49,25 @@ import { DomHandler } from 'primeng/dom';
             </div>
             <div [class]="contentClass" [ngClass]="'p-carousel-content'">
                 <div class="p-carousel-container" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
-                    <button
+                    <p-button
                         type="button"
                         *ngIf="showNavigators"
                         [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }"
                         [disabled]="isBackwardNavDisabled()"
                         [attr.aria-label]="ariaPrevButtonLabel()"
                         (click)="navBackward($event)"
+                        [text]="true"
                         pRipple
+                        [buttonProps]="prevButtonProps"
                     >
-                        <ng-container *ngIf="!previousIconTemplate">
+                        <ng-container *ngIf="!previousIconTemplate && !prevButtonProps?.icon">
                             <ChevronLeftIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronUpIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
-                        <span *ngIf="previousIconTemplate" class="p-carousel-prev-icon">
+                        <span *ngIf="previousIconTemplate && !prevButtonProps?.icon" class="p-carousel-prev-icon">
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
-                    </button>
+                    </p-button>
                     <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
                         <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()">
                             <div
@@ -102,7 +106,7 @@ import { DomHandler } from 'primeng/dom';
                             </div>
                         </div>
                     </div>
-                    <button
+                    <p-button
                         type="button"
                         *ngIf="showNavigators"
                         [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }"
@@ -110,15 +114,17 @@ import { DomHandler } from 'primeng/dom';
                         (click)="navForward($event)"
                         pRipple
                         [attr.aria-label]="ariaNextButtonLabel()"
+                        [buttonProps]="nextButtonProps"
+                        [text]="true"
                     >
-                        <ng-container *ngIf="!nextIconTemplate">
+                        <ng-container *ngIf="!nextIconTemplate && !nextButtonProps?.icon">
                             <ChevronRightIcon *ngIf="!isVertical()" [styleClass]="'carousel-prev-icon'" />
                             <ChevronDownIcon *ngIf="isVertical()" [styleClass]="'carousel-prev-icon'" />
                         </ng-container>
-                        <span *ngIf="nextIconTemplate" class="p-carousel-prev-icon">
+                        <span *ngIf="nextIconTemplate && !nextButtonProps?.icon" class="p-carousel-prev-icon">
                             <ng-template *ngTemplateOutlet="nextIconTemplate"></ng-template>
                         </span>
-                    </button>
+                    </p-button>
                 </div>
                 <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
                     <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
@@ -276,6 +282,16 @@ export class Carousel implements AfterContentInit {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() prevButtonProps: ButtonProps;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() nextButtonProps: ButtonProps;
     /**
      * Callback to invoke after scroll.
      * @param {CarouselPageEvent} event - Custom page event.
@@ -932,7 +948,7 @@ export class Carousel implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon],
+    imports: [CommonModule, SharedModule, RippleModule, ChevronRightIcon, ChevronLeftIcon, ChevronDownIcon, ChevronUpIcon, ButtonModule],
     exports: [CommonModule, Carousel, SharedModule],
     declarations: [Carousel]
 })

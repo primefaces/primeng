@@ -13,7 +13,7 @@ interface City {
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip" [showClear]="true" />
+            <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip"/>
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
     `
@@ -39,8 +39,7 @@ export class ChipsDoc implements OnInit {
     [(ngModel)]="selectedCities" 
     placeholder="Select Cities"
     optionLabel="name" 
-    display="chip" 
-    [showClear]="true" />`,
+    display="chip" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-multiSelect 
@@ -48,8 +47,7 @@ export class ChipsDoc implements OnInit {
         [(ngModel)]="selectedCities" 
         placeholder="Select Cities" 
         optionLabel="name" 
-        display="chip" 
-        [showClear]="true" />
+        display="chip" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

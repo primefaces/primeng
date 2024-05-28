@@ -195,47 +195,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.initialized = true;
     }
     ngOnChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.buttonProps && simpleChanges.buttonProps.currentValue) {
-            const { currentValue } = simpleChanges.buttonProps;
+        const { buttonProps } = simpleChanges;
 
-            if (currentValue.iconPos !== undefined) {
-                this.iconPos = currentValue.iconPos;
-            }
-            if (currentValue.icon !== undefined) {
-                this.icon = currentValue.icon;
-            }
+        if (buttonProps) {
+            const props = buttonProps.currentValue;
 
-            if (currentValue.label !== undefined) {
-                this.label = currentValue.label;
-            }
-
-            if (currentValue.loading !== undefined) {
-                this.loading = currentValue.loading;
-            }
-            if (currentValue.loadingIcon !== undefined) {
-                this.loadingIcon = currentValue.loadingIcon;
-            }
-            if (currentValue.raised !== undefined) {
-                this.raised = currentValue.raised;
-            }
-            if (currentValue.rounded !== undefined) {
-                this.rounded = currentValue.rounded;
-            }
-            if (currentValue.text !== undefined) {
-                this.text = currentValue.text;
-            }
-            if (currentValue.plain !== undefined) {
-                this.plain = currentValue.plain;
-            }
-            if (currentValue.severity !== undefined) {
-                this.severity = currentValue.severity;
-            }
-            if (currentValue.outlined !== undefined) {
-                this.outlined = currentValue.outlined;
-            }
-
-            if (currentValue.size !== undefined) {
-                this.size = currentValue.size;
+            for (const property in props) {
+                this[property] = props[property];
             }
         }
     }
@@ -592,74 +558,13 @@ export class Button implements AfterContentInit {
     constructor(public el: ElementRef) {}
 
     ngOnChanges(simpleChanges: SimpleChanges) {
-        if (simpleChanges.buttonProps && simpleChanges.buttonProps.currentValue) {
-            const { currentValue } = simpleChanges.buttonProps;
+        const { buttonProps } = simpleChanges;
 
-            if (currentValue.type !== undefined) {
-                this.type = currentValue.type;
-            }
-            if (currentValue.iconPos !== undefined) {
-                this.iconPos = currentValue.iconPos;
-            }
-            if (currentValue.icon !== undefined) {
-                this.icon = currentValue.icon;
-            }
-            if (currentValue.badge !== undefined) {
-                this.badge = currentValue.badge;
-            }
-            if (currentValue.label !== undefined) {
-                this.label = currentValue.label;
-            }
-            if (currentValue.disabled !== undefined) {
-                this.disabled = currentValue.disabled;
-            }
-            if (currentValue.loading !== undefined) {
-                this.loading = currentValue.loading;
-            }
-            if (currentValue.loadingIcon !== undefined) {
-                this.loadingIcon = currentValue.loadingIcon;
-            }
-            if (currentValue.raised !== undefined) {
-                this.raised = currentValue.raised;
-            }
-            if (currentValue.rounded !== undefined) {
-                this.rounded = currentValue.rounded;
-            }
-            if (currentValue.text !== undefined) {
-                this.text = currentValue.text;
-            }
-            if (currentValue.plain !== undefined) {
-                this.plain = currentValue.plain;
-            }
-            if (currentValue.severity !== undefined) {
-                this.severity = currentValue.severity;
-            }
-            if (currentValue.outlined !== undefined) {
-                this.outlined = currentValue.outlined;
-            }
-            if (currentValue.link !== undefined) {
-                this.link = currentValue.link;
-            }
-            if (currentValue.tabindex !== undefined) {
-                this.tabindex = currentValue.tabindex;
-            }
-            if (currentValue.size !== undefined) {
-                this.size = currentValue.size;
-            }
-            if (currentValue.style !== undefined) {
-                this.style = currentValue.style;
-            }
-            if (currentValue.styleClass !== undefined) {
-                this.styleClass = currentValue.styleClass;
-            }
-            if (currentValue.badgeClass !== undefined) {
-                this.badgeClass = currentValue.badgeClass;
-            }
-            if (currentValue.ariaLabel !== undefined) {
-                this.ariaLabel = currentValue.ariaLabel;
-            }
-            if (currentValue.autofocus !== undefined) {
-                this.autofocus = currentValue.autofocus;
+        if (buttonProps) {
+            const props = buttonProps.currentValue;
+
+            for (const property in props) {
+                this[property] = props[property];
             }
         }
     }

@@ -33,7 +33,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { Button, ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { DropdownModule } from 'primeng/dropdown';
@@ -58,6 +58,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
 import {
+    TableFilterButtonPropsOptions,
     ExportCSVOptions,
     TableColResizeEvent,
     TableColumnReorderEvent,
@@ -5016,11 +5017,11 @@ export class ReorderableRow implements AfterViewInit {
                 [useGrouping]="useGrouping"
                 [showButtons]="showButtons"
             ></p-columnFilterFormElement>
-            <button
+            <p-button
                 #icon
                 *ngIf="showMenuButton"
                 type="button"
-                class="p-column-filter-menu-button p-link"
+                styleClass="p-column-filter-menu-button p-link"
                 aria-haspopup="true"
                 [attr.aria-label]="filterMenuButtonAriaLabel"
                 [attr.aria-controls]="overlayVisible ? overlayId : null"
@@ -5028,16 +5029,26 @@ export class ReorderableRow implements AfterViewInit {
                 [ngClass]="{ 'p-column-filter-menu-button-open': overlayVisible, 'p-column-filter-menu-button-active': hasFilter() }"
                 (click)="toggleMenu()"
                 (keydown)="onToggleButtonKeyDown($event)"
+                [buttonProps]="filterButtonProps?.filter"
             >
                 <FilterIcon [styleClass]="'pi-filter-icon'" *ngIf="!filterIconTemplate" />
                 <span class="pi-filter-icon" *ngIf="filterIconTemplate">
                     <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                 </span>
-            </button>
-            <button #icon *ngIf="showClearButton && display === 'row'" [ngClass]="{ 'p-hidden-space': !hasRowFilter() }" type="button" class="p-column-filter-clear-button p-link" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel">
+            </p-button>
+            <p-button
+                #icon
+                *ngIf="showClearButton && display === 'row'"
+                [ngClass]="{ 'p-hidden-space': !hasRowFilter() }"
+                type="button"
+                styleClass="p-column-filter-clear-button p-link"
+                (click)="clearFilter()"
+                [attr.aria-label]="clearButtonLabel"
+                [buttonProps]="filterButtonProps?.inline?.clear"
+                >
                 <FilterSlashIcon *ngIf="!clearFilterIconTemplate" />
                 <ng-template *ngTemplateOutlet="clearFilterIconTemplate"></ng-template>
-            </button>
+            </p-button>
             <div
                 *ngIf="showMenu && overlayVisible"
                 [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
@@ -5096,31 +5107,55 @@ export class ReorderableRow implements AfterViewInit {
                                 [useGrouping]="useGrouping"
                             ></p-columnFilterFormElement>
                             <div>
-                                <button
+                                <p-button
                                     *ngIf="showRemoveIcon"
                                     type="button"
-                                    pButton
-                                    class="p-column-filter-remove-button p-button-text p-button-danger p-button-sm"
+                                    styleClass="p-column-filter-remove-button"
+                                    severity="danger"
+                                    [text]="true"
+                                    size="small"
                                     (click)="removeConstraint(fieldConstraint)"
                                     pRipple
                                     [attr.aria-label]="removeRuleButtonLabel"
                                     [label]="removeRuleButtonLabel"
+                                    [buttonProps]="filterButtonProps?.popover?.removeRule"
                                 >
                                     <TrashIcon *ngIf="!removeRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                                     <ng-template *ngTemplateOutlet="removeRuleIconTemplate"></ng-template>
-                                </button>
+                                </p-button>
                             </div>
                         </div>
                     </div>
                     <div class="p-column-filter-add-rule" *ngIf="isShowAddConstraint">
-                        <button type="button" pButton [label]="addRuleButtonLabel" [attr.aria-label]="addRuleButtonLabel" class="p-column-filter-add-button p-button-text p-button-sm" (click)="addConstraint()" pRipple>
+                        <p-button
+                            type="button"
+                            [label]="addRuleButtonLabel"
+                            [attr.aria-label]="addRuleButtonLabel"
+                            styleClass="p-column-filter-add-button"
+                            [text]="true"
+                            size="small"
+                            (click)="addConstraint()"
+                            pRipple
+                            [buttonProps]="filterButtonProps?.popover?.addRule"
+                        >
                             <PlusIcon *ngIf="!addRuleIconTemplate" [styleClass]="'p-button-icon-left'" />
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
-                        </button>
+                        </p-button>
                     </div>
                     <div class="p-column-filter-buttonbar">
-                        <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
-                        <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
+                        <p-button
+                            #clearBtn
+                            *ngIf="showClearButton"
+                            type="button"
+                            size="small"
+                            [outlined]="true"
+                            (click)="clearFilter()"
+                            [attr.aria-label]="clearButtonLabel"
+                            [label]="clearButtonLabel"
+                            pRipple
+                            [buttonProps]="filterButtonProps?.popover?.clear"
+                        />
+                        <p-button *ngIf="showApplyButton" type="button" (click)="applyFilter()" size="small" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel" [buttonProps]="filterButtonProps?.popover?.apply" />
                     </div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate; context: { $implicit: field }"></ng-container>
@@ -5266,6 +5301,33 @@ export class ColumnFilter implements AfterContentInit {
      */
     @Input() ariaLabel: string | undefined;
     /**
+     * Used to pass all filter button property object
+     * @defaultValue {
+    filter: { severity: 'secondary', text: true, rounded: true },
+    inline: {
+        clear: { severity: 'secondary', text: true, rounded: true }
+    },
+    popover: {
+        addRule: { severity: 'info', text: true, size: 'small' },
+        removeRule: { severity: 'danger', text: true, size: 'small' },
+        apply: { size: 'small' },
+        clear: { outlined: true, size: 'small' }
+    }
+    }
+    */
+    @Input() filterButtonProps: TableFilterButtonPropsOptions = {
+        filter: { severity: 'secondary', text: true, rounded: true },
+        inline: {
+            clear: { severity: 'secondary', text: true, rounded: true }
+        },
+        popover: {
+            addRule: { severity: 'info', text: true, size: 'small' },
+            removeRule: { severity: 'danger', text: true, size: 'small' },
+            apply: { size: 'small' },
+            clear: { outlined: true, size: 'small' }
+        }
+    };
+    /**
      * Callback to invoke on overlay is shown.
      * @param {AnimationEvent} originalEvent - animation event.
      * @group Emits
@@ -5278,7 +5340,7 @@ export class ColumnFilter implements AfterContentInit {
      */
     @Output() onHide: EventEmitter<{ originalEvent: AnimationEvent }> = new EventEmitter<{ originalEvent: AnimationEvent }>();
 
-    @ViewChild('icon') icon: Nullable<ElementRef>;
+    @ViewChild(Button, { static: false, read: ElementRef }) icon: ElementRef | undefined;
 
     @ViewChild('clearBtn') clearButtonViewChild: Nullable<ElementRef>;
 

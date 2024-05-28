@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template variable refers to an option in the options collection.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="icon">
+            <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
                 <ng-template let-item pTemplate>
                     <i [class]="item.icon"></i>
                 </ng-template>
@@ -31,7 +31,7 @@ export class TemplateDoc {
         basic: `<p-selectButton 
     [options]="justifyOptions" 
     [(ngModel)]="value" 
-    optionLabel="icon">
+    optionLabel="justify">
         <ng-template let-item pTemplate>
             <i [class]="item.icon"></i>
         </ng-template>
@@ -41,7 +41,7 @@ export class TemplateDoc {
     <p-selectButton 
         [options]="justifyOptions" 
         [(ngModel)]="value" 
-        optionLabel="icon">
+        optionLabel="justify">
             <ng-template let-item pTemplate>
                 <i [class]="item.icon"></i>
             </ng-template>

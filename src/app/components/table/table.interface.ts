@@ -1,6 +1,7 @@
 import { FilterMetadata, LazyLoadMeta, TableState } from 'primeng/api';
 import { Table } from './table';
 import { TemplateRef } from '@angular/core';
+import { ButtonProps } from 'primeng/button';
 /**
  * Custom select event.
  * @see {@link Table.onRowSelect}
@@ -253,6 +254,53 @@ export interface TableSelectAllChangeEvent {
      * Checked state.
      */
     checked: boolean;
+}
+/**
+ * Custom table filter popover button props options.
+ */
+export interface TableFilterButtonPopoverPropsOptions {
+    /**
+     * Add rule button props
+     */
+    addRule: ButtonProps | undefined;
+    /**
+     * Remove rule button props
+     */
+    removeRule: ButtonProps | undefined;
+    /**
+     * Apply button props
+     */
+    apply: ButtonProps | undefined;
+    /**
+     * Apply button props
+     */
+    clear: ButtonProps | undefined;
+}
+/**
+ * Custom table filter inline button props options.
+ */
+export interface TableFilterButtonInlinePropsOptions {
+    /**
+     * Apply button props
+     */
+    clear: ButtonProps | undefined;
+}
+/**
+ * Custom table filter buttons' props options.
+ */
+export interface TableFilterButtonPropsOptions {
+    /**
+     * Filter button props
+     */
+    filter: ButtonProps | undefined;
+    /**
+     * Inline filter buttons' options
+     */
+    inline: TableFilterButtonInlinePropsOptions | undefined;
+    /**
+     * Popover filter buttons' options
+     */
+    popover: TableFilterButtonPopoverPropsOptions | undefined;
 }
 /**
  * Custom CSV export options.
