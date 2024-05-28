@@ -251,7 +251,7 @@ describe('PickList', () => {
 
         let event = { ctrlKey: true };
         let callback = new EventEmitter();
-        picklist.onItemClick(event, picklist.source, picklist.selectedItemsSource, picklist.SOURCE_LIST, callback);
+        picklist.onItemClick(event, picklist.selectedItemsSource[0], picklist.selectedItemsSource, picklist.SOURCE_LIST, callback);
         fixture.detectChanges();
 
         picklist.cd.detectChanges();
@@ -756,28 +756,25 @@ describe('PickList', () => {
     it('should change focused item with up and down arrows', () => {
         fixture.detectChanges();
 
+        const itemList = fixture.debugElement.query(By.css('.p-picklist-list'));
         let items = fixture.debugElement.queryAll(By.css('.p-picklist-item'));
         items[0].nativeElement.click();
         fixture.detectChanges();
 
         expect(picklist.selectedItemsSource.length).toEqual(1);
         expect(picklist.selectedItemsSource[0].brand).toBe('VW');
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.initEvent('keydown', true, true);
-        items[0].nativeElement.dispatchEvent(keydownEvent);
+        itemList.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
         fixture.detectChanges();
 
-        expect(document.activeElement).toEqual(items[1].nativeElement);
-        keydownEvent.which = 38;
-        items[1].nativeElement.dispatchEvent(keydownEvent);
+        expect(items[1].nativeElement.className).toContain('p-focus');
+        itemList.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
         fixture.detectChanges();
 
-        expect(document.activeElement).toEqual(items[0].nativeElement);
-        keydownEvent.which = 13;
-        items[1].nativeElement.dispatchEvent(keydownEvent);
+        expect(items[0].nativeElement.className).toContain('p-focus');
+        itemList.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+        itemList.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
-        expect(picklist.selectedItemsSource[0].brand).toBe('Audi');
+        expect(picklist.selectedItemsSource[1].brand).toBe('Audi');
     });
 });
