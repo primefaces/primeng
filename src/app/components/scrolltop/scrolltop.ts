@@ -20,9 +20,8 @@ import { ButtonProps } from 'primeng/button';
             (@animation.start)="onEnter($event)"
             (@animation.done)="onLeave($event)"
             [attr.aria-label]="buttonAriaLabel"
-            [ngClass]="containerClass()"
             (click)="onClick()"
-            [styleClass]="styleClass"
+            [styleClass]="getStyleClass()"
             [ngStyle]="style"
             type="button"
             [buttonProps]="buttonProps"
@@ -209,11 +208,8 @@ export class ScrollTop implements OnInit, OnDestroy {
         }
     }
 
-    containerClass() {
-        return {
-            'p-scrolltop p-link p-component': true,
-            'p-scrolltop-sticky': this.target !== 'window'
-        };
+    getStyleClass() {
+        return `p-scrolltop p-button${this.styleClass ? ` ${this.styleClass}` : ''}${this.target !== 'window' ? ' p-scrolltop-sticky' : ''}`;
     }
 
     ngOnDestroy() {
