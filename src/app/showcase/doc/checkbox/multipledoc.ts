@@ -9,16 +9,20 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-content-center gap-3">
             <div class="flex align-items-center">
-                <p-checkbox label="Cheese" name="pizza" value="Cheese" [(ngModel)]="pizza" />
+                <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
+                <label for="ingredient1" class="ml-2"> Cheese </label>
             </div>
             <div class="flex align-items-center">
-                <p-checkbox label="Mushroom" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
+                <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
+                <label for="ingredient2" class="ml-2"> Mushroom </label>
             </div>
             <div class="flex align-items-center">
-                <p-checkbox label="Pepper" name="pizza" value="Pepper" [(ngModel)]="pizza" />
+                <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
+                <label for="ingredient3" class="ml-2"> Pepper </label>
             </div>
             <div class="flex align-items-center">
-                <p-checkbox label="Onion" name="pizza" value="Onion" [(ngModel)]="pizza" />
+                <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
+                <label for="ingredient4" class="ml-2"> Onion </label>
             </div>
         </div>
         <app-code [code]="code" selector="checkbox-multiple-demo"></app-code>
@@ -30,61 +34,77 @@ export class MultipleDoc {
     code: Code = {
         basic: `<div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"
-        label="Cheese" 
-        name="pizza" 
-        value="Cheese" />
+        inputId="ingredient1" 
+        name="pizza"
+        value="Cheese" 
+        [(ngModel)]="pizza" 
+    />
+    <label for="ingredient1" class="ml-2"> Cheese </label>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"
-        label="Mushroom"
+        inputId="ingredient2" 
         name="pizza" 
-        value="Mushroom" />
+        value="Mushroom" 
+        [(ngModel)]="pizza" 
+    />
+    <label for="ingredient2" class="ml-2"> Mushroom </label>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"
-        label="Pepper" 
+        inputId="ingredient3" 
         name="pizza" 
-        value="Pepper" />
+        value="Pepper" 
+        [(ngModel)]="pizza" 
+    />
+    <label for="ingredient3" class="ml-2"> Pepper </label>
 </div>
 <div class="flex align-items-center">
     <p-checkbox 
-        [(ngModel)]="pizza"
-        label="Onion" 
+        inputId="ingredient4" 
         name="pizza" 
-        value="Onion" />
+        value="Onion" 
+        [(ngModel)]="pizza" 
+    />
+    <label for="ingredient4" class="ml-2"> Onion </label>
 </div>`,
 
         html: `<div class="card flex justify-content-center gap-3">
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Cheese" 
-            name="pizza" 
-            value="Cheese" />
+            inputId="ingredient1" 
+            name="pizza"
+            value="Cheese" 
+            [(ngModel)]="pizza" 
+        />
+        <label for="ingredient1" class="ml-2"> Cheese </label>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Mushroom"
+            inputId="ingredient2" 
             name="pizza" 
-            value="Mushroom" />
+            value="Mushroom" 
+            [(ngModel)]="pizza" 
+        />
+        <label for="ingredient2" class="ml-2"> Mushroom </label>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Pepper" 
+            inputId="ingredient3" 
             name="pizza" 
-            value="Pepper" />
+            value="Pepper" 
+            [(ngModel)]="pizza" 
+        />
+        <label for="ingredient3" class="ml-2"> Pepper </label>
     </div>
     <div class="flex align-items-center">
         <p-checkbox 
-            [(ngModel)]="pizza"
-            label="Onion" 
+            inputId="ingredient4" 
             name="pizza" 
-            value="Onion" />
+            value="Onion" 
+            [(ngModel)]="pizza" 
+        />
+        <label for="ingredient4" class="ml-2"> Onion </label>
     </div>
 </div>`,
 

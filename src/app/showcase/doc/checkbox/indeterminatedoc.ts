@@ -2,30 +2,32 @@ import { Component } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'checkbox-basic-demo',
+    selector: 'checkbox-indeterminate-demo',
     template: `
         <app-docsectiontext>
-            <p>Binary checkbox is used as a controlled input with <i>ngModel</i> and <i>binary</i> properties.</p>
+            <p>When <i>indeterminate</i> is present, the checkbox masks the actual value visually.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-3">
-            <p-checkbox [(ngModel)]="checked" [binary]="true" inputId="binary" />
+            <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" inputId="binary" />
         </div>
-        <app-code [code]="code" selector="checkbox-basic-demo"></app-code>
+        <app-code [code]="code" selector="checkbox-indeterminate-demo"></app-code>
     `
 })
-export class BasicDoc {
+export class IndeterminateDoc {
     checked: any = null;
 
     code: Code = {
         basic: `<p-checkbox 
     [(ngModel)]="checked" 
-    [binary]="true" 
+    [binary]="true"
+    [indeterminate]="true"
     inputId="binary" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-checkbox 
         [(ngModel)]="checked" 
-        [binary]="true" 
+        [binary]="true"
+        [indeterminate]="true"
         inputId="binary" />
 </div>`,
 
@@ -34,12 +36,12 @@ import { FormsModule } from '@angular/forms';
 import { CheckboxModule } from 'primeng/checkbox';
 
 @Component({
-    selector: 'checkbox-basic-demo',
-    templateUrl: './checkbox-basic-demo.html',
+    selector: 'checkbox-indeterminate-demo',
+    templateUrl: './checkbox-indeterminate-demo.html',
     standalone: true,
     imports: [FormsModule, CheckboxModule]
 })
-export class CheckboxBasicDemo {
+export class CheckboxIndeterminateDemo {
     checked: boolean = false;
 }`
     };

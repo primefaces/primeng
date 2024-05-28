@@ -9,6 +9,7 @@ import { StyleDoc } from '@doc/checkbox/styledoc';
 import { AccessibilityDoc } from '@doc/checkbox/accessibilitydoc';
 import { ReactiveFormsDoc } from '@doc/checkbox/reactiveformsdoc';
 import { FilledDoc } from '@doc/checkbox/filleddoc';
+import { IndeterminateDoc } from '@doc/checkbox/indeterminatedoc';
 
 @Component({
     templateUrl: './checkboxdemo.html'
@@ -24,6 +25,11 @@ export class CheckboxDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
+        },
+        {
+            id: 'indeterminate',
+            label: 'Indeterminate',
+            component: IndeterminateDoc
         },
         {
             id: 'reactive-forms',
