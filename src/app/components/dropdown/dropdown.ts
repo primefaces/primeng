@@ -133,7 +133,7 @@ export class DropdownItem {
  * @group Components
  */
 @Component({
-    selector: 'p-dropdown',
+    selector: 'p-dropdown, p-select',
     template: `
         <div #container [attr.id]="id" [ngClass]="containerClass" (click)="onContainerClick($event)" [ngStyle]="style" [class]="styleClass">
             <span
@@ -249,33 +249,31 @@ export class DropdownItem {
                             <ng-template #builtInFilterElement>
                                 <div class="p-dropdown-filter-container">
                                     <p-iconField>
-
                                         <input
-                                        #filter
-                                        pInputText
-                                        type="text"
-                                        role="searchbox"
-                                        autocomplete="off"
-                                        [value]="_filterValue() || ''"
-                                        class="p-dropdown-filter p-inputtext p-component"
-                                        [variant]="variant"
-                                        [attr.placeholder]="filterPlaceholder"
-                                        [attr.aria-owns]="id + '_list'"
-                                        (input)="onFilterInputChange($event)"
-                                        [attr.aria-label]="ariaFilterLabel"
-                                        [attr.aria-activedescendant]="focusedOptionId"
-                                        (keydown)="onFilterKeyDown($event)"
-                                        (blur)="onFilterBlur($event)"
+                                            #filter
+                                            pInputText
+                                            type="text"
+                                            role="searchbox"
+                                            autocomplete="off"
+                                            [value]="_filterValue() || ''"
+                                            class="p-dropdown-filter p-inputtext p-component"
+                                            [variant]="variant"
+                                            [attr.placeholder]="filterPlaceholder"
+                                            [attr.aria-owns]="id + '_list'"
+                                            (input)="onFilterInputChange($event)"
+                                            [attr.aria-label]="ariaFilterLabel"
+                                            [attr.aria-activedescendant]="focusedOptionId"
+                                            (keydown)="onFilterKeyDown($event)"
+                                            (blur)="onFilterBlur($event)"
                                         />
                                         <p-inputIcon>
-
                                             <SearchIcon *ngIf="!filterIconTemplate" />
                                             <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
                                                 <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                                             </span>
                                         </p-inputIcon>
                                     </p-iconField>
-                                    </div>
+                                </div>
                             </ng-template>
                         </div>
                         <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
