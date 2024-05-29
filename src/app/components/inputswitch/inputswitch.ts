@@ -14,7 +14,7 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-inputSwitch',
+    selector: 'p-inputSwitch, p-toggleSwitch',
     template: `
         <div
             [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }"
