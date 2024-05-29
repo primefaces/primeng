@@ -39,7 +39,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-chips',
+    selector: 'p-chips, p-inputChips',
     template: `
         <div
             [ngClass]="{
