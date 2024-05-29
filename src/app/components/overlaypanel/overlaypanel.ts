@@ -36,7 +36,7 @@ import { Subscription } from 'rxjs';
  * @group Components
  */
 @Component({
-    selector: 'p-overlayPanel',
+    selector: 'p-overlayPanel, p-popover',
     template: `
         <div
             *ngIf="render"
