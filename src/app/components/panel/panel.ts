@@ -106,7 +106,6 @@ import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./panel.css'],
     host: {
         class: 'p-element'
     }
