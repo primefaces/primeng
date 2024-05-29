@@ -405,6 +405,10 @@ export class Slider implements OnDestroy, ControlValueAccessor {
                 this.updateValue(this.max, event);
                 event.preventDefault();
                 break;
+            case 'Tab':
+                this.onDragEnd(event);
+                event.preventDefault();
+                break;
 
             default:
                 break;
