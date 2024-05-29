@@ -38,7 +38,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  * @group Components
  */
 @Component({
-    selector: 'p-sidebar',
+    selector: 'p-sidebar, p-drawer',
     template: `
         <div
             #container
