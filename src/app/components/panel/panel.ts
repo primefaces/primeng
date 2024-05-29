@@ -8,6 +8,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
+import { theme } from './style';
 
 /**
  * Panel is a container with the optional content toggle feature.
