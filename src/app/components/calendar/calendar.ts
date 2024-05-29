@@ -51,7 +51,7 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
  * @group Components
  */
 @Component({
-    selector: 'p-calendar',
+    selector: 'p-calendar, p-datepicker',
     template: `
         <span
             #container
