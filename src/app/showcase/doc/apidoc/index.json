@@ -3292,7 +3292,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Defines if the node is loading."
                         }
                     ]
                 }
@@ -3480,7 +3480,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Defines if the node is loading."
                         },
                         {
                             "name": "originalEvent",
@@ -5325,6 +5325,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether to display timepicker only."
+                        },
+                        {
+                            "name": "stepYearPicker",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "10",
+                            "description": "Years to change per step in yearpicker."
                         },
                         {
                             "name": "stepHour",
@@ -22173,6 +22181,20 @@
                             "description": "Text of the button."
                         },
                         {
+                            "name": "tooltip",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip for the main button."
+                        },
+                        {
+                            "name": "tooltipOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip options for the main button."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -28759,7 +28781,7 @@
                                 "optional": true,
                                 "readonly": false,
                                 "type": "boolean",
-                                "description": "Mandatory unique key of the node."
+                                "description": "Defines if the node is loading."
                             },
                             {
                                 "name": "originalEvent",
