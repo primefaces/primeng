@@ -42,7 +42,7 @@ describe('FileUpload', () => {
         const fileuploadEl = fixture.debugElement.query(By.css('div'));
         expect(fileuploadEl).toBeTruthy();
         expect(fileuploadEl.nativeElement.className).toContain('p-fileupload-advanced');
-        expect(fileuploadEl.children.length).toEqual(2);
+        expect(fileuploadEl.children.length).toEqual(3);
     });
 
     it('should change style, styleClass, chooseLabel, uploadLabel, cancelLabel, showUploadButton and showCancelButton (advanced)', () => {
@@ -98,7 +98,7 @@ describe('FileUpload', () => {
         expect(fileNameEl).toBeTruthy();
         expect(removeButtonEl).toBeTruthy();
         expect(fileNameEl.nativeElement.textContent).toEqual('primeng.txt');
-        expect(fileSizeEl.nativeElement.textContent).toEqual('179 B');
+        expect(fileSizeEl.nativeElement.textContent).toEqual('179.000 B');
         expect(fileupload.hasFiles()).toEqual(true);
         expect(uploadButton.nativeElement.disabled).toEqual(false);
         expect(cancelButton.nativeElement.disabled).toEqual(false);
