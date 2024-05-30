@@ -53,7 +53,6 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PaginatorModule } from 'primeng/paginator';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription } from 'rxjs';
@@ -77,6 +76,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Injectable()
 export class TableService {
@@ -4658,30 +4658,13 @@ export class TableRadioButton {
 @Component({
     selector: 'p-tableCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': disabled }" (click)="onClick($event)">
-            <div class="p-hidden-accessible">
-                <input
-                    type="checkbox"
-                    [attr.id]="inputId"
-                    [attr.name]="name"
-                    [checked]="checked"
-                    (focus)="onFocus()"
-                    (blur)="onBlur()"
-                    [disabled]="disabled"
-                    [attr.required]="required"
-                    [attr.aria-label]="ariaLabel"
-                    [tabindex]="disabled ? null : '0'"
-                />
-            </div>
-            <div #box [ngClass]="{ 'p-checkbox-box p-component': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': disabled }">
-                <ng-container *ngIf="!dt.checkboxIconTemplate">
-                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
-                </ng-container>
-                <span *ngIf="dt.checkboxIconTemplate">
+        <p-checkbox [(ngModel)]="checked" [binary]="true" (onChange)="onClick($event)" [disabled]="disabled" [ariaLabel]="ariaLabel">
+            <ng-container *ngIf="dt.checkboxIconTemplate">
+                <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="dt.checkboxIconTemplate; context: { $implicit: checked }"></ng-template>
-                </span>
-            </div>
-        </div>
+                </ng-template>
+            </ng-container>
+        </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -4753,19 +4736,13 @@ export class TableCheckbox {
 @Component({
     selector: 'p-tableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-checkbox-disabled': isDisabled() }" (click)="onClick($event)">
-            <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [tabindex]="disabled ? null : '0'" [attr.id]="inputId" [attr.name]="name" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="isDisabled()" [attr.aria-label]="ariaLabel" />
-            </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': isDisabled() }">
-                <ng-container *ngIf="!dt.headerCheckboxIconTemplate">
-                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'" />
-                </ng-container>
-                <span class="p-checkbox-icon" *ngIf="dt.headerCheckboxIconTemplate">
+        <p-checkbox [(ngModel)]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="isDisabled()" [ariaLabel]="ariaLabel">
+            <ng-container *ngIf="dt.headerCheckboxIconTemplate">
+                <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="dt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
-                </span>
-            </div>
-        </div>
+                </ng-template>
+            </ng-container>
+        </p-checkbox>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -4808,7 +4785,7 @@ export class TableHeaderCheckbox {
     onClick(event: Event) {
         if (!this.disabled) {
             if (this.dt.value && this.dt.value.length > 0) {
-                this.dt.toggleRowsWithCheckbox(event, !this.checked);
+                this.dt.toggleRowsWithCheckbox(event, this.checked);
             }
         }
 
@@ -5045,7 +5022,7 @@ export class ReorderableRow implements AfterViewInit {
                 (click)="clearFilter()"
                 [attr.aria-label]="clearButtonLabel"
                 [buttonProps]="filterButtonProps?.inline?.clear"
-                >
+            >
                 <FilterSlashIcon *ngIf="!clearFilterIconTemplate" />
                 <ng-template *ngTemplateOutlet="clearFilterIconTemplate"></ng-template>
             </p-button>
@@ -5910,7 +5887,8 @@ export class ColumnFilter implements AfterContentInit {
                     [currencyDisplay]="currencyDisplay"
                     [useGrouping]="useGrouping"
                 ></p-inputNumber>
-                <p-triStateCheckbox [ariaLabel]="ariaLabel" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)"></p-triStateCheckbox>
+                <p-checkbox [indeterminate]="true" [binary]="true" *ngSwitchCase="'boolean'" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" />
+   
                 <p-calendar [ariaLabel]="ariaLabel" *ngSwitchCase="'date'" [placeholder]="placeholder" [ngModel]="filterConstraint?.value" (ngModelChange)="onModelChange($event)" appendTo="body"></p-calendar>
             </ng-container>
         </ng-template>
@@ -5956,6 +5934,7 @@ export class ColumnFilterFormElement implements OnInit {
     }
 
     filterCallback: any;
+    
 
     constructor(public dt: Table, private colFilter: ColumnFilter) {}
 
@@ -5998,7 +5977,7 @@ export class ColumnFilterFormElement implements OnInit {
         SelectButtonModule,
         CalendarModule,
         InputNumberModule,
-        TriStateCheckboxModule,
+        CheckboxModule,
         ScrollerModule,
         ArrowDownIcon,
         ArrowUpIcon,
