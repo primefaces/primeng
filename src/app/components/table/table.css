@@ -155,7 +155,7 @@
 
     [pReorderableColumn] {
         cursor: move;
-    }
+    } 
 
     /* Loader */
     .p-datatable .p-datatable-loading-overlay {

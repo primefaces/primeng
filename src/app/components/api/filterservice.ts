@@ -250,9 +250,11 @@ export class FilterService {
             if (value === undefined || value === null) {
                 return false;
             }
-            value.setHours(0, 0, 0, 0);
 
-            return value.getTime() > filter.getTime();
+            const valueCopy = new Date(value);
+            valueCopy.setHours(0, 0, 0, 0);
+
+            return valueCopy.getTime() > filter.getTime();
         }
     };
 

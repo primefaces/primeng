@@ -164,7 +164,6 @@ import {
                 >
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
                         <li
-                            [ngClass]="{ 'p-picklist-item': true, 'p-highlight': isSelected(item, selectedItemsSource), 'p-disabled': disabled }"
                             pRipple
                             cdkDrag
                             [id]="idSource + '_' + i"
@@ -273,7 +272,6 @@ import {
                 >
                     <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="targetTrackBy || trackBy" let-i="index" let-l="last">
                         <li
-                            [ngClass]="{ 'p-picklist-item': true, 'p-highlight': isSelected(item, selectedItemsTarget), 'p-disabled': disabled }"
                             pRipple
                             cdkDrag
                             [id]="idTarget + '_' + i"
@@ -1258,7 +1256,8 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         return {
             'p-picklist-item': true,
             'p-highlight': this.isSelected(item, selectedItems),
-            'p-focus': id === this.focusedOptionId
+            'p-focus': id === this.focusedOptionId,
+            'p-disabled': this.disabled
         };
     }
 

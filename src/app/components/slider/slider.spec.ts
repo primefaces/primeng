@@ -234,6 +234,31 @@ describe('Slider', () => {
         expect(unbindDragListenersSpy).toHaveBeenCalled();
     });
 
+    it('should change values with keyboard events', () => {
+        slider.updateValue(0);
+        fixture.detectChanges();
+
+        const incrementValueSpy = spyOn(slider, 'incrementValue').and.callThrough();
+        const spanEl = fixture.debugElement.query(By.css('.p-slider-handle'));
+        spanEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));
+        spanEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));
+        fixture.detectChanges();
+        expect(incrementValueSpy).toHaveBeenCalled();
+
+        const decrementValueSpy = spyOn(slider, 'decrementValue').and.callThrough();
+        spanEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }));
+        fixture.detectChanges();
+        expect(decrementValueSpy).toHaveBeenCalled();
+
+        const onDragEndSpy = spyOn(slider, 'onDragEnd').and.callThrough();
+        const onSlideEndEmitterSpy = spyOn(slider.onSlideEnd, 'emit').and.callThrough();
+        spanEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab' }));
+        fixture.detectChanges();
+        expect(onDragEndSpy).toHaveBeenCalled();
+        expect(onSlideEndEmitterSpy).toHaveBeenCalled();
+        expect(slider.value).toEqual(1);
+    });
+
     it('should increment value with step', () => {
         slider.value = 0;
         slider.step = 2;

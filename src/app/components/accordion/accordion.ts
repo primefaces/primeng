@@ -626,6 +626,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
             }
         });
         this.preventActiveIndexPropagation = true;
+        this._activeIndex = index;
         this.activeIndexChange.emit(index as number[] | number);
     }
 

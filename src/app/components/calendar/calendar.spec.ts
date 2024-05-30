@@ -1481,6 +1481,58 @@ describe('Calendar', () => {
         flush();
     }));
 
+    it('should hide overlay on range calendar when hideOnDateTimeSelect is true', fakeAsync(() => {
+        calendar.hideOnDateTimeSelect = true;
+        calendar.selectionMode = 'range';
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
+        const focusEvent = new Event('focus');
+        inputEl.nativeElement.click();
+        inputEl.nativeElement.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+
+        dates[1].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        expect(calendar.overlayVisible).toEqual(false);
+        flush();
+    }));
+
+    it('should keep overlay visible on range calendar when hideOnDateTimeSelect is false', fakeAsync(() => {
+        calendar.hideOnDateTimeSelect = false;
+        calendar.selectionMode = 'range';
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
+        const focusEvent = new Event('focus');
+        inputEl.nativeElement.click();
+        inputEl.nativeElement.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+
+        dates[1].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        expect(calendar.overlayVisible).toEqual(true);
+        flush();
+    }));
+
     it('should be next year', () => {
         const date = new Date(2017, 11, 23);
         calendar.defaultDate = date;

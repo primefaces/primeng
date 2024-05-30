@@ -4025,7 +4025,8 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
 @Directive({
     selector: '[pReorderableColumn]',
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[style.cursor]': 'isEnabled() ? "move" : "default"'
     }
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {
