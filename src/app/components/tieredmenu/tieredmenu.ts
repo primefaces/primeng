@@ -82,7 +82,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [ngClass]="getItemClass(processedItem)"
                     [class]="getItemProp(processedItem, 'styleClass')"
-                    pTooltip
+                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
                     <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
