@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass, NgIf, NgStyle } from '@angular/common';
 import {
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -111,11 +111,13 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     styleUrls: ['./checkbox.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    standalone: true,
+    imports: [NgClass, NgStyle, NgIf, CheckIcon]
 })
 export class Checkbox implements ControlValueAccessor {
     /**
-     * Value of the checkbox.
+     * Value of the checkbox.run
      * @group Props
      */
     @Input() value: any;
@@ -351,8 +353,7 @@ export class Checkbox implements ControlValueAccessor {
 }
 
 @NgModule({
-    imports: [CommonModule, AutoFocusModule, CheckIcon],
-    exports: [Checkbox, SharedModule],
-    declarations: [Checkbox]
+    imports: [CommonModule, AutoFocusModule, CheckIcon, Checkbox],
+    exports: [Checkbox, SharedModule]
 })
 export class CheckboxModule {}

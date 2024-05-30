@@ -39,8 +39,8 @@ describe('TabView', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TimesIcon],
-            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent, PrimeTemplate]
+            imports: [NoopAnimationsModule, TimesIcon, PrimeTemplate],
+            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTabViewComponent);
