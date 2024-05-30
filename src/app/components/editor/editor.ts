@@ -223,7 +223,7 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
         if (this.quill) {
             if (value) {
                 const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert({ html: this.value }));
+                    this.quill.setContents(this.quill.clipboard.convert(this.dynamicQuill.version.startsWith('2') ? { html: this.value } : this.value));
                 };
 
                 if (this.isAttachedQuillEditorToDOM) {
@@ -295,13 +295,15 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
             scrollingContainer: this.scrollingContainer
         });
 
+        const isQuill2 = this.dynamicQuill.version.startsWith('2');
+
         if (this.value) {
-            this.quill.setContents(this.quill.clipboard.convert({ html: this.value }));
+            this.quill.setContents(this.quill.clipboard.convert(isQuill2 ? { html: this.value } : this.value));
         }
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
-                let html = this.quill.getSemanticHTML();
+                let html = isQuill2 ? this.quill.getSemanticHTML() : DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
