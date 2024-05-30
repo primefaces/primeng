@@ -4026,7 +4026,7 @@ export class ResizableColumn implements AfterViewInit, OnDestroy {
     selector: '[pReorderableColumn]',
     host: {
         class: 'p-element',
-        '[class.p-reorder-column-disabled]': '!isEnabled()'
+        '[style.cursor]': 'isEnabled() ? "move" : "default"'
     }
 })
 export class ReorderableColumn implements AfterViewInit, OnDestroy {

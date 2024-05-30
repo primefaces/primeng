@@ -156,10 +156,6 @@
     [pReorderableColumn] {
         cursor: move;
     } 
-    
-    .p-reorder-column-disabled {
-        cursor: default;
-    }
 
     /* Loader */
     .p-datatable .p-datatable-loading-overlay {
