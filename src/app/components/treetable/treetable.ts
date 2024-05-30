@@ -3188,7 +3188,7 @@ export class TTHeaderCheckbox {
 
     onClick(event: Event) {
         if ((this.tt.value || this.tt.filteredNodes) && (this.tt.value.length > 0 || this.tt.filteredNodes.length > 0)) {
-            this.tt.toggleNodesWithCheckbox(event, this.checked);
+            this.tt.toggleNodesWithCheckbox(event, !this.checked);
         }
 
         DomHandler.clearSelection();
