@@ -1,15 +1,15 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { FileUpload } from './fileupload';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { ButtonModule } from 'primeng/button';
-import { PrimeTemplate } from 'primeng/api';
-import { MessagesModule } from 'primeng/messages';
 import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PrimeTemplate } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import { PlusIcon } from 'primeng/icons/plus';
 import { TimesIcon } from 'primeng/icons/times';
 import { UploadIcon } from 'primeng/icons/upload';
+import { MessagesModule } from 'primeng/messages';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { FileUpload } from './fileupload';
 
 describe('FileUpload', () => {
     let fileupload: FileUpload;
@@ -17,8 +17,8 @@ describe('FileUpload', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon],
-            declarations: [FileUpload, PrimeTemplate]
+            imports: [NoopAnimationsModule, ProgressBarModule, MessagesModule, ButtonModule, HttpClientModule, PlusIcon, TimesIcon, UploadIcon, PrimeTemplate],
+            declarations: [FileUpload]
         });
 
         fixture = TestBed.createComponent(FileUpload);
@@ -42,7 +42,7 @@ describe('FileUpload', () => {
         const fileuploadEl = fixture.debugElement.query(By.css('div'));
         expect(fileuploadEl).toBeTruthy();
         expect(fileuploadEl.nativeElement.className).toContain('p-fileupload-advanced');
-        expect(fileuploadEl.children.length).toEqual(2);
+        expect(fileuploadEl.children.length).toEqual(3);
     });
 
     it('should change style, styleClass, chooseLabel, uploadLabel, cancelLabel, showUploadButton and showCancelButton (advanced)', () => {
@@ -98,7 +98,7 @@ describe('FileUpload', () => {
         expect(fileNameEl).toBeTruthy();
         expect(removeButtonEl).toBeTruthy();
         expect(fileNameEl.nativeElement.textContent).toEqual('primeng.txt');
-        expect(fileSizeEl.nativeElement.textContent).toEqual('179 B');
+        expect(fileSizeEl.nativeElement.textContent).toEqual('179.000 B');
         expect(fileupload.hasFiles()).toEqual(true);
         expect(uploadButton.nativeElement.disabled).toEqual(false);
         expect(cancelButton.nativeElement.disabled).toEqual(false);

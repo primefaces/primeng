@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -20,11 +20,11 @@ import {
     numberAttribute
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocus } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -36,12 +36,14 @@ const INTERNAL_BUTTON_CLASSES = {
     loading: 'p-button-loading',
     labelOnly: 'p-button-loading-label-only'
 } as const;
+
 /**
  * Button directive is an extension to button component.
  * @group Components
  */
 @Directive({
     selector: '[pButton]',
+    standalone: true,
     host: {
         class: 'p-element'
     }
@@ -329,6 +331,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
  */
 @Component({
     selector: 'p-button',
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, NgStyle, NgClass, Ripple, AutoFocus, SpinnerIcon],
     template: `
         <button
             [attr.type]="type"
@@ -582,8 +586,7 @@ export class Button implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon],
-    exports: [ButtonDirective, Button, SharedModule],
-    declarations: [ButtonDirective, Button]
+    imports: [ButtonDirective, Button],
+    exports: [ButtonDirective, Button, SharedModule]
 })
 export class ButtonModule {}
