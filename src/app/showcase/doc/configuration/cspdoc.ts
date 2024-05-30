@@ -14,7 +14,7 @@ import { PrimeNGConfig } from 'primeng/api';
 export class CspDoc {
     code: Code = {
         basic: `constructor(private primengConfig: PrimeNGConfig) {
-    this.config.csp.set({nonce: '...'});
+    this.primengConfig.csp.set({nonce: '...'});
 }
         `
     };
