@@ -27,9 +27,10 @@ import { Code } from 'src/app/showcase/domain/code';
         .my-inputswitch .p-inputswitch-slider {
             border-radius: 0;
         }
-        .my-inputswitch .p-inputswitch-slider:before  {
+        .my-inputswitch .p-inputswitch-slider:before {
             border-radius: 0;
-        }`
+        }
+    `
 })
 export class SpecificityDoc {
     checked: boolean = false;

@@ -37,7 +37,10 @@ import { ProductService } from '@service/productservice';
 export class VerticalDoc implements OnInit {
     products: Product[] | undefined;
 
-    constructor(private productService: ProductService, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.productService.getProductsSmall().then((products) => {

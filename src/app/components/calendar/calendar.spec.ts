@@ -1498,7 +1498,6 @@ describe('Calendar', () => {
         tick(150);
         fixture.detectChanges();
 
-
         dates[1].nativeElement.click();
         tick(150);
         fixture.detectChanges();
@@ -1523,7 +1522,6 @@ describe('Calendar', () => {
         dates[0].nativeElement.click();
         tick(150);
         fixture.detectChanges();
-
 
         dates[1].nativeElement.click();
         tick(150);
