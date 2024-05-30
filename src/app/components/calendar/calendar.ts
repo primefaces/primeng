@@ -609,7 +609,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
      * Years to change per step in yearpicker.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) stepYearPicker: number = 20;
+    @Input({ transform: numberAttribute }) stepYearPicker: number = 10;
     /**
      * Hours to change per step.
      * @group Props
