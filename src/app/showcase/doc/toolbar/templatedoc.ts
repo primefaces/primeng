@@ -99,13 +99,12 @@ export class TemplateDoc {
         typescript: `import { Component } from '@angular/core';
 import { ToolbarModule } from 'primeng/toolbar';
 import { AvatarModule } from 'primeng/avatar';
-import { SharedModule } from 'primeng/api';
 
 @Component({
     selector: 'toolbar-template-demo',
     templateUrl: './toolbar-template-demo.html',
     standalone: true,
-    imports: [ToolbarModule, AvatarModule, SharedModule]
+    imports: [ToolbarModule, AvatarModule]
 })
 export class ToolbarTemplateDemo {
    
