@@ -3154,7 +3154,6 @@ export class TTCheckbox {
                 </ng-template>
             </ng-container>
         </p-checkbox>
- 
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -3163,7 +3162,6 @@ export class TTCheckbox {
     }
 })
 export class TTHeaderCheckbox {
-
     checked: boolean | undefined;
 
     disabled: boolean | undefined;
