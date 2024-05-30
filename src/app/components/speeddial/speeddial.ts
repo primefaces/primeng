@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
-import { ButtonModule } from 'primeng/button';
+import { ButtonModule, ButtonProps } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
 import { PlusIcon } from 'primeng/icons/plus';
 import { RippleModule } from 'primeng/ripple';
@@ -41,13 +41,11 @@ import { asapScheduler } from 'rxjs';
     selector: 'p-speedDial',
     template: `
         <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="style" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
-            <button
+            <p-button
                 pRipple
-                pButton
-                class="p-button-icon-only"
                 [style]="buttonStyle"
                 [icon]="buttonIconClass"
-                [ngClass]="buttonClass()"
+                [styleClass]="buttonClass()"
                 [disabled]="disabled"
                 [attr.aria-expanded]="visible"
                 [attr.aria-haspopup]="true"
@@ -57,12 +55,13 @@ import { asapScheduler } from 'rxjs';
                 (click)="onButtonClick($event)"
                 (keydown)="onTogglerKeydown($event)"
                 [attr.data-pc-name]="'button'"
+                [buttonProps]="buttonProps"
             >
                 <PlusIcon *ngIf="!showIcon && !buttonTemplate" />
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
-            </button>
+            </p-button>
             <ul
                 #list
                 class="p-speeddial-list"
@@ -91,47 +90,21 @@ import { asapScheduler } from 'rxjs';
                         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
-                        <a
-                            *ngIf="isClickableRouterLink(item); else elseBlock"
-                            pRipple
-                            [routerLink]="item.routerLink"
-                            [queryParams]="item.queryParams"
-                            class="p-speeddial-action"
-                            [ngClass]="{ 'p-disabled': item.disabled }"
+                        <p-button
+                            styleClass="p-speeddial-action"
+                            severity="secondary"
                             role="menuitem"
-                            [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
+                            pRipple
                             (click)="onItemClick($event, item)"
+                            [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item, i)"
                             [attr.target]="item.target"
-                            [attr.tabindex]="item.disabled || readonly || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                            [fragment]="item.fragment"
-                            [queryParamsHandling]="item.queryParamsHandling"
-                            [preserveFragment]="item.preserveFragment"
-                            [skipLocationChange]="item.skipLocationChange"
-                            [replaceUrl]="item.replaceUrl"
-                            [state]="item.state"
-                            [attr.aria-label]="item.label"
                             [attr.data-pc-section]="'action'"
+                            [attr.aria-label]="item.label"
+                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
                         >
                             <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                        </a>
-                        <ng-template #elseBlock>
-                            <a
-                                [attr.href]="item.url || null"
-                                class="p-speeddial-action"
-                                role="menuitem"
-                                pRipple
-                                (click)="onItemClick($event, item)"
-                                [ngClass]="{ 'p-disabled': item.disabled }"
-                                (keydown.enter)="onItemClick($event, item, i)"
-                                [attr.target]="item.target"
-                                [attr.data-pc-section]="'action'"
-                                [attr.aria-label]="item.label"
-                                [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                            >
-                                <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                            </a>
-                        </ng-template>
+                        </p-button>
                     </ng-container>
                 </li>
             </ul>
@@ -263,6 +236,11 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() ariaLabelledBy: string | undefined;
+    /**
+     * Used to pass all properties of the ButtonProps to the Button component.
+     * @group Props
+     */
+    @Input() buttonProps: ButtonProps;
     /**
      * Fired when the visibility of element changed.
      * @param {boolean} boolean - Visibility value.
@@ -672,11 +650,11 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
     }
 
     buttonClass() {
-        return {
-            'p-speeddial-button p-button-rounded': true,
-            'p-speeddial-rotate': this.rotateAnimation && !this.hideIcon,
-            [this.buttonClassName!]: true
-        };
+        const baseClass = 'p-button-icon-only p-speeddial-button p-button-rounded';
+        const rotateClass = this.rotateAnimation && !this.hideIcon ? 'p-speeddial-rotate' : '';
+        const customClass = this.buttonClassName ? this.buttonClassName : '';
+
+        return `${baseClass} ${rotateClass} ${customClass}`;
     }
 
     get buttonIconClass() {
