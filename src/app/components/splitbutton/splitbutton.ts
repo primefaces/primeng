@@ -89,7 +89,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
-                (onHide)="isExpanded.set(false)"
+                (onHide)="onHide()"
+                (onShow)="onShow()"
             ></p-tieredMenu>
         </div>
     `,
@@ -263,6 +264,16 @@ export class SplitButton {
      */
     @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onMenuHide: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onMenuShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
      * Callback to invoke when dropdown button is clicked.
      * @param {MouseEvent} event - Mouse event.
      * @group Emits
@@ -334,7 +345,6 @@ export class SplitButton {
     onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
         this.menu?.toggle({ currentTarget: this.containerViewChild?.nativeElement, relativeAlign: this.appendTo == null });
-        this.isExpanded.set(this.menu.visible);
     }
 
     onDropdownButtonKeydown(event: KeyboardEvent) {
@@ -342,6 +352,16 @@ export class SplitButton {
             this.onDropdownButtonClick();
             event.preventDefault();
         }
+    }
+
+    onHide() {
+        this.isExpanded.set(false);
+        this.onMenuHide.emit();
+    }
+
+    onShow() {
+        this.isExpanded.set(true);
+        this.onMenuShow.emit();
     }
 }
 
