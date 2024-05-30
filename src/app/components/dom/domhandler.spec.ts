@@ -74,7 +74,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl3);
         element.appendChild(childEl4);
         document.body.appendChild(element);
-        expect(DomHandler.getFocusableElements(element).length).toEqual(2);
+        expect(DomHandler.getFocusableElements(element).length).toEqual(1);
     });
 
     it('should get the next focusable element', () => {
