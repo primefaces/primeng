@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Directive, ElementRef, Input, NgModule, PLATFORM_ID, booleanAttribute, inject } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 /**
@@ -7,6 +7,7 @@ import { DomHandler } from 'primeng/dom';
  */
 @Directive({
     selector: '[pAutoFocus]',
+    standalone: true,
     host: {
         class: 'p-element'
     }
@@ -64,8 +65,7 @@ export class AutoFocus {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [AutoFocus],
-    declarations: [AutoFocus]
+    imports: [AutoFocus],
+    exports: [AutoFocus]
 })
 export class AutoFocusModule {}

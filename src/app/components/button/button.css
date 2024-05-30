@@ -49,17 +49,17 @@
 
     .p-button-group .p-button:focus,
     .p-button-group p-button:focus .p-button,
-    .p-buttonset .p-button:focus, 
-    .p-buttonset .p-button:focus, 
+    .p-buttonset .p-button:focus,
+    .p-buttonset .p-button:focus,
     .p-buttonset p-button:focus .p-button,
-    .p-buttonset .p-button:focus{
+    .p-buttonset .p-button:focus {
         position: relative;
         z-index: 1;
     }
 
     .p-button-group .p-button:not(:last-child),
-    .p-button-group .p-button:not(:last-child):hover, 
-    .p-button-group p-button:not(:last-child) .p-button, 
+    .p-button-group .p-button:not(:last-child):hover,
+    .p-button-group p-button:not(:last-child) .p-button,
     .p-button-group p-button:not(:last-child) .p-button:hover,
     .p-buttonset .p-button:not(:last-child),
     .p-buttonset .p-button:not(:last-child):hover,
@@ -74,7 +74,6 @@
     .p-buttonset p-button:not(:first-of-type):not(:last-of-type) .p-button {
         border-radius: 0;
     }
-
 
     .p-button-group .p-button:first-of-type:not(:only-of-type),
     .p-button-group p-button:first-of-type:not(:only-of-type) .p-button,
@@ -91,7 +90,6 @@
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
     }
-
 
     p-button[iconpos='right'] spinnericon {
         order: 1;

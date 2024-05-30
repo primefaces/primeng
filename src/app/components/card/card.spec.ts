@@ -1,10 +1,10 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Card } from './card';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer, Header } from 'primeng/api';
 import { ButtonModule } from '../button/button';
+import { Card } from './card';
 
 @Component({
     template: `<p-card [header]="header" [subheader]="subheader" [style]="style" [styleClass]="styleClass">
@@ -37,8 +37,8 @@ describe('Card', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             schemas: [NO_ERRORS_SCHEMA],
-            imports: [NoopAnimationsModule, ButtonModule],
-            declarations: [Card, TestCardComponent, Header, Footer]
+            imports: [NoopAnimationsModule, ButtonModule, Header, Footer],
+            declarations: [Card, TestCardComponent]
         });
     }));
     beforeEach(() => {

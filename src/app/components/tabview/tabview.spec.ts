@@ -1,11 +1,11 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { TabView, TabPanel } from './tabview';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component } from '@angular/core';
-import { Tooltip } from 'primeng/tooltip';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { PrimeTemplate } from 'primeng/api';
 import { TimesIcon } from 'primeng/icons/times';
+import { Tooltip } from 'primeng/tooltip';
+import { TabPanel, TabView } from './tabview';
 
 @Component({
     template: `<p-tabView>
@@ -39,8 +39,8 @@ describe('TabView', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, TimesIcon],
-            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent, PrimeTemplate]
+            imports: [NoopAnimationsModule, TimesIcon, PrimeTemplate],
+            declarations: [TabView, TabPanel, Tooltip, TestTabViewComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(TestTabViewComponent);
