@@ -702,7 +702,8 @@
                             "name": "forceUpdate",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A function that can be called to force an update in the lazy loaded data."
                         }
                     ]
                 }
@@ -804,7 +805,8 @@
                             "name": "command",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "Callback to execute when item is clicked."
                         },
                         {
                             "name": "url",
@@ -1734,7 +1736,8 @@
                             "name": "listener",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A listener function for handling events related to the overlay."
                         },
                         {
                             "name": "responsive",
@@ -1747,37 +1750,43 @@
                             "name": "onBeforeShow",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked before the overlay is shown."
                         },
                         {
                             "name": "onShow",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked when the overlay is shown."
                         },
                         {
                             "name": "onBeforeHide",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked before the overlay is hidden."
                         },
                         {
                             "name": "onHide",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked when the overlay is hidden."
                         },
                         {
                             "name": "onAnimationStart",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked when the overlay's animation starts."
                         },
                         {
                             "name": "onAnimationDone",
                             "optional": true,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "A callback function that is invoked when the overlay's animation is done."
                         }
                     ]
                 }
@@ -5852,7 +5861,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t clickCallBack: undefined, // undefined\n  }",
+                                "type": "{\n  \t clickCallBack: undefined, // Click callback\n  }",
                                 "description": "input icon template params."
                             }
                         ],
@@ -10574,13 +10583,15 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Filter function."
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Reset function."
                             }
                         ]
                     }
@@ -15154,13 +15165,15 @@
                                 "name": "filter",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Callback to filter options."
                             },
                             {
                                 "name": "reset",
                                 "optional": true,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Callback to reset filter."
                             }
                         ]
                     }
@@ -16819,7 +16832,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: any, // Selected option value.\n  \t removeChip: undefined, // undefined\n  }",
+                                "type": "{\n  \t $implicit: any, // Selected option value.\n  \t removeChip: undefined, // Function to remove chip.\n  }",
                                 "description": "selected items data."
                             }
                         ],
@@ -22188,13 +22201,6 @@
                             "description": "Style class of the overlay menu."
                         },
                         {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "When present, it specifies that the element should be disabled."
-                        },
-                        {
                             "name": "appendTo",
                             "optional": false,
                             "readonly": false,
@@ -22240,19 +22246,31 @@
                             "description": "When present, it specifies that the component should automatically get focus on load."
                         },
                         {
-                            "name": "_menuButtonDisabled",
+                            "name": "disabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "menuButtonDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
                             "description": "When present, it specifies that the menu button element should be disabled."
                         },
                         {
-                            "name": "_buttonDisabled",
+                            "name": "buttonDisabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
@@ -22271,10 +22289,11 @@
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
-                            "name": "_disabled",
+                            "name": "onDropdownClick",
                             "parameters": [
                                 {
-                                    "name": "value"
+                                    "name": "event",
+                                    "type": "MouseEvent"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown button is clicked."
@@ -22697,7 +22716,8 @@
                                 "name": "onClick",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Header click function."
                             }
                         ]
                     },
@@ -22758,19 +22778,22 @@
                                 "name": "onClick",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Content click function."
                             },
                             {
                                 "name": "prevCallback",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Content previous panel click function."
                             },
                             {
                                 "name": "nextCallback",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Content next panel click function."
                             }
                         ]
                     },
@@ -23190,7 +23213,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t $implicit: string, // filterConstraint.value.\n  \t filterCallback: undefined, // undefined\n  \t type: string, // Type of the input.\n  \t filterConstraint: string, // Filter constraint.\n  \t placeholder: boolean, // Input placeholder.\n  \t minFractionDigits: number, // Minimum fraction of digits.\n  \t maxFractionDigits: number, // Maximum fraction of digits.\n  \t prefix: string, // Input prefix.\n  \t suffix: string, // Input suffix.\n  \t locale: string, // Locale.\n  \t localeMatcher: string, // Locale matcher.\n  \t currency: boolean, // Enables currency input.\n  \t currencyDisplay: boolean, // Display of the currency input.\n  \t useGrouping: boolean, // Defines if filter grouping will be enabled.\n  \t showButtons: boolean, // Defines the visibility of buttons.\n  }"
+                                "type": "{\n  \t $implicit: string, // filterConstraint.value.\n  \t filterCallback: undefined, // filter callback.\n  \t type: string, // Type of the input.\n  \t filterConstraint: string, // Filter constraint.\n  \t placeholder: boolean, // Input placeholder.\n  \t minFractionDigits: number, // Minimum fraction of digits.\n  \t maxFractionDigits: number, // Maximum fraction of digits.\n  \t prefix: string, // Input prefix.\n  \t suffix: string, // Input suffix.\n  \t locale: string, // Locale.\n  \t localeMatcher: string, // Locale matcher.\n  \t currency: boolean, // Enables currency input.\n  \t currencyDisplay: boolean, // Display of the currency input.\n  \t useGrouping: boolean, // Defines if filter grouping will be enabled.\n  \t showButtons: boolean, // Defines the visibility of buttons.\n  }"
                             }
                         ],
                         "description": "Custom filter template."
@@ -23466,7 +23489,8 @@
                             "name": "rowSelectable",
                             "optional": false,
                             "readonly": false,
-                            "type": "Function"
+                            "type": "Function",
+                            "description": "Defines if the row is selectable."
                         },
                         {
                             "name": "rowTrackBy",
@@ -25496,13 +25520,15 @@
                                 "name": "sendCommand",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Emits command value."
                             },
                             {
                                 "name": "sendResponse",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Emits response value."
                             }
                         ]
                     }
@@ -29160,7 +29186,8 @@
                                 "name": "filterConstraint",
                                 "optional": false,
                                 "readonly": false,
-                                "type": "Function"
+                                "type": "Function",
+                                "description": "Filter constraints."
                             },
                             {
                                 "name": "isStrictMode",
