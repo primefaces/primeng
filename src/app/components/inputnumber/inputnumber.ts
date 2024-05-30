@@ -108,9 +108,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
                 <button
                     type="button"
-                    pButton
-                    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
-                    class="p-button-icon-only"
+                    [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-up': true }"
                     [class]="incrementButtonClass"
                     [disabled]="disabled"
                     tabindex="-1"
@@ -130,9 +128,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 </button>
                 <button
                     type="button"
-                    pButton
-                    [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
-                    class="p-button-icon-only"
+                    [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-down': true }"
                     [class]="decrementButtonClass"
                     [disabled]="disabled"
                     tabindex="-1"
@@ -154,10 +150,8 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
-                pButton
-                [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-up': true }"
+                [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-up': true }"
                 [class]="incrementButtonClass"
-                class="p-button-icon-only"
                 [disabled]="disabled"
                 tabindex="-1"
                 [attr.aria-hidden]="true"
@@ -177,9 +171,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
-                pButton
-                [ngClass]="{ 'p-inputnumber-button p-inputnumber-button-down': true }"
-                class="p-button-icon-only"
+                [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-down': true }"
                 [class]="decrementButtonClass"
                 [disabled]="disabled"
                 tabindex="-1"
