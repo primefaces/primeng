@@ -223,7 +223,7 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
         if (this.quill) {
             if (value) {
                 const command = (): void => {
-                    this.quill.setContents(this.quill.clipboard.convert(this.value));
+                    this.quill.setContents(this.quill.clipboard.convert({ html: this.value }));
                 };
 
                 if (this.isAttachedQuillEditorToDOM) {
@@ -296,12 +296,12 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
         });
 
         if (this.value) {
-            this.quill.setContents(this.quill.clipboard.convert(this.value));
+            this.quill.setContents(this.quill.clipboard.convert({ html: this.value }));
         }
 
         this.quill.on('text-change', (delta: any, oldContents: any, source: any) => {
             if (source === 'user') {
-                let html = DomHandler.findSingle(editorElement, '.ql-editor').innerHTML;
+                let html = this.quill.getSemanticHTML();
                 let text = this.quill.getText().trim();
                 if (html === '<p><br></p>') {
                     html = null;
