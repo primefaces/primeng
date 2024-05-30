@@ -62,6 +62,7 @@ import {
     TreeTablePaginatorState,
     TreeTableSortEvent
 } from './treetable.interface';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @Injectable()
 export class TreeTableService {
@@ -3058,20 +3059,13 @@ export class TTContextMenuRow {
 @Component({
     selector: 'p-treeTableCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused, 'p-variant-filled': tt.config.inputStyle() === 'filled' }" (click)="onClick($event)">
-            <div class="p-hidden-accessible">
-                <input type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" tabindex="-1" />
-            </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-indeterminate': partialChecked, 'p-disabled': disabled }" role="checkbox" [attr.aria-checked]="checked">
-                <ng-container *ngIf="!tt.checkboxIconTemplate">
-                    <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="checked" />
-                    <MinusIcon [styleClass]="'p-checkbox-icon'" *ngIf="partialChecked" />
-                </ng-container>
-                <span *ngIf="tt.checkboxIconTemplate">
+        <p-checkbox (onChange)="onClick($event)" [binary]="true" [indeterminate]="partialChecked" styleClass="p-treetable-node-checkbox" [tabIndex]="-1">
+            <ng-container *ngIf="tt.checkboxIconTemplate">
+                <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="tt.checkboxIconTemplate; context: { $implicit: checked, partialSelected: partialChecked }"></ng-template>
-                </span>
-            </div>
-        </div>
+                </ng-template>
+            </ng-container>
+        </p-checkbox>
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -3153,19 +3147,14 @@ export class TTCheckbox {
 @Component({
     selector: 'p-treeTableHeaderCheckbox',
     template: `
-        <div class="p-checkbox p-component" [ngClass]="{ 'p-checkbox-focused': focused }" (click)="onClick($event, cb.checked)">
-            <div class="p-hidden-accessible">
-                <input #cb type="checkbox" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [disabled]="!tt.value || tt.value.length === 0" />
-            </div>
-            <div #box [ngClass]="{ 'p-checkbox-box': true, 'p-highlight': checked, 'p-focus': focused, 'p-disabled': !tt.value || tt.value.length === 0 }" role="checkbox" [attr.aria-checked]="checked">
-                <ng-container *ngIf="!tt.headerCheckboxIconTemplate">
-                    <CheckIcon *ngIf="checked" [styleClass]="'p-checkbox-icon'" />
-                </ng-container>
-                <span class="p-checkbox-icon" *ngIf="tt.headerCheckboxIconTemplate">
+        <p-checkbox [ngModel]="checked" (onChange)="onClick($event)" [binary]="true" [disabled]="!tt.value || tt.value.length === 0">
+            <ng-container *ngIf="tt.headerCheckboxIconTemplate">
+                <ng-template pTemplate="icon">
                     <ng-template *ngTemplateOutlet="tt.headerCheckboxIconTemplate; context: { $implicit: checked }"></ng-template>
-                </span>
-            </div>
-        </div>
+                </ng-template>
+            </ng-container>
+        </p-checkbox>
+ 
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -3174,11 +3163,8 @@ export class TTCheckbox {
     }
 })
 export class TTHeaderCheckbox {
-    @ViewChild('box') boxViewChild: ElementRef | undefined;
 
     checked: boolean | undefined;
-
-    focused: boolean | undefined;
 
     disabled: boolean | undefined;
 
@@ -3200,20 +3186,12 @@ export class TTHeaderCheckbox {
         this.checked = this.updateCheckedState();
     }
 
-    onClick(event: Event, checked: boolean) {
+    onClick(event: Event) {
         if ((this.tt.value || this.tt.filteredNodes) && (this.tt.value.length > 0 || this.tt.filteredNodes.length > 0)) {
-            this.tt.toggleNodesWithCheckbox(event, !checked);
+            this.tt.toggleNodesWithCheckbox(event, this.checked);
         }
 
         DomHandler.clearSelection();
-    }
-
-    onFocus() {
-        this.focused = true;
-    }
-
-    onBlur() {
-        this.focused = false;
     }
 
     ngOnDestroy() {
@@ -3728,7 +3706,7 @@ export class TreeTableToggler {
 }
 
 @NgModule({
-    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [CommonModule, PaginatorModule, RippleModule, ScrollerModule, SpinnerIcon, ArrowDownIcon, ArrowUpIcon, SortAltIcon, SortAmountUpAltIcon, SortAmountDownIcon, CheckIcon, MinusIcon, ChevronDownIcon, ChevronRightIcon, CheckboxModule],
     exports: [
         TreeTable,
         SharedModule,
