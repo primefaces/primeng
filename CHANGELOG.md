@@ -1,4 +1,43 @@
 # Changelog
+## [17.18.0](https://github.com/primefaces/primeng/tree/17.18.0) (2024-05-30)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.0)
+
+**Implemented New Features and Enhancements:**
+- Support for Angular 18 [\#15661](https://github.com/primefaces/primeng/issues/15661)
+- SplitButton: send events regarding TieredMenu [\#15758](https://github.com/primefaces/primeng/issues/15758)
+- Split button: tooltip for the items [\#15581](https://github.com/primefaces/primeng/issues/15581)
+- Calendar - add option to change step size in yearpicker [\#15634](https://github.com/primefaces/primeng/issues/15634)
+- Old prettier version that does not support new control-flow syntax [\#15653](https://github.com/primefaces/primeng/issues/15653)
+
+**Fixed bugs:**
+- TieredMenu:Tooltip property does not work on MenuItem [\#15536](https://github.com/primefaces/primeng/issues/15536)
+- Primeng Table: Clear the filters which are not applied when filter menu closed by clicking outside the menu [\#15557](https://github.com/primefaces/primeng/issues/15557)
+- Chips: ARIA/Keyboard navigation trigger itemClick event with 'Space' key missing [\#15611](https://github.com/primefaces/primeng/issues/15611)
+- Backspace event not working in Input Otp component (Mobile / Android) [\#15613](https://github.com/primefaces/primeng/issues/15613)
+- pTemplate not working for p-toolbar alone [\#15608](https://github.com/primefaces/primeng/issues/15608)
+- Table: Column Toggle example does not restore original column order [\#15194](https://github.com/primefaces/primeng/issues/15194)
+- Component: Dialog in 'headless' mode can not be focused [\#15496](https://github.com/primefaces/primeng/issues/15496)
+- p-multiSelect: onRemove event not getting emitted [\#15118](https://github.com/primefaces/primeng/issues/15118)
+- Table: Reorderable column false still gives cursor move [\#15656](https://github.com/primefaces/primeng/issues/15656)
+- Component: selectButton [\#15278](https://github.com/primefaces/primeng/issues/15278)
+- Tooltip: Tooltip broken when used in a custom component [\#15648](https://github.com/primefaces/primeng/issues/15648)
+- InputNumber Component: Default value for minFractionDigits is not correct when value explicitly set to null [\#15346](https://github.com/primefaces/primeng/issues/15346)
+- Accordion: updateActiveIndex does not actually update _activeIndex [\#15674](https://github.com/primefaces/primeng/issues/15674)
+- Calendar datepicker covers input component when there is 6 week displayed on. [\#15238](https://github.com/primefaces/primeng/issues/15238)
+- Autocomplete: Showing empty overlay when has no suggestions and showEmptyMessage is false [\#15344](https://github.com/primefaces/primeng/issues/15344)
+- PasswordDirective: Loss PrimeNGConfig in constructor [\#15727](https://github.com/primefaces/primeng/issues/15727)
+- FileUpload: Improve styling for mobile and not image files preview [\#15730](https://github.com/primefaces/primeng/issues/15730)
+- InputMask: Paste function runs on disabled mode [\#15732](https://github.com/primefaces/primeng/issues/15732)
+- Slider: Change range slider by keys does not trigger the onSlideEnd event [\#15107](https://github.com/primefaces/primeng/issues/15107)
+- p-calendar preventing calendar automatic closing with hideOnDateTimeSelect="false" not working for selectionMode="range" [\#14989](https://github.com/primefaces/primeng/issues/14989)
+- Checkbox: Checkbox multiselect doesn't work with reactive form and formcontrol [\#15265](https://github.com/primefaces/primeng/issues/15265)
+- PickList Component: Fix unit test [\#15724](https://github.com/primefaces/primeng/issues/15724)
+- Context Menu: Fix Unit Tests [\#15607](https://github.com/primefaces/primeng/issues/15607)
+- Editor Component: fix unit test [\#15645](https://github.com/primefaces/primeng/issues/15645)
+- FileUpload: Fix unit tests [\#15596](https://github.com/primefaces/primeng/issues/15596)
+- MultiSelect Unit Test Fix [\#15578](https://github.com/primefaces/primeng/issues/15578)
+- Input text area: fix broken unit test and expand test coverage [\#15605](https://github.com/primefaces/primeng/issues/15605)
+
 ## [17.17.0](https://github.com/primefaces/primeng/tree/17.17.0) (2024-05-16)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.16.1...17.17.0)
 
