@@ -70,7 +70,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
                     </ng-container>
                     <MinusIcon *ngIf="_indeterminate()" [styleClass]="'p-checkbox-icon'" [attr.data-pc-section]="'icon'" />
                 </ng-container>
-                <ng-template *ngTemplateOutlet="checkboxIconTemplate; context: { class: 'p-checkbox-icon' }"></ng-template>
+                <ng-template *ngTemplateOutlet="checkboxIconTemplate; context: { checked: checked, class: 'p-checkbox-icon' }"></ng-template>
             </div>
         </div>
     `,
