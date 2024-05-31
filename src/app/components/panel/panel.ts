@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformServer } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -211,7 +211,16 @@ export class Panel implements AfterContentInit, BlockableUI {
         return this.header;
     }
 
-    constructor(private el: ElementRef) {}
+    constructor(private el: ElementRef, @Inject(PLATFORM_ID) private platformId: any, @Inject(DOCUMENT) private document: Document) {
+
+    }
+
+    ngOnInit() {
+        if(isPlatformServer(this.platformId)) {
+            this.document.head.innerHTML += `<style>${theme}</style>`;
+        }
+        
+    }
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
