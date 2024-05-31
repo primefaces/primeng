@@ -9,6 +9,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 import { theme } from './style';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -111,7 +112,7 @@ import { theme } from './style';
         class: 'p-element'
     }
 })
-export class Panel implements AfterContentInit, BlockableUI {
+export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -207,19 +208,10 @@ export class Panel implements AfterContentInit, BlockableUI {
 
     readonly id = UniqueComponentId();
 
+    _theme = theme;
+
     get buttonAriaLabel() {
         return this.header;
-    }
-
-    constructor(private el: ElementRef, @Inject(PLATFORM_ID) private platformId: any, @Inject(DOCUMENT) private document: Document) {
-
-    }
-
-    ngOnInit() {
-        if(isPlatformServer(this.platformId)) {
-            this.document.head.innerHTML += `<style>${theme}</style>`;
-        }
-        
     }
 
     ngAfterContentInit() {

@@ -11,7 +11,8 @@ export const theme = ({ dt }) => `
     justify-content: space-between;
     align-items: center;
     padding: ${dt('panel.header.padding')};
-    background: ${dt('panel.header.background')};
+    // background: ${dt('panel.header.background')};
+    background: red;
     color: ${dt('panel.header.color')};
     border-style: solid;
     border-width: ${dt('panel.header.border.width')};
