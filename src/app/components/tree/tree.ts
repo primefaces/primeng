@@ -54,6 +54,8 @@ import {
 import { InputTextModule } from 'primeng/inputtext';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'p-treeNode',
@@ -115,20 +117,25 @@ import { IconFieldModule } from 'primeng/iconfield';
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
-                    <div
-                        class="p-checkbox p-component"
-                        [ngClass]="{ 'p-checkbox-disabled p-disabled': node.selectable === false, 'p-variant-filled': tree?.config.inputStyle() === 'filled' }"
+
+                    <p-checkbox
+                        [ngModel]="isSelected()"
+                        styleClass="p-tree-node-checkbox"
+                        [binary]="true"
+                        [indeterminate]="node.partialSelected"
                         *ngIf="tree.selectionMode == 'checkbox'"
-                        aria-hidden="true"
+                        [disabled]="node.selectable === false"
+                        [variant]="tree?.config.inputStyle() === 'filled' ? 'filled' : 'outlined'"
+                        [attr.data-p-partialchecked]="node.partialSelected"
+                        [tabindex]="-1"
                     >
-                        <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(), 'p-indeterminate': node.partialSelected }" role="checkbox">
-                            <ng-container *ngIf="!tree.checkboxIconTemplate">
-                                <CheckIcon *ngIf="!node.partialSelected && isSelected()" [styleClass]="'p-checkbox-icon'" />
-                                <MinusIcon *ngIf="node.partialSelected" [styleClass]="'p-checkbox-icon'" />
-                            </ng-container>
-                            <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected(), partialSelected: node.partialSelected }"></ng-template>
-                        </div>
-                    </div>
+                        <ng-container *ngIf="tree.checkboxIconTemplate">
+                            <ng-template pTemplate="icon">
+                                <ng-template *ngTemplateOutlet="tree.checkboxIconTemplate; context: { $implicit: isSelected(), partialSelected: node.partialSelected, class: 'p-tree-node-checkbox' }"></ng-template>
+                            </ng-template>
+                        </ng-container>
+                    </p-checkbox>
+
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
                     <span class="p-treenode-label">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
@@ -315,6 +322,7 @@ export class UITreeNode implements OnInit {
 
     onNodeClick(event: MouseEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
+        event.preventDefault();
     }
 
     onNodeKeydown(event: KeyboardEvent) {
@@ -1769,7 +1777,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 }
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon, InputTextModule, IconFieldModule, InputIconModule],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, CheckIcon, ChevronDownIcon, ChevronRightIcon, MinusIcon, SearchIcon, SpinnerIcon, PlusIcon, InputTextModule, IconFieldModule, InputIconModule, CheckboxModule, FormsModule],
     exports: [Tree, SharedModule, ScrollerModule],
     declarations: [Tree, UITreeNode]
 })
