@@ -14,11 +14,12 @@ export const $dt = (tokenPath) => {
     };
 };
 
-export const dt = (...args) => {
+export const dt = (...args: any) => {
+    // @ts-ignore
     return dtwt(Theme.getTheme(), ...args);
 };
 
-export const dtwt = (theme = {}, tokenPath, fallback, type = 'variable') => {
+export const dtwt = (theme = {} as any, tokenPath, fallback, type = 'variable') => {
     if (tokenPath) {
         const { variable: VARIABLE, options: OPTIONS } = Theme.defaults || {};
         const { prefix, transform } = theme?.options || OPTIONS || {};

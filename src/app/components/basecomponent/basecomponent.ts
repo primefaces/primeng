@@ -1,5 +1,6 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
+import { Theme, ThemeService } from 'primeng/themes';
 
 @Directive({ standalone: true })
 export class BaseComponent {
@@ -18,7 +19,7 @@ export class BaseComponent {
     }
 
     ngOnInit() {
-        if(this._isPlatformServer()) {
+        if (this._isPlatformServer()) {
             this.document.head.innerHTML += `<style>${this.theme}</style>`;
         }
     }
@@ -30,5 +31,4 @@ export class BaseComponent {
     get name() {
         return this.constructor.name.replace(/^_/, '').toLowerCase();
     }
-
 }

@@ -1,6 +1,6 @@
 import { SharedUtils, Theme } from 'primeng/themes';
 
-export const $t = (theme = {}) => {
+export const $t = (theme = {} as any) => {
     let { preset: _preset, options: _options } = theme;
 
     return {

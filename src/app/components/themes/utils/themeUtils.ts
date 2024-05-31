@@ -240,7 +240,7 @@ export default {
                   return acc;
               }, undefined);
     },
-    transformCSS(name, css, mode, type, options = {} as any, set, defaults, selector) {
+    transformCSS(name, css, mode, type, options = {} as any, set, defaults, selector?) {
         if (SharedUtils.object.isNotEmpty(css)) {
             const { cssLayer } = options;
 

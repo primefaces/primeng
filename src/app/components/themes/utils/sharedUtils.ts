@@ -127,7 +127,7 @@ export default {
         getVariableName(prefix = '', variable = '') {
             return `--${this.toNormalizeVariable(prefix, variable)}`;
         },
-        getVariableValue(value, variable = '', prefix = '', excludedKeyRegexes = [], fallback) {
+        getVariableValue(value, variable = '', prefix = '', excludedKeyRegexes = [], fallback?) {
             if (this.isString(value)) {
                 const regex = /{([^}]*)}/g;
                 const val = value.trim();
