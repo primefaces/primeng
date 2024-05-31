@@ -30,7 +30,7 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Overlay, OverlayModule } from 'primeng/overlay';
@@ -52,6 +52,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputIconModule } from 'primeng/inputicon';
 import { ChipModule } from 'primeng/chip';
+import { CheckboxModule } from 'primeng/checkbox';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -80,17 +81,13 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             (click)="onOptionClick($event)"
             (mouseenter)="onOptionMouseEnter($event)"
         >
-            <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': config.inputStyle() === 'filled' }">
-                <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
-                    <ng-container *ngIf="selected">
-                        <CheckIcon *ngIf="!checkIconTemplate || !itemCheckboxIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
-                        <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="checkIconTemplate && !itemCheckboxIconTemplate"></ng-template>
-                            <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected }"></ng-template>
-                        </span>
-                    </ng-container>
-                </div>
-            </div>
+            <p-checkbox [ngModel]="selected" [binary]="true" [tabindex]="-1" [variant]="variant">
+                <ng-container *ngIf="itemCheckboxIconTemplate">
+                    <ng-template pTemplate="icon" let-class="class">
+                        <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { checked: selected, class: class }"></ng-template>
+                    </ng-template>
+                </ng-container>
+            </p-checkbox>
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
@@ -119,6 +116,8 @@ export class MultiSelectItem {
 
     @Input() ariaSetSize: string | undefined;
 
+    @Input() variant: string | undefined;
+
     @Input() template: TemplateRef<any> | undefined;
 
     @Input() checkIconTemplate: TemplateRef<any> | undefined;
@@ -138,6 +137,7 @@ export class MultiSelectItem {
             selected: this.selected
         });
         event.stopPropagation();
+        event.preventDefault();
     }
 
     onOptionMouseEnter(event: Event) {
@@ -270,46 +270,16 @@ export class MultiSelectItem {
                                 <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                             </ng-container>
                             <ng-template #builtInFilterElement>
-                                <div
-                                    class="p-checkbox p-component"
-                                    *ngIf="showToggleAll && !selectionLimit"
-                                    [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled }"
-                                    (click)="onToggleAll($event)"
-                                    (keydown)="onHeaderCheckboxKeyDown($event)"
-                                >
-                                    <div class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
-                                        <input
-                                            #headerCheckbox
-                                            type="checkbox"
-                                            [readonly]="readonly"
-                                            [attr.checked]="allSelected()"
-                                            (focus)="onHeaderCheckboxFocus()"
-                                            (blur)="onHeaderCheckboxBlur()"
-                                            [disabled]="disabled || toggleAllDisabled"
-                                            [attr.aria-label]="toggleAllAriaLabel"
-                                        />
-                                    </div>
-                                    <div
-                                        class="p-checkbox-box"
-                                        role="checkbox"
-                                        [attr.aria-label]="toggleAllAriaLabel"
-                                        [attr.aria-checked]="allSelected()"
-                                        [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }"
-                                    >
-                                        <ng-container *ngIf="allSelected() || partialSelected()">
-                                            <ng-container *ngIf="!checkIconTemplate && !headerCheckboxIconTemplate">
-                                                <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="allSelected()" [attr.aria-hidden]="true" />
-                                            </ng-container>
+                                <p-checkbox [ngModel]="allSelected()" [binary]="true" (onChange)="onToggleAll($event)" *ngIf="showToggleAll && !selectionLimit" [variant]="variant" [disabled]="disabled || toggleAllDisabled">
+                                    <ng-container *ngIf="allSelected() || partialSelected()">
+                                        <ng-template pTemplate="icon" let-class="class">
+                                            <span *ngIf="headerCheckboxIconTemplate">
+                                                <ng-template *ngTemplateOutlet="headerCheckboxIconTemplate; context: { checked: allSelected(), partialSelected: partialSelected(), class: class }"></ng-template>
+                                            </span>
+                                        </ng-template>
+                                    </ng-container>
+                                </p-checkbox>
 
-                                            <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
-                                            </span>
-                                            <span *ngIf="headerCheckboxIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                                                <ng-template *ngTemplateOutlet="headerCheckboxIconTemplate; context: { $implicit: allSelected(), partialSelected: partialSelected() }"></ng-template>
-                                            </span>
-                                        </ng-container>
-                                    </div>
-                                </div>
                                 <div class="p-multiselect-filter-container" *ngIf="filter">
                                     <p-iconField>
                                         <input
@@ -392,6 +362,7 @@ export class MultiSelectItem {
                                                 [focused]="focusedOptionIndex() === getOptionIndex(i, scrollerOptions)"
                                                 [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                                 [ariaSetSize]="ariaSetSize"
+                                                [variant]="variant"
                                                 (onClick)="onOptionSelect($event, false, getOptionIndex(i, scrollerOptions))"
                                                 (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                             ></p-multiSelectItem>
@@ -1813,10 +1784,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             return;
         }
 
-        if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
-            event.preventDefault();
-            return;
-        } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
+        if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             if (this.clickInProgress) {
                 return;
             }
@@ -2273,7 +2241,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         IconFieldModule,
         InputIconModule,
         InputTextModule,
-        ChipModule
+        ChipModule,
+        CheckboxModule,
+        FormsModule
     ],
     exports: [MultiSelect, OverlayModule, SharedModule, ScrollerModule],
     declarations: [MultiSelect, MultiSelectItem]
