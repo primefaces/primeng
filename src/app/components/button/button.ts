@@ -172,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         @Inject(DOCUMENT) private document: Document
-    ) { }
+    ) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -518,7 +518,7 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    constructor(public el: ElementRef) { }
+    constructor(public el: ElementRef) {}
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
@@ -592,4 +592,4 @@ export class Button implements AfterContentInit {
     imports: [ButtonDirective, Button],
     exports: [ButtonDirective, Button, SharedModule]
 })
-export class ButtonModule { }
+export class ButtonModule {}
