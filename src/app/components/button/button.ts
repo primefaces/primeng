@@ -172,7 +172,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     constructor(
         public el: ElementRef,
         @Inject(DOCUMENT) private document: Document
-    ) {}
+    ) { }
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -280,7 +280,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 DomHandler.addMultipleClasses(iconElement, iconClass);
             }
 
-            if (!this.loadingIcon && this.loading) {
+            if (this.loading && !this.loadingIcon) {
                 iconElement.innerHTML = this.spinnerIcon;
             }
 
@@ -303,10 +303,17 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         let iconElement = DomHandler.findSingle(this.htmlElement, '.p-button-icon');
         let labelElement = DomHandler.findSingle(this.htmlElement, '.p-button-label');
 
-        if (this.loading && !this.loadingIcon && iconElement) {
-            iconElement.innerHTML = this.spinnerIcon;
-        } else if (iconElement?.innerHTML) {
+        if (this.loading) {
+            if (!this.loadingIcon && iconElement) {
+                iconElement.innerHTML = this.spinnerIcon;
+            } else if (this.loadingIcon && iconElement) {
+                iconElement.className = `p-button-icon ${this.loadingIcon}`;
+            }
+        } else if (this.icon && iconElement) {
+            iconElement.className = `p-button-icon ${this.icon}`;
+        } else if (iconElement) {
             iconElement.innerHTML = '';
+            this.createIcon();
         }
 
         if (iconElement) {
@@ -363,7 +370,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 <ng-template [ngIf]="loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
+                <span *ngIf="icon && !iconTemplate" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
                 <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
@@ -518,7 +525,7 @@ export class Button implements AfterContentInit {
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    constructor(public el: ElementRef) {}
+    constructor(public el: ElementRef) { }
 
     spinnerIconClass(): string {
         return Object.entries(this.iconClass())
@@ -527,14 +534,21 @@ export class Button implements AfterContentInit {
     }
 
     iconClass() {
-        return {
-            [`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`]: this.loading,
-            'pi p-button-icon': true,
+        const iconClasses = {
+            'p-button-icon': true,
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
             'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
         };
+
+        if (this.loading) {
+            iconClasses[`p-button-loading-icon pi-spin ${this.loadingIcon ?? ''}`] = true;
+        } else if (this.icon) {
+            iconClasses[this.icon] = true;
+        }
+
+        return iconClasses;
     }
 
     get buttonClass() {
@@ -592,4 +606,4 @@ export class Button implements AfterContentInit {
     imports: [ButtonDirective, Button],
     exports: [ButtonDirective, Button, SharedModule]
 })
-export class ButtonModule {}
+export class ButtonModule { }
