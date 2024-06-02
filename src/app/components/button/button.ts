@@ -280,7 +280,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 DomHandler.addMultipleClasses(iconElement, iconClass);
             }
 
-            if (this.loading && !this.loadingIcon) {
+            if (!this.loadingIcon && this.loading) {
                 iconElement.innerHTML = this.spinnerIcon;
             }
 
