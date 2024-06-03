@@ -563,8 +563,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits ? this.minFractionDigits : undefined,
-            maximumFractionDigits: this.maxFractionDigits ? this.maxFractionDigits : undefined
+            minimumFractionDigits: this.minFractionDigits ?? undefined,
+            maximumFractionDigits: this.maxFractionDigits ?? undefined
         };
     }
 
