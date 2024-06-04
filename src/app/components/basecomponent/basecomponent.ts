@@ -34,10 +34,6 @@ export class BaseComponent {
         return this.constructor.name.replace(/^_/, '').toLowerCase();
     }
 
-    get _style() {
-        return { classes: undefined, inlineStyles: undefined, load: () => {}, loadCSS: () => {}, loadTheme: () => {}, ...(this._getHostInstance(this) || {}).componentStyle, ...this['componentStyle'] };
-    }
-
     get componentStyle() {
         return this['_componentStyle'];
     }
@@ -54,7 +50,8 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this._isPlatformServer()) {
-            this.document.head.innerHTML += `<style>${this.componentStyle.theme}</style>`;
+            BaseStyle.document = this.document;
+            this._loadStyles();
         }
     }
 
@@ -85,7 +82,6 @@ export class BaseComponent {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic } = this.componentStyle.getCommonTheme?.() || {};
-
             BaseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
             BaseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
             BaseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });

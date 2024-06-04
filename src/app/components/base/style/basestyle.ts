@@ -151,6 +151,7 @@ const classes = {};
 const inlineStyles = {};
 
 export default {
+    document: undefined,
     name: 'base',
     css,
     theme,
@@ -158,8 +159,7 @@ export default {
     inlineStyles,
     load(style, options = {}, transform = (cs) => cs) {
         const computedStyle = transform(ObjectUtils.getItemValue(style, { dt }));
-
-        return computedStyle ? useStyle(ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
+        return computedStyle ? useStyle(this.document, ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     },
     loadCSS(options = {}) {
         return this.load(this.css, options);

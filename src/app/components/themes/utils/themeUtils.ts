@@ -47,7 +47,6 @@ export default {
     getCommon({ name = '', theme = {} as any, params, set, defaults }) {
         const { preset, options } = theme;
         let primitive_css, primitive_tokens, semantic_css, semantic_tokens;
-
         if (SharedUtils.object.isNotEmpty(preset)) {
             const { primitive, semantic } = preset;
             const { colorScheme, ...sRest } = semantic || {};

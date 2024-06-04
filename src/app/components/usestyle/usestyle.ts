@@ -2,34 +2,27 @@ import { DomHandler } from 'primeng/dom';
 
 let _id = 0;
 
-export function useStyle(css, options: any = {}) {
+export function useStyle(document: Document, css, options: any = {}) {
     let isLoaded = false;
-    const defaultDocument = DomHandler.isClient() ? window.document : undefined;
-    const { document = defaultDocument, immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, props = {} } = options;
+    let cssRef = css;
+    let styleRef = null;
+
+    const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
 
     if (!document) return;
-
-    const styleRef = document.querySelector(`style[data-primeng-style-id="${name}"]`) || document.getElementById(id) || document.createElement('style');
+    styleRef = document.querySelector(`style[data-primeng-style-id="${name}"]`) || document.getElementById(id) || document.createElement('style');
 
     if (styleRef) {
-        const cssRef = css;
+        cssRef = css;
         DomHandler.setAttributes(styleRef, {
             type: 'text/css',
-            id,
             media,
             nonce
         });
-        styleRef.textContent = cssRef;
-        document.head.appendChild(styleRef);
+
+        styleRef.innerHTML = cssRef;
+
+        first ? document.head.prepend(styleRef) : document.head.appendChild(styleRef);
         DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
-        DomHandler.setAttributes(styleRef, props);
-
-        isLoaded = true;
     }
-
-    const unload = () => {
-        if (!document || !isLoaded) return;
-        stop();
-        DomHandler.isExist(styleRef) && document.head.removeChild(styleRef);
-    };
 }
