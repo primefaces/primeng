@@ -40,7 +40,7 @@ const theme = ({ dt }) => `
     }
     `;
 
-export default {
+export default BaseStyle.extend({
     name: 'panel',
     theme
-};
+});

@@ -8,7 +8,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
-
+import panelstyle from './style/panelstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 /**
@@ -211,6 +211,8 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     get buttonAriaLabel() {
         return this.header;
     }
+
+    _componentStyle = panelstyle;
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

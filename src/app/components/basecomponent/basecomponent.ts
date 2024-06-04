@@ -27,10 +27,6 @@ export class BaseComponent {
         return { nonce: this.config?.csp().nonce };
     }
 
-    get theme() {
-        return this['_theme'];
-    }
-
     get name() {
         return this.constructor.name.replace(/^_/, '').toLowerCase();
     }
@@ -51,7 +47,7 @@ export class BaseComponent {
 
     ngOnInit() {
         if (this._isPlatformServer()) {
-            this.document.head.innerHTML += `<style>${this.theme}</style>`;
+            this.document.head.innerHTML += `<style>${this.componentStyle.theme}</style>`;
         }
     }
 
