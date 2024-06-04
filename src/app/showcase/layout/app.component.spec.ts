@@ -15,8 +15,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 describe('AppComponent', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            imports: [RouterTestingModule, FormsModule, BrowserAnimationsModule, AutoCompleteModule, HttpClientModule],
-            declarations: [AppComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent, AppFooterComponent],
+            imports: [AppComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent, AppFooterComponent, RouterTestingModule, FormsModule, BrowserAnimationsModule, AutoCompleteModule, HttpClientModule],
             providers: [JsonService, AppConfigService]
         }).compileComponents();
     }));

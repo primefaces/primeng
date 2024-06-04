@@ -248,23 +248,26 @@ describe('Tree', () => {
     it('should expand&collapse with right and left key', () => {
         fixture.detectChanges();
 
-        const contentEls = fixture.debugElement.queryAll(By.css('.p-treenode-content'));
+        const contentEls = fixture.debugElement.queryAll(By.css('.p-treenode'));
         const treeNodes = fixture.debugElement.queryAll(By.css('p-treeNode'));
         const documentsNode = treeNodes[0].componentInstance as UITreeNode;
+        const onKeyDownSpy = spyOn(documentsNode, 'onKeyDown').and.callThrough();
+
         const firstEl = contentEls[0];
-        firstEl.triggerEventHandler('keydown', { which: 39, target: firstEl.nativeElement, preventDefault() {} });
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight'}));
         fixture.detectChanges();
 
+        expect(onKeyDownSpy).toHaveBeenCalled();
         expect(documentsNode.node.expanded).toBeTruthy();
-        firstEl.triggerEventHandler('keydown', { which: 37, target: firstEl.nativeElement, preventDefault() {} });
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft'}));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();
-        firstEl.triggerEventHandler('keydown', { which: 13, target: firstEl.nativeElement, preventDefault() {} });
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter'}));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();
-        firstEl.triggerEventHandler('keydown', { which: 12, target: firstEl.nativeElement, preventDefault() {} });
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter'}));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();

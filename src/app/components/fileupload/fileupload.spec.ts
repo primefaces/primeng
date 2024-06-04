@@ -90,8 +90,8 @@ describe('FileUpload', () => {
         const uploadButton = fixture.debugElement.queryAll(By.css('button'))[0];
         const cancelButton = fixture.debugElement.queryAll(By.css('button'))[1];
         const fileUploadRow = fixture.debugElement.query(By.css('.p-fileupload-row'));
-        const fileNameEl = fileUploadRow.children[1];
-        const fileSizeEl = fileUploadRow.children[2];
+        const fileNameEl = fileUploadRow.children[0];
+        const fileSizeEl = fileUploadRow.children[1];
         const removeButtonEl = fileUploadRow.query(By.css('button'));
         expect(fileUploadRow).toBeTruthy();
         expect(fileNameEl).toBeTruthy();
