@@ -190,7 +190,7 @@ export default {
                 .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
-            return `<style type="text/css" data-primevue-style-id="${this.name}" ${_props}>${_style}</style>`;
+            return `<style type="text/css" data-primeng-style-id="${this.name}" ${_props}>${_style}</style>`;
         }
 
         return '';
@@ -209,7 +209,7 @@ export default {
                 .reduce((acc, [k, v]) => acc.push(`${k}="${v}"`) && acc, [])
                 .join(' ');
 
-            css.push(`<style type="text/css" data-primevue-style-id="${name}" ${_props}>${_style}</style>`);
+            css.push(`<style type="text/css" data-primeng-style-id="${name}" ${_props}>${_style}</style>`);
         }
 
         return css.join('');
