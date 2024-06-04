@@ -8,7 +8,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
-import { theme } from './style';
+
 import { BaseComponent } from 'primeng/basecomponent';
 
 /**
@@ -207,8 +207,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
     headerIconTemplate: Nullable<TemplateRef<any>>;
 
     readonly id = UniqueComponentId();
-
-    _theme = theme;
 
     get buttonAriaLabel() {
         return this.header;

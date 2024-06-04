@@ -118,7 +118,7 @@ export default {
     getLayerOrderCSS(name = '') {
         return ThemeUtils.getLayerOrder(name, this.options, { names: this.getLayerNames() }, this.defaults);
     },
-    transformCSS(name = '', css, type = 'style', mode) {
+    transformCSS(name = '', css, type = 'style', mode?) {
         return ThemeUtils.transformCSS(name, css, mode, type, this.options, { layerNames: this.setLayerNames.bind(this) }, this.defaults);
     },
     getCommonStyleSheet(name = '', params, props = {}) {
