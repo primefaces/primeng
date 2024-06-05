@@ -7,18 +7,20 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Accordion consists of one or more <i>AccordionTab</i> elements which are collapsed by default. Tab to expand initially can be defined with the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card">
             <p-accordion value="0">
                 <p-accordionPanel value="0">
                     <p-accordionHeader>Header I</p-accordionHeader>
                     <p-accordionContent>
                         <p class="m-0">
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                            laborum.
                         </p>
                     </p-accordionContent>
                 </p-accordionPanel>
-                <p-accordion [activeIndex]="0">
+            </p-accordion>
+               <p-accordion [activeIndex]="0">
                 <p-accordionTab header="Header I">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -37,7 +39,6 @@ import { Code } from '@domain/code';
                         qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
                     </p>
                 </p-accordionTab>
-            </p-accordion>
             </p-accordion>
         </div>
         <app-code [code]="code" selector="accordion-basic-demo"></app-code>
