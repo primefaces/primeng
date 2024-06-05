@@ -1612,14 +1612,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             return modelValue;
         }
 
-        return (this.suggestions || [])
-            .find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue);
+        return (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue);
     }
 
     getMultipleLabel(option: any) {
         let selected = this.getSelectedOption(option);
 
-        return this.getOptionLabel(selected)
+        return this.getOptionLabel(selected);
     }
 
     registerOnChange(fn: Function): void {

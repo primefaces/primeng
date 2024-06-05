@@ -17,7 +17,10 @@ import { AutoComplete } from './autocomplete';
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
-    cars: any[] = [{ id: 1, brand: 'Volvo' }, { id: 2, brand: 'VW' }];
+    cars: any[] = [
+        { id: 1, brand: 'Volvo' },
+        { id: 2, brand: 'VW' }
+    ];
     filteredBrands: any[];
     filteredCars: any[];
     brand: string;
