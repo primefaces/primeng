@@ -20,7 +20,7 @@ export const routes: Routes = [
             { path: 'theming', loadChildren: () => import('@pages/theming/theming.module').then((m) => m.ThemingModule) },
             { path: 'icons', loadChildren: () => import('@pages/icons/iconsdemo.module').then((m) => m.IconsDemoModule) },
             { path: 'customicons', loadChildren: () => import('@pages/customicons/customiconsdemo.module').then((m) => m.CustomIconsDemoModule) },
-            { path: 'accordion', loadChildren: () => import('@pages/accordion/routes') },
+            { path: 'accordion', loadChildren: () => import('@pages/accordion/accordiondemo.module').then((m) => m.AccordionDemoModule) },
             { path: 'avatar', loadChildren: () => import('@pages/avatar/avatardemo.module').then((m) => m.AvatarDemoModule) },
             { path: 'blockui', loadChildren: () => import('@pages/blockui/blockuidemo.module').then((m) => m.BlockUIDemoModule) },
             { path: 'badge', loadChildren: () => import('@pages/badge/badgedemo.module').then((m) => m.BadgeDemoModule) },
