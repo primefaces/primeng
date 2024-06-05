@@ -44,8 +44,6 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
     }
 })
 export class AccordionHeader {
-    constructor(public pcAccordion: Accordion) {}
-
     @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
     public toggleIconTemplate: TemplateRef<any> | undefined;
@@ -106,7 +104,7 @@ export class AccordionPanel {
     selector: 'p-accordion',
     template: `<div class="p-accordion">
         @if(hasAccordionTab){
-        <ng-container *ngFor="let tab of tabs; let i = index">
+        <ng-container *ngFor="let tab of accordionPanels    ; let i = index">
             <p-accordionPanel [value]="i" [disabled]="getTabProp(tab, 'disabled')">
                 <p-accordionHeader [class]="getTabProp(tab, 'headerClass')">
                     <!-- <component v-if="tab.children && tab.children.headericon" :is="tab.children.headericon" ........... :index="i"></component> -->
@@ -234,6 +232,7 @@ export class Accordion {
         } @else {
         <ng-content></ng-content>
         } -->
+        <ng-content></ng-content>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -243,11 +242,7 @@ export class Accordion {
     }
 })
 export class AccordionContent {
-   
     public pcAccordionPanel: AccordionPanel = inject(forwardRef(() => AccordionPanel));
-
-
-   
 }
 @NgModule({
     imports: [CommonModule, ChevronRightIcon, ChevronDownIcon],
