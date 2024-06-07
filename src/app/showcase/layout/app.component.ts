@@ -18,6 +18,7 @@ import { AppConfigComponent } from './config/app.config.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
+import Aura from '@themes/aura';
 
 @Component({
     selector: 'app-root',
@@ -43,7 +44,14 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     ]
 })
 export class AppComponent implements OnInit {
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private primeng: PrimeNGConfig,
+        private configService: AppConfigService,
+        private router: Router,
+        @Inject(PLATFORM_ID) private platformId: any
+    ) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
@@ -51,6 +59,8 @@ export class AppComponent implements OnInit {
 
             this.bindRouteEvents();
         });
+
+        this.primeng.theme.set({ preset: Aura });
     }
     ngOnInit(): void {
         this.primeng.ripple = true;

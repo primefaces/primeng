@@ -1,18 +1,54 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, effect, inject, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
+import { Theme } from 'primeng/themes';
+import { BaseStyle } from 'primeng/base';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
     ripple: boolean = false;
+
+    public document: Document = inject(DOCUMENT);
 
     inputStyle = signal<'outlined' | 'filled'>('outlined');
 
     overlayOptions: OverlayOptions = {};
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
+    // @todo define type for theme
+    theme = signal<any>(undefined);
+
+    constructor() {
+        effect(() => {
+            if (this.document && this.theme()) {
+                this.onThemeChange(this.theme());
+            }
+        });
+    }
+
+    onThemeChange(value: any) {
+        Theme.setTheme(value);
+        if (this.document) {
+            this.loadCommonTheme();
+        }
+    }
+
+    loadCommonTheme() {
+        // common
+        if (!Theme.isStyleNameLoaded('common')) {
+            const { primitive, semantic } = BaseStyle.getCommonTheme?.() || {};
+            const styleOptions = { nonce: undefined };
+
+            BaseStyle.load(this.document, primitive?.css, { name: 'primitive-variables', ...styleOptions });
+            BaseStyle.load(this.document, semantic?.css, { name: 'semantic-variables', ...styleOptions });
+            BaseStyle.loadTheme(this.document, { name: 'global-style', ...styleOptions });
+
+            Theme.setLoadedStyleName('common');
+        }
+    }
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],

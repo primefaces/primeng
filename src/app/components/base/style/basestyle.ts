@@ -151,23 +151,22 @@ const classes = {};
 const inlineStyles = {};
 
 export default {
-    document: undefined,
     name: 'base',
     css,
     theme,
     classes,
     inlineStyles,
-    load(style, options = {}, transform = (cs) => cs) {
+    load(document, style, options = {}, transform = (cs) => cs) {
         const computedStyle = transform(ObjectUtils.getItemValue(style, { dt }));
-        return computedStyle ? useStyle(this.document, ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
+        return computedStyle ? useStyle(document, ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     },
-    loadCSS(options = {}) {
-        return this.load(this.css, options);
+    loadCSS(document, options = {}) {
+        return this.load(document, this.css, options);
     },
-    loadTheme(options: any = {}) {
-        return this.load(this.theme, options, (computedStyle) => Theme.transformCSS(options.name || this.name, computedStyle));
+    loadTheme(document, options: any = {}) {
+        return this.load(document, this.theme, options, (computedStyle) => Theme.transformCSS(options.name || this.name, computedStyle));
     },
-    getCommonTheme(params) {
+    getCommonTheme(params?) {
         return Theme.getCommon(this.name, params);
     },
     getComponentTheme(params) {

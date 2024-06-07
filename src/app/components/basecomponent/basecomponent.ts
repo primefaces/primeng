@@ -18,14 +18,6 @@ export class BaseComponent {
 
     public scopedStyleEl: any;
 
-    private _isPlatformBrowser() {
-        return isPlatformBrowser(this.platformId);
-    }
-
-    private _isPlatformServer() {
-        return isPlatformServer(this.platformId);
-    }
-
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };
     }
@@ -49,8 +41,7 @@ export class BaseComponent {
     }
 
     ngOnInit() {
-        if (this._isPlatformServer()) {
-            BaseStyle.document = this.document;
+        if (this.document) {
             this._loadStyles();
         }
     }
@@ -58,7 +49,7 @@ export class BaseComponent {
     _loadStyles() {
         const _load = () => {
             if (!Base.isStyleNameLoaded('base')) {
-                BaseStyle.loadCSS(this.styleOptions);
+                BaseStyle.loadCSS(this.document, this.styleOptions);
                 Base.setLoadedStyleName('base');
             }
 
@@ -66,34 +57,38 @@ export class BaseComponent {
         };
 
         _load();
-        this._themeChangeListener(_load);
+        // @todo: theme change listener
+        // this._themeChangeListener(_load);
     }
 
     _loadCoreStyles() {
         if (!Base.isStyleNameLoaded('base') && this.name) {
-            BaseComponentStyle.loadCSS(this.styleOptions);
-            this.componentStyle && this.componentStyle?.loadCSS(this.styleOptions);
+            BaseComponentStyle.loadCSS(this.document, this.styleOptions);
+            this.componentStyle && this.componentStyle?.loadCSS(this.document, this.styleOptions);
 
             Base.setLoadedStyleName(this.componentStyle?.name);
         }
+    }
+
+    ngOnDestroy() {
+        Theme.clearLoadedStyleNames();
     }
 
     _loadThemeStyles() {
         // common
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic } = this.componentStyle.getCommonTheme?.() || {};
-            BaseStyle.load(primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
-            BaseStyle.load(semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
-            BaseStyle.loadTheme({ name: 'global-style', ...this.styleOptions });
-
+            BaseStyle.load(this.document, primitive?.css, { name: 'primitive-variables', ...this.styleOptions });
+            BaseStyle.load(this.document, semantic?.css, { name: 'semantic-variables', ...this.styleOptions });
+            BaseStyle.loadTheme(this.document, { name: 'global-style', ...this.styleOptions });
             Theme.setLoadedStyleName('common');
         }
 
         // component
-        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle.name) {
+        if (!Theme.isStyleNameLoaded(this.componentStyle?.name) && this.componentStyle?.name) {
             const { css } = this.componentStyle.getComponentTheme?.() || {};
-            this.componentStyle.load(css, { name: `${this.componentStyle.name}-variables`, ...this.styleOptions });
-            this.componentStyle.loadTheme({ name: `${this.componentStyle.name}-style`, ...this.styleOptions });
+            this.componentStyle.load(this.document, css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
+            this.componentStyle.loadTheme(this.document, { name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
 
             Theme.setLoadedStyleName(this.componentStyle.name);
         }
@@ -102,15 +97,14 @@ export class BaseComponent {
         if (!Theme.isStyleNameLoaded('layer-order')) {
             const layerOrder = this.componentStyle?.getLayerOrderThemeCSS?.();
 
-            BaseStyle.load(layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
-
+            BaseStyle.load(this.document, layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
             Theme.setLoadedStyleName('layer-order');
         }
     }
 
     _loadScopedThemeStyles(preset) {
         const { css } = this.componentStyle?.getPresetTheme?.(preset, `[${this.attrSelector}]`) || {};
-        const scopedStyle = this.componentStyle?.load(css, { name: `${this.attrSelector}-${this.componentStyle.name}`, ...this.styleOptions });
+        const scopedStyle = this.componentStyle?.load(this.document, css, { name: `${this.attrSelector}-${this.componentStyle.name}`, ...this.styleOptions });
 
         this.scopedStyleEl = scopedStyle.el;
     }
