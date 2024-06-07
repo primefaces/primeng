@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Two-way binding is defined using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-slider [(ngModel)]="value" />
+            <p-slider [(ngModel)]="value" styleClass="w-14rem" />
         </div>
         <app-code [code]="code" selector="slider-basic-demo"></app-code>
     `
@@ -17,10 +17,10 @@ export class BasicDoc {
     value!: number;
 
     code: Code = {
-        basic: `<p-slider [(ngModel)]="value" />`,
+        basic: `<p-slider [(ngModel)]="value" styleClass="w-14rem"/>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-slider [(ngModel)]="value" />
+    <p-slider [(ngModel)]="value" styleClass="w-14rem"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
