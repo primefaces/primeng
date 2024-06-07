@@ -264,7 +264,7 @@ export class MultiSelectItem {
                             <ng-template #builtInFilterElement>
                                 <div
                                     class="p-checkbox p-component"
-                                    *ngIf="showToggleAll && !selectionLimit"
+                                    *ngIf="showToggleAll && selectionLimit === undefined"
                                     [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled }"
                                     (click)="onToggleAll($event)"
                                     (keydown)="onHeaderCheckboxKeyDown($event)"
@@ -1179,15 +1179,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1216,6 +1208,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     maxSelectionLimitReached() {
+        if (this.selectionLimit === 0) {
+            return true;
+        }
         return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
     }
 
