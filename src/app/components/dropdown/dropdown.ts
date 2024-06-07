@@ -160,9 +160,9 @@ export class DropdownItem {
                 [attr.required]="required"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-                <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
+                <ng-container *ngIf="selectedItemTemplate && (selectedOption || selectedOption === 0)" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
                 <ng-template #defaultPlaceholder>
-                    <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
+                    <span *ngIf="selectedOption === undefined">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
                 </ng-template>
             </span>
             <input
@@ -1011,14 +1011,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
