@@ -5397,6 +5397,8 @@ export class ColumnFilter implements AfterContentInit {
 
     applyHasBeenClicked: boolean = false;
 
+    private appliedFilter: any;
+
     get fieldConstraints(): FilterMetadata[] | undefined | null {
         return this.dt.filters ? <FilterMetadata[]>this.dt.filters[<string>this.field] : null;
     }
@@ -5653,6 +5655,9 @@ export class ColumnFilter implements AfterContentInit {
     onEscape() {
         if (this.hasFilterNotBeenApplied()) {
             this.clearFilter();
+            if (this.appliedFilter !== null) {
+                this.dt.filters[<string>this.field] = this.appliedFilter;
+            }
         }
         this.applyHasBeenClicked = false;
         this.overlayVisible = false;
@@ -5748,15 +5753,52 @@ export class ColumnFilter implements AfterContentInit {
     hasFilter(): boolean {
         let fieldFilter = this.dt.filters[<string>this.field];
         if (fieldFilter) {
-            if (Array.isArray(fieldFilter)) return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
-            else return !this.dt.isFilterBlank(fieldFilter.value);
+            if (Array.isArray(fieldFilter)) {
+                if (this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value)) {
+                    this.appliedFilter = null;
+                }
+                return !this.dt.isFilterBlank((<FilterMetadata[]>fieldFilter)[0].value);
+            } else {
+                if (this.dt.isFilterBlank(fieldFilter.value)) {
+                    this.appliedFilter = null;
+                }
+                return !this.dt.isFilterBlank(fieldFilter.value);
+            }
         }
 
         return false;
     }
 
     hasFilterNotBeenApplied(): boolean {
-        return this.hasFilter() && !this.applyHasBeenClicked;
+        let currentFilters = this.dt.filters[<string>this.field];
+        let lastAppliedFilters = this.appliedFilter;
+
+        if (this.applyHasBeenClicked) {
+            return false;
+        }
+        return this.compareFilters(currentFilters, lastAppliedFilters);
+    }
+
+    compareFilters(currentFilters: any, appliedFilters: any): boolean {
+        if (appliedFilters === null) {
+            return true;
+        }
+        if (Array.isArray(currentFilters)) {
+            if (currentFilters.length !== appliedFilters.length) {
+                return true;
+            }
+            for (let i = 0; i < currentFilters.length; i++) {
+                if (currentFilters[i].value !== appliedFilters[i].value) {
+                    return true;
+                }
+            }
+        } else {
+            if (currentFilters.value !== appliedFilters.value) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     isOutsideClicked(event: any): boolean {
@@ -5835,6 +5877,11 @@ export class ColumnFilter implements AfterContentInit {
     hide() {
         if (this.hasFilterNotBeenApplied()) {
             this.clearFilter();
+            // apply the previous filter if the user has not clicked the apply button
+            if (this.appliedFilter !== null) {
+                this.dt.filters[<string>this.field] = this.appliedFilter;
+                this.dt._filter();
+            }
         }
         this.applyHasBeenClicked = false;
         this.overlayVisible = false;
@@ -5856,6 +5903,8 @@ export class ColumnFilter implements AfterContentInit {
     }
 
     applyFilter() {
+        // deep copy of current applied filter
+        this.appliedFilter = JSON.parse(JSON.stringify(this.dt.filters[<string>this.field]));
         this.applyHasBeenClicked = true;
         this.dt._filter();
         this.hide();
