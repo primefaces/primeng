@@ -637,7 +637,7 @@ export class Menu implements OnDestroy {
 
     onEnterKey(event) {
         const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+        const anchorElement = element && DomHandler.findSingle(element, 'a');
 
         this.popup && DomHandler.focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
