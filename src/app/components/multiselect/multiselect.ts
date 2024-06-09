@@ -1997,7 +1997,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     writeValue(value: any): void {
         this.value = value;
-        if (!ObjectUtils.isEmpty(this.selectionLimit)) {
+        if (!ObjectUtils.isEmpty(this.selectionLimit) && ObjectUtils.isEmpty(this.value)) {
             this.modelValue.set([]);
         } else {
             this.modelValue.set(this.value);
