@@ -245,12 +245,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         return this._focusableItems;
     }
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private router: Router,
-        private route: ActivatedRoute,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {

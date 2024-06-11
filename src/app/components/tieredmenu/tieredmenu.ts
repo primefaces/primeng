@@ -230,11 +230,7 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {

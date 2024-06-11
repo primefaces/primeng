@@ -150,10 +150,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(
-        private zone: NgZone,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(private zone: NgZone, private config: PrimeNGConfig) {}
 
     ngAfterViewInit() {
         this.initTimeout();
@@ -162,15 +159,12 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     initTimeout() {
         if (!this.message?.sticky) {
             this.zone.runOutsideAngular(() => {
-                this.timeout = setTimeout(
-                    () => {
-                        this.onClose.emit({
-                            index: <number>this.index,
-                            message: <Message>this.message
-                        });
-                    },
-                    this.message?.life || this.life || 3000
-                );
+                this.timeout = setTimeout(() => {
+                    this.onClose.emit({
+                        index: <number>this.index,
+                        message: <Message>this.message
+                    });
+                }, this.message?.life || this.life || 3000);
             });
         }
     }
@@ -349,13 +343,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     _position: ToastPositionType = 'top-right';
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        public messageService: MessageService,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     styleElement: any;
 

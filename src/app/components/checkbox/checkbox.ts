@@ -247,11 +247,7 @@ export class Checkbox implements ControlValueAccessor {
 
     focused: boolean = false;
 
-    constructor(
-        public cd: ChangeDetectorRef,
-        private readonly injector: Injector,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(public cd: ChangeDetectorRef, private readonly injector: Injector, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

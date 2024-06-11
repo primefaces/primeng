@@ -76,7 +76,7 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
             ></p-paginator>
 
             <div class="p-dataview-content">
-                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: paginator ? (filteredValue || value | slice: (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value }"></ng-container>
+                <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: paginator ? (filteredValue || value | slice : (lazy ? 0 : first) : (lazy ? 0 : first) + rows) : filteredValue || value }"></ng-container>
 
                 <div *ngIf="isEmpty() && !loading">
                     <div class="p-dataview-emptymessage">
@@ -358,12 +358,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {}
 
     ngOnInit() {
         if (this.lazy && this.lazyLoadOnInit) {

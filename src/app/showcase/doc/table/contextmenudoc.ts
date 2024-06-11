@@ -30,7 +30,7 @@ import { ProductService } from '@service/productservice';
                             <td>{{ product.code }}</td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.category }}</td>
-                            <td>{{ product.price | currency: 'USD' }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
                         </tr>
                     </ng-template>
                 </p-table>
@@ -47,11 +47,7 @@ export class ContextMenuDoc {
 
     items!: MenuItem[];
 
-    constructor(
-        private productService: ProductService,
-        private messageService: MessageService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

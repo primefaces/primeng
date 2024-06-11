@@ -41,11 +41,7 @@ export class SelectionEventsDoc {
 
     selectedProduct!: Product;
 
-    constructor(
-        private productService: ProductService,
-        private messageService: MessageService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private messageService: MessageService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

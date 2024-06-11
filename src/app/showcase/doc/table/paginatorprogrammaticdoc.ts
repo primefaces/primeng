@@ -57,10 +57,7 @@ export class PaginatorProgrammaticDoc {
 
     rows = 10;
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {

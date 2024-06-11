@@ -31,10 +31,7 @@ export class AppDocSectionTextComponent {
 
     @Input() description: string;
 
-    constructor(
-        public location: Location,
-        public el: ElementRef
-    ) {}
+    constructor(public location: Location, public el: ElementRef) {}
 
     navigate(event) {
         if (typeof window !== undefined) {

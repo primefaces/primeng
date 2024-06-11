@@ -1011,14 +1011,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();

@@ -24,10 +24,7 @@ export class RoutingDoc implements OnInit {
 
     subscription: Subscription;
 
-    constructor(
-        public messageService: MessageService,
-        public ticketService: TicketService
-    ) {}
+    constructor(public messageService: MessageService, public ticketService: TicketService) {}
 
     ngOnInit() {
         this.items = [
