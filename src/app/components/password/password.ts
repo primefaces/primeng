@@ -116,7 +116,7 @@ export class PasswordDirective implements OnDestroy, DoCheck {
         public el: ElementRef,
         public zone: NgZone,
         public config: PrimeNGConfig
-    ) {}
+    ) { }
 
     ngDoCheck() {
         this.updateFilledState();
@@ -378,13 +378,14 @@ export const Password_VALUE_ACCESSOR: any = {
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+
+                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -615,9 +616,9 @@ export class Password implements AfterContentInit, OnInit {
 
     value: Nullable<string> = null;
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     translationSubscription: Nullable<Subscription>;
 
@@ -629,7 +630,7 @@ export class Password implements AfterContentInit, OnInit {
         private config: PrimeNGConfig,
         public el: ElementRef,
         public overlayService: OverlayService
-    ) {}
+    ) { }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -959,4 +960,4 @@ export class Password implements AfterContentInit, OnInit {
     exports: [PasswordDirective, Password, SharedModule],
     declarations: [PasswordDirective, Password, MapperPipe]
 })
-export class PasswordModule {}
+export class PasswordModule { }
