@@ -12,6 +12,7 @@ import Aura from '@themes/aura';
 import Nora from '@themes/nora';
 import Lara from '@themes/lara';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 const presets = {
     Aura,
@@ -22,7 +23,7 @@ const presets = {
     selector: 'app-config',
     standalone: true,
     templateUrl: './app.config.component.html',
-    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule]
+    imports: [CommonModule, FormsModule, SidebarModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButtonModule, ToggleButtonModule]
 })
 export class AppConfigComponent {
     setNewTheme(arg) {
