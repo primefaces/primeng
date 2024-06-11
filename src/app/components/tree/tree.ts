@@ -1155,12 +1155,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(
-        public el: ElementRef,
-        @Optional() public dragDropService: TreeDragDropService,
-        public config: PrimeNGConfig,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -1374,8 +1369,14 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     onNodeRightClick(event: MouseEvent, node: TreeNode<any>) {
         if (this.contextMenu) {
             let eventTarget = <Element>event.target;
+            let className;
 
-            if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
+            if (eventTarget instanceof SVGElement) {
+                className = eventTarget.getAttribute('class');
+            } else {
+                className = eventTarget.className;
+            }
+            if (className && className.indexOf('p-tree-toggler') === 0) {
                 return;
             } else {
                 let index = this.findIndexInSelection(node);
