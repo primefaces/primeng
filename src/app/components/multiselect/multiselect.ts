@@ -1992,9 +1992,11 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     writeValue(value: any): void {
-        this.value = value;
-        this.modelValue.set(this.value);
-        this.cd.markForCheck();
+        setTimeout(() => {
+            this.value = value;
+            this.modelValue.set(this.value);
+            this.cd.markForCheck();
+        });
     }
 
     public registerOnChange(fn: Function): void {
