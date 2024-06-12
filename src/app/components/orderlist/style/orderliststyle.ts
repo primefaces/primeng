@@ -1,14 +1,26 @@
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => ``;
+const theme = ({ dt }) => `
+.p-orderlist {
+    display: flex;
+    gap: ${dt('orderlist.gap')};
+}
 
-const classes = {};
+.p-orderlist-controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: ${dt('orderlist.controls.gap')};
+}
+`;
 
-const inlineStyles = {};
+const classes = {
+    root: 'p-orderlist p-component',
+    controls: 'p-orderlist-controls'
+};
 
 export default BaseStyle.extend({
     name: 'orderlist',
     theme,
-    classes,
-    inlineStyles
+    classes
 });

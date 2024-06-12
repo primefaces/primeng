@@ -1,14 +1,10 @@
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => ``;
-
-const classes = {};
-
-const inlineStyles = {};
+const classes = {
+    root: 'p-inputmask'
+};
 
 export default BaseStyle.extend({
     name: 'inputmask',
-    theme,
-    classes,
-    inlineStyles
+    classes
 });

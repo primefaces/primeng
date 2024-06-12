@@ -1,14 +1,29 @@
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => ``;
+const theme = ({ dt }) => `
+.p-blockui {
+    position: relative;
+}
 
-const classes = {};
+.p-blockui-mask {
+    border-radius: ${dt('blockui.border.radius')};
+}
 
-const inlineStyles = {};
+.p-blockui-mask.p-overlay-mask {
+    position: absolute;
+}
+
+.p-blockui-mask-document.p-overlay-mask {
+    position: fixed;
+}
+`;
+
+const classes = {
+    root: 'p-blockui'
+};
 
 export default BaseStyle.extend({
     name: 'blockui',
     theme,
-    classes,
-    inlineStyles
+    classes
 });
