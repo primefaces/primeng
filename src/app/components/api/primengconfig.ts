@@ -1,11 +1,12 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { Injectable, effect, inject, signal, untracked } from '@angular/core';
 import { Subject } from 'rxjs';
 import { FilterMatchMode } from './filtermatchmode';
 import { OverlayOptions } from './overlayoptions';
 import { Translation } from './translation';
-import { Theme } from 'primeng/themes';
+import { Theme, ThemeService } from 'primeng/themes';
 import { BaseStyle } from 'primeng/base';
 import { DOCUMENT } from '@angular/common';
+import { ObjectUtils } from 'primeng/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
@@ -21,12 +22,29 @@ export class PrimeNGConfig {
     // @todo define type for theme
     theme = signal<any>(undefined);
 
+    isThemeChanged: boolean = false;
+
     constructor() {
-        effect(() => {
-            if (this.document && this.theme()) {
-                this.onThemeChange(this.theme());
-            }
-        });
+        effect(
+            () => {
+                ThemeService.on('theme:change', (newTheme) => {
+                    this.isThemeChanged = true;
+                    this.theme.set(newTheme);
+                });
+                untracked(() => this.theme());
+            },
+            { allowSignalWrites: true }
+        );
+
+        effect(
+            () => {
+                if (this.document && this.theme() && !this.isThemeChanged) {
+                    this.onThemeChange(this.theme());
+                    this.isThemeChanged = false;
+                }
+            },
+            { allowSignalWrites: true }
+        );
     }
 
     onThemeChange(value: any) {
@@ -41,7 +59,6 @@ export class PrimeNGConfig {
         if (!Theme.isStyleNameLoaded('common')) {
             const { primitive, semantic } = BaseStyle.getCommonTheme?.() || {};
             const styleOptions = { nonce: undefined };
-
             BaseStyle.load(this.document, primitive?.css, { name: 'primitive-variables', ...styleOptions });
             BaseStyle.load(this.document, semantic?.css, { name: 'semantic-variables', ...styleOptions });
             BaseStyle.loadTheme(this.document, { name: 'global-style', ...styleOptions });

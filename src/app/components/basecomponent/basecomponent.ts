@@ -1,14 +1,17 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { Directive, ElementRef, inject, PLATFORM_ID } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, PLATFORM_ID, untracked } from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import BaseComponentStyle from './style/basecomponentstyle';
 import { PrimeNGConfig } from 'primeng/api';
 import { UniqueComponentId } from 'primeng/utils';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Directive({ standalone: true })
 export class BaseComponent {
     public document: Document = inject(DOCUMENT);
+
+    public configService = inject(AppConfigService);
 
     public platformId: any = inject(PLATFORM_ID);
 
@@ -34,6 +37,8 @@ export class BaseComponent {
         return UniqueComponentId('pc');
     }
 
+    constructor() {}
+
     _getHostInstance(instance) {
         if (instance) {
             return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
@@ -54,11 +59,11 @@ export class BaseComponent {
             }
 
             this._loadThemeStyles();
+            // @todo update config.theme()
         };
 
         _load();
-        // @todo: theme change listener
-        // this._themeChangeListener(_load);
+        this._themeChangeListener(_load.bind(this));
     }
 
     _loadCoreStyles() {

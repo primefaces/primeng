@@ -58,7 +58,6 @@ export default {
     setPreset(newValue) {
         this._theme = { ...this.theme, preset: newValue };
         this._tokens = ThemeUtils.createTokens(newValue, this.defaults);
-
         this.clearLoadedStyleNames();
         ThemeService.emit('preset:change', newValue);
         ThemeService.emit('theme:change', this.theme);

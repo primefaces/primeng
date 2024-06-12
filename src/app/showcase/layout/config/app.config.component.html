@@ -27,7 +27,7 @@
                     <button 
                         type="button" 
                         [title]="surface.name" 
-                        (click)="updateColors('primary', surface)"
+                        (click)="updateColors('surface', surface)"
                         [ngClass]="{'active-color': surface.name === selectedSurfaceColor()}"
                         [style]="{'background-color': surface.name === 'noir' ? 'var(--text-color)' : surface?.palette['500']}">
                     </button>
