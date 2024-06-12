@@ -47,7 +47,7 @@ export const CHIPS_VALUE_ACCESSOR: any = {
                 'p-disabled': disabled,
                 'p-focus': focused,
                 'p-inputwrapper-filled': (value && value.length) || (this.inputViewChild?.nativeElement.value && this.inputViewChild?.nativeElement.value.length),
-                'p-inputwrapper-focus': focused,
+                'p-inputwrapper-focus': focused
             }"
             [ngStyle]="style"
             [class]="styleClass"
@@ -310,7 +310,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         return this.max && this.value && this.max === this.value.length;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

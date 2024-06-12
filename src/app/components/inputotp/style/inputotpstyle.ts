@@ -1,16 +1,14 @@
+import { BaseStyle } from 'primeng/base';
 
-    import { BaseStyle } from 'primeng/base';
+const theme = ({ dt }) => ``;
 
-    const theme = ({dt}) => ``;
+const classes = {};
 
-    const classes = {};
+const inlineStyles = {};
 
-    const inlineStyles = {};
-
-    export default BaseStyle.extend({
-       name: 'inputotp',
-       theme,
-       classes,
-       inlineStyles
-    });
-    
+export default BaseStyle.extend({
+    name: 'inputotp',
+    theme,
+    classes,
+    inlineStyles
+});

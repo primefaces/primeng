@@ -21,7 +21,11 @@ export class DynamicDoc implements OnInit, OnDestroy {
 
     interval: any;
 
-    constructor(private messageService: MessageService, private cd: ChangeDetectorRef, private ngZone: NgZone) {}
+    constructor(
+        private messageService: MessageService,
+        private cd: ChangeDetectorRef,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit() {
         this.ngZone.runOutsideAngular(() => {

@@ -109,7 +109,13 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     documentResizeListener: VoidListener;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        public zone: NgZone
+    ) {}
 
     ngDoCheck() {
         this.updateFilledState();
@@ -337,7 +343,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper : containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
+        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
                 #input
                 [attr.label]="label"
@@ -345,10 +351,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper : inputFieldClass"
+                [ngClass]="disabled | mapper: inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper : inputType"
+                [attr.type]="unmasked | mapper: inputType"
                 [attr.placeholder]="placeholder"
                 [attr.autocomplete]="autocomplete"
                 [value]="value"
@@ -400,7 +406,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 </ng-container>
                 <ng-template #content>
                     <div class="p-password-meter" [attr.data-pc-section]="'meter'">
-                        <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
                     </div>
                     <div class="p-password-info" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                 </ng-template>
