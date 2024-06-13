@@ -230,11 +230,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(
-        @Inject(forwardRef(() => Accordion)) accordion: Accordion,
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
         this.id = UniqueComponentId();
     }
@@ -262,7 +258,9 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent | KeyboardEvent) {
-        if (this.disabled) {
+        const target = event.target as HTMLElement;
+
+        if (this.disabled || !(target.tagName.toLowerCase() === 'a' && target.classList.contains('p-accordion-header-link'))) {
             return false;
         }
 
@@ -441,10 +439,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     public tabs: AccordionTab[] = [];
 
-    constructor(
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
