@@ -23,7 +23,7 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public badgeSize: 'large' | 'xlarge';
+    @Input() public badgeSize: 'large' | 'xlarge' | undefined;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
