@@ -1,4 +1,28 @@
 # Changelog
+## [17.18.1](https://github.com/primefaces/primeng/tree/17.18.1) (2024-06-13)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.1)
+
+**Fixed bugs:**
+- Accessibility: Buttons within an accordion header template (keyboard accessibility) [\#15837](https://github.com/primefaces/primeng/issues/15837)
+- Accessibility: Tree inside an Accordion (arrow navigation) [\#15830](https://github.com/primefaces/primeng/issues/15830)
+- Accessibility within Tree Component [\#15828](https://github.com/primefaces/primeng/issues/15828)
+- pTree: right click on treenode chevron down [\#15714](https://github.com/primefaces/primeng/issues/15714)
+- Component: Button: Opacity is applied twice on disabled state --> wrong opacity [\#15651](https://github.com/primefaces/primeng/issues/15651)
+- Calendar: Range selection mode should use start date as default date when end date isn't set [\#15818](https://github.com/primefaces/primeng/issues/15818)
+- Menu: Keyboard navigation broken when using custom template [\#15794](https://github.com/primefaces/primeng/issues/15794)
+- pTemplate not working for p-menu alone [\#15781](https://github.com/primefaces/primeng/issues/15781)
+- OrderList: Unable to insert space into input component [\#15326](https://github.com/primefaces/primeng/issues/15326)
+- Component: Table (Advanced Filter) [\#15778](https://github.com/primefaces/primeng/issues/15778)
+- Component: PrimeNG Slider with range values not working properly [\#15404](https://github.com/primefaces/primeng/issues/15404)
+- Dropdown: when using selectedItem template if the selected option is 0 then no template is rendered [\#15366](https://github.com/primefaces/primeng/issues/15366)
+- P-Splitter: Does not respect minSizes array after upgrading to 17.16.1 [\#15637](https://github.com/primefaces/primeng/issues/15637)
+- AutoComplete: Broken since PrimeNG 17.15.0 due to the new optionValue support [\#15393](https://github.com/primefaces/primeng/issues/15393)
+- Fix broken unit tests [\#15787](https://github.com/primefaces/primeng/issues/15787)
+- Component: p-multiSelectItem - breaking regression [\#15784](https://github.com/primefaces/primeng/issues/15784)
+- InputNumber - MinFractionDigits and MaxFractionDigits no longer respect a value of 0 [\#15772](https://github.com/primefaces/primeng/issues/15772)
+- Button: Using Icon + LoadingIcon removes common class [\#15736](https://github.com/primefaces/primeng/issues/15736)
+- Table filter: templating filter as Calendar with selectionMode range throws error [\#15576](https://github.com/primefaces/primeng/issues/15576)
+
 ## [17.18.0](https://github.com/primefaces/primeng/tree/17.18.0) (2024-05-30)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.0)
 
