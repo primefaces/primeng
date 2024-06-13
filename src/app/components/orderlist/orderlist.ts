@@ -712,6 +712,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onItemKeydown(event: KeyboardEvent) {
+        const targetTagName = (event.target as HTMLElement).tagName.toLowerCase();
+
+        if (targetTagName == 'input') {
+            return;
+        }
+
         switch (event.code) {
             case 'ArrowDown':
                 this.onArrowDownKey(event);
