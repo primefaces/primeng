@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from 'primeng/overlay';
@@ -124,23 +124,24 @@ describe('MultiSelect', () => {
         expect(onHideSpy).toHaveBeenCalled();
     });
 
-    it('should close when double click', () => {
+    it('should close when double click', fakeAsync(() => {
         fixture.detectChanges();
 
         const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
 
         const showSpy = spyOn(multiselect, 'show').and.callThrough();
         multiselectEl.dispatchEvent(new KeyboardEvent('click'));
+        tick(350);
         fixture.detectChanges();
         expect(showSpy).toHaveBeenCalled();
 
-        setTimeout(() => {
-            const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
-            multiselectEl.dispatchEvent(new KeyboardEvent('click'));
-            fixture.detectChanges();
-            expect(onHideSpy).toHaveBeenCalled();
-        }, 350);
-    });
+        const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
+        multiselectEl.dispatchEvent(new KeyboardEvent('click'));
+        tick();
+        fixture.detectChanges();
+        expect(onHideSpy).toHaveBeenCalled();
+        flush();
+    }));
 
     it('should select item', () => {
         multiselect.options = [

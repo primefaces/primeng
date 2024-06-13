@@ -12,10 +12,7 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
     template: ` <h2>PrimeNG ROCKS!</h2> `
 })
 export class TestComponent {
-    constructor(
-        public ref: DynamicDialogRef,
-        public config: DynamicDialogConfig
-    ) {}
+    constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {}
 }
 
 @Component({
@@ -45,7 +42,6 @@ export class TestDynamicDialogWithClosableFalseComponent {
             header: 'Demo Header',
             width: '70%',
             contentStyle: { 'max-height': '350px', overflow: 'auto' },
-            closable: false,
             closeOnEscape: true,
             dismissableMask: true,
             baseZIndex: 0
@@ -54,7 +50,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
 }
 @NgModule({
     imports: [CommonModule, DynamicDialogModule],
-    declarations: [TestComponent, TestDynamicDialogComponent],
+    declarations: [TestComponent, TestDynamicDialogComponent, TestDynamicDialogWithClosableFalseComponent],
     exports: [TestComponent],
     providers: [DialogService]
 })
@@ -98,7 +94,7 @@ describe('DynamicDialog', () => {
     it('should open dialog and close dialog without the closing icon enabled', fakeAsync(() => {
         let fixture: ComponentFixture<TestDynamicDialogWithClosableFalseComponent>;
         let testDynamicDialogComponent: TestDynamicDialogWithClosableFalseComponent;
-        fixture = TestBed.createComponent(TestDynamicDialogComponent);
+        fixture = TestBed.createComponent(TestDynamicDialogWithClosableFalseComponent);
         testDynamicDialogComponent = fixture.debugElement.componentInstance;
         fixture.detectChanges();
 
@@ -114,7 +110,6 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual('PrimeNG ROCKS!');
         const backdropEl = document.getElementsByClassName('p-dialog-mask')[0];
         backdropEl.dispatchEvent(new Event('mousedown'));
-        fixture.detectChanges();
         tick(700);
 
         dynamicDialogEl = document.getElementsByClassName('p-dynamic-dialog')[0];

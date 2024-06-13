@@ -80,6 +80,6 @@ describe('Button', () => {
     it('should have a empty label and icon', () => {
         fixture.detectChanges();
         const buttonEl = fixture.debugElement.query(By.css('.p-button'));
-        expect(buttonEl.nativeElement.className).toEqual('p-button p-component');
+        expect(buttonEl.nativeElement.className).toEqual('p-ripple p-element p-button p-component');
     });
 });
