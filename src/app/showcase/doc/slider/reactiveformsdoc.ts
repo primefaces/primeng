@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-slider formControlName="value" styleClass="w-14rem"/>
+                <p-slider formControlName="value" styleClass="w-14rem" />
             </form>
         </div>
         <app-code [code]="code" selector="slider-reactive-forms-demo"></app-code>

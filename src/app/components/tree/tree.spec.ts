@@ -254,20 +254,20 @@ describe('Tree', () => {
         const onKeyDownSpy = spyOn(documentsNode, 'onKeyDown').and.callThrough();
 
         const firstEl = contentEls[0];
-        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight'}));
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowRight' }));
         fixture.detectChanges();
 
         expect(onKeyDownSpy).toHaveBeenCalled();
         expect(documentsNode.node.expanded).toBeTruthy();
-        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft'}));
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowLeft' }));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();
-        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter'}));
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();
-        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter'}));
+        firstEl.nativeElement.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
         expect(documentsNode.node.expanded).toBeFalsy();

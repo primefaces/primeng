@@ -1464,7 +1464,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isSelectionAllDisabled() {
-        return this.showToggleAll && ObjectUtils.isEmpty(this.selectionLimit)
+        return this.showToggleAll && ObjectUtils.isEmpty(this.selectionLimit);
     }
 
     isValidSelectedOption(option) {
@@ -2004,7 +2004,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         } else {
             this.modelValue.set(this.value);
         }
-        
+
         this.cd.markForCheck();
     }
 
