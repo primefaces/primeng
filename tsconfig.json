@@ -28,7 +28,8 @@
             "@doc/*": ["src/app/showcase/doc/*"],
             "@domain/*": ["src/app/showcase/domain/*"],
             "@service/*": ["src/app/showcase/service/*"],
-            "@layout/*": ["src/app/showcase/layout/*"]
+            "@layout/*": ["src/app/showcase/layout/*"],
+            "@themes/*": ["src/app/components/themes/*"]
         }
     },
     "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],

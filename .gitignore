@@ -45,3 +45,5 @@ Thumbs.db
 api-generator/typedoc.json
 .vercel
 .nx
+
+builder/node_modules

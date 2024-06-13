@@ -236,7 +236,11 @@ export class Checkbox implements ControlValueAccessor {
 
     focused: boolean = false;
 
-    constructor(public cd: ChangeDetectorRef, private readonly injector: Injector, public config: PrimeNGConfig) {}
+    constructor(
+        public cd: ChangeDetectorRef,
+        private readonly injector: Injector,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.indeterminate) {

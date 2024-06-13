@@ -319,7 +319,10 @@ export class Paginator implements OnInit, AfterContentInit, OnChanges {
 
     _page: number = 0;
 
-    constructor(private cd: ChangeDetectorRef, private config: PrimeNGConfig) {}
+    constructor(
+        private cd: ChangeDetectorRef,
+        private config: PrimeNGConfig
+    ) {}
 
     ngOnInit() {
         this.updatePaginatorState();

@@ -6,12 +6,12 @@ import { Component, ElementRef, EventEmitter, Inject, Input, OnInit, Output, PLA
     standalone: true,
     imports: [CommonModule],
     template: `
-        @if(!visible){
-        <div class="card">
-            <div class="deferred-demo-loading"></div>
-        </div>
+        @if (!visible) {
+            <div class="card">
+                <div class="deferred-demo-loading"></div>
+            </div>
         } @else {
-        <ng-content></ng-content>
+            <ng-content></ng-content>
         }
     `,
     styleUrl: './deferreddemo.scss'
@@ -27,7 +27,10 @@ export class DeferredDemo implements OnInit {
 
     @Output() load: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    constructor(public el: ElementRef, @Inject(PLATFORM_ID) private platformId: any) {}
+    constructor(
+        public el: ElementRef,
+        @Inject(PLATFORM_ID) private platformId: any
+    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

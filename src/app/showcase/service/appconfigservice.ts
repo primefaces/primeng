@@ -22,6 +22,13 @@ export class AppConfigService {
         newsActive: false
     };
 
+    appState = signal<any>({
+        preset: 'Aura',
+        primary: 'noir',
+        surface: null,
+        darkTheme: false
+    });
+
     config = signal<AppConfig>(this._config);
 
     private configUpdate = new Subject<AppConfig>();

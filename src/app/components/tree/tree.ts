@@ -1168,7 +1168,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        @Optional() public dragDropService: TreeDragDropService,
+        public config: PrimeNGConfig,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         if (this.droppableNodes) {

@@ -55,3 +55,55 @@
         border: 0 none;
     }
 }
+
+.config-panel {
+    padding: .75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    
+    .config-panel-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .config-panel-label {
+        font-size: .875rem;
+        color: var(--text-secondary-color);
+        font-weight: 600;
+        line-height: 1;
+    }
+
+    .config-panel-colors {
+        > div {
+            padding-top: .5rem;
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+
+            button {
+                border: none;
+                width: 1.25rem;
+                height: 1.25rem;
+                border-radius: 50%;
+                padding: 0;
+                cursor: pointer;
+                outline-color: transparent;
+                outline-width: 2px;
+                outline-style: solid;
+                outline-offset: 1px;
+
+                &.active-color {
+                    outline-color: var(--primary-color);
+                }
+            }
+        }
+    }
+
+    .config-panel-settings {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}

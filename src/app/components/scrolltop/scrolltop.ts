@@ -124,7 +124,14 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     private window: Window | null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {
         this.window = this.document.defaultView;
     }
 

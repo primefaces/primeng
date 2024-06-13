@@ -269,7 +269,13 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     headlessTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterViewInit() {
         this.initialized = true;

@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformServer } from '@angular/common';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -8,8 +8,10 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
-import { ButtonProps } from '../button/button.interface';
-import { ButtonModule } from '../button/button';
+import { ButtonProps } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
+import panelstyle from './style/panelstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Panel is a container with the optional content toggle feature.
@@ -109,12 +111,11 @@ import { ButtonModule } from '../button/button';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./panel.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Panel implements AfterContentInit, BlockableUI {
+export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Defines if content of panel can be expanded and collapsed.
      * @group Props
@@ -219,7 +220,7 @@ export class Panel implements AfterContentInit, BlockableUI {
         return this.header;
     }
 
-    constructor(private el: ElementRef) {}
+    _componentStyle = panelstyle;
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

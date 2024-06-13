@@ -119,11 +119,17 @@
                         ],
                         "scripts": []
                     }
+                },
+                "build-styles": {
+                    "builder": "./builder:build-styles"
                 }
             }
         }
     },
     "cli": {
-        "analytics": false
+        "analytics": false,
+        "cache": {
+          "enabled": false
+        }
     }
 }

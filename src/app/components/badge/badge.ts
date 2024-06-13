@@ -58,7 +58,11 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         return this.id && !this.disabled;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        private renderer: Renderer2
+    ) {}
 
     public ngOnChanges({ value, size, severity, disabled }: SimpleChanges): void {
         if (disabled) {

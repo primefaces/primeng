@@ -508,7 +508,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        private cd: ChangeDetectorRef,
+        private readonly injector: Injector
+    ) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
