@@ -125,7 +125,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="true"
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ getOptionLabel(option) }}</span>
+                    <span *ngIf="!selectedItemTemplate" class="p-autocomplete-token-label">{{ getMultipleLabel(option) }}</span>
                     <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
                         <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" *ngIf="!removeIconTemplate" [attr.aria-hidden]="true" />
                         <span *ngIf="removeIconTemplate" class="p-autocomplete-token-icon" [attr.aria-hidden]="true">
@@ -778,10 +778,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     inputValue = computed(() => {
         const modelValue = this.modelValue();
-        const selectedOption = this.optionValueSelected ? (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue) : modelValue;
+        const selectedOption = this.getSelectedOption(modelValue);
 
         if (modelValue) {
-            if (typeof modelValue === 'object' || this.optionValueSelected) {
+            if (typeof modelValue === 'object' || this.optionValue) {
                 const label = this.getOptionLabel(selectedOption);
 
                 return label != null ? label : modelValue;
@@ -1592,7 +1592,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     getOptionValue(option) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option && option.value != undefined ? option.value : option;
+        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : option;
     }
 
     getOptionIndex(index, scrollerOptions) {
@@ -1605,6 +1605,20 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     getOptionGroupChildren(optionGroup: any) {
         return this.optionGroupChildren ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+    }
+
+    getSelectedOption(modelValue: any) {
+        if (!this.optionValue) {
+            return modelValue;
+        }
+
+        return (this.suggestions || []).find((item: any) => ObjectUtils.resolveFieldData(item, this.optionValue) === modelValue);
+    }
+
+    getMultipleLabel(option: any) {
+        let selected = this.getSelectedOption(option);
+
+        return this.getOptionLabel(selected);
     }
 
     registerOnChange(fn: Function): void {
