@@ -264,7 +264,7 @@ export class MultiSelectItem {
                             <ng-template #builtInFilterElement>
                                 <div
                                     class="p-checkbox p-component"
-                                    *ngIf="showToggleAll && !selectionLimit"
+                                    *ngIf="isSelectionAllDisabled()"
                                     [ngClass]="{ 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled', 'p-checkbox-disabled': disabled || toggleAllDisabled }"
                                     (click)="onToggleAll($event)"
                                     (keydown)="onHeaderCheckboxKeyDown($event)"
@@ -1216,7 +1216,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     maxSelectionLimitReached() {
-        return this.selectionLimit && this.modelValue() && this.modelValue().length === this.selectionLimit;
+        return ObjectUtils.isNotEmpty(this.selectionLimit) && this.modelValue() && this.modelValue().length === this.selectionLimit;
     }
 
     ngAfterContentInit() {
@@ -1459,6 +1459,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     hasSelectedOption() {
         return ObjectUtils.isNotEmpty(this.modelValue());
+    }
+
+    isSelectionAllDisabled() {
+        return this.showToggleAll && ObjectUtils.isEmpty(this.selectionLimit)
     }
 
     isValidSelectedOption(option) {
@@ -1993,7 +1997,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     writeValue(value: any): void {
         this.value = value;
-        this.modelValue.set(this.value);
+        if (!ObjectUtils.isEmpty(this.selectionLimit) && ObjectUtils.isEmpty(this.value)) {
+            this.modelValue.set([]);
+        } else {
+            this.modelValue.set(this.value);
+        }
+        
         this.cd.markForCheck();
     }
 
