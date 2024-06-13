@@ -22311,6 +22311,26 @@
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
+                            "name": "onMenuHide",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is hidden."
+                        },
+                        {
+                            "name": "onMenuShow",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is shown."
+                        },
+                        {
                             "name": "onDropdownClick",
                             "parameters": [
                                 {
