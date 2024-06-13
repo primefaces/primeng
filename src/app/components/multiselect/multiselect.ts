@@ -79,9 +79,11 @@ export const MULTISELECT_VALUE_ACCESSOR: any = {
             <div class="p-checkbox p-component" [ngClass]="{ 'p-variant-filled': config.inputStyle() === 'filled' }">
                 <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': selected }">
                     <ng-container *ngIf="selected">
-                        <CheckIcon *ngIf="!checkIconTemplate || !itemCheckboxIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
+                        <CheckIcon *ngIf="!checkIconTemplate && !itemCheckboxIconTemplate" [styleClass]="'p-checkbox-icon'" [attr.aria-hidden]="true" />
                         <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                            <ng-template *ngTemplateOutlet="checkIconTemplate && !itemCheckboxIconTemplate"></ng-template>
+                            <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
+                        </span>
+                        <span *ngIf="itemCheckboxIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
                             <ng-template *ngTemplateOutlet="itemCheckboxIconTemplate; context: { $implicit: selected }"></ng-template>
                         </span>
                     </ng-container>
