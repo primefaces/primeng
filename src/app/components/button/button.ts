@@ -169,10 +169,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </defs>
     </svg>`;
 
-    constructor(
-        public el: ElementRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -373,8 +370,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element',
-        '[class.p-disabled]': 'disabled' || 'loading'
+        class: 'p-element'
     }
 })
 export class Button implements AfterContentInit {
