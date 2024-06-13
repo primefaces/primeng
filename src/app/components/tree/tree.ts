@@ -1371,8 +1371,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     onNodeRightClick(event: MouseEvent, node: TreeNode<any>) {
         if (this.contextMenu) {
             let eventTarget = <Element>event.target;
+            let className = eventTarget.getAttribute('class');
 
-            if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
+            if (className && className.includes('p-tree-toggler')) {
                 return;
             } else {
                 let index = this.findIndexInSelection(node);
