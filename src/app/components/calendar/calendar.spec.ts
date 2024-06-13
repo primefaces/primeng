@@ -2018,4 +2018,43 @@ describe('Calendar', () => {
         expect(selectdateSpy).toHaveBeenCalled();
         expect(calendar.value).toEqual(minDate);
     });
+
+    it('should display end date instead of start date in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.value = [new Date('2024-03-01'), new Date('2024-04-01')];
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(3);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should display start date instead of default date in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.value = [new Date('2024-03-01'), null];
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(2);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should use default date when no range is selected in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.defaultDate = new Date('2024-01-01');
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(0);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should use current date when no default date and no range is selected in range selection', () => {
+        jasmine.clock().install();
+        jasmine.clock().mockDate(new Date('2024-06-11'));
+        calendar.selectionMode = 'range';
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(5);
+        expect(calendar.currentYear).toBe(2024);
+
+        jasmine.clock().uninstall();
+    });
 });
