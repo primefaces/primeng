@@ -709,6 +709,20 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.11-LTS](https://www.npmjs.com/package/primeng/v/16.9.11-lts) (2024-06-14)
+
+**Fixed bugs:**
+-  Accessibility: Buttons within an accordion header template (keyboard accessibility) [\#15837](https://github.com/primefaces/primeng/issues/15837)
+- Accessibility: Tree inside an Accordion (arrow navigation) [\#15830](https://github.com/primefaces/primeng/issues/15830)
+- Accessibility within Tree Component [\#15828](https://github.com/primefaces/primeng/issues/15828)
+- pTree: right click on treenode chevron down [\#15714](https://github.com/primefaces/primeng/issues/15714)
+- Component: Button: Opacity is applied twice on disabled state --> wrong opacity [\#15651](https://github.com/primefaces/primeng/issues/15651)
+- Calendar: Range selection mode should use start date as default date when end date isn't set [\#15818](https://github.com/primefaces/primeng/issues/15818)
+- Menu: Keyboard navigation broken when using custom template [\#15794](https://github.com/primefaces/primeng/issues/15794)
+- pTemplate not working for p-menu alone [\#15781](https://github.com/primefaces/primeng/issues/15781)
+- OrderList: Unable to insert space into input component [\#15326](https://github.com/primefaces/primeng/issues/15326)
+- Dropdown: when using selectedItem template if the selected option is 0 then no template is rendered [\#15366](https://github.com/primefaces/primeng/issues/15366)
+- InputNumber - MinFractionDigits and MaxFractionDigits no longer respect a value of 0 [\#15772](https://github.com/primefaces/primeng/issues/15772)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.10-LTS](https://www.npmjs.com/package/primeng/v/16.9.10-lts) (2024-05-16)
 
@@ -1327,15 +1341,22 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.19-LTS](https://www.npmjs.com/package/primeng/v/15.4.20-lts) (2024-05-10)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.21-LTS](https://www.npmjs.com/package/primeng/v/15.4.21-lts) (2024-06-14)
+
+**Fixed bugs:**
+- Accessibility: Buttons within an accordion header template (keyboard accessibility) [\#15837](https://github.com/primefaces/primeng/issues/15837)
+- Calendar: Range selection mode should use start date as default date when end date isn't set [\#15818](https://github.com/primefaces/primeng/issues/15818)
+- Component: Button: Opacity is applied twice on disabled state --> wrong opacity [\#15651](https://github.com/primefaces/primeng/issues/15651)
+- pTemplate not working for p-menu alone [\#15781](https://github.com/primefaces/primeng/issues/15781)
+- InputNumber - MinFractionDigits and MaxFractionDigits no longer respect a value of 0 [\#15772](https://github.com/primefaces/primeng/issues/15772)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.20-LTS](https://www.npmjs.com/package/primeng/v/15.4.20-lts) (2024-05-10)
 
 **Fixed bugs:**
 - Calendar: Add additional keyboard support [\#14995](https://github.com/primefaces/primeng/issues/14995)
 - Tooltip | Tooltip-option tooltipEvent="focus" does not work on p-button [\#15472](https://github.com/primefaces/primeng/issues/15472)
 -  Tooltip | tooltipEvent - "focus" | "hover" combined [\#15468](https://github.com/primefaces/primeng/issues/15468)
 -  Table | the 'not equal' filter is applied immediately after being selected [\#15283](https://github.com/primefaces/primeng/issues/15283)
-
-
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.18-LTS](https://www.npmjs.com/package/primeng/v/15.4.18-lts) (2024-04-19)
 
