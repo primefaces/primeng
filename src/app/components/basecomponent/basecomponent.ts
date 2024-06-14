@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { computed, Directive, effect, ElementRef, inject, PLATFORM_ID, untracked } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, Input, PLATFORM_ID, untracked } from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import BaseComponentStyle from './style/basecomponentstyle';
@@ -20,6 +20,8 @@ export class BaseComponent {
     public config: PrimeNGConfig = inject(PrimeNGConfig);
 
     public scopedStyleEl: any;
+
+    @Input() dt: Object | undefined;
 
     get styleOptions() {
         return { nonce: this.config?.csp().nonce };

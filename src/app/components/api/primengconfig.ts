@@ -29,7 +29,9 @@ export class PrimeNGConfig {
             () => {
                 ThemeService.on('theme:change', (newTheme) => {
                     this.isThemeChanged = true;
-                    this.theme.set(newTheme);
+                    // this.theme.set(newTheme);
+                    // this.onThemeChange(this.theme());
+                    console.log('changed');
                 });
                 untracked(() => this.theme());
             },
