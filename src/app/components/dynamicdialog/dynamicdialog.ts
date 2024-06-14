@@ -217,6 +217,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     get parent() {
         const domElements = Array.from(this.document.getElementsByClassName('p-dialog'));
+        
         if (domElements.length > 1) {
             return domElements.pop();
         }
@@ -266,6 +267,13 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return this.config?.templates?.closeicon;
     }
 
+    get dynamicDialogCount() {
+        let dynamicDialogs = this.document.querySelectorAll('p-dynamicdialog');
+        let dynamicDialogCount = dynamicDialogs?.length;
+
+        return dynamicDialogCount;
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -305,6 +313,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             }
         }
     }
+
     destroyStyle() {
         if (this.styleElement) {
             this.renderer.removeChild(this.document.head, this.styleElement);
@@ -409,7 +418,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             });
         }
 
-        if (this.config.modal !== false) {
+        if (this.dynamicDialogCount === 1) {
             DomHandler.addClass(this.document.body, 'p-overflow-hidden');
         }
     }
@@ -419,8 +428,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             if (this.config.dismissableMask) {
                 this.unbindMaskClickListener();
             }
-
-            if (this.config.modal !== false) {
+            if (this.dynamicDialogCount === 1) {
                 DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
             }
 
