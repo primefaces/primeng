@@ -30,6 +30,13 @@ export interface ChipsRemoveEvent extends ChipsAddEvent {}
  */
 export interface ChipsClickEvent extends ChipsAddEvent {}
 /**
+ * Custom contextmenu event.
+ * @see {@link Chips.onChipContextMenu}
+ * @extends {ChipsAddEvent}
+ * @group Events
+ */
+export interface ChipsContextMenuEvent extends ChipsAddEvent {}
+/**
  * Defines valid templates in Chips.
  * @group Templates
  */
