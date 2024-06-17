@@ -16,7 +16,7 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width:200px" pFrozenColumn>Name</th>
-                            <th style="min-width:100px">Id</th>
+                            <th style="min-width:100px" pFrozenColumn>Id</th>
                             <th style="min-width:200px">Country</th>
                             <th style="min-width:200px">Date</th>
                             <th style="min-width:200px">Company</th>
@@ -29,7 +29,7 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="body" let-customer>
                         <tr>
                             <td pFrozenColumn>{{ customer.name }}</td>
-                            <td style="min-width:100px">{{ customer.id }}</td>
+                            <td pFrozenColumn style="min-width:100px">{{ customer.id }}</td>
                             <td>{{ customer.country.name }}</td>
                             <td>{{ customer.date }}</td>
                             <td>{{ customer.company }}</td>
@@ -67,11 +67,11 @@ export class FrozenColumnsDoc {
     }
 
     code: Code = {
-        basic: `<p-toggleButton 
-    [(ngModel)]="balanceFrozen" 
+        basic: `<p-toggleButton
+    [(ngModel)]="balanceFrozen"
     [onIcon]="'pi pi-lock'"
-    offIcon="pi pi-lock-open" 
-    [onLabel]="'Balance'" 
+    offIcon="pi pi-lock-open"
+    [onLabel]="'Balance'"
     offLabel="Balance" />
 
 <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
@@ -103,10 +103,10 @@ export class FrozenColumnsDoc {
     </ng-template>
 </p-table>`,
         html: `<div class="card">
-    <p-toggleButton 
-        [(ngModel)]="balanceFrozen" 
-        [onIcon]="'pi pi-lock'" 
-        offIcon="pi pi-lock-open" 
+    <p-toggleButton
+        [(ngModel)]="balanceFrozen"
+        [onIcon]="'pi pi-lock'"
+        offIcon="pi pi-lock-open"
         [onLabel]="'Balance'"
         offLabel="Balance" />
 
@@ -177,7 +177,7 @@ export class TableFrozenColumnsDemo implements OnInit{
 
     formatCurrency(value: number) {
         return value.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    } 
+    }
 }`,
         scss: `
 :host ::ng-deep  .p-frozen-column {
