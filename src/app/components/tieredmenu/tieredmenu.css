@@ -1,58 +1,55 @@
-.ui-tieredmenu {
-    width: 12.5em;
-    padding: .25em;
-}
+@layer primeng {
+    .p-tieredmenu-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-.ui-tieredmenu.ui-tieredmenu-dynamic {
-    position: absolute;
-}
+    .p-tieredmenu ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-.ui-tieredmenu .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
+    .p-tieredmenu .p-submenu-list {
+        position: absolute;
+        min-width: 100%;
+        z-index: 1;
+        display: none;
+    }
 
-.ui-tieredmenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+    .p-tieredmenu .p-menuitem-link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        overflow: hidden;
+        position: relative;
+    }
 
-.ui-tieredmenu .ui-submenu-list {
-    display: none;
-    position: absolute;
-    width: 12.5em;
-    padding: .25em;
-}
+    .p-tieredmenu .p-menuitem-text {
+        line-height: 1;
+    }
 
-.ui-tieredmenu .ui-menuitem-link {
-    padding: .25em;
-    display: block;
-    cursor: pointer;
-    position: relative;
-    text-decoration: none;
-}
+    .p-tieredmenu .p-menuitem {
+        position: relative;
+    }
 
-.ui-tieredmenu .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
+    .p-tieredmenu .p-menuitem-link .p-submenu-icon:not(svg) {
+        margin-left: auto;
+    }
 
-.ui-tieredmenu .ui-menuitem-text {
-    vertical-align: middle;
-}
+    .p-tieredmenu .p-menuitem-link .p-icon-wrapper {
+        margin-left: auto;
+    }
 
-.ui-tieredmenu .ui-menuitem {
-    position: relative;
-    margin: .125em 0;
-}
+    .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list {
+        display: block;
+        left: 100%;
+        top: 0;
+    }
 
-.ui-tieredmenu .ui-menuitem-link .ui-submenu-icon {
-    position: absolute;
-    margin-top: -.5em;
-    right: 0;
-    top: 50%;
-}
-
-.ui-tieredmenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
-    display: block;
+    .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list.p-submenu-list-flipped {
+        left: -100%;
+    }
 }

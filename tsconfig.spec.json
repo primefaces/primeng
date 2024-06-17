@@ -5,7 +5,9 @@
       "types": [
         "jasmine",
         "node"
-      ]
+      ],
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true
     },
     "files": [
       "src/test.ts",
@@ -14,6 +16,7 @@
     "include": [
       "src/**/*.spec.ts",
       "src/**/*.d.ts"
-    ]
+    ],
+    "exclude": ["node_modules", "**/node_modules/*"]
   }
   

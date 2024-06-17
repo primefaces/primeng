@@ -1,6 +1,10 @@
-export interface SelectItem {
+/**
+ * Represents an option item.
+ * @group Interface
+ */
+export interface SelectItem<T = any> {
     label?: string;
-    value: any;
+    value: T;
     styleClass?: string;
     icon?: string;
     title?: string;

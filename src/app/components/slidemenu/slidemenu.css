@@ -1,104 +1,100 @@
-.ui-slidemenu {
-    width: 12.5em;
-    padding: .25em;
-}
+@layer primeng {
+    .p-slidemenu .p-slidemenu-root-list {
+        position: relative;
+        top: 0;
+    }
 
-.ui-slidemenu.ui-slidemenu-dynamic {
-    position: absolute;
-}
+    .p-slidemenu-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-.ui-slidemenu .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
+    .p-slidemenu .p-menuitem-active {
+        position: static;
+    }
 
-.ui-slidemenu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+    .p-slidemenu .p-slidemenu-wrapper {
+        position: relative;
+    }
 
-.ui-slidemenu .ui-slidemenu-rootlist {
-    position: absolute;
-    top: 0;
-}
+    .p-slidemenu ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-.ui-slidemenu .ui-submenu-list {
-    display: none;
-    position: absolute;
-    top: 0;
-    width: 12.5em;
-    padding: .25em;
-}
+    .p-slidemenu .p-submenu-list {
+        position: absolute;
+        min-width: 100%;
+        z-index: 1;
+        display: none;
+    }
 
-.ui-slidemenu .ui-menuitem-link {
-    padding: .25em;
-    display: block;
-    position: relative;
-    text-decoration: none;
-}
+    .p-slidemenu .p-slidemenu-content {
+        overflow-x: hidden;
+        overflow-y: auto;
+        position: relative;
+        height: 100%;
+    }
 
-.ui-slidemenu .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
+    .p-slidemenu .p-menuitem-link:not(.p-slidemenu-backward) {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        overflow: hidden;
+        position: relative;
+    }
 
-.ui-slidemenu .ui-menuitem-text {
-    vertical-align: middle;
-}
+    .p-slidemenu .p-menuitem-text {
+        line-height: 1;
+    }
 
+    .p-slidemenu .p-menuitem {
+        position: relative;
+    }
 
-.ui-slidemenu .ui-menuitem {
-    position: relative;
-    margin: .125em 0;
-}
+    .p-slidemenu .p-menuitem-link .p-submenu-icon:not(svg) {
+        margin-left: auto;
+    }
 
-.ui-slidemenu .ui-menuitem-link .ui-submenu-icon {
-    position: absolute;
-    margin-top: -.5em;
-    right: 0;
-    top: 50%;
-}
+    .p-slidemenu .p-menuitem-link .p-icon-wrapper {
+        margin-left: auto;
+    }
 
-.ui-slidemenu .ui-slidemenu-wrapper {
-    position: relative;
-}
+    .p-slidemenu .p-menuitem-active > p-slidemenusub > .p-submenu-list {
+        display: block;
+        left: 100%;
+        top: 0;
+    }
 
-.ui-slidemenu .ui-slidemenu-content {
-    overflow-x: hidden;
-    overflow-y: auto;
-    position: relative;
-}
+    .p-slidemenu .p-menuitem-active > .p-menuitem-content > .p-submenu > .p-submenu-list {
+        display: block;
+    }
 
-.ui-slidemenu-backward {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 0.25em;
-    cursor: pointer;
-    display: none;
-}
+    .p-slidemenu ul:not(.p-active-submenu) > .p-menuitem:not(.p-menuitem-active),
+    .p-slidemenu .p-active-submenu > .p-menuitem-active > .p-menuitem-content > .p-submenu > .p-submenu-list {
+        display: none;
+    }
 
-.ui-slidemenu-backward .ui-slidemenu-backward-icon {
-    vertical-align: middle;
-}
+    .p-slidemenu .p-active-submenu > .p-menuitem-active ~ .p-menuitem {
+        display: block;
+    }
 
-.ui-slidemenu-backward span {
-    vertical-align: middle;
-}
+    .p-slidemenu-backward {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        cursor: pointer;
+        display: none;
+    }
 
-.ui-slidemenu .ui-menuitem-active {
-    position: static;
-}
+    .p-slidemenu-backward .p-slidemenu-backward-icon {
+        vertical-align: middle;
+    }
 
-.ui-slidemenu .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
-    display: block;
-}
-
-.ui-slidemenu ul:not(.ui-active-submenu) > .ui-menuitem:not(.ui-menuitem-active),
-.ui-slidemenu .ui-active-submenu > .ui-menuitem-active > .ui-submenu > .ui-submenu-list {
-    display: none;
-}
-
-.ui-slidemenu .ui-active-submenu > .ui-menuitem-active ~ .ui-menuitem {
-    display: block;
+    .p-slidemenu-backward span {
+        vertical-align: middle;
+    }
 }

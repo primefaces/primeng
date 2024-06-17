@@ -1,0 +1,58 @@
+@layer primeng {
+    p-scroller {
+        flex: 1;
+        outline: 0 none;
+    }
+
+    .p-scroller {
+        position: relative;
+        overflow: auto;
+        contain: strict;
+        transform: translateZ(0);
+        will-change: scroll-position;
+        outline: 0 none;
+    }
+
+    .p-scroller-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        /*contain: content;*/
+        min-height: 100%;
+        min-width: 100%;
+        will-change: transform;
+    }
+
+    .p-scroller-spacer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 1px;
+        width: 1px;
+        transform-origin: 0 0;
+        pointer-events: none;
+    }
+
+    .p-scroller-loader {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .p-scroller-loader.p-component-overlay {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .p-scroller-loading-icon {
+        scale: 2;
+    }
+
+    /* Inline */
+    .p-scroller-inline .p-scroller-content {
+        position: static;
+    }
+}

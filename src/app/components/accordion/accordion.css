@@ -1,49 +1,35 @@
-.ui-accordion { 
-    width: 100%; 
-}
+@layer primeng {
+    .p-accordion-header-link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        user-select: none;
+        position: relative;
+        text-decoration: none;
+    }
 
-.ui-accordion .ui-accordion-header { 
-    cursor: pointer; 
-    position: relative; 
-    margin-top: 1px; 
-    zoom: 1; 
-}
+    .p-accordion-header-link:focus {
+        z-index: 1;
+    }
 
-.ui-accordion .ui-accordion-header a { 
-    display: block; 
-    padding: .5em;
-}
+    .p-accordion-header-text {
+        line-height: 1;
+    }
 
-.ui-accordion .ui-accordion-toggle-icon,
-.ui-accordion .ui-accordion-header-text {
-    vertical-align: middle;   
-}
+    .p-accordion .p-toggleable-content {
+        overflow: hidden;
+    }
 
-.ui-accordion .ui-accordion-content { 
-    padding: 1em;
-    border-top: 0; 
-    overflow: visible;
-    zoom: 1; 
-}
+    .p-accordion .p-accordion-tab-active > .p-toggleable-content:not(.ng-animating) {
+        overflow: inherit;
+    }
 
-.ui-accordion .ui-accordion-header.ui-state-disabled, 
-.ui-accordion .ui-accordion-header.ui-state-disabled a { 
-    cursor: default; 
-}
+    .p-accordion-toggle-icon-end {
+        order: 1;
+        margin-left: auto;
+    }
 
-.ui-accordion-content-wrapper-overflown {
-    overflow: hidden;
-}
-
-.ui-rtl .ui-accordion .ui-accordion-header a {
-    padding: .5em 2em .5em .5em;
-}
- 
-.ui-rtl .ui-accordion .ui-accordion-toggle-icon {
-    left: initial;
-    right: .5em;
-}
-
-.ui-rtl .ui-accordion .ui-accordion-toggle-icon.pi-caret-right:before {
-    content: '\e904';
+    .p-accordion-toggle-icon {
+        order: 0;
+    }
 }

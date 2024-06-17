@@ -1,25 +1,24 @@
-.ui-terminal {
-    height: 18em;
-    overflow: auto;
-    padding: .25em;
-}
+@layer primeng {
+    .p-terminal {
+        height: 18rem;
+        overflow: auto;
+    }
 
-.ui-terminal-input {
-    border: 0 none;
-    background-color: transparent;
-    color: inherit;
-    padding: 0;
-    margin: 0 0 0 .125em;
-    width: 75%;
-    outline: none;
-    vertical-align: baseline;
-}
+    .p-terminal-prompt-container {
+        display: flex;
+        align-items: center;
+    }
 
-.ui-terminal-command {
-    margin-left: .125em;
-    -moz-margin-start: .125em;
-}
+    .p-terminal-input {
+        flex: 1 1 auto;
+        border: 0 none;
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+        outline: 0 none;
+    }
 
-.ui-terminal-input::-ms-clear {
-    display: none;
+    .p-terminal-input::-ms-clear {
+        display: none;
+    }
 }

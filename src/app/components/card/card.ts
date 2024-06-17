@@ -1,48 +1,125 @@
-import { NgModule, Component, Input, ElementRef, ContentChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule, Header, Footer } from 'primeng/api';
-import { BlockableUI } from 'primeng/api';
-
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, SimpleChange, TemplateRef, ViewEncapsulation, signal } from '@angular/core';
+import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { ObjectUtils } from 'primeng/utils';
+/**
+ * Card is a flexible container component.
+ * @group Components
+ */
 @Component({
     selector: 'p-card',
     template: `
-        <div [ngClass]="'ui-card ui-widget ui-widget-content ui-corner-all'" [ngStyle]="style" [class]="styleClass">
-            <div class="ui-card-header" *ngIf="headerFacet">
-               <ng-content select="p-header"></ng-content>
+        <div [ngClass]="'p-card p-component'" [ngStyle]="_style()" [class]="styleClass" [attr.data-pc-name]="'card'">
+            <div class="p-card-header" *ngIf="headerFacet || headerTemplate">
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div class="ui-card-body">
-                <div class="ui-card-title" *ngIf="header">{{header}}</div>
-                <div class="ui-card-subtitle" *ngIf="subheader">{{subheader}}</div>
-                <div class="ui-card-content">
-                    <ng-content></ng-content>
+            <div class="p-card-body">
+                <div class="p-card-title" *ngIf="header || titleTemplate">
+                    {{ header }}
+                    <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
                 </div>
-                <div class="ui-card-footer" *ngIf="footerFacet">
+                <div class="p-card-subtitle" *ngIf="subheader || subtitleTemplate">
+                    {{ subheader }}
+                    <ng-container *ngTemplateOutlet="subtitleTemplate"></ng-container>
+                </div>
+                <div class="p-card-content">
+                    <ng-content></ng-content>
+                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                </div>
+                <div class="p-card-footer" *ngIf="footerFacet || footerTemplate">
                     <ng-content select="p-footer"></ng-content>
+                    <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                 </div>
             </div>
         </div>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./card.css'],
+    host: {
+        class: 'p-element'
+    }
 })
-export class Card implements BlockableUI {
+export class Card implements AfterContentInit, BlockableUI {
+    /**
+     * Header of the card.
+     * @group Props
+     */
+    @Input() header: string | undefined;
+    /**
+     * Subheader of the card.
+     * @group Props
+     */
+    @Input() subheader: string | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() set style(value: { [klass: string]: any } | null | undefined) {
+        if (!ObjectUtils.equals(this._style(), value)) {
+            this._style.set(value);
+        }
+    }
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
 
-    @Input() header: string;
+    @ContentChild(Header) headerFacet: TemplateRef<any> | undefined;
 
-    @Input() subheader: string;
+    @ContentChild(Footer) footerFacet: TemplateRef<any> | undefined;
 
-    @Input() style: any;
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
-    @Input() styleClass: string;
+    headerTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild(Header, { static: true }) headerFacet;
+    titleTemplate: TemplateRef<any> | undefined;
 
-    @ContentChild(Footer, { static: true }) footerFacet;
+    subtitleTemplate: TemplateRef<any> | undefined;
 
-    constructor(private el: ElementRef) { }
+    contentTemplate: TemplateRef<any> | undefined;
 
-    getBlockableElement(): HTMLElement  {
-        return this.el.nativeElement.children[0];
+    footerTemplate: TemplateRef<any> | undefined;
+
+    _style = signal<{ [klass: string]: any } | null | undefined>(null);
+
+    constructor(private el: ElementRef) {}
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+
+                case 'title':
+                    this.titleTemplate = item.template;
+                    break;
+
+                case 'subtitle':
+                    this.subtitleTemplate = item.template;
+                    break;
+
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                    break;
+
+                default:
+                    this.contentTemplate = item.template;
+                    break;
+            }
+        });
     }
 
+    getBlockableElement(): HTMLElement {
+        return this.el.nativeElement.children[0];
+    }
 }
 
 @NgModule({
@@ -50,4 +127,4 @@ export class Card implements BlockableUI {
     exports: [Card, SharedModule],
     declarations: [Card]
 })
-export class CardModule { }
+export class CardModule {}

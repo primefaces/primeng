@@ -2,113 +2,113 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Rating } from './rating';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StarFillIcon } from 'primeng/icons/starfill';
+import { StarIcon } from 'primeng/icons/star';
+import { BanIcon } from 'primeng/icons/ban';
 
 describe('Rating', () => {
-  
     let rating: Rating;
     let fixture: ComponentFixture<Rating>;
-    
+
     beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          NoopAnimationsModule
-        ],
-        declarations: [
-          Rating
-        ]
-      });
-      
-      fixture = TestBed.createComponent(Rating);
-      rating = fixture.componentInstance;
+        TestBed.configureTestingModule({
+            imports: [NoopAnimationsModule, StarIcon, StarFillIcon, BanIcon],
+            declarations: [Rating]
+        });
+
+        fixture = TestBed.createComponent(Rating);
+        rating = fixture.componentInstance;
     });
 
     it('should display 5 stars by default', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(starEl.children.length).toEqual(6);
+        const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(starEl.children.length).toEqual(6);
     });
 
     it('should display 10 stars ', () => {
-      rating.stars = 10;
-      fixture.detectChanges();
+        rating.stars = 10;
+        fixture.detectChanges();
 
-      const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(starEl.children.length).toEqual(11);
+        const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(starEl.children.length).toEqual(11);
     });
 
     it('should ignore cancel ', () => {
-      rating.cancel = false;
-      fixture.detectChanges();
+        rating.cancel = false;
+        fixture.detectChanges();
 
-      const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(starEl.children.length).toEqual(5);
+        const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(starEl.children.length).toEqual(5);
     });
 
     it('should disabled', () => {
-      rating.disabled = true;
-      fixture.detectChanges();
+        rating.disabled = true;
+        fixture.detectChanges();
 
-      const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(starEl.className).toContain('ui-state-disabled');
+        const starEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(starEl.className).toContain('p-disabled');
     });
 
     it('should change styles and icons', () => {
-      rating.value = 2;
-      rating.iconOnClass = "icon on";
-      rating.iconOffClass = "icon off";
-      rating.iconCancelClass = "Primeng Rocks!";
-      rating.iconOnStyle = {'height':'300px'};
-      rating.iconOffStyle = {'height':'300px'};
-      rating.iconCancelStyle = {'height':'300px'};
-      fixture.detectChanges();
+        rating.value = 2;
+        rating.iconOnClass = 'icon on';
+        rating.iconOffClass = 'icon off';
+        rating.iconCancelClass = 'Primeng Rocks!';
+        rating.iconOnStyle = { height: '300px' };
+        rating.iconOffStyle = { height: '300px' };
+        rating.iconCancelStyle = { height: '300px' };
+        fixture.detectChanges();
 
-      const starElements = fixture.debugElement.queryAll(By.css('span'));
-      expect(starElements[0].nativeElement.className).toContain('Primeng Rocks!');
-      expect(starElements[1].nativeElement.className).toContain('icon on');
-      expect(starElements[3].nativeElement.className).toContain('icon off');
-      expect(starElements[0].nativeElement.style.height).toContain('300px');
-      expect(starElements[1].nativeElement.style.height).toContain('300px');
-      expect(starElements[3].nativeElement.style.height).toContain('300px');
+        const starElements = fixture.debugElement.queryAll(By.css('span'));
+        expect(starElements[1].nativeElement.className).toContain('Primeng Rocks!');
+        expect(starElements[1].nativeElement.style.height).toEqual('300px');
     });
 
     it('should value 3', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const thirdStarEl = fixture.debugElement.queryAll(By.css('a'))[3].nativeElement;
-      thirdStarEl.click();
-      fixture.detectChanges();
+        const thirdStarEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[3].nativeElement;
+        thirdStarEl.parentElement.click();
+        fixture.detectChanges();
 
-      expect(rating.value).toEqual(3);
+        expect(rating.value).toEqual(3);
     });
 
     it('should get value from event emitters', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      let onRateValue;
-      let onCancelRate;
-      const thirdStarEl = fixture.debugElement.queryAll(By.css('a'))[3].nativeElement;
-      const cancelEl = fixture.debugElement.queryAll(By.css('a'))[0].nativeElement;
-      rating.onRate.subscribe(value => onRateValue=value);
-      rating.onCancel.subscribe(value => onCancelRate = value);
-      thirdStarEl.click();
-      cancelEl.click();
-      fixture.detectChanges();
+        let onRateValue;
+        let onCancelRate;
+        const thirdStarEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[3].nativeElement;
+        const cancelEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[0].nativeElement;
+        rating.onRate.subscribe((value) => (onRateValue = value));
+        rating.onCancel.subscribe((value) => (onCancelRate = value));
+        thirdStarEl.parentElement.click();
+        fixture.detectChanges();
 
-      expect(onRateValue.value).toEqual(3);
-      expect(onCancelRate).toBeTruthy();
+        expect(onRateValue.value).toEqual(3);
+
+        const cancelspy = spyOn(rating.onCancel, 'emit').and.callThrough();
+        const onModelChangeSpy = spyOn(rating, 'onModelChange').and.callThrough();
+        cancelEl.parentElement.click();
+        fixture.detectChanges();
+
+        expect(onModelChangeSpy).toHaveBeenCalled();
+        expect(rating.value).toEqual(null);
+        expect(cancelspy).toHaveBeenCalled();
     });
 
     it('should clear value', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const thirdStarEl = fixture.debugElement.queryAll(By.css('a'))[3].nativeElement;
-      const cancelEl = fixture.debugElement.queryAll(By.css('a'))[0].nativeElement;
-      thirdStarEl.click();
-      cancelEl.click();
-      fixture.detectChanges();
+        const thirdStarEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[3].nativeElement;
+        const cancelEl = fixture.debugElement.queryAll(By.css('.p-rating-icon'))[0].nativeElement;
+        thirdStarEl.parentElement.click();
+        cancelEl.parentElement.click();
+        fixture.detectChanges();
 
-      expect(rating.value).toEqual(null);
+        expect(rating.value).toEqual(null);
     });
-
 });

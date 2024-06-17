@@ -1,3 +1,15 @@
-.ui-rating {
-    font-size: 1.25em;
+@layer primeng {
+    .p-rating {
+        display: inline-flex;
+        position: relative;
+        align-items: center;
+    }
+
+    .p-rating-icon {
+        cursor: pointer;
+    }
+
+    .p-rating.p-rating-readonly .p-rating-icon {
+        cursor: default;
+    }
 }

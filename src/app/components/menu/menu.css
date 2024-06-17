@@ -1,43 +1,30 @@
-.ui-menu {
-    width: 12.5em;
-    padding: .25em;
-}
+@layer primeng {
+    .p-menu-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 
-.ui-menu.ui-menu-dynamic {
-    position: absolute;
-}
+    .p-menu ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
 
-.ui-menu .ui-menu-separator {
-    border-width: 1px 0 0 0;
-}
+    .p-menu .p-submenu-header {
+        align-items: center;
+    }
 
-.ui-menu ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
+    .p-menu .p-menuitem-link {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        overflow: hidden;
+        position: relative;
+    }
 
-.ui-menu .ui-submenu-header {
-    padding: .25em .5em;
-    margin: .125em 0;
-}
-
-.ui-menu .ui-menuitem {
-    margin: .125em 0;
-}
-
-.ui-menu .ui-menuitem-link {
-    cursor: pointer;
-    padding: .25em;
-    display: block;
-    text-decoration: none;
-}
-
-.ui-menu .ui-menuitem-icon {
-    margin-right: .25em;
-    vertical-align: middle;
-}
-
-.ui-menu .ui-menuitem-text {
-    vertical-align: middle;
+    .p-menu .p-menuitem-text {
+        line-height: 1;
+    }
 }

@@ -1,18 +1,13 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
     "extends": "./tsconfig.json",
     "compilerOptions": {
-      "outDir": "./out-tsc/app",
-      "types": []
+        "outDir": "./out-tsc/app",
+        "types": ["node"],
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
     },
-    "include": [
-      "src/**/*.ts"
-    ],
-    "exclude": [
-      "src/test.ts",
-      "src/**/*.spec.ts"
-    ],
-    "angularCompilerOptions": {
-        "enableIvy": false
-    }
-  }
-  
+    "files": ["src/main.ts", "src/main.server.ts", "server.ts", "src/polyfills.ts"],
+    "include": ["src/**/*.d.ts"],
+    "exclude": ["node_modules", "**/node_modules/*"]
+}

@@ -29,6 +29,8 @@ node_modules
 .settings/
 *.sublime-workspace
 .editorconfig
+.prettierignore
+.prettierrc.json
 
 # IDE - VSCode
 /.vscode
@@ -44,15 +46,15 @@ testem.log
 .gitignore
 exports
 CHANGELOG.md
-.travis.yml
 
 # config
 .angular-cli.json
 angular.json
 tsconfig*.json
-tslint.json
+.eslintrc.json
 gulpfile.js
 .github
+package-lock.json
 
 # System Files
 .DS_Store

@@ -1,0 +1,11 @@
+<div *ngIf="isNewsActive" class="layout-news">
+    <div class="layout-news-container">
+        <div class="layout-news-content">
+            <span class="layout-news-text">{{ announcement?.content }}</span>
+            <a class="layout-news-link" [href]="announcement?.linkHref">{{ announcement?.linkText }}</a>
+        </div>
+        <a tabindex="0" class="layout-news-close" (click)="hideNews()">
+            <span class="pi pi-times"></span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+name: Bug report
+description: Create a report to help PrimeNG improve.
+title: "Component: Title"
+labels: ['Status: Needs Triage']
+body:
+  - type: markdown
+    attributes:
+      # yamllint disable rule:line-length
+      value: >
+        ### There is no guarantee in receiving an immediate response in GitHub Issue Tracker, If you'd like to secure our response, you may consider *PrimeNG PRO Support* where support is provided within 4 business hours
+      # yamllint enable rule:line-length
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Tell us about your environment.
+    validations:
+      required: true
+  - type: input
+    id: reproducer
+    attributes:
+      label: Reproducer
+      placeholder: https://stackblitz.com/github/primefaces/primeng-issue-template
+      description: |
+        Please fork one of the issue template
+        [PrimeNG Issue Template](https://stackblitz.com/github/primefaces/primeng-issue-template)
+        and create a case demonstrating your bug report. Issues **without** a StackBlitz example have much less possibility to be reviewed.
+    validations:
+      required: false
+  - type: input
+    id: pr-version
+    attributes:
+      label: Angular version
+      placeholder: x.x.x
+    validations:
+      required: true
+  - type: input
+    id: primeng-version
+    attributes:
+      label: PrimeNG version
+      placeholder: x.x.x
+    validations:
+      required: true
+  - type: dropdown
+    id: engine
+    attributes:
+      label: Build / Runtime
+      multiple: false
+      options:
+        - Angular CLI App
+        - TypeScript
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Language
+      multiple: false
+      options:
+        - TypeScript
+        - ES5
+        - ES6
+        - ALL
+    validations:
+      required: true
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version (for AoT issues node --version)
+      placeholder: x.x.x
+    validations:
+      required: true
+  - type: input
+    id: browsers
+    attributes:
+      label: Browser(s)
+      description: List specific browser(s) the problem occurs on or leave blank if ALL browsers
+      placeholder: >
+        e.g. Safari 15, iOS 15.4, Chrome 90
+  - type: textarea
+    id: reproduce-steps
+    attributes:
+      label: Steps to reproduce the behavior
+      description: A clear and concise description of how to make the issue happen.
+      placeholder: >
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: false
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: false

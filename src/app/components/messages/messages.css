@@ -1,48 +1,23 @@
-.ui-messages {
-    border: 1px solid;
-    margin: .5em 0;
-    padding: 1em 1em 1em .5em;
-    position: relative;
-    display: flex;
-}
+@layer primeng {
+    .p-message-wrapper {
+        display: flex;
+        align-items: center;
+    }
 
-.ui-messages .ui-messages-icon {
-    display:inline-block;
-    padding: 0;
-    vertical-align: middle;
-    font-size: 2em;
-}
+    .p-message-close {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+    }
 
-.ui-messages .ui-messages-summary {
-    font-weight: bold;
-    margin-left: .25em;
-}
+    .p-message-close.p-link {
+        margin-left: auto;
+        overflow: hidden;
+        position: relative;
+    }
 
-.ui-messages .ui-messages-detail {
-    margin-left: .25em;
-}
-
-.ui-messages ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    display: inline-block;
-    vertical-align: middle;
-    display: flex;
-    align-items: center;
-}
-
-.ui-messages ul > li {
-    padding: .25em;
-}
-
-.ui-messages.ui-messages-noicon ul {
-    margin: 0 1.5em 0 0;
-}
-
-.ui-messages .ui-messages-close {
-    cursor: pointer;
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    .p-messages .p-message.ng-animating {
+        overflow: hidden;
+    }
 }

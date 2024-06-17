@@ -1,0 +1,11 @@
+.p-inputtext {
+    width: 14rem;
+}
+
+.p-slider-vertical {
+     height: 14rem;
+}
+
+:host ::ng-deep .p-slider-horizontal {
+    width: 14rem;
+}

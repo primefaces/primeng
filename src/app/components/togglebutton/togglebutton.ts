@@ -1,75 +1,163 @@
-import {NgModule,Component,Input,Output,EventEmitter,forwardRef,AfterViewInit,ViewChild,ElementRef} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {NG_VALUE_ACCESSOR, ControlValueAccessor} from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { RippleModule } from 'primeng/ripple';
+import { ToggleButtonChangeEvent } from './togglebutton.interface';
+import { Nullable } from 'primeng/ts-helpers';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
+
+type ToggleButtonIconPosition = 'left' | 'right';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
-  provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => ToggleButton),
-  multi: true
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => ToggleButton),
+    multi: true
 };
-
+/**
+ * ToggleButton is used to select a boolean value using a button.
+ * @group Components
+ */
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <div [ngClass]="{'ui-button ui-togglebutton ui-widget ui-state-default ui-corner-all': true, 'ui-button-text-only': (!onIcon && !offIcon), 
-                'ui-button-text-icon-left': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'left'), 
-                'ui-button-text-icon-right': (onIcon && offIcon && hasOnLabel && hasOffLabel && iconPos === 'right'),'ui-button-icon-only': (onIcon && offIcon && !hasOnLabel && !hasOffLabel),
-                'ui-state-active': checked,'ui-state-focus':focus,'ui-state-disabled':disabled}" [ngStyle]="style" [class]="styleClass" 
-                (click)="toggle($event)" (keydown.enter)="toggle($event)">
-            <div class="ui-helper-hidden-accessible">
-                <input #checkbox type="checkbox" [attr.id]="inputId" [checked]="checked" (focus)="onFocus()" (blur)="onBlur()" [attr.tabindex]="tabindex">
-            </div>
-            <span *ngIf="onIcon||offIcon" class="ui-button-icon-left" [class]="checked ? this.onIcon : this.offIcon" [ngClass]="{'ui-button-icon-left': (iconPos === 'left'), 
-            'ui-button-icon-right': (iconPos === 'right')}"></span>
-            <span class="ui-button-text ui-unselectable-text">{{checked ? hasOnLabel ? onLabel : 'ui-btn' : hasOffLabel ? offLabel : 'ui-btn'}}</span>
+        <div
+            [ngClass]="{ 'p-togglebutton p-button p-component': true, 'p-button-icon-only': onIcon && offIcon && !hasOnLabel && !hasOffLabel, 'p-highlight': checked, 'p-disabled': disabled }"
+            [ngStyle]="style"
+            [class]="styleClass"
+            (click)="toggle($event)"
+            (keydown)="onKeyDown($event)"
+            [attr.tabindex]="disabled ? null : tabindex"
+            role="switch"
+            [attr.aria-checked]="checked"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            pRipple
+            [attr.data-pc-name]="'togglebutton'"
+            [attr.data-pc-section]="'root'"
+            pAutoFocus
+            [autofocus]="autofocus"
+        >
+            @if (!iconTemplate) {
+                <span
+                    *ngIf="onIcon || offIcon"
+                    [class]="checked ? this.onIcon : this.offIcon"
+                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
+                    [attr.data-pc-section]="'icon'"
+                ></span>
+            } @else {
+                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+            }
+            <span class="p-button-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
         </div>
     `,
-    providers: [TOGGLEBUTTON_VALUE_ACCESSOR]
+    providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    styleUrls: ['../button/button.css'],
+    host: {
+        class: 'p-element'
+    }
 })
-export class ToggleButton implements ControlValueAccessor,AfterViewInit {
-
-    @Input() onLabel: string = 'Yes';
-
-    @Input() offLabel: string = 'No';
-
-    @Input() onIcon: string;
-
-    @Input() offIcon: string;
-
-    @Input() disabled: boolean;
-
+export class ToggleButton implements ControlValueAccessor {
+    /**
+     * Label for the on state.
+     * @group Props
+     */
+    @Input() onLabel: string | undefined;
+    /**
+     * Label for the off state.
+     * @group Props
+     */
+    @Input() offLabel: string | undefined;
+    /**
+     * Icon for the on state.
+     * @group Props
+     */
+    @Input() onIcon: string | undefined;
+    /**
+     * Icon for the off state.
+     * @group Props
+     */
+    @Input() offIcon: string | undefined;
+    /**
+     * Defines a string that labels the input for accessibility.
+     * @group Props
+     */
+    @Input() ariaLabel: string | undefined;
+    /**
+     * Establishes relationships between the component and label(s) where its value should be one or more element IDs.
+     * @group Props
+     */
+    @Input() ariaLabelledBy: string | undefined;
+    /**
+     * When present, it specifies that the element should be disabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
     @Input() style: any;
+    /**
+     * Style class of the element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
+    /**
+     * Identifier of the focus input to match a label defined for the component.
+     * @group Props
+     */
+    @Input() inputId: string | undefined;
+    /**
+     * Index of the element in tabbing order.
+     * @group Props
+     */
+    @Input({ transform: numberAttribute }) tabindex: number | undefined = 0;
+    /**
+     * Position of the icon.
+     * @group Props
+     */
+    @Input() iconPos: 'left' | 'right' = 'left';
+    /**
+     * When present, it specifies that the component should automatically get focus on load.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
+    /**
+     * Callback to invoke on value change.
+     * @param {ToggleButtonChangeEvent} event - Custom change event.
+     * @group Emits
+     */
+    @Output() onChange: EventEmitter<ToggleButtonChangeEvent> = new EventEmitter<ToggleButtonChangeEvent>();
 
-    @Input() styleClass: string;
+    @ContentChildren(PrimeTemplate) templates!: QueryList<PrimeTemplate>;
 
-    @Input() inputId: string;
+    iconTemplate: Nullable<TemplateRef<any>>;
 
-    @Input() tabindex: number;
-
-    @Input() iconPos: string = 'left';
-
-    @Output() onChange: EventEmitter<any> = new EventEmitter();
-    
-    @ViewChild('checkbox', { static: true }) checkboxViewChild: ElementRef;
-    
-    checkbox: HTMLInputElement;
-    
     checked: boolean = false;
 
-    focus: boolean = false;
-    
     onModelChange: Function = () => {};
-    
+
     onModelTouched: Function = () => {};
-    
-    ngAfterViewInit() {
-        if (this.checkboxViewChild){
-            this.checkbox = <HTMLInputElement> this.checkboxViewChild.nativeElement;
-        }
+
+    constructor(public cd: ChangeDetectorRef) {}
+
+    ngAfterContentInit() {
+        this.templates.forEach((item) => {
+            switch (item.getType()) {
+                case 'icon':
+                    this.iconTemplate = item.template;
+                    break;
+                default:
+                    this.iconTemplate = item.template;
+                    break;
+            }
+        });
     }
-    
+
     toggle(event: Event) {
-        if(!this.disabled) {
+        if (!this.disabled) {
             this.checked = !this.checked;
             this.onModelChange(this.checked);
             this.onModelTouched();
@@ -77,25 +165,33 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
                 originalEvent: event,
                 checked: this.checked
             });
-            if (this.checkbox) {
-                this.checkbox.focus();
-            }
+
+            this.cd.markForCheck();
         }
     }
 
-    onFocus() {
-        this.focus = true;
+    onKeyDown(event: KeyboardEvent) {
+        switch (event.code) {
+            case 'Enter':
+                this.toggle(event);
+                event.preventDefault();
+                break;
+            case 'Space':
+                this.toggle(event);
+                event.preventDefault();
+                break;
+        }
     }
-    
+
     onBlur() {
-        this.focus = false;
         this.onModelTouched();
     }
-    
-    writeValue(value: any) : void {
+
+    writeValue(value: any): void {
         this.checked = value;
+        this.cd.markForCheck();
     }
-    
+
     registerOnChange(fn: Function): void {
         this.onModelChange = fn;
     }
@@ -103,23 +199,24 @@ export class ToggleButton implements ControlValueAccessor,AfterViewInit {
     registerOnTouched(fn: Function): void {
         this.onModelTouched = fn;
     }
-    
+
     setDisabledState(val: boolean): void {
         this.disabled = val;
+        this.cd.markForCheck();
     }
-    
-    get hasOnLabel():boolean {
-        return this.onLabel && this.onLabel.length > 0;
+
+    get hasOnLabel(): boolean {
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
-    
-    get hasOffLabel():boolean {
-        return this.onLabel && this.onLabel.length > 0;
+
+    get hasOffLabel(): boolean {
+        return (this.onLabel && this.onLabel.length > 0) as boolean;
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [ToggleButton],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
+    exports: [ToggleButton, SharedModule],
     declarations: [ToggleButton]
 })
-export class ToggleButtonModule { }
+export class ToggleButtonModule {}

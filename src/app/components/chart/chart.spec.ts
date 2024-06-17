@@ -4,18 +4,12 @@ import { UIChart } from './chart';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('UIChart', () => {
-
     let chart: UIChart;
     let fixture: ComponentFixture<UIChart>;
-
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                NoopAnimationsModule,
-            ],
-            declarations: [
-                UIChart
-            ]
+            imports: [NoopAnimationsModule],
+            declarations: [UIChart]
         });
 
         fixture = TestBed.createComponent(UIChart);
@@ -23,185 +17,52 @@ describe('UIChart', () => {
     });
 
     it('should created', () => {
-        chart.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
-            ]
+        const testData = {
+            datasets: [
+                {
+                    data: [11, 16, 7, 3, 14],
+                    backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#26C6DA', '#7E57C2'],
+                    label: 'My dataset'
+                }
+            ],
+            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
         };
-        chart.type = "polarArea";
+
+        chart.data = testData;
+        const chartType = 'polarArea';
+        chart.type = chartType;
+        const testPlugin = { id: 'test-plugin' };
+        chart.plugins = [testPlugin];
+        const testOptions = { test: '123' };
+        chart.options = { ...testOptions };
         fixture.detectChanges();
 
-        expect(fixture.debugElement.query(By.css("canvas"))).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('canvas'))).toBeTruthy();
+
+        expect(chart.chart.config.type).toEqual(chartType);
+        expect(chart.chart.data).toEqual(testData);
+        expect(chart.chart.config.plugins).toContain(testPlugin);
     });
 
     it('should call onCanvasClick', () => {
         chart.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
+            datasets: [
+                {
+                    data: [11, 16, 7, 3, 14],
+                    backgroundColor: ['#42A5F5', '#66BB6A', '#FFA726', '#26C6DA', '#7E57C2'],
+                    label: 'My dataset'
+                }
             ],
-            responsive:true
+            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
         };
         chart.height = '200px';
         chart.width = '200px';
-        chart.type = "polarArea";
-        const canvasOnClickSpy = spyOn(chart,"onCanvasClick").and.callThrough();
-        const canvas = fixture.debugElement.query(By.css("canvas"));
+        chart.type = 'polarArea';
+        const canvasOnClickSpy = spyOn(chart, 'onCanvasClick').and.callThrough();
+        const canvas = fixture.debugElement.query(By.css('canvas'));
         fixture.detectChanges();
 
         canvas.nativeElement.click();
         expect(canvasOnClickSpy).toHaveBeenCalled();
-    });
-
-    it('should refresh chart', () => {
-        chart.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
-            ],
-        };
-        chart.type = "polarArea";
-        fixture.detectChanges();
-        const updateSpy = spyOn(chart.chart,"update").and.callThrough();
-
-        chart.refresh();
-        expect(updateSpy).toHaveBeenCalled();
-    });
-
-    it('should reinit chart', () => {
-        chart.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
-            ],
-        };
-        chart.type = "polarArea";
-        fixture.detectChanges();
-        const destroySpy = spyOn(chart.chart,"destroy").and.callThrough();
-        const initChartSpy = spyOn(chart,"initChart").and.callThrough();
-
-        chart.reinit();
-        expect(destroySpy).toHaveBeenCalled();
-        expect(initChartSpy).toHaveBeenCalled();
-    });
-
-    it('should get canvas, image and generateLegend', () => {
-        chart.data = {
-            datasets: [{
-                data: [
-                    11,
-                    16,
-                    7,
-                    3,
-                    14
-                ],
-                backgroundColor: [
-                    "#FF6384",
-                    "#4BC0C0",
-                    "#FFCE56",
-                    "#E7E9ED",
-                    "#36A2EB"
-                ],
-                label: 'My dataset'
-            }],
-            labels: [
-                "Red",
-                "Green",
-                "Yellow",
-                "Grey",
-                "Blue"
-            ],
-        };
-        chart.type = "polarArea";
-        fixture.detectChanges();
-
-        const legend = chart.generateLegend();
-        const image = chart.getBase64Image();
-        const canvas = chart.getCanvas();
-
-        expect(canvas.tagName).toEqual("CANVAS");
-        expect(image).toContain("data");
-        expect(legend).toContain("legend");
     });
 });

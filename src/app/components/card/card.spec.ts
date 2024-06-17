@@ -1,119 +1,112 @@
-import { TestBed, ComponentFixture, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Card } from './card';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer, Header } from 'primeng/api';
+import { ButtonModule } from '../button/button';
+import { Card } from './card';
 
 @Component({
-  template: `<p-card>
-  <p-header>
-      <img src="Card" src="assets/showcase/images/usercard.png">
-  </p-header>
-  <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-      quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
-  <p-footer>
-      <button  type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
-      <button  type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
-  </p-footer>
-</p-card>`
+    template: `<p-card [header]="header" [subheader]="subheader" [style]="style" [styleClass]="styleClass">
+        <p-header>
+            <img src="Card" src="https://primefaces.org/cdn/primeng/images/usercard.png" />
+        </p-header>
+        <div>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!
+        </div>
+        <p-footer>
+            <button type="button" label="Save" icon="pi pi-check" style="margin-right: .25em"></button>
+            <button type="button" label="Cancel" icon="pi pi-times" class="ui-button-secondary"></button>
+        </p-footer>
+    </p-card>`
 })
 class TestCardComponent {
+    header: string;
+
+    subheader: string;
+
+    styleClass: string;
+
+    style: any;
 }
 
 describe('Card', () => {
-
     let card: Card;
-    let fixture : ComponentFixture<TestCardComponent>;
+    let fixture: ComponentFixture<TestCardComponent>;
 
     beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        schemas: [NO_ERRORS_SCHEMA],
-        imports: [
-          NoopAnimationsModule
-        ],
-        declarations: [
-          Card,
-          TestCardComponent,
-          Header,
-          Footer
-        ],
-      })
+        TestBed.configureTestingModule({
+            schemas: [NO_ERRORS_SCHEMA],
+            imports: [NoopAnimationsModule, ButtonModule, Header, Footer],
+            declarations: [Card, TestCardComponent]
+        });
     }));
     beforeEach(() => {
-      fixture = TestBed.createComponent(TestCardComponent);
-      card = fixture.debugElement.children[0].componentInstance;
-    
-      fixture.detectChanges();
+        fixture = TestBed.createComponent(TestCardComponent);
+        card = fixture.debugElement.children[0].componentInstance;
+
+        fixture.detectChanges();
     });
 
     it('should display by default', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const cardEl = fixture.debugElement.query(By.css('div'));
-      expect(cardEl.nativeElement).toBeTruthy();
+        const cardEl = fixture.debugElement.query(By.css('div'));
+        expect(cardEl.nativeElement).toBeTruthy();
     });
 
     it('should display the title', () => {
-      card.header = "Primeng ROCKS!";
-      fixture.detectChanges();
+        fixture.componentInstance.header = 'Primeng ROCKS!';
+        fixture.detectChanges();
 
-      const cardEl = fixture.debugElement.query(By.css('.ui-card-title')).nativeElement;
-      expect(cardEl.textContent).toEqual("Primeng ROCKS!");
+        const cardEl = fixture.debugElement.query(By.css('.p-card-title')).nativeElement;
+        expect(cardEl.textContent).toEqual(' Primeng ROCKS! ');
     });
 
     it('should display the subtitle', () => {
-      card.subheader = "Primeng ROCKS!";
-      fixture.detectChanges();
+        fixture.componentInstance.subheader = 'Primeng ROCKS!';
+        fixture.detectChanges();
 
-      const cardEl = fixture.debugElement.query(By.css('.ui-card-subtitle')).nativeElement;
-      expect(cardEl.textContent).toEqual("Primeng ROCKS!");
+        const cardEl = fixture.debugElement.query(By.css('.p-card-subtitle')).nativeElement;
+        expect(cardEl.textContent).toEqual(' Primeng ROCKS! ');
     });
 
     it('should change style and styleClass', () => {
-      card.styleClass = "Primeng ROCKS!";
-      card.style = {'height' : '300px'};
-      fixture.detectChanges();
+        fixture.componentInstance.styleClass = 'Primeng ROCKS!';
+        fixture.componentInstance.style = { height: '300px' };
+        fixture.detectChanges();
 
-      const cardEl = fixture.debugElement.query(By.css('div')).nativeElement;
-      expect(cardEl.className).toContain("Primeng ROCKS!");
-      expect(cardEl.style.height).toEqual("300px");
+        const cardEl = fixture.debugElement.query(By.css('div')).nativeElement;
+        expect(cardEl.className).toContain('Primeng ROCKS!');
+        expect(cardEl.style.height).toEqual('300px');
     });
 
     it('should have a header', () => {
-      fixture.detectChanges();
+        fixture.detectChanges();
 
-      const headerEl = fixture.debugElement.query(By.css('p-header')).nativeElement;
-      const cardHeaderEl = fixture.debugElement.query(By.css('.ui-card-header')).nativeElement;
-      expect(headerEl).toBeTruthy();
-      expect(cardHeaderEl).toBeTruthy();
-      expect(cardHeaderEl.children[0].children.length).toEqual(1);
+        const headerEl = fixture.debugElement.query(By.css('p-header')).nativeElement;
+        const cardHeaderEl = fixture.debugElement.query(By.css('.p-card-header')).nativeElement;
+        expect(headerEl).toBeTruthy();
+        expect(cardHeaderEl).toBeTruthy();
+        expect(cardHeaderEl.children[0].children.length).toEqual(1);
     });
 
-    it('should have a  footer', () => {
-      fixture.detectChanges();
+    it('should have a footer', () => {
+        fixture.detectChanges();
 
-      const footerEl = fixture.debugElement.query(By.css('p-footer')).nativeElement;
-      const cardFooterEl = fixture.debugElement.query(By.css('.ui-card-footer')).nativeElement;
-      expect(footerEl).toBeTruthy();
-      expect(cardFooterEl).toBeTruthy();
-      expect(cardFooterEl.children[0].children.length).toEqual(2);
+        const footerEl = fixture.debugElement.query(By.css('p-footer')).nativeElement;
+        const cardFooterEl = fixture.debugElement.query(By.css('.p-card-footer')).nativeElement;
+        expect(footerEl).toBeTruthy();
+        expect(cardFooterEl).toBeTruthy();
+        expect(cardFooterEl.children[0].children.length).toEqual(2);
     });
 
     it('should not have a header', () => {
-      card.headerFacet = null;
-      fixture.detectChanges();
+        card.headerFacet = null;
+        fixture.componentInstance.header = null;
+        fixture.detectChanges();
 
-      const cardHeaderEl = fixture.debugElement.query(By.css('.ui-card-header'));
-      expect(cardHeaderEl).toBeFalsy();
+        const cardHeaderEl = fixture.debugElement.query(By.css('.p-card-header'));
+        expect(cardHeaderEl).toBeFalsy();
     });
-
-    it('should not have a  footer', () => {
-      card.footerFacet = null;
-      fixture.detectChanges();
-
-      const cardFooterEl = fixture.debugElement.query(By.css('.ui-card-footer'));
-      expect(cardFooterEl).toBeFalsy();
-    });
-
 });

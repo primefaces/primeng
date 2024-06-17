@@ -3,23 +3,39 @@
     "compilerOptions": {
         "baseUrl": "./",
         "outDir": "./dist/out-tsc",
+        "forceConsistentCasingInFileNames": false,
+        "noImplicitOverride": false,
+        "noPropertyAccessFromIndexSignature": false,
+        "noImplicitReturns": false,
+        "noFallthroughCasesInSwitch": false,
         "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
         "declaration": false,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "emitDecoratorMetadata": true,
+        "downlevelIteration": true,
         "experimentalDecorators": true,
+        "moduleResolution": "node",
         "importHelpers": true,
-        "target": "es2015",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "lib": [
-            "es2018",
-            "dom"
-        ],
+        "target": "ES2022",
+        "module": "ES2022",
+        "useDefineForClassFields": false,
+        "types": ["jasmine"],
+        "lib": ["ES2022", "dom"],
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
         "paths": {
-            "primeng/*": ["src/app/components/*/public_api"]
+            "primeng/*": ["src/app/components/*/public_api"],
+            "@pages/*": ["src/app/showcase/pages/*"],
+            "@doc/*": ["src/app/showcase/doc/*"],
+            "@domain/*": ["src/app/showcase/domain/*"],
+            "@service/*": ["src/app/showcase/service/*"],
+            "@layout/*": ["src/app/showcase/layout/*"]
         }
-     }
+    },
+    "exclude": ["node_modules", "**/node_modules/*", "src/app/components/**/*spec.ts"],
+    "angularCompilerOptions": {
+        "enableI18nLegacyMessageIdFormat": false,
+        "strictInjectionParameters": false,
+        "strictInputAccessModifiers": false,
+        "strictTemplates": false
     }
+}

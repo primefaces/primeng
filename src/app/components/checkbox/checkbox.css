@@ -1,32 +1,30 @@
-.ui-chkbox {
-    display: inline-block;
-    cursor: pointer;
-    vertical-align: middle;
-    margin-right: .25em;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-}
+@layer primeng {
+    .p-checkbox {
+        display: inline-flex;
+        cursor: pointer;
+        user-select: none;
+        vertical-align: bottom;
+        position: relative;
+    }
 
-.ui-chkbox .ui-chkbox-box {
-    width: 1.125em;
-    height: 1.125em;
-    line-height: 1.125em;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    text-align: center;
-}
+    .p-checkbox-disabled {
+        cursor: default !important;
+        pointer-events: none;
+    }
 
-.ui-chkbox .ui-chkbox-icon {
-    display: block;
-}
+    .p-checkbox-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-.ui-chkbox-label {
-    vertical-align: middle;  
-}
+    p-checkbox {
+        display: inline-flex;
+        vertical-align: bottom;
+        align-items: center;
+    }
 
-.ui-chkbox-readonly {
-    cursor: default;
+    .p-checkbox-label {
+        line-height: 1;
+    }
 }
-
