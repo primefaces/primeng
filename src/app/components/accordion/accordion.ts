@@ -262,9 +262,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     }
 
     toggle(event?: MouseEvent | KeyboardEvent) {
-        const target = event.target as HTMLElement;
-
-        if (this.disabled || !(target.tagName.toLowerCase() === 'a' && target.classList.contains('p-accordion-header-link'))) {
+        if (this.disabled) {
             return false;
         }
 
