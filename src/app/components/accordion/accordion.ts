@@ -268,7 +268,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     toggle(event?: MouseEvent | KeyboardEvent) {
         const target = event.target as HTMLElement;
-        const elements = ['a', 'button', 'input'];
+        const elements = ['a', 'button', 'input', 'textarea'];
 
         if (this.disabled || (this.isElementInList(target, elements) && !target.classList.contains('p-accordion-header-link'))) {
             return false;
