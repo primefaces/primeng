@@ -1956,15 +1956,15 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     onInputFocus(event: Event) {
         this.focus = true;
-        if (this.showOnFocus) {
+        if (this.showOnFocus && this.inputFieldValue.length === 0) {
             this.showOverlay();
         }
         this.onFocus.emit(event);
     }
 
     onInputClick() {
-        if (this.showOnFocus && !this.overlayVisible) {
-            this.showOverlay();
+        if (this.showOnFocus ) {
+           (this.overlayVisible)  ?this.hideOverlay():this.showOverlay();
         }
     }
 
@@ -2069,6 +2069,8 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (this.overlayVisible) {
                 this.overlayVisible = false;
                 event.preventDefault();
+            }else{
+                this.showOverlay();
             }
         } else if (event.keyCode === 9 && this.contentViewChild) {
             DomHandler.getFocusableElements(this.contentViewChild.nativeElement).forEach((el) => (el.tabIndex = '-1'));
