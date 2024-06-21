@@ -230,11 +230,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(
-        @Inject(forwardRef(() => Accordion)) accordion: Accordion,
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
         this.id = UniqueComponentId();
     }
@@ -261,10 +257,20 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
+    isElementInList(target: HTMLElement | null, elementList: string[]): boolean {
+        if (!target) {
+            return false;
+        }
+
+        const tagName = target.tagName.toLowerCase();
+        return elementList.includes(tagName);
+    }
+
     toggle(event?: MouseEvent | KeyboardEvent) {
         const target = event.target as HTMLElement;
+        const elements = ['a', 'button', 'input'];
 
-        if (this.disabled || !(target.tagName.toLowerCase() === 'a' && target.classList.contains('p-accordion-header-link'))) {
+        if (this.disabled || (this.isElementInList(target, elements) && !target.classList.contains('p-accordion-header-link'))) {
             return false;
         }
 
@@ -316,7 +322,6 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.toggle(event);
-                event.preventDefault();
                 break;
             default:
                 break;
@@ -443,10 +448,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     public tabs: AccordionTab[] = [];
 
-    constructor(
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
@@ -646,3 +648,4 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     declarations: [Accordion, AccordionTab]
 })
 export class AccordionModule {}
+
