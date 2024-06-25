@@ -1491,6 +1491,19 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return (this.modelValue() || []).some((value) => ObjectUtils.equals(value, optionValue, this.equalityKey()));
     }
 
+    get toggleAllDisabled(): boolean {
+        const visibleOptions = this.visibleOptions();
+        if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
+            return true;
+        } else {
+            for (let option of visibleOptions) {
+                if (!this.isOptionDisabled(option)) return false;
+            }
+
+            return true;
+        }
+    }
+
     isOptionMatched(option) {
         return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
     }
