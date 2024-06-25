@@ -5778,13 +5778,13 @@
   .p-inline-message.p-inline-message-warn .p-inline-message-icon {
     color: #0e1315;
   }
-  .p-inline-message.p-inline-message-error {
+  .p-inline-message.p-inline-message-danger {
     background: #e6a3b2;
     border: 4px solid #de8499;
     border-width: 2px;
     color: #0e1315;
   }
-  .p-inline-message.p-inline-message-error .p-inline-message-icon {
+  .p-inline-message.p-inline-message-danger .p-inline-message-icon {
     color: #0e1315;
   }
   .p-inline-message .p-inline-message-icon {
@@ -5860,16 +5860,16 @@
   .p-message.p-message-warn .p-message-close {
     color: #0e1315;
   }
-  .p-message.p-message-error {
+  .p-message.p-message-danger {
     background: #e6a3b2;
     border: 4px solid #de8499;
     border-width: 0 0 0 6px;
     color: #0e1315;
   }
-  .p-message.p-message-error .p-message-icon {
+  .p-message.p-message-danger .p-message-icon {
     color: #0e1315;
   }
-  .p-message.p-message-error .p-message-close {
+  .p-message.p-message-danger .p-message-close {
     color: #0e1315;
   }
   .p-message .p-message-text {
@@ -5964,14 +5964,14 @@
 .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close {
     color: #0e1315;
   }
-  .p-toast .p-toast-message.p-toast-message-error {
+  .p-toast .p-toast-message.p-toast-message-danger {
     background: #e6a3b2;
     border: 4px solid #de8499;
     border-width: 0 0 0 6px;
     color: #0e1315;
   }
-  .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
-.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+  .p-toast .p-toast-message.p-toast-message-danger .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-danger .p-toast-icon-close {
     color: #0e1315;
   }
 
@@ -6492,7 +6492,7 @@
   .p-inline-message.p-inline-message-warn {
     border-color: #ff9c3e;
   }
-  .p-inline-message.p-inline-message-error {
+  .p-inline-message.p-inline-message-danger {
     border-color: #e6a3b2;
   }
 

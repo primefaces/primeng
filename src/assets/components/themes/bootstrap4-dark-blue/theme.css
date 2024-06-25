@@ -5809,13 +5809,13 @@
   .p-inline-message.p-inline-message-warn .p-inline-message-icon {
     color: #856404;
   }
-  .p-inline-message.p-inline-message-error {
+  .p-inline-message.p-inline-message-danger {
     background: #f8d7da;
     border: solid #f5c6cb;
     border-width: 0px;
     color: #721c24;
   }
-  .p-inline-message.p-inline-message-error .p-inline-message-icon {
+  .p-inline-message.p-inline-message-danger .p-inline-message-icon {
     color: #721c24;
   }
   .p-inline-message .p-inline-message-icon {
@@ -5891,16 +5891,16 @@
   .p-message.p-message-warn .p-message-close {
     color: #856404;
   }
-  .p-message.p-message-error {
+  .p-message.p-message-danger {
     background: #f8d7da;
     border: solid #f5c6cb;
     border-width: 1px;
     color: #721c24;
   }
-  .p-message.p-message-error .p-message-icon {
+  .p-message.p-message-danger .p-message-icon {
     color: #721c24;
   }
-  .p-message.p-message-error .p-message-close {
+  .p-message.p-message-danger .p-message-close {
     color: #721c24;
   }
   .p-message .p-message-text {
@@ -5995,14 +5995,14 @@
 .p-toast .p-toast-message.p-toast-message-warn .p-toast-icon-close {
     color: #856404;
   }
-  .p-toast .p-toast-message.p-toast-message-error {
+  .p-toast .p-toast-message.p-toast-message-danger {
     background: #f8d7da;
     border: solid #f5c6cb;
     border-width: 1px;
     color: #721c24;
   }
-  .p-toast .p-toast-message.p-toast-message-error .p-toast-message-icon,
-.p-toast .p-toast-message.p-toast-message-error .p-toast-icon-close {
+  .p-toast .p-toast-message.p-toast-message-danger .p-toast-message-icon,
+.p-toast .p-toast-message.p-toast-message-danger .p-toast-icon-close {
     color: #721c24;
   }
 
