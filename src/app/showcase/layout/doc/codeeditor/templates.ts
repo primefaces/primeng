@@ -737,12 +737,15 @@ const getAngularApp = (props: Props = {}) => {
 </html>`;
 
     const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
-    import { ${componentName} } from './app/${selector}';
-    import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ${componentName} } from './app/${selector}';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Routes, provideRouter } from '@angular/router';
 
-    bootstrapApplication(${componentName}, {
-    providers: [provideAnimationsAsync()],
-    }).catch((err) => console.error(err));`;
+const routes: Routes = [];
+
+bootstrapApplication(${componentName}, {
+providers: [provideAnimationsAsync(), provideRouter(routes)],
+}).catch((err) => console.error(err));`;
 
     const defaultFiles = {
         'src/main.ts': { content: main_ts },
