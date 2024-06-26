@@ -25,4 +25,11 @@ export function useStyle(document: Document, css, options: any = {}) {
         first ? document.head.prepend(styleRef) : document.head.appendChild(styleRef);
         DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
     }
+
+    return {
+        id,
+        name,
+        el: styleRef,
+        css: cssRef
+    };
 }

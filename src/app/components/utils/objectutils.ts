@@ -297,4 +297,13 @@ export class ObjectUtils {
                   .replace(/: /g, ':')
             : css;
     }
+
+    public static toFlatCase(str: string) {
+        // convert snake, kebab, camel and pascal cases to flat case
+        return this.isString(str) ? str.replace(/(-|_)/g, '').toLowerCase() : str;
+    }
+
+    public static isString(value: any, empty: boolean = true) {
+        return typeof value === 'string' && (empty || value !== '');
+    }
 }

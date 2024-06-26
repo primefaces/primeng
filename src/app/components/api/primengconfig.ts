@@ -6,7 +6,6 @@ import { Translation } from './translation';
 import { Theme, ThemeService } from 'primeng/themes';
 import { BaseStyle } from 'primeng/base';
 import { DOCUMENT } from '@angular/common';
-import { ObjectUtils } from 'primeng/utils';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig {
@@ -28,20 +27,22 @@ export class PrimeNGConfig {
         effect(
             () => {
                 ThemeService.on('theme:change', (newTheme) => {
-                    this.isThemeChanged = true;
-                    // this.theme.set(newTheme);
-                    // this.onThemeChange(this.theme());
-                    console.log('changed');
+                    untracked(() => {
+                        this.isThemeChanged = true;
+                        this.theme.set(newTheme);
+                    });
                 });
-                untracked(() => this.theme());
             },
             { allowSignalWrites: true }
         );
 
         effect(
             () => {
-                if (this.document && this.theme() && !this.isThemeChanged) {
-                    this.onThemeChange(this.theme());
+                const themeValue = this.theme();
+                if (this.document && themeValue) {
+                    if (!this.isThemeChanged) {
+                        this.onThemeChange(themeValue);
+                    }
                     this.isThemeChanged = false;
                 }
             },

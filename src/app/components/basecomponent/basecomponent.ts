@@ -1,11 +1,12 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { computed, Directive, effect, ElementRef, inject, Input, PLATFORM_ID, untracked } from '@angular/core';
+import { computed, Directive, effect, ElementRef, inject, Input, PLATFORM_ID, SimpleChanges, untracked } from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import BaseComponentStyle from './style/basecomponentstyle';
 import { PrimeNGConfig } from 'primeng/api';
-import { UniqueComponentId } from 'primeng/utils';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { AppConfigService } from '@service/appconfigservice';
+import { DomHandler } from 'primeng/dom';
 
 @Directive({ standalone: true })
 export class BaseComponent {
@@ -21,6 +22,8 @@ export class BaseComponent {
 
     public scopedStyleEl: any;
 
+    public rootEl: any;
+
     @Input() dt: Object | undefined;
 
     get styleOptions() {
@@ -35,9 +38,7 @@ export class BaseComponent {
         return this['_componentStyle'];
     }
 
-    get attrSelector() {
-        return UniqueComponentId('pc');
-    }
+    attrSelector = UniqueComponentId('pc');
 
     constructor() {}
 
@@ -53,6 +54,27 @@ export class BaseComponent {
         }
     }
 
+    ngAfterViewInit() {
+        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this.name)}"]`);
+        if (this.rootEl) {
+            this.rootEl?.setAttribute(this.attrSelector, '');
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.document && !isPlatformServer(this.platformId)) {
+            const { dt } = changes;
+            if (dt && dt.currentValue) {
+                this._loadScopedThemeStyles(dt.currentValue);
+                this._themeChangeListener(() => this._loadScopedThemeStyles(dt.currentValue));
+            }
+        }
+    }
+
+    ngOnDestroy() {
+        this._unloadScopedThemeStyles();
+    }
+
     _loadStyles() {
         const _load = () => {
             if (!Base.isStyleNameLoaded('base')) {
@@ -65,7 +87,7 @@ export class BaseComponent {
         };
 
         _load();
-        this._themeChangeListener(_load.bind(this));
+        this._themeChangeListener(() => _load());
     }
 
     _loadCoreStyles() {
@@ -75,10 +97,6 @@ export class BaseComponent {
 
             Base.setLoadedStyleName(this.componentStyle?.name);
         }
-    }
-
-    ngOnDestroy() {
-        Theme.clearLoadedStyleNames();
     }
 
     _loadThemeStyles() {
@@ -97,7 +115,7 @@ export class BaseComponent {
             this.componentStyle.load(this.document, css, { name: `${this.componentStyle?.name}-variables`, ...this.styleOptions });
             this.componentStyle.loadTheme(this.document, { name: `${this.componentStyle?.name}-style`, ...this.styleOptions });
 
-            Theme.setLoadedStyleName(this.componentStyle.name);
+            Theme.setLoadedStyleName(this.componentStyle?.name);
         }
 
         // layer order
@@ -107,17 +125,22 @@ export class BaseComponent {
             BaseStyle.load(this.document, layerOrder, { name: 'layer-order', first: true, ...this.styleOptions });
             Theme.setLoadedStyleName('layer-order');
         }
+
+        if (this.dt) {
+            this._loadScopedThemeStyles(this.dt);
+            this._themeChangeListener(() => this._loadScopedThemeStyles(this.dt));
+        }
     }
 
     _loadScopedThemeStyles(preset) {
         const { css } = this.componentStyle?.getPresetTheme?.(preset, `[${this.attrSelector}]`) || {};
-        const scopedStyle = this.componentStyle?.load(this.document, css, { name: `${this.attrSelector}-${this.componentStyle.name}`, ...this.styleOptions });
+        const scopedStyle = this.componentStyle?.load(this.document, css, { name: `${this.attrSelector}-${this.componentStyle?.name}`, ...this.styleOptions });
 
         this.scopedStyleEl = scopedStyle.el;
     }
 
     _unloadScopedThemeStyles() {
-        this.scopedStyleEl?.value?.remove();
+        this.scopedStyleEl?.remove();
     }
 
     _themeChangeListener(callback = () => {}) {
