@@ -431,6 +431,12 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     focus(focusParentElement = this.contentViewChild.nativeElement) {
+        const focusableElements = DomHandler.getFocusableElements(focusParentElement);
+
+        if (!focusableElements.length) {
+            return;
+        }
+
         let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
         if (focusable) {
             this.zone.runOutsideAngular(() => {
