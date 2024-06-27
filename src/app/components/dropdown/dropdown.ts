@@ -932,7 +932,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             'p-focus': this.focused,
             'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
+            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
+            'p-dropdown-open': this.overlayVisible
         };
     }
 
