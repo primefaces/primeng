@@ -667,13 +667,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
     });
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2
-    ) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, private renderer: Renderer2) {}
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();
@@ -887,7 +881,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);
-            this.onChange.emit({ originalEvent: event, value: this.value });
         }
 
         event.preventDefault();
