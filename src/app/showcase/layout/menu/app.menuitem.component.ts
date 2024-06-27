@@ -48,6 +48,6 @@ export class AppMenuItemComponent {
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
         const url = this.router.url.split('#')[0];
-        return menuitem.children && !menuitem.children.some((item) => url.includes( item.routerLink) || (item.children && item.children.some((it) => url.includes(it.routerLink))));
+        return menuitem.children && !menuitem.children.some((item) => url.includes(item.routerLink) || (item.children && item.children.some((it) => url.includes(it.routerLink))));
     }
 }

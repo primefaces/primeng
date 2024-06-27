@@ -169,7 +169,7 @@ export class DomHandler {
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
         const targetOuterHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
-        const targetOuterWidth = target.offsetWidth  ?? target.getBoundingClientRect().width;
+        const targetOuterWidth = target.offsetWidth ?? target.getBoundingClientRect().width;
         const targetOffset = target.getBoundingClientRect();
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();

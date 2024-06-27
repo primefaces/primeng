@@ -217,7 +217,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     get parent() {
         const domElements = Array.from(this.document.getElementsByClassName('p-dialog'));
-        
+
         if (domElements.length > 1) {
             return domElements.pop();
         }
