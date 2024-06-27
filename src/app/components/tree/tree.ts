@@ -635,10 +635,19 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
     }
 
+    isActionableElement(event) {
+        const target = event.target;
+
+        const isActionable = target instanceof HTMLElement && (target.nodeName == 'A' || target.nodeName == 'BUTTON');
+
+        return isActionable;
+    }
+
     onEnter(event: KeyboardEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
         this.setTabIndexForSelectionMode(event, this.tree.nodeTouched);
-        if (!(event.target instanceof HTMLElement && event.target.nodeName === 'A')) {
+
+        if (!this.isActionableElement(event)) {
             event.preventDefault();
         }
     }
@@ -1157,12 +1166,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(
-        public el: ElementRef,
-        @Optional() public dragDropService: TreeDragDropService,
-        public config: PrimeNGConfig,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
