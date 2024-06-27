@@ -268,8 +268,8 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     }
 
     get dynamicDialogCount() {
-        let dynamicDialogs = this.document.querySelectorAll('p-dynamicdialog');
-        let dynamicDialogCount = dynamicDialogs?.length;
+        const dynamicDialogs = this.document.querySelectorAll('p-dynamicdialog');
+        const dynamicDialogCount = dynamicDialogs?.length;
 
         return dynamicDialogCount;
     }
