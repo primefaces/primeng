@@ -60,8 +60,9 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
 
-        this.primeng.theme.set({ preset: Aura });
+        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '' } });
     }
+
     ngOnInit(): void {
         this.primeng.ripple = true;
     }
