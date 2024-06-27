@@ -257,20 +257,9 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    isElementInList(target: HTMLElement | null, elementList: string[]): boolean {
-        if (!target) {
-            return false;
-        }
-
-        const tagName = target.tagName.toLowerCase();
-        return elementList.includes(tagName);
-    }
-
     toggle(event?: MouseEvent | KeyboardEvent) {
-        const target = event.target as HTMLElement;
-        const elements = ['a', 'button', 'input', 'textarea'];
 
-        if (this.disabled || (this.isElementInList(target, elements) && !target.classList.contains('p-accordion-header-link'))) {
+        if (this.disabled) {
             return false;
         }
 
@@ -322,6 +311,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
             case 'Enter':
             case 'Space':
                 this.toggle(event);
+                event.preventDefault();
                 break;
             default:
                 break;
