@@ -37,6 +37,14 @@ const theme = ({ dt }) => `
 .p-panel-footer {
     padding: ${dt('panel.footer.padding')};
 }
+
+.p-panel-toggleable.p-panel-expanded > .p-panel-content-container:not(.ng-animating) {
+    overflow: visible
+}
+
+.p-panel-toggleable .p-panel-content-container {
+    overflow: hidden;
+}
 `;
 
 const classes = {

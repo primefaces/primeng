@@ -58,7 +58,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                 </div>
             </div>
             <div
-                class="p-toggleable-content"
+                class="p-panel-content-container"
                 [id]="id + '_content'"
                 role="region"
                 [attr.aria-labelledby]="id + '_header'"
