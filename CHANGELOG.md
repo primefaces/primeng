@@ -15,6 +15,9 @@
 - Component p-listbox triggers onChange multiple times [\#15873](https://github.com/primefaces/primeng/issues/15873)
 - Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
 - PrimeNG Button Link stackblitz not working [\#15902](https://github.com/primefaces/primeng/issues/15902)
+- Doc: Steps close menu [\#14259](https://github.com/primefaces/primeng/issues/14259)
+- Component: Button -> pButton [\#15862](https://github.com/primefaces/primeng/issues/15862)
+- Password: When disabled allows to edit on focus tab [\#15905](https://github.com/primefaces/primeng/issues/15905)
 
 ## [17.18.1](https://github.com/primefaces/primeng/tree/17.18.1) (2024-06-13)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.1)
