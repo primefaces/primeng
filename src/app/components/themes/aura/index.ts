@@ -5,7 +5,7 @@
 // import blockui from 'primevue/themes/aura/blockui';
 // import breadcrumb from 'primevue/themes/aura/breadcrumb';
 // import button from 'primevue/themes/aura/button';
-// import card from 'primevue/themes/aura/card';
+// import card from 'primeng/themes/aura/card';
 // import carousel from 'primevue/themes/aura/carousel';
 // import cascadeselect from 'primevue/themes/aura/cascadeselect';
 // import checkbox from 'primevue/themes/aura/checkbox';
@@ -84,6 +84,7 @@
 // import treetable from 'primevue/themes/aura/treetable';
 
 import panel from './panel';
+import card from './card';
 
 export default {
     primitive: {
@@ -462,7 +463,8 @@ export default {
         }
     },
     components: {
-        panel
+        panel,
+        card
     }
     // directives: {
     //     tooltip,

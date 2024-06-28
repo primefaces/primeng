@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Input, NgModule, QueryList, SimpleChange, TemplateRef, ViewEncapsulation, signal } from '@angular/core';
 import { BlockableUI, Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import cardstyle from './style/cardstyle';
 import { ObjectUtils } from 'primeng/utils';
 /**
  * Card is a flexible container component.
@@ -41,7 +43,7 @@ import { ObjectUtils } from 'primeng/utils';
         class: 'p-element'
     }
 })
-export class Card implements AfterContentInit, BlockableUI {
+export class Card extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Header of the card.
      * @group Props
@@ -85,7 +87,7 @@ export class Card implements AfterContentInit, BlockableUI {
 
     _style = signal<{ [klass: string]: any } | null | undefined>(null);
 
-    constructor(private el: ElementRef) {}
+    _componentStyle = cardstyle;
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

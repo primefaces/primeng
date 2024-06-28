@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
+            <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '25rem', overflow: 'hidden' }">
                 <ng-template pTemplate="header">
                     <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
                 </ng-template>
