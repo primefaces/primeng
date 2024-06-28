@@ -1877,9 +1877,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
 
                 rangeRowsData.push(rangeRowData);
-                setTimeout(() => {
-                    this._selection = [...this.selection, rangeRowData];
-                });
+                this._selection = [...this.selection, rangeRowData];
                 let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
                     this.selectionKeys[dataKeyValue] = 1;
