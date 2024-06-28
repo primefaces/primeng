@@ -1,5 +1,6 @@
 import panel from './panel';
 import card from './card';
+import divider from './divider';
 
 export default {
     primitive: {
@@ -384,6 +385,7 @@ export default {
     },
     components: {
         panel,
-        card
+        card,
+        divider
     }
 };
