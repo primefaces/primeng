@@ -17,7 +17,6 @@ import dividerStyle from './style/dividerstyle';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./divider.css'],
     host: {
         class: 'p-element'
     }

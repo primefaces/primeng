@@ -38,7 +38,6 @@ import { ObjectUtils } from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./card.css'],
     host: {
         class: 'p-element'
     }
