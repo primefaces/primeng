@@ -38,6 +38,7 @@ const theme = ({ dt }) => `
     padding: ${dt('panel.footer.padding')};
 }
 
+// For PrimeNG
 .p-panel-toggleable.p-panel-expanded > .p-panel-content-container:not(.ng-animating) {
     overflow: visible
 }
