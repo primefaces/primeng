@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
 
-        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: 'p-dark' } });
+        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '.p-dark' } });
     }
 
     ngOnInit(): void {
