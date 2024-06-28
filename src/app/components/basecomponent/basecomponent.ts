@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { computed, Directive, effect, ElementRef, inject, Input, PLATFORM_ID, SimpleChanges, untracked } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, Injector, Input, PLATFORM_ID, SimpleChanges, untracked } from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import BaseComponentStyle from './style/basecomponentstyle';
@@ -18,6 +18,10 @@ export class BaseComponent {
 
     public el: ElementRef = inject(ElementRef);
 
+    public readonly injector: Injector = inject(Injector);
+
+    public readonly cd: ChangeDetectorRef = inject(ChangeDetectorRef);
+
     public config: PrimeNGConfig = inject(PrimeNGConfig);
 
     public scopedStyleEl: any;
@@ -30,7 +34,7 @@ export class BaseComponent {
         return { nonce: this.config?.csp().nonce };
     }
 
-    get name() {
+    get _name() {
         return this.constructor.name.replace(/^_/, '').toLowerCase();
     }
 
@@ -55,7 +59,7 @@ export class BaseComponent {
     }
 
     ngAfterViewInit() {
-        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this.name)}"]`);
+        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`);
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
         }
@@ -91,7 +95,7 @@ export class BaseComponent {
     }
 
     _loadCoreStyles() {
-        if (!Base.isStyleNameLoaded('base') && this.name) {
+        if (!Base.isStyleNameLoaded('base') && this._name) {
             BaseComponentStyle.loadCSS(this.document, this.styleOptions);
             this.componentStyle && this.componentStyle?.loadCSS(this.document, this.styleOptions);
 

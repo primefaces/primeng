@@ -28,6 +28,8 @@ import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
+import { BaseComponent } from 'primeng/basecomponent';
+import checkboxStyle from './style/checkboxstyle';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -77,12 +79,11 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
     providers: [CHECKBOX_VALUE_ACCESSOR],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./checkbox.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Checkbox implements ControlValueAccessor {
+export class Checkbox extends BaseComponent implements ControlValueAccessor {
     /**
      * Value of the checkbox.
      * @group Props
@@ -236,11 +237,7 @@ export class Checkbox implements ControlValueAccessor {
 
     focused: boolean = false;
 
-    constructor(
-        public cd: ChangeDetectorRef,
-        private readonly injector: Injector,
-        public config: PrimeNGConfig
-    ) {}
+    _componentStyle = checkboxStyle;
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.indeterminate) {
