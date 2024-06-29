@@ -44,4 +44,8 @@
     .p-fileupload-filename {
         word-break: break-all;
     }
+    
+    .p-button{
+        margin: 1rem;
+    }
 }
