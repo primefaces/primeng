@@ -311,6 +311,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             }
         } else if (this.icon && iconElement) {
             iconElement.className = `p-button-icon ${this.icon}`;
+            iconElement.innerHTML = '';
         } else if (iconElement) {
             iconElement.innerHTML = '';
             this.createIcon();
