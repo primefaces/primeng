@@ -178,60 +178,65 @@ export class MultiSelectItem {
                     [autofocus]="autofocus"
                 />
             </div>
-            <div
-                class="p-multiselect-label-container"
-                [pTooltip]="tooltip"
-                (mouseleave)="labelContainerMouseLeave()"
-                [tooltipDisabled]="_disableTooltip"
-                [tooltipPosition]="tooltipPosition"
-                [positionStyle]="tooltipPositionStyle"
-                [tooltipStyleClass]="tooltipStyleClass"
-            >
-                <div [ngClass]="labelClass">
-                    <ng-container *ngIf="!selectedItemsTemplate">
-                        <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
-                        <ng-container *ngIf="display === 'chip'">
-                            <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
-                                <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
-                                <ng-container *ngIf="!disabled">
-                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-                                    <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+            <ng-container *ngIf="!dropdownTemplate">
+                <div
+                    class="p-multiselect-label-container"
+                    [pTooltip]="tooltip"
+                    (mouseleave)="labelContainerMouseLeave()"
+                    [tooltipDisabled]="_disableTooltip"
+                    [tooltipPosition]="tooltipPosition"
+                    [positionStyle]="tooltipPositionStyle"
+                    [tooltipStyleClass]="tooltipStyleClass"
+                >
+                    <div [ngClass]="labelClass">
+                        <ng-container *ngIf="!selectedItemsTemplate">
+                            <ng-container *ngIf="display === 'comma'">{{ label() || 'empty' }}</ng-container>
+                            <ng-container *ngIf="display === 'chip'">
+                                <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
+                                    <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
+                                    <ng-container *ngIf="!disabled">
+                                        <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+                                        <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                                         <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
                                     </span>
-                                </ng-container>
-                            </div>
-                            <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
+                                    </ng-container>
+                                </div>
+                                <ng-container *ngIf="!modelValue() || modelValue().length === 0">{{ placeholder() || defaultLabel || 'empty' }}</ng-container>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
+                    </div>
+                    <ng-container *ngIf="isVisibleClearIcon">
+                        <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-multiselect-clear-icon'" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+                        <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
+                            <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                        </span>
+                    </ng-container>
+                </div>
+                <div class="p-multiselect-trigger">
+                    <ng-container *ngIf="loading; else elseBlock">
+                        <ng-container *ngIf="loadingIconTemplate">
+                            <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="!loadingIconTemplate">
+                            <span *ngIf="loadingIcon" [ngClass]="'p-multiselect-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                            <span *ngIf="!loadingIcon" [class]="'p-multiselect-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                         </ng-container>
                     </ng-container>
-                    <ng-container *ngTemplateOutlet="selectedItemsTemplate; context: { $implicit: selectedOptions, removeChip: removeOption.bind(this) }"></ng-container>
+                    <ng-template #elseBlock>
+                        <ng-container *ngIf="!dropdownIconTemplate">
+                            <span *ngIf="dropdownIcon" class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
+                            <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-trigger-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
+                        </ng-container>
+                        <span *ngIf="dropdownIconTemplate" class="p-multiselect-trigger-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
+                            <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                        </span>
+                    </ng-template>
                 </div>
-                <ng-container *ngIf="isVisibleClearIcon">
-                    <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-multiselect-clear-icon'" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
-                    <span *ngIf="clearIconTemplate" class="p-multiselect-clear-icon" (click)="clear($event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
-                        <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </div>
-            <div class="p-multiselect-trigger">
-                <ng-container *ngIf="loading; else elseBlock">
-                    <ng-container *ngIf="loadingIconTemplate">
-                        <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
-                    </ng-container>
-                    <ng-container *ngIf="!loadingIconTemplate">
-                        <span *ngIf="loadingIcon" [ngClass]="'p-multiselect-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
-                        <span *ngIf="!loadingIcon" [class]="'p-multiselect-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
-                    </ng-container>
-                </ng-container>
-                <ng-template #elseBlock>
-                    <ng-container *ngIf="!dropdownIconTemplate">
-                        <span *ngIf="dropdownIcon" class="p-multiselect-trigger-icon" [ngClass]="dropdownIcon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true"></span>
-                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-multiselect-trigger-icon'" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true" />
-                    </ng-container>
-                    <span *ngIf="dropdownIconTemplate" class="p-multiselect-trigger-icon" [attr.data-pc-section]="'triggericon'" [attr.aria-hidden]="true">
-                        <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
-                    </span>
-                </ng-template>
-            </div>
+            </ng-container>
+            <ng-container *ngIf="dropdownTemplate">
+                <ng-container *ngTemplateOutlet="dropdownTemplate"></ng-container>
+            </ng-container>
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -1022,6 +1027,8 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     headerCheckboxIconTemplate: TemplateRef<any> | undefined;
 
+    dropdownTemplate: TemplateRef<any> | undefined;
+
     public headerCheckboxFocus: boolean | undefined;
 
     filterOptions: MultiSelectFilterOptions | undefined;
@@ -1054,7 +1061,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
     get containerClass() {
         return {
-            'p-multiselect p-component p-inputwrapper': true,
+            'p-multiselect p-component p-inputwrapper': !this.dropdownTemplate,
             'p-disabled': this.disabled,
             'p-multiselect-clearable': this.showClear && !this.disabled,
             'p-multiselect-chip': this.display === 'chip',
@@ -1287,6 +1294,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 case 'clearicon':
                     this.clearIconTemplate = item.template;
+                    break;
+
+                case 'dropdown':
+                    this.dropdownTemplate = item.template;
                     break;
 
                 case 'dropdownicon':

@@ -183,6 +183,10 @@ export interface MultiSelectTemplates {
         options: ScrollerOptions;
     }): TemplateRef<{ options: ScrollerOptions }>;
     /**
+     * Custom dropdown template.
+     */
+    dropdown(): TemplateRef<any>;
+    /**
      * Custom dropdown trigger icon template.
      */
     dropdownicon(): TemplateRef<any>;
