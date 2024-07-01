@@ -1849,7 +1849,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
 
-    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number) {
+    selectRange(event: MouseEvent | KeyboardEvent, rowIndex: number, isCtrlASelection? : boolean | undefined) {
         let rangeStart, rangeEnd;
 
         if (<number>this.anchorRowIndex > rowIndex) {
@@ -1871,12 +1871,14 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         let rangeRowsData = [];
         for (let i = <number>rangeStart; i <= <number>rangeEnd; i++) {
             let rangeRowData = this.filteredValue ? this.filteredValue[i] : this.value[i];
-            if (!this.isSelected(rangeRowData)) {
+            if (!this.isSelected(rangeRowData) && !isCtrlASelection) {
                 if (!this.isRowSelectable(rangeRowData, rowIndex)) {
                     continue;
                 }
 
                 rangeRowsData.push(rangeRowData);
+
+                this._selection = [...this.selection, rangeRowData];
 
                 let dataKeyValue = this.dataKey ? String(ObjectUtils.resolveFieldData(rangeRowData, this.dataKey)) : null;
                 if (dataKeyValue) {
@@ -3632,7 +3634,7 @@ export class SelectableRow implements OnInit, OnDestroy {
                 if (event.code === 'KeyA' && (event.metaKey || event.ctrlKey) && this.dt.selectionMode === 'multiple') {
                     const data = this.dt.dataToRender(this.dt.processedData);
                     this.dt.selection = [...data];
-                    this.dt.selectRange(event, data.length - 1);
+                    this.dt.selectRange(event, data.length - 1, true);
 
                     event.preventDefault();
                 }
