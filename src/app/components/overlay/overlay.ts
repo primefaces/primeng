@@ -574,13 +574,14 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
-            this.documentClickListener = this.renderer.listen(this.document, 'click', (event) => {
+            this.documentClickListener = this.renderer.listen(this.document, 'mousedown', (event) => {
+                this.isOverlayClicked = this.overlayEl?.isSameNode(event.target);
+                this.isOverlayContentClicked = this.overlayEl?.contains(event.target);
                 const isTargetClicked = this.targetEl && (this.targetEl.isSameNode(event.target) || (!this.isOverlayClicked && this.targetEl.contains(event.target)));
                 const isOutsideClicked = !isTargetClicked && !this.isOverlayContentClicked;
                 const valid = this.listener ? this.listener(event, { type: 'outside', mode: this.overlayMode, valid: event.which !== 3 && isOutsideClicked }) : isOutsideClicked;
 
-                valid && this.hide(event);
-                this.isOverlayClicked = this.isOverlayContentClicked = false;
+                valid && this.hide();
             });
         }
     }
