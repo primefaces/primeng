@@ -5187,7 +5187,7 @@ export class ReorderableRow implements AfterViewInit {
                             <ng-template *ngTemplateOutlet="addRuleIconTemplate"></ng-template>
                         </button>
                     </div>
-                    <div class="p-column-filter-buttonbar">
+                    <div class="p-column-filter-buttonbar" *ngIf="showButtons">
                         <button #clearBtn *ngIf="showClearButton" type="button" pButton class="p-button-outlined p-button-sm" (click)="clearFilter()" [attr.aria-label]="clearButtonLabel" [label]="clearButtonLabel" pRipple></button>
                         <button *ngIf="showApplyButton" type="button" pButton (click)="applyFilter()" class="p-button-sm" [label]="applyButtonLabel" pRipple [attr.aria-label]="applyButtonLabel"></button>
                     </div>
