@@ -2684,20 +2684,46 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     incrementHour(event: any) {
+        this.incrementHourNoEvent();
+        event.preventDefault();
+    }
+
+    private incrementHourNoEvent(step?: number) {
         const prevHour = this.currentHour ?? 0;
-        let newHour = (this.currentHour ?? 0) + this.stepHour;
+        let newHour = (this.currentHour ?? 0) + (step ?? this.stepHour);
         let newPM = this.pm;
-        if (this.hourFormat == '24') newHour = newHour >= 24 ? newHour - 24 : newHour;
-        else if (this.hourFormat == '12') {
+        let addDay = false;
+        if (this.hourFormat == '24') {
+            if (newHour >= 24) {
+                newHour = newHour - 24;
+                addDay = true;
+            }
+        } else if (this.hourFormat == '12') {
             // Before the AM/PM break, now after
             if (prevHour < 12 && newHour > 11) {
                 newPM = !this.pm;
             }
-            newHour = newHour >= 13 ? newHour - 12 : newHour;
+            if (newHour >= 13) {
+                newHour = newHour - 12;
+                addDay = !this.pm;
+            }
+            if (newPM === false && this.pm === true) {
+                addDay = true;
+            }
         }
         this.toggleAMPMIfNotMinDate(newPM);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
-        event.preventDefault();
+        if (addDay) {
+            this.addRemoveDays(1);
+        }
+    }
+
+    private addRemoveDays(days: number) {
+        if (!this.isMultipleSelection() && !this.isRangeSelection()) {
+            if (this.value instanceof Date) {
+                this.value.setDate(this.value.getDate() + days);
+            }
+        }
     }
 
     toggleAMPMIfNotMinDate(newPM: boolean) {
@@ -2773,47 +2799,107 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     decrementHour(event: any) {
-        let newHour = (this.currentHour ?? 0) - this.stepHour;
+        this.decrementHourNoEvent();
+        event.preventDefault();
+    }
+
+    private decrementHourNoEvent(step?: number) {
+        let newHour = (this.currentHour ?? 0) - (step ?? this.stepHour);
         let newPM = this.pm;
-        if (this.hourFormat == '24') newHour = newHour < 0 ? 24 + newHour : newHour;
-        else if (this.hourFormat == '12') {
+        let removeDay = false;
+        if (this.hourFormat == '24') {
+            if (newHour < 0) {
+                newHour = 24 + newHour;
+                removeDay = true;
+            }
+        } else if (this.hourFormat == '12') {
             // If we were at noon/midnight, then switch
             if (this.currentHour === 12) {
                 newPM = !this.pm;
             }
-            newHour = newHour <= 0 ? 12 + newHour : newHour;
+            if (newHour <= 0) {
+                newHour = 12 + newHour;
+            }
+            if (newPM === true && this.pm === false) {
+                removeDay = true;
+            }
         }
         this.toggleAMPMIfNotMinDate(newPM);
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(newHour, this.currentMinute!, this.currentSecond!, newPM!);
-        event.preventDefault();
+        if (removeDay) {
+            this.addRemoveDays(-1);
+        }
     }
 
     incrementMinute(event: any) {
-        let newMinute = (this.currentMinute ?? 0) + this.stepMinute;
-        newMinute = newMinute > 59 ? newMinute - 60 : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
+        this.incrementMinuteNoEvent();
         event.preventDefault();
+    }
+
+    private incrementMinuteNoEvent(step?: number) {
+        let newMinute = (this.currentMinute ?? 0) + (step ?? this.stepMinute);
+        let addHour = false;
+        if (newMinute > 59) {
+            addHour = true;
+            newMinute = newMinute - 60;
+        }
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond!, this.pm!);
+        if (addHour) {
+            this.incrementHourNoEvent(1);
+        }
     }
 
     decrementMinute(event: any) {
-        let newMinute = (this.currentMinute ?? 0) - this.stepMinute;
-        newMinute = newMinute < 0 ? 60 + newMinute : newMinute;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
+        this.decrementMinuteNoEvent();
         event.preventDefault();
+    }
+
+    private decrementMinuteNoEvent(step?: number) {
+        let newMinute = (this.currentMinute ?? 0) - (step ?? this.stepMinute);
+        let removeHour = false;
+        if (newMinute < 0) {
+            newMinute = 60 + newMinute;
+            removeHour = true;
+        }
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, newMinute, this.currentSecond, this.pm);
+        if (removeHour) {
+            this.decrementHourNoEvent(1);
+        }
     }
 
     incrementSecond(event: any) {
-        let newSecond = <any>this.currentSecond + this.stepSecond;
-        newSecond = newSecond > 59 ? newSecond - 60 : newSecond;
-        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        this.incrementSecondNoEvent();
         event.preventDefault();
     }
 
-    decrementSecond(event: any) {
-        let newSecond = <any>this.currentSecond - this.stepSecond;
-        newSecond = newSecond < 0 ? 60 + newSecond : newSecond;
+    private incrementSecondNoEvent() {
+        let newSecond = <any>this.currentSecond + this.stepSecond;
+        let addMinute = false;
+        if (newSecond > 59) {
+            newSecond = newSecond - 60;
+            addMinute = true;
+        }
         [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+
+        if (addMinute) {
+            this.incrementMinuteNoEvent(1);
+        }
+    }
+
+    decrementSecond(event: any) {
+        this.decrementSecondNoEvent();
         event.preventDefault();
+    }
+
+    private decrementSecondNoEvent() {
+        let newSecond = <any>this.currentSecond - this.stepSecond;
+        let removeMinute = false;
+        if (newSecond < 0) {
+            newSecond = 60 + newSecond;
+            removeMinute = true;
+        }
+        [this.currentHour, this.currentMinute, this.currentSecond] = this.constrainTime(this.currentHour, this.currentMinute, newSecond, this.pm);
+        this.decrementMinuteNoEvent(1);
     }
 
     updateTime() {
