@@ -176,6 +176,7 @@ export class MultiSelectItem {
                     (keydown)="onKeyDown($event)"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [attr.value]="label() || 'empty'"
                 />
             </div>
             <div
