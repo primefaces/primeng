@@ -10,6 +10,8 @@ import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { ButtonModule } from '../button/button';
 import { ButtonProps } from 'primeng/button';
+import { BaseComponent } from 'primeng/basecomponent';
+import fieldsetStyle from './style/fieldsetstyle';
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -57,7 +59,7 @@ import { ButtonProps } from 'primeng/button';
                     </p-button>
                 </ng-container>
                 <ng-template #legendContent>
-                    <span class="p-fieldset-legend-text" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
+                    <span class="p-fieldset-legend-label" [attr.data-pc-section]="'legendtitle'">{{ legend }}</span>
                     <ng-content select="p-header"></ng-content>
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                 </ng-template>
@@ -65,7 +67,7 @@ import { ButtonProps } from 'primeng/button';
             <div
                 [attr.id]="id + '_content'"
                 role="region"
-                class="p-toggleable-content"
+                class="p-fieldset-content-container"
                 [@fieldsetContent]="collapsed ? { value: 'hidden', params: { transitionParams: transitionOptions, height: '0' } } : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*' } }"
                 [attr.aria-labelledby]="id + '_header'"
                 [attr.aria-hidden]="collapsed"
@@ -99,12 +101,11 @@ import { ButtonProps } from 'primeng/button';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./fieldset.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Fieldset implements AfterContentInit, BlockableUI {
+export class Fieldset extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Header text of the fieldset.
      * @group Props
@@ -180,7 +181,7 @@ export class Fieldset implements AfterContentInit, BlockableUI {
 
     expandIconTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) {}
+    _componentStyle = fieldsetStyle;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

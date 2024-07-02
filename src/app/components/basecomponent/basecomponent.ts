@@ -1,5 +1,5 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, Injector, Input, PLATFORM_ID, SimpleChanges, untracked } from '@angular/core';
+import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges, untracked } from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import BaseComponentStyle from './style/basecomponentstyle';
@@ -22,6 +22,8 @@ export class BaseComponent {
 
     public readonly cd: ChangeDetectorRef = inject(ChangeDetectorRef);
 
+    public renderer: Renderer2 = inject(Renderer2);
+
     public config: PrimeNGConfig = inject(PrimeNGConfig);
 
     public scopedStyleEl: any;
@@ -43,8 +45,6 @@ export class BaseComponent {
     }
 
     attrSelector = UniqueComponentId('pc');
-
-    constructor() {}
 
     _getHostInstance(instance) {
         if (instance) {
@@ -98,7 +98,6 @@ export class BaseComponent {
         if (!Base.isStyleNameLoaded('base') && this._name) {
             BaseComponentStyle.loadCSS(this.document, this.styleOptions);
             this.componentStyle && this.componentStyle?.loadCSS(this.document, this.styleOptions);
-
             Base.setLoadedStyleName(this.componentStyle?.name);
         }
     }

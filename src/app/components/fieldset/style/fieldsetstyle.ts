@@ -69,6 +69,16 @@ const theme = ({ dt }) => `
 .p-fieldset .p-fieldset-content {
     padding: ${dt('fieldset.content.padding')};
 }
+
+// For PrimeNG
+
+.p-fieldset-toggleable.p-fieldset-expanded > .p-fieldset-content-container:not(.ng-animating) {
+    overflow: visible
+}
+
+.p-fieldset-toggleable .p-fieldset-content-container {
+    overflow: hidden;
+}
 `;
 
 const classes = {

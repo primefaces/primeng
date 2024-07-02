@@ -87,6 +87,7 @@ import panel from './panel';
 import card from './card';
 import divider from './divider';
 import checkbox from './checkbox';
+import fieldset from './fieldset';
 
 export default {
     primitive: {
@@ -468,7 +469,8 @@ export default {
         panel,
         card,
         divider,
-        checkbox
+        checkbox,
+        fieldset
     }
     // directives: {
     //     tooltip,

@@ -44,14 +44,7 @@ import Aura from '@themes/aura';
     ]
 })
 export class AppComponent implements OnInit {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        private primeng: PrimeNGConfig,
-        private configService: AppConfigService,
-        private router: Router,
-        @Inject(PLATFORM_ID) private platformId: any
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
@@ -60,7 +53,7 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
 
-        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '.p-dark' } });
+        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '' } });
     }
 
     ngOnInit(): void {
