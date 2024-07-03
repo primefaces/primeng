@@ -887,7 +887,6 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
                       .map((option) => this.getOptionValue(option));
 
             this.updateModel(value, event);
-            this.onChange.emit({ originalEvent: event, value: this.value });
         }
 
         event.preventDefault();

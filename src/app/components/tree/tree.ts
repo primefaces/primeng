@@ -134,7 +134,7 @@ import {
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="tree">
+                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -635,10 +635,19 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
     }
 
+    isActionableElement(event) {
+        const target = event.target;
+
+        const isActionable = target instanceof HTMLElement && (target.nodeName == 'A' || target.nodeName == 'BUTTON');
+
+        return isActionable;
+    }
+
     onEnter(event: KeyboardEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
         this.setTabIndexForSelectionMode(event, this.tree.nodeTouched);
-        if (!(event.target instanceof HTMLElement && event.target.nodeName === 'A')) {
+
+        if (!this.isActionableElement(event)) {
             event.preventDefault();
         }
     }

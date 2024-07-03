@@ -23,7 +23,7 @@ import {
     booleanAttribute,
     signal
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronLeftIcon } from 'primeng/icons/chevronleft';
@@ -32,6 +32,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
+import { filter } from 'rxjs/operators';
 
 /**
  * TabMenu is a navigation component that displays items as tab headers.
@@ -250,7 +251,11 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         private router: Router,
         private route: ActivatedRoute,
         private cd: ChangeDetectorRef
-    ) {}
+    ) {
+        this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
+            this.cd.markForCheck();
+        });
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {

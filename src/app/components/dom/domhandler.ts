@@ -126,7 +126,7 @@ export class DomHandler {
         };
 
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
-        const targetHeight = target.offsetHeight;
+        const targetHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
         const targetOffset = target.getBoundingClientRect();
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();
@@ -168,8 +168,8 @@ export class DomHandler {
         const elementDimensions = element.offsetParent ? { width: element.offsetWidth, height: element.offsetHeight } : this.getHiddenElementDimensions(element);
         const elementOuterHeight = elementDimensions.height;
         const elementOuterWidth = elementDimensions.width;
-        const targetOuterHeight = target.offsetHeight;
-        const targetOuterWidth = target.offsetWidth;
+        const targetOuterHeight = target.offsetHeight ?? target.getBoundingClientRect().height;
+        const targetOuterWidth = target.offsetWidth ?? target.getBoundingClientRect().width;
         const targetOffset = target.getBoundingClientRect();
         const windowScrollTop = this.getWindowScrollTop();
         const windowScrollLeft = this.getWindowScrollLeft();

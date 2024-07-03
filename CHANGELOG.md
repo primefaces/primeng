@@ -1,4 +1,24 @@
 # Changelog
+## [17.18.2](https://github.com/primefaces/primeng/tree/17.18.2) (2024-06-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.2)
+
+**Fixed bugs:**
+- TabMenu: Highlight does not update when selecting routerLink to unloaded module [\#15012](https://github.com/primefaces/primeng/issues/15012)
+- p-dropdown: p-dropdown-open style is missing from dropdown [\#15762](https://github.com/primefaces/primeng/issues/15762)
+- Closing nested dialog removes CSS class still needed for parent dialog [\#15779](https://github.com/primefaces/primeng/issues/15779)
+- Component: Accordion [\#15851](https://github.com/primefaces/primeng/issues/15851)
+- Accessibility: Buttons within an Accordion header template can't be activated via Keyboard [\#15871](https://github.com/primefaces/primeng/issues/15871)
+- Menu: Alignment does not work for SVG path [\#15877](https://github.com/primefaces/primeng/issues/15877)
+- Tree hierarchy [\#15886](https://github.com/primefaces/primeng/issues/15886)
+- Accessibility: Buttons within a Tree component can't be activated via Keyboard [\#15889](https://github.com/primefaces/primeng/issues/15889)
+- Dynamic Dialog Errors If No Focusable Element (Maximum call stack size exceeded) [\#15894](https://github.com/primefaces/primeng/issues/15894)
+- Component p-listbox triggers onChange multiple times [\#15873](https://github.com/primefaces/primeng/issues/15873)
+- Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
+- PrimeNG Button Link stackblitz not working [\#15902](https://github.com/primefaces/primeng/issues/15902)
+- Doc: Steps close menu [\#14259](https://github.com/primefaces/primeng/issues/14259)
+- Component: Button -> pButton [\#15862](https://github.com/primefaces/primeng/issues/15862)
+- Password: When disabled allows to edit on focus tab [\#15905](https://github.com/primefaces/primeng/issues/15905)
+
 ## [17.18.1](https://github.com/primefaces/primeng/tree/17.18.1) (2024-06-13)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.1)
 
