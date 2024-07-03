@@ -2988,7 +2988,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
                 this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
-
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+                
                 let innerHTML = `
     @media screen and (max-width: ${this.breakpoint}) {
         #${this.id}-table > .p-datatable-thead > tr > th,
