@@ -1379,7 +1379,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
 
         this.onChange.emit({
-            originalEvent: event,
+            originalEvent: { ...event, selected: !event.selected },
             value: value,
             itemValue: option
         });
