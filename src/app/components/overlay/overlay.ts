@@ -66,7 +66,6 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
                 'p-overlay-right-start': modal && overlayResponsiveDirection === 'right-start',
                 'p-overlay-right-end': modal && overlayResponsiveDirection === 'right-end'
             }"
-            (click)="onOverlayClick()"
         >
             <div
                 *ngIf="visible"
@@ -471,17 +470,11 @@ export class Overlay implements AfterContentInit, OnDestroy {
         this.visibleChange.emit(visible);
     }
 
-    onOverlayClick() {
-        this.isOverlayClicked = true;
-    }
-
     onOverlayContentClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
             target: this.targetEl
         });
-
-        this.isOverlayContentClicked = true;
     }
 
     onOverlayContentAnimationStart(event: AnimationEvent) {
