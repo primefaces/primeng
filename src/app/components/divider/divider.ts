@@ -1,7 +1,6 @@
 import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
-import dividerStyle from './style/dividerstyle';
 /**
  * Divider is used to separate contents.
  * @group Components
@@ -47,8 +46,6 @@ export class Divider extends BaseComponent {
      * @group Props
      */
     @Input() align: 'left' | 'center' | 'right' | 'top' | 'center' | 'bottom' | undefined;
-
-    _componentStyle = dividerStyle;
 
     containerClass() {
         return {

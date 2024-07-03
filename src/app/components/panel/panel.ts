@@ -8,7 +8,6 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
-import { ButtonProps } from 'primeng/button';
 import { ButtonModule } from 'primeng/button';
 import panelstyle from './style/panelstyle';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -178,7 +177,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() toggleButtonProps: ButtonProps;
+    @Input() toggleButtonProps: any;
     /**
      * Emitted when the collapsed changes.
      * @param {boolean} value - New Value.

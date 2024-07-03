@@ -9,9 +9,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { ButtonModule } from '../button/button';
-import { ButtonProps } from 'primeng/button';
 import { BaseComponent } from 'primeng/basecomponent';
-import fieldsetStyle from './style/fieldsetstyle';
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -141,7 +139,7 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
      * Used to pass all properties of the buttonProps to the Button component.
      * @group Props
      */
-    @Input() toggleButtonProps: ButtonProps;
+    @Input() toggleButtonProps;
     /**
      * Emits when the collapsed state changes.
      * @param {boolean} value - New value.
@@ -180,8 +178,6 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
     collapseIconTemplate: Nullable<TemplateRef<any>>;
 
     expandIconTemplate: Nullable<TemplateRef<any>>;
-
-    _componentStyle = fieldsetStyle;
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

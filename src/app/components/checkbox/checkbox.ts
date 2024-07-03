@@ -29,7 +29,6 @@ import { ObjectUtils } from 'primeng/utils';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
 import { BaseComponent } from 'primeng/basecomponent';
-import checkboxStyle from './style/checkboxstyle';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -236,8 +235,6 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
     onModelTouched: Function = () => {};
 
     focused: boolean = false;
-
-    _componentStyle = checkboxStyle;
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.indeterminate) {
