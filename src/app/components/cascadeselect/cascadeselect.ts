@@ -662,6 +662,10 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
     processedOptions: string[] | string | undefined = [];
 
+    containerClickTimeout: any = null;
+
+    containerClickDebounceTime = 200;
+
     get containerClass() {
         return {
             'p-cascadeselect p-component p-inputwrapper': true,
@@ -1085,7 +1089,7 @@ export class CascadeSelect implements OnInit, AfterContentInit {
     }
 
     onContainerClick(event: MouseEvent) {
-        if (this.disabled || this.loading) {
+        if (this.disabled || this.loading || this.containerClickTimeout) {
             return;
         }
 
@@ -1098,6 +1102,19 @@ export class CascadeSelect implements OnInit, AfterContentInit {
 
             this.focusInputViewChild?.nativeElement.focus();
         }
+
+        this.containerClickTimeout = setTimeout(() => {
+            this.containerClickTimeout = null;
+
+            if (document?.activeElement !== this.focusInputViewChild?.nativeElement) {
+                this.focusInputViewChild?.nativeElement.focus();
+            }
+        }, this.containerClickDebounceTime);
+    }
+
+    cancelContainerClickTimeout(): void {
+        clearTimeout(this.containerClickTimeout);
+        this.containerClickTimeout = null;
     }
 
     isOptionMatched(processedOption) {
