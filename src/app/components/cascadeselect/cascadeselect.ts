@@ -1112,11 +1112,6 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         }, this.containerClickDebounceTime);
     }
 
-    cancelContainerClickTimeout(): void {
-        clearTimeout(this.containerClickTimeout);
-        this.containerClickTimeout = null;
-    }
-
     isOptionMatched(processedOption) {
         return this.isValidOption(processedOption) && this.getProccessedOptionLabel(processedOption).toLocaleLowerCase(this.searchLocale).startsWith(this.searchValue.toLocaleLowerCase(this.searchLocale));
     }
