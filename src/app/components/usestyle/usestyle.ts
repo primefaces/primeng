@@ -1,35 +1,42 @@
+import { DOCUMENT } from '@angular/common';
+import { Injectable, inject } from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 
 let _id = 0;
 
-export function useStyle(document: Document, css, options: any = {}) {
-    let isLoaded = false;
-    let cssRef = css;
-    let styleRef = null;
+@Injectable({ providedIn: 'root' })
+export class UseStyle {
+    document: Document = inject(DOCUMENT);
 
-    const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
+    _(css, options: any = {}) {
+        let isLoaded = false;
+        let cssRef = css;
+        let styleRef = null;
 
-    if (!document) return;
-    styleRef = document.querySelector(`style[data-primeng-style-id="${name}"]`) || document.getElementById(id) || document.createElement('style');
+        const { immediate = true, manual = false, name = `style_${++_id}`, id = undefined, media = undefined, nonce = undefined, first = false, props = {} } = options;
 
-    if (styleRef) {
-        cssRef = css;
-        DomHandler.setAttributes(styleRef, {
-            type: 'text/css',
-            media,
-            nonce
-        });
+        if (!this.document) return;
+        styleRef = this.document.querySelector(`style[data-primeng-style-id="${name}"]`) || this.document.getElementById(id) || this.document.createElement('style');
 
-        styleRef.innerHTML = cssRef;
+        if (styleRef) {
+            cssRef = css;
+            DomHandler.setAttributes(styleRef, {
+                type: 'text/css',
+                media,
+                nonce
+            });
 
-        first ? document.head.prepend(styleRef) : document.head.appendChild(styleRef);
-        DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
+            styleRef.innerHTML = cssRef;
+
+            first ? this.document.head.prepend(styleRef) : this.document.head.appendChild(styleRef);
+            DomHandler.setAttribute(styleRef, 'data-primeng-style-id', name);
+        }
+
+        return {
+            id,
+            name,
+            el: styleRef,
+            css: cssRef
+        };
     }
-
-    return {
-        id,
-        name,
-        el: styleRef,
-        css: cssRef
-    };
 }

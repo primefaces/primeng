@@ -1,6 +1,24 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformServer } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject
+} from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -9,7 +27,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
 import { PanelAfterToggleEvent, PanelBeforeToggleEvent } from './panel.interface';
 import { ButtonModule } from 'primeng/button';
-import panelstyle from './style/panelstyle';
+import { PanelStyle } from './style/panelstyle';
 import { BaseComponent } from 'primeng/basecomponent';
 
 /**
@@ -112,7 +130,8 @@ import { BaseComponent } from 'primeng/basecomponent';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [PanelStyle]
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -219,7 +238,7 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
         return this.header;
     }
 
-    _componentStyle = panelstyle;
+    _componentStyle = inject(PanelStyle);
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

@@ -1,5 +1,7 @@
 import { BaseStyle } from 'primeng/base';
+import { Injectable } from '@angular/core';
 
-export default BaseStyle.extend({
-    name: 'common'
-});
+@Injectable({ providedIn: 'root' })
+export class BaseComponentStyle extends BaseStyle {
+    name = 'common';
+}

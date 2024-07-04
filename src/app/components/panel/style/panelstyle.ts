@@ -1,6 +1,11 @@
+import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-const theme = ({ dt }) => `
+@Injectable()
+export class PanelStyle extends BaseStyle {
+    name = 'panel';
+
+    theme = ({ dt }) => `
 .p-panel {
     border: 1px solid ${dt('panel.border.color')};
     border-radius: ${dt('panel.border.radius')};
@@ -48,24 +53,19 @@ const theme = ({ dt }) => `
 }
 `;
 
-const classes = {
-    root: ({ props }) => [
-        'p-panel p-component',
-        {
-            'p-panel-toggleable': props.toggleable
-        }
-    ],
-    header: 'p-panel-header',
-    title: 'p-panel-title',
-    headerActions: 'p-panel-header-actions',
-    pcToggleButton: 'p-panel-toggle-button',
-    contentContainer: 'p-panel-content-container',
-    content: 'p-panel-content',
-    footer: 'p-panel-footer'
-};
-
-export default BaseStyle.extend({
-    name: 'panel',
-    theme,
-    classes
-});
+    classes = {
+        root: ({ props }) => [
+            'p-panel p-component',
+            {
+                'p-panel-toggleable': props.toggleable
+            }
+        ],
+        header: 'p-panel-header',
+        title: 'p-panel-title',
+        headerActions: 'p-panel-header-actions',
+        pcToggleButton: 'p-panel-toggle-button',
+        contentContainer: 'p-panel-content-container',
+        content: 'p-panel-content',
+        footer: 'p-panel-footer'
+    };
+}

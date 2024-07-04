@@ -1,8 +1,15 @@
+import { Injectable, inject } from '@angular/core';
 import { Theme, dt } from 'primeng/themes';
-import { useStyle } from 'primeng/usestyle';
+import { UseStyle } from 'primeng/usestyle';
 import { ObjectUtils } from 'primeng/utils';
 
-const theme = ({ dt }) => `
+@Injectable({ providedIn: 'root' })
+export class BaseStyle {
+    name = 'base';
+
+    useStyle: UseStyle = inject(UseStyle);
+
+    theme = ({ dt }) => `
 * {
     box-sizing: border-box;
 }
@@ -123,7 +130,7 @@ const theme = ({ dt }) => `
 }
 `;
 
-const css = ({ dt }) => `
+    css = ({ dt }) => `
 .p-hidden-accessible {
     border: 0;
     clip: rect(0 0 0 0);
@@ -146,42 +153,44 @@ const css = ({ dt }) => `
 }
 `;
 
-const classes = {};
+    classes = {};
 
-const inlineStyles = {};
+    inlineStyles = {};
 
-export default {
-    name: 'base',
-    css,
-    theme,
-    classes,
-    inlineStyles,
-    load(document, style, options = {}, transform = (cs) => cs) {
+    load = (style, options = {}, transform = (cs) => cs) => {
         const computedStyle = transform(ObjectUtils.getItemValue(style, { dt }));
-        return computedStyle ? useStyle(document, ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
-    },
-    loadCSS(document, options = {}) {
-        return this.load(document, this.css, options);
-    },
-    loadTheme(document, options: any = {}) {
-        return this.load(document, this.theme, options, (computedStyle) => Theme.transformCSS(options.name || this.name, computedStyle));
-    },
-    getCommonTheme(params?) {
+        return computedStyle ? this.useStyle._(ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
+    };
+
+    loadCSS = (options = {}) => {
+        return this.load(this.css, options);
+    };
+
+    loadTheme = (options: any = {}) => {
+        return this.load(this.theme, options, (computedStyle) => Theme.transformCSS(options.name || this.name, computedStyle));
+    };
+
+    getCommonTheme = (params?) => {
         return Theme.getCommon(this.name, params);
-    },
-    getComponentTheme(params) {
+    };
+
+    getComponentTheme = (params) => {
         return Theme.getComponent(this.name, params);
-    },
-    getDirectiveTheme(params) {
+    };
+
+    getDirectiveTheme = (params) => {
         return Theme.getDirective(this.name, params);
-    },
-    getPresetTheme(preset, selector, params) {
+    };
+
+    getPresetTheme = (preset, selector, params) => {
         return Theme.getCustomPreset(this.name, preset, selector, params);
-    },
-    getLayerOrderThemeCSS() {
+    };
+
+    getLayerOrderThemeCSS = () => {
         return Theme.getLayerOrderCSS(this.name);
-    },
-    getStyleSheet(extendedCSS = '', props = {}) {
+    };
+
+    getStyleSheet = (extendedCSS = '', props = {}) => {
         if (this.css) {
             const _css = ObjectUtils.getItemValue(this.css, { dt });
             const _style = ObjectUtils.minifyCSS(`${_css}${extendedCSS}`);
@@ -193,11 +202,13 @@ export default {
         }
 
         return '';
-    },
-    getCommonThemeStyleSheet(params, props = {}) {
+    };
+
+    getCommonThemeStyleSheet = (params, props = {}) => {
         return Theme.getCommonStyleSheet(this.name, params, props);
-    },
-    getThemeStyleSheet(params, props = {}) {
+    };
+
+    getThemeStyleSheet = (params, props = {}) => {
         let css = [Theme.getStyleSheet(this.name, params, props)];
 
         if (this.theme) {
@@ -212,8 +223,9 @@ export default {
         }
 
         return css.join('');
-    },
-    extend(style) {
-        return { ...this, css: undefined, theme: undefined, ...style };
-    }
-};
+    };
+
+    // extend(style) {
+    //     return { ...this, css: undefined, theme: undefined, ...style };
+    // }
+}

@@ -1,2 +1,1 @@
-import { useStyle } from './usestyle';
-export { useStyle };
+export * from './usestyle';

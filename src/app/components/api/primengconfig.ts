@@ -7,88 +7,19 @@ import { Theme, ThemeService } from 'primeng/themes';
 import { BaseStyle } from 'primeng/base';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
-import Aura from '@themes/aura';
+import { ThemeProvider } from './themeprovider';
 
 @Injectable({ providedIn: 'root' })
-export class PrimeNGConfig {
+export class PrimeNGConfig extends ThemeProvider {
     ripple: boolean = false;
+
     public platformId: any = inject(PLATFORM_ID);
-    public document: Document = inject(DOCUMENT);
 
     inputStyle = signal<'outlined' | 'filled'>('outlined');
 
     overlayOptions: OverlayOptions = {};
 
     csp = signal<{ nonce: string | undefined }>({ nonce: undefined });
-    // @todo define type for theme
-    theme = signal<any>(undefined);
-
-    isThemeChanged: boolean = false;
-
-    constructor() {
-        // effect(
-        //     () => {
-        //         ThemeService.on('theme:change', (newTheme) => {
-        //             this.isThemeChanged = true;
-        //             // this.theme.set(newTheme);
-        //             this.onThemeChange(this.theme());
-        //             console.log('changed');
-        //         });
-        //         // untracked(() => this.theme());
-        //     },
-        //     { allowSignalWrites: true }
-        // );
-        // effect(
-        //     () => {
-        //         if (this.document && this.theme() && !this.isThemeChanged) {
-        //             this.onThemeChange(this.theme());
-        //             this.isThemeChanged = false;
-        //         }
-        //     },
-        //     { allowSignalWrites: true }
-        // );
-        effect(
-            () => {
-                ThemeService.on('theme:change', (newTheme) => {
-                    untracked(() => {
-                        this.isThemeChanged = true;
-                        this.theme.set(newTheme);
-                        // this.onThemeChange(this.theme());
-                    });
-                });
-            },
-            { allowSignalWrites: true }
-        );
-        effect(() => {
-            const themeValue = this.theme();
-            if (this.document && themeValue) {
-                if (!this.isThemeChanged) {
-                    this.onThemeChange(themeValue);
-                }
-                this.isThemeChanged = false;
-            }
-        });
-    }
-
-    onThemeChange(value: any) {
-        Theme.setTheme(value);
-        if (this.document) {
-            this.loadCommonTheme();
-        }
-    }
-
-    loadCommonTheme() {
-        // common
-        if (!Theme.isStyleNameLoaded('common')) {
-            const { primitive, semantic } = BaseStyle.getCommonTheme?.() || {};
-            const styleOptions = { nonce: undefined };
-            BaseStyle.load(this.document, primitive?.css, { name: 'primitive-variables', ...styleOptions });
-            BaseStyle.load(this.document, semantic?.css, { name: 'semantic-variables', ...styleOptions });
-            BaseStyle.loadTheme(this.document, { name: 'global-style', ...styleOptions });
-
-            Theme.setLoadedStyleName('common');
-        }
-    }
 
     filterMatchModeOptions = {
         text: [FilterMatchMode.STARTS_WITH, FilterMatchMode.CONTAINS, FilterMatchMode.NOT_CONTAINS, FilterMatchMode.ENDS_WITH, FilterMatchMode.EQUALS, FilterMatchMode.NOT_EQUALS],
