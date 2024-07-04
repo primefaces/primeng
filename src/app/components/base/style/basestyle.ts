@@ -224,8 +224,4 @@ export class BaseStyle {
 
         return css.join('');
     };
-
-    // extend(style) {
-    //     return { ...this, css: undefined, theme: undefined, ...style };
-    // }
 }
