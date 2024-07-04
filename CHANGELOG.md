@@ -748,6 +748,20 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.12-LTS](https://www.npmjs.com/package/primeng/v/16.9.12-lts) (2024-07-04)
+
+**Fixed bugs:**
+- Splitter | Overflow issue [\#15959](https://github.com/primefaces/primeng/issues/15959)
+- Component: Multiselect - Provide removetokenicon hiding in case option is disabled (reopen) [\#15624](https://github.com/primefaces/primeng/issues/15624)
+- Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
+- Button Tooltip shows up after Dialog opens [\#15933](https://github.com/primefaces/primeng/issues/15933)
+- p-splitter: minSizes not working as expected [\#15943](https://github.com/primefaces/primeng/issues/15943)
+- p-splitter: Resize not working when iFrames are used in panels [\#15942](https://github.com/primefaces/primeng/issues/15942)
+- Component: InputNumber - Control update on strategy is ignored [\#12831](https://github.com/primefaces/primeng/issues/12831)
+- Component: InputNumber unneeded update model on blur [\#15799](https://github.com/primefaces/primeng/issues/15799)
+- p-multiselect: MultiSelectChangeEvent wrong select value [\#15954](https://github.com/primefaces/primeng/issues/15954)
+- Accessibility: Selection in MultiSelect is not accessible for screenreader [\#15930](https://github.com/primefaces/primeng/issues/15930)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.11-LTS](https://www.npmjs.com/package/primeng/v/16.9.11-lts) (2024-06-14)
 
 **Fixed bugs:**
