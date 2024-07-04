@@ -2722,6 +2722,14 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (!this.isMultipleSelection() && !this.isRangeSelection()) {
             if (this.value instanceof Date) {
                 this.value.setDate(this.value.getDate() + days);
+                if (this.months.length === 1) {
+                    if (this.months[0].month !== this.value.getMonth()) {
+                        this.months[0].month = this.value.getMonth();
+                    }
+                    if (this.months[0].year !== this.value.getFullYear()) {
+                        this.months[0].year = this.value.getFullYear();
+                    }
+                }
             }
         }
     }
