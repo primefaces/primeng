@@ -9,6 +9,7 @@
     }
 
     .p-splitter-panel {
+        overflow: hidden;
         flex-grow: 1;
     }
 
