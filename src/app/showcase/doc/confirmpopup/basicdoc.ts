@@ -19,7 +19,10 @@ import { Code } from '@domain/code';
     providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
+    ) {}
 
     confirm1(event: Event) {
         this.confirmationService.confirm({

@@ -22,7 +22,11 @@ export class PolarAreaDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService, private cd: ChangeDetectorRef) {
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private configService: AppConfigService,
+        private cd: ChangeDetectorRef
+    ) {
         this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
             this.initChart();
             this.cd.markForCheck();

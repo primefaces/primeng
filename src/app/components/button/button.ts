@@ -155,7 +155,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
+    constructor(
+        public el: ElementRef,
+        @Inject(DOCUMENT) private document: Document
+    ) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
