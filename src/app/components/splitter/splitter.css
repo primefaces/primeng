@@ -62,4 +62,8 @@
         width: 24px;
         height: 100%;
     }
+
+    .p-splitter-resizing .p-splitter-panel {
+        pointer-events: none;
+    }
 }
