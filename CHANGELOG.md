@@ -1,6 +1,6 @@
 # Changelog
 ## [17.18.3](https://github.com/primefaces/primeng/tree/17.18.3) (2024-07-04)
-[Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.3)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.2...17.18.3)
 
 **Fixed bugs:**
 - Splitter | Overflow issue [\#15959](https://github.com/primefaces/primeng/issues/15959)

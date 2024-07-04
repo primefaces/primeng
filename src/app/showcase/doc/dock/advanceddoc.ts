@@ -87,12 +87,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        private galleriaService: PhotoService,
-        private nodeService: NodeService,
-        private messageService: MessageService,
-        private terminalService: TerminalService
-    ) {}
+    constructor(private galleriaService: PhotoService, private nodeService: NodeService, private messageService: MessageService, private terminalService: TerminalService) {}
 
     ngOnInit() {
         this.dockItems = [

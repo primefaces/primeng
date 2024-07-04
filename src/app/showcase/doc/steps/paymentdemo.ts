@@ -45,10 +45,7 @@ import { Router } from '@angular/router';
 export class PaymentDemo implements OnInit {
     paymentInformation: any;
 
-    constructor(
-        public ticketService: TicketService,
-        private router: Router
-    ) {}
+    constructor(public ticketService: TicketService, private router: Router) {}
 
     ngOnInit() {
         this.paymentInformation = this.ticketService.ticketInformation.paymentInformation;
