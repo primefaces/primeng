@@ -164,6 +164,8 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
+    interactionInProgress = false;
+
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         public el: ElementRef,
@@ -339,24 +341,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     activate() {
-        this.active = true;
-        this.clearHideTimeout();
+        if (!this.interactionInProgress) {
+            this.active = true;
+            this.clearHideTimeout();
 
-        if (this.getOption('showDelay'))
-            this.showTimeout = setTimeout(() => {
-                this.show();
-            }, this.getOption('showDelay'));
-        else this.show();
+            if (this.getOption('showDelay'))
+                this.showTimeout = setTimeout(() => {
+                    this.show();
+                }, this.getOption('showDelay'));
+            else this.show();
 
-        if (this.getOption('life')) {
-            let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
-            this.hideTimeout = setTimeout(() => {
-                this.hide();
-            }, duration);
+            if (this.getOption('life')) {
+                let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
+                this.hideTimeout = setTimeout(() => {
+                    this.hide();
+                }, duration);
+            }
         }
+        this.interactionInProgress = true;
     }
 
     deactivate() {
+        this.interactionInProgress = false;
         this.active = false;
         this.clearShowTimeout();
 

@@ -195,7 +195,14 @@ export class MultiSelectItem {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
                                 <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
                                 <ng-container *ngIf="!disabled">
-                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+                                    <TimesCircleIcon
+                                        *ngIf="!removeTokenIconTemplate"
+                                        [ngClass]="{ 'p-disabled': isOptionDisabled(item) }"
+                                        [styleClass]="'p-multiselect-token-icon'"
+                                        (click)="removeOption(item, event)"
+                                        [attr.data-pc-section]="'clearicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
                                     <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                                         <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
                                     </span>
@@ -1182,15 +1189,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1379,7 +1378,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
 
         this.onChange.emit({
-            originalEvent: event,
+            originalEvent: { ...event, selected: !event.selected },
             value: value,
             itemValue: option
         });
