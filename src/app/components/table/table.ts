@@ -2974,8 +2974,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
     createStyleElement() {
         this.styleElement = this.renderer.createElement('style');
         this.styleElement.type = 'text/css';
-        this.renderer.appendChild(this.document.head, this.styleElement);
         DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
+        this.renderer.appendChild(this.document.head, this.styleElement);
     }
 
     getGroupRowsMeta() {
@@ -2987,8 +2987,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 this.responsiveStyleElement.type = 'text/css';
-                this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
                 DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
+                this.renderer.appendChild(this.document.head, this.responsiveStyleElement);
 
                 let innerHTML = `
     @media screen and (max-width: ${this.breakpoint}) {

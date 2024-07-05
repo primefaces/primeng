@@ -442,15 +442,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     translationSubscription: Subscription | undefined;
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private confirmationService: ConfirmationService,
-        public zone: NgZone,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        @Inject(DOCUMENT) private document: Document
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig, @Inject(DOCUMENT) private document: Document) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
@@ -611,6 +603,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.document.createElement('style');
             this.styleElement.type = 'text/css';
+            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.document.head.appendChild(this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -624,7 +617,6 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
             }
 
             this.styleElement.innerHTML = innerHTML;
-            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
