@@ -1169,15 +1169,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         return this.currentView === 'year' ? this.getTranslation('nextDecade') : this.currentView === 'month' ? this.getTranslation('nextYear') : this.getTranslation('nextMonth');
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private zone: NgZone,
-        private config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, private zone: NgZone, private config: PrimeNGConfig, public overlayService: OverlayService) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -3544,6 +3536,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
                 (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
+                DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
 
@@ -3576,7 +3569,6 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
             }
 
             (<HTMLStyleElement>this.responsiveStyleElement).innerHTML = innerHTML;
-            DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 
