@@ -22,7 +22,7 @@ import { TagModule } from 'primeng/tag';
             <span>{{ item.name }}</span>
             <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
-        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'exact', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
+        <a *ngIf="item.routerLink" [routerLink]="item.routerLink" routerLinkActive="router-link-active" [routerLinkActiveOptions]="{ paths: 'subset', queryParams: 'ignored', matrixParams: 'ignored', fragment: 'ignored' }">
             <div *ngIf="item.icon && root" class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
@@ -48,6 +48,6 @@ export class AppMenuItemComponent {
 
     isActiveRootMenuItem(menuitem: MenuItem): boolean {
         const url = this.router.url.split('#')[0];
-        return menuitem.children && !menuitem.children.some((item) => item.routerLink === `${url}` || (item.children && item.children.some((it) => it.routerLink === `${url}`)));
+        return menuitem.children && !menuitem.children.some((item) => url.includes(item.routerLink) || (item.children && item.children.some((it) => url.includes(it.routerLink))));
     }
 }

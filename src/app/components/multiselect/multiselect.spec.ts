@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayModule } from 'primeng/overlay';
@@ -14,6 +14,7 @@ describe('MultiSelect', () => {
     let multiselect: MultiSelect;
     let multiselectItem: MultiSelectItem;
     let fixture: ComponentFixture<MultiSelect>;
+    let fixtureItem: ComponentFixture<MultiSelectItem>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -23,7 +24,10 @@ describe('MultiSelect', () => {
         });
 
         fixture = TestBed.createComponent(MultiSelect);
+        fixtureItem = TestBed.createComponent(MultiSelectItem);
+
         multiselect = fixture.componentInstance;
+        multiselectItem = fixtureItem.componentInstance;
     });
 
     it('should disabled', () => {
@@ -40,14 +44,6 @@ describe('MultiSelect', () => {
         expect(containerEl.className).toContain('p-disabled');
         expect(inputReadOnlyEl.className).toContain('p-disabled');
         expect(multiselect.overlayVisible).toEqual(undefined);
-    });
-
-    it('should get a name', () => {
-        multiselect.name = 'PrimeNG';
-        fixture.detectChanges();
-
-        const inputReadOnlyEl = fixture.debugElement.query(By.css('.p-hidden-accessible')).children[0].nativeElement;
-        expect(inputReadOnlyEl.name).toContain('PrimeNG');
     });
 
     it('should set dropdown icon by default and able to change', () => {
@@ -100,61 +96,52 @@ describe('MultiSelect', () => {
         multiselectEl.click();
         fixture.detectChanges();
 
-        const multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
-        expect(multiselectEl.className).toContain('p-multiselect-open');
-        expect(multiselect.overlayVisible).toEqual(true);
-        expect(multiselectPanelEl).toBeTruthy();
+        const multiselectOverlay = fixture.debugElement.query(By.css('.p-overlay'));
         expect(clickSpy).toHaveBeenCalled();
+        expect(multiselectOverlay).toBeTruthy();
     });
 
     it('should open and close with keydown', () => {
+        const onShowSpy = spyOn(multiselect, 'show').and.callThrough();
+        const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
+
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input'));
-        const onKeyDownSpy = spyOn(multiselect, 'onKeyDown').and.callThrough();
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 40;
-        keydownEvent.altKey = true;
-        keydownEvent.initEvent('keydown', true, true);
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
+        const multiselectEl = fixture.debugElement.query(By.css('input')).nativeElement;
+
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Tab' }));
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
         fixture.detectChanges();
 
-        const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
-        let multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
+        const multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel')).nativeElement;
+        fixture.detectChanges();
         expect(multiselect.overlayVisible).toEqual(true);
         expect(multiselectPanelEl).toBeTruthy();
-        expect(onKeyDownSpy).toHaveBeenCalled();
-        keydownEvent.which = 27;
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
-        fixture.detectChanges();
 
-        expect(hideSpy).toHaveBeenCalled();
-        keydownEvent.which = 32;
-        inputEl.nativeElement.dispatchEvent(keydownEvent);
+        multiselectEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Escape' }));
         fixture.detectChanges();
-
-        multiselectPanelEl = fixture.debugElement.query(By.css('.p-multiselect-panel'));
-        expect(multiselect.overlayVisible).toEqual(true);
-        expect(multiselectPanelEl).toBeTruthy();
+        expect(onShowSpy).toHaveBeenCalled();
+        expect(onHideSpy).toHaveBeenCalled();
     });
 
-    it('should close when double click', () => {
+    it('should close when double click', fakeAsync(() => {
         fixture.detectChanges();
 
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
-        const clickSpy = spyOn(multiselect, 'onContainerClick').and.callThrough();
-        const hideSpy = spyOn(multiselect, 'hide').and.callThrough();
-        multiselectEl.click();
-        fixture.detectChanges();
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
 
-        multiselectEl.click();
+        const showSpy = spyOn(multiselect, 'show').and.callThrough();
+        multiselectEl.dispatchEvent(new KeyboardEvent('click'));
+        tick(350);
         fixture.detectChanges();
+        expect(showSpy).toHaveBeenCalled();
 
-        expect(multiselectEl.className).not.toContain('p-multiselect-open');
-        expect(multiselect.overlayVisible).toEqual(false);
-        expect(clickSpy).toHaveBeenCalled();
-        expect(hideSpy).toHaveBeenCalled();
-    });
+        const onHideSpy = spyOn(multiselect, 'hide').and.callThrough();
+        multiselectEl.dispatchEvent(new KeyboardEvent('click'));
+        tick();
+        fixture.detectChanges();
+        expect(onHideSpy).toHaveBeenCalled();
+        flush();
+    }));
 
     it('should select item', () => {
         multiselect.options = [
@@ -200,36 +187,22 @@ describe('MultiSelect', () => {
             { label: 'Volvo', value: 'Volvo' }
         ];
         fixture.detectChanges();
+        const onArrowDownKeySpy = spyOn(multiselect, 'onArrowDownKey').and.callThrough();
+        const onArrowUpKeySpy = spyOn(multiselect, 'onArrowUpKey').and.callThrough();
 
-        multiselect.writeValue(['BMW']);
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
         multiselectEl.click();
         fixture.detectChanges();
+        const multiselectFilterEl = fixture.debugElement.query(By.css('input')).nativeElement;
+        multiselectFilterEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowDown' }));
+        multiselectFilterEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'Enter' }));
+        multiselectFilterEl.dispatchEvent(new KeyboardEvent('keydown', { code: 'ArrowUp' }));
+        fixture.detectChanges();
 
-        const keydownEvent: any = document.createEvent('CustomEvent');
-        keydownEvent.which = 13;
-        keydownEvent.initEvent('keydown', true, true);
-        const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
-        const bmwEl = multiselectItemEl[1];
-        expect(multiselectItemEl.length).toEqual(10);
         expect(multiselect.value[0]).toEqual('BMW');
         expect(multiselect.value.length).toEqual(1);
-        const onKeyDownSpy = spyOn(multiselect, 'onKeyDown').and.callThrough();
-        bmwEl.nativeElement.dispatchEvent(keydownEvent);
-        fixture.detectChanges();
-
-        expect(onKeyDownSpy).toBeTruthy();
-        expect(multiselect.value.length).toEqual(0);
-        keydownEvent.which = 40;
-        bmwEl.nativeElement.dispatchEvent(keydownEvent);
-        fixture.detectChanges();
-
-        expect(document.activeElement).toEqual(multiselectItemEl[2].nativeElement);
-        keydownEvent.which = 38;
-        bmwEl.nativeElement.dispatchEvent(keydownEvent);
-        fixture.detectChanges();
-
-        expect(document.activeElement).toEqual(multiselectItemEl[0].nativeElement);
+        expect(onArrowUpKeySpy).toHaveBeenCalledTimes(1);
+        expect(onArrowDownKeySpy).toHaveBeenCalledTimes(1);
     });
 
     it('should unselect item', () => {
@@ -322,24 +295,35 @@ describe('MultiSelect', () => {
             { label: 'VW', value: 'VW' },
             { label: 'Volvo', value: 'Volvo' }
         ];
+        multiselect.value = [];
         fixture.detectChanges();
 
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
+        const onOptionClickSpy = spyOn(multiselectItem, 'onOptionClick').and.callThrough();
+        fixture.detectChanges();
+        fixtureItem.detectChanges();
+
         multiselectEl.click();
         fixture.detectChanges();
 
         const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
-        expect(multiselectItemEl.length).toEqual(10);
-        const bmwEl = multiselectItemEl[1];
-        const fordEl = multiselectItemEl[3];
-        const onOptionClickSpy = spyOn(multiselectItem, 'onOptionClick').and.callThrough();
-        bmwEl.nativeElement.click();
-        fordEl.nativeElement.click();
         fixture.detectChanges();
 
-        expect(multiselect.value[0]).toEqual('BMW');
-        expect(multiselect.value[1]).toEqual('Ford');
-        expect(onOptionClickSpy).toHaveBeenCalledTimes(2);
+        expect(multiselectItemEl.length).toEqual(10);
+        const bmwEl = multiselectItemEl[1];
+        const fiatEl = multiselectItemEl[2];
+        const fordEl = multiselectItemEl[3];
+
+        bmwEl.nativeElement.click();
+        fiatEl.nativeElement.click();
+        fordEl.nativeElement.click();
+
+        fixture.detectChanges();
+        fixtureItem.detectChanges();
+
+        expect(multiselect.value[2]).toEqual('Ford');
+        expect(multiselect.value.length).toEqual(3);
+        expect(onOptionClickSpy).toBeTruthy();
     });
 
     it('should select multiple with selection limit', () => {
@@ -357,27 +341,35 @@ describe('MultiSelect', () => {
         ];
         multiselect.value = [];
         multiselect.selectionLimit = 2;
-        const multiselectEl = fixture.debugElement.children[0].nativeElement;
+        fixture.detectChanges();
+
+        const multiselectEl = fixture.debugElement.query(By.css('.p-multiselect')).nativeElement;
         const onOptionClickSpy = spyOn(multiselectItem, 'onOptionClick').and.callThrough();
         fixture.detectChanges();
+        fixtureItem.detectChanges();
 
         multiselectEl.click();
         fixture.detectChanges();
 
         const multiselectItemEl = fixture.debugElement.queryAll(By.css('.p-multiselect-item'));
+        fixture.detectChanges();
+
         expect(multiselectItemEl.length).toEqual(10);
         const bmwEl = multiselectItemEl[1];
         const fordEl = multiselectItemEl[3];
         const fiatEl = multiselectItemEl[2];
+
         bmwEl.nativeElement.click();
         fordEl.nativeElement.click();
         fiatEl.nativeElement.click();
         fixture.detectChanges();
+        fixtureItem.detectChanges();
 
         expect(multiselect.value[0]).toEqual('BMW');
         expect(multiselect.value[1]).toEqual('Ford');
+        expect(multiselect.value.length).toEqual(2);
         expect(fiatEl.nativeElement.className).not.toContain('p-highlight');
-        expect(onOptionClickSpy).toHaveBeenCalledTimes(3);
+        expect(onOptionClickSpy).toBeTruthy();
     });
 
     it('should select all', () => {

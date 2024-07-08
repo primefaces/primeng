@@ -5,10 +5,10 @@ import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ButtonModule } from 'primeng/button';
-import { OverlayModule } from 'primeng/overlay';
-import { AutoComplete } from './autocomplete';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { OverlayModule } from 'primeng/overlay';
+import { AutoComplete } from './autocomplete';
 
 @Component({
     template: `<p-autoComplete [(ngModel)]="brand" [suggestions]="filteredBrands" (completeMethod)="filterBrands($event)"></p-autoComplete>
@@ -17,7 +17,10 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 })
 class TestAutocompleteComponent {
     brands: string[] = ['Audi', 'BMW', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Mercedes', 'Renault', 'Volvo', 'VW'];
-    cars: any[] = [{ brand: 'Volvo' }, { brand: 'VW' }];
+    cars: any[] = [
+        { id: 1, brand: 'Volvo' },
+        { id: 2, brand: 'VW' }
+    ];
     filteredBrands: any[];
     filteredCars: any[];
     brand: string;
@@ -473,6 +476,33 @@ describe('AutoComplete', () => {
         flush();
     }));
 
+    it('should set the optionValue property as value', fakeAsync(() => {
+        autocomplete2.optionValue = 'id';
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('.p-inputtext.p-component'));
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
+        inputEl.nativeElement.focus();
+        inputEl.nativeElement.click();
+        fixture.detectChanges();
+
+        const onOptionSelectSpy = spyOn(autocomplete2, 'onOptionSelect').and.callThrough();
+        inputEl.nativeElement.value = 'v';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        const firstItemEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('li')).nativeElement;
+        firstItemEl.click();
+        fixture.detectChanges();
+        expect(autocomplete2.value).toEqual(1);
+        expect(onOptionSelectSpy).toHaveBeenCalled();
+        expect(testComponent.car).toEqual(autocomplete2.value);
+        flush();
+    }));
+
     it('should multiple', () => {
         autocomplete.multiple = true;
         fixture.detectChanges();
@@ -601,6 +631,37 @@ describe('AutoComplete', () => {
 
         expect(autocomplete.value[0]).toEqual(undefined);
         expect(autocomplete.value.length).toEqual(0);
+        flush();
+    }));
+
+    it('should select property with multiSelect and optionValue', fakeAsync(() => {
+        autocomplete2.multiple = true;
+        autocomplete2.optionValue = 'id';
+        autocomplete2.optionLabel = 'brand';
+        autocomplete2.forceSelection = true;
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.queryAll(By.css('p-autoComplete'))[1].query(By.css('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('focus'));
+        inputEl.nativeElement.click();
+        fixture.detectChanges();
+
+        const onOptionSelectSpy = spyOn(autocomplete2, 'onOptionSelect').and.callThrough();
+        inputEl.nativeElement.value = 'v';
+        inputEl.nativeElement.dispatchEvent(new Event('keydown'));
+        inputEl.nativeElement.dispatchEvent(new Event('input'));
+        inputEl.nativeElement.dispatchEvent(new Event('keyup'));
+        tick(300);
+        fixture.detectChanges();
+
+        inputEl.nativeElement.dispatchEvent(new Event('change'));
+        const firstItemEl = fixture.debugElement.queryAll(By.css('li'))[1].nativeElement;
+        firstItemEl.click();
+        fixture.detectChanges();
+        expect(autocomplete2.value[0]).toEqual(1);
+        expect(autocomplete2.value.length).toEqual(1);
+        expect(onOptionSelectSpy).toHaveBeenCalled();
+        expect(testComponent.car).toEqual(autocomplete2.value);
         flush();
     }));
 

@@ -124,7 +124,10 @@ export class FilterBasicDoc {
 
     activityValues: number[] = [0, 100];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -473,10 +476,6 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [TableModule, TagModule, IconFieldModule, InputTextModule, InputIconModule, MultiSelectModule, DropdownModule, HttpClientModule, CommonModule],
     providers: [CustomerService]
-})
-@Component({
-    selector: 'table-filter-basic-demo',
-    templateUrl: 'table-filter-basic-demo.html'
 })
 export class TableFilterBasicDemo implements OnInit {
     customers!: Customer[];

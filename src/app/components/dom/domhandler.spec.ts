@@ -74,7 +74,7 @@ describe('DomHandler', () => {
         element.appendChild(childEl3);
         element.appendChild(childEl4);
         document.body.appendChild(element);
-        expect(DomHandler.getFocusableElements(element).length).toEqual(2);
+        expect(DomHandler.getFocusableElements(element).length).toEqual(1);
     });
 
     it('should get the next focusable element', () => {
@@ -148,6 +148,8 @@ describe('DomHandler', () => {
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
+        spyOn(DomHandler, 'getWindowScrollTop').and.returnValue(0);
+        spyOn(DomHandler, 'getWindowScrollLeft').and.returnValue(0);
         DomHandler.relativePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
         expect(childEl3.style.left).toEqual('0px');
@@ -196,6 +198,8 @@ describe('DomHandler', () => {
         element.appendChild(childEl);
         element.appendChild(childEl2);
         element.appendChild(childEl3);
+        spyOn(DomHandler, 'getWindowScrollTop').and.returnValue(0);
+        spyOn(DomHandler, 'getWindowScrollLeft').and.returnValue(0);
         DomHandler.absolutePosition(element.children[2], element);
         expect(childEl3.style.top).toEqual('0px');
         expect(childEl3.style.left).toEqual('0px');

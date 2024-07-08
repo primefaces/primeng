@@ -38,12 +38,37 @@ describe('InputTextarea', () => {
 
         const onResizeSpy = spyOn(component, 'onResize').and.callThrough();
         const inputTextEl = fixture.debugElement.query(By.css('textarea'));
-        inputTextEl.nativeElement.dispatchEvent(new Event('focus'));
+        inputTextEl.nativeElement.value = 'primeng';
+        inputTextEl.nativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
-        inputTextEl.nativeElement.dispatchEvent(new Event('blur'));
+        inputTextEl.nativeElement.value = 'primeng rocks!';
+        inputTextEl.nativeElement.dispatchEvent(new Event('input'));
         fixture.detectChanges();
 
+        expect(onResizeSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('should change autoResize and resize scrollheight of textarea', () => {
+        component.autoResize = true;
+        fixture.detectChanges();
+
+        const onResizeSpy = spyOn(component, 'onResize').and.callThrough();
+        const inputTextEl = fixture.debugElement.query(By.css('textarea'));
+        const initialScrollHeight = inputTextEl.nativeElement.scrollHeight;
+
+        inputTextEl.nativeElement.value = 'primeng';
+        inputTextEl.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(inputTextEl.nativeElement.scrollHeight).toBeGreaterThan(initialScrollHeight);
+        const newScrollHeight = inputTextEl.nativeElement.scrollHeight;
+
+        inputTextEl.nativeElement.value = 'primeng rocks!';
+        inputTextEl.nativeElement.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        expect(inputTextEl.nativeElement.scrollHeight).toBeGreaterThan(newScrollHeight);
         expect(onResizeSpy).toHaveBeenCalledTimes(2);
     });
 

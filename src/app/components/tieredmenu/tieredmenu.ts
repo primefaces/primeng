@@ -82,10 +82,10 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                     [ngStyle]="getItemProp(processedItem, 'style')"
                     [ngClass]="getItemClass(processedItem)"
                     [class]="getItemProp(processedItem, 'styleClass')"
-                    pTooltip
+                    [pTooltip]="getItemProp(processedItem, 'tooltip')"
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({$event, processedItem})">
+                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -230,7 +230,11 @@ export class TieredMenuSub {
 
     @ViewChild('sublist', { static: true }) sublistViewChild: ElementRef;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu) {
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        @Inject(forwardRef(() => TieredMenu)) public tieredMenu: TieredMenu
+    ) {
         effect(() => {
             const path = this.activeItemPath();
             if (ObjectUtils.isNotEmpty(path)) {

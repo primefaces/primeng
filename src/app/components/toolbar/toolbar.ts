@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
-import { BlockableUI, PrimeTemplate } from 'primeng/api';
+import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 /**
  * Toolbar is a grouping component for buttons and other content.
  * @group Components
@@ -81,8 +81,8 @@ export class Toolbar implements AfterContentInit, BlockableUI {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Toolbar],
+    imports: [CommonModule, SharedModule],
+    exports: [Toolbar, SharedModule],
     declarations: [Toolbar]
 })
 export class ToolbarModule {}

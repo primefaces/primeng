@@ -1,4 +1,4 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestroy, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
 import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -9,12 +9,20 @@ import { VoidListener } from 'primeng/ts-helpers';
  */
 @Directive({
     selector: '[pRipple]',
+    standalone: true,
     host: {
         class: 'p-ripple p-element'
     }
 })
 export class Ripple implements AfterViewInit, OnDestroy {
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public el: ElementRef, public zone: NgZone, @Optional() public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private renderer: Renderer2,
+        public el: ElementRef,
+        public zone: NgZone,
+        @Optional() public config: PrimeNGConfig
+    ) {}
 
     animationListener: VoidListener;
 
@@ -118,8 +126,7 @@ export class Ripple implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [Ripple],
-    declarations: [Ripple]
+    imports: [Ripple],
+    exports: [Ripple]
 })
 export class RippleModule {}

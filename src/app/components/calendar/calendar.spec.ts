@@ -1481,6 +1481,56 @@ describe('Calendar', () => {
         flush();
     }));
 
+    it('should hide overlay on range calendar when hideOnDateTimeSelect is true', fakeAsync(() => {
+        calendar.hideOnDateTimeSelect = true;
+        calendar.selectionMode = 'range';
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
+        const focusEvent = new Event('focus');
+        inputEl.nativeElement.click();
+        inputEl.nativeElement.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        dates[1].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        expect(calendar.overlayVisible).toEqual(false);
+        flush();
+    }));
+
+    it('should keep overlay visible on range calendar when hideOnDateTimeSelect is false', fakeAsync(() => {
+        calendar.hideOnDateTimeSelect = false;
+        calendar.selectionMode = 'range';
+        fixture.detectChanges();
+
+        const inputEl = fixture.debugElement.query(By.css('.p-inputtext'));
+        const focusEvent = new Event('focus');
+        inputEl.nativeElement.click();
+        inputEl.nativeElement.dispatchEvent(focusEvent);
+        fixture.detectChanges();
+
+        const datesContainer = fixture.debugElement.query(By.css('.p-datepicker-calendar-container'));
+        const dates = datesContainer.query(By.css('tbody')).queryAll(By.css('span:not(.p-datepicker-weeknumber):not(.p-disabled)'));
+        dates[0].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        dates[1].nativeElement.click();
+        tick(150);
+        fixture.detectChanges();
+
+        expect(calendar.overlayVisible).toEqual(true);
+        flush();
+    }));
+
     it('should be next year', () => {
         const date = new Date(2017, 11, 23);
         calendar.defaultDate = date;
@@ -1967,5 +2017,44 @@ describe('Calendar', () => {
 
         expect(selectdateSpy).toHaveBeenCalled();
         expect(calendar.value).toEqual(minDate);
+    });
+
+    it('should display end date instead of start date in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.value = [new Date('2024-03-01'), new Date('2024-04-01')];
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(3);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should display start date instead of default date in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.value = [new Date('2024-03-01'), null];
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(2);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should use default date when no range is selected in range selection', () => {
+        calendar.selectionMode = 'range';
+        calendar.defaultDate = new Date('2024-01-01');
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(0);
+        expect(calendar.currentYear).toBe(2024);
+    });
+
+    it('should use current date when no default date and no range is selected in range selection', () => {
+        jasmine.clock().install();
+        jasmine.clock().mockDate(new Date('2024-06-11'));
+        calendar.selectionMode = 'range';
+
+        calendar.updateUI();
+        expect(calendar.currentMonth).toBe(5);
+        expect(calendar.currentYear).toBe(2024);
+
+        jasmine.clock().uninstall();
     });
 });

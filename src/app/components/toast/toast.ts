@@ -464,6 +464,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
         if (!this.styleElement) {
             this.styleElement = this.renderer.createElement('style');
             this.styleElement.type = 'text/css';
+            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             this.renderer.appendChild(this.document.head, this.styleElement);
             let innerHTML = '';
             for (let breakpoint in this.breakpoints) {
@@ -481,7 +482,6 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
             }
 
             this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-            DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
         }
     }
 

@@ -15,7 +15,7 @@ export interface Props {
 const app_dependencies = pkg ? pkg.devDependencies : {};
 
 const PrimeNG = {
-    version: '17.17.0',
+    version: '17.18.3',
     description:
         'PrimeNG is an open source UI library for Angular featuring a rich set of 80+ components, a theme designer, various theme alternatives such as Material, Bootstrap, Tailwind, premium templates and professional support. In addition, it integrates with PrimeBlock, which has 370+ ready to use UI blocks to build spectacular applications in no time.'
 };
@@ -737,12 +737,15 @@ const getAngularApp = (props: Props = {}) => {
 </html>`;
 
     const main_ts = `import { bootstrapApplication } from '@angular/platform-browser';
-    import { ${componentName} } from './app/${selector}';
-    import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ${componentName} } from './app/${selector}';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { Routes, provideRouter } from '@angular/router';
 
-    bootstrapApplication(${componentName}, {
-    providers: [provideAnimationsAsync()],
-    }).catch((err) => console.error(err));`;
+const routes: Routes = [];
+
+bootstrapApplication(${componentName}, {
+providers: [provideAnimationsAsync(), provideRouter(routes)],
+}).catch((err) => console.error(err));`;
 
     const defaultFiles = {
         'src/main.ts': { content: main_ts },

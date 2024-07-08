@@ -1272,7 +1272,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "string",
                             "description": "Severity level of the message."
                         },
                         {
@@ -3283,7 +3283,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Defines if the node is loading."
                         }
                     ]
                 }
@@ -3471,7 +3471,7 @@
                             "optional": true,
                             "readonly": false,
                             "type": "boolean",
-                            "description": "Mandatory unique key of the node."
+                            "description": "Defines if the node is loading."
                         },
                         {
                             "name": "originalEvent",
@@ -5316,6 +5316,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Whether to display timepicker only."
+                        },
+                        {
+                            "name": "stepYearPicker",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "10",
+                            "description": "Years to change per step in yearpicker."
                         },
                         {
                             "name": "stepHour",
@@ -22160,6 +22168,20 @@
                             "description": "Text of the button."
                         },
                         {
+                            "name": "tooltip",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip for the main button."
+                        },
+                        {
+                            "name": "tooltipOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip options for the main button."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -22186,13 +22208,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the overlay menu."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "When present, it specifies that the element should be disabled."
                         },
                         {
                             "name": "appendTo",
@@ -22240,19 +22255,31 @@
                             "description": "When present, it specifies that the component should automatically get focus on load."
                         },
                         {
-                            "name": "_menuButtonDisabled",
+                            "name": "disabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "menuButtonDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
                             "description": "When present, it specifies that the menu button element should be disabled."
                         },
                         {
-                            "name": "_buttonDisabled",
+                            "name": "buttonDisabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
@@ -22271,10 +22298,31 @@
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
-                            "name": "_disabled",
+                            "name": "onMenuHide",
                             "parameters": [
                                 {
-                                    "name": "value"
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is hidden."
+                        },
+                        {
+                            "name": "onMenuShow",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is shown."
+                        },
+                        {
+                            "name": "onDropdownClick",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown button is clicked."
@@ -28733,7 +28781,7 @@
                                 "optional": true,
                                 "readonly": false,
                                 "type": "boolean",
-                                "description": "Mandatory unique key of the node."
+                                "description": "Defines if the node is loading."
                             },
                             {
                                 "name": "originalEvent",

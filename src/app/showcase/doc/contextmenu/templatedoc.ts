@@ -13,7 +13,7 @@ import { ContextMenu } from 'primeng/contextmenu';
             <ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
                 <li *ngFor="let product of data" class="p-2 hover:surface-hover border-round border-1 border-transparent transition-all transition-duration-200" (contextmenu)="onContextMenu($event)">
                     <div class="flex flex-wrap p-2 align-items-center gap-3">
-                        <img class="w-4rem flex-shrink-0 border-round" src="https://primefaces.org/cdn/primeng/images/{{ product.image }}" alt="product.name" />
+                        <img class="w-4rem flex-shrink-0 border-round" src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" alt="product.name" />
                         <div class="flex-1 flex flex-column gap-1">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex align-items-center gap-2">

@@ -230,7 +230,11 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
+    constructor(
+        @Inject(forwardRef(() => Accordion)) accordion: Accordion,
+        public el: ElementRef,
+        public changeDetector: ChangeDetectorRef
+    ) {
         this.accordion = accordion as Accordion;
         this.id = UniqueComponentId();
     }
@@ -437,7 +441,10 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
 
     public tabs: AccordionTab[] = [];
 
-    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        public changeDetector: ChangeDetectorRef
+    ) {}
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {
@@ -464,18 +471,12 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
         }
     }
 
-    isInput(event): boolean {
-        const { tagName } = event.target;
-        return tagName?.toLowerCase() === 'input';
-    }
-
-    isTextArea(event): boolean {
-        const { tagName } = event.target;
-        return tagName?.toLowerCase() === 'textarea';
+    focusedElementIsAccordionHeader() {
+        return document.activeElement.tagName.toLowerCase() === 'a' && document.activeElement.classList.contains('p-accordion-header-link');
     }
 
     onTabArrowDownKey(event) {
-        if (!this.isInput(event) && !this.isTextArea(event)) {
+        if (this.focusedElementIsAccordionHeader()) {
             const nextHeaderAction = this.findNextHeaderAction(event.target.parentElement.parentElement.parentElement);
             nextHeaderAction ? this.changeFocusedTab(nextHeaderAction) : this.onTabHomeKey(event);
 
@@ -484,7 +485,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
     }
 
     onTabArrowUpKey(event) {
-        if (!this.isInput(event) && !this.isTextArea(event)) {
+        if (this.focusedElementIsAccordionHeader()) {
             const prevHeaderAction = this.findPrevHeaderAction(event.target.parentElement.parentElement.parentElement);
             prevHeaderAction ? this.changeFocusedTab(prevHeaderAction) : this.onTabEndKey(event);
 
@@ -626,6 +627,7 @@ export class Accordion implements BlockableUI, AfterContentInit, OnDestroy {
             }
         });
         this.preventActiveIndexPropagation = true;
+        this._activeIndex = index;
         this.activeIndexChange.emit(index as number[] | number);
     }
 

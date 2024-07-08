@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Footer } from 'primeng/api';
 import { DialogService } from './dialogservice';
@@ -12,7 +12,10 @@ import { DynamicDialogRef } from './dynamicdialog-ref';
     template: ` <h2>PrimeNG ROCKS!</h2> `
 })
 export class TestComponent {
-    constructor(public ref: DynamicDialogRef, public config: DynamicDialogConfig) {}
+    constructor(
+        public ref: DynamicDialogRef,
+        public config: DynamicDialogConfig
+    ) {}
 }
 
 @Component({
@@ -42,7 +45,6 @@ export class TestDynamicDialogWithClosableFalseComponent {
             header: 'Demo Header',
             width: '70%',
             contentStyle: { 'max-height': '350px', overflow: 'auto' },
-            closable: false,
             closeOnEscape: true,
             dismissableMask: true,
             baseZIndex: 0
@@ -51,7 +53,7 @@ export class TestDynamicDialogWithClosableFalseComponent {
 }
 @NgModule({
     imports: [CommonModule, DynamicDialogModule],
-    declarations: [TestComponent, TestDynamicDialogComponent],
+    declarations: [TestComponent, TestDynamicDialogComponent, TestDynamicDialogWithClosableFalseComponent],
     exports: [TestComponent],
     providers: [DialogService]
 })
@@ -60,8 +62,7 @@ export class FakeTestDialogModule {}
 describe('DynamicDialog', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, FakeTestDialogModule],
-            declarations: [Footer]
+            imports: [NoopAnimationsModule, FakeTestDialogModule, Footer]
         });
     });
 
@@ -96,7 +97,7 @@ describe('DynamicDialog', () => {
     it('should open dialog and close dialog without the closing icon enabled', fakeAsync(() => {
         let fixture: ComponentFixture<TestDynamicDialogWithClosableFalseComponent>;
         let testDynamicDialogComponent: TestDynamicDialogWithClosableFalseComponent;
-        fixture = TestBed.createComponent(TestDynamicDialogComponent);
+        fixture = TestBed.createComponent(TestDynamicDialogWithClosableFalseComponent);
         testDynamicDialogComponent = fixture.debugElement.componentInstance;
         fixture.detectChanges();
 
@@ -112,7 +113,6 @@ describe('DynamicDialog', () => {
         expect(testComponentHeader.textContent).toEqual('PrimeNG ROCKS!');
         const backdropEl = document.getElementsByClassName('p-dialog-mask')[0];
         backdropEl.dispatchEvent(new Event('mousedown'));
-        fixture.detectChanges();
         tick(700);
 
         dynamicDialogEl = document.getElementsByClassName('p-dynamic-dialog')[0];

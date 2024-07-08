@@ -35,6 +35,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [ariaLabel]="buttonProps?.['ariaLabel'] || label"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [pTooltip]="tooltip"
+                    [tooltipOptions]="tooltipOptions"
                 >
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </button>
@@ -58,6 +60,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                     [ariaLabel]="buttonProps?.['ariaLabel']"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [pTooltip]="tooltip"
+                    [tooltipOptions]="tooltipOptions"
                 ></button>
             </ng-template>
             <button
@@ -89,6 +93,8 @@ type SplitButtonIconPosition = 'left' | 'right';
                 [appendTo]="appendTo"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
+                (onHide)="onHide()"
+                (onShow)="onShow()"
             ></p-tieredMenu>
         </div>
     `,
@@ -156,6 +162,16 @@ export class SplitButton {
      */
     @Input() label: string | undefined;
     /**
+     * Tooltip for the main button.
+     * @group Props
+     */
+    @Input() tooltip: string | undefined;
+    /**
+     * Tooltip options for the main button.
+     * @group Props
+     */
+    @Input() tooltipOptions: string | undefined;
+    /**
      * Inline style of the element.
      * @group Props
      */
@@ -175,11 +191,7 @@ export class SplitButton {
      * @group Props
      */
     @Input() menuStyleClass: string | undefined;
-    /**
-     * When present, it specifies that the element should be disabled.
-     * @group Props
-     */
-    @Input({ transform: numberAttribute }) tabindex: number | undefined;
+
     /**
      *  Target element to attach the overlay, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -219,17 +231,9 @@ export class SplitButton {
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Callback to invoke when default command button is clicked.
-     * @param {MouseEvent} event - Mouse event.
-     * @group Emits
+     * When present, it specifies that the element should be disabled.
+     * @group Props
      */
-    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
-    /**
-     * Callback to invoke when dropdown button is clicked.
-     * @param {MouseEvent} event - Mouse event.
-     * @group Emits
-     */
-    private _disabled: boolean | undefined;
     @Input({ transform: booleanAttribute }) set disabled(v: boolean | undefined) {
         this._disabled = v;
         this._buttonDisabled = v;
@@ -240,14 +244,13 @@ export class SplitButton {
     }
     /**
      * Index of the element in tabbing order.
-     * @group Prop
+     * @group Props
      */
-
+    @Input({ transform: numberAttribute }) tabindex: number | undefined;
     /**
      * When present, it specifies that the menu button element should be disabled.
      * @group Props
      */
-    private _menuButtonDisabled: boolean | undefined;
     @Input('menuButtonDisabled') set menuButtonDisabled(v: boolean | undefined) {
         if (this.disabled) {
             this._menuButtonDisabled = this.disabled;
@@ -260,7 +263,6 @@ export class SplitButton {
      * When present, it specifies that the button element should be disabled.
      * @group Props
      */
-    private _buttonDisabled: boolean | undefined;
     @Input() set buttonDisabled(v: boolean | undefined) {
         if (this.disabled) {
             this.buttonDisabled = this.disabled;
@@ -269,7 +271,27 @@ export class SplitButton {
     public get buttonDisabled(): boolean {
         return this._buttonDisabled;
     }
-
+    /**
+     * Callback to invoke when default command button is clicked.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
+    @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+    /**
+     * Callback to invoke when overlay menu is hidden.
+     * @group Emits
+     */
+    @Output() onMenuHide: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when overlay menu is shown.
+     * @group Emits
+     */
+    @Output() onMenuShow: EventEmitter<any> = new EventEmitter<any>();
+    /**
+     * Callback to invoke when dropdown button is clicked.
+     * @param {MouseEvent} event - Mouse event.
+     * @group Emits
+     */
     @Output() onDropdownClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
@@ -287,6 +309,12 @@ export class SplitButton {
     ariaId: string | undefined;
 
     isExpanded = signal<boolean>(false);
+
+    private _disabled: boolean | undefined;
+
+    private _buttonDisabled: boolean | undefined;
+
+    private _menuButtonDisabled: boolean | undefined;
 
     ngOnInit() {
         this.ariaId = UniqueComponentId();
@@ -331,7 +359,6 @@ export class SplitButton {
     onDropdownButtonClick(event?: MouseEvent) {
         this.onDropdownClick.emit(event);
         this.menu?.toggle({ currentTarget: this.containerViewChild?.nativeElement, relativeAlign: this.appendTo == null });
-        this.isExpanded.set(this.menu.visible);
     }
 
     onDropdownButtonKeydown(event: KeyboardEvent) {
@@ -339,6 +366,16 @@ export class SplitButton {
             this.onDropdownButtonClick();
             event.preventDefault();
         }
+    }
+
+    onHide() {
+        this.isExpanded.set(false);
+        this.onMenuHide.emit();
+    }
+
+    onShow() {
+        this.isExpanded.set(true);
+        this.onMenuShow.emit();
     }
 }
 

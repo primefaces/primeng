@@ -25,10 +25,10 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
-    constructor(private config: PrimeNGConfig) {}
+    constructor(private primengConfig: PrimeNGConfig) {}
 
     ngOnInit() {
-        this.config.setTranslation({
+        this.primengConfig.setTranslation({
             accept: 'Accept',
             reject: 'Cancel',
             //translations

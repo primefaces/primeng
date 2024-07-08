@@ -47,18 +47,21 @@ export class LazyLoadDoc {
         }
 
         //imitate delay of a backend call
-        this.loadLazyTimeout = setTimeout(() => {
-            const { first, last } = event;
-            const lazyItems = [...this.items];
+        this.loadLazyTimeout = setTimeout(
+            () => {
+                const { first, last } = event;
+                const lazyItems = [...this.items];
 
-            for (let i = first; i < last; i++) {
-                lazyItems[i] = `Item #${i}`;
-            }
+                for (let i = first; i < last; i++) {
+                    lazyItems[i] = `Item #${i}`;
+                }
 
-            this.items = lazyItems;
-            this.lazyLoading = false;
-            this.cd.markForCheck();
-        }, Math.random() * 1000 + 250);
+                this.items = lazyItems;
+                this.lazyLoading = false;
+                this.cd.markForCheck();
+            },
+            Math.random() * 1000 + 250
+        );
     }
 
     code: Code = {

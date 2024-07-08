@@ -30,7 +30,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
@@ -41,7 +41,10 @@ import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
     name: 'safeHtml'
 })
 export class SafeHtmlPipe implements PipeTransform {
-    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
+    constructor(
+        @Inject(PLATFORM_ID) private readonly platformId: any,
+        private readonly sanitizer: DomSanitizer
+    ) {}
 
     public transform(value: string): SafeHtml {
         if (!value || !isPlatformBrowser(this.platformId)) {
@@ -634,7 +637,7 @@ export class Menu implements OnDestroy {
 
     onEnterKey(event) {
         const element = DomHandler.findSingle(this.containerViewChild.nativeElement, `li[id="${`${this.focusedOptionIndex()}`}"]`);
-        const anchorElement = element && DomHandler.findSingle(element, 'a[data-pc-section="action"]');
+        const anchorElement = element && DomHandler.findSingle(element, 'a');
 
         this.popup && DomHandler.focus(this.target);
         anchorElement ? anchorElement.click() : element && element.click();
@@ -821,8 +824,8 @@ export class Menu implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
-    exports: [Menu, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule],
+    exports: [Menu, RouterModule, TooltipModule, SharedModule],
     declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
 export class MenuModule {}

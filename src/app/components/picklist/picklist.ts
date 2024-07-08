@@ -164,7 +164,6 @@ import {
                 >
                     <ng-template ngFor let-item [ngForOf]="source" [ngForTrackBy]="sourceTrackBy || trackBy" let-i="index" let-l="last">
                         <li
-                            [ngClass]="{ 'p-picklist-item': true, 'p-highlight': isSelected(item, selectedItemsSource), 'p-disabled': disabled }"
                             pRipple
                             cdkDrag
                             [id]="idSource + '_' + i"
@@ -273,7 +272,6 @@ import {
                 >
                     <ng-template ngFor let-item [ngForOf]="target" [ngForTrackBy]="targetTrackBy || trackBy" let-i="index" let-l="last">
                         <li
-                            [ngClass]="{ 'p-picklist-item': true, 'p-highlight': isSelected(item, selectedItemsTarget), 'p-disabled': disabled }"
                             pRipple
                             cdkDrag
                             [id]="idTarget + '_' + i"
@@ -1258,7 +1256,8 @@ export class PickList implements AfterViewChecked, AfterContentInit {
         return {
             'p-picklist-item': true,
             'p-highlight': this.isSelected(item, selectedItems),
-            'p-focus': id === this.focusedOptionId
+            'p-focus': id === this.focusedOptionId,
+            'p-disabled': this.disabled
         };
     }
 
@@ -1627,6 +1626,7 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
 
                 let innerHTML = `
@@ -1651,7 +1651,6 @@ export class PickList implements AfterViewChecked, AfterContentInit {
                 }`;
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }

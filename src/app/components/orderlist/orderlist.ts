@@ -712,6 +712,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onItemKeydown(event: KeyboardEvent) {
+        const targetTagName = (event.target as HTMLElement).tagName.toLowerCase();
+
+        if (targetTagName == 'input') {
+            return;
+        }
+
         switch (event.code) {
             case 'ArrowDown':
                 this.onArrowDownKey(event);
@@ -907,6 +913,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
 
                 let innerHTML = `
@@ -931,7 +938,6 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
                     }
                 `;
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
             }
         }
     }

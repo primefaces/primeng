@@ -36,7 +36,7 @@ export class UIMessage {
      * Severity level of the message.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'error' | 'help' | 'primary' | 'secondary' | 'contrast' | string | null | undefined;
     /**
      * Text content.
      * @group Props
@@ -60,7 +60,7 @@ export class UIMessage {
 
     get icon() {
         if (this.severity) {
-            return this.severity === 'success' ? 'success' : this.severity === 'info' ? 'info' : this.severity === 'warning' ? 'warn' : this.severity === 'danger' ? 'error' : 'info';
+            return this.severity;
         } else {
             return 'info';
         }

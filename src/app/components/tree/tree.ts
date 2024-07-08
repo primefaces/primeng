@@ -134,7 +134,7 @@ import {
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="tree">
+                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -635,10 +635,21 @@ export class UITreeNode implements OnInit {
         event.preventDefault();
     }
 
+    isActionableElement(event) {
+        const target = event.target;
+
+        const isActionable = target instanceof HTMLElement && (target.nodeName == 'A' || target.nodeName == 'BUTTON');
+
+        return isActionable;
+    }
+
     onEnter(event: KeyboardEvent) {
         this.tree.onNodeClick(event, <TreeNode>this.node);
         this.setTabIndexForSelectionMode(event, this.tree.nodeTouched);
-        event.preventDefault();
+
+        if (!this.isActionableElement(event)) {
+            event.preventDefault();
+        }
     }
 
     setAllNodesTabIndexes() {
@@ -1155,7 +1166,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        @Optional() public dragDropService: TreeDragDropService,
+        public config: PrimeNGConfig,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -1369,8 +1385,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     onNodeRightClick(event: MouseEvent, node: TreeNode<any>) {
         if (this.contextMenu) {
             let eventTarget = <Element>event.target;
+            let className = eventTarget.getAttribute('class');
 
-            if (eventTarget.className && eventTarget.className.indexOf('p-tree-toggler') === 0) {
+            if (className && className.includes('p-tree-toggler')) {
                 return;
             } else {
                 let index = this.findIndexInSelection(node);

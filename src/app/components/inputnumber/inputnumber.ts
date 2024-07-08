@@ -516,7 +516,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        private cd: ChangeDetectorRef,
+        private readonly injector: Injector
+    ) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
@@ -558,8 +563,8 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
             currency: this.currency,
             currencyDisplay: this.currencyDisplay,
             useGrouping: this.useGrouping,
-            minimumFractionDigits: this.minFractionDigits,
-            maximumFractionDigits: this.maxFractionDigits
+            minimumFractionDigits: this.minFractionDigits ?? undefined,
+            maximumFractionDigits: this.maxFractionDigits ?? undefined
         };
     }
 
@@ -592,6 +597,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         const decimalChar = this.getDecimalChar();
         return new RegExp(`[${decimalChar}]`, 'g');
     }
+
     getDecimalChar(): string {
         const formatter = new Intl.NumberFormat(this.locale, { ...this.getOptions(), useGrouping: false });
         return formatter
@@ -641,6 +647,10 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         }
 
         return new RegExp(`${this.escapeRegExp(this.suffixChar || '')}`, 'g');
+    }
+
+    get isBlurUpdateOnMode() {
+        return this.ngControl?.control?.updateOn === 'blur';
     }
 
     formatValue(value: any) {
@@ -1276,7 +1286,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
         if (this.isValueChanged(currentValue, newValue)) {
             (this.input as ElementRef).nativeElement.value = this.formatValue(newValue);
             this.input?.nativeElement.setAttribute('aria-valuenow', newValue);
-            this.updateModel(event, newValue);
+            !this.isBlurUpdateOnMode && this.updateModel(event, newValue);
             this.onInput.emit({ originalEvent: event, value: newValue, formattedValue: currentValue });
         }
     }
@@ -1441,16 +1451,14 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     updateModel(event: Event, value: any) {
-        const isBlurUpdateOnMode = this.ngControl?.control?.updateOn === 'blur';
-
         if (this.value !== value) {
             this.value = value;
 
-            if (!(isBlurUpdateOnMode && this.focused)) {
+            if (!(this.isBlurUpdateOnMode && this.focused)) {
+                this.onModelChange(value);
+            } else if (this.isBlurUpdateOnMode) {
                 this.onModelChange(value);
             }
-        } else if (isBlurUpdateOnMode) {
-            this.onModelChange(value);
         }
         this.onModelTouched();
     }

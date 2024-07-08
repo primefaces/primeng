@@ -355,7 +355,13 @@ export class InputMask implements OnInit, ControlValueAccessor {
         };
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -811,7 +817,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
     }
 
     handleInputChange(event: Event) {
-        if (this.readonly) {
+        if (this.readonly || this.disabled) {
             return;
         }
 

@@ -14,10 +14,12 @@ import { DynamicDoc } from '@doc/accordion/dynamicdoc';
     template: `<app-doc docTitle="Angular Accordion Component" header="Accordion" description="Accordion groups a collection of contents in tabs." [docs]="docs" [apiDocs]="['Accordion', 'AccordionTab']"></app-doc>`,
     imports: [AccordionDocModule],
     standalone: true,
-    styles: `:host ::ng-deep .p-accordion p {
-        line-height: 1.5;
-        margin: 0;
-    }`
+    styles: `
+        :host ::ng-deep .p-accordion p {
+            line-height: 1.5;
+            margin: 0;
+        }
+    `
 })
 export class AccordionDemo {
     docs = [

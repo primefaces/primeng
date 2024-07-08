@@ -31,7 +31,10 @@ export class EventDoc implements OnInit {
 
     selectedFile!: TreeNode;
 
-    constructor(private nodeService: NodeService, private messageService: MessageService) {}
+    constructor(
+        private nodeService: NodeService,
+        private messageService: MessageService
+    ) {}
 
     ngOnInit() {
         this.nodeService.getFiles().then((data) => (this.files = data));
