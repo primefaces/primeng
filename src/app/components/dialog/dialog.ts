@@ -611,7 +611,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.zone.runOutsideAngular(() => {
                 setTimeout(() => focusableElement.focus(), 5);
             });
-        } else if (this.footerViewChild) {
+        } else if (this.footerViewChild && focusParentElement !== this.footerViewChild.nativeElement) {
             // If the content section is empty try to focus on footer
             this.focus(this.footerViewChild.nativeElement);
         }
