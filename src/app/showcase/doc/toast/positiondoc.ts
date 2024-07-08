@@ -13,9 +13,9 @@ import { Code } from '@domain/code';
             <p-toast position="bottom-left" key="bl" />
             <p-toast position="bottom-right" key="br" />
 
-            <p-button pRipple (click)="showTopLeft()" label="Top Left" />
-            <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" severity="warning" />
-            <p-button pRipple (click)="showBottomRight()" label="Bottom Right" severity="help" />
+            <p-button pRipple (onClick)="showTopLeft()" label="Top Left" />
+            <p-button pRipple (onClick)="showBottomLeft()" label="Bottom Left" severity="warning" />
+            <p-button pRipple (onClick)="showBottomRight()" label="Bottom Right" severity="help" />
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
@@ -43,16 +43,16 @@ export class PositionDoc {
 
 <p-button 
     pRipple 
-    (click)="showTopLeft()" 
+    (onClick)="showTopLeft()" 
     label="Top Left" />
 <p-button 
     pRipple 
-    (click)="showBottomLeft()" 
+    (onClick)="showBottomLeft()" 
     label="Bottom Left" 
     severity="warning" />
 <p-button 
     pRipple 
-    (click)="showBottomRight()" 
+    (onClick)="showBottomRight()" 
     label="Bottom Right" 
     severity="help" />`,
 
@@ -63,16 +63,16 @@ export class PositionDoc {
 
     <p-button 
         pRipple 
-        (click)="showTopLeft()" 
+        (onClick)="showTopLeft()" 
         label="Top Left" />
     <p-button 
         pRipple 
-        (click)="showBottomLeft()" 
+        (onClick)="showBottomLeft()" 
         label="Bottom Left" 
         severity="warning" />
     <p-button 
         pRipple 
-        (click)="showBottomRight()" 
+        (onClick)="showBottomRight()" 
         label="Bottom Right" 
         severity="help" />
 </div>`,

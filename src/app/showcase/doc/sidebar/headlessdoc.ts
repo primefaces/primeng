@@ -46,7 +46,7 @@ import { Sidebar } from 'primeng/sidebar';
                                 <span class="font-semibold text-2xl text-primary">Your Logo</span>
                             </span>
                             <span>
-                                <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                                <p-button type="button" (onClick)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
                             </span>
                         </div>
                         <div class="overflow-y-auto">
@@ -204,7 +204,7 @@ import { Sidebar } from 'primeng/sidebar';
                     </div>
                 </ng-template>
             </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
         </div>
         <app-code [code]="code" selector="sidebar-headless-demo"></app-code>
     `
@@ -256,7 +256,7 @@ export class HeadlessDoc {
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
                 <span>
-                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                    <p-button type="button" (onClick)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
                 </span>
             </div>
             <div class="overflow-y-auto">
@@ -414,7 +414,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>`,
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>`,
 
         html: `<div class="card flex justify-content-center">
 <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
@@ -454,7 +454,7 @@ export class HeadlessDoc {
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
                 <span>
-                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                    <p-button type="button" (onClick)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
                 </span>
             </div>
             <div class="overflow-y-auto">
@@ -612,7 +612,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
 </div>`,
 
         typescript: `import { Component, ViewChild } from '@angular/core';

@@ -9,7 +9,7 @@ import { NodeService } from '@service/nodeservice';
             <p>Expansion state is controlled with <i>expandedKeys</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-button (click)="toggleApplications()" label="Toggle Applications" />
+            <p-button (onClick)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
                     <ng-template pTemplate="header">
@@ -59,7 +59,7 @@ export class ControlledDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
+        basic: `<p-button (onClick)="toggleApplications()" label="Toggle Applications" />
 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
     <ng-template pTemplate="header">
         <tr>
@@ -81,7 +81,7 @@ export class ControlledDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-<p-button (click)="toggleApplications()" label="Toggle Applications" />
+<p-button (onClick)="toggleApplications()" label="Toggle Applications" />
 <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
     <ng-template pTemplate="header">
         <tr>

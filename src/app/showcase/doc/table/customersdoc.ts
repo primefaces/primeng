@@ -28,7 +28,7 @@ import { Table } from 'primeng/table';
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
-                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
                             <p-iconField iconPosition="left">
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
@@ -271,7 +271,7 @@ export class CustomersDoc {
 >
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
             <p-iconField iconPosition="left">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
@@ -433,7 +433,7 @@ export class CustomersDoc {
     >
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
             <p-iconField iconPosition="left">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>

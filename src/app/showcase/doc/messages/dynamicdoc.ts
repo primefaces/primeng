@@ -9,8 +9,8 @@ import { Code } from '@domain/code';
             <p>A binding to the value property is required to provide messages to the component.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-button type="button" pRipple (click)="addMessages()" label="Show" styleClass="mr-2" />
-            <p-button type="button" pRipple (click)="clearMessages()" label="Clear" severity="secondary" />
+            <p-button type="button" pRipple (onClick)="addMessages()" label="Show" styleClass="mr-2" />
+            <p-button type="button" pRipple (onClick)="clearMessages()" label="Clear" severity="secondary" />
             <p-messages [(value)]="messages" [enableService]="false" />
         </div>
         <app-code [code]="code" selector="messages-dynamic-demo"></app-code>
@@ -35,13 +35,13 @@ export class DynamicDoc {
         basic: `<p-button 
     type="button" 
     pRipple 
-    (click)="addMessages()" 
+    (onClick)="addMessages()" 
     label="Show" 
     styleClass="mr-2" />
 <p-button 
     type="button" 
     pRipple 
-    (click)="clearMessages()" 
+    (onClick)="clearMessages()" 
     label="Clear" 
     severity="secondary" />
 <p-messages [(value)]="messages" [enableService]="false" />`,
@@ -49,13 +49,13 @@ export class DynamicDoc {
     <p-button 
         type="button" 
         pRipple 
-        (click)="addMessages()" 
+        (onClick)="addMessages()" 
         label="Show" 
         styleClass="mr-2" />
     <p-button 
         type="button"
         pRipple 
-        (click)="clearMessages()" 
+        (onClick)="clearMessages()" 
         label="Clear" 
         severity="secondary" />
     <p-messages [(value)]="messages" [enableService]="false" />

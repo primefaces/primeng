@@ -9,9 +9,9 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card">
             <div class="flex mb-2 gap-2 justify-content-end">
-                <p-button (click)="activeIndex = 0" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0" label="1" />
-                <p-button (click)="activeIndex = 1" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1" label="2" />
-                <p-button (click)="activeIndex = 2" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2" label="3" />
+                <p-button (onClick)="activeIndex = 0" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0" label="1" />
+                <p-button (onClick)="activeIndex = 1" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1" label="2" />
+                <p-button (onClick)="activeIndex = 2" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2" label="3" />
             </div>
             <p-tabView [(activeIndex)]="activeIndex">
                 <p-tabPanel header="Header I">
@@ -43,19 +43,19 @@ export class ControlledDoc {
     code: Code = {
         basic: `<div class="flex mb-2 gap-2 justify-content-end">
     <p-button 
-        (click)="activeIndex = 0" 
+        (onClick)="activeIndex = 0" 
         rounded="true" 
         styleClass="w-2rem h-2rem p-0" 
         [outlined]="activeIndex !== 0" 
         label="1" />
     <p-button 
-        (click)="activeIndex = 1" 
+        (onClick)="activeIndex = 1" 
         rounded="true" 
         styleClass="w-2rem h-2rem p-0" 
         [outlined]="activeIndex !== 1" 
         label="2" />
     <p-button 
-        (click)="activeIndex = 2" 
+        (onClick)="activeIndex = 2" 
         rounded="true"
         styleClass="w-2rem h-2rem p-0" 
         [outlined]="activeIndex !== 2" 
@@ -82,19 +82,19 @@ export class ControlledDoc {
         html: `<div class="card">
     <div class="flex mb-2 gap-2 justify-content-end">
         <p-button 
-            (click)="activeIndex = 0" 
+            (onClick)="activeIndex = 0" 
             rounded="true" 
             styleClass="w-2rem h-2rem p-0" 
             [outlined]="activeIndex !== 0" 
             label="1" />
         <p-button 
-            (click)="activeIndex = 1" 
+            (onClick)="activeIndex = 1" 
             rounded="true" 
             styleClass="w-2rem h-2rem p-0" 
             [outlined]="activeIndex !== 1" 
             label="2" />
         <p-button 
-            (click)="activeIndex = 2" 
+            (onClick)="activeIndex = 2" 
             rounded="true" 
             styleClass="w-2rem h-2rem p-0" 
             [outlined]="activeIndex !== 2" 

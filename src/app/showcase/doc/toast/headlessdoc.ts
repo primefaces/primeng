@@ -21,14 +21,14 @@ import { Code } from '@domain/code';
                                 <label class="text-right text-xs text-white">{{ progress }}% uploaded...</label>
                             </div>
                             <div class="flex gap-3 mb-3">
-                                <p-button label="Another Upload?" [text]="true" styleClass="p-0" (click)="closeFn($event)" />
-                                <p-button label="Cancel" [text]="true" styleClass="text-white p-0" (click)="closeFn($event)" />
+                                <p-button label="Another Upload?" [text]="true" styleClass="p-0" (onClick)="closeFn($event)" />
+                                <p-button label="Cancel" [text]="true" styleClass="text-white p-0" (onClick)="closeFn($event)" />
                             </div>
                         </div>
                     </section>
                 </ng-template>
             </p-toast>
-            <p-button pRipple (click)="showConfirm()" label="Confirm" />
+            <p-button pRipple (onClick)="showConfirm()" label="Confirm" />
         </div>
         <app-code [code]="code" selector="toast-headless-demo"></app-code>
     `,
@@ -104,18 +104,18 @@ export class HeadlessDoc {
                             label="Another Upload?" 
                             [text]="true"
                             styleClass="p-0" 
-                            (click)="closeFn($event)" />
+                            (onClick)="closeFn($event)" />
                         <p-button 
                             label="Cancel" 
                             [text]="true"
                             styleClass="text-white p-0" 
-                            (click)="closeFn($event)" />
+                            (onClick)="closeFn($event)" />
                     </div>
                 </div>
             </section>
         </ng-template>
 </p-toast>
-<p-button pRipple (click)="showConfirm()" label="Confirm" />`,
+<p-button pRipple (onClick)="showConfirm()" label="Confirm" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast 
         position="top-center" 
@@ -146,18 +146,18 @@ export class HeadlessDoc {
                                 label="Another Upload?" 
                                 [text]="true" 
                                 styleClass="p-0" 
-                                (click)="closeFn($event)" />
+                                (onClick)="closeFn($event)" />
                             <p-button 
                                 label="Cancel" 
                                 [text]="true" 
                                 styleClass="text-white p-0" 
-                                (click)="closeFn($event)" />
+                                (onClick)="closeFn($event)" />
                         </div>
                     </div>
                 </section>
             </ng-template>
     </p-toast>
-    <p-button pRipple (click)="showConfirm()" label="Confirm" />
+    <p-button pRipple (onClick)="showConfirm()" label="Confirm" />
 </div>`,
         typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

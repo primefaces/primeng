@@ -24,7 +24,7 @@ interface ExportColumn {
                 <p-table #dt [columns]="cols" [value]="products" selectionMode="multiple" [(selection)]="selectedProducts" [exportHeader]="'customExportHeader'" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
                         <div style="text-align: left">
-                            <p-button icon="pi pi-external-link" label="Export" (click)="dt.exportCSV()" />
+                            <p-button icon="pi pi-external-link" label="Export" (onClick)="dt.exportCSV()" />
                         </div>
                     </ng-template>
                     <ng-template pTemplate="header" let-columns>
@@ -91,7 +91,7 @@ export class ExportDoc {
                 <p-button 
                     icon="pi pi-external-link" 
                     label="Export" 
-                    (click)="dt.exportCSV()" />
+                    (onClick)="dt.exportCSV()" />
             </div>
         </ng-template>
         <ng-template pTemplate="header" let-columns>
@@ -123,7 +123,7 @@ export class ExportDoc {
                     <p-button 
                         icon="pi pi-external-link" 
                         label="Export" 
-                        (click)="dt.exportCSV()" />
+                        (onClick)="dt.exportCSV()" />
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>

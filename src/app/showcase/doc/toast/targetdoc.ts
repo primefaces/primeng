@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast key="toast1" />
             <p-toast key="toast2" />
-            <p-button pRipple (click)="showToast1()" label="Show Success" />
-            <p-button pRipple (click)="showToast2()" label="Show Warning" severity="warning" />
+            <p-button pRipple (onClick)="showToast1()" label="Show Success" />
+            <p-button pRipple (onClick)="showToast2()" label="Show Warning" severity="warning" />
         </div>
         <app-code [code]="code" selector="toast-target-demo"></app-code>
     `,
@@ -36,11 +36,11 @@ export class TargetDoc {
 <p-toast key="toast2" />
 <p-button 
     pRipple 
-    (click)="showToast1()" 
+    (onClick)="showToast1()" 
     label="Show Success" />
 <p-button 
     pRipple 
-    (click)="showToast2()" 
+    (onClick)="showToast2()" 
     label="Show Warning" 
     severity="warning" />`,
         html: `<div class="card flex justify-content-center gap-2">
@@ -48,11 +48,11 @@ export class TargetDoc {
     <p-toast key="toast2" />
     <p-button 
         pRipple 
-        (click)="showToast1()" 
+        (onClick)="showToast1()" 
         label="Show Success" />
     <p-button 
         pRipple 
-        (click)="showToast2()" 
+        (onClick)="showToast2()" 
         label="Show Warning" 
         severity="warning" />
 </div>`,

@@ -12,9 +12,9 @@ import { CustomerService } from '@service/customerservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="mb-3 flex gap-1">
-                    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text" />
-                    <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text" />
-                    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text" />
+                    <p-button type="button" icon="pi pi-chevron-left" (onClick)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text" />
+                    <p-button type="button" icon="pi pi-refresh" (onClick)="reset()" styleClass="p-button-text" />
+                    <p-button type="button" icon="pi pi-chevron-right" (onClick)="next()" [disabled]="isLastPage()" styleClass="p-button-text" />
                 </div>
                 <p-table
                     [value]="customers"
@@ -99,18 +99,18 @@ export class PaginatorProgrammaticDoc {
     <p-button 
         type="button" 
         icon="pi pi-chevron-left" 
-        (click)="prev()" 
+        (onClick)="prev()" 
         [disabled]="isFirstPage()" 
         styleClass="p-button-text" />
     <p-button 
         type="button" 
         icon="pi pi-refresh" 
-        (click)="reset()" 
+        (onClick)="reset()" 
         styleClass="p-button-text" />
     <p-button 
         type="button" 
         icon="pi pi-chevron-right" 
-        (click)="next()" 
+        (onClick)="next()" 
         [disabled]="isLastPage()" 
         styleClass="p-button-text" />
 </div>
@@ -152,18 +152,18 @@ export class PaginatorProgrammaticDoc {
     <p-button 
         type="button" 
         icon="pi pi-chevron-left" 
-        (click)="prev()" 
+        (onClick)="prev()" 
         [disabled]="isFirstPage()" 
         styleClass="p-button-text" />
     <p-button 
         type="button"
         icon="pi pi-refresh" 
-        (click)="reset()" 
+        (onClick)="reset()" 
         styleClass="p-button-text" />
     <p-button 
         type="button" 
         icon="pi pi-chevron-right" 
-        (click)="next()" 
+        (onClick)="next()" 
         [disabled]="isLastPage()" 
         styleClass="p-button-text" />
 </div>

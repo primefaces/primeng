@@ -5,7 +5,7 @@ import { ProductService } from '@service/productservice';
 import { InfoDemo } from './infodemo';
 @Component({
     template: ` <div class="flex justify-content-end mt-1 mb-3">
-            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
+            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (onClick)="showInfo()" />
         </div>
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
@@ -28,7 +28,7 @@ import { InfoDemo } from './infodemo';
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)"></p-button>
+                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (onClick)="selectProduct(product)"></p-button>
                     </td>
                 </tr>
             </ng-template>

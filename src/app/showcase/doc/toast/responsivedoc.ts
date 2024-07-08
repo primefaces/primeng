@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
-            <p-button pRipple (click)="show()" label="Show" />
+            <p-button pRipple (onClick)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-responsive-demo"></app-code>
     `,
@@ -28,10 +28,10 @@ export class ResponsiveDoc {
 
     code: Code = {
         basic: `<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
-<p-button pRipple (click)="show()" label="Show" />`,
+<p-button pRipple (onClick)="show()" label="Show" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
-    <p-button pRipple (click)="show()" label="Show" />
+    <p-button pRipple (onClick)="show()" label="Show" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

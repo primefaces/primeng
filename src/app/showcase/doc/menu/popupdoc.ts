@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-menu #menu [model]="items" [popup]="true" />
-            <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+            <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
         </div>
         <app-code [code]="code" selector="menu-popup-demo"></app-code>
     `,
@@ -39,11 +39,11 @@ export class PopupDoc implements OnInit {
     code: Code = {
         basic: `<p-toast />
 <p-menu #menu [model]="items" [popup]="true" />
-<p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>`,
+<p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>`,
 
         html: `<div class="card flex justify-content-center">
     <p-menu #menu [model]="items" [popup]="true" />
-    <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
+    <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v"/>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
