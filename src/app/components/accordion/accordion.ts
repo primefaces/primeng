@@ -207,11 +207,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
 
     accordion: Accordion;
 
-    constructor(
-        @Inject(forwardRef(() => Accordion)) accordion: Accordion,
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
         this.id = UniqueComponentId();
     }
@@ -314,39 +310,39 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
     selector: 'p-accordionHeader',
     template: `
         @if (accordion.tabList.length > 0) {
-            <div class="p-accordion-header" role="heading" [attr.aria-level]="headerAriaLevel" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
-                <a
-                    [ngClass]="headerStyleClass"
-                    [style]="headerStyle"
-                    role="button"
-                    class="p-accordion-header-link"
-                    [attr.tabindex]="disabled ? null : 0"
-                    [attr.id]="id"
-                    [attr.aria-controls]="tabContentId"
-                    [attr.aria-expanded]="selected"
-                    [attr.aria-disabled]="disabled"
-                    [attr.data-pc-section]="'headeraction'"
-                >
-                    <ng-container *ngIf="!iconTemplate">
-                        <ng-container *ngIf="selected">
-                            <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronDownIcon *ngIf="!collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
-                        </ng-container>
-                        <ng-container *ngIf="!selected">
-                            <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
-                            <ChevronRightIcon *ngIf="!expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
-                        </ng-container>
+        <div class="p-accordion-header" role="heading" [attr.aria-level]="headerAriaLevel" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
+            <a
+                [ngClass]="headerStyleClass"
+                [style]="headerStyle"
+                role="button"
+                class="p-accordion-header-link"
+                [attr.tabindex]="disabled ? null : 0"
+                [attr.id]="id"
+                [attr.aria-controls]="tabContentId"
+                [attr.aria-expanded]="selected"
+                [attr.aria-disabled]="disabled"
+                [attr.data-pc-section]="'headeraction'"
+            >
+                <ng-container *ngIf="!iconTemplate">
+                    <ng-container *ngIf="selected">
+                        <span *ngIf="collapseIcon" [class]="collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
+                        <ChevronDownIcon *ngIf="!collapseIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
                     </ng-container>
-                    <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
-                    <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
-                        {{ header }}
-                    </span>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
-                </a>
-            </div>
+                    <ng-container *ngIf="!selected">
+                        <span *ngIf="expandIcon" [class]="expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true"></span>
+                        <ChevronRightIcon *ngIf="!expandIcon" [ngClass]="iconClass" [attr.aria-hidden]="true" />
+                    </ng-container>
+                </ng-container>
+                <ng-template *ngTemplateOutlet="iconTemplate; context: { $implicit: selected }"></ng-template>
+                <span class="p-accordion-header-text" *ngIf="!hasHeaderFacet">
+                    {{ header }}
+                </span>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+                <ng-content select="p-header" *ngIf="hasHeaderFacet"></ng-content>
+            </a>
+        </div>
         } @else {
-            <ng-content></ng-content>
+        <ng-content></ng-content>
         }
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -372,13 +368,8 @@ export class AccordionHeader {
     @Input() collapseIcon;
     @Input() header;
     accordion;
-    constructor(
-        @Inject(forwardRef(() => Accordion)) accordion: Accordion,
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {
+    constructor(@Inject(forwardRef(() => Accordion)) accordion: Accordion, public el: ElementRef, public changeDetector: ChangeDetectorRef) {
         this.accordion = accordion as Accordion;
-        console.log(this.accordion);
     }
 }
 @Component({
@@ -516,10 +507,7 @@ export class Accordion {
     get hasAccordionTab(): boolean {
         return this.tabList.length > 0;
     }
-    constructor(
-        public el: ElementRef,
-        public changeDetector: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, public changeDetector: ChangeDetectorRef) {}
 
     @HostListener('keydown', ['$event'])
     onKeydown(event) {

@@ -59,7 +59,6 @@ export class BaseComponent {
     ngOnInit() {
         if (this.document) {
             this._loadStyles();
-            console.log(this.componentStyle);
         }
     }
 

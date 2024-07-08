@@ -8,7 +8,7 @@ let _id = 0;
 export class UseStyle {
     document: Document = inject(DOCUMENT);
 
-    _(css, options: any = {}) {
+    use(css, options: any = {}) {
         let isLoaded = false;
         let cssRef = css;
         let styleRef = null;

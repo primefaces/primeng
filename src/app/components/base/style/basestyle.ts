@@ -3,13 +3,7 @@ import { Theme, dt } from 'primeng/themes';
 import { UseStyle } from 'primeng/usestyle';
 import { ObjectUtils } from 'primeng/utils';
 
-@Injectable({ providedIn: 'root' })
-export class BaseStyle {
-    name = 'base';
-
-    useStyle: UseStyle = inject(UseStyle);
-
-    theme = ({ dt }) => `
+const theme = ({ dt }) => `
 * {
     box-sizing: border-box;
 }
@@ -130,7 +124,7 @@ export class BaseStyle {
 }
 `;
 
-    css = ({ dt }) => `
+const css = ({ dt }) => `
 .p-hidden-accessible {
     border: 0;
     clip: rect(0 0 0 0);
@@ -153,13 +147,23 @@ export class BaseStyle {
 }
 `;
 
+@Injectable({ providedIn: 'root' })
+export class BaseStyle {
+    name = 'base';
+
+    useStyle: UseStyle = inject(UseStyle);
+
+    theme = theme;
+
+    css = css;
+
     classes = {};
 
     inlineStyles = {};
 
     load = (style, options = {}, transform = (cs) => cs) => {
         const computedStyle = transform(ObjectUtils.getItemValue(style, { dt }));
-        return computedStyle ? this.useStyle._(ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
+        return computedStyle ? this.useStyle.use(ObjectUtils.minifyCSS(computedStyle), { name: this.name, ...options }) : {};
     };
 
     loadCSS = (options = {}) => {
