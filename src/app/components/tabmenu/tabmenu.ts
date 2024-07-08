@@ -12,10 +12,10 @@ import {
     Inject,
     Input,
     NgModule,
-    OnDestroy,
     Output,
     PLATFORM_ID,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewChildren,
@@ -132,7 +132,7 @@ import { filter } from 'rxjs/operators';
         class: 'p-element'
     }
 })
-export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked, OnDestroy {
+export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecked {
     /**
      * An array of menuitems.
      * @group Props
@@ -225,8 +225,6 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
 
     forwardIsDisabled: boolean = false;
 
-    private timerIdForInitialAutoScroll: any = null;
-
     _focusableItems: MenuItem[] | undefined | any;
 
     _model: MenuItem[] | undefined;
@@ -257,6 +255,19 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         });
     }
 
+    ngOnChanges(simpleChange: SimpleChanges) {
+        if (simpleChange.activeItem) {
+            if (!this.scrollable) {
+                return;
+            }
+            const activeItem = (this.model as MenuItem[]).findIndex((menuItem) => this.isActive(menuItem));
+
+            if (activeItem !== -1) {
+                this.updateScrollBar(activeItem);
+            }
+        }
+    }
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -282,7 +293,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
     ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             this.updateInkBar();
-            this.initAutoScrollForActiveItem();
+
             this.initButtonState();
         }
     }
@@ -292,10 +303,6 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
             this.updateInkBar();
             this.tabChanged = false;
         }
-    }
-
-    ngOnDestroy(): void {
-        this.clearAutoScrollHandler();
     }
 
     isActive(item: MenuItem) {
@@ -342,6 +349,7 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         }
 
         this.activeItem = item;
+
         this.activeItemChange.emit(item);
         this.tabChanged = true;
         this.cd.markForCheck();
@@ -460,7 +468,9 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
             return;
         }
 
-        tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
+        if (tabHeader && typeof tabHeader.scrollIntoView === 'function') {
+            tabHeader.scrollIntoView({ block: 'nearest', inline: 'center' });
+        }
     }
 
     onScroll(event: Event) {
@@ -482,29 +492,6 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         const pos = content.scrollLeft + width;
         const lastPos = content.scrollWidth - width;
         content.scrollLeft = pos >= lastPos ? lastPos : pos;
-    }
-
-    private initAutoScrollForActiveItem(): void {
-        if (!this.scrollable) {
-            return;
-        }
-
-        this.clearAutoScrollHandler();
-        // We have to wait for the rendering and then can scroll to element.
-        this.timerIdForInitialAutoScroll = setTimeout(() => {
-            const activeItem = (this.model as MenuItem[]).findIndex((menuItem) => this.isActive(menuItem));
-
-            if (activeItem !== -1) {
-                this.updateScrollBar(activeItem);
-            }
-        });
-    }
-
-    private clearAutoScrollHandler(): void {
-        if (this.timerIdForInitialAutoScroll) {
-            clearTimeout(this.timerIdForInitialAutoScroll);
-            this.timerIdForInitialAutoScroll = null;
-        }
     }
 
     private initButtonState(): void {
