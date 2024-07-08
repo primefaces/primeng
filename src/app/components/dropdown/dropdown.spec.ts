@@ -160,6 +160,7 @@ describe('Dropdown', () => {
 
         const dropdownPanel = fixture.debugElement.query(By.css('.p-dropdown-panel'));
         expect(dropdownPanel).toBeTruthy();
+        expect(container.className).toContain('p-dropdown-open');
         expect(dropdown.overlayVisible).toBeTrue();
     });
 

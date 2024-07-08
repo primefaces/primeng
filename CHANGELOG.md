@@ -1,4 +1,43 @@
 # Changelog
+## [17.18.3](https://github.com/primefaces/primeng/tree/17.18.3) (2024-07-04)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.2...17.18.3)
+
+**Fixed bugs:**
+- Splitter | Overflow issue [\#15959](https://github.com/primefaces/primeng/issues/15959)
+- Component: Multiselect - Provide removetokenicon hiding in case option is disabled (reopen) [\#15624](https://github.com/primefaces/primeng/issues/15624)
+- Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
+- Button Tooltip shows up after Dialog opens [\#15933](https://github.com/primefaces/primeng/issues/15933)
+- p-splitter: minSizes not working as expected [\#15943](https://github.com/primefaces/primeng/issues/15943)
+- p-splitter: Resize not working when iFrames are used in panels [\#15942](https://github.com/primefaces/primeng/issues/15942)
+- Component: InputNumber - Control update on strategy is ignored [\#12831](https://github.com/primefaces/primeng/issues/12831)
+- Component: InputNumber unneeded update model on blur [\#15799](https://github.com/primefaces/primeng/issues/15799)
+- p-multiselect: MultiSelectChangeEvent wrong select value [\#15954](https://github.com/primefaces/primeng/issues/15954)
+- Content-Security-Policy 'nonce' not working for some elements [\#15911](https://github.com/primefaces/primeng/issues/15911)
+- Component: Editor - Upgrade Quill to 2.0 [\#14721](https://github.com/primefaces/primeng/issues/14721)
+- Accessibility: Selection in MultiSelect is not accessible for screenreader [\#15930](https://github.com/primefaces/primeng/issues/15930)
+- Message: New severity not reflected in styles [\#15534](https://github.com/primefaces/primeng/issues/15534)
+- Component: Message - Theme: Aura light and dark variants [\#15881](https://github.com/primefaces/primeng/issues/15881)
+
+## [17.18.2](https://github.com/primefaces/primeng/tree/17.18.2) (2024-06-27)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.2)
+
+**Fixed bugs:**
+- TabMenu: Highlight does not update when selecting routerLink to unloaded module [\#15012](https://github.com/primefaces/primeng/issues/15012)
+- p-dropdown: p-dropdown-open style is missing from dropdown [\#15762](https://github.com/primefaces/primeng/issues/15762)
+- Closing nested dialog removes CSS class still needed for parent dialog [\#15779](https://github.com/primefaces/primeng/issues/15779)
+- Component: Accordion [\#15851](https://github.com/primefaces/primeng/issues/15851)
+- Accessibility: Buttons within an Accordion header template can't be activated via Keyboard [\#15871](https://github.com/primefaces/primeng/issues/15871)
+- Menu: Alignment does not work for SVG path [\#15877](https://github.com/primefaces/primeng/issues/15877)
+- Tree hierarchy [\#15886](https://github.com/primefaces/primeng/issues/15886)
+- Accessibility: Buttons within a Tree component can't be activated via Keyboard [\#15889](https://github.com/primefaces/primeng/issues/15889)
+- Dynamic Dialog Errors If No Focusable Element (Maximum call stack size exceeded) [\#15894](https://github.com/primefaces/primeng/issues/15894)
+- Component p-listbox triggers onChange multiple times [\#15873](https://github.com/primefaces/primeng/issues/15873)
+- Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
+- PrimeNG Button Link stackblitz not working [\#15902](https://github.com/primefaces/primeng/issues/15902)
+- Doc: Steps close menu [\#14259](https://github.com/primefaces/primeng/issues/14259)
+- Component: Button -> pButton [\#15862](https://github.com/primefaces/primeng/issues/15862)
+- Password: When disabled allows to edit on focus tab [\#15905](https://github.com/primefaces/primeng/issues/15905)
+
 ## [17.18.1](https://github.com/primefaces/primeng/tree/17.18.1) (2024-06-13)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.17.0...17.18.1)
 
@@ -709,6 +748,20 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.12-LTS](https://www.npmjs.com/package/primeng/v/16.9.12-lts) (2024-07-04)
+
+**Fixed bugs:**
+- Splitter | Overflow issue [\#15959](https://github.com/primefaces/primeng/issues/15959)
+- Component: Multiselect - Provide removetokenicon hiding in case option is disabled (reopen) [\#15624](https://github.com/primefaces/primeng/issues/15624)
+- Table | Multiple Selection with dataKey shows wrong selected row count upon CTRL+A [\#15903](https://github.com/primefaces/primeng/issues/15903)
+- Button Tooltip shows up after Dialog opens [\#15933](https://github.com/primefaces/primeng/issues/15933)
+- p-splitter: minSizes not working as expected [\#15943](https://github.com/primefaces/primeng/issues/15943)
+- p-splitter: Resize not working when iFrames are used in panels [\#15942](https://github.com/primefaces/primeng/issues/15942)
+- Component: InputNumber - Control update on strategy is ignored [\#12831](https://github.com/primefaces/primeng/issues/12831)
+- Component: InputNumber unneeded update model on blur [\#15799](https://github.com/primefaces/primeng/issues/15799)
+- p-multiselect: MultiSelectChangeEvent wrong select value [\#15954](https://github.com/primefaces/primeng/issues/15954)
+- Accessibility: Selection in MultiSelect is not accessible for screenreader [\#15930](https://github.com/primefaces/primeng/issues/15930)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.11-LTS](https://www.npmjs.com/package/primeng/v/16.9.11-lts) (2024-06-14)
 
 **Fixed bugs:**
@@ -1340,6 +1393,16 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.22-LTS](https://www.npmjs.com/package/primeng/v/15.4.22-lts) (2024-07-04)
+
+**Fixed bugs:**
+- Component: Multiselect - Provide removetokenicon hiding in case option is disabled (reopen) [\#15624](https://github.com/primefaces/primeng/issues/15624)
+- Button Tooltip shows up after Dialog opens [\#15933](https://github.com/primefaces/primeng/issues/15933)
+- p-splitter: minSizes not working as expected [\#15943](https://github.com/primefaces/primeng/issues/15943)
+- p-splitter: Resize not working when iFrames are used in panels [\#15942](https://github.com/primefaces/primeng/issues/15942)
+- Component: InputNumber - Control update on strategy is ignored [\#12831](https://github.com/primefaces/primeng/issues/12831)
+- Component: InputNumber unneeded update model on blur [\#15799](https://github.com/primefaces/primeng/issues/15799)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.21-LTS](https://www.npmjs.com/package/primeng/v/15.4.21-lts) (2024-06-14)
 
