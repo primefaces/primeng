@@ -7058,6 +7058,26 @@
                     ]
                 }
             }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "chart",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "chart",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    }
+                ]
+            }
         }
     },
     "checkbox": {

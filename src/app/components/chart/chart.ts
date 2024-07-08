@@ -1,5 +1,7 @@
-import { NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone, booleanAttribute } from '@angular/core';
+import { ContentChildren, QueryList, NgModule, Component, ElementRef, AfterViewInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Inject, PLATFORM_ID, NgZone, booleanAttribute, TemplateRef, AfterContentInit } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
 import Chart from 'chart.js/auto';
 /**
  * Chart groups a collection of contents in tabs.
@@ -9,7 +11,15 @@ import Chart from 'chart.js/auto';
     selector: 'p-chart',
     template: `
         <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
+            <div>
+                <ng-content select="p-header"></ng-content>
+                <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+            </div>
             <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+            <div>
+                <ng-content select="p-footer"></ng-content>
+                <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+            </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +28,7 @@ import Chart from 'chart.js/auto';
         class: 'p-element'
     }
 })
-export class UIChart implements AfterViewInit, OnDestroy {
+export class UIChart implements AfterContentInit, AfterViewInit, OnDestroy {
     /**
      * Type of the chart.
      * @group Props
@@ -82,6 +92,12 @@ export class UIChart implements AfterViewInit, OnDestroy {
      */
     @Output() onDataSelect: EventEmitter<any> = new EventEmitter<any>();
 
+    @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
+    headerTemplate: TemplateRef<any> | undefined;
+
+    footerTemplate: TemplateRef<any> | undefined;
+
     isBrowser: boolean = false;
 
     initialized: boolean | undefined;
@@ -101,6 +117,20 @@ export class UIChart implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.initChart();
         this.initialized = true;
+    }
+
+    ngAfterContentInit() {
+        (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
+            switch (item.getType()) {
+                case 'header':
+                    this.headerTemplate = item.template;
+                    break;
+
+                case 'footer':
+                    this.footerTemplate = item.template;
+                    break;
+            }
+        });
     }
 
     onCanvasClick(event: Event) {
@@ -125,7 +155,7 @@ export class UIChart implements AfterViewInit, OnDestroy {
             }
 
             this.zone.runOutsideAngular(() => {
-                this.chart = new Chart(this.el.nativeElement.children[0].children[0], {
+                this.chart = new Chart(this.el.nativeElement.children[0].children[1], {
                     type: this.type,
                     data: this.data,
                     options: this.options,
@@ -172,8 +202,8 @@ export class UIChart implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
-    exports: [UIChart],
+    imports: [CommonModule, ButtonModule],
+    exports: [UIChart, SharedModule, ButtonModule],
     declarations: [UIChart]
 })
 export class ChartModule {}
