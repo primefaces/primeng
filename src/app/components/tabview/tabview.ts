@@ -508,6 +508,7 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         this.tabChangesSubscription = (this.tabPanels as QueryList<TabPanel>).changes.subscribe((_) => {
             this.initTabs();
             this.refreshButtonState();
+            this.callResizeObserver();
         });
 
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -523,12 +524,16 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         });
     }
 
-    ngAfterViewInit() {
+    callResizeObserver() {
         if (isPlatformBrowser(this.platformId)) {
             if (this.autoHideButtons) {
                 this.bindResizeObserver();
             }
         }
+    }
+
+    ngAfterViewInit() {
+        this.callResizeObserver();
     }
 
     bindResizeObserver() {
