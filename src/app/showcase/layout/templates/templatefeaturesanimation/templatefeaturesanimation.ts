@@ -74,11 +74,7 @@ export class TemplateFeaturesAnimation {
 
     options;
 
-    constructor(
-        private cd: ChangeDetectorRef,
-        public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: any
-    ) {}
+    constructor(private cd: ChangeDetectorRef, public el: ElementRef, @Inject(PLATFORM_ID) private platformId: any) {}
 
     startInterval() {
         this.intervalId = setInterval(() => {

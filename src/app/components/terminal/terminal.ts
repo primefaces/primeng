@@ -65,11 +65,7 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(
-        public el: ElementRef,
-        public terminalService: TerminalService,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public el: ElementRef, public terminalService: TerminalService, public cd: ChangeDetectorRef) {
         this.subscription = terminalService.responseHandler.subscribe((response) => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;

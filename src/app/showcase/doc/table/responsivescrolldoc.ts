@@ -30,7 +30,7 @@ interface Column {
                     <ng-template pTemplate="body" let-product let-columns="columns">
                         <tr>
                             <td>{{ product.name }}</td>
-                            <td>{{ product.price | currency: 'USD' }}</td>
+                            <td>{{ product.price | currency : 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td>{{ product.quantity }}</td>
                             <td>
@@ -50,10 +50,7 @@ export class ResponsiveScrollDoc {
 
     cols!: Column[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

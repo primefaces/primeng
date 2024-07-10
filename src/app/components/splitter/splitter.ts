@@ -178,13 +178,7 @@ export class Splitter {
 
     private window: Window;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private el: ElementRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
         this.window = this.document.defaultView as Window;
     }
 

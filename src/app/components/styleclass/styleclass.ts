@@ -13,11 +13,7 @@ import { VoidListener } from 'primeng/ts-helpers';
     }
 })
 export class StyleClass implements OnDestroy {
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private zone: NgZone
-    ) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
     /**
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
      * @group Props
