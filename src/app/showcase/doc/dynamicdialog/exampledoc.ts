@@ -23,10 +23,7 @@ import { Footer } from './footer';
     providers: [DialogService, MessageService]
 })
 export class ExampleDoc implements OnDestroy {
-    constructor(
-        public dialogService: DialogService,
-        public messageService: MessageService
-    ) {}
+    constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;
 

@@ -9,11 +9,7 @@ import { AppConfigService } from '@service/appconfigservice';
 })
 export class UIKitComponent {
     subscription: Subscription;
-    constructor(
-        private configService: AppConfigService,
-        private titleService: Title,
-        private metaService: Meta
-    ) {
+    constructor(private configService: AppConfigService, private titleService: Title, private metaService: Meta) {
         this.titleService.setTitle('UI Kit - PrimeNG');
         this.metaService.updateTag({ name: 'description', content: 'PrimeNG Angular UI Kit' });
     }

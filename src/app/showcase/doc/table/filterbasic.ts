@@ -124,10 +124,7 @@ export class FilterBasicDoc {
 
     activityValues: number[] = [0, 100];
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
