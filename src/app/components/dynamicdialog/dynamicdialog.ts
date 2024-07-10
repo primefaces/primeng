@@ -284,7 +284,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         public zone: NgZone,
         public primeNGConfig: PrimeNGConfig,
         @SkipSelf() @Optional() private parentDialog: DynamicDialogComponent
-    ) {}
+    ) { }
 
     ngOnInit() {
         if (this.breakpoints) {
@@ -296,6 +296,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -309,7 +310,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
             }
         }
     }
@@ -715,4 +715,4 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
     declarations: [DynamicDialogComponent, DynamicDialogContent],
     exports: [SharedModule]
 })
-export class DynamicDialogModule {}
+export class DynamicDialogModule { }
