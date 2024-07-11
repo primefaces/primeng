@@ -57,7 +57,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
-                    [style]="getItemProp(processedItem, 'style')"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
