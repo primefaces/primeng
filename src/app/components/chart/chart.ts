@@ -8,8 +8,23 @@ import Chart from 'chart.js/auto';
 @Component({
     selector: 'p-chart',
     template: `
-        <div style="position:relative" [style.width]="responsive && !width ? null : width" [style.height]="responsive && !height ? null : height">
-            <canvas role="img" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy" [attr.width]="responsive && !width ? null : width" [attr.height]="responsive && !height ? null : height" (click)="onCanvasClick($event)"></canvas>
+        <div
+            [ngStyle]="{
+                position: 'relative',
+                width: responsive && !width ? null : width,
+                height: responsive && !height ? null : height
+            }"
+        >
+            <canvas
+                role="img"
+                [attr.aria-label]="ariaLabel"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [ngStyle]="{
+                    width: responsive && !width ? null : width,
+                    height: responsive && !height ? null : height
+                }"
+                (click)="onCanvasClick($event)"
+            ></canvas>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -92,7 +107,11 @@ export class UIChart implements AfterViewInit, OnDestroy {
 
     chart: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, private zone: NgZone) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        private zone: NgZone
+    ) {}
 
     ngAfterViewInit() {
         this.initChart();
