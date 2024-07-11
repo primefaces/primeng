@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute, numberAttribute, inject } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { QueryList } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ProgressBarStyle } from './style/progressbarstyle';
+
 /**
  * ProgressBar is a process status indicator.
  * @group Components
@@ -33,12 +36,12 @@ import { QueryList } from '@angular/core';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./progressbar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ProgressBarStyle]
 })
-export class ProgressBar {
+export class ProgressBar extends BaseComponent {
     /**
      * Current value of the progress.
      * @group Props
@@ -78,6 +81,8 @@ export class ProgressBar {
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
     contentTemplate: TemplateRef<any> | undefined;
+
+    _componentStyle = inject(ProgressBarStyle);
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
