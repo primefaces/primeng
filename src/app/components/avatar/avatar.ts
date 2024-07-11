@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
+import { AvatarStyle } from './style/avatarstyle';
+
 /**
  * Avatar represents people using icons, labels and images.
  * @group Components
@@ -16,12 +19,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./avatar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [AvatarStyle]
 })
-export class Avatar {
+export class Avatar extends BaseComponent {
     /**
      * Defines the text to display.
      * @group Props
@@ -73,6 +76,8 @@ export class Avatar {
      * @group Emits
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
+
+    _componentStyle = inject(AvatarStyle);
 
     containerClass() {
         return {
