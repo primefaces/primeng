@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
 import { PlusIcon } from 'primeng/icons/plus';
@@ -10,6 +10,7 @@ import { UniqueComponentId } from 'primeng/utils';
 import { FieldsetAfterToggleEvent, FieldsetBeforeToggleEvent } from './fieldset.interface';
 import { ButtonModule } from '../button/button';
 import { BaseComponent } from 'primeng/basecomponent';
+import { FieldsetStyle } from './style/fieldsetstyle';
 
 /**
  * Fieldset is a grouping component with the optional content toggle feature.
@@ -99,6 +100,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    providers: [FieldsetStyle],
     host: {
         class: 'p-element'
     }
@@ -178,6 +180,8 @@ export class Fieldset extends BaseComponent implements AfterContentInit, Blockab
     collapseIconTemplate: Nullable<TemplateRef<any>>;
 
     expandIconTemplate: Nullable<TemplateRef<any>>;
+
+    _componentStyle = inject(FieldsetStyle);
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
