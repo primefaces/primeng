@@ -16,27 +16,6 @@ export class ThemeProvider {
     baseStyle: BaseStyle = inject(BaseStyle);
 
     constructor() {
-        // effect(
-        //     () => {
-        //         ThemeService.on('theme:change', (newTheme) => {
-        //             this.isThemeChanged = true;
-        //             // this.theme.set(newTheme);
-        //             this.onThemeChange(this.theme());
-        //             console.log('changed');
-        //         });
-        //         // untracked(() => this.theme());
-        //     },
-        //     { allowSignalWrites: true }
-        // );
-        // effect(
-        //     () => {
-        //         if (this.document && this.theme() && !this.isThemeChanged) {
-        //             this.onThemeChange(this.theme());
-        //             this.isThemeChanged = false;
-        //         }
-        //     },
-        //     { allowSignalWrites: true }
-        // );
         effect(
             () => {
                 ThemeService.on('theme:change', (newTheme) => {

@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
-@Injectable()
-export class PanelStyle extends BaseStyle {
-    name = 'panel';
-
-    theme = ({ dt }) => `
+const theme = ({ dt }) => `
 .p-panel {
     border: 1px solid ${dt('panel.border.color')};
     border-radius: ${dt('panel.border.radius')};
@@ -52,6 +48,11 @@ export class PanelStyle extends BaseStyle {
     overflow: hidden;
 }
 `;
+@Injectable()
+export class PanelStyle extends BaseStyle {
+    name = 'panel';
+
+    theme = theme;
 
     classes = {
         root: ({ props }) => [
