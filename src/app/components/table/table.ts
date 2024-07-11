@@ -1555,9 +1555,9 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 this.restoringSort = false;
             }
 
-            if (this.lazy) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            } else if (this.value) {
+            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
+
+            if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
@@ -1605,9 +1605,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
 
         if (this.multiSortMeta) {
-            if (this.lazy) {
-                this.onLazyLoad.emit(this.createLazyLoadMetadata());
-            } else if (this.value) {
+            this.lazy && this.onLazyLoad.emit(this.createLazyLoadMetadata());
+            if (this.value) {
                 if (this.customSort) {
                     this.sortFunction.emit({
                         data: this.value,
