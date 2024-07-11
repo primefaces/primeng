@@ -20,14 +20,37 @@ import { QueryList } from '@angular/core';
             [attr.data-pc-section]="'root'"
             [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
         >
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+            <div
+                *ngIf="mode === 'determinate'"
+                class="p-progressbar-value p-progressbar-value-animate"
+                [ngStyle]="{
+                    width: value + '%',
+                    display: 'flex',
+                    background: color
+                }"
+                [attr.data-pc-section]="'value'"
+            >
                 <div class="p-progressbar-label">
-                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
+                    <div
+                        *ngIf="showValue && !contentTemplate"
+                        [ngStyle]="{
+                            display: value != null && value !== 0 ? 'flex' : 'none'
+                        }"
+                        [attr.data-pc-section]="'label'"
+                    >
+                        {{ value }}{{ unit }}
+                    </div>
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
                 </div>
             </div>
             <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container" [attr.data-pc-section]="'container'">
-                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
+                <div
+                    class="p-progressbar-value p-progressbar-value-animate"
+                    [ngStyle]="{
+                        background: color
+                    }"
+                    [attr.data-pc-section]="'value'"
+                ></div>
             </div>
         </div>
     `,
