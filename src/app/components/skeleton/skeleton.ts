@@ -1,5 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, NgModule, ViewEncapsulation } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
+import { SkeletonStyle } from './style/skeletonstyle';
+
 /**
  * Skeleton is a placeholder to display instead of the actual content.
  * @group Components
@@ -9,12 +12,12 @@ import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation 
     template: ` <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="containerStyle" [attr.data-pc-name]="'skeleton'" [attr.aria-hidden]="true" [attr.data-pc-section]="'root'"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./skeleton.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [SkeletonStyle]
 })
-export class Skeleton {
+export class Skeleton extends BaseComponent {
     /**
      * Class of the element.
      * @group Props
@@ -56,17 +59,23 @@ export class Skeleton {
      */
     @Input() height: string = '1rem';
 
+    _componentStyle = inject(SkeletonStyle);
+
     containerClass() {
         return {
             'p-skeleton p-component': true,
             'p-skeleton-circle': this.shape === 'circle',
-            'p-skeleton-none': this.animation === 'none'
+            'p-skeleton-animation-none': this.animation === 'none'
         };
     }
 
     get containerStyle() {
-        if (this.size) return { ...this.style, width: this.size, height: this.size, borderRadius: this.borderRadius };
-        else return { width: this.width, height: this.height, borderRadius: this.borderRadius, ...this.style };
+        const inlineStyles = this._componentStyle?.inlineStyles['root'];
+        let style;
+        if (this.size) style = { ...this.style, ...inlineStyles, width: this.size, height: this.size, borderRadius: this.borderRadius };
+        else style = { ...inlineStyles, width: this.width, height: this.height, borderRadius: this.borderRadius, ...this.style };
+
+        return style;
     }
 }
 
