@@ -1,29 +1,11 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-    AfterContentInit,
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    Inject,
-    Input,
-    NgModule,
-    NgZone,
-    OnDestroy,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation,
-    numberAttribute
-} from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, NgZone, OnDestroy, QueryList, TemplateRef, ViewChild, ViewEncapsulation, inject, numberAttribute } from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId } from 'primeng/utils';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ScrollPanelStyle } from './style/scrollpanelstyle';
 
 /**
  * ScrollPanel is a cross browser, lightweight and themable alternative to native browser scrollbar.
@@ -33,7 +15,7 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: 'p-scrollPanel',
     template: `
         <div #container [ngClass]="'p-scrollpanel p-component'" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'scrollpanel'">
-            <div class="p-scrollpanel-wrapper" [attr.data-pc-section]="'wrapper'">
+            <div class="p-scrollpanel-content-container" [attr.data-pc-section]="'wrapper'">
                 <div #content class="p-scrollpanel-content" [attr.data-pc-section]="'content'" (mouseenter)="moveBar()" (scroll)="onScroll($event)">
                     <ng-content></ng-content>
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
@@ -72,12 +54,12 @@ import { UniqueComponentId } from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./scrollpanel.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ScrollPanelStyle]
 })
-export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
+export class ScrollPanel extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * Inline style of the component.
      * @group Props
@@ -146,18 +128,17 @@ export class ScrollPanel implements AfterViewInit, AfterContentInit, OnDestroy {
 
     documentMouseUpListener: Nullable<(event?: any) => void>;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public zone: NgZone,
-        public cd: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2
-    ) {
+    _componentStyle = inject(ScrollPanelStyle);
+
+    zone: NgZone = inject(NgZone);
+
+    ngOnInit() {
+        super.ngOnInit();
         this.contentId = UniqueComponentId() + '_content';
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 this.moveBar();
