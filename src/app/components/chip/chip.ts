@@ -42,7 +42,8 @@ import { ChipStyle } from './style/chipstyle';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ChipStyle]
 })
 export class Chip extends BaseComponent implements AfterContentInit {
     /**
