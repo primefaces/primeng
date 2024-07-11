@@ -1,27 +1,10 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ContentChildren,
-    ElementRef,
-    Inject,
-    Input,
-    NgModule,
-    OnDestroy,
-    PLATFORM_ID,
-    QueryList,
-    Renderer2,
-    TemplateRef,
-    ViewChild,
-    ViewEncapsulation,
-    booleanAttribute,
-    numberAttribute
-} from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate } from 'primeng/api';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, OnDestroy, QueryList, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, inject, numberAttribute } from '@angular/core';
+import { PrimeTemplate } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ZIndexUtils } from 'primeng/utils';
+import { BaseComponent } from 'primeng/basecomponent';
+import { BlockUiStyle } from './style/blockuistyle';
 /**
  * BlockUI can either block other components or the whole page.
  * @group Components
@@ -33,7 +16,7 @@ import { ZIndexUtils } from 'primeng/utils';
             #mask
             [class]="styleClass"
             [attr.aria-busy]="blocked"
-            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-component-overlay p-component-overlay-enter': true }"
+            [ngClass]="{ 'p-blockui-document': !target, 'p-blockui p-blockui-mask p-overlay-mask': true }"
             [ngStyle]="{ display: 'none' }"
             [attr.data-pc-name]="'blockui'"
             [attr.data-pc-section]="'root'"
@@ -44,12 +27,12 @@ import { ZIndexUtils } from 'primeng/utils';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./blockui.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [BlockUiStyle]
 })
-export class BlockUI implements AfterViewInit, OnDestroy {
+export class BlockUI extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Name of the local ng-template variable referring to another component.
      * @group Props
@@ -96,16 +79,14 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2,
-        @Inject(PLATFORM_ID) public platformId: any
-    ) {}
+    _componentStyle = inject(BlockUiStyle);
+
+    constructor() {
+        super();
+    }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this._blocked) this.block();
 
         if (this.target && !this.target.getBlockableElement) {
@@ -175,6 +156,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
     ngOnDestroy() {
         this.unblock();
         this.destroyModal();
+        super.ngOnDestroy();
     }
 }
 
