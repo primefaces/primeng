@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { TimesIcon } from 'primeng/icons/times';
+import { BaseComponent } from 'primeng/basecomponent';
+import { InplaceStyle } from './style/inplacestyle';
 
 @Component({
     selector: 'p-inplaceDisplay',
@@ -49,12 +51,12 @@ export class InplaceContent {}
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inplace.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [InplaceStyle]
 })
-export class Inplace implements AfterContentInit {
+export class Inplace extends BaseComponent implements AfterContentInit {
     /**
      * Whether the content is displayed or not.
      * @group Props
@@ -118,7 +120,7 @@ export class Inplace implements AfterContentInit {
 
     closeIconTemplate: TemplateRef<any> | undefined;
 
-    constructor(public cd: ChangeDetectorRef) {}
+    _componentStyle = inject(InplaceStyle);
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
