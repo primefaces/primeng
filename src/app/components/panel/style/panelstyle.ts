@@ -48,25 +48,27 @@ const theme = ({ dt }) => `
     overflow: hidden;
 }
 `;
+
+const classes = {
+    root: ({ props }) => [
+        'p-panel p-component',
+        {
+            'p-panel-toggleable': props.toggleable
+        }
+    ],
+    header: 'p-panel-header',
+    title: 'p-panel-title',
+    headerActions: 'p-panel-header-actions',
+    pcToggleButton: 'p-panel-toggle-button',
+    contentContainer: 'p-panel-content-container',
+    content: 'p-panel-content',
+    footer: 'p-panel-footer'
+};
 @Injectable()
 export class PanelStyle extends BaseStyle {
     name = 'panel';
 
     theme = theme;
 
-    classes = {
-        root: ({ props }) => [
-            'p-panel p-component',
-            {
-                'p-panel-toggleable': props.toggleable
-            }
-        ],
-        header: 'p-panel-header',
-        title: 'p-panel-title',
-        headerActions: 'p-panel-header-actions',
-        pcToggleButton: 'p-panel-toggle-button',
-        contentContainer: 'p-panel-content-container',
-        content: 'p-panel-content',
-        footer: 'p-panel-footer'
-    };
+    classes = classes;
 }
