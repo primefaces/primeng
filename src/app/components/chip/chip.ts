@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, inject, booleanAttribute, SimpleChanges } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { ChipProps } from './chip.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ChipStyle } from './style/chipstyle';
 /**
  * Chip represents people using icons, labels and images.
  * @group Components
@@ -12,25 +14,25 @@ import { ChipProps } from './chip.interface';
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" *ngIf="visible" [attr.data-pc-name]="'chip'" [attr.aria-label]="label" [attr.data-pc-section]="'root'">
             <ng-content></ng-content>
-            <img [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
+            <img class="p-chip-image" [src]="image" *ngIf="image; else iconTemplate" (error)="imageError($event)" [alt]="alt" />
             <ng-template #iconTemplate><span *ngIf="icon" [class]="icon" [ngClass]="'p-chip-icon'" [attr.data-pc-section]="'icon'"></span></ng-template>
-            <div class="p-chip-text" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
+            <div class="p-chip-label" *ngIf="label" [attr.data-pc-section]="'label'">{{ label }}</div>
             <ng-container *ngIf="removable">
                 <ng-container *ngIf="!removeIconTemplate">
                     <span
                         tabindex="0"
                         *ngIf="removeIcon"
                         [class]="removeIcon"
-                        [ngClass]="'pi-chip-remove-icon'"
+                        [ngClass]="'p-chip-remove-icon'"
                         [attr.data-pc-section]="'removeicon'"
                         (click)="close($event)"
                         (keydown)="onKeydown($event)"
                         [attr.aria-label]="removeAriaLabel"
                         role="button"
                     ></span>
-                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'pi-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
+                    <TimesCircleIcon tabindex="0" *ngIf="!removeIcon" [class]="'p-chip-remove-icon'" [attr.data-pc-section]="'removeicon'" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button" />
                 </ng-container>
-                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="pi-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
+                <span *ngIf="removeIconTemplate" tabindex="0" [attr.data-pc-section]="'removeicon'" class="p-chip-remove-icon" (click)="close($event)" (keydown)="onKeydown($event)" [attr.aria-label]="removeAriaLabel" role="button">
                     <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
                 </span>
             </ng-container>
@@ -38,12 +40,11 @@ import { ChipProps } from './chip.interface';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./chip.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Chip implements AfterContentInit {
+export class Chip extends BaseComponent implements AfterContentInit {
     /**
      * Defines the text to display.
      * @group Props
@@ -97,8 +98,6 @@ export class Chip implements AfterContentInit {
      */
     @Output() onImageError: EventEmitter<Event> = new EventEmitter<Event>();
 
-    config = inject(PrimeNGConfig);
-
     visible: boolean = true;
 
     removeIconTemplate: TemplateRef<any> | undefined;
@@ -106,12 +105,11 @@ export class Chip implements AfterContentInit {
     get removeAriaLabel() {
         return this.config.getTranslation(TranslationKeys.ARIA)['removeLabel'];
     }
-    _chipProps: ChipProps;
     /**
      * Used to pass all properties of the chipProps to the Chip component.
      * @group Props
      */
-    @Input() get chipProps(): ChipProps{
+    @Input() get chipProps(): ChipProps {
         return this._chipProps;
     }
     set chipProps(val: ChipProps | undefined) {
@@ -123,8 +121,14 @@ export class Chip implements AfterContentInit {
         }
     }
 
+    _chipProps: ChipProps;
+
+    _componentStyle = inject(ChipStyle);
+
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
+
     ngOnChanges(simpleChanges: SimpleChanges) {
+        super.ngOnChanges(simpleChanges);
         if (simpleChanges.chipProps && simpleChanges.chipProps.currentValue) {
             const { currentValue } = simpleChanges.chipProps;
 
@@ -171,8 +175,7 @@ export class Chip implements AfterContentInit {
 
     containerClass() {
         return {
-            'p-chip p-component': true,
-            'p-chip-image': this.image != null
+            'p-chip p-component': true
         };
     }
 
