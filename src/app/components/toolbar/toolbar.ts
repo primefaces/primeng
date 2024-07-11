@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ToolbarStyle } from './style/toolbarstyle';
+
 /**
  * Toolbar is a grouping component for buttons and other content.
  * @group Components
@@ -10,25 +13,25 @@ import { BlockableUI, PrimeTemplate } from 'primeng/api';
     template: `
         <div [ngClass]="'p-toolbar p-component'" [attr.aria-labelledby]="ariaLabelledBy" [ngStyle]="style" [class]="styleClass" role="toolbar" [attr.data-pc-name]="'toolbar'">
             <ng-content></ng-content>
-            <div class="p-toolbar-group-left p-toolbar-group-start" *ngIf="startTemplate" [attr.data-pc-section]="'start'">
+            <div class="p-toolbar-start" *ngIf="startTemplate" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="startTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-group-center" *ngIf="centerTemplate" [attr.data-pc-section]="'center'">
+            <div class="p-toolbar-center" *ngIf="centerTemplate" [attr.data-pc-section]="'center'">
                 <ng-container *ngTemplateOutlet="centerTemplate"></ng-container>
             </div>
-            <div class="p-toolbar-group-right p-toolbar-group-end" *ngIf="endTemplate" [attr.data-pc-section]="'end'">
+            <div class="p-toolbar-end" *ngIf="endTemplate" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="endTemplate"></ng-container>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./toolbar.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ToolbarStyle]
 })
-export class Toolbar implements AfterContentInit, BlockableUI {
+export class Toolbar extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * Inline style of the component.
      * @group Props
@@ -53,7 +56,7 @@ export class Toolbar implements AfterContentInit, BlockableUI {
 
     centerTemplate: TemplateRef<any> | undefined;
 
-    constructor(private el: ElementRef) {}
+    _componentStyle = inject(ToolbarStyle);
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
