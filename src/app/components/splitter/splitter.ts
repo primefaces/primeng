@@ -1,9 +1,29 @@
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, Output, PLATFORM_ID, QueryList, Renderer2, ViewChild, ViewEncapsulation, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    NgModule,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    ViewChild,
+    ViewEncapsulation,
+    inject,
+    numberAttribute
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { SplitterStyle } from './style/splitterstyle';
 /**
  * Splitter is utilized to separate and resize panels.
  * @group Components
@@ -44,13 +64,13 @@ import { SplitterResizeEndEvent, SplitterResizeStartEvent } from './splitter.int
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./splitter.css'],
     host: {
         class: 'p-element',
         '[class.p-splitter-panel-nested]': 'nested'
-    }
+    },
+    providers: [SplitterStyle]
 })
-export class Splitter {
+export class Splitter extends BaseComponent {
     /**
      * Style class of the component.
      * @group Props
@@ -176,19 +196,10 @@ export class Splitter {
 
     prevSize: any;
 
-    private window: Window;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private el: ElementRef
-    ) {
-        this.window = this.document.defaultView as Window;
-    }
+    _componentStyle = inject(SplitterStyle);
 
     ngOnInit() {
+        super.ngOnInit();
         this.nested = this.isNested();
     }
 
@@ -206,6 +217,7 @@ export class Splitter {
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.panels && this.panels.length) {
                 let initialized = false;
@@ -492,10 +504,10 @@ export class Splitter {
         if (isPlatformBrowser(this.platformId)) {
             switch (this.stateStorage) {
                 case 'local':
-                    return this.window.localStorage;
+                    return this.document.defaultView.localStorage;
 
                 case 'session':
-                    return this.window.sessionStorage;
+                    return this.document.defaultView.sessionStorage;
 
                 default:
                     throw new Error(this.stateStorage + ' is not a valid value for the state storage, supported values are "local" and "session".');
