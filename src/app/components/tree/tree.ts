@@ -69,7 +69,8 @@ import {
             <li
                 *ngIf="!tree.horizontal"
                 [ngClass]="['p-treenode', node.styleClass || '', isLeaf() ? 'p-treenode-leaf' : '']"
-                [ngStyle]="getProcessedNodeStyle(node)"
+                [ngStyle]="{ height: itemSize + 'px' }"
+                [style]="node.style"
                 [attr.aria-label]="node.label"
                 [attr.aria-checked]="ariaChecked"
                 [attr.aria-setsize]="node.children ? node.children.length : 0"
@@ -273,29 +274,6 @@ export class UITreeNode implements OnInit {
     get ariaChecked() {
         return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
     }
-
-    getProcessedNodeStyle(node: any) {
-        const processedStyle: any = {
-          'height': this.itemSize + 'px' ,
-        };
-        
-        if (node.style && typeof node.style === 'string') {
-          const styleParts = node.style.trim().split(';');
-          styleParts.forEach(part => {
-            const trimmedPart = part.trim();
-            if (trimmedPart) {
-              const [key, value] = trimmedPart.split(':');
-              if (key && value) {
-                processedStyle[key.trim()] = value.trim();
-              }
-            }
-          });
-        } else if (typeof node.style === 'object') {
-          Object.assign(processedStyle, node.style);
-        }
-        
-        return processedStyle;
-      }
 
     constructor(@Inject(forwardRef(() => Tree)) tree: Tree) {
         this.tree = tree as Tree;
