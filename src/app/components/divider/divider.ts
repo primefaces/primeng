@@ -9,7 +9,7 @@ import { DividerStyle } from './style/dividerstyle';
 @Component({
     selector: 'p-divider',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
+        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" role="separator" [style]="inlineStyles" [attr.aria-orientation]="layout" [attr.data-pc-name]="'divider'">
             <div class="p-divider-content">
                 <ng-content></ng-content>
             </div>
@@ -64,6 +64,13 @@ export class Divider extends BaseComponent {
             'p-divider-right': this.layout === 'horizontal' && this.align === 'right',
             'p-divider-top': this.layout === 'vertical' && this.align === 'top',
             'p-divider-bottom': this.layout === 'vertical' && this.align === 'bottom'
+        };
+    }
+
+    get inlineStyles() {
+        return {
+            justifyContent: this.layout === 'horizontal' ? (this.align === 'center' || this.align === null ? 'center' : this.align === 'left' ? 'flex-start' : this.align === 'right' ? 'flex-end' : null) : null,
+            alignItems: this.layout === 'vertical' ? (this.align === 'center' || this.align === null ? 'center' : this.align === 'top' ? 'flex-start' : this.align === 'bottom' ? 'flex-end' : null) : null
         };
     }
 }
