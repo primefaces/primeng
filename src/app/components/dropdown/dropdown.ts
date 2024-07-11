@@ -1238,6 +1238,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     updatePlaceHolderForFloatingLabel(): void {
+        if(this._placeholder() !== null && this._placeholder() !== undefined) {
+            // We don't want to overwrite the placeholder if it's already set
+            return;
+        }
         const parentElement = this.el.nativeElement.parentElement;
         const isInFloatingLabel = parentElement?.classList.contains('p-float-label');
         if (parentElement && isInFloatingLabel && !this.selectedOption) {
@@ -1835,7 +1839,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"]):not([class="p-dropdown-items-wrapper"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {

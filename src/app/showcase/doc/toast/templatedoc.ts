@@ -17,11 +17,11 @@ import { Code } from '@domain/code';
                             <span class="font-bold text-900">Amy Elsner</span>
                         </div>
                         <div class="font-medium text-lg my-3 text-900">{{ message.summary }}</div>
-                        <p-button size="small" label="Reply" (click)="onConfirm()" />
+                        <p-button size="small" label="Reply" (onClick)="onConfirm()" />
                     </div>
                 </ng-template>
             </p-toast>
-            <p-button pRipple (click)="showConfirm()" label="View" />
+            <p-button pRipple (onClick)="showConfirm()" label="View" />
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
     `,
@@ -68,11 +68,11 @@ export class TemplateDoc {
                 <div class="font-medium text-lg my-3 text-900">
                     {{ message.summary }}
                 </div>
-                <p-button size="small" label="Reply" (click)="onConfirm()" />
+                <p-button size="small" label="Reply" (onClick)="onConfirm()" />
             </div>
         </ng-template>
 </p-toast>
-<p-button pRipple (click)="showConfirm()" label="View" />`,
+<p-button pRipple (onClick)="showConfirm()" label="View" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast 
         position="bottom-center" 
@@ -92,11 +92,11 @@ export class TemplateDoc {
                     <div class="font-medium text-lg my-3 text-900">
                         {{ message.summary }}
                     </div>
-                    <p-button size="small" label="Reply" (click)="onConfirm()" />
+                    <p-button size="small" label="Reply" (onClick)="onConfirm()" />
                 </div>
             </ng-template>
     </p-toast>
-    <p-button pRipple (click)="showConfirm()" label="View" />
+    <p-button pRipple (onClick)="showConfirm()" label="View" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

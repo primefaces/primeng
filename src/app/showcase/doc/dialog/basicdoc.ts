@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
         >
 
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" label="Show" />
+            <p-button (onClick)="showDialog()" label="Show" />
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
                 <div class="flex align-items-center gap-3 mb-3">
@@ -21,8 +21,8 @@ import { Code } from '@domain/code';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-content-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
+                    <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+                    <p-button label="Save" (onClick)="visible = false" />
                 </div>
             </p-dialog>
         </div>
@@ -37,7 +37,7 @@ export class BasicDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" label="Show" />
+        basic: `<p-button (onClick)="showDialog()" label="Show" />
 <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
     <span class="p-text-secondary block mb-5">Update your information.</span>
     <div class="flex align-items-center gap-3 mb-3">
@@ -49,13 +49,13 @@ export class BasicDoc {
         <input pInputText id="email" class="flex-auto" autocomplete="off" />
     </div>
     <div class="flex justify-content-end gap-2">
-        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" (click)="visible = false" />
+        <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+        <p-button label="Save" (onClick)="visible = false" />
     </div>
 </p-dialog>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-button (click)="showDialog()" label="Show" />
+    <p-button (onClick)="showDialog()" label="Show" />
     <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
         <span class="p-text-secondary block mb-5">Update your information.</span>
         <div class="flex align-items-center gap-3 mb-3">
@@ -67,8 +67,8 @@ export class BasicDoc {
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex justify-content-end gap-2">
-            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-            <p-button label="Save" (click)="visible = false" />
+            <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+            <p-button label="Save" (onClick)="visible = false" />
         </div>
     </p-dialog>
 </div>`,

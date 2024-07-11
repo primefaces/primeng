@@ -16,7 +16,7 @@ import { Footer } from './footer';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+            <p-button (onClick)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
         <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
     `,
@@ -65,11 +65,11 @@ export class ExampleDoc implements OnDestroy {
 
     code: Code = {
         basic: `<p-toast />
-<p-button (click)="show()" icon="pi pi-search" label="Select a Product" />`,
+<p-button (onClick)="show()" icon="pi pi-search" label="Select a Product" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
-    <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
+    <p-button (onClick)="show()" icon="pi pi-search" label="Select a Product" />
 </div>`,
 
         typescript: `import { Component, OnDestroy } from '@angular/core';
@@ -170,7 +170,7 @@ import { ButtonModule } from 'primeng/button';
     standalone:true,
     imports:[TableModule, ButtonModule],
     template: \`<div class="flex justify-content-end mt-1 mb-3">
-            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
+            <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (onClick)="showInfo()" />
         </div>
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
             <ng-template pTemplate="header">
@@ -193,7 +193,7 @@ import { ButtonModule } from 'primeng/button';
                         {{ product.quantity }}
                     </td>
                     <td>
-                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (click)="selectProduct(product)" />
+                        <p-button type="button" [text]="true" [rounded]="true" icon="pi pi-plus" (onClick)="selectProduct(product)" />
                     </td>
                 </tr>
             </ng-template>
@@ -256,7 +256,7 @@ import { ButtonModule } from 'primeng/button';
         There are <strong>{{ totalProducts }}</strong> products in total in this list.
     </p>
     <div class="flex justify-content-end">
-        <p-button type="button" label="Close" (click)="close()" />
+        <p-button type="button" label="Close" (onClick)="close()" />
     </div>
 </div>\`
 })
@@ -299,7 +299,7 @@ import { ButtonModule } from 'primeng/button';
     imports: [ButtonModule],
     template:  \`
         <div class="flex w-full justify-content-end mt-3">
-            <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
+            <p-button type="button" label="Cancel" icon="pi pi-times" (onClick)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
         </div> \`
 })
 export class Footer {

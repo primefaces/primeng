@@ -606,20 +606,47 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         return this.header !== null ? UniqueComponentId() + '_header' : null;
     }
 
+    parseDurationToMilliseconds(durationString: string): number | undefined {
+        const transitionTimeRegex = /([\d\.]+)(ms|s)\b/g;
+        let totalMilliseconds = 0;
+        let match;
+
+        while ((match = transitionTimeRegex.exec(durationString)) !== null) {
+            const value = parseFloat(match[1]);
+            const unit = match[2];
+
+            if (unit === 'ms') {
+                totalMilliseconds += value;
+            } else if (unit === 's') {
+                totalMilliseconds += value * 1000;
+            }
+        }
+
+        if (totalMilliseconds === 0) {
+            return undefined;
+        }
+
+        return totalMilliseconds;
+    }
+
     focus(focusParentElement = this.contentViewChild?.nativeElement) {
+        const timeoutDuration = this.parseDurationToMilliseconds(this.transitionOptions);
+
         let focusable = DomHandler.getFocusableElement(focusParentElement, '[autofocus]');
+
         if (focusable) {
             this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusable.focus(), 5);
+                setTimeout(() => focusable.focus(), timeoutDuration || 5);
             });
             return;
         }
         const focusableElement = DomHandler.getFocusableElement(focusParentElement);
+
         if (focusableElement) {
             this.zone.runOutsideAngular(() => {
-                setTimeout(() => focusableElement.focus(), 5);
+                setTimeout(() => focusableElement.focus(), timeoutDuration || 5);
             });
-        } else if (this.footerViewChild) {
+        } else if (this.footerViewChild && focusParentElement !== this.footerViewChild.nativeElement) {
             // If the content section is empty try to focus on footer
             this.focus(this.footerViewChild.nativeElement);
         }

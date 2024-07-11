@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
             </p-confirmDialog>
-            <p-button (click)="confirm()" icon="pi pi-check" label="Confirm" />
+            <p-button (onClick)="confirm()" icon="pi pi-check" label="Confirm" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
     `,
@@ -76,7 +76,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-confirmDialog>
-<p-button (click)="confirm()" icon="pi pi-check" label="Confirm" />`,
+<p-button (onClick)="confirm()" icon="pi pi-check" label="Confirm" />`,
 
         html: `<div class="card flex justify-content-center">
 <p-toast />
@@ -107,7 +107,7 @@ export class HeadlessDoc {
         </div>
     </ng-template>
 </p-confirmDialog>
-<p-button (click)="confirm()" icon="pi pi-check" label="Confirm" />
+<p-button (onClick)="confirm()" icon="pi pi-check" label="Confirm" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

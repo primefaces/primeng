@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                     consequat.
                 </p>
             </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-window-maximize" />
+            <p-button (onClick)="sidebarVisible = true" icon="pi pi-window-maximize" />
         </div>
         <app-code [code]="code" selector="sidebar-full-screen-demo"></app-code>
     `
@@ -36,7 +36,7 @@ export class FullScreenDoc {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
         </p>
     </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-window-maximize" />`,
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-window-maximize" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-sidebar [(visible)]="sidebarVisible" [fullScreen]="true">
@@ -50,7 +50,7 @@ export class FullScreenDoc {
             consequat.
         </p>
     </p-sidebar>
-    <p-button (click)="sidebarVisible = true" icon="pi pi-window-maximize" />
+    <p-button (onClick)="sidebarVisible = true" icon="pi pi-window-maximize" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

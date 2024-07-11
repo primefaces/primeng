@@ -10,8 +10,8 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-toast [life]="10000" />
-            <p-button pRipple (click)="showLife()" label="Show Life" />
-            <p-button pRipple (click)="showLifeLong()" label="Show Life Long" />
+            <p-button pRipple (onClick)="showLife()" label="Show Life" />
+            <p-button pRipple (onClick)="showLifeLong()" label="Show Life Long" />
         </div>
         <app-code [code]="code" selector="toast-life-demo"></app-code>
     `,
@@ -32,21 +32,21 @@ export class LifeDoc {
         basic: `<p-toast [life]="10000" />
 <p-button 
     pRipple 
-    (click)="showLife()" 
+    (onClick)="showLife()" 
     label="Show Life" />
 <p-button 
     pRipple 
-    (click)="showLifeLong()" 
+    (onClick)="showLifeLong()" 
     label="Show Life Long" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast [life]="10000" />
     <p-button 
         pRipple 
-        (click)="showLife()" 
+        (onClick)="showLife()" 
         label="Show Life" />
     <p-button
         pRipple 
-        (click)="showLifeLong()" 
+        (onClick)="showLifeLong()" 
         label="Show Life Long" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
