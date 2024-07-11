@@ -1,9 +1,12 @@
-import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { NgModule, Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DomHandler } from 'primeng/dom';
 import { TerminalService } from './terminalservice';
 import { Subscription } from 'rxjs';
+import { BaseComponent } from 'primeng/basecomponent';
+import { TerminalStyle } from './style/terminalstyle';
+
 /**
  * Terminal is a text based user interface.
  * @group Components
@@ -12,28 +15,28 @@ import { Subscription } from 'rxjs';
     selector: 'p-terminal',
     template: `
         <div [ngClass]="'p-terminal p-component'" [ngStyle]="style" [class]="styleClass" (click)="focus(in)">
-            <div *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
-            <div class="p-terminal-content">
-                <div *ngFor="let command of commands">
-                    <span class="p-terminal-prompt">{{ prompt }}</span>
-                    <span class="p-terminal-command">{{ command.text }}</span>
-                    <div class="p-terminal-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
+            <div class="p-terminal-welcome-message" *ngIf="welcomeMessage">{{ welcomeMessage }}</div>
+            <div class="p-terminal-command-list">
+                <div class="p-terminal-command" *ngFor="let command of commands">
+                    <span class="p-terminal-prompt-label">{{ prompt }}</span>
+                    <span class="p-terminal-command-value">{{ command.text }}</span>
+                    <div class="p-terminal-command-response" [attr.aria-live]="'polite'">{{ command.response }}</div>
                 </div>
             </div>
-            <div class="p-terminal-prompt-container">
-                <span class="p-terminal-content-prompt">{{ prompt }}</span>
-                <input #in type="text" [(ngModel)]="command" class="p-terminal-input" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
+            <div class="p-terminal-prompt">
+                <span class="p-terminal-prompt-label">{{ prompt }}</span>
+                <input #in type="text" [(ngModel)]="command" class="p-terminal-prompt-value" autocomplete="off" (keydown)="handleCommand($event)" autofocus />
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./terminal.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [TerminalStyle]
 })
-export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
+export class Terminal extends BaseComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
     /**
      * Initial text to display on terminal.
      * @group Props
@@ -65,11 +68,10 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
 
     subscription: Subscription;
 
-    constructor(
-        public el: ElementRef,
-        public terminalService: TerminalService,
-        public cd: ChangeDetectorRef
-    ) {
+    _componentStyle = inject(TerminalStyle);
+
+    constructor(public terminalService: TerminalService) {
+        super();
         this.subscription = terminalService.responseHandler.subscribe((response) => {
             this.commands[this.commands.length - 1].response = response;
             this.commandProcessed = true;
@@ -77,6 +79,7 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         this.container = DomHandler.find(this.el.nativeElement, '.p-terminal')[0];
     }
 
@@ -111,6 +114,8 @@ export class Terminal implements AfterViewInit, AfterViewChecked, OnDestroy {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 
