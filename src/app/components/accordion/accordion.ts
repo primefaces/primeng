@@ -40,7 +40,7 @@ import { UniqueComponentId } from 'primeng/utils';
             <div class="p-accordion-header" role="heading" [attr.aria-level]="headerAriaLevel" [class.p-highlight]="selected" [class.p-disabled]="disabled" [attr.data-p-disabled]="disabled" [attr.data-pc-section]="'header'">
                 <a
                     [ngClass]="headerStyleClass"
-                    [style]="headerStyle"
+                    [ngStyle]="headerStyle"
                     role="button"
                     class="p-accordion-header-link"
                     (click)="toggle($event)"
