@@ -664,7 +664,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     visibleOptions = computed(() => {
         const options = this.group ? this.flatOptions(this._options()) : this._options() || [];
-        return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
+        const filterValue = this._filterValue();
+
+        if (this.searchFields[0] === undefined) {
+            return filterValue ? options.filter((option) => option.toString().toLocaleLowerCase(this.filterLocale).indexOf(filterValue.toLocaleLowerCase(this.filterLocale).trim()) !== -1) : options;
+        } else return filterValue ? this.filterService.filter(options, this.searchFields, filterValue, this.filterMatchMode, this.filterLocale) : options;
     });
 
     constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, private renderer: Renderer2) {}
