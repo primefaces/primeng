@@ -1,8 +1,11 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
+import { BaseComponent } from 'primeng/basecomponent';
+import { BadgeStyle } from './style/badgestyle';
+
 /**
  * Badge Directive is directive usage of badge component.
  * @group Components
@@ -11,9 +14,10 @@ import { UniqueComponentId } from 'primeng/utils';
     selector: '[pBadge]',
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [BadgeStyle]
 })
-export class BadgeDirective implements OnChanges, AfterViewInit {
+export class BadgeDirective extends BaseComponent implements OnChanges, AfterViewInit {
     /**
      * When specified, disables the component.
      * @group Props
@@ -50,6 +54,8 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
 
     private id!: string;
 
+    _componentStyle = inject(BadgeStyle);
+
     private get activeElement(): HTMLElement {
         return this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
     }
@@ -58,13 +64,12 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         return this.id && !this.disabled;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        private renderer: Renderer2
-    ) {}
+    constructor() {
+        super();
+    }
 
     public ngOnChanges({ value, size, severity, disabled }: SimpleChanges): void {
+        super.ngOnChanges({ value, size, severity, disabled });
         if (disabled) {
             this.toggleDisableState();
         }
@@ -212,12 +217,12 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
     template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./badge.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [BadgeStyle]
 })
-export class Badge {
+export class Badge extends BaseComponent {
     /**
      * Class of the element.
      * @group Props
@@ -261,6 +266,8 @@ export class Badge {
         return this._size;
     }
     _size: 'large' | 'xlarge';
+
+    _componentStyle = inject(BadgeStyle);
 
     containerClass() {
         return {
