@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>The element to block should be placed as a child of BlockUI and <i>blocked</i> property is required to control the state.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-button pRipple label="Block" (click)="blockedPanel = true" />
-            <p-button pRipple label="Unblock" (click)="blockedPanel = false" />
+            <p-button pRipple label="Block" (onClick)="blockedPanel = true" />
+            <p-button pRipple label="Unblock" (onClick)="blockedPanel = false" />
             <p-blockUI [target]="pnl" [blocked]="blockedPanel">
                 <i class="pi pi-lock" style="font-size: 3rem"></i>
             </p-blockUI>
@@ -27,8 +27,8 @@ export class BasicDoc {
     blockedPanel: boolean = false;
 
     code: Code = {
-        basic: `<p-button pRipple label="Block" (click)="blockedPanel = true" />
-<p-button pRipple label="Unblock" (click)="blockedPanel = false" />
+        basic: `<p-button pRipple label="Block" (onClick)="blockedPanel = true" />
+<p-button pRipple label="Unblock" (onClick)="blockedPanel = false" />
 <p-blockUI [target]="pnl" [blocked]="blockedPanel">
     <i class="pi pi-lock" style="font-size: 3rem"></i>
 </p-blockUI>
@@ -38,8 +38,8 @@ export class BasicDoc {
     </p>
 </p-panel>`,
         html: `<div class="card">
-    <p-button pRipple label="Block" (click)="blockedPanel = true" />
-    <p-button pRipple label="Unblock" (click)="blockedPanel = false" />
+    <p-button pRipple label="Block" (onClick)="blockedPanel = true" />
+    <p-button pRipple label="Unblock" (onClick)="blockedPanel = false" />
     <p-blockUI [target]="pnl" [blocked]="blockedPanel">
         <i class="pi pi-lock" style="font-size: 3rem"></i>
     </p-blockUI>

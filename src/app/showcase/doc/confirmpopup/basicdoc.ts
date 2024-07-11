@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast />
             <p-confirmPopup />
-            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
         <app-code [code]="code" selector="confirm-popup-basic-demo"></app-code>
     `,

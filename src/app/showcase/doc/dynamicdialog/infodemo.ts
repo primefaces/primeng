@@ -8,7 +8,7 @@ import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng
                 There are <strong>{{ totalProducts }}</strong> products in total in this list.
             </p>
             <div class="flex justify-content-end">
-                <p-button type="button" label="Close" (click)="close()"></p-button>
+                <p-button type="button" label="Close" (onClick)="close()"></p-button>
             </div>
         </div>
     `

@@ -14,8 +14,8 @@ import { ProductService } from '@service/productservice';
                 <p-toast />
                 <p-toolbar styleClass="mb-4 gap-2">
                     <ng-template pTemplate="left">
-                        <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (click)="openNew()" />
-                        <p-button pRipple severity="danger" label="Delete" icon="pi pi-trash" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
+                        <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+                        <p-button pRipple severity="danger" label="Delete" icon="pi pi-trash" (onClick)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
                     </ng-template>
 
                     <ng-template pTemplate="right">
@@ -74,8 +74,8 @@ import { ProductService } from '@service/productservice';
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" />
                             </td>
                             <td>
-                                <p-button pRipple icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success" (click)="editProduct(product)" />
-                                <p-button pRipple icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                                <p-button pRipple icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" severity="success" (onClick)="editProduct(product)" />
+                                <p-button pRipple icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (onClick)="deleteProduct(product)" />
                             </td>
                         </tr>
                     </ng-template>
@@ -144,8 +144,8 @@ import { ProductService } from '@service/productservice';
                     </ng-template>
 
                     <ng-template pTemplate="footer">
-                        <p-button pRipple label="Cancel" icon="pi pi-times" [text]="true" (click)="hideDialog()" />
-                        <p-button pRipple label="Save" icon="pi pi-check" [text]="true" (click)="saveProduct()" />
+                        <p-button pRipple label="Cancel" icon="pi pi-times" [text]="true" (onClick)="hideDialog()" />
+                        <p-button pRipple label="Save" icon="pi pi-check" [text]="true" (onClick)="saveProduct()" />
                     </ng-template>
                 </p-dialog>
 
@@ -288,13 +288,13 @@ export class ProductsDoc {
             label="New" 
             icon="pi pi-plus" 
             class="mr-2" 
-            (click)="openNew()" />
+            (onClick)="openNew()" />
         <p-button 
             pRipple
             severity="danger" 
             label="Delete" 
             icon="pi pi-trash" 
-            (click)="deleteSelectedProducts()" 
+            (onClick)="deleteSelectedProducts()" 
             [disabled]="!selectedProducts || !selectedProducts.length" />
     </ng-template>
 
@@ -399,14 +399,14 @@ export class ProductsDoc {
                     [rounded]="true" 
                     [outlined]="true" 
                     severity="success" 
-                    (click)="editProduct(product)" />
+                    (onClick)="editProduct(product)" />
                 <p-button 
                     pRipple 
                     icon="pi pi-trash" 
                     severity="danger" 
                     [rounded]="true" 
                     [outlined]="true" 
-                    (click)="deleteProduct(product)" />
+                    (onClick)="deleteProduct(product)" />
             </td>
         </tr>
     </ng-template>
@@ -426,13 +426,13 @@ export class ProductsDoc {
                 label="New" 
                 icon="pi pi-plus" 
                 class="mr-2" 
-                (click)="openNew()" />
+                (onClick)="openNew()" />
             <p-button 
                 pRipple 
                 severity="danger" 
                 label="Delete" 
                 icon="pi pi-trash" 
-                (click)="deleteSelectedProducts()" 
+                (onClick)="deleteSelectedProducts()" 
                 [disabled]="!selectedProducts || !selectedProducts.length" />
         </ng-template>
 
@@ -544,14 +544,14 @@ export class ProductsDoc {
                         [rounded]="true" 
                         [outlined]="true" 
                         severity="success" 
-                        (click)="editProduct(product)" />
+                        (onClick)="editProduct(product)" />
                     <p-button 
                         pRipple 
                         icon="pi pi-trash" 
                         severity="danger" 
                         [rounded]="true" 
                         [outlined]="true" 
-                        (click)="deleteProduct(product)" />
+                        (onClick)="deleteProduct(product)" />
                 </td>
             </tr>
         </ng-template>
@@ -681,13 +681,13 @@ export class ProductsDoc {
                     label="Cancel" 
                     icon="pi pi-times" 
                     [text]="true" 
-                    (click)="hideDialog()" />
+                    (onClick)="hideDialog()" />
                 <p-button 
                     pRipple 
                     label="Save" 
                     icon="pi pi-check" 
                     [text]="true" 
-                    (click)="saveProduct()" />
+                    (onClick)="saveProduct()" />
             </ng-template>
     </p-dialog>
 
