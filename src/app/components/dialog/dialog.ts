@@ -51,7 +51,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
         <div
             *ngIf="maskVisible"
             [class]="maskStyleClass"
-            [style]="maskStyle"
+            [ngStyle]="maskStyle"
             [ngClass]="{
                 'p-dialog-mask': true,
                 'p-component-overlay p-component-overlay-enter': this.modal,
@@ -267,7 +267,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Style of the mask.
      * @group Props
      */
-    @Input() maskStyle: string | undefined;
+    @Input() maskStyle: { [klass: string]: any } | null | undefined;
     /**
      * Whether to show the header or not.
      * @group Props
@@ -546,7 +546,15 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        public zone: NgZone,
+        private cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {
         this.window = this.document.defaultView as Window;
     }
 
