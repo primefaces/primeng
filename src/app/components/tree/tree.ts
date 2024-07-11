@@ -844,7 +844,7 @@ export class UITreeNode implements OnInit {
                     </ng-container>
                 </p-scroller>
                 <ng-container *ngIf="!virtualScroll">
-                    <div #wrapper class="p-tree-wrapper" [style.max-height]="scrollHeight">
+                    <div #wrapper class="p-tree-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
                         <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
