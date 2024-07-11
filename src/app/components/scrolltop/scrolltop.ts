@@ -1,12 +1,33 @@
 import { AnimationEvent, animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, Inject, Input, NgModule, OnDestroy, OnInit, PLATFORM_ID, QueryList, Renderer2, TemplateRef, ViewEncapsulation, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    Inject,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    PLATFORM_ID,
+    QueryList,
+    Renderer2,
+    TemplateRef,
+    ViewEncapsulation,
+    inject,
+    numberAttribute
+} from '@angular/core';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { ZIndexUtils } from 'primeng/utils';
 import { ButtonModule } from '../button/button';
 import { ButtonProps } from 'primeng/button';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ScrollTopStyle } from './style/scrolltopstyle';
+
 /**
  * ScrollTop gets displayed after a certain scroll position and used to navigates to the top of the page quickly.
  * @group Components
@@ -35,7 +56,6 @@ import { ButtonProps } from 'primeng/button';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./scrolltop.css'],
     animations: [
         trigger('animation', [
             state(
@@ -56,9 +76,10 @@ import { ButtonProps } from 'primeng/button';
     ],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ScrollTopStyle]
 })
-export class ScrollTop implements OnInit, OnDestroy {
+export class ScrollTop extends BaseComponent implements OnInit, OnDestroy {
     /**
      * Class of the element.
      * @group Props
@@ -122,20 +143,10 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     overlay: any;
 
-    private window: Window | null;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public el: ElementRef,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {
-        this.window = this.document.defaultView;
-    }
+    _componentStyle = inject(ScrollTopStyle);
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.target === 'window') this.bindDocumentScrollListener();
         else if (this.target === 'parent') this.bindParentScrollListener();
     }
@@ -151,7 +162,7 @@ export class ScrollTop implements OnInit, OnDestroy {
     }
 
     onClick() {
-        let scrollElement = this.target === 'window' ? this.window : this.el.nativeElement.parentElement;
+        let scrollElement = this.target === 'window' ? this.document.defaultView : this.el.nativeElement.parentElement;
         scrollElement.scroll({
             top: 0,
             behavior: this.behavior
@@ -195,7 +206,7 @@ export class ScrollTop implements OnInit, OnDestroy {
 
     bindDocumentScrollListener() {
         if (isPlatformBrowser(this.platformId)) {
-            this.documentScrollListener = this.renderer.listen(this.window, 'scroll', () => {
+            this.documentScrollListener = this.renderer.listen(this.document.defaultView, 'scroll', () => {
                 this.checkVisibility(DomHandler.getWindowScrollTop());
             });
         }
@@ -227,6 +238,7 @@ export class ScrollTop implements OnInit, OnDestroy {
             ZIndexUtils.clear(this.overlay);
             this.overlay = null;
         }
+        super.ngOnDestroy();
     }
 }
 
