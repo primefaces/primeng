@@ -1,4 +1,27 @@
 # Changelog
+## [17.18.4](https://github.com/primefaces/primeng/tree/17.18.4) (2024-07-11)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.3...17.18.4)
+
+**Fixed bugs:**
+- Inline style not compliant with strict CSP [\#15998](https://github.com/primefaces/primeng/issues/15998)
+- Cascade Select clicking a few times causes the component to freeze [\#15869](https://github.com/primefaces/primeng/issues/15869)
+- listbox filter is not working if options is bind to a string array [\#14454](https://github.com/primefaces/primeng/issues/14454)
+- AutoComplete: Increased drop-down height on first search when using virtual scroll [\#15647](https://github.com/primefaces/primeng/issues/15647)
+- Component: picklist scrolls to top [\#15861](https://github.com/primefaces/primeng/issues/15861)
+- KeyFilter: No longer working on chips component [\#15531](https://github.com/primefaces/primeng/issues/15531)
+- Component: Dropdown Accessibility [\#15155](https://github.com/primefaces/primeng/issues/15155)
+- Dropdown: Placeholder magic cannot be disabled [\#15974](https://github.com/primefaces/primeng/issues/15974)
+- p-dialog focusOnShow="true" Maximum call stack size exceeded [\#15978](https://github.com/primefaces/primeng/issues/15978)
+- Tabview: forward/backward buttons not showing up when dynamic tab panels overflow [\#15680](https://github.com/primefaces/primeng/issues/15680)
+- ButtonComponent: routerLink accessible even when button is disabled [\#15946](https://github.com/primefaces/primeng/issues/15946)
+- Component: p-tree (selection) [\#15761](https://github.com/primefaces/primeng/issues/15761)
+- Dialog: Focus to input element set before transition ends [\#15749](https://github.com/primefaces/primeng/issues/15749)
+- Custom sort in table not working [\#15550](https://github.com/primefaces/primeng/issues/15550)
+- Dialog | strict CSP error [\#15999](https://github.com/primefaces/primeng/issues/15999)
+- Dynamic Dialog: CSP Errors [\#15995](https://github.com/primefaces/primeng/issues/15995)
+- p-image: Fix inline style not compliant with Strict CSP policy [\#15993](https://github.com/primefaces/primeng/issues/15993)
+- CSP errors [\#15965](https://github.com/primefaces/primeng/issues/15965)
+
 ## [17.18.3](https://github.com/primefaces/primeng/tree/17.18.3) (2024-07-04)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.2...17.18.3)
 
