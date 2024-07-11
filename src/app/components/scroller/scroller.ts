@@ -608,6 +608,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
+                this.calculateAutoSize();
 
                 this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
@@ -1068,6 +1069,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
 
                         this.init();
+                        this.calculateAutoSize();
                     });
             }
         }, this._resizeDelay);
