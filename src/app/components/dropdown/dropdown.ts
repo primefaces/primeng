@@ -273,6 +273,7 @@ export class DropdownItem {
                             [ngStyle]="{
                                 'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto'
                             }"
+                            tabindex="0"
                         >
                             <p-scroller
                                 *ngIf="virtualScroll"
