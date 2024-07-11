@@ -239,12 +239,12 @@ export class TreeTableService {
                 <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
             </div>
 
-            <div #resizeHelper class="p-column-resizer-helper" style="display:none" *ngIf="resizableColumns"></div>
-            <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" style="display: none;" *ngIf="reorderableColumns">
+            <div #resizeHelper class="p-column-resizer-helper" [ngStyle]="{ display: 'none' }" *ngIf="resizableColumns"></div>
+            <span #reorderIndicatorUp class="p-treetable-reorder-indicator-up" [ngStyle]="{ display: 'none' }" *ngIf="reorderableColumns">
                 <ArrowDownIcon *ngIf="!reorderIndicatorUpIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorUpIconTemplate"></ng-template>
             </span>
-            <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" style="display: none;" *ngIf="reorderableColumns">
+            <span #reorderIndicatorDown class="p-treetable-reorder-indicator-down" [ngStyle]="{ display: 'none' }" *ngIf="reorderableColumns">
                 <ArrowUpIcon *ngIf="!reorderIndicatorDownIconTemplate" />
                 <ng-template *ngTemplateOutlet="reorderIndicatorDownIconTemplate"></ng-template>
             </span>
@@ -2338,11 +2338,11 @@ export class TTBody {
         </ng-container>
 
         <ng-template #buildInItems let-items let-scrollerOptions="options">
-            <table role="table" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="tt.tableStyle" [style]="scrollerOptions.contentStyle">
+            <table role="table" #scrollTable [class]="tt.tableStyleClass" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="getMergedTableStyles(scrollerOptions.contentStyle)">
                 <ng-container *ngTemplateOutlet="frozen ? tt.frozenColGroupTemplate || tt.colGroupTemplate : tt.colGroupTemplate; context: { $implicit: columns }"></ng-container>
                 <tbody role="rowgroup" class="p-treetable-tbody" [pTreeTableBody]="columns" [pTreeTableBodyTemplate]="frozen ? tt.frozenBodyTemplate || tt.bodyTemplate : tt.bodyTemplate" [serializedNodes]="items" [frozen]="frozen"></tbody>
             </table>
-            <div #scrollableAligner style="background-color:transparent" *ngIf="frozen"></div>
+            <div #scrollableAligner [ngStyle]="{ 'background-color': 'transparent' }" *ngIf="frozen"></div>
         </ng-template>
 
         <div #scrollFooter *ngIf="tt.footerTemplate" class="p-treetable-scrollable-footer">
@@ -2397,6 +2397,13 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
     _scrollHeight: string | undefined | null;
 
     preventBodyScrollPropagation: boolean | undefined;
+
+    getMergedTableStyles(contentStyle) {
+        return {
+            ...this.tt.tableStyle,
+            ...contentStyle
+        };
+    }
 
     @Input() get scrollHeight(): string | undefined | null {
         return this._scrollHeight;
