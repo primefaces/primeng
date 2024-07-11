@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { TagStyle } from './style/tagstyle';
+
 /**
  * Tag component is used to categorize content.
  * @group Components
@@ -16,17 +19,17 @@ import { PrimeTemplate, SharedModule } from 'primeng/api';
             <span class="p-tag-icon" *ngIf="iconTemplate">
                 <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
             </span>
-            <span class="p-tag-value">{{ value }}</span>
+            <span class="p-tag-label">{{ value }}</span>
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tag.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [TagStyle]
 })
-export class Tag {
+export class Tag extends BaseComponent {
     /**
      * Inline style of the component.
      * @group Props
@@ -71,6 +74,8 @@ export class Tag {
 
     _style: { [klass: string]: any } | null | undefined;
 
+    _componentStyle = inject(TagStyle);
+
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
@@ -80,8 +85,6 @@ export class Tag {
             }
         });
     }
-
-    constructor(private cd: ChangeDetectorRef) {}
 
     containerClass() {
         return {
