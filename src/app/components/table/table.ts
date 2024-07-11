@@ -221,7 +221,7 @@ export class TableService {
                         role="table"
                         [ngClass]="{ 'p-datatable-table': true, 'p-datatable-scrollable-table': scrollable, 'p-datatable-resizable-table': resizableColumns, 'p-datatable-resizable-table-fit': resizableColumns && columnResizeMode === 'fit' }"
                         [class]="tableStyleClass"
-                        [style]="tableStyle"
+                        [ngStyle]="tableStyle"
                         [attr.id]="id + '-table'"
                     >
                         <ng-container *ngTemplateOutlet="colGroupTemplate; context: { $implicit: scrollerOptions.columns }"></ng-container>
@@ -242,7 +242,7 @@ export class TableService {
                             role="rowgroup"
                             class="p-datatable-tbody"
                             [ngClass]="scrollerOptions.contentStyleClass"
-                            [style]="scrollerOptions.contentStyle"
+                            [ngStyle]="scrollerOptions.contentStyle"
                             [value]="dataToRender(scrollerOptions.rows)"
                             [pTableBody]="scrollerOptions.columns"
                             [pTableBodyTemplate]="bodyTemplate"
@@ -251,7 +251,7 @@ export class TableService {
                         <tbody
                             role="rowgroup"
                             *ngIf="scrollerOptions.spacerStyle"
-                            [style]="'height: calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px);'"
+                            [ngStyle]="{ height: 'calc(' + scrollerOptions.spacerStyle.height + ' - ' + scrollerOptions.rows.length * scrollerOptions.itemSize + 'px)' }"
                             class="p-datatable-scroller-spacer"
                         ></tbody>
                         <tfoot role="rowgroup" *ngIf="footerGroupedTemplate || footerTemplate" #tfoot class="p-datatable-tfoot">
