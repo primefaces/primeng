@@ -1,6 +1,7 @@
-import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { NgModule, Component, ChangeDetectionStrategy, ViewEncapsulation, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from 'primeng/basecomponent';
+import { DividerStyle } from './style/dividerstyle';
 /**
  * Divider is used to separate contents.
  * @group Components
@@ -18,7 +19,8 @@ import { BaseComponent } from 'primeng/basecomponent';
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [DividerStyle]
 })
 export class Divider extends BaseComponent {
     /**
@@ -46,6 +48,8 @@ export class Divider extends BaseComponent {
      * @group Props
      */
     @Input() align: 'left' | 'center' | 'right' | 'top' | 'center' | 'bottom' | undefined;
+
+    _componentStyle = inject(DividerStyle);
 
     containerClass() {
         return {
