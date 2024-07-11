@@ -246,7 +246,12 @@ export class TabMenu implements AfterContentInit, AfterViewInit, AfterViewChecke
         return this._focusableItems;
     }
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private router: Router, private route: ActivatedRoute, private cd: ChangeDetectorRef) {
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private router: Router,
+        private route: ActivatedRoute,
+        private cd: ChangeDetectorRef
+    ) {
         this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event: NavigationEnd) => {
             this.cd.markForCheck();
         });

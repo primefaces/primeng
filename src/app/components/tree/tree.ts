@@ -1384,7 +1384,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                         } else {
                             this.selection = [...(this.selection || []), node];
                             setTimeout(() => {
-                                this.onNodeSelect.emit({ originalEvent: event, node: node });   
+                                this.onNodeSelect.emit({ originalEvent: event, node: node });
                             });
                         }
                     }

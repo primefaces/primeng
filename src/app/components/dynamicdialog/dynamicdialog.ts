@@ -274,9 +274,9 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
 
     get containerStyle() {
         return {
-            ...this.config.style, 
-            'width': this.config.width, 
-            'height': this.config.height 
+            ...this.config.style,
+            width: this.config.width,
+            height: this.config.height
         };
     }
 

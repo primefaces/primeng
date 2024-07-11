@@ -171,7 +171,12 @@ export class Knob {
 
     onModelTouched: Function = () => {};
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private cd: ChangeDetectorRef, private el: ElementRef) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private el: ElementRef
+    ) {}
 
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
         return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
