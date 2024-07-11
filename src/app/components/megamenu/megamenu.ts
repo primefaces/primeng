@@ -52,12 +52,12 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             (focus)="menuFocus.emit($event)"
             (blur)="menuBlur.emit($event)"
         >
-            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [style]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
+            <li *ngIf="submenu" [ngClass]="getSubmenuHeaderClass(submenu)" [ngStyle]="getItemProp(submenu, 'style')" role="presentation">{{ getItemLabel(submenu) }}</li>
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [attr.id]="getItemId(processedItem)"
-                    [style]="getItemProp(processedItem, 'style')"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
                     [attr.data-pc-section]="'separator'"

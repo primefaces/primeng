@@ -58,7 +58,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <div
                 #container
                 [ngClass]="{ 'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized }"
-                [ngStyle]="config.style"
+                [ngStyle]="containerStyle"
                 [class]="config.styleClass"
                 [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)' } }"
                 (@animation.start)="onAnimationStart($event)"
@@ -67,8 +67,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 *ngIf="visible"
                 pFocusTrap
                 [pFocusTrapDisabled]="config.focusTrap === false"
-                [style.width]="config.width"
-                [style.height]="config.height"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
@@ -272,6 +270,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         const dynamicDialogCount = dynamicDialogs?.length;
 
         return dynamicDialogCount;
+    }
+
+    get containerStyle() {
+        return {
+            ...this.config.style, 
+            'width': this.config.width, 
+            'height': this.config.height 
+        };
     }
 
     constructor(

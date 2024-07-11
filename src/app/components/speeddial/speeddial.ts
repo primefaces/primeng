@@ -45,7 +45,7 @@ import { asapScheduler } from 'rxjs';
                 pRipple
                 pButton
                 class="p-button-icon-only"
-                [style]="buttonStyle"
+                [ngStyle]="buttonStyle"
                 [icon]="buttonIconClass"
                 [ngClass]="buttonClass()"
                 [disabled]="disabled"

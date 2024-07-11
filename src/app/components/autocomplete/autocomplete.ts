@@ -194,7 +194,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div [ngClass]="panelClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                <div [ngClass]="panelClass" [ngStyle]="panelStyles" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <p-scroller
                         *ngIf="virtualScroll"
@@ -824,6 +824,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             'p-ripple-disabled': this.config.ripple === false
         };
     }
+
+    get panelStyles() {
+        return {
+          'max-height': this.virtualScroll ? 'auto' : this.scrollHeight,
+          ...this.panelStyle
+        };
+      }
 
     get inputClass() {
         return {

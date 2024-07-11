@@ -117,7 +117,14 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-template>
             </div>
-            <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+            <div
+                [ngClass]="'p-listbox-list-wrapper'"
+                [ngStyle]="listStyle"
+                [class]="listStyleClass"
+                [ngStyle]="{
+                    'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto'
+                }"
+            >
                 <p-scroller
                     #scroller
                     *ngIf="virtualScroll"
@@ -151,7 +158,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                         [tabindex]="-1"
                         [attr.aria-multiselectable]="true"
                         [ngClass]="scrollerOptions.contentStyleClass"
-                        [style]="scrollerOptions.contentStyle"
+                        [ngStyle]="scrollerOptions.contentStyle"
                         [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                         [attr.aria-label]="ariaLabel"
                         [attr.aria-multiselectable]="multiple"
@@ -671,7 +678,13 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         } else return filterValue ? this.filterService.filter(options, this.searchFields, filterValue, this.filterMatchMode, this.filterLocale) : options;
     });
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig, private renderer: Renderer2) {}
+    constructor(
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public filterService: FilterService,
+        public config: PrimeNGConfig,
+        private renderer: Renderer2
+    ) {}
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();

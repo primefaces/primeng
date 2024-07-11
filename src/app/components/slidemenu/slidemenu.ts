@@ -45,11 +45,13 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
             role="menu"
             [ngClass]="{ 'p-submenu-list': !root, 'p-slidemenu-root-list': root, 'p-active-submenu': isActive }"
             [id]="menuId + '_list'"
-            [style.width.px]="menuWidth"
-            [style.left.px]="root ? slideMenu.left : slideMenu.menuWidth"
-            [style.transitionProperty]="root ? 'left' : 'none'"
-            [style.transitionDuration]="effectDuration + 'ms'"
-            [style.transitionTimingFunction]="easing"
+            [ngStyle]="{
+                'width.px': menuWidth,
+                'left.px': root ? slideMenu.left : slideMenu.menuWidth,
+                'transition-property': root ? 'left' : 'none',
+                'transition-duration': effectDuration + 'ms',
+                'transition-timing-function': easing
+            }"
             [tabindex]="tabindex"
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
@@ -64,7 +66,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                 <li
                     *ngIf="isItemVisible(processedItem) && getItemProp(processedItem, 'separator')"
                     [id]="getItemId(processedItem)"
-                    [style]="getItemProp(processedItem, 'style')"
+                    [ngStyle]="getItemProp(processedItem, 'style')"
                     [ngClass]="getSeparatorItemClass(processedItem)"
                     role="separator"
                     [attr.data-pc-section]="'separator'"
@@ -242,7 +244,13 @@ export class SlideMenuSub {
         return -this.slideMenu.left == this.level * this.menuWidth;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, @Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        @Inject(forwardRef(() => SlideMenu)) public slideMenu: SlideMenu
+    ) {}
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
@@ -339,7 +347,13 @@ export class SlideMenuSub {
             (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
             *ngIf="!popup || visible"
         >
-            <div class="p-slidemenu-wrapper" [style.height]="left ? viewportHeight + 'px' : 'auto'" [style.width]="menuWidth + 'px'">
+            <div
+                class="p-slidemenu-wrapper"
+                [ngStyle]="{
+                    height: left ? viewportHeight + 'px' : 'auto',
+                    width: menuWidth + 'px'
+                }"
+            >
                 <div #slideMenuContent class="p-slidemenu-content" (focus)="logFocus($event, slideMenuContent)">
                     <p-slideMenuSub
                         #rootmenu
@@ -364,7 +378,17 @@ export class SlideMenuSub {
                         (itemMouseEnter)="onItemMouseEnter($event)"
                     ></p-slideMenuSub>
                 </div>
-                <a #backward class="p-slidemenu-backward p-menuitem-link" tabindex="0" [style.display]="left ? 'block' : 'none'" (click)="goBack($event)" (keydown)="onNavigationKeyDown($event)" [attr.data-pc-section]="'navigation'">
+                <a
+                    #backward
+                    class="p-slidemenu-backward p-menuitem-link"
+                    tabindex="0"
+                    [ngStyle]="{
+                        display: left ? 'block' : 'none'
+                    }"
+                    (click)="goBack($event)"
+                    (keydown)="onNavigationKeyDown($event)"
+                    [attr.data-pc-section]="'navigation'"
+                >
                     <CaretLeftIcon *ngIf="!backIconTemplate" [styleClass]="'p-slidemenu-backward-icon'" [ngStyle]="{ 'vertical-align': 'middle' }" />
                     <ng-template *ngTemplateOutlet="backIconTemplate"></ng-template>
                     <span>{{ backLabel }}</span>
