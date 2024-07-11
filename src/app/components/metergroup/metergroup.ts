@@ -3,6 +3,8 @@ import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, 
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { MeterItem } from './metergroup.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { MeterGroupStyle } from './style/metergroupstyle';
 
 @Component({
     selector: 'p-meterGroupLabel',
@@ -36,9 +38,9 @@ export class MeterGroupLabel {
 
     get labelClass(): { [key: string]: boolean } {
         return {
-            'p-metergroup-labels p-component': true,
-            'p-metergroup-labels-vertical': this.labelOrientation === 'vertical',
-            'p-metergroup-labels-horizontal': this.labelOrientation === 'horizontal'
+            'p-metergroup-label-list p-component': true,
+            'p-metergroup-label-list-vertical': this.labelOrientation === 'vertical',
+            'p-metergroup-label-list-horizontal': this.labelOrientation === 'horizontal'
         };
     }
 
@@ -53,8 +55,8 @@ export class MeterGroupLabel {
     template: `
         <div #container [ngClass]="containerClass" role="meter" [attr.aria-valuemin]="min" [attr.aria-valuemax]="max" [attr.aria-valuenow]="totalPercent()" [ngStyle]="style" [class]="styleClass">
             @if (labelPosition === 'start') {
-                <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
-                <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+            <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+            <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
             <ng-container *ngTemplateOutlet="startTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             <div class="p-metergroup-meters">
@@ -68,15 +70,16 @@ export class MeterGroupLabel {
             </div>
             <ng-container *ngTemplateOutlet="endTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             @if (labelPosition === 'end') {
-                <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
-                <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
+            <p-meterGroupLabel *ngIf="!labelTemplate" [value]="value" [labelPosition]="labelPosition" [labelOrientation]="labelOrientation" [min]="min" [max]="max" [iconTemplate]="iconTemplate" />
+            <ng-container *ngTemplateOutlet="labelTemplate; context: { $implicit: value, totalPercent: totalPercent(), percentages: percentages() }"></ng-container>
             }
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    providers: [MeterGroupStyle]
 })
-export class MeterGroup implements AfterContentInit {
+export class MeterGroup extends BaseComponent implements AfterContentInit {
     /**
      * Current value of the metergroup.
      * @group Props
@@ -141,6 +144,8 @@ export class MeterGroup implements AfterContentInit {
     startTemplate: TemplateRef<any> | undefined;
 
     iconTemplate: TemplateRef<any> | undefined;
+
+    _componentStyle = inject(MeterGroupStyle);
 
     @ViewChild('container', { read: ElementRef }) container: ElementRef;
 
