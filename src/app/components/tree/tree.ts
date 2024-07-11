@@ -85,7 +85,9 @@ import {
             >
                 <div
                     class="p-treenode-content"
-                    [style.paddingLeft]="level * indentation + 'rem'"
+                    [ngStyle]="{
+                        'padding-left': level * indentation + 'rem'
+                    }"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
                     (touchend)="onNodeTouchEnd()"
@@ -134,7 +136,14 @@ import {
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
+                <ul
+                    class="p-treenode-children"
+                    [ngStyle]="{
+                        display: node.expanded ? 'block' : 'none'
+                    }"
+                    *ngIf="!tree.virtualScroll && node.children && node.expanded"
+                    role="group"
+                >
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -202,7 +211,13 @@ import {
                                 </span>
                             </div>
                         </td>
-                        <td class="p-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
+                        <td
+                            class="p-treenode-children-container"
+                            *ngIf="node.children && node.expanded"
+                            [ngStyle]="{
+                                display: node.expanded ? 'table-cell' : 'none'
+                            }"
+                        >
                             <div class="p-treenode-children">
                                 <p-treeNode *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; trackBy: tree.trackBy" [node]="childNode" [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                             </div>
@@ -1166,7 +1181,12 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        @Optional() public dragDropService: TreeDragDropService,
+        public config: PrimeNGConfig,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
