@@ -98,6 +98,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.data-pc-section]="'input'"
                 pAutoFocus
                 [autofocus]="autofocus"
+                [class.p-variant-filled]="true"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
