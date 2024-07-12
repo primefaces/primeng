@@ -30,8 +30,7 @@ const theme = ({ dt }) => `
     transition: opacity 0.15s;
 }
 
-// For PrimeNG
-
+/* For PrimeNG */
 .p-scrolltop-sticky.p-link {
     margin-left: auto;
 }
