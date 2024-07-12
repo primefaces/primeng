@@ -1,3 +1,5 @@
+import { MaxWidthOptions } from '../api/overlayoptions';
+
 /**
  * @dynamic is for runtime initializing DomHandler.browser
  *
@@ -104,10 +106,31 @@ export class DomHandler {
         }
     }
 
-    public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth: boolean = true) {
+    public static alignOverlay(overlay: any, target: any, appendTo: any = 'self', calculateMinWidth?: boolean, calculateMaxWidth?: MaxWidthOptions) {
         if (overlay && target) {
-            if (calculateMinWidth) {
-                overlay.style.minWidth = `${DomHandler.getOuterWidth(target)}px`;
+            const controlWidth = DomHandler.getOuterWidth(target);
+            if (calculateMinWidth ?? true) {
+                overlay.style.minWidth = `${controlWidth}px`;
+                // overlay.style.maxWidth = `min(100vw, calc(2 * ${DomHandler.getOuterWidth(target)}px))`;
+            }
+
+            if (calculateMaxWidth) {
+                const limits: string[] = [];
+                const values = Array.isArray(calculateMaxWidth) ? calculateMaxWidth : [calculateMaxWidth];
+                values.forEach((value) => {
+                    if (typeof value === 'number') {
+                        limits.push(`calc(${value} * ${controlWidth}px)`);
+                    } else if (typeof value === 'string') {
+                        if (value.endsWith('px') || value.endsWith('vw')) {
+                            limits.push(value);
+                        } else {
+                            console.warn('Invalid string value for calculateMaxWidth option. It should be a number followed by "px" or "vw".');
+                        }
+                    } else if (value === true) {
+                        limits.push(`${controlWidth}px`);
+                    }
+                });
+                overlay.style.maxWidth = `min(${limits.join(', ')})`;
             }
 
             if (appendTo === 'self') {

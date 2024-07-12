@@ -7,6 +7,18 @@ import { AnimationEvent } from '@angular/animations';
 export type OverlayModeType = 'modal' | 'overlay' | undefined;
 
 /**
+ * Represents the type of maximum width option, which can be a number, a number followed by 'px', or a number followed by 'vw'.
+ * @group Types
+ */
+export type MaxWidthOption = number | `${number}px` | `${number}vw`;
+
+/**
+ * Represents the type of maximum width options, which can be a boolean, a number, a number followed by 'px', a number followed by 'vw', or an array of values.
+ * @group Types
+ */
+export type MaxWidthOptions = boolean | MaxWidthOption | MaxWidthOption[];
+
+/**
  * Represents the type of direction for a responsive overlay, which can be one of the specified values or undefined.
  * @group Types
  */
@@ -136,6 +148,22 @@ export interface OverlayOptions {
      * The element or location where the overlay should be appended.
      */
     appendTo?: 'body' | HTMLElement | undefined;
+    /**
+     * Controls whether the overlay should have the minimum width of the control.
+     * @default true
+     */
+    calculateMinWidth?: boolean;
+    /**
+     * Controls whether the overlay should have a maximum width.
+     * - `true` will set the maximum width to the control's width.
+     * - `false` will not set a maximum width.
+     * - A number will set the maximum width to a multiple of the control's width.
+     * - A number followed by 'px' will set the maximum width to a fixed size in pixels.
+     * - A number followed by 'vw' will set the maximum width to a percentage of the viewport width.
+     * Also accepts an array of values. The smallest value will be used.
+     * @default false
+     */
+    calculateMaxWidth?: MaxWidthOptions;
     /**
      * Indicates whether the overlay should have an auto-generated z-index.
      */

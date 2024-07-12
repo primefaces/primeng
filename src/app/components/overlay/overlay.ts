@@ -463,7 +463,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
     }
 
     alignOverlay() {
-        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo);
+        !this.modal && DomHandler.alignOverlay(this.overlayEl, this.targetEl, this.appendTo, this.options?.calculateMinWidth, this.options?.calculateMaxWidth);
     }
 
     onVisibleChange(visible: boolean) {
