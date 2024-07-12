@@ -71,8 +71,7 @@ const theme = ({ dt }) => `
     padding: ${dt('fieldset.content.padding')};
 }
 
-// For PrimeNG
-
+/* For PrimeNG */
 .p-fieldset-toggleable.p-fieldset-expanded > .p-fieldset-content-container:not(.ng-animating) {
     overflow: visible
 }
