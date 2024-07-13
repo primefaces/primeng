@@ -5133,7 +5133,7 @@ export class ReorderableRow implements AfterViewInit {
                 [ngClass]="{ 'p-column-filter-overlay p-component p-fluid': true, 'p-column-filter-overlay-menu': display === 'menu' }"
                 [id]="overlayId"
                 [attr.aria-modal]="true"
-                role="dialog"
+                role="filterDialog"
                 (click)="onContentClick()"
                 [@overlayAnimation]="'visible'"
                 (@overlayAnimation.start)="onOverlayAnimationStart($event)"
@@ -5788,7 +5788,7 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                const dialogElements = document.querySelectorAll('[role="filterDialog"]');
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
                 if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
                     this.hide();
