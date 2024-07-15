@@ -50,12 +50,7 @@ export class AppConfigComponent {
 
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        private configService: AppConfigService,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService, private config: PrimeNGConfig) {}
 
     get isActive(): boolean {
         return this.configService.state.configActive;
@@ -376,8 +371,8 @@ export class AppConfigComponent {
     }
 
     onPresetChange(event) {
-        this.configService.appState.update((state) => ({ ...state, preset: event.value }));
-        const preset = presets[event.value];
+        this.configService.appState.update((state) => ({ ...state, preset: event }));
+        const preset = presets[event];
         const surfacePalette = this.surfaces.find((s) => s.name === this.selectedSurfaceColor())?.palette;
         $t().preset(preset).preset(this.getPresetExt()).surfacePalette(surfacePalette).use({ useDefaultOptions: true });
     }

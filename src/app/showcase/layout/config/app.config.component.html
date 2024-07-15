@@ -37,11 +37,17 @@
 
         <div class="config-panel-settings">
             <span class="config-panel-label">Presets</span>
-                <p-selectButton 
-                    [options]="presets" 
-                    [(ngModel)]="selectedPreset" 
-                    (onChange)="onPresetChange($event)"
-                />
+            @for(preset of presets; track preset) {
+                <span class="flex align-items-center gap-2">
+                    <p-radioButton
+                        [value]="preset" 
+                        [(ngModel)]="selectedPreset"
+                        (ngModelChange)="onPresetChange($event)"
+                        [inputId]="preset"
+                    />
+                    <label [for]="preset">{{preset}}</label>
+                </span>
+            }
         </div>
 
         <div class="config-panel-settings">
