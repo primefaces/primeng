@@ -106,6 +106,10 @@ const theme = ({ dt }) => `
 .p-togglebutton-icon-right {
     order: 1;
 }
+
+.p-togglebutton.ng-invalid.ng-dirty {
+    border-color: ${dt('togglebutton.invalid.border.color')};
+}
 `;
 
 const classes = {
