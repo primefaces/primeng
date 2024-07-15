@@ -5,14 +5,14 @@ import { Code } from '@domain/code';
     selector: 'badge-severity-demo',
     template: `
         <app-docsectiontext>
-            <p>Severity defines the color of the badge, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i></p>
+            <p>Severity defines the color of the badge, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i></p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-badge value="2" />
             <p-badge value="6" severity="secondary" />
             <p-badge value="8" severity="success" />
             <p-badge value="4" severity="info" />
-            <p-badge value="12" severity="warning" />
+            <p-badge value="12" severity="warn" />
             <p-badge value="3" severity="danger" />
             <p-badge value="5" severity="contrast" />
         </div>
@@ -25,7 +25,7 @@ export class SeverityDoc {
         html: `<div class="card flex justify-content-center gap-2">
     <p-badge [value]="2" severity="success" />
     <p-badge [value]="9" severity="info" />
-    <p-badge [value]="3" severity="warning" />
+    <p-badge [value]="3" severity="warn" />
     <p-badge [value]="12" severity="danger" />
 </div>`,
         typescript: `import { Component } from '@angular/core';

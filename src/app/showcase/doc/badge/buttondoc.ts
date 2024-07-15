@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
 
         <div class="card flex flex-wrap justify-content-center gap-2">
             <p-button label="Emails" badge="8" />
-            <p-button label="Messages" icon="pi pi-users" severity="secondary" badge="8" badgeClass="p-badge-info" />
+            <p-button label="Messages" icon="pi pi-users" severity="secondary" badge="8" badgeSeverity="info" />
         </div>
 
         <app-code [code]="code" selector="badge-button-demo"></app-code>

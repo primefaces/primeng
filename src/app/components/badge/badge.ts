@@ -2,7 +2,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, Input, NgModule, Renderer2, OnChanges, SimpleChanges, ViewEncapsulation, booleanAttribute, inject } from '@angular/core';
 import { SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
-import { UniqueComponentId } from 'primeng/utils';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { BaseComponent } from 'primeng/basecomponent';
 import { BadgeStyle } from './style/badgestyle';
 
@@ -27,25 +27,25 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() public badgeSize: 'large' | 'xlarge';
+    @Input() public badgeSize: 'large' | 'xlarge' | 'small' | null | undefined;
     /**
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      * @deprecated use badgeSize instead.
      */
-    @Input() public set size(value: 'large' | 'xlarge') {
+    @Input() public set size(value: 'large' | 'xlarge' | 'small' | null | undefined) {
         this._size = value;
         console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
     }
     get size() {
         return this._size;
     }
-    _size: 'large' | 'xlarge';
+    _size: 'large' | 'xlarge' | 'small' | null | undefined;
     /**
      * Severity type of the badge.
      * @group Props
      */
-    @Input() public severity: 'success' | 'info' | 'warning' | 'danger' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -109,16 +109,16 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
             }
 
             if (this.value && String(this.value).length === 1) {
-                DomHandler.addClass(badge, 'p-badge-no-gutter');
+                DomHandler.addClass(badge, 'p-badge-circle');
             } else {
-                DomHandler.removeClass(badge, 'p-badge-no-gutter');
+                DomHandler.removeClass(badge, 'p-badge-circle');
             }
         } else {
             if (!DomHandler.hasClass(badge, 'p-badge-dot')) {
                 DomHandler.addClass(badge, 'p-badge-dot');
             }
 
-            DomHandler.removeClass(badge, 'p-badge-no-gutter');
+            DomHandler.removeClass(badge, 'p-badge-circle');
         }
 
         badge.innerHTML = '';
@@ -237,7 +237,7 @@ export class Badge extends BaseComponent {
      * Size of the badge, valid options are "large" and "xlarge".
      * @group Props
      */
-    @Input() badgeSize: 'large' | 'xlarge' | undefined;
+    @Input() badgeSize: 'small' | 'large' | 'xlarge' | null | undefined;
     /**
      * Severity type of the badge.
      * @group Props
@@ -258,23 +258,25 @@ export class Badge extends BaseComponent {
      * @group Props
      * @deprecated use badgeSize instead.
      */
-    @Input() public set size(value: 'large' | 'xlarge') {
+    @Input() public set size(value: 'large' | 'xlarge' | 'small' | undefined | null) {
         this._size = value;
         console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
     }
     get size() {
         return this._size;
     }
-    _size: 'large' | 'xlarge';
+    _size: 'large' | 'xlarge' | 'small' | undefined | null;
 
     _componentStyle = inject(BadgeStyle);
 
     containerClass() {
         return {
             'p-badge p-component': true,
-            'p-badge-no-gutter': this.value != undefined && String(this.value).length === 1,
+            'p-badge-circle': ObjectUtils.isNotEmpty(this.value) && String(this.value).length === 1,
             'p-badge-lg': this.badgeSize === 'large' || this.size === 'large',
             'p-badge-xl': this.badgeSize === 'xlarge' || this.size === 'xlarge',
+            'p-badge-sm': this.badgeSize === 'small' || this.size === 'small',
+            'p-badge-dot': ObjectUtils.isEmpty(this.value),
             [`p-badge-${this.severity}`]: this.severity
         };
     }
