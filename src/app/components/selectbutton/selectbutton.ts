@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -8,6 +8,8 @@ import { ObjectUtils } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
 import { ToggleButtonModule } from '../togglebutton/togglebutton';
+import { BaseComponent } from 'primeng/basecomponent';
+import { SelectButtonStyle } from './style/selectbuttonstyle';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -21,7 +23,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div #container [ngClass]="'p-selectbutton p-buttonset p-component'" [ngStyle]="style" [class]="styleClass" role="group" [attr.aria-labelledby]="ariaLabelledBy" [attr.data-pc-name]="'selectbutton'" [attr.data-pc-section]="'root'">
+        <div #container [ngClass]="'p-selectbutton p-component'" [ngStyle]="style" [class]="styleClass" role="group" [attr.aria-labelledby]="ariaLabelledBy" [attr.data-pc-name]="'selectbutton'" [attr.data-pc-section]="'root'">
             <ng-container *ngFor="let option of options; let i = index">
                 <p-toggleButton [ngModel]="isSelected(option)" [onLabel]="this.getOptionLabel(option)" [offLabel]="this.getOptionLabel(option)" [disabled]="disabled || isOptionDisabled(option)" (onChange)="onOptionSelect($event, option, i)">
                     <ng-container *ngIf="itemTemplate">
@@ -33,15 +35,14 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             </ng-container>
         </div>
     `,
-    providers: [SELECTBUTTON_VALUE_ACCESSOR],
+    providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../button/button.css'],
     host: {
         class: 'p-element'
     }
 })
-export class SelectButton implements ControlValueAccessor {
+export class SelectButton extends BaseComponent implements ControlValueAccessor {
     /**
      * An array of selectitems to display as the available options.
      * @group Props
@@ -145,7 +146,7 @@ export class SelectButton implements ControlValueAccessor {
 
     focusedIndex: number = 0;
 
-    constructor(public cd: ChangeDetectorRef) {}
+    _componentStyle = inject(SelectButtonStyle);
 
     getOptionLabel(option: any) {
         return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
@@ -215,36 +216,6 @@ export class SelectButton implements ControlValueAccessor {
             option: option,
             index: index
         });
-    }
-
-    onKeyDown(event, option, index) {
-        switch (event.code) {
-            case 'Space': {
-                this.onOptionSelect(event, option, index);
-                event.preventDefault();
-                break;
-            }
-
-            case 'ArrowDown':
-
-            case 'ArrowRight': {
-                this.changeTabIndexes(event, 'next');
-                event.preventDefault();
-                break;
-            }
-
-            case 'ArrowUp':
-
-            case 'ArrowLeft': {
-                this.changeTabIndexes(event, 'prev');
-                event.preventDefault();
-                break;
-            }
-
-            default:
-                //no op
-                break;
-        }
     }
 
     changeTabIndexes(event, direction) {

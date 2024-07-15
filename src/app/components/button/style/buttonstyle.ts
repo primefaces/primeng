@@ -599,6 +599,16 @@ const theme = ({ dt }) => `
     border-color: transparent;
     color: ${dt('button.link.active.color')};
 }
+
+/* For PrimeNG */
+.p-button-icon-right {
+    order: 1;
+}
+
+p-button[iconpos='right'] spinnericon {
+    order: 1;
+}
+
 `;
 
 const classes = {
