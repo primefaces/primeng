@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ToggleButtonStyle } from './style/togglebuttonstyle';
 
 type ToggleButtonIconPosition = 'left' | 'right';
 
@@ -22,7 +24,7 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <button
-            [ngClass]="{ 'p-togglebutton p-button p-component': true, 'p-button-icon-only': onIcon && offIcon && !hasOnLabel && !hasOffLabel, 'p-highlight': checked, 'p-disabled': disabled }"
+            [ngClass]="{ 'p-togglebutton p-component': true, 'p-togglebutton-checked': checked, 'p-disabled': disabled }"
             [ngStyle]="style"
             [class]="styleClass"
             (click)="toggle($event)"
@@ -38,27 +40,28 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             pAutoFocus
             [autofocus]="autofocus"
         >
-            @if (!iconTemplate) {
+            <span class="p-togglebutton-content">
+                @if (!iconTemplate) {
                 <span
                     *ngIf="onIcon || offIcon"
                     [class]="checked ? this.onIcon : this.offIcon"
-                    [ngClass]="{ 'p-button-icon': true, 'p-button-icon-left': iconPos === 'left', 'p-button-icon-right': iconPos === 'right' }"
+                    [ngClass]="{ 'p-togglebutton-icon': true, 'p-togglebutton-icon-left': iconPos === 'left', 'p-togglebutton-icon-right': iconPos === 'right' }"
                     [attr.data-pc-section]="'icon'"
                 ></span>
-            } @else {
+                } @else {
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
-            }
-            <span class="p-button-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+                }
+                <span class="p-togglebutton-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+            </span>
         </button>
     `,
-    providers: [TOGGLEBUTTON_VALUE_ACCESSOR],
+    providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['../button/button.css'],
     host: {
         class: 'p-element'
     }
 })
-export class ToggleButton implements ControlValueAccessor {
+export class ToggleButton extends BaseComponent implements ControlValueAccessor {
     /**
      * Label for the on state.
      * @group Props
@@ -141,7 +144,7 @@ export class ToggleButton implements ControlValueAccessor {
 
     onModelTouched: Function = () => {};
 
-    constructor(public cd: ChangeDetectorRef) {}
+    _componentStyle = inject(ToggleButtonStyle);
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

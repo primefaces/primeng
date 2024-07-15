@@ -11,12 +11,13 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center flex-wrap gap-3">
             <p-toast />
             <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="secondary" />
+            <p-splitButton label="Save" (onClick)="save('secondary')" [model]="items" severity="secondary" />
             <p-splitButton label="Save" (onClick)="save('success')" [model]="items" severity="success" />
             <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="info" />
-            <p-splitButton label="Save" (onClick)="save('warn')" [model]="items" severity="warning" />
-            <p-splitButton label="Save" (onClick)="save('info')" [model]="items" severity="help" />
-            <p-splitButton label="Save" (onClick)="save('error')" [model]="items" severity="danger" />
+            <p-splitButton label="Save" (onClick)="save('warn')" [model]="items" severity="warn" />
+            <p-splitButton label="Save" (onClick)="save('help')" [model]="items" severity="help" />
+            <p-splitButton label="Save" (onClick)="save('danger')" [model]="items" severity="danger" />
+            <p-splitButton label="Save" (onClick)="save('contrast')" [model]="items" severity="contrast" />
         </div>
         <app-code [code]="code" selector="split-button-severity-demo"></app-code>
     `,
@@ -81,7 +82,7 @@ export class SeverityDoc {
     label="Save" 
     (onClick)="save('warn')" 
     [model]="items" 
-    severity="warning" />
+    severity="warn" />
 <p-splitButton 
     label="Save" 
     (onClick)="save('info')" 
@@ -118,7 +119,7 @@ export class SeverityDoc {
         label="Save" 
         (onClick)="save('warn')" 
         [model]="items" 
-        severity="warning" />
+        severity="warn" />
     <p-splitButton 
         label="Save" 
         (onClick)="save('info')" 
