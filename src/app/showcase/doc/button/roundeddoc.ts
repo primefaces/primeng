@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Secondary" [rounded]="true" severity="secondary" />
             <p-button label="Success" [rounded]="true" severity="success" />
             <p-button label="Info" [rounded]="true" severity="info" />
-            <p-button label="Warning" [rounded]="true" severity="warning" />
+            <p-button label="Warn" [rounded]="true" severity="warn" />
             <p-button label="Help" [rounded]="true" severity="help" />
             <p-button label="Danger" [rounded]="true" severity="danger" />
             <p-button label="Contrast" [rounded]="true" severity="contrast" />
@@ -26,7 +26,7 @@ export class RoundedDoc {
 <p-button label="Secondary" [rounded]="true" severity="secondary" />
 <p-button label="Success" [rounded]="true" severity="success" />
 <p-button label="Info" [rounded]="true" severity="info" />
-<p-button label="Warning" [rounded]="true" severity="warning" />
+<p-button label="Warn" [rounded]="true" severity="warn" />
 <p-button label="Help" [rounded]="true" severity="help" />
 <p-button label="Danger" [rounded]="true" severity="danger" />
 <p-button label="Contrast" [rounded]="true" severity="contrast" />`,
@@ -36,7 +36,7 @@ export class RoundedDoc {
     <p-button label="Secondary" [rounded]="true" severity="secondary" />
     <p-button label="Success" [rounded]="true" severity="success" />
     <p-button label="Info" [rounded]="true" severity="info" />
-    <p-button label="Warning" [rounded]="true" severity="warning" />
+    <p-button label="Warn" [rounded]="true" severity="warn" />
     <p-button label="Help" [rounded]="true" severity="help" />
     <p-button label="Danger" [rounded]="true" severity="danger" />
     <p-button label="Contrast" [rounded]="true" severity="contrast" />

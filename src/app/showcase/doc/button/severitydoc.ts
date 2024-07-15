@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Secondary" severity="secondary" />
             <p-button label="Success" severity="success" />
             <p-button label="Info" severity="info" />
-            <p-button label="Warning" severity="warning" />
+            <p-button label="Warn" severity="warn" />
             <p-button label="Help" severity="help" />
             <p-button label="Danger" severity="danger" />
             <p-button label="Contrast" severity="contrast" />
@@ -26,7 +26,7 @@ export class SeverityDoc {
 <p-button label="Secondary" severity="secondary" />
 <p-button label="Success" severity="success" />
 <p-button label="Info" severity="info" />
-<p-button label="Warning" severity="warning" />
+<p-button label="Warn" severity="warn" />
 <p-button label="Help" severity="help" />
 <p-button label="Danger" severity="danger" />
 <p-button label="Contrast" severity="contrast" />`,
@@ -36,7 +36,7 @@ export class SeverityDoc {
     <p-button label="Secondary" severity="secondary" />
     <p-button label="Success" severity="success" />
     <p-button label="Info" severity="info" />
-    <p-button label="Warning" severity="warning" />
+    <p-button label="Warn" severity="warn" />
     <p-button label="Help" severity="help" />
     <p-button label="Danger" severity="danger" />
     <p-button label="Contrast" severity="contrast" />

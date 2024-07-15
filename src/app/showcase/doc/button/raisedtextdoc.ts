@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Secondary" [text]="true" [raised]="true" severity="secondary" />
             <p-button label="Success" [text]="true" [raised]="true" severity="success" />
             <p-button label="Info" [text]="true" [raised]="true" severity="info" />
-            <p-button label="Warning" [text]="true" [raised]="true" severity="warning" />
+            <p-button label="Warn" [text]="true" [raised]="true" severity="warn" />
             <p-button label="Help" [text]="true" [raised]="true" severity="help" />
             <p-button label="Danger" [text]="true" [raised]="true" severity="danger" />
             <p-button label="Plain" [text]="true" [raised]="true" [plain]="true" />
@@ -26,7 +26,7 @@ export class RaisedTextDoc {
 <p-button label="Secondary" [text]="true" [raised]="true" severity="secondary" />
 <p-button label="Success" [text]="true" [raised]="true" severity="success" />
 <p-button label="Info" [text]="true" [raised]="true" severity="info" />
-<p-button label="Warning" [text]="true" [raised]="true" severity="warning" />
+<p-button label="Warn" [text]="true" [raised]="true" severity="warn" />
 <p-button label="Help" [text]="true" [raised]="true" severity="help" />
 <p-button label="Danger" [text]="true" [raised]="true" severity="danger" />
 <p-button label="Plain" [text]="true" [raised]="true" [plain]="true" />`,
@@ -36,7 +36,7 @@ export class RaisedTextDoc {
     <p-button label="Secondary" [text]="true" [raised]="true" severity="secondary" />
     <p-button label="Success" [text]="true" [raised]="true" severity="success" />
     <p-button label="Info" [text]="true" [raised]="true" severity="info" />
-    <p-button label="Warning" [text]="true" [raised]="true" severity="warning" />
+    <p-button label="Warn" [text]="true" [raised]="true" severity="warn" />
     <p-button label="Help" [text]="true" [raised]="true" severity="help" />
     <p-button label="Danger" [text]="true" [raised]="true" severity="danger" />
     <p-button label="Plain" [text]="true" [raised]="true" [plain]="true" />

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Secondary" [text]="true" severity="secondary" />
             <p-button label="Success" [text]="true" severity="success" />
             <p-button label="Info" [text]="true" severity="info" />
-            <p-button label="Warning" [text]="true" severity="warning" />
+            <p-button label="Warn" [text]="true" severity="warn" />
             <p-button label="Help" [text]="true" severity="help" />
             <p-button label="Danger" [text]="true" severity="danger" />
             <p-button label="Plain" [text]="true" [plain]="true" />
@@ -26,7 +26,7 @@ export class TextDoc {
 <p-button label="Secondary" [text]="true" severity="secondary" />
 <p-button label="Success" [text]="true" severity="success" />
 <p-button label="Info" [text]="true" severity="info" />
-<p-button label="Warning" [text]="true" severity="warning" />
+<p-button label="Warn" [text]="true" severity="warn" />
 <p-button label="Help" [text]="true" severity="help" />
 <p-button label="Danger" [text]="true" severity="danger" />
 <p-button label="Plain" [text]="true" [plain]="true" />`,
@@ -36,7 +36,7 @@ export class TextDoc {
     <p-button label="Secondary" [text]="true" severity="secondary" />
     <p-button label="Success" [text]="true" severity="success" />
     <p-button label="Info" [text]="true" severity="info" />
-    <p-button label="Warning" [text]="true" severity="warning" />
+    <p-button label="Warn" [text]="true" severity="warn" />
     <p-button label="Help" [text]="true" severity="help" />
     <p-button label="Danger" [text]="true" severity="danger" />
     <p-button label="Plain" [text]="true" [plain]="true" />

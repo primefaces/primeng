@@ -18,6 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
@@ -26,6 +27,9 @@ import { SpinnerIcon } from 'primeng/icons/spinner';
 import { RippleModule } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ButtonStyle } from './style/buttonstyle';
+import { BadgeModule } from 'primeng/badge';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -45,9 +49,10 @@ const INTERNAL_BUTTON_CLASSES = {
     selector: '[pButton]',
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [ButtonStyle]
 })
-export class ButtonDirective implements AfterViewInit, OnDestroy {
+export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
      * Position of the icon.
      * @group Props
@@ -124,7 +129,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -184,12 +189,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         </defs>
     </svg>`;
 
-    constructor(
-        public el: ElementRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
+    _componentStyle = inject(ButtonStyle);
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
 
         this.createIcon();
@@ -197,7 +200,9 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
         this.initialized = true;
     }
+
     ngOnChanges(simpleChanges: SimpleChanges) {
+        super.ngOnChanges(simpleChanges);
         const { buttonProps } = simpleChanges;
 
         if (buttonProps) {
@@ -208,6 +213,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             }
         }
     }
+
     getStyleClass(): string[] {
         const styleClass: string[] = [INTERNAL_BUTTON_CLASSES.button, INTERNAL_BUTTON_CLASSES.component];
 
@@ -351,6 +357,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         this.initialized = false;
+        super.ngOnDestroy();
     }
 }
 /**
@@ -390,7 +397,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
                 <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
             </ng-container>
             <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
-            <span [ngClass]="badgeStyleClass()" [class]="badgeClass" *ngIf="!contentTemplate && badge" [attr.data-pc-section]="'badge'">{{ badge }}</span>
+            <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -398,9 +405,10 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     host: {
         class: 'p-element',
         '[class.p-disabled]': 'disabled' || 'loading'
-    }
+    },
+    providers: [ButtonStyle]
 })
-export class Button implements AfterContentInit {
+export class Button extends BaseComponent implements AfterContentInit {
     /**
      * Type of the button.
      * @group Props
@@ -465,7 +473,7 @@ export class Button implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Add a border class without a background initially.
      * @group Props
@@ -499,8 +507,15 @@ export class Button implements AfterContentInit {
     /**
      * Style class of the badge.
      * @group Props
+     * @deprecated use badgeSeverity instead.
      */
     @Input() badgeClass: string | undefined;
+    /**
+     * Severity type of the badge.
+     * @group Props
+     * @defaultValue secondary
+     */
+    @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = 'secondary';
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -558,9 +573,10 @@ export class Button implements AfterContentInit {
         }
     }
 
-    constructor(public el: ElementRef) {}
+    _componentStyle = inject(ButtonStyle);
 
     ngOnChanges(simpleChanges: SimpleChanges) {
+        super.ngOnChanges(simpleChanges);
         const { buttonProps } = simpleChanges;
 
         if (buttonProps) {
@@ -631,17 +647,10 @@ export class Button implements AfterContentInit {
             }
         });
     }
-
-    badgeStyleClass() {
-        return {
-            'p-badge p-component': true,
-            'p-badge-no-gutter': this.badge && String(this.badge).length === 1
-        };
-    }
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon, BadgeModule],
     exports: [ButtonDirective, Button, SharedModule],
     declarations: [ButtonDirective, Button]
 })

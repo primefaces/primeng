@@ -53,7 +53,7 @@ export interface ButtonProps {
     style?: { [klass: string]: any } | null | undefined;
     styleClass?: string | undefined;
     badgeClass?: string | undefined;
+    badgeSeverity?: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     ariaLabel?: string | undefined;
     autofocus?: boolean | undefined;
 }
-

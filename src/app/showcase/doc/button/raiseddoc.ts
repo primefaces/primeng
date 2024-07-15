@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-button label="Secondary" [raised]="true" severity="secondary" />
             <p-button label="Success" [raised]="true" severity="success" />
             <p-button label="Info" [raised]="true" severity="info" />
-            <p-button label="Warning" [raised]="true" severity="warning" />
+            <p-button label="Warn" [raised]="true" severity="warn" />
             <p-button label="Help" [raised]="true" severity="help" />
             <p-button label="Danger" [raised]="true" severity="danger" />
             <p-button label="Contrast" [raised]="true" severity="contrast" />
@@ -26,7 +26,7 @@ export class RaisedDoc {
 <p-button label="Secondary" [raised]="true" severity="secondary" />
 <p-button label="Success" [raised]="true" severity="success" />
 <p-button label="Info" [raised]="true" severity="info" />
-<p-button label="Warning" [raised]="true" severity="warning" />
+<p-button label="Warn" [raised]="true" severity="warn" />
 <p-button label="Help" [raised]="true" severity="help" />
 <p-button label="Danger" [raised]="true" severity="danger" />
 <p-button label="Contrast" [raised]="true" severity="contrast" />
@@ -37,7 +37,7 @@ export class RaisedDoc {
     <p-button label="Secondary" [raised]="true" severity="secondary" />
     <p-button label="Success" [raised]="true" severity="success" />
     <p-button label="Info" [raised]="true" severity="info" />
-    <p-button label="Warning" [raised]="true" severity="warning" />
+    <p-button label="Warn" [raised]="true" severity="warn" />
     <p-button label="Help" [raised]="true" severity="help" />
     <p-button label="Danger" [raised]="true" severity="danger" />
     <p-button label="Contrast" [raised]="true" severity="contrast" />

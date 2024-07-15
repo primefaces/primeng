@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-bookmark" severity="secondary" />
                 <p-button icon="pi pi-search" severity="success" />
                 <p-button icon="pi pi-user" severity="info" />
-                <p-button icon="pi pi-bell" severity="warning" />
+                <p-button icon="pi pi-bell" severity="warn" />
                 <p-button icon="pi pi-heart" severity="help" />
                 <p-button icon="pi pi-times" severity="danger" />
             </div>
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
                 <p-button icon="pi pi-search" [rounded]="true" severity="success" />
                 <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warning" />
+                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
             </div>
@@ -31,7 +31,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
                 <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
                 <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-                <p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true" />
+                <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
             </div>
@@ -63,7 +63,7 @@ export class IconOnlyDoc {
 <p-button icon="pi pi-bookmark" severity="secondary" />
 <p-button icon="pi pi-search" severity="success" />
 <p-button icon="pi pi-user" severity="info" />
-<p-button icon="pi pi-bell" severity="warning" />
+<p-button icon="pi pi-bell" severity="warn" />
 <p-button icon="pi pi-heart" severity="help" />
 <p-button icon="pi pi-times" severity="danger" />
 
@@ -71,7 +71,7 @@ export class IconOnlyDoc {
 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
 <p-button icon="pi pi-search" [rounded]="true" severity="success" />
 <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-<p-button icon="pi pi-bell" [rounded]="true" severity="warning" />
+<p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
 <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
 <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
 
@@ -79,7 +79,7 @@ export class IconOnlyDoc {
 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
 <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
 <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-<p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true" />
+<p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
 <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
 <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
 
@@ -105,7 +105,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-bookmark" severity="secondary" />
         <p-button icon="pi pi-search" severity="success" />
         <p-button icon="pi pi-user" severity="info" />
-        <p-button icon="pi pi-bell" severity="warning" />
+        <p-button icon="pi pi-bell" severity="warn" />
         <p-button icon="pi pi-heart" severity="help" />
         <p-button icon="pi pi-times" severity="danger" />
     </div>
@@ -114,7 +114,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
         <p-button icon="pi pi-search" [rounded]="true" severity="success" />
         <p-button icon="pi pi-user" [rounded]="true" severity="info" />
-        <p-button icon="pi pi-bell" [rounded]="true" severity="warning" />
+        <p-button icon="pi pi-bell" [rounded]="true" severity="warn" />
         <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
         <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
     </div>
@@ -123,7 +123,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
         <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
         <p-button icon="pi pi-user" [rounded]="true" severity="info" [outlined]="true" />
-        <p-button icon="pi pi-bell" [rounded]="true" severity="warning" [outlined]="true" />
+        <p-button icon="pi pi-bell" [rounded]="true" severity="warn" [outlined]="true" />
         <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
         <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
     </div>
