@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
             </p-toast>
-            <p-button pRipple (onClick)="showConfirm()" label="View" />
+            <p-button (onClick)="showConfirm()" label="View" />
         </div>
         <app-code [code]="code" selector="toast-template-demo"></app-code>
     `,
@@ -72,7 +72,7 @@ export class TemplateDoc {
             </div>
         </ng-template>
 </p-toast>
-<p-button pRipple (onClick)="showConfirm()" label="View" />`,
+<p-button (onClick)="showConfirm()" label="View" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast 
         position="bottom-center" 
@@ -96,7 +96,7 @@ export class TemplateDoc {
                 </div>
             </ng-template>
     </p-toast>
-    <p-button pRipple (onClick)="showConfirm()" label="View" />
+    <p-button (onClick)="showConfirm()" label="View" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';

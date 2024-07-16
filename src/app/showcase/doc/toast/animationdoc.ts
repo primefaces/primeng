@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast [showTransformOptions]="'translateY(100%)'" [showTransitionOptions]="'1000ms'" [hideTransitionOptions]="'1000ms'" [showTransformOptions]="'translateX(100%)'" />
-            <p-button pRipple (onClick)="show()" label="Show" />
+            <p-button (onClick)="show()" label="Show" />
         </div>
         <app-code [code]="code" selector="toast-animation-demo"></app-code>
     `,
@@ -29,14 +29,14 @@ export class AnimationDoc {
     [showTransitionOptions]="'1000ms'" 
     [hideTransitionOptions]="'1000ms'" 
     [showTransformOptions]="'translateX(100%)'" />
-<p-button pRipple (onClick)="show()" label="Show" />`,
+<p-button (onClick)="show()" label="Show" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast 
         [showTransformOptions]="'translateY(100%)'" 
         [showTransitionOptions]="'1000ms'" 
         [hideTransitionOptions]="'1000ms'" 
         [showTransformOptions]="'translateX(100%)'" />
-    <p-button pRipple (onClick)="show()" label="Show" />
+    <p-button (onClick)="show()" label="Show" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
