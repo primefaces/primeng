@@ -8,7 +8,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    Injector,
+    inject,
     Input,
     NgModule,
     numberAttribute,
@@ -21,7 +21,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule, PrimeNGConfig } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
@@ -29,6 +29,7 @@ import { ObjectUtils } from 'primeng/utils';
 import { CheckboxChangeEvent } from './checkbox.interface';
 import { MinusIcon } from 'primeng/icons/minus';
 import { BaseComponent } from 'primeng/basecomponent';
+import { CheckboxStyle } from './style/checkboxstyle';
 
 export const CHECKBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -75,7 +76,7 @@ export const CHECKBOX_VALUE_ACCESSOR: any = {
             </div>
         </div>
     `,
-    providers: [CHECKBOX_VALUE_ACCESSOR],
+    providers: [CHECKBOX_VALUE_ACCESSOR, CheckboxStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -236,7 +237,10 @@ export class Checkbox extends BaseComponent implements ControlValueAccessor {
 
     focused: boolean = false;
 
+    _componentStyle = inject(CheckboxStyle);
+
     ngOnChanges(changes: SimpleChanges) {
+        super.ngOnChanges(changes);
         if (changes.indeterminate) {
             this._indeterminate.set(changes.indeterminate.currentValue);
         }
