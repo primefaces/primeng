@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
@@ -271,7 +271,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, ToggleButtonModule],
+    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, ToggleButtonModule, FormsModule],
     exports: [SelectButton, SharedModule],
     declarations: [SelectButton]
 })
