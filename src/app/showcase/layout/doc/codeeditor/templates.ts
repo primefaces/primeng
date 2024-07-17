@@ -459,7 +459,6 @@ const getAngularApp = (props: Props = {}) => {
     import { SelectButtonModule } from 'primeng/selectbutton';
     import { SidebarModule } from 'primeng/sidebar';
     import { SkeletonModule } from 'primeng/skeleton';
-    import { SlideMenuModule } from 'primeng/slidemenu';
     import { SliderModule } from 'primeng/slider';
     import { SpeedDialModule } from 'primeng/speeddial';
     import { SpinnerModule } from 'primeng/spinner';
