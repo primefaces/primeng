@@ -43,7 +43,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-speedDial',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+        <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
             <p-button
                 [style]="buttonStyle"
                 [icon]="buttonIconClass"
