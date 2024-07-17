@@ -17,7 +17,6 @@ gulp.task('build-css-prod', function () {
             'src/app/components/badge/badge.css',
             'src/app/components/button/button.css',
             'src/app/components/checkbox/checkbox.css',
-            'src/app/components/colorpicker/colorpicker-images.css',
             'src/app/components/inputtext/inputtext.css',
             'src/app/components/inputtextarea/inputtextarea.css',
             'src/app/components/password/password.css',

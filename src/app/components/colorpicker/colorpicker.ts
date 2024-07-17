@@ -18,6 +18,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -27,6 +28,8 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ColorPickerChangeEvent } from './colorpicker.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ColorPickerStyle } from './style/colorpickerstyle';
 
 export const COLORPICKER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -52,7 +55,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
                 *ngIf="!inline"
                 #input
                 type="text"
-                class="p-colorpicker-preview p-inputtext"
+                class="p-colorpicker-preview"
                 [ngClass]="{ 'p-disabled': disabled }"
                 readonly="readonly"
                 [attr.tabindex]="tabindex"
@@ -69,7 +72,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             />
             <div
                 *ngIf="inline || overlayVisible"
-                [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-overlay-panel': !inline, 'p-disabled': disabled }"
+                [ngClass]="{ 'p-colorpicker-panel': true, 'p-colorpicker-panel-inline': inline, 'p-disabled': disabled }"
                 (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 [@.disabled]="inline === true"
@@ -79,7 +82,7 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
             >
                 <div class="p-colorpicker-content" [attr.data-pc-section]="'content'">
                     <div #colorSelector class="p-colorpicker-color-selector" (touchstart)="onColorDragStart($event)" (touchmove)="onDrag($event)" (touchend)="onDragEnd()" (mousedown)="onColorMousedown($event)" [attr.data-pc-section]="'selector'">
-                        <div class="p-colorpicker-color" [attr.data-pc-section]="'color'">
+                        <div class="p-colorpicker-color-background" [attr.data-pc-section]="'color'">
                             <div #colorHandle class="p-colorpicker-color-handle" [attr.data-pc-section]="'colorHandle'"></div>
                         </div>
                     </div>
@@ -91,15 +94,11 @@ export const COLORPICKER_VALUE_ACCESSOR: any = {
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
-    providers: [COLORPICKER_VALUE_ACCESSOR],
+    providers: [COLORPICKER_VALUE_ACCESSOR, ColorPickerStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./colorpicker.css'],
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
-export class ColorPicker implements ControlValueAccessor, OnDestroy {
+export class ColorPicker extends BaseComponent implements ControlValueAccessor, OnDestroy {
     /**
      * Inline style of the component.
      * @group Props
@@ -228,18 +227,10 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     hueHandleViewChild: Nullable<ElementRef>;
 
-    window: Window;
+    _componentStyle = inject(ColorPickerStyle);
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
-        this.window = this.document.defaultView as Window;
+    constructor(public overlayService: OverlayService) {
+        super();
     }
 
     @ViewChild('colorSelector') set colorSelector(element: ElementRef) {
@@ -622,7 +613,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
 
     bindDocumentResizeListener() {
         if (isPlatformBrowser(this.platformId)) {
-            this.documentResizeListener = this.renderer.listen(this.window, 'resize', this.onWindowResize.bind(this));
+            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', this.onWindowResize.bind(this));
         }
     }
 
