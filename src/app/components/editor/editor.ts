@@ -16,13 +16,16 @@ import {
     TemplateRef,
     ViewEncapsulation,
     afterNextRender,
-    forwardRef
+    forwardRef,
+    inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Header, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { EditorInitEvent, EditorSelectionChangeEvent, EditorTextChangeEvent } from './editor.interface';
+import { EditorStyle } from './style/editorstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const EDITOR_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -85,15 +88,11 @@ export const EDITOR_VALUE_ACCESSOR: any = {
             <div class="p-editor-content" [ngStyle]="style"></div>
         </div>
     `,
-    providers: [EDITOR_VALUE_ACCESSOR],
+    providers: [EDITOR_VALUE_ACCESSOR, EditorStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./editor.css'],
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
-export class Editor implements AfterContentInit, ControlValueAccessor {
+export class Editor extends BaseComponent implements AfterContentInit, ControlValueAccessor {
     /**
      * Inline style of the container.
      * @group Props
@@ -194,10 +193,10 @@ export class Editor implements AfterContentInit, ControlValueAccessor {
 
     private quillElements!: { editorElement: HTMLElement; toolbarElement: HTMLElement };
 
-    constructor(
-        public el: ElementRef,
-        @Inject(PLATFORM_ID) private platformId: object
-    ) {
+    _componentStyle = inject(EditorStyle);
+
+    constructor() {
+        super();
         /**
          * Read or write the DOM once, when initializing non-Angular (Quill) library.
          */
