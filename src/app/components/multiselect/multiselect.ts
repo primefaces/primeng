@@ -1471,6 +1471,10 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     isSelectionAllDisabled() {
+        if (this.showToggleAll && isNaN(this.selectionLimit)) {
+            return true;
+        }
+
         return this.showToggleAll && ObjectUtils.isEmpty(this.selectionLimit);
     }
 
