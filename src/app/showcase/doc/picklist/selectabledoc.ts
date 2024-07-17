@@ -7,7 +7,7 @@ import { ProductService } from '@service/productservice';
     selector: 'selectable-doc',
     template: `
         <app-docsectiontext>
-            <p>It is possible to toggle drag and drop functionality with the <i>dragdrop</i> property.</p>
+            <p>It is possible to disable item selection and button movement functionality with the <i>selectable</i> property to only use dragdrop.</p>
         </app-docsectiontext>
         <div class="card">
             <p-pickList
