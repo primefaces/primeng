@@ -21,7 +21,6 @@ import { Stepper } from 'primeng/stepper';
             <div *ngIf="active" [id]="id" class="p-steppanel" role="tabpanel" [attr.aria-controls]="ariaControls">
                 <p-stepperSeparator *ngIf="isSeparatorVisible" />
                 <div class="p-steppanel-content">
-                    <!-- <slot :active="active" :activateCallback="(val) => updateValue(val)" /> -->
                     <ng-container *ngTemplateOutlet="content" />
                 </div>
             </div>
@@ -29,7 +28,6 @@ import { Stepper } from 'primeng/stepper';
 
         <ng-template #notVertical>
             <div *ngIf="active" [id]="id" class="p-steppanel" role="tabpanel" [attr.aria-controls]="ariaControls">
-                <!-- <slot :active="active" :activateCallback="(val) => updateValue(val)" /> -->
                 <ng-container *ngTemplateOutlet="content" />
             </div>
         </ng-template>
@@ -45,12 +43,14 @@ export class StepPanel {
 
     isSeparatorVisible: boolean = false;
 
-    constructor(public stepper: Stepper) {}
+    constructor(public stepper: Stepper, private el: ElementRef) {}
 
     get isVertical() {
+        // return !!this.$pcStepItem;
+
         return true;
     }
-  
+
     get active() {
         // let activeValue = !!this.$pcStepItem ? this.$pcStepItem?.value : this.value;
         const activeValue = this.value;

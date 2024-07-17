@@ -36,7 +36,15 @@ import { BaseComponent } from 'primeng/basecomponent';
     providers: [StepperStyle]
 })
 export class Stepper extends BaseComponent implements AfterContentInit {
+    @Input() value: string | number;
+
+    @Input({ transform: booleanAttribute }) linear: boolean = false;
+
+    @Output() onValueUpdate: EventEmitter<Event> = new EventEmitter<Event>();
+
     id: string;
+
+    d_value: any;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
 
@@ -45,14 +53,6 @@ export class Stepper extends BaseComponent implements AfterContentInit {
     startTemplate: Nullable<TemplateRef<any>>;
 
     endTemplate: Nullable<TemplateRef<any>>;
-
-    @Input() value: string | number;
-
-    @Input({ transform: booleanAttribute }) linear: boolean = false;
-
-    @Output() onValueUpdate: EventEmitter<Event> = new EventEmitter<Event>();
-
-    d_value: any;
 
     ngOnChanges(changes: SimpleChanges): void {
         super.ngOnChanges(changes);
@@ -82,16 +82,18 @@ export class Stepper extends BaseComponent implements AfterContentInit {
             }
         });
     }
+
     updateValue(newValue) {
         if (this.d_value !== newValue) {
             this.d_value = newValue;
             this.onValueUpdate.emit(newValue);
         }
-        
     }
+
     isStepActive(value) {
         return this.d_value === value;
     }
+
     isStepDisabled() {
         return this.linear;
     }
