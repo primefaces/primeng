@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, Input, NgModule, numberAttribute, OnInit, Output, QueryList, signal, TemplateRef, ViewEncapsulation } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    OnInit,
+    Output,
+    QueryList,
+    signal,
+    TemplateRef,
+    ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { BanIcon } from 'primeng/icons/ban';
@@ -10,6 +28,8 @@ import { RatingRateEvent } from './rating.interface';
 import { DomHandler } from 'primeng/dom';
 import { UniqueComponentId } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
+import { RatingStyle } from './style/ratingstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const RATING_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -25,12 +45,12 @@ export const RATING_VALUE_ACCESSOR: any = {
     template: `
         <div class="p-rating" [ngClass]="{ 'p-readonly': readonly, 'p-disabled': disabled }" [attr.data-pc-name]="'rating'" [attr.data-pc-section]="'root'">
             <ng-container *ngIf="!isCustomIcon; else customTemplate">
-                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'" (click)="onOptionClick($event, 0)" [ngClass]="{ 'p-focus': focusedOptionIndex() === 0 && isFocusVisibleItem }" class="p-rating-item p-rating-cancel-item">
+                <div *ngIf="cancel" [attr.data-pc-section]="'cancelItem'" (click)="onOptionClick($event, 0)" [ngClass]="{ 'p-focus': focusedOptionIndex() === 0 && isFocusVisibleItem }" class="p-rating-option p-rating-cancel">
                     <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                         <input
                             type="radio"
                             value="0"
-                            [name]="name"
+                            [name]="nameattr"
                             [checked]="value === 0"
                             [disabled]="disabled"
                             [readonly]="readonly"
@@ -46,12 +66,12 @@ export const RATING_VALUE_ACCESSOR: any = {
                     <BanIcon *ngIf="!iconCancelClass" [styleClass]="'p-rating-icon p-rating-cancel'" [ngStyle]="iconCancelStyle" [attr.data-pc-section]="'cancelIcon'" />
                 </div>
                 <ng-template ngFor [ngForOf]="starsArray" let-star let-i="index">
-                    <div class="p-rating-item" [ngClass]="{ 'p-rating-item-active': star + 1 <= value, 'p-focus': star + 1 === focusedOptionIndex() && isFocusVisibleItem }" (click)="onOptionClick($event, star + 1)">
+                    <div class="p-rating-option" [ngClass]="{ 'p-rating-option-active': star + 1 <= value, 'p-focus-visible': star + 1 === focusedOptionIndex() && isFocusVisibleItem }" (click)="onOptionClick($event, star + 1)">
                         <span class="p-hidden-accessible" [attr.data-p-hidden-accessible]="true">
                             <input
                                 type="radio"
                                 value="0"
-                                [name]="name"
+                                [name]="nameattr"
                                 [checked]="value === 0"
                                 [disabled]="disabled"
                                 [readonly]="readonly"
@@ -84,15 +104,14 @@ export const RATING_VALUE_ACCESSOR: any = {
             </ng-template>
         </div>
     `,
-    providers: [RATING_VALUE_ACCESSOR],
+    providers: [RATING_VALUE_ACCESSOR, RatingStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./rating.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Rating implements OnInit, ControlValueAccessor {
+export class Rating extends BaseComponent implements OnInit, ControlValueAccessor {
     /**
      * When present, it specifies that the element should be disabled.
      * @group Props
@@ -193,15 +212,13 @@ export class Rating implements OnInit, ControlValueAccessor {
 
     focusedOptionIndex = signal<number>(-1);
 
-    name: string | undefined;
+    nameattr: string | undefined;
 
-    constructor(
-        private cd: ChangeDetectorRef,
-        private config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(RatingStyle);
 
     ngOnInit() {
-        this.name = this.name || UniqueComponentId();
+        super.ngOnInit();
+        this.nameattr = this.nameattr || UniqueComponentId();
         this.starsArray = [];
         for (let i = 0; i < this.stars; i++) {
             this.starsArray[i] = i;
