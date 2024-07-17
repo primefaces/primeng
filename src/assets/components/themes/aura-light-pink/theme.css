@@ -1144,6 +1144,7 @@
   }
 
   .p-inputgroup > .p-component,
+.p-inputgroup > p-togglebutton > .p-component,
 .p-inputgroup > .p-inputwrapper > .p-inputtext,
 .p-inputgroup > .p-float-label > .p-component {
     border-radius: 0;
@@ -1168,6 +1169,7 @@
   .p-inputgroup-addon:first-child,
 .p-inputgroup button:first-child,
 .p-inputgroup input:first-child,
+.p-inputgroup > p-togglebutton:first-child > .p-component,
 .p-inputgroup > .p-inputwrapper:first-child > .p-component,
 .p-inputgroup > .p-inputwrapper:first-child > .p-component > .p-inputtext {
     border-top-left-radius: 6px;
@@ -1182,6 +1184,7 @@
   .p-inputgroup-addon:last-child,
 .p-inputgroup button:last-child,
 .p-inputgroup input:last-child,
+.p-inputgroup > p-togglebutton:last-child > .p-component,
 .p-inputgroup > .p-inputwrapper:last-child > .p-component,
 .p-inputgroup > .p-inputwrapper:last-child > .p-component > .p-inputtext {
     border-top-right-radius: 6px;
