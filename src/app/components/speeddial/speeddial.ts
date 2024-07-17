@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute,
     signal
 } from '@angular/core';
@@ -32,6 +33,8 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { UniqueComponentId } from 'primeng/utils';
 import { asapScheduler } from 'rxjs';
+import { SpeedDialStyle } from './style/speeddialstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * When pressed, a floating action button can display multiple primary actions that can be performed on a page.
@@ -40,9 +43,8 @@ import { asapScheduler } from 'rxjs';
 @Component({
     selector: 'p-speedDial',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="style" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
+        <div #container [ngClass]="containerClass()" [class]="className" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
             <p-button
-                pRipple
                 [style]="buttonStyle"
                 [icon]="buttonIconClass"
                 [styleClass]="buttonClass()"
@@ -73,6 +75,7 @@ import { asapScheduler } from 'rxjs';
                 [attr.aria-activedescendant]="focused ? focusedOptionId : undefined"
                 [tabindex]="-1"
                 [attr.data-pc-section]="'menu'"
+                [ngStyle]="listStyles"
             >
                 <li
                     *ngFor="let item of model; let i = index"
@@ -94,7 +97,6 @@ import { asapScheduler } from 'rxjs';
                             styleClass="p-speeddial-action"
                             severity="secondary"
                             role="menuitem"
-                            pRipple
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item, i)"
@@ -113,12 +115,13 @@ import { asapScheduler } from 'rxjs';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./speeddial.css'],
+
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [SpeedDialStyle]
 })
-export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
+export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      * List of items id.
      * @group Props
@@ -292,23 +295,30 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     focused: boolean = false;
 
+    _componentStyle = inject(SpeedDialStyle);
+
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
     }
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private el: ElementRef,
-        public cd: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2
-    ) {}
+    // @todo rootStyles & listStyles will be refactored in the future in passthrough implementation.
+    get rootStyles() {
+        const _style = this._componentStyle?.inlineStyles['root'];
+        return _style ? _style({ props: this }) : {};
+    }
+
+    get listStyles() {
+        const _style = this._componentStyle?.inlineStyles['list'];
+        return _style ? _style({ props: this }) : {};
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             if (this.type !== 'linear') {
                 const button = DomHandler.findSingle(this.container?.nativeElement, '.p-speeddial-button');
@@ -650,7 +660,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return {
             ['p-speeddial p-component' + ` p-speeddial-${this.type}`]: true,
             [`p-speeddial-direction-${this.direction}`]: this.type !== 'circle',
-            'p-speeddial-opened': this.visible,
+            'p-speeddial-open': this.visible,
             'p-disabled': this.disabled
         };
     }
@@ -707,6 +717,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindDocumentClickListener();
+        super.ngOnDestroy();
     }
 }
 
