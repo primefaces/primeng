@@ -9,6 +9,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Inject,
     Input,
     NgModule,
@@ -27,12 +28,8 @@ import { OverlayModeType, OverlayOnBeforeHideEvent, OverlayOnBeforeShowEvent, Ov
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { ObjectUtils, ZIndexUtils } from 'primeng/utils';
 import { VoidListener } from 'primeng/ts-helpers';
-
-export const OVERLAY_VALUE_ACCESSOR: any = {
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => Overlay),
-    multi: true
-};
+import { BaseComponent } from 'primeng/basecomponent';
+import { OverlayStyle } from './style/overlaystyle';
 
 const showOverlayContentAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{showTransitionParams}}')]);
 
@@ -87,13 +84,12 @@ const hideOverlayContentAnimation = animation([animate('{{hideTransitionParams}}
     animations: [trigger('overlayContentAnimation', [transition(':enter', [useAnimation(showOverlayContentAnimation)]), transition(':leave', [useAnimation(hideOverlayContentAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [OVERLAY_VALUE_ACCESSOR],
-    styleUrls: ['./overlay.css'],
+    providers: [OverlayStyle],
     host: {
         class: 'p-element'
     }
 })
-export class Overlay implements AfterContentInit, OnDestroy {
+export class Overlay extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * The visible property is an input that determines the visibility of the component.
      * @defaultValue false
@@ -361,6 +357,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     documentResizeListener: any;
 
+    _componentStyle = inject(OverlayStyle);
+
     private documentKeyboardListener: VoidListener;
 
     private window: Window | null;
@@ -384,7 +382,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     get modal() {
         if (isPlatformBrowser(this.platformId)) {
-            return this.mode === 'modal' || (this.overlayResponsiveOptions && this.window?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
+            return this.mode === 'modal' || (this.overlayResponsiveOptions && this.document.defaultView?.matchMedia(this.overlayResponsiveOptions.media?.replace('@media', '') || `(max-width: ${this.overlayResponsiveOptions.breakpoint})`).matches);
         }
     }
 
@@ -416,17 +414,8 @@ export class Overlay implements AfterContentInit, OnDestroy {
         return DomHandler.getTargetElement(this.target, this.el?.nativeElement);
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private config: PrimeNGConfig,
-        public overlayService: OverlayService,
-        public cd: ChangeDetectorRef,
-        private zone: NgZone
-    ) {
-        this.window = this.document.defaultView;
+    constructor(public overlayService: OverlayService, private zone: NgZone) {
+        super();
     }
 
     ngAfterContentInit() {
@@ -594,7 +583,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
 
     bindDocumentResizeListener() {
         if (!this.documentResizeListener) {
-            this.documentResizeListener = this.renderer.listen(this.window, 'resize', (event) => {
+            this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'resize', (event) => {
                 const valid = this.listener ? this.listener(event, { type: 'resize', mode: this.overlayMode, valid: !DomHandler.isTouchDevice() }) : !DomHandler.isTouchDevice();
 
                 valid && this.hide(event, true);
@@ -615,7 +604,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         }
 
         this.zone.runOutsideAngular(() => {
-            this.documentKeyboardListener = this.renderer.listen(this.window, 'keydown', (event) => {
+            this.documentKeyboardListener = this.renderer.listen(this.document.defaultView, 'keydown', (event) => {
                 if (this.overlayOptions.hideOnEscape === false || event.code !== 'Escape') {
                     return;
                 }
@@ -652,6 +641,7 @@ export class Overlay implements AfterContentInit, OnDestroy {
         }
 
         this.unbindListeners();
+        super.ngOnDestroy();
     }
 }
 
