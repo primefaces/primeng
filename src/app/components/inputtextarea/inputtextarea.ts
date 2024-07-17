@@ -1,22 +1,24 @@
-import { NgModule, Directive, ElementRef, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, ChangeDetectorRef, AfterViewChecked, booleanAttribute } from '@angular/core';
-import { NgModel, NgControl, FormControl } from '@angular/forms';
+import { NgModule, Directive, HostListener, Input, Output, EventEmitter, Optional, AfterViewInit, OnInit, OnDestroy, booleanAttribute, inject } from '@angular/core';
+import { NgModel, NgControl } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
-import { PrimeNGConfig } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
+import { TextareaStyle } from './style/textareastyle';
 /**
  * InputTextarea adds styling and autoResize functionality to standard textarea element.
  * @group Components
  */
 @Directive({
-    selector: '[pInputTextarea]',
+    selector: '[pInputTextarea], [pTextarea]',
     host: {
-        class: 'p-inputtextarea p-inputtext p-component p-element',
+        class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
-        '[class.p-inputtextarea-resizable]': 'autoResize',
+        '[class.p-textarea-resizable]': 'autoResize',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
-    }
+    },
+    providers: [TextareaStyle]
 })
-export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
+export class InputTextarea extends BaseComponent implements OnInit, AfterViewInit, OnDestroy {
     /**
      * When present, textarea size changes as being typed.
      * @group Props
@@ -42,15 +44,14 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
 
     ngControlSubscription: Subscription | undefined;
 
-    constructor(
-        public el: ElementRef,
-        @Optional() public ngModel: NgModel,
-        @Optional() public control: NgControl,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(TextareaStyle);
+
+    constructor(@Optional() public ngModel: NgModel, @Optional() public control: NgControl) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.ngModel) {
             this.ngModelSubscription = (this.ngModel as any).valueChanges.subscribe(() => {
                 this.updateState();
@@ -65,6 +66,7 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.autoResize) this.resize();
 
         this.updateFilledState();
@@ -110,6 +112,8 @@ export class InputTextarea implements OnInit, AfterViewInit, OnDestroy {
         if (this.ngControlSubscription) {
             this.ngControlSubscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 
