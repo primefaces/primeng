@@ -19092,6 +19092,14 @@
                             "description": "Defines how multiple items can be selected, when true metaKey needs to be pressed to select or unselect an item and when set to false selection of each item can be toggled individually. On touch enabled devices, metaKeySelection is turned off automatically."
                         },
                         {
+                            "name": "selectable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to enable item selection and button based movement or reordering."
+                        },
+                        {
                             "name": "dragdrop",
                             "optional": false,
                             "readonly": false,
