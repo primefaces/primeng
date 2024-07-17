@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
-
+import { BaseComponent } from 'primeng/basecomponent';
+import { RadioButtonStyle } from './style/radiobuttonstyle';
 import { RadioButtonClickEvent } from './radiobutton.interface';
 import { PrimeNGConfig } from 'primeng/api';
 
@@ -57,56 +58,41 @@ export class RadioControlRegistry {
             [ngClass]="{
                 'p-radiobutton p-component': true,
                 'p-radiobutton-checked': checked,
-                'p-radiobutton-disabled': disabled,
-                'p-radiobutton-focused': focused,
+                'p-disabled': disabled,
                 'p-variant-filled': variant === 'filled' || config.inputStyle() === 'filled'
             }"
             [class]="styleClass"
             [attr.data-pc-name]="'radiobutton'"
             [attr.data-pc-section]="'root'"
-            (click)="handleClick($event, input, true)"
         >
-            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'">
-                <input
-                    #input
-                    [attr.id]="inputId"
-                    type="radio"
-                    [attr.name]="name"
-                    [checked]="checked"
-                    [disabled]="disabled"
-                    [value]="value"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.tabindex]="tabindex"
-                    [attr.aria-checked]="checked"
-                    (focus)="onInputFocus($event)"
-                    (blur)="onInputBlur($event)"
-                    [attr.data-pc-section]="'hiddenInput'"
-                    pAutoFocus
-                    [autofocus]="autofocus"
-                />
-            </div>
-            <div [ngClass]="{ 'p-radiobutton-box': true, 'p-highlight': checked, 'p-disabled': disabled, 'p-focus': focused }" [attr.data-pc-section]="'input'">
-                <span class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></span>
+            <input
+                #input
+                [attr.id]="inputId"
+                type="radio"
+                class="p-radiobutton-input"
+                [attr.name]="name"
+                [checked]="checked"
+                [disabled]="disabled"
+                [value]="value"
+                [attr.aria-labelledby]="ariaLabelledBy"
+                [attr.aria-label]="ariaLabel"
+                [attr.tabindex]="tabindex"
+                [attr.aria-checked]="checked"
+                (focus)="onInputFocus($event)"
+                (blur)="onInputBlur($event)"
+                (change)="onChange($event)"
+                pAutoFocus
+                [autofocus]="autofocus"
+            />
+            <div class="p-radiobutton-box" [attr.data-pc-section]="'input'">
+                <div class="p-radiobutton-icon" [attr.data-pc-section]="'icon'"></div>
             </div>
         </div>
-        <label
-            (click)="select($event)"
-            [class]="labelStyleClass"
-            [ngClass]="{ 'p-radiobutton-label': true, 'p-radiobutton-label-active': input.checked, 'p-disabled': disabled, 'p-radiobutton-label-focus': focused }"
-            *ngIf="label"
-            [attr.for]="inputId"
-            [attr.data-pc-section]="'label'"
-            >{{ label }}</label
-        >
     `,
-    providers: [RADIO_VALUE_ACCESSOR],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        class: 'p-element'
-    }
+    providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
+export class RadioButton extends BaseComponent implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * Value of the radiobutton.
      * @group Props
@@ -127,11 +113,6 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      * @group Props
      */
     @Input({ transform: booleanAttribute }) disabled: boolean | undefined;
-    /**
-     * Label of the radiobutton.
-     * @group Props
-     */
-    @Input() label: string | undefined;
     /**
      * Specifies the input variant of the component.
      * @group Props
@@ -168,11 +149,6 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Style class of the label.
-     * @group Props
-     */
-    @Input() labelStyleClass: string | undefined;
-    /**
      * When present, it specifies that the component should automatically get focus on load.
      * @group Props
      */
@@ -208,36 +184,27 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     control: Nullable<NgControl>;
 
-    constructor(
-        public cd: ChangeDetectorRef,
-        private injector: Injector,
-        private registry: RadioControlRegistry,
-        public config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(RadioButtonStyle);
+
+    injector = inject(Injector);
+
+    registry = inject(RadioControlRegistry);
 
     ngOnInit() {
+        super.ngOnInit();
         this.control = this.injector.get(NgControl);
         this.checkName();
         this.registry.add(this.control, this);
     }
 
-    handleClick(event: Event, radioButton: HTMLElement, focus: boolean) {
-        event.preventDefault();
-
-        if (this.disabled) {
-            return;
-        }
-
-        this.select(event);
-
-        if (focus) {
-            radioButton.focus();
+    onChange(event) {
+        if (!this.disabled) {
+            this.select(event);
         }
     }
 
     select(event: Event) {
         if (!this.disabled) {
-            this.inputViewChild.nativeElement.checked = true;
             this.checked = true;
             this.onModelChange(this.value);
             this.registry.select(this);
@@ -289,6 +256,7 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.registry.remove(this);
+        super.ngOnDestroy();
     }
 
     private checkName() {

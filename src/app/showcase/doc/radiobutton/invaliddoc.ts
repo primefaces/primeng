@@ -8,13 +8,13 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-radioButton class="ng-invalid ng-dirty" [(ngModel)]="checked" />
+            <p-radioButton styleClass="ng-invalid ng-dirty" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="radio-button-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
-    checked: any;
+    checked: any = false;
 
     code: Code = {
         basic: `<p-radioButton class="ng-invalid ng-dirty" />`,
