@@ -85,7 +85,7 @@ const theme = ({ dt }) => `
     border-color: ${dt('checkbox.checked.focus.border.color')};
 }
 
-.p-checkbox.p-invalid > .p-checkbox-box {
+.p-checkbox.ng-invalid.ng-dirty > .p-checkbox-box {
     border-color: ${dt('checkbox.invalid.border.color')};
 }
 
