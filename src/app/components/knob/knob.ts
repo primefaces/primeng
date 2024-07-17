@@ -1,7 +1,10 @@
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Input, NgModule, Output, Renderer2, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Output, ViewEncapsulation, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { VoidListener } from 'primeng/ts-helpers';
+import { KnobStyle } from './style/knobstyle';
+import { BaseComponent } from 'primeng/basecomponent';
+import { $dt } from '@primeuix/styled';
 
 export const KNOB_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -15,7 +18,7 @@ export const KNOB_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-knob',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
+        <div [ngClass]="containerClass" [class]="styleClass" [ngStyle]="style" [attr.data-pc-name]="'knob'" [attr.data-pc-section]="'root'">
             <svg
                 viewBox="0 0 100 100"
                 role="slider"
@@ -41,15 +44,14 @@ export const KNOB_VALUE_ACCESSOR: any = {
             </svg>
         </div>
     `,
-    providers: [KNOB_VALUE_ACCESSOR],
+    providers: [KNOB_VALUE_ACCESSOR, KnobStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./knob.css'],
     host: {
         class: 'p-element'
     }
 })
-export class Knob {
+export class Knob extends BaseComponent {
     /**
      * Style class of the component.
      * @group Props
@@ -79,17 +81,17 @@ export class Knob {
      * Background of the value.
      * @group Props
      */
-    @Input() valueColor: string = 'var(--primary-color, Black)';
+    @Input() valueColor: string = $dt('knob.value.background').variable;
     /**
      * Background color of the range.
      * @group Props
      */
-    @Input() rangeColor: string = 'var(--surface-border, LightGray)';
+    @Input() rangeColor: string = $dt('knob.range.background').variable;
     /**
      * Color of the value text.
      * @group Props
      */
-    @Input() textColor: string = 'var(--text-color-secondary, Black)';
+    @Input() textColor: string = $dt('knob.text.color').variable;
     /**
      * Template string of the value.
      * @group Props
@@ -171,12 +173,14 @@ export class Knob {
 
     onModelTouched: Function = () => {};
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private el: ElementRef
-    ) {}
+    _componentStyle = inject(KnobStyle);
+
+    get containerClass() {
+        return {
+            'p-knob p-component': true,
+            'p-disabled': this.disabled
+        };
+    }
 
     mapRange(x: number, inMin: number, inMax: number, outMin: number, outMax: number) {
         return ((x - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
@@ -346,13 +350,6 @@ export class Knob {
     setDisabledState(val: boolean): void {
         this.disabled = val;
         this.cd.markForCheck();
-    }
-
-    containerClass() {
-        return {
-            'p-knob p-component': true,
-            'p-disabled': this.disabled
-        };
     }
 
     rangePath() {
