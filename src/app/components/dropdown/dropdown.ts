@@ -1438,10 +1438,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         if (isFocus) {
             if (this.focusInputViewChild) {
-                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                });
             }
             if (this.editable && this.editableInputViewChild) {
-                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                });
             }
         }
         this.cd.markForCheck();
