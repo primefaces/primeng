@@ -11,7 +11,6 @@ import {
     QueryList,
     TemplateRef,
     forwardRef,
-    ChangeDetectorRef,
     ViewChild,
     ChangeDetectionStrategy,
     ViewEncapsulation,
@@ -19,15 +18,15 @@ import {
     OnDestroy,
     computed,
     signal,
-    Renderer2,
     booleanAttribute,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule, PrimeTemplate, Footer, Header, FilterService, TranslationKeys, PrimeNGConfig, ScrollerOptions } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription } from 'rxjs';
 import { SearchIcon } from 'primeng/icons/search';
@@ -37,6 +36,10 @@ import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, Listbox
 import { Scroller, ScrollerModule } from 'primeng/scroller';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ListBoxStyle } from './style/listboxstyle';
+import { BlankIcon } from 'primeng/icons/blank';
+import { CheckboxModule } from 'primeng/checkbox';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -79,14 +82,21 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [attr.aria-label]="toggleAllAriaLabel"
                         />
                     </div>
-                    <div class="p-checkbox-box" role="checkbox" [attr.aria-checked]="allSelected()" [ngClass]="{ 'p-highlight': allSelected(), 'p-focus': headerCheckboxFocus, 'p-disabled': disabled || toggleAllDisabled }">
-                        <ng-container *ngIf="allSelected()">
-                            <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
-                            <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                                <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
-                            </span>
+                    <p-checkbox
+                        *ngIf="checkbox && multiple"
+                        styleClass="p-listbox-option-check-icon"
+                        [ngModel]="allSelected()"
+                        [disabled]="disabled || toggleAllDisabled"
+                        [tabindex]="-1"
+                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined'"
+                        [binary]="true"
+                    >
+                        <ng-container *ngIf="checkIconTemplate">
+                            <ng-template pTemplate="icon">
+                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: allSelected() }"></ng-template>
+                            </ng-template>
                         </ng-container>
-                    </div>
+                    </p-checkbox>
                 </div>
                 <ng-container *ngIf="filterTemplate; else builtInFilterElement">
                     <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
@@ -124,7 +134,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-template>
             </div>
-            <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+            <div [ngClass]="'p-listbox-list-container'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
                 <p-scroller
                     #scroller
                     *ngIf="virtualScroll"
@@ -169,7 +179,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     >
                         <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                             <ng-container *ngIf="isOptionGroup(option)">
-                                <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-listbox-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                     <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                     <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                 </li>
@@ -177,11 +187,11 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             <ng-container *ngIf="!isOptionGroup(option)">
                                 <li
                                     pRipple
-                                    class="p-listbox-item"
+                                    class="p-listbox-option"
                                     role="option"
                                     [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                     [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                    [ngClass]="{ 'p-listbox-item': true, 'p-highlight': isSelected(option), 'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions), 'p-disabled': isOptionDisabled(option) }"
+                                    [ngClass]="{ 'p-listbox-option-selected': isSelected(option), 'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions), 'p-disabled': isOptionDisabled(option) }"
                                     [attr.aria-label]="getOptionLabel(option)"
                                     [attr.aria-selected]="isSelected(option)"
                                     [attr.aria-disabled]="isOptionDisabled(option)"
@@ -193,16 +203,28 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                                     (mouseenter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
                                     (touchend)="onOptionTouchEnd()"
                                 >
-                                    <div class="p-checkbox p-component" *ngIf="checkbox && multiple" [ngClass]="{ 'p-checkbox-disabled': disabled || isOptionDisabled(option) }">
-                                        <div class="p-checkbox-box" [ngClass]="{ 'p-highlight': isSelected(option) }">
-                                            <ng-container *ngIf="isSelected(option)">
-                                                <CheckIcon [styleClass]="'p-checkbox-icon'" *ngIf="!checkIconTemplate" [attr.aria-hidden]="true" />
-                                                <span *ngIf="checkIconTemplate" class="p-checkbox-icon" [attr.aria-hidden]="true">
-                                                    <ng-template *ngTemplateOutlet="checkIconTemplate"></ng-template>
-                                                </span>
-                                            </ng-container>
-                                        </div>
-                                    </div>
+                                    <p-checkbox
+                                        *ngIf="checkbox && multiple"
+                                        styleClass="p-listbox-option-check-icon"
+                                        [ngModel]="isSelected(option)"
+                                        [disabled]="disabled || isOptionDisabled(option)"
+                                        [tabindex]="-1"
+                                        [variant]="config.inputStyle() === 'filled' ? 'filled' : 'outlined'"
+                                        [binary]="true"
+                                    >
+                                        <ng-container *ngIf="checkIconTemplate">
+                                            <ng-template pTemplate="icon">
+                                                <ng-template *ngTemplateOutlet="checkIconTemplate; context: { $implicit: isSelected(option) }"></ng-template>
+                                            </ng-template>
+                                        </ng-container>
+                                    </p-checkbox>
+                                    <ng-container *ngIf="multiple && checkmark">
+                                        <ng-container *ngIf="!checkmarkTemplate">
+                                            <BlankIcon *ngIf="!isSelected(option)" styleClass="p-listbox-option-check-icon" />
+                                            <CheckIcon *ngIf="isSelected(option)" styleClass="p-listbox-option-check-icon" />
+                                        </ng-container>
+                                        <ng-container *ngTemplateOutlet="checkmarkTemplate; context: { implicit: isSelected(option) }"></ng-container>
+                                    </ng-container>
                                     <span *ngIf="!itemTemplate">{{ getOptionLabel(option) }}</span>
                                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: option, index: getOptionIndex(i, scrollerOptions) }"></ng-container>
                                 </li>
@@ -245,15 +267,11 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             </span>
         </div>
     `,
-    providers: [LISTBOX_VALUE_ACCESSOR],
+    providers: [LISTBOX_VALUE_ACCESSOR, ListBoxStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./listbox.css'],
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
-export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
+export class Listbox extends BaseComponent implements AfterContentInit, OnInit, ControlValueAccessor, OnDestroy {
     /**
      * Unique identifier of the component.
      * @group Props
@@ -498,6 +516,18 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         this._selectAll = value;
     }
     /**
+     * Whether to displays rows with alternating colors.
+     * @group Props
+     * @defaultValue false
+     */
+    @Input({ transform: booleanAttribute }) striped: boolean | undefined = false;
+    /**
+     * Whether the selected option will be shown with a check mark.
+     * @group Props
+     * @defaultValue false
+     */
+    @Input({ transform: booleanAttribute }) checkmark: boolean | undefined = false;
+    /**
      * Callback to invoke on value change.
      * @param {ListboxChangeEvent} event - Custom change event.
      * @group Emits
@@ -576,6 +606,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     checkIconTemplate: TemplateRef<any> | undefined;
 
+    checkmarkTemplate: TemplateRef<any> | undefined;
+
     public _filterValue = signal<string | null | undefined>(null);
 
     public _filteredOptions: any[] | undefined | null;
@@ -600,9 +632,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     focused: boolean | undefined;
 
+    _componentStyle = inject(ListBoxStyle);
+
     get containerClass() {
         return {
             'p-listbox p-component': true,
+            'p-listbox-striped': this.striped,
             'p-disabled': this.disabled
         };
     }
@@ -674,15 +709,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         return this._filterValue() ? this.filterService.filter(options, this.searchFields, this._filterValue(), this.filterMatchMode, this.filterLocale) : options;
     });
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2
-    ) {}
+    constructor(public filterService: FilterService) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
         this.translationSubscription = this.config.translationObserver.subscribe(() => {
             this.cd.markForCheck();
@@ -735,6 +767,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
                 case 'checkicon':
                     this.checkIconTemplate = item.template;
+                    break;
+
+                case 'checkmark':
+                    this.checkmarkTemplate = item.template;
                     break;
 
                 default:
@@ -1450,11 +1486,13 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, SearchIcon, CheckIcon, IconFieldModule, InputTextModule],
+    imports: [CommonModule, SharedModule, RippleModule, ScrollerModule, SearchIcon, CheckboxModule, CheckIcon, IconFieldModule, InputTextModule, BlankIcon, FormsModule],
     exports: [Listbox, SharedModule, ScrollerModule],
     declarations: [Listbox]
 })

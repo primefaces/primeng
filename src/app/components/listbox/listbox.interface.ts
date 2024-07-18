@@ -148,4 +148,13 @@ export interface ListboxTemplates {
      * Custom check icon template.
      */
     checkicon(): TemplateRef<any>;
+    /**
+     * Custom checkmark template.
+     */
+    checkmark(context: {
+        /**
+         * Selection status.
+         */
+        $implicit: boolean;
+    }): TemplateRef<{ $implicit: boolean }>;
 }
