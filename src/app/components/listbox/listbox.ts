@@ -648,7 +648,7 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     }
 
     get searchFields() {
-        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || (this.optionLabel?[this.optionLabel]:['label']);
     }
 
     get toggleAllAriaLabel() {
