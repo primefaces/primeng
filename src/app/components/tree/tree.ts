@@ -566,10 +566,18 @@ export class UITreeNode implements OnInit {
 
             //enter
             case 'Enter':
-            case 'Space':
             case 'NumpadEnter':
                 this.onEnter(event);
                 break;
+
+            //space
+            case 'Space':
+                const nodeName = event.target instanceof HTMLElement && event.target.nodeName;
+                if (!['INPUT'].includes(nodeName)) {
+                    this.onEnter(event);
+                }
+                break;
+
             //tab
             case 'Tab':
                 this.setAllNodesTabIndexes();
