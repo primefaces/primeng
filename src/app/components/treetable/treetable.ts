@@ -2263,11 +2263,7 @@ export class TTBody {
 
     subscription: Subscription;
 
-    constructor(
-        public tt: TreeTable,
-        public treeTableService: TreeTableService,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public tt: TreeTable, public treeTableService: TreeTableService, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             if (this.tt.virtualScroll) {
                 this.cd.detectChanges();
@@ -2415,13 +2411,7 @@ export class TTScrollableView implements AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public tt: TreeTable,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -2674,10 +2664,7 @@ export class TTSortIcon implements OnInit, OnDestroy {
 
     sortOrder: number | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public tt: TreeTable, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.sortSource$.subscribe((sortMeta) => {
             this.updateSortState();
             this.cd.markForCheck();
@@ -2725,14 +2712,7 @@ export class TTResizableColumn implements AfterViewInit, OnDestroy {
 
     documentMouseUpListener: VoidListener;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public tt: TreeTable,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -2815,14 +2795,7 @@ export class TTReorderableColumn implements AfterViewInit, OnDestroy {
 
     mouseDownListener: VoidListener;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public tt: TreeTable,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -2921,10 +2894,7 @@ export class TTSelectableRow implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public tableService: TreeTableService
-    ) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -3007,10 +2977,7 @@ export class TTSelectableRowDblClick implements OnInit, OnDestroy {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public tableService: TreeTableService
-    ) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
                 this.selected = this.tt.isSelected(this.rowNode.node);
@@ -3062,11 +3029,7 @@ export class TTContextMenuRow {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public tableService: TreeTableService,
-        private el: ElementRef
-    ) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, private el: ElementRef) {
         if (this.isEnabled()) {
             this.subscription = this.tt.tableService.contextMenuSource$.subscribe((node) => {
                 this.selected = this.tt.equals(this.rowNode.node, node);
@@ -3136,11 +3099,7 @@ export class TTCheckbox {
 
     subscription: Subscription | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public tableService: TreeTableService,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, public cd: ChangeDetectorRef) {
         this.subscription = this.tt.tableService.selectionSource$.subscribe(() => {
             if (this.tt.selectionKeys) {
                 this.checked = this.tt.isNodeSelected(this.rowNode.node);
@@ -3234,11 +3193,7 @@ export class TTHeaderCheckbox {
 
     valueChangeSubscription: Subscription;
 
-    constructor(
-        public tt: TreeTable,
-        public tableService: TreeTableService,
-        private cd: ChangeDetectorRef
-    ) {
+    constructor(public tt: TreeTable, public tableService: TreeTableService, private cd: ChangeDetectorRef) {
         this.valueChangeSubscription = this.tt.tableService.uiUpdateSource$.subscribe(() => {
             this.checked = this.updateCheckedState();
         });
@@ -3326,11 +3281,7 @@ export class TTEditableColumn implements AfterViewInit {
 
     @Input({ transform: booleanAttribute }) ttEditableColumnDisabled: boolean | undefined;
 
-    constructor(
-        public tt: TreeTable,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     ngAfterViewInit() {
         if (this.isEnabled()) {
@@ -3505,10 +3456,7 @@ export class TreeTableCellEditor implements AfterContentInit {
 
     outputTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(
-        public tt: TreeTable,
-        public editableColumn: TTEditableColumn
-    ) {}
+    constructor(public tt: TreeTable, public editableColumn: TTEditableColumn) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
@@ -3552,11 +3500,7 @@ export class TTRow {
 
     @Input('ttRow') rowNode: any;
 
-    constructor(
-        public tt: TreeTable,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    constructor(public tt: TreeTable, public el: ElementRef, public zone: NgZone) {}
 
     @HostListener('keydown', ['$event'])
     onKeyDown(event: KeyboardEvent) {
@@ -3757,10 +3701,7 @@ export class TTRow {
 export class TreeTableToggler {
     @Input() rowNode: any;
 
-    constructor(
-        public tt: TreeTable,
-        private config: PrimeNGConfig
-    ) {}
+    constructor(public tt: TreeTable, private config: PrimeNGConfig) {}
 
     get toggleButtonAriaLabel() {
         return this.config.translation ? (this.rowNode.expanded ? this.config.translation.aria.collapseRow : this.config.translation.aria.expandRow) : undefined;

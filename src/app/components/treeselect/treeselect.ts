@@ -561,12 +561,7 @@ export class TreeSelect implements AfterContentInit {
 
     listId: string = '';
 
-    constructor(
-        public config: PrimeNGConfig,
-        public cd: ChangeDetectorRef,
-        public el: ElementRef,
-        public overlayService: OverlayService
-    ) {}
+    constructor(public config: PrimeNGConfig, public cd: ChangeDetectorRef, public el: ElementRef, public overlayService: OverlayService) {}
 
     ngOnInit() {
         this.listId = UniqueComponentId() + '_list';

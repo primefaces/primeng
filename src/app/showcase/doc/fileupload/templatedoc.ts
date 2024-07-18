@@ -77,10 +77,7 @@ export class TemplateDoc {
 
     totalSizePercent: number = 0;
 
-    constructor(
-        private config: PrimeNGConfig,
-        private messageService: MessageService
-    ) {}
+    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
 
     choose(event, callback) {
         callback();

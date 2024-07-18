@@ -32,7 +32,7 @@ interface Column {
                     <ng-template pTemplate="body" let-product let-columns="columns">
                         <tr>
                             <td><span class="p-column-title">Name</span>{{ product.name }}</td>
-                            <td><span class="p-column-title">Price</span>{{ product.price | currency: 'USD' }}</td>
+                            <td><span class="p-column-title">Price</span>{{ product.price | currency : 'USD' }}</td>
                             <td><span class="p-column-title">Category</span>{{ product.category }}</td>
                             <td><span class="p-column-title">Quantity</span>{{ product.quantity }}</td>
                             <td><p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" /></td>
@@ -50,10 +50,7 @@ export class ResponsiveStackDoc {
 
     cols!: Column[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

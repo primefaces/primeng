@@ -160,10 +160,7 @@ export class Spinner implements OnInit, ControlValueAccessor {
         }
     }
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.formatInput) {

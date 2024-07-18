@@ -44,10 +44,7 @@ export class ControlledSelectionDoc {
 
     selectedProducts!: Product;
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {
         this.isRowSelectable = this.isRowSelectable.bind(this);
     }
 
