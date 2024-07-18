@@ -1412,7 +1412,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     searchFields() {
-        return (this.filterBy || this.optionLabel || 'label').split(',');
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
     }
 
     findNearestSelectedOptionIndex(index, firstCheckUp = false) {
