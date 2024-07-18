@@ -24,7 +24,7 @@ import {
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import { PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { DomHandler } from 'primeng/dom';
@@ -98,6 +98,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.data-pc-section]="'input'"
                 pAutoFocus
                 [autofocus]="autofocus"
+                [class.p-variant-filled]="variant === 'filled' || config.inputStyle() === 'filled'"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -516,12 +517,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     private ngControl: NgControl | null = null;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        private cd: ChangeDetectorRef,
-        private readonly injector: Injector
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private cd: ChangeDetectorRef, private readonly injector: Injector, public config: PrimeNGConfig) {}
 
     ngOnChanges(simpleChange: SimpleChanges) {
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
