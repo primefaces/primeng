@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Layout of the Stepper is configured with the <i>orientation</i> property that accepts <i>horizontal</i> and <i>vertical</i> as available options.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-stepper orientation="vertical">
+            <!-- <p-stepper orientation="vertical">
                 <p-stepperPanel header="Header I">
                     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-column h-12rem">
@@ -37,7 +37,7 @@ import { Code } from '@domain/code';
                             <p-button label="Back" (onClick)="prevCallback.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
-            </p-stepper>
+            </p-stepper> -->
         </div>
         <app-code [code]="code" selector="stepper-vertical-demo"></app-code>
     `

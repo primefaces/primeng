@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>When <i>linear</i> property is present, current step must be completed in order to move to the next step.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-stepper [linear]="true">
+            <!-- <p-stepper [linear]="true">
                 <p-stepperPanel header="Header I">
                     <ng-template pTemplate="content" let-nextCallback="nextCallback" let-index="index">
                         <div class="flex flex-column h-12rem">
@@ -37,7 +37,7 @@ import { Code } from '@domain/code';
                             <p-button label="Back" icon="pi pi-arrow-left" (onClick)="prevCallback.emit()" /></div
                     ></ng-template>
                 </p-stepperPanel>
-            </p-stepper>
+            </p-stepper> -->
         </div>
         <app-code [code]="code" selector="stepper-linear-demo"></app-code>
     `
