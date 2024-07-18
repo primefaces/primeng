@@ -783,6 +783,22 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.13-LTS](https://www.npmjs.com/package/primeng/v/16.9.13-lts) (2024-07-18)
+
+**Fixed bugs:**
+- Cascade Select clicking a few times causes the component to freeze [\#15869](https://github.com/primefaces/primeng/issues/15869)
+- listbox filter is not working if options is bind to a string array [\#14454](https://github.com/primefaces/primeng/issues/14454)
+- AutoComplete: Increased drop-down height on first search when using virtual scroll [\#15647](https://github.com/primefaces/primeng/issues/15647)
+- Component: picklist scrolls to top [\#15861](https://github.com/primefaces/primeng/issues/15861)
+- KeyFilter: No longer working on chips component [\#15531](https://github.com/primefaces/primeng/issues/15531)
+- Component: Dropdown Accessibility [\#15155](https://github.com/primefaces/primeng/issues/15155)
+- Dropdown: Placeholder magic cannot be disabled [\#15974](https://github.com/primefaces/primeng/issues/15974)
+- Tabview: forward/backward buttons not showing up when dynamic tab panels overflow [\#15680](https://github.com/primefaces/primeng/issues/15680)
+- ButtonComponent: routerLink accessible even when button is disabled [\#15946](https://github.com/primefaces/primeng/issues/15946)
+- Component: p-tree (selection) [\#15761](https://github.com/primefaces/primeng/issues/15761)
+- Custom sort in table not working [\#15550](https://github.com/primefaces/primeng/issues/15550)
+- pFocusTrap: "aria-hidden-focus" accessibility rule violation [\#16042](https://github.com/primefaces/primeng/issues/16042)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.12-LTS](https://www.npmjs.com/package/primeng/v/16.9.12-lts) (2024-07-04)
 
 **Fixed bugs:**
@@ -1428,6 +1444,17 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.23-LTS](https://www.npmjs.com/package/primeng/v/15.4.23-lts) (2024-07-18)
+
+**Fixed bugs:**
+- Cascade Select clicking a few times causes the component to freeze [\#15869](https://github.com/primefaces/primeng/issues/15869)
+- AutoComplete: Increased drop-down height on first search when using virtual scroll [\#15647](https://github.com/primefaces/primeng/issues/15647)
+- KeyFilter: No longer working on chips component [\#15531](https://github.com/primefaces/primeng/issues/15531)
+- ButtonComponent: routerLink accessible even when button is disabled [\#15946](https://github.com/primefaces/primeng/issues/15946)
+- Component: p-tree (selection) [\#15761](https://github.com/primefaces/primeng/issues/15761)
+- Custom sort in table not working [\#15550](https://github.com/primefaces/primeng/issues/15550)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.22-LTS](https://www.npmjs.com/package/primeng/v/15.4.22-lts) (2024-07-04)
 
