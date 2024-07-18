@@ -1,4 +1,16 @@
 # Changelog
+## [17.18.5](https://github.com/primefaces/primeng/tree/17.18.5) (2024-07-18)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.4...17.18.5)
+
+**Fixed bugs:**
+- InputNumberModule: Variant "filled" is not applied [\#15885](https://github.com/primefaces/primeng/issues/15885)
+- Issue with ListBox and style since 17.18.4 [\#16051](https://github.com/primefaces/primeng/issues/16051)
+- MultiSelect - showToggleAll not working as expected [\#16039](https://github.com/primefaces/primeng/issues/16039)
+- Dropdown: Focus lost after using tab to select dropdown item [\#15335](https://github.com/primefaces/primeng/issues/15335)
+- Tree: inputText in Template mode does not respond to a space key [\#16055](https://github.com/primefaces/primeng/issues/16055)
+- pFocusTrap: "aria-hidden-focus" accessibility rule violation [\#16042](https://github.com/primefaces/primeng/issues/16042)
+- Toast: Documentation examples are not working properly [\#16025](https://github.com/primefaces/primeng/issues/16025)
+
 ## [17.18.4](https://github.com/primefaces/primeng/tree/17.18.4) (2024-07-11)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.3...17.18.4)
 
