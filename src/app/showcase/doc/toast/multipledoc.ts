@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
-            <p-button pRipple (onClick)="show()" label="Multiple" severity="warning" />
+            <p-button (onClick)="show()" label="Multiple" severity="warning" />
         </div>
         <app-code [code]="code" selector="toast-multiple-demo"></app-code>
     `,
@@ -31,14 +31,12 @@ export class MultipleDoc {
     code: Code = {
         basic: `<p-toast />
 <p-button
-    pRipple 
     (onClick)="show()" 
     label="Multiple" 
     severity="warning" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast />
     <p-button 
-        pRipple 
         (onClick)="show()" 
         label="Multiple" 
         severity="warning" />

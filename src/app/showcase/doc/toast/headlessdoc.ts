@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
                     </section>
                 </ng-template>
             </p-toast>
-            <p-button pRipple (onClick)="showConfirm()" label="Confirm" />
+            <p-button (onClick)="showConfirm()" label="Confirm" />
         </div>
         <app-code [code]="code" selector="toast-headless-demo"></app-code>
     `,
@@ -115,7 +115,7 @@ export class HeadlessDoc {
             </section>
         </ng-template>
 </p-toast>
-<p-button pRipple (onClick)="showConfirm()" label="Confirm" />`,
+<p-button (onClick)="showConfirm()" label="Confirm" />`,
         html: `<div class="card flex justify-content-center">
     <p-toast 
         position="top-center" 
@@ -157,7 +157,7 @@ export class HeadlessDoc {
                 </section>
             </ng-template>
     </p-toast>
-    <p-button pRipple (onClick)="showConfirm()" label="Confirm" />
+    <p-button (onClick)="showConfirm()" label="Confirm" />
 </div>`,
         typescript: `import { ChangeDetectorRef, Component } from '@angular/core';
 import { MessageService } from 'primeng/api';
