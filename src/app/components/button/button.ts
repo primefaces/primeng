@@ -565,6 +565,10 @@ export class Button implements AfterContentInit {
             'p-badge-no-gutter': this.badge && String(this.badge).length === 1
         };
     }
+
+    focus() {
+        this.el.nativeElement.firstChild.focus();
+    }
 }
 
 @NgModule({
