@@ -67,10 +67,7 @@ const SAFARI_KEYS: SafariKeys = {
  */
 @Directive({
     selector: '[pKeyFilter]',
-    providers: [KEYFILTER_VALIDATOR],
-    host: {
-        class: 'p-element'
-    }
+    providers: [KEYFILTER_VALIDATOR]
 })
 export class KeyFilter implements Validator {
     /**
@@ -113,11 +110,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = DomHandler.isAndroid();
         } else {
