@@ -10,12 +10,35 @@ import { AccessibilityDoc } from '@doc/stepper/accessibilitydoc';
 })
 export class StepperDemo {
     docs = [
-     
+        {
+            id: 'import',
+            label: 'Import',
+            component: ImportDoc
+        },
         {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
         },
-    
+        {
+            id: 'vertical',
+            label: 'Vertical',
+            component: VerticalDoc
+        },
+        {
+            id: 'linear',
+            label: 'Linear',
+            component: LinearDoc
+        },
+        {
+            id: 'template',
+            label: 'Template',
+            component: TemplateDoc
+        },
+        {
+            id: 'accessibility',
+            label: 'Accessibility',
+            component: AccessibilityDoc
+        }
     ];
 }
