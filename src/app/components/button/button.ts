@@ -566,7 +566,11 @@ export class Button implements AfterContentInit {
         };
     }
 
-    focus() {
+    /**
+     * Applies focus.
+     * @group Method
+     */
+    public focus() {
         this.el.nativeElement.firstChild.focus();
     }
 }
