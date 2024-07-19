@@ -21,6 +21,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
@@ -34,6 +35,8 @@ import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputNumberInputEvent } from './inputnumber.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { InputNumberStyle } from './style/inputnumberstyle';
 
 export const INPUTNUMBER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -47,18 +50,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputNumber',
     template: `
-        <span
-            [ngClass]="{
-                'p-inputnumber p-component': true,
-                'p-inputnumber-buttons-stacked': this.showButtons && this.buttonLayout === 'stacked',
-                'p-inputnumber-buttons-horizontal': this.showButtons && this.buttonLayout === 'horizontal',
-                'p-inputnumber-buttons-vertical': this.showButtons && this.buttonLayout === 'vertical'
-            }"
-            [ngStyle]="style"
-            [class]="styleClass"
-            [attr.data-pc-name]="'inputnumber'"
-            [attr.data-pc-section]="'root'"
-        >
+        <span [ngClass]="_rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'inputnumber'" [attr.data-pc-section]="'root'">
             <input
                 pInputText
                 #input
@@ -108,7 +100,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <span class="p-inputnumber-button-group" *ngIf="showButtons && buttonLayout === 'stacked'" [attr.data-pc-section]="'buttonGroup'">
                 <button
                     type="button"
-                    [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-up': true }"
+                    [ngClass]="_incrementButtonClass"
                     [class]="incrementButtonClass"
                     [disabled]="disabled"
                     tabindex="-1"
@@ -126,9 +118,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                         <ng-template *ngTemplateOutlet="incrementButtonIconTemplate"></ng-template>
                     </ng-container>
                 </button>
+
                 <button
                     type="button"
-                    [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-down': true }"
+                    [ngClass]="_decrementButtonClass"
                     [class]="decrementButtonClass"
                     [disabled]="disabled"
                     tabindex="-1"
@@ -150,7 +143,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
-                [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-up': true }"
+                [ngClass]="_incrementButtonClass"
                 [class]="incrementButtonClass"
                 [disabled]="disabled"
                 tabindex="-1"
@@ -171,7 +164,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
             <button
                 *ngIf="showButtons && buttonLayout !== 'stacked'"
                 type="button"
-                [ngClass]="{ 'p-button-icon-only p-inputnumber-button p-inputnumber-button-down': true }"
+                [ngClass]="_decrementButtonClass"
                 [class]="decrementButtonClass"
                 [disabled]="disabled"
                 tabindex="-1"
@@ -192,17 +185,10 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
         </span>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [INPUTNUMBER_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputnumber.css'],
-    host: {
-        class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused',
-        '[class.p-inputnumber-clearable]': 'showClear && buttonLayout != "vertical"'
-    }
+    providers: [INPUTNUMBER_VALUE_ACCESSOR, InputNumberStyle],
+    encapsulation: ViewEncapsulation.None
 })
-export class InputNumber implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
+export class InputNumber extends BaseComponent implements OnInit, AfterContentInit, OnChanges, ControlValueAccessor {
     /**
      * Displays spinner buttons.
      * @group Props
@@ -342,12 +328,12 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * The locale matching algorithm to use. Possible values are "lookup" and "best fit"; the default is "best fit". See Locale Negotiation for details.
      * @group Props
      */
-    @Input() localeMatcher: string | undefined;
+    @Input() localeMatcher: any;
     /**
      * Defines the behavior of the component, valid values are "decimal" and "currency".
      * @group Props
      */
-    @Input() mode: string = 'decimal';
+    @Input() mode: string | any = 'decimal';
     /**
      * The currency to use in currency formatting. Possible values are the ISO 4217 currency codes, such as "USD" for the US dollar, "EUR" for the euro, or "CNY" for the Chinese RMB. There is no default value; if the style is "currency", the currency property must be provided.
      * @group Props
@@ -357,7 +343,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
      * How to display the currency in currency formatting. Possible values are "symbol" to use a localized currency symbol such as €, ü"code" to use the ISO currency code, "name" to use a localized currency name such as "dollar"; the default is "symbol".
      * @group Props
      */
-    @Input() currencyDisplay: string | undefined;
+    @Input() currencyDisplay: string | undefined | any;
     /**
      * Whether to use grouping separators, such as thousands separators or thousand/lakh/crore separators.
      * @group Props
@@ -506,16 +492,28 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
 
     _disabled: boolean | undefined;
 
+    _componentStyle = inject(InputNumberStyle);
+
     private ngControl: NgControl | null = null;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        private cd: ChangeDetectorRef,
-        private readonly injector: Injector
-    ) {}
+    get _rootClass() {
+        return this._componentStyle.classes.root({ instance: this });
+    }
+
+    get _incrementButtonClass() {
+        return this._componentStyle.classes.incrementButton({ instance: this });
+    }
+
+    get _decrementButtonClass() {
+        return this._componentStyle.classes.decrementButton({ instance: this });
+    }
+
+    constructor(public readonly injector: Injector) {
+        super();
+    }
 
     ngOnChanges(simpleChange: SimpleChanges) {
+        super.ngOnChanges(simpleChange);
         const props = ['locale', 'localeMatcher', 'mode', 'currency', 'currencyDisplay', 'useGrouping', 'minFractionDigits', 'maxFractionDigits', 'prefix', 'suffix'];
         if (props.some((p) => !!simpleChange[p])) {
             this.updateConstructParser();
@@ -541,6 +539,7 @@ export class InputNumber implements OnInit, AfterContentInit, OnChanges, Control
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.ngControl = this.injector.get(NgControl, null, { optional: true });
 
         this.constructParser();
