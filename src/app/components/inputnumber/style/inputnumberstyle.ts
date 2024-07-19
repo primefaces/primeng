@@ -143,6 +143,11 @@ const theme = ({ dt }) => `
 .p-inputnumber-fluid.p-inputnumber-vertical .p-inputnumber-input {
     width: 100%;
 }
+
+/* For PrimeNG */
+p-inputnumber.ng-invalid.ng-dirty > .p-inputwrapper.p-component > .p-inputtext {
+    border-color: ${dt('inputtext.invalid.border.color')};
+};
 `;
 
 const classes = {
