@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Stepper provides various templating options to customize the default UI design.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <!-- <p-stepper [(activeStep)]="active">
+            <p-stepper [(activeStep)]="active">
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
                         <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
@@ -113,7 +113,7 @@ import { Code } from '@domain/code';
                         </div>
                     </ng-template>
                 </p-stepperPanel>
-            </p-stepper> -->
+            </p-stepper>
         </div>
         <app-code [code]="code" selector="stepper-template-demo"></app-code>
     `,
