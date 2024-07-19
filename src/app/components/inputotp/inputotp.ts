@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, forwardRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, forwardRef, inject } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { InputOtpChangeEvent } from './inputotp.interface';
+import { InputOtpStyle } from './style/inputotpstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputOtp),
     multi: true
 };
+
 /**
  * Input Otp is used to enter one time passwords.
  * @group Components
@@ -19,44 +22,43 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputOtp',
     template: `
-        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-            <ng-container *ngIf="!inputTemplate">
-                <input
-                    type="text"
-                    pInputText
-                    [value]="getModelValue(i)"
-                    [maxLength]="1"
-                    [type]="inputType"
-                    class="p-inputotp-input"
-                    [inputmode]="inputMode"
-                    [variant]="variant"
-                    [readonly]="readonly"
-                    [disabled]="disabled"
-                    [invalid]="invalid"
-                    [tabindex]="tabindex"
-                    [unstyled]="unstyled"
-                    (input)="onInput($event, i - 1)"
-                    (focus)="onInputFocus($event)"
-                    (blur)="onInputBlur($event)"
-                    (paste)="onPaste($event)"
-                    (keydown)="onKeyDown($event)"
-                    pAutoFocus
-                    [autofocus]="getAutofocus(i)"
-                />
+        <div class="p-inputotp p-component">
+            <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
+                <ng-container *ngIf="!inputTemplate">
+                    <input
+                        type="text"
+                        pInputText
+                        [value]="getModelValue(i)"
+                        [maxLength]="1"
+                        [type]="inputType"
+                        class="p-inputotp-input"
+                        [inputmode]="inputMode"
+                        [variant]="variant"
+                        [readonly]="readonly"
+                        [disabled]="disabled"
+                        [invalid]="invalid"
+                        [tabindex]="tabindex"
+                        [unstyled]="unstyled"
+                        (input)="onInput($event, i - 1)"
+                        (focus)="onInputFocus($event)"
+                        (blur)="onInputBlur($event)"
+                        (paste)="onPaste($event)"
+                        (keydown)="onKeyDown($event)"
+                        pAutoFocus
+                        [autofocus]="getAutofocus(i)"
+                    />
+                </ng-container>
+                <ng-container *ngIf="inputTemplate">
+                    <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
+                </ng-container>
             </ng-container>
-            <ng-container *ngIf="inputTemplate">
-                <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
-            </ng-container>
-        </ng-container>
+        </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-inputotp p-component'
-    },
-    providers: [INPUT_OTP_VALUE_ACCESSOR]
+    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle]
 })
-export class InputOtp implements AfterContentInit {
+export class InputOtp extends BaseComponent implements AfterContentInit {
     /**
      * When present, it specifies that the component should have invalid state style.
      * @group Props
@@ -66,7 +68,6 @@ export class InputOtp implements AfterContentInit {
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
-
     @Input() disabled: boolean = false;
     /**
      * When present, it specifies that an input field is read-only.
@@ -141,7 +142,7 @@ export class InputOtp implements AfterContentInit {
         return this.mask ? 'password' : 'text';
     }
 
-    constructor(public cd: ChangeDetectorRef) {}
+    _componentStyle = inject(InputOtpStyle);
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {
