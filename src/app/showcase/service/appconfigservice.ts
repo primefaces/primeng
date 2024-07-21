@@ -8,13 +8,15 @@ import { isPlatformBrowser } from '@angular/common';
     providedIn: 'root'
 })
 export class AppConfigService {
-    _config: AppConfig = {
+    private readonly themeKey = 'primeng-theme';
+    _defaultConfig: AppConfig = {
         theme: 'aura-light-blue',
         darkMode: false,
         ripple: true,
         scale: 14,
         tableTheme: 'lara-light-blue'
     };
+    _config: AppConfig;
 
     state: AppState = {
         configActive: false,
@@ -22,7 +24,7 @@ export class AppConfigService {
         newsActive: false
     };
 
-    config = signal<AppConfig>(this._config);
+    config = signal<AppConfig>(this._defaultConfig);
 
     private configUpdate = new Subject<AppConfig>();
 
@@ -31,7 +33,7 @@ export class AppConfigService {
     constructor(@Inject(PLATFORM_ID) private platformId: any) {
         effect(() => {
             const config = this.config();
-            if (isPlatformBrowser(this.platformId)) {
+            if (config && isPlatformBrowser(this.platformId)) {
                 if (this.updateStyle(config)) {
                     this.changeTheme();
                     const newTableTheme = !config.darkMode ? config.tableTheme.replace('dark', 'light') : config.tableTheme.replace('light', 'dark');
@@ -39,18 +41,31 @@ export class AppConfigService {
                 }
                 this.changeScale(config.scale);
                 this.onConfigUpdate();
+
+                localStorage.setItem(this.themeKey, JSON.stringify(config));
             }
         });
     }
 
+    loadTheme() {
+        const configString = localStorage.getItem(this.themeKey);
+        const config = JSON.parse(configString) as AppConfig;
+        if (config) {
+            this._config = config;
+        } else {
+            this._config = this._defaultConfig;
+        }
+        this.config.set(this._config);
+    }
+
     updateStyle(config: AppConfig) {
-        return config.theme !== this._config.theme || config.darkMode !== this._config.darkMode || config.tableTheme !== this._config.tableTheme;
+        return config.theme !== this._defaultConfig.theme || config.darkMode !== this._defaultConfig.darkMode || config.tableTheme !== this._defaultConfig.tableTheme;
     }
 
     onConfigUpdate() {
         const config = this.config();
         config.tableTheme = !config.darkMode ? config.tableTheme.replace('light', 'dark') : config.tableTheme.replace('dark', 'light');
-        this._config = { ...config };
+        this._defaultConfig = { ...config };
         this.configUpdate.next(this.config());
     }
 
@@ -84,7 +99,7 @@ export class AppConfigService {
         const themeLinkHref = themeLink.getAttribute('href')!;
         const newHref = themeLinkHref
             .split('/')
-            .map((el) => (el == this._config.theme ? (el = config.theme) : el == `theme-${this._config.darkMode}` ? (el = `theme-${config.darkMode}`) : el))
+            .map((el) => (el == this._defaultConfig.theme ? (el = config.theme) : el == `theme-${this._defaultConfig.darkMode}` ? (el = `theme-${config.darkMode}`) : el))
             .join('/');
 
         this.replaceThemeLink(newHref);

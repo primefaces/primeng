@@ -1,4 +1,4 @@
-import { DOCUMENT, IMAGE_CONFIG } from '@angular/common';
+import { DOCUMENT, IMAGE_CONFIG, isPlatformBrowser } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, Inject, OnInit, PLATFORM_ID, Renderer2, afterNextRender } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,7 +43,14 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     ]
 })
 export class AppComponent implements OnInit {
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private primeng: PrimeNGConfig,
+        private configService: AppConfigService,
+        private router: Router,
+        @Inject(PLATFORM_ID) private platformId: any
+    ) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
@@ -54,6 +61,9 @@ export class AppComponent implements OnInit {
     }
     ngOnInit(): void {
         this.primeng.ripple = true;
+        if (isPlatformBrowser(this.platformId)) {
+            this.configService.loadTheme();
+        }
     }
 
     injectScripts() {
