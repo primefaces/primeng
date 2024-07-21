@@ -251,7 +251,12 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(
+        public el: ElementRef,
+        public renderer: Renderer2,
+        private cd: ChangeDetectorRef,
+        private menubarService: MenubarService
+    ) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {

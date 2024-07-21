@@ -142,7 +142,10 @@ export class CascadeSelectSub implements OnInit {
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
-    constructor(private el: ElementRef, public config: PrimeNGConfig) {}
+    constructor(
+        private el: ElementRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnInit() {
         if (!this.root) {
@@ -1303,7 +1306,12 @@ export class CascadeSelect implements OnInit, AfterContentInit {
         return grouped ? this.getOptionGroupLabel(processedOption.option) : this.getOptionLabel(processedOption.option);
     }
 
-    constructor(private el: ElementRef, private cd: ChangeDetectorRef, private config: PrimeNGConfig, public overlayService: OverlayService) {
+    constructor(
+        private el: ElementRef,
+        private cd: ChangeDetectorRef,
+        private config: PrimeNGConfig,
+        public overlayService: OverlayService
+    ) {
         effect(() => {
             const activeOptionPath = this.activeOptionPath();
             if (ObjectUtils.isNotEmpty(activeOptionPath)) {
