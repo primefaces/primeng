@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, ElementRef, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
@@ -7,6 +7,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { DomHandler } from 'primeng/dom';
+import { DockStyle } from './style/dockstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Dock is a navigation component consisting of menuitems.
  * @group Components
@@ -45,14 +47,14 @@ import { DomHandler } from 'primeng/dom';
                         [attr.data-p-focused]="isItemActive(getItemId(item, i))"
                         [attr.data-p-disabled]="disabled(item) || false"
                     >
-                        <div class="p-menuitem-content" [attr.data-pc-section]="'content'">
+                        <div class="p-dock-item-content" [attr.data-pc-section]="'content'">
                             <a
                                 *ngIf="isClickableRouterLink(item); else elseBlock"
                                 pRipple
                                 [routerLink]="item.routerLink"
                                 [queryParams]="item.queryParams"
                                 [ngClass]="{ 'p-disabled': item.disabled }"
-                                class="p-dock-link"
+                                class="p-dock-item-link"
                                 [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
                                 [target]="item.target"
                                 [attr.tabindex]="item.disabled || readonly ? null : item.tabindex ? item.tabindex : '-1'"
@@ -66,14 +68,14 @@ import { DomHandler } from 'primeng/dom';
                                 [state]="item.state"
                                 [attr.aria-hidden]="true"
                             >
-                                <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                             </a>
                             <ng-template #elseBlock>
                                 <a
                                     [tooltipPosition]="item.tooltipPosition"
                                     [attr.href]="item.url || null"
-                                    class="p-dock-link"
+                                    class="p-dock-item-link"
                                     pRipple
                                     pTooltip
                                     [tooltipOptions]="item.tooltipOptions"
@@ -82,7 +84,7 @@ import { DomHandler } from 'primeng/dom';
                                     [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) ? null : item.tabindex ? item.tabindex : '-1'"
                                     [attr.aria-hidden]="true"
                                 >
-                                    <span class="p-dock-action-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                    <span class="p-dock-item-icon" *ngIf="item.icon && !itemTemplate" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                     <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
                                 </a>
                             </ng-template>
@@ -94,12 +96,9 @@ import { DomHandler } from 'primeng/dom';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dock.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [DockStyle]
 })
-export class Dock implements AfterContentInit {
+export class Dock extends BaseComponent implements AfterContentInit {
     /**
      * Current id state as a string.
      * @group Props
@@ -162,18 +161,19 @@ export class Dock implements AfterContentInit {
 
     focusedOptionIndex: number = -1;
 
+    _componentStyle = inject(DockStyle);
+
     get focusedOptionId() {
         return this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : null;
     }
 
-    constructor(
-        private el: ElementRef,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(public cd: ChangeDetectorRef) {
+        super();
         this.currentIndex = -3;
     }
 
     ngOnInit() {
+        super.ngOnInit()
         this.id = this.id || UniqueComponentId();
     }
 
@@ -351,14 +351,11 @@ export class Dock implements AfterContentInit {
     itemClass(item, index: number) {
         return {
             'p-dock-item': true,
-            'p-dock-item-second-prev': this.currentIndex - 2 === index,
-            'p-dock-item-prev': this.currentIndex - 1 === index,
-            'p-dock-item-current': this.currentIndex === index,
-            'p-dock-item-next': this.currentIndex + 1 === index,
-            'p-dock-item-second-next': this.currentIndex + 2 === index,
-            'p-focus': this.isItemActive(this.getItemId(item, index))
+            'p-focus': this.isItemActive(this.getItemId(item, index)),
+            'p-disabled': this.disabled(item)
         };
     }
+    
 }
 
 @NgModule({
