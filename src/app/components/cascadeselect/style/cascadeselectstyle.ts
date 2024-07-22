@@ -179,8 +179,7 @@ const theme = ({ dt }) => `
 }
 
 /* For PrimeNG */
-.p-cascadeselect-clear-icon{
-    color: ${dt('cascadeselect.option.icon.color')};
+.p-cascadeselect-clear-icon {
     cursor: pointer;
     display: flex;
     align-items: center;
