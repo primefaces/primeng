@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, EventEmitter, inject, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { HomeIcon } from 'primeng/icons/home';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
+import { BreadCrumbStyle } from './style/breadcrumbstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Breadcrumb provides contextual information about page hierarchy.
  * @group Components
@@ -18,7 +20,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                 <li
                     [class]="home.styleClass"
                     [attr.id]="home.id"
-                    [ngClass]="{ 'p-breadcrumb-home': true, 'p-disabled': home.disabled }"
+                    [ngClass]="{ 'p-breadcrumb-home-item': true, 'p-disabled': home.disabled }"
                     [ngStyle]="home.style"
                     *ngIf="home"
                     pTooltip
@@ -29,18 +31,18 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         [href]="home.url ? home.url : null"
                         *ngIf="!home.routerLink"
                         [attr.aria-label]="homeAriaLabel"
-                        class="p-menuitem-link"
+                        class="p-breadcrumb-item-link"
                         (click)="onClick($event, home)"
                         [target]="home.target"
                         [attr.title]="home.title"
                         [attr.tabindex]="home.disabled ? null : '0'"
                         [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                     >
-                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iprivateyle"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
+                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home.iprivateyle"></span>
+                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
                         <ng-container *ngIf="home.label">
-                            <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-menuitem-text">{{ home.label }}</span>
-                            <ng-template #htmlHomeLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
+                            <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
+                            <ng-template #htmlHomeLabel><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span></ng-template>
                         </ng-container>
                     </a>
                     <a
@@ -48,9 +50,8 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         [routerLink]="home.routerLink"
                         [attr.aria-label]="homeAriaLabel"
                         [queryParams]="home.queryParams"
-                        [routerLinkActive]="'p-menuitem-link-active'"
                         [routerLinkActiveOptions]="home.routerLinkActiveOptions || { exact: false }"
-                        class="p-menuitem-link"
+                        class="p-breadcrumb-item-link"
                         (click)="onClick($event, home)"
                         [target]="home.target"
                         [attr.title]="home.title"
@@ -63,24 +64,24 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         [replaceUrl]="home.replaceUrl"
                         [state]="home.state"
                     >
-                        <span *ngIf="home.icon" class="p-menuitem-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
-                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
+                        <span *ngIf="home.icon" class="p-breadcrumb-item-icon" [ngClass]="home.icon" [ngStyle]="home.iconStyle"></span>
+                        <HomeIcon *ngIf="!home.icon" [styleClass]="'p-breadcrumb-item-icon'" />
                         <ng-container *ngIf="home.label">
-                            <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-menuitem-text">{{ home.label }}</span>
-                            <ng-template #htmlHomeRouteLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
+                            <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-breadcrumb-item-label">{{ home.label }}</span>
+                            <ng-template #htmlHomeRouteLabel><span class="p-breadcrumb-item-label" [innerHTML]="home.label"></span></ng-template>
                         </ng-container>
                     </a>
                 </li>
-                <li *ngIf="model && home" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
+                <li *ngIf="model && home" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
                     <ChevronRightIcon *ngIf="!separatorTemplate" />
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
+                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-breadcrumb-item': true, 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
                         <a
                             *ngIf="!item.routerLink"
                             [attr.href]="item.url ? item.url : null"
-                            class="p-menuitem-link"
+                            class="p-breadcrumb-item-link"
                             (click)="onClick($event, item)"
                             [target]="item.target"
                             [attr.title]="item.title"
@@ -88,10 +89,10 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
-                                <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span *ngIf="item.escape !== false; else htmlLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
+                                    <ng-template #htmlLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -102,9 +103,8 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             *ngIf="item.routerLink"
                             [routerLink]="item.routerLink"
                             [queryParams]="item.queryParams"
-                            [routerLinkActive]="'p-menuitem-link-active'"
                             [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                            class="p-menuitem-link"
+                            class="p-breadcrumb-item-link"
                             (click)="onClick($event, item)"
                             [target]="item.target"
                             [attr.title]="item.title"
@@ -118,10 +118,10 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             [attr.ariaCurrentWhenActive]="isCurrentUrl(item)"
                         >
                             <ng-container *ngIf="!itemTemplate">
-                                <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
+                                <span *ngIf="item.icon" class="p-breadcrumb-item-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngIf="item.label">
-                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-breadcrumb-item-label'">{{ item.label }}</span>
+                                    <ng-template #htmlRouteLabel><span class="p-breadcrumb-item-label'" [innerHTML]="item.label"></span></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -129,7 +129,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                             </ng-container>
                         </a>
                     </li>
-                    <li *ngIf="!end" class="p-menuitem-separator" [attr.data-pc-section]="'separator'">
+                    <li *ngIf="!end" class="p-breadcrumb-separator" [attr.data-pc-section]="'separator'">
                         <ChevronRightIcon *ngIf="!separatorTemplate" />
                         <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                     </li>
@@ -139,12 +139,12 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./breadcrumb.css'],
     host: {
         class: 'p-element'
-    }
+    },
+    providers: [BreadCrumbStyle]
 })
-export class Breadcrumb implements AfterContentInit {
+export class Breadcrumb extends BaseComponent implements AfterContentInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -183,7 +183,11 @@ export class Breadcrumb implements AfterContentInit {
 
     itemTemplate: TemplateRef<any> | undefined;
 
-    constructor(private router: Router) {}
+    _componentStyle = inject(BreadCrumbStyle);
+
+    constructor(private router: Router) {
+        super();
+    }
 
     onClick(event: MouseEvent, item: MenuItem) {
         if (item.disabled) {
