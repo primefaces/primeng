@@ -22,6 +22,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     effect,
+    inject,
     numberAttribute,
     signal
 } from '@angular/core';
@@ -37,6 +38,8 @@ import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subject, Subscription, interval } from 'rxjs';
 import { debounce, filter } from 'rxjs/operators';
+import { MenuBarStyle } from './style/menubarstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Injectable()
 export class MenubarService {
@@ -57,7 +60,7 @@ export class MenubarService {
     template: `
         <ul
             #menubar
-            [ngClass]="{ 'p-submenu-list': !root, 'p-menubar-root-list': root }"
+            [ngClass]="{ 'p-menubar-submenu': !root, 'p-menubar-root-list': root }"
             [attr.data-pc-section]="'menu'"
             role="menubar"
             (focus)="menuFocus.emit($event)"
@@ -68,6 +71,7 @@ export class MenubarService {
             (keydown)="menuKeydown.emit($event)"
             [attr.id]="root ? menuId : null"
             [attr.aria-activedescendant]="focusedItemId"
+            [ngStyle]="inlineStyles"
         >
             <ng-template ngFor let-processedItem [ngForOf]="items" let-index="index">
                 <li
@@ -100,7 +104,7 @@ export class MenubarService {
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-menubar-item-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -109,13 +113,13 @@ export class MenubarService {
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-menubar-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-menuitem-icon"
+                                    class="p-menubar-item-icon"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
@@ -123,18 +127,18 @@ export class MenubarService {
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menubar-item-label" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
+                                    <span class="p-menubar-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'" [id]="getItemLabelId(processedItem)"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon [styleClass]="'p-menubar-submenu-icon'" *ngIf="root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                        <AngleRightIcon [styleClass]="'p-menubar-submenu-icon'" *ngIf="!root" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -147,10 +151,10 @@ export class MenubarService {
                                 [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-menuitem-link-active'"
+                                [routerLinkActive]="'p-menubar-item-link-active'"
                                 [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-menubar-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [fragment]="getItemProp(processedItem, 'fragment')"
                                 [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                 [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -160,7 +164,7 @@ export class MenubarService {
                                 pRipple
                             >
                                 <span
-                                    class="p-menuitem-icon"
+                                    class="p-menubar-item-icon"
                                     *ngIf="getItemProp(processedItem, 'icon')"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
@@ -168,13 +172,13 @@ export class MenubarService {
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                                <span class="p-menubar-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-menubar-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!menubar.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="root" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="!root" />
+                                        <AngleDownIcon [styleClass]="'p-menubar-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="root" />
+                                        <AngleRightIcon [styleClass]="'p-menubar-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" *ngIf="!root" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="menubar.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -197,6 +201,7 @@ export class MenubarService {
                         [ariaLabelledBy]="getItemLabelId(processedItem)"
                         (itemClick)="itemClick.emit($event)"
                         (itemMouseEnter)="onItemMouseEnter($event)"
+                        [inlineStyles]="{ display: isItemActive(processedItem) ? 'flex' : 'none' }"
                     >
                     </p-menubarSub>
                 </li>
@@ -235,6 +240,8 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input() activeItemPath: any[];
 
+    @Input() inlineStyles: any;
+
     @Input() submenuIconTemplate: TemplateRef<any> | undefined;
 
     @Output() itemClick: EventEmitter<any> = new EventEmitter();
@@ -251,12 +258,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private menubarService: MenubarService
-    ) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -288,9 +290,8 @@ export class MenubarSub implements OnInit, OnDestroy {
     getItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem': true,
-            'p-highlight': this.isItemActive(processedItem),
-            'p-menuitem-active': this.isItemActive(processedItem),
+            'p-menubar-item': true,
+            'p-menubar-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
             'p-disabled': this.isItemDisabled(processedItem)
         };
@@ -303,7 +304,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem-separator': true
+            'p-menubar-separator': true
         };
     }
 
@@ -414,13 +415,9 @@ export class MenubarSub implements OnInit, OnDestroy {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./menubar.css'],
-    host: {
-        class: 'p-element'
-    },
-    providers: [MenubarService]
+    providers: [MenubarService, MenuBarStyle]
 })
-export class Menubar implements AfterContentInit, OnDestroy, OnInit {
+export class Menubar extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -536,6 +533,8 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
 
     _processedItems: any[];
 
+    _componentStyle = inject(MenuBarStyle);
+
     _model: MenuItem[] | undefined;
 
     get visibleItems() {
@@ -557,14 +556,15 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(DOCUMENT) public document: Document,
+        @Inject(PLATFORM_ID) public platformId: any,
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         private menubarService: MenubarService
     ) {
+        super();
         effect(() => {
             const path = this.activeItemPath();
 
@@ -579,6 +579,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     }
 
     ngOnInit(): void {
+        super.ngOnInit();
         this.menubarService.autoHide = this.autoHide;
         this.menubarService.autoHideDelay = this.autoHideDelay;
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => this.unbindOutsideClickListener());
@@ -1129,6 +1130,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
         this.mouseLeaveSubscriber?.unsubscribe();
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
+        super.ngOnDestroy();
     }
 }
 

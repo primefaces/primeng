@@ -13,19 +13,19 @@ import { Router } from '@angular/router';
             <p-menubar [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else urlRef">
-                        <a [routerLink]="item.route" class="p-menuitem-link">
+                        <a [routerLink]="item.route" class="p-menubar-item-link">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
                         </a>
                     </ng-container>
                     <ng-template #urlRef>
-                        <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+                        <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
                         </a>
                     </ng-template>
                     <ng-template #noLink>
-                        <div class="p-menuitem-link">
+                        <div class="p-menubar-item-link">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
                             <span class="pi pi-fw pi-angle-down ml-2"></span>
@@ -86,19 +86,19 @@ export class RouterDoc implements OnInit {
         basic: `<p-menubar [model]="items">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else urlRef">
-            <a [routerLink]="item.route" class="p-menuitem-link">
+            <a [routerLink]="item.route" class="p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
             </a>
         </ng-container>
         <ng-template #urlRef>
-            <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+            <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
             </a>
         </ng-template>
         <ng-template #noLink>
-            <div class="p-menuitem-link">
+            <div class="p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <span class="pi pi-fw pi-angle-down ml-2"></span>
@@ -111,19 +111,19 @@ export class RouterDoc implements OnInit {
     <p-menubar [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else urlRef">
-                <a [routerLink]="item.route" class="p-menuitem-link">
+                <a [routerLink]="item.route" class="p-menubar-item-link">
                     <span [class]="item.icon"></span>
                     <span class="ml-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #urlRef>
-                <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menuitem-link">
+                <a *ngIf="item.url; else noLink" [href]="item.url" class="p-menubar-item-link">
                     <span [class]="item.icon"></span>
                     <span class="ml-2">{{ item.label }}</span>
                 </a>
             </ng-template>
             <ng-template #noLink>
-                <div class="p-menuitem-link">
+                <div class="p-menubar-item-link">
                     <span [class]="item.icon"></span>
                     <span class="ml-2">{{ item.label }}</span>
                     <span class="pi pi-fw pi-angle-down ml-2"></span>
