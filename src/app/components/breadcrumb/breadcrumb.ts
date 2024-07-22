@@ -139,9 +139,6 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
     providers: [BreadCrumbStyle]
 })
 export class Breadcrumb extends BaseComponent implements AfterContentInit {
