@@ -25,6 +25,7 @@ import {
     computed,
     effect,
     forwardRef,
+    inject,
     numberAttribute,
     signal
 } from '@angular/core';
@@ -36,15 +37,14 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { MenuStyle } from './style/menustyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Pipe({
     name: 'safeHtml'
 })
 export class SafeHtmlPipe implements PipeTransform {
-    constructor(
-        @Inject(PLATFORM_ID) private readonly platformId: any,
-        private readonly sanitizer: DomSanitizer
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private readonly platformId: any, private readonly sanitizer: DomSanitizer) {}
 
     public transform(value: string): SafeHtml {
         if (!value || !isPlatformBrowser(this.platformId)) {
@@ -58,7 +58,7 @@ export class SafeHtmlPipe implements PipeTransform {
 @Component({
     selector: '[pMenuItemContent]',
     template: `
-        <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, item)">
+        <div [attr.data-pc-section]="'content'" class="p-menu-item-content" (click)="onItemClick($event, item)">
             <ng-container *ngIf="!itemTemplate">
                 <a
                     *ngIf="!item?.routerLink"
@@ -68,7 +68,7 @@ export class SafeHtmlPipe implements PipeTransform {
                     [attr.tabindex]="-1"
                     [attr.data-pc-section]="'action'"
                     [attr.aria-hidden]="true"
-                    class="p-menuitem-link"
+                    class="p-menu-item-link"
                     [target]="item.target"
                     [ngClass]="{ 'p-disabled': item.disabled }"
                     pRipple
@@ -84,9 +84,9 @@ export class SafeHtmlPipe implements PipeTransform {
                     [attr.aria-hidden]="true"
                     [attr.title]="item.title"
                     [queryParams]="item.queryParams"
-                    routerLinkActive="p-menuitem-link-active"
+                    routerLinkActive="p-menu-item-link-active"
                     [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
-                    class="p-menuitem-link"
+                    class="p-menu-item-link"
                     [target]="item.target"
                     [ngClass]="{ 'p-disabled': item.disabled }"
                     [fragment]="item.fragment"
@@ -106,17 +106,14 @@ export class SafeHtmlPipe implements PipeTransform {
             </ng-container>
 
             <ng-template #itemContent>
-                <span class="p-menuitem-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
-                <span class="p-menuitem-text" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
-                <span class="p-menuitem-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+                <span class="p-menu-item-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
+                <span class="p-menu-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
+                <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
+                <span class="p-menu-item-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
             </ng-template>
         </div>
     `,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
 })
 export class MenuItemContent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
@@ -174,9 +171,9 @@ export class MenuItemContent {
                 (keydown)="onListKeyDown($event)"
             >
                 <ng-template ngFor let-submenu let-i="index" [ngForOf]="model" *ngIf="hasSubMenu()">
-                    <li class="p-menuitem-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
+                    <li class="p-menu-separator" *ngIf="submenu.separator" [ngClass]="{ 'p-hidden': submenu.visible === false }" role="separator"></li>
                     <li
-                        class="p-submenu-header"
+                        class="p-menu-submenu-label"
                         [attr.data-automationid]="submenu.automationId"
                         *ngIf="!submenu.separator"
                         [ngClass]="{ 'p-hidden': submenu.visible === false, flex: submenu.visible }"
@@ -192,9 +189,9 @@ export class MenuItemContent {
                         <ng-container *ngTemplateOutlet="submenuHeaderTemplate; context: { $implicit: submenu }"></ng-container>
                     </li>
                     <ng-template ngFor let-item let-j="index" [ngForOf]="submenu.items">
-                        <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
+                        <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false || submenu.visible === false }" role="separator"></li>
                         <li
-                            class="p-menuitem"
+                            class="p-menu-item"
                             *ngIf="!item.separator"
                             [pMenuItemContent]="item"
                             [itemTemplate]="itemTemplate"
@@ -215,9 +212,9 @@ export class MenuItemContent {
                     </ng-template>
                 </ng-template>
                 <ng-template ngFor let-item let-i="index" [ngForOf]="model" *ngIf="!hasSubMenu()">
-                    <li class="p-menuitem-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
+                    <li class="p-menu-separator" *ngIf="item.separator" [ngClass]="{ 'p-hidden': item.visible === false }" role="separator"></li>
                     <li
-                        class="p-menuitem"
+                        class="p-menu-item"
                         *ngIf="!item.separator"
                         [pMenuItemContent]="item"
                         [itemTemplate]="itemTemplate"
@@ -245,12 +242,9 @@ export class MenuItemContent {
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./menu.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers:[MenuStyle]
 })
-export class Menu implements OnDestroy {
+export class Menu extends BaseComponent implements OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -381,15 +375,18 @@ export class Menu implements OnDestroy {
 
     relativeAlign: boolean | undefined;
 
+    _componentStyle = inject(MenuStyle);
+
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(DOCUMENT) public document: Document,
+        @Inject(PLATFORM_ID) public platformId: any,
         public el: ElementRef,
         public renderer: Renderer2,
-        private cd: ChangeDetectorRef,
+        public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
     ) {
+        super();
         this.id = this.id || UniqueComponentId();
     }
     /**
@@ -418,6 +415,7 @@ export class Menu implements OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit()
         if (!this.popup) {
             this.bindDocumentClickListener();
         }
@@ -802,6 +800,7 @@ export class Menu implements OnDestroy {
         if (!this.popup) {
             this.unbindDocumentClickListener();
         }
+        super.ngOnDestroy()
     }
 
     hasSubMenu(): boolean {

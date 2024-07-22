@@ -51,7 +51,7 @@ import { Code } from '@domain/code';
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
                 <ng-template pTemplate="item" let-item>
-                    <a pRipple class="flex align-items-center p-menuitem-link">
+                    <a pRipple class="flex align-items-center p-menu-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
@@ -163,7 +163,7 @@ export class TemplateDoc implements OnInit {
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template pTemplate="item" let-item>
-        <a pRipple class="flex align-items-center p-menuitem-link">
+        <a pRipple class="flex align-items-center p-menu-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
@@ -223,7 +223,7 @@ export class TemplateDoc implements OnInit {
             <span class="text-primary font-bold">{{ item.label }}</span>
         </ng-template>
         <ng-template pTemplate="item" let-item>
-            <a pRipple class="flex align-items-center p-menuitem-link">
+            <a pRipple class="flex align-items-center p-menu-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />

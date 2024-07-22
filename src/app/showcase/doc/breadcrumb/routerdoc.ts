@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-breadcrumb class="max-w-full" [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
-                        <a [routerLink]="item.route" class="p-menuitem-link">
+                        <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                             <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
                             <span class="text-primary font-semibold">{{ item.label }}</span>
                         </a>
@@ -41,7 +41,7 @@ export class RouterDoc implements OnInit {
         basic: `<p-breadcrumb class="max-w-full" [model]="items">
     <ng-template pTemplate="item" let-item>
         <ng-container *ngIf="item.route; else elseBlock">
-            <a [routerLink]="item.route" class="p-menuitem-link">
+            <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                 <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
                 <span class="text-primary font-semibold">{{ item.label }}</span>
             </a>
@@ -58,7 +58,7 @@ export class RouterDoc implements OnInit {
     <p-breadcrumb class="max-w-full" [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else elseBlock">
-                <a [routerLink]="item.route" class="p-menuitem-link">
+                <a [routerLink]="item.route" class="p-breadcrumb-item-link">
                     <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
                     <span class="text-primary font-semibold">{{ item.label }}</span>
                 </a>
