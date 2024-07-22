@@ -42,7 +42,7 @@ import { Code } from '@domain/code';
                     </svg>
                 </ng-template>
                 <ng-template pTemplate="item" let-item let-root="root">
-                    <a pRipple class="flex align-items-center p-menuitem-link">
+                    <a pRipple class="flex align-items-center p-menubar-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
@@ -156,7 +156,7 @@ export class TemplateDoc implements OnInit {
         </svg>
     </ng-template>
     <ng-template pTemplate="item" let-item let-root="root">
-        <a pRipple class="flex align-items-center p-menuitem-link">
+        <a pRipple class="flex align-items-center p-menubar-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
@@ -206,7 +206,7 @@ export class TemplateDoc implements OnInit {
             </svg>
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
-            <a pRipple class="flex align-items-center p-menuitem-link">
+            <a pRipple class="flex align-items-center p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
