@@ -25,6 +25,7 @@ import {
     ViewEncapsulation,
     ViewRef,
     booleanAttribute,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -37,6 +38,8 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ButtonModule, ButtonProps } from 'primeng/button';
+import { DialogStyle } from './style/dialogstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -48,28 +51,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dialog',
     template: `
-        <div
-            *ngIf="maskVisible"
-            [class]="maskStyleClass"
-            [style]="maskStyle"
-            [ngClass]="{
-                'p-dialog-mask': true,
-                'p-component-overlay p-component-overlay-enter': this.modal,
-                'p-dialog-mask-scrollblocker': this.modal || this.blockScroll,
-                'p-dialog-left': position === 'left',
-                'p-dialog-right': position === 'right',
-                'p-dialog-top': position === 'top',
-                'p-dialog-top-left': position === 'topleft' || position === 'top-left',
-                'p-dialog-top-right': position === 'topright' || position === 'top-right',
-                'p-dialog-bottom': position === 'bottom',
-                'p-dialog-bottom-left': position === 'bottomleft' || position === 'bottom-left',
-                'p-dialog-bottom-right': position === 'bottomright' || position === 'bottom-right'
-            }"
-        >
+        <div *ngIf="maskVisible" [class]="maskStyleClass" [ngStyle]="getMaskStyle()" [ngClass]="maskClass">
             <div
                 #container
-                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-rtl': rtl, 'p-dialog-draggable': draggable, 'p-dialog-resizable': resizable, 'p-dialog-maximized': maximized }"
-                [ngStyle]="style"
+                [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximized }"
+                [ngStyle]="rootStyle"
                 [class]="styleClass"
                 *ngIf="visible"
                 pFocusTrap
@@ -93,12 +79,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <ng-content select="p-header"></ng-content>
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                        <div class="p-dialog-header-icons">
+                        <div class="p-dialog-header-actions">
                             <p-button
                                 *ngIf="maximizable"
                                 role="button"
                                 type="button"
-                                [styleClass]="'p-dialog-header-icon p-dialog-header-maximize p-link'"
+                                [styleClass]="'p-dialog-maximize-button'"
                                 (click)="maximize()"
                                 (keydown.enter)="maximize()"
                                 [attr.tabindex]="maximizable ? '0' : '-1'"
@@ -121,7 +107,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             <p-button
                                 *ngIf="closable"
                                 type="button"
-                                [styleClass]="'p-dialog-header-icon p-dialog-header-close p-link'"
+                                [styleClass]="'p-dialog-close-button'"
                                 [attr.aria-label]="closeAriaLabel"
                                 (click)="close($event)"
                                 (keydown.enter)="close($event)"
@@ -154,12 +140,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [DialogStyle]
 })
-export class Dialog implements AfterContentInit, OnInit, OnDestroy {
+export class Dialog extends BaseComponent implements AfterContentInit, OnInit, OnDestroy {
     /**
      * Title text of the dialog.
      * @group Props
@@ -267,7 +250,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
      * Style of the mask.
      * @group Props
      */
-    @Input() maskStyle: string | undefined;
+    @Input() maskStyle: { [klass: string]: any } | null | undefined;
     /**
      * Whether to show the header or not.
      * @group Props
@@ -552,19 +535,35 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
 
     private window: Window;
 
+    _componentStyle = inject(DialogStyle);
+
+    get maskClass() {
+        const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
+        const pos = positions.find((item) => item === this.position);
+
+        return {
+            'p-dialog-mask': true,
+            'p-overlay-mask p-overlay-mask-enter': this.modal,
+            ['p-dialog-' + pos]: !!pos
+        };
+    }
+
+    get rootStyle() {
+        const inlineStyles = this._componentStyle.inlineStyles.root;
+        return this.style ? { ...inlineStyles, ...this.style } : inlineStyles;
+    }
+
+    getMaskStyle() {
+        const inlineStyles = this._componentStyle.inlineStyles.mask({ position: this.position, modal: this.modal });
+        return this.maskStyle ? { ...inlineStyles, ...this.maskStyle } : inlineStyles;
+    }
+
     get maximizeLabel(): string {
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public zone: NgZone,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {
+    constructor(@Inject(DOCUMENT) public document: Document, @Inject(PLATFORM_ID) public platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+        super();
         this.window = this.document.defaultView as Window;
     }
 
@@ -607,6 +606,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.breakpoints) {
             this.createStyle();
         }
@@ -971,9 +971,9 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
                     this.enableModality();
                 }
 
-                if (!this.modal && this.blockScroll) {
-                    DomHandler.addClass(this.document.body, 'p-overflow-hidden');
-                }
+                // if (!this.modal && this.blockScroll) {
+                //     DomHandler.addClass(this.document.body, 'p-overflow-hidden');
+                // }
 
                 if (this.focusOnShow) {
                     this.focus();
@@ -1008,8 +1008,8 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         this.maskVisible = false;
 
         if (this.maximized) {
-            DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
-            this.document.body.style.removeProperty('--scrollbar-width');
+            // DomHandler.removeClass(this.document.body, 'p-overflow-hidden')
+            this.document.body.style.removeProperty('--scrollbar;-width');
             this.maximized = false;
         }
 
@@ -1017,7 +1017,11 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
             this.disableModality();
         }
 
-        if (this.blockScroll) {
+        // if (this.blockScroll) {
+        //      DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
+        // }
+
+        if(DomHandler.hasClass(this.document.body, 'p-overflow-hidden')){
             DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
@@ -1045,6 +1049,7 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
         }
 
         this.destroyStyle();
+        super.ngOnDestroy();
     }
 }
 

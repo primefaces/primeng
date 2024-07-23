@@ -13,14 +13,14 @@ import { Code } from '@domain/code';
                 <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
+                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
                 <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
+                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
+                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
                 <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
+                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
@@ -66,7 +66,7 @@ export class PositionDoc {
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button 
-        (click)="showDialog('top-left')" 
+        (click)="showDialog('topleft')" 
         icon="pi pi-arrow-down-right" 
         label="TopLeft" 
         severity="secondary" />
@@ -76,14 +76,14 @@ export class PositionDoc {
         label="Top" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('top-right')" 
+        (click)="showDialog('topright')" 
         icon="pi pi-arrow-down-left" 
         label="TopRight" 
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button 
-        (click)="showDialog('bottom-left')" 
+        (click)="showDialog('bottomleft')" 
         icon="pi pi-arrow-up-right" 
         label="BottomLeft" 
         severity="secondary" />
@@ -93,7 +93,7 @@ export class PositionDoc {
         label="Bottom" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('bottom-right')" 
+        (click)="showDialog('bottomright')" 
         icon="pi pi-arrow-up-left" 
         label="BottomRight" 
         severity="secondary" />
@@ -140,7 +140,7 @@ export class PositionDoc {
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button 
-            (click)="showDialog('top-left')" 
+            (click)="showDialog('topleft')" 
             icon="pi pi-arrow-down-right" 
             label="TopLeft" 
             severity="secondary" />
@@ -150,14 +150,14 @@ export class PositionDoc {
             label="Top" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('top-right')" 
+            (click)="showDialog('topright')" 
             icon="pi pi-arrow-down-left" 
             label="TopRight" 
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button 
-            (click)="showDialog('bottom-left')" 
+            (click)="showDialog('bottomleft')" 
             icon="pi pi-arrow-up-right" 
             label="BottomLeft" 
             severity="secondary" />
@@ -167,7 +167,7 @@ export class PositionDoc {
             label="Bottom" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('bottom-right')" 
+            (click)="showDialog('bottomright')" 
             icon="pi pi-arrow-up-left" 
             label="BottomRight" 
             severity="secondary" />
