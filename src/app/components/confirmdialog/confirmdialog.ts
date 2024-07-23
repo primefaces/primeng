@@ -88,7 +88,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
                     </div>
                     <div class="p-dialog-footer" *ngIf="!footer && !footerTemplate">
-                      <p-button
+                        <p-button
                             type="button"
                             pRipple
                             [label]="rejectButtonLabel"
@@ -131,11 +131,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     `,
     animations: [trigger('animation', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['../dialog/dialog.css'],
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
 export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
     /**
@@ -440,15 +436,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     translationSubscription: Subscription | undefined;
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private confirmationService: ConfirmationService,
-        public zone: NgZone,
-        private cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        @Inject(DOCUMENT) private document: Document
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig, @Inject(DOCUMENT) private document: Document) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
