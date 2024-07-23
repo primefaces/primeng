@@ -9,7 +9,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    Inject,
+    inject,
     Input,
     NgModule,
     numberAttribute,
@@ -56,6 +56,8 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { CheckboxModule } from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
+import { TreeStyle } from './style/treestyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-treeNode',
@@ -73,13 +75,13 @@ import { FormsModule } from '@angular/forms';
             ></li>
             <li
                 *ngIf="!tree.horizontal"
-                [ngClass]="['p-treenode', node.styleClass || '', isLeaf() ? 'p-treenode-leaf' : '']"
+                [ngClass]="nodeClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
                 [attr.aria-label]="node.label"
-                [attr.aria-checked]="ariaChecked"
+                [attr.aria-checked]="checked"
                 [attr.aria-setsize]="node.children ? node.children.length : 0"
-                [attr.aria-selected]="ariaSelected"
+                [attr.aria-selected]="selected"
                 [attr.aria-expanded]="node.expanded"
                 [attr.aria-posinset]="index + 1"
                 [attr.aria-level]="level + 1"
@@ -89,7 +91,7 @@ import { FormsModule } from '@angular/forms';
                 (keydown)="onKeyDown($event)"
             >
                 <div
-                    class="p-treenode-content"
+                    [ngClass]="nodeContentClass"
                     [style.paddingLeft]="level * indentation + 'rem'"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
@@ -101,19 +103,18 @@ import { FormsModule } from '@angular/forms';
                     [draggable]="tree.draggableNodes"
                     (dragstart)="onDragStart($event)"
                     (dragend)="onDragStop($event)"
-                    [ngClass]="{ 'p-treenode-selectable': tree.selectionMode && node.selectable !== false, 'p-treenode-dragover': draghoverNode, 'p-highlight': isSelected() }"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
+                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-node-toggle-button" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
-                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
-                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" />
+                                <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
+                                <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-tree-node-toggle-icon'" />
                             </ng-container>
                             <ng-container *ngIf="loadingMode === 'icon' && node.loading">
-                                <SpinnerIcon [spin]="true" [styleClass]="'p-tree-node-toggler-icon'" />
+                                <SpinnerIcon [spin]="true" [styleClass]="'p-tree-node-toggle-icon'" />
                             </ng-container>
                         </ng-container>
-                        <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
+                        <span *ngIf="tree.togglerIconTemplate" class="p-tree-node-toggle-icon">
                             <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                         </span>
                     </button>
@@ -137,14 +138,14 @@ import { FormsModule } from '@angular/forms';
                     </p-checkbox>
 
                     <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
-                    <span class="p-treenode-label">
+                    <span class="p-tree-node-label">
                         <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                         <span *ngIf="tree.getTemplateForNode(node)">
                             <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="tree">
+                <ul class="p-tree-node-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="tree">
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -160,8 +161,8 @@ import { FormsModule } from '@angular/forms';
 
             <li
                 *ngIf="tree.droppableNodes && lastChild"
-                class="p-treenode-droppoint"
-                [ngClass]="{ 'p-treenode-droppoint-active': draghoverNext }"
+                class="p-tree-node-droppoint"
+                [ngClass]="{ 'p-tree-node-droppoint-active': draghoverNext }"
                 (drop)="onDropPoint($event, 1)"
                 [attr.aria-hidden]="true"
                 (dragover)="onDropPointDragOver($event)"
@@ -172,39 +173,39 @@ import { FormsModule } from '@angular/forms';
             <table *ngIf="tree.horizontal" [class]="node.styleClass">
                 <tbody>
                     <tr>
-                        <td class="p-treenode-connector" *ngIf="!root">
-                            <table class="p-treenode-connector-table">
+                        <td class="p-tree-node-connector" *ngIf="!root">
+                            <table class="p-tree-node-connector-table">
                                 <tbody>
                                     <tr>
-                                        <td [ngClass]="{ 'p-treenode-connector-line': !firstChild }"></td>
+                                        <td [ngClass]="{ 'p-tree-node-connector-line': !firstChild }"></td>
                                     </tr>
                                     <tr>
-                                        <td [ngClass]="{ 'p-treenode-connector-line': !lastChild }"></td>
+                                        <td [ngClass]="{ 'p-tree-node-connector-line': !lastChild }"></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </td>
-                        <td class="p-treenode" [ngClass]="{ 'p-treenode-collapsed': !node.expanded }">
+                        <td class="p-treenode" [ngClass]="{ 'p-tree-node-collapsed': !node.expanded }">
                             <div
-                                class="p-treenode-content"
+                                class="p-tree-node-content"
                                 tabindex="0"
-                                [ngClass]="{ 'p-treenode-selectable': tree.selectionMode, 'p-highlight': isSelected() }"
+                                [ngClass]="{ 'p-tree-node-selectable': tree.selectionMode }"
                                 (click)="onNodeClick($event)"
                                 (contextmenu)="onNodeRightClick($event)"
                                 (touchend)="onNodeTouchEnd()"
                                 (keydown)="onNodeKeydown($event)"
                             >
-                                <span *ngIf="!isLeaf()" [ngClass]="'p-tree-toggler'" (click)="toggle($event)">
+                                <span *ngIf="!isLeaf()" [ngClass]="'p-tree-node-toggle-button'" (click)="toggle($event)">
                                     <ng-container *ngIf="!tree.togglerIconTemplate">
-                                        <PlusIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel" />
-                                        <MinusIcon *ngIf="node.expanded" [styleClass]="'p-tree-toggler-icon'" [ariaLabel]="tree.togglerAriaLabel" />
+                                        <PlusIcon *ngIf="!node.expanded" [styleClass]="'p-tree-node-toggle-icon'" [ariaLabel]="tree.togglerAriaLabel" />
+                                        <MinusIcon *ngIf="node.expanded" [styleClass]="'p-tree-node-toggle-icon'" [ariaLabel]="tree.togglerAriaLabel" />
                                     </ng-container>
-                                    <span *ngIf="tree.togglerIconTemplate" class="p-tree-toggler-icon">
+                                    <span *ngIf="tree.togglerIconTemplate" class="p-tree-node-toggle-icon">
                                         <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                                     </span>
                                 </span>
                                 <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
-                                <span class="p-treenode-label">
+                                <span class="p-tree-node-label">
                                     <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
                                     <span *ngIf="tree.getTemplateForNode(node)">
                                         <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
@@ -212,22 +213,17 @@ import { FormsModule } from '@angular/forms';
                                 </span>
                             </div>
                         </td>
-                        <td class="p-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
-                            <div class="p-treenode-children">
-                                <p-treeNode *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; trackBy: tree.trackBy" [node]="childNode" [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
-                            </div>
+                        <td class="p-tree-node-children" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
+                            <p-treeNode *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; trackBy: tree.trackBy" [node]="childNode" [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </ng-template>
     `,
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
-export class UITreeNode implements OnInit {
+export class UITreeNode extends BaseComponent implements OnInit {
     static ICON_CLASS: string = 'p-treenode-icon ';
 
     @Input() rowNode: any;
@@ -252,7 +248,7 @@ export class UITreeNode implements OnInit {
 
     @Input() loadingMode: string;
 
-    tree: Tree;
+    tree: Tree = inject(forwardRef(() => Tree));
 
     timeout: any;
 
@@ -262,19 +258,24 @@ export class UITreeNode implements OnInit {
 
     draghoverNode: boolean | undefined;
 
-    get ariaSelected() {
+    get selected() {
         return this.tree.selectionMode === 'single' || this.tree.selectionMode === 'multiple' ? this.isSelected() : undefined;
     }
 
-    get ariaChecked() {
+    get checked() {
         return this.tree.selectionMode === 'checkbox' ? this.isSelected() : undefined;
     }
 
-    constructor(@Inject(forwardRef(() => Tree)) tree: Tree) {
-        this.tree = tree as Tree;
+    get nodeClass() {
+        return this.tree._componentStyle.classes.node({ instance: this });
+    }
+
+    get nodeContentClass() {
+        return this.tree._componentStyle.classes.nodeContent({ instance: this });
     }
 
     ngOnInit() {
+        super.ngOnInit();
         (<TreeNode>this.node).parent = this.parentNode;
         if (this.parentNode) {
             this.setAllNodesTabIndexes();
@@ -288,7 +289,7 @@ export class UITreeNode implements OnInit {
         if ((<TreeNode>this.node).icon) icon = (<TreeNode>this.node).icon as string;
         else icon = (<TreeNode>this.node).expanded && (<TreeNode>this.node).children && (<TreeNode>this.node).children?.length ? (<TreeNode>this.node).expandedIcon : (<TreeNode>this.node).collapsedIcon;
 
-        return UITreeNode.ICON_CLASS + ' ' + icon;
+        return UITreeNode.ICON_CLASS + ' ' + icon + ' p-tree-node-icon';
     }
 
     isLeaf() {
@@ -739,17 +740,8 @@ export class UITreeNode implements OnInit {
 @Component({
     selector: 'p-tree',
     template: `
-        <div
-            [ngClass]="{ 'p-tree p-component': true, 'p-tree-selectable': selectionMode, 'p-treenode-dragover': dragHover, 'p-tree-loading': loading, 'p-tree-flex-scrollable': scrollHeight === 'flex' }"
-            [ngStyle]="style"
-            [class]="styleClass"
-            *ngIf="!horizontal"
-            (drop)="onDrop($event)"
-            (dragover)="onDragOver($event)"
-            (dragenter)="onDragEnter()"
-            (dragleave)="onDragLeave($event)"
-        >
-            <div class="p-tree-loading-overlay p-component-overlay" *ngIf="loading && loadingMode === 'mask'">
+        <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
+            <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
                     <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
@@ -759,10 +751,10 @@ export class UITreeNode implements OnInit {
                 </ng-container>
             </div>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <p-iconField *ngIf="filter" class="p-tree-filter-container">
-                <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
+            <p-iconField *ngIf="filter">
+                <input #filter pInputText type="search" autocomplete="off" class="p-tree-filter-input" [attr.placeholder]="filterPlaceholder" (keydown.enter)="$event.preventDefault()" (input)="_filter($event.target.value)" />
                 <p-inputIcon>
-                    <SearchIcon *ngIf="!filterIconTemplate" />
+                    <SearchIcon *ngIf="!filterIconTemplate" class="p-tree-filter-icon" />
                     <span *ngIf="filterIconTemplate">
                         <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
                     </span>
@@ -774,7 +766,7 @@ export class UITreeNode implements OnInit {
                     *ngIf="virtualScroll"
                     [items]="serializedValue"
                     [tabindex]="-1"
-                    styleClass="p-tree-wrapper"
+                    styleClass="p-tree-root"
                     [style]="{ height: scrollHeight !== 'flex' ? scrollHeight : undefined }"
                     [scrollHeight]="scrollHeight !== 'flex' ? undefined : '100%'"
                     [itemSize]="virtualScrollItemSize || _virtualNodeHeight"
@@ -785,7 +777,7 @@ export class UITreeNode implements OnInit {
                     [options]="virtualScrollOptions"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                        <ul *ngIf="items" class="p-tree-container" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                        <ul *ngIf="items" class="p-tree-root-children" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 #treeNode
                                 *ngFor="let rowNode of items; let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -809,8 +801,8 @@ export class UITreeNode implements OnInit {
                     </ng-container>
                 </p-scroller>
                 <ng-container *ngIf="!virtualScroll">
-                    <div #wrapper class="p-tree-wrapper" [style.max-height]="scrollHeight">
-                        <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
+                    <div #wrapper class="p-tree-root" [style.max-height]="scrollHeight">
+                        <ul class="p-tree-root-children" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
                                 [node]="node"
@@ -858,12 +850,9 @@ export class UITreeNode implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./tree.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [TreeStyle]
 })
-export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
+export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy, BlockableUI {
     /**
      * An array of treenodes.
      * @group Props
@@ -1045,6 +1034,11 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
      */
     @Input() trackBy: Function = (index: number, item: any) => item;
     /**
+     * Highlights the node on select.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) highlightOnSelect: boolean = false;
+    /**
      * Height of the node.
      * @group Props
      * @deprecated use virtualScrollItemSize property instead.
@@ -1168,14 +1162,14 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(
-        public el: ElementRef,
-        @Optional() public dragDropService: TreeDragDropService,
-        public config: PrimeNGConfig,
-        private cd: ChangeDetectorRef
-    ) {}
+    _componentStyle = inject(TreeStyle);
+
+    constructor(@Optional() public dragDropService: TreeDragDropService) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.droppableNodes) {
             this.dragStartSubscription = this.dragDropService.dragStart$.subscribe((event) => {
                 this.dragNodeTree = event.tree;
@@ -1197,12 +1191,17 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
+        super.ngOnChanges(simpleChange);
         if (simpleChange.value) {
             this.updateSerializedValue();
             if (this.hasFilterActive()) {
                 this._filter(this.filterViewChild.nativeElement.value);
             }
         }
+    }
+
+    get containerClass() {
+        return this._componentStyle.classes.root({ instance: this });
     }
 
     get horizontal(): boolean {
@@ -1779,6 +1778,8 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
         if (this.dragStopSubscription) {
             this.dragStopSubscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 @NgModule({
