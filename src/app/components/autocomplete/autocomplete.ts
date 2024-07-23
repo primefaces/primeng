@@ -781,6 +781,8 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     focusedOptionIndex = signal<number>(-1);
 
+    _componentStyle = inject(AutoCompleteStyle);
+
     visibleOptions = computed(() => {
         return this.group ? this.flatOptions(this._suggestions()) : this._suggestions() || [];
     });
@@ -809,13 +811,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
-    // host: {
-    //     class: 'p-element p-inputwrapper',
-    //     '[class.p-inputwrapper-filled]': 'filled',
-    //     '[class.p-inputwrapper-focus]': '((focused && !disabled) || autofocus) || overlayVisible',
-    //     '[class.p-autocomplete-clearable]': 'showClear && !disabled'
-    // },
-    _componentStyle = inject(AutoCompleteStyle);
 
     get rootClass() {
         return this._componentStyle.classes.root({ instance: this });
@@ -824,18 +819,6 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
     get inputMultipleClass() {
         return this._componentStyle.classes.inputMultiple({ instance: this });
     }
-
-    chipItemClass(index) {
-        return this._componentStyle.classes.chipItem({ instance: this, i: index });
-    }
-
-    optionClass(option, i, scrollerOptions) {
-        return { 'p-autocomplete-option': true, 'p-autocomplete-option-selected': this.isSelected(option), 'p-focus': this.focusedOptionIndex() === this.getOptionIndex(i, scrollerOptions), 'p-disabled': this.isOptionDisabled(option) };
-    }
-
-    // get multiContainerClass() {
-    //     return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
-    // }
 
     get panelClass() {
         return {
@@ -890,6 +873,14 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
 
     get optionValueSelected() {
         return typeof this.modelValue() === 'string' && this.optionValue;
+    }
+
+    chipItemClass(index) {
+        return this._componentStyle.classes.chipItem({ instance: this, i: index });
+    }
+
+    optionClass(option, i, scrollerOptions) {
+        return { 'p-autocomplete-option': true, 'p-autocomplete-option-selected': this.isSelected(option), 'p-focus': this.focusedOptionIndex() === this.getOptionIndex(i, scrollerOptions), 'p-disabled': this.isOptionDisabled(option) };
     }
 
     constructor(public overlayService: OverlayService, private zone: NgZone) {
