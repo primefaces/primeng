@@ -47,6 +47,8 @@ import { DomHandler } from 'primeng/dom';
             [@messageState]="{ value: 'visible', params: { showTransformParams: showTransformOptions, hideTransformParams: hideTransformOptions, showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
+            (keydown)="hideOnEscape($event)"
+            tabindex="0" 
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
@@ -150,10 +152,11 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(private zone: NgZone, private config: PrimeNGConfig) {}
+    constructor(private zone: NgZone, private config: PrimeNGConfig, private renderer: Renderer2) { }
 
     ngAfterViewInit() {
         this.initTimeout();
+        this.focusToast();
     }
 
     initTimeout() {
@@ -173,6 +176,23 @@ export class ToastItem implements AfterViewInit, OnDestroy {
         if (this.timeout) {
             clearTimeout(this.timeout);
             this.timeout = null;
+        }
+    }
+
+    focusToast() {
+        if (this.containerViewChild) {
+            this.renderer.setAttribute(this.containerViewChild.nativeElement, 'tabindex', '0');
+            this.containerViewChild.nativeElement.focus();
+        }
+    }
+
+    hideOnEscape(event: KeyboardEvent) {
+        if (event.key === 'Escape') {
+            this.clearTimeout();
+            this.onClose.emit({
+                index: <number>this.index,
+                message: <Message>this.message
+            });
         }
     }
 
@@ -343,7 +363,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     _position: ToastPositionType = 'top-right';
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
 
     styleElement: any;
 
@@ -514,4 +534,4 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
     exports: [Toast, SharedModule],
     declarations: [Toast, ToastItem]
 })
-export class ToastModule {}
+export class ToastModule { }
