@@ -201,7 +201,10 @@ export class PanelMenuSub {
 
     @ViewChild('list') listViewChild: ElementRef;
 
-    constructor(@Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu, public el: ElementRef) {}
+    constructor(
+        @Inject(forwardRef(() => PanelMenu)) public panelMenu: PanelMenu,
+        public el: ElementRef
+    ) {}
 
     getItemId(processedItem) {
         return processedItem.item?.id ?? `${this.panelId}_${processedItem.key}`;
