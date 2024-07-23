@@ -22,11 +22,13 @@ import {
     booleanAttribute,
     effect,
     forwardRef,
+    inject,
     numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MegaMenuItem, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { AngleDownIcon } from 'primeng/icons/angledown';
 import { AngleRightIcon } from 'primeng/icons/angleright';
@@ -34,6 +36,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { MegaMenuStyle } from './style/megamenustyle';
 
 @Component({
     selector: 'p-megaMenuSub',
@@ -41,7 +44,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
         <ul
             *ngIf="isSubmenuVisible(submenu)"
             #menubar
-            [ngClass]="{ 'p-megamenu-root-list': root, 'p-submenu-list p-megamenu-submenu': !root }"
+            [ngClass]="{ 'p-megamenu-root-list': root, 'p-megamenu-submenu': !root }"
             [attr.role]="root ? 'menubar' : 'menu'"
             [attr.id]="id"
             [attr.aria-orientation]="orientation"
@@ -84,7 +87,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div class="p-megamenu-item-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -93,13 +96,13 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-megamenu-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-menuitem-icon"
+                                    class="p-megamenu-item-icon"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
@@ -107,18 +110,18 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-megamenu-item-label" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                        <AngleRightIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -131,10 +134,10 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-menuitem-link-active'"
+                                [routerLinkActive]="'p-megamenu-item-link-active'"
                                 [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-megamenu-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [fragment]="getItemProp(processedItem, 'fragment')"
                                 [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                 [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -144,7 +147,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 pRipple
                             >
                                 <span
-                                    class="p-menuitem-icon"
+                                    class="p-megamenu-item-icon"
                                     *ngIf="getItemProp(processedItem, 'icon')"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
@@ -152,13 +155,13 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.aria-hidden]="true"
                                     [attr.tabindex]="-1"
                                 ></span>
-                                <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                                <span class="p-megamenu-item-label" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
+                                <ng-template #htmlRouteLabel><span class="p-megamenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
-                                        <AngleDownIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
-                                        <AngleRightIcon [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
+                                        <AngleDownIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'horizontal'" [attr.aria-hidden]="true" />
+                                        <AngleRightIcon [styleClass]="'p-megamenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" *ngIf="orientation === 'vertical'" [attr.aria-hidden]="true" />
                                     </ng-container>
                                     <ng-template *ngTemplateOutlet="megaMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
@@ -168,7 +171,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                             <ng-template *ngTemplateOutlet="itemTemplate; context: { $implicit: processedItem.item }"></ng-template>
                         </ng-container>
                     </div>
-                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-panel" [attr.data-pc-section]="'panel'">
+                    <div *ngIf="isItemVisible(processedItem) && isItemGroup(processedItem)" class="p-megamenu-overlay" [attr.data-pc-section]="'panel'">
                         <div class="p-megamenu-grid" [attr.data-pc-section]="'grid'">
                             <div *ngFor="let col of processedItem.items" [ngClass]="getColumnClass(processedItem)">
                                 <p-megaMenuSub
@@ -192,10 +195,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
             </ng-template>
         </ul>
     `,
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
 export class MegaMenuSub {
     @Input() id: string | undefined;
@@ -238,10 +238,7 @@ export class MegaMenuSub {
 
     @ViewChild('menubar', { static: true }) menubarViewChild: ElementRef;
 
-    constructor(
-        public el: ElementRef,
-        @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu
-    ) {}
+    constructor(public el: ElementRef, @Inject(forwardRef(() => MegaMenu)) public megaMenu: MegaMenu) {}
 
     onItemClick(event: any, processedItem: any) {
         this.getItemProp(processedItem, 'command', { originalEvent: event, item: processedItem.item });
@@ -263,8 +260,8 @@ export class MegaMenuSub {
     getItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem': true,
-            'p-menuitem-active p-highlight': this.isItemActive(processedItem),
+            'p-megamenu-item': true,
+            'p-megamenu-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
             'p-disabled': this.isItemDisabled(processedItem)
         };
@@ -277,7 +274,7 @@ export class MegaMenuSub {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem-separator': true
+            'p-megamenu-separator': true
         };
     }
 
@@ -312,8 +309,10 @@ export class MegaMenuSub {
 
     getSubmenuHeaderClass(processedItem) {
         return {
-            'p-megamenu-submenu-header p-submenu-header': true,
+            'p-megamenu-submenu-label': true,
+
             'p-disabled': this.isItemDisabled(processedItem),
+
             ...this.getItemProp(processedItem, 'class')
         };
     }
@@ -410,12 +409,9 @@ export class MegaMenuSub {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./megamenu.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [MegaMenuStyle]
 })
-export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
+export class MegaMenu extends BaseComponent implements AfterContentInit, OnDestroy, OnInit {
     /**
      * An array of menuitems.
      * @group Props
@@ -504,6 +500,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 
     _model: MegaMenuItem[] | undefined;
 
+    _componentStyle = inject(MegaMenuStyle);
+
     get visibleItems() {
         const processedItem = ObjectUtils.isNotEmpty(this.activeItem()) ? this.activeItem() : null;
 
@@ -532,14 +530,8 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
         return focusedItem?.item && focusedItem.item?.id ? focusedItem.item.id : ObjectUtils.isNotEmpty(focusedItem.key) ? `${this.id}_${focusedItem.key}` : null;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public config: PrimeNGConfig,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(@Inject(DOCUMENT) public document: Document, @Inject(PLATFORM_ID) public platformId: any, public el: ElementRef, public renderer: Renderer2, public config: PrimeNGConfig, public cd: ChangeDetectorRef) {
+        super();
         effect(() => {
             const activeItem = this.activeItem();
             if (ObjectUtils.isNotEmpty(activeItem)) {
@@ -553,6 +545,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     }
 
     ngOnInit(): void {
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
     }
 
@@ -1083,6 +1076,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
     ngOnDestroy() {
         this.unbindOutsideClickListener();
         this.unbindResizeListener();
+        super.ngOnDestroy();
     }
 }
 
