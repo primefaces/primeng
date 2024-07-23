@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center">
             <p-tieredMenu [model]="items">
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex align-items-center p-menuitem-link">
-                        <span [class]="item.icon" class="p-menuitem-icon"></span>
+                    <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+                        <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                         <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
@@ -112,8 +112,8 @@ export class TemplateDoc implements OnInit {
     code: Code = {
         basic: `<p-tieredMenu [model]="items">
     <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-    <a pRipple class="flex align-items-center p-menuitem-link">
-    <span [class]="item.icon" class="p-menuitem-icon"></span>
+    <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+    <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
             <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
@@ -127,8 +127,8 @@ export class TemplateDoc implements OnInit {
         html: `<div class="card flex justify-content-center">
     <p-tieredMenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex align-items-center p-menuitem-link">
-        <span [class]="item.icon" class="p-menuitem-icon"></span>
+        <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+        <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
                 <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
