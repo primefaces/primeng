@@ -22094,7 +22094,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"warn\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
                             "description": "Defines the style of the button."
                         },
                         {
