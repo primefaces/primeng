@@ -13,6 +13,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Inject,
     Input,
     NgModule,
@@ -45,6 +46,8 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 import { ChipModule, ChipProps } from 'primeng/chip';
+import { AutoCompleteStyle } from './style/autocompletestyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -58,14 +61,14 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <div #container [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (click)="onContainerClick($event)">
+        <div #container [ngClass]="rootClass" [ngStyle]="style" style="position: relative;" [class]="styleClass" (click)="onContainerClick($event)">
             <input
                 *ngIf="!multiple"
                 #focusInput
                 pAutoFocus
                 pInputText
                 [autofocus]="autofocus"
-                [ngClass]="inputClass"
+                [ngClass]="'p-autocomplete-input'"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
                 [type]="type"
@@ -107,7 +110,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             <ul
                 *ngIf="multiple"
                 #multiContainer
-                [ngClass]="multiContainerClass"
+                [ngClass]="inputMultipleClass"
                 [tabindex]="-1"
                 role="listbox"
                 [attr.aria-orientation]="'horizontal'"
@@ -119,7 +122,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 <li
                     #token
                     *ngFor="let option of modelValue(); let i = index"
-                    [ngClass]="{ 'p-focus': focusedMultipleOptionIndex() === i }"
+                    [ngClass]="{ 'p-autocomplete-chip-item': true, 'p-focus': focusedMultipleOptionIndex() === i }"
                     [attr.id]="id + '_multiple_option_' + i"
                     role="option"
                     [attr.aria-label]="getOptionLabel(option)"
@@ -128,20 +131,20 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     [attr.aria-selected]="true"
                 >
                     <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: option }"></ng-container>
-                    <p-chip *ngIf="!selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true">
+                    <p-chip styleClass="p-autocomplete-chip" *ngIf="!selectedItemTemplate" [label]="getOptionLabel(option)" [removable]="true">
                         <ng-container *ngIf="!removeIconTemplate">
                             <ng-template pTemplate="removeicon">
-                                <span class="p-autocomplete-token-icon" (click)="!readonly ? removeOption($event, i) : ''">
-                                    <TimesCircleIcon [styleClass]="'p-autocomplete-token-icon'" [attr.aria-hidden]="true" />
+                                <span class="p-autocomplete-chip-icon" (click)="!readonly ? removeOption($event, i) : ''">
+                                    <TimesCircleIcon [styleClass]="'p-autocomplete-chip-icon'" [attr.aria-hidden]="true" />
                                 </span>
                             </ng-template>
                         </ng-container>
                     </p-chip>
                     <span *ngIf="removeIconTemplate" [attr.aria-hidden]="true">
-                        <ng-template *ngTemplateOutlet="removeIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="removeIconTemplate; context: { class: 'p-autocomplete-chip-icon' }"></ng-template>
                     </span>
                 </li>
-                <li class="p-autocomplete-input-token" role="option">
+                <li class="p-autocomplete-input-chip" role="option">
                     <input
                         #focusInput
                         pAutoFocus
@@ -184,23 +187,13 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
                 </span>
             </ng-container>
-            <p-button
-                #ddBtn
-                type="button"
-                [attr.aria-label]="dropdownAriaLabel"
-                styleClass="p-autocomplete-dropdown p-button-icon-only"
-                [disabled]="disabled"
-                pRipple
-                (click)="handleDropdownClick($event)"
-                *ngIf="dropdown"
-                [attr.tabindex]="tabindex"
-            >
+            <button #ddBtn type="button" [attr.aria-label]="dropdownAriaLabel" class="p-autocomplete-dropdown" [disabled]="disabled" pRipple (click)="handleDropdownClick($event)" *ngIf="dropdown" [attr.tabindex]="tabindex">
                 <span *ngIf="dropdownIcon" [ngClass]="dropdownIcon" [attr.aria-hidden]="true"></span>
                 <ng-container *ngIf="!dropdownIcon">
                     <ChevronDownIcon *ngIf="!dropdownIconTemplate" />
                     <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
                 </ng-container>
-            </p-button>
+            </button>
             <p-overlay
                 #overlay
                 [(visible)]="overlayVisible"
@@ -239,20 +232,19 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                     </ng-container>
 
                     <ng-template #buildInItems let-items let-scrollerOptions="options">
-                        <ul #items class="p-autocomplete-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
+                        <ul #items class="p-autocomplete-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" [attr.id]="id + '_list'" [attr.aria-label]="listLabel">
                             <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                 <ng-container *ngIf="isOptionGroup(option)">
-                                    <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-autocomplete-option-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                         <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                     </li>
                                 </ng-container>
                                 <ng-container *ngIf="!isOptionGroup(option)">
                                     <li
-                                        class="p-autocomplete-item"
                                         pRipple
                                         [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
-                                        [ngClass]="{ 'p-highlight': isSelected(option), 'p-focus': focusedOptionIndex() === getOptionIndex(i, scrollerOptions), 'p-disabled': isOptionDisabled(option) }"
+                                        [ngClass]="optionClass(option, i, scrollerOptions)"
                                         [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
                                         role="option"
                                         [attr.aria-label]="getOptionLabel(option)"
@@ -285,18 +277,11 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
             </p-overlay>
         </div>
     `,
-    host: {
-        class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': '((focused && !disabled) || autofocus) || overlayVisible',
-        '[class.p-autocomplete-clearable]': 'showClear && !disabled'
-    },
-    providers: [AUTOCOMPLETE_VALUE_ACCESSOR],
+    providers: [AUTOCOMPLETE_VALUE_ACCESSOR, AutoCompleteStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./autocomplete.css']
+    encapsulation: ViewEncapsulation.None
 })
-export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
+export class AutoComplete extends BaseComponent implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
      * Minimum number of characters to initiate a search.
      * @group Props
@@ -630,6 +615,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
      */
     @Input({ transform: booleanAttribute }) focusOnHover: boolean | undefined;
     /**
+     * Whether typeahead is active or not.
+     * @defaultValue true
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) typeahead: boolean = true;
+    /**
      * Specifies the input variant of the component.
      * @group Props
      */
@@ -818,26 +809,37 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     get focusedOptionId() {
         return this.focusedOptionIndex() !== -1 ? `${this.id}_${this.focusedOptionIndex()}` : null;
     }
+    // host: {
+    //     class: 'p-element p-inputwrapper',
+    //     '[class.p-inputwrapper-filled]': 'filled',
+    //     '[class.p-inputwrapper-focus]': '((focused && !disabled) || autofocus) || overlayVisible',
+    //     '[class.p-autocomplete-clearable]': 'showClear && !disabled'
+    // },
+    _componentStyle = inject(AutoCompleteStyle);
 
-    get containerClass() {
-        return {
-            'p-autocomplete p-component p-inputwrapper': true,
-            'p-disabled': this.disabled,
-            'p-focus': this.focused,
-            'p-autocomplete-dd': this.dropdown,
-            'p-autocomplete-multiple': this.multiple,
-            'p-inputwrapper-focus': this.focused,
-            'p-overlay-open': this.overlayVisible
-        };
+    get rootClass() {
+        return this._componentStyle.classes.root({ instance: this });
     }
 
-    get multiContainerClass() {
-        return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
+    get inputMultipleClass() {
+        return this._componentStyle.classes.inputMultiple({ instance: this });
     }
+
+    chipItemClass(index) {
+        return this._componentStyle.classes.chipItem({ instance: this, i: index });
+    }
+
+    optionClass(option, i, scrollerOptions) {
+        return { 'p-autocomplete-option': true, 'p-autocomplete-option-selected': this.isSelected(option), 'p-focus': this.focusedOptionIndex() === this.getOptionIndex(i, scrollerOptions), 'p-disabled': this.isOptionDisabled(option) };
+    }
+
+    // get multiContainerClass() {
+    //     return { 'p-autocomplete-multiple-container p-component p-inputtext': true, 'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled' };
+    // }
 
     get panelClass() {
         return {
-            'p-autocomplete-panel p-component': true,
+            'p-autocomplete-overlay p-component': true,
             'p-input-filled': this.config.inputStyle() === 'filled',
             'p-ripple-disabled': this.config.ripple === false
         };
@@ -890,21 +892,15 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return typeof this.modelValue() === 'string' && this.optionValue;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService,
-        private zone: NgZone
-    ) {
+    constructor(public overlayService: OverlayService, private zone: NgZone) {
+        super();
         effect(() => {
             this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         });
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
         this.cd.detectChanges();
     }
@@ -1105,34 +1101,36 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onInput(event) {
-        if (this.searchTimeout) {
-            clearTimeout(this.searchTimeout);
-        }
+        if (this.typeahead) {
+            if (this.searchTimeout) {
+                clearTimeout(this.searchTimeout);
+            }
 
-        let query = event.target.value;
-        if (this.maxlength !== null) {
-            query = query.split('').slice(0, this.maxlength).join('');
-        }
+            let query = event.target.value;
+            if (this.maxlength !== null) {
+                query = query.split('').slice(0, this.maxlength).join('');
+            }
 
-        if (!this.multiple && !this.forceSelection) {
-            this.updateModel(query);
-        }
+            if (!this.multiple && !this.forceSelection) {
+                this.updateModel(query);
+            }
 
-        if (query.length === 0 && !this.multiple) {
-            this.onClear.emit();
+            if (query.length === 0 && !this.multiple) {
+                this.onClear.emit();
 
-            setTimeout(() => {
-                this.hide();
-            }, this.delay / 2);
-        } else {
-            if (query.length >= this.minLength) {
-                this.focusedOptionIndex.set(-1);
-
-                this.searchTimeout = setTimeout(() => {
-                    this.search(event, query, 'input');
-                }, this.delay);
+                setTimeout(() => {
+                    this.hide();
+                }, this.delay / 2);
             } else {
-                this.hide();
+                if (query.length >= this.minLength) {
+                    this.focusedOptionIndex.set(-1);
+
+                    this.searchTimeout = setTimeout(() => {
+                        this.search(event, query, 'input');
+                    }, this.delay);
+                } else {
+                    this.hide();
+                }
             }
         }
     }
@@ -1381,6 +1379,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     onEnterKey(event) {
+        if (!this.typeahead) {
+            if (this.multiple) {
+                this.updateModel([...(this.modelValue() || []), event.target.value]);
+                this.inputEL.nativeElement.value = '';
+            }
+        }
         if (!this.overlayVisible) {
             this.onArrowDownKey(event);
         } else {
@@ -1668,6 +1672,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.scrollHandler.destroy();
             this.scrollHandler = null;
         }
+
+        super.ngOnDestroy();
     }
 }
 
