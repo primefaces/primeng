@@ -48,7 +48,7 @@ import { DomHandler } from 'primeng/dom';
             (mouseenter)="onMouseEnter()"
             (mouseleave)="onMouseLeave()"
             (keydown)="hideOnEscape($event)"
-            tabindex="0" 
+            tabindex="0"
             role="alert"
             aria-live="assertive"
             aria-atomic="true"
@@ -152,7 +152,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     timeout: any;
 
-    constructor(private zone: NgZone, private config: PrimeNGConfig, private renderer: Renderer2) { }
+    constructor(private zone: NgZone, private config: PrimeNGConfig, private renderer: Renderer2) {}
 
     ngAfterViewInit() {
         this.initTimeout();
@@ -363,7 +363,7 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
 
     _position: ToastPositionType = 'top-right';
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, public messageService: MessageService, private cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     styleElement: any;
 
@@ -534,4 +534,4 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
     exports: [Toast, SharedModule],
     declarations: [Toast, ToastItem]
 })
-export class ToastModule { }
+export class ToastModule {}
