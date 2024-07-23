@@ -54,7 +54,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         (click)="onClick($event, home)"
                         [target]="home.target"
                         [attr.title]="home.title"
-                        [attr.tabindex]="home.disabled ? null : '0'"
+                        [attr.tabindex]="home.disabled ? '-1' : '0'"
                         [attr.ariaCurrentWhenActive]="isCurrentUrl(home)"
                         [fragment]="home.fragment"
                         [queryParamsHandling]="home.queryParamsHandling"
