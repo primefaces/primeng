@@ -12,7 +12,7 @@ import { InputTextStyle } from './style/inputtextstyle';
 @Directive({
     selector: '[pInputText]',
     host: {
-        class: 'p-inputtext p-component p-element',
+        class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
     },
