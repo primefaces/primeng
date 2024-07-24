@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
+    inject,
     Inject,
     Input,
     NgModule,
@@ -31,6 +32,8 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { PopoverStyle } from './style/popoverstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * OverlayPanel is a container component positioned as connected to its target.
  * @group Components
@@ -40,7 +43,7 @@ import { Subscription } from 'rxjs';
     template: `
         <div
             *ngIf="render"
-            [ngClass]="'p-overlaypanel p-component'"
+            [ngClass]="'p-popover p-component'"
             [ngStyle]="style"
             [class]="styleClass"
             (click)="onOverlayClick($event)"
@@ -52,16 +55,16 @@ import { Subscription } from 'rxjs';
             [attr.aria-label]="ariaLabel"
             [attr.aria-labelledBy]="ariaLabelledBy"
         >
-            <div class="p-overlaypanel-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
+            <div class="p-popover-content" (click)="onContentClick($event)" (mousedown)="onContentClick($event)">
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <button *ngIf="showCloseIcon" type="button" class="p-overlaypanel-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
-                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-overlaypanel-close-icon'" />
-                <span class="p-overlaypanel-close-icon" *ngIf="closeIconTemplate">
+            <!-- <button *ngIf="showCloseIcon" type="button" class="p-popover-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
+                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-popover-close-icon'" />
+                <span class="p-popover-close-icon" *ngIf="closeIconTemplate">
                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                 </span>
-            </button>
+            </button> -->
         </div>
     `,
     animations: [
@@ -92,12 +95,9 @@ import { Subscription } from 'rxjs';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./overlaypanel.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [PopoverStyle]
 })
-export class OverlayPanel implements AfterContentInit, OnDestroy {
+export class OverlayPanel extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
@@ -206,16 +206,20 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
 
     overlaySubscription: Subscription | undefined;
 
+    _componentStyle = inject(PopoverStyle);
+
     constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
+        @Inject(DOCUMENT) public document: Document,
+        @Inject(PLATFORM_ID) public platformId: any,
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
         private zone: NgZone,
         public config: PrimeNGConfig,
         public overlayService: OverlayService
-    ) {}
+    ) {
+        super();
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -353,7 +357,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         this.container?.style.setProperty('--overlayArrowLeft', `${arrowLeft}px`);
 
         if (containerOffset.top < targetOffset.top) {
-            DomHandler.addClass(this.container, 'p-overlaypanel-flipped');
+            DomHandler.addClass(this.container, 'p-popover-flipped');
 
             if (this.showCloseIcon) {
                 this.renderer.setStyle(this.container, 'margin-top', '-30px');
@@ -520,6 +524,7 @@ export class OverlayPanel implements AfterContentInit, OnDestroy {
         if (this.overlaySubscription) {
             this.overlaySubscription.unsubscribe();
         }
+        super.ngOnDestroy();
     }
 }
 
