@@ -28,6 +28,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -41,6 +42,8 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { Subscription } from 'rxjs';
+import { BaseComponent } from 'primeng/basecomponent';
+import { PasswordStyle } from './style/passwordstyle';
 
 type Meter = {
     strength: string;
@@ -53,12 +56,13 @@ type Meter = {
 @Directive({
     selector: '[pPassword]',
     host: {
-        class: 'p-inputtext p-component p-element',
-        '[class.p-filled]': 'filled',
+        class: 'p-password p-inputtext p-component p-inputwrapper',
+        '[class.p-inputwrapper-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
-    }
+    },
+    providers: [PasswordStyle]
 })
-export class PasswordDirective implements OnDestroy, DoCheck {
+export class PasswordDirective extends BaseComponent implements OnDestroy, DoCheck {
     /**
      * Text to prompt password entry. Defaults to PrimeNG I18N API configuration.
      * @group Props
@@ -105,17 +109,19 @@ export class PasswordDirective implements OnDestroy, DoCheck {
 
     filled: Nullable<boolean>;
 
+    content: Nullable<HTMLDivElement>;
+
+    label: Nullable<HTMLLabelElement>;
+
     scrollHandler: Nullable<ConnectedOverlayScrollHandler>;
 
     documentResizeListener: VoidListener;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public el: ElementRef,
-        public zone: NgZone
-    ) {}
+    _componentStyle = inject(PasswordStyle);
+
+    constructor(public zone: NgZone) {
+        super();
+    }
 
     ngDoCheck() {
         this.updateFilledState();
@@ -133,19 +139,25 @@ export class PasswordDirective implements OnDestroy, DoCheck {
     createPanel() {
         if (isPlatformBrowser(this.platformId)) {
             this.panel = this.renderer.createElement('div');
-            this.renderer.addClass(this.panel, 'p-password-panel');
+            this.renderer.addClass(this.panel, 'p-password-overlay');
             this.renderer.addClass(this.panel, 'p-component');
-            this.renderer.addClass(this.panel, 'p-password-panel-overlay');
-            this.renderer.addClass(this.panel, 'p-connected-overlay');
+
+            this.content = this.renderer.createElement('div');
+            this.renderer.addClass(this.content, 'p-password-content');
+            this.renderer.appendChild(this.panel, this.content);
 
             this.meter = this.renderer.createElement('div');
             this.renderer.addClass(this.meter, 'p-password-meter');
-            this.renderer.appendChild(this.panel, this.meter);
+            this.renderer.appendChild(this.content, this.meter);
+
+            this.label = this.renderer.createElement('div');
+            this.renderer.addClass(this.label, 'p-password-meter-label');
+            this.renderer.appendChild(this.meter, this.label);
 
             this.info = this.renderer.createElement('div');
-            this.renderer.addClass(this.info, 'p-password-info');
+            this.renderer.addClass(this.info, 'p-password-meter-text');
             this.renderer.setProperty(this.info, 'textContent', this.promptLabel);
-            this.renderer.appendChild(this.panel, this.info);
+            this.renderer.appendChild(this.content, this.info);
 
             this.renderer.setStyle(this.panel, 'minWidth', `${this.el.nativeElement.offsetWidth}px`);
             this.renderer.appendChild(document.body, this.panel);
@@ -316,6 +328,8 @@ export class PasswordDirective implements OnDestroy, DoCheck {
             this.meter = null;
             this.info = null;
         }
+
+        super.ngOnDestroy();
     }
 }
 
@@ -343,7 +357,7 @@ export const Password_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-password',
     template: `
-        <div [ngClass]="toggleMask | mapper: containerClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
+        <div [ngClass]="rootClass" [ngStyle]="style" [class]="styleClass" [attr.data-pc-name]="'password'" [attr.data-pc-section]="'root'">
             <input
                 #input
                 [attr.label]="label"
@@ -351,10 +365,10 @@ export const Password_VALUE_ACCESSOR: any = {
                 [attr.aria-labelledBy]="ariaLabelledBy"
                 [attr.id]="inputId"
                 pInputText
-                [ngClass]="disabled | mapper: inputFieldClass"
+                [ngClass]="disabled | mapper : inputFieldClass"
                 [ngStyle]="inputStyle"
                 [class]="inputStyleClass"
-                [attr.type]="unmasked | mapper: inputType"
+                [attr.type]="unmasked | mapper : inputType"
                 [attr.placeholder]="placeholder"
                 [attr.autocomplete]="autocomplete"
                 [value]="value"
@@ -369,7 +383,7 @@ export const Password_VALUE_ACCESSOR: any = {
                 [autofocus]="autofocus"
             />
             <ng-container *ngIf="showClear && value != null">
-                <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-password-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
+                <TimesIcon *ngIf="!clearIconTemplate" class="p-password-clear-icon" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
                 <span (click)="clear()" class="p-password-clear-icon" [attr.data-pc-section]="'clearIcon'">
                     <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
                 </span>
@@ -377,13 +391,13 @@ export const Password_VALUE_ACCESSOR: any = {
 
             <ng-container *ngIf="toggleMask">
                 <ng-container *ngIf="unmasked">
-                    <EyeSlashIcon *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
+                    <EyeSlashIcon class="p-password-toggle-mask-icon p-password-mask-icon" *ngIf="!hideIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'hideIcon'" />
                     <span *ngIf="hideIconTemplate" (click)="onMaskToggle()">
-                        <ng-template *ngTemplateOutlet="hideIconTemplate"></ng-template>
+                        <ng-template *ngTemplateOutlet="hideIconTemplate; context: { class: 'p-password-toggle-mask-icon p-password-mask-icon' }"></ng-template>
                     </span>
                 </ng-container>
                 <ng-container *ngIf="!unmasked">
-                    <EyeIcon *ngIf="!showIconTemplate" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
+                    <EyeIcon *ngIf="!showIconTemplate" class="p-password-toggle-mask-icon p-password-mask-icon" (click)="onMaskToggle()" [attr.data-pc-section]="'showIcon'" />
                     <span *ngIf="showIconTemplate" (click)="onMaskToggle()">
                         <ng-template *ngTemplateOutlet="showIconTemplate"></ng-template>
                     </span>
@@ -393,7 +407,7 @@ export const Password_VALUE_ACCESSOR: any = {
             <div
                 #overlay
                 *ngIf="overlayVisible"
-                [ngClass]="'p-password-panel p-component'"
+                class="p-password-overlay p-component"
                 (click)="onOverlayClick($event)"
                 [@overlayAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
                 (@overlayAnimation.start)="onAnimationStart($event)"
@@ -405,34 +419,33 @@ export const Password_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                 </ng-container>
                 <ng-template #content>
-                    <div class="p-password-meter" [attr.data-pc-section]="'meter'">
-                        <div [ngClass]="meter | mapper: strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                    <div class="p-password-content">
+                        <div class="p-password-meter" [attr.data-pc-section]="'meter'">
+                            <div [ngClass]="meter | mapper : strengthClass" [ngStyle]="{ width: meter ? meter.width : '' }" [attr.data-pc-section]="'meterLabel'"></div>
+                        </div>
+                        <div class="p-password-meter-text" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                     </div>
-                    <div class="p-password-info" [attr.data-pc-section]="'info'">{{ infoText }}</div>
                 </ng-template>
                 <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
             </div>
         </div>
     `,
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
-    host: {
-        class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled()',
-        '[class.p-inputwrapper-focus]': 'focused',
-        '[class.p-password-clearable]': 'showClear',
-        '[class.p-password-mask]': 'toggleMask'
-    },
-    providers: [Password_VALUE_ACCESSOR],
-    styleUrls: ['./password.css'],
+    providers: [Password_VALUE_ACCESSOR, PasswordStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class Password implements AfterContentInit, OnInit {
+export class Password extends BaseComponent implements AfterContentInit, OnInit {
     /**
      * Defines a string that labels the input for accessibility.
      * @group Props
      */
     @Input() ariaLabel: string | undefined;
+    /**
+     * Whether the component should span the full width of its parent.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
      * Specifies one or more IDs in the DOM that labels the input field.
      * @group Props
@@ -620,15 +633,11 @@ export class Password implements AfterContentInit, OnInit {
 
     translationSubscription: Nullable<Subscription>;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private config: PrimeNGConfig,
-        public el: ElementRef,
-        public overlayService: OverlayService
-    ) {}
+    _componentStyle = inject(PasswordStyle);
+
+    constructor(public overlayService: OverlayService) {
+        super();
+    }
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
@@ -665,6 +674,7 @@ export class Password implements AfterContentInit, OnInit {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.infoText = this.promptText();
         this.mediumCheckRegExp = new RegExp(this.mediumRegex);
         this.strongCheckRegExp = new RegExp(this.strongRegex);
@@ -883,12 +893,16 @@ export class Password implements AfterContentInit, OnInit {
         return { 'p-password p-component p-inputwrapper': true, 'p-input-icon-right': toggleMask };
     }
 
+    get rootClass() {
+        return this._componentStyle.classes.root({ instance: this });
+    }
+
     inputFieldClass(disabled: boolean) {
         return { 'p-password-input': true, 'p-disabled': disabled };
     }
 
     strengthClass(meter: any) {
-        return `p-password-strength ${meter ? meter.strength : ''}`;
+        return `p-password-meter-label p-password-meter ${meter ? meter.strength : ''}`;
     }
 
     filled() {
@@ -950,6 +964,8 @@ export class Password implements AfterContentInit, OnInit {
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
+
+        super.ngOnDestroy();
     }
 }
 

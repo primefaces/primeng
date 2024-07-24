@@ -12,18 +12,7 @@ gulp.task('build-css', function () {
 
 gulp.task('build-css-prod', function () {
     return gulp
-        .src([
-            'src/app/components/common/common.css',
-            'src/app/components/badge/badge.css',
-            'src/app/components/button/button.css',
-            'src/app/components/checkbox/checkbox.css',
-            'src/app/components/inputtext/inputtext.css',
-            'src/app/components/inputtextarea/inputtextarea.css',
-            'src/app/components/password/password.css',
-            'src/app/components/radiobutton/radiobutton.css',
-            'src/app/components/ripple/ripple.css',
-            'src/app/components/tooltip/tooltip.css'
-        ])
+        .src(['src/app/components/common/common.css', 'src/app/components/ripple/ripple.css', 'src/app/components/tooltip/tooltip.css'])
         .pipe(concat('primeng.css'))
         .pipe(gulp.dest('dist/resources'))
         .pipe(uglifycss({ uglyComments: true }))
