@@ -29,11 +29,11 @@ import { TemplateHeroRectangleModule } from './templateherorectangle';
                 <div class="template-hero-card-links ">
                     <a [href]="templateHeroData?.supportHref ?? 'https://github.com/orgs/primefaces/discussions/categories/primeng-templates'" target="_blank">
                         <i class="pi pi-github " style="font-size: 1rem;"></i>
-                        <span>{{ templateHeroData?.free ? 'Open Issues' : 'Get Support' }}</span>
+                        <span>{{ templateHeroData?.free ? 'Open Issues' : 'Community' }}</span>
                     </a>
                     <a [href]="templateHeroData?.docHref" target="_blank">
                         <i class="pi pi-book " style="font-size: 1rem;"></i>
-                        <span>Read Doc</span>
+                        <span>Documentation</span>
                     </a>
                 </div>
             </div>

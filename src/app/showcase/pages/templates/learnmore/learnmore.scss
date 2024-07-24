@@ -44,7 +44,7 @@
         }
 
         &-description {
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 400;
             line-height: 1.25rem;
             text-align: center;
@@ -53,7 +53,7 @@
             margin: 1.25rem auto 0;
 
             @media (max-width: 900px) {
-                font-size: 0.875rem;
+                font-size: 1rem;
                 line-height: 1.25rem;
                 width: 96%;
             }
@@ -132,7 +132,7 @@
 
             &-description {
                 @media (max-width: 900px) {
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     line-height: 1.25rem;
                     width: 90%;
                 }
@@ -205,16 +205,16 @@
                     color: var(--surface-900);
                     font-size: 1.09375rem;
                     font-weight: 600;
-                    line-height: 1.3125rem;
+                    line-height: 1.5;
                     margin-top: 0;
                     margin-bottom: 0.75rem;
                 }
 
                 &-description {
                     color: var(--surface-600);
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     font-weight: 400;
-                    line-height: 1.3125rem;
+                    line-height: 1.5;
                     margin: 0;
                 }
             }
@@ -307,15 +307,15 @@
                 color: var(--surface-900, var(--surface-900, #212121));
                 font-size: 1.09375rem;
                 font-weight: 600;
-                line-height: 1.3125rem;
+                line-height: 1.5;
             }
 
             p {
                 margin: 0.75rem 0 0;
                 color: var(--surface-600, #757575);
-                font-size: 0.875rem;
+                font-size: 1rem;
                 font-weight: 400;
-                line-height: 1.3125rem;
+                line-height: 1.5;
             }
         }
     }
@@ -569,7 +569,7 @@
 
                 p {
                     color: var(--surface-0);
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     font-weight: 400;
                     line-height: 1.0625rem;
                     margin: 0;
@@ -766,15 +766,15 @@
                         color: var(--surface-900, var(--color-surface-900, #212121));
                         font-size: 1.09375rem;
                         font-weight: 600;
-                        line-height: 1.3125rem;
+                        line-height: 1.5;
                         margin: 0;
                     }
 
                     p {
                         color: var(--surface-600, #757575);
-                        font-size: 0.875rem;
+                        font-size: 1rem;
                         font-weight: 400;
-                        line-height: 1.3125rem;
+                        line-height: 1.5;
                         margin: 0.38rem 0 0;
 
                         a {
@@ -1003,7 +1003,10 @@
             border-radius: 1.5rem;
             border: 1px solid rgba(255, 255, 255, 0.24);
             background: linear-gradient(180deg, rgba(170, 140, 255, 0) 0%, var(--primary-400) / 0.8 100%), rgba(255, 255, 255, 0.1);
-            box-shadow: 0px 2px 4px 0px rgba(255, 255, 255, 0.24) inset, 0px 48px 80px 0px rgba(0, 0, 0, 0.08), 0px -5px 13px -2px rgba(255, 255, 255, 0.55) inset;
+            box-shadow:
+                0px 2px 4px 0px rgba(255, 255, 255, 0.24) inset,
+                0px 48px 80px 0px rgba(0, 0, 0, 0.08),
+                0px -5px 13px -2px rgba(255, 255, 255, 0.55) inset;
             backdrop-filter: blur(2px);
             padding: 2.25rem 1.75rem;
 
@@ -1017,9 +1020,9 @@
             }
 
             p {
-                font-size: 0.875rem;
+                font-size: 1rem;
                 font-weight: 400;
-                line-height: normal;
+                line-height: 1.5;
                 margin: 1rem 0 0;
                 color: var(--surface-0);
             }
@@ -1036,7 +1039,7 @@
                     flex: 1;
                     border-radius: 3rem;
 
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     font-weight: 700;
                     line-height: 1.0625rem;
                     cursor: pointer;
@@ -1075,14 +1078,16 @@
 
                 a {
                     display: flex;
-                    align-items: flex-end;
+                    align-items: center;
                     gap: 0.5rem;
                     color: var(--surface-0);
 
                     span {
-                        font-size: 0.75rem;
-                        font-weight: 300;
+                        font-size: 1rem;
                         line-height: normal;
+                    }
+
+                    &:hover {
                         text-decoration-line: underline;
                     }
                 }
@@ -1414,7 +1419,7 @@
 
                 color: var(--surface-0);
                 text-align: center;
-                font-size: 0.875rem;
+                font-size: 1rem;
                 font-weight: 500;
                 line-height: 1.5rem;
                 letter-spacing: -0.00875rem;
@@ -1428,7 +1433,7 @@
 
                 p {
                     color: var(--surface-500);
-                    font-size: 0.875rem;
+                    font-size: 1rem;
                     font-weight: 400;
                     line-height: 1.5rem;
                     letter-spacing: -0.00875rem;
@@ -1440,7 +1445,7 @@
         &-description {
             color: var(--surface-500);
             text-align: center;
-            font-size: 0.875rem;
+            font-size: 1rem;
             line-height: 1.5rem;
             letter-spacing: -0.00875rem;
             max-width: 46.75rem;
@@ -1448,7 +1453,7 @@
         }
 
         &-visit {
-            font-size: 0.875rem;
+            font-size: 1rem;
             font-weight: 400;
             line-height: 1.5rem;
             letter-spacing: -0.00875rem;
@@ -1457,12 +1462,15 @@
 
             a {
                 color: var(--primary-500);
-                text-decoration-line: underline;
                 cursor: pointer;
                 transition: all 0.2s ease;
 
                 &:hover {
                     color: var(--primary-300);
+                }
+
+                &:hover {
+                    text-decoration-line: underline;
                 }
             }
         }
