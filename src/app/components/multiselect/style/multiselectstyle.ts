@@ -36,10 +36,6 @@ const theme = ({ dt }) => `
     background: ${dt('multiselect.filled.focus.background')};
 }
 
-.p-multiselect.p-invalid {
-    border-color: ${dt('multiselect.invalid.border.color')};
-}
-
 .p-multiselect.p-disabled {
     opacity: 1;
     background: ${dt('multiselect.disabled.background')};
@@ -195,6 +191,22 @@ const theme = ({ dt }) => `
 .p-multiselect-fluid {
     display: flex;
 }
+
+/* For PrimeNG */
+
+p-multiselect.ng-invalid.ng-dirty > .p-multiselect.p-component.p-inputwrapper {
+    border-color: ${dt('multiselect.invalid.border.color')};
+}
+
+.p-multiselect-clear-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: transparent;
+    color: ${dt('multiselect.dropdown.color')};
+}
 `;
 
 const inlineStyles = {
@@ -209,16 +221,16 @@ const classes = {
         'p-invalid': instance.invalid,
         'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle === 'filled',
         'p-focus': instance.focused,
-        'p-inputwrapper-filled': instance.modelValue() && instance.modelValue().length,
+        'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
-        'p-multiselect-open': instance.overlayVisible
-        // 'p-multiselect-fluid': instance.fluid
+        'p-multiselect-open': instance.overlayVisible,
+        'p-multiselect-fluid': instance.fluid
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
         'p-multiselect-label': true,
         'p-placeholder': instance.label === instance.placeholder,
-        'p-multiselect-label-empty': !instance.placeholder && (!instance.modelValue() || instance.modelValue().length === 0)
+        'p-multiselect-label-empty': !instance.placeholder() && !instance.defaultLabel && (!instance.modelValue() || instance.modelValue().length === 0)
     }),
     chipItem: 'p-multiselect-chip-item',
     pcChip: 'p-multiselect-chip',
