@@ -25933,6 +25933,14 @@
                             "description": "Position of the toast in viewport."
                         },
                         {
+                            "name": "autoFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "The first toast message automatically receive focus when displayed (a11y)"
+                        },
+                        {
                             "name": "preventOpenDuplicates",
                             "optional": false,
                             "readonly": false,

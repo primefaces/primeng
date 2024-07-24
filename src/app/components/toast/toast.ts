@@ -146,6 +146,8 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     @Input() hideTransitionOptions: string | undefined;
 
+    @Input({ transform: booleanAttribute }) autoFocus: boolean = false;
+
     @Output() onClose: EventEmitter<ToastItemCloseEvent> = new EventEmitter();
 
     @ViewChild('container') containerViewChild: ElementRef | undefined;
@@ -156,7 +158,9 @@ export class ToastItem implements AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.initTimeout();
-        this.focusToast();
+        if (this.autoFocus) {
+            this.focusToast();
+        }
     }
 
     initTimeout() {
@@ -180,7 +184,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
     }
 
     focusToast() {
-        if (this.containerViewChild) {
+        if (this.containerViewChild && this.autoFocus) {
             this.renderer.setAttribute(this.containerViewChild.nativeElement, 'tabindex', '0');
             this.containerViewChild.nativeElement.focus();
         }
@@ -247,6 +251,7 @@ export class ToastItem implements AfterViewInit, OnDestroy {
                 [hideTransformOptions]="hideTransformOptions"
                 [showTransitionOptions]="showTransitionOptions"
                 [hideTransitionOptions]="hideTransitionOptions"
+                [autofocus]="autoFocus"
             ></p-toastItem>
         </div>
     `,
@@ -297,6 +302,11 @@ export class Toast implements OnInit, AfterContentInit, OnDestroy {
     @Input() get position(): ToastPositionType {
         return this._position;
     }
+    /**
+     * The first toast message automatically receive focus when displayed (a11y)
+     * @group Props
+     * */
+    @Input({ transform: booleanAttribute }) autoFocus: boolean = false;
 
     set position(value: ToastPositionType) {
         this._position = value;
