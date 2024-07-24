@@ -18,6 +18,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -26,6 +27,8 @@ import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { ConfirmPopupStyle } from './style/confirmpopupstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * ConfirmPopup displays a confirmation overlay displayed relatively to its target.
  * @group Components
@@ -35,7 +38,7 @@ import { Subscription } from 'rxjs';
     template: `
         <div
             *ngIf="visible"
-            [ngClass]="'p-confirm-popup p-component'"
+            [ngClass]="'p-confirmpopup p-component'"
             [ngStyle]="style"
             [class]="styleClass"
             role="alertdialog"
@@ -48,21 +51,21 @@ import { Subscription } from 'rxjs';
                 <ng-container *ngTemplateOutlet="headlessTemplate; context: { $implicit: confirmation }"></ng-container>
             </ng-container>
             <ng-template #notHeadless>
-                <div #content class="p-confirm-popup-content">
+                <div #content class="p-confirmpopup-content">
                     <ng-container *ngIf="contentTemplate; else withoutContentTemplate">
                         <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
-                        <i [ngClass]="'p-confirm-popup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
-                        <span class="p-confirm-popup-message">{{ confirmation?.message }}</span>
+                        <i [ngClass]="'p-confirmpopup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
+                        <span class="p-confirmpopup-message">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>
-                <div class="p-confirm-popup-footer">
+                <div class="p-confirmpopup-footer">
                     <p-button
                         type="button"
                         [label]="rejectButtonLabel"
                         (click)="reject()"
-                        [ngClass]="'p-confirm-popup-reject p-button-sm'"
+                        [ngClass]="'p-confirmpopup-reject-button p-button-sm'"
                         [styleClass]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
                         *ngIf="confirmation?.rejectVisible !== false"
                         [attr.aria-label]="rejectButtonLabel"
@@ -74,7 +77,7 @@ import { Subscription } from 'rxjs';
                         type="button"
                         [label]="acceptButtonLabel"
                         (click)="accept()"
-                        [ngClass]="'p-confirm-popup-accept p-button-sm'"
+                        [ngClass]="'p-confirmpopup-accept-button p-button-sm'"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
                         *ngIf="confirmation?.acceptVisible !== false"
                         [attr.aria-label]="acceptButtonLabel"
@@ -108,12 +111,9 @@ import { Subscription } from 'rxjs';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./confirmpopup.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [ConfirmPopupStyle]
 })
-export class ConfirmPopup implements AfterContentInit, OnDestroy {
+export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * Optional key to match the key of confirm object, necessary to use when component tree has multiple confirm dialogs.
      * @group Props
@@ -192,15 +192,18 @@ export class ConfirmPopup implements AfterContentInit, OnDestroy {
 
     private window: Window;
 
+    _componentStyle = inject(ConfirmPopupStyle);
+
     constructor(
         public el: ElementRef,
         private confirmationService: ConfirmationService,
         public renderer: Renderer2,
-        private cd: ChangeDetectorRef,
+        public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService,
-        @Inject(DOCUMENT) private document: Document
+        @Inject(DOCUMENT) public document: Document
     ) {
+        super();
         this.window = this.document.defaultView as Window;
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
