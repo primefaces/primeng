@@ -45,6 +45,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -55,6 +56,8 @@ import { TimesIcon } from 'primeng/icons/times';
 import { InputTextModule } from 'primeng/inputtext';
 import { Nullable } from 'primeng/ts-helpers';
 import { Caret } from './inputmask.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { InputMaskStyle } from './style/inputmaskstyle';
 
 export const INPUTMASK_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -108,18 +111,11 @@ export const INPUTMASK_VALUE_ACCESSOR: any = {
             </span>
         </ng-container>
     `,
-    host: {
-        class: 'p-element',
-        '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-inputwrapper-focus]': 'focused',
-        '[class.p-inputmask-clearable]': 'showClear && !disabled'
-    },
-    providers: [INPUTMASK_VALUE_ACCESSOR],
+    providers: [INPUTMASK_VALUE_ACCESSOR, InputMaskStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputmask.css']
+    encapsulation: ViewEncapsulation.None
 })
-export class InputMask implements OnInit, ControlValueAccessor {
+export class InputMask extends BaseComponent implements OnInit, ControlValueAccessor {
     /**
      * HTML5 input type.
      * @group Props
@@ -347,23 +343,14 @@ export class InputMask implements OnInit, ControlValueAccessor {
 
     focused: Nullable<boolean>;
 
-    _variant: 'filled' | 'outlined' = 'outlined';
-
     get inputClass() {
-        return {
-            'p-inputmask': true
-        };
+        return this._componentStyle.classes.root({ instance: this });
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(InputMaskStyle);
 
     ngOnInit() {
+        super.ngOnInit();
         if (isPlatformBrowser(this.platformId)) {
             let ua = navigator.userAgent;
             this.androidChrome = /chrome/i.test(ua) && /android/i.test(ua);
