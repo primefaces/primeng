@@ -14,6 +14,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    inject,
     Input,
     NgModule,
     NgZone,
@@ -47,9 +48,11 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
 import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './dropdown.interface';
 import { Nullable } from 'primeng/ts-helpers';
-import { InputTextModule } from '../inputtext/inputtext';
-import { IconFieldModule } from '../iconfield/iconfield';
-import { InputIconModule } from '../inputicon/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { SelectStyle } from './style/selectstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const DROPDOWN_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -58,7 +61,7 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-    selector: 'p-dropdownItem',
+    selector: 'p-dropdownItem, p-selectItem',
     template: `
         <li
             [id]="id"
@@ -74,21 +77,18 @@ export const DROPDOWN_VALUE_ACCESSOR: any = {
             [attr.data-p-highlight]="selected"
             [attr.data-p-disabled]="disabled"
             [ngStyle]="{ height: itemSize + 'px' }"
-            [ngClass]="{ 'p-dropdown-item': true, 'p-highlight': selected, 'p-disabled': disabled, 'p-focus': focused }"
+            [ngClass]="{ 'p-select-option': true, 'p-select-option-selected': selected, 'p-disabled': disabled, 'p-focus': focused }"
         >
             <ng-container *ngIf="checkmark">
-                <CheckIcon *ngIf="selected" [styleClass]="'p-dropdown-check-icon'" />
-                <BlankIcon *ngIf="!selected" [styleClass]="'p-dropdown-blank-icon'" />
+                <CheckIcon *ngIf="selected" [styleClass]="'p-select-option-check-icon'" />
+                <BlankIcon *ngIf="!selected" [styleClass]="'p-select-option-blank-icon'" />
             </ng-container>
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
-    `,
-    host: {
-        class: 'p-element'
-    }
+    `
 })
-export class DropdownItem {
+export class DropdownItem extends BaseComponent {
     @Input() id: string | undefined;
 
     @Input() option: SelectItem | undefined;
@@ -135,7 +135,7 @@ export class DropdownItem {
 @Component({
     selector: 'p-dropdown, p-select',
     template: `
-        <div #container [attr.id]="id" [ngClass]="containerClass" (click)="onContainerClick($event)" [ngStyle]="style" [class]="styleClass">
+        <div #container [attr.id]="id" [ngClass]="rootClass" (click)="onContainerClick($event)" [ngStyle]="style" [class]="styleClass">
             <span
                 #focusInput
                 [ngClass]="inputClass"
@@ -188,30 +188,30 @@ export class DropdownItem {
                 (blur)="onInputBlur($event)"
             />
             <ng-container *ngIf="isVisibleClearIcon">
-                <TimesIcon [styleClass]="'p-dropdown-clear-icon'" (click)="clear($event)" *ngIf="!clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
-                <span class="p-dropdown-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate" [attr.data-pc-section]="'clearicon'">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate"></ng-template>
+                <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
+                <span class="p-select-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate" [attr.data-pc-section]="'clearicon'">
+                    <ng-template *ngTemplateOutlet="clearIconTemplate; context: { class: 'p-select-clear-icon' }"></ng-template>
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+            <div class="p-select-dropdown" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="loading; else elseBlock">
                     <ng-container *ngIf="loadingIconTemplate">
                         <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!loadingIconTemplate">
-                        <span *ngIf="loadingIcon" [ngClass]="'p-dropdown-trigger-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
-                        <span *ngIf="!loadingIcon" [class]="'p-dropdown-trigger-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                        <span *ngIf="loadingIcon" [ngClass]="'p-select-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
+                        <span *ngIf="!loadingIcon" [class]="'p-select-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
                     </ng-container>
                 </ng-container>
 
                 <ng-template #elseBlock>
                     <ng-container *ngIf="!dropdownIconTemplate">
-                        <span class="p-dropdown-trigger-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
-                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-dropdown-trigger-icon'" />
+                        <span class="p-select-dropdown-icon" *ngIf="dropdownIcon" [ngClass]="dropdownIcon"></span>
+                        <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-select-dropdown-icon'" />
                     </ng-container>
-                    <span *ngIf="dropdownIconTemplate" class="p-dropdown-trigger-icon">
-                        <ng-template *ngTemplateOutlet="dropdownIconTemplate"></ng-template>
+                    <span *ngIf="dropdownIconTemplate" class="p-select-dropdown-icon">
+                        <ng-template *ngTemplateOutlet="dropdownIconTemplate; context: { class: 'p-select-dropdown-icon' }"></ng-template>
                     </span>
                 </ng-template>
             </div>
@@ -230,7 +230,7 @@ export class DropdownItem {
                 (onHide)="hide()"
             >
                 <ng-template pTemplate="content">
-                    <div [ngClass]="'p-dropdown-panel p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                    <div [ngClass]="'p-select-overlay p-component'" [ngStyle]="panelStyle" [class]="panelStyleClass">
                         <span
                             #firstHiddenFocusableEl
                             role="presentation"
@@ -242,41 +242,39 @@ export class DropdownItem {
                         >
                         </span>
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                        <div class="p-dropdown-header" *ngIf="filter" (click)="$event.stopPropagation()">
+                        <div class="p-select-header" *ngIf="filter" (click)="$event.stopPropagation()">
                             <ng-container *ngIf="filterTemplate; else builtInFilterElement">
                                 <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
                             </ng-container>
                             <ng-template #builtInFilterElement>
-                                <div class="p-dropdown-filter-container">
-                                    <p-iconField>
-                                        <input
-                                            #filter
-                                            pInputText
-                                            type="text"
-                                            role="searchbox"
-                                            autocomplete="off"
-                                            [value]="_filterValue() || ''"
-                                            class="p-dropdown-filter p-inputtext p-component"
-                                            [variant]="variant"
-                                            [attr.placeholder]="filterPlaceholder"
-                                            [attr.aria-owns]="id + '_list'"
-                                            (input)="onFilterInputChange($event)"
-                                            [attr.aria-label]="ariaFilterLabel"
-                                            [attr.aria-activedescendant]="focusedOptionId"
-                                            (keydown)="onFilterKeyDown($event)"
-                                            (blur)="onFilterBlur($event)"
-                                        />
-                                        <p-inputIcon>
-                                            <SearchIcon *ngIf="!filterIconTemplate" />
-                                            <span *ngIf="filterIconTemplate" class="p-dropdown-filter-icon">
-                                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                                            </span>
-                                        </p-inputIcon>
-                                    </p-iconField>
-                                </div>
+                                <p-iconField>
+                                    <input
+                                        #filter
+                                        pInputText
+                                        type="text"
+                                        role="searchbox"
+                                        autocomplete="off"
+                                        [value]="_filterValue() || ''"
+                                        class="p-select-filter"
+                                        [variant]="variant"
+                                        [attr.placeholder]="filterPlaceholder"
+                                        [attr.aria-owns]="id + '_list'"
+                                        (input)="onFilterInputChange($event)"
+                                        [attr.aria-label]="ariaFilterLabel"
+                                        [attr.aria-activedescendant]="focusedOptionId"
+                                        (keydown)="onFilterKeyDown($event)"
+                                        (blur)="onFilterBlur($event)"
+                                    />
+                                    <p-inputIcon>
+                                        <SearchIcon *ngIf="!filterIconTemplate" />
+                                        <span *ngIf="filterIconTemplate">
+                                            <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
+                                        </span>
+                                    </p-inputIcon>
+                                </p-iconField>
                             </ng-template>
                         </div>
-                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div class="p-select-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -302,10 +300,10 @@ export class DropdownItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-select-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
-                                            <li class="p-dropdown-item-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                            <li class="p-select-option-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                                 <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
                                                 <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
                                             </li>
@@ -327,13 +325,13 @@ export class DropdownItem {
                                             ></p-dropdownItem>
                                         </ng-container>
                                     </ng-template>
-                                    <li *ngIf="filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li *ngIf="filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                             {{ emptyFilterMessageLabel }}
                                         </ng-container>
                                         <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
                                     </li>
-                                    <li *ngIf="!filterValue && isEmpty()" class="p-dropdown-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li *ngIf="!filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
                                         <ng-container *ngIf="!emptyTemplate; else empty">
                                             {{ emptyMessageLabel }}
                                         </ng-container>
@@ -357,18 +355,11 @@ export class DropdownItem {
             </p-overlay>
         </div>
     `,
-
-    host: {
-        class: 'p-element p-inputwrapper',
-        '[class.p-inputwrapper-filled]': 'filled()',
-        '[class.p-inputwrapper-focus]': 'focused || overlayVisible'
-    },
-    providers: [DROPDOWN_VALUE_ACCESSOR],
+    providers: [DROPDOWN_VALUE_ACCESSOR, SelectStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dropdown.css']
+    encapsulation: ViewEncapsulation.None
 })
-export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
     /**
      * Unique identifier of the component
      * @group Props
@@ -651,6 +642,11 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Input({ transform: booleanAttribute }) autofocusFilter: boolean = true;
     /**
+     * Whether the component should span the full width of its parent.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
+    /**
      * When present, it specifies that the component should be disabled.
      * @group Props
      */
@@ -814,6 +810,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
      */
     @Output() onLazyLoad: EventEmitter<DropdownLazyLoadEvent> = new EventEmitter<DropdownLazyLoadEvent>();
 
+    _componentStyle = inject(SelectStyle);
+
     @ViewChild('container') containerViewChild: Nullable<ElementRef>;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
@@ -932,24 +930,16 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
-    get containerClass() {
-        return {
-            'p-dropdown p-component p-inputwrapper': true,
-            'p-disabled': this.disabled,
-            'p-dropdown-clearable': this.showClear && !this.disabled,
-            'p-focus': this.focused,
-            'p-inputwrapper-filled': this.modelValue() !== undefined && this.modelValue() !== null && !this.modelValue().length,
-            'p-inputwrapper-focus': this.focused || this.overlayVisible,
-            'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled'
-        };
+    get rootClass() {
+        return this._componentStyle.classes.root({ instance: this });
     }
 
     get inputClass() {
         const label = this.label();
         return {
-            'p-dropdown-label p-inputtext': true,
+            'p-select-label': true,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
-            'p-dropdown-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
+            'p-select-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
         };
     }
 
@@ -1019,14 +1009,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {
+    constructor(public zone: NgZone, public filterService: FilterService) {
+        super();
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1059,6 +1043,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     ngOnInit() {
+        super.ngOnInit();
+        console.warn('Dropdown component is deprecated as of v18, use Select component instead.');
         this.id = this.id || UniqueComponentId();
         this.autoUpdateModel();
 
