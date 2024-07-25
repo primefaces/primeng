@@ -5788,9 +5788,10 @@ export class ColumnFilter implements AfterContentInit {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
-                const dialogElements = document.querySelectorAll('[role="dialog"]');
+                let isDateDialog = false;
+                document.querySelectorAll('[role="dialog"]').forEach(d => { if(DomHandler.hasClass(d, 'p-datepicker')) isDateDialog = true; });
                 const targetIsColumnFilterMenuButton = event.target.closest('.p-column-filter-menu-button');
-                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || dialogElements?.length <= 1)) {
+                if (this.overlayVisible && this.isOutsideClicked(event) && (targetIsColumnFilterMenuButton || !isDateDialog)) {
                     this.hide();
                 }
 
