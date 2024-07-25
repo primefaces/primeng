@@ -50,10 +50,7 @@ export class ScrollFlexibleDoc {
 
     dialogVisible: boolean = false;
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {

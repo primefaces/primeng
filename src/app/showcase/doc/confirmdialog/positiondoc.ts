@@ -33,10 +33,7 @@ import { Code } from '@domain/code';
 export class PositionDoc {
     position: string = 'center';
 
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirmPosition(position: string) {
         this.position = position;
