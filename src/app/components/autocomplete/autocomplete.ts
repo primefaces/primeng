@@ -1553,6 +1553,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.cd.markForCheck();
         };
 
+        // Added to adjust the scroller's content position when the dropdown closes.
+        if (this.virtualScroll) {
+            this.scroller.onScrollChange(event);
+        }
+        
         setTimeout(() => {
             _hide();
         }, 0); // For ScreenReaders
