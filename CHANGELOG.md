@@ -1,4 +1,18 @@
 # Changelog
+## [17.18.6](https://github.com/primefaces/primeng/tree/17.18.6) (2024-07-25)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.5...17.18.6)
+
+**Fixed bugs:**
+- TreeTable: Resizing one column resizes other columns as well [\#15876](https://github.com/primefaces/primeng/issues/15876)
+- TabMenu doesn't scroll to active item when it's set programatically [\#15973](https://github.com/primefaces/primeng/issues/15973)
+- Dropdown: onBlur event is emitted when the user clicks the dropdown arrow [\#15800](https://github.com/primefaces/primeng/issues/15800)
+- Button | Add focus() method [\#16064](https://github.com/primefaces/primeng/issues/16064)
+- Menu: Popup menu cannot be opened on a different target when it is already opened [\#16066](https://github.com/primefaces/primeng/issues/16066)
+- TieredMenu: Submenus in popup do not appear on hover. [\#13861](https://github.com/primefaces/primeng/issues/13861)
+- Breadcrumb | HomeBreadcrumb can still receive focus from the keyboard even when it is disabled [\#16079](https://github.com/primefaces/primeng/issues/16079)
+- Pull Request: all PRs are failing to npm run format:check [\#16086](https://github.com/primefaces/primeng/issues/16086)
+- Autocomplete: with virtual scroll and item selected, it doesn't show items in dropdown and doesn't keep the selected item position when scrolling [\#16063](https://github.com/primefaces/primeng/issues/16063)
+
 ## [17.18.5](https://github.com/primefaces/primeng/tree/17.18.5) (2024-07-18)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.4...17.18.5)
 
