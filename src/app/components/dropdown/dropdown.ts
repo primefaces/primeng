@@ -191,7 +191,7 @@ export class DropdownItem {
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" (mousedown)="onMouseDown($event)" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="loading; else elseBlock">
                     <ng-container *ngIf="loadingIconTemplate">
                         <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
@@ -1473,6 +1473,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onModelTouched();
         }
         this.preventModelTouched = false;
+    }
+
+    onMouseDown(event: MouseEvent) {
+        event.preventDefault();
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean) {
