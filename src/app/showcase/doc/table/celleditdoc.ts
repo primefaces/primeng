@@ -57,7 +57,7 @@ import { ProductService } from '@service/productservice';
                                         <input pInputText type="text" [(ngModel)]="product.price" />
                                     </ng-template>
                                     <ng-template pTemplate="output">
-                                        {{ product.price | currency : 'USD' }}
+                                        {{ product.price | currency: 'USD' }}
                                     </ng-template>
                                 </p-cellEditor>
                             </td>
@@ -72,7 +72,10 @@ import { ProductService } from '@service/productservice';
 export class CellEditDoc {
     products!: Product[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

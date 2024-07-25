@@ -98,7 +98,10 @@ export class LazyLoadDoc implements OnInit {
 
     selectedCustomers!: Customer[];
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     ngOnInit() {
         this.loading = true;

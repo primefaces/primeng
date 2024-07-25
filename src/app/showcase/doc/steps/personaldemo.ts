@@ -49,7 +49,10 @@ export class PersonalDemo implements OnInit {
 
     submitted: boolean = false;
 
-    constructor(public ticketService: TicketService, private router: Router) {}
+    constructor(
+        public ticketService: TicketService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.personalInformation = this.ticketService.getTicketInformation().personalInformation;

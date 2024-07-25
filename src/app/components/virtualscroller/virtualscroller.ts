@@ -121,7 +121,10 @@ export class VirtualScroller implements AfterContentInit, BlockableUI {
 
     virtualScrollTimeout: any;
 
-    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {}
+    constructor(
+        public el: ElementRef,
+        public cd: ChangeDetectorRef
+    ) {}
 
     ngAfterContentInit() {
         (this.templates as QueryList<PrimeTemplate>).forEach((item) => {

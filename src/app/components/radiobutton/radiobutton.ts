@@ -208,7 +208,12 @@ export class RadioButton implements ControlValueAccessor, OnInit, OnDestroy {
 
     control: Nullable<NgControl>;
 
-    constructor(public cd: ChangeDetectorRef, private injector: Injector, private registry: RadioControlRegistry, public config: PrimeNGConfig) {}
+    constructor(
+        public cd: ChangeDetectorRef,
+        private injector: Injector,
+        private registry: RadioControlRegistry,
+        public config: PrimeNGConfig
+    ) {}
 
     ngOnInit() {
         this.control = this.injector.get(NgControl);
