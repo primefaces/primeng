@@ -105,8 +105,8 @@ const theme = ({ dt }) => `
 .p-overlay-mask-leave {
     animation: p-overlay-mask-leave-animation ${dt('mask.transition.duration')} forwards;
 }
-
-@keyframes p-overlay-mask-enter-animation {
+/* Temporarily disabled, distrupts PrimeNG overlay animations */
+/* @keyframes p-overlay-mask-enter-animation {
     from {
         background: transparent;
     }
@@ -121,7 +121,7 @@ const theme = ({ dt }) => `
     to {
         background: transparent;
     }
-}
+}*/
 `;
 
 const css = ({ dt }) => `

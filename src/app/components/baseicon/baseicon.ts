@@ -1,5 +1,6 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation, ElementRef, HostBinding, booleanAttribute, inject } from '@angular/core';
 import { ObjectUtils } from 'primeng/utils';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     template: ` <ng-content></ng-content> `,
@@ -7,10 +8,10 @@ import { ObjectUtils } from 'primeng/utils';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element p-icon-wrapper'
+        class: 'p-component p-icon-wrapper'
     }
 })
-export class BaseIcon {
+export class BaseIcon extends BaseComponent {
     @Input() label: string;
 
     @Input({ transform: booleanAttribute }) spin: boolean = false;
@@ -24,6 +25,7 @@ export class BaseIcon {
     ariaHidden: boolean;
 
     ngOnInit() {
+        super.ngOnInit();
         this.getAttributes();
     }
 
