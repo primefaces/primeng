@@ -185,11 +185,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.el.nativeElement.querySelector('.p-component');
-
-                    if (!target) {
-                        target = this.getTarget(this.el.nativeElement);
-                    }
+                    let target = this.getTarget(this.el.nativeElement);
 
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
@@ -605,7 +601,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getTarget(el: Element) {
-        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
+        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el.querySelector('.p-component') || el;
     }
 
     preAlign(position: string) {
@@ -672,11 +668,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-            let target = this.el.nativeElement.querySelector('.p-component');
-
-            if (!target) {
-                target = this.getTarget(this.el.nativeElement);
-            }
+     
+             let target = this.getTarget(this.el.nativeElement);
+            
 
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
@@ -740,3 +734,4 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     declarations: [Tooltip]
 })
 export class TooltipModule {}
+
