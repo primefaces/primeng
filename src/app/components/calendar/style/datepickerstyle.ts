@@ -366,6 +366,20 @@ position: relative;
 .p-datepicker-timeonly .p-datepicker-time-picker {
     border-top: 0 none;
 }
+
+.p-datepicker-calendar:not(:first-child):not(:last-child) .p-datepicker-header {
+    justify-content: center;
+}
+
+/* For PrimeNG */
+
+p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
+    border-color: ${dt('inputtext.invalid.border.color')};
+}
+
+p-datepicker.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
+    border-color: ${dt('inputtext.invalid.border.color')};
+}
 `;
 
 const inlineStyles = {
@@ -423,7 +437,7 @@ const classes = {
             'p-datepicker-day': true,
             'p-datepicker-day-selected': !instance.isRangeSelection() && instance.isSelected(date) && date.selectable,
             'p-disabled': instance.disabled || !date.selectable,
-            selectedDayClass: true
+            [selectedDayClass]: true
         };
     },
     monthView: 'p-datepicker-month-view',
