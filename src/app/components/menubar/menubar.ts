@@ -224,6 +224,10 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
+    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined;
+
+    @Input({ transform: numberAttribute }) autoHideDelay: number = 100;
+
     @Input() menuId: string | undefined;
 
     @Input() ariaLabel: string | undefined;
@@ -334,7 +338,12 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     onItemMouseLeave() {
-        this.activeItemPath = [];
+        if (this.autoHide) {
+            const timeout = setTimeout(() => {
+                this.activeItemPath = [];
+                clearTimeout(timeout);
+            }, this.autoHideDelay); // By default autoHideDelay is 100
+        }
         this.menubarService.mouseLeaves.next(true);
     }
 
@@ -388,6 +397,8 @@ export class MenubarSub implements OnInit, OnDestroy {
                 [autoZIndex]="autoZIndex"
                 [mobileActive]="mobileActive"
                 [autoDisplay]="autoDisplay"
+                [autoHide]="autoHide"
+                [autoHideDelay]="autoHideDelay"
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
@@ -459,7 +470,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined = false;
     /**
      * Delay to hide the root submenu in milliseconds when mouse leaves.
      * @group Props
