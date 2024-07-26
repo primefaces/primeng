@@ -99,6 +99,7 @@ export class MenubarService {
                     [class]="getItemProp(processedItem, 'styleClass')"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                    (mouseleave)="onItemMouseLeave()"
                 >
                     <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
@@ -251,7 +252,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) { }
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -333,6 +334,7 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     onItemMouseLeave() {
+        this.activeItemPath = [];
         this.menubarService.mouseLeaves.next(true);
     }
 
@@ -1132,4 +1134,4 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })
-export class MenubarModule {}
+export class MenubarModule { }
