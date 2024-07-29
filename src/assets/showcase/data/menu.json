@@ -571,6 +571,11 @@
             ]
         },
         {
+            "name": "Contribution",
+            "icon": "pi pi-users",
+            "routerLink": "/contribution"
+        },
+        {
             "name": "Discover",
             "icon": "pi pi-search",
             "children": [
