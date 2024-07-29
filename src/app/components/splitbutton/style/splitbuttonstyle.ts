@@ -8,23 +8,23 @@ const theme = ({ dt }) => `
     border-radius: ${dt('splitbutton.border.radius')};
 }
 
-.p-splitbutton-button {
+.p-splitbutton-button.p-button {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-right: 0 none;
 }
 
-.p-splitbutton-button:focus-visible,
-.p-splitbutton-dropdown:focus-visible {
+.p-splitbutton-button.p-button:focus-visible,
+.p-splitbutton-dropdown.p-button:focus-visible {
     z-index: 1;
 }
 
-.p-splitbutton-button:not(:disabled):hover,
-.p-splitbutton-button:not(:disabled):active {
+.p-splitbutton-button.p-button:not(:disabled):hover,
+.p-splitbutton-button.p-button:not(:disabled):active {
     border-right: 0 none;
 }
 
-.p-splitbutton-dropdown {
+.p-splitbutton-dropdown.p-button {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -42,7 +42,7 @@ const theme = ({ dt }) => `
     border-bottom-right-radius: ${dt('splitbutton.rounded.border.radius')};
 }
 
-.p-splitbutton-rounded .p-splitbutton-button {
+.p-splitbutton-rounded > .p-splitbutton-button {
     border-top-left-radius: ${dt('splitbutton.rounded.border.radius')};
     border-bottom-left-radius: ${dt('splitbutton.rounded.border.radius')};
 }
@@ -67,7 +67,7 @@ const classes = {
 
 @Injectable()
 export class SplitButtonStyle extends BaseStyle {
-    name = 'slpitbutton';
+    name = 'splitbutton';
 
     theme = theme;
 
