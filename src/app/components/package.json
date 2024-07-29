@@ -18,7 +18,7 @@
     "module": "primeng.js",
     "typings": "primeng.d.ts",
     "dependencies": {
-        "@primeuix/styled": "0.0.1"
+        "@primeuix/styled": "0.0.5"
     },
     "peerDependencies": {
         "@angular/common": "^17.0.0",
