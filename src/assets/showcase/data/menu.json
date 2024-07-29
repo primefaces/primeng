@@ -573,7 +573,8 @@
         {
             "name": "Contribution",
             "icon": "pi pi-users",
-            "routerLink": "/contribution"
+            "routerLink": "/contribution",
+            "badge": "NEW"
         },
         {
             "name": "Discover",
