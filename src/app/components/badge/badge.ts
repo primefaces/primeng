@@ -217,9 +217,6 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
     template: ` <span *ngIf="!badgeDisabled" [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">{{ value }}</span> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
     providers: [BadgeStyle]
 })
 export class Badge extends BaseComponent {

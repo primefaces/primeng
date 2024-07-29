@@ -39,6 +39,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { MenuStyle } from './style/menustyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BadgeModule } from 'primeng/badge';
 
 @Pipe({
     name: 'safeHtml'
@@ -109,7 +110,7 @@ export class SafeHtmlPipe implements PipeTransform {
                 <span class="p-menu-item-icon" *ngIf="item.icon" [ngClass]="item.icon" [class]="item.iconClass" [ngStyle]="item.iconStyle"></span>
                 <span class="p-menu-item-label" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
                 <ng-template #htmlLabel><span class="p-menu-item-label" [innerHTML]="item.label | safeHtml"></span></ng-template>
-                <span class="p-menu-item-badge" *ngIf="item.badge" [ngClass]="item.badgeStyleClass">{{ item.badge }}</span>
+                <p-badge *ngIf="item.badge" [styleClass]="item.badgeStyleClass" [value]="item.badge" />
             </ng-template>
         </div>
     `,
@@ -815,7 +816,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, BadgeModule],
     exports: [Menu, RouterModule, TooltipModule],
     declarations: [Menu, MenuItemContent, SafeHtmlPipe]
 })
