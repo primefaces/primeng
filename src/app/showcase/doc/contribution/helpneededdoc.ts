@@ -17,7 +17,10 @@ import { Component } from '@angular/core';
         <p>We encourage you to send pull requests, especially for issues tagged with the <i>help-needed</i> label.</p>
 
         <h3>Community Support</h3>
-        <p>Assist other users by participating in the issue tracker, GitHub discussions, and the PrimeLand Discord server. Your expertise can help others solve problems and improve their experience with PrimeNG.</p>
+        <p>
+            Assist other users by participating in the issue tracker, <a href="https://github.com/orgs/primefaces/discussions/categories/primeng" target="_blank" rel="noopener noreferrer">GitHub discussions</a>, and the
+            <a href="https://discord.com/invite/gzKFYnpmCY" target="_blank" rel="noopener noreferrer">PrimeLand Discord</a> server. Your expertise can help others solve problems and improve their experience with PrimeNG.
+        </p>
         </app-docsectiontext>
     `
 })
