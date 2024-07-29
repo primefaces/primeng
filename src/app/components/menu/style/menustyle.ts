@@ -80,6 +80,11 @@ const theme = ({ dt }) => `
 .p-menu-separator {
     border-top: 1px solid ${dt('menu.separator.border.color')};
 }
+
+/* For PrimeNG */
+.p-menu-overlay {
+    position: absolute;
+}
 `;
 
 const classes = {

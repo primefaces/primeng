@@ -113,7 +113,7 @@ export class SafeHtmlPipe implements PipeTransform {
             </ng-template>
         </div>
     `,
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class MenuItemContent {
     @Input('pMenuItemContent') item: MenuItem | undefined;
@@ -242,7 +242,7 @@ export class MenuItemContent {
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0, transform: 'scaleY(0.8)' }), animate('{{showTransitionParams}}')]), transition(':leave', [animate('{{hideTransitionParams}}', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers:[MenuStyle]
+    providers: [MenuStyle]
 })
 export class Menu extends BaseComponent implements OnDestroy {
     /**
@@ -377,15 +377,7 @@ export class Menu extends BaseComponent implements OnDestroy {
 
     _componentStyle = inject(MenuStyle);
 
-    constructor(
-        @Inject(DOCUMENT) public document: Document,
-        @Inject(PLATFORM_ID) public platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public overlayService: OverlayService) {
         super();
         this.id = this.id || UniqueComponentId();
     }
@@ -415,7 +407,7 @@ export class Menu extends BaseComponent implements OnDestroy {
     }
 
     ngOnInit() {
-        super.ngOnInit()
+        super.ngOnInit();
         if (!this.popup) {
             this.bindDocumentClickListener();
         }
@@ -800,7 +792,7 @@ export class Menu extends BaseComponent implements OnDestroy {
         if (!this.popup) {
             this.unbindDocumentClickListener();
         }
-        super.ngOnDestroy()
+        super.ngOnDestroy();
     }
 
     hasSubMenu(): boolean {
