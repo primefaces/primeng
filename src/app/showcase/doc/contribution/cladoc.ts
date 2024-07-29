@@ -4,13 +4,8 @@ import { Component } from '@angular/core';
     selector: 'cla-doc',
     template: `
         <app-docsectiontext>
-        <p>
-            PrimeNG is a popular Angular UI library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI components
-            that help developers build better applications faster.
-        </p>
+            <p>When a community member is offered the Contributor role, they are expected to sign a Contributor License Agreement (CLA) for legal purposes. This helps protect both the contributor and PrimeTek.</p>
         </app-docsectiontext>
     `
 })
-export class ClaDoc {
-
-}
+export class ClaDoc {}
