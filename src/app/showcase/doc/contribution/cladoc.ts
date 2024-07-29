@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     template: `
         <app-docsectiontext>
         <p>
-            PrimeNG is a popular Vue UI library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI components
+            PrimeNG is a popular Angular UI library maintained by PrimeTek, a company renowned for its comprehensive set of UI components for various frameworks. PrimeTek is dedicated to providing high-quality, versatile, and accessible UI components
             that help developers build better applications faster.
         </p>
         </app-docsectiontext>
