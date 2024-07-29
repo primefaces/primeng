@@ -39,6 +39,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { TieredMenuStyle } from './style/tieredmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { nestedPosition } from '@primeuix/utils/dom';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -119,7 +120,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -161,7 +162,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [styleClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <AngleRightIcon *ngIf="!tieredMenu.submenuIconTemplate" [ngClass]="'p-tieredmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
                                     <ng-template *ngTemplateOutlet="tieredMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
@@ -247,17 +248,7 @@ export class TieredMenuSub {
         if (isPlatformBrowser(this.tieredMenu.platformId)) {
             const sublist = this.sublistViewChild && this.sublistViewChild.nativeElement;
             if (sublist) {
-                const parentItem = sublist.parentElement.parentElement;
-                const containerOffset = DomHandler.getOffset(parentItem);
-                const viewport = DomHandler.getViewport();
-                const sublistWidth = sublist.offsetParent ? sublist.offsetWidth : DomHandler.getOuterWidth(sublist);
-                const itemOuterWidth = DomHandler.getOuterWidth(parentItem.children[0]);
-                const sublistFlippedClass = 'p-submenu-list-flipped';
-                if (parseInt(containerOffset.left, 10) + itemOuterWidth + sublistWidth > viewport.width - DomHandler.calculateScrollbarWidth()) {
-                    DomHandler.addClass(sublist, sublistFlippedClass);
-                } else if (DomHandler.hasClass(sublist, sublistFlippedClass)) {
-                    DomHandler.removeClass(sublist, sublistFlippedClass);
-                }
+                nestedPosition(sublist, this.level);
             }
         }
     }
@@ -552,15 +543,7 @@ export class TieredMenu extends BaseComponent implements OnInit, AfterContentIni
         return focusedItemInfo.item?.id ? focusedItemInfo.item.id : focusedItemInfo.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItemInfo.parentKey) ? '_' + focusedItemInfo.parentKey : ''}_${focusedItemInfo.index}` : null;
     }
 
-    constructor(
-        @Inject(DOCUMENT) public document: Document,
-        @Inject(PLATFORM_ID) public platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public overlayService: OverlayService) {
         super();
         effect(() => {
             const path = this.activeItemPath();

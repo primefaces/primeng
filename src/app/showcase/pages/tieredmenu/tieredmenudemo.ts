@@ -22,36 +22,36 @@ export class TieredMenuDemo {
             id: 'basic',
             label: 'Basic',
             component: BasicDoc
-        },
-        {
-            id: 'popup',
-            label: 'Popup',
-            component: PopupDoc
-        },
-        {
-            id: 'template',
-            label: 'Template',
-            component: TemplateDoc
-        },
-        {
-            id: 'command',
-            label: 'Command',
-            component: CommandDoc
-        },
-        {
-            id: 'router',
-            label: 'Router',
-            component: RouterDoc
-        },
-        {
-            id: 'style',
-            label: 'Style',
-            component: StyleDoc
-        },
-        {
-            id: 'accessibility',
-            label: 'Accessibility',
-            component: AccessibilityDoc
         }
+        // {
+        //     id: 'popup',
+        //     label: 'Popup',
+        //     component: PopupDoc
+        // },
+        // {
+        //     id: 'template',
+        //     label: 'Template',
+        //     component: TemplateDoc
+        // },
+        // {
+        //     id: 'command',
+        //     label: 'Command',
+        //     component: CommandDoc
+        // },
+        // {
+        //     id: 'router',
+        //     label: 'Router',
+        //     component: RouterDoc
+        // },
+        // {
+        //     id: 'style',
+        //     label: 'Style',
+        //     component: StyleDoc
+        // },
+        // {
+        //     id: 'accessibility',
+        //     label: 'Accessibility',
+        //     component: AccessibilityDoc
+        // }
     ];
 }
