@@ -8,7 +8,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-component p-icon-wrapper'
+        class: 'p-component p-iconwrapper'
     }
 })
 export class BaseIcon extends BaseComponent {

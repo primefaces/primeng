@@ -122,6 +122,12 @@ const theme = ({ dt }) => `
         background: transparent;
     }
 }*/
+
+.p-iconwrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
 `;
 
 const css = ({ dt }) => `
