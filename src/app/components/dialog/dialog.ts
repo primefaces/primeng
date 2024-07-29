@@ -128,7 +128,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                 pRipple
                                 pButton
                                 [attr.tabindex]="closeTabindex"
-                                [ngStyle]="{ 'min-width': null }"
+                                [ngStyle]="{ 'min-width': 0 }"
                             >
                                 <ng-container *ngIf="!closeIconTemplate">
                                     <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
