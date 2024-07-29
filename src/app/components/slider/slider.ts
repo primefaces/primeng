@@ -17,6 +17,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     forwardRef,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -24,6 +25,8 @@ import { DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { SliderChangeEvent, SliderSlideEndEvent } from './slider.interface';
+import { SliderStyle } from './style/sliderstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const SLIDER_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -48,23 +51,23 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             <span
                 *ngIf="range && orientation == 'horizontal'"
                 class="p-slider-range"
-                [ngStyle]="{ left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{ position: 'absolute', left: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', width: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
                 [attr.data-pc-section]="'range'"
             ></span>
             <span
                 *ngIf="range && orientation == 'vertical'"
                 class="p-slider-range"
-                [ngStyle]="{ bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
+                [ngStyle]="{ position: 'absolute', bottom: offset !== null && offset !== undefined ? offset + '%' : handleValues[0] + '%', height: diff ? diff + '%' : handleValues[1] - handleValues[0] + '%' }"
                 [attr.data-pc-section]="'range'"
             ></span>
-            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ height: handleValue + '%' }"></span>
-            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ width: handleValue + '%' }"></span>
+            <span *ngIf="!range && orientation == 'vertical'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', height: handleValue + '%' }"></span>
+            <span *ngIf="!range && orientation == 'horizontal'" class="p-slider-range" [attr.data-pc-section]="'range'" [ngStyle]="{ position: 'absolute', width: handleValue + '%' }"></span>
             <span
                 *ngIf="!range"
                 #sliderHandle
                 class="p-slider-handle"
                 [style.transition]="dragging ? 'none' : null"
-                [ngStyle]="{ left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
+                [ngStyle]="{ position: 'absolute', left: orientation == 'horizontal' ? handleValue + '%' : null, bottom: orientation == 'vertical' ? handleValue + '%' : null }"
                 (touchstart)="onDragStart($event)"
                 (touchmove)="onDrag($event)"
                 (touchend)="onDragEnd($event)"
@@ -87,7 +90,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleStart
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeStartLeft, bottom: rangeStartBottom }"
+                [ngStyle]="{ position: 'absolute', left: rangeStartLeft, bottom: rangeStartBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 0 }"
                 (keydown)="onKeyDown($event, 0)"
                 (mousedown)="onMouseDown($event, 0)"
@@ -111,7 +114,7 @@ export const SLIDER_VALUE_ACCESSOR: any = {
                 #sliderHandleEnd
                 [style.transition]="dragging ? 'none' : null"
                 class="p-slider-handle"
-                [ngStyle]="{ left: rangeEndLeft, bottom: rangeEndBottom }"
+                [ngStyle]="{ position: 'absolute', left: rangeEndLeft, bottom: rangeEndBottom }"
                 [ngClass]="{ 'p-slider-handle-active': handleIndex == 1 }"
                 (keydown)="onKeyDown($event, 1)"
                 (mousedown)="onMouseDown($event, 1)"
@@ -129,15 +132,11 @@ export const SLIDER_VALUE_ACCESSOR: any = {
             ></span>
         </div>
     `,
-    providers: [SLIDER_VALUE_ACCESSOR],
+    providers: [SLIDER_VALUE_ACCESSOR, SliderStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./slider.css'],
-    host: {
-        class: 'p-element'
-    }
+    encapsulation: ViewEncapsulation.None
 })
-export class Slider implements OnDestroy, ControlValueAccessor {
+export class Slider extends BaseComponent implements OnDestroy, ControlValueAccessor {
     /**
      * When enabled, displays an animation on click of the slider bar.
      * @group Props
@@ -222,6 +221,8 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     @ViewChild('sliderHandleEnd') sliderHandleEnd: Nullable<ElementRef>;
 
+    _componentStyle = inject(SliderStyle);
+
     public value: Nullable<number>;
 
     public values: Nullable<number[]>;
@@ -264,14 +265,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     public starty: Nullable<number>;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private ngZone: NgZone,
-        public cd: ChangeDetectorRef
-    ) {}
+    private ngZone = inject(NgZone);
 
     onMouseDown(event: Event, index?: number) {
         if (this.disabled) {
@@ -699,6 +693,7 @@ export class Slider implements OnDestroy, ControlValueAccessor {
 
     ngOnDestroy() {
         this.unbindDragListeners();
+        super.ngOnDestroy();
     }
 
     get minVal() {
