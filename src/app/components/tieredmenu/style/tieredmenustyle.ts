@@ -116,6 +116,7 @@ const theme = ({ dt }) => `
 }
 
 .p-tieredmenu-overlay {
+    position: absolute;
     box-shadow: ${dt('tieredmenu.shadow')};
 }
 
