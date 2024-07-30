@@ -34,7 +34,7 @@ import { SearchIcon } from 'primeng/icons/search';
 import { CheckIcon } from 'primeng/icons/check';
 import { Nullable } from 'primeng/ts-helpers';
 import { ListboxChangeEvent, ListboxClickEvent, ListboxDoubleClickEvent, ListboxFilterEvent, ListboxFilterOptions, ListboxSelectAllChangeEvent } from './listbox.interface';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { Scroller, ScrollerLazyLoadEvent, ScrollerModule } from 'primeng/scroller';
 
 export const LISTBOX_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -127,6 +127,9 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     [autoSize]="true"
                     [tabindex]="-1"
                     [lazy]="lazy"
+                    [showLoader]="lazy"
+                    [delay]="lazy ? delay : 0"
+                    [loading]="loading"
                     [options]="virtualScrollOptions"
                     (onLazyLoad)="onLazyLoad.emit($event)"
                 >
@@ -306,6 +309,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Input() filterFields: any[] | undefined;
     /**
+     * Defines whether to show the loading indicator when lazy loading.
+     * @group Props
+     */
+    @Input() loading: boolean | undefined;
+    /**
      * Defines if data is loaded and interacted with in lazy manner.
      * @group Props
      */
@@ -340,6 +348,11 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      * @group Props
      */
     @Input({ transform: booleanAttribute }) multiple: boolean | undefined;
+    /**
+     * Delay in scroll when lazy loading before new data is loaded.
+     * @group Props
+     */
+    @Input() delay: number = 250;
     /**
      * Inline style of the container.
      * @group Props
@@ -515,6 +528,12 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
      */
     @Output() onFilter: EventEmitter<ListboxFilterEvent> = new EventEmitter<ListboxFilterEvent>();
     /**
+     * Callback to invoke in lazy mode to load new data.
+     * @param {ScrollerLazyLoadEvent} event - Custom lazy load event.
+     * @group Emits
+     */
+    @Output() onLazyLoad: EventEmitter<ScrollerLazyLoadEvent> = new EventEmitter<ScrollerLazyLoadEvent>();
+    /**
      * Callback to invoke when component receives focus.
      * @param {FocusEvent} event - Focus event.
      * @group Emits
@@ -564,6 +583,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     public emptyFilterTemplate: TemplateRef<any> | undefined;
 
     public emptyTemplate: TemplateRef<any> | undefined;
+
+    loaderIconTemplate: Nullable<TemplateRef<any>>;
 
     filterIconTemplate: TemplateRef<any> | undefined;
 
@@ -718,6 +739,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
                 case 'emptyfilter':
                     this.emptyFilterTemplate = item.template;
+                    break;
+
+                case 'loadericon':
+                    this.loaderIconTemplate = item.template;
                     break;
 
                 case 'filtericon':

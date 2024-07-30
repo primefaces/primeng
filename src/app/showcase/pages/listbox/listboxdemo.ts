@@ -11,6 +11,7 @@ import { MultipleDoc } from '@doc/listbox/multipledoc';
 import { StyleDoc } from '@doc/listbox/styledoc';
 import { TemplateDoc } from '@doc/listbox/templatedoc';
 import { VirtualScrollDoc } from '@doc/listbox/virtualscrolldoc';
+import { LazyLoadDoc } from '@doc/listbox/lazyloaddoc';
 
 @Component({
     templateUrl: './listboxdemo.html'
@@ -56,6 +57,11 @@ export class ListboxDemo {
             id: 'virtualscroll',
             label: 'Virtual Scroll',
             component: VirtualScrollDoc
+        },
+        {
+            id: 'lazy-load',
+            label: 'Lazy Load',
+            component: LazyLoadDoc
         },
         {
             id: 'invalid',
