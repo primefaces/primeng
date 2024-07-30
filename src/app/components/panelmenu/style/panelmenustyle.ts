@@ -146,19 +146,17 @@ const theme = ({ dt }) => `
 }
 
 
-    
-    .p-panelmenu-expanded.p-panelmenu-content:not(.ng-animating),
-    .p-panelmenu .p-submenu-expanded:not(.ng-animating) {
-        overflow: visible;
-    }
+/*For PrimeNG*/
 
-    .p-panelmenu .p-toggleable-content,
-    .p-panelmenu .p-submenu-list {
-        overflow: hidden;
-    }
+.p-panelmenu-item:not(.ng-animating) {
+    overflow: hidden;
+}
+
+.p-panelmenu-panel {
+    overflow: hidden;
+}
     
 `;
-
 
 const classes = {
     root: 'p-panelmenu p-component',

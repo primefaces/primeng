@@ -919,10 +919,6 @@ export class PanelMenu extends BaseComponent implements AfterContentInit {
         });
     }
 
-    constructor(public cd: ChangeDetectorRef) {
-        super();
-    }
-
     /**
      * Collapses open panels.
      * @group Method
