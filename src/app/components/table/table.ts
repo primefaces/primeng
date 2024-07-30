@@ -1586,7 +1586,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         field: field,
                         order: order
                     });
-                } else {
+                } else if (!this.lazy) {
                     this.value.sort((data1, data2) => {
                         let value1 = ObjectUtils.resolveFieldData(data1, field);
                         let value2 = ObjectUtils.resolveFieldData(data2, field);
@@ -1604,7 +1604,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if ((!this.lazy || this.customSort) && this.hasFilter()) {
                     this._filter();
                 }
             }
@@ -1634,7 +1634,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                         mode: this.sortMode,
                         multiSortMeta: this.multiSortMeta
                     });
-                } else {
+                } else if (!this.lazy) {
                     this.value.sort((data1, data2) => {
                         return this.multisortField(data1, data2, <SortMeta[]>this.multiSortMeta, 0);
                     });
@@ -1642,7 +1642,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                     this._value = [...this.value];
                 }
 
-                if (this.hasFilter()) {
+                if ((!this.lazy || this.customSort) && this.hasFilter()) {
                     this._filter();
                 }
             }
