@@ -74,7 +74,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
             <li
-                *ngIf="!tree.horizontal"
                 [ngClass]="nodeClass"
                 [ngStyle]="{ height: itemSize + 'px' }"
                 [style]="node.style"
@@ -169,56 +168,6 @@ import { BaseComponent } from 'primeng/basecomponent';
                 (dragenter)="onDropPointDragEnter($event, 1)"
                 (dragleave)="onDropPointDragLeave($event)"
             ></li>
-
-            <table *ngIf="tree.horizontal" [class]="node.styleClass">
-                <tbody>
-                    <tr>
-                        <td class="p-tree-node-connector" *ngIf="!root">
-                            <table class="p-tree-node-connector-table">
-                                <tbody>
-                                    <tr>
-                                        <td [ngClass]="{ 'p-tree-node-connector-line': !firstChild }"></td>
-                                    </tr>
-                                    <tr>
-                                        <td [ngClass]="{ 'p-tree-node-connector-line': !lastChild }"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="p-treenode" [ngClass]="{ 'p-tree-node-collapsed': !node.expanded }">
-                            <div
-                                class="p-tree-node-content"
-                                tabindex="0"
-                                [ngClass]="{ 'p-tree-node-selectable': tree.selectionMode }"
-                                (click)="onNodeClick($event)"
-                                (contextmenu)="onNodeRightClick($event)"
-                                (touchend)="onNodeTouchEnd()"
-                                (keydown)="onNodeKeydown($event)"
-                            >
-                                <span *ngIf="!isLeaf()" [ngClass]="'p-tree-node-toggle-button'" (click)="toggle($event)">
-                                    <ng-container *ngIf="!tree.togglerIconTemplate">
-                                        <PlusIcon *ngIf="!node.expanded" [styleClass]="'p-tree-node-toggle-icon'" [ariaLabel]="tree.togglerAriaLabel" />
-                                        <MinusIcon *ngIf="node.expanded" [styleClass]="'p-tree-node-toggle-icon'" [ariaLabel]="tree.togglerAriaLabel" />
-                                    </ng-container>
-                                    <span *ngIf="tree.togglerIconTemplate" class="p-tree-node-toggle-icon">
-                                        <ng-template *ngTemplateOutlet="tree.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
-                                    </span>
-                                </span>
-                                <span [class]="getIcon()" *ngIf="node.icon || node.expandedIcon || node.collapsedIcon"></span>
-                                <span class="p-tree-node-label">
-                                    <span *ngIf="!tree.getTemplateForNode(node)">{{ node.label }}</span>
-                                    <span *ngIf="tree.getTemplateForNode(node)">
-                                        <ng-container *ngTemplateOutlet="tree.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
-                                    </span>
-                                </span>
-                            </div>
-                        </td>
-                        <td class="p-tree-node-children" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
-                            <p-treeNode *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; trackBy: tree.trackBy" [node]="childNode" [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None
@@ -740,7 +689,7 @@ export class UITreeNode extends BaseComponent implements OnInit {
 @Component({
     selector: 'p-tree',
     template: `
-        <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" *ngIf="!horizontal" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
+        <div [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragenter)="onDragEnter()" (dragleave)="onDragLeave($event)">
             <div class="p-tree-mask p-overlay-mask" *ngIf="loading && loadingMode === 'mask'">
                 <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
                 <ng-container *ngIf="!loadingIcon">
@@ -825,28 +774,6 @@ export class UITreeNode extends BaseComponent implements OnInit {
             </div>
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
         </div>
-        <div [ngClass]="{ 'p-tree p-tree-horizontal p-component': true, 'p-tree-selectable': selectionMode }" [ngStyle]="style" [class]="styleClass" *ngIf="horizontal">
-            <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-            <div class="p-tree-loading-mask p-component-overlay" *ngIf="loading">
-                <i *ngIf="loadingIcon" [class]="'p-tree-loading-icon pi-spin ' + loadingIcon"></i>
-                <ng-container *ngIf="!loadingIcon">
-                    <SpinnerIcon *ngIf="!loadingIconTemplate" [spin]="true" [styleClass]="'p-tree-loading-icon'" />
-                    <span *ngIf="loadingIconTemplate" class="p-tree-loading-icon">
-                        <ng-template *ngTemplateOutlet="loadingIconTemplate"></ng-template>
-                    </span>
-                </ng-container>
-            </div>
-            <table *ngIf="value && value[0]">
-                <p-treeNode [node]="value[0]" [root]="true"></p-treeNode>
-            </table>
-            <div class="p-tree-empty-message" *ngIf="!loading && (getRootNode() == null || getRootNode().length === 0)">
-                <ng-container *ngIf="!emptyMessageTemplate; else emptyFilter">
-                    {{ emptyMessageLabel }}
-                </ng-container>
-                <ng-container #emptyFilter *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
-            </div>
-            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-        </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
@@ -888,11 +815,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
      * @group Props
      */
     @Input() contextMenu: any;
-    /**
-     * Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'.
-     * @group Props
-     */
-    @Input() layout: string = 'vertical';
     /**
      * Scope of the draggable nodes to match a droppableScope.
      * @group Props
@@ -1202,10 +1124,6 @@ export class Tree extends BaseComponent implements OnInit, AfterContentInit, OnC
 
     get containerClass() {
         return this._componentStyle.classes.root({ instance: this });
-    }
-
-    get horizontal(): boolean {
-        return this.layout == 'horizontal';
     }
 
     get emptyMessageLabel(): string {
