@@ -305,8 +305,12 @@ const theme = ({ dt }) => `
 .p-megamenu-mobile .p-megamenu-root-list > .p-megamenu-item-active > .p-megamenu-item-content .p-megamenu-submenu-icon {
     transform: rotate(-180deg);
 }
-`;
 
+/* For PrimeNG */
+.p-megamenu-submenu-icon.p-iconwrapper {
+    margin-left: auto;
+}
+`;
 
 const inlineStyles = {
     submenu: ({ instance, processedItem }) => ({ display: instance.isItemActive(processedItem) ? 'block' : 'none' })
