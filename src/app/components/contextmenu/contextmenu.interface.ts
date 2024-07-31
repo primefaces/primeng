@@ -18,5 +18,10 @@ export interface ContextMenuTemplates {
     /**
      * Custom template of submenuicon.
      */
-    submenuicon(): TemplateRef<any>;
+    submenuicon(context: {
+        /**
+         * Style class of the submenu icon.
+         */
+        class: string;
+    }): TemplateRef<{ class: string }>;
 }
