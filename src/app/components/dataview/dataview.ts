@@ -18,7 +18,8 @@ import {
     ViewEncapsulation,
     OnDestroy,
     booleanAttribute,
-    numberAttribute
+    numberAttribute,
+    inject
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ObjectUtils } from 'primeng/utils';
@@ -31,6 +32,8 @@ import { ThLargeIcon } from 'primeng/icons/thlarge';
 import { BarsIcon } from 'primeng/icons/bars';
 import { Nullable } from 'primeng/ts-helpers';
 import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, DataViewPaginatorState, DataViewSortEvent } from './dataview.interface';
+import { DataViewStyle } from './style/dataviewstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * DataView displays data in grid or list layout with pagination and sorting features.
  * @group Components
@@ -117,12 +120,9 @@ import { DataViewLayoutChangeEvent, DataViewLazyLoadEvent, DataViewPageEvent, Da
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./dataview.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers:[DataViewStyle]
 })
-export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
+export class DataView extends BaseComponent implements OnInit, AfterContentInit, OnDestroy, BlockableUI, OnChanges {
     /**
      * When specified as true, enables the pagination.
      * @group Props
@@ -354,6 +354,8 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
 
     translationSubscription: Nullable<Subscription>;
 
+    _componentStyle = inject(DataViewStyle);
+
     get emptyMessageLabel(): string {
         return this.emptyMessage || this.config.getTranslation(TranslationKeys.EMPTY_MESSAGE);
     }
@@ -363,9 +365,12 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
         public config: PrimeNGConfig
-    ) {}
+    ) {
+        super()
+    }
 
     ngOnInit() {
+        super.ngOnInit()
         if (this.lazy && this.lazyLoadOnInit) {
             this.onLazyLoad.emit(this.createLazyLoadMetadata());
         }
@@ -377,6 +382,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
+        super.ngOnChanges(simpleChanges)
         if (simpleChanges.value) {
             this._value = simpleChanges.value.currentValue;
             this.updateTotalRecords();
@@ -565,6 +571,7 @@ export class DataView implements OnInit, AfterContentInit, OnDestroy, BlockableU
         if (this.translationSubscription) {
             this.translationSubscription.unsubscribe();
         }
+        super.ngOnDestroy()
     }
 }
 
