@@ -20,6 +20,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { FilterService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -34,6 +35,10 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeEvent } from './orderlist.interface';
+import { OrderListStyle } from './style/orderliststyle';
+import { BaseComponent } from 'primeng/basecomponent';
+import { Listbox, ListboxModule } from 'primeng/listbox';
+import { FormsModule } from '@angular/forms';
 /**
  * OrderList is used to managed the order of a collection.
  * @group Components
@@ -66,93 +71,41 @@ import { OrderListFilterEvent, OrderListFilterOptions, OrderListSelectionChangeE
                 </button>
             </div>
             <div class="p-orderlist-list-container" [attr.data-pc-section]="'container'">
-                <div class="p-orderlist-header" *ngIf="header || headerTemplate" [attr.data-pc-section]="'header'">
-                    <div class="p-orderlist-title" *ngIf="!headerTemplate">{{ header }}</div>
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                </div>
-                <div class="p-orderlist-filter-container" *ngIf="filterBy" [attr.data-pc-section]="'filterContainer'">
-                    <ng-container *ngIf="filterTemplate; else builtInFilterElement">
-                        <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
-                    </ng-container>
-                    <ng-template #builtInFilterElement>
-                        <div class="p-orderlist-filter" [attr.data-pc-section]="'filter'">
-                            <input
-                                #filter
-                                type="text"
-                                role="textbox"
-                                (keyup)="onFilterKeyup($event)"
-                                [disabled]="disabled"
-                                class="p-orderlist-filter-input p-inputtext p-component"
-                                [attr.placeholder]="filterPlaceholder"
-                                [attr.aria-label]="ariaFilterLabel"
-                            />
-                            <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-orderlist-filter-icon'" [attr.data-pc-section]="'filterIcon'" />
-                            <span class="p-orderlist-filter-icon" *ngIf="filterIconTemplate" [attr.data-pc-section]="'filterIcon'">
-                                <ng-template *ngTemplateOutlet="filterIconTemplate"></ng-template>
-                            </span>
-                        </div>
-                    </ng-template>
-                </div>
-                <ul
+                <p-listbox
                     #listelement
+                    [multiple]="true"
+                    [options]="value"
+                    [(ngModel)]="d_selection"
+                    [style]="{ width: '15rem' }"
+                    [listStyle]="{ 'max-height': '220px' }"
+                    optionLabel="name"
                     [id]="id + '_list'"
-                    cdkDropList
-                    (cdkDropListDropped)="onDrop($event)"
-                    class="p-orderlist-list"
                     [ngStyle]="listStyle"
-                    [attr.data-pc-section]="'list'"
-                    role="listbox"
+                    [striped]="stripedRows"
                     [tabindex]="tabindex"
-                    aria-multiselectable="true"
-                    [attr.aria-activedescendant]="focused ? focusedOptionId() : undefined"
-                    [attr.aria-label]="ariaLabel"
-                    [attr.aria-labelledby]="ariaLabelledBy"
-                    (focus)="onListFocus($event)"
-                    (blur)="onListBlur($event)"
+                    (onFocus)="onListFocus($event)"
+                    (onBlur)="onListBlur($event)"
                     (keydown)="onItemKeydown($event)"
+                    [ariaLabel]="ariaLabel"
+                    [disabled]="disabled"
+                    [metaKeySelection]="metaKeySelection"
+                    [scrollHeight]="scrollHeight"
+                    [autoOptionFocus]="autoOptionFocus"
                 >
-                    <ng-template ngFor [ngForTrackBy]="trackBy" let-item [ngForOf]="value" let-i="index" let-l="last">
-                        <li
-                            [id]="id + '_' + i"
-                            pRipple
-                            cdkDrag
-                            role="option"
-                            class="p-orderlist-item"
-                            [ngClass]="{ 'p-highlight': isSelected(item), 'p-disabled': disabled, 'p-focus': id + '_' + i === focusedOptionId() }"
-                            [cdkDragData]="item"
-                            [cdkDragDisabled]="!dragdrop"
-                            (click)="onItemClick($event, item, i, id + '_' + i)"
-                            (touchend)="onItemTouchEnd()"
-                            (mousedown)="onOptionMouseDown(i)"
-                            *ngIf="isItemVisible(item)"
-                            [attr.aria-selected]="isSelected(item)"
-                            [attr.data-pc-section]="'item'"
-                            [attr.data-p-highlight]="isSelected(item)"
-                            [attr.data-p-focused]="id + '_' + i === focusedOptionId()"
-                        >
-                            <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
-                        </li>
-                    </ng-template>
-                    <ng-container *ngIf="isEmpty() && (emptyMessageTemplate || emptyFilterMessageTemplate)">
-                        <li *ngIf="!filterValue || !emptyFilterMessageTemplate" class="p-orderlist-empty-message" [attr.data-pc-section]="'emptyMessage'">
-                            <ng-container *ngTemplateOutlet="emptyMessageTemplate"></ng-container>
-                        </li>
-                        <li *ngIf="filterValue" class="p-orderlist-empty-message" [attr.data-pc-section]="'emptyMessage'">
-                            <ng-container *ngTemplateOutlet="emptyFilterMessageTemplate"></ng-container>
-                        </li>
+                    <ng-container *ngIf="headerTemplate">
+                        <ng-template pTemplate="header">
+                            <ng-template *ngTemplateOutlet="headerTemplate"></ng-template>
+                        </ng-template>
                     </ng-container>
-                </ul>
+                </p-listbox>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./orderlist.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [OrderListStyle]
 })
-export class OrderList implements AfterViewChecked, AfterContentInit {
+export class OrderList extends BaseComponent implements AfterContentInit {
     /**
      * Text for the caption.
      * @group Props
@@ -274,6 +227,18 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     @Input() trackBy: Function = (index: number, item: any) => item;
 
     /**
+     * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
+     * @group Props
+     */
+    @Input() scrollHeight: '14rem';
+
+    /**
+     * Whether to focus on the first visible or selected element.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) autoOptionFocus: boolean = true;
+
+    /**
      * A list of values that are currently selected.
      * @group Props
      */
@@ -341,7 +306,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
      */
     @Output() onBlur: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @ViewChild('listelement') listViewChild: Nullable<ElementRef>;
+    @ViewChild('listelement') listViewChild!: Listbox;
 
     @ViewChild('filter') filterViewChild: Nullable<ElementRef>;
 
@@ -372,6 +337,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     get moveBottomAriaLabel() {
         return this.config.translation.aria ? this.config.translation.aria.moveBottom : undefined;
     }
+
+    _componentStyle = inject(OrderListStyle);
 
     moveUpIconTemplate: Nullable<TemplateRef<any>>;
 
@@ -409,17 +376,12 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     public _value: any[] | undefined;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef, public filterService: FilterService, public config: PrimeNGConfig) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         if (this.responsive) {
             this.createStyle();
         }
@@ -484,14 +446,15 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     ngAfterViewChecked() {
         if (this.movedUp || this.movedDown) {
-            let listItems = DomHandler.find(this.listViewChild?.nativeElement, 'li.p-highlight');
+            let listItems = DomHandler.find(this.listViewChild?.el.nativeElement, 'li.p-listbox-option-selected');
+
             let listItem;
 
             if (listItems.length > 0) {
                 if (this.movedUp) listItem = listItems[0];
                 else listItem = listItems[listItems.length - 1];
 
-                DomHandler.scrollInView(this.listViewChild?.nativeElement, listItem);
+                DomHandler.scrollInView(this.listViewChild?.el.nativeElement, listItem);
             }
             this.movedUp = false;
             this.movedDown = false;
@@ -603,6 +566,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             this.movedUp = true;
             this.onReorder.emit(this.selection);
         }
+        this.listViewChild?.cd?.markForCheck();
     }
 
     moveTop() {
@@ -622,8 +586,11 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             if (this.dragdrop && this.filterValue) this.filter();
 
             this.onReorder.emit(this.selection);
-            (this.listViewChild as ElementRef).nativeElement.scrollTop = 0;
+            setTimeout(() => {
+                this.listViewChild.scrollInView(0);
+            });
         }
+        this.listViewChild?.cd?.markForCheck();
     }
 
     moveDown() {
@@ -647,6 +614,8 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             this.movedDown = true;
             this.onReorder.emit(this.selection);
         }
+
+        this.listViewChild?.cd?.markForCheck();
     }
 
     moveBottom() {
@@ -666,8 +635,9 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             if (this.dragdrop && this.filterValue) this.filter();
 
             this.onReorder.emit(this.selection);
-            (this.listViewChild as ElementRef).nativeElement.scrollTop = this.listViewChild?.nativeElement.scrollHeight;
+            this.listViewChild.scrollInView(this.value?.length - 1);
         }
+        this.listViewChild?.cd?.markForCheck();
     }
 
     onDrop(event: CdkDragDrop<string[]>) {
@@ -691,10 +661,10 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     onListFocus(event) {
-        const focusableEl = DomHandler.findSingle(this.listViewChild.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const focusableEl = DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-p-highlight="true"]') || DomHandler.findSingle(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
 
         if (focusableEl) {
-            const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.nativeElement.children);
+            const findIndex = ObjectUtils.findIndexInList(focusableEl, this.listViewChild.el.nativeElement.children);
             this.focused = true;
             const index = this.focusedOptionIndex !== -1 ? this.focusedOptionIndex : focusableEl ? findIndex : -1;
 
@@ -716,33 +686,26 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             case 'ArrowDown':
                 this.onArrowDownKey(event);
                 break;
-
             case 'ArrowUp':
                 this.onArrowUpKey(event);
                 break;
-
             case 'Home':
                 this.onHomeKey(event);
                 break;
-
             case 'End':
                 this.onEndKey(event);
                 break;
-
             case 'Enter':
                 this.onEnterKey(event);
                 break;
-
             case 'Space':
                 this.onSpaceKey(event);
                 break;
-
             case 'KeyA':
                 if (event.ctrlKey) {
                     this.d_selection = [...this.value];
                     this.selectionChange.emit(this.d_selection);
                 }
-
             default:
                 break;
         }
@@ -796,7 +759,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
             this.d_selection = [...this.value].slice(focusedIndex, visibleOptions.length - 1);
             this.selectionChange.emit(this.d_selection);
         } else {
-            this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]').length - 1);
+            this.changeFocusedOptionIndex(DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]').length - 1);
         }
 
         event.preventDefault();
@@ -829,14 +792,14 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     findNextOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + 1 : 0;
     }
 
     findPrevOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
         const matchedOptionIndex = [...items].findIndex((link) => link.id === index);
 
         return matchedOptionIndex > -1 ? matchedOptionIndex - 1 : 0;
@@ -859,7 +822,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     changeFocusedOptionIndex(index) {
-        const items = DomHandler.find(this.listViewChild.nativeElement, '[data-pc-section="item"]');
+        const items = DomHandler.find(this.listViewChild.el.nativeElement, '[data-pc-section="item"]');
 
         let order = index >= items.length ? items.length - 1 : index < 0 ? 0 : index;
 
@@ -870,7 +833,7 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
     }
 
     scrollInView(id) {
-        const element = DomHandler.findSingle(this.listViewChild.nativeElement, `[data-pc-section="item"][id="${id}"]`);
+        const element = DomHandler.findSingle(this.listViewChild.el.nativeElement, `[data-pc-section="item"][id="${id}"]`);
 
         if (element) {
             element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
@@ -948,12 +911,13 @@ export class OrderList implements AfterViewChecked, AfterContentInit {
 
     ngOnDestroy() {
         this.destroyStyle();
+        super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon],
-    exports: [OrderList, SharedModule, DragDropModule],
+    imports: [CommonModule, ButtonModule, SharedModule, RippleModule, DragDropModule, AngleDoubleDownIcon, AngleDoubleUpIcon, AngleUpIcon, AngleDownIcon, SearchIcon, ListboxModule, FormsModule],
+    exports: [OrderList, SharedModule, DragDropModule, ListboxModule],
     declarations: [OrderList]
 })
 export class OrderListModule {}
