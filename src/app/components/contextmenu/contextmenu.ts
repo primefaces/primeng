@@ -14,7 +14,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
     Renderer2,
     TemplateRef,
@@ -25,17 +24,20 @@ import {
     booleanAttribute,
     effect,
     forwardRef,
+    inject,
     numberAttribute,
     signal
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { MenuItem, OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { AngleRightIcon } from 'primeng/icons/angleright';
 import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { ContextMenuStyle } from './style/contextmenustyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -44,7 +46,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
             *ngIf="root ? true : visible"
             #sublist
             role="menu"
-            [ngClass]="{ 'p-submenu-list': !root, 'p-contextmenu-root-list': root }"
+            [ngClass]="{ 'p-contextmenu-submenu': !root, 'p-contextmenu-root-list': root }"
             [@overlayAnimation]="visible"
             (@overlayAnimation.start)="onEnter($event, sublist)"
             [attr.id]="menuId + '_list'"
@@ -89,7 +91,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
                 >
-                    <div [attr.data-pc-section]="'content'" class="p-menuitem-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
+                    <div [attr.data-pc-section]="'content'" class="p-contextmenu-item-content" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
                             <a
                                 *ngIf="!getItemProp(processedItem, 'routerLink')"
@@ -98,13 +100,13 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 [attr.data-automationid]="getItemProp(processedItem, 'automationId')"
                                 [attr.data-pc-section]="'action'"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true }"
+                                [ngClass]="{ 'p-contextmenu-item-link': true }"
                                 [attr.tabindex]="-1"
                                 pRipple
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-menuitem-icon"
+                                    class="p-contextmenu-item-icon"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
@@ -112,17 +114,16 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
-
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                             <a
@@ -133,10 +134,9 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                 [attr.aria-hidden]="true"
                                 [attr.data-pc-section]="'action'"
                                 [queryParams]="getItemProp(processedItem, 'queryParams')"
-                                [routerLinkActive]="'p-menuitem-link-active'"
                                 [routerLinkActiveOptions]="getItemProp(processedItem, 'routerLinkActiveOptions') || { exact: false }"
                                 [target]="getItemProp(processedItem, 'target')"
-                                [ngClass]="{ 'p-menuitem-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
+                                [ngClass]="{ 'p-contextmenu-item-link': true, 'p-disabled': getItemProp(processedItem, 'disabled') }"
                                 [fragment]="getItemProp(processedItem, 'fragment')"
                                 [queryParamsHandling]="getItemProp(processedItem, 'queryParamsHandling')"
                                 [preserveFragment]="getItemProp(processedItem, 'preserveFragment')"
@@ -147,7 +147,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                             >
                                 <span
                                     *ngIf="getItemProp(processedItem, 'icon')"
-                                    class="p-menuitem-icon"
+                                    class="p-contextmenu-item-icon"
                                     [ngClass]="getItemProp(processedItem, 'icon')"
                                     [ngStyle]="getItemProp(processedItem, 'iconStyle')"
                                     [attr.data-pc-section]="'icon'"
@@ -155,17 +155,16 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 >
                                 </span>
-                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-menuitem-text" [attr.data-pc-section]="'label'">
+                                <span *ngIf="getItemProp(processedItem, 'escape'); else htmlLabel" class="p-contextmenu-item-label" [attr.data-pc-section]="'label'">
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-contextmenu-item-label" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
-                                <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
-
+                                <p-badge *ngIf="getItemProp(processedItem, 'badge')" [styleClass]="getItemProp(processedItem, 'badgeStyleClass')" [value]="getItemProp(processedItem, 'badge')" />
                                 <ng-container *ngIf="isItemGroup(processedItem)">
-                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [styleClass]="'p-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
-                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
+                                    <AngleRightIcon *ngIf="!contextMenu.submenuIconTemplate" [class]="'p-contextmenu-submenu-icon'" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true" />
+                                    <ng-template *ngTemplateOutlet="contextMenu.submenuIconTemplate; context: { class: 'p-contextmenu-submenu-icon' }" [attr.data-pc-section]="'submenuicon'" [attr.aria-hidden]="true"></ng-template>
                                 </ng-container>
                             </a>
                         </ng-container>
@@ -196,7 +195,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
         class: 'p-element'
     }
 })
-export class ContextMenuSub {
+export class ContextMenuSub extends BaseComponent {
     @Input({ transform: booleanAttribute }) visible: boolean = false;
 
     @Input() items: any[];
@@ -237,14 +236,9 @@ export class ContextMenuSub {
 
     @ViewChild('sublist') sublistViewChild: ElementRef;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        @Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu,
-        private ref: ViewContainerRef
-    ) {}
+    constructor(@Inject(forwardRef(() => ContextMenu)) public contextMenu: ContextMenu) {
+        super();
+    }
 
     getItemProp(processedItem: any, name: string, params: any | null = null) {
         return processedItem && processedItem.item ? ObjectUtils.getItemValue(processedItem.item[name], params) : undefined;
@@ -261,9 +255,8 @@ export class ContextMenuSub {
     getItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem': true,
-            'p-highlight': this.isItemActive(processedItem),
-            'p-menuitem-active': this.isItemActive(processedItem),
+            'p-contextmenu-item': true,
+            'p-contextmenu-item-active': this.isItemActive(processedItem),
             'p-focus': this.isItemFocused(processedItem),
             'p-disabled': this.isItemDisabled(processedItem)
         };
@@ -276,7 +269,7 @@ export class ContextMenuSub {
     getSeparatorItemClass(processedItem: any) {
         return {
             ...this.getItemProp(processedItem, 'class'),
-            'p-menuitem-separator': true
+            'p-contextmenu-separator': true
         };
     }
 
@@ -355,7 +348,7 @@ export class ContextMenuSub {
             [attr.data-pc-section]="'root'"
             [attr.data-pc-name]="'contextmenu'"
             [attr.id]="id"
-            [ngClass]="{ 'p-contextmenu p-component': true, 'p-contextmenu-overlay': true }"
+            [ngClass]="{ 'p-contextmenu p-component': true }"
             [class]="styleClass"
             [ngStyle]="style"
             [@overlayAnimation]="{ value: 'visible' }"
@@ -388,12 +381,9 @@ export class ContextMenuSub {
     animations: [trigger('overlayAnimation', [transition(':enter', [style({ opacity: 0 }), animate('250ms')]), transition(':leave', [animate('.1s linear', style({ opacity: 0 }))])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./contextmenu.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [ContextMenuStyle]
 })
-export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
+export class ContextMenu extends BaseComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
      * An array of menuitems.
      * @group Props
@@ -528,6 +518,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
 
     pressTimer: any;
 
+    _componentStyle = inject(ContextMenuStyle);
+
     get visibleItems() {
         const processedItem = this.activeItemPath().find((p) => p.key === this.focusedItemInfo().parentKey);
 
@@ -546,16 +538,8 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         return focusedItem.item && focusedItem.item?.id ? focusedItem.item.id : focusedItem.index !== -1 ? `${this.id}${ObjectUtils.isNotEmpty(focusedItem.parentKey) ? '_' + focusedItem.parentKey : ''}_${focusedItem.index}` : null;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
-        this.window = this.document.defaultView as Window;
+    constructor(public overlayService: OverlayService) {
+        super();
         effect(() => {
             const path = this.activeItemPath();
 
@@ -568,6 +552,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.id = this.id || UniqueComponentId();
         this.bindTriggerEventListener();
     }
@@ -1204,6 +1189,7 @@ export class ContextMenu implements OnInit, AfterContentInit, OnDestroy {
         this.unbindGlobalListeners();
         this.unbindTriggerEventListener();
         this.removeAppendedElements();
+        super.ngOnDestroy();
     }
 }
 
