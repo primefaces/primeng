@@ -417,6 +417,10 @@ export interface TableTemplates {
          * Frozen state.
          */
         frozen?: boolean;
+        /**
+         * Expanded state.
+         */
+        expanded: boolean;
     }): TemplateRef<any>;
     /**
      * Custom group footer template.
