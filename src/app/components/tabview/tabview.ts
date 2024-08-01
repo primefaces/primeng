@@ -761,6 +761,9 @@ export class TabView implements AfterContentInit, AfterViewChecked, OnDestroy, B
         }
 
         tab.closed = true;
+        setTimeout(() => {
+            this.updateInkBar();
+        });
     }
 
     findSelectedTab(): TabPanel | null {
