@@ -814,6 +814,16 @@
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
 
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.14-LTS](https://www.npmjs.com/package/primeng/v/16.9.14-lts) (2024-08-01)
+
+**Fixed bugs:**
+- Password: Tooltip with tooltipEvent='focus' is never displayed [\#16106](https://github.com/primefaces/primeng/issues/16106)
+- Breadcrumb | Disabled breadcrumbs should have 'aria-disabled' [\#16125](https://github.com/primefaces/primeng/issues/16125)
+- Table> double call to (onLazyLoad) event [\#16070](https://github.com/primefaces/primeng/issues/16070)
+- pBadge | Add missing badgeStyle & badgeStyleClass to directive [\#16133](https://github.com/primefaces/primeng/issues/16133)
+- Breadcrumb | 'tabindex' property not working [\#16139](https://github.com/primefaces/primeng/issues/16139)
+- Menubar: autoDisplay and autoHide broken [\#13512](https://github.com/primefaces/primeng/issues/13512)
+
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.13-LTS](https://www.npmjs.com/package/primeng/v/16.9.13-lts) (2024-07-18)
 
 **Fixed bugs:**
