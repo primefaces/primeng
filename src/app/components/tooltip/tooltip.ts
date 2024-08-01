@@ -668,9 +668,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-     
-             let target = this.getTarget(this.el.nativeElement);
-            
+            let target = this.getTarget(this.el.nativeElement);
 
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);
@@ -734,4 +732,3 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     declarations: [Tooltip]
 })
 export class TooltipModule {}
-

@@ -1064,4 +1064,3 @@ export class Dialog implements AfterContentInit, OnInit, OnDestroy {
     declarations: [Dialog]
 })
 export class DialogModule {}
-
