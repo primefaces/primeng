@@ -17,7 +17,8 @@ import {
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
-    forwardRef
+    forwardRef,
+    inject
 } from '@angular/core';
 import { PrimeTemplate, SharedModule, TreeNode } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -26,6 +27,8 @@ import { ChevronUpIcon } from 'primeng/icons/chevronup';
 import { Nullable } from 'primeng/ts-helpers';
 import { Subject, Subscription } from 'rxjs';
 import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, OrganizationChartNodeSelectEvent, OrganizationChartNodeUnSelectEvent } from './organizationchart.interface';
+import { OrganizationChartStyle } from './style/organizationchartstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: '[pOrganizationChartNode]',
     template: `
@@ -34,7 +37,7 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                 <td [attr.colspan]="colspan" [attr.data-pc-section]="'cell'">
                     <div
                         [class]="node.styleClass"
-                        [ngClass]="{ 'p-organizationchart-node-content': true, 'p-organizationchart-selectable-node': chart.selectionMode && node.selectable !== false, 'p-highlight': isSelected() }"
+                        [ngClass]="{ 'p-organizationchart-node': true, 'p-organizationchart-node-selectable': chart.selectionMode && node.selectable !== false, 'p-organizationchart-node-selected': isSelected() }"
                         (click)="onNodeClick($event, node)"
                         [attr.data-pc-section]="'node'"
                     >
@@ -43,12 +46,20 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                             <ng-container *ngTemplateOutlet="chart.getTemplateForNode(node); context: { $implicit: node }"></ng-container>
                         </div>
                         <ng-container *ngIf="collapsible">
-                            <a *ngIf="!leaf" tabindex="0" class="p-node-toggler" (click)="toggleNode($event, node)" (keydown.enter)="toggleNode($event, node)" (keydown.space)="toggleNode($event, node)" [attr.data-pc-section]="'nodeToggler'">
+                            <a
+                                *ngIf="!leaf"
+                                tabindex="0"
+                                class="p-organizationchart-node-toggle-button"
+                                (click)="toggleNode($event, node)"
+                                (keydown.enter)="toggleNode($event, node)"
+                                (keydown.space)="toggleNode($event, node)"
+                                [attr.data-pc-section]="'nodeToggler'"
+                            >
                                 <ng-container *ngIf="!chart.togglerIconTemplate">
-                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-node-toggler-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
-                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-node-toggler-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <ChevronDownIcon *ngIf="node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
+                                    <ChevronUpIcon *ngIf="!node.expanded" [styleClass]="'p-organizationchart-node-toggle-button-icon'" [attr.data-pc-section]="'nodeTogglerIcon'" />
                                 </ng-container>
-                                <span class="p-node-toggler-icon" *ngIf="chart.togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
+                                <span class="p-organizationchart-node-toggle-button-icon" *ngIf="chart.togglerIconTemplate" [attr.data-pc-section]="'nodeTogglerIcon'">
                                     <ng-template *ngTemplateOutlet="chart.togglerIconTemplate; context: { $implicit: node.expanded }"></ng-template>
                                 </span>
                             </a>
@@ -56,25 +67,25 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
                     </div>
                 </td>
             </tr>
-            <tr [ngClass]="!leaf && node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-lines" [@childState]="'in'" [attr.data-pc-section]="'lines'">
+            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
                 <td [attr.data-pc-section]="'lineCell'" [attr.colspan]="colspan">
-                    <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-line-down"></div>
+                    <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-connector-down"></div>
                 </td>
             </tr>
-            <tr [ngClass]="!leaf && node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-lines" [@childState]="'in'" [attr.data-pc-section]="'lines'">
+            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-connectors" [@childState]="'in'" [attr.data-pc-section]="'lines'">
                 <ng-container *ngIf="node.children && node.children.length === 1">
                     <td [attr.data-pc-section]="'lineCell'" [attr.colspan]="colspan">
-                        <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-line-down"></div>
+                        <div [attr.data-pc-section]="'lineDown'" class="p-organizationchart-connector-down"></div>
                     </td>
                 </ng-container>
                 <ng-container *ngIf="node.children && node.children.length > 1">
                     <ng-template ngFor let-child [ngForOf]="node.children" let-first="first" let-last="last">
-                        <td [attr.data-pc-section]="'lineLeft'" class="p-organizationchart-line-left" [ngClass]="{ 'p-organizationchart-line-top': !first }">&nbsp;</td>
-                        <td [attr.data-pc-section]="'lineRight'" class="p-organizationchart-line-right" [ngClass]="{ 'p-organizationchart-line-top': !last }">&nbsp;</td>
+                        <td [attr.data-pc-section]="'lineLeft'" class="p-organizationchart-connector-left" [ngClass]="{ 'p-organizationchart-connector-top': !first }">&nbsp;</td>
+                        <td [attr.data-pc-section]="'lineRight'" class="p-organizationchart-connector-right" [ngClass]="{ 'p-organizationchart-connector-top': !last }">&nbsp;</td>
                     </ng-template>
                 </ng-container>
             </tr>
-            <tr [ngClass]="!leaf && node.expanded ? 'p-organizationchart-node-visible' : 'p-organizationchart-node-hidden'" class="p-organizationchart-nodes" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
+            <tr [ngStyle]="getChildStyle(node)" class="p-organizationchart-node-children" [@childState]="'in'" [attr.data-pc-section]="'nodes'">
                 <td *ngFor="let child of node.children" colspan="2" [attr.data-pc-section]="'nodeCell'">
                     <table class="p-organizationchart-table" pOrganizationChartNode [node]="child" [collapsible]="node.children && node.children.length > 0"></table>
                 </td>
@@ -83,11 +94,7 @@ import { OrganizationChartNodeCollapseEvent, OrganizationChartNodeExpandEvent, O
     `,
     animations: [trigger('childState', [state('in', style({ opacity: 1 })), transition('void => *', [style({ opacity: 0 }), animate(150)]), transition('* => void', [animate(150, style({ opacity: 0 }))])])],
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.Default,
-    styleUrls: ['./organizationchart.css'],
-    host: {
-        class: 'p-element'
-    }
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class OrganizationChartNode implements OnDestroy {
     @Input() node: TreeNode<any> | undefined;
@@ -104,10 +111,7 @@ export class OrganizationChartNode implements OnDestroy {
 
     subscription: Subscription;
 
-    constructor(
-        @Inject(forwardRef(() => OrganizationChart)) chart: OrganizationChart,
-        public cd: ChangeDetectorRef
-    ) {
+    constructor(@Inject(forwardRef(() => OrganizationChart)) chart: OrganizationChart, public cd: ChangeDetectorRef) {
         this.chart = chart as OrganizationChart;
         this.subscription = this.chart.selectionSource$.subscribe(() => {
             this.cd.markForCheck();
@@ -124,6 +128,12 @@ export class OrganizationChartNode implements OnDestroy {
         if (this.node) {
             return this.node.children && this.node.children.length ? this.node.children.length * 2 : null;
         }
+    }
+
+    getChildStyle(node: TreeNode<any>) {
+        return {
+            visibility: !this.leaf && node.expanded ? 'inherit' : 'hidden'
+        };
     }
 
     onNodeClick(event: Event, node: TreeNode) {
@@ -158,11 +168,9 @@ export class OrganizationChartNode implements OnDestroy {
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.Default,
-    host: {
-        class: 'p-element'
-    }
+    providers: [OrganizationChartStyle]
 })
-export class OrganizationChart implements AfterContentInit {
+export class OrganizationChart extends BaseComponent implements AfterContentInit {
     /**
      * An array of nested TreeNodes.
      * @group Props
@@ -250,10 +258,11 @@ export class OrganizationChart implements AfterContentInit {
 
     selectionSource$ = this.selectionSource.asObservable();
 
-    constructor(
-        public el: ElementRef,
-        public cd: ChangeDetectorRef
-    ) {}
+    _componentStyle = inject(OrganizationChartStyle);
+
+    constructor(public el: ElementRef, public cd: ChangeDetectorRef) {
+        super();
+    }
 
     get root(): TreeNode<any> | null {
         return this.value && this.value.length ? this.value[0] : null;
@@ -283,7 +292,7 @@ export class OrganizationChart implements AfterContentInit {
     onNodeClick(event: Event, node: TreeNode) {
         let eventTarget = <Element>event.target;
 
-        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-node-toggler') || DomHandler.hasClass(eventTarget, 'p-node-toggler-icon'))) {
+        if (eventTarget.className && (DomHandler.hasClass(eventTarget, 'p-organizationchart-node-toggle-button') || DomHandler.hasClass(eventTarget, 'p-organizationchart-node-toggle-button-icon'))) {
             return;
         } else if (this.selectionMode) {
             if (node.selectable === false) {
