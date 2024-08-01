@@ -2,6 +2,7 @@ import { animate, AnimationEvent, style, transition, trigger } from '@angular/an
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
+    AfterViewChecked,
     AfterViewInit,
     booleanAttribute,
     ChangeDetectionStrategy,
@@ -3317,37 +3318,29 @@ export class RowGroupHeader {
         '[class.p-frozen-column]': 'frozen'
     }
 })
-export class FrozenColumn implements AfterViewInit {
+export class FrozenColumn implements AfterViewChecked {
     @Input() get frozen(): boolean {
         return this._frozen;
     }
 
     set frozen(val: boolean) {
         this._frozen = val;
-        Promise.resolve(null).then(() => this.updateStickyPosition());
+        this.updateStickyPosition();
     }
 
     @Input() alignFrozen: string = 'left';
 
     constructor(private el: ElementRef, private zone: NgZone) {}
 
-    ngAfterViewInit() {
+    ngAfterViewChecked() {
         this.zone.runOutsideAngular(() => {
-            setTimeout(() => {
-                this.recalculateColumns();
-            }, 1000);
+            this.recalculateColumns();
         });
     }
 
     @HostListener('window:resize', ['$event'])
     recalculateColumns() {
-        const siblings = DomHandler.siblings(this.el.nativeElement);
-        const index = DomHandler.index(this.el.nativeElement);
-        const time = (siblings.length - index + 1) * 50;
-
-        setTimeout(() => {
-            this.updateStickyPosition();
-        }, time);
+        this.updateStickyPosition();
     }
 
     _frozen: boolean = true;
