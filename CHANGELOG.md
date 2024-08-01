@@ -1486,7 +1486,7 @@
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
 
-## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.24-LTS](https://www.npmjs.com/package/primeng/v/15.4.24-lts) (2024-08-01)
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.25-LTS](https://www.npmjs.com/package/primeng/v/15.4.25-lts) (2024-08-01)
 
 **Fixed bugs:**
 - Password: Tooltip with tooltipEvent='focus' is never displayed [\#16106](https://github.com/primefaces/primeng/issues/16106)
