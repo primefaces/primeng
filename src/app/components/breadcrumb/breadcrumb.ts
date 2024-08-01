@@ -24,6 +24,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     pTooltip
                     [tooltipOptions]="home.tooltipOptions"
                     [attr.data-pc-section]="'home'"
+                    [attr.aria-disabled]="home.disabled"
                 >
                     <a
                         [href]="home.url ? home.url : null"
@@ -76,7 +77,16 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                     <ng-template *ngTemplateOutlet="separatorTemplate"></ng-template>
                 </li>
                 <ng-template ngFor let-item let-end="last" [ngForOf]="model">
-                    <li [class]="item.styleClass" [attr.id]="item.id" [ngStyle]="item.style" [ngClass]="{ 'p-disabled': item.disabled }" pTooltip [tooltipOptions]="item.tooltipOptions" [attr.data-pc-section]="'menuitem'">
+                    <li
+                        [class]="item.styleClass"
+                        [attr.id]="item.id"
+                        [attr.aria-disabled]="item.disabled"
+                        [ngStyle]="item.style"
+                        [ngClass]="{ 'p-disabled': item.disabled }"
+                        pTooltip
+                        [tooltipOptions]="item.tooltipOptions"
+                        [attr.data-pc-section]="'menuitem'"
+                    >
                         <a
                             *ngIf="!item.routerLink"
                             [attr.href]="item.url ? item.url : null"
