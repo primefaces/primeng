@@ -3,7 +3,6 @@ import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -15,10 +14,8 @@ import {
     OnInit,
     Output,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewChild,
-    ViewContainerRef,
     ViewEncapsulation,
     ViewRef,
     booleanAttribute,
@@ -38,6 +35,7 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { ContextMenuStyle } from './style/contextmenustyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'p-contextMenuSub',
@@ -1194,7 +1192,7 @@ export class ContextMenu extends BaseComponent implements OnInit, AfterContentIn
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, BadgeModule],
     exports: [ContextMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [ContextMenu, ContextMenuSub]
 })

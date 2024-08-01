@@ -10,6 +10,9 @@ const theme = ({ dt }) => `
     background: ${dt('dialog.background')};
     border: 1px solid ${dt('dialog.border.color')};
     color: ${dt('dialog.color')};
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto
 }
 
 .p-dialog-content {
@@ -135,20 +138,20 @@ const theme = ({ dt }) => `
 /* For PrimeNG */
 
 .p-dialog .p-resizable-handle {
-        position: absolute;
-        font-size: 0.1px;
-        display: block;
-        cursor: se-resize;
-        width: 12px;
-        height: 12px;
-        right: 1px;
-        bottom: 1px;
-    }
+    position: absolute;
+    font-size: 0.1px;
+    display: block;
+    cursor: se-resize;
+    width: 12px;
+    height: 12px;
+    right: 1px;
+    bottom: 1px;
+}
 
-    .p-confirm-dialog .p-dialog-content {
-        display: flex;
-        align-items: center;
-    }
+.p-confirm-dialog .p-dialog-content {
+    display: flex;
+    align-items: center;
+}
 `;
 
 /* Position */
@@ -207,5 +210,5 @@ export class DialogStyle extends BaseStyle {
 
     classes = classes;
 
-    inlineStyles = inlineStyles
+    inlineStyles = inlineStyles;
 }

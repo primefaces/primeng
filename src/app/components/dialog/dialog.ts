@@ -1,5 +1,5 @@
 import { AnimationEvent, animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -9,17 +9,13 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     NgZone,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -28,7 +24,7 @@ import {
     inject,
     numberAttribute
 } from '@angular/core';
-import { Footer, Header, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { Footer, Header, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { TimesIcon } from 'primeng/icons/times';
@@ -51,7 +47,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
 @Component({
     selector: 'p-dialog',
     template: `
-        <div *ngIf="maskVisible" [class]="maskStyleClass" [ngStyle]="getMaskStyle()" [ngClass]="maskClass">
+        <div *ngIf="maskVisible" [class]="maskStyleClass" [ngStyle]="_maskStyle" [ngClass]="maskClass">
             <div
                 #container
                 [ngClass]="{ 'p-dialog p-component': true, 'p-dialog-maximized': maximized }"
@@ -82,20 +78,17 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <div class="p-dialog-header-actions">
                             <p-button
                                 *ngIf="maximizable"
-                                role="button"
-                                type="button"
                                 [styleClass]="'p-dialog-maximize-button'"
-                                (click)="maximize()"
+                                (onClick)="maximize()"
                                 (keydown.enter)="maximize()"
-                                [attr.tabindex]="maximizable ? '0' : '-1'"
-                                [attr.aria-label]="maximizeLabel"
-                                pRipple
+                                [tabindex]="maximizable ? '0' : '-1'"
+                                [ariaLabel]="maximizeLabel"
                                 [buttonProps]="maximizeButtonProps"
                             >
                                 <span *ngIf="maximizeIcon && !maximizeIconTemplate && !minimizeIconTemplate" class="p-dialog-header-maximize-icon" [ngClass]="maximized ? minimizeIcon : maximizeIcon"></span>
                                 <ng-container *ngIf="!maximizeIcon && !maximizeButtonProps?.icon">
-                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
-                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [styleClass]="'p-dialog-header-maximize-icon'" />
+                                    <WindowMaximizeIcon *ngIf="!maximized && !maximizeIconTemplate" [class]="'p-dialog-header-maximize-icon'" />
+                                    <WindowMinimizeIcon *ngIf="maximized && !minimizeIconTemplate" [class]="'p-dialog-header-maximize-icon'" />
                                 </ng-container>
                                 <ng-container *ngIf="!maximized">
                                     <ng-template *ngTemplateOutlet="maximizeIconTemplate"></ng-template>
@@ -104,20 +97,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                                     <ng-template *ngTemplateOutlet="minimizeIconTemplate"></ng-template>
                                 </ng-container>
                             </p-button>
-                            <p-button
-                                *ngIf="closable"
-                                type="button"
-                                [styleClass]="'p-dialog-close-button'"
-                                [attr.aria-label]="closeAriaLabel"
-                                (click)="close($event)"
-                                (keydown.enter)="close($event)"
-                                pRipple
-                                [attr.tabindex]="closeTabindex"
-                                [buttonProps]="closeButtonProps"
-                            >
+                            <p-button *ngIf="closable" [styleClass]="'p-dialog-close-button'" [ariaLabel]="closeAriaLabel" (onClick)="close($event)" (keydown.enter)="close($event)" [tabindex]="closeTabindex" [buttonProps]="closeButtonProps">
                                 <ng-container *ngIf="!closeIconTemplate && !closeButtonProps?.icon">
                                     <span *ngIf="closeIcon" class="p-dialog-header-close-icon" [ngClass]="closeIcon"></span>
-                                    <TimesIcon *ngIf="!closeIcon" [styleClass]="'p-dialog-header-close-icon'" />
+                                    <TimesIcon *ngIf="!closeIcon" [class]="'p-dialog-header-close-icon'" />
                                 </ng-container>
                                 <span *ngIf="closeIconTemplate">
                                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
@@ -346,12 +329,20 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() closeButtonProps: ButtonProps;
+    @Input() closeButtonProps: ButtonProps = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() maximizeButtonProps: ButtonProps;
+    @Input() maximizeButtonProps: ButtonProps = {
+        severity: 'secondary',
+        text: true,
+        rounded: true
+    };
     /**
      * Specifies the visibility of the dialog.
      * @group Props
@@ -553,7 +544,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
         return this.style ? { ...inlineStyles, ...this.style } : inlineStyles;
     }
 
-    getMaskStyle() {
+    get _maskStyle() {
         const inlineStyles = this._componentStyle.inlineStyles.mask({ position: this.position, modal: this.modal });
         return this.maskStyle ? { ...inlineStyles, ...this.maskStyle } : inlineStyles;
     }
@@ -562,9 +553,8 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
         return this.config.getTranslation(TranslationKeys.ARIA)['maximizeLabel'];
     }
 
-    constructor(@Inject(DOCUMENT) public document: Document, @Inject(PLATFORM_ID) public platformId: any, public el: ElementRef, public renderer: Renderer2, public zone: NgZone, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {
+    constructor(public zone: NgZone, public cd: ChangeDetectorRef) {
         super();
-        this.window = this.document.defaultView as Window;
     }
 
     ngAfterContentInit() {
@@ -725,7 +715,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
     }
 
     initDrag(event: MouseEvent) {
-        if (DomHandler.hasClass(event.target, 'p-dialog-header-icon') || DomHandler.hasClass(event.target, 'p-dialog-header-close-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
+        if (DomHandler.hasClass(event.target, 'p-dialog-maximize-icon') || DomHandler.hasClass(event.target, 'p-dialog-header-close-icon') || DomHandler.hasClass((<HTMLElement>event.target).parentElement, 'p-dialog-header-icon')) {
             return;
         }
 
@@ -882,7 +872,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
     bindDocumentDragListener() {
         if (!this.documentDragListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentDragListener = this.renderer.listen(this.window, 'mousemove', this.onDrag.bind(this));
+                this.documentDragListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onDrag.bind(this));
             });
         }
     }
@@ -897,7 +887,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
     bindDocumentDragEndListener() {
         if (!this.documentDragEndListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentDragEndListener = this.renderer.listen(this.window, 'mouseup', this.endDrag.bind(this));
+                this.documentDragEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.endDrag.bind(this));
             });
         }
     }
@@ -912,8 +902,8 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
     bindDocumentResizeListeners() {
         if (!this.documentResizeListener && !this.documentResizeEndListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentResizeListener = this.renderer.listen(this.window, 'mousemove', this.onResize.bind(this));
-                this.documentResizeEndListener = this.renderer.listen(this.window, 'mouseup', this.resizeEnd.bind(this));
+                this.documentResizeListener = this.renderer.listen(this.document.defaultView, 'mousemove', this.onResize.bind(this));
+                this.documentResizeEndListener = this.renderer.listen(this.document.defaultView, 'mouseup', this.resizeEnd.bind(this));
             });
         }
     }
@@ -1021,7 +1011,7 @@ export class Dialog extends BaseComponent implements AfterContentInit, OnInit, O
         //      DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         // }
 
-        if(DomHandler.hasClass(this.document.body, 'p-overflow-hidden')){
+        if (DomHandler.hasClass(this.document.body, 'p-overflow-hidden')) {
             DomHandler.removeClass(this.document.body, 'p-overflow-hidden');
         }
 
