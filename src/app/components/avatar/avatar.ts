@@ -9,9 +9,9 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+            <span class="p-avatar-text" [style.position]="image ? 'absolute' : ''" *ngIf="label; else iconTemplate">{{ label }}</span>
+            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon"></span></ng-template>
+            <img [src]="image" *ngIf="image && !icon" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -57,6 +57,11 @@ export class Avatar {
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() labelClass: string | undefined;
     /**
      * Establishes a string value that labels the component.
      * @group Props
