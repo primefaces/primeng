@@ -1,4 +1,21 @@
 # Changelog
+## [17.18.7](https://github.com/primefaces/primeng/tree/17.18.7) (2024-08-01)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.6...17.18.7)
+
+**Fixed bugs:**
+- tabmenu: emits change event twice when an item is clicked [\#16123](https://github.com/primefaces/primeng/issues/16123)
+- Table: Frozen columns are displaced [\#15852](https://github.com/primefaces/primeng/issues/15852)
+- Password: Tooltip with tooltipEvent='focus' is never displayed [\#16106](https://github.com/primefaces/primeng/issues/16106)
+- p-datepicker-current-day is not applied to the selected day [\#15969](https://github.com/primefaces/primeng/issues/15969)
+- TabView: Demo code for TabViewDynamic is wrong [\#16148](https://github.com/primefaces/primeng/issues/16148)
+- Component: TabView [\#16076](https://github.com/primefaces/primeng/issues/16076)
+- Dialog: Material Design close button regression [\#14916](https://github.com/primefaces/primeng/issues/14916)
+- Breadcrumb | Disabled breadcrumbs should have 'aria-disabled' [\#16125](https://github.com/primefaces/primeng/issues/16125)
+- Table> double call to (onLazyLoad) event [\#16070](https://github.com/primefaces/primeng/issues/16070)
+- pBadge | Add missing badgeStyle & badgeStyleClass to directive [\#16133](https://github.com/primefaces/primeng/issues/16133)
+- Breadcrumb | 'tabindex' property not working [\#16139](https://github.com/primefaces/primeng/issues/16139)
+- Menubar: autoDisplay and autoHide broken [\#13512](https://github.com/primefaces/primeng/issues/13512)
+
 ## [17.18.6](https://github.com/primefaces/primeng/tree/17.18.6) (2024-07-25)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.5...17.18.6)
 
