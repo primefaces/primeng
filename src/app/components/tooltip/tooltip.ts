@@ -1,6 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, inject, numberAttribute } from '@angular/core';
-import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
+import { TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
@@ -13,7 +13,7 @@ import { BaseComponent } from 'primeng/basecomponent';
  */
 @Directive({
     selector: '[pTooltip]',
-    providers:[TooltipStyle]
+    providers: [TooltipStyle]
 })
 export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
@@ -166,19 +166,12 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     _componentStyle = inject(TooltipStyle);
 
-    constructor(
-        @Inject(PLATFORM_ID) public platformId: any,
-        public el: ElementRef,
-        public zone: NgZone,
-        public config: PrimeNGConfig,
-        public renderer: Renderer2,
-        private viewContainer: ViewContainerRef
-    ) {
-        super()
+    constructor(public zone: NgZone, private viewContainer: ViewContainerRef) {
+        super();
     }
 
     ngAfterViewInit() {
-        super.ngAfterViewInit()
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
             this.zone.runOutsideAngular(() => {
                 const tooltipEvent = this.getOption('tooltipEvent');
@@ -209,8 +202,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnChanges(simpleChange: SimpleChanges) {
-
-        super.ngOnChanges(simpleChange)
+        super.ngOnChanges(simpleChange);
         if (simpleChange.tooltipPosition) {
             this.setOption({ tooltipPosition: simpleChange.tooltipPosition.currentValue });
         }
@@ -728,7 +720,7 @@ export class Tooltip extends BaseComponent implements AfterViewInit, OnDestroy {
 
     ngOnDestroy() {
         this.unbindEvents();
-        super.ngOnDestroy()
+        super.ngOnDestroy();
 
         if (this.container) {
             ZIndexUtils.clear(this.container);

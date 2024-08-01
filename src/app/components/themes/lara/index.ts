@@ -81,6 +81,7 @@ import treetable from './treetable';
 import toast from './toast';
 import toolbar from './toolbar';
 import virtualscroller from './virtualscroller';
+import tooltip from './tooltip';
 
 export default {
     primitive: {
@@ -546,10 +547,11 @@ export default {
         treetable,
         toast,
         toolbar,
-        virtualscroller
+        virtualscroller,
+        tooltip
     },
     directives: {
-        // tooltip,
+        tooltip
         // ripple
     }
 };
