@@ -15,7 +15,7 @@ interface UploadEvent {
             <p-toast />
             <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template pTemplate="toolbar">
-                    <div class="py-3">Drag and drop files to here to upload.</div>
+                    <div class="py-3">Drag and drop files here to upload.</div>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">

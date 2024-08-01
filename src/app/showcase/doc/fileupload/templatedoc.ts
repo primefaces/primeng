@@ -61,7 +61,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                 <ng-template pTemplate="empty">
                     <div class="flex align-items-center justify-content-center flex-column">
                         <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-                        <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+                        <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
                     </div>
                 </ng-template>
             </p-fileUpload>
@@ -174,7 +174,7 @@ export class TemplateDoc {
     <ng-template pTemplate="empty">
         <div class="flex align-items-center justify-content-center flex-column">
             <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-            <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+            <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
         </div>
     </ng-template>
 </p-fileUpload>`,
@@ -227,7 +227,7 @@ export class TemplateDoc {
         <ng-template pTemplate="empty">
             <div class="flex align-items-center justify-content-center flex-column">
                 <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-                <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+                <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
             </div>
         </ng-template>
     </p-fileUpload>
