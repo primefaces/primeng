@@ -58,11 +58,6 @@ export class Avatar {
      */
     @Input() styleClass: string | undefined;
     /**
-     * Class of the element.
-     * @group Props
-     */
-    @Input() labelClass: string | undefined;
-    /**
      * Establishes a string value that labels the component.
      * @group Props
      */
