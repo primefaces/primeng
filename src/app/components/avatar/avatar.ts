@@ -18,7 +18,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./avatar.css'],
     host: {
-        class: 'flex p-element'
+        class: 'p-avatar-host p-element'
     }
 })
 export class Avatar {

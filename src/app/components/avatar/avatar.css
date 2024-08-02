@@ -1,4 +1,7 @@
 @layer primeng {
+    .p-avatar-host{
+        display: flex;
+    }
     .p-avatar {
         display: inline-flex;
         align-items: center;
