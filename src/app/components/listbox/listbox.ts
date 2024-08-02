@@ -354,7 +354,7 @@ export class Listbox extends BaseComponent implements AfterContentInit, OnInit, 
      * Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() scrollHeight: string = '200px';
+    @Input() scrollHeight: string = '14rem';
     /**
      * Index of the element in tabbing order.
      * @group Props
