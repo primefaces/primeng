@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
-            <span class="p-avatar-text" [style.position]="image ? 'absolute' : ''" *ngIf="label; else iconTemplate">{{ label }}</span>
+            <span class="p-avatar-text" [ngStyle]="labelStyle" *ngIf="label; else iconTemplate">{{ label }}</span>
             <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon"></span></ng-template>
             <img [src]="image" *ngIf="image && !icon" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
         </div>
@@ -86,6 +86,12 @@ export class Avatar {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    get labelStyle(){
+        return {
+            'position': this.image ? 'absolute' : undefined
+        }
     }
 }
 
