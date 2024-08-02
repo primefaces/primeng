@@ -77,7 +77,6 @@ import { FormsModule } from '@angular/forms';
                     [options]="value"
                     [(ngModel)]="d_selection"
                     [style]="{ width: '15rem' }"
-                    [listStyle]="{ 'max-height': '220px' }"
                     optionLabel="name"
                     [id]="id + '_list'"
                     [ngStyle]="listStyle"
@@ -230,7 +229,7 @@ export class OrderList extends BaseComponent implements AfterContentInit {
      * Height of the viewport, a scrollbar is defined if height of list exceeds this value.
      * @group Props
      */
-    @Input() scrollHeight: '14rem';
+    @Input() scrollHeight = '14rem';
 
     /**
      * Whether to focus on the first visible or selected element.
