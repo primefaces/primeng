@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, ContentChildren, inject, Input, NgModule, QueryList, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { BlockableUI, PrimeTemplate, SharedModule } from 'primeng/api';
 import { Nullable } from 'primeng/ts-helpers';
+import { TimelineStyle } from './style/timelinestyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Timeline visualizes a series of chained events.
  * @group Components
@@ -46,12 +48,9 @@ import { Nullable } from 'primeng/ts-helpers';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./timeline.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers:[TimelineStyle]
 })
-export class Timeline implements AfterContentInit, BlockableUI {
+export class Timeline extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
      * An array of events to display.
      * @group Props
@@ -86,7 +85,11 @@ export class Timeline implements AfterContentInit, BlockableUI {
 
     markerTemplate: Nullable<TemplateRef<any>>;
 
-    constructor(private el: ElementRef) {}
+    _componentStyle = inject(TimelineStyle);
+
+    constructor() {
+        super()
+    }
 
     getBlockableElement(): HTMLElement {
         return this.el.nativeElement.children[0];
