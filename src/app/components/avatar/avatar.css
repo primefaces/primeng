@@ -1,6 +1,6 @@
 @layer primeng {
     .p-avatar-host{
-        display: flex;
+        display: inline-flex;
     }
     .p-avatar {
         display: inline-flex;
