@@ -16,12 +16,16 @@ import {
     Output,
     QueryList,
     Renderer2,
+    SimpleChanges,
     TemplateRef,
+    ViewChild,
     ViewEncapsulation,
     booleanAttribute,
-    numberAttribute
+    inject,
+    numberAttribute,
+    signal
 } from '@angular/core';
-import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
@@ -29,6 +33,8 @@ import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ZIndexUtils } from 'primeng/utils';
 import { ButtonModule } from '../button/button';
 import { ButtonProps } from '../button/button.interface';
+import { BaseComponent } from 'primeng/basecomponent';
+import { DrawerStyle } from './style/drawerstyle';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}')]);
 
@@ -38,81 +44,68 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
  * @group Components
  */
 @Component({
-    selector: 'p-sidebar, p-drawer',
+    selector: 'p-sidebar',
     template: `
         <div
-            #container
-            [ngClass]="{
-                'p-sidebar': true,
-                'p-sidebar-active': visible,
-                'p-sidebar-left': position === 'left' && !fullScreen,
-                'p-sidebar-right': position === 'right' && !fullScreen,
-                'p-sidebar-top': position === 'top' && !fullScreen,
-                'p-sidebar-bottom': position === 'bottom' && !fullScreen,
-                'p-sidebar-full': fullScreen
-            }"
+            #maskRef
             *ngIf="visible"
+            [ngClass]="cx('mask')"
+            [ngStyle]="sx('mask')"
+            [style]="style"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
-            [ngStyle]="style"
-            [class]="styleClass"
-            role="complementary"
-            [attr.data-pc-name]="'sidebar'"
-            [attr.data-pc-section]="'root'"
-            (keydown)="onKeyDown($event)"
+            [attr.data-pc-name]="'mask'"
+            [attr.data-pc-section]="'mask'"
+            (click)="maskClickListener($event)"
         >
-            <ng-container *ngIf="headlessTemplate; else notHeadless">
-                <ng-container *ngTemplateOutlet="headlessTemplate"></ng-container>
-            </ng-container>
-            <ng-template #notHeadless>
-                <div class="p-sidebar-header" [attr.data-pc-section]="'header'">
-                    <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                    <p-button
-                        type="button"
-                        [ngClass]="{ 'p-sidebar-icon': true }"
-                        styleClass="p-sidebar-close p-sidebar-icon p-link"
-                        (click)="close($event)"
-                        (keydown.enter)="close($event)"
-                        [attr.aria-label]="ariaCloseLabel"
-                        *ngIf="showCloseIcon"
-                        pRipple
-                        [attr.data-pc-section]="'closebutton'"
-                        [attr.data-pc-group-section]="'iconcontainer'"
-                        [buttonProps]="closeButtonProps"
-                    >
-                        <TimesIcon *ngIf="!closeIconTemplate && !closeButtonProps?.icon" [styleClass]="'p-sidebar-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                        <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
-                            <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
-                        </span>
-                    </p-button>
-                </div>
-                <div class="p-sidebar-content" [attr.data-pc-section]="'content'">
-                    <ng-content></ng-content>
-                    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                </div>
-                <ng-container *ngIf="footerTemplate">
-                    <div class="p-sidebar-footer" [attr.data-pc-section]="'footer'">
-                        <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+            <div [ngClass]="cx('root')" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)" [class]="styleClass">
+                <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
+                <ng-template #notHeadless>
+                    <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
+                        <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
+                        <p-button
+                            *ngIf="showCloseIcon"
+                            [ngClass]="cx('closeButton')"
+                            (onClick)="close($event)"
+                            (keydown.enter)="close($event)"
+                            [buttonProps]="closeButtonProps"
+                            [ariaLabel]="ariaCloseLabel"
+                            [attr.data-pc-section]="'closebutton'"
+                            [attr.data-pc-group-section]="'iconcontainer'"
+                        >
+                            <TimesIcon *ngIf="!closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
+                            <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                                <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
+                            </span>
+                        </p-button>
                     </div>
-                </ng-container>
-            </ng-template>
+
+                    <div [ngClass]="cx('content')" [attr.data-pc-section]="'content'">
+                        <ng-content></ng-content>
+                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+                    </div>
+
+                    <ng-container *ngIf="footerTemplate">
+                        <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
+                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                        </div>
+                    </ng-container>
+                </ng-template>
+            </div>
         </div>
     `,
     animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./sidebar.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [DrawerStyle]
 })
-export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
+export class Sidebar extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
      */
-    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any;
+    @Input() appendTo: HTMLElement | ElementRef | TemplateRef<any> | string | null | undefined | any = 'body';
     /**
      * Whether to block scrolling of the document when sidebar is active.
      * @group Props
@@ -239,6 +232,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
      */
     @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    @ViewChild('maskRef') maskRef: ElementRef | undefined;
+
+    @ViewChild('container') containerViewChild: ElementRef | undefined;
+
+    @ViewChild('closeButton') closeButtonViewChild: ElementRef | undefined;
+
     initialized: boolean | undefined;
 
     _visible: boolean | undefined;
@@ -253,55 +252,61 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     mask: Nullable<HTMLDivElement>;
 
-    maskClickListener: VoidListener;
-
     documentEscapeListener: VoidListener;
 
-    animationEndListener: VoidListener;
-
-    contentTemplate: Nullable<TemplateRef<any>>;
-
-    headerTemplate: Nullable<TemplateRef<any>>;
-
-    footerTemplate: Nullable<TemplateRef<any>>;
-
-    closeIconTemplate: Nullable<TemplateRef<any>>;
-
-    headlessTemplate: Nullable<TemplateRef<any>>;
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(DrawerStyle);
+    /**
+     * Header template.
+     * @group Props
+     */
+    @Input() headerTemplate: TemplateRef<any> | undefined;
+    _headerTemplate: Nullable<TemplateRef<any>>;
+    /**
+     * Footer template.
+     * @group Props
+     */
+    @Input() footerTemplate: Nullable<TemplateRef<any>>;
+    _footerTemplate: TemplateRef<any>;
+    /**
+     * Close icon template.
+     * @group Props
+     */
+    @Input() closeIconTemplate: Nullable<TemplateRef<any>>;
+    _closeIconTemplate: TemplateRef<any>;
+    /**
+     * Headless template.
+     * @group Props
+     */
+    @Input() headlessTemplate: Nullable<TemplateRef<any>>;
+    _headlessTemplate: TemplateRef<any>;
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         this.initialized = true;
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        super.ngOnChanges(changes);
+        const key = Object.keys(changes).find((k) => k.includes('Template'));
+        if (key) {
+            this[`_${key}`] = changes[key].currentValue;
+        }
     }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
             switch (item.getType()) {
-                case 'content':
-                    this.contentTemplate = item.template;
-                    break;
                 case 'header':
-                    this.headerTemplate = item.template;
+                    this._headerTemplate = item.template || this.headerTemplate;
                     break;
                 case 'footer':
-                    this.footerTemplate = item.template;
+                    this._footerTemplate = item.template || this.footerTemplate;
                     break;
                 case 'closeicon':
-                    this.closeIconTemplate = item.template;
+                    this._closeIconTemplate = item.template || this.closeIconTemplate;
                     break;
                 case 'headless':
-                    this.headlessTemplate = item.template;
-                    break;
-
-                default:
-                    this.contentTemplate = item.template;
+                    this._headlessTemplate = item.template || this.headlessTemplate;
                     break;
             }
         });
@@ -318,10 +323,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
             ZIndexUtils.set('modal', this.container, this.baseZIndex || this.config.zIndex.modal);
         }
 
-        if (this.modal) {
-            this.enableModality();
-        }
-
         this.onShow.emit({});
         this.visibleChange.emit(true);
     }
@@ -329,10 +330,6 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
     hide(emit: boolean = true) {
         if (emit) {
             this.onHide.emit({});
-        }
-
-        if (this.modal) {
-            this.disableModality();
         }
     }
 
@@ -342,47 +339,14 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         event.preventDefault();
     }
 
-    enableModality() {
-        if (!this.mask) {
-            this.mask = this.renderer.createElement('div');
-            this.renderer.setStyle(this.mask, 'zIndex', String(parseInt((this.container as HTMLDivElement).style.zIndex) - 1));
-            DomHandler.addMultipleClasses(this.mask, 'p-component-overlay p-sidebar-mask p-component-overlay p-component-overlay-enter');
-
-            if (this.dismissible) {
-                this.maskClickListener = this.renderer.listen(this.mask, 'click', (event: any) => {
-                    if (this.dismissible) {
-                        this.close(event);
-                    }
-                });
-            }
-
-            this.renderer.appendChild(this.document.body, this.mask);
-            if (this.blockScroll) {
-                DomHandler.blockBodyScroll();
-            }
-        }
-    }
-
-    disableModality() {
-        if (this.mask) {
-            DomHandler.addClass(this.mask, 'p-component-overlay-leave');
-            this.animationEndListener = this.renderer.listen(this.mask, 'animationend', this.destroyModal.bind(this));
-        }
-    }
-
-    destroyModal() {
-        this.unbindMaskClickListener();
-
-        if (this.mask) {
-            this.renderer.removeChild(this.document.body, this.mask);
+    maskClickListener(event) {
+        if (this.dismissible) {
+            this.close(event);
         }
 
         if (this.blockScroll) {
-            DomHandler.unblockBodyScroll();
+            DomHandler.blockBodyScroll();
         }
-
-        this.unbindAnimationEndListener();
-        this.mask = null;
     }
 
     onAnimationStart(event: any) {
@@ -411,8 +375,7 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
     appendContainer() {
         if (this.appendTo) {
-            if (this.appendTo === 'body') this.renderer.appendChild(this.document.body, this.container);
-            else DomHandler.appendChild(this.container, this.appendTo);
+            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -435,31 +398,12 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
         }
     }
 
-    unbindMaskClickListener() {
-        if (this.maskClickListener) {
-            this.maskClickListener();
-            this.maskClickListener = null;
-        }
-    }
-
     unbindGlobalListeners() {
-        this.unbindMaskClickListener();
         this.unbindDocumentEscapeListener();
-    }
-
-    unbindAnimationEndListener() {
-        if (this.animationEndListener && this.mask) {
-            this.animationEndListener();
-            this.animationEndListener = null;
-        }
     }
 
     ngOnDestroy() {
         this.initialized = false;
-
-        if (this.visible && this.modal) {
-            this.destroyModal();
-        }
 
         if (this.appendTo && this.container) {
             this.renderer.appendChild(this.el.nativeElement, this.container);
@@ -471,7 +415,8 @@ export class Sidebar implements AfterViewInit, AfterContentInit, OnDestroy {
 
         this.container = null;
         this.unbindGlobalListeners();
-        this.unbindAnimationEndListener();
+
+        super.ngOnDestroy();
     }
 }
 
