@@ -17,7 +17,8 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    inject
 } from '@angular/core';
 import { SafeUrl } from '@angular/platform-browser';
 import { PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -31,6 +32,8 @@ import { UndoIcon } from 'primeng/icons/undo';
 import { ZIndexUtils } from 'primeng/utils';
 import { Nullable } from 'primeng/ts-helpers';
 import { FocusTrapModule } from 'primeng/focustrap';
+import { ImageStyle } from './style/imagestyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 /**
  * Displays an image with preview and tranformation options. For multiple image, see Galleria.
@@ -41,7 +44,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
     template: `
         <span [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style">
             <img [attr.src]="src" [attr.srcset]="srcSet" [attr.sizes]="sizes" [attr.alt]="alt" [attr.width]="width" [attr.height]="height" [attr.loading]="loading" [ngStyle]="imageStyle" [class]="imageClass" (error)="imageError($event)" />
-            <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-indicator" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }" style="border: 'none';">
+            <button *ngIf="preview" [attr.aria-label]="zoomImageAriaLabel" type="button" class="p-image-preview-mask" (click)="onImageClick()" #previewButton [ngStyle]="{ height: height + 'px', width: width + 'px' }" style="border: 'none';">
                 <ng-container *ngIf="indicatorTemplate; else defaultTemplate">
                     <ng-container *ngTemplateOutlet="indicatorTemplate"></ng-container>
                 </ng-container>
@@ -49,25 +52,25 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     <EyeIcon [styleClass]="'p-image-preview-icon'" />
                 </ng-template>
             </button>
-            <div #mask class="p-image-mask p-component-overlay p-component-overlay-enter" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
+            <div #mask class="p-image-mask p-overlay-mask p-overlay-mask-enter" *ngIf="maskVisible" [attr.aria-modal]="maskVisible" role="dialog" (click)="onMaskClick()" (keydown)="onMaskKeydown($event)" pFocusTrap>
                 <div class="p-image-toolbar" (click)="handleToolbarClick($event)">
-                    <button class="p-image-action p-link" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
+                    <button class="p-image-action p-image-rotate-right-button" (click)="rotateRight()" type="button" [attr.aria-label]="rightAriaLabel()">
                         <RefreshIcon *ngIf="!rotateRightIconTemplate" />
                         <ng-template *ngTemplateOutlet="rotateRightIconTemplate"></ng-template>
                     </button>
-                    <button class="p-image-action p-link" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
+                    <button class="p-image-action p-image-rotate-left-button" (click)="rotateLeft()" type="button" [attr.aria-label]="leftAriaLabel()">
                         <UndoIcon *ngIf="!rotateLeftIconTemplate" />
                         <ng-template *ngTemplateOutlet="rotateLeftIconTemplate"></ng-template>
                     </button>
-                    <button class="p-image-action p-link" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
+                    <button [ngClass]="{ 'p-image-action p-image-zoom-out-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomOut()" type="button" [disabled]="isZoomOutDisabled" [attr.aria-label]="zoomOutAriaLabel()">
                         <SearchMinusIcon *ngIf="!zoomOutIconTemplate" />
                         <ng-template *ngTemplateOutlet="zoomOutIconTemplate"></ng-template>
                     </button>
-                    <button class="p-image-action p-link" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
+                    <button [ngClass]="{ 'p-image-action p-image-zoom-in-button': true, 'p-disabled': isZoomOutDisabled }" (click)="zoomIn()" type="button" [disabled]="isZoomInDisabled" [attr.aria-label]="zoomInAriaLabel()">
                         <SearchPlusIcon *ngIf="!zoomInIconTemplate" />
                         <ng-template *ngTemplateOutlet="zoomInIconTemplate"></ng-template>
                     </button>
-                    <button class="p-image-action p-link" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
+                    <button class="p-image-action p-image-close-button" type="button" (click)="closePreview()" [attr.aria-label]="closeAriaLabel()" #closeButton>
                         <TimesIcon *ngIf="!closeIconTemplate" />
                         <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                     </button>
@@ -78,7 +81,7 @@ import { FocusTrapModule } from 'primeng/focustrap';
                     (@animation.start)="onAnimationStart($event)"
                     (@animation.done)="onAnimationEnd($event)"
                 >
-                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-preview" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
+                    <img [attr.src]="previewImageSrc ? previewImageSrc : src" [attr.srcset]="previewImageSrcSet" [attr.sizes]="previewImageSizes" class="p-image-original" [ngStyle]="imagePreviewStyle()" (click)="onPreviewImageClick()" />
                 </div>
             </div>
         </span>
@@ -91,12 +94,9 @@ import { FocusTrapModule } from 'primeng/focustrap';
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./image.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [ImageStyle]
 })
-export class Image implements AfterContentInit {
+export class Image extends BaseComponent implements AfterContentInit {
     /**
      * Style class of the image element.
      * @group Props
@@ -238,6 +238,8 @@ export class Image implements AfterContentInit {
 
     wrapper: Nullable<HTMLElement>;
 
+    _componentStyle = inject(ImageStyle);
+
     public get isZoomOutDisabled(): boolean {
         return this.scale - this.zoomSettings.step <= this.zoomSettings.min;
     }
@@ -253,12 +255,9 @@ export class Image implements AfterContentInit {
         min: 0.5
     };
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private config: PrimeNGConfig,
-        private cd: ChangeDetectorRef,
-        public el: ElementRef
-    ) {}
+    constructor() {
+        super();
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -407,7 +406,7 @@ export class Image implements AfterContentInit {
     containerClass() {
         return {
             'p-image p-component': true,
-            'p-image-preview-container': this.preview
+            'p-image-preview': this.preview
         };
     }
 

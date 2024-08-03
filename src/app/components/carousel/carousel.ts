@@ -21,6 +21,7 @@ import {
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
+    inject,
     numberAttribute
 } from '@angular/core';
 import { Footer, Header, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -35,6 +36,8 @@ import { PrimeNGConfig } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
 import { ButtonModule } from '../button/button';
 import { ButtonProps } from 'primeng/button';
+import { CarouselStyle } from './style/carouselstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Carousel is a content slider featuring various customization options.
  * @group Components
@@ -47,12 +50,12 @@ import { ButtonProps } from 'primeng/button';
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
             </div>
-            <div [class]="contentClass" [ngClass]="'p-carousel-content'">
-                <div class="p-carousel-container" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
+            <div [class]="contentClass" [ngClass]="'p-carousel-content-container'">
+                <div class="p-carousel-content" [attr.aria-live]="allowAutoplay ? 'polite' : 'off'">
                     <p-button
                         type="button"
                         *ngIf="showNavigators"
-                        [ngClass]="{ 'p-carousel-prev p-link': true, 'p-disabled': isBackwardNavDisabled() }"
+                        [ngClass]="{ 'p-carousel-prev-button': true, 'p-disabled': isBackwardNavDisabled() }"
                         [disabled]="isBackwardNavDisabled()"
                         [attr.aria-label]="ariaPrevButtonLabel()"
                         (click)="navBackward($event)"
@@ -68,12 +71,12 @@ import { ButtonProps } from 'primeng/button';
                             <ng-template *ngTemplateOutlet="previousIconTemplate"></ng-template>
                         </span>
                     </p-button>
-                    <div class="p-carousel-items-content" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
-                        <div #itemsContainer class="p-carousel-items-container" (transitionend)="onTransitionEnd()">
+                    <div class="p-carousel-viewport" [ngStyle]="{ height: isVertical() ? verticalViewPortHeight : 'auto' }" (touchend)="onTouchEnd($event)" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)">
+                        <div #itemsContainer class="p-carousel-item-list" (transitionend)="onTransitionEnd()">
                             <div
                                 *ngFor="let item of clonedItemsForStarting; let index = index"
                                 [ngClass]="{
-                                    'p-carousel-item p-carousel-item-cloned': true,
+                                    'p-carousel-item p-carousel-item-clone': true,
                                     'p-carousel-item-active': totalShiftedItems * -1 === value.length,
                                     'p-carousel-item-start': 0 === index,
                                     'p-carousel-item-end': clonedItemsForStarting.length - 1 === index
@@ -96,7 +99,7 @@ import { ButtonProps } from 'primeng/button';
                             <div
                                 *ngFor="let item of clonedItemsForFinishing; let index = index"
                                 [ngClass]="{
-                                    'p-carousel-item p-carousel-item-cloned': true,
+                                    'p-carousel-item p-carousel-item-clone': true,
                                     'p-carousel-item-active': totalShiftedItems * -1 === numVisible,
                                     'p-carousel-item-start': 0 === index,
                                     'p-carousel-item-end': clonedItemsForFinishing.length - 1 === index
@@ -109,7 +112,7 @@ import { ButtonProps } from 'primeng/button';
                     <p-button
                         type="button"
                         *ngIf="showNavigators"
-                        [ngClass]="{ 'p-carousel-next p-link': true, 'p-disabled': isForwardNavDisabled() }"
+                        [ngClass]="{ 'p-carousel-next-button': true, 'p-disabled': isForwardNavDisabled() }"
                         [disabled]="isForwardNavDisabled()"
                         (click)="navForward($event)"
                         pRipple
@@ -126,11 +129,11 @@ import { ButtonProps } from 'primeng/button';
                         </span>
                     </p-button>
                 </div>
-                <ul #indicatorContent [ngClass]="'p-carousel-indicators p-reset'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
-                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-highlight': _page === i }" [attr.data-pc-section]="'indicator'">
+                <ul #indicatorContent [ngClass]="'p-carousel-indicator-list'" [class]="indicatorsContentClass" [ngStyle]="indicatorsContentStyle" *ngIf="showIndicators" (keydown)="onIndicatorKeydown($event)">
+                    <li *ngFor="let totalDot of totalDotsArray(); let i = index" [ngClass]="{ 'p-carousel-indicator': true, 'p-carousel-indicator-active': _page === i }" [attr.data-pc-section]="'indicator'">
                         <button
                             type="button"
-                            [ngClass]="'p-link'"
+                            [ngClass]="'p-carousel-indicator-button'"
                             (click)="onDotClick($event, i)"
                             [class]="indicatorStyleClass"
                             [ngStyle]="indicatorStyle"
@@ -149,12 +152,9 @@ import { ButtonProps } from 'primeng/button';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./carousel.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers:[CarouselStyle]
 })
-export class Carousel implements AfterContentInit {
+export class Carousel extends BaseComponent implements AfterContentInit {
     /**
      * Index of the first item.
      * @defaultValue 0
@@ -373,15 +373,13 @@ export class Carousel implements AfterContentInit {
 
     window: Window;
 
+    _componentStyle = inject(CarouselStyle);
+
     constructor(
         public el: ElementRef,
         public zone: NgZone,
-        public cd: ChangeDetectorRef,
-        private renderer: Renderer2,
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private config: PrimeNGConfig
     ) {
+        super()
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
     }
