@@ -1851,7 +1851,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     searchFields() {
-        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || (this.optionLabel?[this.optionLabel]:['label']);
     }
 
     searchOptions(event, char) {
