@@ -51,7 +51,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             *ngIf="visible"
             [ngClass]="cx('mask')"
             [ngStyle]="sx('mask')"
-            [style]="style"
+            [style]="maskStyle"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
@@ -59,7 +59,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [attr.data-pc-section]="'mask'"
             (click)="maskClickListener($event)"
         >
-            <div [ngClass]="cx('root')" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)" [class]="styleClass">
+            <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
                 <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
                 <ng-template #notHeadless>
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
@@ -101,6 +101,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     providers: [DrawerStyle]
 })
 export class Sidebar extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
+    @Input() maskProps: any;
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
@@ -213,6 +214,8 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
         if (value) this.transformOptions = 'none';
     }
+
+    @Input() maskStyle: any;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
     /**

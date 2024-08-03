@@ -156,7 +156,6 @@ export class BaseComponent {
 
     cx(arg: string): string {
         const classes = this.componentStyle?.classes?.[arg];
-        const styleClass = this['styleClass'] || null;
 
         if (typeof classes === 'function') {
             return classes({ instance: this });
