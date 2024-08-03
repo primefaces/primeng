@@ -153,4 +153,26 @@ export class BaseComponent {
         Base.clearLoadedStyleNames();
         ThemeService.on('theme:change', callback);
     }
+
+    cx(arg: string): string {
+        const classes = this.componentStyle?.classes?.[arg];
+        const styleClass = this['styleClass'] || null;
+
+        if (typeof classes === 'function') {
+            return classes({ instance: this });
+        }
+
+        return typeof classes === 'string' ? classes : arg;
+    }
+
+    sx(arg: string): string {
+        if (this.componentStyle.inlineStyles) {
+            const styles = this.componentStyle?.inlineStyles?.[arg];
+            if (typeof styles === 'function') {
+                return styles({ instance: this });
+            }
+
+            return typeof styles === 'string' ? styles : arg;
+        }
+    }
 }
