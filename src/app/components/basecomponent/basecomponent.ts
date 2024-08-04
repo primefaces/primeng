@@ -165,13 +165,15 @@ export class BaseComponent {
     }
 
     sx(arg: string): string {
-        if (this.componentStyle.inlineStyles) {
-            const styles = this.componentStyle?.inlineStyles?.[arg];
-            if (typeof styles === 'function') {
-                return styles({ instance: this });
-            }
+        const styles = this.componentStyle?.inlineStyles?.[arg];
+        if (typeof styles === 'function') {
+            return styles({ instance: this });
+        }
 
-            return typeof styles === 'string' ? styles : arg;
+        if (typeof styles === 'string') {
+            return styles;
+        } else {
+            return { ...styles };
         }
     }
 }
