@@ -156,16 +156,26 @@ const theme = ({ dt }) => `
 
 /* Position */
 const inlineStyles = {
-    mask: ({ position, modal }) => ({
+    mask: ({ instance }) => ({
         position: 'fixed',
         height: '100%',
         width: '100%',
         left: 0,
         top: 0,
         display: 'flex',
-        justifyContent: position === 'left' || position === 'topleft' || position === 'bottomleft' ? 'flex-start' : position === 'right' || position === 'topright' || position === 'bottomright' ? 'flex-end' : 'center',
-        alignItems: position === 'top' || position === 'topleft' || position === 'topright' ? 'flex-start' : position === 'bottom' || position === 'bottomleft' || position === 'bottomright' ? 'flex-end' : 'center',
-        pointerEvents: modal ? 'auto' : 'none'
+        justifyContent:
+            instance.position === 'left' || instance.position === 'topleft' || instance.position === 'bottomleft'
+                ? 'flex-start'
+                : instance.position === 'right' || instance.position === 'topright' || instance.position === 'bottomright'
+                ? 'flex-end'
+                : 'center',
+        alignItems:
+            instance.position === 'top' || instance.position === 'topleft' || instance.position === 'topright'
+                ? 'flex-start'
+                : instance.position === 'bottom' || instance.position === 'bottomleft' || instance.position === 'bottomright'
+                ? 'flex-end'
+                : 'center',
+        pointerEvents: instance.modal ? 'auto' : 'none'
     }),
     root: {
         display: 'flex',
@@ -175,26 +185,20 @@ const inlineStyles = {
 };
 
 const classes = {
-    mask: ({ props }) => {
+    mask: ({ instance }) => {
         const positions = ['left', 'right', 'top', 'topleft', 'topright', 'bottom', 'bottomleft', 'bottomright'];
-        const pos = positions.find((item) => item === props.position);
+        const pos = positions.find((item) => item === instance.position);
 
-        return [
-            'p-dialog-mask',
-            {
-                'p-overlay-mask p-overlay-mask-enter': props.modal
-            },
-            pos ? `p-dialog-${pos}` : ''
-        ];
+        return {
+            'p-dialog-mask': true,
+            'p-overlay-mask p-overlay-mask-enter': instance.modal,
+            [`p-dialog-${pos}`]: pos
+        };
     },
-    root: ({ props, instance }) => [
-        'p-dialog p-component',
-        {
-            'p-dialog-maximized': props.maximizable && instance.maximized
-        }
-    ],
+    root: ({ instance }) => ({ 'p-dialog p-component': true, 'p-dialog-maximized': instance.maximizable && instance.maximized }),
     header: 'p-dialog-header',
     title: 'p-dialog-title',
+    resizeHandle: 'p-resizable-handle',
     headerActions: 'p-dialog-header-actions',
     pcMaximizeButton: 'p-dialog-maximize-button',
     pcCloseButton: 'p-dialog-close-button',
