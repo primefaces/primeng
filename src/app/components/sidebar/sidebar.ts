@@ -1,29 +1,25 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute,
-    signal
+    numberAttribute
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -101,7 +97,6 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
     providers: [DrawerStyle]
 })
 export class Sidebar extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
-    @Input() maskProps: any;
     /**
      *  Target element to attach the dialog, valid values are "body" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]="mydiv" for a div element having #mydiv as variable name).
      * @group Props
