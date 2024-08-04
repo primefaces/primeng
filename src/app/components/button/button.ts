@@ -25,6 +25,7 @@ import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Ripple } from 'primeng/ripple';
 import { ObjectUtils } from 'primeng/utils';
+import {ButtonSeverity} from "./button.interface";
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -109,7 +110,22 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() get severity(): ButtonSeverity{
+        return this._severity
+    }
+
+    set severity(val: ButtonSeverity){
+        // Remove existing severity styleclass first
+        if(this.initialized){
+            this.htmlElement.classList.remove(this.getSeverityStyleClass());
+        }
+        // Set new severity
+        this._severity = val;
+        // Adds new severity styleclass again
+        if(this.initialized){
+            this.setStyleClass();
+        }
+    }
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -143,6 +159,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     public _label: string | undefined;
 
+    public _severity: ButtonSeverity;
+
     public _icon: string | undefined;
 
     public _loading: boolean = false;
@@ -164,6 +182,13 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
         this.createLabel();
 
         this.initialized = true;
+    }
+
+    getSeverityStyleClass(): string{
+        if (this._severity) {
+            return `p-button-${this._severity}`;
+        }
+        return ''
     }
 
     getStyleClass(): string[] {
@@ -189,8 +214,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
             styleClass.push('p-button-text');
         }
 
-        if (this.severity) {
-            styleClass.push(`p-button-${this.severity}`);
+        if (this._severity) {
+            styleClass.push(this.getSeverityStyleClass());
         }
 
         if (this.plain) {
@@ -415,7 +440,7 @@ export class Button implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: ButtonSeverity;
     /**
      * Add a border class without a background initially.
      * @group Props
