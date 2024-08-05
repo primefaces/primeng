@@ -8,6 +8,7 @@ import {
     ContentChildren,
     ElementRef,
     EventEmitter,
+    inject,
     Inject,
     Input,
     NgModule,
@@ -28,6 +29,8 @@ import { DomHandler } from 'primeng/dom';
 import { SpinnerIcon } from 'primeng/icons/spinner';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEvent, ScrollerToType } from './scroller.interface';
+import { VirtalScrollerStyle } from './style/virtualscrollerstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 /**
  * Scroller is a performance-approach to handle huge data efficiently.
  * @group Components
@@ -42,7 +45,7 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                 [attr.tabindex]="tabindex"
                 [ngStyle]="_style"
                 [class]="_styleClass"
-                [ngClass]="{ 'p-scroller': true, 'p-scroller-inline': inline, 'p-both-scroll': both, 'p-horizontal-scroll': horizontal }"
+                [ngClass]="{ 'p-virtualscroller': true, 'p-virtualscroller-inline': inline, 'p-virtualscroller-both p-both-scroll': both, 'p-virtualscroller-horizontal p-horizontal-scroll': horizontal }"
                 (scroll)="onContainerScroll($event)"
                 [attr.data-pc-name]="'scroller'"
                 [attr.data-pc-section]="'root'"
@@ -51,14 +54,14 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: loadedItems, options: getContentOptions() }"></ng-container>
                 </ng-container>
                 <ng-template #buildInContent>
-                    <div #content class="p-scroller-content" [ngClass]="{ 'p-scroller-loading': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
+                    <div #content class="p-virtualscroller-content" [ngClass]="{ 'p-virtualscroller-loading ': d_loading }" [ngStyle]="contentStyle" [attr.data-pc-section]="'content'">
                         <ng-container *ngFor="let item of loadedItems; let index = index; trackBy: _trackBy || index">
                             <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, options: getOptions(index) }"></ng-container>
                         </ng-container>
                     </div>
                 </ng-template>
-                <div *ngIf="_showSpacer" class="p-scroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
-                <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-scroller-loader" [ngClass]="{ 'p-component-overlay': !loaderTemplate }" [attr.data-pc-section]="'loader'">
+                <div *ngIf="_showSpacer" class="p-virtualscroller-spacer" [ngStyle]="spacerStyle" [attr.data-pc-section]="'spacer'"></div>
+                <div *ngIf="!loaderDisabled && _showLoader && d_loading" class="p-virtualscroller-loader" [ngClass]="{ 'p-virtualscroller-loader-mask': !loaderTemplate }" [attr.data-pc-section]="'loader'">
                     <ng-container *ngIf="loaderTemplate; else buildInLoader">
                         <ng-container *ngFor="let item of loaderArr; let index = index">
                             <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: getLoaderOptions(index, both && { numCols: _numItemsInViewport.cols }) }"></ng-container>
@@ -66,10 +69,10 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
                     </ng-container>
                     <ng-template #buildInLoader>
                         <ng-container *ngIf="loaderIconTemplate; else buildInLoaderIcon">
-                            <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-scroller-loading-icon' } }"></ng-container>
+                            <ng-container *ngTemplateOutlet="loaderIconTemplate; context: { options: { styleClass: 'p-virtualscroller-loading-icon' } }"></ng-container>
                         </ng-container>
                         <ng-template #buildInLoaderIcon>
-                            <SpinnerIcon [styleClass]="'p-scroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
+                            <SpinnerIcon [styleClass]="'p-virtualscroller-loading-icon pi-spin'" [attr.data-pc-section]="'loadingIcon'" />
                         </ng-template>
                     </ng-template>
                 </div>
@@ -84,12 +87,9 @@ import { ScrollerLazyLoadEvent, ScrollerScrollEvent, ScrollerScrollIndexChangeEv
     `,
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./scroller.css'],
-    host: {
-        class: 'p-scroller-viewport p-element'
-    }
+    providers: [VirtalScrollerStyle]
 })
-export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
+export class Scroller extends BaseComponent implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
     /**
      * Unique identifier of the element.
      * @group Props
@@ -503,20 +503,19 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         return this._columns;
     }
+    _componentStyle = inject(VirtalScrollerStyle);
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private zone: NgZone
-    ) {}
+    constructor(private zone: NgZone) {
+        super();
+    }
 
     ngOnInit() {
+        super.ngOnInit();
         this.setInitialState();
     }
 
     ngOnChanges(simpleChanges: SimpleChanges) {
+        super.ngOnChanges(simpleChanges);
         let isLoadingChanged = false;
 
         if (simpleChanges.loading) {
@@ -590,6 +589,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         Promise.resolve().then(() => {
             this.viewInit();
         });
@@ -606,6 +606,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
 
         this.contentEl = null;
         this.initialized = false;
+        super.ngOnDestroy();
     }
 
     viewInit() {
