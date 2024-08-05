@@ -154,7 +154,7 @@ export class BaseComponent {
         ThemeService.on('theme:change', callback);
     }
 
-    cx(arg: string): string {
+    cx(arg: string, rest?: string): string {
         const classes = this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
