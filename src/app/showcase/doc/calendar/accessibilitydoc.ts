@@ -87,7 +87,7 @@ import { Code } from '@domain/code';
                     </tr>
                     <tr>
                         <td><i>shift</i> + <i>tab</i></td>
-                        <td>Moves focus to the next focusable element within the popup.</td>
+                        <td>Moves focus to the previous focusable element within the popup.</td>
                     </tr>
                 </tbody>
             </table>
