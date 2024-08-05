@@ -6,37 +6,72 @@ import { Code } from '@domain/code';
     selector: 'confirm-dialog-position-demo',
     template: `
         <app-docsectiontext>
-            <p>The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners of the screen.</p>
+            <p>
+                The <i>position</i> property of the confirm options is used to display a Dialog at all edges and corners
+                of the screen.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap flex-column align-items-center gap-2">
             <p-toast />
             <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined" />
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
-                <p-button (click)="confirmPosition('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
+                <p-button
+                    (click)="confirmPosition('left')"
+                    icon="pi pi-arrow-right"
+                    label="Left"
+                    severity="secondary"
+                />
+                <p-button
+                    (click)="confirmPosition('right')"
+                    icon="pi pi-arrow-left"
+                    label="Right"
+                    severity="secondary"
+                />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('top-left')" icon="pi pi-arrow-down" label="TopLeft" severity="secondary" />
+                <p-button
+                    (click)="confirmPosition('topleft')"
+                    icon="pi pi-arrow-down"
+                    label="TopLeft"
+                    severity="secondary"
+                />
                 <p-button (click)="confirmPosition('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (click)="confirmPosition('top-right')" icon="pi pi-arrow-down" label="TopRight" severity="secondary" />
+                <p-button
+                    (click)="confirmPosition('topright')"
+                    icon="pi pi-arrow-down"
+                    label="TopRight"
+                    severity="secondary"
+                />
             </div>
             <div class="flex flex-wrap justify-content-center gap-2">
-                <p-button (click)="confirmPosition('bottom-left')" icon="pi pi-arrow-up" label="BottomLeft" severity="secondary" />
-                <p-button (click)="confirmPosition('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (click)="confirmPosition('bottom-right')" icon="pi pi-arrow-up" label="BottomRight" severity="secondary" />
+                <p-button
+                    (click)="confirmPosition('bottomleft')"
+                    icon="pi pi-arrow-up"
+                    label="BottomLeft"
+                    severity="secondary"
+                />
+                <p-button
+                    (click)="confirmPosition('bottom')"
+                    icon="pi pi-arrow-up"
+                    label="Bottom"
+                    severity="secondary"
+                />
+                <p-button
+                    (click)="confirmPosition('bottomright')"
+                    icon="pi pi-arrow-up"
+                    label="BottomRight"
+                    severity="secondary"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="confirm-dialog-position-demo"></app-code>
     `,
-    providers: [ConfirmationService, MessageService]
+    providers: [ConfirmationService, MessageService],
 })
 export class PositionDoc {
     position: string = 'center';
 
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirmPosition(position: string) {
         this.position = position;
@@ -45,16 +80,19 @@ export class PositionDoc {
             message: 'Are you sure you want to proceed?',
             header: 'Confirmation',
             icon: 'pi pi-info-circle',
-            acceptIcon: 'none',
-            rejectIcon: 'none',
             rejectButtonStyleClass: 'p-button-text',
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Request submitted' });
             },
             reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'Process incomplete', life: 3000 });
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'Process incomplete',
+                    life: 3000,
+                });
             },
-            key: 'positionDialog'
+            key: 'positionDialog',
         });
     }
 
@@ -79,7 +117,7 @@ export class PositionDoc {
 </div>
 <div class="flex flex-wrap justify-content-center gap-2">
     <p-button 
-        (click)="confirmPosition('top-left')" 
+        (click)="confirmPosition('topleft')" 
         icon="pi pi-arrow-down" 
         label="TopLeft" 
         severity="secondary" />
@@ -89,7 +127,7 @@ export class PositionDoc {
         label="Top" 
         severity="secondary" />
     <p-button 
-        (click)="confirmPosition('top-right')" 
+        (click)="confirmPosition('topright')" 
         icon="pi pi-arrow-down" 
         label="TopRight" 
         severity="secondary" />
@@ -133,7 +171,7 @@ export class PositionDoc {
     </div>
     <div class="flex flex-wrap justify-content-center gap-2">
         <p-button 
-            (click)="confirmPosition('top-left')" 
+            (click)="confirmPosition('topleft')" 
             icon="pi pi-arrow-down" 
             label="TopLeft" 
             severity="secondary" />
@@ -143,7 +181,7 @@ export class PositionDoc {
             label="Top" 
             severity="secondary" />
         <p-button 
-            (click)="confirmPosition('top-right')" 
+            (click)="confirmPosition('topright')" 
             icon="pi pi-arrow-down" 
             label="TopRight" 
             severity="secondary" />
@@ -204,6 +242,6 @@ export class ConfirmDialogPositionDemo {
             key: 'positionDialog'
         });
     }
-}`
+}`,
     };
 }
