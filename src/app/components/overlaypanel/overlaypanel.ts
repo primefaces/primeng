@@ -4,28 +4,24 @@ import {
     AfterContentInit,
     booleanAttribute,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
     HostListener,
     inject,
-    Inject,
     Input,
     NgModule,
     NgZone,
     numberAttribute,
     OnDestroy,
     Output,
-    PLATFORM_ID,
     QueryList,
-    Renderer2,
     TemplateRef,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
 } from '@angular/core';
-import { OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
+import { OverlayService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { TimesIcon } from 'primeng/icons/times';
 import { RippleModule } from 'primeng/ripple';
@@ -47,7 +43,10 @@ import { BaseComponent } from 'primeng/basecomponent';
             [ngStyle]="style"
             [class]="styleClass"
             (click)="onOverlayClick($event)"
-            [@animation]="{ value: overlayVisible ? 'open' : 'close', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@animation]="{
+                value: overlayVisible ? 'open' : 'close',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+            }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
             role="dialog"
@@ -59,12 +58,19 @@ import { BaseComponent } from 'primeng/basecomponent';
                 <ng-content></ng-content>
                 <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             </div>
-            <!-- <button *ngIf="showCloseIcon" type="button" class="p-popover-close p-link" (click)="onCloseClick($event)" (keydown.enter)="hide()" [attr.aria-label]="ariaCloseLabel" pRipple>
-                <TimesIcon *ngIf="!closeIconTemplate" [styleClass]="'p-popover-close-icon'" />
-                <span class="p-popover-close-icon" *ngIf="closeIconTemplate">
+            <!-- <p-button
+                *ngIf="showCloseIcon"
+                (click)="onCloseClick($event)"
+                (keydown.enter)="hide()"
+                [attr.aria-label]="ariaCloseLabel"
+                rounded
+                text
+            >
+                <TimesIcon *ngIf="!closeIconTemplate" />
+                <span *ngIf="closeIconTemplate">
                     <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                 </span>
-            </button> -->
+            </p-button> -->
         </div>
     `,
     animations: [
@@ -73,29 +79,29 @@ import { BaseComponent } from 'primeng/basecomponent';
                 'void',
                 style({
                     transform: 'scaleY(0.8)',
-                    opacity: 0
-                })
+                    opacity: 0,
+                }),
             ),
             state(
                 'close',
                 style({
-                    opacity: 0
-                })
+                    opacity: 0,
+                }),
             ),
             state(
                 'open',
                 style({
                     transform: 'translateY(0)',
-                    opacity: 1
-                })
+                    opacity: 1,
+                }),
             ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => close', animate('{{hideTransitionParams}}'))
-        ])
+            transition('open => close', animate('{{hideTransitionParams}}')),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PopoverStyle]
+    providers: [PopoverStyle],
 })
 export class OverlayPanel extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
@@ -208,16 +214,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
     _componentStyle = inject(PopoverStyle);
 
-    constructor(
-        @Inject(DOCUMENT) public document: Document,
-        @Inject(PLATFORM_ID) public platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private zone: NgZone,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(private zone: NgZone, public overlayService: OverlayService) {
         super();
     }
 
@@ -248,7 +245,12 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
                 const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : this.document;
 
                 this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
-                    if (!this.container?.contains(event.target) && this.target !== event.target && !this.target.contains(event.target) && !this.selfClick) {
+                    if (
+                        !this.container?.contains(event.target) &&
+                        this.target !== event.target &&
+                        !this.target.contains(event.target) &&
+                        !this.selfClick
+                    ) {
                         this.hide();
                     }
 
@@ -311,7 +313,7 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
     onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
-            target: this.el.nativeElement
+            target: this.el.nativeElement,
         });
 
         this.selfClick = true;
@@ -348,7 +350,9 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 
         const containerOffset = DomHandler.getOffset(this.container);
         const targetOffset = DomHandler.getOffset(this.target);
-        const borderRadius = this.document.defaultView?.getComputedStyle(this.container!).getPropertyValue('border-radius');
+        const borderRadius = this.document.defaultView
+            ?.getComputedStyle(this.container!)
+            .getPropertyValue('border-radius');
         let arrowLeft = 0;
 
         if (containerOffset.left < targetOffset.left) {
@@ -531,6 +535,6 @@ export class OverlayPanel extends BaseComponent implements AfterContentInit, OnD
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, TimesIcon],
     exports: [OverlayPanel, SharedModule],
-    declarations: [OverlayPanel]
+    declarations: [OverlayPanel],
 })
 export class OverlayPanelModule {}
