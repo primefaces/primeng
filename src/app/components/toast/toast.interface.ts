@@ -49,4 +49,11 @@ export interface ToastItemCloseEvent extends ToastCloseEvent {
     index: number;
 }
 
-export type ToastPositionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-center' | 'bottom-right' | 'center';
+export type ToastPositionType =
+    | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'center';

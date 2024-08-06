@@ -7,8 +7,9 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                The <i>severity</i> option specifies the type of the message. There are four types of messages: <i>success</i>, <i>info</i>, <i>warn</i> and <i>error</i>. The severity of the message is used to display the icon and the color of the
-                toast.
+                The <i>severity</i> option specifies the type of the message. There are four types of messages:
+                <i>success</i>, <i>info</i>, <i>warn</i> and <i>error</i>. The severity of the message is used to
+                display the icon and the color of the toast.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
@@ -22,7 +23,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class SeverityDoc {
     constructor(private messageService: MessageService) {}
@@ -44,7 +45,7 @@ export class SeverityDoc {
     }
 
     showContrast() {
-        this.messageService.add({ severity: 'contrast', summary: 'Error', detail: 'Message Content' });
+        this.messageService.add({ severity: 'contrast', summary: 'Contrast', detail: 'Message Content' });
     }
 
     showSecondary() {
@@ -167,6 +168,6 @@ export class ToastSeverityDemo {
     showSecondary() {
         this.messageService.add({ severity: 'secondary', summary: 'Secondary', detail: 'Message Content' });
     }
-}`
+}`,
     };
 }
