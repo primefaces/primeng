@@ -10,66 +10,73 @@ import { AnimationDoc } from '@doc/messages/animationdoc';
 import { SeverityDoc } from '@doc/messages/severitydoc';
 import { AccessibilityDoc } from '@doc/messages/accessibilitydoc';
 import { ServiceDoc } from '@doc/messages/servicedoc';
+import { InlineDoc } from '@doc/messages/inlinedoc';
 
 @Component({
-    templateUrl: './messagesdemo.html'
+    templateUrl: './messagesdemo.html',
 })
 export class MessagesDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
+
         {
             id: 'basic',
             label: 'Basic',
-            component: BasicDoc
+            component: BasicDoc,
         },
         {
             id: 'severity',
             label: 'Severity',
-            component: SeverityDoc
+            component: SeverityDoc,
         },
         {
             id: 'dynamic',
             label: 'Dynamic',
-            component: DynamicDoc
+            component: DynamicDoc,
+        },
+        {
+            id: 'inline',
+            label: 'Inline',
+            component: InlineDoc,
         },
         {
             id: 'closable',
             label: 'Closable',
-            component: ClosableDoc
+            component: ClosableDoc,
         },
         {
             id: 'service',
             label: 'Message Service',
-            component: ServiceDoc
+            component: ServiceDoc,
         },
         {
             id: 'static',
             label: 'Static Content',
-            component: StaticDoc
+            component: StaticDoc,
         },
         {
             id: 'animation',
             label: 'Animation',
-            component: AnimationDoc
+            component: AnimationDoc,
         },
         {
             id: 'messagesstyle',
             label: 'Styling for Messages',
-            component: MessagesStyleDoc
+            component: MessagesStyleDoc,
         },
         {
             id: 'messagestyle',
             label: 'Styling for Message',
-            component: MessageStyleDoc
+            component: MessageStyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }
