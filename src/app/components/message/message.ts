@@ -1,9 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, NgModule, ViewEncapsulation, booleanAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    NgModule,
+    ViewEncapsulation,
+    booleanAttribute,
+    inject,
+} from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
+import { MessageStyle } from './style/messagestyle';
+import { ButtonModule } from 'primeng/button';
 /**
  * Message groups a collection of contents in tabs.
  * @group Components
@@ -11,32 +22,34 @@ import { TimesCircleIcon } from 'primeng/icons/timescircle';
 @Component({
     selector: 'p-message',
     template: `
-        <div aria-live="polite" class="p-inline-message p-component p-inline-message" [ngStyle]="style" [class]="styleClass" [ngClass]="containerClass">
-            <CheckIcon *ngIf="icon === 'success'" [styleClass]="'p-inline-message-icon'" />
-            <InfoCircleIcon *ngIf="icon === 'info'" [styleClass]="'p-inline-message-icon'" />
-            <TimesCircleIcon *ngIf="icon === 'error'" [styleClass]="'p-inline-message-icon'" />
-            <ExclamationTriangleIcon *ngIf="icon === 'warn'" [styleClass]="'p-inline-message-icon'" />
+        <div aria-live="polite" [ngClass]="cx('root')" [ngStyle]="style" [class]="styleClass">
+            @switch (icon) { @case ('success') {
+            <CheckIcon [styleClass]="cx('icon')" />
+            } @case ('error') {
+            <TimesCircleIcon [styleClass]="cx('icon')" />
+            } @case ('warn') {
+            <ExclamationTriangleIcon [styleClass]="cx('icon')" />
+            } @default {
+            <InfoCircleIcon [styleClass]="cx('icon')" />
+            } }
             <div *ngIf="!escape; else escapeOut">
-                <span *ngIf="!escape" class="p-inline-message-text" [innerHTML]="text"></span>
+                <span *ngIf="!escape" [ngClass]="cx('text')" [innerHTML]="text"></span>
             </div>
             <ng-template #escapeOut>
-                <span *ngIf="escape" class="p-inline-message-text">{{ text }}</span>
+                <span *ngIf="escape" [ngClass]="cx('text')">{{ text }}</span>
             </ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./message.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [MessageStyle],
 })
-export class UIMessage {
+export class Message extends BaseComponent {
     /**
      * Severity level of the message.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: string | 'success' | 'info' | 'warn' | 'error' | 'secondary' | 'contrast' | undefined | null;
     /**
      * Text content.
      * @group Props
@@ -58,25 +71,20 @@ export class UIMessage {
      */
     @Input() styleClass: string | undefined;
 
-    get icon() {
-        if (this.severity) {
-            return this.severity === 'success' ? 'success' : this.severity === 'info' ? 'info' : this.severity === 'warning' ? 'warn' : this.severity === 'danger' ? 'error' : 'info';
-        } else {
-            return 'info';
-        }
-    }
+    @Input({ transform: booleanAttribute }) closable: boolean = true;
 
-    get containerClass() {
-        return {
-            [`p-inline-message-${this.severity}`]: this.severity,
-            'p-inline-message-icon-only': this.text == null
-        };
+    @Input() closeIcon: string | undefined;
+
+    _componentStyle = inject(MessageStyle);
+
+    get icon() {
+        return this.severity ? this.severity : 'info';
     }
 }
 
 @NgModule({
-    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon],
-    exports: [UIMessage],
-    declarations: [UIMessage]
+    imports: [CommonModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, ButtonModule],
+    exports: [Message],
+    declarations: [Message],
 })
 export class MessageModule {}

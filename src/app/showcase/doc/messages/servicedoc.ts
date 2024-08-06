@@ -7,8 +7,11 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                MessageService alternative does not require a value binding to an array. In order to use this service, import the class and define it as a provider in a component higher up in the component tree such as application instance itself so
-                that descandant components can have it injected. If there are multiple message components having the same message service, you may use key property of the component to match the key of the message to implement scoping.
+                MessageService alternative does not require a value binding to an array. In order to use this service,
+                import the class and define it as a provider in a component higher up in the component tree such as
+                application instance itself so that descandant components can have it injected. If there are multiple
+                message components having the same message service, you may use key property of the component to match
+                the key of the message to implement scoping.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -21,7 +24,7 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="messages-service-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class ServiceDoc {
     constructor(private messageService: MessageService) {}
@@ -33,7 +36,7 @@ export class ServiceDoc {
     addMultiple() {
         this.messageService.addAll([
             { severity: 'success', summary: 'Service Message', detail: 'Via MessageService' },
-            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService' }
+            { severity: 'info', summary: 'Info Message', detail: 'Via MessageService' },
         ]);
     }
 
@@ -85,6 +88,6 @@ export class MessagesServiceDemo {
     clear() {
         this.messageService.clear();
     }
-}`
+}`,
     };
 }
