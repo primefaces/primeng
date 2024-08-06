@@ -10,23 +10,27 @@ import { Footer } from './footer';
     template: `
         <app-docsectiontext>
             <p>
-                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display dynamic dialog. First parameter
-                of <i>open</i> method is the type of component to load and the second parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
+                Dynamic dialogs require an instance of a <i>DialogService</i> that is responsible for displaying a
+                dialog with a component as its content. Calling <i>open</i> method of <i>DialogService</i> will display
+                dynamic dialog. First parameter of <i>open</i> method is the type of component to load and the second
+                parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-toast />
             <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
-        <app-code [code]="code" selector="dynamic-dialog-example-demo" [extFiles]="extFiles" [routeFiles]="routeFiles"></app-code>
+        <app-code
+            [code]="code"
+            selector="dynamic-dialog-example-demo"
+            [extFiles]="extFiles"
+            [routeFiles]="routeFiles"
+        ></app-code>
     `,
-    providers: [DialogService, MessageService]
+    providers: [DialogService, MessageService],
 })
 export class ExampleDoc implements OnDestroy {
-    constructor(
-        public dialogService: DialogService,
-        public messageService: MessageService
-    ) {}
+    constructor(public dialogService: DialogService, public messageService: MessageService) {}
 
     ref: DynamicDialogRef | undefined;
 
@@ -34,21 +38,24 @@ export class ExampleDoc implements OnDestroy {
         this.ref = this.dialogService.open(ProductListDemo, {
             header: 'Select a Product',
             width: '50vw',
+            closable: true,
             contentStyle: { overflow: 'auto' },
             breakpoints: {
                 '960px': '75vw',
-                '640px': '90vw'
+                '640px': '90vw',
             },
             templates: {
-                footer: Footer
-            }
+                footer: Footer,
+            },
         });
 
         this.ref.onClose.subscribe((data: any) => {
             let summary_and_detail;
             if (data) {
                 const buttonType = data?.buttonType;
-                summary_and_detail = buttonType ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` } : { summary: 'Product Selected', detail: data?.name };
+                summary_and_detail = buttonType
+                    ? { summary: 'No Product Selected', detail: `Pressed '${buttonType}' button` }
+                    : { summary: 'Product Selected', detail: data?.name };
             } else {
                 summary_and_detail = { summary: 'No Product Selected', detail: 'Pressed Close button' };
             }
@@ -56,7 +63,11 @@ export class ExampleDoc implements OnDestroy {
         });
 
         this.ref.onMaximize.subscribe((value) => {
-            this.messageService.add({ severity: 'info', summary: 'Maximized', detail: `maximized: ${value.maximized}` });
+            this.messageService.add({
+                severity: 'info',
+                summary: 'Maximized',
+                detail: `maximized: ${value.maximized}`,
+            });
         });
     }
 
@@ -133,7 +144,7 @@ export class DynamicDialogExampleDemo implements OnDestroy {
     }
 }`,
 
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -151,8 +162,8 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 
     routeFiles = [
@@ -240,7 +251,7 @@ export class ProductListDemo implements OnInit {
                 return 'danger';
         }
     }
-}`
+}`,
         },
         {
             path: 'src/app/demo/infodemo.ts',
@@ -287,7 +298,7 @@ export class InfoDemo {
             this.ref.close();
         }
     }
-}`
+}`,
         },
         {
             path: 'src/app/demo/footer.ts',
@@ -311,7 +322,7 @@ export class Footer {
     closeDialog(data) {
         this.ref.close(data);
     }
-}`
-        }
+}`,
+        },
     ];
 }
