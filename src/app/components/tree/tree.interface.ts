@@ -1,6 +1,5 @@
 import { TemplateRef } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { Tree } from './tree';
 import { ScrollerOptions } from 'primeng/api';
 
 /**
@@ -64,6 +63,10 @@ export interface TreeNodeDropEvent {
      * Dropped node instance.
      */
     dropNode?: TreeNode<any> | null;
+    /**
+     * Indicates if the node is dropped in a drop point between nodes
+     */
+    dropPoint?: 'node' | 'between';
     /**
      * Index of the dragged node.
      */
