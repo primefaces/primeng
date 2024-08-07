@@ -49,16 +49,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
     selector: 'p-listbox',
     template: `
         <div [attr.id]="id" [ngClass]="containerClass" [ngStyle]="style" [class]="styleClass" (focusout)="onFocusout($event)">
-            <span
-                #firstHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onFirstHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #firstHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onFirstHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
             <div class="p-listbox-header" *ngIf="headerFacet || headerTemplate">
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate; context: { $implicit: modelValue(), options: visibleOptions() }"></ng-container>
@@ -105,6 +96,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                             [tabindex]="!disabled && !focused ? tabindex : -1"
                             (input)="onFilterChange($event)"
                             (keydown)="onFilterKeyDown($event)"
+                            (focus)="onFilterFocus($event)"
                             (blur)="onFilterBlur($event)"
                         />
                         <SearchIcon *ngIf="!filterIconTemplate" [styleClass]="'p-listbox-filter-icon'" [attr.aria-hidden]="true" />
@@ -117,7 +109,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     </span>
                 </ng-template>
             </div>
-            <div [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+            <div #wrapper [ngClass]="'p-listbox-list-wrapper'" [ngStyle]="listStyle" [class]="listStyleClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'" [attr.tabindex]="!disabled && '0'">
                 <p-scroller
                     #scroller
                     *ngIf="virtualScroll"
@@ -125,10 +117,10 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
                     [style]="{ height: scrollHeight }"
                     [itemSize]="virtualScrollItemSize"
                     [autoSize]="true"
-                    [tabindex]="-1"
                     [lazy]="lazy"
                     [options]="virtualScrollOptions"
                     (onLazyLoad)="onLazyLoad.emit($event)"
+                    [tabindex]="scrollerTabIndex"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
@@ -226,16 +218,7 @@ export const LISTBOX_VALUE_ACCESSOR: any = {
             <span role="status" aria-live="polite" class="p-hidden-accessible">
                 {{ selectedMessageText }}
             </span>
-            <span
-                #lastHiddenFocusableElement
-                role="presentation"
-                [attr.aria-hidden]="true"
-                class="p-hidden-accessible p-hidden-focusable"
-                [tabindex]="!disabled ? tabindex : -1"
-                (focus)="onLastHiddenFocus($event)"
-                [attr.data-p-hidden-focusable]="true"
-            >
-            </span>
+            <span #lastHiddenFocusableElement role="presentation" class="p-hidden-accessible p-hidden-focusable" [tabindex]="!disabled ? tabindex : -1" (focus)="onLastHiddenFocus($event)" [attr.data-p-hidden-focusable]="true"> </span>
         </div>
     `,
     providers: [LISTBOX_VALUE_ACCESSOR],
@@ -545,6 +528,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
     @ViewChild('list') listViewChild: Nullable<ElementRef>;
 
+    @ViewChild('wrapper') wrapperViewChild: Nullable<ElementRef>;
+
     @ContentChild(Header) headerFacet: Nullable<TemplateRef<any>>;
 
     @ContentChild(Footer) footerFacet: Nullable<TemplateRef<any>>;
@@ -592,6 +577,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     translationSubscription: Nullable<Subscription>;
 
     focused: boolean | undefined;
+
+    scrollerTabIndex: string = '0';
 
     get containerClass() {
         return {
@@ -949,6 +936,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
     onFocusout(event: FocusEvent) {
         if (!this.el.nativeElement.contains(event.relatedTarget) && this.lastHiddenFocusableElement && this.firstHiddenFocusableElement) {
             this.firstHiddenFocusableElement.nativeElement.tabIndex = this.lastHiddenFocusableElement.nativeElement.tabIndex = undefined;
+            this.wrapperViewChild.nativeElement.tabIndex = '0';
+            this.scrollerTabIndex = '0';
         }
     }
 
@@ -957,6 +946,9 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.onFocus.emit(event);
+
+        this.wrapperViewChild.nativeElement.tabIndex = '-1';
+        this.scrollerTabIndex = '-1';
     }
 
     onListBlur(event: FocusEvent) {
@@ -1009,6 +1001,10 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
         this.onFilter.emit({ originalEvent: event, filter: this._filterValue() });
 
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
+    }
+    
+    onFilterFocus(event: FocusEvent){
+        this.wrapperViewChild.nativeElement.tabIndex = '-1';
     }
 
     onFilterBlur(event: FocusEvent) {
