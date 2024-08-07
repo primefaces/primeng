@@ -19,7 +19,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -30,6 +30,7 @@ import { AutoFocusModule } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ButtonStyle } from './style/buttonstyle';
 import { BadgeModule } from 'primeng/badge';
+import { ButtonProps } from './button.interface';
 
 type ButtonIconPosition = 'left' | 'right' | 'top' | 'bottom';
 
@@ -39,7 +40,7 @@ const INTERNAL_BUTTON_CLASSES = {
     iconOnly: 'p-button-icon-only',
     disabled: 'p-disabled',
     loading: 'p-button-loading',
-    labelOnly: 'p-button-loading-label-only'
+    labelOnly: 'p-button-loading-label-only',
 } as const;
 /**
  * Button directive is an extension to button component.
@@ -48,9 +49,9 @@ const INTERNAL_BUTTON_CLASSES = {
 @Directive({
     selector: '[pButton]',
     host: {
-        class: 'p-element'
+        class: 'p-element',
     },
-    providers: [ButtonStyle]
+    providers: [ButtonStyle],
 })
 export class ButtonDirective extends BaseComponent implements AfterViewInit, OnDestroy {
     /**
@@ -109,15 +110,15 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             this.setStyleClass();
         }
     }
-    _buttonProps: any | undefined;
+    _buttonProps!: ButtonProps;
     /**
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() get buttonProps(): any | undefined {
+    @Input() get buttonProps(): ButtonProps {
         return this._buttonProps;
     }
-    set buttonProps(val: any | undefined) {
+    set buttonProps(val: ButtonProps) {
         this._buttonProps = val;
 
         if (val && typeof val === 'object') {
@@ -129,7 +130,17 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity:
+        | 'success'
+        | 'info'
+        | 'warn'
+        | 'danger'
+        | 'help'
+        | 'primary'
+        | 'secondary'
+        | 'contrast'
+        | null
+        | undefined;
     /**
      * Add a shadow to indicate elevation.
      * @group Props
@@ -342,7 +353,11 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
 
         if (iconElement) {
             if (this.iconPos) {
-                iconElement.className = 'p-button-icon ' + (labelElement ? 'p-button-icon-' + this.iconPos : '') + ' ' + this.getIconClass();
+                iconElement.className =
+                    'p-button-icon ' +
+                    (labelElement ? 'p-button-icon-' + this.iconPos : '') +
+                    ' ' +
+                    this.getIconClass();
             } else {
                 iconElement.className = 'p-button-icon ' + this.getIconClass();
             }
@@ -352,7 +367,9 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     }
 
     getIconClass() {
-        return this.loading ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon') : this.icon || 'p-hidden';
+        return this.loading
+            ? 'p-button-loading-icon ' + (this.loadingIcon ? this.loadingIcon : 'p-icon')
+            : this.icon || 'p-hidden';
     }
 
     ngOnDestroy() {
@@ -387,16 +404,44 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
             <ng-container *ngIf="loading">
                 <ng-container *ngIf="!loadingIconTemplate">
-                    <span *ngIf="loadingIcon" [ngClass]="iconClass()" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'"></span>
-                    <SpinnerIcon *ngIf="!loadingIcon" [styleClass]="spinnerIconClass()" [spin]="true" [attr.aria-hidden]="true" [attr.data-pc-section]="'loadingicon'" />
+                    <span
+                        *ngIf="loadingIcon"
+                        [ngClass]="iconClass()"
+                        [attr.aria-hidden]="true"
+                        [attr.data-pc-section]="'loadingicon'"
+                    ></span>
+                    <SpinnerIcon
+                        *ngIf="!loadingIcon"
+                        [styleClass]="spinnerIconClass()"
+                        [spin]="true"
+                        [attr.aria-hidden]="true"
+                        [attr.data-pc-section]="'loadingicon'"
+                    />
                 </ng-container>
-                <ng-template [ngIf]="loadingIconTemplate" *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"></ng-template>
+                <ng-template
+                    [ngIf]="loadingIconTemplate"
+                    *ngTemplateOutlet="loadingIconTemplate; context: { class: iconClass() }"
+                ></ng-template>
             </ng-container>
             <ng-container *ngIf="!loading">
-                <span *ngIf="icon && !iconTemplate" [class]="icon" [ngClass]="iconClass()" [attr.data-pc-section]="'icon'"></span>
-                <ng-template [ngIf]="!icon && iconTemplate" *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"></ng-template>
+                <span
+                    *ngIf="icon && !iconTemplate"
+                    [class]="icon"
+                    [ngClass]="iconClass()"
+                    [attr.data-pc-section]="'icon'"
+                ></span>
+                <ng-template
+                    [ngIf]="!icon && iconTemplate"
+                    *ngTemplateOutlet="iconTemplate; context: { class: iconClass() }"
+                ></ng-template>
             </ng-container>
-            <span class="p-button-label" [attr.aria-hidden]="icon && !label" *ngIf="!contentTemplate && label" [attr.data-pc-section]="'label'">{{ label }}</span>
+            <span
+                class="p-button-label"
+                [attr.aria-hidden]="icon && !label"
+                *ngIf="!contentTemplate && label"
+                [attr.data-pc-section]="'label'"
+                >{{ label }}</span
+            >
             <p-badge *ngIf="!contentTemplate && badge" [value]="badge" [severity]="badgeSeverity"></p-badge>
         </button>
     `,
@@ -404,9 +449,9 @@ export class ButtonDirective extends BaseComponent implements AfterViewInit, OnD
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'p-element',
-        '[class.p-disabled]': 'disabled' || 'loading'
+        '[class.p-disabled]': 'disabled' || 'loading',
     },
-    providers: [ButtonStyle]
+    providers: [ButtonStyle],
 })
 export class Button extends BaseComponent implements AfterContentInit {
     /**
@@ -473,7 +518,17 @@ export class Button extends BaseComponent implements AfterContentInit {
      * Defines the style of the button.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity:
+        | 'success'
+        | 'info'
+        | 'warn'
+        | 'danger'
+        | 'help'
+        | 'primary'
+        | 'secondary'
+        | 'contrast'
+        | null
+        | undefined;
     /**
      * Add a border class without a background initially.
      * @group Props
@@ -515,7 +570,17 @@ export class Button extends BaseComponent implements AfterContentInit {
      * @group Props
      * @defaultValue secondary
      */
-    @Input() badgeSeverity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined = 'secondary';
+    @Input() badgeSeverity:
+        | 'success'
+        | 'info'
+        | 'warning'
+        | 'danger'
+        | 'help'
+        | 'primary'
+        | 'secondary'
+        | 'contrast'
+        | null
+        | undefined = 'secondary';
     /**
      * Used to define a string that autocomplete attribute the current element.
      * @group Props
@@ -601,18 +666,20 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-icon-left': this.iconPos === 'left' && this.label,
             'p-button-icon-right': this.iconPos === 'right' && this.label,
             'p-button-icon-top': this.iconPos === 'top' && this.label,
-            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label
+            'p-button-icon-bottom': this.iconPos === 'bottom' && this.label,
         };
     }
 
     get buttonClass() {
         return {
             'p-button p-component': true,
-            'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
+            'p-button-icon-only':
+                (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
             'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
-            'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
+            'p-button-loading-label-only':
+                this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
             'p-button-link': this.link,
             [`p-button-${this.severity}`]: this.severity,
             'p-button-raised': this.raised,
@@ -622,7 +689,7 @@ export class Button extends BaseComponent implements AfterContentInit {
             'p-button-sm': this.size === 'small',
             'p-button-lg': this.size === 'large',
             'p-button-plain': this.plain,
-            [`${this.styleClass}`]: this.styleClass
+            [`${this.styleClass}`]: this.styleClass,
         };
     }
 
@@ -652,6 +719,6 @@ export class Button extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, SpinnerIcon, BadgeModule],
     exports: [ButtonDirective, Button, SharedModule],
-    declarations: [ButtonDirective, Button]
+    declarations: [ButtonDirective, Button],
 })
 export class ButtonModule {}
