@@ -23234,7 +23234,7 @@
                 "values": [
                     {
                         "parent": "columnfilter",
-                        "name": "filterTemplate",
+                        "name": "filter",
                         "parameters": [
                             {
                                 "name": "context",
@@ -23245,37 +23245,37 @@
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "headerTemplate",
+                        "name": "header",
                         "parameters": [],
                         "description": "Custom header template."
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "footerTemplate",
+                        "name": "footer",
                         "parameters": [],
                         "description": "Custom footer template."
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "filterIconTemplate",
+                        "name": "filtericon",
                         "parameters": [],
                         "description": "Custom filter icon template."
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "removeRuleIconTemplate",
+                        "name": "removeruleicon",
                         "parameters": [],
                         "description": "Custom remove rule icon template."
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "addRuleIconTemplate",
+                        "name": "addruleicon",
                         "parameters": [],
                         "description": "Custom add rule icon template."
                     },
                     {
                         "parent": "columnfilter",
-                        "name": "clearFilterIconTemplate",
+                        "name": "clearfiltericon",
                         "parameters": [],
                         "description": "Custom clear filter icon template."
                     }
