@@ -107,7 +107,7 @@ import { ButtonModule } from 'primeng/button';
                         *ngIf="closable && (msg.closable ?? true)"
                         rounded
                         text
-                        [severity]="msg.severity"
+                        severity="secondary"
                         [styleClass]="cx('closeButton')"
                         (onClick)="removeMessage(i)"
                         [ariaLabel]="closeAriaLabel"
