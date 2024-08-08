@@ -4,6 +4,8 @@ import { BasicDoc } from '@doc/picklist/basicdoc';
 import { ImportDoc } from '@doc/picklist/importdoc';
 import { StyleDoc } from '@doc/picklist/styledoc';
 import { AccessibilityDoc } from '@doc/picklist/accessibilitydoc';
+import { DragDropDoc } from "@doc/picklist/dragdropdoc";
+import {SelectableDoc} from "@doc/picklist/selectabledoc";
 
 @Component({
     templateUrl: './picklistdemo.html',
@@ -25,6 +27,16 @@ export class PickListDemo {
             id: 'filter',
             label: 'Filter',
             component: FilterDoc
+        },
+        {
+            id: 'dragdrop',
+            label: 'Drag & Drop',
+            component: DragDropDoc
+        },
+        {
+            id: 'selectable',
+            label: 'Selectable',
+            component: SelectableDoc
         },
         {
             id: 'style',
