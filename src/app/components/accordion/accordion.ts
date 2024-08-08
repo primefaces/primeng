@@ -73,6 +73,7 @@ import { UniqueComponentId } from 'primeng/utils';
             <div
                 [attr.id]="getTabContentId(id)"
                 class="p-toggleable-content"
+                [class.hidden]="initFlag&&!selected"
                 [@tabContent]="selected ? { value: 'visible', params: { transitionParams: transitionOptions } } : { value: 'hidden', params: { transitionParams: transitionOptions } }"
                 role="region"
                 [attr.aria-hidden]="!selected"
@@ -121,6 +122,7 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
      * @group Props
      */
     @Input() id: string | undefined;
+    initFlag: boolean = true;
     /**
      * Used to define the header of the tab.
      * @group Props
@@ -257,11 +259,11 @@ export class AccordionTab implements AfterContentInit, OnDestroy {
         });
     }
 
-    toggle(event?: MouseEvent | KeyboardEvent) {
+    toggle(event?: MouseEvent | KeyboardEvent): any {
         if (this.disabled) {
             return false;
         }
-
+        this.initFlag = false;
         let index = this.findTabIndex();
 
         if (this.selected) {
