@@ -1108,12 +1108,12 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(query);
         }
 
-        if (query.length === 0 && !this.multiple) {
+        if (query.length === 0 && !this.multiple && !this.completeOnFocus) {
             this.onClear.emit();
 
             setTimeout(() => {
                 this.hide();
-            }, this.delay / 2);
+            });
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
@@ -1155,6 +1155,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         if (!this.dirty && this.completeOnFocus) {
             this.search(event, event.target.value, 'focus');
+            this.show();
         }
         this.dirty = true;
         this.focused = true;
@@ -1465,8 +1466,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             return;
         }
 
-        //do not search blank values on input change
-        if (source === 'input' && query.trim().length === 0) {
+        //do not search on input change if minLength is not met
+        if (source === 'input' && query.trim().length < this.minLength) {
             return;
         }
         this.loading = true;
