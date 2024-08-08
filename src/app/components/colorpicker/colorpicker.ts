@@ -401,9 +401,11 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
             this.value = this.HEXtoHSB(this.defaultColor);
         }
 
-        this.updateColorSelector();
-        this.updateUI();
-        this.cd.markForCheck();
+        setTimeout(() => {
+            this.updateColorSelector();   
+            this.updateUI();
+            this.cd.markForCheck();
+        });
     }
 
     updateColorSelector() {

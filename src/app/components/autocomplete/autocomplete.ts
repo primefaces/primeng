@@ -881,6 +881,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     }
 
     constructor(
+        @Inject(DOCUMENT) private document: Document,
         public el: ElementRef,
         public renderer: Renderer2,
         public cd: ChangeDetectorRef,
@@ -1376,12 +1377,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         } else {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
+                event.preventDefault();
             }
 
             this.hide();
         }
-
-        event.preventDefault();
     }
 
     onEscapeKey(event) {

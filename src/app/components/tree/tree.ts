@@ -100,7 +100,7 @@ import {
                     (dragend)="onDragStop($event)"
                     [ngClass]="{ 'p-treenode-selectable': tree.selectionMode && node.selectable !== false, 'p-treenode-dragover': draghoverNode, 'p-highlight': isSelected() }"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
+                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
                                 <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
@@ -281,7 +281,10 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         (<TreeNode>this.node).parent = this.parentNode;
-        if (this.parentNode) {
+        const nativeElement = this.tree.el.nativeElement;
+        const pDialogWrapper = nativeElement.closest('p-dialog');
+
+        if (this.parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }

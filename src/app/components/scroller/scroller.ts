@@ -866,7 +866,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setSpacerSize() {
-        if (this._items) {
+        if (this._scrollHeight !== '100%' && this._items) {
             const contentPos = this.getContentPosition();
             const setProp = (_name: string, _value: any, _size: number, _cpos: number = 0) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: (_value || []).length * _size + _cpos + 'px' } });
 
