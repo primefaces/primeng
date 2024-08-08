@@ -1002,8 +1002,8 @@ export class Listbox implements AfterContentInit, OnInit, ControlValueAccessor, 
 
         !this.virtualScrollerDisabled && this.scroller.scrollToIndex(0);
     }
-    
-    onFilterFocus(event: FocusEvent){
+
+    onFilterFocus(event: FocusEvent) {
         this.wrapperViewChild.nativeElement.tabIndex = '-1';
     }
 

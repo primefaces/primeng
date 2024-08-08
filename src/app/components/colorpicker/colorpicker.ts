@@ -402,7 +402,7 @@ export class ColorPicker implements ControlValueAccessor, OnDestroy {
         }
 
         setTimeout(() => {
-            this.updateColorSelector();   
+            this.updateColorSelector();
             this.updateUI();
             this.cd.markForCheck();
         });
