@@ -9,16 +9,16 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, NgModule, Outp
     template: `
         <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
             <ng-content></ng-content>
-            <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+            <span class="p-avatar-text" [ngStyle]="labelStyle" *ngIf="label; else iconTemplate">{{ label }}</span>
+            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon"></span></ng-template>
+            <img [src]="image" *ngIf="image && !icon" (error)="imageError($event)" [attr.aria-label]="ariaLabel" />
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     styleUrls: ['./avatar.css'],
     host: {
-        class: 'p-element'
+        class: 'p-avatar-host p-element'
     }
 })
 export class Avatar {
@@ -86,6 +86,12 @@ export class Avatar {
 
     imageError(event: Event) {
         this.onImageError.emit(event);
+    }
+
+    get labelStyle(){
+        return {
+            'position': this.image ? 'absolute' : undefined
+        }
     }
 }
 
