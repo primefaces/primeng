@@ -29,5 +29,3 @@ export interface ButtonTemplates {
         class: NgClass;
     }): TemplateRef<NgClass>;
 }
-
-export type ButtonSeverity = 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined
