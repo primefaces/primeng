@@ -99,6 +99,7 @@ export class MenubarService {
                     [class]="getItemProp(processedItem, 'styleClass')"
                     pTooltip
                     [tooltipOptions]="getItemProp(processedItem, 'tooltipOptions')"
+                    (mouseleave)="onItemMouseLeave()"
                 >
                     <div class="p-menuitem-content" [attr.data-pc-section]="'content'" (click)="onItemClick($event, processedItem)" (mouseenter)="onItemMouseEnter({ $event, processedItem })">
                         <ng-container *ngIf="!itemTemplate">
@@ -219,6 +220,10 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     @Input({ transform: booleanAttribute }) autoDisplay: boolean | undefined;
 
+    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined;
+
+    @Input({ transform: numberAttribute }) autoHideDelay: number = 100;
+
     @Input() menuId: string | undefined;
 
     @Input() ariaLabel: string | undefined;
@@ -247,7 +252,7 @@ export class MenubarSub implements OnInit, OnDestroy {
 
     mouseLeaveSubscriber: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private cd: ChangeDetectorRef, private menubarService: MenubarService) { }
 
     ngOnInit() {
         this.mouseLeaveSubscriber = this.menubarService.mouseLeft$.subscribe(() => {
@@ -329,6 +334,12 @@ export class MenubarSub implements OnInit, OnDestroy {
     }
 
     onItemMouseLeave() {
+        if (this.autoHide) {
+            const timeout = setTimeout(() => {
+                this.activeItemPath = [];
+                clearTimeout(timeout);
+            }, this.autoHideDelay); // By default autoHideDelay is 100
+        }
         this.menubarService.mouseLeaves.next(true);
     }
 
@@ -382,6 +393,8 @@ export class MenubarSub implements OnInit, OnDestroy {
                 [autoZIndex]="autoZIndex"
                 [mobileActive]="mobileActive"
                 [autoDisplay]="autoDisplay"
+                [autoHide]="autoHide"
+                [autoHideDelay]="autoHideDelay"
                 [ariaLabel]="ariaLabel"
                 [ariaLabelledBy]="ariaLabelledBy"
                 [focusedItemId]="focused ? focusedItemId : undefined"
@@ -453,7 +466,7 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
      * Whether to hide a root submenu when mouse leaves.
      * @group Props
      */
-    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined;
+    @Input({ transform: booleanAttribute }) autoHide: boolean | undefined = false;
     /**
      * Delay to hide the root submenu in milliseconds when mouse leaves.
      * @group Props
@@ -1128,4 +1141,4 @@ export class Menubar implements AfterContentInit, OnDestroy, OnInit {
     exports: [Menubar, RouterModule, TooltipModule, SharedModule],
     declarations: [Menubar, MenubarSub]
 })
-export class MenubarModule {}
+export class MenubarModule { }
