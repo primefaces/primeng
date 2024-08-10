@@ -200,13 +200,13 @@ export class TableService {
                     [step]="rows"
                     [delay]="lazy ? virtualScrollDelay : 0"
                     [inline]="true"
+                    [autoSize]="true"
                     [lazy]="lazy"
                     (onLazyLoad)="onLazyItemLoad($event)"
                     [loaderDisabled]="true"
                     [showSpacer]="false"
                     [showLoader]="loadingBodyTemplate"
                     [options]="virtualScrollOptions"
-                    [autoSize]="true"
                 >
                     <ng-template pTemplate="content" let-items let-scrollerOptions="options">
                         <ng-container *ngTemplateOutlet="buildInTable; context: { $implicit: items, options: scrollerOptions }"></ng-container>
