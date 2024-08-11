@@ -27,7 +27,7 @@ import {
     input,
     numberAttribute,
     signal
-} from '@angular/core';
+    } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
@@ -36,6 +36,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 @Component({
     selector: 'p-tieredMenuSub',
@@ -110,7 +111,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -152,7 +153,7 @@ import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -1190,7 +1191,7 @@ export class TieredMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, SafeHtmlPipe],
     exports: [TieredMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [TieredMenu, TieredMenuSub]
 })

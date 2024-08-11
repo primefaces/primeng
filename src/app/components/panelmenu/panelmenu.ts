@@ -33,6 +33,7 @@ import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 @Component({
     selector: 'p-panelMenuSub',
@@ -89,7 +90,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="processedItem.item?.escape !== false; else htmlLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label') | safeHtml"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="processedItem.badgeStyleClass">{{ processedItem.badge }}</span>
                             </a>
                             <a
@@ -120,7 +121,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="processedItem.icon" *ngIf="processedItem.icon" [ngStyle]="getItemProp(processedItem, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(processedItem, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label')"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(processedItem, 'label') | safeHtml"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="processedItem.badge" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                             </a>
                         </ng-container>
@@ -761,7 +762,7 @@ export class PanelMenuList implements OnChanges {
                                     </ng-container>
                                     <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                     <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlLabel">{{ getItemProp(item, 'label') }}</span>
-                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label') | safeHtml"></span></ng-template>
                                     <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
                                 </a>
                             </ng-container>
@@ -792,7 +793,7 @@ export class PanelMenuList implements OnChanges {
                                 </ng-container>
                                 <span class="p-menuitem-icon" [ngClass]="item.icon" *ngIf="item.icon" [ngStyle]="getItemProp(item, 'iconStyle')"></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(item, 'escape') !== false; else htmlRouteLabel">{{ getItemProp(item, 'label') }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label')"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemProp(item, 'label') | safeHtml"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(item, 'badge')" [ngClass]="getItemProp(item, 'badgeStyleClass')">{{ getItemProp(item, 'badge') }}</span>
                             </a>
                         </div>
@@ -1110,7 +1111,7 @@ export class PanelMenu implements AfterContentInit {
     }
 }
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon],
+    imports: [CommonModule, RouterModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, ChevronDownIcon, ChevronRightIcon, SafeHtmlPipe],
     exports: [PanelMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [PanelMenu, PanelMenuSub, PanelMenuList]
 })

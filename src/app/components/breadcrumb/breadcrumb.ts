@@ -6,6 +6,7 @@ import { ChevronRightIcon } from 'primeng/icons/chevronright';
 import { HomeIcon } from 'primeng/icons/home';
 import { TooltipModule } from 'primeng/tooltip';
 import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 /**
  * Breadcrumb provides contextual information about page hierarchy.
  * @group Components
@@ -41,7 +42,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeLabel" class="p-menuitem-text">{{ home.label }}</span>
-                            <ng-template #htmlHomeLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
+                            <ng-template #htmlHomeLabel><span class="p-menuitem-text" [innerHTML]="home.label | safeHtml"></span></ng-template>
                         </ng-container>
                     </a>
                     <a
@@ -68,7 +69,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                         <HomeIcon *ngIf="!home.icon" [styleClass]="'p-menuitem-icon'" />
                         <ng-container *ngIf="home.label">
                             <span *ngIf="home.escape !== false; else htmlHomeRouteLabel" class="p-menuitem-text">{{ home.label }}</span>
-                            <ng-template #htmlHomeRouteLabel><span class="p-menuitem-text" [innerHTML]="home.label"></span></ng-template>
+                            <ng-template #htmlHomeRouteLabel><span class="p-menuitem-text" [innerHTML]="home.label | safeHtml"></span></ng-template>
                         </ng-container>
                     </a>
                 </li>
@@ -101,7 +102,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                                 <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngIf="item.label">
                                     <span *ngIf="item.escape !== false; else htmlLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <ng-template #htmlLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -131,7 +132,7 @@ import { BreadcrumbItemClickEvent } from './breadcrumb.interface';
                                 <span *ngIf="item.icon" class="p-menuitem-icon" [ngClass]="item.icon" [ngStyle]="item.iconStyle"></span>
                                 <ng-container *ngIf="item.label">
                                     <span *ngIf="item.escape !== false; else htmlRouteLabel" class="p-menuitem-text">{{ item.label }}</span>
-                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label"></span></ng-template>
+                                    <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="item.label | safeHtml"></span></ng-template>
                                 </ng-container>
                             </ng-container>
                             <ng-container *ngIf="itemTemplate">
@@ -251,7 +252,7 @@ export class Breadcrumb implements AfterContentInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule],
+    imports: [CommonModule, RouterModule, TooltipModule, ChevronRightIcon, HomeIcon, SharedModule, SafeHtmlPipe],
     exports: [Breadcrumb, RouterModule, TooltipModule, SharedModule],
     declarations: [Breadcrumb]
 })

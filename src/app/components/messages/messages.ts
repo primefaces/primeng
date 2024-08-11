@@ -27,6 +27,7 @@ import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription, timer } from 'rxjs';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 /**
  * Messages is used to display alerts inline.
  * @group Components
@@ -53,8 +54,8 @@ import { Subscription, timer } from 'rxjs';
                             </ng-container>
                         </span>
                         <ng-container *ngIf="!escape; else escapeOut">
-                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
+                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary | safeHtml" [attr.data-pc-section]="'summary'"></span>
+                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail | safeHtml" [attr.data-pc-section]="'detail'"></span>
                         </ng-container>
                         <ng-template #escapeOut>
                             <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
@@ -287,7 +288,7 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, SafeHtmlPipe],
     exports: [Messages],
     declarations: [Messages]
 })

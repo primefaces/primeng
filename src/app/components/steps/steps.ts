@@ -6,6 +6,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { MenuItem } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
 import { Subscription } from 'rxjs';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 /**
  * Steps components is an indicator for the steps in a wizard workflow.
  * @group Components
@@ -52,7 +53,7 @@ import { Subscription } from 'rxjs';
                     >
                         <span class="p-steps-number">{{ i + 1 }}</span>
                         <span class="p-steps-title" *ngIf="item.escape !== false; else htmlLabel">{{ item.label }}</span>
-                        <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label"></span></ng-template>
+                        <ng-template #htmlLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                     </a>
                     <ng-template #elseBlock>
                         <a
@@ -69,7 +70,7 @@ import { Subscription } from 'rxjs';
                         >
                             <span class="p-steps-number">{{ i + 1 }}</span>
                             <span class="p-steps-title" *ngIf="item.escape !== false; else htmlRouteLabel">{{ item.label }}</span>
-                            <ng-template #htmlRouteLabel><span class="p-steps-title" [innerHTML]="item.label"></span></ng-template>
+                            <ng-template #htmlRouteLabel><span class="p-steps-title" [innerHTML]="item.label | safeHtml"></span></ng-template>
                         </a>
                     </ng-template>
                 </li>
@@ -278,7 +279,7 @@ export class Steps implements OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, TooltipModule],
+    imports: [CommonModule, RouterModule, TooltipModule, SafeHtmlPipe],
     exports: [Steps, RouterModule, TooltipModule],
     declarations: [Steps]
 })

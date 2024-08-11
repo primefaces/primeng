@@ -34,6 +34,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -78,7 +79,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngIf="iconTemplate">
                             <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                         </ng-container>
-                        <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message')"></span>
+                        <span class="p-confirm-dialog-message" *ngIf="!messageTemplate" [innerHTML]="option('message') | safeHtml"></span>
                         <ng-container *ngIf="messageTemplate">
                             <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
                         </ng-container>
@@ -761,7 +762,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon],
+    imports: [CommonModule, ButtonModule, RippleModule, TimesIcon, CheckIcon, SafeHtmlPipe],
     exports: [ConfirmDialog, ButtonModule, SharedModule],
     declarations: [ConfirmDialog]
 })

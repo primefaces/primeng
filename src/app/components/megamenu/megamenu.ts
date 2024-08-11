@@ -34,6 +34,7 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { VoidListener } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 @Component({
     selector: 'p-megaMenuSub',
@@ -111,7 +112,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     {{ getItemLabel(processedItem) }}
                                 </span>
                                 <ng-template #htmlLabel>
-                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                    <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span>
                                 </ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -153,7 +154,7 @@ import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
                                     [attr.tabindex]="-1"
                                 ></span>
                                 <span class="p-menuitem-text" *ngIf="getItemProp(processedItem, 'escape'); else htmlRouteLabel">{{ getItemLabel(processedItem) }}</span>
-                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span></ng-template>
+                                <ng-template #htmlRouteLabel><span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span></ng-template>
                                 <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
                                 <ng-container *ngIf="isItemGroup(processedItem)">
                                     <ng-container *ngIf="!megaMenu.submenuIconTemplate">
@@ -1077,7 +1078,7 @@ export class MegaMenu implements AfterContentInit, OnDestroy, OnInit {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, SharedModule, AngleDownIcon, AngleRightIcon, SafeHtmlPipe],
     exports: [MegaMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [MegaMenu, MegaMenuSub]
 })

@@ -36,6 +36,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { CaretLeftIcon } from 'primeng/icons/caretleft';
+import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
 
 @Component({
     selector: 'p-slideMenuSub',
@@ -119,7 +120,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -162,7 +163,7 @@ import { CaretLeftIcon } from 'primeng/icons/caretleft';
                                 {{ getItemLabel(processedItem) }}
                             </span>
                             <ng-template #htmlLabel>
-                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem)" [attr.data-pc-section]="'label'"></span>
+                                <span class="p-menuitem-text" [innerHTML]="getItemLabel(processedItem) | safeHtml" [attr.data-pc-section]="'label'"></span>
                             </ng-template>
                             <span class="p-menuitem-badge" *ngIf="getItemProp(processedItem, 'badge')" [ngClass]="getItemProp(processedItem, 'badgeStyleClass')">{{ getItemProp(processedItem, 'badge') }}</span>
 
@@ -1332,7 +1333,7 @@ export class SlideMenu implements OnInit, AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, CaretLeftIcon],
+    imports: [CommonModule, RouterModule, RippleModule, TooltipModule, AngleRightIcon, SharedModule, CaretLeftIcon, SafeHtmlPipe],
     exports: [SlideMenu, RouterModule, TooltipModule, SharedModule],
     declarations: [SlideMenu, SlideMenuSub]
 })
