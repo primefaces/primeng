@@ -35,6 +35,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { UniqueComponentId, ZIndexUtils } from 'primeng/utils';
 import { Subscription } from 'rxjs';
 import { SafeHtmlPipe } from '../dom/safeHtmlPipe';
+import { DomSanitizer } from '@angular/platform-browser';
 
 const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 }), animate('{{transition}}', style({ transform: 'none', opacity: 1 }))]);
 
@@ -443,7 +444,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
 
     translationSubscription: Subscription | undefined;
 
-    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig, @Inject(DOCUMENT) private document: Document) {
+    constructor(public el: ElementRef, public renderer: Renderer2, private confirmationService: ConfirmationService, public zone: NgZone, private cd: ChangeDetectorRef, public config: PrimeNGConfig, @Inject(DOCUMENT) private document: Document, private readonly domSanitizer: DomSanitizer) {
         this.subscription = this.confirmationService.requireConfirmation$.subscribe((confirmation) => {
             if (!confirmation) {
                 this.hide();
@@ -617,7 +618,7 @@ export class ConfirmDialog implements AfterContentInit, OnInit, OnDestroy {
                 `;
             }
 
-            this.styleElement.innerHTML = innerHTML;
+            this.styleElement.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
         }
     }
 

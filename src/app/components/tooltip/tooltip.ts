@@ -1,5 +1,6 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Inject, Input, NgModule, NgZone, OnDestroy, PLATFORM_ID, Renderer2, SecurityContext, SimpleChanges, TemplateRef, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { PrimeNGConfig, TooltipOptions } from 'primeng/api';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable } from 'primeng/ts-helpers';
@@ -166,7 +167,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     interactionInProgress = false;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef, private readonly domSanitizer: DomSanitizer) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -470,7 +471,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.tooltipText.innerHTML = '';
             this.tooltipText.appendChild(document.createTextNode(content));
         } else {
-            this.tooltipText.innerHTML = content;
+            this.tooltipText.innerHTML = this.domSanitizer.sanitize(SecurityContext.HTML, content);
         }
     }
 
