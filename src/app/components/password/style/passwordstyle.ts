@@ -92,6 +92,10 @@ p-password.ng-invalid.ng-dirty > .p-password.p-inputwrapper > .p-inputtext {
     right: ${dt('form.field.padding.x')};
     color: ${dt('form.field.icon.color')};
 }
+
+.p-password-fluid-directive {
+    width:100%
+}
 `;
 
 const inlineStyles = {
@@ -103,7 +107,7 @@ const classes = {
         'p-password p-component p-inputwrapper': true,
         'p-inputwrapper-filled': instance.filled(),
         'p-inputwrapper-focus': instance.focused,
-        'p-password-fluid': instance.fluid
+        'p-password-fluid': instance.hasFluid
     }),
     pcInput: 'p-password-input',
     maskIcon: 'p-password-toggle-mask-icon p-password-mask-icon',

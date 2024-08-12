@@ -58,7 +58,8 @@ type Meter = {
     host: {
         class: 'p-password p-inputtext p-component p-inputwrapper',
         '[class.p-inputwrapper-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-password-fluid-directive]': 'hasFluid'
     },
     providers: [PasswordStyle]
 })
@@ -100,6 +101,11 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
 
     panel: Nullable<HTMLDivElement>;
 
@@ -118,6 +124,12 @@ export class PasswordDirective extends BaseComponent implements OnDestroy, DoChe
     documentResizeListener: VoidListener;
 
     _componentStyle = inject(PasswordStyle);
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
 
     constructor(public zone: NgZone) {
         super();
@@ -634,6 +646,12 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
     translationSubscription: Nullable<Subscription>;
 
     _componentStyle = inject(PasswordStyle);
+    
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
 
     constructor(public overlayService: OverlayService) {
         super();
@@ -725,6 +743,7 @@ export class Password extends BaseComponent implements AfterContentInit, OnInit 
             DomHandler.relativePosition(this.overlay, this.input.nativeElement);
         }
     }
+    
 
     onInput(event: Event) {
         this.value = (event.target as HTMLInputElement).value;
