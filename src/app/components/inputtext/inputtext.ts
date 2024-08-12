@@ -15,7 +15,7 @@ import { InputTextStyle } from './style/inputtextstyle';
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
         '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
-        '[class.p-inputtext-fluid]': 'fluid'
+        '[class.p-inputtext-fluid]': 'hasFluid'
     },
     providers: [InputTextStyle]
 })
@@ -34,6 +34,12 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
     filled: Nullable<boolean>;
 
     _componentStyle = inject(InputTextStyle);
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
 
     constructor(@Optional() public ngModel: NgModel) {
         super();
