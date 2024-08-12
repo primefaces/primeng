@@ -1,29 +1,25 @@
 import { animate, animation, style, transition, trigger, useAnimation } from '@angular/animations';
-import { CommonModule, DOCUMENT } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
     EventEmitter,
-    Inject,
     Input,
     NgModule,
     OnDestroy,
     Output,
     QueryList,
-    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute,
-    signal
+    numberAttribute
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -51,7 +47,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             *ngIf="visible"
             [ngClass]="cx('mask')"
             [ngStyle]="sx('mask')"
-            [style]="style"
+            [style]="maskStyle"
             [@panelState]="{ value: 'visible', params: { transform: transformOptions, transition: transitionOptions } }"
             (@panelState.start)="onAnimationStart($event)"
             (@panelState.done)="onAnimationEnd($event)"
@@ -59,7 +55,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [attr.data-pc-section]="'mask'"
             (click)="maskClickListener($event)"
         >
-            <div [ngClass]="cx('root')" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)" [class]="styleClass">
+            <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
                 <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
                 <ng-template #notHeadless>
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
@@ -213,6 +209,8 @@ export class Sidebar extends BaseComponent implements AfterViewInit, AfterConten
 
         if (value) this.transformOptions = 'none';
     }
+
+    @Input() maskStyle: any;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
     /**

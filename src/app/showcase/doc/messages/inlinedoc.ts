@@ -27,12 +27,18 @@ import { Code } from '@domain/code';
 
             <div class="field p-fluid mt-4">
                 <label for="username">Username</label>
-                <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
-                <small id="username-help" class="p-error">Username is not available.</small>
+                <input
+                    id="username"
+                    type="username"
+                    aria-describedby="username-help"
+                    class="ng-invalid ng-dirty"
+                    pInputText
+                />
+                <p-message severity="error" text="Username is not available."></p-message>
             </div>
         </div>
         <app-code [code]="code" selector="messages-inline-demo"></app-code>
-    `
+    `,
 })
 export class InlineDoc {
     code: Code = {
@@ -56,7 +62,7 @@ export class InlineDoc {
 <div class="field p-fluid mt-4">
     <label for="username">Username</label>
     <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
-    <small id="username-help" class="p-error">Username is not available.</small>
+    <p-message severity="error" text="Username is not available."></p-message>
 </div>`,
         html: `
 <div class="card">
@@ -80,7 +86,7 @@ export class InlineDoc {
     <div class="field p-fluid mt-4">
         <label for="username">Username</label>
         <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
-        <small id="username-help" class="p-error">Username is not available.</small>
+        <p-message severity="error" text="Username is not available."></p-message>
     </div>
 </div>`,
         typescript: `
@@ -90,6 +96,6 @@ import { Component } from '@angular/core';
     selector: 'messages-inline-demo',
     templateUrl: './messages-inline-demo.html'
 })
-export class MessagesInlineDemo { }`
+export class MessagesInlineDemo { }`,
     };
 }

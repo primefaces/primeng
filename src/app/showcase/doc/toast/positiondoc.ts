@@ -6,7 +6,11 @@ import { Code } from '@domain/code';
     selector: 'position-doc',
     template: `
         <app-docsectiontext>
-            <p>Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>, <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and <i>center</i>.</p>
+            <p>
+                Location of the toast is customized with the <i>position</i> property. Valid values are <i>top-left</i>,
+                <i>top-center</i>, <i>top-right</i>, <i>bottom-left</i>, <i>bottom-center</i>, <i>bottom-right</i> and
+                <i>center</i>.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-toast position="top-left" key="tl" />
@@ -19,21 +23,39 @@ import { Code } from '@domain/code';
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class PositionDoc {
     constructor(private messageService: MessageService) {}
 
     showTopLeft() {
-        this.messageService.add({ severity: 'info', summary: 'Info Message', detail: 'Message Content', key: 'tl', life: 3000 });
+        this.messageService.add({
+            severity: 'info',
+            summary: 'Info Message',
+            detail: 'Message Content',
+            key: 'tl',
+            life: 3000,
+        });
     }
 
     showBottomLeft() {
-        this.messageService.add({ severity: 'warn', summary: 'Warn Message', detail: 'Message Content', key: 'bl', life: 3000 });
+        this.messageService.add({
+            severity: 'warn',
+            summary: 'Warn Message',
+            detail: 'Message Content',
+            key: 'bl',
+            life: 3000,
+        });
     }
 
     showBottomRight() {
-        this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
+        this.messageService.add({
+            severity: 'success',
+            summary: 'Success Message',
+            detail: 'Message Content',
+            key: 'br',
+            life: 3000,
+        });
     }
 
     code: Code = {
@@ -104,6 +126,6 @@ export class ToastPositionDemo {
     showBottomRight() {
         this.messageService.add({ severity: 'success', summary: 'Success Message', detail: 'Message Content', key: 'br', life: 3000 });
     }
-}`
+}`,
     };
 }

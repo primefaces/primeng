@@ -1,23 +1,19 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { UIMessage } from './message';
+import { Message } from './message';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { InfoCircleIcon } from 'primeng/icons/infocircle';
-import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { CheckIcon } from 'primeng/icons/check';
 
-describe('UIMessage', () => {
-    let message: UIMessage;
-    let fixture: ComponentFixture<UIMessage>;
+describe('Message', () => {
+    let message: Message;
+    let fixture: ComponentFixture<Message>;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, InfoCircleIcon, ExclamationTriangleIcon, TimesCircleIcon, CheckIcon],
-            declarations: [UIMessage]
+            imports: [NoopAnimationsModule],
+            declarations: [Message],
         });
 
-        fixture = TestBed.createComponent(UIMessage);
+        fixture = TestBed.createComponent(Message);
         message = fixture.componentInstance;
     });
 
@@ -47,7 +43,7 @@ describe('UIMessage', () => {
     });
 
     it('should change severity to danger', () => {
-        message.severity = 'danger';
+        message.severity = 'error';
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));
@@ -58,7 +54,7 @@ describe('UIMessage', () => {
     });
 
     it('should change severity to warning', () => {
-        message.severity = 'warning';
+        message.severity = 'warn';
         fixture.detectChanges();
 
         const messageEl = fixture.debugElement.query(By.css('div'));

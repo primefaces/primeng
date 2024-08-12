@@ -11,17 +11,14 @@ import { DialogService, DynamicDialogComponent, DynamicDialogRef } from 'primeng
                 <p-button type="button" label="Close" (click)="close()"></p-button>
             </div>
         </div>
-    `
+    `,
 })
 export class InfoDemo implements OnInit {
     totalProducts: number = 0;
 
     instance: DynamicDialogComponent | undefined;
 
-    constructor(
-        public ref: DynamicDialogRef,
-        private dialogService: DialogService
-    ) {
+    constructor(public ref: DynamicDialogRef, private dialogService: DialogService) {
         this.instance = this.dialogService.getInstance(this.ref);
     }
 

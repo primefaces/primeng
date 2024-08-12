@@ -154,9 +154,8 @@ export class BaseComponent {
         ThemeService.on('theme:change', callback);
     }
 
-    cx(arg: string): string {
+    cx(arg: string, rest?: string): string {
         const classes = this.componentStyle?.classes?.[arg];
-        const styleClass = this['styleClass'] || null;
 
         if (typeof classes === 'function') {
             return classes({ instance: this });
@@ -166,13 +165,15 @@ export class BaseComponent {
     }
 
     sx(arg: string): string {
-        if (this.componentStyle.inlineStyles) {
-            const styles = this.componentStyle?.inlineStyles?.[arg];
-            if (typeof styles === 'function') {
-                return styles({ instance: this });
-            }
+        const styles = this.componentStyle?.inlineStyles?.[arg];
+        if (typeof styles === 'function') {
+            return styles({ instance: this });
+        }
 
-            return typeof styles === 'string' ? styles : arg;
+        if (typeof styles === 'string') {
+            return styles;
+        } else {
+            return { ...styles };
         }
     }
 }

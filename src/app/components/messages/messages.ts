@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChildren,
-    ElementRef,
     EventEmitter,
     Input,
     NgModule,
@@ -16,10 +14,10 @@ import {
     QueryList,
     TemplateRef,
     ViewEncapsulation,
-    booleanAttribute
+    booleanAttribute,
+    inject,
 } from '@angular/core';
 import { Message, MessageService, PrimeTemplate } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
 import { InfoCircleIcon } from 'primeng/icons/infocircle';
@@ -27,6 +25,9 @@ import { TimesIcon } from 'primeng/icons/times';
 import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { RippleModule } from 'primeng/ripple';
 import { Subscription, timer } from 'rxjs';
+import { MessageStyle } from './style/messagestyle';
+import { BaseComponent } from 'primeng/basecomponent';
+import { ButtonModule } from 'primeng/button';
 /**
  * Messages is used to display alerts inline.
  * @group Components
@@ -34,61 +35,117 @@ import { Subscription, timer } from 'rxjs';
 @Component({
     selector: 'p-messages',
     template: `
-        <div class="p-messages p-component" role="alert" [ngStyle]="style" [class]="styleClass" [attr.aria-atomic]="true" [attr.aria-live]="'assertive'" [attr.data-pc-name]="'message'">
-            <ng-container *ngIf="!contentTemplate; else staticMessage">
-                <div
-                    *ngFor="let msg of messages; let i = index"
-                    [class]="'p-message p-message-' + msg.severity"
-                    role="alert"
-                    [@messageAnimation]="{ value: 'visible', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
-                >
-                    <div class="p-message-wrapper" [attr.data-pc-section]="'wrapper'" [attr.id]="msg.id || null">
-                        <span *ngIf="msg.icon" [class]="'p-message-icon pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
-                        <span class="p-message-icon" *ngIf="!msg.icon">
-                            <ng-container>
-                                <CheckIcon *ngIf="msg.severity === 'success'" [attr.data-pc-section]="'icon'" />
-                                <InfoCircleIcon *ngIf="msg.severity === 'info'" [attr.data-pc-section]="'icon'" />
-                                <TimesCircleIcon *ngIf="msg.severity === 'error'" [attr.data-pc-section]="'icon'" />
-                                <ExclamationTriangleIcon *ngIf="msg.severity === 'warn'" [attr.data-pc-section]="'icon'" />
-                            </ng-container>
-                        </span>
-                        <ng-container *ngIf="!escape; else escapeOut">
-                            <span *ngIf="msg.summary" class="p-message-summary" [innerHTML]="msg.summary" [attr.data-pc-section]="'summary'"></span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [innerHTML]="msg.detail" [attr.data-pc-section]="'detail'"></span>
-                        </ng-container>
-                        <ng-template #escapeOut>
-                            <span *ngIf="msg.summary" class="p-message-summary" [attr.data-pc-section]="'summary'">{{ msg.summary }}</span>
-                            <span *ngIf="msg.detail" class="p-message-detail" [attr.data-pc-section]="'detail'">{{ msg.detail }}</span>
-                        </ng-template>
-                        <button class="p-message-close p-link" (click)="removeMessage(i)" *ngIf="closable && (msg.closable ?? true)" type="button" pRipple [attr.aria-label]="closeAriaLabel" [attr.data-pc-section]="'closebutton'">
-                            <TimesIcon [styleClass]="'p-message-close-icon'" [attr.data-pc-section]="'closeicon'" />
-                        </button>
-                    </div>
+        <div
+            [ngClass]="cx('container')"
+            role="alert"
+            [ngStyle]="style"
+            [class]="styleClass"
+            [attr.aria-atomic]="true"
+            [attr.aria-live]="'assertive'"
+            [attr.data-pc-name]="'message'"
+        >
+            @if(contentTemplate) {
+            <div [ngClass]="'p-message p-message-' + severity" role="alert">
+                <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+            </div>
+            }@else {
+            <div
+                *ngFor="let msg of messages; let i = index"
+                [ngClass]="cx('root')"
+                [class]="'p-message-' + msg.severity"
+                role="alert"
+                [@messageAnimation]="{
+                    value: 'visible',
+                    params: {
+                        showTransitionParams: showTransitionOptions,
+                        hideTransitionParams: hideTransitionOptions
+                    }
+                }"
+            >
+                <div [ngClass]="cx('content')" [attr.data-pc-section]="'wrapper'" [attr.id]="msg.id || null">
+                    @if(msg.icon) {
+                    <span [ngClass]="cx('icon')" [class]="'pi ' + msg.icon" [attr.data-pc-section]="'icon'"> </span>
+                    }@else {
+                    <span [ngClass]="cx('icon')">
+                        @switch (msg.icon) { @case ('success') {
+                        <CheckIcon [attr.data-pc-section]="'icon'" />
+                        } @case ('error') {
+                        <TimesCircleIcon [attr.data-pc-section]="'icon'" />
+                        } @case ('danger') {
+                        <TimesCircleIcon [attr.data-pc-section]="'icon'" />
+                        }@case ('warn') {
+                        <ExclamationTriangleIcon [attr.data-pc-section]="'icon'" />
+                        } @default {
+                        <InfoCircleIcon [attr.data-pc-section]="'icon'" />
+                        } }
+                    </span>
+                    } @if(escape) { @if(msg.text) {
+                    <span [ngClass]="cx('text')">{{ msg.text }}</span>
+                    } @if(msg.summary) {
+                    <span [ngClass]="cx('text', 'p-message-summary')" [attr.data-pc-section]="'summary'">
+                        {{ msg.summary }}
+                    </span>
+                    }@if (msg.detail) {
+                    <span [ngClass]="cx('text', 'p-message-detail')" [attr.data-pc-section]="'detail'">
+                        {{ msg.detail }}
+                    </span>
+                    } }@else {
+                    <span
+                        *ngIf="msg.summary"
+                        class="p-message-summary"
+                        [innerHTML]="msg.summary"
+                        [attr.data-pc-section]="'summary'"
+                    ></span>
+                    <span
+                        *ngIf="msg.detail"
+                        class="p-message-detail"
+                        [innerHTML]="msg.detail"
+                        [attr.data-pc-section]="'detail'"
+                    ></span>
+                    }
+                    <p-button
+                        *ngIf="closable && (msg.closable ?? true)"
+                        rounded
+                        text
+                        severity="secondary"
+                        [styleClass]="cx('closeButton')"
+                        (onClick)="removeMessage(i)"
+                        [ariaLabel]="closeAriaLabel"
+                        [attr.data-pc-section]="'closebutton'"
+                    >
+                        <TimesIcon [ngClass]="cx('closeIcon')" [attr.data-pc-section]="'closeicon'" />
+                    </p-button>
                 </div>
-            </ng-container>
-            <ng-template #staticMessage>
-                <div [ngClass]="'p-message p-message-' + severity" role="alert">
-                    <div class="p-message-wrapper">
-                        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-                    </div>
-                </div>
-            </ng-template>
+            </div>
+            }
         </div>
     `,
     animations: [
         trigger('messageAnimation', [
-            transition(':enter', [style({ opacity: 0, transform: 'translateY(-25%)' }), animate('{{showTransitionParams}}')]),
-            transition(':leave', [animate('{{hideTransitionParams}}', style({ height: 0, marginTop: 0, marginBottom: 0, marginLeft: 0, marginRight: 0, opacity: 0 }))])
-        ])
+            transition(':enter', [
+                style({ opacity: 0, transform: 'translateY(-25%)' }),
+                animate('{{showTransitionParams}}'),
+            ]),
+            transition(':leave', [
+                animate(
+                    '{{hideTransitionParams}}',
+                    style({
+                        height: 0,
+                        marginTop: 0,
+                        marginBottom: 0,
+                        marginLeft: 0,
+                        marginRight: 0,
+                        opacity: 0,
+                    }),
+                ),
+            ]),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./messages.css'],
-    host: {
-        class: 'p-element'
-    }
+    providers: [MessageStyle],
 })
-export class Messages implements AfterContentInit, OnDestroy {
+export class Messages extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
      * An array of messages to display.
      * @group Props
@@ -167,12 +224,11 @@ export class Messages implements AfterContentInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(
-        @Optional() public messageService: MessageService,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        private config: PrimeNGConfig
-    ) {}
+    _componentStyle = inject(MessageStyle);
+
+    constructor(@Optional() public messageService: MessageService) {
+        super();
+    }
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -188,18 +244,20 @@ export class Messages implements AfterContentInit, OnDestroy {
         });
 
         if (this.messageService && this.enableService && !this.contentTemplate) {
-            this.messageSubscription = this.messageService.messageObserver.subscribe((messages: Message | Message[]) => {
-                if (messages) {
-                    if (!Array.isArray(messages)) {
-                        messages = [messages];
-                    }
+            this.messageSubscription = this.messageService.messageObserver.subscribe(
+                (messages: Message | Message[]) => {
+                    if (messages) {
+                        if (!Array.isArray(messages)) {
+                            messages = [messages];
+                        }
 
-                    const filteredMessages = messages.filter((m) => this.key === m.key);
-                    this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
-                    this.startMessageLifes(filteredMessages);
-                    this.cd.markForCheck();
-                }
-            });
+                        const filteredMessages = messages.filter((m) => this.key === m.key);
+                        this.messages = this.messages ? [...this.messages, ...filteredMessages] : [...filteredMessages];
+                        this.startMessageLifes(filteredMessages);
+                        this.cd.markForCheck();
+                    }
+                },
+            );
 
             this.clearSubscription = this.messageService.clearObserver.subscribe((key) => {
                 if (key) {
@@ -248,6 +306,7 @@ export class Messages implements AfterContentInit, OnDestroy {
                     return 'pi-info-circle';
 
                 case 'error':
+                case 'danger':
                     return 'pi-times';
 
                 case 'warn':
@@ -274,6 +333,7 @@ export class Messages implements AfterContentInit, OnDestroy {
         }
 
         this.timerSubscriptions?.forEach((subscription) => subscription.unsubscribe());
+        super.ngOnDestroy();
     }
 
     private startMessageLifes(messages: Message[]): void {
@@ -292,8 +352,17 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
+    imports: [
+        CommonModule,
+        RippleModule,
+        CheckIcon,
+        InfoCircleIcon,
+        TimesCircleIcon,
+        ExclamationTriangleIcon,
+        TimesIcon,
+        ButtonModule,
+    ],
     exports: [Messages],
-    declarations: [Messages]
+    declarations: [Messages],
 })
 export class MessagesModule {}
