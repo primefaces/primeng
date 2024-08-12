@@ -420,7 +420,7 @@ export interface TableTemplates {
         /**
          * Expanded state.
          */
-        expanded: boolean;
+        expanded?: boolean;
     }): TemplateRef<any>;
     /**
      * Custom group footer template.
