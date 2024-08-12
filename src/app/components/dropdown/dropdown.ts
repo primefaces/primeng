@@ -934,6 +934,13 @@ export class Dropdown extends BaseComponent implements OnInit, AfterViewInit, Af
         return this._componentStyle.classes.root({ instance: this });
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
+
+
     get inputClass() {
         const label = this.label();
         return {

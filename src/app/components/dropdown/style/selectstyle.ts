@@ -212,7 +212,7 @@ const classes = {
         'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null && !instance.modelValue().length,
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-select-open': instance.overlayVisible,
-        'p-select-fluid': instance.fluid
+        'p-select-fluid': instance.hasFluid
     }),
     label: ({ instance, props }) => [
         'p-select-label',
