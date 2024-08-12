@@ -88,6 +88,7 @@ export const INPUTNUMBER_VALUE_ACCESSOR: any = {
                 [attr.data-pc-section]="'input'"
                 pAutoFocus
                 [autofocus]="autofocus"
+                [fluid]="hasFluid"
             />
             <ng-container *ngIf="buttonLayout != 'vertical' && showClear && value">
                 <TimesIcon *ngIf="!clearIconTemplate" [ngClass]="'p-inputnumber-clear-icon'" (click)="clear()" [attr.data-pc-section]="'clearIcon'" />
@@ -407,6 +408,11 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         if (this.timer) this.clearTimer();
     }
     /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
      * Callback to invoke on input.
      * @param {InputNumberInputEvent} event - Custom input event.
      * @group Emits
@@ -498,6 +504,12 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
         return this._componentStyle.classes.root({ instance: this });
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
+
     get _incrementButtonClass() {
         return this._componentStyle.classes.incrementButton({ instance: this });
     }
@@ -535,6 +547,7 @@ export class InputNumber extends BaseComponent implements OnInit, AfterContentIn
             }
         });
     }
+    
 
     ngOnInit() {
         super.ngOnInit();
