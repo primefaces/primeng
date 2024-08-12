@@ -57,6 +57,7 @@ export const routes: Routes = [
             { path: 'galleria', loadChildren: () => import('@pages/galleria/galleriademo.module').then((m) => m.GalleriaDemoModule) },
             { path: 'image', loadChildren: () => import('@pages/image/imagedemo.module').then((m) => m.ImageDemoModule) },
             { path: 'inplace', loadChildren: () => import('@pages/inplace/inplacedemo.module').then((m) => m.InplaceDemoModule) },
+            { path: 'fluid', loadChildren: () => import('@pages/fluid/fluiddemo.module').then((m) => m.FluidDemoModule) },
             { path: 'metergroup', loadChildren: () => import('@pages/metergroup/metergroupdemo.module').then((m) => m.MeterGroupDemoModule) },
             { path: 'inputmask', loadChildren: () => import('@pages/inputmask/inputmaskdemo.module').then((m) => m.InputMaskDemoModule) },
             { path: 'inputnumber', loadChildren: () => import('@pages/inputnumber/inputnumberdemo.module').then((m) => m.InputNumberDemoModule) },

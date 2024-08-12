@@ -413,6 +413,10 @@
                             "routerLink": "/inplace"
                         },
                         {
+                            "name": "Fluid",
+                            "routerLink": "/fluid"
+                        },
+                        {
                             "name": "MeterGroup",
                             "routerLink": "/metergroup",
                             "badge": "NEW"
