@@ -373,10 +373,6 @@ position: relative;
 
 /* For PrimeNG */
 
-.p-datepicker-fluid-host {
-    width:100%
-}
-
 p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
     border-color: ${dt('inputtext.invalid.border.color')};
 }

@@ -490,9 +490,6 @@ export const CALENDAR_VALUE_ACCESSOR: any = {
     providers: [CALENDAR_VALUE_ACCESSOR, DatePickerStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        '[class.p-datepicker-fluid-host]': 'hasFluid'
-    }
 })
 export class Calendar extends BaseComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @Input() iconDisplay: 'input' | 'button' = 'button';
