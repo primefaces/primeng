@@ -1069,9 +1069,16 @@ export class MultiSelect extends BaseComponent implements OnInit, AfterViewInit,
         return this.config.getTranslation(TranslationKeys.ARIA)['listLabel'];
     }
 
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
+    }
+
     private getAllVisibleAndNonVisibleOptions() {
         return this.group ? this.flatOptions(this.options) : this.options || [];
     }
+    
 
     visibleOptions = computed(() => {
         const options = this.getAllVisibleAndNonVisibleOptions();

@@ -224,7 +224,7 @@ const classes = {
         'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
         'p-multiselect-open': instance.overlayVisible,
-        'p-multiselect-fluid': instance.fluid
+        'p-multiselect-fluid': instance.hasFluid
     }),
     labelContainer: 'p-multiselect-label-container',
     label: ({ instance }) => ({
