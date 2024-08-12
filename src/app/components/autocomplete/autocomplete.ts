@@ -61,7 +61,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-autoComplete',
     template: `
-        <div #container [ngClass]="rootClass" [ngStyle]="style" style="position: relative;" [class]="styleClass" (click)="onContainerClick($event)">
+        <div #container [ngClass]="rootClass" [ngStyle]="style" style="position: relative;" [class]="styleClass" (click)="onContainerClick($event)" >
             <input
                 *ngIf="!multiple"
                 #focusInput
@@ -99,6 +99,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (blur)="onInputBlur($event)"
                 (paste)="onInputPaste($event)"
                 (keyup)="onInputKeyUp($event)"
+                [fluid]="hasFluid()"
             />
             <ng-container *ngIf="filled && !disabled && showClear && !loading">
                 <TimesIcon *ngIf="!clearIconTemplate" [styleClass]="'p-autocomplete-clear-icon'" (click)="clear()" [attr.aria-hidden]="true" />
@@ -279,7 +280,10 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     `,
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR, AutoCompleteStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        '[class.p-autocomplete-fluid-host]': 'hasFluid()'
+    }
 })
 export class AutoComplete extends BaseComponent implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
@@ -625,6 +629,11 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
      * Callback to invoke to search for suggestions.
      * @param {AutoCompleteCompleteEvent} event - Custom complete event.
@@ -1318,6 +1327,12 @@ export class AutoComplete extends BaseComponent implements AfterViewChecked, Aft
             event.preventDefault();
             event.stopPropagation();
         }
+    }
+
+    hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
     }
 
     onArrowLeftKey(event) {

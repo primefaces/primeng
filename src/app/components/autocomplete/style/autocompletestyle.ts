@@ -235,6 +235,10 @@ const theme = ({ dt }) => `
 }
 
 /* For PrimeNG */
+.p-autocomplete-fluid-host {
+    width:100%
+}
+
 p-autocomplete.ng-invalid.ng-dirty > .p-autocomplete.p-inputwrapper > .p-autocomplete-input.p-inputtext {
     border-color: ${dt('autocomplete.invalid.border.color')};
 }
@@ -265,9 +269,9 @@ const classes = {
         'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': (instance.focused && !instance.disabled) || instance.autofocus || instance.overlayVisible,
         'p-autocomplete-open': instance.overlayVisible,
-        'p-autocomplete-clearable': instance.showClear && !instance.disabled
+        'p-autocomplete-clearable': instance.showClear && !instance.disabled,
         // 'p-invalid': instance.invalid,
-        // 'p-autocomplete-fluid': instance.fluid
+        'p-autocomplete-fluid': instance.hasFluid()
     }),
     pcInput: 'p-autocomplete-input',
     inputMultiple: ({ instance }) => ({

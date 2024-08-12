@@ -1,4 +1,4 @@
-import { NgModule, Directive, HostListener, DoCheck, Optional, AfterViewInit, Input, inject } from '@angular/core';
+import { NgModule, Directive, HostListener, DoCheck, Optional, AfterViewInit, Input, inject, booleanAttribute } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Nullable } from 'primeng/ts-helpers';
@@ -14,7 +14,8 @@ import { InputTextStyle } from './style/inputtextstyle';
     host: {
         class: 'p-inputtext p-component',
         '[class.p-filled]': 'filled',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-inputtext-fluid]': 'fluid'
     },
     providers: [InputTextStyle]
 })
@@ -24,6 +25,11 @@ export class InputText extends BaseComponent implements DoCheck, AfterViewInit {
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
 
     filled: Nullable<boolean>;
 
