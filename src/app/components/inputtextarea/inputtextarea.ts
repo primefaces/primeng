@@ -14,7 +14,8 @@ import { TextareaStyle } from './style/textareastyle';
         class: 'p-textarea p-component',
         '[class.p-filled]': 'filled',
         '[class.p-textarea-resizable]': 'autoResize',
-        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"'
+        '[class.p-variant-filled]': 'variant === "filled" || config.inputStyle() === "filled"',
+        '[class.p-textarea-fluid]': 'hasFluid'
     },
     providers: [TextareaStyle]
 })
@@ -29,6 +30,11 @@ export class InputTextarea extends BaseComponent implements OnInit, AfterViewIni
      * @group Props
      */
     @Input() variant: 'filled' | 'outlined' = 'outlined';
+    /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
     /**
      * Callback to invoke on textarea resize.
      * @param {(Event | {})} event - Custom resize event.
@@ -63,6 +69,12 @@ export class InputTextarea extends BaseComponent implements OnInit, AfterViewIni
                 this.updateState();
             });
         }
+    }
+
+   get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
     }
 
     ngAfterViewInit() {
