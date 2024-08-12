@@ -495,6 +495,8 @@ const getAngularApp = (props: Props = {}) => {
     import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     import { HttpClientModule } from '@angular/common/http';
     import { NgModule } from '@angular/core';
+    import { OverlayBadgeModule } from 'primeng/overlaybadge';
+
     ${serviceImports}
     
     @NgModule({
@@ -602,7 +604,8 @@ const getAngularApp = (props: Props = {}) => {
         StyleClassModule,
         IconFieldModule,
         InputIconModule,
-        AutoFocusModule
+        AutoFocusModule,
+        OverlayBadgeModule
       ],
       exports: [
         AvatarModule,
@@ -709,7 +712,8 @@ const getAngularApp = (props: Props = {}) => {
         FloatLabelModule,
         IconFieldModule,
         InputIconModule,
-        AutoFocusModule
+        AutoFocusModule,
+        OverlayBadgeModule
       ],
       providers: [ ${providers} ]
     })

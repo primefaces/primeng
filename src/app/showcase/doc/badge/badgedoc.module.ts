@@ -14,10 +14,12 @@ import { SeverityDoc } from './severitydoc';
 import { SizeDoc } from './sizedoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { StyleDoc } from './styledoc';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { OverlayDoc } from './overlaydoc';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, BadgeModule, ButtonModule],
-    declarations: [ImportDoc, BasicDoc, ButtonDoc, DirectiveDoc, PositionDoc, SeverityDoc, SizeDoc, StyleDoc, AccessibilityDoc],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, BadgeModule, ButtonModule, OverlayBadgeModule],
+    declarations: [ImportDoc, BasicDoc, ButtonDoc, DirectiveDoc, PositionDoc, SeverityDoc, SizeDoc, OverlayDoc, StyleDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
 export class BadgeDocModule {}

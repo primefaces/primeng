@@ -8,6 +8,7 @@ import { PositionDoc } from '@doc/badge/positiondoc';
 import { SeverityDoc } from '@doc/badge/severitydoc';
 import { StyleDoc } from '@doc/badge/styledoc';
 import { AccessibilityDoc } from '@doc/badge/accessibilitydoc';
+import { OverlayDoc } from '@doc/badge/overlaydoc';
 
 @Component({
     templateUrl: './badgedemo.html'
@@ -48,6 +49,11 @@ export class BadgeDemo {
             id: 'button',
             label: 'Button',
             component: ButtonDoc
+        },
+        {
+            id: 'overlay',
+            label: 'Overlay',
+            component: OverlayDoc
         },
         {
             id: 'style',
