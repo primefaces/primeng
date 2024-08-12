@@ -336,7 +336,7 @@ export class CascadeSelectSub extends BaseComponent implements OnInit {
     </div>`,
     providers: [CASCADESELECT_VALUE_ACCESSOR, CascadeSelectStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class CascadeSelect extends BaseComponent implements OnInit, AfterContentInit {
     /**
@@ -543,6 +543,11 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
         console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
     }
     /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
      * Callback to invoke on value change.
      * @param {CascadeSelectChangeEvent} event - Custom change event.
      * @group Emits
@@ -657,9 +662,11 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
             'p-inputwrapper-filled': this.modelValue(),
             'p-variant-filled': this.variant === 'filled' || this.config.inputStyle() === 'filled',
             'p-inputwrapper-focus': this.focused || this.overlayVisible,
-            'p-cascadeselect-open': this.overlayVisible
+            'p-cascadeselect-open': this.overlayVisible,
+            'p-cascadeselect-fluid': this.hasFluid
         };
     }
+    
 
     get labelClass() {
         return {
@@ -667,6 +674,12 @@ export class CascadeSelect extends BaseComponent implements OnInit, AfterContent
             'p-placeholder': this.label() === this.placeholder,
             'p-cascadeselect-label-empty': !this.value && (this.label() === 'p-emptylabel' || this.label().length === 0)
         };
+    }
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
     }
 
     get focusedOptionId() {
