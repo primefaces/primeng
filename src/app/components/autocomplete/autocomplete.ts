@@ -281,9 +281,6 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
     providers: [AUTOCOMPLETE_VALUE_ACCESSOR, AutoCompleteStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        '[class.p-autocomplete-fluid-host]': 'hasFluid()'
-    }
 })
 export class AutoComplete extends BaseComponent implements AfterViewChecked, AfterContentInit, OnDestroy, ControlValueAccessor {
     /**
