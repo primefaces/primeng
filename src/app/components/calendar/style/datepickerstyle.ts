@@ -373,6 +373,10 @@ position: relative;
 
 /* For PrimeNG */
 
+.p-datepicker-fluid-host {
+    width:100%
+}
+
 p-calendar.ng-invalid.ng-dirty .p-datepicker.p-inputwrapper .p-inputtext{
     border-color: ${dt('inputtext.invalid.border.color')};
 }
@@ -389,7 +393,7 @@ const inlineStyles = {
 const classes = {
     root: ({ instance }) => ({
         'p-datepicker p-component p-inputwrapper': true,
-        'p-datepicker-fluid': instance.fluid,
+        'p-datepicker-fluid': instance.hasFluid,
         'p-inputwrapper-filled': instance.filled,
         'p-inputwrapper-focus': instance.focus,
         'p-focus': instance.focus || instance.overlayVisible
