@@ -280,6 +280,11 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
      */
     @Input() panelStyle: { [klass: string]: any } | null | undefined;
     /**
+     * Spans 100% width of the container when enabled.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) fluid: boolean = false;
+    /**
      * Style class of the panel element.
      * @group Props
      */
@@ -982,6 +987,12 @@ export class TreeSelect extends BaseComponent implements AfterContentInit {
 
     get containerClass() {
         return this._componentStyle.classes.root({ instance: this });
+    }
+
+    get hasFluid() {
+        const nativeElement = this.el.nativeElement;
+        const fluidComponent = nativeElement.closest('p-fluid');
+        return this.fluid || !!fluidComponent 
     }
 
     get labelClass() {
