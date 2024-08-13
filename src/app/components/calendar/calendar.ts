@@ -1047,7 +1047,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
 
     overlay: Nullable<HTMLDivElement>;
 
-    responsiveStyleElement: HTMLStyleElement | undefined | null;
+    responsiveStyleElement: any;
 
     overlayVisible: Nullable<boolean>;
 
@@ -3543,7 +3543,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
         if (this.numberOfMonths > 1 && this.responsiveOptions) {
             if (!this.responsiveStyleElement) {
                 this.responsiveStyleElement = this.renderer.createElement('style');
-                (<HTMLStyleElement>this.responsiveStyleElement).type = 'text/css';
+                this.responsiveStyleElement.type = 'text/css';
                 DomHandler.setAttribute(this.responsiveStyleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.body, this.responsiveStyleElement);
             }
@@ -3575,7 +3575,7 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
                     `;
                 }
             }
-            this.responsiveStyleElement.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML) as string;
+            this.responsiveStyleElement.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
         }
     }
 
