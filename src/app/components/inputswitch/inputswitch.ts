@@ -1,35 +1,58 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    ViewChild,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { InputSwitchChangeEvent } from './inputswitch.interface';
+import { ToggleSwitchStyle } from './style/toggleswitchstyle';
+import { BaseComponent } from 'primeng/basecomponent';
 
 export const INPUTSWITCH_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputSwitch),
-    multi: true
+    multi: true,
 };
 /**
  * InputSwitch is used to select a boolean value.
  * @group Components
  */
 @Component({
-    selector: 'p-inputSwitch, p-toggleSwitch',
+    selector: 'p-inputSwitch',
     template: `
         <div
-            [ngClass]="{ 'p-inputswitch p-component': true, 'p-inputswitch-checked': checked(), 'p-disabled': disabled, 'p-focus': focused }"
+            [ngClass]="cx('root')"
+            [ngStyle]="sx('root')"
             [ngStyle]="style"
             [class]="styleClass"
             (click)="onClick($event)"
             [attr.data-pc-name]="'inputswitch'"
             [attr.data-pc-section]="'root'"
         >
-            <div class="p-hidden-accessible" [attr.data-pc-section]="'hiddenInputWrapper'" [attr.data-p-hidden-accessible]="true">
+            <div
+                class="p-hidden-accessible"
+                [attr.data-pc-section]="'hiddenInputWrapper'"
+                [attr.data-p-hidden-accessible]="true"
+            >
                 <input
                     #input
                     [attr.id]="inputId"
                     type="checkbox"
                     role="switch"
+                    [ngClass]="cx('input')"
                     [checked]="checked()"
                     [disabled]="disabled"
                     [attr.aria-checked]="checked()"
@@ -44,18 +67,14 @@ export const INPUTSWITCH_VALUE_ACCESSOR: any = {
                     [autofocus]="autofocus"
                 />
             </div>
-            <span class="p-inputswitch-slider" [attr.data-pc-section]="'slider'"></span>
+            <span [ngClass]="cx('slider')" [attr.data-pc-section]="'slider'"></span>
         </div>
     `,
-    providers: [INPUTSWITCH_VALUE_ACCESSOR],
+    providers: [INPUTSWITCH_VALUE_ACCESSOR, ToggleSwitchStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    styleUrls: ['./inputswitch.css'],
-    host: {
-        class: 'p-element'
-    }
 })
-export class InputSwitch {
+export class InputSwitch extends BaseComponent {
     /**
      * Inline style of the component.
      * @group Props
@@ -133,7 +152,7 @@ export class InputSwitch {
 
     onModelTouched: Function = () => {};
 
-    constructor(private cd: ChangeDetectorRef) {}
+    _componentStyle = inject(ToggleSwitchStyle);
 
     onClick(event: Event) {
         if (!this.disabled && !this.readonly) {
@@ -142,7 +161,7 @@ export class InputSwitch {
             this.onModelChange(this.modelValue);
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.modelValue
+                checked: this.modelValue,
             });
 
             this.input.nativeElement.focus();
@@ -184,6 +203,6 @@ export class InputSwitch {
 @NgModule({
     imports: [CommonModule, AutoFocusModule],
     exports: [InputSwitch],
-    declarations: [InputSwitch]
+    declarations: [InputSwitch],
 })
 export class InputSwitchModule {}
