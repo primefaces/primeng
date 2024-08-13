@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 <i>aria-autocomplete</i> as "none", <i>aria-haspopup</i> as "dialog" and <i>aria-expanded</i> attributes. The relation between the input and the popup is created with <i>aria-controls</i> attribute that refers to the id of the popup.
             </p>
             <p>
-                The optional calendar button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
+                The optional DatePicker button requires includes <i>aria-haspopup</i>, <i>aria-expanded</i> for states along with <i>aria-controls</i> to define the relation between the popup and the button. The value to read is retrieved from the
                 <i>chooseDate</i>
                 key of the aria property from the <a href="/configuration/#locale">locale</a> API. This label is also used for the <i>aria-label</i> of the popup as well. When there is a value selected, it is formatted and appended to the label to be
                 able to notify users about the current value.
@@ -32,7 +32,7 @@ import { Code } from '@domain/code';
                 <i>pm</i> keys.
             </p>
 
-            <p>Calendar also includes a hidden section that is only available to screen readers with <i>aria-live</i> as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.</p>
+            <p>DatePicker also includes a hidden section that is only available to screen readers with <i>aria-live</i> as "polite". This element is updated when the selected date changes to instruct the user about the current date selected.</p>
         </app-docsectiontext>
 
         <app-code [code]="code" [hideToggleCode]="true" [hideCodeSandbox]="true" [hideStackBlitz]="true"></app-code>
@@ -231,11 +231,11 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<label for="date1">Date</label>
-<p-calendar inputId="date1"/>
+<p-datePicker inputId="date1"/>
 
 <span id="date2">Date</span>
-<p-calendar ariaLabelledBy="date2"/>
+<p-datePicker ariaLabelledBy="date2"/>
 
-<p-calendar ariaLabel="Date"/>`
+<p-datePicker ariaLabel="Date"/>`
     };
 }
