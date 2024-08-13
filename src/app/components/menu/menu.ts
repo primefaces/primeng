@@ -463,7 +463,6 @@ export class Menu implements OnDestroy {
                     this.onShow.emit({});
                     this.appendOverlay();
                     this.alignOverlay();
-                    this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
