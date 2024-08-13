@@ -463,6 +463,7 @@ export class Menu implements OnDestroy {
                     this.onShow.emit({});
                     this.appendOverlay();
                     this.alignOverlay();
+                    this.bindDocumentClickListener();
                     this.bindDocumentResizeListener();
                     this.bindScrollListener();
                     DomHandler.focus(this.listViewChild.nativeElement);
@@ -722,7 +723,7 @@ export class Menu implements OnDestroy {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
             this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
-                const isOutsideContainer = this.containerViewChild.nativeElement && !this.containerViewChild.nativeElement.contains(event.target);
+                const isOutsideContainer = this.containerViewChild?.nativeElement && !this.containerViewChild?.nativeElement.contains(event.target);
                 const isOutsideTarget = !(this.target && (this.target === event.target || this.target.contains(event.target)));
                 if (!this.popup && isOutsideContainer && isOutsideTarget) {
                     this.onListBlur(event);
