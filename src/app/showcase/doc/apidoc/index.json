@@ -1,132 +1,6 @@
 {
     "accordion": {
         "components": {
-            "AccordionTab": {
-                "description": "AccordionTab is a helper component for Accordion.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "id",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Current id state as a string."
-                        },
-                        {
-                            "name": "header",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Used to define the header of the tab."
-                        },
-                        {
-                            "name": "headerStyle",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the tab header."
-                        },
-                        {
-                            "name": "tabStyle",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the tab."
-                        },
-                        {
-                            "name": "contentStyle",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the tab content."
-                        },
-                        {
-                            "name": "tabStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the tab."
-                        },
-                        {
-                            "name": "headerStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the tab header."
-                        },
-                        {
-                            "name": "contentStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the tab content."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Whether the tab is disabled."
-                        },
-                        {
-                            "name": "cache",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether a lazy loaded panel should avoid getting loaded again on reselection."
-                        },
-                        {
-                            "name": "transitionOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
-                            "description": "Transition options of the animation."
-                        },
-                        {
-                            "name": "iconPos",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "\"end\" | \"start\"",
-                            "default": "start",
-                            "description": "Position of the icon."
-                        },
-                        {
-                            "name": "selected",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "description": "The value that returns the selection."
-                        },
-                        {
-                            "name": "headerAriaLevel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "2",
-                            "description": "The aria-level that each accordion header will have. The default value is 2 as per W3C specifications"
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "selectedChange",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "boolean"
-                                }
-                            ],
-                            "description": "Event triggered by changing the choice."
-                        }
-                    ]
-                }
-            },
             "Accordion": {
                 "description": "Accordion groups a collection of contents in tabs.",
                 "props": {
@@ -548,6 +422,36 @@
                             "readonly": false,
                             "type": "EventEmitter<any>",
                             "description": "An event emitter for the reject event."
+                        },
+                        {
+                            "name": "acceptButtonProps",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "ButtonProps"
+                        },
+                        {
+                            "name": "rejectButtonProps",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "ButtonProps"
+                        },
+                        {
+                            "name": "closeButtonProps",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "ButtonProps"
+                        },
+                        {
+                            "name": "closable",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "boolean"
+                        },
+                        {
+                            "name": "position",
+                            "optional": true,
+                            "readonly": false,
+                            "type": "string"
                         }
                     ]
                 }
@@ -1263,7 +1167,7 @@
     },
     "message": {
         "components": {
-            "UIMessage": {
+            "Message": {
                 "description": "Message groups a collection of contents in tabs.",
                 "props": {
                     "description": "Defines the input properties of the component.",
@@ -1272,7 +1176,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "string",
                             "description": "Severity level of the message."
                         },
                         {
@@ -2260,6 +2164,9 @@
                 }
             ]
         }
+    },
+    "themeprovider": {
+        "components": {}
     },
     "tooltipoptions": {
         "components": {},
@@ -4009,12 +3916,28 @@
                             "description": "When enabled, the hovered option will be focused."
                         },
                         {
+                            "name": "typeahead",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether typeahead is active or not."
+                        },
+                        {
                             "name": "variant",
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 },
@@ -4339,6 +4262,9 @@
             }
         }
     },
+    "autocompletestyle": {
+        "components": {}
+    },
     "autofocus": {
         "components": {
             "AutoFocus": {
@@ -4451,6 +4377,9 @@
             }
         }
     },
+    "avatarstyle": {
+        "components": {}
+    },
     "avatargroup": {
         "components": {
             "AvatarGroup": {
@@ -4496,14 +4425,14 @@
                             "name": "badgeSize",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"large\" | \"xlarge\"",
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
                         },
                         {
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"large\" | \"xlarge\"",
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\".",
                             "deprecated": "use badgeSize instead."
                         },
@@ -4511,7 +4440,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"danger\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4547,14 +4476,14 @@
                             "name": "badgeSize",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"large\" | \"xlarge\"",
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
                         },
                         {
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
                             "description": "Severity type of the badge."
                         },
                         {
@@ -4576,7 +4505,7 @@
                             "name": "size",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"large\" | \"xlarge\"",
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
                             "description": "Size of the badge, valid options are \"large\" and \"xlarge\".",
                             "deprecated": "use badgeSize instead."
                         }
@@ -4584,6 +4513,21 @@
                 }
             }
         }
+    },
+    "badgestyle": {
+        "components": {}
+    },
+    "base": {
+        "components": {}
+    },
+    "basestyle": {
+        "components": {}
+    },
+    "basecomponent": {
+        "components": {}
+    },
+    "basecomponentstyle": {
+        "components": {}
     },
     "baseicon": {
         "components": {}
@@ -4650,6 +4594,9 @@
                 ]
             }
         }
+    },
+    "blockuistyle": {
+        "components": {}
     },
     "breadcrumb": {
         "components": {
@@ -4763,6 +4710,9 @@
             }
         }
     },
+    "breadcrumbstyle": {
+        "components": {}
+    },
     "button": {
         "components": {
             "ButtonDirective": {
@@ -4807,10 +4757,17 @@
                             "description": "Whether the button is in loading state."
                         },
                         {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"primary\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -4965,7 +4922,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"primary\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -5017,7 +4974,16 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Style class of the badge."
+                            "description": "Style class of the badge.",
+                            "deprecated": "use badgeSeverity instead."
+                        },
+                        {
+                            "name": "badgeSeverity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
+                            "default": "secondary",
+                            "description": "Severity type of the badge."
                         },
                         {
                             "name": "ariaLabel",
@@ -5033,6 +4999,13 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -5110,7 +5083,13 @@
             }
         }
     },
+    "buttonstyle": {
+        "components": {}
+    },
     "buttongroup": {
+        "components": {}
+    },
+    "buttongroupstyle": {
         "components": {}
     },
     "calendar": {
@@ -5252,6 +5231,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When enabled, displays a button with icon next to input."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the component should span the full width of its parent."
                         },
                         {
                             "name": "icon",
@@ -5425,7 +5412,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "p-button-text",
                             "description": "Style class of the today button."
                         },
                         {
@@ -5433,7 +5419,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "p-button-text",
                             "description": "Style class of the clear button."
                         },
                         {
@@ -5542,7 +5527,6 @@
                             "optional": false,
                             "readonly": false,
                             "type": "\"outlined\" | \"filled\"",
-                            "default": "outlined",
                             "description": "Specifies the input variant of the component."
                         },
                         {
@@ -6054,6 +6038,9 @@
             }
         }
     },
+    "datepickerstyle": {
+        "components": {}
+    },
     "card": {
         "components": {
             "Card": {
@@ -6131,6 +6118,9 @@
                 ]
             }
         }
+    },
+    "cardstyle": {
+        "components": {}
     },
     "carousel": {
         "components": {
@@ -6273,6 +6263,20 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the viewport container."
+                        },
+                        {
+                            "name": "prevButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "nextButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -6387,6 +6391,9 @@
                 ]
             }
         }
+    },
+    "carouselstyle": {
+        "components": {}
     },
     "cascadeselect": {
         "components": {
@@ -6663,6 +6670,14 @@
                             "type": "string",
                             "description": "Transition options of the hide animation.",
                             "deprecated": "deprecated since v14.2.0, use overlayOptions property instead."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 },
@@ -6960,6 +6975,9 @@
             }
         }
     },
+    "cascadeselectstyle": {
+        "components": {}
+    },
     "chart": {
         "components": {
             "UIChart": {
@@ -7090,13 +7108,6 @@
                             "description": "Allows to select a boolean value instead of multiple values."
                         },
                         {
-                            "name": "label",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Label of the checkbox."
-                        },
-                        {
                             "name": "ariaLabelledBy",
                             "optional": false,
                             "readonly": false,
@@ -7132,6 +7143,13 @@
                             "description": "Inline style of the component."
                         },
                         {
+                            "name": "inputStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the input element."
+                        },
+                        {
                             "name": "styleClass",
                             "optional": false,
                             "readonly": false,
@@ -7139,11 +7157,19 @@
                             "description": "Style class of the component."
                         },
                         {
-                            "name": "labelStyleClass",
+                            "name": "inputClass",
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Style class of the label."
+                            "description": "Style class of the input element."
+                        },
+                        {
+                            "name": "indeterminate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies input state as indeterminate."
                         },
                         {
                             "name": "formControl",
@@ -7286,6 +7312,9 @@
             }
         }
     },
+    "checkboxstyle": {
+        "components": {}
+    },
     "chip": {
         "components": {
             "Chip": {
@@ -7349,6 +7378,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon of the remove element."
+                        },
+                        {
+                            "name": "chipProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ChipProps",
+                            "description": "Used to pass all properties of the chipProps to the Chip component."
                         }
                     ]
                 },
@@ -7399,6 +7435,9 @@
                 ]
             }
         }
+    },
+    "chipstyle": {
+        "components": {}
     },
     "chips": {
         "components": {
@@ -7913,6 +7952,12 @@
             }
         }
     },
+    "colorpickerstyle": {
+        "components": {}
+    },
+    "commonstyle": {
+        "components": {}
+    },
     "confirmdialog": {
         "components": {
             "ConfirmDialog": {
@@ -8086,6 +8131,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
+                            "default": "body",
                             "description": "Target element to attach the dialog, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -8236,6 +8282,9 @@
             }
         }
     },
+    "confirmdialogstyle": {
+        "components": {}
+    },
     "confirmpopup": {
         "components": {
             "ConfirmPopup": {
@@ -8357,6 +8406,9 @@
                 ]
             }
         }
+    },
+    "confirmpopupstyle": {
+        "components": {}
     },
     "contextmenu": {
         "components": {
@@ -8509,12 +8561,20 @@
                     {
                         "parent": "contextmenu",
                         "name": "submenuicon",
-                        "parameters": [],
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t class: string, // Style class of the submenu icon.\n  }"
+                            }
+                        ],
                         "description": "Custom template of submenuicon."
                     }
                 ]
             }
         }
+    },
+    "contextmenustyle": {
+        "components": {}
     },
     "dataview": {
         "components": {
@@ -9042,6 +9102,955 @@
             }
         }
     },
+    "dataviewstyle": {
+        "components": {}
+    },
+    "datepicker": {
+        "components": {
+            "DatePicker": {
+                "description": "DatePicker is a form component to work with dates.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "inputStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the input field."
+                        },
+                        {
+                            "name": "inputId",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the focus input to match a label defined for the component."
+                        },
+                        {
+                            "name": "name",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the input element."
+                        },
+                        {
+                            "name": "inputStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the input field."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Placeholder text for the input."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "iconAriaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the icon button for accessibility."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When specified, disables the component."
+                        },
+                        {
+                            "name": "dateFormat",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Format of the date which can also be defined at locale settings."
+                        },
+                        {
+                            "name": "multipleSeparator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": ",",
+                            "description": "Separator for multiple selection mode."
+                        },
+                        {
+                            "name": "rangeSeparator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "-",
+                            "description": "Separator for joining start and end dates on range selection mode."
+                        },
+                        {
+                            "name": "inline",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, displays the calendar as inline. Default is false for popup mode."
+                        },
+                        {
+                            "name": "showOtherMonths",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to display dates in other months (non-selectable) at the start or end of the current month. To make these days selectable use the selectOtherMonths option."
+                        },
+                        {
+                            "name": "selectOtherMonths",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether days in other months shown before or after the current month are selectable. This only applies if the showOtherMonths option is set to true."
+                        },
+                        {
+                            "name": "showIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, displays a button with icon next to input."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the component should span the full width of its parent."
+                        },
+                        {
+                            "name": "icon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon of the calendar button."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having#mydiv as variable name)."
+                        },
+                        {
+                            "name": "readonlyInput",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When specified, prevents entering the date manually with keyboard."
+                        },
+                        {
+                            "name": "shortYearCutoff",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "+10",
+                            "description": "The cutoff year for determining the century for a date."
+                        },
+                        {
+                            "name": "monthNavigator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the month should be rendered as a dropdown instead of text.",
+                            "deprecated": "Navigator is always on."
+                        },
+                        {
+                            "name": "yearNavigator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the year should be rendered as a dropdown instead of text.",
+                            "deprecated": "Navigator is always on."
+                        },
+                        {
+                            "name": "hourFormat",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "24",
+                            "description": "Specifies 12 or 24 hour format."
+                        },
+                        {
+                            "name": "timeOnly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to display timepicker only."
+                        },
+                        {
+                            "name": "stepHour",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "Hours to change per step."
+                        },
+                        {
+                            "name": "stepMinute",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "Minutes to change per step."
+                        },
+                        {
+                            "name": "stepSecond",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "1",
+                            "description": "Seconds to change per step."
+                        },
+                        {
+                            "name": "showSeconds",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to show the seconds in time picker."
+                        },
+                        {
+                            "name": "required",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field must be filled out before submitting the form."
+                        },
+                        {
+                            "name": "showOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When disabled, datepicker will not be visible with input focus."
+                        },
+                        {
+                            "name": "showWeek",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, calendar will show week numbers."
+                        },
+                        {
+                            "name": "startWeekFromFirstDayOfYear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, calendar will start week numbers from first day of the year."
+                        },
+                        {
+                            "name": "showClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, a clear icon is displayed to clear the value."
+                        },
+                        {
+                            "name": "dataType",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "date",
+                            "description": "Type of the value to write back to ngModel, default is date and alternative is string."
+                        },
+                        {
+                            "name": "selectionMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"multiple\" | \"range\" | \"single\"",
+                            "default": "single",
+                            "description": "Defines the quantity of the selection, valid values are \"single\", \"multiple\" and \"range\"."
+                        },
+                        {
+                            "name": "maxDateCount",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum number of selectable dates in multiple mode."
+                        },
+                        {
+                            "name": "showButtonBar",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to display today and clear buttons at the footer"
+                        },
+                        {
+                            "name": "todayButtonStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the today button."
+                        },
+                        {
+                            "name": "clearButtonStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the clear button."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "autoZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to automatically manage layering."
+                        },
+                        {
+                            "name": "baseZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Base zIndex value to use in layering."
+                        },
+                        {
+                            "name": "panelStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the datetimepicker container element."
+                        },
+                        {
+                            "name": "panelStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Inline style of the datetimepicker container element."
+                        },
+                        {
+                            "name": "keepInvalid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Keep invalid value when input blur."
+                        },
+                        {
+                            "name": "hideOnDateTimeSelect",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to hide the overlay on date selection."
+                        },
+                        {
+                            "name": "touchUI",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, calendar overlay is displayed as optimized for touch devices."
+                        },
+                        {
+                            "name": "timeSeparator",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": ":",
+                            "description": "Separator of time selector."
+                        },
+                        {
+                            "name": "focusTrap",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "When enabled, can only focus on elements inside the calendar."
+                        },
+                        {
+                            "name": "showTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
+                            "description": "Transition options of the show animation."
+                        },
+                        {
+                            "name": "hideTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": ".1s linear",
+                            "description": "Transition options of the hide animation."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "minDate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Date",
+                            "description": "The minimum selectable date."
+                        },
+                        {
+                            "name": "maxDate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Date",
+                            "description": "The maximum selectable date."
+                        },
+                        {
+                            "name": "disabledDates",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Date[]",
+                            "description": "Array with dates that should be disabled (not selectable)."
+                        },
+                        {
+                            "name": "disabledDays",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number[]",
+                            "description": "Array with weekday numbers that should be disabled (not selectable)."
+                        },
+                        {
+                            "name": "yearRange",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "The range of years displayed in the year drop-down in (nnnn:nnnn) format such as (2000:2020).",
+                            "deprecated": "Years are based on decades by default."
+                        },
+                        {
+                            "name": "showTime",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether to display timepicker."
+                        },
+                        {
+                            "name": "responsiveOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "DatePickerResponsiveOptions[]",
+                            "description": "An array of options for responsive design."
+                        },
+                        {
+                            "name": "numberOfMonths",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Number of months to display."
+                        },
+                        {
+                            "name": "firstDayOfWeek",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Defines the first of the week for various date calculations."
+                        },
+                        {
+                            "name": "locale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "LocaleSettings",
+                            "description": "Option to set calendar locale.",
+                            "deprecated": "Locale property has no effect, use new i18n API instead."
+                        },
+                        {
+                            "name": "view",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "DatePickerTypeView",
+                            "description": "Type of view to display, valid values are \"date\" for datepicker and \"month\" for month picker."
+                        },
+                        {
+                            "name": "defaultDate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Date",
+                            "description": "Set the date to highlight on first opening if the field is blank."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke on focus of input field."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke on blur of input field."
+                        },
+                        {
+                            "name": "onClose",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
+                            "description": "Callback to invoke when date panel closed."
+                        },
+                        {
+                            "name": "onSelect",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Date"
+                                }
+                            ],
+                            "description": "Callback to invoke on date select."
+                        },
+                        {
+                            "name": "onClear",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when input field cleared."
+                        },
+                        {
+                            "name": "onInput",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when input field is being typed."
+                        },
+                        {
+                            "name": "onTodayClick",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "Date"
+                                }
+                            ],
+                            "description": "Callback to invoke when today button is clicked."
+                        },
+                        {
+                            "name": "onClearClick",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when clear button is clicked."
+                        },
+                        {
+                            "name": "onMonthChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DatePickerMonthChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when a month is changed using the navigators."
+                        },
+                        {
+                            "name": "onYearChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DatePickerYearChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when a year is changed using the navigators."
+                        },
+                        {
+                            "name": "onClickOutside",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when clicked outside of the date panel."
+                        },
+                        {
+                            "name": "onShow",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when datepicker panel is shown."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "DatePickerYearChangeEvent",
+                        "description": "Custom DatePicker year change event.",
+                        "props": [
+                            {
+                                "name": "month",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "New month."
+                            },
+                            {
+                                "name": "year",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "New year."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "DatePickerMonthChangeEvent",
+                        "description": "Custom DatePicker month change event.",
+                        "props": [
+                            {
+                                "name": "month",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "New month."
+                            },
+                            {
+                                "name": "year",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "New year."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "datepicker",
+                        "name": "date",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: Date, // Date value of the component.\n  }",
+                                "description": "date value instance."
+                            }
+                        ],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "decade",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: Date, // An array containing the start and and year of a decade to display at header of the year picker.\n  }",
+                                "description": "date value instance."
+                            }
+                        ],
+                        "description": "Custom decade template"
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "disabledDate",
+                        "parameters": [],
+                        "description": "Custom disabled date template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "inputIconTemplate",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t clickCallBack: undefined, // undefined\n  }",
+                                "description": "input icon template params."
+                            }
+                        ],
+                        "description": "Custom input icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "previousicon",
+                        "parameters": [],
+                        "description": "Custom previous icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "nexticon",
+                        "parameters": [],
+                        "description": "Custom next icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "triggericon",
+                        "parameters": [],
+                        "description": "Custom dropdown trigger icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "clearicon",
+                        "parameters": [],
+                        "description": "Custom clear icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "decrementicon",
+                        "parameters": [],
+                        "description": "Custom decrement icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "incrementicon",
+                        "parameters": [],
+                        "description": "Custom increment icon template."
+                    },
+                    {
+                        "parent": "datepicker",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom footer template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "LocaleSettings",
+                        "description": "Locale settings options.",
+                        "props": [
+                            {
+                                "name": "firstDayOfWeek",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Day value."
+                            },
+                            {
+                                "name": "dayNames",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string[]",
+                                "description": "Day names."
+                            },
+                            {
+                                "name": "dayNamesShort",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string[]",
+                                "description": "Shortened day names."
+                            },
+                            {
+                                "name": "dayNamesMin",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string[]",
+                                "description": "Minimum days names."
+                            },
+                            {
+                                "name": "monthNames",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string[]",
+                                "description": "Month names."
+                            },
+                            {
+                                "name": "monthNamesShort",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string[]",
+                                "description": "Shortened month names."
+                            },
+                            {
+                                "name": "today",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Value of today date string."
+                            },
+                            {
+                                "name": "clear",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Clear."
+                            },
+                            {
+                                "name": "dateFormat",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Date format."
+                            },
+                            {
+                                "name": "weekHeader",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Week header."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "Month",
+                        "description": "Month interface.",
+                        "props": [
+                            {
+                                "name": "month",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Mont value."
+                            },
+                            {
+                                "name": "year",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Year value."
+                            },
+                            {
+                                "name": "dates",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Date[]",
+                                "description": "Array of dates."
+                            },
+                            {
+                                "name": "weekNumbers",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number[]",
+                                "description": "Array of week numbers."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "DatePickerResponsiveOptions",
+                        "description": "Custom DatePicker responsive options metadata.",
+                        "props": [
+                            {
+                                "name": "breakpoint",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "string",
+                                "description": "Breakpoint for responsive mode. Exp;"
+                            },
+                            {
+                                "name": "numMonths",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "The number of visible months on breakpoint."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "types": {
+                "description": "Defines the custom types used by the module.",
+                "values": [
+                    {
+                        "name": "DatePickerTypeView",
+                        "value": "\"date\" | \"month\" | \"year\"",
+                        "description": "Custom type for the DatePicker views."
+                    },
+                    {
+                        "name": "NavigationState",
+                        "value": "{\n    \"backward\": \"boolean\",\n    \"button\": \"boolean\"\n}",
+                        "description": "Custom type for the DatePicker navigation state."
+                    }
+                ]
+            }
+        }
+    },
     "defer": {
         "components": {
             "DeferredLoader": {
@@ -9204,7 +10213,7 @@
                             "name": "maskStyle",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "Object",
                             "description": "Style of the mask."
                         },
                         {
@@ -9340,6 +10349,22 @@
                             "description": "Name of the maximize icon."
                         },
                         {
+                            "name": "closeButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "maximizeButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "default": "...",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
                             "name": "visible",
                             "optional": false,
                             "readonly": false,
@@ -9357,14 +10382,72 @@
                             "name": "position",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"center\" | \"left\" | \"top\" | \"bottom\" | \"right\" | \"topleft\" | \"topright\" | \"bottomleft\" | \"bottomright\"",
+                            "type": "\"center\" | \"left\" | \"top\" | \"bottom\" | \"right\" | \"topleft\" | \"bottomleft\" | \"topright\" | \"bottomright\"",
                             "description": "Position of the dialog."
+                        },
+                        {
+                            "name": "headerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Header template."
+                        },
+                        {
+                            "name": "contentTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Content template."
+                        },
+                        {
+                            "name": "footerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Footer template."
+                        },
+                        {
+                            "name": "closeIconTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Close icon template."
+                        },
+                        {
+                            "name": "maximizeIconTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Maximize icon template."
+                        },
+                        {
+                            "name": "minimizeIconTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Minimize icon template."
+                        },
+                        {
+                            "name": "headlessTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Headless template."
                         }
                     ]
                 },
                 "emits": {
                     "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
                     "values": [
+                        {
+                            "name": "role",
+                            "parameters": [
+                                {
+                                    "name": "value"
+                                }
+                            ],
+                            "description": "Role attribute of html element."
+                        },
                         {
                             "name": "onShow",
                             "parameters": [
@@ -9484,6 +10567,9 @@
             }
         }
     },
+    "dialogstyle": {
+        "components": {}
+    },
     "divider": {
         "components": {
             "Divider": {
@@ -9532,6 +10618,9 @@
                 }
             }
         }
+    },
+    "dividerstyle": {
+        "components": {}
     },
     "dock": {
         "components": {
@@ -9640,6 +10729,9 @@
                 ]
             }
         }
+    },
+    "dockstyle": {
+        "components": {}
     },
     "connectedoverlayscrollhandler": {
         "components": {}
@@ -10188,6 +11280,14 @@
                             "description": "Applies focus to the filter element when the overlay is shown."
                         },
                         {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the component should span the full width of its parent."
+                        },
+                        {
                             "name": "disabled",
                             "optional": false,
                             "readonly": false,
@@ -10587,6 +11687,9 @@
                 ]
             }
         }
+    },
+    "selectstyle": {
+        "components": {}
     },
     "dialogservice": {
         "description": "Defines the service used by the component",
@@ -11076,6 +12179,9 @@
     "dynamicdialogcontent": {
         "components": {}
     },
+    "dynamicdialogstyle": {
+        "components": {}
+    },
     "editor": {
         "components": {
             "Editor": {
@@ -11279,6 +12385,9 @@
             }
         }
     },
+    "editorstyle": {
+        "components": {}
+    },
     "fieldset": {
         "components": {
             "Fieldset": {
@@ -11330,6 +12439,13 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the panel animation."
+                        },
+                        {
+                            "name": "toggleButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Used to pass all properties of the buttonProps to the Button component."
                         }
                     ]
                 },
@@ -11447,6 +12563,9 @@
                 ]
             }
         }
+    },
+    "fieldsetstyle": {
+        "components": {}
     },
     "fileupload": {
         "components": {
@@ -12142,6 +13261,19 @@
             }
         }
     },
+    "floatlabelstyle": {
+        "components": {}
+    },
+    "fluid": {
+        "components": {
+            "Fluid": {
+                "description": "Fluid is a layout component to make descendant components span full width of their container."
+            }
+        }
+    },
+    "fluidstyle": {
+        "components": {}
+    },
     "focustrap": {
         "components": {
             "FocusTrap": {
@@ -12530,6 +13662,9 @@
             }
         }
     },
+    "galleriastyle": {
+        "components": {}
+    },
     "iconfield": {
         "components": {
             "IconField": {
@@ -12549,6 +13684,9 @@
                 }
             }
         }
+    },
+    "iconfieldstyle": {
+        "components": {}
     },
     "angledoubledown": {
         "components": {}
@@ -12926,6 +14064,9 @@
             }
         }
     },
+    "imagestyle": {
+        "components": {}
+    },
     "inplace": {
         "components": {
             "Inplace": {
@@ -13076,6 +14217,9 @@
             }
         }
     },
+    "inplacestyle": {
+        "components": {}
+    },
     "inputgroup": {
         "components": {
             "InputGroup": {
@@ -13102,6 +14246,9 @@
             }
         }
     },
+    "inputgroupstyle": {
+        "components": {}
+    },
     "inputgroupaddon": {
         "components": {
             "InputGroupAddon": {
@@ -13127,6 +14274,9 @@
                 }
             }
         }
+    },
+    "inputgroupaddonstyle": {
+        "components": {}
     },
     "inputicon": {
         "components": {
@@ -13451,6 +14601,9 @@
             }
         }
     },
+    "inputmaskstyle": {
+        "components": {}
+    },
     "inputnumber": {
         "components": {
             "InputNumber": {
@@ -13659,14 +14812,14 @@
                             "name": "localeMatcher",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "any",
                             "description": "The locale matching algorithm to use. Possible values are \"lookup\" and \"best fit\"; the default is \"best fit\". See Locale Negotiation for details."
                         },
                         {
                             "name": "mode",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "any",
                             "default": "decimal",
                             "description": "Defines the behavior of the component, valid values are \"decimal\" and \"currency\"."
                         },
@@ -13681,7 +14834,7 @@
                             "name": "currencyDisplay",
                             "optional": false,
                             "readonly": false,
-                            "type": "string",
+                            "type": "any",
                             "description": "How to display the currency in currency formatting. Possible values are \"symbol\" to use a localized currency symbol such as €, ü\"code\" to use the ISO currency code, \"name\" to use a localized currency name such as \"dollar\"; the default is \"symbol\"."
                         },
                         {
@@ -13764,6 +14917,14 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 },
@@ -13882,6 +15043,9 @@
                 ]
             }
         }
+    },
+    "inputnumberstyle": {
+        "components": {}
     },
     "inputotp": {
         "components": {
@@ -14088,6 +15252,9 @@
             }
         }
     },
+    "inputotpstyle": {
+        "components": {}
+    },
     "inputswitch": {
         "components": {
             "InputSwitch": {
@@ -14246,11 +15413,22 @@
                             "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 }
             }
         }
+    },
+    "inputtextstyle": {
+        "components": {}
     },
     "inputtextarea": {
         "components": {
@@ -14274,6 +15452,14 @@
                             "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 },
@@ -14294,6 +15480,9 @@
                 }
             }
         }
+    },
+    "textareastyle": {
+        "components": {}
     },
     "keyfilter": {
         "components": {
@@ -14388,7 +15577,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "var(--primary-color, Black)",
+                            "default": "...",
                             "description": "Background of the value."
                         },
                         {
@@ -14396,7 +15585,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "var(--surface-border, LightGray)",
+                            "default": "...",
                             "description": "Background color of the range."
                         },
                         {
@@ -14404,7 +15593,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "var(--text-color-secondary, Black)",
+                            "default": "...",
                             "description": "Color of the value text."
                         },
                         {
@@ -14505,6 +15694,9 @@
                 }
             }
         }
+    },
+    "knobstyle": {
+        "components": {}
     },
     "listbox": {
         "components": {
@@ -14629,7 +15821,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "default": "200px",
+                            "default": "14rem",
                             "description": "Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value."
                         },
                         {
@@ -14846,6 +16038,22 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Whether all data is selected."
+                        },
+                        {
+                            "name": "striped",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to displays rows with alternating colors."
+                        },
+                        {
+                            "name": "checkmark",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the selected option will be shown with a check mark."
                         }
                     ]
                 },
@@ -15140,6 +16348,17 @@
                         "name": "checkicon",
                         "parameters": [],
                         "description": "Custom check icon template."
+                    },
+                    {
+                        "parent": "listbox",
+                        "name": "checkmark",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: boolean, // Selection status.\n  }"
+                            }
+                        ],
+                        "description": "Custom checkmark template."
                     }
                 ]
             },
@@ -15167,6 +16386,9 @@
                 ]
             }
         }
+    },
+    "listboxstyle": {
+        "components": {}
     },
     "megamenu": {
         "components": {
@@ -15282,6 +16504,9 @@
                 ]
             }
         }
+    },
+    "megamenustyle": {
+        "components": {}
     },
     "menu": {
         "components": {
@@ -15511,6 +16736,9 @@
             }
         }
     },
+    "menustyle": {
+        "components": {}
+    },
     "menubar": {
         "components": {
             "Menubar": {
@@ -15672,6 +16900,12 @@
                 ]
             }
         }
+    },
+    "menubarstyle": {
+        "components": {}
+    },
+    "messagestyle": {
+        "components": {}
     },
     "messages": {
         "components": {
@@ -15974,6 +17208,9 @@
             }
         }
     },
+    "metergroupstyle": {
+        "components": {}
+    },
     "multiselect": {
         "components": {
             "MultiSelect": {
@@ -16037,6 +17274,14 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         },
                         {
                             "name": "readonly",
@@ -16194,6 +17439,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Icon class of the dropdown icon."
+                        },
+                        {
+                            "name": "chipIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon class of the chip icon."
                         },
                         {
                             "name": "optionLabel",
@@ -16968,6 +18220,9 @@
             }
         }
     },
+    "multiselectstyle": {
+        "components": {}
+    },
     "orderlist": {
         "components": {
             "OrderList": {
@@ -17123,6 +18378,22 @@
                             "type": "Function",
                             "default": "...",
                             "description": "Function to optimize the dom operations by delegating to ngForTrackBy, default algorithm checks for object identity."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "14rem",
+                            "description": "Height of the viewport, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element."
                         },
                         {
                             "name": "selection",
@@ -17371,6 +18642,9 @@
             }
         }
     },
+    "orderliststyle": {
+        "components": {}
+    },
     "organizationchart": {
         "components": {
             "OrganizationChart": {
@@ -17594,6 +18868,9 @@
             }
         }
     },
+    "organizationchartstyle": {
+        "components": {}
+    },
     "overlay": {
         "components": {
             "Overlay": {
@@ -17785,6 +19062,75 @@
                 }
             }
         }
+    },
+    "overlaystyle": {
+        "components": {}
+    },
+    "overlaybadge": {
+        "components": {
+            "OverlayBadge": {
+                "description": "OverlayPanel is a container component positioned as connected to its target.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Class of the element."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "badgeSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
+                            "description": "Size of the badge, valid options are \"large\" and \"xlarge\"."
+                        },
+                        {
+                            "name": "severity",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
+                            "description": "Severity type of the badge."
+                        },
+                        {
+                            "name": "value",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string | number",
+                            "description": "Value to display inside the badge."
+                        },
+                        {
+                            "name": "badgeDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When specified, disables the component."
+                        },
+                        {
+                            "name": "size",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"small\" | \"large\" | \"xlarge\"",
+                            "description": "Size of the badge, valid options are \"large\" and \"xlarge\".",
+                            "deprecated": "use badgeSize instead."
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "overlaybadgestyle": {
+        "components": {}
     },
     "overlaypanel": {
         "components": {
@@ -17983,6 +19329,9 @@
                 ]
             }
         }
+    },
+    "popoverstyle": {
+        "components": {}
     },
     "paginator": {
         "components": {
@@ -18249,6 +19598,9 @@
             }
         }
     },
+    "paginatorstyle": {
+        "components": {}
+    },
     "panel": {
         "components": {
             "Panel": {
@@ -18341,6 +19693,13 @@
                             "type": "string",
                             "default": "400ms cubic-bezier(0.86, 0, 0.07, 1)",
                             "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "toggleButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -18471,6 +19830,9 @@
             }
         }
     },
+    "panelstyle": {
+        "components": {}
+    },
     "panelmenu": {
         "components": {
             "PanelMenu": {
@@ -18570,6 +19932,9 @@
             }
         }
     },
+    "panelmenustyle": {
+        "components": {}
+    },
     "password": {
         "components": {
             "PasswordDirective": {
@@ -18631,6 +19996,14 @@
                             "type": "\"outlined\" | \"filled\"",
                             "default": "outlined",
                             "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         }
                     ]
                 }
@@ -18646,6 +20019,14 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Defines a string that labels the input for accessibility."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the component should span the full width of its parent."
                         },
                         {
                             "name": "ariaLabelledBy",
@@ -18915,6 +20296,9 @@
                 ]
             }
         }
+    },
+    "passwordstyle": {
+        "components": {}
     },
     "picklist": {
         "components": {
@@ -19194,6 +20578,22 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "Keeps selection on the transfer list."
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "14rem",
+                            "description": "Height of the viewport, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element."
                         },
                         {
                             "name": "breakpoint",
@@ -19675,6 +21075,9 @@
             }
         }
     },
+    "pickliststyle": {
+        "components": {}
+    },
     "progressbar": {
         "components": {
             "ProgressBar": {
@@ -19758,6 +21161,9 @@
             }
         }
     },
+    "progressbarstyle": {
+        "components": {}
+    },
     "progressspinner": {
         "components": {
             "ProgressSpinner": {
@@ -19815,6 +21221,9 @@
             }
         }
     },
+    "progressspinnerstyle": {
+        "components": {}
+    },
     "radiobutton": {
         "components": {
             "RadioButton": {
@@ -19850,13 +21259,6 @@
                             "type": "boolean",
                             "default": "false",
                             "description": "When present, it specifies that the element should be disabled."
-                        },
-                        {
-                            "name": "label",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Label of the radiobutton."
                         },
                         {
                             "name": "variant",
@@ -19907,13 +21309,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the component."
-                        },
-                        {
-                            "name": "labelStyleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the label."
                         },
                         {
                             "name": "autofocus",
@@ -20000,6 +21395,9 @@
                 ]
             }
         }
+    },
+    "radiobuttonstyle": {
+        "components": {}
     },
     "rating": {
         "components": {
@@ -20190,6 +21588,9 @@
                 ]
             }
         }
+    },
+    "ratingstyle": {
+        "components": {}
     },
     "ripple": {
         "components": {
@@ -20739,6 +22140,9 @@
             }
         }
     },
+    "virtualscrollerstyle": {
+        "components": {}
+    },
     "scrollpanel": {
         "components": {
             "ScrollPanel": {
@@ -20807,6 +22211,9 @@
                 ]
             }
         }
+    },
+    "scrollpanelstyle": {
+        "components": {}
     },
     "scrolltop": {
         "components": {
@@ -20882,6 +22289,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Establishes a string value that labels the scroll-top button."
+                        },
+                        {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 }
@@ -20902,6 +22316,839 @@
                             }
                         ],
                         "description": "Icon of the component."
+                    }
+                ]
+            }
+        }
+    },
+    "scrolltopstyle": {
+        "components": {}
+    },
+    "select": {
+        "components": {
+            "Select": {
+                "description": "Dropdown also known as Select, is used to choose an item from a collection of options.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "id",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Unique identifier of the component"
+                        },
+                        {
+                            "name": "scrollHeight",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "200px",
+                            "description": "Height of the viewport in pixels, a scrollbar is defined if height of list exceeds this value."
+                        },
+                        {
+                            "name": "filter",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When specified, displays an input field to filter the items on keyup."
+                        },
+                        {
+                            "name": "name",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the input element."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the element."
+                        },
+                        {
+                            "name": "panelStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the overlay panel element."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the element."
+                        },
+                        {
+                            "name": "panelStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the overlay panel element."
+                        },
+                        {
+                            "name": "readonly",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component cannot be edited."
+                        },
+                        {
+                            "name": "required",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that an input field must be filled out before submitting the form."
+                        },
+                        {
+                            "name": "editable",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, custom value instead of predefined options can be entered using the editable input field."
+                        },
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "placeholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Signal<string>",
+                            "description": "Default text to display when no option is selected."
+                        },
+                        {
+                            "name": "loadingIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon to display in loading state."
+                        },
+                        {
+                            "name": "filterPlaceholder",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Placeholder text to show when filter input is empty."
+                        },
+                        {
+                            "name": "filterLocale",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Locale to use in filtering. The default locale is the host environment's current locale."
+                        },
+                        {
+                            "name": "variant",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"outlined\" | \"filled\"",
+                            "default": "outlined",
+                            "description": "Specifies the input variant of the component."
+                        },
+                        {
+                            "name": "inputId",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Identifier of the accessible input element."
+                        },
+                        {
+                            "name": "dataKey",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "A property to uniquely identify a value in options."
+                        },
+                        {
+                            "name": "filterBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "When filtering is enabled, filterBy decides which field or fields (comma separated) to search against."
+                        },
+                        {
+                            "name": "filterFields",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "autofocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When present, it specifies that the component should automatically get focus on load."
+                        },
+                        {
+                            "name": "resetFilterOnHide",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Clears the filter value when hiding the dropdown."
+                        },
+                        {
+                            "name": "checkmark",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the selected option will be shown with a check mark."
+                        },
+                        {
+                            "name": "dropdownIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Icon class of the dropdown icon."
+                        },
+                        {
+                            "name": "loading",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the dropdown is in loading state."
+                        },
+                        {
+                            "name": "optionLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the label field of an option."
+                        },
+                        {
+                            "name": "optionValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the value field of an option."
+                        },
+                        {
+                            "name": "optionDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Name of the disabled field of an option."
+                        },
+                        {
+                            "name": "optionGroupLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "label",
+                            "description": "Name of the label field of an option group."
+                        },
+                        {
+                            "name": "optionGroupChildren",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "items",
+                            "description": "Name of the options field of an option group."
+                        },
+                        {
+                            "name": "autoDisplayFirst",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to display the first item as the label if no placeholder is defined and value is null.",
+                            "deprecated": "since v17.3.0, set initial value by model instead."
+                        },
+                        {
+                            "name": "group",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to display options as grouped when nested options are provided."
+                        },
+                        {
+                            "name": "showClear",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "When enabled, a clear icon is displayed to clear the value."
+                        },
+                        {
+                            "name": "emptyFilterMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "",
+                            "description": "Text to display when filtering does not return any results. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "emptyMessage",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "",
+                            "description": "Text to display when there is no data. Defaults to global value in i18n translation configuration."
+                        },
+                        {
+                            "name": "lazy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Defines if data is loaded and interacted with in lazy manner."
+                        },
+                        {
+                            "name": "virtualScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the data should be loaded on demand during scroll."
+                        },
+                        {
+                            "name": "virtualScrollItemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Height of an item in the list for VirtualScrolling."
+                        },
+                        {
+                            "name": "virtualScrollOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ScrollerOptions",
+                            "description": "Whether to use the scroller feature. The properties of scroller component can be used like an object in it."
+                        },
+                        {
+                            "name": "overlayOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "OverlayOptions",
+                            "description": "Whether to use overlay API feature. The properties of overlay API can be used like an object in it."
+                        },
+                        {
+                            "name": "ariaFilterLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Defines a string that labels the filter input."
+                        },
+                        {
+                            "name": "ariaLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Used to define a aria label attribute the current element."
+                        },
+                        {
+                            "name": "ariaLabelledBy",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Establishes relationships between the component and label(s) where its value should be one or more element IDs."
+                        },
+                        {
+                            "name": "filterMatchMode",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"endsWith\" | \"startsWith\" | \"contains\" | \"equals\" | \"notEquals\" | \"in\" | \"lt\" | \"lte\" | \"gt\" | \"gte\"",
+                            "default": "contains",
+                            "description": "Defines how the items are filtered."
+                        },
+                        {
+                            "name": "maxlength",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Maximum number of character allows in the editable input field."
+                        },
+                        {
+                            "name": "tooltip",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "",
+                            "description": "Advisory information to display in a tooltip on hover."
+                        },
+                        {
+                            "name": "tooltipPosition",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "\"left\" | \"top\" | \"bottom\" | \"right\"",
+                            "default": "right",
+                            "description": "Position of the tooltip."
+                        },
+                        {
+                            "name": "tooltipPositionStyle",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "absolute",
+                            "description": "Type of CSS position."
+                        },
+                        {
+                            "name": "tooltipStyleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the tooltip."
+                        },
+                        {
+                            "name": "focusOnHover",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Fields used when filtering the options, defaults to optionLabel."
+                        },
+                        {
+                            "name": "selectOnFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Determines if the option will be selected on focus."
+                        },
+                        {
+                            "name": "autoOptionFocus",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to focus on the first visible or selected element when the overlay panel is shown."
+                        },
+                        {
+                            "name": "autofocusFilter",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Applies focus to the filter element when the overlay is shown."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether the component should span the full width of its parent."
+                        },
+                        {
+                            "name": "disabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "When present, it specifies that the component should be disabled."
+                        },
+                        {
+                            "name": "itemSize",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Item size of item to be virtual scrolled.",
+                            "deprecated": "use virtualScrollItemSize property instead."
+                        },
+                        {
+                            "name": "autoZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Whether to automatically manage layering.",
+                            "deprecated": "since v14.2.0, use overlayOptions property instead."
+                        },
+                        {
+                            "name": "baseZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Base zIndex value to use in layering.",
+                            "deprecated": "since v14.2.0, use overlayOptions property instead."
+                        },
+                        {
+                            "name": "showTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Transition options of the show animation.",
+                            "deprecated": "since v14.2.0, use overlayOptions property instead."
+                        },
+                        {
+                            "name": "hideTransitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Transition options of the hide animation.",
+                            "deprecated": "since v14.2.0, use overlayOptions property instead."
+                        },
+                        {
+                            "name": "filterValue",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "When specified, filter displays with this value."
+                        },
+                        {
+                            "name": "options",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any[]",
+                            "description": "An array of objects to display as the available options."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onChange",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownChangeEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when value of dropdown changes."
+                        },
+                        {
+                            "name": "onFilter",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownFilterEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when data is filtered."
+                        },
+                        {
+                            "name": "onFocus",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when dropdown gets focus."
+                        },
+                        {
+                            "name": "onBlur",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when dropdown loses focus."
+                        },
+                        {
+                            "name": "onClick",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke when component is clicked."
+                        },
+                        {
+                            "name": "onShow",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
+                            "description": "Callback to invoke when dropdown overlay gets visible."
+                        },
+                        {
+                            "name": "onHide",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "AnimationEvent_2"
+                                }
+                            ],
+                            "description": "Callback to invoke when dropdown overlay gets hidden."
+                        },
+                        {
+                            "name": "onClear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Callback to invoke when dropdown clears the value."
+                        },
+                        {
+                            "name": "onLazyLoad",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "DropdownLazyLoadEvent"
+                                }
+                            ],
+                            "description": "Callback to invoke in lazy mode to load new data."
+                        }
+                    ]
+                },
+                "methods": {
+                    "description": "Defines methods that can be accessed by the component's reference.",
+                    "values": [
+                        {
+                            "name": "resetFilter",
+                            "parameters": [],
+                            "description": "Callback to invoke on filter reset."
+                        },
+                        {
+                            "name": "show",
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Displays the panel."
+                        },
+                        {
+                            "name": "hide",
+                            "parameters": [
+                                {
+                                    "name": "isFocus",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Hides the panel."
+                        },
+                        {
+                            "name": "focus",
+                            "parameters": [],
+                            "description": "Applies focus."
+                        },
+                        {
+                            "name": "clear",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "Event"
+                                }
+                            ],
+                            "description": "Clears the model."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "events": {
+                "description": "Defines the custom events used by the component's emitters.",
+                "values": [
+                    {
+                        "name": "DropdownChangeEvent",
+                        "description": "Custom change event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "value",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Selected option value"
+                            }
+                        ]
+                    },
+                    {
+                        "name": "DropdownFilterEvent",
+                        "description": "Custom filter event.",
+                        "props": [
+                            {
+                                "name": "originalEvent",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "Event",
+                                "description": "Browser event."
+                            },
+                            {
+                                "name": "filter",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "any",
+                                "description": "Filter value."
+                            }
+                        ]
+                    },
+                    {
+                        "name": "DropdownLazyLoadEvent",
+                        "description": "Custom lazy load event.",
+                        "props": [
+                            {
+                                "name": "first",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the first element in viewport."
+                            },
+                            {
+                                "name": "last",
+                                "optional": false,
+                                "readonly": false,
+                                "type": "number",
+                                "description": "Index of the last element in viewport."
+                            }
+                        ]
+                    }
+                ]
+            },
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "select",
+                        "name": "item",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Data of the option.\n  }",
+                                "description": "item data."
+                            }
+                        ],
+                        "description": "Custom item template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "selectedItem",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Selected option value.\n  }",
+                                "description": "selected item data."
+                            }
+                        ],
+                        "description": "Custom selected item template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom header template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "filter",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t options: DropdownFilterOptions, // Filter options.\n  }"
+                            }
+                        ],
+                        "description": "Custom filter template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom footer template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "emptyfilter",
+                        "parameters": [],
+                        "description": "Custom empty filter template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "empty",
+                        "parameters": [],
+                        "description": "Custom empty template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "group",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t $implicit: any, // Group option.\n  }"
+                            }
+                        ],
+                        "description": "Custom group template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "loader",
+                        "parameters": [
+                            {
+                                "name": "context",
+                                "type": "{\n  \t options: ScrollerOptions, // Virtual scroller options.\n  }"
+                            }
+                        ],
+                        "description": "Custom loader template. This template can be used with virtualScroll."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "dropdownicon",
+                        "parameters": [],
+                        "description": "Custom dropdown trigger icon template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "clearicon",
+                        "parameters": [],
+                        "description": "Custom clear icon template."
+                    },
+                    {
+                        "parent": "select",
+                        "name": "filtericon",
+                        "parameters": [],
+                        "description": "Custom filter icon template."
+                    }
+                ]
+            },
+            "interfaces": {
+                "description": "Defines the custom interfaces used by the module.",
+                "values": [
+                    {
+                        "name": "DropdownFilterOptions",
+                        "description": "Filter callbacks of the dropdown.",
+                        "props": [
+                            {
+                                "name": "filter",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Function"
+                            },
+                            {
+                                "name": "reset",
+                                "optional": true,
+                                "readonly": false,
+                                "type": "Function"
+                            }
+                        ]
                     }
                 ]
             }
@@ -21114,6 +23361,9 @@
             }
         }
     },
+    "selectbuttonstyle": {
+        "components": {}
+    },
     "sidebar": {
         "components": {
             "Sidebar": {
@@ -21126,6 +23376,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "any",
+                            "default": "body",
                             "description": "Target element to attach the dialog, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
                         },
                         {
@@ -21182,6 +23433,13 @@
                             "description": "Whether an overlay mask is displayed behind the sidebar."
                         },
                         {
+                            "name": "closeButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
                             "name": "dismissible",
                             "optional": false,
                             "readonly": false,
@@ -21233,6 +23491,34 @@
                             "readonly": false,
                             "type": "boolean",
                             "description": "Adds a close icon to the header to hide the dialog."
+                        },
+                        {
+                            "name": "headerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Header template."
+                        },
+                        {
+                            "name": "footerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Footer template."
+                        },
+                        {
+                            "name": "closeIconTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Close icon template."
+                        },
+                        {
+                            "name": "headlessTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Headless template."
                         }
                     ]
                 },
@@ -21312,6 +23598,9 @@
             }
         }
     },
+    "drawerstyle": {
+        "components": {}
+    },
     "skeleton": {
         "components": {
             "Skeleton": {
@@ -21376,259 +23665,8 @@
             }
         }
     },
-    "slidemenu": {
-        "components": {
-            "SlideMenu": {
-                "description": "SlideMenu displays submenus with slide animation.",
-                "props": {
-                    "description": "Defines the input properties of the component.",
-                    "values": [
-                        {
-                            "name": "model",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "MenuItem[]",
-                            "description": "An array of menuitems."
-                        },
-                        {
-                            "name": "menuWidth",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "190",
-                            "description": "Width of the submenus."
-                        },
-                        {
-                            "name": "viewportHeight",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "180",
-                            "description": "Height of the scrollable area, a scrollbar appears if a menu height is longer than this value."
-                        },
-                        {
-                            "name": "effectDuration",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "250",
-                            "description": "Duration of the sliding animation in milliseconds."
-                        },
-                        {
-                            "name": "easing",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": "ease-out",
-                            "description": "Easing animation to use for sliding."
-                        },
-                        {
-                            "name": "backLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": "Back",
-                            "description": "Label of element to navigate back."
-                        },
-                        {
-                            "name": "disabled",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "When present, it specifies that the component should be disabled."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Index of the element in tabbing order."
-                        },
-                        {
-                            "name": "popup",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "false",
-                            "description": "Defines if menu would displayed as a popup."
-                        },
-                        {
-                            "name": "style",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "Object",
-                            "description": "Inline style of the component."
-                        },
-                        {
-                            "name": "styleClass",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Style class of the component."
-                        },
-                        {
-                            "name": "appendTo",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "any",
-                            "description": "Target element to attach the overlay, valid values are \"body\" or a local ng-template variable of another element."
-                        },
-                        {
-                            "name": "autoZIndex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to automatically manage layering."
-                        },
-                        {
-                            "name": "baseZIndex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "default": "0",
-                            "description": "Base zIndex value to use in layering."
-                        },
-                        {
-                            "name": "autoDisplay",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "boolean",
-                            "default": "true",
-                            "description": "Whether to show a root submenu on mouse over."
-                        },
-                        {
-                            "name": "showTransitionOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": ".12s cubic-bezier(0, 0, 0.2, 1)",
-                            "description": "Transition options of the show animation."
-                        },
-                        {
-                            "name": "hideTransitionOptions",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": ".1s linear",
-                            "description": "Transition options of the hide animation."
-                        },
-                        {
-                            "name": "id",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Current id state as a string."
-                        },
-                        {
-                            "name": "ariaLabel",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Defines a string value that labels an interactive element."
-                        },
-                        {
-                            "name": "ariaLabelledBy",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "description": "Identifier of the underlying input element."
-                        }
-                    ]
-                },
-                "emits": {
-                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
-                    "values": [
-                        {
-                            "name": "onShow",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "any"
-                                }
-                            ],
-                            "description": "Callback to invoke when overlay menu is shown."
-                        },
-                        {
-                            "name": "onHide",
-                            "parameters": [
-                                {
-                                    "name": "value",
-                                    "type": "any"
-                                }
-                            ],
-                            "description": "Callback to invoke when overlay menu is hidden."
-                        }
-                    ]
-                },
-                "methods": {
-                    "description": "Defines methods that can be accessed by the component's reference.",
-                    "values": [
-                        {
-                            "name": "hide",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "any"
-                                },
-                                {
-                                    "name": "isFocus",
-                                    "type": "boolean"
-                                }
-                            ],
-                            "description": "Hides the popup menu."
-                        },
-                        {
-                            "name": "toggle",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "any",
-                                    "description": "Browser event."
-                                }
-                            ],
-                            "description": "Toggles the visibility of the popup menu."
-                        },
-                        {
-                            "name": "show",
-                            "parameters": [
-                                {
-                                    "name": "event",
-                                    "type": "any"
-                                },
-                                {
-                                    "name": "isFocus",
-                                    "type": "any"
-                                }
-                            ],
-                            "description": "Displays the popup menu."
-                        }
-                    ]
-                }
-            }
-        },
-        "interfaces": {
-            "components": {},
-            "templates": {
-                "description": "Defines the templates used by the component.",
-                "values": [
-                    {
-                        "parent": "slidemenu",
-                        "name": "backicon",
-                        "parameters": [],
-                        "description": "Custom template of backicon."
-                    },
-                    {
-                        "parent": "slidemenu",
-                        "name": "submenuicon",
-                        "parameters": [],
-                        "description": "Custom template of submenuicon."
-                    }
-                ]
-            }
-        }
+    "skeletonstyle": {
+        "components": {}
     },
     "slider": {
         "components": {
@@ -21828,6 +23866,9 @@
             }
         }
     },
+    "sliderstyle": {
+        "components": {}
+    },
     "speeddial": {
         "components": {
             "SpeedDial": {
@@ -21982,6 +24023,13 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Identifier of the underlying input element."
+                        },
+                        {
+                            "name": "buttonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
                         }
                     ]
                 },
@@ -22068,6 +24116,9 @@
             }
         }
     },
+    "speeddialstyle": {
+        "components": {}
+    },
     "splitbutton": {
         "components": {
             "SplitButton": {
@@ -22086,7 +24137,7 @@
                             "name": "severity",
                             "optional": false,
                             "readonly": false,
-                            "type": "\"success\" | \"info\" | \"warning\" | \"primary\" | \"help\" | \"danger\" | \"secondary\" | \"contrast\"",
+                            "type": "\"success\" | \"info\" | \"primary\" | \"warn\" | \"danger\" | \"secondary\" | \"contrast\" | \"help\"",
                             "description": "Defines the style of the button."
                         },
                         {
@@ -22160,6 +24211,20 @@
                             "description": "Text of the button."
                         },
                         {
+                            "name": "tooltip",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip for the main button."
+                        },
+                        {
+                            "name": "tooltipOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Tooltip options for the main button."
+                        },
+                        {
                             "name": "style",
                             "optional": false,
                             "readonly": false,
@@ -22186,13 +24251,6 @@
                             "readonly": false,
                             "type": "string",
                             "description": "Style class of the overlay menu."
-                        },
-                        {
-                            "name": "tabindex",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "number",
-                            "description": "When present, it specifies that the element should be disabled."
                         },
                         {
                             "name": "appendTo",
@@ -22240,19 +24298,31 @@
                             "description": "When present, it specifies that the component should automatically get focus on load."
                         },
                         {
-                            "name": "_menuButtonDisabled",
+                            "name": "disabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
+                            "description": "When present, it specifies that the element should be disabled."
+                        },
+                        {
+                            "name": "tabindex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "description": "Index of the element in tabbing order."
+                        },
+                        {
+                            "name": "menuButtonDisabled",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
                             "description": "When present, it specifies that the menu button element should be disabled."
                         },
                         {
-                            "name": "_buttonDisabled",
+                            "name": "buttonDisabled",
                             "optional": false,
                             "readonly": false,
                             "type": "boolean",
-                            "default": "false",
                             "description": "When present, it specifies that the button element should be disabled."
                         }
                     ]
@@ -22271,10 +24341,31 @@
                             "description": "Callback to invoke when default command button is clicked."
                         },
                         {
-                            "name": "_disabled",
+                            "name": "onMenuHide",
                             "parameters": [
                                 {
-                                    "name": "value"
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is hidden."
+                        },
+                        {
+                            "name": "onMenuShow",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when overlay menu is shown."
+                        },
+                        {
+                            "name": "onDropdownClick",
+                            "parameters": [
+                                {
+                                    "name": "event",
+                                    "type": "MouseEvent"
                                 }
                             ],
                             "description": "Callback to invoke when dropdown button is clicked."
@@ -22303,6 +24394,9 @@
                 ]
             }
         }
+    },
+    "splitbuttonstyle": {
+        "components": {}
     },
     "splitter": {
         "components": {
@@ -22482,6 +24576,9 @@
                 ]
             }
         }
+    },
+    "splitterstyle": {
+        "components": {}
     },
     "stepper": {
         "components": {
@@ -25374,6 +27471,9 @@
             }
         }
     },
+    "tagstyle": {
+        "components": {}
+    },
     "tag": {
         "components": {
             "Tag": {
@@ -25444,6 +27544,9 @@
             }
         }
     },
+    "terminalstyle": {
+        "components": {}
+    },
     "terminal": {
         "components": {
             "Terminal": {
@@ -25511,6 +27614,18 @@
         }
     },
     "terminalservice": {
+        "components": {}
+    },
+    "aura": {
+        "components": {}
+    },
+    "lara": {
+        "components": {}
+    },
+    "nora": {
+        "components": {}
+    },
+    "tieredmenustyle": {
         "components": {}
     },
     "tieredmenu": {
@@ -25732,6 +27847,9 @@
             }
         }
     },
+    "timelinestyle": {
+        "components": {}
+    },
     "timeline": {
         "components": {
             "Timeline": {
@@ -25824,6 +27942,9 @@
                 ]
             }
         }
+    },
+    "toaststyle": {
+        "components": {}
     },
     "toast": {
         "components": {
@@ -26007,6 +28128,9 @@
             }
         }
     },
+    "togglebuttonstyle": {
+        "components": {}
+    },
     "togglebutton": {
         "components": {
             "ToggleButton": {
@@ -26174,6 +28298,9 @@
             }
         }
     },
+    "toolbarstyle": {
+        "components": {}
+    },
     "toolbar": {
         "components": {
             "Toolbar": {
@@ -26232,6 +28359,9 @@
                 ]
             }
         }
+    },
+    "tooltipstyle": {
+        "components": {}
     },
     "tooltip": {
         "components": {
@@ -26376,6 +28506,9 @@
             }
         }
     },
+    "treestyle": {
+        "components": {}
+    },
     "tree": {
         "components": {
             "Tree": {
@@ -26432,14 +28565,6 @@
                             "readonly": false,
                             "type": "any",
                             "description": "Context menu instance."
-                        },
-                        {
-                            "name": "layout",
-                            "optional": false,
-                            "readonly": false,
-                            "type": "string",
-                            "default": "vertical",
-                            "description": "Defines the orientation of the tree, valid values are 'vertical' and 'horizontal'."
                         },
                         {
                             "name": "draggableScope",
@@ -26651,6 +28776,14 @@
                             "type": "Function",
                             "default": "...",
                             "description": "Function to optimize the node list rendering, default algorithm checks for object identity."
+                        },
+                        {
+                            "name": "highlightOnSelect",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Highlights the node on select."
                         },
                         {
                             "name": "_virtualNodeHeight",
@@ -27104,6 +29237,9 @@
             }
         }
     },
+    "treeselectstyle": {
+        "components": {}
+    },
     "treeselect": {
         "components": {
             "TreeSelect": {
@@ -27208,6 +29344,14 @@
                             "readonly": false,
                             "type": "Object",
                             "description": "Inline style of the panel element."
+                        },
+                        {
+                            "name": "fluid",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Spans 100% width of the container when enabled."
                         },
                         {
                             "name": "panelStyleClass",
@@ -29348,6 +31492,9 @@
                 ]
             }
         }
+    },
+    "usestyle": {
+        "components": {}
     },
     "objectutils": {
         "components": {}

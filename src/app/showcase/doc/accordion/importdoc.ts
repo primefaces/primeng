@@ -1,12 +1,12 @@
-// import { Component } from '@angular/core';
-// import { Code } from '@domain/code';
+import { Component } from '@angular/core';
+import { Code } from '@domain/code';
 
-// @Component({
-//     selector: 'import-doc',
-//     template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
-// })
-// export class ImportDoc {
-//     code: Code = {
-//         typescript: `import { AccordionModule } from 'primeng/accordion';`
-//     };
-// }
+@Component({
+    selector: 'import-doc',
+    template: ` <app-code [code]="code" [hideToggleCode]="true"></app-code> `
+})
+export class ImportDoc {
+    code: Code = {
+        typescript: `import { AccordionModule } from 'primeng/accordion';`
+    };
+}
