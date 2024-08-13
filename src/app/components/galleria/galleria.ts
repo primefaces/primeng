@@ -998,7 +998,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     startPos: { x: number; y: number } | null = null;
 
-    thumbnailsStyle: HTMLStyleElement | null = null;
+    thumbnailsStyle: any = null;
 
     sortedResponsiveOptions: GalleriaResponsiveOptions[] | null = null;
 
@@ -1109,7 +1109,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
             }
         }
 
-        this.thumbnailsStyle.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML) as string;
+        this.thumbnailsStyle.innerHTML = this.domSanitizer.bypassSecurityTrustStyle(innerHTML);
         DomHandler.setAttribute(this.thumbnailsStyle, 'nonce', this.galleria.config?.csp()?.nonce);
     }
 
