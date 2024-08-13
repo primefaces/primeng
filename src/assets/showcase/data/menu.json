@@ -30,8 +30,8 @@
                             "routerLink": "/autocomplete"
                         },
                         {
-                            "name": "Calendar",
-                            "routerLink": "/calendar"
+                            "name": "DatePicker",
+                            "routerLink": "/datepicker"
                         },
                         {
                             "name": "CascadeSelect",

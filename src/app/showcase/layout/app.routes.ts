@@ -26,7 +26,7 @@ export const routes: Routes = [
             { path: 'badge', loadChildren: () => import('@pages/badge/badgedemo.module').then((m) => m.BadgeDemoModule) },
             { path: 'breadcrumb', loadChildren: () => import('@pages/breadcrumb/breadcrumbdemo.module').then((m) => m.BreadcrumbDemoModule) },
             { path: 'button', loadChildren: () => import('@pages/button/buttondemo.module').then((m) => m.ButtonDemoModule) },
-            { path: 'calendar', loadChildren: () => import('@pages/calendar/calendardemo.module').then((m) => m.CalendarDemoModule) },
+            { path: 'datepicker', loadChildren: () => import('@pages/datepicker/datepickerdemo.module').then((m) => m.DatePickerDemoModule) },
             { path: 'card', loadChildren: () => import('@pages/card/carddemo.module').then((m) => m.CardDemoModule) },
             { path: 'cascadeselect', loadChildren: () => import('@pages/cascadeselect/cascadeselectdemo.module').then((m) => m.CascadeSelectDemoModule) },
             { path: 'carousel', loadChildren: () => import('@pages/carousel/carouseldemo.module').then((m) => m.CarouselDemoModule) },
