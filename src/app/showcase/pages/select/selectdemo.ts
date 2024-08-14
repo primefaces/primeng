@@ -1,23 +1,23 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '@doc/dropdown/basicdoc';
-import { DisabledDoc } from '@doc/dropdown/disableddoc';
-import { EditableDoc } from '@doc/dropdown/editabledoc';
-import { FilterDoc } from '@doc/dropdown/filterdoc';
-import { GroupDoc } from '@doc/dropdown/groupdoc';
-import { ImportDoc } from '@doc/dropdown/importdoc';
-import { TemplateDoc } from '@doc/dropdown/templatedoc';
-import { VirtualScrollDoc } from '@doc/dropdown/virtualscrolldoc';
-import { FloatLabelDoc } from '@doc/dropdown/floatlabeldoc';
-import { StyleDoc } from '@doc/dropdown/styledoc';
-import { AccessibilityDoc } from '@doc/dropdown/accessibilitydoc';
-import { ReactiveFormsDoc } from '@doc/dropdown/reactiveformsdoc';
-import { LazyVirtualScrollDoc } from '@doc/dropdown/lazyvirtualscrolldoc';
-import { InvalidDoc } from '@doc/dropdown/invaliddoc';
-import { CustomFilterDoc } from '@doc/dropdown/customfilterdoc';
-import { CheckmarkDoc } from '@doc/dropdown/checkmarkdoc';
-import { ClearIconDoc } from '@doc/dropdown/clearicondoc';
-import { LoadingStateDoc } from '@doc/dropdown/loadingstatedoc';
-import { FilledDoc } from '@doc/dropdown/filleddoc';
+import { BasicDoc } from '@doc/select/basicdoc';
+import { DisabledDoc } from '@doc/select/disableddoc';
+import { EditableDoc } from '@doc/select/editabledoc';
+import { FilterDoc } from '@doc/select/filterdoc';
+import { GroupDoc } from '@doc/select/groupdoc';
+import { ImportDoc } from '@doc/select/importdoc';
+import { TemplateDoc } from '@doc/select/templatedoc';
+import { VirtualScrollDoc } from '@doc/select/virtualscrolldoc';
+import { FloatLabelDoc } from '@doc/select/floatlabeldoc';
+import { StyleDoc } from '@doc/select/styledoc';
+import { AccessibilityDoc } from '@doc/select/accessibilitydoc';
+import { ReactiveFormsDoc } from '@doc/select/reactiveformsdoc';
+import { LazyVirtualScrollDoc } from '@doc/select/lazyvirtualscrolldoc';
+import { InvalidDoc } from '@doc/select/invaliddoc';
+import { CustomFilterDoc } from '@doc/select/customfilterdoc';
+import { CheckmarkDoc } from '@doc/select/checkmarkdoc';
+import { ClearIconDoc } from '@doc/select/clearicondoc';
+import { LoadingStateDoc } from '@doc/select/loadingstatedoc';
+import { FilledDoc } from '@doc/select/filleddoc';
 
 @Component({
     templateUrl: './selectdemo.html',
