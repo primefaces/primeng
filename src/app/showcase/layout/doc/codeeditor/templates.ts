@@ -415,6 +415,7 @@ const getAngularApp = (props: Props = {}) => {
     import { DialogModule } from 'primeng/dialog';
     import { DividerModule } from 'primeng/divider';
     import { DockModule } from 'primeng/dock';
+    import { DrawerModule } from 'primeng/drawer';
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
     import { SelectModule } from 'primeng/select';
@@ -532,6 +533,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DrawerModule,
         DockModule,
         DragDropModule,
         DropdownModule,
@@ -642,6 +644,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DrawerModule,
         DeferModule,
         DockModule,
         DragDropModule,
