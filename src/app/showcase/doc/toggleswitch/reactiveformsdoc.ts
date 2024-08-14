@@ -6,14 +6,14 @@ import { Code } from '@domain/code';
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>InputSwitch can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>ToggleSwitch can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-inputSwitch formControlName="checked" />
+                <p-toggleSwitch formControlName="checked" />
             </form>
         </div>
-        <app-code [code]="code" selector="input-switch-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="toggle-switch-reactive-forms-demo"></app-code>
     `
 })
 export class ReactiveFormsDoc implements OnInit {
@@ -26,23 +26,23 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-inputSwitch formControlName="checked" />`,
+        basic: `<p-toggleSwitch formControlName="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch formControlName="checked" />
+    <p-toggleSwitch formControlName="checked" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 
 @Component({
-    selector: 'input-switch-reactive-forms-demo',
-    templateUrl: './input-switch-reactive-forms-demo.html',
+    selector: 'toggle-switch-reactive-forms-demo',
+    templateUrl: './toggle-switch-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, InputSwitchModule]
+    imports: [ReactiveFormsModule, ToggleSwitchModule]
 })
-export class InputSwitchReactiveFormsDemo implements OnInit {
+export class ToggleSwitchReactiveFormsDemo implements OnInit {
     formGroup: FormGroup | undefined;
 
     ngOnInit() {

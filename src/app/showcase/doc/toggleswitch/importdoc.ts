@@ -7,6 +7,6 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { InputSwitchModule } from 'primeng/inputswitch';`
+        typescript: `import { ToggleSwitchModule } from 'primeng/toggleswitch';`
     };
 }

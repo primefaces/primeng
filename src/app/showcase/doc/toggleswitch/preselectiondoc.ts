@@ -8,32 +8,32 @@ import { Code } from '@domain/code';
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-toggleSwitch [(ngModel)]="checked" />
         </div>
-        <app-code [code]="code" selector="input-switch-preselection-demo"></app-code>
+        <app-code [code]="code" selector="toggle-switch-preselection-demo"></app-code>
     `
 })
 export class PreselectionDoc {
     checked: boolean = true;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" />`,
+        basic: `<p-toggleSwitch [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked" />
+    <p-toggleSwitch [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-switch-preselection-demo',
-    templateUrl: './input-switch-preselection-demo.html',
+    selector: 'toggle-switch-preselection-demo',
+    templateUrl: './toggle-switch-preselection-demo.html',
     standalone: true,
-    imports: [FormsModule, InputSwitchModule]
+    imports: [FormsModule, ToggleSwitchModule]
 })
-export class InputSwitchPreselectionDemo {
+export class ToggleSwitchPreselectionDemo {
     checked: boolean = true;
 }`
     };

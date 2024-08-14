@@ -76,8 +76,8 @@
                             "routerLink": "/inputmask"
                         },
                         {
-                            "name": "InputSwitch",
-                            "routerLink": "/inputswitch"
+                            "name": "ToggleSwitch",
+                            "routerLink": "/toggleswitch"
                         },
                         {
                             "name": "InputText",

@@ -8,32 +8,32 @@ import { Code } from '@domain/code';
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked" />
+            <p-toggleSwitch [(ngModel)]="checked" />
         </div>
-        <app-code [code]="code" selector="input-switch-basic-demo"></app-code>
+        <app-code [code]="code" selector="toggle-switch-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" />`,
+        basic: `<p-toggleSwitch [(ngModel)]="checked" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked" />
+    <p-toggleSwitch [(ngModel)]="checked" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-switch-basic-demo',
-    templateUrl: './input-switch-basic-demo.html',
+    selector: 'toggle-switch-basic-demo',
+    templateUrl: './toggle-switch-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, InputSwitchModule]
+    imports: [FormsModule, ToggleSwitchModule]
 })
-export class InputSwitchBasicDemo {
+export class ToggleSwitchBasicDemo {
     checked: boolean = false;
 }`
     };

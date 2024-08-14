@@ -62,7 +62,7 @@ export const routes: Routes = [
             { path: 'inputmask', loadChildren: () => import('@pages/inputmask/inputmaskdemo.module').then((m) => m.InputMaskDemoModule) },
             { path: 'inputnumber', loadChildren: () => import('@pages/inputnumber/inputnumberdemo.module').then((m) => m.InputNumberDemoModule) },
             { path: 'inputotp', loadChildren: () => import('@pages/inputotp/inputotpdemo.module').then((m) => m.InputOtpDemoModule) },
-            { path: 'inputswitch', loadChildren: () => import('@pages/inputswitch/inputswitchdemo.module').then((m) => m.InputSwitchDemoModule) },
+            { path: 'toggleswitch', loadChildren: () => import('@pages/toggleswitch/toggleswitchdemo.module').then((m) => m.ToggleSwitchDemoModule) },
             { path: 'inputtext', loadChildren: () => import('@pages/inputtext/inputtextdemo.module').then((m) => m.InputTextDemoModule) },
             { path: 'inputgroup', loadChildren: () => import('@pages/inputgroup/inputgroupdemo.module').then((m) => m.InputGroupDemoModule) },
             { path: 'inputtextarea', loadChildren: () => import('@pages/inputtextarea/inputtextareademo.module').then((m) => m.InputTextareaDemoModule) },

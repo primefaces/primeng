@@ -8,32 +8,32 @@ import { Code } from '@domain/code';
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
+            <p-toggleSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
         </div>
-        <app-code [code]="code" selector="input-switch-invalid-demo"></app-code>
+        <app-code [code]="code" selector="toggle-switch-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc {
     checked: boolean = false;
 
     code: Code = {
-        basic: `<p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />`,
+        basic: `<p-toggleSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-inputSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
+    <p-toggleSwitch [(ngModel)]="checked" class="ng-dirty ng-invalid" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { InputSwitchModule } from 'primeng/inputswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'input-switch-invalid-demo',
-    templateUrl: './input-switch-invalid-demo.html',
+    selector: 'toggle-switch-invalid-demo',
+    templateUrl: './toggle-switch-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, InputSwitchModule]
+    imports: [FormsModule, ToggleSwitchModule]
 })
-export class InputSwitchInvalidDemo {
+export class ToggleSwitchInvalidDemo {
     checked: boolean = false;
 }`
     };
