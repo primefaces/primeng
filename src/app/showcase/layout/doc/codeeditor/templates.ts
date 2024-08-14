@@ -399,6 +399,7 @@ const getAngularApp = (props: Props = {}) => {
     import { BreadcrumbModule } from 'primeng/breadcrumb';
     import { ButtonModule } from 'primeng/button';
     import { CalendarModule } from 'primeng/calendar';
+    import { DatePickerModule } from 'primeng/datepicker';
     import { CarouselModule } from 'primeng/carousel';
     import { CascadeSelectModule } from 'primeng/cascadeselect';
     import { ChartModule } from 'primeng/chart';
@@ -416,6 +417,7 @@ const getAngularApp = (props: Props = {}) => {
     import { DockModule } from 'primeng/dock';
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
+    import { SelectModule } from 'primeng/select';
     import { DynamicDialogModule } from 'primeng/dynamicdialog';
     import { DeferModule } from 'primeng/defer';
     import { EditorModule } from 'primeng/editor';
@@ -514,6 +516,7 @@ const getAngularApp = (props: Props = {}) => {
         BlockUIModule,
         ButtonModule,
         CalendarModule,
+        DatePickerModule,
         CarouselModule,
         CascadeSelectModule,
         ChartModule,
@@ -531,6 +534,7 @@ const getAngularApp = (props: Props = {}) => {
         DockModule,
         DragDropModule,
         DropdownModule,
+        SelectModule,
         DynamicDialogModule,
         DeferModule,
         EditorModule,
@@ -621,6 +625,7 @@ const getAngularApp = (props: Props = {}) => {
         BlockUIModule,
         ButtonModule,
         CalendarModule,
+        DatePickerModule,
         CarouselModule,
         CascadeSelectModule,
         ChartModule,
@@ -639,6 +644,7 @@ const getAngularApp = (props: Props = {}) => {
         DockModule,
         DragDropModule,
         DropdownModule,
+        SelectModule,
         DynamicDialogModule,
         EditorModule,
         FieldsetModule,
