@@ -9219,7 +9219,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "When enabled, displays the calendar as inline. Default is false for popup mode."
+                            "description": "When enabled, displays the datepicker as inline. Default is false for popup mode."
                         },
                         {
                             "name": "showOtherMonths",
@@ -9258,7 +9258,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Icon of the calendar button."
+                            "description": "Icon of the datepicker button."
                         },
                         {
                             "name": "appendTo",
@@ -9371,7 +9371,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "When enabled, calendar will show week numbers."
+                            "description": "When enabled, datepicker will show week numbers."
                         },
                         {
                             "name": "startWeekFromFirstDayOfYear",
@@ -9379,7 +9379,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "When enabled, calendar will start week numbers from first day of the year."
+                            "description": "When enabled, datepicker will start week numbers from first day of the year."
                         },
                         {
                             "name": "showClear",
@@ -9494,7 +9494,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "When enabled, calendar overlay is displayed as optimized for touch devices."
+                            "description": "When enabled, datepicker overlay is displayed as optimized for touch devices."
                         },
                         {
                             "name": "timeSeparator",
@@ -9510,7 +9510,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "When enabled, can only focus on elements inside the calendar."
+                            "description": "When enabled, can only focus on elements inside the datepicker."
                         },
                         {
                             "name": "showTransitionOptions",
@@ -9611,7 +9611,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "LocaleSettings",
-                            "description": "Option to set calendar locale.",
+                            "description": "Option to set datepicker locale.",
                             "deprecated": "Locale property has no effect, use new i18n API instead."
                         },
                         {
@@ -23551,7 +23551,7 @@
                         "parent": "select",
                         "name": "dropdownicon",
                         "parameters": [],
-                        "description": "Custom Select trigger icon template."
+                        "description": "Custom select icon template."
                     },
                     {
                         "parent": "select",
@@ -28736,7 +28736,7 @@
     "toggleswitch": {
         "components": {
             "ToggleSwitch": {
-                "description": "InputSwitch is used to select a boolean value.",
+                "description": "ToggleSwitch is used to select a boolean value.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [

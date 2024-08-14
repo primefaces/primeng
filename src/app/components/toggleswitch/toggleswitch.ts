@@ -27,7 +27,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
     multi: true,
 };
 /**
- * InputSwitch is used to select a boolean value.
+ * ToggleSwitch is used to select a boolean value.
  * @group Components
  */
 @Component({
@@ -39,7 +39,7 @@ export const TOGGLESWITCH_VALUE_ACCESSOR: any = {
             [ngStyle]="style"
             [class]="styleClass"
             (click)="onClick($event)"
-            [attr.data-pc-name]="'inputswitch'"
+            [attr.data-pc-name]="'toggleswitch'"
             [attr.data-pc-section]="'root'"
         >
             <div
