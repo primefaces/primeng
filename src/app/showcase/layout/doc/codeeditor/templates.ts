@@ -428,6 +428,7 @@ const getAngularApp = (props: Props = {}) => {
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
     import { InputSwitchModule } from 'primeng/inputswitch';
+    import { ToggleSwitchModule } from 'primeng/toggleswitch';
     import { InputTextModule } from 'primeng/inputtext';
     import { InputNumberModule } from 'primeng/inputnumber';
     import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -596,6 +597,7 @@ const getAngularApp = (props: Props = {}) => {
         TimelineModule,
         ToastModule,
         ToggleButtonModule,
+        ToggleSwitchModule,
         ToolbarModule,
         TooltipModule,
         TriStateCheckboxModule,
@@ -705,6 +707,7 @@ const getAngularApp = (props: Props = {}) => {
         TimelineModule,
         ToastModule,
         ToggleButtonModule,
+        ToggleSwitchModule,
         ToolbarModule,
         TooltipModule,
         TriStateCheckboxModule,
