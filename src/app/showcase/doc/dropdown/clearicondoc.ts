@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-clear-icon-demo',
+    selector: 'select-clear-icon-demo',
     template: `
         <app-docsectiontext>
-            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Dropdown.</p>
+            <p>When <i>showClear</i> is enabled, a clear icon is added to reset the Select.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" />
         </div>
-        <app-code [code]="code" selector="dropdown-clear-icon-demo"></app-code>
+        <app-code [code]="code" selector="select-clear-icon-demo"></app-code>
     `
 })
 export class ClearIconDoc implements OnInit {
@@ -34,7 +34,7 @@ export class ClearIconDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
     optionLabel="name" 
@@ -42,7 +42,7 @@ export class ClearIconDoc implements OnInit {
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
         optionLabel="name" 
@@ -52,7 +52,7 @@ export class ClearIconDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -60,12 +60,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-clear-icon-demo',
-    templateUrl: './dropdown-clear-icon-demo.html',
+    selector: 'select-clear-icon-demo',
+    templateUrl: './select-clear-icon-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownClearIconDemo implements OnInit {
+export class SelectClearIconDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

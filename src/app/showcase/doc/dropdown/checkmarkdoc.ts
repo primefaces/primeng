@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-checkmark-demo',
+    selector: 'select-checkmark-demo',
     template: `
         <app-docsectiontext>
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" />
         </div>
-        <app-code [code]="code" selector="dropdown-checkmark-demo"></app-code>
+        <app-code [code]="code" selector="select-checkmark-demo"></app-code>
     `
 })
 export class CheckmarkDoc implements OnInit {
@@ -34,7 +34,7 @@ export class CheckmarkDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity"
     [checkmark]="true" 
@@ -43,7 +43,7 @@ export class CheckmarkDoc implements OnInit {
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity"
         [checkmark]="true" 
@@ -54,7 +54,7 @@ export class CheckmarkDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -62,12 +62,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-checkmark-demo',
-    templateUrl: './dropdown-checkmark-demo.html',
+    selector: 'select-checkmark-demo',
+    templateUrl: './select-checkmark-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownCheckmarkDemo implements OnInit {
+export class SelectCheckmarkDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-disabled-demo',
+    selector: 'select-disabled-demo',
     template: `
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" />
         </div>
-        <app-code [code]="code" selector="dropdown-disabled-demo"></app-code>
+        <app-code [code]="code" selector="select-disabled-demo"></app-code>
     `
 })
 export class DisabledDoc {
@@ -34,7 +34,7 @@ export class DisabledDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
     placeholder="Select a City" 
@@ -42,7 +42,7 @@ export class DisabledDoc {
     [disabled]="true" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
         placeholder="Select a City" 
@@ -52,7 +52,7 @@ export class DisabledDoc {
 
         typescript: `import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -60,12 +60,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-disabled-demo',
-    templateUrl: './dropdown-disabled-demo.html',
+    selector: 'select-disabled-demo',
+    templateUrl: './select-disabled-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownDisabledDemo {
+export class SelectDisabledDemo {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

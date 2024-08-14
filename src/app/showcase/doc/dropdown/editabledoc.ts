@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-editable-demo',
+    selector: 'select-editable-demo',
     template: `
         <app-docsectiontext>
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
         </div>
-        <app-code [code]="code" selector="dropdown-editable-demo"></app-code>
+        <app-code [code]="code" selector="select-editable-demo"></app-code>
     `
 })
 export class EditableDoc implements OnInit {
@@ -34,7 +34,7 @@ export class EditableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
     placeholder="Select a City" 
@@ -42,7 +42,7 @@ export class EditableDoc implements OnInit {
     optionLabel="name" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
         placeholder="Select a City" 
@@ -50,10 +50,9 @@ export class EditableDoc implements OnInit {
         optionLabel="name" />
 </div>`,
 
-        typescript: `
-import { Component, OnInit } from '@angular/core';
+        typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -61,12 +60,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-editable-demo',
-    templateUrl: './dropdown-editable-demo.html',
+    selector: 'select-editable-demo',
+    templateUrl: './select-editable-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownEditableDemo implements OnInit {
+export class SelectEditableDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'dropdown-template-demo',
+    selector: 'select-template-demo',
     template: `
         <app-docsectiontext>
             <p>
@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a country">
+            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a country">
                 <ng-template pTemplate="selectedItem" let-selectedOption>
                     <div class="flex align-items-center gap-2" *ngIf="selectedOption">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
@@ -24,9 +24,9 @@ import { Code } from '@domain/code';
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-dropdown>
+            </p-select>
         </div>
-        <app-code [code]="code" selector="dropdown-template-demo"></app-code>
+        <app-code [code]="code" selector="select-template-demo"></app-code>
     `
 })
 export class TemplateDoc implements OnInit {
@@ -50,7 +50,7 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="countries" 
     [(ngModel)]="selectedCountry"
     optionLabel="name"
@@ -74,10 +74,10 @@ export class TemplateDoc implements OnInit {
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-</p-dropdown>`,
+</p-select>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="countries" 
         [(ngModel)]="selectedCountry"
         optionLabel="name"
@@ -101,20 +101,20 @@ export class TemplateDoc implements OnInit {
                     <div>{{ country.name }}</div>
                 </div>
             </ng-template>
-    </p-dropdown>
+    </p-select>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'dropdown-group-demo',
-    templateUrl: './dropdown-group-demo.html',
+    selector: 'select-group-demo',
+    templateUrl: './select-group-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownTemplateDemo implements OnInit {
+export class SelectTemplateDemo implements OnInit {
     countries: any[] | undefined;
 
     selectedCountry: string | undefined;

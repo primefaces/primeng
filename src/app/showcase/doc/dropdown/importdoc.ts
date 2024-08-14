@@ -7,6 +7,6 @@ import { Code } from '@domain/code';
 })
 export class ImportDoc {
     code: Code = {
-        typescript: `import { DropdownModule } from 'primeng/dropdown';`
+        typescript: `import { SelectModule } from 'primeng/select';`
     };
 }

@@ -7,18 +7,18 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-floatlabel-demo',
+    selector: 'select-floatlabel-demo',
     template: `
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-floatLabel>
-                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label" />
+                <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label" />
                 <label for="float-label">Select a City</label>
             </p-floatLabel>
         </div>
-        <app-code [code]="code" selector="dropdown-floatlabel-demo"></app-code>
+        <app-code [code]="code" selector="select-floatlabel-demo"></app-code>
     `
 })
 export class FloatLabelDoc implements OnInit {
@@ -38,7 +38,7 @@ export class FloatLabelDoc implements OnInit {
 
     code: Code = {
         basic: `<p-floatLabel>
-    <p-dropdown 
+    <p-select 
         [options]="cities"
         [(ngModel)]="selectedCity"
         optionLabel="name" 
@@ -48,7 +48,7 @@ export class FloatLabelDoc implements OnInit {
 
         html: `<div class="card flex justify-content-center">
     <p-floatLabel>
-        <p-dropdown 
+        <p-select 
             [options]="cities"
             [(ngModel)]="selectedCity"
             optionLabel="name"
@@ -59,7 +59,7 @@ export class FloatLabelDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { FloatLabelModule } from "primeng/floatlabel"
 
 interface City {
@@ -68,12 +68,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-floatlabel-demo',
-    templateUrl: './dropdown-floatlabel-demo.html',
+    selector: 'select-floatlabel-demo',
+    templateUrl: './select-floatlabel-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule, FloatLabelModule]
+    imports: [FormsModule, SelectModule, FloatLabelModule]
 })
-export class DropdownFloatlabelDemo implements OnInit {
+export class SelectFloatlabelDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

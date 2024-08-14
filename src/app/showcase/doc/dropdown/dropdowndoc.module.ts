@@ -52,4 +52,4 @@ import { FloatLabelModule } from 'primeng/floatlabel';
         FilledDoc
     ]
 })
-export class DropdownDocModule {}
+export class SelectDocModule {}

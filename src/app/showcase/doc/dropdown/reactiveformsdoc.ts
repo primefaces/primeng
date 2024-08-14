@@ -11,14 +11,14 @@ interface City {
     selector: 'reactive-forms-doc',
     template: `
         <app-docsectiontext>
-            <p>Dropdown can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
+            <p>Select can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <form [formGroup]="formGroup">
-                <p-dropdown formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
+                <p-select formControlName="selectedCity" [options]="cities" optionLabel="name" placeholder="Select a City" />
             </form>
         </div>
-        <app-code [code]="code" selector="dropdown-reactive-forms-demo"></app-code>
+        <app-code [code]="code" selector="select-reactive-forms-demo"></app-code>
     `
 })
 export class ReactiveFormsDoc implements OnInit {
@@ -42,7 +42,7 @@ export class ReactiveFormsDoc implements OnInit {
 
     code: Code = {
         basic: `<form [formGroup]="formGroup">
-    <p-dropdown 
+    <p-select 
         formControlName="selectedCity" 
         [options]="cities"
         optionLabel="name"
@@ -51,7 +51,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         html: `<div class="card flex justify-content-center">
     <form [formGroup]="formGroup">
-        <p-dropdown 
+        <p-select 
             formControlName="selectedCity"
             [options]="cities"
             optionLabel="name"
@@ -61,7 +61,7 @@ export class ReactiveFormsDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -69,12 +69,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-reactive-forms-demo',
-    templateUrl: './dropdown-reactive-forms-demo.html',
+    selector: 'select-reactive-forms-demo',
+    templateUrl: './select-reactive-forms-demo.html',
     standalone: true,
-    imports: [ReactiveFormsModule, DropdownModule]
+    imports: [ReactiveFormsModule, SelectModule]
 })
-export class DropdownReactiveFormsDemo implements OnInit {
+export class SelectReactiveFormsDemo implements OnInit {
     cities: City[] | undefined;
     
     formGroup: FormGroup | undefined;

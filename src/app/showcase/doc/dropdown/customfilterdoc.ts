@@ -8,13 +8,13 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-custom-filter-demo',
+    selector: 'select-custom-filter-demo',
     template: `
         <app-docsectiontext>
             <p>Custom filter can be applied with the <i>filterTemplate</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+            <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
                 <ng-template pTemplate="filter" let-options="options">
                     <div class="flex gap-1">
                         <div class="p-inputgroup" (click)="$event.stopPropagation()">
@@ -36,9 +36,9 @@ interface City {
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
-            </p-dropdown>
+            </p-select>
         </div>
-        <app-code [code]="code" selector="dropdown-custom-filter-demo"></app-code>
+        <app-code [code]="code" selector="select-custom-filter-demo"></app-code>
     `
 })
 export class CustomFilterDoc implements OnInit {
@@ -73,7 +73,7 @@ export class CustomFilterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="countries" 
     [(ngModel)]="selectedCountry"
     optionLabel="name"
@@ -114,10 +114,10 @@ export class CustomFilterDoc implements OnInit {
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-</p-dropdown>`,
+</p-select>`,
 
         html: `<div class="card flex justify-content-center">
-<p-dropdown 
+<p-select 
     [options]="countries" 
     [(ngModel)]="selectedCountry" 
     optionLabel="name" 
@@ -158,25 +158,25 @@ export class CustomFilterDoc implements OnInit {
                 <div>{{ country.name }}</div>
             </div>
         </ng-template>
-</p-dropdown>
+</p-select>
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { DropdownFilterOptions } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
     code: string;
 }
 @Component({
-    selector: 'dropdown-custom-filter-demo',
-    templateUrl: './dropdown-custom-filter-demo.html',
+    selector: 'select-custom-filter-demo',
+    templateUrl: './select-custom-filter-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownCustomFilterDemo implements OnInit {
+export class SelectCustomFilterDemo implements OnInit {
     countries: City[] | undefined;
 
     selectedCountry: string | undefined;

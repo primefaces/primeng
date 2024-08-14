@@ -3,22 +3,22 @@ import { SelectItemGroup } from 'primeng/api';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'dropdown-group-demo',
+    selector: 'select-group-demo',
     template: `
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
+            <p-select [options]="groupedCities" [(ngModel)]="selectedCity" placeholder="Select a City" [group]="true">
                 <ng-template let-group pTemplate="group">
                     <div class="flex align-items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
                 </ng-template>
-            </p-dropdown>
+            </p-select>
         </div>
-        <app-code [code]="code" selector="dropdown-group-demo"></app-code>
+        <app-code [code]="code" selector="select-group-demo"></app-code>
     `
 })
 export class GroupDoc {
@@ -62,7 +62,7 @@ export class GroupDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="groupedCities" 
     [(ngModel)]="selectedCity" 
     placeholder="Select a City" 
@@ -76,10 +76,10 @@ export class GroupDoc {
             <span>{{ group.label }}</span>
         </div>
     </ng-template>
-</p-dropdown>`,
+</p-select>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="groupedCities" 
         [(ngModel)]="selectedCity" 
         placeholder="Select a City" 
@@ -93,21 +93,21 @@ export class GroupDoc {
                     <span>{{ group.label }}</span>
                 </div>
             </ng-template>
-    </p-dropdown>
+    </p-select>
 </div>`,
 
         typescript: `import { SelectItemGroup } from 'primeng/api';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'dropdown-group-demo',
-    templateUrl: './dropdown-group-demo.html',
+    selector: 'select-group-demo',
+    templateUrl: './select-group-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownGroupDemo {
+export class SelectGroupDemo {
     groupedCities: SelectItemGroup[];
 
     selectedCity: string | undefined;

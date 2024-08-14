@@ -3,12 +3,12 @@ import { ScrollerOptions, SelectItem } from 'primeng/api';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'dropdown-lazy-virtualscroll-demo',
+    selector: 'select-lazy-virtualscroll-demo',
     template: `
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" />
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" />
         </div>
-        <app-code [code]="code" selector="dropdown-lazy-virtualscroll-demo"></app-code>
+        <app-code [code]="code" selector="select-lazy-virtualscroll-demo"></app-code>
     `
 })
 export class LazyVirtualScrollDoc {
@@ -58,7 +58,7 @@ export class LazyVirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="items" 
     [(ngModel)]="selectedItem" 
     placeholder="Select Item" 
@@ -67,7 +67,7 @@ export class LazyVirtualScrollDoc {
     [virtualScrollOptions]="options" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="items"
         [(ngModel)]="selectedItem"
         placeholder="Select Item"
@@ -79,15 +79,15 @@ export class LazyVirtualScrollDoc {
         typescript: `import { SelectItem } from 'primeng/api';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'dropdown-lazy-virtualscroll-demo',
-    templateUrl: './dropdown-lazy-virtualscroll-demo.html',
+    selector: 'select-lazy-virtualscroll-demo',
+    templateUrl: './select-lazy-virtualscroll-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownLazyVirtualscrollDemo {
+export class SelectLazyVirtualscrollDemo {
     items: SelectItem[];
 
     selectedItem: string | undefined;

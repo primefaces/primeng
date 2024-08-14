@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-invalid-demo',
+    selector: 'select-invalid-demo',
     template: `
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />
         </div>
-        <app-code [code]="code" selector="dropdown-invalid-demo"></app-code>
+        <app-code [code]="code" selector="select-invalid-demo"></app-code>
     `
 })
 export class InvalidDoc implements OnInit {
@@ -34,7 +34,7 @@ export class InvalidDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities"
     [(ngModel)]="selectedCity"
     optionLabel="name"
@@ -43,7 +43,7 @@ export class InvalidDoc implements OnInit {
     class="ng-dirty ng-invalid" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities"
         [(ngModel)]="selectedCity"
         optionLabel="name" 
@@ -54,19 +54,19 @@ export class InvalidDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
     code: string;
 }
 @Component({
-    selector: 'dropdown-invalid-demo',
-    templateUrl: './dropdown-invalid-demo.html',
+    selector: 'select-invalid-demo',
+    templateUrl: './select-invalid-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownInvalidDemo implements OnInit {
+export class SelectInvalidDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

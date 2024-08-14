@@ -7,18 +7,18 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-basic-demo',
+    selector: 'select-basic-demo',
     template: `
         <app-docsectiontext>
             <p>
-                Dropdown is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Note
+                Select is used as a controlled component with <i>ngModel</i> property along with an <i>options</i> collection. Label and value of an option are defined with the <i>optionLabel</i> and <i>optionValue</i> properties respectively. Note
                 that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
         </div>
-        <app-code [code]="code" selector="dropdown-basic-demo"></app-code>
+        <app-code [code]="code" selector="select-basic-demo"></app-code>
     `
 })
 export class BasicDoc implements OnInit {
@@ -37,14 +37,14 @@ export class BasicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
     optionLabel="name" 
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
         optionLabel="name"
@@ -53,7 +53,7 @@ export class BasicDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -61,12 +61,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-basic-demo',
-    templateUrl: './dropdown-basic-demo.html',
+    selector: 'select-basic-demo',
+    templateUrl: './select-basic-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownBasicDemo implements OnInit {
+export class SelectBasicDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

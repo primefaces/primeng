@@ -7,15 +7,15 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-loading-state-demo',
+    selector: 'select-loading-state-demo',
     template: `
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." />
+            <p-select [options]="cities" [(ngModel)]="selectedCity" [loading]="true" optionLabel="name" placeholder="Loading..." />
         </div>
-        <app-code [code]="code" selector="dropdown-loading-state-demo"></app-code>
+        <app-code [code]="code" selector="select-loading-state-demo"></app-code>
     `
 })
 export class LoadingStateDoc implements OnInit {
@@ -34,7 +34,7 @@ export class LoadingStateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="cities" 
     [(ngModel)]="selectedCity" 
     [loading]="true"
@@ -42,7 +42,7 @@ export class LoadingStateDoc implements OnInit {
     placeholder="Select a City" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 
         [loading]="true"
@@ -52,7 +52,7 @@ export class LoadingStateDoc implements OnInit {
 
         typescript: `import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 interface City {
     name: string;
@@ -60,12 +60,12 @@ interface City {
 }
 
 @Component({
-    selector: 'dropdown-loading-state-demo',
-    templateUrl: './dropdown-loading-state-demo.html',
+    selector: 'select-loading-state-demo',
+    templateUrl: './select-loading-state-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownLoadingStateDemo implements OnInit {
+export class SelectLoadingStateDemo implements OnInit {
     cities: City[] | undefined;
 
     selectedCity: City | undefined;

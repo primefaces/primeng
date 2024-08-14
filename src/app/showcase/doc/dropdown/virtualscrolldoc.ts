@@ -3,7 +3,7 @@ import { SelectItem } from 'primeng/api';
 import { Code } from '@domain/code';
 
 @Component({
-    selector: 'dropdown-virtualscroll-demo',
+    selector: 'select-virtualscroll-demo',
     template: `
         <app-docsectiontext>
             <p>
@@ -12,9 +12,9 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-dropdown [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />
+            <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />
         </div>
-        <app-code [code]="code" selector="dropdown-virtualscroll-demo"></app-code>
+        <app-code [code]="code" selector="select-virtualscroll-demo"></app-code>
     `
 })
 export class VirtualScrollDoc {
@@ -30,7 +30,7 @@ export class VirtualScrollDoc {
     }
 
     code: Code = {
-        basic: `<p-dropdown 
+        basic: `<p-select 
     [options]="items" 
     [(ngModel)]="selectedItem" 
     placeholder="Select Item" 
@@ -38,7 +38,7 @@ export class VirtualScrollDoc {
     [virtualScrollItemSize]="38" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-dropdown 
+    <p-select 
         [options]="items"
         [(ngModel)]="selectedItem"
         placeholder="Select Item"
@@ -49,15 +49,15 @@ export class VirtualScrollDoc {
         typescript: `import { SelectItem } from 'primeng/api';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 
 @Component({
-    selector: 'dropdown-virtualscroll-demo',
-    templateUrl: './dropdown-virtualscroll-demo.html',
+    selector: 'select-virtualscroll-demo',
+    templateUrl: './select-virtualscroll-demo.html',
     standalone: true,
-    imports: [FormsModule, DropdownModule]
+    imports: [FormsModule, SelectModule]
 })
-export class DropdownVirtualscrollDemo {
+export class SelectVirtualscrollDemo {
     items: SelectItem[];
     
     selectedItem: string | undefined;

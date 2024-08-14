@@ -173,8 +173,8 @@ import { Code } from '@domain/code';
 export class AccessibilityDoc {
     code: Code = {
         basic: `<span id="dd1">Options</span>
-<p-dropdown ariaLabelledBy="dd1"/>
+<p-select ariaLabelledBy="dd1"/>
 
-<p-dropdown ariaLabel="Options"/>`
+<p-select ariaLabel="Options"/>`
     };
 }

@@ -20,10 +20,10 @@ import { LoadingStateDoc } from '@doc/dropdown/loadingstatedoc';
 import { FilledDoc } from '@doc/dropdown/filleddoc';
 
 @Component({
-    templateUrl: './dropdowndemo.html',
-    styleUrls: ['./dropdowndemo.scss']
+    templateUrl: './selectdemo.html',
+    styleUrls: ['./selectdemo.scss']
 })
-export class DropdownDemo {
+export class SelectDemo {
     docs = [
         {
             id: 'import',
