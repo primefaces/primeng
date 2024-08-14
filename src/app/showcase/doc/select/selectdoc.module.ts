@@ -27,8 +27,9 @@ import { ClearIconDoc } from './clearicondoc';
 import { LoadingStateDoc } from './loadingstatedoc';
 import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
+import { SelectModule } from 'primeng/select';
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, DropdownModule, ButtonModule, InputTextModule, FloatLabelModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ReactiveFormsModule, SelectModule, ButtonModule, InputTextModule, FloatLabelModule],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
