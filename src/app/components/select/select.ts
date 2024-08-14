@@ -129,7 +129,7 @@ export class SelectItem extends BaseComponent {
 }
 
 /**
- * Dropdown also known as Select, is used to choose an item from a collection of options.
+ * Select is used to choose an item from a collection of options.
  * @group Components
  */
 @Component({
@@ -1044,7 +1044,6 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     ngOnInit() {
         super.ngOnInit();
-        console.warn('Dropdown component is deprecated as of v18, use Select component instead.');
         this.id = this.id || UniqueComponentId();
         this.autoUpdateModel();
 
