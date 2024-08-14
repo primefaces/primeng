@@ -2,10 +2,10 @@ import { TemplateRef } from '@angular/core';
 import { ScrollerOptions } from 'primeng/api';
 import { Select } from './select';
 /**
- * Filter callbacks of the dropdown.
+ * Filter callbacks of the select.
  * @group Interface
  */
-export interface DropdownFilterOptions {
+export interface SelectFilterOptions {
     /**
      * Filter function.
      */
@@ -17,10 +17,10 @@ export interface DropdownFilterOptions {
 }
 /**
  * Custom change event.
- * @see {@link Dropdown.onChange}
+ * @see {@link Select.onChange}
  * @group Events
  */
-export interface DropdownChangeEvent {
+export interface SelectChangeEvent {
     /**
      * Browser event.
      */
@@ -32,10 +32,10 @@ export interface DropdownChangeEvent {
 }
 /**
  * Custom filter event.
- * @see {@link Dropdown.onFilter}
+ * @see {@link Select.onFilter}
  * @group Events
  */
-export interface DropdownFilterEvent {
+export interface SelectFilterEvent {
     /**
      * Browser event.
      */
@@ -47,10 +47,10 @@ export interface DropdownFilterEvent {
 }
 /**
  * Custom lazy load event.
- * @see {@link Dropdown.onLazyLoad}
+ * @see {@link Select.onLazyLoad}
  * @group Events
  */
-export interface DropdownLazyLoadEvent {
+export interface SelectLazyLoadEvent {
     /**
      * Index of the first element in viewport.
      */
@@ -61,10 +61,10 @@ export interface DropdownLazyLoadEvent {
     last: number;
 }
 /**
- * Defines valid templates in Dropdown.
+ * Defines valid templates in Select.
  * @group Templates
  */
-export interface DropdownTemplates {
+export interface SelectTemplates {
     /**
      * Custom item template.
      * @param {Object} context - item data.
@@ -91,14 +91,14 @@ export interface DropdownTemplates {
     header(): TemplateRef<any>;
     /**
      * Custom filter template.
-     * @param {DropdownFilterOptions} options - filter options.
+     * @param {SelectFilterOptions} options - filter options.
      */
     filter(context: {
         /**
          * Filter options.
          */
-        options: DropdownFilterOptions;
-    }): TemplateRef<{ options: DropdownFilterOptions }>;
+        options: SelectFilterOptions;
+    }): TemplateRef<{ options: SelectFilterOptions }>;
     /**
      * Custom footer template.
      */
@@ -131,7 +131,7 @@ export interface DropdownTemplates {
         options: ScrollerOptions;
     }): TemplateRef<{ options: ScrollerOptions }>;
     /**
-     * Custom dropdown trigger icon template.
+     * Custom select icon template.
      */
     dropdownicon(): TemplateRef<any>;
     /**

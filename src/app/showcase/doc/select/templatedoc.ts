@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>
                 Both the selected option and the options list can be templated to provide customizated representation. Use <i>selectedItem</i> template to customize the selected label display and the <i>item</i> template to change the content of the
-                options in the dropdown panel. In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.
+                options in the select panel. In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.
             </p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">

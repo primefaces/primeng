@@ -46,7 +46,7 @@ import { CheckIcon } from 'primeng/icons/check';
 import { BlankIcon } from 'primeng/icons/blank';
 import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { SearchIcon } from 'primeng/icons/search';
-import { DropdownChangeEvent, DropdownFilterEvent, DropdownFilterOptions, DropdownLazyLoadEvent } from './select.interface';
+import { SelectChangeEvent, SelectFilterEvent, SelectFilterOptions, SelectLazyLoadEvent } from './select.interface';
 import { Nullable } from 'primeng/ts-helpers';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -481,7 +481,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
-     * Clears the filter value when hiding the dropdown.
+     * Clears the filter value when hiding the select.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) resetFilterOnHide: boolean = false;
@@ -491,12 +491,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Input({ transform: booleanAttribute }) checkmark: boolean = false;
     /**
-     * Icon class of the dropdown icon.
+     * Icon class of the select icon.
      * @group Props
      */
     @Input() dropdownIcon: string | undefined;
     /**
-     * Whether the dropdown is in loading state.
+     * Whether the select is in loading state.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) loading: boolean | undefined = false;
@@ -756,25 +756,25 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
     }
     /**
-     * Callback to invoke when value of dropdown changes.
-     * @param {DropdownChangeEvent} event - custom change event.
+     * Callback to invoke when value of select changes.
+     * @param {SelectChangeEvent} event - custom change event.
      * @group Emits
      */
-    @Output() onChange: EventEmitter<DropdownChangeEvent> = new EventEmitter<DropdownChangeEvent>();
+    @Output() onChange: EventEmitter<SelectChangeEvent> = new EventEmitter<SelectChangeEvent>();
     /**
      * Callback to invoke when data is filtered.
-     * @param {DropdownFilterEvent} event - custom filter event.
+     * @param {SelectFilterEvent} event - custom filter event.
      * @group Emits
      */
-    @Output() onFilter: EventEmitter<DropdownFilterEvent> = new EventEmitter<DropdownFilterEvent>();
+    @Output() onFilter: EventEmitter<SelectFilterEvent> = new EventEmitter<SelectFilterEvent>();
     /**
-     * Callback to invoke when dropdown gets focus.
+     * Callback to invoke when select gets focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onFocus: EventEmitter<Event> = new EventEmitter<Event>();
     /**
-     * Callback to invoke when dropdown loses focus.
+     * Callback to invoke when select loses focus.
      * @param {Event} event - Browser event.
      * @group Emits
      */
@@ -786,29 +786,29 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     @Output() onClick: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
     /**
-     * Callback to invoke when dropdown overlay gets visible.
+     * Callback to invoke when select overlay gets visible.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
     @Output() onShow: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
-     * Callback to invoke when dropdown overlay gets hidden.
+     * Callback to invoke when select overlay gets hidden.
      * @param {AnimationEvent} event - Animation event.
      * @group Emits
      */
     @Output() onHide: EventEmitter<AnimationEvent> = new EventEmitter<AnimationEvent>();
     /**
-     * Callback to invoke when dropdown clears the value.
+     * Callback to invoke when select clears the value.
      * @param {Event} event - Browser event.
      * @group Emits
      */
     @Output() onClear: EventEmitter<Event> = new EventEmitter<Event>();
     /**
      * Callback to invoke in lazy mode to load new data.
-     * @param {DropdownLazyLoadEvent} event - Lazy load event.
+     * @param {SelectLazyLoadEvent} event - Lazy load event.
      * @group Emits
      */
-    @Output() onLazyLoad: EventEmitter<DropdownLazyLoadEvent> = new EventEmitter<DropdownLazyLoadEvent>();
+    @Output() onLazyLoad: EventEmitter<SelectLazyLoadEvent> = new EventEmitter<SelectLazyLoadEvent>();
 
     _componentStyle = inject(SelectStyle);
 
@@ -862,7 +862,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     filterIconTemplate: Nullable<TemplateRef<any>>;
 
-    filterOptions: DropdownFilterOptions | undefined;
+    filterOptions: SelectFilterOptions | undefined;
 
     _options = signal<any[] | undefined>(null);
 

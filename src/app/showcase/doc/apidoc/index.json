@@ -10858,6 +10858,243 @@
             }
         }
     },
+    "drawer": {
+        "components": {
+            "Drawer": {
+                "description": "Sidebar is a panel component displayed as an overlay at the edges of the screen.",
+                "props": {
+                    "description": "Defines the input properties of the component.",
+                    "values": [
+                        {
+                            "name": "appendTo",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "any",
+                            "default": "body",
+                            "description": "Target element to attach the dialog, valid values are \"body\" or a local ng-template variable of another element (note: use binding with brackets for template variables, e.g. [appendTo]=\"mydiv\" for a div element having #mydiv as variable name)."
+                        },
+                        {
+                            "name": "blockScroll",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "false",
+                            "description": "Whether to block scrolling of the document when drawer is active."
+                        },
+                        {
+                            "name": "style",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "Object",
+                            "description": "Inline style of the component."
+                        },
+                        {
+                            "name": "styleClass",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Style class of the component."
+                        },
+                        {
+                            "name": "ariaCloseLabel",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Aria label of the close icon."
+                        },
+                        {
+                            "name": "autoZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to automatically manage layering."
+                        },
+                        {
+                            "name": "baseZIndex",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "number",
+                            "default": "0",
+                            "description": "Base zIndex value to use in layering."
+                        },
+                        {
+                            "name": "modal",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether an overlay mask is displayed behind the sidebar."
+                        },
+                        {
+                            "name": "closeButtonProps",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "ButtonProps",
+                            "description": "Used to pass all properties of the ButtonProps to the Button component."
+                        },
+                        {
+                            "name": "dismissible",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to dismiss sidebar on click of the mask."
+                        },
+                        {
+                            "name": "showCloseIcon",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Whether to display the close icon."
+                        },
+                        {
+                            "name": "closeOnEscape",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "default": "true",
+                            "description": "Specifies if pressing escape key should hide the sidebar."
+                        },
+                        {
+                            "name": "transitionOptions",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "default": "150ms cubic-bezier(0, 0, 0.2, 1)",
+                            "description": "Transition options of the animation."
+                        },
+                        {
+                            "name": "visible",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Specifies the visibility of the dialog."
+                        },
+                        {
+                            "name": "position",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "string",
+                            "description": "Specifies the position of the sidebar, valid values are \"left\", \"right\", \"bottom\" and \"top\"."
+                        },
+                        {
+                            "name": "fullScreen",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "boolean",
+                            "description": "Adds a close icon to the header to hide the dialog."
+                        },
+                        {
+                            "name": "headerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Header template."
+                        },
+                        {
+                            "name": "footerTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Footer template."
+                        },
+                        {
+                            "name": "closeIconTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Close icon template."
+                        },
+                        {
+                            "name": "headlessTemplate",
+                            "optional": false,
+                            "readonly": false,
+                            "type": "TemplateRef<any>",
+                            "description": "Headless template."
+                        }
+                    ]
+                },
+                "emits": {
+                    "description": "Defines emit that determine the behavior of the component based on a given condition or report the actions that the component takes.",
+                    "values": [
+                        {
+                            "name": "onShow",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when dialog is shown."
+                        },
+                        {
+                            "name": "onHide",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "any"
+                                }
+                            ],
+                            "description": "Callback to invoke when dialog is hidden."
+                        },
+                        {
+                            "name": "visibleChange",
+                            "parameters": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean"
+                                }
+                            ],
+                            "description": "Callback to invoke when dialog visibility is changed."
+                        }
+                    ]
+                }
+            }
+        },
+        "interfaces": {
+            "components": {},
+            "templates": {
+                "description": "Defines the templates used by the component.",
+                "values": [
+                    {
+                        "parent": "drawer",
+                        "name": "header",
+                        "parameters": [],
+                        "description": "Custom template of header."
+                    },
+                    {
+                        "parent": "drawer",
+                        "name": "content",
+                        "parameters": [],
+                        "description": "Custom template of content."
+                    },
+                    {
+                        "parent": "drawer",
+                        "name": "footer",
+                        "parameters": [],
+                        "description": "Custom template of footer."
+                    },
+                    {
+                        "parent": "drawer",
+                        "name": "closeicon",
+                        "parameters": [],
+                        "description": "Custom template of closeicon."
+                    },
+                    {
+                        "parent": "drawer",
+                        "name": "headless",
+                        "parameters": [],
+                        "description": "Headless template."
+                    }
+                ]
+            }
+        }
+    },
+    "drawerstyle": {
+        "components": {}
+    },
     "dropdown": {
         "components": {
             "Dropdown": {
@@ -22707,7 +22944,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Clears the filter value when hiding the dropdown."
+                            "description": "Clears the filter value when hiding the select."
                         },
                         {
                             "name": "checkmark",
@@ -22722,7 +22959,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Icon class of the dropdown icon."
+                            "description": "Icon class of the select icon."
                         },
                         {
                             "name": "loading",
@@ -22730,7 +22967,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "false",
-                            "description": "Whether the dropdown is in loading state."
+                            "description": "Whether the select is in loading state."
                         },
                         {
                             "name": "optionLabel",
@@ -23025,17 +23262,17 @@
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "DropdownChangeEvent"
+                                    "type": "SelectChangeEvent"
                                 }
                             ],
-                            "description": "Callback to invoke when value of dropdown changes."
+                            "description": "Callback to invoke when value of select changes."
                         },
                         {
                             "name": "onFilter",
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "DropdownFilterEvent"
+                                    "type": "SelectFilterEvent"
                                 }
                             ],
                             "description": "Callback to invoke when data is filtered."
@@ -23048,7 +23285,7 @@
                                     "type": "Event"
                                 }
                             ],
-                            "description": "Callback to invoke when dropdown gets focus."
+                            "description": "Callback to invoke when select gets focus."
                         },
                         {
                             "name": "onBlur",
@@ -23058,7 +23295,7 @@
                                     "type": "Event"
                                 }
                             ],
-                            "description": "Callback to invoke when dropdown loses focus."
+                            "description": "Callback to invoke when select loses focus."
                         },
                         {
                             "name": "onClick",
@@ -23078,7 +23315,7 @@
                                     "type": "AnimationEvent_2"
                                 }
                             ],
-                            "description": "Callback to invoke when dropdown overlay gets visible."
+                            "description": "Callback to invoke when select overlay gets visible."
                         },
                         {
                             "name": "onHide",
@@ -23088,7 +23325,7 @@
                                     "type": "AnimationEvent_2"
                                 }
                             ],
-                            "description": "Callback to invoke when dropdown overlay gets hidden."
+                            "description": "Callback to invoke when select overlay gets hidden."
                         },
                         {
                             "name": "onClear",
@@ -23098,14 +23335,14 @@
                                     "type": "Event"
                                 }
                             ],
-                            "description": "Callback to invoke when dropdown clears the value."
+                            "description": "Callback to invoke when select clears the value."
                         },
                         {
                             "name": "onLazyLoad",
                             "parameters": [
                                 {
                                     "name": "event",
-                                    "type": "DropdownLazyLoadEvent"
+                                    "type": "SelectLazyLoadEvent"
                                 }
                             ],
                             "description": "Callback to invoke in lazy mode to load new data."
@@ -23165,7 +23402,7 @@
                 "description": "Defines the custom events used by the component's emitters.",
                 "values": [
                     {
-                        "name": "DropdownChangeEvent",
+                        "name": "SelectChangeEvent",
                         "description": "Custom change event.",
                         "props": [
                             {
@@ -23185,7 +23422,7 @@
                         ]
                     },
                     {
-                        "name": "DropdownFilterEvent",
+                        "name": "SelectFilterEvent",
                         "description": "Custom filter event.",
                         "props": [
                             {
@@ -23205,7 +23442,7 @@
                         ]
                     },
                     {
-                        "name": "DropdownLazyLoadEvent",
+                        "name": "SelectLazyLoadEvent",
                         "description": "Custom lazy load event.",
                         "props": [
                             {
@@ -23265,7 +23502,7 @@
                         "parameters": [
                             {
                                 "name": "context",
-                                "type": "{\n  \t options: DropdownFilterOptions, // Filter options.\n  }"
+                                "type": "{\n  \t options: SelectFilterOptions, // Filter options.\n  }"
                             }
                         ],
                         "description": "Custom filter template."
@@ -23314,7 +23551,7 @@
                         "parent": "select",
                         "name": "dropdownicon",
                         "parameters": [],
-                        "description": "Custom dropdown trigger icon template."
+                        "description": "Custom Select trigger icon template."
                     },
                     {
                         "parent": "select",
@@ -23334,8 +23571,8 @@
                 "description": "Defines the custom interfaces used by the module.",
                 "values": [
                     {
-                        "name": "DropdownFilterOptions",
-                        "description": "Filter callbacks of the dropdown.",
+                        "name": "SelectFilterOptions",
+                        "description": "Filter callbacks of the select.",
                         "props": [
                             {
                                 "name": "filter",
@@ -23798,9 +24035,6 @@
                 ]
             }
         }
-    },
-    "drawerstyle": {
-        "components": {}
     },
     "skeleton": {
         "components": {
