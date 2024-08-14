@@ -36,7 +36,7 @@ interface Column {
                         <tr>
                             <td>{{ product.name }}</td>
                             <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
-                            <td>{{ product.price | currency : 'USD' }}</td>
+                            <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
                             <td>
@@ -58,7 +58,10 @@ export class TemplateDoc {
 
     cols!: Column[];
 
-    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {

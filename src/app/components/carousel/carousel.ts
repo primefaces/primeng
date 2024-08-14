@@ -357,7 +357,15 @@ export class Carousel implements AfterContentInit {
 
     window: Window;
 
-    constructor(public el: ElementRef, public zone: NgZone, public cd: ChangeDetectorRef, private renderer: Renderer2, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private config: PrimeNGConfig) {
+    constructor(
+        public el: ElementRef,
+        public zone: NgZone,
+        public cd: ChangeDetectorRef,
+        private renderer: Renderer2,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        private config: PrimeNGConfig
+    ) {
         this.totalShiftedItems = this.page * this.numScroll * -1;
         this.window = this.document.defaultView as Window;
     }

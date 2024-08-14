@@ -40,7 +40,10 @@ export class TableIntegrationDoc implements OnInit {
 
     matchModeOptions: SelectItem[];
 
-    constructor(private carService: CarService, private filterService: FilterService) {}
+    constructor(
+        private carService: CarService,
+        private filterService: FilterService
+    ) {}
 
     ngOnInit() {
         const customFilterName = 'custom-equals';

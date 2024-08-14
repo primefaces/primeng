@@ -310,7 +310,12 @@ export class Chips implements AfterContentInit, ControlValueAccessor {
         return this.max && this.value && this.max === this.value.length;
     }
 
-    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        public el: ElementRef,
+        public cd: ChangeDetectorRef,
+        public config: PrimeNGConfig
+    ) {}
 
     ngAfterContentInit() {
         this.templates.forEach((item) => {

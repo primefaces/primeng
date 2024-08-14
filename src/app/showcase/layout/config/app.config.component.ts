@@ -28,7 +28,12 @@ export class AppConfigComponent {
 
     @Output() onDarkModeSwitch = new EventEmitter<any>();
 
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private configService: AppConfigService, private config: PrimeNGConfig) {}
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private configService: AppConfigService,
+        private config: PrimeNGConfig
+    ) {}
 
     get isActive(): boolean {
         return this.configService.state.configActive;

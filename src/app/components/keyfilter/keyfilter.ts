@@ -113,7 +113,11 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platformId: any,
+        public el: ElementRef
+    ) {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = DomHandler.isAndroid();
         } else {

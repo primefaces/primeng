@@ -57,7 +57,11 @@ interface TableRowSelectEvent {
     providers: [MessageService]
 })
 export class DataTableDoc implements OnInit {
-    constructor(private productService: ProductService, private messageService: MessageService, private cdr: ChangeDetectorRef) {}
+    constructor(
+        private productService: ProductService,
+        private messageService: MessageService,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     products: Product[] | undefined;
 
