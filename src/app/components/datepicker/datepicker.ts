@@ -565,7 +565,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Input() rangeSeparator: string = '-';
     /**
-     * When enabled, displays the calendar as inline. Default is false for popup mode.
+     * When enabled, displays the datepicker as inline. Default is false for popup mode.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) inline: boolean = false;
@@ -590,7 +590,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Input({ transform: booleanAttribute }) fluid: boolean | undefined;
     /**
-     * Icon of the calendar button.
+     * Icon of the datepicker button.
      * @group Props
      */
     @Input() icon: string | undefined;
@@ -662,12 +662,12 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Input({ transform: booleanAttribute }) showOnFocus: boolean = true;
     /**
-     * When enabled, calendar will show week numbers.
+     * When enabled, datepicker will show week numbers.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) showWeek: boolean = false;
     /**
-     * When enabled, calendar will start week numbers from first day of the year.
+     * When enabled, datepicker will start week numbers from first day of the year.
      * @group Props
      */
     @Input() startWeekFromFirstDayOfYear: boolean = false;
@@ -742,7 +742,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Input({ transform: booleanAttribute }) hideOnDateTimeSelect: boolean = true;
     /**
-     * When enabled, calendar overlay is displayed as optimized for touch devices.
+     * When enabled, datepicker overlay is displayed as optimized for touch devices.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) touchUI: boolean | undefined;
@@ -752,7 +752,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
      */
     @Input() timeSeparator: string = ':';
     /**
-     * When enabled, can only focus on elements inside the calendar.
+     * When enabled, can only focus on elements inside the datepicker.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) focusTrap: boolean = true;
@@ -904,7 +904,7 @@ export class DatePicker extends BaseComponent implements OnInit, OnDestroy, Cont
         this.createWeekDays();
     }
     /**
-     * Option to set calendar locale.
+     * Option to set datepicker locale.
      * @group Props
      * @deprecated Locale property has no effect, use new i18n API instead.
      */
