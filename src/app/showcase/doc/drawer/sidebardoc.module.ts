@@ -18,10 +18,11 @@ import { HeadlessDoc } from './headlessdoc';
 import { AccessibilityDoc } from './accessibilitydoc';
 import { RippleModule } from 'primeng/ripple';
 import { StyleClassModule } from 'primeng/styleclass';
+import { DrawerModule } from 'primeng/drawer';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, SidebarModule, ButtonModule, AppDocModule, AvatarModule, RippleModule, StyleClassModule],
+    imports: [CommonModule, FormsModule, AppCodeModule, RouterModule, DrawerModule,SidebarModule, ButtonModule, AppDocModule, AvatarModule, RippleModule, StyleClassModule],
     declarations: [BasicDoc, TemplateDoc, ImportDoc, StyleDoc, PositionDoc, FullScreenDoc, SizeDoc, AccessibilityDoc, HeadlessDoc],
     exports: [AppDocModule]
 })
-export class SidebarDocModule {}
+export class DrawerDocModule {}

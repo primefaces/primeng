@@ -278,8 +278,8 @@
                             "routerLink": "/popover"
                         },
                         {
-                            "name": "Sidebar",
-                            "routerLink": "/sidebar"
+                            "name": "Drawer",
+                            "routerLink": "/drawer"
                         },
                         {
                             "name": "Tooltip",

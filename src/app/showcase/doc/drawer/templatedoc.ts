@@ -5,10 +5,10 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>Sidebar is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
+            <p>Drawer is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-sidebar [(visible)]="sidebarVisible">
+            <p-drawer [(visible)]="visible">
                 <ng-template pTemplate="header">
                     <div class="flex align-items-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
@@ -19,17 +19,17 @@ import { Code } from '@domain/code';
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
                 </p>
-            </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-plus" />
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-plus" />
         </div>
-        <app-code [code]="code" selector="sidebar-template-demo"></app-code>
+        <app-code [code]="code" selector="drawer-template-demo"></app-code>
     `
 })
 export class TemplateDoc {
-    sidebarVisible: boolean = false;
+    visible: boolean = false;
 
     code: Code = {
-        basic: `<p-sidebar [(visible)]="sidebarVisible">
+        basic: `<p-drawer [(visible)]="visible">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
             <p-avatar 
@@ -43,11 +43,11 @@ export class TemplateDoc {
     <p>
         Lorem ipsum dolor sit amet...
     </p>
-</p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-plus" />`,
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-plus" />`,
 
         html: `<div class="card flex justify-content-center">
-    <p-sidebar [(visible)]="sidebarVisible">
+    <p-drawer [(visible)]="visible">
         <ng-template pTemplate="header">
             <div class="flex align-items-center gap-2">
                 <p-avatar 
@@ -62,22 +62,22 @@ export class TemplateDoc {
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
         </p>
-    </p-sidebar>
-    <p-button (click)="sidebarVisible = true" icon="pi pi-plus" />
+    </p-drawer>
+    <p-button (click)="visible = true" icon="pi pi-plus" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-    selector: 'sidebar-template-demo',
-    templateUrl: './sidebar-template-demo.html',
+    selector: 'drawer-template-demo',
+    templateUrl: './drawer-template-demo.html',
     standalone: true,
-    imports: [SidebarModule, ButtonModule]
+    imports: [DrawerModule, ButtonModule]
 })
-export class SidebarTemplateDemo {
-    sidebarVisible: boolean = false;
+export class DrawerTemplateDemo {
+    visible: boolean = false;
 }`
     };
 }

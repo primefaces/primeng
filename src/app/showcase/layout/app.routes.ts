@@ -91,7 +91,7 @@ export const routes: Routes = [
             { path: 'scrollpanel', loadChildren: () => import('@pages/scrollpanel/scrollpaneldemo.module').then((m) => m.ScrollPanelDemoModule) },
             { path: 'scrolltop', loadChildren: () => import('@pages/scrolltop/scrolltopdemo.module').then((m) => m.ScrollTopDemoModule) },
             { path: 'selectbutton', loadChildren: () => import('@pages/selectbutton/selectbuttondemo.module').then((m) => m.SelectButtonDemoModule) },
-            { path: 'sidebar', loadChildren: () => import('@pages/sidebar/sidebardemo.module').then((m) => m.SidebarDemoModule) },
+            { path: 'drawer', loadChildren: () => import('@pages/drawer/drawerdemo.module').then((m) => m.DrawerDemoModule) },
             { path: 'skeleton', loadChildren: () => import('@pages/skeleton/skeletondemo.module').then((m) => m.SkeletonDemoModule) },
             { path: 'slider', loadChildren: () => import('@pages/slider/sliderdemo.module').then((m) => m.SliderDemoModule) },
             { path: 'speeddial', loadChildren: () => import('@pages/speeddial/speeddialdemo.module').then((m) => m.SpeedDialDemoModule) },

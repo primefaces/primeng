@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Sidebar component uses <i>complementary</i> role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like <i>aria-labelledby</i> can be added. In
-                addition <i>aria-modal</i> is added since focus is kept within the sidebar when opened.
+                Drawer component uses <i>complementary</i> role by default, since any attribute is passed to the root element aria role can be changed depending on your use case and additional attributes like <i>aria-labelledby</i> can be added. In
+                addition <i>aria-modal</i> is added since focus is kept within the drawer when opened.
             </p>
             <p>It is recommended to use a trigger component that can be accessed with keyboard such as a button, if not adding <i>tabIndex</i> would be necessary.</p>
             <p>Trigger element also requires <i>aria-expanded</i> and <i>aria-controls</i> to be handled explicitly.</p>
@@ -27,11 +27,11 @@ import { Code } from '@domain/code';
                     <tbody>
                         <tr>
                             <td><i>tab</i></td>
-                            <td>Moves focus to the next the focusable element within the sidebar.</td>
+                            <td>Moves focus to the next the focusable element within the drawer.</td>
                         </tr>
                         <tr>
                             <td><i>shift</i> + <i>tab</i></td>
-                            <td>Moves focus to the previous the focusable element within the sidebar.</td>
+                            <td>Moves focus to the previous the focusable element within the drawer.</td>
                         </tr>
                         <tr>
                             <td><i>escape</i></td>
@@ -53,11 +53,11 @@ import { Code } from '@domain/code';
                     <tbody>
                         <tr>
                             <td><i>enter</i></td>
-                            <td>Closes the sidebar.</td>
+                            <td>Closes the drawer.</td>
                         </tr>
                         <tr>
                             <td><i>space</i></td>
-                            <td>Closes the sidebar.</td>
+                            <td>Closes the drawer.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -69,17 +69,17 @@ export class AccessibilityDoc {
     code: Code = {
         html: `<p-button 
     icon="pi pi-arrow-right" 
-    (click)="sidebarVisible = true" 
-    aria-controls="{{sidebarVisible ? 'sidebar' : null}}" 
-    aria-expanded="{{sidebarVisible ? true : false}}"
+    (click)="visible = true" 
+    aria-controls="{{visible ? 'drawer' : null}}" 
+    aria-expanded="{{visible ? true : false}}"
 ></p-button>
-<p-sidebar 
-    [(visible)]="sidebarVisible" 
-    id="sidebar"
-    (onHide)="sidebarVisible = false"
+<p-drawer 
+    [(visible)]="visible" 
+    id="drawer"
+    (onHide)="visible = false"
     role="region"
 >
     content
-</p-sidebar>`
+</p-drawer>`
     };
 }

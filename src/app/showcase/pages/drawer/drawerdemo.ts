@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '@doc/sidebar/basicdoc';
-import { TemplateDoc } from '@doc/sidebar/templatedoc';
-import { ImportDoc } from '@doc/sidebar/importdoc';
-import { StyleDoc } from '@doc/sidebar/styledoc';
-import { PositionDoc } from '@doc/sidebar/positiondoc';
-import { FullScreenDoc } from '@doc/sidebar/fullscreendoc';
-import { SizeDoc } from '@doc/sidebar/sizedoc';
-import { HeadlessDoc } from '@doc/sidebar/headlessdoc';
-import { AccessibilityDoc } from '@doc/sidebar/accessibilitydoc';
+import { BasicDoc } from '@doc/drawer/basicdoc';
+import { TemplateDoc } from '@doc/drawer/templatedoc';
+import { ImportDoc } from '@doc/drawer/importdoc';
+import { StyleDoc } from '@doc/drawer/styledoc';
+import { PositionDoc } from '@doc/drawer/positiondoc';
+import { FullScreenDoc } from '@doc/drawer/fullscreendoc';
+import { SizeDoc } from '@doc/drawer/sizedoc';
+import { HeadlessDoc } from '@doc/drawer/headlessdoc';
+import { AccessibilityDoc } from '@doc/drawer/accessibilitydoc';
 
 @Component({
-    templateUrl: './sidebardemo.html'
+    templateUrl: './drawerdemo.html'
 })
-export class SidebarDemo {
+export class DrawerDemo {
     docs = [
         {
             id: 'import',

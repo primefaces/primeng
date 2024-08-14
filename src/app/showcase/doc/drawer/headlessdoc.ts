@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Code } from '@domain/code';
-import { Sidebar } from 'primeng/sidebar';
+import { Drawer } from 'primeng/drawer';
 
 @Component({
     selector: 'headless-doc',
@@ -9,7 +9,7 @@ import { Sidebar } from 'primeng/sidebar';
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-sidebar #sidebarRef [(visible)]="sidebarVisible">
+            <p-drawer #drawerRef [(visible)]="visible">
                 <ng-template pTemplate="headless">
                     <div class="flex flex-column h-full">
                         <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
@@ -203,23 +203,23 @@ import { Sidebar } from 'primeng/sidebar';
                         </div>
                     </div>
                 </ng-template>
-            </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+            </p-drawer>
+            <p-button (click)="visible = true" icon="pi pi-arrow-right"></p-button>
         </div>
-        <app-code [code]="code" selector="sidebar-headless-demo"></app-code>
+        <app-code [code]="code" selector="drawer-headless-demo"></app-code>
     `
 })
 export class HeadlessDoc {
-    @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+    @ViewChild('drawerRef') drawerRef!: Drawer;
 
     closeCallback(e): void {
-        this.sidebarRef.close(e);
+        this.drawerRef.close(e);
     }
 
-    sidebarVisible: boolean = false;
+    visible: boolean = false;
 
     code: Code = {
-        basic: `<p-sidebar #sidebarRef [(visible)]="sidebarVisible">
+        basic: `<p-drawer #drawerRef [(visible)]="visible">
     <ng-template pTemplate="headless">
         <div class="flex flex-column h-full">
             <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
@@ -413,11 +413,11 @@ export class HeadlessDoc {
             </div>
         </div>
     </ng-template>
-</p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>`,
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-arrow-right"></p-button>`,
 
         html: `<div class="card flex justify-content-center">
-<p-sidebar #sidebarRef [(visible)]="sidebarVisible">
+<p-drawer #drawerRef [(visible)]="visible">
     <ng-template pTemplate="headless">
         <div class="flex flex-column h-full">
             <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
@@ -611,32 +611,32 @@ export class HeadlessDoc {
             </div>
         </div>
     </ng-template>
-</p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right"></p-button>
+</p-drawer>
+<p-button (click)="visible = true" icon="pi pi-arrow-right"></p-button>
 </div>`,
 
         typescript: `import { Component, ViewChild } from '@angular/core';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { StyleClassModule } from 'primeng/styleclass';
-import { Sidebar } from 'primeng/sidebar';
+import { Drawer } from 'primeng/drawer';
 
 @Component({
-    selector: 'sidebar-headless-demo',
-    templateUrl: './sidebar-headless-demo.html',
+    selector: 'drawer-headless-demo',
+    templateUrl: './drawer-headless-demo.html',
     standalone: true,
-    imports: [SidebarModule, ButtonModule, RippleModule, AvatarModule, StyleClassModule]
+    imports: [DrawerModule, ButtonModule, RippleModule, AvatarModule, StyleClassModule]
 })
-export class SidebarHeadlessDemo {
-    @ViewChild('sidebarRef') sidebarRef!: Sidebar;
+export class DrawerHeadlessDemo {
+    @ViewChild('drawerRef') drawerRef!: Drawer;
 
     closeCallback(e): void {
-        this.sidebarRef.close(e);
+        this.drawerRef.close(e);
     }
 
-    sidebarVisible: boolean = false;
+    visible: boolean = false;
 }`
     };
 }
