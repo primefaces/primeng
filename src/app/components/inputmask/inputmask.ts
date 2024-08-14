@@ -550,13 +550,21 @@ export class InputMask implements OnInit, ControlValueAccessor {
         if (this.oldVal && this.oldVal.length && this.oldVal.length > curVal.length) {
             // a deletion or backspace happened
             this.checkVal(true);
-            while (pos.begin > 0 && !this.tests[pos.begin - 1]) pos.begin--;
+            while (pos.begin > 0 && !this.tests[pos.begin]) pos.begin--;
             if (pos.begin === 0) {
                 while (pos.begin < (this.firstNonMaskPos as number) && !this.tests[pos.begin]) pos.begin++;
             }
 
             setTimeout(() => {
-                this.caret(pos.begin, pos.begin);
+                var begin = pos.begin;
+                var end = this.seekNext(begin)
+                this.caret(begin, begin);
+                this.clearBuffer(begin, end-1);
+                if (this.keepBuffer) {
+                    this.shiftL(begin, end - 2);
+                } else {
+                    this.shiftL(begin, end - 1);
+                }
                 this.updateModel(e);
                 if (this.isCompleted()) {
                     this.onComplete.emit();
@@ -564,7 +572,7 @@ export class InputMask implements OnInit, ControlValueAccessor {
             }, 0);
         } else {
             this.checkVal(true);
-            while (pos.begin < (this.len as number) && !this.tests[pos.begin]) pos.begin++;
+            while (pos.begin < (this.len as number) && !this.tests[pos.begin - 1]) pos.begin++;
 
             setTimeout(() => {
                 this.caret(pos.begin, pos.begin);
