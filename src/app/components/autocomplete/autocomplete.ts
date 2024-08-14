@@ -1,4 +1,4 @@
-import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
+import { AnimationEvent } from '@angular/animations';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     AfterContentInit,
@@ -28,21 +28,20 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
 import { AutoFocusModule } from 'primeng/autofocus';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { SpinnerIcon } from 'primeng/icons/spinner';
+import { TimesIcon } from 'primeng/icons/times';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { InputTextModule } from 'primeng/inputtext';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
+import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { SpinnerIcon } from 'primeng/icons/spinner';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
 import { AutoCompleteCompleteEvent, AutoCompleteDropdownClickEvent, AutoCompleteLazyLoadEvent, AutoCompleteSelectEvent, AutoCompleteUnselectEvent } from './autocomplete.interface';
 
 export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -731,9 +730,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     _suggestions = signal<any>(null);
 
-    onModelChange: Function = () => {};
+    onModelChange: Function = () => { };
 
-    onModelTouched: Function = () => {};
+    onModelTouched: Function = () => { };
 
     timeout: Nullable<any>;
 
@@ -780,10 +779,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         const modelValue = this.modelValue();
         const selectedOption = this.getSelectedOption(modelValue);
 
-        if (modelValue) {
+        if (this.isInputValid(modelValue)) {
             if (typeof modelValue === 'object' || this.optionValue) {
                 const label = this.getOptionLabel(selectedOption);
-
                 return label != null ? label : modelValue;
             } else {
                 return modelValue;
@@ -1014,8 +1012,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         const matchedOptionIndex =
             index < this.visibleOptions().length - 1
                 ? this.visibleOptions()
-                      .slice(index + 1)
-                      .findIndex((option) => this.isValidOption(option))
+                    .slice(index + 1)
+                    .findIndex((option) => this.isValidOption(option))
                 : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex + index + 1 : index;
@@ -1052,6 +1050,23 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
     isInputClicked(event) {
         return event.target === this.inputEL.nativeElement;
+    }
+    isInputValid(obj: { [key: string]: any } | string): boolean {
+        if (obj === null || obj === undefined) {
+            return false;
+        }
+        if (typeof obj === 'string') {
+            return obj.trim().length > 0;
+        }
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (key == null || obj[key] == null) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
     isDropdownClicked(event) {
         return this.dropdownButton?.nativeElement ? event.target === this.dropdownButton.nativeElement || this.dropdownButton.nativeElement.contains(event.target) : false;
@@ -1584,9 +1599,9 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return (
             (this.optionGroupLabel
                 ? index -
-                  this.visibleOptions()
-                      .slice(0, index)
-                      .filter((option) => this.isOptionGroup(option)).length
+                this.visibleOptions()
+                    .slice(0, index)
+                    .filter((option) => this.isOptionGroup(option)).length
                 : index) + 1
         );
     }
@@ -1677,4 +1692,4 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
     exports: [AutoComplete, OverlayModule, SharedModule, ScrollerModule, AutoFocusModule],
     declarations: [AutoComplete]
 })
-export class AutoCompleteModule {}
+export class AutoCompleteModule { }
