@@ -274,8 +274,8 @@
                             "routerLink": "/dynamicdialog"
                         },
                         {
-                            "name": "OverlayPanel",
-                            "routerLink": "/overlaypanel"
+                            "name": "Popover",
+                            "routerLink": "/popover"
                         },
                         {
                             "name": "Sidebar",

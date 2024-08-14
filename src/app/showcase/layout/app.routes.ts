@@ -77,7 +77,7 @@ export const routes: Routes = [
             { path: 'multiselect', loadChildren: () => import('@pages/multiselect/multiselectdemo.module').then((m) => m.MultiSelectDemoModule) },
             { path: 'orderlist', loadChildren: () => import('@pages/orderlist/orderlistdemo.module').then((m) => m.OrderListDemoModule) },
             { path: 'organizationchart', loadChildren: () => import('@pages/organizationchart/organizationchartdemo.module').then((m) => m.OrganizationChartDemoModule) },
-            { path: 'overlaypanel', loadChildren: () => import('@pages/overlaypanel/overlaypaneldemo.module').then((m) => m.OverlayPanelDemoModule) },
+            { path: 'popover', loadChildren: () => import('@pages/popover/popoverdemo.module').then((m) => m.PopoverDemoModule) },
             { path: 'paginator', loadChildren: () => import('@pages/paginator/paginatordemo.module').then((m) => m.PaginatorDemoModule) },
             { path: 'panel', loadChildren: () => import('@pages/panel/paneldemo.module').then((m) => m.PanelDemoModule) },
             { path: 'panelmenu', loadChildren: () => import('@pages/panelmenu/panelmenudemo.module').then((m) => m.PanelMenuDemoModule) },

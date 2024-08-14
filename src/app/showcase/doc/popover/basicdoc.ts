@@ -5,11 +5,11 @@ import { Code } from '@domain/code';
     selector: 'basic-doc',
     template: `
         <app-docsectiontext>
-            <p>OverlayPanel is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
+            <p>Popover is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
             <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-            <p-overlayPanel #op>
+            <p-popover #op>
                 <div class="flex flex-column gap-3 w-25rem">
                     <div>
                         <span class="font-medium text-900 block mb-2">Share this document</span>
@@ -44,9 +44,9 @@ import { Code } from '@domain/code';
                         </ul>
                     </div>
                 </div>
-            </p-overlayPanel>
+            </p-popover>
         </div>
-        <app-code [code]="code" selector="overlay-panel-basic-demo"></app-code>
+        <app-code [code]="code" selector="popover-basic-demo"></app-code>
     `
 })
 export class BasicDoc {
@@ -58,7 +58,7 @@ export class BasicDoc {
 
     code: Code = {
         basic: `<p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-    <p-overlayPanel #op>
+    <p-popover #op>
         <div class="flex flex-column gap-3 w-25rem">
             <div>
                 <span class="font-medium text-900 block mb-2">Share this document</span>
@@ -93,11 +93,11 @@ export class BasicDoc {
                 </ul>
             </div>
         </div>
-    </p-overlayPanel>`,
+    </p-popover>`,
 
         html: `<div class="card flex justify-content-center">
     <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
-    <p-overlayPanel #op>
+    <p-popover #op>
         <div class="flex flex-column gap-3 w-25rem">
             <div>
                 <span class="font-medium text-900 block mb-2">Share this document</span>
@@ -132,11 +132,11 @@ export class BasicDoc {
                 </ul>
             </div>
         </div>
-    </p-overlayPanel>
+    </p-popover>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { PopoverModule } from 'primeng/popover';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
@@ -145,12 +145,12 @@ import { ChipsModule } from 'primeng/chips';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'overlay-panel-basic-demo',
-    templateUrl: './overlay-panel-basic-demo.html',
+    selector: 'popover-basic-demo',
+    templateUrl: './popover-basic-demo.html',
     standalone: true,
-    imports: [OverlayPanelModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule, ChipsModule, CommonModule]
+    imports: [PopoverModule, InputGroupModule, InputGroupAddonModule, ButtonModule, InputTextModule, ChipsModule, CommonModule]
 })
-export class OverlayPanelBasicDemo {
+export class PopoverBasicDemo {
     members = [
         { name: 'Amy Elsner', image: 'amyelsner.png', email: 'amy@email.com', role: 'Owner' },
         { name: 'Bernardo Dominic', image: 'bernardodominic.png', email: 'bernardo@email.com', role: 'Editor' },

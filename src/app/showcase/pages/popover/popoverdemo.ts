@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { BasicDoc } from '@doc/overlaypanel/basicdoc';
-import { ImportDoc } from '@doc/overlaypanel/importdoc';
-import { StyleDoc } from '@doc/overlaypanel/styledoc';
-import { DataTableDoc } from '@doc/overlaypanel/datatabledoc';
-import { TemplateDoc } from '@doc/overlaypanel/templatedoc';
-import { TargetDoc } from '@doc/overlaypanel/targetdoc';
-import { AccessibilityDoc } from '@doc/overlaypanel/accessibilitydoc';
+import { BasicDoc } from '@doc/popover/basicdoc';
+import { ImportDoc } from '@doc/popover/importdoc';
+import { StyleDoc } from '@doc/popover/styledoc';
+import { DataTableDoc } from '@doc/popover/datatabledoc';
+import { TemplateDoc } from '@doc/popover/templatedoc';
+import { TargetDoc } from '@doc/popover/targetdoc';
+import { AccessibilityDoc } from '@doc/popover/accessibilitydoc';
 
 @Component({
-    templateUrl: './overlaypaneldemo.html'
+    templateUrl: './popoverdemo.html'
 })
-export class OverlayPanelDemo {
+export class PopoverDemo {
     docs = [
         {
             id: 'import',

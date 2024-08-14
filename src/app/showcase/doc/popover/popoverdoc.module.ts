@@ -23,4 +23,4 @@ import { ChipsModule } from 'primeng/chips';
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, AccessibilityDoc],
     exports: [AppDocModule]
 })
-export class OverlayPanelDocModule {}
+export class PopoverDocModule {}

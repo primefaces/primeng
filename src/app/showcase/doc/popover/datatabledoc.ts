@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
 import { Code } from '@domain/code';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
@@ -31,7 +31,7 @@ interface TableRowSelectEvent {
                 </div>
                 <span class="text-600">{{ selectedProduct.category }}</span>
             </div>
-            <p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
+            <p-popover #op [style]="{ width: '450px' }" [showCloseIcon]="true">
                 <ng-template pTemplate="content">
                     <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
                         <ng-template pTemplate="header">
@@ -50,9 +50,9 @@ interface TableRowSelectEvent {
                         </ng-template>
                     </p-table>
                 </ng-template>
-            </p-overlayPanel>
+            </p-popover>
         </div>
-        <app-code [code]="code" selector="overlay-panel-data-table-demo" [extFiles]="extFiles"></app-code>
+        <app-code [code]="code" selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
     `,
     providers: [MessageService]
 })
@@ -75,7 +75,7 @@ export class DataTableDoc implements OnInit {
         });
     }
 
-    onRowSelect(event: TableRowSelectEvent, op: OverlayPanel) {
+    onRowSelect(event: TableRowSelectEvent, op: Popover) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
         op.hide();
     }
@@ -104,7 +104,7 @@ export class DataTableDoc implements OnInit {
         {{ selectedProduct.category }}
     </span>
 </div>
-<p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
+<p-popover #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
         <p-table 
             [value]="products" 
@@ -141,7 +141,7 @@ export class DataTableDoc implements OnInit {
                 </ng-template>
         </p-table>
     </ng-template>
-</p-overlayPanel>`,
+</p-popover>`,
 
         html: `<div class="card flex flex-column align-items-center gap-3">
 <p-toast />
@@ -167,7 +167,7 @@ export class DataTableDoc implements OnInit {
         {{ selectedProduct.category }}
     </span>
 </div>
-<p-overlayPanel #op [style]="{ width: '450px' }" [showCloseIcon]="true">
+<p-popover #op [style]="{ width: '450px' }" [showCloseIcon]="true">
     <ng-template pTemplate="content">
         <p-table 
             [value]="products" 
@@ -204,12 +204,13 @@ export class DataTableDoc implements OnInit {
                 </ng-template>
         </p-table>
     </ng-template>
-</p-overlayPanel>
+</p-popover>
 </div>`,
 
         typescript: `import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { OverlayPanel } from 'primeng/overlaypanel';
+import { Popover } from 'primeng/popover';
+import { PopoverModule } from 'primeng/popover';
 import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { ToastModule } from 'primeng/toast';
@@ -224,13 +225,13 @@ interface TableRowSelectEvent {
 }
 
 @Component({
-    selector: 'overlay-panel-data-table-demo',
-    templateUrl: './overlay-panel-data-table-demo.html',
+    selector: 'popover-data-table-demo',
+    templateUrl: './popover-data-table-demo.html',
     standalone: true,
-    imports: [OverlayPanelModule, ToastModule, TableModule, ButtonModule],
+    imports: [PopoverModule, ToastModule, TableModule, ButtonModule],
     providers: [MessageService, ProductService]
 })
-export class OverlayPanelDataTableDemo implements OnInit {
+export class PopoverDataTableDemo implements OnInit {
 
     constructor(private productService: ProductService, private messageService: MessageService, private cdr: ChangeDetectorRef) {}
     
@@ -246,7 +247,7 @@ export class OverlayPanelDataTableDemo implements OnInit {
         });
     }
 
-    onRowSelect(event: TableRowSelectEvent, op: OverlayPanel) {
+    onRowSelect(event: TableRowSelectEvent, op: Popover) {
         this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: event.data.name });
         op.hide();
     }
