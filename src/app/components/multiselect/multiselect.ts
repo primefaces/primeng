@@ -345,7 +345,7 @@ export class MultiSelectItem {
                                 </button>
                             </ng-template>
                         </div>
-                        <div class="p-multiselect-items-wrapper" [ngStyle]="{ 'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto' }">
+                        <div class="p-multiselect-items-wrapper" [ngStyle]="{ 'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto' }" tabindex="0">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -2252,7 +2252,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"]):not([class="p-multiselect-items-wrapper"])').length > 0;
     }
 
     hasFilter() {
