@@ -10861,7 +10861,7 @@
     "drawer": {
         "components": {
             "Drawer": {
-                "description": "Sidebar is a panel component displayed as an overlay at the edges of the screen.",
+                "description": "Drawer is a container component displayed as an overlay.",
                 "props": {
                     "description": "Defines the input properties of the component.",
                     "values": [
@@ -10924,7 +10924,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Whether an overlay mask is displayed behind the sidebar."
+                            "description": "Whether an overlay mask is displayed behind the drawer."
                         },
                         {
                             "name": "closeButtonProps",
@@ -10939,7 +10939,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Whether to dismiss sidebar on click of the mask."
+                            "description": "Whether to dismiss drawer on click of the mask."
                         },
                         {
                             "name": "showCloseIcon",
@@ -10955,7 +10955,7 @@
                             "readonly": false,
                             "type": "boolean",
                             "default": "true",
-                            "description": "Specifies if pressing escape key should hide the sidebar."
+                            "description": "Specifies if pressing escape key should hide the drawer."
                         },
                         {
                             "name": "transitionOptions",
@@ -10977,7 +10977,7 @@
                             "optional": false,
                             "readonly": false,
                             "type": "string",
-                            "description": "Specifies the position of the sidebar, valid values are \"left\", \"right\", \"bottom\" and \"top\"."
+                            "description": "Specifies the position of the drawer, valid values are \"left\", \"right\", \"bottom\" and \"top\"."
                         },
                         {
                             "name": "fullScreen",

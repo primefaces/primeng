@@ -36,7 +36,7 @@ const showAnimation = animation([style({ transform: '{{transform}}', opacity: 0 
 
 const hideAnimation = animation([animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 }))]);
 /**
- * Sidebar is a panel component displayed as an overlay at the edges of the screen.
+ * Drawer is a container component displayed as an overlay.
  * @group Components
  */
 @Component({
@@ -133,7 +133,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      */
     @Input({ transform: numberAttribute }) baseZIndex: number = 0;
     /**
-     * Whether an overlay mask is displayed behind the sidebar.
+     * Whether an overlay mask is displayed behind the drawer.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) modal: boolean = true;
@@ -143,7 +143,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      */
     @Input() closeButtonProps: ButtonProps;
     /**
-     * Whether to dismiss sidebar on click of the mask.
+     * Whether to dismiss drawer on click of the mask.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) dismissible: boolean = true;
@@ -153,7 +153,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      */
     @Input({ transform: booleanAttribute }) showCloseIcon: boolean = true;
     /**
-     * Specifies if pressing escape key should hide the sidebar.
+     * Specifies if pressing escape key should hide the drawer.
      * @group Props
      */
     @Input({ transform: booleanAttribute }) closeOnEscape: boolean = true;
@@ -173,7 +173,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
         this._visible = val;
     }
     /**
-     * Specifies the position of the sidebar, valid values are "left", "right", "bottom" and "top".
+     * Specifies the position of the drawer, valid values are "left", "right", "bottom" and "top".
      * @group Props
      */
     @Input() get position(): string {
