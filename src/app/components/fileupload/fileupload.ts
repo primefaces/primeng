@@ -833,7 +833,7 @@ export class FileUpload implements AfterViewInit, AfterContentInit, OnInit, OnDe
      * @param {Number} index - Index of the file to be removed.
      * @group Method
      */
-     removeUploadedFile(index) {
+    removeUploadedFile(index) {
         let removedFile = this.uploadedFiles.splice(index, 1)[0];
         this.uploadedFiles = [...this.uploadedFiles];
         this.onRemoveUploadedFile.emit({ file: removedFile, files: this.uploadedFiles });

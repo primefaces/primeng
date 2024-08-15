@@ -3043,7 +3043,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
     `;
-        this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
+                this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
             }
         }
     }
