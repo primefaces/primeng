@@ -12,7 +12,6 @@
 - p-table triggers lazy loading event twice [\#16182](https://github.com/primefaces/primeng/issues/16182)
 - Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
 - Autocomplete: Error when deleting input text if virtualscroll is enabled [\#16227](https://github.com/primefaces/primeng/issues/16227)
-- Component: MultiSelect scrollable region focusable [\#15003](https://github.com/primefaces/primeng/issues/15003)
 
 ## [17.18.8](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-08)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.7...17.18.8)
