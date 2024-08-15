@@ -77,6 +77,7 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -1175,7 +1176,8 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         public cd: ChangeDetectorRef,
         public filterService: FilterService,
         public overlayService: OverlayService,
-        public config: PrimeNGConfig
+        public config: PrimeNGConfig,
+        private readonly domSanitizer: DomSanitizer
     ) {
         this.window = this.document.defaultView as Window;
     }
@@ -2690,7 +2692,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
                 }
             `;
         });
-        this.renderer.setProperty(this.styleElement, 'textContent', innerHTML);
+        this.renderer.setProperty(this.styleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
     }
 
     onRowDragStart(event: any, index: number) {
@@ -3041,7 +3043,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
         }
     }
     `;
-                this.renderer.setProperty(this.responsiveStyleElement, 'textContent', innerHTML);
+        this.renderer.setProperty(this.responsiveStyleElement, 'innerHTML', this.domSanitizer.bypassSecurityTrustStyle(innerHTML));
             }
         }
     }
