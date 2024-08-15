@@ -1,5 +1,5 @@
 # Changelog
-## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-15)
+## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.9) (2024-08-15)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.8...17.18.9)
 
 **Fixed bugs:**
