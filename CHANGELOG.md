@@ -1,4 +1,19 @@
 # Changelog
+## [17.18.9](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-15)
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.18.8...17.18.9)
+
+**Fixed bugs:**
+- Menu | aria-hidden throws console error [\#16240](https://github.com/primefaces/primeng/issues/16240)
+- Table: Cannot set autoSize from ScrollerOptions [\#16209](https://github.com/primefaces/primeng/issues/16209)
+- Component: Slider [\#16214](https://github.com/primefaces/primeng/issues/16214)
+- Table: breaks after one call to updateStyleElement() [\#16211](https://github.com/primefaces/primeng/issues/16211)
+- FileUpload: Never cancels the upload request when I click on the cancel button. [\#15664](https://github.com/primefaces/primeng/issues/15664)
+- Menu: console.error when selecting a menu item with keyboard [\#16219](https://github.com/primefaces/primeng/issues/16219)
+- p-table triggers lazy loading event twice [\#16182](https://github.com/primefaces/primeng/issues/16182)
+- Sidebar: Overlay of Nested Sidebar Blocks Its Own Content [\#16233](https://github.com/primefaces/primeng/issues/16233)
+- Autocomplete: Error when deleting input text if virtualscroll is enabled [\#16227](https://github.com/primefaces/primeng/issues/16227)
+- Component: MultiSelect scrollable region focusable [\#15003](https://github.com/primefaces/primeng/issues/15003)
+
 ## [17.18.8](https://github.com/primefaces/primeng/tree/17.18.8) (2024-08-08)
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.18.7...17.18.8)
 
