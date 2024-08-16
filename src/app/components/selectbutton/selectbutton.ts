@@ -24,7 +24,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             <div
                 *ngFor="let option of options; let i = index"
                 pRipple
-                [attr.tabindex]="i === focusedIndex ? '0' : '-1'"
+                [attr.tabindex]="i === focusedIndex && !disabled ? '0' : '-1'"
                 [attr.aria-label]="option.label"
                 [role]="multiple ? 'checkbox' : 'radio'"
                 [attr.aria-checked]="isSelected(option)"
