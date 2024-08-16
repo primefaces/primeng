@@ -18,7 +18,7 @@ import {
     ViewEncapsulation,
     booleanAttribute
 } from '@angular/core';
-import { Message, MessageService, PrimeTemplate } from 'primeng/api';
+import { Message, MessageService, PrimeTemplate, SharedModule } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 import { CheckIcon } from 'primeng/icons/check';
 import { ExclamationTriangleIcon } from 'primeng/icons/exclamationtriangle';
@@ -287,8 +287,8 @@ export class Messages implements AfterContentInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon],
-    exports: [Messages],
+    imports: [CommonModule, RippleModule, CheckIcon, InfoCircleIcon, TimesCircleIcon, ExclamationTriangleIcon, TimesIcon, SharedModule],
+    exports: [Messages, SharedModule],
     declarations: [Messages]
 })
 export class MessagesModule {}
