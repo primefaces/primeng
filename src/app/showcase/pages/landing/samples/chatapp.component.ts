@@ -28,6 +28,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
 import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
     selector: 'chat-app',
@@ -60,27 +61,25 @@ import { TagModule } from 'primeng/tag';
         MenuModule,
         TagModule,
         MeterGroupModule,
+        InputTextareaModule
     ],
     template: `
-     
-            <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
-                <div
-                    class="flex flex-col gap-6 pt-3 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10"
-                >
-                    <div class="flex items-center justify-between gap-6 text-color">
-                        <div class="text-2xl font-medium lead">Chats</div>
-                        <p-button icon="pi pi-plus" text />
-                    </div>
+        <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
+            <div class="flex flex-col gap-6 pt-3 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
+                <div class="flex items-center justify-between gap-6 text-color">
+                    <div class="text-2xl font-medium lead">Chats</div>
+                    <p-button icon="pi pi-plus" text />
                 </div>
-                <div class="px-5">
-                    <p-iconField iconPosition="left">
-                        <p-inputIcon class="pi pi-search"> </p-inputIcon>
-                        <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
-                    </p-iconField>
-                </div>
-                <div class="w-full px-5">
-                    <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" styleClass="w-full"/>
-                    <!-- <SelectButton
+            </div>
+            <div class="px-5">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon class="pi pi-search"> </p-inputIcon>
+                    <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
+                </p-iconField>
+            </div>
+            <div class="w-full px-5">
+                <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" styleClass="w-full" />
+                <!-- <SelectButton
                     v-model="value"
                     :options="options"
                     aria-labelledby="basic"
@@ -95,33 +94,33 @@ import { TagModule } from 'primeng/tag';
                         }
                     }"
                 /> -->
-                </div>
-                <div class="flex-1 flex flex-col">
-                    <div
-                        *ngFor="let chat of chats"
-                        class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
-                        [ngClass]="{
-                            'bg-emphasis': chat.name === activeChat
-                        }"
-                    >
-                        <div class="relative">
-                            <div
-                                *ngIf="chat.active !== undefined"
-                                class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center"
-                            >
-                                <p-badge [severity]="chat.active ? 'success' : 'danger'" class="p-1.5" />
-                            </div>
-                            <p-avatar
-                                [image]="chat.image"
-                                [label]="!chat.image ? chat.capName : ''"
-                                [ngClass]="{
-                                    '!bg-primary-100 !text-primary-950': !chat.image
-                                }"
-                                class="text-base font-medium flex"
-                                size="large"
-                                shape="circle"
-                            />
-                            <!-- <Avatar
+            </div>
+            <div class="flex-1 flex flex-col">
+                <div
+                    *ngFor="let chat of chats"
+                    class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
+                    [ngClass]="{
+                        'bg-emphasis': chat.name === activeChat
+                    }"
+                >
+                    <div class="relative">
+                        <div
+                            *ngIf="chat.active !== undefined"
+                            class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center"
+                        >
+                            <p-badge [severity]="chat.active ? 'success' : 'danger'" class="p-1.5" />
+                        </div>
+                        <p-avatar
+                            [image]="chat.image"
+                            [label]="!chat.image ? chat.capName : ''"
+                            [ngClass]="{
+                                '!bg-primary-100 !text-primary-950': !chat.image
+                            }"
+                            class="text-base font-medium flex"
+                            size="large"
+                            shape="circle"
+                        />
+                        <!-- <Avatar
                             v-bind="chat.image ? { image: chat.image } : { label: chat.capName }"
                             :class="{
                                 '!bg-primary-100 !text-primary-950': !chat.image
@@ -130,83 +129,82 @@ import { TagModule } from 'primeng/tag';
                             size="large"
                             shape="circle"
                         /> -->
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-start gap-1 justify-between">
+                            <div class="text-color font-medium leading-6">{{ chat.name }}</div>
+                            <div class="text-sm text-muted-color leading-5">{{ chat.time }}</div>
                         </div>
-                        <div class="flex-1">
-                            <div class="flex items-start gap-1 justify-between">
-                                <div class="text-color font-medium leading-6">{{ chat.name }}</div>
-                                <div class="text-sm text-muted-color leading-5">{{ chat.time }}</div>
+                        <div class="flex items-center gap-5 justify-between mt-1">
+                            <div class="text-muted-color text-sm leading-5 line-clamp-1">
+                                {{ chat.lastMessage }}
                             </div>
-                            <div class="flex items-center gap-5 justify-between mt-1">
-                                <div class="text-muted-color text-sm leading-5 line-clamp-1">
-                                    {{ chat.lastMessage }}
-                                </div>
-                                <p-badge
-                                    *ngIf="chat.unreadMessageCount > 0"
-                                    [value]="chat.unreadMessageCount"
-                                    severity="contrast"
-                                />
-                            </div>
+                            <p-badge
+                                *ngIf="chat.unreadMessageCount > 0"
+                                [value]="chat.unreadMessageCount"
+                                severity="contrast"
+                            />
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="w-8/12 xl:w-6/12 border-x border-surface flex flex-col">
-                <div class="flex items-center p-4 gap-7 border-b border-surface">
-                    <div class="flex items-center">
-                        <p-avatar
-                            image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
-                            class="mr-2 av"
-                            size="large"
-                            shape="circle"
-                        />
-                        <div class="flex-1">
-                            <div
-                                class="text-color leading-6 cursor-pointer hover:text-muted-color-emphasis transition-colors"
-                            >
-                                PrimeTek
-                            </div>
-                            <div class="text-muted-color leading-5 line-clamp-1 mt-1">
-                                Cody Fisher, Esther Howard, Jerome Bell, Kristin Watson, Ronald Richards, Darrell
-                                Steward
-                            </div>
+        </div>
+        <div class="w-8/12 xl:w-6/12 border-x border-surface flex flex-col">
+            <div class="flex items-center p-4 gap-7 border-b border-surface">
+                <div class="flex items-center">
+                    <p-avatar
+                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
+                        class="mr-2 av"
+                        size="large"
+                        shape="circle"
+                    />
+                    <div class="flex-1">
+                        <div
+                            class="text-color leading-6 cursor-pointer hover:text-muted-color-emphasis transition-colors"
+                        >
+                            PrimeTek
+                        </div>
+                        <div class="text-muted-color leading-5 line-clamp-1 mt-1">
+                            Cody Fisher, Esther Howard, Jerome Bell, Kristin Watson, Ronald Richards, Darrell Steward
                         </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <p-button icon="pi pi-phone" text />
-                        <p-button icon="pi pi-search" text />
-                        <p-button
-                            type="button"
-                            icon="pi pi-ellipsis-h"
-                            text
-                            (click)="menu.toggle($event)"
-                            aria-haspopup="true"
-                            aria-controls="overlay_menu"
-                        />
-                        <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
-                    </div>
                 </div>
-                <div class="flex-1 overflow-y-auto flex flex-col gap-8 py-8 px-6">
+                <div class="flex items-center gap-2">
+                    <p-button icon="pi pi-phone" text />
+                    <p-button icon="pi pi-search" text />
+                    <p-button
+                        type="button"
+                        icon="pi pi-ellipsis-h"
+                        text
+                        (click)="menu.toggle($event)"
+                        aria-haspopup="true"
+                        aria-controls="overlay_menu"
+                    />
+                    <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto flex flex-col gap-8 py-8 px-6">
+                <div
+                    *ngFor="let message of chatMessages"
+                    class="flex items-start min-w-64 w-fit max-w-[60%]"
+                    [ngClass]="{ 'ml-auto mr-0 flex-row-reverse': message.type === 'sent' }"
+                >
                     <div
-                        *ngFor="let message of chatMessages"
-                        class="flex items-start min-w-64 w-fit max-w-[60%]"
-                        [ngClass]="{ 'ml-auto mr-0 flex-row-reverse': message.type === 'sent' }"
+                        class="flex items-center gap-2 sticky top-0 transition-all"
+                        [ngClass]="{
+                            'flex-row-reverse': message.type === 'sent'
+                        }"
                     >
-                        <div
-                            class="flex items-center gap-2 sticky top-0 transition-all"
+                        <p-avatar
+                            [image]="message.image"
+                            [label]="!message.image ? message.capName : ''"
                             [ngClass]="{
-                                'flex-row-reverse': message.type === 'sent'
+                                'bg-primary-100 text-primary-950': !message.image
                             }"
-                        >
-                            <p-avatar
-                                [image]="message.image"
-                                [label]="!message.image ? message.capName : ''"
-                                [ngClass]="{
-                                    'bg-primary-100 text-primary-950': !message.image
-                                }"
-                                class="w-10 h-10 text-sm font-medium"
-                                shape="circle"
-                            />
-                            <!-- <Avatar
+                            class="w-10 h-10 text-sm font-medium"
+                            shape="circle"
+                        />
+                        <!-- <Avatar
                             v-bind="message.image ? { image: message.image } : { label: message.capName }"
                             :class="{
                                 'bg-primary-100 text-primary-950': !message.image
@@ -214,130 +212,130 @@ import { TagModule } from 'primeng/tag';
                             class="w-10 h-10 text-sm font-medium"
                             shape="circle"
                         /> -->
-                            <div>
-                                <svg
-                                    [ngClass]="{
-                                        'fill-surface-100 dark:fill-surface-800': message.type === 'received',
-                                        'fill-primary rotate-180': message.type !== 'received'
-                                    }"
-                                    class=""
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="7"
-                                    height="11"
-                                    viewBox="0 0 7 11"
-                                    fill="none"
-                                >
-                                    <path
-                                        d="M1.79256 7.09551C0.516424 6.31565 0.516426 4.46224 1.79256 3.68238L7 0.500055L7 10.2778L1.79256 7.09551Z"
-                                    />
-                                </svg>
-                            </div>
+                        <div>
+                            <svg
+                                [ngClass]="{
+                                    'fill-surface-100 dark:fill-surface-800': message.type === 'received',
+                                    'fill-primary rotate-180': message.type !== 'received'
+                                }"
+                                class=""
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="7"
+                                height="11"
+                                viewBox="0 0 7 11"
+                                fill="none"
+                            >
+                                <path
+                                    d="M1.79256 7.09551C0.516424 6.31565 0.516426 4.46224 1.79256 3.68238L7 0.500055L7 10.2778L1.79256 7.09551Z"
+                                />
+                            </svg>
                         </div>
-                        <div
+                    </div>
+                    <div
+                        [ngClass]="{
+                            'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg':
+                                message.type === 'received',
+                            'flex-1 bg-primary px-2 py-1 rounded-lg': message.type !== 'received'
+                        }"
+                    >
+                        <p
                             [ngClass]="{
-                                'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg':
-                                    message.type === 'received',
-                                'flex-1 bg-primary px-2 py-1 rounded-lg': message.type !== 'received'
+                                'text-color leading-6 mb-0': message.type === 'received',
+                                'text-primary-contrast leading-6 mb-0': message.type !== 'received'
                             }"
                         >
-                            <p
-                                [ngClass]="{
-                                    'text-color leading-6 mb-0': message.type === 'received',
-                                    'text-primary-contrast leading-6 mb-0': message.type !== 'received'
-                                }"
-                            >
-                                {{ message.message }}
-                            </p>
-                            <div
-                                *ngIf="message.attachment"
-                                :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'"
-                                class="mt-2 w-full rounded-lg mb-0.5 hover:opacity-75 transition-all"
-                            >
-                                <img
-                                    class="w-full h-auto block cursor-pointer"
-                                    [src]="message.attachment"
-                                    alt="Message Image"
-                                />
-                            </div>
+                            {{ message.message }}
+                        </p>
+                        <div
+                            *ngIf="message.attachment"
+                            :class="message.type === 'received' ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-emphasis'"
+                            class="mt-2 w-full rounded-lg mb-0.5 hover:opacity-75 transition-all"
+                        >
+                            <img
+                                class="w-full h-auto block cursor-pointer"
+                                [src]="message.attachment"
+                                alt="Message Image"
+                            />
                         </div>
                     </div>
                 </div>
-                <div class="p-4 border-t border-surface flex items-end justify-between gap-2">
-                    <div class="flex items-end gap-1 flex-1">
-                        <p-button icon="pi pi-face-smile" text />
-                        <p-button icon="pi pi-paperclip" text />
-                        <textarea
-                            pTextArea
-                            class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
-                            autoResize
-                            rows="1"
-                            placeholder="Write your message..."
-                        ></textarea>
-                    </div>
-                    <p-button icon="pi pi-send" />
+            </div>
+            <div class="p-4 border-t border-surface flex items-end justify-between gap-2">
+                <div class="flex items-end gap-1 flex-1">
+                    <p-button icon="pi pi-face-smile" text />
+                    <p-button icon="pi pi-paperclip" text />
+                    <textarea
+                        pInputTextarea
+                        class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
+                        autoResize
+                        rows="1"
+                        placeholder="Write your message..."
+                    ></textarea>
+                </div>
+                <p-button icon="pi pi-send" />
+            </div>
+        </div>
+        <div class="w-3/12 xl:block hidden min-w-40 py-6 px-3 overflow-auto">
+            <div class="flex flex-col items-center justify-center">
+                <p-avatar
+                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
+                    styleClass="w-32 h-32"
+                    size="xlarge"
+                    shape="circle"
+                />
+                <div class="leading-6 font-medium text-color mt-4 w-full text-center">PrimeTek</div>
+                <div class="leading-5 text-sm text-muted-color mt-1 w-full text-center">&#64;primetek</div>
+                <div class="flex items-center justify-center flex-wrap gap-1 mt-4">
+                    <p-button icon="pi pi-phone text-muted-color" severity="secondary" text />
+                    <p-button icon="pi pi-video text-muted-color" severity="secondary" text />
+                    <p-button icon="pi pi-sign-in text-muted-color" severity="secondary" text />
+                    <p-button icon="pi pi-info-circle text-muted-color" severity="secondary" text />
+                    <p-button
+                        type="button"
+                        icon="pi pi-ellipsis-v text-muted-color"
+                        severity="secondary"
+                        text
+                        (click)="menu.toggle($event)"
+                        aria-haspopup="true"
+                        aria-controls="overlay_menu"
+                    />
+                    <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                 </div>
             </div>
-            <div class="w-3/12 xl:block hidden min-w-40 py-6 px-3 overflow-auto">
-                <div class="flex flex-col items-center justify-center">
-                    <p-avatar
-                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
-                        styleClass="w-32 h-32"
-                        size="xlarge"
-                        shape="circle"
-                    />
-                    <div class="leading-6 font-medium text-color mt-4 w-full text-center">PrimeTek</div>
-                    <div class="leading-5 text-sm text-muted-color mt-1 w-full text-center">&#64;primetek</div>
-                    <div class="flex items-center justify-center flex-wrap gap-1 mt-4">
-                        <p-button icon="pi pi-phone text-muted-color" severity="secondary" text />
-                        <p-button icon="pi pi-video text-muted-color" severity="secondary" text />
-                        <p-button icon="pi pi-sign-in text-muted-color" severity="secondary" text />
-                        <p-button icon="pi pi-info-circle text-muted-color" severity="secondary" text />
-                        <p-button
-                            type="button"
-                            icon="pi pi-ellipsis-v text-muted-color"
-                            severity="secondary"
-                            text
-                            (click)="menu.toggle($event)"
-                            aria-haspopup="true"
-                            aria-controls="overlay_menu"
+            <div class="flex flex-col gap-4 mt-4">
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-bell text-color"></i>
+                    <div class="leading-6 font-medium text-color flex-1">Notification</div>
+                    <p-inputSwitch [(ngModel)]="notification" />
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-volume-down text-color"></i>
+                    <div class="leading-6 font-medium text-color flex-1">Sound</div>
+                    <p-inputSwitch [(ngModel)]="sound" />
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-download text-color"></i>
+                    <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
+                    <p-inputSwitch [(ngModel)]="download" />
+                </div>
+            </div>
+            <div class="mt-6">
+                <div class="flex items-center gap-2">
+                    <div class="flex-1 text-color leading-6 font-medium">Members</div>
+                    <p-button label="See All" class="text-sm py-0.5 px-2 text-muted-color" text />
+                </div>
+                <div class="mt-4 flex flex-col gap-4">
+                    <div *ngFor="let member of members" class="flex items-center gap-2 cursor-pointer">
+                        <p-avatar
+                            [image]="member.image"
+                            [label]="!member.image ? member.capName : ''"
+                            [ngClass]="{
+                                'bg-orange-100 text-orange-950': !member.image
+                            }"
+                            class="font-medium text-xs"
+                            shape="circle"
                         />
-                        <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
-                    </div>
-                </div>
-                <div class="flex flex-col gap-4 mt-4">
-                    <div class="flex items-center gap-2">
-                        <i class="pi pi-bell text-color"></i>
-                        <div class="leading-6 font-medium text-color flex-1">Notification</div>
-                        <p-inputSwitch [(ngModel)]="notification" />
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="pi pi-volume-down text-color"></i>
-                        <div class="leading-6 font-medium text-color flex-1">Sound</div>
-                        <p-inputSwitch [(ngModel)]="sound" />
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="pi pi-download text-color"></i>
-                        <div class="leading-6 font-medium text-color flex-1">Save to downloads</div>
-                        <p-inputSwitch [(ngModel)]="download" />
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <div class="flex items-center gap-2">
-                        <div class="flex-1 text-color leading-6 font-medium">Members</div>
-                        <p-button label="See All" class="text-sm py-0.5 px-2 text-muted-color" text />
-                    </div>
-                    <div class="mt-4 flex flex-col gap-4">
-                        <div *ngFor="let member of members" class="flex items-center gap-2 cursor-pointer">
-                            <p-avatar
-                                [image]="member.image"
-                                [label]="!member.image ? member.capName : ''"
-                                [ngClass]="{
-                                    'bg-orange-100 text-orange-950': !member.image
-                                }"
-                                class="font-medium text-xs"
-                                shape="circle"
-                            />
-                            <!-- <Avatar
+                        <!-- <Avatar
                             v-bind="member.image ? { image: member.image } : { label: member.capName }"
                             :class="{
                                 'bg-orange-100 text-orange-950': !member.image
@@ -345,18 +343,18 @@ import { TagModule } from 'primeng/tag';
                             class="font-medium text-xs"
                             shape="circle"
                         /> -->
-                            <div
-                                class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1"
-                            >
-                                {{ member.name }}
-                            </div>
-                            <i class="pi pi-chevron-right text-xs text-muted-color"></i>
+                        <div
+                            class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1"
+                        >
+                            {{ member.name }}
                         </div>
+                        <i class="pi pi-chevron-right text-xs text-muted-color"></i>
                     </div>
                 </div>
-                <div class="mt-5">
-                    <p-selectButton [(ngModel)]="media" [options]="mediaOptions" />
-                    <!-- <SelectButton
+            </div>
+            <div class="mt-5">
+                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" />
+                <!-- <SelectButton
                     v-model="media"
                     :options="mediaOptions"
                     :pt="{
@@ -370,20 +368,20 @@ import { TagModule } from 'primeng/tag';
                         }
                     }"
                 /> -->
-                    <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
-                        <div
-                            *ngFor="let media of chatMedia"
-                            class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer"
-                        >
-                            <img class="w-full h-full object-cover block" [src]="media" alt="Media Image" />
-                        </div>
-                        <div
-                            class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer flex items-center justify-center"
-                        >
-                            <span class="text-muted-color font-medium">99+</span>
-                        </div>
+                <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
+                    <div
+                        *ngFor="let media of chatMedia"
+                        class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer"
+                    >
+                        <img class="w-full h-full object-cover block" [src]="media" alt="Media Image" />
                     </div>
-                    <!-- <Button
+                    <div
+                        class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer flex items-center justify-center"
+                    >
+                        <span class="text-muted-color font-medium">99+</span>
+                    </div>
+                </div>
+                <!-- <Button
                         label="Show more"
                         icon="pi pi-arrow-right"
                         iconPos="right"
@@ -395,16 +393,15 @@ import { TagModule } from 'primeng/tag';
                         }
                     }"
                     /> -->
-                    <p-button
-                        label="Show more"
-                        icon="pi pi-arrow-right"
-                        iconPos="right"
-                        outlined
-                        styleClass="w-full text-left"
-                    />
-                </div>
+                <p-button
+                    label="Show more"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    outlined
+                    styleClass="w-full text-left"
+                />
             </div>
-     
+        </div>
     `,
     host: {
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl',
