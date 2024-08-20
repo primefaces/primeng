@@ -209,12 +209,12 @@ import { CustomersApp } from './samples/customersapp.component';
                         </div>
                     </div>
 
-                    <!-- <overview-app *ngIf="selectedSampleAppsSidebarNav === 'Overview'" />
+                    <overview-app *ngIf="selectedSampleAppsSidebarNav === 'Overview'" />
                     <chat-app *ngIf="selectedSampleAppsSidebarNav === 'Chat'" />
                     <inbox-app *ngIf="selectedSampleAppsSidebarNav === 'Inbox'" />
                     <cards-app *ngIf="selectedSampleAppsSidebarNav === 'Cards'" />
                     <movies-app *ngIf="selectedSampleAppsSidebarNav === 'Movies'" />
-                    <customers-app *ngIf="selectedSampleAppsSidebarNav === 'Customers'" />   -->
+                    <customers-app *ngIf="selectedSampleAppsSidebarNav === 'Customers'" />   
                 </div>
             </div>
         </section>
