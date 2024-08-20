@@ -33,6 +33,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CarouselModule } from 'primeng/carousel';
 import { SidebarModule } from 'primeng/sidebar';
 import { KnobModule } from 'primeng/knob';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { DrawerModule } from 'primeng/drawer';
 
 @Component({
     selector: 'customers-app',
@@ -69,7 +71,9 @@ import { KnobModule } from 'primeng/knob';
         CheckboxModule,
         CarouselModule,
         SidebarModule,
-        KnobModule
+        KnobModule,
+        OverlayBadgeModule,
+        DrawerModule
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -78,12 +82,17 @@ import { KnobModule } from 'primeng/knob';
                     <div class="text-2xl leading-8 text-color font-medium">Customers</div>
                     <div class="mt-1 leading-6 text-muted-color">The analysis list here shows all users</div>
                 </div>
-                <p-button icon="pi pi-circle-fill text-green-500" label="950 Active User" outlined severity="secondary" />
+                <p-button
+                    icon="pi pi-circle-fill text-green-500"
+                    label="950 Active User"
+                    outlined
+                    severity="secondary"
+                />
             </div>
             <div class="mt-10 mb-4 flex items-center justify-between">
                 <p-iconField iconPosition="left">
                     <p-inputIcon class="pi pi-search"> </p-inputIcon>
-                    <input type="text" [(ngModel)]="search" placeholder="Search" />
+                    <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
                 </p-iconField>
                 <div class="flex items-center gap-3">
                     <p-button icon="pi pi-filter" outlined severity="secondary" />
@@ -117,30 +126,43 @@ import { KnobModule } from 'primeng/knob';
                     }
                 }"
             > -->
-                <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="code" [rows]="10">
+                <p-table [value]="tableData"  [(selection)]="selectedRows" dataKey="id" [rows]="10">
+                    <ng-template pTemplate="header">
+                        <tr>
+                        <th style="width: 1rem"><p-tableHeaderCheckbox /></th>
+                            <th>Title</th>
+                            <th>Name</th>
+                            <th>Company Name</th>
+                            <th>Email Address</th>
+                            <th>Lead Source</th>
+                            <th>Status</th>
+                            <th>More</th>
+                        </tr>
+                    </ng-template>
                     <ng-template pTemplate="body" let-data>
                         <tr>
-                            <td selectionMode="multiple" headerStyle="width: 1rem" style="width: 1rem"></td>
-                            <td field="name" header="Name">
-                                <div class="flex items-center">
-                                    <!-- <OverlayBadge :severity="data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'" class="w-fit">
-                                <Avatar
-                                    v-bind="data.image ? { image: data.image } : { label: data.capName }"
-                                    :class="{
-                                        'bg-violet-100 text-violet-950 text-xs font-medium': !data.image
-                                    }"
-                                    class="rounded-md overflow-hidden flex"
-                                />
-                            </OverlayBadge> -->
+                            
+                            <td style="width: 1rem">
 
-                                    <p-avatar
-                                        [image]="data.image"
-                                        [label]="!data.image ? data.capName : ''"
-                                        [ngClass]="{
-                                            'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
-                                            'rounded-md overflow-hidden flex': true
-                                        }"
-                                    />
+                            <p-tableCheckbox [value]="data" />
+                            </td>
+                            <td >
+                                <div class="flex items-center">
+                                    <p-overlayBadge
+                                        [severity]="
+                                            data.active === undefined ? 'contrast' : data.active ? 'success' : 'danger'
+                                        "
+                                        styleClass="w-fit"
+                                    >
+                                        <p-avatar
+                                            [image]="data.image"
+                                            [label]="!data.image ? data.capName : ''"
+                                            [ngClass]="{
+                                                'bg-violet-100 text-violet-950 text-xs font-medium': !data.image,
+                                                'rounded-md overflow-hidden flex': true
+                                            }"
+                                        />
+                                    </p-overlayBadge>
 
                                     <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                                 </div>
@@ -152,7 +174,9 @@ import { KnobModule } from 'primeng/knob';
                                 <div class="flex items-center gap-2">
                                     <!-- <div class="flex items-center justify-center" v-html="companyLogos[data.company.logo]"></div> -->
 
-                                    <div class="leading-6 text-surface-600 dark:text-surface-400">{{ data.company.name }}</div>
+                                    <div class="leading-6 text-surface-600 dark:text-surface-400">
+                                        {{ data.company.name }}
+                                    </div>
                                 </div>
                             </td>
                             <td field="email" header="Email Address">
@@ -162,11 +186,27 @@ import { KnobModule } from 'primeng/knob';
                                 <div class="leading-6 text-muted-color">{{ data.lead }}</div>
                             </td>
                             <td>
-                                <p-tag [severity]="data.status === 'Active' ? 'success' : data.status === 'Inactive' ? 'danger' : 'info'" :value="data.status" class="font-medium" />
+                                <p-tag
+                                    [severity]="
+                                        data.status === 'Active'
+                                            ? 'success'
+                                            : data.status === 'Inactive'
+                                            ? 'danger'
+                                            : 'info'
+                                    "
+                                    :value="data.status"
+                                    class="font-medium"
+                                />
                             </td>
                             <td>
                                 <div class="flex justify-end w-full">
-                                    <p-button (click)="visibleRight = true" icon="pi pi-ellipsis-h" rounded outlined severity="secondary" />
+                                    <p-button
+                                        (click)="visibleRight = true"
+                                        icon="pi pi-ellipsis-h"
+                                        rounded
+                                        outlined
+                                        severity="secondary"
+                                    />
                                 </div>
                             </td>
                         </tr>
@@ -214,11 +254,15 @@ import { KnobModule } from 'primeng/knob';
             }
         }"
         > -->
-        <p-sidebar [(visible)]="visibleRight" header="Right Sidebar" position="right" closeIcon="pi pi-sign-out">
+        <p-drawer [(visible)]="visibleRight" header="Right Sidebar" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
             <div class="flex flex-col h-screen overflow-auto">
                 <div class="">
                     <div class="flex align-items-center gap-3 p-6">
-                        <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="large" class="rounded-xl overflow-hidden" />
+                        <p-avatar
+                            image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
+                            size="large"
+                            class="rounded-xl overflow-hidden"
+                        />
                         <div class="flex-1">
                             <div class="leading-6 text-color font-medium">Brook Simmons</div>
                             <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
@@ -243,40 +287,69 @@ import { KnobModule } from 'primeng/knob';
                         }" -->
                     <p-selectButton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" />
                 </div>
-                <div *ngIf="selectedSidebarOption === 'Interaction Logs'" class="h-[calc(100%-172px)] flex flex-col gap-4 p-6">
+                <div
+                    *ngIf="selectedSidebarOption === 'Interaction Logs'"
+                    class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
+                >
                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                         <div class="flex items-start justify-between">
                             <div class="leading-6 font-medium text-color">Call Logs</div>
-                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                            <p-button
+                                icon="pi pi-download text-sm"
+                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                severity="secondary"
+                                text
+                            />
                         </div>
-                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+                        <div
+                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
+                        >
                             <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
                                 <!-- <OverlayBadge severity="success" class="w-fit">
                                     <Avatar :image="data.image" size="small" class="rounded-md w-10 h-10 overflow-hidden flex" />
                                 </OverlayBadge> -->
 
-                                <p-avatar [image]="data.image" size="small" class="rounded-md w-10 h-10 overflow-hidden flex" />
+                                <p-avatar
+                                    [image]="data.image"
+                                    size="small"
+                                    class="rounded-md w-10 h-10 overflow-hidden flex"
+                                />
 
                                 <div class="flex-1">
                                     <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
                                     <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
                                 </div>
-                                <p-button icon="pi pi-phone text-sm" text styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8" />
+                                <p-button
+                                    icon="pi pi-phone text-sm"
+                                    text
+                                    styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
+                                />
                             </div>
                         </div>
                     </div>
                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                         <div class="flex items-start justify-between">
                             <div class="leading-6 font-medium text-color">Email Records</div>
-                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all" severity="secondary" text />
+                            <p-button
+                                icon="pi pi-download text-sm"
+                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                severity="secondary"
+                                text
+                            />
                         </div>
-                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800">
+                        <div
+                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
+                        >
                             <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
                                 <!-- <OverlayBadge severity="danger" class="w-fit">
                                     <Avatar :image="data.image" size="small" class="rounded-md overflow-hidden w-10 h-10 flex" />
                                 </OverlayBadge> -->
 
-                                <p-avatar [image]="data.image" size="small" class="rounded-md overflow-hidden w-10 h-10 flex" />
+                                <p-avatar
+                                    [image]="data.image"
+                                    size="small"
+                                    class="rounded-md overflow-hidden w-10 h-10 flex"
+                                />
 
                                 <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
                                 <div class="flex-1">
@@ -294,11 +367,20 @@ import { KnobModule } from 'primeng/knob';
                     <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                         <div class="flex items-start justify-between">
                             <div class="leading-6 font-medium text-color">Meeting Notes</div>
-                            <p-button icon="pi pi-download text-sm" styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none" severity="secondary" text />
+                            <p-button
+                                icon="pi pi-download text-sm"
+                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
+                                severity="secondary"
+                                text
+                            />
                         </div>
-                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden">
+                        <div
+                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden"
+                        >
                             <div class="flex items-start justify-between gap-1">
-                                <div class="text-sm text-color font-medium max-w-60">Subject: Meeting Wrap-up & Action Items: Jacob Jones</div>
+                                <div class="text-sm text-color font-medium max-w-60">
+                                    Subject: Meeting Wrap-up & Action Items: Jacob Jones
+                                </div>
                                 <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
                             </div>
                             <div class="text-sm text-muted-color mt-6">
@@ -310,18 +392,25 @@ import { KnobModule } from 'primeng/knob';
                                     <li>Voiced concerns on integration with current system.Action Items:</li>
                                 </ul>
                                 Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
-                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron Williamson)<br /><br />
-                                Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne Russell)
+                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron
+                                Williamson)<br /><br />
+                                Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne
+                                Russell)
                                 <br /><br />
                                 Please act on these items promptly.
                             </div>
                         </div>
                     </div>
                 </div>
-                <div *ngIf="selectedSidebarOption === 'Preferences'" class="h-[calc(100%-72px)] flex flex-col gap-4 p-6">
+                <div
+                    *ngIf="selectedSidebarOption === 'Preferences'"
+                    class="h-[calc(100%-72px)] flex flex-col gap-4 p-6"
+                >
                     <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
                         <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                        <div class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg">
+                        <div
+                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
+                        >
                             <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                 <i class="text-lg text-color" [class]="pref.icon"></i>
                                 <div class="font-medium text-color flex-1">{{ pref.title }}</div>
@@ -335,7 +424,12 @@ import { KnobModule } from 'primeng/knob';
                         <div class="flex items-start justify-between gap-2">
                             <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
                             <a [routerLink]="data.link" target="_blank" rel="noopener">
-                                <p-button icon="pi pi-arrow-up-right text-sm !leading-none" class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900" severity="secondary" text />
+                                <p-button
+                                    icon="pi pi-arrow-up-right text-sm !leading-none"
+                                    class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
+                                    severity="secondary"
+                                    text
+                                />
                             </a>
                         </div>
                         <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
@@ -350,19 +444,45 @@ import { KnobModule } from 'primeng/knob';
                             <div class="flex items-center justify-between gap-2">
                                 <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
                             </div>
-                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                <p-knob [(ngModel)]="customerSatisfaction" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
+                            <div
+                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                            >
+                                <p-knob
+                                    [(ngModel)]="customerSatisfaction"
+                                    [size]="150"
+                                    [strokeWidth]="8"
+                                    valueTemplate="{value}%"
+                                    class="pointer-events-none"
+                                />
                             </div>
                         </div>
                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-center justify-between gap-2">
                                 <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
                             </div>
-                            <div class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">$</div>
-                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">272</div>
-                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">123</div>
-                                <div class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg">000</div>
+                            <div
+                                class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                            >
+                                <div
+                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                >
+                                    $
+                                </div>
+                                <div
+                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                >
+                                    272
+                                </div>
+                                <div
+                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                >
+                                    123
+                                </div>
+                                <div
+                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                >
+                                    000
+                                </div>
                             </div>
                         </div>
                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
@@ -370,29 +490,44 @@ import { KnobModule } from 'primeng/knob';
                                 <div class="font-medium text-color p-2">Product Usage</div>
                             </div>
                             <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                <p-chart type="line" [data]="lineChartData" [options]="lineChartOptions" class="min-h-44 w-full" />
+                                <p-chart
+                                    type="line"
+                                    [data]="lineChartData"
+                                    [options]="lineChartOptions"
+                                    class="min-h-44 w-full"
+                                />
                             </div>
                         </div>
                         <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="font-medium text-color p-2">Churn Risk</div>
-                            <div class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
-                                <p-knob [(ngModel)]="churnRisk" [size]="150" [strokeWidth]="8" valueTemplate="{value}%" class="pointer-events-none" />
+                            <div
+                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                            >
+                                <p-knob
+                                    [(ngModel)]="churnRisk"
+                                    [size]="150"
+                                    [strokeWidth]="8"
+                                    valueTemplate="{value}%"
+                                    class="pointer-events-none"
+                                />
                             </div>
                         </div>
                     </div>
                     <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
                         <div class="font-medium text-color p-2">Total Purchases</div>
-                        <div class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                        <div
+                            class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                        >
                             <p-chart type="bar" [data]="chartData" [options]="chartOptions" class="h-60 w-full" />
                         </div>
                     </div>
                 </div>
             </div>
-        </p-sidebar>
+        </p-drawer>
     `,
     host: {
-        class: ''
-    }
+        class: '',
+    },
 })
 export class CustomersApp {
     search = '';
@@ -424,7 +559,7 @@ export class CustomersApp {
                 company: { name: 'Mistranet', logo: 'mistranet' },
                 email: 'hi@brooksmmns.co',
                 lead: 'Linkedin',
-                status: 'Active'
+                status: 'Active',
             },
             {
                 id: 2,
@@ -435,7 +570,7 @@ export class CustomersApp {
                 company: { name: 'BriteMank', logo: 'britemank' },
                 email: 'hi@diannerussell.com',
                 lead: 'Website',
-                status: 'Inactive'
+                status: 'Inactive',
             },
             {
                 id: 3,
@@ -446,7 +581,7 @@ export class CustomersApp {
                 company: { name: 'ZenTrailMs', logo: 'zentrailms' },
                 email: 'hi@amyelsner.com',
                 lead: 'Cold Call',
-                status: 'Prospect'
+                status: 'Prospect',
             },
             {
                 id: 4,
@@ -457,10 +592,32 @@ export class CustomersApp {
                 company: { name: 'Streamlinz', logo: 'streamlinz' },
                 email: 'jacobjones@gmail.com',
                 lead: 'Partner',
-                status: 'Prospect'
+                status: 'Prospect',
             },
-            { id: 5, image: '', active: false, name: 'Cameron Watson', capName: 'CW', title: 'Product Manager', company: { name: 'BriteMank', logo: 'britemank' }, email: 'hi@cameronwilliamson', lead: 'Social Media', status: 'Active' },
-            { id: 6, image: '', active: true, name: 'Wade Warren', capName: 'WW', title: 'Director', company: { name: 'Streamlinz', logo: 'streamlinz' }, email: 'hi@annetteblack.com', lead: 'Cold Call', status: 'Inactive' },
+            {
+                id: 5,
+                image: '',
+                active: false,
+                name: 'Cameron Watson',
+                capName: 'CW',
+                title: 'Product Manager',
+                company: { name: 'BriteMank', logo: 'britemank' },
+                email: 'hi@cameronwilliamson',
+                lead: 'Social Media',
+                status: 'Active',
+            },
+            {
+                id: 6,
+                image: '',
+                active: true,
+                name: 'Wade Warren',
+                capName: 'WW',
+                title: 'Director',
+                company: { name: 'Streamlinz', logo: 'streamlinz' },
+                email: 'hi@annetteblack.com',
+                lead: 'Cold Call',
+                status: 'Inactive',
+            },
             {
                 id: 7,
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png',
@@ -470,7 +627,7 @@ export class CustomersApp {
                 company: { name: 'Wavelength', logo: 'wavelength' },
                 email: 'hi@darrellsteward.com',
                 lead: 'Linkedin',
-                status: 'Active'
+                status: 'Active',
             },
             {
                 id: 8,
@@ -481,7 +638,7 @@ export class CustomersApp {
                 company: { name: 'Wavelength', logo: 'wavelength' },
                 email: 'jeromebell@gmail.com',
                 lead: 'Website',
-                status: 'Inactive'
+                status: 'Inactive',
             },
             {
                 id: 9,
@@ -492,9 +649,20 @@ export class CustomersApp {
                 company: { name: 'ZenTrailMs', logo: 'zentrailms' },
                 email: 'hi@onyamalimba.co',
                 lead: 'Website',
-                status: 'Active'
+                status: 'Active',
             },
-            { id: 10, image: '', active: true, name: 'Jerome Bell', capName: 'JB', title: 'Marketing Manager', company: { name: 'Mistranet', logo: 'mistranet' }, email: 'hi@courtneyhenryo', lead: 'Social Media', status: 'Active' },
+            {
+                id: 10,
+                image: '',
+                active: true,
+                name: 'Jerome Bell',
+                capName: 'JB',
+                title: 'Marketing Manager',
+                company: { name: 'Mistranet', logo: 'mistranet' },
+                email: 'hi@courtneyhenryo',
+                lead: 'Social Media',
+                status: 'Active',
+            },
             {
                 id: 11,
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg',
@@ -504,8 +672,8 @@ export class CustomersApp {
                 company: { name: 'BriteMank', logo: 'britemank' },
                 email: 'hi@arlenemccoy.com',
                 lead: 'Social Media',
-                status: 'Active'
-            }
+                status: 'Active',
+            },
         ];
 
         this.companyLogos = {
@@ -543,17 +711,41 @@ export class CustomersApp {
 <path d="M9.79907 18.5C14.7696 18.5 18.7991 14.4706 18.7991 9.5C13.8285 9.5 9.79907 13.5294 9.79907 18.5Z" />
 <path d="M9.79907 0.5C14.7696 0.5 18.7991 4.52943 18.7991 9.5C13.8285 9.5 9.79907 5.47056 9.79907 0.5Z" />
 <path d="M9.79907 18.5C4.82851 18.5 0.799072 14.4706 0.799072 9.5C5.76963 9.5 9.79907 13.5294 9.79907 18.5Z" />
-</svg>`
+</svg>`,
         };
         this.selectedSidebarOption = 'Statistics';
         this.sidebarOptions = ['Interaction Logs', 'Preferences', 'Statistics', 'Opportunities'];
         this.callLogs = [
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar6.png', name: 'Brook Simmons', time: '02.02.2024 | 45 min' },
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg', name: 'Jacob Jones', time: '02.02.2024 | 45 min' },
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg', name: 'Annette Black', time: '02.03.2024 | 13 min' },
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg', name: 'Arlene McCoy', time: '02.03.2024 | 14 min' },
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg', name: 'Arlene Simmons', time: '02.03.2024 | 14 min' },
-            { image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg', name: 'Michael Brown', time: '02.04.2024 | 20 min' }
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar6.png',
+                name: 'Brook Simmons',
+                time: '02.02.2024 | 45 min',
+            },
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg',
+                name: 'Jacob Jones',
+                time: '02.02.2024 | 45 min',
+            },
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
+                name: 'Annette Black',
+                time: '02.03.2024 | 13 min',
+            },
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg',
+                name: 'Arlene McCoy',
+                time: '02.03.2024 | 14 min',
+            },
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg',
+                name: 'Arlene Simmons',
+                time: '02.03.2024 | 14 min',
+            },
+            {
+                image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg',
+                name: 'Michael Brown',
+                time: '02.04.2024 | 20 min',
+            },
         ];
         this.emailRecords = [
             {
@@ -561,43 +753,43 @@ export class CustomersApp {
                 name: 'Brook Simmons',
                 time: '3:24 PM',
                 title: 'Unleash Business Potential',
-                text: 'Automate, analyze, and accelerate with our SaaS platform. Unshackle from mundane tasks and focus on scaling your business. Contact us for a demo today!'
+                text: 'Automate, analyze, and accelerate with our SaaS platform. Unshackle from mundane tasks and focus on scaling your business. Contact us for a demo today!',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png',
                 name: 'Jacob Jones',
                 time: '12.23.2023',
                 title: 'Optimized Workflow Revolution  ',
-                text: "Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it's efficiency like never before. Let's get in touch for a brief demo!"
+                text: "Experience a workflow revolution with our intuitive SaaS tool. With enhanced features and optimized processes, it's efficiency like never before. Let's get in touch for a brief demo!",
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png',
                 name: 'Annette Black',
                 time: '12.17.2023',
                 title: 'Innovation at Fingertips',
-                text: 'With our SaaS solution, innovation is only a click away. Shape your future with pioneering features and minimalist design. Join us for your solution walk-through today!'
+                text: 'With our SaaS solution, innovation is only a click away. Shape your future with pioneering features and minimalist design. Join us for your solution walk-through today!',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg',
                 name: 'Arlene McCoy',
                 time: '06.17.2023',
                 title: 'Seamless Integration',
-                text: 'Integrate effortlessly with our user-friendly SaaS tools. Streamline your operations and boost productivity. Discover more in our demo session.'
+                text: 'Integrate effortlessly with our user-friendly SaaS tools. Streamline your operations and boost productivity. Discover more in our demo session.',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
                 name: 'Arlene Simmons',
                 time: '04.17.2023',
                 title: 'Transform Your Business',
-                text: 'Empower your team with our innovative SaaS solutions. Achieve unparalleled efficiency and drive growth. Book a demo to explore the possibilities.'
+                text: 'Empower your team with our innovative SaaS solutions. Achieve unparalleled efficiency and drive growth. Book a demo to explore the possibilities.',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png',
                 name: 'Michael Brown',
                 time: '01.05.2024',
                 title: 'Next-Gen Collaboration',
-                text: 'Experience the future of collaboration with our cutting-edge SaaS platform. Enhance teamwork and streamline communication. Contact us for a demo today!'
-            }
+                text: 'Experience the future of collaboration with our cutting-edge SaaS platform. Enhance teamwork and streamline communication. Contact us for a demo today!',
+            },
         ];
         this.preferences = [
             {
@@ -605,69 +797,69 @@ export class CustomersApp {
                 prefs: [
                     { icon: 'pi pi-bell', title: 'Notification', checked: true },
                     { icon: 'pi pi-inbox', title: 'Newsletter', checked: false },
-                    { icon: 'pi pi-sync', title: 'Product Updates', checked: false }
-                ]
+                    { icon: 'pi pi-sync', title: 'Product Updates', checked: false },
+                ],
             },
             {
                 title: 'Telephone',
                 prefs: [
                     { icon: 'pi pi-mobile', title: 'Phone Call', checked: true },
                     { icon: 'pi pi-volume-down', title: 'Voicemail', checked: false },
-                    { icon: 'pi pi-comments', title: 'SMS text', checked: false }
-                ]
+                    { icon: 'pi pi-comments', title: 'SMS text', checked: false },
+                ],
             },
             {
                 title: 'Social Media',
                 prefs: [
                     { icon: 'pi pi-clock', title: 'Automated Post', checked: true },
-                    { icon: 'pi pi-user', title: 'Direct Message', checked: false }
-                ]
+                    { icon: 'pi pi-user', title: 'Direct Message', checked: false },
+                ],
             },
             {
                 title: 'Data Privacy',
                 prefs: [
                     { icon: 'pi pi-box', title: 'Share Data with 3rd Parties', checked: true },
-                    { icon: 'pi pi-file', title: 'Cookies', checked: false }
-                ]
-            }
+                    { icon: 'pi pi-file', title: 'Cookies', checked: false },
+                ],
+            },
         ];
         this.opportunities = [
             {
                 title: 'Apollo',
                 link: 'https://primevue.org/templates/apollo/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/apollo-vue.jpg',
-                text: 'Keep your application fresh with Apollo, the newest and most modern template available.'
+                text: 'Keep your application fresh with Apollo, the newest and most modern template available.',
             },
             {
                 title: 'Ultima',
                 link: 'https://primevue.org/templates/ultima/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/ultima-vue.jpg',
-                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface."
+                text: "Elevate your application's intuitiveness with Ultima's premium Material Design interface.",
             },
             {
                 title: 'Diamond',
                 link: 'https://primevue.org/templates/diamond/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/diamond-vue.jpg',
-                text: "Handle complex operations with elegance with Diamond's robust and powerful premium design."
+                text: "Handle complex operations with elegance with Diamond's robust and powerful premium design.",
             },
             {
                 title: 'Atlantis',
                 link: 'https://primevue.org/templates/atlantis/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/atlantis-vue.jpg',
-                text: "Boost your application's capabilities, customization with the Atlantis template."
+                text: "Boost your application's capabilities, customization with the Atlantis template.",
             },
             {
                 title: 'Verona',
                 link: 'https://primevue.org/templates/verona/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/verona-vue.jpg',
-                text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design."
+                text: "Achieve sophistication and subtlety with Verona's minimalistic, content-focused design.",
             },
             {
                 title: 'Freya',
                 link: 'https://primevue.org/templates/freya/',
                 image: 'https://primefaces.org/cdn/primevue/images/layouts/freya-vue.png',
-                text: "Give your application a sleek, updated look with Freya's chic and modern premium template."
-            }
+                text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
+            },
         ];
     }
 }
