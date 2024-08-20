@@ -29,9 +29,9 @@ import { MenuModule } from 'primeng/menu';
 import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-import { FileUploadModule } from '../../../../components/fileupload/fileupload';
-import { AutoCompleteModule } from '../../../../components/autocomplete/autocomplete';
-import { InputOtpModule } from '../../../../components/inputotp/inputotp';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputOtpModule } from 'primeng/inputotp';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @Component({
     selector: 'cards-app',
@@ -65,12 +65,14 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
         TagModule,
         MeterGroupModule,
         AvatarGroupModule,
-        FileUploadModule,
+        InputOtpModule,
         AutoCompleteModule,
-        InputOtpModule
+        FileUploadModule,
     ],
     template: `
-        <div class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6">
+        <div
+            class="flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6"
+        >
             <div class="text-color text-2xl font-medium leading-8">Cards</div>
             <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
             <div class="mt-6 flex flex-wrap items-start gap-6">
@@ -81,7 +83,11 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             <Avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" size="large" class="rounded-lg overflow-hidden flex" />
                         </OverlayBadge> -->
 
-                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" size="large" class="rounded-lg overflow-hidden flex" />
+                            <p-avatar
+                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
+                                size="large"
+                                class="rounded-lg overflow-hidden flex"
+                            />
 
                             <div>
                                 <div class="font-medium text-color leading-6">Jacob Jones</div>
@@ -89,18 +95,45 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             </div>
                         </div>
                         <div class="flex items-center gap-6">
-                            <div class="text-sm leading-5 text-color">14.k <span class="text-muted-color">Followers</span></div>
-                            <div class="text-sm leading-5 text-color">359 <span class="text-muted-color">Following</span></div>
+                            <div class="text-sm leading-5 text-color">
+                                14.k <span class="text-muted-color">Followers</span>
+                            </div>
+                            <div class="text-sm leading-5 text-color">
+                                359 <span class="text-muted-color">Following</span>
+                            </div>
                         </div>
-                        <p class="text-sm text-muted-color leading-5 mb-0">Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries to subway adventures, join him for a laughter-filled journey!</p>
+                        <p class="text-sm text-muted-color leading-5 mb-0">
+                            Meet Jacob Jones, the whimsical adventurer on a quest for life's quirks. From sock mysteries
+                            to subway adventures, join him for a laughter-filled journey!
+                        </p>
                         <div class="flex items-center justify-between gap-2">
                             <div class="text-sm leading-5 text-color font-medium">Mutual Friends</div>
                             <p-avatarGroup>
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" size="small" class="rounded-lg overflow-hidden" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" size="small" class="rounded-lg overflow-hidden" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="small" class="rounded-lg overflow-hidden" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" size="small" class="rounded-lg overflow-hidden" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" size="small" class="rounded-lg overflow-hidden" />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
+                                    size="small"
+                                    class="rounded-lg overflow-hidden"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
+                                    size="small"
+                                    class="rounded-lg overflow-hidden"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
+                                    size="small"
+                                    class="rounded-lg overflow-hidden"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
+                                    size="small"
+                                    class="rounded-lg overflow-hidden"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
+                                    size="small"
+                                    class="rounded-lg overflow-hidden"
+                                />
                                 <p-avatar label="+99" size="small" class="rounded-lg overflow-hidden text-xs" />
                             </p-avatarGroup>
                         </div>
@@ -118,14 +151,20 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             }
                         }"
                     /> -->
-                        <p-selectButton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" />
+                        <p-selectButton
+                            [(ngModel)]="selectedUserSelectButtonOption"
+                            [options]="userSelectButtonOptions"
+                        />
                         <div class="flex flex-col gap-4">
                             <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                                 <!-- <OverlayBadge severity="danger" class="w-fit">
                                 <Avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-10 h-10 block" />
                             </OverlayBadge> -->
 
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-10 h-10 block" />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
+                                    class="rounded-lg overflow-hidden w-10 h-10 block"
+                                />
 
                                 <div class="flex-1">
                                     <div class="text-color text-sm font-medium leading-5">Jacob Jones</div>
@@ -138,19 +177,29 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                 <Avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-10 h-10 flex" />
                             </OverlayBadge> -->
 
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" class="rounded-lg overflow-hidden w-10 h-10 flex" />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
+                                    class="rounded-lg overflow-hidden w-10 h-10 flex"
+                                />
 
                                 <div class="flex-1">
                                     <div class="text-color text-sm font-medium leading-5">Courtney Henry</div>
-                                    <div class="mt-1 text-muted-color text-xs leading-4">cou.henry41&#64;courtney.co</div>
+                                    <div class="mt-1 text-muted-color text-xs leading-4">
+                                        cou.henry41&#64;courtney.co
+                                    </div>
                                 </div>
                                 <p-button label="Join" />
                             </div>
                         </div>
                     </div>
                     <div class="border border-surface rounded-3xl p-6">
-                        <div class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]">
-                            <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png" class="rounded-lg overflow-hidden w-14 h-14" />
+                        <div
+                            class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]"
+                        >
+                            <p-avatar
+                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
+                                class="rounded-lg overflow-hidden w-14 h-14"
+                            />
                             <div class="flex-1">
                                 <div class="text-color font-medium leading-7">Jacob Jones</div>
                                 <div class="text-muted-color text-sm mt-1">hi&#64;jacobjones.co</div>
@@ -158,25 +207,35 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             <p-button icon="pi pi-bell" severity="contrast" text />
                         </div>
                         <div class="mt-4 flex flex-col gap-1">
-                            <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
+                            <button
+                                class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
+                            >
                                 <i class="pi pi-envelope text-lg w-7 h-7 flex items-center justify-center"></i>
                                 <div class="font-medium leading-normal flex-1 text-left">Messages</div>
                             </button>
-                            <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
+                            <button
+                                class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
+                            >
                                 <i class="pi pi-cog text-lg w-7 h-7 flex items-center justify-center"></i>
                                 <div class="font-medium leading-normal flex-1 text-left">Settings</div>
                             </button>
-                            <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
+                            <button
+                                class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
+                            >
                                 <i class="pi pi-sync text-lg w-7 h-7 flex items-center justify-center"></i>
                                 <div class="font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                             </button>
-                            <button class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none">
+                            <button
+                                class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
+                            >
                                 <i class="pi pi-sign-in text-lg w-7 h-7 flex items-center justify-center"></i>
                                 <div class="font-medium leading-normal flex-1 text-left">Log out</div>
                             </button>
                         </div>
                         <p-divider />
-                        <div class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none">
+                        <div
+                            class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none"
+                        >
                             <i
                                 class="pi text-lg w-7 h-7 flex items-center justify-center"
                                 :class="{
@@ -184,7 +243,9 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                 'pi-sun': darkMode
                             }"
                             ></i>
-                            <div class="font-medium leading-normal flex-1 text-left">Switch to {{ darkMode ? 'Light' : 'Dark' }}</div>
+                            <div class="font-medium leading-normal flex-1 text-left">
+                                Switch to {{ darkMode ? 'Light' : 'Dark' }}
+                            </div>
                             <p-inputSwitch [(ngModel)]="darkMode" />
                         </div>
                     </div>
@@ -195,7 +256,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                     <div class="text-2xl text-color font-medium">Data Analyst</div>
                                     <div class="mt-2 text-color">Data Insights Ltd.</div>
                                 </div>
-                                <p-button (click)="jobApplication = !jobApplication" [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'" severity="secondary" outlined rounded />
+                                <p-button
+                                    (click)="jobApplication = !jobApplication"
+                                    [icon]="jobApplication ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"
+                                    severity="secondary"
+                                    outlined
+                                    rounded
+                                />
                             </div>
                             <div class="flex flex-wrap gap-1 items-center justify-between">
                                 <div class="flex items-center gap-2 whitespace-nowrap text-muted-color">
@@ -211,7 +278,10 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                     <div class="font-medium leading-none">$80,000</div>
                                 </div>
                             </div>
-                            <p class="leading-6 text-muted-color mb-0">Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the world of data with us!</p>
+                            <p class="leading-6 text-muted-color mb-0">
+                                Expert in data analysis? Join Data Insights Ltd. as a senior data analyst. Lead in the
+                                world of data with us!
+                            </p>
                             <div class="flex flex-wrap gap-2 items-center">
                                 <p-tag value="Data Analysis" rounded class="font-normal"></p-tag>
                                 <p-tag value="Analytics" rounded class="font-normal"></p-tag>
@@ -219,13 +289,35 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             </div>
                         </div>
                         <div class="p-1 mt-4">
-                            <button class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer">
+                            <button
+                                class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer"
+                            >
                                 <div class="flex items-center [&>*]:-mr-2">
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="small" shape="circle" />
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" size="small" shape="circle" />
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" size="small" shape="circle" />
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" size="small" shape="circle" />
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" size="small" shape="circle" />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
+                                        size="small"
+                                        shape="circle"
+                                    />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg"
+                                        size="small"
+                                        shape="circle"
+                                    />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
+                                        size="small"
+                                        shape="circle"
+                                    />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
+                                        size="small"
+                                        shape="circle"
+                                    />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
+                                        size="small"
+                                        shape="circle"
+                                    />
                                 </div>
                                 <div class="flex items-center gap-2">
                                     <div class="font-medium leading-6">12 Applicants</div>
@@ -244,7 +336,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                         </div>
                         <div>
                             <label for="document-name" class="text-color font-medium leading-6">Document Name </label>
-                            <input type="text" pInputText id="document-name" [(ngModel)]="documentName" class="mt-2 w-full" />
+                            <input
+                                type="text"
+                                pInputText
+                                id="document-name"
+                                [(ngModel)]="documentName"
+                                class="mt-2 w-full"
+                            />
                         </div>
                         <div>
                             <label class="text-color font-medium leading-6">Upload Files</label>
@@ -264,38 +362,109 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             :maxFileSize="1000000"
                             @select="onSelectedFiles"
                         > -->
-                            <p-fileUpload name="demo[]" url="/api/upload" (onUpload)="onTemplatedUpload($event)" accept="image/*" :maxFileSize="1000000" (onSelect)="onSelectedFiles($event)">
-                                <ng-template pTemplate="header" let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
-                                    <div *ngIf="files.length > 0 || uploadedFiles.length > 0" class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4">
+                            <p-fileUpload
+                                name="demo[]"
+                                url="/api/upload"
+                                (onUpload)="onTemplatedUpload($event)"
+                                accept="image/*"
+                                :maxFileSize="1000000"
+                                (onSelect)="onSelectedFiles($event)"
+                            >
+                                <ng-template
+                                    pTemplate="header"
+                                    let-chooseCallback="chooseCallback"
+                                    let-clearCallback="clearCallback"
+                                    let-uploadCallback="uploadCallback"
+                                >
+                                    <div
+                                        *ngIf="files.length > 0 || uploadedFiles.length > 0"
+                                        class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4"
+                                    >
                                         <div class="flex gap-2">
-                                            <p-button (click)="chooseCallback()" icon="pi pi-images" rounded outlined severity="secondary"></p-button>
-                                            <p-button (click)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" rounded outlined severity="success" [disabled]="!files || files.length === 0"></p-button>
-                                            <p-button (click)="clearCallback()" icon="pi pi-times" rounded outlined severity="danger" [disabled]="!files || files.length === 0"></p-button>
+                                            <p-button
+                                                (click)="chooseCallback()"
+                                                icon="pi pi-images"
+                                                rounded
+                                                outlined
+                                                severity="secondary"
+                                            ></p-button>
+                                            <p-button
+                                                (click)="uploadEvent(uploadCallback)"
+                                                icon="pi pi-cloud-upload"
+                                                rounded
+                                                outlined
+                                                severity="success"
+                                                [disabled]="!files || files.length === 0"
+                                            ></p-button>
+                                            <p-button
+                                                (click)="clearCallback()"
+                                                icon="pi pi-times"
+                                                rounded
+                                                outlined
+                                                severity="danger"
+                                                [disabled]="!files || files.length === 0"
+                                            ></p-button>
                                         </div>
                                     </div>
-                                    <div *ngIf="files.length <= 0 && uploadedFiles.length <= 0" class="flex flex-col items-center justify-center p-6 cursor-pointer" (click)="chooseCallback()">
+                                    <div
+                                        *ngIf="files.length <= 0 && uploadedFiles.length <= 0"
+                                        class="flex flex-col items-center justify-center p-6 cursor-pointer"
+                                        (click)="chooseCallback()"
+                                    >
                                         <i class="pi pi-cloud-upload text-4xl text-color"></i>
-                                        <div class="text-sm text-color font-medium mt-2">Click to upload <span class="text-muted-color">or and drop</span></div>
-                                        <p class="mt-2 mb-0 text-sm text-muted-color text-center">PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)</p>
+                                        <div class="text-sm text-color font-medium mt-2">
+                                            Click to upload <span class="text-muted-color">or and drop</span>
+                                        </div>
+                                        <p class="mt-2 mb-0 text-sm text-muted-color text-center">
+                                            PDF, JPG, PNG, JPEG, DOC, CSV, XML, XMLX, XLS, XLSX (max 10MB)
+                                        </p>
                                     </div>
                                 </ng-template>
                                 <!-- 
                             <template #header="{ chooseCallback, uploadCallback, clearCallback, files, uploadedFiles }">
                              
                             </template> -->
-                                <ng-template pTemplate="content" let-chooseCallback="chooseCallback" let-clearCallback="clearCallback" let-uploadCallback="uploadCallback">
+                                <ng-template
+                                    pTemplate="content"
+                                    let-chooseCallback="chooseCallback"
+                                    let-clearCallback="clearCallback"
+                                    let-uploadCallback="uploadCallback"
+                                >
                                     <div *ngIf="files.length > 0" class="px-4 py-0">
                                         <h5 class="m-0 mb-2">Pending</h5>
                                         <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
-                                            <div *ngFor="let file of files" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                            <div
+                                                *ngFor="let file of files"
+                                                class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
+                                            >
                                                 <div>
-                                                    <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                                                    <img
+                                                        role="presentation"
+                                                        [alt]="file.name"
+                                                        [src]="file.objectURL"
+                                                        width="100"
+                                                        height="50"
+                                                    />
                                                 </div>
-                                                <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                                <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
+                                                <span
+                                                    class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden"
+                                                    >{{ file.name }}</span
+                                                >
+                                                <span class="text-sm text-muted-color">{{
+                                                    formatSize(file.size)
+                                                }}</span>
                                                 <div class="grow flex flex-col gap-2 justify-end">
                                                     <p-badge value="Pending" severity="warning" />
-                                                    <p-button icon="pi pi-times text-sm leading-none" (click)="onRemoveTemplatingFile(file, removeFileCallback, index)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                    <p-button
+                                                        icon="pi pi-times text-sm leading-none"
+                                                        (click)="
+                                                            onRemoveTemplatingFile(file, removeFileCallback, index)
+                                                        "
+                                                        class="!text-sm !leading-none"
+                                                        label="Cancel"
+                                                        text
+                                                        severity="danger"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -304,15 +473,37 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                     <div *ngIf="uploadedFiles.length > 0" class="px-4 py-0">
                                         <h5 class="m-0 mb-2">Completed</h5>
                                         <div class="flex flex-wrap gap-2">
-                                            <div *ngFor="let file of uploadedFiles" :key="file.name + file.type + file.size" class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center">
+                                            <div
+                                                *ngFor="let file of uploadedFiles"
+                                                :key="file.name + file.type + file.size"
+                                                class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
+                                            >
                                                 <div>
-                                                    <img role="presentation" [alt]="file.name" :src="file.objectURL" width="100" height="50" />
+                                                    <img
+                                                        role="presentation"
+                                                        [alt]="file.name"
+                                                        :src="file.objectURL"
+                                                        width="100"
+                                                        height="50"
+                                                    />
                                                 </div>
-                                                <span class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden">{{ file.name }}</span>
-                                                <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
+                                                <span
+                                                    class="font-semibold max-w-[100px] text-ellipsis whitespace-nowrap overflow-hidden"
+                                                    >{{ file.name }}</span
+                                                >
+                                                <span class="text-sm text-muted-color">{{
+                                                    formatSize(file.size)
+                                                }}</span>
                                                 <div class="grow flex flex-col gap-2 justify-end">
                                                     <p-badge value="Completed" class="mt-3" severity="success" />
-                                                    <p-button icon="pi pi-times text-sm leading-none" (click)="removeUploadedFileCallback(index)" class="!text-sm !leading-none" label="Cancel" text severity="danger" />
+                                                    <p-button
+                                                        icon="pi pi-times text-sm leading-none"
+                                                        (click)="removeUploadedFileCallback(index)"
+                                                        class="!text-sm !leading-none"
+                                                        label="Cancel"
+                                                        text
+                                                        severity="danger"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -323,7 +514,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                         <div>
                             <label class="text-color font-medium leading-6">Tag (Optional)</label>
                             <!-- <p-autoComplete [(ngModel)]="filesTag" class="w-full mt-2" inputId="multiple-ac-2" multiple (onSelect)="search" [typeahead]="false" /> -->
-                            <p-autoComplete [(ngModel)]="filesTag" class="w-full mt-2" inputId="multiple-ac-2" multiple (onSelect)="search($event)" />
+                            <p-autoComplete
+                                [(ngModel)]="filesTag"
+                                class="w-full mt-2"
+                                inputId="multiple-ac-2"
+                                multiple
+                                (onSelect)="search($event)"
+                            />
                         </div>
                         <div class="flex items-center gap-2">
                             <label
@@ -334,7 +531,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             >
                                 <i class="text-color" :class="permission.icon"></i>
                                 <div class="flex-1 text-sm leading-5 text-color">{{ permission.name }}</div>
-                                <p-radioButton [(ngModel)]="selectedPermission" [inputId]="permission.key" variant="filled" name="dynamic" [value]="permission.name" />
+                                <p-radioButton
+                                    [(ngModel)]="selectedPermission"
+                                    [inputId]="permission.key"
+                                    variant="filled"
+                                    name="dynamic"
+                                    [value]="permission.name"
+                                />
                             </label>
                         </div>
                         <div class="flex items-center gap-2">
@@ -345,17 +548,57 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                     <div class="border border-surface rounded-3xl p-6">
                         <div class="flex items-start justify-between gap-1">
                             <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" size="small" shape="circle" />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar1.png"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
+                                    size="small"
+                                    shape="circle"
+                                />
                                 <div class="w-full"></div>
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg" size="small" shape="circle" />
-                                <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" size="small" shape="circle" />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar5.png"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar10.jpg"
+                                    size="small"
+                                    shape="circle"
+                                />
+                                <p-avatar
+                                    image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
+                                    size="small"
+                                    shape="circle"
+                                />
                             </div>
                             <p-button icon="pi pi-arrow-up-right" rounded text />
                         </div>
@@ -370,7 +613,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                         <div>
                             <div class="text-muted-color leading-6">Email</div>
                             <div class="flex items-start gap-3 mt-2">
-                                <p-autoComplete [(ngModel)]="emailChips" inputId="multiple-ac-2" class="flex-1" multiple (onSelect)="search($event)" />
+                                <p-autoComplete
+                                    [(ngModel)]="emailChips"
+                                    inputId="multiple-ac-2"
+                                    class="flex-1"
+                                    multiple
+                                    (onSelect)="search($event)"
+                                />
                                 <!-- <p-autoComplete v-model="emailChips" inputId="multiple-ac-2" class="flex-1" multiple (onSelect)="(search)" [typeahead]="false" /> -->
                                 <p-button label="Invite" />
                             </div>
@@ -379,12 +628,24 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             <div class="font-medium leading-6 text-muted-color">Members</div>
                             <div class="mt-4 flex flex-col gap-4">
                                 <div class="flex items-center gap-2 justify-between">
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png" class="w-9 h-9" shape="circle" />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
+                                        class="w-9 h-9"
+                                        shape="circle"
+                                    />
                                     <div class="flex-1">
                                         <div class="text-sm font-medium text-color leading-5">Brook Simmons</div>
-                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">brook.sim42&#64;primevue.org</div>
+                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                            brook.sim42&#64;primevue.org
+                                        </div>
                                     </div>
-                                    <p-dropdown [(ngModel)]="memberSelectedTypes[0]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!w-16" />
+                                    <p-dropdown
+                                        [(ngModel)]="memberSelectedTypes[0]"
+                                        [options]="memberTypes"
+                                        optionLabel="name"
+                                        placeholder="Select"
+                                        class="!w-16"
+                                    />
                                     <!-- <p-dropdown
                                     [(ngModel)]="memberSelectedTypes[0]"
                                     [options]="memberTypes"
@@ -401,12 +662,24 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                 /> -->
                                 </div>
                                 <div class="flex items-center gap-2 justify-between">
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg" class="w-9 h-9" shape="circle" />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
+                                        class="w-9 h-9"
+                                        shape="circle"
+                                    />
                                     <div class="flex-1">
                                         <div class="text-sm font-medium text-color leading-5">Dianne Russell</div>
-                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">di.russ23&#64;primevue.org</div>
+                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                            di.russ23&#64;primevue.org
+                                        </div>
                                     </div>
-                                    <p-dropdown [(ngModel)]="memberSelectedTypes[1]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!w-16" />
+                                    <p-dropdown
+                                        [(ngModel)]="memberSelectedTypes[1]"
+                                        [options]="memberTypes"
+                                        optionLabel="name"
+                                        placeholder="Select"
+                                        class="!w-16"
+                                    />
                                     <!-- <p-dropdown
                                     [(ngModel)]="memberSelectedTypes[1]"
                                     [options]="memberTypes"
@@ -423,12 +696,24 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                 /> -->
                                 </div>
                                 <div class="flex items-center gap-2 justify-between">
-                                    <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg" class="w-9 h-9" shape="circle" />
+                                    <p-avatar
+                                        image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
+                                        class="w-9 h-9"
+                                        shape="circle"
+                                    />
                                     <div class="flex-1">
                                         <div class="text-sm font-medium text-color leading-5">Jacob Jones</div>
-                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">jac.jon87&#64;primevue.org</div>
+                                        <div class="text-sm text-muted-color leading-5 line-clamp-4">
+                                            jac.jon87&#64;primevue.org
+                                        </div>
                                     </div>
-                                    <p-dropdown [(ngModel)]="memberSelectedTypes[2]" [options]="memberTypes" optionLabel="name" placeholder="Select" class="!w-16" />
+                                    <p-dropdown
+                                        [(ngModel)]="memberSelectedTypes[2]"
+                                        [options]="memberTypes"
+                                        optionLabel="name"
+                                        placeholder="Select"
+                                        class="!w-16"
+                                    />
                                     <!-- <Select
                                     v-model="memberSelectedTypes[2]"
                                     :options="memberTypes"
@@ -513,7 +798,11 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                                 Verification code <br />
                                 has been sent to email
                             </div>
-                            <div class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed">u*******m&#64;gmail.com</div>
+                            <div
+                                class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed"
+                            >
+                                u*******m&#64;gmail.com
+                            </div>
                         </div>
                         <div class="flex items-center justify-center">
                             <p-button label="Resend" text />
@@ -541,7 +830,14 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                         <div class="mt-4 flex gap-2">
                             <div class="flex-1">
                                 <label for="price-min-val" class="leading-6 text-color">Min Value</label>
-                                <p-inputNumber [(ngModel)]="priceRange[0]" [min]="0" inputId="price-min-val" mode="currency" currency="USD" locale="en-US" />
+                                <p-inputNumber
+                                    [(ngModel)]="priceRange[0]"
+                                    [min]="0"
+                                    inputId="price-min-val"
+                                    mode="currency"
+                                    currency="USD"
+                                    locale="en-US"
+                                />
                                 <!-- <p-inputNumber
                                 [(ngModel)]="priceRange[0]"
                                 [min]="0"
@@ -558,7 +854,13 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
                             </div>
                             <div class="flex-1">
                                 <label for="price-max-val" class="leading-6 text-color">Max Value</label>
-                                <p-inputNumber [(ngModel)]="priceRange[1]" inputId="price-max-val" mode="currency" currency="USD" locale="en-US" />
+                                <p-inputNumber
+                                    [(ngModel)]="priceRange[1]"
+                                    inputId="price-max-val"
+                                    mode="currency"
+                                    currency="USD"
+                                    locale="en-US"
+                                />
                                 <!-- <InputNumber
                                 v-model="priceRange[1]"
                                 inputId="price-max-val"
@@ -592,12 +894,12 @@ import { InputOtpModule } from '../../../../components/inputotp/inputotp';
         </div>
     `,
     host: {
-        class: ''
+        class: '',
     },
-    providers:[MessageService]
+    providers: [MessageService],
 })
 export class CardsApp {
-    files = []
+    files = [];
     uploadedFiles: any[] = [];
 
     totalSize;
@@ -623,11 +925,8 @@ export class CardsApp {
     filesTag;
     selectedPermission;
     permissions;
-items
-    constructor(
-        private config: PrimeNGConfig,
-        private messageService: MessageService
-    ) {}
+    items;
+    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
 
     ngOnInit() {
         this.totalSize = 0;
@@ -650,7 +949,7 @@ items
             { value: 'Triplex', checked: false },
             { value: 'Garden', checked: false },
             { value: 'Central location', checked: false },
-            { value: 'Sea view', checked: true }
+            { value: 'Sea view', checked: true },
         ];
         this.priceRangePopularSpecsChecked = ['Furnished', 'Detached', 'Balcony', 'Sea view'];
         this.userSelectButtonOptions = ['Joined', 'Hosted'];
@@ -660,7 +959,7 @@ items
         this.memberTypes = [
             { name: 'Owner', code: 'O' },
             { name: 'Editor', code: 'E' },
-            { name: 'Viewer', code: 'V' }
+            { name: 'Viewer', code: 'V' },
         ];
         this.copiedText = 'https://www.example.com/shared-files/user123/document-collection/file12345';
         this.documentName = 'Aura Theme';
@@ -668,7 +967,7 @@ items
         this.selectedPermission = 'Everyone';
         this.permissions = [
             { name: 'Everyone', icon: 'pi pi-globe', key: 'E' },
-            { name: 'Admins only', icon: 'pi pi-users', key: 'A' }
+            { name: 'Admins only', icon: 'pi pi-users', key: 'A' },
         ];
     }
     onRemoveTemplatingFile(file, removeFileCallback, index) {
@@ -692,7 +991,7 @@ items
         callback();
     }
     onTemplatedUpload(event) {
-        for(let file of event.files) {
+        for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
