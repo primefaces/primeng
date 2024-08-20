@@ -66,7 +66,7 @@ import { CheckboxModule } from 'primeng/checkbox';
         CheckboxModule
     ],
     template: `
-        <div class="flex gap-4 h-full flex-1 w-full overflow-auto">
+    
             <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
                 <div class="flex items-center justify-between gap-2 p-4 border-b border-surface">
                     <div class="text-xl font-medium leading-7 text-color">Mails</div>
@@ -116,7 +116,7 @@ import { CheckboxModule } from 'primeng/checkbox';
             <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
                 <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="code">
                     <ng-template pTemplate="header">
-                        <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
+                        <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row" style="padding:0.75rem 1rem;">
                             <div class="flex items-center gap-2">
                                 <p-checkbox [binary]="true" class="mr-1" />
                                 <p-button icon="pi pi-envelope" outlined severity="secondary" />
@@ -326,10 +326,10 @@ import { CheckboxModule } from 'primeng/checkbox';
                 </Column>
             </DataTable> -->
             </div>
-        </div>
+    
     `,
     host: {
-        class: ''
+        class: 'flex gap-4 h-full flex-1 w-full overflow-auto'
     }
 })
 export class InboxApp {
