@@ -146,6 +146,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                         </div>
                         <p-table
+                            datakey="id"
                             [value]="sampleAppsTableDatas"
                             [paginator]="true"
                             paginatorTemplate="PrevPageLink PageLinks NextPageLink  CurrentPageReport RowsPerPageDropdown"
@@ -153,7 +154,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                             [showCurrentPageReport]="true"
                             [rows]="5"
                             [tableStyle]="{ 'min-width': '50rem' }"
-                            [rowsPerPageOptions]="[5, 10, 20]"
+                            [showFirstLastIcon]="false"
                         >
                             <ng-template pTemplate="header">
                                 <tr>
@@ -184,9 +185,11 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     <td class="w-1/6">
                                         <div class="flex items-center">
                                             <i
-                                            class="pi"
+                                                class="pi"
                                                 [ngClass]="{
-                                                    'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc', 'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': item.coin !== 'eth'
+                                                    'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc',
+                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center':
+                                                        item.coin !== 'eth'
                                                 }"
                                             ></i>
                                         </div>
@@ -485,7 +488,6 @@ export class OverviewApp {
                 },
             ],
         };
-        
     }
 
     setChartOptions() {
@@ -522,7 +524,7 @@ export class OverviewApp {
                                 'transition-all',
                                 'duration-[0.1s]',
                                 'pointer-events-none',
-                                'shadow-[0px_25px_20px_-5px_rgba(0,0,0,0.10),0px_10px_8px_-6px_rgba(0,0,0,0.10)]'
+                                'shadow-[0px_25px_20px_-5px_rgba(0,0,0,0.10),0px_10px_8px_-6px_rgba(0,0,0,0.10)]',
                             );
                             chart.canvas.parentNode.appendChild(tooltipEl);
                         }
@@ -554,7 +556,14 @@ export class OverviewApp {
                                 const label = document.createElement('span');
 
                                 label.appendChild(document.createTextNode(body.dataset.label));
-                                label.classList.add('text-base', 'font-medium', 'text-color', 'flex-1', 'text-left', 'capitalize');
+                                label.classList.add(
+                                    'text-base',
+                                    'font-medium',
+                                    'text-color',
+                                    'flex-1',
+                                    'text-left',
+                                    'capitalize',
+                                );
                                 row.appendChild(label);
                                 const value = document.createElement('span');
 
@@ -591,11 +600,11 @@ export class OverviewApp {
 
                         tooltipEl.style.left = tooltipX + 'px';
                         tooltipEl.style.top = tooltipY + 'px';
-                    }
+                    },
                 },
                 legend: {
-                    display: false
-                }
+                    display: false,
+                },
             },
             scales: {
                 x: {
