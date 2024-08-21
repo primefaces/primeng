@@ -151,7 +151,7 @@ export class MultiSelectTemplateDemo implements OnInit {
 
     selectedCountries!: Country[];
 
-    constructor() {
+    ngOnInit() {
         this.countries = [
             { name: 'Australia', code: 'AU' },
             { name: 'Brazil', code: 'BR' },
