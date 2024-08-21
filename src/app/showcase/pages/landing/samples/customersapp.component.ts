@@ -130,8 +130,8 @@ import { DrawerModule } from 'primeng/drawer';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="width: 1rem"><p-tableHeaderCheckbox /></th>
-                            <th>Title</th>
                             <th>Name</th>
+                            <th>Title</th>
                             <th>Company Name</th>
                             <th>Email Address</th>
                             <th>Lead Source</th>
@@ -192,8 +192,8 @@ import { DrawerModule } from 'primeng/drawer';
                                             ? 'danger'
                                             : 'info'
                                     "
-                                    :value="data.status"
-                                    class="font-medium"
+                                    [value]="data.status"
+                                    styleClass="font-medium"
                                 />
                             </td>
                             <td>
@@ -540,7 +540,7 @@ import { DrawerModule } from 'primeng/drawer';
         </p-drawer>
     `,
     host: {
-        class: '',
+        class: 'w-full',
     },
 })
 export class CustomersApp {
