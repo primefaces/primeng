@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -89,7 +89,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <i class="pi pi-bell" />
                     </OverlayBadge> -->
 
-                        <p-overlayBadge severity="danger">
+                        <p-overlayBadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>
                         </p-overlayBadge>
                     </p-button>
@@ -201,7 +201,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                         <p-tag
                                             [severity]="item.process.type"
                                             [value]="item.process.value"
-                                            class="font-medium"
+                                            styleClass="font-medium"
                                         ></p-tag>
                                     </td>
                                     <td class="w-1/6">
@@ -278,7 +278,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </div>
                     <div class="xl:w-96 border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center gap-6 mb-6">
+                            <div class="flex items-center mb-6">
                                 <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
                                 <p-button
                                     type="button"
@@ -289,7 +289,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     aria-haspopup="true"
                                     aria-controls="overlay_menu"
                                 />
-                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
+                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6"/>
                             </div>
                             <p-meterGroup [value]="metersData" labelPosition="end">
                                 <ng-template pTemplate="label">
@@ -320,7 +320,10 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     host: {
         class: 'flex-1 h-full overflow-y-auto pb-0.5',
     },
+    styleUrls: ['./overviewapp.scss'],
+    encapsulation:ViewEncapsulation.None
 })
+
 export class OverviewApp {
     chartData;
     chartOptions;
