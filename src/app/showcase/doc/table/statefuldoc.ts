@@ -103,7 +103,10 @@ export class StatefulDoc {
 
     selectedCustomers!: Customer;
 
-    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
+    constructor(
+        private customerService: CustomerService,
+        private cd: ChangeDetectorRef
+    ) {}
 
     loadDemoData() {
         this.customerService.getCustomersMini().then((data) => {

@@ -28,7 +28,10 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
     providers: [ConfirmationService, MessageService]
 })
 export class HeadlessDoc {
-    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+    constructor(
+        private confirmationService: ConfirmationService,
+        private messageService: MessageService
+    ) {}
 
     @ViewChild(ConfirmPopup) confirmPopup!: ConfirmPopup;
 
