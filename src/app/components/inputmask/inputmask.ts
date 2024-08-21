@@ -556,8 +556,8 @@ export class InputMask implements OnInit, ControlValueAccessor {
             }
 
             setTimeout(() => {
-                var begin = pos.begin;
-                var end = this.seekNext(begin)
+                const begin = pos.begin;
+                const end = this.seekNext(begin)
                 this.caret(begin, begin);
                 this.clearBuffer(begin, end-1);
                 if (this.keepBuffer) {
