@@ -24,7 +24,10 @@ export class RoutingDoc implements OnInit {
 
     subscription: Subscription;
 
-    constructor(public messageService: MessageService, public ticketService: TicketService) {}
+    constructor(
+        public messageService: MessageService,
+        public ticketService: TicketService
+    ) {}
 
     ngOnInit() {
         this.items = [
@@ -47,7 +50,7 @@ export class RoutingDoc implements OnInit {
         ];
 
         this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
-            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.' });
+            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order has been completed.' });
         });
     }
 
@@ -112,7 +115,7 @@ export class StepsRoutingDemo implements OnInit {
         ];
 
         this.subscription = this.ticketService.paymentComplete$.subscribe((personalInformation) => {
-            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order completed.' });
+            this.messageService.add({ severity: 'success', summary: 'Order submitted', detail: 'Dear, ' + personalInformation.firstname + ' ' + personalInformation.lastname + ' your order has been completed.' });
         });
     }
 
