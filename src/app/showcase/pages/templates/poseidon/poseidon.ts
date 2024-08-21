@@ -176,11 +176,13 @@ export class PoseidonPage {
             {
                 title: 'Basic License',
                 price: '$59',
+                discount_price:"$39",
                 included: ['Non Commercial Usage', 'Single End Product, No Multi-Use', '1 Year Free Updates']
             },
             {
                 title: 'Extended License',
                 price: '$590',
+                discount_price:"$390",
                 included: ['Commercial Usage', 'Multiple End Products', '1 Year Free Updates']
             }
         ]
