@@ -31,6 +31,7 @@ import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CarouselModule } from 'primeng/carousel';
+import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
 @Component({
     selector: 'movies-app',
@@ -65,7 +66,8 @@ import { CarouselModule } from 'primeng/carousel';
         MeterGroupModule,
         ProgressBarModule,
         CheckboxModule,
-        CarouselModule
+        CarouselModule,
+        OverlayBadgeModule
     ],
     template: `
         <div class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl">
@@ -91,7 +93,15 @@ import { CarouselModule } from 'primeng/carousel';
                         <i class="pi pi-bell" />
                     </OverlayBadge>
                 </Button> -->
-                    <p-button severity="secondary" outlined> </p-button>
+                    <p-button severity="secondary" outlined>
+                    <p-overlayBadge
+                        severity="danger"
+                        size="small"
+                       
+                    >
+                        <i class="pi pi-bell"></i>
+                    </p-overlayBadge>
+                </p-button>
                     <p-avatar image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg" shape="circle" class="w-9 h-9 cursor-pointer" />
                 </div>
             </div>
