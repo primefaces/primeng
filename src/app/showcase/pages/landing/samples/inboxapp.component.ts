@@ -114,7 +114,7 @@ import { CheckboxModule } from 'primeng/checkbox';
                 </div>
             </div>
             <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
-                <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="code">
+                <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id">
                     <ng-template pTemplate="caption">
                         <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row" style="padding:0.75rem 1rem;">
                             <div class="flex items-center gap-2">
