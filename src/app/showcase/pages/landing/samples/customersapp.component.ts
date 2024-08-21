@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -96,7 +96,7 @@ import { DrawerModule } from 'primeng/drawer';
                 </p-iconField>
                 <div class="flex items-center gap-3">
                     <p-button icon="pi pi-filter" outlined severity="secondary" />
-                    <p-divider layout="vertical" class="m-0" />
+                    <p-divider layout="vertical" />
                     <p-button icon="pi pi-refresh" outlined severity="secondary" />
                     <p-button label="1 of 15" outlined severity="secondary" />
                     <p-button icon="pi pi-chevron-left" outlined severity="secondary" />
@@ -540,8 +540,10 @@ import { DrawerModule } from 'primeng/drawer';
         </p-drawer>
     `,
     host: {
-        class: 'w-full',
+        class: 'w-full h-full',
     },
+    styleUrls: ['./customersapp.scss'],
+    encapsulation:ViewEncapsulation.None
 })
 export class CustomersApp {
     search = '';
