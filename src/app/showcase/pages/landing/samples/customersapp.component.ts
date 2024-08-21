@@ -73,7 +73,7 @@ import { DrawerModule } from 'primeng/drawer';
         SidebarModule,
         KnobModule,
         OverlayBadgeModule,
-        DrawerModule
+        DrawerModule,
     ],
     template: `
         <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
@@ -126,10 +126,10 @@ import { DrawerModule } from 'primeng/drawer';
                     }
                 }"
             > -->
-                <p-table [value]="tableData"  [(selection)]="selectedRows" dataKey="id" [rows]="10">
+                <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" [rows]="10">
                     <ng-template pTemplate="header">
                         <tr>
-                        <th style="width: 1rem"><p-tableHeaderCheckbox /></th>
+                            <th style="width: 1rem"><p-tableHeaderCheckbox /></th>
                             <th>Title</th>
                             <th>Name</th>
                             <th>Company Name</th>
@@ -141,12 +141,10 @@ import { DrawerModule } from 'primeng/drawer';
                     </ng-template>
                     <ng-template pTemplate="body" let-data>
                         <tr>
-                            
                             <td style="width: 1rem">
-
-                            <p-tableCheckbox [value]="data" />
+                                <p-tableCheckbox [value]="data" />
                             </td>
-                            <td >
+                            <td>
                                 <div class="flex items-center">
                                     <p-overlayBadge
                                         [severity]="
@@ -254,22 +252,29 @@ import { DrawerModule } from 'primeng/drawer';
             }
         }"
         > -->
-        <p-drawer [(visible)]="visibleRight" header="Right Sidebar" position="right" closeIcon="pi pi-sign-out" styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl">
-            <div class="flex flex-col h-screen overflow-auto">
-                <div class="">
-                    <div class="flex align-items-center gap-3 p-6">
-                        <p-avatar
-                            image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
-                            size="large"
-                            class="rounded-xl overflow-hidden"
-                        />
-                        <div class="flex-1">
-                            <div class="leading-6 text-color font-medium">Brook Simmons</div>
-                            <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
+        <p-drawer
+            [(visible)]="visibleRight"
+            header="Right Sidebar"
+            position="right"
+            closeIcon="pi pi-sign-out"
+            styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl"
+        >
+            <ng-template pTemplate="headless">
+                <div class="flex flex-col h-screen overflow-auto">
+                    <div class="">
+                        <div class="flex align-items-center gap-3 p-6">
+                            <p-avatar
+                                image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
+                                size="large"
+                                class="rounded-xl overflow-hidden"
+                            />
+                            <div class="flex-1">
+                                <div class="leading-6 text-color font-medium">Brook Simmons</div>
+                                <div class="mt-1 leading-5 text-muted-color text-sm">Sales Executive</div>
+                            </div>
+                            <p-button icon="pi pi-sign-out" text rounded severity="secondary" />
                         </div>
-                        <p-button icon="pi pi-sign-out" text rounded severity="secondary" />
-                    </div>
-                    <!-- <p-selectButton
+                        <!-- <p-selectButton
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
                             :pt="{
@@ -285,244 +290,253 @@ import { DrawerModule } from 'primeng/drawer';
                                 }
                             }
                         }" -->
-                    <p-selectButton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" />
-                </div>
-                <div
-                    *ngIf="selectedSidebarOption === 'Interaction Logs'"
-                    class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
-                >
-                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="flex items-start justify-between">
-                            <div class="leading-6 font-medium text-color">Call Logs</div>
-                            <p-button
-                                icon="pi pi-download text-sm"
-                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
-                                severity="secondary"
-                                text
-                            />
-                        </div>
-                        <div
-                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
-                        >
-                            <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
-                                <!-- <OverlayBadge severity="success" class="w-fit">
-                                    <Avatar :image="data.image" size="small" class="rounded-md w-10 h-10 overflow-hidden flex" />
-                                </OverlayBadge> -->
-
-                                <p-avatar
-                                    [image]="data.image"
-                                    size="small"
-                                    class="rounded-md w-10 h-10 overflow-hidden flex"
-                                />
-
-                                <div class="flex-1">
-                                    <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
-                                    <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
-                                </div>
+                        <p-selectButton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" />
+                    </div>
+                    <div
+                        *ngIf="selectedSidebarOption === 'Interaction Logs'"
+                        class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
+                    >
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="flex items-start justify-between">
+                                <div class="leading-6 font-medium text-color">Call Logs</div>
                                 <p-button
-                                    icon="pi pi-phone text-sm"
-                                    text
-                                    styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="flex items-start justify-between">
-                            <div class="leading-6 font-medium text-color">Email Records</div>
-                            <p-button
-                                icon="pi pi-download text-sm"
-                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
-                                severity="secondary"
-                                text
-                            />
-                        </div>
-                        <div
-                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
-                        >
-                            <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
-                                <!-- <OverlayBadge severity="danger" class="w-fit">
-                                    <Avatar :image="data.image" size="small" class="rounded-md overflow-hidden w-10 h-10 flex" />
-                                </OverlayBadge> -->
-
-                                <p-avatar
-                                    [image]="data.image"
-                                    size="small"
-                                    class="rounded-md overflow-hidden w-10 h-10 flex"
-                                />
-
-                                <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
-                                <div class="flex-1">
-                                    <div class="text-sm leading-5 font-medium text-color line-clamp-2">
-                                        {{ data.title }}
-                                        <span class="text-muted-color">
-                                            {{ data.text }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="w-1/6 text-sm leading-5 text-muted-color text-right">{{ data.time }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="flex items-start justify-between">
-                            <div class="leading-6 font-medium text-color">Meeting Notes</div>
-                            <p-button
-                                icon="pi pi-download text-sm"
-                                styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
-                                severity="secondary"
-                                text
-                            />
-                        </div>
-                        <div
-                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden"
-                        >
-                            <div class="flex items-start justify-between gap-1">
-                                <div class="text-sm text-color font-medium max-w-60">
-                                    Subject: Meeting Wrap-up & Action Items: Jacob Jones
-                                </div>
-                                <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
-                            </div>
-                            <div class="text-sm text-muted-color mt-6">
-                                Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
-                                <br />
-                                <ul class="list-disc pl-5">
-                                    <li>Reviewed our SaaS solution and its features.</li>
-                                    <li>Arlene McCoy intrigued by user experience potential.</li>
-                                    <li>Voiced concerns on integration with current system.Action Items:</li>
-                                </ul>
-                                Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
-                                Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron
-                                Williamson)<br /><br />
-                                Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne
-                                Russell)
-                                <br /><br />
-                                Please act on these items promptly.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div
-                    *ngIf="selectedSidebarOption === 'Preferences'"
-                    class="h-[calc(100%-72px)] flex flex-col gap-4 p-6"
-                >
-                    <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
-                        <div
-                            class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
-                        >
-                            <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
-                                <i class="text-lg text-color" [class]="pref.icon"></i>
-                                <div class="font-medium text-color flex-1">{{ pref.title }}</div>
-                                <p-inputSwitch [(ngModel)]="pref.checked" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-2 gap-6 p-6">
-                    <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="flex items-start justify-between gap-2">
-                            <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
-                            <a [routerLink]="data.link" target="_blank" rel="noopener">
-                                <p-button
-                                    icon="pi pi-arrow-up-right text-sm !leading-none"
-                                    class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
+                                    icon="pi pi-download text-sm"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
                                     severity="secondary"
                                     text
                                 />
-                            </a>
-                        </div>
-                        <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
-                        <div class="flex-1 mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 text-xs text-color">
-                            {{ data.text }}
-                        </div>
-                    </div>
-                </div>
-                <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-6">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
                             </div>
                             <div
-                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
                             >
-                                <p-knob
-                                    [(ngModel)]="customerSatisfaction"
-                                    [size]="150"
-                                    [strokeWidth]="8"
-                                    valueTemplate="{value}%"
-                                    class="pointer-events-none"
+                                <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
+                                    <p-overlayBadge severity="success" styleClass="w-fit">
+                                        <p-avatar
+                                            [image]="data.image"
+                                            size="small"
+                                            styleClass="rounded-md w-10 h-10 overflow-hidden flex"
+                                        />
+                                    </p-overlayBadge>
+
+                                    <div class="flex-1">
+                                        <div class="text-sm leading-5 font-medium text-color">{{ data.name }}</div>
+                                        <div class="mt-1 text-sm leading-5 text-muted-color">{{ data.time }}</div>
+                                    </div>
+                                    <p-button
+                                        icon="pi pi-phone text-sm"
+                                        text
+                                        styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="flex items-start justify-between">
+                                <div class="leading-6 font-medium text-color">Email Records</div>
+                                <p-button
+                                    icon="pi pi-download text-sm"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                    severity="secondary"
+                                    text
                                 />
                             </div>
+                            <div
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
+                            >
+                                <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
+                                    <p-overlayBadge severity="danger" styleClass="w-fit">
+                                        <p-avatar
+                                            [image]="data.image"
+                                            size="small"
+                                            styleClass="rounded-md overflow-hidden w-10 h-10 flex"
+                                        />
+                                    </p-overlayBadge>
+
+                                    <div class="w-1/5 text-sm leading-5 font-medium text-color">{{ data.name }}</div>
+                                    <div class="flex-1">
+                                        <div class="text-sm leading-5 font-medium text-color line-clamp-2">
+                                            {{ data.title }}
+                                            <span class="text-muted-color">
+                                                {{ data.text }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="w-1/6 text-sm leading-5 text-muted-color text-right">
+                                        {{ data.time }}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="flex items-start justify-between">
+                                <div class="leading-6 font-medium text-color">Meeting Notes</div>
+                                <p-button
+                                    icon="pi pi-download text-sm"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
+                                    severity="secondary"
+                                    text
+                                />
                             </div>
                             <div
-                                class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden"
                             >
-                                <div
-                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                >
-                                    $
+                                <div class="flex items-start justify-between gap-1">
+                                    <div class="text-sm text-color font-medium max-w-60">
+                                        Subject: Meeting Wrap-up & Action Items: Jacob Jones
+                                    </div>
+                                    <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
                                 </div>
-                                <div
-                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                >
-                                    272
-                                </div>
-                                <div
-                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                >
-                                    123
-                                </div>
-                                <div
-                                    class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
-                                >
-                                    000
+                                <div class="text-sm text-muted-color mt-6">
+                                    Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
+                                    <br />
+                                    <br />
+                                    <ul class="list-disc pl-5">
+                                        <li>Reviewed our SaaS solution and its features.</li>
+                                        <li>Arlene McCoy intrigued by user experience potential.</li>
+                                        <li>Voiced concerns on integration with current system.Action Items:</li>
+                                    </ul>
+                                    <br />
+                                    Demo: Schedule product demo with Arlene McCoy. (Assigned to: Jerome Bell)<br /><br />
+                                    Integration Blueprint: Draft and deliver technical blueprint. (Assigned to: Cameron
+                                    Williamson)<br /><br />
+                                    Follow-up Meeting: Arrange to discuss any queries post-demo. (Assigned to: Dianne
+                                    Russell)
+                                    <br /><br />
+                                    Please act on these items promptly.
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                            <div class="flex items-center justify-between gap-2">
-                                <div class="font-medium text-color p-2">Product Usage</div>
+                    </div>
+                    <div
+                        *ngIf="selectedSidebarOption === 'Preferences'"
+                        class="h-[calc(100%-72px)] flex flex-col gap-4 p-6"
+                    >
+                        <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
+                            <div
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
+                            >
+                                <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
+                                    <i class="text-lg text-color" [class]="pref.icon"></i>
+                                    <div class="font-medium text-color flex-1">{{ pref.title }}</div>
+                                    <p-inputSwitch [(ngModel)]="pref.checked" />
+                                </div>
                             </div>
-                            <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                        </div>
+                    </div>
+                    <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-2 gap-6 p-6">
+                        <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="flex items-start justify-between gap-2">
+                                <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
+                                <a [routerLink]="data.link" target="_blank" rel="noopener">
+                                    <p-button
+                                        icon="pi pi-arrow-up-right text-sm !leading-none"
+                                        class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
+                                        severity="secondary"
+                                        text
+                                    />
+                                </a>
+                            </div>
+                            <img class="w-full rounded-lg mt-2 block" [src]="data.image" alt="Opportunutiy Image" />
+                            <div class="flex-1 mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 text-xs text-color">
+                                {{ data.text }}
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-center justify-between gap-2">
+                                    <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
+                                </div>
+                                <div
+                                    class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                >
+                                    <p-knob
+                                        [(ngModel)]="customerSatisfaction"
+                                        [size]="150"
+                                        [strokeWidth]="8"
+                                        valueTemplate="{value}%"
+                                        styleClass="pointer-events-none"
+                                    />
+                                </div>
+                            </div>
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-center justify-between gap-2">
+                                    <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
+                                </div>
+                                <div
+                                    class="flex-1 flex items-center gap-2 justify-center mt-2 p-2 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                >
+                                    <div
+                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                    >
+                                        $
+                                    </div>
+                                    <div
+                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                    >
+                                        272
+                                    </div>
+                                    <div
+                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                    >
+                                        123
+                                    </div>
+                                    <div
+                                        class="font-semibold text-lg leading-none text-color border border-surface py-3.5 px-2 rounded-lg"
+                                    >
+                                        000
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="flex items-center justify-between gap-2">
+                                    <div class="font-medium text-color p-2">Product Usage</div>
+                                </div>
+                                <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                    <p-chart
+                                        type="line"
+                                        [data]="lineChartData"
+                                        [options]="lineChartOptions"
+                                        styleClass="min-h-44 w-full"
+                                        width="100%"
+                                        height="11rem"
+                                    />
+                                </div>
+                            </div>
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
+                                <div class="font-medium text-color p-2">Churn Risk</div>
+                                <div
+                                    class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                >
+                                    <p-knob
+                                        [(ngModel)]="churnRisk"
+                                        [size]="150"
+                                        [strokeWidth]="8"
+                                        valueTemplate="{value}%"
+                                        class="pointer-events-none"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
+                            <div class="font-medium text-color p-2">Total Purchases</div>
+                            <div
+                                class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                            >
                                 <p-chart
-                                    type="line"
-                                    [data]="lineChartData"
-                                    [options]="lineChartOptions"
-                                    class="min-h-44 w-full"
+                                    type="bar"
+                                    [data]="chartData"
+                                    [options]="chartOptions"
+                                    height="15rem"
+                                    class="w-full"
                                 />
                             </div>
-                        </div>
-                        <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
-                            <div class="font-medium text-color p-2">Churn Risk</div>
-                            <div
-                                class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                            >
-                                <p-knob
-                                    [(ngModel)]="churnRisk"
-                                    [size]="150"
-                                    [strokeWidth]="8"
-                                    valueTemplate="{value}%"
-                                    class="pointer-events-none"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
-                        <div class="font-medium text-color p-2">Total Purchases</div>
-                        <div
-                            class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
-                        >
-                            <p-chart type="bar" [data]="chartData" [options]="chartOptions" class="h-60 w-full" />
                         </div>
                     </div>
                 </div>
-            </div>
+            </ng-template>
         </p-drawer>
     `,
     host: {
@@ -547,6 +561,8 @@ export class CustomersApp {
     opportunities;
     customerSatisfaction = 56;
     churnRisk = 24;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.tableData = [
@@ -861,5 +877,348 @@ export class CustomersApp {
                 text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
             },
         ];
+        if (isPlatformBrowser(this.platformId)) {
+            this.chartData = this.setChartData();
+            this.chartOptions = this.setChartOptions();
+            this.lineChartData = this.setLineChartData();
+            this.lineChartOptions = this.setLineChartOptions();
+        }
+    }
+
+    setChartData() {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const borderColor = documentStyle.getPropertyValue('--p-content-border-color');
+        const hoverBackgroundColor = documentStyle.getPropertyValue('--p-primary-color');
+
+        return {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [
+                {
+                    type: 'bar',
+                    label: 'Investment Wallet',
+                    backgroundColor: borderColor,
+                    data: [100, 201, 404, 300, 140, 220, 314, 520, 145, 234, 325, 147],
+                    borderRadius: {
+                        topLeft: 4,
+                        topRight: 4,
+                    },
+                    borderSkipped: true,
+                    barThickness: 20,
+                    hoverBackgroundColor: hoverBackgroundColor,
+                    hoverTransition: '1s ease all',
+                },
+            ],
+        };
+    }
+
+    setChartOptions() {
+        const documentStyle = getComputedStyle(document.documentElement);
+        const backgroundColor = documentStyle.getPropertyValue('--p-content-background');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const borderColor = documentStyle.getPropertyValue('--p-content-border-color');
+        const textMutedColor = documentStyle.getPropertyValue('--p-text-muted-color');
+
+        const getOrCreateTooltip = (chart) => {
+            let tooltipEl = chart.canvas.parentNode.querySelector('div.chartjs-tooltip');
+
+            if (!tooltipEl) {
+                tooltipEl = document.createElement('div');
+                tooltipEl.classList.add('chartjs-tooltip');
+                tooltipEl.style.backgroundColor = backgroundColor;
+                tooltipEl.style.boxShadow =
+                    ' 0px 33.12px 9.399px 0px rgba(0, 0, 0, 0.00), 0px 21.036px 8.504px 0px rgba(0, 0, 0, 0.01), 0px 12.084px 7.161px 0px rgba(0, 0, 0, 0.05), 0px 5.371px 5.371px 0px rgba(0, 0, 0, 0.09), 0px 1.343px 2.685px 0px rgba(0, 0, 0, 0.10)';
+                tooltipEl.style.borderRadius = '7px';
+                tooltipEl.style.color = textColor;
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.padding = '14.5px';
+                tooltipEl.style.pointerEvents = 'none';
+                tooltipEl.style.position = 'absolute';
+                tooltipEl.style.transform = 'translate(-50%, 0)';
+                tooltipEl.style.transition = 'all .2s ease';
+                chart.canvas.parentNode.appendChild(tooltipEl);
+            }
+
+            return tooltipEl;
+        };
+
+        return {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
+            plugins: {
+                chartAreaBorder: {
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    borderDashOffset: 2,
+                },
+                tooltip: {
+                    enabled: false,
+                    padding: 5,
+                    position: 'nearest',
+                    external: function (context) {
+                        // Tooltip Element
+                        const { chart, tooltip } = context;
+                        const tooltipEl = getOrCreateTooltip(chart);
+
+                        // Hide if no tooltip
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+
+                            return;
+                        }
+
+                        if (tooltip.body) {
+                            const bodyLines = tooltip.body.map((b) => {
+                                const strArr = b.lines[0].split(':');
+                                const data = {
+                                    text: strArr[0].trim(),
+                                    value: strArr[1].trim(),
+                                };
+
+                                return data;
+                            });
+
+                            // Clear old content
+                            tooltipEl.innerHTML = '';
+                            bodyLines.forEach((body, i) => {
+                                const text = document.createElement('div');
+
+                                text.appendChild(document.createTextNode('$' + body.value + 'K'));
+                                text.style.fontWeight = '500';
+                                text.style.lineHeight = '21px';
+                                text.style.fontSize = '14px';
+                                tooltipEl.appendChild(text);
+                            });
+                        }
+
+                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                        // Display, position, and set styles for font
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY + 'px';
+                        tooltipEl.style.font = tooltip.options.bodyFont.string;
+                        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                    },
+                },
+                legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: textMutedColor,
+                    },
+                    grid: {
+                        color: 'transparent',
+                        borderColor: 'transparent',
+                    },
+                },
+                y: {
+                    border: {
+                        display: false,
+                    },
+                    stacked: true,
+                    ticks: {
+                        color: textMutedColor,
+                    },
+                    grid: {
+                        color: borderColor,
+                        borderColor: 'transparent',
+                    },
+                },
+            },
+        };
+    }
+
+    setLineChartData() {
+        // const darkMode = this.$appState.darkTheme;
+        const darkMode = false;
+        return {
+            labels: ['31', '1', '2', '3', '4', '5', '6', '7', '8'],
+            datasets: [
+                {
+                    label: 'My First Dataset',
+                    data: [60, 64, 57, 52, 58, 70, 75, 70, 60],
+                    fill: true,
+                    borderColor: '#16A34A',
+                    tension: 0.4,
+                    borderWidth: 1.5,
+                    pointBackgroundColor: '#16A34A',
+                    pointBorderColor: darkMode ? '#09090B' : '#FFF',
+                    pointBorderWidth: 3,
+
+                    hideInLegendAndTooltip: false,
+                    pointStyle: function (context) {
+                        let index = context.dataIndex;
+
+                        if (index == 6) {
+                            return 'circle';
+                        } else {
+                            return 'line';
+                        }
+                    },
+                    pointRadius: function (context) {
+                        let index = context.dataIndex;
+
+                        if (index == 6) {
+                            return 6;
+                        } else {
+                            return 0.1;
+                        }
+                    },
+                    backgroundColor: (context) => {
+                        const bgColor = ['rgba(22,163,74,0.16)', 'rgba(22,163,74,0)'];
+
+                        if (!context.chart.chartArea) {
+                            return;
+                        }
+
+                        const {
+                            ctx,
+                            data,
+                            chartArea: { top, bottom },
+                        } = context.chart;
+                        const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+                        const colorTranches = 1 / (bgColor.length - 1);
+
+                        for (let i = 0; i < bgColor.length; i++) {
+                            gradientBg.addColorStop(0 + i * colorTranches, bgColor[i]);
+                        }
+
+                        return gradientBg;
+                    },
+                },
+            ],
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart',
+                    },
+                },
+            },
+        };
+    }
+
+    setLineChartOptions() {
+        const darkMode = false;
+        const documentStyle = getComputedStyle(document.documentElement);
+
+        const backgroundColor = documentStyle.getPropertyValue('--p-content-background');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const borderColor = documentStyle.getPropertyValue('--p-content-border-color');
+        const textMutedColor = documentStyle.getPropertyValue('--p-text-muted-color');
+
+        const getOrCreateTooltip = (chart) => {
+            let tooltipEl = chart.canvas.parentNode.querySelector('div.chartjs-tooltip');
+
+            if (!tooltipEl) {
+                tooltipEl = document.createElement('div');
+                tooltipEl.classList.add('chartjs-tooltip');
+                tooltipEl.style.backgroundColor = backgroundColor;
+                tooltipEl.style.boxShadow =
+                    ' 0px 33.12px 9.399px 0px rgba(0, 0, 0, 0.00), 0px 21.036px 8.504px 0px rgba(0, 0, 0, 0.01), 0px 12.084px 7.161px 0px rgba(0, 0, 0, 0.05), 0px 5.371px 5.371px 0px rgba(0, 0, 0, 0.09), 0px 1.343px 2.685px 0px rgba(0, 0, 0, 0.10)';
+                tooltipEl.style.borderRadius = '7px';
+                tooltipEl.style.color = textColor;
+                tooltipEl.style.opacity = 1;
+                tooltipEl.style.padding = '2px';
+                tooltipEl.style.pointerEvents = 'none';
+                tooltipEl.style.position = 'absolute';
+                tooltipEl.style.transform = 'translate(-50%, 0)';
+                tooltipEl.style.transition = 'all .2s ease';
+                chart.canvas.parentNode.appendChild(tooltipEl);
+            }
+
+            return tooltipEl;
+        };
+
+        return {
+            maintainAspectRatio: false,
+            aspectRatio: 0.8,
+            plugins: {
+                chartAreaBorder: {
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    borderDashOffset: 2,
+                },
+                tooltip: {
+                    enabled: false,
+                    padding: 8,
+                    position: 'nearest',
+                    external: function (context) {
+                        // Tooltip Element
+                        const { chart, tooltip } = context;
+                        const tooltipEl = getOrCreateTooltip(chart);
+
+                        // Hide if no tooltip
+                        if (tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+
+                            return;
+                        }
+
+                        if (tooltip.body) {
+                            const bodyLines = tooltip.body.map((b) => {
+                                const strArr = b.lines[0].split(':');
+                                const data = {
+                                    text: strArr[0].trim(),
+                                    value: strArr[1].trim(),
+                                };
+
+                                return data;
+                            });
+
+                            // Clear old content
+                            tooltipEl.innerHTML = '';
+                            bodyLines.forEach((body, i) => {
+                                const text = document.createElement('div');
+
+                                text.appendChild(document.createTextNode(body.value + '.000'));
+                                text.style.fontWeight = '500';
+                                text.style.lineHeight = '21px';
+                                text.style.fontSize = '14px';
+                                tooltipEl.appendChild(text);
+                            });
+                        }
+
+                        const { offsetLeft: positionX, offsetTop: positionY } = chart.canvas;
+
+                        // Display, position, and set styles for font
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = positionX + tooltip.caretX + 'px';
+                        tooltipEl.style.top = positionY + tooltip.caretY - 40 + 'px';
+                        tooltipEl.style.font = tooltip.options.bodyFont.string;
+                        tooltipEl.style.padding = tooltip.options.padding + 'px ' + tooltip.options.padding + 'px';
+                    },
+                },
+                legend: {
+                    display: false,
+                },
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: textMutedColor,
+                    },
+                    grid: {
+                        color: 'transparent',
+                        borderColor: 'transparent',
+                    },
+                },
+                y: {
+                    display: false,
+                    grace: 14,
+                },
+            },
+        };
     }
 }
