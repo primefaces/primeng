@@ -80,23 +80,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <p-inputIcon class="pi pi-search"> </p-inputIcon>
                         <input type="text" pInputText [(ngModel)]="search" placeholder="Search" />
                     </p-iconField>
-                    <!-- <Button severity="secondary" outlined>
-                    <OverlayBadge
-                        severity="danger"
-                        size="small"
-                        :pt="{
-                            pcbadge: {
-                                root: {
-                                    class: '!min-w-0 !w-2.5 !h-2.5'
-                                }
-                            }
-                        }"
-                    >
-                        <i class="pi pi-bell" />
-                    </OverlayBadge>
-                </Button> -->
                     <p-button severity="secondary" outlined>
-                        <p-overlayBadge severity="danger" size="small">
+                        <p-overlayBadge severity="danger" size="small" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>
                         </p-overlayBadge>
                     </p-button>
@@ -162,23 +147,11 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     {{ item.point }}
                                 </div>
                                 <div class="absolute z-10 bottom-2 inset-x-2">
-                                    <!-- <ProgressBar
-                                    :value="slotProps.data.watchedPercent"
-                                    :showValue="false"
-                                    :pt="{
-                                        root: {
-                                            class: '!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full'
-                                        },
-                                        value: {
-                                            class: '!bg-surface-0 dark:!bg-surface-950 !rounded-full'
-                                        }
-                                    }"
-                                ></ProgressBar> -->
                                     <p-progressBar
                                         [value]="item.watchedPercent"
                                         [showValue]="false"
                                         styleClass="!h-1.5 !bg-surface-950 dark:!bg-surface-50 !rounded-full"
-                                    ></p-progressBar>
+                                    />
                                 </div>
                             </div>
                             <div class="mt-2 flex items-start justify-between gap-1">
