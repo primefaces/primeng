@@ -1,32 +1,22 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
+import { MessageService, PrimeNGConfig } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
-import { ChartModule } from 'primeng/chart';
 import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -45,28 +35,20 @@ import { SelectModule } from 'primeng/select';
         InputNumberModule,
         SelectModule,
         RadioButtonModule,
-        CalendarModule,
-        ChartModule,
         ChipModule,
         InputSwitchModule,
         SelectButtonModule,
         SliderModule,
         BadgeModule,
-        TabMenuModule,
         FormsModule,
         DividerModule,
         AvatarModule,
         TooltipModule,
-        IconFieldModule,
-        InputIconModule,
-        CalendarModule,
         ButtonModule,
         TableModule,
-        MeterGroupModule,
         InputTextModule,
         MenuModule,
         TagModule,
-        MeterGroupModule,
         AvatarGroupModule,
         InputOtpModule,
         AutoCompleteModule,
@@ -363,7 +345,7 @@ import { SelectModule } from 'primeng/select';
                             url="/api/upload"
                             (onUpload)="onTemplatedUpload($event)"
                             accept="image/*"
-                            :maxFileSize="1000000"
+                            [maxFileSize]="1000000"
                             (onSelect)="onSelectedFiles($event)"
                         >
                             <ng-template
@@ -416,10 +398,7 @@ import { SelectModule } from 'primeng/select';
                                     </p>
                                 </div>
                             </ng-template>
-                            <!-- 
-                            <template #header="{ chooseCallback, uploadCallback, clearCallback, files, uploadedFiles }">
-                             
-                            </template> -->
+
                             <ng-template
                                 pTemplate="content"
                                 let-chooseCallback="chooseCallback"
@@ -508,8 +487,8 @@ import { SelectModule } from 'primeng/select';
                             styleClass="w-full mt-2"
                             inputId="multiple-ac-2"
                             multiple
-                            (completeMethod)="search($event)" 
-                            [typeahead]="false" 
+                            (completeMethod)="search($event)"
+                            [typeahead]="false"
                         />
                     </div>
                     <div class="flex items-center gap-2">
@@ -610,7 +589,7 @@ import { SelectModule } from 'primeng/select';
                                 class="flex-1"
                                 multiple
                                 (onSelect)="search($event)"
-                                [typeahead]="false" 
+                                [typeahead]="false"
                             />
                             <p-button label="Invite" />
                         </div>
@@ -815,45 +794,60 @@ import { SelectModule } from 'primeng/select';
 })
 export class CardsApp {
     files = [];
+
     uploadedFiles: any[] = [];
 
-    totalSize;
-    totalSizePercent;
-    jobApplication;
-    userProfiles;
-    userProfilesOptions;
-    userProfilesValues;
-    forgotPasswordOTP;
-    priceRange;
-    priceMinVal;
-    priceMaxVal;
-    priceRangePopularSpecs;
-    priceRangePopularSpecsChecked;
-    userSelectButtonOptions;
-    selectedUserSelectButtonOption;
-    darkMode;
-    emailChips;
-    memberSelectedTypes;
-    memberTypes;
-    copiedText;
-    documentName;
-    filesTag;
-    selectedPermission;
-    permissions;
-    items;
+    totalSize: number = 0;
+
+    totalSizePercent: number = 0;
+
+    jobApplication: boolean = false;
+
+    userProfiles: string = 'Chilling';
+
+    userProfilesOptions: string[] = ['Chilling', 'Do Not Disturb'];
+
+    userProfilesValues: boolean[] = [true, true, false, false, true, false];
+
+    forgotPasswordOTP: string = '023';
+
+    priceRange: number[] = [0, 10000];
+
+    priceMinVal: number = 0;
+
+    priceMaxVal: number = 100000;
+
+    priceRangePopularSpecs: any;
+
+    priceRangePopularSpecsChecked: string[] = ['Furnished', 'Detached', 'Balcony', 'Sea view'];
+
+    userSelectButtonOptions: string[] = ['Joined', 'Hosted'];
+
+    selectedUserSelectButtonOption: string = 'Joined';
+
+    darkMode: boolean = false;
+
+    emailChips: any;
+
+    memberSelectedTypes: string[] = ['O', 'E', 'V'];
+
+    memberTypes: any;
+
+    copiedText: string = "https://www.example.com/shared-files/user123/document-collection/file12345';";
+
+    documentName: string = 'Aura Theme';
+
+    filesTag: string[] = ['ui', 'redesign', 'dashboard'];
+
+    selectedPermission: string = 'Everyone';
+
+    permissions: any;
+
+    items: any;
+
     constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
 
     ngOnInit() {
-        this.totalSize = 0;
-        this.totalSizePercent = 0;
-        this.jobApplication = false;
-        this.userProfiles = 'Chilling';
-        this.userProfilesOptions = ['Chilling', 'Do Not Disturb'];
-        this.userProfilesValues = [true, true, false, false, true, false];
-        this.forgotPasswordOTP = '023';
-        this.priceRange = [0, 10000];
-        this.priceMinVal = 0;
-        this.priceMaxVal = 100000;
         this.priceRangePopularSpecs = [
             { value: 'Furnished', checked: true },
             { value: 'Unfurnished', checked: false },
@@ -866,51 +860,49 @@ export class CardsApp {
             { value: 'Central location', checked: false },
             { value: 'Sea view', checked: true },
         ];
-        this.priceRangePopularSpecsChecked = ['Furnished', 'Detached', 'Balcony', 'Sea view'];
-        this.userSelectButtonOptions = ['Joined', 'Hosted'];
-        this.selectedUserSelectButtonOption = 'Joined';
-        this.darkMode = false;
-        this.memberSelectedTypes = ['O', 'E', 'V'];
         this.memberTypes = [
             { name: 'Owner', code: 'O' },
             { name: 'Editor', code: 'E' },
             { name: 'Viewer', code: 'V' },
         ];
-        this.copiedText = 'https://www.example.com/shared-files/user123/document-collection/file12345';
-        this.documentName = 'Aura Theme';
-        this.filesTag = ['ui', 'redesign', 'dashboard'];
-        this.selectedPermission = 'Everyone';
+
         this.permissions = [
             { name: 'Everyone', icon: 'pi pi-globe', key: 'E' },
             { name: 'Admins only', icon: 'pi pi-users', key: 'A' },
         ];
     }
+
     onRemoveTemplatingFile(file, removeFileCallback, index) {
         removeFileCallback(index);
         this.totalSize -= parseInt(this.formatSize(file.size));
         this.totalSizePercent = this.totalSize / 10;
     }
+
     onClearTemplatingUpload(clear) {
         clear();
         this.totalSize = 0;
         this.totalSizePercent = 0;
     }
+
     onSelectedFiles(event) {
         this.files = event.files;
         this.files.forEach((file) => {
             this.totalSize += parseInt(this.formatSize(file.size));
         });
     }
+
     uploadEvent(callback) {
         this.totalSizePercent = this.totalSize / 10;
         callback();
     }
+
     onTemplatedUpload(event) {
         for (let file of event.files) {
             this.uploadedFiles.push(file);
         }
         this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded', life: 3000 });
     }
+
     formatSize(bytes) {
         const k = 1024;
         const dm = 3;
@@ -925,6 +917,7 @@ export class CardsApp {
 
         return `${formattedSize} ${sizes[i]}`;
     }
+
     search(event) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
