@@ -1,19 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SelectItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
@@ -21,17 +13,13 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
 import { TagModule } from 'primeng/tag';
-import { ProgressBarModule } from 'primeng/progressbar';
-import { CheckboxModule } from 'primeng/checkbox';
-import { CarouselModule } from 'primeng/carousel';
 import { KnobModule } from 'primeng/knob';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { DrawerModule } from 'primeng/drawer';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'customers-app',
@@ -39,34 +27,20 @@ import { DomSanitizer } from '@angular/platform-browser';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
         DropdownModule,
-        RadioButtonModule,
-        CalendarModule,
         ChartModule,
-        ChipModule,
         InputSwitchModule,
         SelectButtonModule,
-        SliderModule,
-        BadgeModule,
-        TabMenuModule,
         FormsModule,
         DividerModule,
         AvatarModule,
         TooltipModule,
         IconFieldModule,
         InputIconModule,
-        CalendarModule,
         ButtonModule,
         TableModule,
-        MeterGroupModule,
         InputTextModule,
-        MenuModule,
         TagModule,
-        MeterGroupModule,
-        ProgressBarModule,
-        CheckboxModule,
-        CarouselModule,
         KnobModule,
         OverlayBadgeModule,
         DrawerModule,
@@ -528,27 +502,54 @@ import { DomSanitizer } from '@angular/platform-browser';
     encapsulation: ViewEncapsulation.None,
 })
 export class CustomersApp {
-    search = '';
-    lineChartData = {};
-    lineChartOptions = {};
-    chartData = {};
-    chartOptions = {};
-    tableData = [];
-    companyLogos;
-    selectedRows = [];
-    visibleRight = false;
-    selectedSidebarOption;
-    sidebarOptions;
-    callLogs;
-    emailRecords;
-    preferences;
-    opportunities;
-    customerSatisfaction = 56;
-    churnRisk = 24;
+    search: string = '';
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private sanitizer: DomSanitizer) {}
+    lineChartData: any = {};
+
+    lineChartOptions: any = {};
+
+    chartData: any = {};
+
+    chartOptions: any = {};
+
+    tableData: any = [];
+
+    companyLogos: any;
+
+    selectedRows: any = [];
+
+    visibleRight: boolean = false;
+
+    selectedSidebarOption: string = 'Statistics';
+
+    sidebarOptions: string[] = ['Interaction Logs', 'Preferences', 'Statistics', 'Opportunities'];
+
+    callLogs: any;
+
+    emailRecords: any;
+
+    preferences: any;
+
+    opportunities: any;
+
+    customerSatisfaction: number = 56;
+
+    churnRisk: number = 24;
+
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: any,
+        private sanitizer: DomSanitizer,
+        private configService: AppConfigService,
+    ) {}
 
     ngOnInit() {
+        if (isPlatformBrowser(this.platformId)) {
+            this.chartData = this.setChartData();
+            this.chartOptions = this.setChartOptions();
+            this.lineChartData = this.setLineChartData();
+            this.lineChartOptions = this.setLineChartOptions();
+        }
+
         this.tableData = [
             {
                 id: 1,
@@ -715,8 +716,7 @@ export class CustomersApp {
 <path d="M9.79907 18.5C4.82851 18.5 0.799072 14.4706 0.799072 9.5C5.76963 9.5 9.79907 13.5294 9.79907 18.5Z" />
 </svg>`),
         };
-        this.selectedSidebarOption = 'Statistics';
-        this.sidebarOptions = ['Interaction Logs', 'Preferences', 'Statistics', 'Opportunities'];
+
         this.callLogs = [
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar6.png',
@@ -749,6 +749,7 @@ export class CustomersApp {
                 time: '02.04.2024 | 20 min',
             },
         ];
+
         this.emailRecords = [
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png',
@@ -793,6 +794,7 @@ export class CustomersApp {
                 text: 'Experience the future of collaboration with our cutting-edge SaaS platform. Enhance teamwork and streamline communication. Contact us for a demo today!',
             },
         ];
+
         this.preferences = [
             {
                 title: 'Email',
@@ -825,6 +827,7 @@ export class CustomersApp {
                 ],
             },
         ];
+
         this.opportunities = [
             {
                 title: 'Apollo',
@@ -863,12 +866,6 @@ export class CustomersApp {
                 text: "Give your application a sleek, updated look with Freya's chic and modern premium template.",
             },
         ];
-        if (isPlatformBrowser(this.platformId)) {
-            this.chartData = this.setChartData();
-            this.chartOptions = this.setChartOptions();
-            this.lineChartData = this.setLineChartData();
-            this.lineChartOptions = this.setLineChartOptions();
-        }
     }
 
     setChartData() {
@@ -1020,8 +1017,8 @@ export class CustomersApp {
     }
 
     setLineChartData() {
-        // const darkMode = this.$appState.darkTheme;
-        const darkMode = false;
+        const { darkMode } = this.configService.config();
+
         return {
             labels: ['31', '1', '2', '3', '4', '5', '6', '7', '8'],
             datasets: [
