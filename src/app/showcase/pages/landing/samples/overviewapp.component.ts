@@ -1,21 +1,9 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SelectItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
 import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '@service/appconfigservice';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
@@ -25,10 +13,11 @@ import { TableModule } from 'primeng/table';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { DatePickerModule } from 'primeng/datepicker';
+import { MenuItem } from 'primeng/api';
+import { AppConfigService } from '@service/appconfigservice';
 
 @Component({
     selector: 'overview-app',
@@ -36,18 +25,9 @@ import { DatePickerModule } from 'primeng/datepicker';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
-        DropdownModule,
-        RadioButtonModule,
         ChartModule,
-        ChipModule,
-        InputSwitchModule,
         SelectButtonModule,
-        SliderModule,
-        BadgeModule,
-        TabMenuModule,
         FormsModule,
-        DividerModule,
         AvatarModule,
         TooltipModule,
         IconFieldModule,
@@ -60,7 +40,7 @@ import { DatePickerModule } from 'primeng/datepicker';
         TagModule,
         MeterGroupModule,
         OverlayBadgeModule,
-        DatePickerModule
+        DatePickerModule,
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
@@ -310,21 +290,25 @@ import { DatePickerModule } from 'primeng/datepicker';
     encapsulation: ViewEncapsulation.None,
 })
 export class OverviewApp {
-    chartData;
-    chartOptions;
-    dates = [];
-    selectedTime;
-    timeOptions;
-    menuItems;
-    sampleAppsTableDatas;
-    metersData;
-    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+    chartData: any;
+
+    chartOptions: any;
+
+    dates: Date[] | undefined = [];
+
+    selectedTime: string = 'Monthly';
+
+    timeOptions: string[] = ['Weekly', 'Monthly', 'Yearly'];
+
+    menuItems: MenuItem[] | undefined;
+
+    sampleAppsTableDatas: any;
+
+    metersData: any;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService) {}
 
     ngOnInit() {
-        this.selectedTime = 'Monthly';
-
-        this.timeOptions = ['Weekly', 'Monthly', 'Yearly'];
-
         this.menuItems = [
             {
                 label: 'Refresh',
@@ -434,7 +418,7 @@ export class OverviewApp {
         }
     }
 
-    setChartData(timeUnit) {
+    setChartData(timeUnit: string) {
         const datasets = this.createDatasets(timeUnit);
         const documentStyle = getComputedStyle(document.documentElement);
         const primary200 = documentStyle.getPropertyValue('--p-primary-200');
@@ -479,8 +463,7 @@ export class OverviewApp {
     }
 
     setChartOptions() {
-        // const darkMode = this.$appState.darkTheme;
-        const darkMode = false;
+        const { darkMode } = this.configService.config();
         const documentStyle = getComputedStyle(document.documentElement);
         const surface100 = documentStyle.getPropertyValue('--p-surface-100');
         const surface900 = documentStyle.getPropertyValue('--p-surface-900');
@@ -627,7 +610,7 @@ export class OverviewApp {
         };
     }
 
-    createDatasets(val) {
+    createDatasets(val: string) {
         let data, labels;
 
         if (val === 'Weekly') {
