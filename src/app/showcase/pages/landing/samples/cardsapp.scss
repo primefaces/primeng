@@ -1,0 +1,45 @@
+p-toggleButton, p-toggleButton > button{
+    width: 100%;
+}
+
+.p-inputotp{
+    input{
+        line-height: 2rem; 
+        min-height: 3.5rem;
+        flex: 1 1 0%;
+    }
+}
+
+.p-inputnumber {
+    margin-top: .5rem;
+}
+
+.p-select{
+    box-shadow: 0 0 #0000;
+    border-width: 0px !important;
+    width: 4rem !important;
+
+    .p-select-label{
+        padding: 0px !important;
+        font-size: 0.875rem !important;
+        line-height: 1.25rem !important;
+        color: var(--p-text-muted-color) !important;
+    }
+    .p-select-dropdown{
+        padding: 0px !important;
+        width: auto !important;
+    }
+    .p-select-dropdown-icon{
+        width: 0.75rem !important;
+        height: 0.75rem !important;
+    }
+    .p-select-option{
+        font-size: 0.875rem !important;
+        line-height: 1.25rem !important;
+        padding-top: 0.25rem !important;
+        padding-bottom: 0.25rem !important;
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+}

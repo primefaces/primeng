@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, MessageService, PrimeNGConfig, SelectItem } from 'primeng/api';
@@ -34,6 +34,7 @@ import { InputOtpModule } from 'primeng/inputotp';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 import { CheckboxModule } from 'primeng/checkbox';
+import { SelectModule } from 'primeng/select';
 
 @Component({
     selector: 'cards-app',
@@ -42,7 +43,7 @@ import { CheckboxModule } from 'primeng/checkbox';
         CommonModule,
         RouterModule,
         InputNumberModule,
-        DropdownModule,
+        SelectModule,
         RadioButtonModule,
         CalendarModule,
         ChartModule,
@@ -150,7 +151,11 @@ import { CheckboxModule } from 'primeng/checkbox';
                             }
                         }"
                     /> -->
-                    <p-selectButton [(ngModel)]="selectedUserSelectButtonOption" [options]="userSelectButtonOptions" />
+                    <p-selectButton
+                        [(ngModel)]="selectedUserSelectButtonOption"
+                        [options]="userSelectButtonOptions"
+                        styleClass="w-full"
+                    />
                     <div class="flex flex-col gap-4">
                         <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
@@ -500,10 +505,10 @@ import { CheckboxModule } from 'primeng/checkbox';
                         <!-- <p-autoComplete [(ngModel)]="filesTag" class="w-full mt-2" inputId="multiple-ac-2" multiple (onSelect)="search" [typeahead]="false" /> -->
                         <p-autoComplete
                             [(ngModel)]="filesTag"
-                            class="w-full mt-2"
+                            styleClass="w-full mt-2"
                             inputId="multiple-ac-2"
                             multiple
-                            (onSelect)="search($event)"
+                            (completeMethod)="search($event)" 
                         />
                     </div>
                     <div class="flex items-center gap-2">
@@ -624,32 +629,18 @@ import { CheckboxModule } from 'primeng/checkbox';
                                         brook.sim42&#64;primevue.org
                                     </div>
                                 </div>
-                                <p-dropdown
+                                <p-select
                                     [(ngModel)]="memberSelectedTypes[0]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
                                     styleClass="!w-16"
                                 />
-                                <!-- <p-dropdown
-                                    [(ngModel)]="memberSelectedTypes[0]"
-                                    [options]="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!w-16"
-                                    :pt="{
-                                        root: { class: '!border-0 !shadow-none' },
-                                        label: { class: '!p-0 !text-muted-color !text-sm' },
-                                        dropdown: { class: '!p-0 !w-auto' },
-                                        dropdownicon: { class: '!w-3 !h-3' },
-                                        option: { class: '!text-sm !px-2 !py-1' }
-                                    }"
-                                /> -->
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                   styleClass="w-9 h-9"
+                                    styleClass="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
@@ -658,27 +649,13 @@ import { CheckboxModule } from 'primeng/checkbox';
                                         di.russ23&#64;primevue.org
                                     </div>
                                 </div>
-                                <p-dropdown
+                                <p-select
                                     [(ngModel)]="memberSelectedTypes[1]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
                                     styleClass="!w-16"
                                 />
-                                <!-- <p-dropdown
-                                    [(ngModel)]="memberSelectedTypes[1]"
-                                    [options]="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!w-16"
-                                    :pt="{
-                                        root: { class: '!border-0 !shadow-none' },
-                                        label: { class: '!p-0 !text-muted-color !text-sm' },
-                                        dropdown: { class: '!p-0 !w-auto' },
-                                        dropdownicon: { class: '!w-3 !h-3' },
-                                        option: { class: '!text-sm !px-2 !py-1' }
-                                    }"
-                                /> -->
                             </div>
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
@@ -692,27 +669,13 @@ import { CheckboxModule } from 'primeng/checkbox';
                                         jac.jon87&#64;primevue.org
                                     </div>
                                 </div>
-                                <p-dropdown
+                                <p-select
                                     [(ngModel)]="memberSelectedTypes[2]"
                                     [options]="memberTypes"
                                     optionLabel="name"
                                     placeholder="Select"
                                     styleClass="!w-16"
                                 />
-                                <!-- <Select
-                                    v-model="memberSelectedTypes[2]"
-                                    :options="memberTypes"
-                                    optionLabel="name"
-                                    placeholder="Select"
-                                    class="!w-16"
-                                    :pt="{
-                                        root: { class: '!border-0 !shadow-none' },
-                                        label: { class: '!p-0 !text-muted-color !text-sm' },
-                                        dropdown: { class: '!p-0 !w-auto' },
-                                        dropdownicon: { class: '!w-3 !h-3' },
-                                        option: { class: '!text-sm !px-2 !py-1' }
-                                    }"
-                                /> -->
                             </div>
                         </div>
                     </div>
@@ -735,21 +698,7 @@ import { CheckboxModule } from 'primeng/checkbox';
             <div class="flex-1 flex flex-wrap gap-6">
                 <div class="flex-1 border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
-                    <!-- <SelectButton
-                        v-model="userProfiles"
-                        :options="userProfilesOptions"
-                        :pt="{
-                            root: {
-                                class: 'w-full'
-                            },
-                            pcbutton: {
-                                root: {
-                                    class: 'flex-1'
-                                }
-                            }
-                        }"
-                    /> -->
-                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" />
+                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" styleClass="w-full" />
                     <div class="flex flex-col gap-4 mt-6">
                         <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>
@@ -800,17 +749,7 @@ import { CheckboxModule } from 'primeng/checkbox';
                         <p-button label="Resend" text />
                     </div>
                     <div class="flex items-center justify-center">
-                        <!-- <InputOtp
-                            v-model="forgotPasswordOTP"
-                            :length="6"
-                            integerOnly
-                            :pt="{
-                                root: {
-                                    class: 'w-full [&>*]:flex-1 [&>*]:min-h-14 [&>*]:text-2xl '
-                                }
-                            }"
-                        /> -->
-                        <p-inputOtp [(ngModel)]="forgotPasswordOTP" [length]="6" integerOnly />
+                        <p-inputOtp [(ngModel)]="forgotPasswordOTP" [length]="6" integerOnly class="w-full" />
                     </div>
                     <button pButton label="Change password" class="w-full"></button>
                 </div>
@@ -829,20 +768,8 @@ import { CheckboxModule } from 'primeng/checkbox';
                                 mode="currency"
                                 currency="USD"
                                 locale="en-US"
+                                styleClass="w-full"
                             />
-                            <!-- <p-inputNumber
-                                [(ngModel)]="priceRange[0]"
-                                [min]="0"
-                                inputId="price-min-val"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                :pt="{
-                                    root: {
-                                        class: '[&>*]:w-full mt-2'
-                                    }
-                                }"
-                            /> -->
                         </div>
                         <div class="flex-1">
                             <label for="price-max-val" class="leading-6 text-color">Max Value</label>
@@ -852,19 +779,8 @@ import { CheckboxModule } from 'primeng/checkbox';
                                 mode="currency"
                                 currency="USD"
                                 locale="en-US"
+                                styleClass="w-full"
                             />
-                            <!-- <InputNumber
-                                v-model="priceRange[1]"
-                                inputId="price-max-val"
-                                mode="currency"
-                                currency="USD"
-                                locale="en-US"
-                                :pt="{
-                                    root: {
-                                        class: '[&>*]:w-full mt-2'
-                                    }
-                                }"
-                            /> -->
                         </div>
                     </div>
                     <div class="mt-4">
@@ -893,6 +809,8 @@ import { CheckboxModule } from 'primeng/checkbox';
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6',
     },
     providers: [MessageService],
+    styleUrls: ['./cardsapp.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class CardsApp {
     files = [];
