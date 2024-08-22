@@ -1,35 +1,16 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SelectItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
-import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '@service/appconfigservice';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
 import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
-import { MenuModule } from 'primeng/menu';
-import { DomHandler } from 'primeng/dom';
-import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
-import { CheckboxModule } from 'primeng/checkbox';
 import { CarouselModule } from 'primeng/carousel';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
 
@@ -39,33 +20,16 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
-        DropdownModule,
-        RadioButtonModule,
-        CalendarModule,
-        ChartModule,
-        ChipModule,
-        InputSwitchModule,
         SelectButtonModule,
         SliderModule,
-        BadgeModule,
-        TabMenuModule,
         FormsModule,
-        DividerModule,
         AvatarModule,
         TooltipModule,
         IconFieldModule,
         InputIconModule,
-        CalendarModule,
         ButtonModule,
-        TableModule,
-        MeterGroupModule,
         InputTextModule,
-        MenuModule,
-        TagModule,
-        MeterGroupModule,
         ProgressBarModule,
-        CheckboxModule,
         CarouselModule,
         OverlayBadgeModule,
     ],
@@ -220,17 +184,21 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     encapsulation: ViewEncapsulation.None,
 })
 export class MoviesApp {
-    search;
-    page = 0;
-    value;
-    options;
-    responsiveOptions;
-    carouselData;
-    popularMovies;
+    search: string | undefined;
+
+    page: number = 0;
+
+    value: string = 'Home';
+
+    options: string[] = ['Home', 'Movies', 'TV Shows', 'Recently Added', 'My List'];
+
+    responsiveOptions: any;
+
+    carouselData: any;
+
+    popularMovies: any;
 
     ngOnInit() {
-        this.value = 'Home';
-        this.options = ['Home', 'Movies', 'TV Shows', 'Recently Added', 'My List'];
         this.responsiveOptions = [
             {
                 breakpoint: '1199px',
@@ -249,6 +217,7 @@ export class MoviesApp {
                 numScroll: 1,
             },
         ];
+
         this.carouselData = [
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover1.png',
@@ -331,6 +300,7 @@ export class MoviesApp {
                 categories: ['Mystery', 'Thriller'],
             },
         ];
+
         this.popularMovies = [
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/movie-cover7.png',
@@ -390,6 +360,7 @@ export class MoviesApp {
             },
         ];
     }
+
     previousPage() {
         this.page -= 1;
     }
