@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
 import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
@@ -29,6 +28,7 @@ import { MenuModule } from 'primeng/menu';
 import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
 import { OverlayBadgeModule } from 'primeng/overlaybadge';
+import { DatePickerModule } from 'primeng/datepicker';
 
 @Component({
     selector: 'overview-app',
@@ -39,7 +39,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         InputNumberModule,
         DropdownModule,
         RadioButtonModule,
-        CalendarModule,
         ChartModule,
         ChipModule,
         InputSwitchModule,
@@ -53,7 +52,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         TooltipModule,
         IconFieldModule,
         InputIconModule,
-        CalendarModule,
         ButtonModule,
         TableModule,
         MeterGroupModule,
@@ -62,6 +60,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         TagModule,
         MeterGroupModule,
         OverlayBadgeModule,
+        DatePickerModule
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
@@ -94,7 +93,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
                     <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
 
-                    <p-calendar
+                    <p-datepicker
                         [(ngModel)]="dates"
                         dateFormat="dd.mm.yy"
                         selectionMode="range"
