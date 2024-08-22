@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -61,7 +61,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         MenuModule,
         TagModule,
         MeterGroupModule,
-        InputTextareaModule
+        InputTextareaModule,
     ],
     template: `
         <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
@@ -79,21 +79,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
             </div>
             <div class="w-full px-5">
                 <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" styleClass="w-full" />
-                <!-- <SelectButton
-                    v-model="value"
-                    :options="options"
-                    aria-labelledby="basic"
-                    :pt="{
-                        root: {
-                            class: 'w-full'
-                        },
-                        pcbutton: {
-                            root: {
-                                class: 'flex-1'
-                            }
-                        }
-                    }"
-                /> -->
             </div>
             <div class="flex-1 flex flex-col">
                 <div
@@ -104,19 +89,19 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     }"
                 >
                     <div class="relative">
-                        <div
+                        <p-badge
                             *ngIf="chat.active !== undefined"
+                            [severity]="chat.active ? 'success' : 'danger'"
                             class="absolute top-0 right-0 p-[1px] bg-surface-0 dark:bg-surface-950 rounded-full flex items-center justify-center"
-                        >
-                            <p-badge [severity]="chat.active ? 'success' : 'danger'" class="p-1.5" />
-                        </div>
+                        />
+
                         <p-avatar
                             [image]="chat.image"
                             [label]="!chat.image ? chat.capName : ''"
                             [ngClass]="{
                                 '!bg-primary-100 !text-primary-950': !chat.image
                             }"
-                            class="text-base font-medium flex"
+                            styleClass="text-base font-medium flex"
                             size="large"
                             shape="circle"
                         />
@@ -154,7 +139,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 <div class="flex items-center">
                     <p-avatar
                         image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
-                        class="mr-2 av"
+                        styleClass="mr-2 av"
                         size="large"
                         shape="circle"
                     />
@@ -201,7 +186,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             [ngClass]="{
                                 'bg-primary-100 text-primary-950': !message.image
                             }"
-                            class="w-10 h-10 text-sm font-medium"
+                            styleClass="w-10 h-10 text-sm font-medium"
                             shape="circle"
                         />
                         <!-- <Avatar
@@ -322,9 +307,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
             <div class="mt-6">
                 <div class="flex items-center gap-2">
                     <div class="flex-1 text-color leading-6 font-medium">Members</div>
-                    <p-button label="See All" class="text-sm py-0.5 px-2 text-muted-color" text />
+                    <p-button label="See All" styleClass="text-sm py-0.5 px-2 text-muted-color" text />
                 </div>
-                <div class="mt-4 flex flex-col gap-4">
+                <div class="mt-4 flex flex-col gap-2">
                     <div *ngFor="let member of members" class="flex items-center gap-2 cursor-pointer">
                         <p-avatar
                             [image]="member.image"
@@ -332,17 +317,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             [ngClass]="{
                                 'bg-orange-100 text-orange-950': !member.image
                             }"
-                            class="font-medium text-xs"
+                            styleClass="font-medium text-xs"
                             shape="circle"
                         />
-                        <!-- <Avatar
-                            v-bind="member.image ? { image: member.image } : { label: member.capName }"
-                            :class="{
-                                'bg-orange-100 text-orange-950': !member.image
-                            }"
-                            class="font-medium text-xs"
-                            shape="circle"
-                        /> -->
+
                         <div
                             class="text-sm text-color hover:text-muted-color-emphasis transition-colors font-medium leading-5 flex-1"
                         >
@@ -353,21 +331,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 </div>
             </div>
             <div class="mt-5">
-                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" />
-                <!-- <SelectButton
-                    v-model="media"
-                    :options="mediaOptions"
-                    :pt="{
-                        root: {
-                            class: 'w-full'
-                        },
-                        pcbutton: {
-                            root: {
-                                class: 'flex-1'
-                            }
-                        }
-                    }"
-                /> -->
+                <p-selectButton [(ngModel)]="media" [options]="mediaOptions" styleClass="w-full" />
+
                 <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
                     <div
                         *ngFor="let media of chatMedia"
@@ -406,6 +371,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     host: {
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl',
     },
+    styleUrls: ['./chatapp.scss'],
+    encapsulation: ViewEncapsulation.None,
 })
 export class ChatApp {
     search = '';
@@ -424,8 +391,10 @@ export class ChatApp {
     chatMedia;
     members;
 
+    constructor(private cd: ChangeDetectorRef) {}
+
     ngOnInit() {
-        this.value = 'chat';
+        this.value = 'Chat';
         this.options = ['Chat', 'Call'];
         this.media = 'Media';
         this.mediaOptions = ['Media', 'Link', 'Docs'];
@@ -705,5 +674,6 @@ export class ChatApp {
             },
             { name: 'Dianne Russell', capName: 'DR', image: '' },
         ];
+        this.cd.markForCheck();
     }
 }
