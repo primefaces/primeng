@@ -43,3 +43,10 @@ p-toggleButton, p-toggleButton > button{
     }
 
 }
+
+.avatar-image-fit-content{
+    .p-avatar-image{
+        width: 100% !important;
+        height: 100% !important; 
+    }
+}

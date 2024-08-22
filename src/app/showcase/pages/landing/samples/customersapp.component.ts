@@ -290,7 +290,12 @@ import { DrawerModule } from 'primeng/drawer';
                                 }
                             }
                         }" -->
-                        <p-selectButton [(ngModel)]="selectedSidebarOption" [options]="sidebarOptions" />
+                        <p-selectButton
+                            [(ngModel)]="selectedSidebarOption"
+                            [options]="sidebarOptions"
+                            styleClass="flex-1 px-6 py-3"
+                            class="flex"
+                        />
                     </div>
                     <div
                         *ngIf="selectedSidebarOption === 'Interaction Logs'"
@@ -431,7 +436,7 @@ import { DrawerModule } from 'primeng/drawer';
                                 <a [routerLink]="data.link" target="_blank" rel="noopener">
                                     <p-button
                                         icon="pi pi-arrow-up-right text-sm !leading-none"
-                                        class="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
+                                        styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
                                         severity="secondary"
                                         text
                                     />
@@ -543,7 +548,7 @@ import { DrawerModule } from 'primeng/drawer';
         class: 'w-full h-full',
     },
     styleUrls: ['./customersapp.scss'],
-    encapsulation:ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class CustomersApp {
     search = '';

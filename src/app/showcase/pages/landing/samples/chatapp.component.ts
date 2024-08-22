@@ -189,14 +189,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             styleClass="w-10 h-10 text-sm font-medium"
                             shape="circle"
                         />
-                        <!-- <Avatar
-                            v-bind="message.image ? { image: message.image } : { label: message.capName }"
-                            :class="{
-                                'bg-primary-100 text-primary-950': !message.image
-                            }"
-                            class="w-10 h-10 text-sm font-medium"
-                            shape="circle"
-                        /> -->
                         <div>
                             <svg
                                 [ngClass]="{
@@ -217,17 +209,18 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                         </div>
                     </div>
                     <div
-                        [ngClass]="{
-                            'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg':
-                                message.type === 'received',
-                            'flex-1 bg-primary px-2 py-1 rounded-lg': message.type !== 'received'
-                        }"
+                        [ngClass]="
+                            message.type === 'received'
+                                ? 'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg'
+                                : 'flex-1 bg-primary px-2 py-1 rounded-lg'
+                        "
                     >
                         <p
-                            [ngClass]="{
-                                'text-color leading-6 mb-0': message.type === 'received',
-                                'text-primary-contrast leading-6 mb-0': message.type !== 'received'
-                            }"
+                            [ngClass]="
+                                message.type === 'received'
+                                    ? 'text-color leading-6 mb-0'
+                                    : 'text-primary-contrast leading-6 mb-0'
+                            "
                         >
                             {{ message.message }}
                         </p>
@@ -386,12 +379,10 @@ export class ChatApp {
     activeChat;
     menuItems;
     chats;
-
     chatMessages;
     chatMedia;
     members;
 
-    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.value = 'Chat';
@@ -674,6 +665,5 @@ export class ChatApp {
             },
             { name: 'Dianne Russell', capName: 'DR', image: '' },
         ];
-        this.cd.markForCheck();
     }
 }

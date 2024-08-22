@@ -4,3 +4,14 @@ tr, th{
 .p-divider-vertical{
     margin: 0px;
 }
+
+p-toggleButton, p-toggleButton > button{
+    width: 100%;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    
+    .p-togglebutton-label{
+        font-size: 0.875rem;
+        line-height: 1.25rem; 
+    }
+}

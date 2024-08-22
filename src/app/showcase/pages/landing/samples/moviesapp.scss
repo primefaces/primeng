@@ -1,0 +1,7 @@
+
+
+.p-progressbar-value{
+    --tw-bg-opacity: 1 !important;
+    background-color: color-mix(in srgb, var(--p-surface-0) calc(100%* var(--tw-bg-opacity)), transparent) !important;
+    border-radius: 9999px !important;
+}

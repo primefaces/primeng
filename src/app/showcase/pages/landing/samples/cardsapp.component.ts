@@ -193,7 +193,8 @@ import { SelectModule } from 'primeng/select';
                     >
                         <p-avatar
                             image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                            class="rounded-lg overflow-hidden w-14 h-14"
+                            styleClass="rounded-lg overflow-hidden"
+                            class="w-14 h-14 avatar-image-fit-content"
                         />
                         <div class="flex-1">
                             <div class="text-color font-medium leading-7">Jacob Jones</div>
@@ -660,7 +661,7 @@ import { SelectModule } from 'primeng/select';
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                    class="w-9 h-9"
+                                    styleClass="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">

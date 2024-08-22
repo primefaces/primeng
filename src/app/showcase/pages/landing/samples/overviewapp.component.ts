@@ -76,19 +76,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <input type="text" pInputText placeholder="Search" />
                     </p-iconField>
                     <p-button severity="secondary" outlined>
-                        <!-- <OverlayBadge
-                        severity="danger"
-                        :pt="{
-                            pcbadge: {
-                                root: {
-                                    class: '!min-w-0 !w-2.5 !h-2.5'
-                                }
-                            }
-                        }"
-                    >
-                        <i class="pi pi-bell" />
-                    </OverlayBadge> -->
-
                         <p-overlayBadge severity="danger" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>
                         </p-overlayBadge>
@@ -158,12 +145,12 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         >
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width:15%">Id</th>
-                                    <th style="width:15%">Name</th>
-                                    <th style="width:15%">Coin</th>
-                                    <th style="width:15%">Date</th>
-                                    <th style="width:15%">Process</th>
-                                    <th style="width:15%">Amount</th>
+                                    <th class="w-1/12">Id</th>
+                                    <th class="w-1/4">Name</th>
+                                    <th class="w-1/6">Coin</th>
+                                    <th class="w-1/6">Date</th>
+                                    <th class="w-1/6">Process</th>
+                                    <th class="w-1/6">Amount</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-item>
@@ -289,7 +276,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     aria-haspopup="true"
                                     aria-controls="overlay_menu"
                                 />
-                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6"/>
+                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-meterGroup [value]="metersData" labelPosition="end">
                                 <ng-template pTemplate="label">
@@ -321,9 +308,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         class: 'flex-1 h-full overflow-y-auto pb-0.5',
     },
     styleUrls: ['./overviewapp.scss'],
-    encapsulation:ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
-
 export class OverviewApp {
     chartData;
     chartOptions;
