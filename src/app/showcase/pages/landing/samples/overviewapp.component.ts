@@ -93,7 +93,7 @@ import { DatePickerModule } from 'primeng/datepicker';
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
                     <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
 
-                    <p-datepicker
+                    <p-datePicker
                         [(ngModel)]="dates"
                         dateFormat="dd.mm.yy"
                         selectionMode="range"
