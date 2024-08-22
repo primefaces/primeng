@@ -503,13 +503,13 @@ import { SelectModule } from 'primeng/select';
                     </div>
                     <div>
                         <label class="text-color font-medium leading-6">Tag (Optional)</label>
-                        <!-- <p-autoComplete [(ngModel)]="filesTag" class="w-full mt-2" inputId="multiple-ac-2" multiple (onSelect)="search" [typeahead]="false" /> -->
                         <p-autoComplete
                             [(ngModel)]="filesTag"
                             styleClass="w-full mt-2"
                             inputId="multiple-ac-2"
                             multiple
                             (completeMethod)="search($event)" 
+                            [typeahead]="false" 
                         />
                     </div>
                     <div class="flex items-center gap-2">
@@ -610,8 +610,8 @@ import { SelectModule } from 'primeng/select';
                                 class="flex-1"
                                 multiple
                                 (onSelect)="search($event)"
+                                [typeahead]="false" 
                             />
-                            <!-- <p-autoComplete v-model="emailChips" inputId="multiple-ac-2" class="flex-1" multiple (onSelect)="(search)" [typeahead]="false" /> -->
                             <p-button label="Invite" />
                         </div>
                     </div>
