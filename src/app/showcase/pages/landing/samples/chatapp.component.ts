@@ -314,7 +314,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     host: {
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden flex border border-surface rounded-2xl',
     },
-    styleUrls: ['./chatapp.scss'],
+    styleUrls: ['./styles/chatapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class ChatApp {

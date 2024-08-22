@@ -286,7 +286,7 @@ import { AppConfigService } from '@service/appconfigservice';
     host: {
         class: 'flex-1 h-full overflow-y-auto pb-0.5',
     },
-    styleUrls: ['./overviewapp.scss'],
+    styleUrls: ['./styles/overviewapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class OverviewApp {

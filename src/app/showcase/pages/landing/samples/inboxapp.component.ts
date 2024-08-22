@@ -294,7 +294,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     host: {
         class: 'flex gap-4 h-full flex-1 w-full overflow-auto',
     },
-    styleUrls: ['./inboxapp.scss'],
+    styleUrls: ['./styles/inboxapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class InboxApp {

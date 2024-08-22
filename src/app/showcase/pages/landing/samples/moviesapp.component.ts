@@ -180,7 +180,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     host: {
         class: '',
     },
-    styleUrls: ['./moviesapp.scss'],
+    styleUrls: ['./styles/moviesapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class MoviesApp {

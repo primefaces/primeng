@@ -789,7 +789,7 @@ import { SelectModule } from 'primeng/select';
         class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6',
     },
     providers: [MessageService],
-    styleUrls: ['./cardsapp.scss'],
+    styleUrls: ['./styles/cardsapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class CardsApp {

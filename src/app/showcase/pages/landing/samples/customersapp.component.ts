@@ -498,7 +498,7 @@ import { AppConfigService } from '@service/appconfigservice';
     host: {
         class: 'w-full h-full',
     },
-    styleUrls: ['./customersapp.scss'],
+    styleUrls: ['./styles/customersapp.scss'],
     encapsulation: ViewEncapsulation.None,
 })
 export class CustomersApp {
