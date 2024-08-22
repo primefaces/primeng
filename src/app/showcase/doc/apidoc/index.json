@@ -11830,7 +11830,7 @@
                                     "type": "RemoveUploadedFileEvent"
                                 }
                             ],
-                            "description": "This event is triggered if an error occurs while loading an image file."
+                            "description": "This event is triggered if an error occurs while removing an uploaded file."
                         }
                     ]
                 },
