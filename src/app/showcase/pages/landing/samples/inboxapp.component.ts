@@ -1,32 +1,15 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SelectItem } from 'primeng/api';
-import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
-import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '@service/appconfigservice';
 import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { DomHandler } from 'primeng/dom';
 import { TagModule } from 'primeng/tag';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -38,31 +21,16 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
-        DropdownModule,
-        RadioButtonModule,
-        CalendarModule,
-        ChartModule,
-        ChipModule,
-        InputSwitchModule,
-        SelectButtonModule,
-        SliderModule,
-        BadgeModule,
-        TabMenuModule,
         FormsModule,
         DividerModule,
         AvatarModule,
-        TooltipModule,
         IconFieldModule,
         InputIconModule,
-        CalendarModule,
         ButtonModule,
         TableModule,
-        MeterGroupModule,
         InputTextModule,
         MenuModule,
         TagModule,
-        MeterGroupModule,
         ProgressBarModule,
         CheckboxModule,
         OverlayBadgeModule,
@@ -112,9 +80,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         <div class="flex-1 h-full overflow-hidden flex border border-surface rounded-2xl">
             <p-table [value]="tableData" [(selection)]="selectedRows" dataKey="id" class="w-full">
                 <ng-template pTemplate="caption">
-                    <div
-                        class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row"
-                    >
+                    <div class="flex xl:items-center justify-between gap-2 flex-col xl:flex-row">
                         <div class="flex items-center gap-2">
                             <p-checkbox [binary]="true" class="mr-1" />
                             <p-button icon="pi pi-envelope" outlined severity="secondary" />
@@ -150,7 +116,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         </td>
 
                         <td style="width: 1rem; padding: 0.5rem">
-                            <div (click)="$event.stopPropagation() ; data.bookmarked = !data.bookmarked">
+                            <div (click)="$event.stopPropagation(); data.bookmarked = !data.bookmarked">
                                 <i [ngClass]="data.bookmarked ? 'pi pi-bookmark-fill' : 'pi pi-bookmark'"></i>
                             </div>
                         </td>
@@ -329,17 +295,20 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         class: 'flex gap-4 h-full flex-1 w-full overflow-auto',
     },
     styleUrls: ['./inboxapp.scss'],
-    encapsulation:ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 export class InboxApp {
-    search;
-    activeInboxNav;
-    inboxNavs;
-    tableData;
-    selectedRows = [];
+    search: string | undefined;
+
+    activeInboxNav: string = 'Inbox';
+
+    inboxNavs: any;
+
+    tableData: any;
+
+    selectedRows: any = [];
 
     ngOnInit() {
-        this.activeInboxNav = 'Inbox';
         this.inboxNavs = [
             {
                 title: 'Navigation',
