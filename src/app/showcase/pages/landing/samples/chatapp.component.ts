@@ -1,33 +1,18 @@
-import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { MenuItem, SelectItem } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 import { BadgeModule } from 'primeng/badge';
-import { CalendarModule } from 'primeng/calendar';
 import { ChartModule } from 'primeng/chart';
-import { ChipModule } from 'primeng/chip';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { SliderModule } from 'primeng/slider';
-import { TabMenuModule } from 'primeng/tabmenu';
-import { Subscription, debounceTime } from 'rxjs';
-import { AppConfigService } from '@service/appconfigservice';
-import { DividerModule } from 'primeng/divider';
 import { AvatarModule } from 'primeng/avatar';
-import { TooltipModule } from 'primeng/tooltip';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
-import { MeterGroupModule } from 'primeng/metergroup';
 import { InputTextModule } from 'primeng/inputtext';
 import { MenuModule } from 'primeng/menu';
-import { DomHandler } from 'primeng/dom';
-import { TagModule } from 'primeng/tag';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @Component({
@@ -36,31 +21,17 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     imports: [
         CommonModule,
         RouterModule,
-        InputNumberModule,
-        DropdownModule,
-        RadioButtonModule,
-        CalendarModule,
         ChartModule,
-        ChipModule,
         InputSwitchModule,
         SelectButtonModule,
-        SliderModule,
         BadgeModule,
-        TabMenuModule,
         FormsModule,
-        DividerModule,
         AvatarModule,
-        TooltipModule,
         IconFieldModule,
         InputIconModule,
-        CalendarModule,
         ButtonModule,
-        TableModule,
-        MeterGroupModule,
         InputTextModule,
         MenuModule,
-        TagModule,
-        MeterGroupModule,
         InputTextareaModule,
     ],
     template: `
@@ -105,15 +76,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             size="large"
                             shape="circle"
                         />
-                        <!-- <Avatar
-                            v-bind="chat.image ? { image: chat.image } : { label: chat.capName }"
-                            :class="{
-                                '!bg-primary-100 !text-primary-950': !chat.image
-                            }"
-                            class="text-base font-medium flex"
-                            size="large"
-                            shape="circle"
-                        /> -->
                     </div>
                     <div class="flex-1">
                         <div class="flex items-start gap-1 justify-between">
@@ -339,18 +301,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                         <span class="text-muted-color font-medium">99+</span>
                     </div>
                 </div>
-                <!-- <Button
-                        label="Show more"
-                        icon="pi pi-arrow-right"
-                        iconPos="right"
-                        outlined
-                        class="w-full text-left"
-                        :pt="{
-                        root: {
-                            class: 'justify-between'
-                        }
-                    }"
-                    /> -->
                 <p-button
                     label="Show more"
                     icon="pi pi-arrow-right"
@@ -368,28 +318,35 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     encapsulation: ViewEncapsulation.None,
 })
 export class ChatApp {
-    search = '';
-    download = false;
-    notification = true;
-    sound = false;
-    value = '';
-    options;
-    media;
-    mediaOptions;
-    activeChat;
-    menuItems;
-    chats;
-    chatMessages;
-    chatMedia;
-    members;
+    search: string = '';
 
+    download: boolean = false;
+
+    notification: boolean = true;
+
+    sound: boolean = false;
+
+    value: string = 'Chat';
+
+    options: string[] = ['Chat', 'Call'];
+
+    media: string = 'Media';
+
+    mediaOptions: string[] = ['Media', 'Link', 'Docs'];
+
+    activeChat: string = 'PrimeTek Team';
+
+    menuItems: MenuItem[] | undefined;
+
+    chats: any;
+
+    chatMessages: any;
+
+    chatMedia: string[];
+
+    members: any;
 
     ngOnInit() {
-        this.value = 'Chat';
-        this.options = ['Chat', 'Call'];
-        this.media = 'Media';
-        this.mediaOptions = ['Media', 'Link', 'Docs'];
-        this.activeChat = 'PrimeTek Team';
         this.menuItems = [
             {
                 label: 'Group Info',
