@@ -88,6 +88,6 @@
         "@angular/ssr": "^17.3.6",
         "@docsearch/js": "^3.3.4",
         "esbuild": "^0.19.8",
-        "@primeuix/styled": "0.0.5"
+        "@primeuix/styled": "0.0.6"
     }
 }
