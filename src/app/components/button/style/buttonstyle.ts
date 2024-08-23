@@ -17,7 +17,9 @@ const theme = ({ dt }) => `
     font-size: 1rem;
     font-family: inherit;
     font-feature-settings: inherit;
-    transition: background ${dt('button.transition.duration')}, color ${dt('button.transition.duration')}, border-color ${dt('button.transition.duration')},
+    transition: background ${dt('button.transition.duration')}, color ${dt(
+    'button.transition.duration',
+)}, border-color ${dt('button.transition.duration')},
             outline-color ${dt('button.transition.duration')}, box-shadow ${dt('button.transition.duration')};
     border-radius: ${dt('button.border.radius')};
     outline-color: transparent;
@@ -627,17 +629,17 @@ const classes = {
             'p-button-sm': props.size === 'small',
             'p-button-lg': props.size === 'large',
             'p-button-plain': props.plain,
-            'p-button-fluid': props.fluid
-        }
+            'p-button-fluid': props.fluid,
+        },
     ],
     loadingIcon: 'p-button-loading-icon',
     icon: ({ props }) => [
         'p-button-icon',
         {
-            [`p-button-icon-${props.iconPos}`]: props.label
-        }
+            [`p-button-icon-${props.iconPos}`]: props.label,
+        },
     ],
-    label: 'p-button-label'
+    label: 'p-button-label',
 };
 
 @Injectable()
