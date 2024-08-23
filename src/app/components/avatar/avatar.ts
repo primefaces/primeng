@@ -1,5 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    inject,
+    Input,
+    NgModule,
+    Output,
+    ViewEncapsulation,
+} from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
 import { AvatarStyle } from './style/avatarstyle';
 
@@ -10,19 +19,33 @@ import { AvatarStyle } from './style/avatarstyle';
 @Component({
     selector: 'p-avatar',
     template: `
-        <div [ngClass]="containerClass()" [class]="styleClass" [ngStyle]="style" [attr.aria-labelledby]="ariaLabelledBy" [attr.aria-label]="ariaLabel" [attr.data-pc-name]="'avatar'">
+        <div
+            [ngClass]="containerClass()"
+            [class]="styleClass"
+            [ngStyle]="style"
+            [attr.aria-labelledby]="ariaLabelledBy"
+            [attr.aria-label]="ariaLabel"
+            [attr.data-pc-name]="'avatar'"
+        >
             <ng-content></ng-content>
             <span class="p-avatar-text" *ngIf="label; else iconTemplate">{{ label }}</span>
-            <ng-template #iconTemplate><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span></ng-template>
-            <ng-template #imageTemplate><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel" /></ng-template>
+            <ng-template #iconTemplate
+                ><span [class]="icon" [ngClass]="'p-avatar-icon'" *ngIf="icon; else imageTemplate"></span
+            ></ng-template>
+            <ng-template #imageTemplate
+                ><img [src]="image" *ngIf="image" (error)="imageError($event)" [attr.aria-label]="ariaLabel"
+            /></ng-template>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        '[class.p-avatar-circle]': 'shape === "circle" && !image',
+        '[class.p-avatar-lg]': 'size === "large"  && !image',
+        '[class.p-avatar-xl]': 'size === "xlarge"  && !image',
+        
     },
-    providers: [AvatarStyle]
+    providers: [AvatarStyle],
 })
 export class Avatar extends BaseComponent {
     /**
@@ -85,7 +108,7 @@ export class Avatar extends BaseComponent {
             'p-avatar-image': this.image != null,
             'p-avatar-circle': this.shape === 'circle',
             'p-avatar-lg': this.size === 'large',
-            'p-avatar-xl': this.size === 'xlarge'
+            'p-avatar-xl': this.size === 'xlarge',
         };
     }
 
@@ -97,6 +120,6 @@ export class Avatar extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [Avatar],
-    declarations: [Avatar]
+    declarations: [Avatar],
 })
 export class AvatarModule {}
