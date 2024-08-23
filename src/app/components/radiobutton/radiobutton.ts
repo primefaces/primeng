@@ -1,5 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Injectable, Injector, Input, NgModule, OnDestroy, OnInit, Output, ViewChild, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Injectable,
+    Injector,
+    Input,
+    NgModule,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+    booleanAttribute,
+    forwardRef,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import { Nullable } from 'primeng/ts-helpers';
 import { AutoFocusModule } from 'primeng/autofocus';
@@ -11,11 +29,11 @@ import { PrimeNGConfig } from 'primeng/api';
 export const RADIO_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => RadioButton),
-    multi: true
+    multi: true,
 };
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class RadioControlRegistry {
     private accessors: any[] = [];
@@ -43,7 +61,10 @@ export class RadioControlRegistry {
             return false;
         }
 
-        return controlPair[0].control.root === (accessor as any).control.control.root && controlPair[1].name === accessor.name;
+        return (
+            controlPair[0].control.root === (accessor as any).control.control.root &&
+            controlPair[1].name === accessor.name
+        );
     }
 }
 /**
@@ -90,7 +111,7 @@ export class RadioControlRegistry {
         </div>
     `,
     providers: [RADIO_VALUE_ACCESSOR, RadioButtonStyle],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RadioButton extends BaseComponent implements ControlValueAccessor, OnInit, OnDestroy {
     /**
@@ -154,6 +175,11 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
      */
     @Input({ transform: booleanAttribute }) autofocus: boolean | undefined;
     /**
+     * Allows to select a boolean value.
+     * @group Props
+     */
+    @Input({ transform: booleanAttribute }) binary: boolean | undefined;
+    /**
      * Callback to invoke on radio button click.
      * @param {RadioButtonClickEvent} event - Custom click event.
      * @group Emits
@@ -213,7 +239,11 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
     }
 
     writeValue(value: any): void {
-        this.checked = value == this.value;
+        if (!this.binary) {
+            this.checked = value == this.value;
+        } else {
+            this.checked = !!value;
+        }
 
         if (this.inputViewChild && this.inputViewChild.nativeElement) {
             this.inputViewChild.nativeElement.checked = this.checked;
@@ -279,6 +309,6 @@ export class RadioButton extends BaseComponent implements ControlValueAccessor, 
 @NgModule({
     imports: [CommonModule, AutoFocusModule],
     exports: [RadioButton],
-    declarations: [RadioButton]
+    declarations: [RadioButton],
 })
 export class RadioButtonModule {}
