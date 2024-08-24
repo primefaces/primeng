@@ -1103,9 +1103,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         if (query.length === 0 && !this.multiple && !this.completeOnFocus) {
             this.onClear.emit();
 
-            setTimeout(() => {
-                this.hide();
-            });
+            this.hide();
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
