@@ -415,6 +415,7 @@ const getAngularApp = (props: Props = {}) => {
     import { DialogModule } from 'primeng/dialog';
     import { DividerModule } from 'primeng/divider';
     import { DockModule } from 'primeng/dock';
+    import { DrawerModule } from 'primeng/drawer';
     import { DragDropModule } from 'primeng/dragdrop';
     import { DropdownModule } from 'primeng/dropdown';
     import { SelectModule } from 'primeng/select';
@@ -428,6 +429,7 @@ const getAngularApp = (props: Props = {}) => {
     import { InplaceModule } from 'primeng/inplace';
     import { InputMaskModule } from 'primeng/inputmask';
     import { InputSwitchModule } from 'primeng/inputswitch';
+    import { ToggleSwitchModule } from 'primeng/toggleswitch';
     import { InputTextModule } from 'primeng/inputtext';
     import { InputNumberModule } from 'primeng/inputnumber';
     import { InputTextareaModule } from 'primeng/inputtextarea';
@@ -531,6 +533,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DrawerModule,
         DockModule,
         DragDropModule,
         DropdownModule,
@@ -596,6 +599,7 @@ const getAngularApp = (props: Props = {}) => {
         TimelineModule,
         ToastModule,
         ToggleButtonModule,
+        ToggleSwitchModule,
         ToolbarModule,
         TooltipModule,
         TriStateCheckboxModule,
@@ -640,6 +644,7 @@ const getAngularApp = (props: Props = {}) => {
         DataViewModule,
         DialogModule,
         DividerModule,
+        DrawerModule,
         DeferModule,
         DockModule,
         DragDropModule,
@@ -705,6 +710,7 @@ const getAngularApp = (props: Props = {}) => {
         TimelineModule,
         ToastModule,
         ToggleButtonModule,
+        ToggleSwitchModule,
         ToolbarModule,
         TooltipModule,
         TriStateCheckboxModule,

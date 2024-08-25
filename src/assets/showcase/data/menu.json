@@ -30,10 +30,6 @@
                             "routerLink": "/autocomplete"
                         },
                         {
-                            "name": "DatePicker",
-                            "routerLink": "/datepicker"
-                        },
-                        {
                             "name": "CascadeSelect",
                             "routerLink": "/cascadeselect"
                         },
@@ -50,8 +46,8 @@
                             "routerLink": "/colorpicker"
                         },
                         {
-                            "name": "Select",
-                            "routerLink": "/select"
+                            "name": "DatePicker",
+                            "routerLink": "/datepicker"
                         },
                         {
                             "name": "Editor",
@@ -76,8 +72,8 @@
                             "routerLink": "/inputmask"
                         },
                         {
-                            "name": "InputSwitch",
-                            "routerLink": "/inputswitch"
+                            "name": "ToggleSwitch",
+                            "routerLink": "/toggleswitch"
                         },
                         {
                             "name": "InputText",
@@ -123,6 +119,10 @@
                         {
                             "name": "Rating",
                             "routerLink": "/rating"
+                        },
+                        {
+                            "name": "Select",
+                            "routerLink": "/select"
                         },
                         {
                             "name": "SelectButton",
@@ -270,16 +270,16 @@
                             "routerLink": "/dialog"
                         },
                         {
+                            "name": "Drawer",
+                            "routerLink": "/drawer"
+                        },
+                        {
                             "name": "DynamicDialog",
                             "routerLink": "/dynamicdialog"
                         },
                         {
-                            "name": "OverlayPanel",
-                            "routerLink": "/overlaypanel"
-                        },
-                        {
-                            "name": "Sidebar",
-                            "routerLink": "/sidebar"
+                            "name": "Popover",
+                            "routerLink": "/popover"
                         },
                         {
                             "name": "Tooltip",

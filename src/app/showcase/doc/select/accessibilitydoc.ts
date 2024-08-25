@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <h3>Screen Reader</h3>
             <p>
-                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The dropdown element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If
+                Value to describe the component can either be provided with <i>ariaLabelledBy</i> or <i>ariaLabel</i> props. The select element has a <i>combobox</i> role in addition to <i>aria-haspopup</i> and <i>aria-expanded</i> attributes. If
                 the editable option is enabled <i>aria-autocomplete</i> is also added. The relation between the combobox and the popup is created with <i>aria-controls</i> and <i>aria-activedescendant</i> attribute is used to instruct screen reader
                 which option to read during keyboard navigation within the popup list.
             </p>
@@ -35,7 +35,7 @@ import { Code } from '@domain/code';
                         <td>
                             <i>tab</i>
                         </td>
-                        <td>Moves focus to the dropdown element.</td>
+                        <td>Moves focus to the select element.</td>
                     </tr>
                     <tr>
                         <td>
@@ -95,7 +95,7 @@ import { Code } from '@domain/code';
                         <td>
                             <i>escape</i>
                         </td>
-                        <td>Closes the popup, moves focus to the dropdown element.</td>
+                        <td>Closes the popup, moves focus to the select element.</td>
                     </tr>
                     <tr>
                         <td>
@@ -113,31 +113,31 @@ import { Code } from '@domain/code';
                         <td>
                             <i>right arrow</i>
                         </td>
-                        <td>If the dropdown is editable, removes the visual focus from the current option and moves input cursor to one character left.</td>
+                        <td>If the select is editable, removes the visual focus from the current option and moves input cursor to one character left.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>left arrow</i>
                         </td>
-                        <td>If the dropdown is editable, removes the visual focus from the current option and moves input cursor to one character right.</td>
+                        <td>If the select is editable, removes the visual focus from the current option and moves input cursor to one character right.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>home</i>
                         </td>
-                        <td>If the dropdown is editable, moves input cursor at the end, if not then moves focus to the first option.</td>
+                        <td>If the select is editable, moves input cursor at the end, if not then moves focus to the first option.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>end</i>
                         </td>
-                        <td>If the dropdown is editable, moves input cursor at the beginning, if not then moves focus to the last option.</td>
+                        <td>If the select is editable, moves input cursor at the beginning, if not then moves focus to the last option.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>any printable character</i>
                         </td>
-                        <td>Moves focus to the option whose label starts with the characters being typed if dropdown is not editable.</td>
+                        <td>Moves focus to the option whose label starts with the characters being typed if select is not editable.</td>
                     </tr>
                 </tbody>
             </table>
@@ -157,13 +157,13 @@ import { Code } from '@domain/code';
                         <td>
                             <i>enter</i>
                         </td>
-                        <td>Closes the popup and moves focus to the dropdown element.</td>
+                        <td>Closes the popup and moves focus to the select element.</td>
                     </tr>
                     <tr>
                         <td>
                             <i>escape</i>
                         </td>
-                        <td>Closes the popup and moves focus to the dropdown element.</td>
+                        <td>Closes the popup and moves focus to the select element.</td>
                     </tr>
                 </tbody>
             </table>
