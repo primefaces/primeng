@@ -1,5 +1,18 @@
 import { DOCUMENT, isPlatformBrowser, isPlatformServer } from '@angular/common';
-import { ChangeDetectorRef, computed, Directive, effect, ElementRef, inject, Injector, Input, PLATFORM_ID, Renderer2, SimpleChanges, untracked } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    computed,
+    Directive,
+    effect,
+    ElementRef,
+    inject,
+    Injector,
+    Input,
+    PLATFORM_ID,
+    Renderer2,
+    SimpleChanges,
+    untracked,
+} from '@angular/core';
 import { Theme, ThemeService } from 'primeng/themes';
 import { Base, BaseStyle } from 'primeng/base';
 import { BaseComponentStyle } from './style/basecomponentstyle';
@@ -7,6 +20,7 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
 import { AppConfigService } from '@service/appconfigservice';
 import { DomHandler } from 'primeng/dom';
+import { getKeyValue } from '@primeuix/utils/object';
 
 @Directive({ standalone: true, providers: [BaseComponentStyle, BaseStyle] })
 export class BaseComponent {
@@ -52,8 +66,18 @@ export class BaseComponent {
 
     _getHostInstance(instance) {
         if (instance) {
-            return instance ? (this['hostName'] ? (instance['name'] === this['hostName'] ? instance : this._getHostInstance(instance.parentInstance)) : instance.parentInstance) : undefined;
+            return instance
+                ? this['hostName']
+                    ? instance['name'] === this['hostName']
+                        ? instance
+                        : this._getHostInstance(instance.parentInstance)
+                    : instance.parentInstance
+                : undefined;
         }
+    }
+
+    _getOptionValue(options, key = '', params = {}) {
+        return getKeyValue(options, key, params);
     }
 
     ngOnInit() {
@@ -63,7 +87,10 @@ export class BaseComponent {
     }
 
     ngAfterViewInit() {
-        this.rootEl = DomHandler.findSingle(this.el.nativeElement, `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`);
+        this.rootEl = DomHandler.findSingle(
+            this.el.nativeElement,
+            `[data-pc-name="${ObjectUtils.toFlatCase(this._name)}"]`,
+        );
         if (this.rootEl) {
             this.rootEl?.setAttribute(this.attrSelector, '');
         }
@@ -140,9 +167,12 @@ export class BaseComponent {
 
     _loadScopedThemeStyles(preset) {
         const { css } = this.componentStyle?.getPresetTheme?.(preset, `[${this.attrSelector}]`) || {};
-        const scopedStyle = this.componentStyle?.load(css, { name: `${this.attrSelector}-${this.componentStyle?.name}`, ...this.styleOptions });
+        const scopedStyle = this.componentStyle?.load(css, {
+            name: `${this.attrSelector}-${this.componentStyle?.name}`,
+            ...this.styleOptions,
+        });
 
-        this.scopedStyleEl = scopedStyle.el;
+        this.scopedStyleEl = scopedStyle?.el;
     }
 
     _unloadScopedThemeStyles() {
@@ -155,7 +185,7 @@ export class BaseComponent {
     }
 
     cx(arg: string, rest?: string): string {
-        const classes = this.componentStyle?.classes?.[arg];
+        const classes = this.parent ? this.parent.componentStyle?.classes?.[arg] : this.componentStyle?.classes?.[arg];
 
         if (typeof classes === 'function') {
             return classes({ instance: this });
@@ -175,5 +205,14 @@ export class BaseComponent {
         } else {
             return { ...styles };
         }
+    }
+
+    // cx(key = '', params = {}) {
+    //     const classes = this.parent ? this.parent.componentStyle?.classes : this.componentStyle?.classes;
+    //     return this._getOptionValue(classes({ instance: this._getHostInstance(this) }), key, { ...params });
+    // }
+
+    get parent() {
+        return this['parentInstance'];
     }
 }
