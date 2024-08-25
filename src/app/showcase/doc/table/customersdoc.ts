@@ -33,7 +33,13 @@ import { Table } from 'primeng/table';
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
-                                <input pInputText type="text" [(ngModel)]="searchValue" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Keyboard Search" />
+                                <input
+                                    pInputText
+                                    type="text"
+                                    [(ngModel)]="searchValue"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                    placeholder="Keyboard Search"
+                                />
                             </p-iconField>
                         </div>
                     </ng-template>
@@ -60,17 +66,38 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Agent
                                     <p-sortIcon field="representative.name" />
-                                    <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-columnFilter
+                                        field="representative"
+                                        matchMode="in"
+                                        display="menu"
+                                        [showMatchModes]="false"
+                                        [showOperator]="false"
+                                        [showAddButton]="false"
+                                        class="ml-auto"
+                                    >
                                         <ng-template pTemplate="header">
                                             <div class="px-3 pt-3 pb-0">
                                                 <span class="font-bold">Agent Picker</span>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
+                                            <p-multiSelect
+                                                [(ngModel)]="value"
+                                                [options]="representatives"
+                                                placeholder="Any"
+                                                (onChange)="filter($event.value)"
+                                                optionLabel="name"
+                                            >
                                                 <ng-template let-option pTemplate="item">
                                                     <div class="inline-block vertical-align-middle">
-                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                        <img
+                                                            [alt]="option.label"
+                                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                                                                option.image
+                                                            }}"
+                                                            width="24"
+                                                            class="vertical-align-middle"
+                                                        />
                                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
@@ -90,7 +117,13 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Balance
                                     <p-sortIcon field="balance" />
-                                    <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" class="ml-auto" />
+                                    <p-columnFilter
+                                        type="numeric"
+                                        field="balance"
+                                        display="menu"
+                                        currency="USD"
+                                        class="ml-auto"
+                                    />
                                 </div>
                             </th>
                             <th pSortableColumn="status" style="min-width: 10rem">
@@ -99,9 +132,17 @@ import { Table } from 'primeng/table';
                                     <p-sortIcon field="status" />
                                     <p-columnFilter field="status" matchMode="equals" display="menu" class="ml-auto">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-dropdown [(ngModel)]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                                            <p-dropdown
+                                                [(ngModel)]="value"
+                                                [options]="statuses"
+                                                (onChange)="filter($event.value)"
+                                                placeholder="Any"
+                                            >
                                                 <ng-template let-option pTemplate="item">
-                                                    <p-tag [value]="option.label" [severity]="getSeverity(option.label)" />
+                                                    <p-tag
+                                                        [value]="option.label"
+                                                        [severity]="getSeverity(option.label)"
+                                                    />
                                                 </ng-template>
                                             </p-dropdown>
                                         </ng-template>
@@ -112,9 +153,22 @@ import { Table } from 'primeng/table';
                                 <div class="flex justify-content-between align-items-center">
                                     Activity
                                     <p-sortIcon field="activity" />
-                                    <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" class="ml-auto">
+                                    <p-columnFilter
+                                        field="activity"
+                                        matchMode="between"
+                                        display="menu"
+                                        [showMatchModes]="false"
+                                        [showOperator]="false"
+                                        [showAddButton]="false"
+                                        class="ml-auto"
+                                    >
                                         <ng-template pTemplate="filter" let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3"></p-slider>
+                                            <p-slider
+                                                [(ngModel)]="activityValues"
+                                                [range]="true"
+                                                (onSlideEnd)="filter($event.values)"
+                                                styleClass="m-3"
+                                            ></p-slider>
                                             <div class="flex align-items-center justify-content-between px-2">
                                                 <span>{{ activityValues[0] }}</span>
                                                 <span>{{ activityValues[1] }}</span>
@@ -132,33 +186,37 @@ import { Table } from 'primeng/table';
                                 <p-tableCheckbox [value]="customer" />
                             </td>
                             <td>
-                                <span class="p-column-title">Name</span>
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <span class="p-column-title">Country</span>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    [class]="'flag flag-' + customer.country.code"
+                                    style="width: 20px"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Representative</span>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img
+                                    [alt]="customer.representative.name"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                                        customer.representative.image
+                                    }}"
+                                    width="32"
+                                    style="vertical-align: middle"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Date</span>
-                                {{ customer.date | date: 'MM/dd/yyyy' }}
+                                {{ customer.date | date : 'MM/dd/yyyy' }}
                             </td>
                             <td>
-                                <span class="p-column-title">Balance</span>
-                                {{ customer.balance | currency: 'USD' : 'symbol' }}
+                                {{ customer.balance | currency : 'USD' : 'symbol' }}
                             </td>
                             <td>
-                                <span class="p-column-title">Status</span>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                             <td>
-                                <span class="p-column-title">Activity</span>
                                 <p-progressBar [value]="customer.activity" [showValue]="false" />
                             </td>
                             <td style="text-align: center">
@@ -175,7 +233,7 @@ import { Table } from 'primeng/table';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-customers-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CustomersDoc {
     customers!: Customer[];
@@ -192,10 +250,7 @@ export class CustomersDoc {
 
     searchValue: string | undefined;
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -216,7 +271,7 @@ export class CustomersDoc {
             { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' },
             { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-            { name: 'Xuxue Feng', image: 'xuxuefeng.png' }
+            { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
         ];
 
         this.statuses = [
@@ -225,7 +280,7 @@ export class CustomersDoc {
             { label: 'New', value: 'new' },
             { label: 'Negotiation', value: 'negotiation' },
             { label: 'Renewal', value: 'renewal' },
-            { label: 'Proposal', value: 'proposal' }
+            { label: 'Proposal', value: 'proposal' },
         ];
     }
 
@@ -375,33 +430,26 @@ export class CustomersDoc {
                 <p-tableCheckbox [value]="customer" />
             </td>
             <td>
-                <span class="p-column-title">Name</span>
                 {{ customer.name }}
             </td>
             <td>
-                <span class="p-column-title">Country</span>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                 <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
-                <span class="p-column-title">Representative</span>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
-                <span class="p-column-title">Date</span>
                 {{ customer.date | date : 'MM/dd/yyyy' }}
             </td>
             <td>
-                <span class="p-column-title">Balance</span>
                 {{ customer.balance | currency : 'USD' : 'symbol' }}
             </td>
             <td>
-                <span class="p-column-title">Status</span>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <span class="p-column-title">Activity</span>
                 <p-progressBar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
@@ -537,33 +585,26 @@ export class CustomersDoc {
                 <p-tableCheckbox [value]="customer" />
             </td>
             <td>
-                <span class="p-column-title">Name</span>
                 {{ customer.name }}
             </td>
             <td>
-                <span class="p-column-title">Country</span>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
                 <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
-                <span class="p-column-title">Representative</span>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
-                <span class="p-column-title">Date</span>
                 {{ customer.date | date : 'MM/dd/yyyy' }}
             </td>
             <td>
-                <span class="p-column-title">Balance</span>
                 {{ customer.balance | currency : 'USD' : 'symbol' }}
             </td>
             <td>
-                <span class="p-column-title">Status</span>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
             </td>
             <td>
-                <span class="p-column-title">Activity</span>
                 <p-progressBar [value]="customer.activity" [showValue]="false" />
             </td>
             <td style="text-align: center">
@@ -792,7 +833,7 @@ export class TableCustomersDemo implements OnInit{
 },
 ...`,
 
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -820,7 +861,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

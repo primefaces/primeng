@@ -10,7 +10,13 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [resizableColumns]="true" columnResizeMode="expand" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table
+                    [value]="products"
+                    showGridlines
+                    [resizableColumns]="true"
+                    columnResizeMode="expand"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn>Code</th>
@@ -31,15 +37,12 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-resize-expand-mode-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnResizeExpandModeDoc {
     products!: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -133,7 +136,7 @@ export class TableColumnResizeExpandModeDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -151,7 +154,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

@@ -60,8 +60,6 @@ import { PaginatorProgrammaticDoc } from './paginatorprogrammaticdoc';
 import { ProductsDoc } from './productsdoc';
 import { RadioButtonSelectionDoc } from './radiobuttonselectiondoc';
 import { ReorderDoc } from './reorderdoc';
-import { ResponsiveScrollDoc } from './responsivescrolldoc';
-import { ResponsiveStackDoc } from './responsivestackdoc';
 import { RowEditDoc } from './roweditdoc';
 import { RowspanGroupingDoc } from './rowspangroupingdoc';
 import { SingleColumnSortDoc } from './singlecolumnsortdoc';
@@ -121,7 +119,7 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         AppDocModule,
         DeferredDemo,
         IconFieldModule,
-        InputIconModule
+        InputIconModule,
     ],
     declarations: [
         ImportDoc,
@@ -159,8 +157,6 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         ProductsDoc,
         RadioButtonSelectionDoc,
         ReorderDoc,
-        ResponsiveScrollDoc,
-        ResponsiveStackDoc,
         RowEditDoc,
         FilterSortEditDoc,
         RowExpansionDoc,
@@ -182,8 +178,8 @@ import { FilterAdvancedDoc } from './filteradvanceddoc';
         AccessibilityDoc,
         PaginatorLocaleDoc,
         PreSortDoc,
-        RemovableSortDoc
+        RemovableSortDoc,
     ],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class TableDocModule {}

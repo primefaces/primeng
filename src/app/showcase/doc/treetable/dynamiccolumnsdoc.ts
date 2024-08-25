@@ -16,17 +16,22 @@ interface Column {
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header" let-columns>
                         <tr>
-                            <th *ngFor="let col of columns">
+                            <th style="width: 34%" *ngFor="let col of columns">
                                 {{ col.header }}
                             </th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
                         <tr [ttRow]="rowNode">
-                            <td *ngFor="let col of columns; let i = index">
+                            <td style="width: 34%" *ngFor="let col of columns; let i = index">
                                 <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0" />
                                 {{ rowData[col.field] }}
                             </td>
@@ -37,7 +42,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-dynamic-columns-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicColumnsDoc {
     files!: TreeNode[];
@@ -51,7 +56,7 @@ export class DynamicColumnsDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
     code: Code = {
@@ -125,6 +130,6 @@ export class TreeTableDynamicColumnsDemo implements OnInit {
         ];
     }
 }`,
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

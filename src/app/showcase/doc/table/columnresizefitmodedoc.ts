@@ -6,11 +6,19 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'column-resize-fit-mode-doc',
     template: ` <app-docsectiontext>
-            <p>Columns can be resized using drag drop by setting the <i>resizableColumns</i> to <i>true</i>. Fit mode is the default one and the overall table width does not change when a column is resized.</p>
+            <p>
+                Columns can be resized using drag drop by setting the <i>resizableColumns</i> to <i>true</i>. Fit mode
+                is the default one and the overall table width does not change when a column is resized.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" [resizableColumns]="true" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table
+                    [value]="products"
+                    showGridlines
+                    [resizableColumns]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="header">
                         <tr>
                             <th pResizableColumn>Code</th>
@@ -31,15 +39,12 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-column-resize-fit-mode-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnResizeFitModeDoc {
     products!: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -131,7 +136,7 @@ export class TableColumnResizeFitModeDemo implements OnInit{
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -149,7 +154,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

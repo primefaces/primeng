@@ -11,9 +11,15 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <div class="flex justify-content-center mb-3">
-                    <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
+                    <p-selectButton
+                        [options]="sizes"
+                        [(ngModel)]="selectedSize"
+                        [multiple]="false"
+                        optionLabel="name"
+                        optionValue="value"
+                    />
                 </div>
-                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [styleClass]="selectedSize">
+                <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [size]="selectedSize">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -34,19 +40,16 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-size-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SizeDoc {
     products!: Product[];
 
     sizes!: any[];
 
-    selectedSize: any = '';
+    selectedSize: any = undefined;
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -55,9 +58,9 @@ export class SizeDoc {
         });
 
         this.sizes = [
-            { name: 'Small', class: 'p-datatable-sm' },
-            { name: 'Normal', class: '' },
-            { name: 'Large', class: 'p-datatable-lg' }
+            { name: 'Small', value: 'small' },
+            { name: 'Normal', value: undefined },
+            { name: 'Large', value: 'large' },
         ];
     }
 
@@ -164,7 +167,7 @@ export class TableSizeDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -182,7 +185,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

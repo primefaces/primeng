@@ -6,11 +6,11 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'gridlines-doc',
     template: ` <app-docsectiontext>
-            <p>Adding <i>p-datatable-gridlines</i> class displays grid lines.</p>
+            <p>Enabling <i>showGridlines</i> displays borders between cells.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" styleClass="p-datatable-gridlines" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table [value]="products" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -31,15 +31,12 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-gridlines-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridlinesDoc {
     products!: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -51,7 +48,7 @@ export class GridlinesDoc {
     code: Code = {
         basic: `<p-table 
     [value]="products" 
-    styleClass="p-datatable-gridlines" 
+    showGridlines 
     [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
@@ -73,7 +70,7 @@ export class GridlinesDoc {
         html: `<div class="card">
     <p-table 
         [value]="products" 
-        styleClass="p-datatable-gridlines" 
+        showGridlines 
         [tableStyle]="{ 'min-width': '50rem' }">
             <ng-template pTemplate="header">
                 <tr>
@@ -130,7 +127,7 @@ export class TableGridlinesDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -148,7 +145,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

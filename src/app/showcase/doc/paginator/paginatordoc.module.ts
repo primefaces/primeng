@@ -16,10 +16,33 @@ import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
 import { LocaleDoc } from './localedoc';
 import { CurrentPageReportDoc } from './currentpagereportdoc';
+import { FormsModule } from '@angular/forms';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, PaginatorModule, ButtonModule, DividerModule, SliderModule, RouterModule, DropdownModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        PaginatorModule,
+        ButtonModule,
+        DividerModule,
+        FormsModule,
+        InputNumberModule,
+        SliderModule,
+        RouterModule,
+        DropdownModule,
+    ],
     exports: [AppDocModule],
-    declarations: [ImportDoc, BasicDoc, TemplateDoc, ImagesDoc, StyleDoc, AccessibilityDoc, LocaleDoc, CurrentPageReportDoc]
+    declarations: [
+        ImportDoc,
+        BasicDoc,
+        TemplateDoc,
+        ImagesDoc,
+        StyleDoc,
+        AccessibilityDoc,
+        LocaleDoc,
+        CurrentPageReportDoc,
+    ],
 })
 export class PaginatorDocModule {}

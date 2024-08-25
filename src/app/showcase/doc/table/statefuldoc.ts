@@ -6,10 +6,16 @@ import { CustomerService } from '@service/customerservice';
 @Component({
     selector: 'stateful-doc',
     template: ` <app-docsectiontext>
-            <p>Stateful table allows keeping the state such as page, sort and filtering either at local storage or session storage so that when the page is visited again, table would render the data using the last settings.</p>
             <p>
-                Change the state of the table e.g paginate, navigate away and then return to this table again to test this feature, the setting is set as <i>session</i> with the <i>stateStorage</i> property so that Table retains the state until the
-                browser is closed. Other alternative is <i>local</i> referring to <i>localStorage</i> for an extended lifetime.
+                Stateful table allows keeping the state such as page, sort and filtering either at local storage or
+                session storage so that when the page is visited again, table would render the data using the last
+                settings.
+            </p>
+            <p>
+                Change the state of the table e.g paginate, navigate away and then return to this table again to test
+                this feature, the setting is set as <i>session</i> with the <i>stateStorage</i> property so that Table
+                retains the state until the browser is closed. Other alternative is <i>local</i> referring to
+                <i>localStorage</i> for an extended lifetime.
             </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
@@ -32,35 +38,52 @@ import { CustomerService } from '@service/customerservice';
                             <p-inputIcon>
                                 <i class="pi pi-search"></i>
                             </p-inputIcon>
-                            <input pInputText type="text" (input)="dt1.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                            <input
+                                pInputText
+                                type="text"
+                                (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                                placeholder="Global Search"
+                            />
                         </p-iconField>
                     </ng-template>
                     <ng-template pTemplate="header">
                         <tr>
                             <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
-                            <th pSortableColumn="country.name" style="width:25%">Country <p-sortIcon field="country.name" /></th>
-                            <th pSortableColumn="representative.name" style="width:25%">Representative <p-sortIcon field="representative.name" /></th>
+                            <th pSortableColumn="country.name" style="width:25%">
+                                Country <p-sortIcon field="country.name" />
+                            </th>
+                            <th pSortableColumn="representative.name" style="width:25%">
+                                Representative <p-sortIcon field="representative.name" />
+                            </th>
                             <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
-                                <span class="p-column-title">Name</span>
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <span class="p-column-title">Country</span>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <span class="p-datatable-column-title">Country</span>
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    [class]="'flag flag-' + customer.country.code"
+                                    style="width: 20px"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Representative</span>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img
+                                    [alt]="customer.representative.name"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                                        customer.representative.image
+                                    }}"
+                                    width="32"
+                                    style="vertical-align: middle"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Status</span>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                         </tr>
@@ -68,21 +91,28 @@ import { CustomerService } from '@service/customerservice';
                     <ng-template pTemplate="body" let-customer>
                         <tr [pSelectableRow]="customer">
                             <td>
-                                <span class="p-column-title">Name</span>
                                 {{ customer.name }}
                             </td>
                             <td>
-                                <span class="p-column-title">Country</span>
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
+                                <img
+                                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                    [class]="'flag flag-' + customer.country.code"
+                                    style="width: 20px"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Representative</span>
-                                <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
+                                <img
+                                    [alt]="customer.representative.name"
+                                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                                        customer.representative.image
+                                    }}"
+                                    width="32"
+                                    style="vertical-align: middle"
+                                />
                                 <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
-                                <span class="p-column-title">Status</span>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                             </td>
                         </tr>
@@ -96,17 +126,14 @@ import { CustomerService } from '@service/customerservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-stateful-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatefulDoc {
     customers!: Customer[];
 
     selectedCustomers!: Customer;
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersMini().then((data) => {
@@ -146,97 +173,97 @@ export class StatefulDoc {
     [rows]="5"
     [paginator]="true"
     stateStorage="session"
-    stateKey="statedemo-session">
-        <ng-template pTemplate="caption">
-            <p-iconField iconPosition="left">
-                <p-inputIcon>
-                    <i class="pi pi-search"></i>
-                </p-inputIcon>
-                <input 
-                    pInputText type="text" 
-                    (input)="dt1.filterGlobal($event.target.value, 'contains')" 
-                    placeholder="Global Search" />
-            </p-iconField>
-        </ng-template>
-        <ng-template pTemplate="header">
-            <tr>
-                <th pSortableColumn="name" style="width:25%">
-                    Name <p-sortIcon field="name" />
-                </th>
-                <th pSortableColumn="country.name" style="width:25%">
-                    Country <p-sortIcon field="country.name" />
-                </th>
-                <th pSortableColumn="representative.name" style="width:25%">
-                    Representative <p-sortIcon field="representative.name" />
-                </th>
-                <th pSortableColumn="status" style="width:25%">
-                    Status <p-sortIcon field="status" />
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-customer>
-            <tr [pSelectableRow]="customer">
-                <td>
-                    <span class="p-column-title">Name</span>
-                    {{ customer.name }}
-                </td>
-                <td>
-                    <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
-                        style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
-                        style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Status</span>
-                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-customer>
-            <tr [pSelectableRow]="customer">
-                <td>
-                    <span class="p-column-title">Name</span>
-                    {{ customer.name }}
-                </td>
-                <td>
-                    <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
-                        style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                        width="32" 
-                        style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
-                </td>
-                <td>
-                    <span class="p-column-title">Status</span>
-                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
-                </td>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-            <tr>
-                <td colspan="4">No customers found.</td>
-            </tr>
-        </ng-template>
+    stateKey="statedemo-session"
+>
+    <ng-template pTemplate="caption">
+        <p-iconField iconPosition="left">
+            <p-inputIcon>
+                <i class="pi pi-search"></i>
+            </p-inputIcon>
+            <input
+                pInputText
+                type="text"
+                (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                placeholder="Global Search"
+            />
+        </p-iconField>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
+            <th pSortableColumn="country.name" style="width:25%">
+                Country <p-sortIcon field="country.name" />
+            </th>
+            <th pSortableColumn="representative.name" style="width:25%">
+                Representative <p-sortIcon field="representative.name" />
+            </th>
+            <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr [pSelectableRow]="customer">
+            <td>
+                {{ customer.name }}
+            </td>
+            <td>
+                <span class="p-datatable-column-title">Country</span>
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + customer.country.code"
+                    style="width: 20px"
+                />
+                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+            </td>
+            <td>
+                <img
+                    [alt]="customer.representative.name"
+                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                        customer.representative.image
+                    }}"
+                    width="32"
+                    style="vertical-align: middle"
+                />
+                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+            </td>
+            <td>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+        <tr [pSelectableRow]="customer">
+            <td>
+                {{ customer.name }}
+            </td>
+            <td>
+                <img
+                    src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                    [class]="'flag flag-' + customer.country.code"
+                    style="width: 20px"
+                />
+                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+            </td>
+            <td>
+                <img
+                    [alt]="customer.representative.name"
+                    src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                        customer.representative.image
+                    }}"
+                    width="32"
+                    style="vertical-align: middle"
+                />
+                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+            </td>
+            <td>
+                <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="4">No customers found.</td>
+        </tr>
+    </ng-template>
 </p-table>`,
         html: `<div class="card">
     <p-table
@@ -250,60 +277,59 @@ export class StatefulDoc {
         [rows]="5"
         [paginator]="true"
         stateStorage="session"
-        stateKey="statedemo-session">
+        stateKey="statedemo-session"
+    >
         <ng-template pTemplate="caption">
             <p-iconField iconPosition="left">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
                 </p-inputIcon>
-                <input 
-                    pInputText 
-                    type="text" 
-                    (input)="dt1.filterGlobal($event.target.value, 'contains')" 
-                    placeholder="Global Search" />
+                <input
+                    pInputText
+                    type="text"
+                    (input)="dt1.filterGlobal($event.target.value, 'contains')"
+                    placeholder="Global Search"
+                />
             </p-iconField>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th pSortableColumn="name" style="width:25%">
-                    Name <p-sortIcon field="name" />
-                </th>
+                <th pSortableColumn="name" style="width:25%">Name <p-sortIcon field="name" /></th>
                 <th pSortableColumn="country.name" style="width:25%">
                     Country <p-sortIcon field="country.name" />
                 </th>
                 <th pSortableColumn="representative.name" style="width:25%">
                     Representative <p-sortIcon field="representative.name" />
                 </th>
-                <th pSortableColumn="status" style="width:25%">
-                    Status <p-sortIcon field="status" />
-                </th>
+                <th pSortableColumn="status" style="width:25%">Status <p-sortIcon field="status" /></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
-                    <span class="p-column-title">Name</span>
                     {{ customer.name }}
                 </td>
                 <td>
-                    <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
-                        style="width: 20px" />
+                    <span class="p-datatable-column-title">Country</span>
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
+                        style="width: 20px"
+                    />
                     <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
-                    <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
-                        style="vertical-align: middle" />
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                            customer.representative.image
+                        }}"
+                        width="32"
+                        style="vertical-align: middle"
+                    />
                     <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
-                    <span class="p-column-title">Status</span>
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                 </td>
             </tr>
@@ -311,28 +337,28 @@ export class StatefulDoc {
         <ng-template pTemplate="body" let-customer>
             <tr [pSelectableRow]="customer">
                 <td>
-                    <span class="p-column-title">Name</span>
                     {{ customer.name }}
                 </td>
                 <td>
-                    <span class="p-column-title">Country</span>
-                    <img 
-                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
-                        [class]="'flag flag-' + customer.country.code" 
-                        style="width: 20px" />
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                        [class]="'flag flag-' + customer.country.code"
+                        style="width: 20px"
+                    />
                     <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
-                    <span class="p-column-title">Representative</span>
-                    <img 
-                        [alt]="customer.representative.name" 
-                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" 
-                        width="32" 
-                        style="vertical-align: middle" />
+                    <img
+                        [alt]="customer.representative.name"
+                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                            customer.representative.image
+                        }}"
+                        width="32"
+                        style="vertical-align: middle"
+                    />
                     <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
-                    <span class="p-column-title">Status</span>
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
                 </td>
             </tr>
@@ -410,7 +436,7 @@ export class TableStatefulDemo implements OnInit{
     balance: 70663
 },
 ...`,
-        service: ['CustomerService']
+        service: ['CustomerService'],
     };
 
     extFiles = [
@@ -438,7 +464,7 @@ export interface Customer {
     representative?: Representative;
     verified?: boolean;
     balance?: number;
-}`
-        }
+}`,
+        },
     ];
 }

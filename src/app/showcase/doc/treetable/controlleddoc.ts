@@ -11,37 +11,39 @@ import { NodeService } from '@service/nodeservice';
         <div class="card">
             <p-button (click)="toggleApplications()" label="Toggle Applications" />
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
+                <p-treeTable
+                    [value]="files"
+                    [scrollable]="true"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                    styleClass="mt-4"
+                >
                     <ng-template pTemplate="header">
                         <tr>
-                            <th>Name</th>
-                            <th>Size</th>
-                            <th>Type</th>
+                            <th style="width:34%;">Name</th>
+                            <th style="width:34%;">Size</th>
+                            <th style="width:34%;">Type</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
                         <tr [ttRow]="rowNode">
-                            <td>
+                            <td style="width:34%;">
                                 <p-treeTableToggler [rowNode]="rowNode" />
                                 {{ rowData.name }}
                             </td>
-                            <td>{{ rowData.size }}</td>
-                            <td>{{ rowData.type }}</td>
+                            <td style="width:34%;">{{ rowData.size }}</td>
+                            <td style="width:34%;">{{ rowData.type }}</td>
                         </tr>
                     </ng-template>
                 </p-treeTable>
             </p-deferred-demo>
         </div>
         <app-code [code]="code" selector="tree-table-controlled-demo"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlledDoc {
     files!: TreeNode[];
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.nodeService.getFilesystem().then((files) => {
@@ -137,6 +139,6 @@ export class TreeTableControlledDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

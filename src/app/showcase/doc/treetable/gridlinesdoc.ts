@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-treetable-gridlines">
+                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Name</th>
@@ -34,7 +34,7 @@ import { NodeService } from '@service/nodeservice';
         </div>
         <app-code [code]="code" selector="tree-table-gridlines-demo"></app-code>
     </section>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GridlinesDoc {
     files!: TreeNode[];
@@ -117,6 +117,6 @@ export class TreeTableGridlinesDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

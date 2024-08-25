@@ -50,7 +50,23 @@ import { DialogModule } from 'primeng/dialog';
 import { SortRemovableDoc } from './sortremovabledoc';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, TreeTableModule, ButtonModule, RouterModule, InputTextModule, SelectButtonModule, FormsModule, InputSwitchModule, ToastModule, MultiSelectModule, ContextMenuModule, DialogModule, DeferredDemo],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        AppDocModule,
+        TreeTableModule,
+        ButtonModule,
+        RouterModule,
+        InputTextModule,
+        SelectButtonModule,
+        FormsModule,
+        InputSwitchModule,
+        ToastModule,
+        MultiSelectModule,
+        ContextMenuModule,
+        DialogModule,
+        DeferredDemo,
+    ],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -86,7 +102,7 @@ import { SortRemovableDoc } from './sortremovabledoc';
         ResizeScrollableDoc,
         SizeDoc,
         GridlinesDoc,
-        ControlledDoc
-    ]
+        ControlledDoc,
+    ],
 })
 export class TreeTableDocModule {}

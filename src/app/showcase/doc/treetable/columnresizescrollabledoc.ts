@@ -12,11 +12,21 @@ interface Column {
     selector: 'resize-scrollable-doc',
     template: `
         <app-docsectiontext>
-            <p>To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must be defined. The default value of scrollHeight is "flex," it can also be set as a string value.</p>
+            <p>
+                To utilize the column resize modes with a <i>scrollable</i> TreeTable, a <i>colgroup</i> template must
+                be defined. The default value of scrollHeight is "flex," it can also be set as a string value.
+            </p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [columns]="cols" [resizableColumns]="true" [scrollable]="true" scrollHeight="200px" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-treeTable
+                    [value]="files"
+                    [columns]="cols"
+                    [resizableColumns]="true"
+                    [scrollable]="true"
+                    scrollHeight="200px"
+                    [tableStyle]="{ 'min-width': '50rem' }"
+                >
                     <ng-template pTemplate="colgroup" let-columns>
                         <colgroup>
                             <col *ngFor="let col of columns" />
@@ -42,7 +52,7 @@ interface Column {
         </div>
         <app-code [code]="code" selector="tree-table-resize-scrollable-demo"></app-code>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResizeScrollableDoc {
     files!: TreeNode[];
@@ -56,7 +66,7 @@ export class ResizeScrollableDoc {
         this.cols = [
             { field: 'name', header: 'Name' },
             { field: 'size', header: 'Size' },
-            { field: 'type', header: 'Type' }
+            { field: 'type', header: 'Type' },
         ];
     }
 
@@ -154,6 +164,6 @@ export class TreeTableResizeScrollableDemo implements OnInit {
     }
 }`,
 
-        service: ['NodeService']
+        service: ['NodeService'],
     };
 }

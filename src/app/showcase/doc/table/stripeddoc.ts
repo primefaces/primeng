@@ -6,11 +6,11 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'striped-doc',
     template: ` <app-docsectiontext>
-            <p>Adding <i>p-datatable-striped</i> class displays striped rows.</p>
+            <p>Alternating rows are displayed when <i>stripedRows</i> property is present.</p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <p-table [value]="products" styleClass="p-datatable-striped" [tableStyle]="{ 'min-width': '50rem' }">
+                <p-table [value]="products" stripedRows [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Code</th>
@@ -31,15 +31,12 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-striped-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StripedDoc {
     products!: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -51,7 +48,7 @@ export class StripedDoc {
     code: Code = {
         basic: `<p-table 
     [value]="products" 
-    styleClass="p-datatable-striped" 
+    stripedRows 
     [tableStyle]="{'min-width': '50rem'}">
         <ng-template pTemplate="header">
             <tr>
@@ -73,7 +70,7 @@ export class StripedDoc {
         html: `<div class="card">
     <p-table 
         [value]="products" 
-        styleClass="p-datatable-striped" 
+        stripedRows 
         [tableStyle]="{'min-width': '50rem'}">
             <ng-template pTemplate="header">
                 <tr>
@@ -130,7 +127,7 @@ export class TableStripedDemo {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -148,7 +145,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

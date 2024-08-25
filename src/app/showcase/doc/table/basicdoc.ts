@@ -5,7 +5,10 @@ import { ProductService } from '@service/productservice';
 @Component({
     selector: 'basic-doc',
     template: ` <app-docsectiontext>
-            <p>DataTable requires a collection to display along with column components for the representation of the data.</p>
+            <p>
+                DataTable requires a collection to display along with column components for the representation of the
+                data.
+            </p>
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
@@ -30,15 +33,12 @@ import { ProductService } from '@service/productservice';
             </div>
         </p-deferred-demo>
         <app-code [code]="code" selector="table-basic-demo" [extFiles]="extFiles"></app-code>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicDoc {
     products!: Product[];
 
-    constructor(
-        private productService: ProductService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private productService: ProductService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.productService.getProductsMini().then((data) => {
@@ -125,7 +125,7 @@ export class TableBasicDemo implements OnInit {
     rating: 5
 },
 ...`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -143,7 +143,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }
