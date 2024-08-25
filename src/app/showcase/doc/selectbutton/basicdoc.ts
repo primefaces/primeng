@@ -11,12 +11,12 @@ import { Code } from '@domain/code';
             <p-selectButton [options]="stateOptions" [(ngModel)]="value" optionLabel="label" optionValue="value" />
         </div>
         <app-code [code]="code" selector="select-button-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     stateOptions: any[] = [
         { label: 'One-Way', value: 'one-way' },
-        { label: 'Return', value: 'return' }
+        { label: 'Return', value: 'return' },
     ];
 
     value: string = 'one-way';
@@ -50,6 +50,6 @@ export class SelectButtonBasicDemo {
     stateOptions: any[] = [{ label: 'One-Way', value: 'one-way' },{ label: 'Return', value: 'return' }];
 
     value: string = 'off';
-}`
+}`,
     };
 }
