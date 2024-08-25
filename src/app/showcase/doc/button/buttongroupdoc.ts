@@ -36,6 +36,7 @@ export class ButtonGroupDoc {
         typescript: `import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 
+
 @Component({
     selector: 'button-group-demo',
     templateUrl: './button-group-demo.html',
