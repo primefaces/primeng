@@ -17,7 +17,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Aria, PrimeTemplate, SelectItem, SharedModule } from 'primeng/api';
@@ -32,6 +32,7 @@ import { Nullable } from 'primeng/ts-helpers';
 import { PaginatorState } from './paginator.interface';
 import { PaginatorStyle } from './style/paginatorstyle';
 import { BaseComponent } from 'primeng/basecomponent';
+import { SelectModule } from 'primeng/select';
 /**
  * Paginator is a generic component to display content in paged format.
  * @group Components
@@ -39,7 +40,14 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-paginator',
     template: `
-        <div [class]="styleClass" [ngStyle]="style" [ngClass]="'p-paginator p-component'" *ngIf="alwaysShow ? true : pageLinks && pageLinks.length > 1" [attr.data-pc-section]="'paginator'" [attr.data-pc-section]="'root'">
+        <div
+            [class]="styleClass"
+            [ngStyle]="style"
+            [ngClass]="'p-paginator p-component'"
+            *ngIf="alwaysShow ? true : pageLinks && pageLinks.length > 1"
+            [attr.data-pc-section]="'paginator'"
+            [attr.data-pc-section]="'root'"
+        >
             <div class="p-paginator-content-start" *ngIf="templateLeft" [attr.data-pc-section]="'start'">
                 <ng-container *ngTemplateOutlet="templateLeft; context: { $implicit: paginatorState }"></ng-container>
             </div>
@@ -59,7 +67,15 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <ng-template *ngTemplateOutlet="firstPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
-            <button type="button" [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)" pRipple class="p-paginator-prev" [ngClass]="{ 'p-disabled': isFirstPage() || empty() }" [attr.aria-label]="getAriaLabel('prevPageLabel')">
+            <button
+                type="button"
+                [disabled]="isFirstPage() || empty()"
+                (click)="changePageToPrev($event)"
+                pRipple
+                class="p-paginator-prev"
+                [ngClass]="{ 'p-disabled': isFirstPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('prevPageLabel')"
+            >
                 <AngleLeftIcon *ngIf="!previousPageLinkIconTemplate" [styleClass]="'p-paginator-prev-icon'" />
                 <span class="p-paginator-prev-icon" *ngIf="previousPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="previousPageLinkIconTemplate"></ng-template>
@@ -79,7 +95,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                     {{ getLocalization(pageLink) }}
                 </button>
             </span>
-            <p-dropdown
+            <p-select
                 [options]="pageItems"
                 [ngModel]="getPage()"
                 *ngIf="showJumpToPageDropdown"
@@ -93,14 +109,23 @@ import { BaseComponent } from 'primeng/basecomponent';
                 <ng-template pTemplate="selectedItem">{{ currentPageReport }}</ng-template>
                 <ng-container *ngIf="jumpToPageItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="jumpToPageItemTemplate; context: { $implicit: item }">
+                        </ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
                 </ng-template>
-            </p-dropdown>
-            <button type="button" [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)" pRipple class="p-paginator-next" [ngClass]="{ 'p-disabled': isLastPage() || empty() }" [attr.aria-label]="getAriaLabel('nextPageLabel')">
+            </p-select>
+            <button
+                type="button"
+                [disabled]="isLastPage() || empty()"
+                (click)="changePageToNext($event)"
+                pRipple
+                class="p-paginator-next"
+                [ngClass]="{ 'p-disabled': isLastPage() || empty() }"
+                [attr.aria-label]="getAriaLabel('nextPageLabel')"
+            >
                 <AngleRightIcon *ngIf="!nextPageLinkIconTemplate" [styleClass]="'p-paginator-next-icon'" />
                 <span class="p-paginator-next-icon" *ngIf="nextPageLinkIconTemplate">
                     <ng-template *ngTemplateOutlet="nextPageLinkIconTemplate"></ng-template>
@@ -121,8 +146,14 @@ import { BaseComponent } from 'primeng/basecomponent';
                     <ng-template *ngTemplateOutlet="lastPageLinkIconTemplate"></ng-template>
                 </span>
             </button>
-            <p-inputNumber *ngIf="showJumpToPageInput" [ngModel]="currentPage()" class="p-paginator-jtp-input" [disabled]="empty()" (ngModelChange)="changePage($event - 1)"></p-inputNumber>
-            <p-dropdown
+            <p-inputNumber
+                *ngIf="showJumpToPageInput"
+                [ngModel]="currentPage()"
+                class="p-paginator-jtp-input"
+                [disabled]="empty()"
+                (ngModelChange)="changePage($event - 1)"
+            ></p-inputNumber>
+            <p-select
                 [options]="rowsPerPageItems"
                 [(ngModel)]="rows"
                 *ngIf="rowsPerPageOptions"
@@ -135,13 +166,14 @@ import { BaseComponent } from 'primeng/basecomponent';
             >
                 <ng-container *ngIf="dropdownItemTemplate">
                     <ng-template let-item pTemplate="item">
-                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }"> </ng-container>
+                        <ng-container *ngTemplateOutlet="dropdownItemTemplate; context: { $implicit: item }">
+                        </ng-container>
                     </ng-template>
                 </ng-container>
                 <ng-template pTemplate="dropdownicon" *ngIf="dropdownIconTemplate">
                     <ng-container *ngTemplateOutlet="dropdownIconTemplate"></ng-container>
                 </ng-template>
-            </p-dropdown>
+            </p-select>
             <div class="p-paginator-content-end" *ngIf="templateRight" [attr.data-pc-section]="'end'">
                 <ng-container *ngTemplateOutlet="templateRight; context: { $implicit: paginatorState }"></ng-container>
             </div>
@@ -149,7 +181,7 @@ import { BaseComponent } from 'primeng/basecomponent';
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [PaginatorStyle]
+    providers: [PaginatorStyle],
 })
 export class Paginator extends BaseComponent implements OnInit, AfterContentInit, OnChanges {
     /**
@@ -318,7 +350,9 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
     }
 
     getPageAriaLabel(value: number): string | undefined {
-        return this.config.translation.aria ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`) : undefined;
+        return this.config.translation.aria
+            ? this.config.translation.aria.pageLabel.replace(/{page}/g, `${value}`)
+            : undefined;
     }
 
     getLocalization(digit: number): string {
@@ -455,7 +489,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
                 page: p,
                 first: this.first,
                 rows: this.rows,
-                pageCount: pc
+                pageCount: pc,
             };
             this.updatePageLinks();
 
@@ -520,7 +554,7 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
             pageCount: this.getPageCount(),
             rows: this.rows,
             first: this.first,
-            totalRecords: this.totalRecords
+            totalRecords: this.totalRecords,
         };
     }
 
@@ -544,8 +578,19 @@ export class Paginator extends BaseComponent implements OnInit, AfterContentInit
 }
 
 @NgModule({
-    imports: [CommonModule, DropdownModule, InputNumberModule, FormsModule, SharedModule, RippleModule, AngleDoubleLeftIcon, AngleDoubleRightIcon, AngleLeftIcon, AngleRightIcon],
-    exports: [Paginator, DropdownModule, InputNumberModule, FormsModule, SharedModule],
-    declarations: [Paginator]
+    imports: [
+        CommonModule,
+        SelectModule,
+        InputNumberModule,
+        FormsModule,
+        SharedModule,
+        RippleModule,
+        AngleDoubleLeftIcon,
+        AngleDoubleRightIcon,
+        AngleLeftIcon,
+        AngleRightIcon,
+    ],
+    exports: [Paginator, SelectModule, SharedModule],
+    declarations: [Paginator],
 })
 export class PaginatorModule {}
