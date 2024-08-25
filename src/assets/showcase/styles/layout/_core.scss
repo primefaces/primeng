@@ -105,3 +105,14 @@ button {
     font-family: var(--font-family);
     font-feature-settings: var(--font-feature-settings);
 }
+
+*,
+::before,
+::after {
+    border-width: 0;
+    border-style: solid;
+}
+
+textarea {
+   resize: none;
+}

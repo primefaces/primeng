@@ -40,6 +40,7 @@
         "@angular/platform-browser-dynamic": "^17.3.7",
         "@angular/platform-server": "^17.3.7",
         "@angular/router": "^17.3.7",
+        "@angular/ssr": "^17.3.6",
         "@stackblitz/sdk": "1.9.0",
         "@types/express": "^4.17.17",
         "@types/jasmine": "~4.3.1",
@@ -51,6 +52,7 @@
         "codelyzer": "^0.0.28",
         "del": "^7.1.0",
         "domino": "^2.1.6",
+        "esbuild": "^0.19.8",
         "eslint": "^8.39.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-import": "latest",
@@ -84,10 +86,14 @@
         "typedoc": "0.25.4",
         "typescript": "5.2.2",
         "xlsx": "^0.18.5",
-        "zone.js": "~0.14.0",
-        "@angular/ssr": "^17.3.6",
         "@docsearch/js": "^3.3.4",
-        "esbuild": "^0.19.8",
-        "@primeuix/styled": "0.0.6"
+        "@primeuix/styled": "0.0.6",
+        "zone.js": "~0.14.0"
+    },
+    "dependencies": {
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.41",
+        "tailwindcss": "^3.4.10",
+        "tailwindcss-primeui": "^0.3.4"
     }
 }

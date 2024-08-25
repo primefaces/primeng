@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
+p-avatar{
+    display:inline-flex;
+}
+
 .p-avatar {
     display: inline-flex;
     align-items: center;
