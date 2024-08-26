@@ -508,7 +508,7 @@ export class OverviewApp {
 
                         const datasetPointsX = tooltip.dataPoints.map((dp) => dp.element.x);
                         const avgX = datasetPointsX.reduce((a, b) => a + b, 0) / datasetPointsX.length;
-                        const avgY = tooltip.dataPoints[2].element.y;
+                        const avgY = tooltip.dataPoints[0].element.y;
 
                         if (tooltip.body) {
                             tooltipEl.innerHTML = '';
