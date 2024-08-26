@@ -93,56 +93,56 @@
             </a>
         </div>
 
-        <ul class="flex list-none m-0 p-0 gap-2 align-items-center ">
+        <ul class="topbar-items">
             <li>
                 <div id="docsearch"></div>
             </li>
             <li>
                 <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer"
-                    class="flex px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary">
+                    class="topbar-item">
                     <i class="pi pi-github text-700"></i>
                 </a>
             </li>
             <li>
                 <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer"
-                    class="flex px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary">
+                    class="topbar-item">
                     <i class="pi pi-discord text-700"></i>
                 </a>
             </li>
             <li>
                 <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer"
-                    class="flex px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary">
+                    class="topbar-item">
                     <i class="pi pi-comments text-700"></i>
                 </a>
             </li>
             <li>
                 <button type="button"
-                    class="flex flex-shrink-0 px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary"
+                class="topbar-item"
                     (click)="toggleDarkMode()">
                     <i class="pi " [ngClass]="{'pi-moon': isDarkMode, 'pi-sun': !isDarkMode}"></i>
                 </button>
             </li>
             <li *ngIf="showConfigurator" class="relative">
                 <button type="button"
-                    class="p-button flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center transition-all transition-duration-300 min-w-0"
+                class="topbar-item"
                     (click)="showConfig()">
                     <i class="pi pi-palette"></i>
                 </button>
             </li>
-            <li class="relative">
+            <li >
                 <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
                     leaveActiveClass="fadeout" [hideOnOutsideClick]="true" type="button"
-                    class="p-link flex align-items-center surface-card h-2rem px-2 hover:surface-hover border-1 border-solid surface-border transition-all transition-duration-300 hover:border-primary">
-                    <span class="text-900">{{ versions ? versions[0].version : 'Latest' }}</span>
-                    <span class="ml-2 pi pi-angle-down text-600"></span>
+                    class="topbar-item version-item">
+                    <span class="version-text">{{ versions ? versions[0].version : 'Latest' }}</span>
+                    <span class="version-icon pi pi-angle-down"></span>
                 </button>
                 <div
-                    class="p-3 surface-overlay hidden absolute top-auto border-round shadow-2 origin-top w-12rem right-0 mt-1">
-                    <ul class="list-none m-0 p-0">
+                    class="versions-panel hidden">
+                    <ul >
                         <li role="none" *ngFor="let v of versions">
-                            <a [href]="v.url" class="block p-2 border-round hover:surface-hover w-full">
-                                <span class="font-bold text-900">{{v.name}}</span>
-                                <span class="ml-2 text-700">({{v.version}})</span>
+                            <a [href]="v.url">
+                                <span>{{v.name}}</span>
+                                <span>({{v.version}})</span>
                             </a>
                         </li>
                     </ul>
@@ -150,7 +150,7 @@
             </li>
             <li *ngIf="showMenuButton" class="menu-button">
                 <button type="button"
-                    class="flex flex-shrink-0 px-link border-1 border-solid w-2rem h-2rem surface-border border-round surface-card align-items-center justify-content-center transition-all transition-duration-300 hover:border-primary menu-button"
+                    class="topbar-item menu-button"
                     (click)="toggleMenu()" aria-haspopup aria-label="Menu">
                     <i class="pi pi-bars"></i>
                 </button>
