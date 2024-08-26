@@ -11,7 +11,6 @@ import Aura from '@themes/aura';
 import Nora from '@themes/nora';
 import Lara from '@themes/lara';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
-import { ToggleButton, ToggleButtonModule } from 'primeng/togglebutton';
 
 const presets = {
     Aura,
