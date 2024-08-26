@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
             <p>Default Demo Content.</p>
         </app-docsectiontext>
         <div class="card card-container flex justify-center items-center">
-            <div pRipple class="card text-primary bg-primary text-primary-contrast flex select-none justify-center items-center shadow">Default</div>
+            <div pRipple class="card bg-primary flex select-none justify-center items-center shadow">Default</div>
         </div>
         <app-code [code]="code" selector="ripple-default-demo"></app-code>
-    `
+    `,
 })
 export class DefaultDoc {
     code: Code = {
@@ -67,6 +67,6 @@ export class RippleDefaultDemo {
             margin-right: 0;
         }
     }
-}`
+}`,
     };
 }
