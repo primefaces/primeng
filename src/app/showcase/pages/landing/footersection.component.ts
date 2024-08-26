@@ -7,57 +7,57 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
-        <section class="landing-footer pt-8 px-5 lg:px-8">
+        <section class="landing-footer pt-20 px-8 lg:px-20">
             <div class="landing-footer-container">
-                <div class="flex flex-wrap z-1">
-                    <div class="w-6 lg:w-3 flex">
+                <div class="flex flex-wrap z-10">
+                    <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mb-5">General</li>
-                            <li class="mb-4">
-                                <a [routerLink]="['installation']" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150"> Get Started </a>
+                            <li class="font-bold mb-8">General</li>
+                            <li class="mb-6">
+                                <a [routerLink]="['installation']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"> Get Started </a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://github.com/primefaces/primeng-examples" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Examples</a>
+                            <li class="mb-6">
+                                <a href="https://github.com/primefaces/primeng-examples" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Examples</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="w-6 lg:w-3 flex">
+                    <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mb-5">Support</li>
-                            <li class="mb-4">
-                                <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Forum</a>
+                            <li class="font-bold mb-8">Support</li>
+                            <li class="mb-6">
+                                <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Forum</a>
                             </li>
-                            <li class="mb-4">
+                            <li class="mb-6">
                                 <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Discord</a>
                             </li>
-                            <li class="mb-4">
-                                <a [routerLink]="['support']" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">PRO Support </a>
+                            <li class="mb-6">
+                                <a [routerLink]="['support']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PRO Support </a>
                             </li>
                         </ul>
                     </div>
-                    <div class="w-6 lg:w-3 flex">
+                    <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mt-5 lg:mt-0 mb-5">Resources</li>
-                            <li class="mb-4">
-                                <a href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">PrimeTV</a>
+                            <li class="font-bold mt-8 lg:mt-0 mb-8">Resources</li>
+                            <li class="mb-6">
+                                <a href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeTV</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://www.primefaces.org/store/" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Store</a>
+                            <li class="mb-6">
+                                <a href="https://www.primefaces.org/store/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Source Code</a>
+                            <li class="mb-6">
+                                <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Source Code</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Twitter</a>
+                            <li class="mb-6">
+                                <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Twitter</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Newsletter</a>
+                            <li class="mb-6">
+                                <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Newsletter</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">PrimeGear</a>
+                            <li class="mb-6">
+                                <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeGear</a>
                             </li>
-                            <li class="mb-4">
-                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Contact Us</a>
+                            <li class="mb-6">
+                                <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Contact Us</a>
                             </li>
                         </ul>
                     </div>
@@ -65,7 +65,7 @@ import { RouterModule } from '@angular/router';
 
                 <hr class="section-divider mt-8" />
 
-                <div class="flex flex-wrap justify-content-between py-6 gap-5">
+                <div class="flex flex-wrap justify-between py-12 gap-8">
                     <span>
                         <svg width="120" height="33" viewBox="0 0 120 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

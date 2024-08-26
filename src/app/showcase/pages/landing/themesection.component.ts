@@ -9,26 +9,39 @@ import { AppComponent } from '../../layout/app.component';
 import { AppConfigService } from '@service/appconfigservice';
 import { CustomerService } from '@service/customerservice';
 import { Subscription } from 'rxjs';
+import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @Component({
     selector: 'theme-section',
     standalone: true,
-    imports: [CommonModule, TableModule, ButtonModule, TagModule, ProgressBarModule],
+    imports: [
+        CommonModule,
+        TableModule,
+        ButtonModule,
+        TagModule,
+        ProgressBarModule,
+        InputTextModule,
+        IconFieldModule,
+        InputIconModule,
+    ],
     template: `
-        <section class="landing-themes py-8">
-            <div class="section-header">Themes</div>
-            <p class="section-detail">Crafted on a design-agnostic infrastructure, choose from a vast amount of themes such as Material, Bootstrap, Tailwind, PrimeOne or develop your own.</p>
-            <div class="flex flex-wrap justify-content-center">
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('lara') }" (click)="changeTableTheme(isDarkMode ? 'lara-dark-blue' : 'lara-light-blue')">PrimeOne</button>
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('md') }" (click)="changeTableTheme(isDarkMode ? 'md-dark-indigo' : 'md-light-indigo')">Material</button>
-                <button type="button" class="font-medium linkbox mr-3 mt-4" [ngClass]="{ active: tableTheme.startsWith('bootstrap') }" (click)="changeTableTheme(isDarkMode ? 'bootstrap4-dark-blue' : 'bootstrap4-light-blue')">Bootstrap</button>
-            </div>
+        <section class="landing-themes py-20">
+            <div class="section-header">Components</div>
+            <p class="section-detail">
+                The most complete UI component library for Angular based on a design-agnostic infrastructure.
+            </p>
             <div
-                class="themes-main flex mt-7 justify-content-center px-5 lg:px-8"
+                class="themes-main flex mt-16 justify-center px-8 lg:px-20"
                 [style]="{ 'background-size': 'cover' }"
-                [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)' }"
+                [ngStyle]="{
+                    'background-image': isDarkMode
+                        ? 'url(https://primefaces.org/cdn/primeng/images/landing/wave-dark-alt-gray.svg)'
+                        : 'url(https://primefaces.org/cdn/primeng/images/landing/wave-light-alt-gray.svg)'
+                }"
             >
-                <div class="box overflow-hidden z-1 p-5 table-container">
+                <div class="box overflow-hidden z-10 p-8 table-container">
                     <p-table
                         #dt
                         [value]="customers"
@@ -36,18 +49,25 @@ import { Subscription } from 'rxjs';
                         dataKey="id"
                         [rowHover]="true"
                         [rows]="5"
-                        [showCurrentPageReport]="true"
                         [loading]="loading"
                         [paginator]="true"
                         [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
                     >
                         <ng-template pTemplate="caption">
-                            <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center">
-                                <h5 class="m-0">Customers</h5>
-                                <span class="block mt-2 md:mt-0 p-input-icon-left">
-                                    <i class="pi pi-search"></i>
-                                    <input class="p-inputtext" type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Search..." />
-                                </span>
+                            <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+                                <span class="text-xl font-bold">Customers</span>
+                                <p-iconField class="mt-4 sm:mt-0 w-full sm:w-auto">
+                                    <p-inputIcon>
+                                        <i class="pi pi-search"></i>
+                                    </p-inputIcon>
+                                    <input
+                                        class="w-full"
+                                        pInputText
+                                        type="text"
+                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                        placeholder="Search"
+                                    />
+                                </p-iconField>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="header">
@@ -106,43 +126,60 @@ import { Subscription } from 'rxjs';
                                     <p-tableCheckbox [value]="customer"></p-tableCheckbox>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
-                                    <span class="p-column-title">Name</span>
                                     {{ customer.name }}
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
-                                    <span class="p-column-title">Country</span>
-                                    <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" width="30" height="20" alt="country flag" />
+                                    <img
+                                        src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
+                                        [class]="'flag flag-' + customer.country.code"
+                                        width="30"
+                                        height="20"
+                                        alt="country flag"
+                                    />
                                     <span class="ml-2 image-text">{{ customer.country.name }}</span>
                                 </td>
                                 <td style="width: 14%; min-width: 14rem">
-                                    <span class="p-column-title">Representative</span>
-                                    <img
-                                        [alt]="customer.representative.name"
-                                        src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}"
-                                        width="32"
-                                        height="32"
-                                        style="vertical-align: middle"
-                                        alt="representative"
-                                    />
-                                    <span class="ml-2 image-text">{{ customer.representative.name }}</span>
+                                    <div class="flex items-center gap-2">
+                                        <img
+                                            [alt]="customer.representative.name"
+                                            src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{
+                                                customer.representative.image
+                                            }}"
+                                            width="32"
+                                            height="32"
+                                            style="vertical-align: middle"
+                                            alt="representative"
+                                        />
+                                        <span class="ml-2 image-text">{{ customer.representative.name }}</span>
+                                    </div>
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
-                                    <span class="p-column-title">Date</span>
-                                    {{ customer.date | date: 'MM/dd/yyyy' }}
+                                    {{ customer.date | date : 'MM/dd/yyyy' }}
                                 </td>
                                 <td style="width: 14%; min-width: 8rem">
-                                    <span class="p-column-title">Balance</span>
-                                    {{ customer.balance | currency: 'USD' : 'symbol' }}
+                                    {{ customer.balance | currency : 'USD' : 'symbol' }}
                                 </td>
                                 <td style="width: 14%; min-width: 10rem">
-                                    <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" styleClass="text-sm font-bold"></p-tag>
+                                    <p-tag
+                                        [value]="customer.status"
+                                        [severity]="getSeverity(customer.status)"
+                                        styleClass="text-sm font-bold"
+                                    ></p-tag>
                                 </td>
                                 <td style="width: 14%; min-width: 6rem">
-                                    <span class="p-column-title">Activity</span>
-                                    <p-progressBar [value]="customer.activity" [showValue]="false" [style]="{ height: '6px' }"></p-progressBar>
+                                    <p-progressBar
+                                        [value]="customer.activity"
+                                        [showValue]="false"
+                                        [style]="{ height: '6px' }"
+                                    ></p-progressBar>
                                 </td>
                                 <td style="text-align: center">
-                                    <button pButton type="button" class="p-button-text p-button-icon-only" icon="pi pi-cog"></button>
+                                    <button
+                                        pButton
+                                        type="button"
+                                        class="p-button-text p-button-icon-only"
+                                        icon="pi pi-cog"
+                                    ></button>
                                 </td>
                             </tr>
                         </ng-template>
@@ -155,14 +192,14 @@ import { Subscription } from 'rxjs';
                 </div>
             </div>
         </section>
-    `
+    `,
 })
 export class ThemeSectionComponent {
     constructor(
         @Inject(PLATFORM_ID) private platformId: any,
         private customerService: CustomerService,
         private configService: AppConfigService,
-        public app: AppComponent
+        public app: AppComponent,
     ) {}
 
     @ViewChild('dt') table: Table;
