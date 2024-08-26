@@ -374,7 +374,7 @@ export class ChatApp {
                 active: undefined,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: "Let's implement PrimeVue. Elevating our UI game! 🚀",
+                lastMessage: "Let's implement PrimeNG. Elevating our UI game! 🚀",
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar2.png',
@@ -383,7 +383,7 @@ export class ChatApp {
                 active: true,
                 unreadMessageCount: 4,
                 time: '11.15',
-                lastMessage: "Absolutely! PrimeVue's documentation is gold—simplifies our UI work.",
+                lastMessage: "Absolutely! PrimeNG's documentation is gold—simplifies our UI work.",
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg',
@@ -392,7 +392,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: "Interesting! PrimeVue sounds amazing. What's your favorite feature?",
+                lastMessage: "Interesting! PrimeNG sounds amazing. What's your favorite feature?",
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg',
@@ -401,7 +401,7 @@ export class ChatApp {
                 active: true,
                 unreadMessageCount: 9,
                 time: '11.15',
-                lastMessage: 'Quick one, team! Anyone using PrimeVue for mobile app development?',
+                lastMessage: 'Quick one, team! Anyone using PrimeNG for mobile app development?',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg',
@@ -410,7 +410,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: "Just explored PrimeVue's themes. Can we talk about those stunning designs? 😍",
+                lastMessage: "Just explored PrimeNG's themes. Can we talk about those stunning designs? 😍",
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar6.png',
@@ -419,7 +419,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: 'PrimeVue is a game-changer, right? What are your thoughts, folks?',
+                lastMessage: 'PrimeNG is a game-changer, right? What are your thoughts, folks?',
             },
             {
                 image: '',
@@ -428,7 +428,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: "Jumping in! PrimeVue's community forum is buzzing. Any engaging discussions?",
+                lastMessage: "Jumping in! PrimeNG's community forum is buzzing. Any engaging discussions?",
             },
             {
                 image: '',
@@ -437,7 +437,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: 'Sharing a quick win-PrimeVue tutorials are leveling up my UI skills. 👩‍💻',
+                lastMessage: 'Sharing a quick win-PrimeNG tutorials are leveling up my UI skills. 👩‍💻',
             },
             {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar7.png',
@@ -446,7 +446,7 @@ export class ChatApp {
                 active: false,
                 unreadMessageCount: 0,
                 time: '11.15',
-                lastMessage: "Reflecting on PrimeVue's impact on our workflow. What's your take?",
+                lastMessage: "Reflecting on PrimeNG's impact on our workflow. What's your take?",
             },
         ];
         this.chatMessages = [
@@ -466,7 +466,7 @@ export class ChatApp {
                 image: 'https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png',
                 capName: 'A',
                 type: 'received',
-                message: 'PrimeVue rocks! Simplifies UI dev with versatile components.',
+                message: 'PrimeNG rocks! Simplifies UI dev with versatile components.',
             },
             {
                 id: 3,
@@ -589,7 +589,7 @@ export class ChatApp {
                 capName: 'H',
                 type: 'sent',
                 message:
-                    "That's great advice. It's amazing how much detail and thought has gone into making PrimeVue such a powerful tool for developers.",
+                    "That's great advice. It's amazing how much detail and thought has gone into making PrimeNG such a powerful tool for developers.",
             },
         ];
         this.chatMedia = [
