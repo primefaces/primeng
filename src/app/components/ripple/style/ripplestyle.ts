@@ -25,12 +25,11 @@ const theme = ({ dt }) => `
 }
 
 @keyframes ripple {
-100% {
-    opacity: 0;
-    transform: scale(2.5);
+    100% {
+        opacity: 0;
+        transform: scale(2.5);
+    }
 }
-}
-
 `;
 
 const classes = {
