@@ -8,11 +8,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content section can be customized using <i>content</i> template.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-confirmPopup>
                 <ng-template pTemplate="content" let-message>
-                    <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface p-4 mb-4">
                         <i [class]="message.icon" class="text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
@@ -54,7 +54,7 @@ export class TemplateDoc {
         basic: `<p-toast />
     <p-confirmPopup>
         <ng-template pTemplate="content" let-message>
-            <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface p-4 mb-4">
                 <i [class]="message.icon" class="text-6xl text-primary-500"></i>
                 <p>{{ message.message }}</p>
             </div>
@@ -62,11 +62,11 @@ export class TemplateDoc {
     </p-confirmPopup>
 <p-button (click)="confirm($event)" label="Save" />`,
 
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
         <p-toast />
         <p-confirmPopup>
             <ng-template pTemplate="content" let-message>
-                <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border p-3 mb-3">
+                <div class="flex flex-col items-center w-full gap-4 border-b border-surface p-4 mb-4">
                     <i [class]="message.icon" class="text-6xl text-primary-500"></i>
                     <p>{{ message.message }}</p>
                 </div>

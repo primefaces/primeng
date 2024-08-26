@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Calendar UI accepts custom content using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-calendar [(ngModel)]="date">
                 <ng-template pTemplate="header">Header</ng-template>
                 <ng-template pTemplate="footer">Footer</ng-template>
@@ -25,7 +25,7 @@ export class TemplateDoc {
     <ng-template pTemplate="footer">Footer</ng-template>
 </p-calendar>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-calendar [(ngModel)]="date">
         <ng-template pTemplate="header">Header</ng-template>
         <ng-template pTemplate="footer">Footer</ng-template>

@@ -10,9 +10,9 @@ import { NodeService } from '@service/nodeservice';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-treeSelect
-                class="w-full md:w-20rem"
+                class="w-full md:w-80"
                 containerStyleClass="w-full"
                 [(ngModel)]="selectedNodes"
                 [options]="nodes"
@@ -38,7 +38,7 @@ export class VirtualScrollDoc {
 
     code: Code = {
         basic: `<p-treeSelect 
-    class="w-full md:w-20rem" 
+    class="w-full md:w-80" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
     [options]="nodes" 
@@ -50,9 +50,9 @@ export class VirtualScrollDoc {
     [virtualScrollItemSize]="46" 
     [virtualScrollOptions]="{scrollHeight: '200px'}" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect 
-        class="w-full md:w-20rem" 
+        class="w-full md:w-80" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         [options]="nodes" 

@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>Selected values are displayed as a comma separated list by default, setting <i>display</i> as <i>chip</i> displays them as chips.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" placeholder="Select Cities" optionLabel="name" display="chip"/>
         </div>
         <app-code [code]="code" selector="multi-select-chips-demo"></app-code>
@@ -41,7 +41,7 @@ export class ChipsDoc implements OnInit {
     optionLabel="name" 
     display="chip" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-multiSelect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 

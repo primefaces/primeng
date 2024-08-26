@@ -10,14 +10,14 @@ import { Code } from '@domain/code';
                 in case the target is an overlay, <i>hideOnOutsideClick</i> would be handy to hide the target if outside of the popup is clicked, or enable <i>hideOnEscape</i> to close the popup by listening <i>escape</i> key.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center">
+        <div class="card flex flex-col items-center">
             <div>
-                <p-button label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="fadein" />
-                <p-button label="Hide" pStyleClass=".box" leaveActiveClass="fadeout" leaveToClass="hidden" />
+                <p-button label="Show" class="mr-2" pStyleClass=".box" enterFromClass="hidden" enterActiveClass="animate-fadein" />
+                <p-button label="Hide" pStyleClass=".box" leaveActiveClass="animate-fadeout" leaveToClass="hidden" />
             </div>
 
-            <div class="hidden animation-duration-500 box">
-                <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">Content</div>
+            <div class="hidden animate-duration-500 box">
+                <div class="flex bg-green-500 text-white items-center justify-center py-4 rounded-md mt-4 font-bold shadow w-32 h-32">Content</div>
             </div>
         </div>
         <app-code [code]="code" selector="style-class-animation-demo"></app-code>
@@ -31,36 +31,36 @@ export class AnimationDoc {
         class="mr-2" 
         pStyleClass=".box" 
         enterFromClass="hidden" 
-        enterActiveClass="fadein" />
+        enterActiveClass="animate-fadein" />
     <p-button 
         label="Hide" 
         pStyleClass=".box" 
-        leaveActiveClass="fadeout" 
+        leaveActiveClass="animate-fadeout" 
         leaveToClass="hidden" />
 </div>
 
-<div class="hidden animation-duration-500 box">
-    <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">
+<div class="hidden animate-duration-500 box">
+    <div class="flex bg-green-500 text-white items-center justify-center py-4 rounded-md mt-4 font-bold shadow w-32 h-32">
         Content
     </div>
 </div>`,
-        html: `<div class="card flex flex-column align-items-center">
+        html: `<div class="card flex flex-col items-center">
     <div>
         <p-button 
             label="Show"
             class="mr-2"
             pStyleClass=".box"
             enterFromClass="hidden" 
-            enterActiveClass="fadein" />
+            enterActiveClass="animate-fadein" />
         <p-button 
             label="Hide" 
             pStyleClass=".box" 
-            leaveActiveClass="fadeout" 
+            leaveActiveClass="animate-fadeout" 
             leaveToClass="hidden" />
     </div>
 
-    <div class="hidden animation-duration-500 box">
-        <div class="flex bg-green-500 text-white align-items-center justify-content-center py-3 border-round-md mt-3 font-bold shadow-2 w-8rem h-8rem">
+    <div class="hidden animate-duration-500 box">
+        <div class="flex bg-green-500 text-white items-center justify-center py-4 rounded-md mt-4 font-bold shadow w-32 h-32">
             Content
         </div>
     </div>

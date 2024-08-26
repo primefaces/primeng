@@ -11,7 +11,7 @@ import { SharedModule } from 'primeng/api';
                     <ng-container *ngFor="let licenseData of license?.licenseDetails">
                         <div class="template-license-card">
                             <span>{{ licenseData?.title }}</span>
-                            <div class="template-license-price flex gap-3">
+                            <div class="template-license-price flex gap-4">
                                 <h2 [ngClass]="{ discount: licenseData?.discount_price }">{{ licenseData?.price }}</h2>
                                 <h2>{{ licenseData?.discount_price }}</h2>
                             </div>

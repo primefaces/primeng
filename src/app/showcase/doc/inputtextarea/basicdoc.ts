@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputTextarea is applied to an input field with <i>pInputTextarea</i> directive.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-basic-demo"></app-code>
@@ -24,7 +24,7 @@ export class BasicDoc {
     [(ngModel)]="value">
 </textarea>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <textarea 
         rows="5"
         cols="30"

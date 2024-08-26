@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Two-way value binding is defined using <i>ngModel</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-password [(ngModel)]="value" [feedback]="false" />
         </div>
         <app-code [code]="code" selector="password-basic-demo"></app-code>
@@ -19,7 +19,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-password [(ngModel)]="value" [feedback]="false" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-password [(ngModel)]="value" [feedback]="false" />
 </div>`,
 

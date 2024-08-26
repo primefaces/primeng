@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
             <p>TabView can be controlled programmatically using a binding to <i>activeIndex</i> update the active index.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex mb-2 gap-2 justify-content-end">
-                <p-button (click)="activeIndex = 0" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 0" label="1" />
-                <p-button (click)="activeIndex = 1" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 1" label="2" />
-                <p-button (click)="activeIndex = 2" rounded="true" styleClass="w-2rem h-2rem p-0" [outlined]="activeIndex !== 2" label="3" />
+            <div class="flex mb-2 gap-2 justify-end">
+                <p-button (click)="activeIndex = 0" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="activeIndex !== 0" label="1" />
+                <p-button (click)="activeIndex = 1" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="activeIndex !== 1" label="2" />
+                <p-button (click)="activeIndex = 2" rounded="true" styleClass="w-8 h-8 p-0" [outlined]="activeIndex !== 2" label="3" />
             </div>
             <p-tabView [(activeIndex)]="activeIndex">
                 <p-tabPanel header="Header I">
@@ -41,23 +41,23 @@ export class ControlledDoc {
     activeIndex: number = 0;
 
     code: Code = {
-        basic: `<div class="flex mb-2 gap-2 justify-content-end">
+        basic: `<div class="flex mb-2 gap-2 justify-end">
     <p-button 
         (click)="activeIndex = 0" 
         rounded="true" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeIndex !== 0" 
         label="1" />
     <p-button 
         (click)="activeIndex = 1" 
         rounded="true" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeIndex !== 1" 
         label="2" />
     <p-button 
         (click)="activeIndex = 2" 
         rounded="true"
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeIndex !== 2" 
         label="3" />
 </div>
@@ -80,23 +80,23 @@ export class ControlledDoc {
 </p-tabView>`,
 
         html: `<div class="card">
-    <div class="flex mb-2 gap-2 justify-content-end">
+    <div class="flex mb-2 gap-2 justify-end">
         <p-button 
             (click)="activeIndex = 0" 
             rounded="true" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeIndex !== 0" 
             label="1" />
         <p-button 
             (click)="activeIndex = 1" 
             rounded="true" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeIndex !== 1" 
             label="2" />
         <p-button 
             (click)="activeIndex = 2" 
             rounded="true" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeIndex !== 2" 
             label="3" />
     </div>

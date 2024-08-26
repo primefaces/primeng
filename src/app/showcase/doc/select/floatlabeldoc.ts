@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-floatLabel>
                 <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" inputId="float-label" />
                 <label for="float-label">Select a City</label>
@@ -46,7 +46,7 @@ export class FloatLabelDoc implements OnInit {
     <label for="float-label">Select a City</label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-floatLabel>
         <p-select 
             [options]="cities"

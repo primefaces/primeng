@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-checkbox [disabled]="true" [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="checkbox-disabled-demo"></app-code>
@@ -21,7 +21,7 @@ export class DisabledDoc {
     [disabled]="true" 
     [(ngModel)]="checked" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-checkbox 
         [disabled]="true" 
         [(ngModel)]="checked" />

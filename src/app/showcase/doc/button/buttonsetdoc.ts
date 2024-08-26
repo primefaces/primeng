@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>p-buttonset</i> class.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <span class="p-buttonset">
                 <button pButton pRipple label="Save" icon="pi pi-check"></button>
                 <button pButton pRipple label="Delete" icon="pi pi-trash"></button>
@@ -26,7 +26,7 @@ export class ButtonsetDoc {
 </span>`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <span class="p-buttonset">
         <button pButton pRipple label="Save" icon="pi pi-check"></button>
         <button pButton pRipple label="Delete" icon="pi pi-trash"></button>

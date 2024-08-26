@@ -34,7 +34,7 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 {{ customer.company }}
@@ -144,7 +144,7 @@ export class RowspanGroupingDoc {
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                             [class]="'flag flag-' + customer.country.code" 
                             style="width: 20px" />
-                        <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                        <span class="ml-1 align-middle">{{customer.country.name}}</span>
                     </td>
                     <td>
                         {{customer.company}}
@@ -200,7 +200,7 @@ export class RowspanGroupingDoc {
                                 src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                                 [class]="'flag flag-' + customer.country.code" 
                                 style="width: 20px" />
-                            <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                            <span class="ml-1 align-middle">{{customer.country.name}}</span>
                         </td>
                         <td>
                             {{customer.company}}

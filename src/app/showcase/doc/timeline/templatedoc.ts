@@ -18,13 +18,13 @@ interface EventItem {
         <div class="card">
             <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
                 <ng-template pTemplate="marker" let-event>
-                    <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" [style]="{ 'background-color': event.color }">
+                    <span class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" [style]="{ 'background-color': event.color }">
                         <i [class]="event.icon"></i>
                     </span>
                 </ng-template>
                 <ng-template pTemplate="content" let-event>
                     <p-card [header]="event.status" [subheader]="event.date">
-                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow-2" />
+                        <img *ngIf="event.image" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" [alt]="event.name" width="200" class="shadow" />
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                             neque quas!
@@ -53,7 +53,7 @@ export class TemplateDoc {
         basic: `<p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
     <ng-template pTemplate="marker" let-event>
         <span 
-            class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" 
+            class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" 
             [style]="{ 'background-color': event.color }">
                 <i [class]="event.icon"></i>
         </span>
@@ -65,7 +65,7 @@ export class TemplateDoc {
                 [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image" 
                 [alt]="event.name" 
                 width="200" 
-                class="shadow-2" />
+                class="shadow" />
             <p>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                 neque quas!
@@ -79,7 +79,7 @@ export class TemplateDoc {
     <p-timeline [value]="events" align="alternate" styleClass="customized-timeline">
         <ng-template pTemplate="marker" let-event>
             <span 
-                class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" 
+                class="flex w-8 h-8 items-center justify-center text-white rounded-full z-10 shadow-sm" 
                 [style]="{ 'background-color': event.color }">
                     <i [class]="event.icon"></i>
             </span>
@@ -91,7 +91,7 @@ export class TemplateDoc {
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + event.image"
                     [alt]="event.name"
                     width="200" 
-                    class="shadow-2" />
+                    class="shadow" />
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate
                     neque quas!

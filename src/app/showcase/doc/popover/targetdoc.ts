@@ -10,9 +10,9 @@ import { Code } from '@domain/code';
                 parameter <i>target</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center gap-3">
+        <div class="card flex flex-col items-center gap-4">
             <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-            <div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
+            <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
                 <span>Target Element</span>
             </div>
             <p-overlayPanel #op>
@@ -25,7 +25,7 @@ import { Code } from '@domain/code';
 export class TargetDoc {
     code: Code = {
         basic: `<p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-<div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
+<div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
     <span>Target Element</span>
 </div>
 <p-overlayPanel #op>
@@ -33,9 +33,9 @@ export class TargetDoc {
 </p-overlayPanel>`,
 
         html: `
-<div class="card flex flex-column align-items-center gap-3">
+<div class="card flex flex-col items-center gap-4">
     <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
-    <div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
+    <div #targetEl class="mt-8 w-40 h-20 border border-surface rounded-border flex items-center justify-center">
         <span>Target Element</span>
     </div>
     <p-overlayPanel #op>

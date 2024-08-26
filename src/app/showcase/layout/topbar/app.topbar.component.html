@@ -100,19 +100,19 @@
             <li>
                 <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer"
                     class="topbar-item">
-                    <i class="pi pi-github text-700"></i>
+                    <i class="pi pi-github text-surface-700 dark:text-surface-100"></i>
                 </a>
             </li>
             <li>
                 <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer"
                     class="topbar-item">
-                    <i class="pi pi-discord text-700"></i>
+                    <i class="pi pi-discord text-surface-700 dark:text-surface-100"></i>
                 </a>
             </li>
             <li>
                 <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer"
                     class="topbar-item">
-                    <i class="pi pi-comments text-700"></i>
+                    <i class="pi pi-comments text-surface-700 dark:text-surface-100"></i>
                 </a>
             </li>
             <li>
@@ -130,8 +130,8 @@
                 </button>
             </li>
             <li >
-                <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="scalein" leaveToClass="hidden"
-                    leaveActiveClass="fadeout" [hideOnOutsideClick]="true" type="button"
+                <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
+                    leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" type="button"
                     class="topbar-item version-item">
                     <span class="version-text">{{ versions ? versions[0].version : 'Latest' }}</span>
                     <span class="version-icon pi pi-angle-down"></span>

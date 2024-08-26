@@ -7,15 +7,15 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Select provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
                 <ng-template pTemplate="selectedItem" let-selectedOption>
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <div>{{ country.name }}</div>
                     </div>
                 </ng-template>
@@ -54,7 +54,7 @@ export class FilterDoc implements OnInit {
     [showClear]="true"
     placeholder="Select a Country">
         <ng-template pTemplate="selectedItem" let-selectedOption>
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
@@ -63,7 +63,7 @@ export class FilterDoc implements OnInit {
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()"
@@ -73,7 +73,7 @@ export class FilterDoc implements OnInit {
         </ng-template>
 </p-select>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="countries"
         [(ngModel)]="selectedCountry"
@@ -83,7 +83,7 @@ export class FilterDoc implements OnInit {
         [showClear]="true"
         placeholder="Select a Country">
             <ng-template pTemplate="selectedItem" let-selectedOption>
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
@@ -92,7 +92,7 @@ export class FilterDoc implements OnInit {
                 </div>
             </ng-template>
             <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + country.code.toLowerCase()"

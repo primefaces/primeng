@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <textarea [variant]="'filled'" rows="5" cols="30" pInputTextarea [(ngModel)]="value"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-filled-demo"></app-code>
@@ -25,7 +25,7 @@ export class FilledDoc {
     [(ngModel)]="value">
 </textarea>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <textarea 
         variant="filled"
         rows="5"

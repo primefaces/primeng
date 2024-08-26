@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Knob is an input component and used with the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-knob [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="knob-basic-demo"></app-code>
@@ -19,7 +19,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-knob [(ngModel)]="value" />
 </div>`,
 

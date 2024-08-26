@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template variable refers to an option in the options collection.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
                 <ng-template let-item pTemplate>
                     <i [class]="item.icon"></i>
@@ -37,7 +37,7 @@ export class TemplateDoc {
         </ng-template>
 </p-selectButton>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-selectButton 
         [options]="justifyOptions" 
         [(ngModel)]="value" 

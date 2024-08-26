@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <textarea pKeyFilter="int" rows="5" cols="30" pInputTextarea></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-key-filter-demo"></app-code>
@@ -22,7 +22,7 @@ export class KeyfilterDoc {
     pInputTextarea>
 </textarea>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <textarea 
         pKeyFilter="int" 
         rows="5" 

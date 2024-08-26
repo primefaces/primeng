@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>touchUI</i> is enabled, overlay is displayed as optimized for touch devices.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="date" [touchUI]="true" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-touchui-demo"></app-code>
@@ -22,7 +22,7 @@ export class TouchUIDoc {
     [touchUI]="true" 
     [readonlyInput]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="date" 
         [touchUI]="true"

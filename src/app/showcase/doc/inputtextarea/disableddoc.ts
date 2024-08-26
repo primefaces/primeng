@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <textarea rows="5" cols="30" pInputTextarea [disabled]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-disabled-demo"></app-code>
@@ -22,7 +22,7 @@ export class DisabledDoc {
     [disabled]="true">
 </textarea>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <textarea 
         rows="5"
         cols="30"

@@ -24,31 +24,31 @@ import { CustomerService } from '../../service/customerservice';
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width:15rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Name
                                     <p-columnFilter type="text" field="name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Country
                                     <p-columnFilter type="text" field="country.name" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:15rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Agent
                                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template pTemplate="header">
-                                            <div class="px-3 pt-3 pb-0">
+                                            <div class="px-4 pt-4 pb-0">
                                                 <span class="font-bold">Agent Picker</span>
                                             </div>
                                         </ng-template>
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                             <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                                 <ng-template let-option pTemplate="item">
-                                                    <div class="inline-block vertical-align-middle">
-                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                                    <div class="inline-block align-middle">
+                                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                                     </div>
                                                 </ng-template>
@@ -58,19 +58,19 @@ import { CustomerService } from '../../service/customerservice';
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Date
                                     <p-columnFilter type="date" field="date" display="menu" />
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Balance
                                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Status
                                     <p-columnFilter field="status" matchMode="equals" display="menu">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -84,12 +84,12 @@ import { CustomerService } from '../../service/customerservice';
                                 </div>
                             </th>
                             <th style="min-width:10rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Activity
                                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
-                                            <p-slider [(ngModel)]="value" [range]="true" styleClass="m-3" (onSlideEnd)="filter($event.values)" />
-                                            <div class="flex align-items-center px-2">
+                                            <p-slider [(ngModel)]="value" [range]="true" styleClass="m-4" (onSlideEnd)="filter($event.values)" />
+                                            <div class="flex items-center px-2">
                                                 <span *ngIf="!value">0</span>
                                                 <span *ngIf="value">{{ value[0] }} - {{ value[1] }}</span>
                                             </div>
@@ -98,7 +98,7 @@ import { CustomerService } from '../../service/customerservice';
                                 </div>
                             </th>
                             <th style="width: 3rem">
-                                <div class="flex align-items-center">
+                                <div class="flex items-center">
                                     Verified
                                     <p-columnFilter type="boolean" field="verified" display="menu" />
                                 </div>
@@ -112,11 +112,11 @@ import { CustomerService } from '../../service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -243,31 +243,31 @@ export class FilterAdvancedDoc {
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:15rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Name
                     <p-columnFilter type="text" field="name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Country
                     <p-columnFilter type="text" field="country.name" display="menu" />
                 </div>
             </th>
             <th style="min-width:15rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Agent
                     <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template pTemplate="header">
-                            <div class="px-3 pt-3 pb-0">
+                            <div class="px-4 pt-4 pb-0">
                                 <span class="font-bold">Agent Picker</span>
                             </div>
                         </ng-template>
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                             <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                 <ng-template let-option pTemplate="item">
-                                    <div class="inline-block vertical-align-middle">
-                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                    <div class="inline-block align-middle">
+                                        <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                         <span class="ml-1 mt-1">{{ option.name }}</span>
                                     </div>
                                 </ng-template>
@@ -277,19 +277,19 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Date
                     <p-columnFilter type="date" field="date" display="menu" />
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Balance
                     <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Status
                     <p-columnFilter field="status" matchMode="equals" display="menu">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -303,12 +303,12 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="min-width:10rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Activity
                     <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                         <ng-template pTemplate="filter" let-filter="filterCallback">
-                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
-                            <div class="flex align-items-center px-2">
+                            <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4" />
+                            <div class="flex items-center px-2">
                                 <span>{{ activityValues[0] }}</span>
                                 <span>{{ activityValues[1] }}</span>
                             </div>
@@ -317,7 +317,7 @@ export class FilterAdvancedDoc {
                 </div>
             </th>
             <th style="width: 3rem">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     Verified
                     <p-columnFilter type="boolean" field="verified" display="menu" />
                 </div>
@@ -331,11 +331,11 @@ export class FilterAdvancedDoc {
             </td>
             <td>
                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 {{ customer.date | date: 'MM/dd/yyyy' }}
@@ -383,31 +383,31 @@ export class FilterAdvancedDoc {
         <ng-template pTemplate="header">
             <tr>
                 <th style="min-width:15rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Name
                         <p-columnFilter type="text" field="name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Country
                         <p-columnFilter type="text" field="country.name" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:15rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Agent
                         <p-columnFilter field="representative" matchMode="in" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="header">
-                                <div class="px-3 pt-3 pb-0">
+                                <div class="px-4 pt-4 pb-0">
                                     <span class="font-bold">Agent Picker</span>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                                 <p-multiSelect [(ngModel)]="value" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name">
                                     <ng-template let-option pTemplate="item">
-                                        <div class="inline-block vertical-align-middle">
-                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                                        <div class="inline-block align-middle">
+                                            <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="align-middle" />
                                             <span class="ml-1 mt-1">{{ option.name }}</span>
                                         </div>
                                     </ng-template>
@@ -417,19 +417,19 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Date
                         <p-columnFilter type="date" field="date" display="menu" />
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Balance
                         <p-columnFilter type="numeric" field="balance" display="menu" currency="USD" />
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Status
                         <p-columnFilter field="status" matchMode="equals" display="menu">
                             <ng-template pTemplate="filter" let-value let-filter="filterCallback">
@@ -443,12 +443,12 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="min-width:10rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Activity
                         <p-columnFilter field="activity" matchMode="between" display="menu" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false">
                             <ng-template pTemplate="filter" let-filter="filterCallback">
-                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-3" />
-                                <div class="flex align-items-center px-2">
+                                <p-slider [(ngModel)]="activityValues" [range]="true" (onSlideEnd)="filter($event.values)" styleClass="m-4" />
+                                <div class="flex items-center px-2">
                                     <span>{{ activityValues[0] }}</span>
                                     <span>{{ activityValues[1] }}</span>
                                 </div>
@@ -457,7 +457,7 @@ export class FilterAdvancedDoc {
                     </div>
                 </th>
                 <th style="width: 3rem">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         Verified
                         <p-columnFilter type="boolean" field="verified" display="menu" />
                     </div>
@@ -471,11 +471,11 @@ export class FilterAdvancedDoc {
                 </td>
                 <td>
                     <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <img [alt]="customer.representative.name" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ customer.representative.image }}" width="32" style="vertical-align: middle" />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     {{ customer.date | date: 'MM/dd/yyyy' }}

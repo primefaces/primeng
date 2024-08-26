@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3 align-items-center">
+        <div class="card flex flex-col gap-4 items-center">
             <p-triStateCheckbox [(ngModel)]="value" [disabled]="true" />
             <label>{{ value === null ? 'null' : value }}</label>
         </div>
@@ -20,7 +20,7 @@ export class DisabledDoc {
     code: Code = {
         basic: `<p-triStateCheckbox [(ngModel)]="value" [disabled]="true" />`,
 
-        html: `<div class="card flex flex-column gap-3 align-items-center">
+        html: `<div class="card flex flex-col gap-4 items-center">
     <p-triStateCheckbox [(ngModel)]="value" [disabled]="true" />
     <label>{{value === null ? 'null' : value}}</label>
 </div>`,

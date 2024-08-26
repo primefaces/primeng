@@ -16,7 +16,7 @@ interface AutoCompleteCompleteEvent {
                 values. <i>blank</i> is the default mode to send a query with an empty string whereas <i>current</i> setting sends a query with the current value of the input.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedCountry" [dropdown]="true" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
         </div>
         <app-code [code]="code" selector="autocomplete-dropdown-demo"></app-code>`
@@ -63,7 +63,7 @@ export class DropdownDoc implements OnInit {
     (completeMethod)="filterCountry($event)" 
     field="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         [(ngModel)]="selectedCountry" 
         [dropdown]="true" 

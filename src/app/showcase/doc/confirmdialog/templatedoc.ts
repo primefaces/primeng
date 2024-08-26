@@ -15,11 +15,11 @@ import { Code } from '@domain/code';
                 your own buttons.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-confirmDialog>
                 <ng-template pTemplate="message" let-message>
-                    <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
                         <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
@@ -58,7 +58,7 @@ export class TemplateDoc {
         basic: `<p-toast />
 <p-confirmDialog>
     <ng-template pTemplate="message" let-message>
-        <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+        <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
             <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
             <p>{{ message.message }}</p>
         </div>
@@ -66,11 +66,11 @@ export class TemplateDoc {
 </p-confirmDialog>
 <p-button (click)="confirm()" label="Save" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-confirmDialog>
         <ng-template pTemplate="message" let-message>
-            <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
                 <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
                 <p>{{ message.message }}</p>
             </div>

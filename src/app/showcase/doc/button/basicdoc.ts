@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Text to display on a button is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button label="Submit" />
         </div>
         <app-code [code]="code" selector="button-basic-demo"></app-code>
@@ -17,7 +17,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-button label="Submit" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button label="Submit" />
 </div>`,
 

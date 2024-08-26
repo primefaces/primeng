@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>3 templates are included to customize the overlay. These are <i>header</i>, <i>content</i> and <i>footer</i>. Note that content overrides the default meter.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-password [(ngModel)]="value">
                 <ng-template pTemplate="header">
                     <h6>Pick a password</h6>
@@ -47,7 +47,7 @@ export class TemplateDoc {
     </ng-template>
 </p-password>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-password [(ngModel)]="value">
          <ng-template pTemplate="header">
              <h6>Pick a password</h6>

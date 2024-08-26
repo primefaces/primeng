@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>RadioButtons can be generated using a list of values.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <div class="flex flex-column gap-3">
+        <div class="card flex justify-center">
+            <div class="flex flex-col gap-4">
                 <div *ngFor="let category of categories" class="field-checkbox">
                     <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
@@ -33,7 +33,7 @@ export class DynamicDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="flex flex-column gap-3">
+        basic: `<div class="flex flex-col gap-4">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton 
             [inputId]="category.key"
@@ -46,8 +46,8 @@ export class DynamicDoc implements OnInit {
     </div>
 </div>`,
 
-        html: `<div class="card flex justify-content-center">
-    <div class="flex flex-column gap-3">
+        html: `<div class="card flex justify-center">
+    <div class="flex flex-col gap-4">
         <div *ngFor="let category of categories" class="field-checkbox">
             <p-radioButton 
                 [inputId]="category.key" 

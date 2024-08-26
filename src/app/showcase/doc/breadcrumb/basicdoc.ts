@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Breadcrumb provides contextual information about page hierarchy.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home" />
         </div>
         <app-code [code]="code" selector="breadcrumb-basic-demo"></app-code>
@@ -31,7 +31,7 @@ export class BasicDoc implements OnInit {
     [model]="items" 
     [home]="home" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-breadcrumb 
         class="max-w-full" 
         [model]="items" 

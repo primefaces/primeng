@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
                 be configured with <i>routerLinkActiveOptions</i> property of MenuItem API.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-menu [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
@@ -83,7 +83,7 @@ export class RouterDoc implements OnInit {
     </ng-template>
 </p-menu>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-menu [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else elseBlock">

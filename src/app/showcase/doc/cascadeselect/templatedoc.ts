@@ -10,10 +10,10 @@ import { Code } from '@domain/code';
                 required to define the property that refers to the children of a group. Note that order of the <i>optionGroupChildren</i> matters as it should correspond to the data hierarchy.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City">
                 <ng-template pTemplate="option" let-option>
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <img *ngIf="option.states" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />
                         <i class="pi pi-compass mr-2" *ngIf="option.cities"></i>
                         <i class="pi pi-map-marker mr-2" *ngIf="option.cname"></i>
@@ -117,7 +117,7 @@ export class TemplateDoc {
     [style]="{ minWidth: '14rem' }" 
     placeholder="Select a City">
     <ng-template pTemplate="option" let-option>
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
             <img 
                 src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                 *ngIf="option.states" 
@@ -129,7 +129,7 @@ export class TemplateDoc {
     </ng-template>
 </p-cascadeSelect>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-cascadeSelect 
         [(ngModel)]="selectedCity" 
         [options]="countries"
@@ -139,7 +139,7 @@ export class TemplateDoc {
         [style]="{ minWidth: '14rem' }"
         placeholder="Select a City">
             <ng-template pTemplate="option" let-option>
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         *ngIf="option.states"

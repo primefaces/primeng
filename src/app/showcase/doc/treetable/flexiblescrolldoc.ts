@@ -11,7 +11,7 @@ import { NodeService } from '@service/nodeservice';
                 viewport adjusts itself according to the size changes.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-button label="Show" icon="pi pi-external-link" (onClick)="dialogVisible = true" />
                 <p-dialog [(visible)]="dialogVisible" header="Flex Scroll" [style]="{ width: '75vw' }" maximizable modal [contentStyle]="{ height: '300px' }">

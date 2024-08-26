@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>KeyFilter provides various presets configured with the <i>pKeyFilter</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-3 mb-4">
+            <div class="flex flex-wrap gap-4 mb-6">
                 <div class="flex-auto">
                     <label for="integer" class="font-bold block mb-2"> Integer </label>
                     <input pInputText id="integer" pKeyFilter="int" class="w-full" />
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
                     <input pInputText id="money" pKeyFilter="money" class="w-full" />
                 </div>
             </div>
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-4">
                 <div class="flex-auto">
                     <label for="hex" class="font-bold block mb-2"> Hex </label>
                     <input pInputText id="hex" pKeyFilter="hex" class="w-full" />
@@ -50,7 +50,7 @@ export class PresetsDoc {
 <input pInputText pKeyFilter="alphanum" />`,
 
         html: `<div class="card">
-    <div class="flex flex-wrap gap-3 mb-4">
+    <div class="flex flex-wrap gap-4 mb-6">
         <div class="flex-auto">
             <label for="integer" class="font-bold block mb-2"> Integer </label>
             <input pInputText id="integer" pKeyFilter="int" class="w-full" />
@@ -64,7 +64,7 @@ export class PresetsDoc {
             <input pInputText id="money" pKeyFilter="money" class="w-full" />
         </div>
     </div>
-    <div class="flex flex-wrap gap-3">
+    <div class="flex flex-wrap gap-4">
         <div class="flex-auto">
             <label for="hex" class="font-bold block mb-2"> Hex </label>
             <input pInputText id="hex" pKeyFilter="hex" class="w-full" />

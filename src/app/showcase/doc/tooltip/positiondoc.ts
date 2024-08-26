@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Position of the tooltip is specified using <i>tooltipPosition</i> attribute. Valid values are <i>top</i>, <i>bottom</i>, <i>right</i> and <i>left</i>. Default position of the tooltip is <i>right</i>.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-2">
+        <div class="card flex flex-wrap justify-center gap-2">
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="right" placeholder="Right" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="left" placeholder="Left" />
             <input type="text" pInputText pTooltip="Enter your username" tooltipPosition="top" placeholder="Top" />
@@ -43,7 +43,7 @@ export class PositionDoc {
     tooltipPosition="bottom" 
     placeholder="Bottom" />`,
 
-        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+        html: `<div class="card flex flex-wrap justify-center gap-2">
     <input 
         type="text" 
         pInputText 

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Icons can be placed inside an input element by wrapping both the input and the icon with an element that has either <i>.p-input-icon-left</i> or <i>p-input-icon-right</i> class.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-3">
+        <div class="card flex flex-wrap justify-center gap-4">
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
                 <input type="text" pInputText [(ngModel)]="value" />
@@ -33,7 +33,7 @@ export class IconsDoc {
 </span>`,
 
         html: `
-<div class="card flex flex-wrap justify-content-center gap-3">
+<div class="card flex flex-wrap justify-center gap-4">
     <span class="p-input-icon-left">
         <i class="pi pi-search"></i>
         <input type="text" pInputText [(ngModel)]="value" />

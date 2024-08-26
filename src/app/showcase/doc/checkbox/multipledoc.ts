@@ -7,20 +7,20 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Multiple checkboxes can be grouped together.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-3">
-            <div class="flex align-items-center">
+        <div class="card flex flex-wrap justify-center gap-4">
+            <div class="flex items-center">
                 <p-checkbox inputId="ingredient1" name="pizza" value="Cheese" [(ngModel)]="pizza" />
                 <label for="ingredient1" class="ml-2"> Cheese </label>
             </div>
-            <div class="flex align-items-center">
+            <div class="flex items-center">
                 <p-checkbox inputId="ingredient2" name="pizza" value="Mushroom" [(ngModel)]="pizza" />
                 <label for="ingredient2" class="ml-2"> Mushroom </label>
             </div>
-            <div class="flex align-items-center">
+            <div class="flex items-center">
                 <p-checkbox inputId="ingredient3" name="pizza" value="Pepper" [(ngModel)]="pizza" />
                 <label for="ingredient3" class="ml-2"> Pepper </label>
             </div>
-            <div class="flex align-items-center">
+            <div class="flex items-center">
                 <p-checkbox inputId="ingredient4" name="pizza" value="Onion" [(ngModel)]="pizza" />
                 <label for="ingredient4" class="ml-2"> Onion </label>
             </div>
@@ -32,7 +32,7 @@ export class MultipleDoc {
     pizza: string[] = [];
 
     code: Code = {
-        basic: `<div class="flex align-items-center">
+        basic: `<div class="flex items-center">
     <p-checkbox 
         inputId="ingredient1" 
         name="pizza"
@@ -41,7 +41,7 @@ export class MultipleDoc {
     />
     <label for="ingredient1" class="ml-2"> Cheese </label>
 </div>
-<div class="flex align-items-center">
+<div class="flex items-center">
     <p-checkbox 
         inputId="ingredient2" 
         name="pizza" 
@@ -50,7 +50,7 @@ export class MultipleDoc {
     />
     <label for="ingredient2" class="ml-2"> Mushroom </label>
 </div>
-<div class="flex align-items-center">
+<div class="flex items-center">
     <p-checkbox 
         inputId="ingredient3" 
         name="pizza" 
@@ -59,7 +59,7 @@ export class MultipleDoc {
     />
     <label for="ingredient3" class="ml-2"> Pepper </label>
 </div>
-<div class="flex align-items-center">
+<div class="flex items-center">
     <p-checkbox 
         inputId="ingredient4" 
         name="pizza" 
@@ -69,8 +69,8 @@ export class MultipleDoc {
     <label for="ingredient4" class="ml-2"> Onion </label>
 </div>`,
 
-        html: `<div class="card flex justify-content-center gap-3">
-    <div class="flex align-items-center">
+        html: `<div class="card flex justify-center gap-4">
+    <div class="flex items-center">
         <p-checkbox 
             inputId="ingredient1" 
             name="pizza"
@@ -79,7 +79,7 @@ export class MultipleDoc {
         />
         <label for="ingredient1" class="ml-2"> Cheese </label>
     </div>
-    <div class="flex align-items-center">
+    <div class="flex items-center">
         <p-checkbox 
             inputId="ingredient2" 
             name="pizza" 
@@ -88,7 +88,7 @@ export class MultipleDoc {
         />
         <label for="ingredient2" class="ml-2"> Mushroom </label>
     </div>
-    <div class="flex align-items-center">
+    <div class="flex items-center">
         <p-checkbox 
             inputId="ingredient3" 
             name="pizza" 
@@ -97,7 +97,7 @@ export class MultipleDoc {
         />
         <label for="ingredient3" class="ml-2"> Pepper </label>
     </div>
-    <div class="flex align-items-center">
+    <div class="flex items-center">
         <p-checkbox 
             inputId="ingredient4" 
             name="pizza" 

@@ -7,16 +7,16 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Stepper provides various templating options to customize the default UI design.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-stepper [(activeStep)]="active">
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                             <span
-                                class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= active,
-                                    'surface-border': index > active
+                                    'bg-primary text-primary-contrast border-primary': index <= active,
+                                    'border-surface': index > active
                                 }"
                             >
                                 <i class="pi pi-user"></i>
@@ -24,8 +24,8 @@ import { Code } from '@domain/code';
                         </button>
                     </ng-template>
                     <ng-template pTemplate="content" let-nextCallback="nextCallback">
-                        <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
-                            <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
+                        <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
+                            <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                             <div class="field p-fluid">
                                 <p-iconField>
                                     <p-inputIcon>
@@ -46,19 +46,19 @@ import { Code } from '@domain/code';
                                 <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
                             </div>
                         </div>
-                        <div class="flex pt-4 justify-content-end">
+                        <div class="flex pt-6 justify-end">
                             <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
                     </ng-template>
                 </p-stepperPanel>
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                             <span
-                                class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= active,
-                                    'surface-border': index > active
+                                    'bg-primary text-primary-contrast border-primary': index <= active,
+                                    'border-surface': index > active
                                 }"
                             >
                                 <i class="pi pi-star"></i>
@@ -66,9 +66,9 @@ import { Code } from '@domain/code';
                         </button>
                     </ng-template>
                     <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-                        <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                            <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
-                            <div class="flex flex-wrap justify-content-center gap-3">
+                        <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                            <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
+                            <div class="flex flex-wrap justify-center gap-4">
                                 <p-toggleButton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
                                 <p-toggleButton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
                                 <p-toggleButton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
@@ -81,7 +81,7 @@ import { Code } from '@domain/code';
                                 <p-toggleButton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                             </div>
                         </div>
-                        <div class="flex pt-4 justify-content-between">
+                        <div class="flex pt-6 justify-between">
                             <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                             <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                         </div>
@@ -89,12 +89,12 @@ import { Code } from '@domain/code';
                 </p-stepperPanel>
                 <p-stepperPanel>
                     <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                        <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                        <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                             <span
-                                class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                                class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                                 [ngClass]="{
-                                    'bg-primary border-primary': index <= active,
-                                    'surface-border': index > active
+                                    'bg-primary text-primary-contrast border-primary': index <= active,
+                                    'border-surface': index > active
                                 }"
                             >
                                 <i class="pi pi-id-card"></i>
@@ -102,13 +102,13 @@ import { Code } from '@domain/code';
                         </button>
                     </ng-template>
                     <ng-template pTemplate="content" let-prevCallback="prevCallback">
-                        <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                            <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
+                        <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                            <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                             <div class="text-center">
                                 <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
                             </div>
                         </div>
-                        <div class="flex pt-4 justify-content-start">
+                        <div class="flex pt-6 justify-start">
                             <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                         </div>
                     </ng-template>
@@ -158,12 +158,12 @@ export class TemplateDoc {
         basic: `<p-stepper [(activeStep)]="active">
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                 <span
-                    class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                    class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                     [ngClass]="{
-                        'bg-primary border-primary': index <= active,
-                        'surface-border': index > active
+                        'bg-primary text-primary-contrast border-primary': index <= active,
+                        'border-surface': index > active
                     }"
                 >
                     <i class="pi pi-user"></i>
@@ -171,8 +171,8 @@ export class TemplateDoc {
             </button>
         </ng-template>
         <ng-template pTemplate="content" let-nextCallback="nextCallback">
-            <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
-                <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
+            <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
+                <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                 <div class="field p-fluid">
                     <p-iconField>
                         <p-inputIcon>
@@ -193,19 +193,19 @@ export class TemplateDoc {
                     <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
                 </div>
             </div>
-            <div class="flex pt-4 justify-content-end">
+            <div class="flex pt-6 justify-end">
                 <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
             </div>
         </ng-template>
     </p-stepperPanel>
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                 <span
-                    class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                    class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                     [ngClass]="{
-                        'bg-primary border-primary': index <= active,
-                        'surface-border': index > active
+                        'bg-primary text-primary-contrast border-primary': index <= active,
+                        'border-surface': index > active
                     }"
                 >
                     <i class="pi pi-star"></i>
@@ -213,9 +213,9 @@ export class TemplateDoc {
             </button>
         </ng-template>
         <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-            <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
-                <div class="flex flex-wrap justify-content-center gap-3">
+            <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
+                <div class="flex flex-wrap justify-center gap-4">
                     <p-toggleButton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
                     <p-toggleButton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
                     <p-toggleButton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
@@ -228,7 +228,7 @@ export class TemplateDoc {
                     <p-toggleButton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                 </div>
             </div>
-            <div class="flex pt-4 justify-content-between">
+            <div class="flex pt-6 justify-between">
                 <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                 <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
             </div>
@@ -236,12 +236,12 @@ export class TemplateDoc {
     </p-stepperPanel>
     <p-stepperPanel>
         <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-            <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+            <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                 <span
-                    class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                    class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                     [ngClass]="{
-                        'bg-primary border-primary': index <= active,
-                        'surface-border': index > active
+                        'bg-primary text-primary-contrast border-primary': index <= active,
+                        'border-surface': index > active
                     }"
                 >
                     <i class="pi pi-id-card"></i>
@@ -249,29 +249,29 @@ export class TemplateDoc {
             </button>
         </ng-template>
         <ng-template pTemplate="content" let-prevCallback="prevCallback">
-            <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
+            <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                 <div class="text-center">
                     <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
                 </div>
             </div>
-            <div class="flex pt-4 justify-content-start">
+            <div class="flex pt-6 justify-start">
                 <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
             </div>
         </ng-template>
     </p-stepperPanel>
 </p-stepper>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-stepper [(activeStep)]="active">
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                     <span
-                        class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                         [ngClass]="{
-                            'bg-primary border-primary': index <= active,
-                            'surface-border': index > active
+                            'bg-primary text-primary-contrast border-primary': index <= active,
+                            'border-surface': index > active
                         }"
                     >
                         <i class="pi pi-user"></i>
@@ -279,8 +279,8 @@ export class TemplateDoc {
                 </button>
             </ng-template>
             <ng-template pTemplate="content" let-nextCallback="nextCallback">
-                <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
-                    <div class="text-center mt-3 mb-3 text-xl font-semibold">Create your account</div>
+                <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 20rem">
+                    <div class="text-center mt-4 mb-4 text-xl font-semibold">Create your account</div>
                     <div class="field p-fluid">
                         <p-iconField>
                             <p-inputIcon>
@@ -301,19 +301,19 @@ export class TemplateDoc {
                         <p-password [(ngModel)]="password" [toggleMask]="true" placeholder="Password" />
                     </div>
                 </div>
-                <div class="flex pt-4 justify-content-end">
+                <div class="flex pt-6 justify-end">
                     <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                 </div>
             </ng-template>
         </p-stepperPanel>
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                     <span
-                        class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                         [ngClass]="{
-                            'bg-primary border-primary': index <= active,
-                            'surface-border': index > active
+                            'bg-primary text-primary-contrast border-primary': index <= active,
+                            'border-surface': index > active
                         }"
                     >
                         <i class="pi pi-star"></i>
@@ -321,9 +321,9 @@ export class TemplateDoc {
                 </button>
             </ng-template>
             <ng-template pTemplate="content" let-prevCallback="prevCallback" let-nextCallback="nextCallback">
-                <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                    <div class="text-center mt-3 mb-3 text-xl font-semibold">Choose your interests</div>
-                    <div class="flex flex-wrap justify-content-center gap-3">
+                <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                    <div class="text-center mt-4 mb-4 text-xl font-semibold">Choose your interests</div>
+                    <div class="flex flex-wrap justify-center gap-4">
                         <p-toggleButton [(ngModel)]="option1" onLabel="Nature" offLabel="Nature" />
                         <p-toggleButton [(ngModel)]="option2" onLabel="Art" offLabel="Art" />
                         <p-toggleButton [(ngModel)]="option3" onLabel="Music" offLabel="Music" />
@@ -336,7 +336,7 @@ export class TemplateDoc {
                         <p-toggleButton [(ngModel)]="option10" onLabel="Dancing" offLabel="Dancing" />
                     </div>
                 </div>
-                <div class="flex pt-4 justify-content-between">
+                <div class="flex pt-6 justify-between">
                     <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                     <p-button (onClick)="nextCallback.emit()" label="Next" icon="pi pi-arrow-right" iconPos="right" />
                 </div>
@@ -344,12 +344,12 @@ export class TemplateDoc {
         </p-stepperPanel>
         <p-stepperPanel>
             <ng-template pTemplate="header" let-onClick="onClick" let-index="index">
-                <button class="bg-transparent border-none inline-flex flex-column gap-2" (click)="onClick.emit()">
+                <button class="bg-transparent border-0 inline-flex flex-col gap-2" (click)="onClick.emit()">
                     <span
-                        class="border-round border-2 w-3rem h-3rem inline-flex align-items-center justify-content-center"
+                        class="rounded-border border-2 w-12 h-12 inline-flex items-center justify-center"
                         [ngClass]="{
-                            'bg-primary border-primary': index <= active,
-                            'surface-border': index > active
+                            'bg-primary text-primary-contrast border-primary': index <= active,
+                            'border-surface': index > active
                         }"
                     >
                         <i class="pi pi-id-card"></i>
@@ -357,13 +357,13 @@ export class TemplateDoc {
                 </button>
             </ng-template>
             <ng-template pTemplate="content" let-prevCallback="prevCallback">
-                <div class="flex flex-column gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
-                    <div class="text-center mt-3 mb-3 text-xl font-semibold">Account created successfully</div>
+                <div class="flex flex-col gap-2 mx-auto" style="min-height: 16rem; max-width: 24rem">
+                    <div class="text-center mt-4 mb-4 text-xl font-semibold">Account created successfully</div>
                     <div class="text-center">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/stepper/content.svg" />
                     </div>
                 </div>
-                <div class="flex pt-4 justify-content-start">
+                <div class="flex pt-6 justify-start">
                     <p-button (onClick)="prevCallback.emit()" label="Back" severity="secondary" icon="pi pi-arrow-left" />
                 </div>
             </ng-template>

@@ -13,10 +13,10 @@ interface Country {
         <app-docsectiontext>
             <p>Options can be grouped when a nested data structures is provided.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox [options]="groupedCities" [group]="true" [(ngModel)]="selectedCountry" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }">
                 <ng-template let-group pTemplate="group">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
@@ -74,7 +74,7 @@ export class GroupDoc {
     [listStyle]="{ 'max-height': '250px' }" 
     [style]="{ width: '15rem' }">
         <ng-template let-group pTemplate="group">
-            <div class="flex align-items-center">
+            <div class="flex items-center">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'mr-2 flag flag-' + group.value" 
@@ -84,7 +84,7 @@ export class GroupDoc {
         </ng-template>
 </p-listbox>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox 
         [options]="groupedCities" 
         [group]="true" 
@@ -92,7 +92,7 @@ export class GroupDoc {
         [listStyle]="{ 'max-height': '250px' }" 
         [style]="{ width: '15rem' }">
             <ng-template let-group pTemplate="group">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'mr-2 flag flag-' + group.value" 

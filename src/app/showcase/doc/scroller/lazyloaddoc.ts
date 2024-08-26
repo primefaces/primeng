@@ -15,10 +15,10 @@ interface LazyEvent {
                 contains information about the chunk of data to load such as the index and number of items to load. Notice that a new template called loadingItem is also required to display as a placeholder while the new items are being loaded.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
+        <div class="card flex justify-center">
+            <p-scroller [items]="items" [itemSize]="50" [showLoader]="true" [delay]="250" [loading]="lazyLoading" [lazy]="true" (onLazyLoad)="onLazyLoad($event)" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
+                    <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                 </ng-template>
             </p-scroller>
         </div>
@@ -73,11 +73,11 @@ export class LazyLoadDoc {
     [loading]="lazyLoading" 
     [lazy]="true" 
     (onLazyLoad)="onLazyLoad($event)" 
-    styleClass="border-1 surface-border" 
+    styleClass="border border-surface" 
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
             <div 
-                class="flex align-items-center p-2" 
+                class="flex items-center p-2" 
                 [ngClass]="{ 'surface-ground': options.odd }" 
                 style="height: 50px;">
                     {{ item }}
@@ -85,7 +85,7 @@ export class LazyLoadDoc {
         </ng-template>
 </p-scroller>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-scroller 
         [items]="items" 
         [itemSize]="50" 
@@ -94,11 +94,11 @@ export class LazyLoadDoc {
         [loading]="lazyLoading" 
         [lazy]="true" 
         (onLazyLoad)="onLazyLoad($event)" 
-        styleClass="border-1 surface-border" 
+        styleClass="border border-surface" 
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
                 <div 
-                    class="flex align-items-center p-2" 
+                    class="flex items-center p-2" 
                     [ngClass]="{ 'surface-ground': options.odd }" 
                     style="height: 50px;">
                         {{ item }}

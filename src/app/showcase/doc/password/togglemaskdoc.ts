@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>toggleMask</i> is present, an icon is displayed to show the value as plain text.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-password [(ngModel)]="value" [toggleMask]="true" />
         </div>
         <app-code [code]="code" selector="password-toggle-mask-demo"></app-code>
@@ -19,7 +19,7 @@ export class ToggleMaskDoc {
     code: Code = {
         basic: `<p-password [(ngModel)]="value" [toggleMask]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-password [(ngModel)]="value" [toggleMask]="true" />
 </div>`,
 

@@ -35,9 +35,9 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     ],
     template: `
         <div
-            class="flex-1 flex flex-col gap-6 p-6 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl"
+            class="flex-1 flex flex-col gap-12 p-12 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl"
         >
-            <div class="flex flex-wrap gap-4 items-center justify-between">
+            <div class="flex flex-wrap gap-6 items-center justify-between">
                 <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" />
                 <div class="flex gap-2.5 items-center">
                     <p-iconField iconPosition="left">
@@ -52,12 +52,12 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     <p-avatar
                         image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
                         shape="circle"
-                        class="w-9 h-9 cursor-pointer"
+                        class="w-9/12 h-9 cursor-pointer"
                     />
                 </div>
             </div>
             <div class="">
-                <div class="flex items-center justify-between gap-2 mb-6">
+                <div class="flex items-center justify-between gap-2 mb-12">
                     <div class="text-color text-xl font-medium leading-7">Keep watching</div>
                     <div class="xl:flex hidden items-center gap-2">
                         <p-button
@@ -138,7 +138,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                 </p-carousel>
             </div>
             <div>
-                <div class="mb-6 flex items-center gap-4 justify-between">
+                <div class="mb-12 flex items-center gap-6 justify-between">
                     <div class="flex items-center gap-2">
                         <p-button label="Popular" severity="secondary" />
                         <p-button label="New Releases" text severity="secondary" />
@@ -147,7 +147,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </div>
                     <p-button label="Show All" severity="secondary" outlined />
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-6">
+                <div class="grid grid-cols-12 gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-x-4 gap-y-6">
                     <div *ngFor="let movie of popularMovies" class="cursor-pointer">
                         <div class="relative aspect-[259/174.5] rounded-lg overflow-hidden">
                             <img class="w-full h-full object-cover" [src]="movie.image" alt="Popular Movie Cover" />

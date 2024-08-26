@@ -14,7 +14,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" />
                     </div>
                 </ng-template>
@@ -59,7 +59,7 @@ export class AutoPlayDoc implements OnInit {
             <img [src]="item.itemImageSrc" style="width: 100%;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
+            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
@@ -76,7 +76,7 @@ export class AutoPlayDoc implements OnInit {
                 <img [src]="item.itemImageSrc" style="width: 100%;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
+                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                     <img [src]="item.thumbnailImageSrc" />
                 </div>
             </ng-template>

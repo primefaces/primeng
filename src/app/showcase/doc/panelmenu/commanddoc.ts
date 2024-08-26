@@ -8,9 +8,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
-            <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-command-demo"></app-code>
     `,
@@ -82,11 +82,11 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />`,
+<p-panelMenu [model]="items" styleClass="w-full md:w-80" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
-    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+    <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

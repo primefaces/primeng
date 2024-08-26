@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Checkbox and RadioButton components can be combined with an input element under the same group.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:flex-row gap-3">
+        <div class="card flex flex-col md:flex-row gap-4">
             <p-inputGroup>
                 <input type="text" pInputText placeholder="Price" />
                 <p-inputGroupAddon><p-radioButton [(ngModel)]="radioValue1" name="rb1" value="rb1" /></p-inputGroupAddon>
@@ -55,7 +55,7 @@ export class CheckboxDoc {
     <p-inputGroupAddon><p-radioButton name="rb2" value="rb2" [(ngModel)]="category"/></p-inputGroupAddon>
 </p-inputGroup>`,
 
-        html: `<div class="card flex flex-column md:flex-row gap-3">
+        html: `<div class="card flex flex-col md:flex-row gap-4">
     <p-inputGroup>
         <input type="text" pInputText placeholder="Price" />
         <p-inputGroupAddon>

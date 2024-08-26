@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputNumber is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="integeronly">Integer Only</label>
                 <p-inputNumber inputId="integeronly" [(ngModel)]="value1" />
@@ -62,7 +62,7 @@ export class NumeralsDoc {
     [min]="0" 
     [max]="100" /> `,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label for="integeronly">Integer Only</label>
         <p-inputNumber 

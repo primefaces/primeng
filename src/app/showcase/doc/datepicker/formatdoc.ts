@@ -6,7 +6,7 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>Default date format is <i>mm/dd/yy</i> which can be customized using the <i>dateFormat</i> property. Following options can be a part of the format.</p>
-            <ul class="mb-4 line-height-4">
+            <ul class="mb-6 leading-loose">
                 <li><i>d</i> - day of month (no leading zero)</li>
                 <li><i>dd</i> - day of month (two digit)</li>
                 <li><i>o</i> - day of the year (no leading zeros)</li>
@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
                 <li><i>anything else</i> - literal text</li>
             </ul>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="date" dateFormat="dd.mm.yy" />
         </div>
         <app-code [code]="code" selector="datepicker-format-demo"></app-code>
@@ -40,7 +40,7 @@ export class FormatDoc {
     [(ngModel)]="date" 
     dateFormat="dd.mm.yy" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="date" 
         dateFormat="dd.mm.yy" />

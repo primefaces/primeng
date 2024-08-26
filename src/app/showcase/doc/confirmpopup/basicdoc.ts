@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>ConfirmPopup is defined using <i>p-confirmPopup</i> tag and an instance of <i>ConfirmationService</i> is required to display it bycalling confirm method.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast />
             <p-confirmPopup />
             <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
@@ -66,7 +66,7 @@ export class BasicDoc {
     severity="danger" 
     [outlined]="true" />`,
 
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-confirmPopup />
     <p-button 

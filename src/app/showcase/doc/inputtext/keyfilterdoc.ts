@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputText has built-in key filtering support to block certain keys, refer to <a href="/keyfilter">keyfilter</a> page for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="inputtext-key-filter-demo"></app-code>
@@ -20,7 +20,7 @@ export class KeyFilterDoc {
         basic: `<input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <input pInputText pKeyFilter="int" placeholder="Integers" [(ngModel)]="value" />
 </div>`,
 

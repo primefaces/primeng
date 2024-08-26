@@ -8,9 +8,9 @@ import { Code } from '@domain/code';
             <p>Sample List implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="border-round border-1 surface-border p-4 surface-card">
+            <div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
                 <ul class="m-0 p-0 list-none">
-                    <li class="mb-3">
+                    <li class="mb-4">
                         <div class="flex">
                             <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
                             </div>
                         </div>
                     </li>
-                    <li class="mb-3">
+                    <li class="mb-4">
                         <div class="flex">
                             <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
                             </div>
                         </div>
                     </li>
-                    <li class="mb-3">
+                    <li class="mb-4">
                         <div class="flex">
                             <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                             <div style="flex: 1">
@@ -54,9 +54,9 @@ import { Code } from '@domain/code';
 })
 export class ListDoc {
     code: Code = {
-        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
+        basic: `<div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
     <ul class="m-0 p-0 list-none">
-        <li class="mb-3">
+        <li class="mb-4">
             <div class="flex">
                 <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
@@ -65,7 +65,7 @@ export class ListDoc {
                 </div>
             </div>
         </li>
-        <li class="mb-3">
+        <li class="mb-4">
             <div class="flex">
                 <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
@@ -74,7 +74,7 @@ export class ListDoc {
                 </div>
             </div>
         </li>
-        <li class="mb-3">
+        <li class="mb-4">
             <div class="flex">
                 <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                 <div style="flex: 1">
@@ -95,9 +95,9 @@ export class ListDoc {
     </ul>
 </div>`,
         html: `<div class="card">
-    <div class="border-round border-1 surface-border p-4 surface-card">
+    <div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
         <ul class="m-0 p-0 list-none">
-            <li class="mb-3">
+            <li class="mb-4">
                 <div class="flex">
                     <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
@@ -106,7 +106,7 @@ export class ListDoc {
                     </div>
                 </div>
             </li>
-            <li class="mb-3">
+            <li class="mb-4">
                 <div class="flex">
                     <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">
@@ -115,7 +115,7 @@ export class ListDoc {
                     </div>
                 </div>
             </li>
-            <li class="mb-3">
+            <li class="mb-4">
                 <div class="flex">
                     <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div style="flex: 1">

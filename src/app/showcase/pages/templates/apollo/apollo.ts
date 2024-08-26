@@ -115,7 +115,7 @@ export class ApolloPage {
             title: 'PrimeFlex CSS Utilities',
             width: 1440,
             height: 1789,
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
+            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/apollo/features-animation-utilities.png'
         },
         {

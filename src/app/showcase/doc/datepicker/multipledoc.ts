@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>In order to choose multiple dates, set <i>selectionMode</i> as <i>multiple</i>. In this mode, the value binding should be an array.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="dates" selectionMode="multiple" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-multiple-demo"></app-code>
@@ -22,7 +22,7 @@ export class MultipleDoc {
     selectionMode="multiple" 
     [readonlyInput]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="dates" 
         selectionMode="multiple" 

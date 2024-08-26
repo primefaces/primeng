@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>In addition to the presets, a regular expression can be configured for customization.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3">
+        <div class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label for="blockspace" class="font-bold block mb-2"> Block Space </label>
                 <input pInputText id="blockspace" [pKeyFilter]="blockSpace" class="w-full" />
@@ -28,7 +28,7 @@ export class RegexDoc {
         basic: `<input pInputText [pKeyFilter]="blockSpace" />
 <input pInputText [pKeyFilter]="blockChars" />`,
 
-        html: `<div class="card flex flex-wrap gap-3">
+        html: `<div class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="blockspace" class="font-bold block mb-2"> Block Space </label>
         <input pInputText id="blockspace" pKeyFilter="int" class="w-full" />

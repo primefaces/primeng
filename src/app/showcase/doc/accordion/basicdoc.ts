@@ -64,7 +64,7 @@ export class BasicDoc {
     </p-accordionTab>
 </p-accordion>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-accordion [activeIndex]="0">
         <p-accordionTab header="Header I">
             <p>

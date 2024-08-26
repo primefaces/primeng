@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Text buttons are displayed as textual elements.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 justify-content-center">
+        <div class="card flex flex-wrap gap-4 justify-center">
             <p-button label="Primary" [text]="true" />
             <p-button label="Secondary" [text]="true" severity="secondary" />
             <p-button label="Success" [text]="true" severity="success" />
@@ -31,7 +31,7 @@ export class TextDoc {
 <p-button label="Danger" [text]="true" severity="danger" />
 <p-button label="Plain" [text]="true" [plain]="true" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+        html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-button label="Primary" [text]="true" />
     <p-button label="Secondary" [text]="true" severity="secondary" />
     <p-button label="Success" [text]="true" severity="success" />

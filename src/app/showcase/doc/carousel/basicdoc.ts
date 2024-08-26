@@ -12,15 +12,15 @@ import { ProductService } from '@service/productservice';
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product pTemplate="item">
-                    <div class="border-1 surface-border border-round m-2 p-3">
-                        <div class="mb-3">
+                    <div class="border border-surface rounded-border m-2 p-4">
+                        <div class="mb-4">
                             <div class="relative mx-auto">
-                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full border-round" />
+                                <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
                                 <p-tag [value]="product.inventoryStatus" [severity]="getSeverity(product.inventoryStatus)" class="absolute" [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                             </div>
                         </div>
-                        <div class="mb-3 font-medium">{{ product.name }}</div>
-                        <div class="flex justify-content-between align-items-center">
+                        <div class="mb-4 font-medium">{{ product.name }}</div>
+                        <div class="flex justify-between items-center">
                             <div class="mt-0 font-semibold text-xl">{{ '$' + product.price }}</div>
                             <span>
                                 <p-button icon="pi pi-heart" severity="secondary" [outlined]="true" />
@@ -88,13 +88,13 @@ export class BasicDoc implements OnInit {
     [circular]="false" 
     [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
-            <div class="border-1 surface-border border-round m-2 p-3">
-                <div class="mb-3">
+            <div class="border border-surface rounded-border m-2 p-4">
+                <div class="mb-4">
                     <div class="relative mx-auto">
                         <img 
                             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                             [alt]="product.name" 
-                            class="w-full border-round" />
+                            class="w-full rounded-border" />
                         <p-tag 
                             [value]="product.inventoryStatus" 
                             [severity]="getSeverity(product.inventoryStatus)" 
@@ -102,10 +102,10 @@ export class BasicDoc implements OnInit {
                             [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                     </div>
                 </div>
-                <div class="mb-3 font-medium">
+                <div class="mb-4 font-medium">
                     {{ product.name }}
                 </div>
-                <div class="flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                 <div class="mt-0 font-semibold text-xl">
                     {{ '$' + product.price }}
                 </div>
@@ -125,13 +125,13 @@ export class BasicDoc implements OnInit {
         [circular]="false" 
         [responsiveOptions]="responsiveOptions">
             <ng-template let-product pTemplate="item">
-                <div class="border-1 surface-border border-round m-2 p-3">
-                    <div class="mb-3">
+                <div class="border border-surface rounded-border m-2 p-4">
+                    <div class="mb-4">
                         <div class="relative mx-auto">
                             <img 
                                 src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                                 [alt]="product.name" 
-                                class="w-full border-round" />
+                                class="w-full rounded-border" />
                             <p-tag 
                                 [value]="product.inventoryStatus" 
                                 [severity]="getSeverity(product.inventoryStatus)" 
@@ -139,10 +139,10 @@ export class BasicDoc implements OnInit {
                                 [ngStyle]="{ 'left.px': 5, 'top.px': 5 }" />
                         </div>
                     </div>
-                    <div class="mb-3 font-medium">
+                    <div class="mb-4 font-medium">
                         {{ product.name }}
                     </div>
-                    <div class="flex justify-content-between align-items-center">
+                    <div class="flex justify-between items-center">
                     <div class="mt-0 font-semibold text-xl">
                         {{ '$' + product.price }}
                     </div>

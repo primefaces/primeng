@@ -10,11 +10,11 @@ import { Code } from '@domain/code';
                 Nodes can be selected by defining <i>selectionMode</i> along with a value binding with <i>selection</i> properties. By default only one node can be selected, set <i>selectionMode</i> as <i>multiple</i> to select more than one.
             </p></app-docsectiontext
         >
-        <div class="card flex justify-content-center overflow-x-auto">
+        <div class="card flex justify-center overflow-x-auto">
             <p-organizationChart [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="p-2 text-center">
-                        <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
+                        <img [src]="node.data.image" class="mb-4 w-12 h-12" />
                         <div class="font-bold">{{ node.data.name }}</div>
                         <div>{{ node.data.title }}</div>
                     </div>
@@ -85,7 +85,7 @@ export class SelectionDoc {
             <div class="p-2 text-center">
                 <img 
                     [src]="node.data.image" 
-                    class="mb-3 w-3rem h-3rem" />
+                    class="mb-4 w-12 h-12" />
                 <div class="font-bold">
                     {{ node.data.name }}
                 </div>
@@ -96,7 +96,7 @@ export class SelectionDoc {
         </ng-template>
 </p-organizationChart>`,
 
-        html: `<div class="card flex justify-content-center overflow-x-auto">
+        html: `<div class="card flex justify-center overflow-x-auto">
     <p-organizationChart 
         [value]="data" 
         selectionMode="multiple" 
@@ -106,7 +106,7 @@ export class SelectionDoc {
                 <div class="p-2 text-center">
                     <img 
                         [src]="node.data.image" 
-                        class="mb-3 w-3rem h-3rem" />
+                        class="mb-4 w-12 h-12" />
                     <div class="font-bold">
                         {{ node.data.name }}
                     </div>

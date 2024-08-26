@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-content-center gap-2">
+            <div class="flex justify-center gap-2">
                 <p-button (click)="addSingle()" label="Show Single" />
                 <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
                 <p-button severity="secondary" (click)="clear()" label="Clear All" />
@@ -45,14 +45,14 @@ export class ServiceDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex justify-content-center gap-2">
+        basic: `<div class="flex justify-center gap-2">
     <p-button (click)="addSingle()" label="Show Single" />
     <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
     <p-button severity="secondary" (click)="clear()" label="Clear All" />
 </div>
 <p-messages />`,
         html: `<div class="card">
-    <div class="flex justify-content-center gap-2">
+    <div class="flex justify-center gap-2">
         <p-button (click)="addSingle()" label="Show Single" />
         <p-button severity="success" (click)="addMultiple()" label="Show Multiple" />
         <p-button severity="secondary" (click)="clear()" label="Clear All" />

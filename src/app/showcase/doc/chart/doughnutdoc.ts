@@ -9,7 +9,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <app-docsectiontext>
             <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-chart type="doughnut" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
@@ -67,7 +67,7 @@ export class DoughnutDoc implements OnInit {
     }
     code: Code = {
         basic: `<p-chart type="doughnut" [data]="data" [options]="options" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-chart type="doughnut" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

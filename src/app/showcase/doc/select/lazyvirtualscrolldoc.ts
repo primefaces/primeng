@@ -5,7 +5,7 @@ import { Code } from '@domain/code';
 @Component({
     selector: 'select-lazy-virtualscroll-demo',
     template: `
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" [virtualScrollOptions]="options" />
         </div>
         <app-code [code]="code" selector="select-lazy-virtualscroll-demo"></app-code>
@@ -66,7 +66,7 @@ export class LazyVirtualScrollDoc {
     [virtualScrollItemSize]="38" 
     [virtualScrollOptions]="options" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="items"
         [(ngModel)]="selectedItem"

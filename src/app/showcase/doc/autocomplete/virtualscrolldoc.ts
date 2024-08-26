@@ -14,7 +14,7 @@ interface AutoCompleteCompleteEvent {
                 performance issues. Usage is simple as setting <i>virtualScroll</i> property to <i>true</i> and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedItem" [virtualScroll]="true" [suggestions]="filteredItems" [virtualScrollItemSize]="34" (completeMethod)="filterItems($event)" field="label" [dropdown]="true" />
         </div>
         <app-code [code]="code" selector="autocomplete-virtual-scroll-demo"></app-code>`
@@ -58,7 +58,7 @@ export class VirtualScrollDoc {
     field="label" 
     [dropdown]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         [(ngModel)]="selectedItem" 
         [virtualScroll]="true" 

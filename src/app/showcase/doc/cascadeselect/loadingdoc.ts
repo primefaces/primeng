@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-cascadeSelect [loading]="true" [style]="{ minWidth: '14rem' }" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="cascade-select-loading-demo"></app-code>
@@ -20,7 +20,7 @@ export class LoadingDoc {
     [style]="{ minWidth: '14rem' }"
     placeholder="Loading..." />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-cascadeSelect 
         [loading]="true"
         [style]="{ minWidth: '14rem' }" 

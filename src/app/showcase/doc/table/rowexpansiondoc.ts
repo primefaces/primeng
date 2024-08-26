@@ -19,7 +19,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                 <p-toast />
                 <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
                     <ng-template pTemplate="caption">
-                        <div class="flex flex-wrap justify-content-end gap-2">
+                        <div class="flex flex-wrap justify-end gap-2">
                             <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
                             <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
                         </div>
@@ -41,7 +41,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                                 <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                             </td>
                             <td>{{ product.name }}</td>
-                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -53,7 +53,7 @@ import { TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
                     <ng-template pTemplate="rowexpansion" let-product>
                         <tr>
                             <td colspan="7">
-                                <div class="p-3">
+                                <div class="p-4">
                                     <p-table [value]="product.orders" dataKey="id">
                                         <ng-template pTemplate="header">
                                             <tr>
@@ -154,7 +154,7 @@ export class RowExpansionDoc {
         basic: `<p-toast />
     <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
         <ng-template pTemplate="caption">
-            <div class="flex flex-wrap justify-content-end gap-2">
+            <div class="flex flex-wrap justify-end gap-2">
                 <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
                 <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
             </div>
@@ -176,7 +176,7 @@ export class RowExpansionDoc {
                     <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                 </td>
                 <td>{{ product.name }}</td>
-                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
                 <td>{{ product.price | currency : 'USD' }}</td>
                 <td>{{ product.category }}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -188,7 +188,7 @@ export class RowExpansionDoc {
         <ng-template pTemplate="rowexpansion" let-product>
             <tr>
                 <td colspan="7">
-                    <div class="p-3">
+                    <div class="p-4">
                         <p-table [value]="product.orders" dataKey="id">
                             <ng-template pTemplate="header">
                                 <tr>
@@ -227,7 +227,7 @@ export class RowExpansionDoc {
     <p-toast />
     <p-table [value]="products" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows" (onRowExpand)="onRowExpand($event)" (onRowCollapse)="onRowCollapse($event)">
         <ng-template pTemplate="caption">
-            <div class="flex flex-wrap justify-content-end gap-2">
+            <div class="flex flex-wrap justify-end gap-2">
                 <p-button label="Expand All" icon="pi pi-plus" text (onClick)="expandAll()" />
                 <p-button label="Collapse All" icon="pi pi-minus" text (onClick)="collapseAll()" />
             </div>
@@ -249,7 +249,7 @@ export class RowExpansionDoc {
                     <p-button type="button" pRipple [pRowToggler]="product" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
                 </td>
                 <td>{{ product.name }}</td>
-                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
                 <td>{{ product.price | currency : 'USD' }}</td>
                 <td>{{ product.category }}</td>
                 <td><p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -261,7 +261,7 @@ export class RowExpansionDoc {
         <ng-template pTemplate="rowexpansion" let-product>
             <tr>
                 <td colspan="7">
-                    <div class="p-3">
+                    <div class="p-4">
                         <p-table [value]="product.orders" dataKey="id">
                             <ng-template pTemplate="header">
                                 <tr>

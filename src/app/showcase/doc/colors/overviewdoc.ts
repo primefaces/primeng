@@ -63,7 +63,7 @@ import { Code } from '@domain/code';
                 </tbody>
             </table>
         </div>
-        <div class="card flex justify-content-center gap-3 text-center">
+        <div class="card flex justify-center gap-4 text-center">
             <div [ngStyle]="{ backgroundColor: 'var(--highlight-bg)', color: 'var(--highlight-text-color)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Highlighted Item</div>
             <div [ngStyle]="{ backgroundColor: 'var(--primary-color)', color: 'var(--primary-color-text)', borderRadius: 'var(--border-radius)', padding: '3rem' }">Primary Color</div>
         </div>

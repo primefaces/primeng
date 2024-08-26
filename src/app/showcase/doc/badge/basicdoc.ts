@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-badge [value]="2" />
         </div>
         <app-code [code]="code" selector="badge-basic-demo"></app-code>
@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-badge [value]="2" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-badge [value]="2" />
 </div>`,
         typescript: `import { Component } from '@angular/core';

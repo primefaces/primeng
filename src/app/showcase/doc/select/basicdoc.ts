@@ -15,7 +15,7 @@ interface City {
                 that, when options are simple primitive values such as a string array, no <i>optionLabel</i> and <i>optionValue</i> would be necessary.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="select-basic-demo"></app-code>
@@ -43,7 +43,7 @@ export class BasicDoc implements OnInit {
     optionLabel="name" 
     placeholder="Select a City" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 

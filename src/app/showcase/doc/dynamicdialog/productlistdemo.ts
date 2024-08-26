@@ -4,7 +4,7 @@ import { Product } from '@domain/product';
 import { ProductService } from '@service/productservice';
 import { InfoDemo } from './infodemo';
 @Component({
-    template: ` <div class="flex justify-content-end mt-1 mb-3">
+    template: ` <div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
@@ -22,7 +22,7 @@ import { InfoDemo } from './infodemo';
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
+                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16 h-16 shadow" /></td>
                     <td>{{ product.category }}</td>
                     <td>
                         {{ product.quantity }}

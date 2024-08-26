@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
                 <i>end</i> are provided to embed content before or after the menu.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-menu [model]="items" styleClass="w-full md:w-15rem">
+        <div class="card flex justify-center">
+            <p-menu [model]="items" styleClass="w-full md:w-60">
                 <ng-template pTemplate="start">
-                    <span class="inline-flex align-items-center gap-1 px-2 py-2">
+                    <span class="inline-flex items-center gap-1 px-2 py-2">
                         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -51,17 +51,17 @@ import { Code } from '@domain/code';
                     <span class="text-primary font-bold">{{ item.label }}</span>
                 </ng-template>
                 <ng-template pTemplate="item" let-item>
-                    <a pRipple class="flex align-items-center p-menu-item-link">
+                    <a pRipple class="flex items-center p-menu-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
                     </a>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
+                    <button pRipple class="relative overflow-hidden w-full p-link flex items-center p-2 pl-4 text-color hover:bg-surface-200 dark:hover:bg-surface-600 rounded-none">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
-                        <span class="inline-flex flex-column">
+                        <span class="inline-flex flex-col">
                             <span class="font-bold">Amy Elsner</span>
                             <span class="text-sm">Admin</span>
                         </span>
@@ -122,9 +122,9 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-menu [model]="items" styleClass="w-full md:w-15rem">
+        basic: `<p-menu [model]="items" styleClass="w-full md:w-60">
     <ng-template pTemplate="start">
-        <span class="inline-flex align-items-center gap-1 px-2 py-2">
+        <span class="inline-flex items-center gap-1 px-2 py-2">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                 <path d="..." fill="var(--primary-color)" />
                 <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -163,19 +163,19 @@ export class TemplateDoc implements OnInit {
         <span class="text-primary font-bold">{{ item.label }}</span>
     </ng-template>
     <ng-template pTemplate="item" let-item>
-        <a pRipple class="flex align-items-center p-menu-item-link">
+        <a pRipple class="flex items-center p-menu-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
                 {{ item.shortcut }}
             </span>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
+        <button pRipple class="relative overflow-hidden w-full p-link flex items-center p-2 pl-4 text-color hover:bg-surface-200 dark:hover:bg-surface-600 rounded-none">
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
-            <span class="inline-flex flex-column">
+            <span class="inline-flex flex-col">
                 <span class="font-bold">Amy Elsner</span>
                 <span class="text-sm">Admin</span>
             </span>
@@ -183,10 +183,10 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-menu>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-menu [model]="items" styleClass="w-full md:w-15rem">
+        html: `<div class="card flex justify-center">
+    <p-menu [model]="items" styleClass="w-full md:w-60">
         <ng-template pTemplate="start">
-            <span class="inline-flex align-items-center gap-1 px-2 py-2">
+            <span class="inline-flex items-center gap-1 px-2 py-2">
                 <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                     <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -223,17 +223,17 @@ export class TemplateDoc implements OnInit {
             <span class="text-primary font-bold">{{ item.label }}</span>
         </ng-template>
         <ng-template pTemplate="item" let-item>
-            <a pRipple class="flex align-items-center p-menu-item-link">
+            <a pRipple class="flex items-center p-menu-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
             </a>
         </ng-template>
         <ng-template pTemplate="end">
-            <button pRipple class="relative overflow-hidden w-full p-link flex align-items-center p-2 pl-3 text-color hover:surface-200 border-noround">
+            <button pRipple class="relative overflow-hidden w-full p-link flex items-center p-2 pl-4 text-color hover:bg-surface-200 dark:hover:bg-surface-600 rounded-none">
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" shape="circle" />
-                <span class="inline-flex flex-column">
+                <span class="inline-flex flex-col">
                     <span class="font-bold">Amy Elsner</span>
                     <span class="text-sm">Admin</span>
                 </span>

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>FloatLabel is used by wrapping the input and its label.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-floatLabel>
                 <input id="username" type="text" pInputText [(ngModel)]="value" />
                 <label for="username">Username</label>
@@ -25,7 +25,7 @@ export class BasicDoc {
     <label for="username">Username</label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-floatLabel>
         <input id="username" type="text" pInputText [(ngModel)]="value" />
         <label for="username">Username</label>

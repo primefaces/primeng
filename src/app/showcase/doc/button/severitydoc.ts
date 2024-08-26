@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Severity defines the type of button.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 justify-content-center">
+        <div class="card flex flex-wrap gap-4 justify-center">
             <p-button label="Primary" />
             <p-button label="Secondary" severity="secondary" />
             <p-button label="Success" severity="success" />
@@ -31,7 +31,7 @@ export class SeverityDoc {
 <p-button label="Danger" severity="danger" />
 <p-button label="Contrast" severity="contrast" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+        html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-button label="Primary" />
     <p-button label="Secondary" severity="secondary" />
     <p-button label="Success" severity="success" />

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Menu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="menu-basic-demo"></app-code>
@@ -27,7 +27,7 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-menu [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-menu [model]="items" />
 </div>`,
 

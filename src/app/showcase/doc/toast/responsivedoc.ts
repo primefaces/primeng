@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 below, width of the toast messages cover the whole page on screens whose widths is smaller than 921px.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
             <p-button pRipple (click)="show()" label="Show" />
         </div>
@@ -29,7 +29,7 @@ export class ResponsiveDoc {
     code: Code = {
         basic: `<p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
 <p-button pRipple (click)="show()" label="Show" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast [breakpoints]="{ '920px': { width: '100%', right: '0', left: '0' } }" />
     <p-button pRipple (click)="show()" label="Show" />
 </div>`,

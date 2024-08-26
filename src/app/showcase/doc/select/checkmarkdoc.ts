@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>An alternative way to highlight the selected option is displaying a checkmark instead.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" [checkmark]="true" optionLabel="name" [showClear]="true" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="select-checkmark-demo"></app-code>
@@ -42,7 +42,7 @@ export class CheckmarkDoc implements OnInit {
     [showClear]="true" 
     placeholder="Select a City" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity"

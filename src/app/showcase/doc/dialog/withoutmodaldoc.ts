@@ -7,19 +7,19 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Mask layer behind the Dialog is configured with the <i>modal</i> property. By default, no modal layer is added.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />
             <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
-                <span class="p-text-secondary block mb-5">Update your information.</span>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <label for="username" class="font-semibold w-6rem">Username</label>
+                <span class="p-text-secondary block mb-8">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24">Username</label>
                     <input pInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
-                <div class="flex align-items-center gap-3 mb-5">
-                    <label for="email" class="font-semibold w-6rem">Email</label>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="email" class="font-semibold w-24">Email</label>
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
-                <div class="flex justify-content-end gap-2">
+                <div class="flex justify-end gap-2">
                     <p-button label="Cancel" severity="secondary" (click)="visible = false" />
                     <p-button label="Save" (click)="visible = false" />
                 </div>
@@ -38,34 +38,34 @@ export class WithoutModalDoc {
     code: Code = {
         basic: `<p-button (click)="showDialog()" label="Show" />
 <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">Update your information.</span>
-    <div class="flex align-items-center gap-3 mb-3">
-        <label for="username" class="font-semibold w-6rem">Username</label>
+    <span class="p-text-secondary block mb-8">Update your information.</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
         <input pInputText id="username" class="flex-auto" autocomplete="off" />
     </div>
-    <div class="flex align-items-center gap-3 mb-5">
-        <label for="email" class="font-semibold w-6rem">Email</label>
+    <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
         <input pInputText id="email" class="flex-auto" autocomplete="off" />
     </div>
-    <div class="flex justify-content-end gap-2">
+    <div class="flex justify-end gap-2">
         <p-button label="Cancel" severity="secondary" (click)="visible = false" />
         <p-button label="Save" (click)="visible = false" />
     </div>
 </p-dialog>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button (click)="showDialog()" label="Show" />
     <p-dialog header="Edit Profile" [(visible)]="visible" [style]="{ width: '25rem' }">
-        <span class="p-text-secondary block mb-5">Update your information.</span>
-        <div class="flex align-items-center gap-3 mb-3">
-            <label for="username" class="font-semibold w-6rem">Username</label>
+        <span class="p-text-secondary block mb-8">Update your information.</span>
+        <div class="flex items-center gap-4 mb-4">
+            <label for="username" class="font-semibold w-24">Username</label>
             <input pInputText id="username" class="flex-auto" autocomplete="off" />
         </div>
-        <div class="flex align-items-center gap-3 mb-5">
-            <label for="email" class="font-semibold w-6rem">Email</label>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="email" class="font-semibold w-24">Email</label>
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
-        <div class="flex justify-content-end gap-2">
+        <div class="flex justify-end gap-2">
             <p-button label="Cancel" severity="secondary" (click)="visible = false" />
             <p-button label="Save" (click)="visible = false" />
         </div>

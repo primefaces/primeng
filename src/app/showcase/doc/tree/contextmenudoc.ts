@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a value.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
+        <div class="card flex justify-center">
+            <p-tree class="w-full md:w-[30rem]" [value]="files" selectionMode="single" [(selection)]="selectedFile" [contextMenu]="cm" />
             <p-contextMenu #cm [model]="items" />
             <p-toast />
         </div>
@@ -49,7 +49,7 @@ export class ContextMenuDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [value]="files" 
     selectionMode="single" 
     [(selection)]="selectedFile" 
@@ -57,9 +57,9 @@ export class ContextMenuDoc implements OnInit {
 <p-contextMenu #cm [model]="items" />
 <p-toast />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tree 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         [value]="files"
         selectionMode="single" 
         [(selection)]="selectedFile" 

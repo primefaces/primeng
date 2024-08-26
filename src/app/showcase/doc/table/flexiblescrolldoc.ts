@@ -13,7 +13,7 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="flex justify-content-center">
+                <div class="flex justify-center">
                     <button type="button" (click)="showDialog()" pButton icon="pi pi-external-link" label="View"></button>
                 </div>
                 <p-dialog header="Header" [resizable]="false" [modal]="true" [maximizable]="true" appendTo="body" [(visible)]="dialogVisible" [style]="{ width: '75vw' }" [contentStyle]="{ height: '300px' }">
@@ -65,7 +65,7 @@ export class FlexibleScrollDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex justify-content-center">
+        basic: `<div class="flex justify-center">
     <button 
         type="button" 
         (click)="showDialog()" 
@@ -134,7 +134,7 @@ export class FlexibleScrollDoc {
         </ng-template>
 </p-dialog>`,
         html: `<div class="card">
-    <div class="flex justify-content-center">
+    <div class="flex justify-center">
         <button 
             type="button" 
             (click)="showDialog()" 

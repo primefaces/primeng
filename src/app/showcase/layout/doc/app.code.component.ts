@@ -9,11 +9,11 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
     selector: 'app-code',
     template: `
         <div *ngIf="code" class="doc-section-code">
-            <div class="doc-section-code-buttons scalein animation-duration-300">
+            <div class="doc-section-code-buttons animate-scalein animate-duration-300">
                 <ng-container *ngIf="fullCodeVisible">
-                    <button *ngIf="code.html" (click)="changeLang('html')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'html' }"><span>HTML</span></button>
-                    <button *ngIf="code.typescript" (click)="changeLang('typescript')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'typescript' }"><span>TS</span></button>
-                    <button *ngIf="code.scss" (click)="changeLang('scss')" class="py-0 px-2 border-round h-2rem" [ngClass]="{ 'code-active': lang === 'scss' }"><span>SCSS</span></button>
+                    <button *ngIf="code.html" (click)="changeLang('html')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'html' }"><span>HTML</span></button>
+                    <button *ngIf="code.typescript" (click)="changeLang('typescript')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'typescript' }"><span>TS</span></button>
+                    <button *ngIf="code.scss" (click)="changeLang('scss')" class="py-0 px-2 rounded-border h-8" [ngClass]="{ 'code-active': lang === 'scss' }"><span>SCSS</span></button>
 
                     <button
                         *ngIf="code.data"
@@ -21,13 +21,13 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                         tooltipPosition="bottom"
                         tooltipStyleClass="doc-section-code-tooltip"
                         (click)="changeLang('data')"
-                        class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center"
+                        class="h-8 w-8 p-0 inline-flex items-center justify-center"
                         [ngClass]="{ 'doc-section-code-active text-primary': lang === 'data' }"
                     >
                         <i class="pi pi-database"></i>
                     </button>
                 </ng-container>
-                <button *ngIf="!hideToggleCode" pTooltip="Toggle Full Code" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center" (click)="toggleCode()">
+                <button *ngIf="!hideToggleCode" pTooltip="Toggle Full Code" tooltipStyleClass="doc-section-code-tooltip" tooltipPosition="bottom" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="toggleCode()">
                     <i class="pi pi-code"></i>
                 </button>
 
@@ -36,7 +36,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                     tooltipPosition="bottom"
                     tooltipStyleClass="doc-section-code-tooltip"
                     *ngIf="!hideStackBlitz && !hideToggleCode"
-                    class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center"
+                    class="h-8 w-8 p-0 inline-flex items-center justify-center"
                     (click)="openStackBlitz()"
                 >
                     <svg role="img" width="13" height="18" viewBox="0 0 13 19" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="display: 'block'">
@@ -44,7 +44,7 @@ import { useCodeSandbox, useStackBlitz } from './codeeditor';
                     </svg>
                 </button>
 
-                <button type="button" class="h-2rem w-2rem p-0 inline-flex align-items-center justify-content-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
+                <button type="button" class="h-8 w-8 p-0 inline-flex items-center justify-center" (click)="copyCode()" pTooltip="Copy Code" tooltipPosition="bottom" tooltipStyleClass="doc-section-code-tooltip">
                     <i class="pi pi-copy"></i>
                 </button>
             </div>

@@ -156,31 +156,31 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="title"> Payment Information </ng-template>
                 <ng-template pTemplate="subtitle"> Enter your card details </ng-template>
                 <ng-template pTemplate="content">
-                    <div class="p-fluid formgrid grid">
-                        <div class="field col-12">
+                    <div class="p-fluid formgrid grid grid-cols-12 gap-4">
+                        <div class="field col-span-12">
                             <label for="class">Card Holder Name</label>
                             <input type="text" required pInputText [(ngModel)]="paymentInformation.cardholderName" />
                         </div>
-                        <div class="field col-8">
+                        <div class="field col-span-8">
                             <label id="number" for="lastname">Number</label>
                             <p-inputMask inputId="number" mask="9999-9999-9999-9999" [(ngModel)]="paymentInformation.cardholderNumber"></p-inputMask>
                         </div>
-                        <div class="field col-2">
+                        <div class="field col-span-2">
                             <label id="date" for="date">Date</label>
                             <p-inputMask inputId="date" mask="99/99" [(ngModel)]="paymentInformation.date"></p-inputMask>
                         </div>
-                        <div class="field col-2">
+                        <div class="field col-span-2">
                             <label for="cvv">CVV</label>
                             <p-inputMask id="cvv" mask="999" [(ngModel)]="paymentInformation.cvv"></p-inputMask>
                         </div>
-                        <div class="field-checkbox col-12">
+                        <div class="field-checkbox col-span-12">
                             <p-checkbox id="remember" [binary]="true" [(ngModel)]="paymentInformation.remember"></p-checkbox>
                             <label for="remember" class="p-checkbox-label">Save credit card information for future</label>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-between">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
                         <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
                     </div>
@@ -249,7 +249,7 @@ import { Router } from '@angular/router';
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-end">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-end">
                         <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
                     </div>
                 </ng-template>
@@ -294,23 +294,23 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="title"> Seat Information </ng-template>
                 <ng-template pTemplate="subtitle"> Choose your seat </ng-template>
                 <ng-template pTemplate="content">
-                    <div class="p-fluid formgrid grid">
-                        <div class="field col-12 md:col-6">
+                    <div class="p-fluid formgrid grid grid-cols-12 gap-4">
+                        <div class="field col-span-12 md:col-span-6">
                             <label for="class">Class</label>
                             <p-dropdown inputId="class" [(ngModel)]="seatInformation.class" [options]="classes" (onChange)="setVagons($event)" optionLabel="name" placeholder="Select a Class"></p-dropdown>
                         </div>
-                        <div class="field col-12 md:col-6">
+                        <div class="field col-span-12 md:col-span-6">
                             <label for="wagon">Wagon</label>
                             <p-dropdown inputId="wagon" [(ngModel)]="seatInformation.wagon" [options]="vagons" (onChange)="setSeats($event)" optionLabel="wagon" placeholder="Select a Wagon"></p-dropdown>
                         </div>
-                        <div class="field col-12">
+                        <div class="field col-span-12">
                             <label for="seat">Seat</label>
                             <p-dropdown inputId="seat" [(ngModel)]="seatInformation.seat" [options]="seats" optionLabel="seat" placeholder="Select a Seat"></p-dropdown>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-between">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
                         <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
                     </div>
@@ -383,45 +383,45 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="title"> Confirmation </ng-template>
                 <ng-template pTemplate="subtitle"> Enter your card details </ng-template>
                 <ng-template pTemplate="content">
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="class">Name</label>
                         <b>{{ ticketInformation.personalInformation.firstname ? ticketInformation.personalInformation.firstname : '-' }} {{ ticketInformation.personalInformation.lastname ? ticketInformation.personalInformation.lastname : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Age</label>
                         <b>{{ ticketInformation.personalInformation.age ? ticketInformation.personalInformation.age : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Seat Class</label>
                         <b>{{ ticketInformation.seatInformation.class ? ticketInformation.seatInformation.class.name : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Wagon Number</label>
                         <b>{{ ticketInformation.seatInformation.wagon ? ticketInformation.seatInformation.wagon.wagon : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Seat</label>
                         <b>{{ ticketInformation.seatInformation.seat ? ticketInformation.seatInformation.seat.seat : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Cardholder Name</label>
                         <b>{{ ticketInformation.paymentInformation.cardholderName ? ticketInformation.paymentInformation.cardholderName : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Card Number</label>
                         <b>{{ ticketInformation.paymentInformation.cardholderNumber ? ticketInformation.paymentInformation.cardholderNumber : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">Date</label>
                         <b>{{ ticketInformation.paymentInformation.date ? ticketInformation.paymentInformation.date : '-' }}</b>
                     </div>
-                    <div class="field col-12">
+                    <div class="field col-span-12">
                         <label for="Age">CVV</label>
                         <b>{{ ticketInformation.paymentInformation.cvv && ticketInformation.paymentInformation.cvv.length === 3 ? '**' + ticketInformation.paymentInformation.cvv[2] : '-' }}</b>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-between">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
                         <p-button label="Complete" (onClick)="complete()" icon="pi pi-angle-right" iconPos="right" styleClass="p-button-success"></p-button>
                     </div>

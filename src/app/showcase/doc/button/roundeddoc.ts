@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Rounded buttons have a circular border radius.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 justify-content-center">
+        <div class="card flex flex-wrap gap-4 justify-center">
             <p-button label="Primary" [rounded]="true" />
             <p-button label="Secondary" [rounded]="true" severity="secondary" />
             <p-button label="Success" [rounded]="true" severity="success" />
@@ -31,7 +31,7 @@ export class RoundedDoc {
 <p-button label="Danger" [rounded]="true" severity="danger" />
 <p-button label="Contrast" [rounded]="true" severity="contrast" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+        html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-button label="Primary" [rounded]="true" />
     <p-button label="Secondary" [rounded]="true" severity="secondary" />
     <p-button label="Success" [rounded]="true" severity="success" />

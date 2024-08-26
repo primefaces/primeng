@@ -14,7 +14,7 @@ interface PageEvent {
         <app-docsectiontext>
             <p>Sample image gallery implementation using paginator.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3 justify-content-center align-items-center">
+        <div class="card flex flex-col gap-4 justify-center items-center">
             <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
             <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
         </div>
@@ -36,7 +36,7 @@ export class ImagesDoc {
 <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />`,
 
         html: `
-<div class="card flex flex-column gap-3 justify-content-center align-items-center">
+<div class="card flex flex-col gap-4 justify-center items-center">
     <p-paginator [first]="first" [rows]="1" [totalRecords]="120" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
     <img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature{{ (first + 1) % 10 }}.jpg" class="max-w-full" />
 </div>`,

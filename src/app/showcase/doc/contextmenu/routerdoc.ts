@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
         <app-docsectiontext>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex md:justify-content-center">
-            <span #span class="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" aria-haspopup="true">
+        <div class="card flex md:justify-center">
+            <span #span class="inline-flex items-center justify-center border-2 border-primary rounded-border w-16 h-16" aria-haspopup="true">
                 <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                     <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -84,7 +84,7 @@ export class RouterDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<span #span class="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" aria-haspopup="true">
+        basic: `<span #span class="inline-flex items-center justify-center border-2 border-primary rounded-border w-16 h-16" aria-haspopup="true">
     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="..." fill="var(--primary-color)" />
         <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -127,8 +127,8 @@ export class RouterDoc implements OnInit {
         </ng-template>
 </p-contextMenu>`,
 
-        html: `<div class="card flex md:justify-content-center">
-    <span #span class="inline-flex align-items-center justify-content-center border-2 border-primary border-round w-4rem h-4rem" aria-haspopup="true">
+        html: `<div class="card flex md:justify-center">
+    <span #span class="inline-flex items-center justify-center border-2 border-primary rounded-border w-16 h-16" aria-haspopup="true">
         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">

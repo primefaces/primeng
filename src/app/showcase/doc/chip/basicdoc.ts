@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 is hidden.
             </p>
         </app-docsectiontext>
-        <div class="card flex align-items-center gap-2 flex-wrap">
+        <div class="card flex items-center gap-2 flex-wrap">
             <p-chip label="Action" />
             <p-chip label="Comedy" />
             <p-chip label="Mystery" />
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-chip label="Action" />`,
-        html: `<div class="card flex align-items-center gap-2 flex-wrap">
+        html: `<div class="card flex items-center gap-2 flex-wrap">
     <p-chip label="Action" />
     <p-chip label="Comedy" />
     <p-chip label="Mystery" />

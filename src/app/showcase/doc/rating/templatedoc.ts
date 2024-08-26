@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Templating allows customizing the content where the icon instance is available as the implicit variable.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-rating [(ngModel)]="value" stars="5">
                 <ng-template pTemplate="cancelicon">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/rating/cancel.png" width="25px" height="25px" />
@@ -48,7 +48,7 @@ export class TemplateDoc {
         </ng-template>
 </p-rating>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-rating [(ngModel)]="value" stars="5">
     <ng-template pTemplate="cancelicon">
         <img 

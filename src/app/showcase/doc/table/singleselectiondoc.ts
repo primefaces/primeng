@@ -17,7 +17,7 @@ import { ProductService } from '@service/productservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="flex justify-content-center align-items-center mb-4 gap-2">
+                <div class="flex justify-center items-center mb-6 gap-2">
                     <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
                     <label for="input-metakey">MetaKey</label>
                 </div>
@@ -90,7 +90,7 @@ export class SingleSelectionDoc {
     </p-table>`,
 
         html: `<div class="card">
-    <div class="flex justify-content-center align-items-center mb-4 gap-2">
+    <div class="flex justify-center items-center mb-6 gap-2">
         <p-inputSwitch [(ngModel)]="metaKey" inputId="input-metakey" />
         <label for="input-metakey">MetaKey</label>
     </div>

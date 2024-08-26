@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>Loading state can be used <i>loading</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [loading]="true" optionLabel="name" placeholder="Loading..." />
         </div>
         <app-code [code]="code" selector="multi-select-loading-state-demo"></app-code>
@@ -41,7 +41,7 @@ export class LoadingStateDoc implements OnInit {
     optionLabel="name" 
     placeholder="Loading..." />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-multiSelect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 

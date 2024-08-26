@@ -14,7 +14,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" style="display: block;" />
                     </div>
                 </ng-template>
@@ -60,7 +60,7 @@ export class ResponsiveDoc implements OnInit {
                 style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
+            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img 
                     [src]="item.thumbnailImageSrc" 
                     style="display: block;" />
@@ -80,7 +80,7 @@ export class ResponsiveDoc implements OnInit {
                     style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
+                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                     <img 
                         [src]="item.thumbnailImageSrc" 
                         style="display: block;"/>

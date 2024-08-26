@@ -8,12 +8,12 @@ import { Code } from '@domain/code';
             <p>When no panelSizes are defined, panels are split 50/50, use the <i>panelSizes</i> property to give relative widths e.g. [25, 75].</p>
         </app-docsectiontext>
         <div class="card">
-            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-5">
+            <p-splitter [panelSizes]="[25, 75]" [style]="{ height: '300px' }" styleClass="mb-8">
                 <ng-template pTemplate>
-                    <div class="col flex align-items-center justify-content-center">Panel 1</div>
+                    <div class="col flex items-center justify-center">Panel 1</div>
                 </ng-template>
                 <ng-template pTemplate>
-                    <div class="col flex align-items-center justify-content-center">Panel 2</div>
+                    <div class="col flex items-center justify-center">Panel 2</div>
                 </ng-template>
             </p-splitter>
         </div>
@@ -25,14 +25,14 @@ export class SizeDoc {
         basic: `<p-splitter 
     [panelSizes]="[25, 75]" 
     [style]="{ height: '300px' }" 
-    styleClass="mb-5">
+    styleClass="mb-8">
     <ng-template pTemplate>
-        <div class="col flex align-items-center justify-content-center">
+        <div class="col flex items-center justify-center">
             Panel 1
         </div>
     </ng-template>
     <ng-template pTemplate>
-        <div class="col flex align-items-center justify-content-center">
+        <div class="col flex items-center justify-center">
             Panel 2
         </div>
     </ng-template>
@@ -42,14 +42,14 @@ export class SizeDoc {
     <p-splitter 
         [panelSizes]="[25, 75]" 
         [style]="{ height: '300px' }" 
-        styleClass="mb-5">
+        styleClass="mb-8">
             <ng-template pTemplate>
-                <div class="col flex align-items-center justify-content-center">
+                <div class="col flex items-center justify-center">
                     Panel 1
                 </div>
             </ng-template>
             <ng-template pTemplate>
-                <div class="col flex align-items-center justify-content-center">
+                <div class="col flex items-center justify-center">
                     Panel 2
                 </div>
             </ng-template>

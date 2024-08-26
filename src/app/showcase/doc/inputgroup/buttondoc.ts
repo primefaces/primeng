@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Buttons can be placed at either side of an input element.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:flex-row gap-3">
+        <div class="card flex flex-col md:flex-row gap-4">
             <p-inputGroup>
                 <button type="button" pButton label="Search"></button>
                 <input type="text" pInputText placeholder="Keyword" />
@@ -41,7 +41,7 @@ export class ButtonDoc {
     <button type="button" pButton icon="pi pi-times" class="p-button-danger"></button>
 </p-inputGroup>`,
 
-        html: `<div class="card flex flex-column md:flex-row gap-3">
+        html: `<div class="card flex flex-col md:flex-row gap-4">
     <p-inputGroup>
         <button type="button" pButton label="Search"></button>
         <input type="text" pInputText placeholder="Keyword" />

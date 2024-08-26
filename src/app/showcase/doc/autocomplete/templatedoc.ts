@@ -12,10 +12,10 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p><i>item</i> template allows displaying custom content inside the suggestions panel. The local ng-template variable passed to the ng-template is an object in the suggestions array.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedCountryAdvanced" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" placeholder="Search">
                 <ng-template let-country pTemplate="item">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
@@ -59,7 +59,7 @@ export class TemplateDoc {
     (completeMethod)="filterCountry($event)" 
     field="name">
         <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 
@@ -69,14 +69,14 @@ export class TemplateDoc {
         </ng-template>
 </p-autoComplete>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
     [(ngModel)]="selectedCountryAdvanced" 
     [suggestions]="filteredCountries" 
     (completeMethod)="filterCountry($event)" 
     field="name">
         <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 

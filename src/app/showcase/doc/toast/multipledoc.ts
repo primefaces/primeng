@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Multiple toasts are displayed by passing an array to the <i>showAll</i> method of the <i>messageService</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-button pRipple (click)="show()" label="Multiple" severity="warning" />
         </div>
@@ -35,7 +35,7 @@ export class MultipleDoc {
     (click)="show()" 
     label="Multiple" 
     severity="warning" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-button 
         pRipple 

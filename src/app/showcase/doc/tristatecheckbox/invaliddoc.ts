@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3 align-items-center">
+        <div class="card flex flex-col gap-4 items-center">
             <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" class="ng-dirty ng-invalid" />
             <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
         </div>
@@ -26,7 +26,7 @@ export class InvalidDoc {
     {{ value === null ? 'null' : value }}
 </label>`,
 
-        html: `<div class="card flex flex-column gap-3 align-items-center">
+        html: `<div class="card flex flex-col gap-4 items-center">
     <p-triStateCheckbox 
         [(ngModel)]="value"
         inputId="tricheckbox" 

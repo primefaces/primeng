@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Card content can be customized further with <i>subHeader</i>, <i>header</i> and <i>footer</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '25rem', overflow: 'hidden' }">
                 <ng-template pTemplate="header">
                     <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                     quas!
                 </p>
                 <ng-template pTemplate="footer">
-                    <div class="flex gap-3 mt-1">
+                    <div class="flex gap-4 mt-1">
                         <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
                         <p-button label="Save" class="w-full" styleClass="w-full" />
                     </div>
@@ -37,14 +37,14 @@ export class AdvancedDoc {
         Lorem ipsum dolor sit amet...
     </p>
     <ng-template pTemplate="footer">
-        <div class="flex gap-3 mt-1">
+        <div class="flex gap-4 mt-1">
             <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
             <p-button label="Save" class="w-full" styleClass="w-full" />
         </div>
     </ng-template>
 </p-card>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-card header="Advanced Card" subheader="Card Subheader" [style]="{ width: '360px' }">
         <ng-template pTemplate="header">
             <img alt="Card" src="https://primefaces.org/cdn/primeng/images/card-ng.jpg" />
@@ -54,7 +54,7 @@ export class AdvancedDoc {
             quas!
         </p>
         <ng-template pTemplate="footer">
-            <div class="flex gap-3 mt-1">
+            <div class="flex gap-4 mt-1">
                 <p-button label="Cancel" severity="secondary" class="w-full" styleClass="w-full" />
                 <p-button label="Save" class="w-full" styleClass="w-full" />
             </div>

@@ -9,7 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Galleria can be controlled programmatically using the <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-3 mb-5">
+            <div class="flex flex-wrap gap-4 mb-8">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             </div>
             <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
@@ -17,7 +17,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" />
                     </div>
                 </ng-template>
@@ -84,13 +84,13 @@ export class ThumbnailDoc implements OnInit {
                 style="width: 100%; min-height: 420px; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
+            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <div class="flex flex-wrap gap-3 mb-5">
+    <div class="flex flex-wrap gap-4 mb-8">
         <p-radioButton 
             *ngFor="let option of positionOptions;" 
             [name]="option.label" 
@@ -111,7 +111,7 @@ export class ThumbnailDoc implements OnInit {
                     style="width: 100%; min-height: 420px; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
+                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                     <img [src]="item.thumbnailImageSrc" />
                 </div>
             </ng-template>

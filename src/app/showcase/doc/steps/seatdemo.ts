@@ -9,23 +9,23 @@ import { Router } from '@angular/router';
                 <ng-template pTemplate="title"> Seat Information </ng-template>
                 <ng-template pTemplate="subtitle"> Choose your seat </ng-template>
                 <ng-template pTemplate="content">
-                    <div class="p-fluid formgrid grid">
-                        <div class="field col-12 md:col-6">
+                    <div class="p-fluid formgrid grid grid-cols-12 gap-4">
+                        <div class="field col-span-12 md:col-span-6">
                             <label for="class">Class</label>
                             <p-dropdown inputId="class" [(ngModel)]="seatInformation.class" [options]="classes" (onChange)="setVagons($event)" optionLabel="name" placeholder="Select a Class"></p-dropdown>
                         </div>
-                        <div class="field col-12 md:col-6">
+                        <div class="field col-span-12 md:col-span-6">
                             <label for="wagon">Wagon</label>
                             <p-dropdown inputId="wagon" [(ngModel)]="seatInformation.wagon" [options]="vagons" (onChange)="setSeats($event)" optionLabel="wagon" placeholder="Select a Wagon"></p-dropdown>
                         </div>
-                        <div class="field col-12">
+                        <div class="field col-span-12">
                             <label for="seat">Seat</label>
                             <p-dropdown inputId="seat" [(ngModel)]="seatInformation.seat" [options]="seats" optionLabel="seat" placeholder="Select a Seat"></p-dropdown>
                         </div>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="grid grid-nogutter justify-content-between">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-between">
                         <p-button label="Back" (onClick)="prevPage()" icon="pi pi-angle-left"></p-button>
                         <p-button label="Next" (onClick)="nextPage()" icon="pi pi-angle-right" iconPos="right"></p-button>
                     </div>

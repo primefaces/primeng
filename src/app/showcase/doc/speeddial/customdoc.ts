@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>SpeedDial sample with an outlined button, custom icons and <i>transitionDelay</i>.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px" class="flex justify-content-center">
+            <div style="height: 500px" class="flex justify-center">
                 <p-toast />
                 <p-speedDial [model]="items" direction="up" transitionDelay="80" showIcon="pi pi-bars" hideIcon="pi pi-times" buttonClassName="p-button-outlined" />
             </div>
@@ -65,7 +65,7 @@ export class CustomDoc implements OnInit {
     buttonClassName="p-button-outlined" />`,
 
         html: `<div class="card">
-    <div style="height: 500px" class="flex justify-content-center">
+    <div style="height: 500px" class="flex justify-center">
         <p-toast />
         <p-speedDial 
             [model]="items" 

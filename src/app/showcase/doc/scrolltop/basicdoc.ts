@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>ScrollTop listens window scroll by default.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center">
+        <div class="card flex flex-col items-center">
             <p>Scroll down the page to display the ScrollTo component.</p>
-            <i class="pi pi-angle-down fadeout animation-duration-1000 animation-iteration-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
+            <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem; margin-bottom: 30rem"></i>
             <p-scrollTop />
         </div>
         <app-code [code]="code" selector="scroll-top-basic-demo"></app-code>
@@ -18,9 +18,9 @@ import { Code } from '@domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-scrollTop />`,
-        html: `<div class="card flex flex-column align-items-center">
+        html: `<div class="card flex flex-col items-center">
     <p>Scroll down the page to display the ScrollTo component.</p>
-    <i class="pi pi-angle-down fadeout animation-duration-1000 animation-iteration-infinite" style="fontsize: 2rem"></i>
+    <i class="pi pi-angle-down animate-fadeout animate-duration-1000 animate-infinite" style="fontsize: 2rem"></i>
     <p-scrollTop />
 </div>`,
         typescript: `import { Component } from '@angular/core';

@@ -17,7 +17,7 @@ interface Column {
             <div class="card">
                 <p-table [value]="products" [tableStyle]="{ 'min-width': '60rem' }">
                     <ng-template pTemplate="caption">
-                        <div class="flex align-items-center justify-content-between">
+                        <div class="flex items-center justify-between">
                             Products
                             <p-button icon="pi pi-refresh" />
                         </div>
@@ -35,7 +35,7 @@ interface Column {
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{ product.name }}</td>
-                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-lg" /></td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -45,7 +45,7 @@ interface Column {
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="summary">
-                        <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
+                        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
                     </ng-template>
                 </p-table>
             </div>
@@ -91,7 +91,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
     <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex items-center justify-between">
             Products
             <p-button icon="pi pi-refresh" />
         </div>
@@ -109,7 +109,7 @@ export class TemplateDoc {
     <ng-template pTemplate="body" let-product>
         <tr>
             <td>{{product.name}}</td>
-            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-lg" /></td>
             <td>{{product.price | currency:'USD'}}</td>
             <td>{{product.category}}</td>
             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -117,7 +117,7 @@ export class TemplateDoc {
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex items-center justify-between">
             In total there are {{products ? products.length : 0 }} products.
         </div>
     </ng-template>
@@ -125,7 +125,7 @@ export class TemplateDoc {
         html: `<div class="card">
     <p-table [value]="products" [tableStyle]="{'min-width': '60rem'}">
         <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
+            <div class="flex items-center justify-between">
                 Products
                 <p-button icon="pi pi-refresh" />
             </div>
@@ -143,7 +143,7 @@ export class TemplateDoc {
         <ng-template pTemplate="body" let-product>
             <tr>
                 <td>{{product.name}}</td>
-                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" /></td>
+                <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="100" class="shadow-lg" /></td>
                 <td>{{product.price | currency:'USD'}}</td>
                 <td>{{product.category}}</td>
                 <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -151,7 +151,7 @@ export class TemplateDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
+            <div class="flex items-center justify-between">
                 In total there are {{products ? products.length : 0 }} products.
             </div>
         </ng-template>

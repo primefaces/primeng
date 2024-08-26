@@ -15,10 +15,10 @@ interface City {
                 <i>appendTo</i> property or allow overflow in dialog.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
             <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
-                <div class="flex py-2 justify-content-center">
+                <div class="flex py-2 justify-center">
                     <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
                 </div>
             </p-dialog>
@@ -50,16 +50,16 @@ export class OverlaysInsideDoc implements OnInit {
     code: Code = {
         basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
-    <div class="flex py-2 justify-content-center">
+    <div class="flex py-2 justify-center">
         <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
     </div>
 </p-dialog>`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
     <p-dialog header="Header" [(visible)]="visible" [style]="{ width: '50vw' }">
-        <div class="flex py-2 justify-content-center">
+        <div class="flex py-2 justify-center">
             <p-dropdown appendTo="body" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name"></p-dropdown>
         </div>
     </p-dialog>

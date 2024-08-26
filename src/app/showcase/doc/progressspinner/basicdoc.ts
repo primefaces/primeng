@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>An infinite spin animation is displayed by default.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-progressSpinner ariaLabel="loading" />
         </div>
         <app-code [code]="code" selector="progress-spinner-basic-demo"></app-code>
@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-progressSpinner ariaLabel="loading" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-progressSpinner ariaLabel="loading" />
 </div>`,
         typescript: `import { Component } from '@angular/core';

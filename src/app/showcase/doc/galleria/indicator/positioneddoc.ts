@@ -12,11 +12,11 @@ import { PhotoService } from '@service/photoservice';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-3 mb-5">
+            <div class="flex flex-wrap gap-4 mb-8">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             </div>
-            <div class="flex align-items-center">
-                <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-3" />
+            <div class="flex items-center">
+                <p-checkbox [(ngModel)]="showIndicatorsOnItem" [binary]="true" inputId="binary" label="Inside" ngClass="mt-4" />
             </div>
             <p-galleria
                 [(value)]="images"
@@ -99,7 +99,7 @@ export class PositionedDoc implements OnInit {
     </ng-template>
 </p-galleria>`,
         html: `<div class="card">
-    <div class="flex flex-wrap gap-3 mb-5">
+    <div class="flex flex-wrap gap-4 mb-8">
         <p-radioButton 
             *ngFor="let option of positionOptions;" 
             [name]="option.label" 
@@ -107,13 +107,13 @@ export class PositionedDoc implements OnInit {
             [label]="option.label" 
             [(ngModel)]="position" [inputId]="label" />
     </div>
-    <div class="flex align-items-center">
+    <div class="flex items-center">
         <p-checkbox 
             [(ngModel)]="showIndicatorsOnItem" 
             [binary]="true" 
             inputId="binary" 
             label="Inside" 
-            ngClass="mt-3" />
+            ngClass="mt-4" />
     </div>
     <p-galleria 
         [(value)]="images" 

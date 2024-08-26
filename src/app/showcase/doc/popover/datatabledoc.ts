@@ -18,18 +18,18 @@ interface TableRowSelectEvent {
         <app-docsectiontext>
             <p>An example that displays a DataTable inside a popup to select an item.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center gap-3">
+        <div class="card flex flex-col items-center gap-4">
             <p-toast />
             <p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-            <div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
+            <div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
                 <div class="relative">
                     <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" [alt]="selectedProduct.name" />
                 </div>
-                <div class="flex align-items-center justify-content-between mt-3 mb-2">
-                    <span class="text-900 font-medium text-xl">{{ selectedProduct.name }}</span>
-                    <span class="text-900 text-xl ml-3">{{ '$' + selectedProduct.price }}</span>
+                <div class="flex items-center justify-between mt-4 mb-2">
+                    <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{ selectedProduct.name }}</span>
+                    <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">{{ '$' + selectedProduct.price }}</span>
                 </div>
-                <span class="text-600">{{ selectedProduct.category }}</span>
+                <span class="text-surface-600 dark:text-surface-200">{{ selectedProduct.category }}</span>
             </div>
             <p-popover #op [style]="{ width: '450px' }" [showCloseIcon]="true">
                 <ng-template pTemplate="content">
@@ -44,7 +44,7 @@ interface TableRowSelectEvent {
                         <ng-template pTemplate="body" let-rowData let-product>
                             <tr [pSelectableRow]="rowData">
                                 <td>{{ product.name }}</td>
-                                <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-5rem shadow-2" /></td>
+                                <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-20 shadow" /></td>
                                 <td>{{ product.price }}</td>
                             </tr>
                         </ng-template>
@@ -86,21 +86,21 @@ export class DataTableDoc implements OnInit {
     (click)="op.toggle($event)" 
     icon="pi pi-search" 
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-<div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
+<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
     <div class="relative">
         <img 
             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
             [alt]="selectedProduct.name" />
     </div>
-    <div class="flex align-items-center justify-content-between mt-3 mb-2">
-        <span class="text-900 font-medium text-xl">
+    <div class="flex items-center justify-between mt-4 mb-2">
+        <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-900 text-xl ml-3">
+        <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
-    <span class="text-600">
+    <span class="text-surface-600 dark:text-surface-200">
         {{ selectedProduct.category }}
     </span>
 </div>
@@ -134,7 +134,7 @@ export class DataTableDoc implements OnInit {
                             <img 
                                 src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                                 [alt]="product.image" 
-                                class="w-5rem shadow-2" />
+                                class="w-20 shadow" />
                         </td>
                         <td>{{ product.price }}</td>
                     </tr>
@@ -143,27 +143,27 @@ export class DataTableDoc implements OnInit {
     </ng-template>
 </p-popover>`,
 
-        html: `<div class="card flex flex-column align-items-center gap-3">
+        html: `<div class="card flex flex-col items-center gap-4">
 <p-toast />
 <p-button 
     (click)="op.toggle($event)" 
     icon="pi pi-search" 
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-<div *ngIf="selectedProduct" class="p-5 surface-card shadow-2 border-round">
+<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
     <div class="relative">
         <img 
             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
             [alt]="selectedProduct.name" />
     </div>
-    <div class="flex align-items-center justify-content-between mt-3 mb-2">
-        <span class="text-900 font-medium text-xl">
+    <div class="flex items-center justify-between mt-4 mb-2">
+        <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-900 text-xl ml-3">
+        <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
-    <span class="text-600">
+    <span class="text-surface-600 dark:text-surface-200">
         {{ selectedProduct.category }}
     </span>
 </div>
@@ -197,7 +197,7 @@ export class DataTableDoc implements OnInit {
                             <img 
                                 src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                                 [alt]="product.image" 
-                                class="w-5rem shadow-2" />
+                                class="w-20 shadow" />
                         </td>
                         <td>{{ product.price }}</td>
                     </tr>

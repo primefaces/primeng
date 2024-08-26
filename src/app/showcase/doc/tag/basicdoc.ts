@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Label of the tag is defined with the <i>value</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-tag value="New" />
         </div>
         <app-code [code]="code" selector="tag-basic-demo"></app-code>
@@ -16,7 +16,7 @@ import { Code } from '@domain/code';
 export class BasicDoc {
     code: Code = {
         basic: `<p-tag value="New" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tag value="New" />
 </div>`,
         typescript: `import { Component } from '@angular/core';

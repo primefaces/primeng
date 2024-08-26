@@ -7,10 +7,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Tooltip can use either a <i>string</i> or a <i>TemplateRef</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button [pTooltip]="tooltipContent" severity="secondary" tooltipPosition="bottom" label="Button" />
             <ng-template #tooltipContent>
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     <span> <b>PrimeNG</b> rocks! </span>
                 </div>
             </ng-template>
@@ -26,19 +26,19 @@ export class CustomDoc {
     tooltipPosition="bottom" 
     label="Button" />
 <ng-template #tooltipContent>
-    <div class="flex align-items-center">
+    <div class="flex items-center">
         <span> <b>PrimeNG</b> rocks! </span>
     </div>
 </ng-template>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button 
         [pTooltip]="tooltipContent"
         severity="secondary" 
         tooltipPosition="bottom" 
         label="Button" />
             <ng-template #tooltipContent>
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     <span> <b>PrimeNG</b> rocks! </span>
                 </div>
             </ng-template>

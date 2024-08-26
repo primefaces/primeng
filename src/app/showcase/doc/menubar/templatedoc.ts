@@ -42,17 +42,17 @@ import { Code } from '@domain/code';
                     </svg>
                 </ng-template>
                 <ng-template pTemplate="item" let-item let-root="root">
-                    <a pRipple class="flex align-items-center p-menubar-item-link">
+                    <a pRipple class="flex items-center p-menubar-item-link">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
                     </a>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <div class="flex align-items-center gap-2">
-                        <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
+                    <div class="flex items-center gap-2">
+                        <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     </div>
                 </ng-template>
@@ -156,17 +156,17 @@ export class TemplateDoc implements OnInit {
         </svg>
     </ng-template>
     <ng-template pTemplate="item" let-item let-root="root">
-        <a pRipple class="flex align-items-center p-menubar-item-link">
+        <a pRipple class="flex items-center p-menubar-item-link">
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
             <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <div class="flex align-items-center gap-2">
-            <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
+        <div class="flex items-center gap-2">
+            <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
         </div>
     </ng-template>
@@ -206,17 +206,17 @@ export class TemplateDoc implements OnInit {
             </svg>
         </ng-template>
         <ng-template pTemplate="item" let-item let-root="root">
-            <a pRipple class="flex align-items-center p-menubar-item-link">
+            <a pRipple class="flex items-center p-menubar-item-link">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
                 <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
             </a>
         </ng-template>
         <ng-template pTemplate="end">
-            <div class="flex align-items-center gap-2">
-                <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
+            <div class="flex items-center gap-2">
+                <input type="text" pInputText placeholder="Search" class="w-32 sm:w-auto" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
             </div>
         </ng-template>

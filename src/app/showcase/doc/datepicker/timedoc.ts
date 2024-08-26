@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A time picker is displayed when <i>showTime</i> is enabled where 12/24 hour format is configured with <i>hourFormat</i> property. In case, only time needs to be selected, add <i>timeOnly</i> to hide the date section.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
                 <p-datePicker inputId="calendar-12h" [(ngModel)]="datetime12h" [showTime]="true" [hourFormat]="12" />
@@ -49,7 +49,7 @@ export class TimeDoc {
     [(ngModel)]="time" 
     [timeOnly]="true" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label for="calendar-12h" class="font-bold block mb-2"> 12h Format </label>
         <p-datePicker 

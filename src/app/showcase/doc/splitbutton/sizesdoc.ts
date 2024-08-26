@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>SplitButton provides <i>small</i> and <i>large</i> sizes as alternatives to the standard.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-3">
+        <div class="card flex flex-wrap justify-center gap-4">
             <p-toast />
             <p-splitButton label="Small" [model]="items" (onClick)="save('info')" size="sm" />
             <p-splitButton label="Normal" [model]="items" (onClick)="save('info')" />
@@ -69,7 +69,7 @@ export class SizesDoc {
     (onClick)="save('info')" 
     size="lg" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+        html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-toast />
     <p-splitButton 
         label="Small" 

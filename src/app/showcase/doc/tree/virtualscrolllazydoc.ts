@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
+        <div class="card flex justify-center">
+            <p-tree class="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [lazy]="true" [virtualScrollItemSize]="46" [value]="files" (onNodeExpand)="nodeExpand($event)" [loading]="loading" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-lazy-demo"></app-code>
     `
@@ -60,7 +60,7 @@ export class LazyVirtualScrollDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     scrollHeight="250px" 
     [virtualScroll]="true" 
     [lazy]="true" 
@@ -69,9 +69,9 @@ export class LazyVirtualScrollDoc implements OnInit {
     (onNodeExpand)="nodeExpand($event)" 
     [loading]="loading" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tree 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         scrollHeight="250px" 
         [virtualScroll]="true" 
         [lazy]="true" 

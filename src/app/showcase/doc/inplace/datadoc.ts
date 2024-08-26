@@ -9,7 +9,7 @@ import { CarService } from '@service/carservice';
         <div class="card">
             <p-inplace>
                 <ng-template pTemplate="display">
-                    <div class="inline-flex align-items-center">
+                    <div class="inline-flex items-center">
                         <span class="pi pi-table" style="vertical-align: middle"></span>
                         <span class="ml-2">View Data</span>
                     </div>
@@ -51,7 +51,7 @@ export class DataDoc {
     code: Code = {
         basic: `<p-inplace>
     <ng-template pTemplate="display">
-        <div class="inline-flex align-items-center">
+        <div class="inline-flex items-center">
             <span class="pi pi-table" style="vertical-align: middle"></span>
             <span class="ml-2">View Data</span>
         </div>
@@ -80,7 +80,7 @@ export class DataDoc {
         html: `<div class="card">
     <p-inplace>
         <ng-template pTemplate="display">
-            <div class="inline-flex align-items-center">
+            <div class="inline-flex items-center">
                 <span class="pi pi-table" style="vertical-align: middle"></span>
                 <span class="ml-2">View Data</span>
             </div>

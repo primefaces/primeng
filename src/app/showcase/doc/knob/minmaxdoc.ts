@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Boundaries are configured with the <i>min</i> and <i>max</i> properties whose defaults are 0 and 100 respectively.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
         </div>
         <app-code [code]="code" selector="knob-min-max-demo"></app-code>
@@ -19,7 +19,7 @@ export class MinMaxDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" [min]="-50" [max]="50" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-knob [(ngModel)]="value" [min]="-50" [max]="50" />
 </div>`,
 

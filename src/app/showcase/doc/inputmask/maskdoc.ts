@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 <i>)</i> , <i>-</i> are also accepted.
             </p>
         </app-docsectiontext>
-        <div class="card p-fluid flex flex-wrap gap-3">
+        <div class="card p-fluid flex flex-wrap gap-4">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
                 <p-inputMask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
@@ -51,7 +51,7 @@ export class MaskDoc {
     [(ngModel)]="value3"
     placeholder="a*-999-a999" />`,
 
-        html: `<div class="card p-fluid flex flex-wrap gap-3">
+        html: `<div class="card p-fluid flex flex-wrap gap-4">
     <div class="flex-auto">
         <span class="font-bold block mb-2">SSN</span>
         <p-inputMask 

@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 display the icon and the color of the toast.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast />
             <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
             <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
@@ -90,7 +90,7 @@ export class SeverityDoc {
     (click)="showContrast()" 
     label="Contrast" 
     severity="contrast" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-button 
         type="button" 

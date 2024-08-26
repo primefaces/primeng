@@ -112,7 +112,7 @@ export class SakaiPage {
         {
             id: 1,
             title: 'PrimeFlex CSS Utilities',
-            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid system, flexbox, spacing, elevation and more.',
+            description: 'PrimeFlex is a CSS utility library featuring various helpers such as a grid grid-cols-12 gap-4 system, flexbox, spacing, elevation and more.',
             src: 'https://primefaces.org/cdn/primeng/images/templates/babylon/features-animation-utilities.png'
         },
         {

@@ -9,8 +9,8 @@ import { ProductService } from '@service/productservice';
         <app-docsectiontext>
             <p>Drag and Drop to Table</p>
         </app-docsectiontext>
-        <div class="card grid grid-nogutter">
-            <div class="col-12 md:col-6 drag-column">
+        <div class="card grid grid-cols-12 gap-4 grid-nogutter">
+            <div class="col-span-12 md:col-span-6 drag-column">
                 <div *ngFor="let product of availableProducts">
                     <div class="product-item" pDraggable="products" (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         <div class="image-container">
@@ -28,7 +28,7 @@ import { ProductService } from '@service/productservice';
                     </div>
                 </div>
             </div>
-            <div class="col-12 md:col-6 drop-column" pDroppable="products" (onDrop)="drop()">
+            <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
                 <p-table [value]="selectedProducts">
                     <ng-template pTemplate="header">
                         <tr>
@@ -106,8 +106,8 @@ export class DataTableDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="card grid grid-nogutter">
-    <div class="col-12 md:col-6 drag-column">
+        basic: `<div class="card grid grid-cols-12 gap-4 grid-nogutter">
+    <div class="col-span-12 md:col-span-6 drag-column">
         <div *ngFor="let product of availableProducts">
             <div 
                 class="product-item" 
@@ -140,7 +140,7 @@ export class DataTableDoc implements OnInit {
             </div>
         </div>
     </div>
-    <div class="col-12 md:col-6 drop-column" pDroppable="products" (onDrop)="drop()">
+    <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
     <p-table [value]="selectedProducts">
         <ng-template pTemplate="header">
             <tr>
@@ -177,8 +177,8 @@ export class DataTableDoc implements OnInit {
         </p-table>
     </div>
 </div>`,
-        html: `<div class="card grid grid-nogutter">
-    <div class="col-12 md:col-6 drag-column">
+        html: `<div class="card grid grid-cols-12 gap-4 grid-nogutter">
+    <div class="col-span-12 md:col-span-6 drag-column">
         <div *ngFor="let product of availableProducts">
             <div 
                 class="product-item" 
@@ -211,7 +211,7 @@ export class DataTableDoc implements OnInit {
             </div>
         </div>
     </div>
-    <div class="col-12 md:col-6 drop-column" pDroppable="products" (onDrop)="drop()">
+    <div class="col-span-12 md:col-span-6 drop-column" pDroppable="products" (onDrop)="drop()">
     <p-table [value]="selectedProducts">
         <ng-template pTemplate="header">
             <tr>

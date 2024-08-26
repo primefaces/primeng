@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="items" [(ngModel)]="selectedItem" placeholder="Select Item" [virtualScroll]="true" [virtualScrollItemSize]="38" />
         </div>
         <app-code [code]="code" selector="select-virtualscroll-demo"></app-code>
@@ -37,7 +37,7 @@ export class VirtualScrollDoc {
     [virtualScroll]="true"
     [virtualScrollItemSize]="38" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="items"
         [(ngModel)]="selectedItem"

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Busy state is controlled with the <i>loading</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-3">
+        <div class="card flex justify-center gap-4">
             <p-button label="Search" icon="pi pi-check" [loading]="loading" (onClick)="load()" />
         </div>
         <app-code [code]="code" selector="button-loading-demo"></app-code>
@@ -34,7 +34,7 @@ export class LoadingDoc {
     [loading]="loading" 
     (onClick)="load()" />`,
 
-        html: `<div class="card flex justify-content-center gap-3">
+        html: `<div class="card flex justify-center gap-4">
     <p-button 
         label="Search" 
         icon="pi pi-check" 

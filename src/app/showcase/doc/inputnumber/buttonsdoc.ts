@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 up and down arrow keys can be used to spin the values with keyboard.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="mb-2 block font-bold" for="stacked">Stacked</label>
                 <p-inputNumber [(ngModel)]="value1" [showButtons]="true" inputId="stacked" mode="currency" currency="USD" />
@@ -77,7 +77,7 @@ export class ButtonsDoc {
     mode="currency" 
     currency="EUR" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label class="mb-2 block font-bold" for="stacked">
             Stacked

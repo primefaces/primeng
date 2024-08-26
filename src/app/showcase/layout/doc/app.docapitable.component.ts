@@ -6,14 +6,14 @@ import { AppConfigService } from '@service/appconfigservice';
 @Component({
     selector: 'app-docapitable',
     template: ` <ng-container *ngIf="data">
-        <div *ngIf="parentId" class="my-3 pt-3">
+        <div *ngIf="parentId" class="my-4 pt-4">
             <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
         </div>
         <app-docsectiontext [id]="id" [title]="label" [level]="3">
             <p>{{ description || null }}</p>
         </app-docsectiontext>
 
-        <div class="doc-tablewrapper mt-3" *ngIf="!data[0].data">
+        <div class="doc-tablewrapper mt-4" *ngIf="!data[0].data">
             <table class="doc-table">
                 <thead>
                     <tr>

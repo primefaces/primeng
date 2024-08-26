@@ -8,8 +8,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
+        <div class="card flex justify-center">
+            <p-treeSelect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" variant="filled" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-filled-demo"></app-code>
     `
@@ -25,16 +25,16 @@ export class FilledDoc {
 
     code: Code = {
         basic: `<p-treeSelect 
-    class="md:w-20rem w-full" 
+    class="md:w-80 w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
     variant="filled"
     [options]="nodes" 
     placeholder="Select Item" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect 
-        class="md:w-20rem w-full" 
+        class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         variant="filled"

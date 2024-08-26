@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Enabling <i>rounded</i>, displays a tag as a pill.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-tag value="Primary" [rounded]="true" />
             <p-tag severity="success" value="Success" [rounded]="true" />
             <p-tag severity="info" value="Info" [rounded]="true" />
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
 export class PillDoc {
     code: Code = {
         basic: `<p-tag value="Primary" [rounded]="true" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-tag value="Primary" [rounded]="true" />
     <p-tag severity="success" value="Success" [rounded]="true" />
     <p-tag severity="info" value="Info" [rounded]="true" />

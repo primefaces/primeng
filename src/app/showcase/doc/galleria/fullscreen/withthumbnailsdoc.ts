@@ -8,14 +8,14 @@ import { PhotoService } from '@service/photoservice';
         <app-docsectiontext>
             <p>Full screen mode is enabled by adding <i>fullScreen</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
             <p-galleria [(value)]="images" [(visible)]="displayBasic" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '50%' }" [numVisible]="9" [circular]="true" [fullScreen]="true" [showItemNavigators]="true">
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" style="display: block;" />
                     </div>
                 </ng-template>
@@ -70,14 +70,14 @@ export class WithThumbnailsDoc implements OnInit {
                 style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
+            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img 
                     [src]="item.thumbnailImageSrc" 
                     style="display: block;" />
             </div>
         </ng-template>
 </p-galleria>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button 
         icon="pi pi-external-link" 
         label="Show" 
@@ -95,7 +95,7 @@ export class WithThumbnailsDoc implements OnInit {
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;"/>
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-nogutter justify-content-center">
+                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                     <img [src]="item.thumbnailImageSrc" style="display: block;"/>
                 </div>
             </ng-template>

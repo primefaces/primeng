@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A range of dates can be selected by defining <i>selectionMode</i> as <i>range</i>, in this case the bound value would be an array with two values where first date is the start of the range and second date is the end.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-range-demo"></app-code>
@@ -22,7 +22,7 @@ export class RangeDoc {
     selectionMode="range" 
     [readonlyInput]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="rangeDates" 
         selectionMode="range" 

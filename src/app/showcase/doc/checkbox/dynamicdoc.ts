@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Checkboxes can be generated using a list of values.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <div class="flex flex-column gap-2">
+        <div class="card flex justify-center">
+            <div class="flex flex-col gap-2">
                 <div *ngFor="let category of categories" class="field-checkbox">
                     <p-checkbox [inputId]="category.key" name="group" [value]="category" [(ngModel)]="selectedCategories" />
                     <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
@@ -39,8 +39,8 @@ export class DynamicDoc {
     <label [for]="category.key" class="ml-2"> {{ category.name }} </label>
 </div>`,
 
-        html: `<div class="card flex justify-content-center">
-    <div class="flex flex-column gap-2">
+        html: `<div class="card flex justify-center">
+    <div class="flex flex-col gap-2">
         <div *ngFor="let category of categories" class="field-checkbox">
             <p-checkbox 
                 [inputId]="category.key" 

@@ -8,9 +8,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Menu items can be controlled programmatically.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center gap-3">
+        <div class="card flex flex-col items-center gap-4">
             <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-            <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-controlled-demo"></app-code>
     `
@@ -107,11 +107,11 @@ export class ControlledDoc implements OnInit {
 
     code: Code = {
         basic: `<p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-<p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />`,
+<p-panelMenu [model]="items" styleClass="w-full md:w-80" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button label="Toggle All" [text]="true" (onClick)="toggleAll()" />
-    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+    <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

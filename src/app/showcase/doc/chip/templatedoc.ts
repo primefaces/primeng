@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
-        <div class="card flex align-items-center">
-            <p-chip styleClass="pl-0 pr-3">
-                <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">P</span>
+        <div class="card flex items-center">
+            <p-chip styleClass="pl-0 pr-4">
+                <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">P</span>
                 <span class="ml-2 font-medium">PRIME</span>
             </p-chip>
         </div>
@@ -18,17 +18,17 @@ import { Code } from '@domain/code';
 })
 export class TemplateDoc {
     code: Code = {
-        basic: `<p-chip styleClass="pl-0 pr-3">
-    <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">
+        basic: `<p-chip styleClass="pl-0 pr-4">
+    <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">
         P
     </span>
     <span class="ml-2 font-medium">
         PRIME
     </span>
 </p-chip>`,
-        html: `<div class="card flex align-items-center">
-    <p-chip styleClass="pl-0 pr-3">
-        <span class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center">
+        html: `<div class="card flex items-center">
+    <p-chip styleClass="pl-0 pr-4">
+        <span class="bg-primary text-primary-contrast rounded-full w-8 h-8 flex items-center justify-center">
             P
         </span>
         <span class="ml-2 font-medium">

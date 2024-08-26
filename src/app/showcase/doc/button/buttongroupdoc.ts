@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Multiple buttons are grouped when wrapped inside an element with <i>ButtonGroup</i> component.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-buttonGroup>
                 <p-button label="Save" icon="pi pi-check" />
                 <p-button label="Delete" icon="pi pi-trash" />
@@ -25,7 +25,7 @@ export class ButtonGroupDoc {
     <p-button label="Cancel" icon="pi pi-times" />
 </p-buttonGroup>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-buttonGroup>
         <p-button label="Save" icon="pi pi-check" />
         <p-button label="Delete" icon="pi pi-trash" />

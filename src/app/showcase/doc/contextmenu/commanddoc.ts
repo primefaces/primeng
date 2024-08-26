@@ -16,27 +16,27 @@ interface Users {
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex md:justify-content-center">
+        <div class="card flex md:justify-center">
             <p-toast />
-            <ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
+            <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
                 <li
                     *ngFor="let user of users"
                     [class]="[
                         'p-2',
-                        'hover:surface-hover',
-                        'border-round',
-                        'border-1',
+                        'hover:bg-emphasis',
+                        'rounded-border',
+                        'border',
                         'border-transparent',
                         'transition-all',
-                        'transition-duration-200',
+                        'duration-200',
                         'flex',
-                        'align-items-center',
-                        'justify-content-between',
+                        'items-center',
+                        'justify-between',
                         selectedUser?.id === user?.id ? 'border-primary' : ''
                     ]"
                     (contextmenu)="onContextMenu($event, user)"
                 >
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <img [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" style="width: 32px" />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
@@ -123,24 +123,24 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
+<ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
     <li
         *ngFor="let user of users"
         [class]="[
             'p-2',
-            'hover:surface-hover',
-            'border-round',
-            'border-1',
+            'hover:bg-emphasis',
+            'rounded-border',
+            'border',
             'border-transparent',
             'transition-all',
-            'transition-duration-200',
+            'duration-200',
             'flex',
-            'align-items-center',
-            'justify-content-between',
+            'items-center',
+            'justify-between',
             selectedUser?.id === user?.id ? 'border-primary' : ''
         ]"
         (contextmenu)="onContextMenu($event, user)">
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
             <img 
                 [alt]="user.name" 
                 [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 
@@ -154,26 +154,26 @@ export class CommandDoc implements OnInit {
 </ul>
 <p-contextMenu #cm [model]="items" (onHide)="onHide()" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
-    <ul class="m-0 p-0 list-none border-1 surface-border border-round p-3 flex flex-column gap-2 w-full md:w-30rem">
+    <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
         <li
             *ngFor="let user of users"
             [class]="[
                 'p-2',
-                'hover:surface-hover',
-                'border-round',
-                'border-1',
+                'hover:bg-emphasis',
+                'rounded-border',
+                'border',
                 'border-transparent',
                 'transition-all',
-                'transition-duration-200',
+                'duration-200',
                 'flex',
-                'align-items-center',
-                'justify-content-between',
+                'items-center',
+                'justify-between',
                 selectedUser?.id === user?.id ? 'border-primary' : ''
             ]"
             (contextmenu)="onContextMenu($event, user)">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     [alt]="user.name" 
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 

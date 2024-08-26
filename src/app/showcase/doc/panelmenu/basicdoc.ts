@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>PanelMenu requires a collection of menuitems as its <i>model</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+        <div class="card flex justify-center">
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
         </div>
         <app-code [code]="code" selector="panel-menu-basic-demo"></app-code>
     `
@@ -101,8 +101,8 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" />
+        html: `<div class="card flex justify-center">
+    <p-panelMenu [model]="items" styleClass="w-full md:w-80" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

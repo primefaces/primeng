@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Buttons have built-in support for badges to display a badge inline.</p>
         </app-docsectiontext>
 
-        <div class="card flex flex-wrap justify-content-center gap-2">
+        <div class="card flex flex-wrap justify-center gap-2">
             <p-button label="Emails" badge="8" />
             <p-button label="Messages" icon="pi pi-users" severity="secondary" badge="8" badgeSeverity="info" />
         </div>
@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
 export class ButtonDoc {
     code: Code = {
         basic: `<p-button label="Emails" badge="8" />`,
-        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+        html: `<div class="card flex flex-wrap justify-center gap-2">
     <p-button 
         label="Emails" 
         badge="8" />

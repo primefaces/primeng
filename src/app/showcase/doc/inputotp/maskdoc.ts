@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Enable the <i>mask</i> option to hide the values in the input fields.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-inputOtp [(ngModel)]="value" [mask]="true" />
         </div>
         <app-code [code]="code" selector="input-otp-mask-demo"></app-code>
@@ -19,7 +19,7 @@ export class MaskDoc {
     code: Code = {
         basic: `<p-inputOtp [(ngModel)]="value" [mask]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-inputOtp [(ngModel)]="value" [mask]="true" />
 </div>`,
 

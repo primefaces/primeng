@@ -7,10 +7,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>
                 PrimeNG ships with various free themes to choose from. The list below states all the available themes in the npm distribution with import paths. For a live preview, use the configurator
-                <span class="border-round inline-flex border-1 w-2rem h-2rem p-0 align-items-center justify-content-center bg-primary"><span class="pi pi-palette"></span></span> at the topbar to switch themes.
+                <span class="rounded-border inline-flex border w-8 h-8 p-0 items-center justify-center bg-primary text-primary-contrast"><span class="pi pi-palette"></span></span> at the topbar to switch themes.
             </p>
         </app-docsectiontext>
-        <div class="h-20rem overflow-auto">
+        <div class="h-80 overflow-auto">
             <app-code [code]="code" [hideToggleCode]="true"></app-code>
         </div>
     `

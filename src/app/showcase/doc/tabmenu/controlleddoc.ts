@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
             <p>For controlled mode, use <i>activeItem</i> property along with <i>activeItemChange</i> event are needed to manage the active item.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex mb-2 gap-2 justify-content-end">
-                <p-button (click)="activeItem = items[0]" [rounded]="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[0]" />
-                <p-button (click)="activeItem = items[1]" [rounded]="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[1]" />
-                <p-button (click)="activeItem = items[2]" [rounded]="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="activeItem !== items[2]" />
+            <div class="flex mb-2 gap-2 justify-end">
+                <p-button (click)="activeItem = items[0]" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="activeItem !== items[0]" />
+                <p-button (click)="activeItem = items[1]" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="activeItem !== items[1]" />
+                <p-button (click)="activeItem = items[2]" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="activeItem !== items[2]" />
             </div>
             <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)" />
         </div>
@@ -39,24 +39,24 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="flex mb-2 gap-2 justify-content-end">
+        basic: `<div class="flex mb-2 gap-2 justify-end">
     <p-button 
         (click)="activeItem = items[0]" 
         [rounded]="true" 
         label="1" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeItem !== items[0]" />
     <p-button 
         (click)="activeItem = items[1]" 
         [rounded]="true" 
         label="2" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeItem !== items[1]" />
     <p-button 
         (click)="activeItem = items[2]" 
         [rounded]="true" 
         label="3" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="activeItem !== items[2]" />
 </div>
 <p-tabMenu 
@@ -65,23 +65,23 @@ export class ControlledDoc implements OnInit {
     (activeItemChange)="onActiveItemChange($event)" />`,
 
         html: `<div class="card">
-    <div class="flex mb-2 gap-2 justify-content-end">
+    <div class="flex mb-2 gap-2 justify-end">
         <p-button 
             (click)="activeItem = items[0]" 
             [rounded]="true" label="1" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeItem !== items[0]" />
         <p-button 
             (click)="activeItem = items[1]" 
             [rounded]="true" 
             label="2" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeItem !== items[1]" />
         <p-button 
             (click)="activeItem = items[2]" 
             [rounded]="true" 
             label="3" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="activeItem !== items[2]" />
     </div>
     <p-tabMenu 

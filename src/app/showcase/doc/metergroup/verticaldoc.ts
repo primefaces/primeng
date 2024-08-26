@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Layout of the MeterGroup is configured with the <i>orientation</i> property that accepts either <i>horizontal</i> or <i>vertical</i> as available options.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-meterGroup [value]="value" orientation="vertical" labelOrientation="vertical" [style]="{ height: '300px' }" />
         </div>
         <app-code [code]="code" selector="meter-group-vertical-demo"></app-code>
@@ -27,7 +27,7 @@ export class VerticalDoc {
     labelOrientation="vertical" 
     [style]="{ height: '300px' }" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-meterGroup 
         [value]="value" 
         orientation="vertical" 

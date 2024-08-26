@@ -15,20 +15,20 @@ interface EventItem {
         <app-docsectiontext>
             <p>Content location relative the line is defined with the <i>align</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-6">
-            <p-timeline [value]="events" class="w-full md:w-20rem">
+        <div class="card flex flex-wrap gap-12">
+            <p-timeline [value]="events" class="w-full md:w-80">
                 <ng-template pTemplate="content" let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
 
-            <p-timeline [value]="events" class="w-full md:w-20rem" align="right">
+            <p-timeline [value]="events" class="w-full md:w-80" align="right">
                 <ng-template pTemplate="content" let-event>
                     {{ event.status }}
                 </ng-template>
             </p-timeline>
 
-            <p-timeline [value]="events" class="w-full md:w-20rem" align="alternate">
+            <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
                 <ng-template pTemplate="content" let-event>
                     {{ event.status }}
                 </ng-template>
@@ -50,36 +50,36 @@ export class AlignmentDoc {
     }
 
     code: Code = {
-        basic: `<p-timeline [value]="events" class="w-full md:w-20rem">
+        basic: `<p-timeline [value]="events" class="w-full md:w-80">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>
 
-<p-timeline [value]="events" class="w-full md:w-20rem" align="right">
+<p-timeline [value]="events" class="w-full md:w-80" align="right">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>
 
-<p-timeline [value]="events" class="w-full md:w-20rem" align="alternate">
+<p-timeline [value]="events" class="w-full md:w-80" align="alternate">
     <ng-template pTemplate="content" let-event>
         {{ event.status }}
     </ng-template>
 </p-timeline>`,
 
-        html: `<div class="card flex flex-wrap gap-6">
-    <p-timeline [value]="events" class="w-full md:w-20rem">
+        html: `<div class="card flex flex-wrap gap-12">
+    <p-timeline [value]="events" class="w-full md:w-80">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>
-    <p-timeline [value]="events" class="w-full md:w-20rem" align="right">
+    <p-timeline [value]="events" class="w-full md:w-80" align="right">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
         </ng-template>
     </p-timeline>
-    <p-timeline [value]="events" class="w-full md:w-20rem" align="alternate">
+    <p-timeline [value]="events" class="w-full md:w-80" align="alternate">
         <ng-template pTemplate="content" let-event>
             {{ event.status }}
         </ng-template>

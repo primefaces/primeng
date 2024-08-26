@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Slider is connected to an input field using two-way binding.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <div>
-                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3" />
+                <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4" />
                 <p-slider [(ngModel)]="value" class="w-full" />
             </div>
         </div>
@@ -21,13 +21,13 @@ export class InputDoc {
 
     code: Code = {
         basic: `<div>
-    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3"/>
+    <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4"/>
     <p-slider [(ngModel)]="value" class="w-full" />
 </div>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <div>
-        <input type="text" pInputText [(ngModel)]="value" class="w-full mb-3"/>
+        <input type="text" pInputText [(ngModel)]="value" class="w-full mb-4"/>
         <p-slider [(ngModel)]="value" class="w-full" />
     </div>
 </div>`,

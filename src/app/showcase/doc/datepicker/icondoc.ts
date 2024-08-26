@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>An additional icon is displayed next to the input field when <i>showIcon</i> is present.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
                 <p-datePicker [(ngModel)]="date1" [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" />
@@ -61,7 +61,7 @@ export class IconDoc {
         </ng-template>
 </p-datePicker>`,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
 <div class="flex-auto">
     <label for="buttondisplay" class="font-bold block mb-2"> Button </label>
     <p-datePicker 

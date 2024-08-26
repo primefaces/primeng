@@ -22,7 +22,7 @@ import { CustomerService } from '@service/customerservice';
                     offLabel="Balance"
                 />
 
-                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
                     <ng-template pTemplate="header">
                         <tr>
                             <th style="min-width:200px" pFrozenColumn class="font-bold">Name</th>
@@ -96,7 +96,7 @@ export class FrozenColumnsDoc {
     [onLabel]="'Balance'" 
     offLabel="Balance" />
 
-<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
+<p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
     <ng-template pTemplate="header">
         <tr>
             <th style="min-width:200px" pFrozenColumn>Name</th>
@@ -132,7 +132,7 @@ export class FrozenColumnsDoc {
         [onLabel]="'Balance'"
         offLabel="Balance" />
 
-    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-3">
+    <p-table [value]="customers" [scrollable]="true" scrollHeight="400px" styleClass="mt-4">
         <ng-template pTemplate="header">
             <tr>
                 <th style="min-width:200px" pFrozenColumn>Name</th>

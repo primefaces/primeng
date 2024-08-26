@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p><i>dragHandle</i> is used to restrict dragging unless mousedown occurs on the specified element. Panel below can only be dragged using its header.</p>
         </app-docsectiontext>
         <div class="card">
-            <div pDraggable dragHandle=".p-panel-header" class="w-15rem">
+            <div pDraggable dragHandle=".p-panel-header" class="w-60">
                 <p-panel header="Drag Header"> Content </p-panel>
             </div>
         </div>
@@ -17,13 +17,13 @@ import { Code } from '@domain/code';
 })
 export class DragHandleDoc {
     code: Code = {
-        basic: `<div pDraggable dragHandle=".p-panel-header" class="w-15rem">
+        basic: `<div pDraggable dragHandle=".p-panel-header" class="w-60">
     <p-panel header="Drag Header">
         Content
     </p-panel>
 </div>`,
         html: `<div class="card">
-    <div pDraggable dragHandle=".p-panel-header" class="w-15rem">
+    <div pDraggable dragHandle=".p-panel-header" class="w-60">
         <p-panel header="Drag Header">
             Content
         </p-panel>

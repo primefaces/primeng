@@ -8,19 +8,19 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
                 <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
-                    <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
+                    <section class="flex p-4 gap-4 w-full bg-black/90 shadow" style="border-radius: 10px">
                         <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
-                        <div class="flex flex-column gap-3 w-full">
+                        <div class="flex flex-col gap-4 w-full">
                             <p class="m-0 font-semibold text-base text-white">{{ message.summary }}</p>
-                            <p class="m-0 text-base text-700">{{ message.detail }}</p>
-                            <div class="flex flex-column gap-2">
+                            <p class="m-0 text-base text-surface-700 dark:text-surface-100">{{ message.detail }}</p>
+                            <div class="flex flex-col gap-2">
                                 <p-progressBar [value]="progress" [showValue]="false" [style]="{ height: '4px' }" />
                                 <label class="text-right text-xs text-white">{{ progress }}% uploaded...</label>
                             </div>
-                            <div class="flex gap-3 mb-3">
+                            <div class="flex gap-4 mb-4">
                                 <p-button label="Another Upload?" [text]="true" styleClass="p-0" (click)="closeFn($event)" />
                                 <p-button label="Cancel" [text]="true" styleClass="text-white p-0" (click)="closeFn($event)" />
                             </div>
@@ -81,16 +81,16 @@ export class HeadlessDoc {
     (onClose)="onClose()" 
     [baseZIndex]="5000">
         <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
-            <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
+            <section class="flex p-4 gap-4 w-full bg-black/90 shadow" style="border-radius: 10px">
                 <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
-                <div class="flex flex-column gap-3 w-full">
+                <div class="flex flex-col gap-4 w-full">
                     <p class="m-0 font-semibold text-base text-white">
                         {{ message.summary }}
                     </p>
-                    <p class="m-0 text-base text-700">
+                    <p class="m-0 text-base text-surface-700 dark:text-surface-100">
                         {{ message.detail }}
                     </p>
-                    <div class="flex flex-column gap-2">
+                    <div class="flex flex-col gap-2">
                         <p-progressBar 
                             [value]="progress" 
                             [showValue]="false" 
@@ -99,7 +99,7 @@ export class HeadlessDoc {
                             {{ progress }}% uploaded...
                         </label>
                     </div>
-                    <div class="flex gap-3 mb-3">
+                    <div class="flex gap-4 mb-4">
                         <p-button 
                             label="Another Upload?" 
                             [text]="true"
@@ -116,23 +116,23 @@ export class HeadlessDoc {
         </ng-template>
 </p-toast>
 <p-button pRipple (click)="showConfirm()" label="Confirm" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast 
         position="top-center" 
         key="confirm" 
         (onClose)="onClose()" 
         [baseZIndex]="5000">
             <ng-template let-message pTemplate="headless" let-closeFn="closeFn">
-                <section class="flex p-3 gap-3 w-full bg-black-alpha-90 shadow-2" style="border-radius: 10px">
+                <section class="flex p-4 gap-4 w-full bg-black/90 shadow" style="border-radius: 10px">
                     <i class="pi pi-cloud-upload text-primary-500 text-2xl"></i>
-                    <div class="flex flex-column gap-3 w-full">
+                    <div class="flex flex-col gap-4 w-full">
                         <p class="m-0 font-semibold text-base text-white">
                             {{ message.summary }}
                         </p>
-                        <p class="m-0 text-base text-700">
+                        <p class="m-0 text-base text-surface-700 dark:text-surface-100">
                             {{ message.detail }}
                         </p>
-                        <div class="flex flex-column gap-2">
+                        <div class="flex flex-col gap-2">
                             <p-progressBar 
                                 [value]="progress" 
                                 [showValue]="false" 
@@ -141,7 +141,7 @@ export class HeadlessDoc {
                                 {{ progress }}% uploaded...
                             </label>
                         </div>
-                        <div class="flex gap-3 mb-3">
+                        <div class="flex gap-4 mb-4">
                             <p-button 
                                 label="Another Upload?" 
                                 [text]="true" 

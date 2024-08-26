@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A page may have multiple toast components, in case you'd like to target a specific message to a particular toast, use the <i>key</i> property so that toast and the message can match.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast key="toast1" />
             <p-toast key="toast2" />
             <p-button pRipple (click)="showToast1()" label="Show Success" />
@@ -43,7 +43,7 @@ export class TargetDoc {
     (click)="showToast2()" 
     label="Show Warning" 
     severity="warning" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast key="toast1" />
     <p-toast key="toast2" />
     <p-button 

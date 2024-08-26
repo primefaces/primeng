@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>RadioButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <form class="flex flex-column gap-3" [formGroup]="formGroup">
+        <div class="card flex justify-center">
+            <form class="flex flex-col gap-4" [formGroup]="formGroup">
                 <div *ngFor="let category of categories" class="field-checkbox">
                     <p-radioButton [inputId]="category.key" [value]="category" formControlName="selectedCategory" />
                     <label [for]="category.key" class="ml-2">{{ category.name }}</label>
@@ -36,7 +36,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<form class="flex flex-column gap-3" [formGroup]="formGroup">
+        basic: `<form class="flex flex-col gap-4" [formGroup]="formGroup">
     <div *ngFor="let category of categories" class="field-checkbox">
         <p-radioButton 
             [inputId]="category.key" 
@@ -48,8 +48,8 @@ export class ReactiveFormsDoc implements OnInit {
     </div>
 </form>`,
 
-        html: `<div class="card flex justify-content-center">
-    <form class="flex flex-column gap-3" [formGroup]="formGroup">
+        html: `<div class="card flex justify-center">
+    <form class="flex flex-col gap-4" [formGroup]="formGroup">
         <div *ngFor="let category of categories" class="field-checkbox">
             <p-radioButton 
                 [inputId]="category.key" 

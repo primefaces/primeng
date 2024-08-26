@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom content inside a button is defined as children.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button [outlined]="true">
                 <svg width="32" height="32" class="block mx-auto" viewBox="0 0 148 158" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M73.3016 0V0V0L0.188751 25.97L11.3402 122.262L73.3016 156.446V156.446V156.446L135.263 122.262L146.415 25.97L73.3016 0Z" fill="var(--primary-color)" />
@@ -72,7 +72,7 @@ export class TemplateDoc {
     </svg>
 </p-button>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
 <p-button [outlined]="true">
 <svg width="35" height="40" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />

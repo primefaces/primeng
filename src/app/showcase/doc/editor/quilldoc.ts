@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Also, core styles of the Quill should be imported in the project's root style file.</p>
         </app-docsectiontext>
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
-        <div class="mt-3">
+        <div class="mt-4">
             <app-code [code]="code2" [hideToggleCode]="true"></app-code>
         </div>
     `

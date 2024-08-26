@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Single node selection is configured by setting <i>selectionMode</i> as <i>single</i> along with <i>selection</i> properties to manage the selection value binding.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree [value]="files" class="w-full md:w-30rem" selectionMode="single" [(selection)]="selectedFile" />
+        <div class="card flex justify-center">
+            <p-tree [value]="files" class="w-full md:w-[30rem]" selectionMode="single" [(selection)]="selectedFile" />
         </div>
         <app-code [code]="code" selector="tree-single-demo"></app-code>
     `
@@ -29,14 +29,14 @@ export class SingleDoc implements OnInit {
     code: Code = {
         basic: `<p-tree 
     [value]="files" 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     selectionMode="single" 
     [(selection)]="selectedFile" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tree 
         [value]="files" 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         selectionMode="single" 
         [(selection)]="selectedFile" />
 </div>`,

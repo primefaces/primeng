@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Raised buttons display a shadow to indicate elevation.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 justify-content-center">
+        <div class="card flex flex-wrap gap-4 justify-center">
             <p-button label="Primary" [raised]="true" />
             <p-button label="Secondary" [raised]="true" severity="secondary" />
             <p-button label="Success" [raised]="true" severity="success" />
@@ -32,7 +32,7 @@ export class RaisedDoc {
 <p-button label="Contrast" [raised]="true" severity="contrast" />
 `,
 
-        html: `<div class="card flex flex-wrap gap-3 justify-content-center">
+        html: `<div class="card flex flex-wrap gap-4 justify-center">
     <p-button label="Primary" [raised]="true" />
     <p-button label="Secondary" [raised]="true" severity="secondary" />
     <p-button label="Success" [raised]="true" severity="success" />

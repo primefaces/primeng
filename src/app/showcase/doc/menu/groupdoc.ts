@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Menu supports one level of nesting by defining children with <i>items</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-menu [model]="items" />
         </div>
         <app-code [code]="code" selector="menu-group-demo"></app-code>
@@ -54,7 +54,7 @@ export class GroupDoc implements OnInit {
     code: Code = {
         basic: `<p-menu [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-menu [model]="items" />
 </div>`,
 

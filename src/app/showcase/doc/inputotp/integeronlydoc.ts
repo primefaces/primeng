@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>integerOnly</i> is present, only integers can be accepted as input.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-inputOtp [(ngModel)]="value" [integerOnly]="true" />
         </div>
         <app-code [code]="code" selector="input-otp-integer-only-demo"></app-code>
@@ -19,7 +19,7 @@ export class IntegerOnlyDoc {
     code: Code = {
         basic: `<p-inputOtp [(ngModel)]="value" [integerOnly]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-inputOtp [(ngModel)]="value" [integerOnly]="true" />
 </div>`,
 

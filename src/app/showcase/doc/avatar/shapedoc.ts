@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Avatar comes in two different styles specified with the <i>shape</i> property, <i>square</i> is the default and <i>circle</i> is the alternative.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-avatar label="P" shape="circle" />
             <p-avatar label="T" />
         </div>
@@ -18,7 +18,7 @@ export class ShapeDoc {
     code: Code = {
         basic: `<p-avatar label="P" shape="circle" />
 <p-avatar label="T" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-avatar label="P" shape="circle" />
     <p-avatar label="T" />
 </div>`,

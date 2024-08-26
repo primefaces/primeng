@@ -13,7 +13,7 @@ interface UploadEvent {
         <app-docsectiontext>
             <p>When <i>auto</i> property is enabled, a file gets uploaded instantly after selection.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-fileUpload mode="basic" name="demo[]" chooseIcon="pi pi-upload" url="https://www.primefaces.org/cdn/api/upload.php" accept="image/*" maxFileSize="1000000" (onUpload)="onBasicUploadAuto($event)" [auto]="true" chooseLabel="Browse" />
         </div>
@@ -38,7 +38,7 @@ export class AutoDoc {
     (onUpload)="onBasicUploadAuto($event)" 
     [auto]="true" 
     chooseLabel="Browse" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-fileUpload 
         mode="basic" 

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>An eye icon is displayed by default when the image is hovered in preview mode. Use the <i>indicator</i> template for custom content.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" [preview]="true" alt="Image" width="250">
                 <ng-template pTemplate="indicator">
                     <i class="pi pi-check"></i>
@@ -29,7 +29,7 @@ export class TemplateDoc {
         </ng-template>
 </p-image>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-image 
         src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" 
         [preview]="true" 

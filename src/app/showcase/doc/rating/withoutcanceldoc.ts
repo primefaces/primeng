@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A cancel icon is displayed to reset the value by default, set <i>cancel</i> as false to remove this option.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-rating [(ngModel)]="value" [cancel]="false" />
         </div>
         <app-code [code]="code" selector="rating-without-cancel-demo"></app-code>
@@ -19,7 +19,7 @@ export class WithoutCancelDoc {
     code: Code = {
         basic: `<p-rating [(ngModel)]="value" [cancel]="false" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-rating [(ngModel)]="value" [cancel]="false" />
 </div>`,
 

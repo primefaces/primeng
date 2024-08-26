@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-cascadeSelect [disabled]="true" placeholder="Disabled" [style]="{ minWidth: '14rem' }" />
         </div>
         <app-code [code]="code" selector="cascade-select-disabled-demo"></app-code>
@@ -20,7 +20,7 @@ export class DisabledDoc {
     placeholder="Disabled" 
     [style]="{ minWidth: '14rem' }" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-cascadeSelect 
         [disabled]="true" 
         placeholder="Disabled" 

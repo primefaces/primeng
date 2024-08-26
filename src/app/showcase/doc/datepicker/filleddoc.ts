@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="date" variant="filled" />
         </div>
         <app-code [code]="code" selector="datepicker-filled-demo"></app-code>
@@ -21,7 +21,7 @@ export class FilledDoc {
     [(ngModel)]="date" 
     variant="filled" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="date" 
         variant="filled" />

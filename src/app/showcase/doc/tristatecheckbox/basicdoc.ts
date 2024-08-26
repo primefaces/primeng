@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A model can be bound using the standard <i>ngModel</i> directive.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3 align-items-center">
+        <div class="card flex flex-col gap-4 items-center">
             <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />
             <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
         </div>
@@ -20,7 +20,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />`,
 
-        html: `<div class="card flex flex-column gap-3 align-items-center">
+        html: `<div class="card flex flex-col gap-4 items-center">
     <p-triStateCheckbox [(ngModel)]="value" inputId="tricheckbox" />
     <label for="tricheckbox">{{ value === null ? 'null' : value }}</label>
 </div>`,

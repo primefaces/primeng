@@ -16,7 +16,7 @@ import { Footer } from './footer';
                 parameter is the configuration of the Dialog such as <i>header</i>, <i>width</i> and more.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
         </div>
@@ -81,7 +81,7 @@ export class ExampleDoc implements OnDestroy {
         basic: `<p-toast />
 <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-button (click)="show()" icon="pi pi-search" label="Select a Product" />
 </div>`,
@@ -183,7 +183,7 @@ import { ButtonModule } from 'primeng/button';
     providers: [DialogService, MessageService, ProductService],
     standalone:true,
     imports:[TableModule, ButtonModule],
-    template: \`<div class="flex justify-content-end mt-1 mb-3">
+    template: \`<div class="flex justify-end mt-1 mb-4">
             <p-button icon="pi pi-external-link" label="Nested Dialog" [outlined]="true" severity="success" (click)="showInfo()" />
         </div>
         <p-table [value]="products" responsiveLayout="scroll" [rows]="5" [responsive]="true">
@@ -201,7 +201,7 @@ import { ButtonModule } from 'primeng/button';
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-4rem h-4rem shadow-2" /></td>
+                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16 h-16 shadow" /></td>
                     <td>{{ product.category }}</td>
                     <td>
                         {{ product.quantity }}
@@ -269,7 +269,7 @@ import { ButtonModule } from 'primeng/button';
     <p>
         There are <strong>{{ totalProducts }}</strong> products in total in this list.
     </p>
-    <div class="flex justify-content-end">
+    <div class="flex justify-end">
         <p-button type="button" label="Close" (click)="close()" />
     </div>
 </div>\`
@@ -312,7 +312,7 @@ import { ButtonModule } from 'primeng/button';
     standalone: true,
     imports: [ButtonModule],
     template:  \`
-        <div class="flex w-full justify-content-end mt-3">
+        <div class="flex w-full justify-end mt-4">
             <p-button type="button" label="Cancel" icon="pi pi-times" (click)="closeDialog({ buttonType: 'Cancel', summary: 'No Product Selected' })" />
         </div> \`
 })

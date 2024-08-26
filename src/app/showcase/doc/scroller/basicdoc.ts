@@ -10,10 +10,10 @@ import { Code } from '@domain/code';
                 display. Size of the viewport is configured using <i>scrollWidth</i>, <i>scrollHeight</i> properties directly or with CSS <i>width</i> and <i>height</i> styles.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
+        <div class="card flex justify-center">
+            <p-scroller [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
+                    <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                 </ng-template>
             </p-scroller>
         </div>
@@ -33,24 +33,24 @@ export class BasicDoc {
     [items]="items" 
     [itemSize]="50" 
     scrollHeight="200px" 
-    styleClass="border-1 surface-border" 
+    styleClass="border border-surface" 
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
-            <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+            <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
                 {{ item }}
             </div>
         </ng-template>
 </p-scroller>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-scroller 
         [items]="items" 
         [itemSize]="50" 
         scrollHeight="200px" 
-        styleClass="border-1 surface-border" 
+        styleClass="border border-surface" 
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
-                <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
+                <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">
                     {{ item }}
                 </div>
             </ng-template>

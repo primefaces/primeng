@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom content can be placed inside the items using the <i>item</i> template. The divider between the items has its own <i>separator</i> template.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
                 <ng-template pTemplate="item" let-item>
                     <a class="cursor-pointer" [routerLink]="item.url">
@@ -42,7 +42,7 @@ export class TemplateDoc implements OnInit {
     <ng-template pTemplate="separator"> / </ng-template>
 </p-breadcrumb>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-breadcrumb class="max-w-full" [model]="items" [home]="home">
         <ng-template pTemplate="item" let-item>
             <a class="cursor-pointer" [routerLink]="item.url">

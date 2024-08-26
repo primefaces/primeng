@@ -7,9 +7,9 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Children of the component are passed as the content for templating.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-tag [style]="{ background: 'linear-gradient(to right, var(--surface-900), var(--surface-700)' }">
-                <div class="flex align-items-center gap-2 px-1">
+                <div class="flex items-center gap-2 px-1">
                     <img alt="Country" src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" class="flag flag-it" style="width: '18px'" />
                     <span class="text-base">Italy</span>
                 </div>
@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
 export class TemplateDoc {
     code: Code = {
         basic: `<p-tag [style]="{ background: 'linear-gradient(to right, var(--surface-900), var(--surface-700)' }">
-    <div class="flex align-items-center gap-2 px-1">
+    <div class="flex items-center gap-2 px-1">
         <img 
             alt="Country" 
             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
@@ -32,9 +32,9 @@ export class TemplateDoc {
         </span>
     </div>
 </p-tag>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tag [style]="{ background: 'linear-gradient(to right, var(--surface-900), var(--surface-700)' }">
-        <div class="flex align-items-center gap-2 px-1">
+        <div class="flex items-center gap-2 px-1">
             <img 
                 alt="Country" 
                 src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 

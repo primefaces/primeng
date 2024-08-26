@@ -8,18 +8,18 @@ import { Product } from '@domain/product';
         <app-docsectiontext>
             <p>When a suitable draggable enters a droppable area, the area gets <i>p-draggable-enter</i> class that can be used to style the droppable section.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3">
-            <div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
-                <ul class="list-none flex flex-column gap-2 p-0 m-0">
-                    <li *ngFor="let product of availableProducts" class="p-2 border-round shadow-1" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
+        <div class="card flex flex-wrap gap-4">
+            <div class="p-2 border border-surface rounded-border w-60 h-40">
+                <ul class="list-none flex flex-col gap-2 p-0 m-0">
+                    <li *ngFor="let product of availableProducts" class="p-2 rounded-border shadow-sm" pDraggable (onDragStart)="dragStart(product)" (onDragEnd)="dragEnd()">
                         {{ product.name }}
                     </li>
                 </ul>
             </div>
-            <div class="p-2 w-15rem h-10rem drop-column" pDroppable (onDrop)="drop()">
-                <p class="text-center surface-border border-bottom-1">Drop Zone</p>
-                <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedProducts">
-                    <li *ngFor="let product of selectedProducts" class="p-2 border-round shadow-1">
+            <div class="p-2 w-60 h-40 drop-column" pDroppable (onDrop)="drop()">
+                <p class="text-center border-surface border-b">Drop Zone</p>
+                <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="selectedProducts">
+                    <li *ngFor="let product of selectedProducts" class="p-2 rounded-border shadow-sm">
                         {{ product.name }}
                     </li>
                 </ul>
@@ -71,11 +71,11 @@ export class DropIndicatorDoc {
         return index;
     }
     code: Code = {
-        basic: `<div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
-    <ul class="list-none flex flex-column gap-2 p-0 m-0">
+        basic: `<div class="p-2 border border-surface rounded-border w-60 h-40">
+    <ul class="list-none flex flex-col gap-2 p-0 m-0">
         <li 
             *ngFor="let product of availableProducts" 
-            class="p-2 border-round shadow-1" 
+            class="p-2 rounded-border shadow-sm" 
             pDraggable 
             (onDragStart)="dragStart(product)" 
             (onDragEnd)="dragEnd()">
@@ -83,20 +83,20 @@ export class DropIndicatorDoc {
         </li>
     </ul>
 </div>
-<div class="p-2 w-15rem h-10rem drop-column" pDroppable (onDrop)="drop()">
-    <p class="text-center surface-border border-bottom-1">Drop Zone</p>
-    <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedProducts" >
-        <li *ngFor="let product of selectedProducts" class="p-2 border-round shadow-1">
+<div class="p-2 w-60 h-40 drop-column" pDroppable (onDrop)="drop()">
+    <p class="text-center border-surface border-b">Drop Zone</p>
+    <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="selectedProducts" >
+        <li *ngFor="let product of selectedProducts" class="p-2 rounded-border shadow-sm">
             {{product.name}}
         </li>
     </ul>
 </div>`,
-        html: `<div class="card flex flex-wrap gap-3">
-    <div class="p-2 border-1 surface-border border-round w-15rem h-10rem">
-        <ul class="list-none flex flex-column gap-2 p-0 m-0">
+        html: `<div class="card flex flex-wrap gap-4">
+    <div class="p-2 border border-surface rounded-border w-60 h-40">
+        <ul class="list-none flex flex-col gap-2 p-0 m-0">
             <li 
                 *ngFor="let product of availableProducts" 
-                class="p-2 border-round shadow-1"
+                class="p-2 rounded-border shadow-sm"
                 pDraggable 
                 (onDragStart)="dragStart(product)" 
                 (onDragEnd)="dragEnd()">
@@ -104,10 +104,10 @@ export class DropIndicatorDoc {
             </li>
         </ul>
     </div>
-    <div class="p-2 w-15rem h-10rem drop-column" pDroppable (onDrop)="drop()">
-        <p class="text-center surface-border border-bottom-1">Drop Zone</p>
-        <ul class="list-none flex flex-column gap-2 p-0 m-0" *ngIf="selectedProducts" >
-            <li *ngFor="let product of selectedProducts" class="p-2 border-round shadow-1">
+    <div class="p-2 w-60 h-40 drop-column" pDroppable (onDrop)="drop()">
+        <p class="text-center border-surface border-b">Drop Zone</p>
+        <ul class="list-none flex flex-col gap-2 p-0 m-0" *ngIf="selectedProducts" >
+            <li *ngFor="let product of selectedProducts" class="p-2 rounded-border shadow-sm">
                 {{product.name}}
             </li>
         </ul>

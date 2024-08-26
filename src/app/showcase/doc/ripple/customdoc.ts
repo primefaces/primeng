@@ -7,27 +7,27 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Styling Demo Content.</p>
         </app-docsectiontext>
-        <div class="card card-container flex justify-content-center align-items-center">
-            <div pRipple class="card styled-box-green shadow-2">Green</div>
-            <div pRipple class="card styled-box-orange shadow-2">Orange</div>
-            <div pRipple class="card styled-box-purple shadow-2">Purple</div>
+        <div class="card card-container flex justify-center items-center">
+            <div pRipple class="card styled-box-green shadow">Green</div>
+            <div pRipple class="card styled-box-orange shadow">Orange</div>
+            <div pRipple class="card styled-box-purple shadow">Purple</div>
         </div>
         <app-code [code]="code" selector="ripple-custom-demo"></app-code>
     `
 })
 export class CustomDoc {
     code: Code = {
-        basic: `<div pRipple class="card styled-box-green shadow-2">
+        basic: `<div pRipple class="card styled-box-green shadow">
     Green
 </div>`,
-        html: `<div class="card card-container flex justify-content-center align-items-center">
-    <div pRipple class="card styled-box-green shadow-2">
+        html: `<div class="card card-container flex justify-center items-center">
+    <div pRipple class="card styled-box-green shadow">
         Green
     </div>
-    <div pRipple class="card styled-box-orange shadow-2">
+    <div pRipple class="card styled-box-orange shadow">
         Orange
     </div>
-    <div pRipple class="card styled-box-purple shadow-2">
+    <div pRipple class="card styled-box-purple shadow">
         Purple
     </div>
 </div>`,

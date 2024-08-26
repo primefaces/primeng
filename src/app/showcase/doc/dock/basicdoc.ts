@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-3 mb-5">
+            <div class="flex flex-wrap gap-4 mb-8">
                 <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
             </div>
             <div class="dock-window">
@@ -79,7 +79,7 @@ export class BasicDoc implements OnInit {
 </p-dock>`,
 
         html: `<div class="card">
-    <div class="flex flex-wrap gap-3 mb-5">
+    <div class="flex flex-wrap gap-4 mb-8">
         <p-radioButton 
             *ngFor="let option of positionOptions" 
             [name]="option.label" 

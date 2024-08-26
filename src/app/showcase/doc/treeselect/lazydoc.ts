@@ -9,7 +9,7 @@ import { TreeNode } from 'primeng/api';
         <app-docsectiontext>
             <p>Lazy loading is useful when dealing with huge datasets, in this example nodes are dynamically loaded on demand using <i>loading</i> property and <i>onNodeExpand</i> method.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-treeSelect
                 class="w-full"
                 containerStyleClass="w-full"
@@ -104,7 +104,7 @@ export class LazyDoc {
     [loading]="loading"
 />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect
         class="w-full"
         containerStyleClass="w-full"

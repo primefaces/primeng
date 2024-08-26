@@ -8,11 +8,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Styling a specific node is configured with <i>class</i> and <i>style</i> options of a TreeNode.</p></app-docsectiontext
         >
-        <div class="card flex justify-content-center overflow-x-auto">
+        <div class="card flex justify-center overflow-x-auto">
             <p-organizationChart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="person">
                     <div class="p-2 text-center">
-                        <img [src]="node.data.image" class="mb-3 w-3rem h-3rem" />
+                        <img [src]="node.data.image" class="mb-4 w-12 h-12" />
                         <div class="font-bold">{{ node.data.name }}</div>
                         <div>{{ node.data.title }}</div>
                     </div>
@@ -86,7 +86,7 @@ export class ColoredDoc {
         <div class="p-2 text-center">
             <img 
                 [src]="node.data.image" 
-                class="mb-3 w-3rem h-3rem" />
+                class="mb-4 w-12 h-12" />
             <div class="font-bold">
                 {{ node.data.name }}
             </div>
@@ -97,13 +97,13 @@ export class ColoredDoc {
     </ng-template>
 </p-organizationChart>`,
 
-        html: `<div class="card flex justify-content-center overflow-x-auto">
+        html: `<div class="card flex justify-center overflow-x-auto">
     <p-organizationChart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="person">
             <div class="p-2 text-center">
                 <img 
                     [src]="node.data.image" 
-                    class="mb-3 w-3rem h-3rem" />
+                    class="mb-4 w-12 h-12" />
                 <div class="font-bold">
                     {{ node.data.name }}
                 </div>

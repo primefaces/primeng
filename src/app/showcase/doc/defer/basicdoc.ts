@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
             <p-toast />
             <div pDefer (onLoad)="onLoad()">
                 <ng-template>
-                    <img class="w-full md:w-30rem md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
+                    <img class="w-full md:w-[30rem] md:block md:mx-auto" src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" alt="Prime" />
                 </ng-template>
             </div>
         </div>
@@ -32,7 +32,7 @@ export class BasicDoc {
         basic: `<div pDefer (onLoad)="onLoad()">
     <ng-template>
         <img 
-            class="w-full md:w-30rem md:block md:mx-auto" 
+            class="w-full md:w-[30rem] md:block md:mx-auto" 
             src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
             alt="Prime" />
     </ng-template>
@@ -45,7 +45,7 @@ export class BasicDoc {
     <div pDefer (onLoad)="onLoad()">
         <ng-template>
             <img 
-                class="w-full md:w-30rem md:block md:mx-auto" 
+                class="w-full md:w-[30rem] md:block md:mx-auto" 
                 src="https://primefaces.org/cdn/primeng/images/demo/nature/nature1.jpg" 
                 alt="Prime" />
         </ng-template>

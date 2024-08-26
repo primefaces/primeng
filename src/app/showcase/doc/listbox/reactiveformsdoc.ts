@@ -13,7 +13,7 @@ interface City {
         <app-docsectiontext>
             <p>Listbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <form [formGroup]="formGroup">
                 <p-listbox [options]="cities" formControlName="selectedCity" optionLabel="name" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
             </form>
@@ -50,7 +50,7 @@ export class ReactiveFormsDoc implements OnInit {
         [listStyle]="{'max-height': '220px'}" />
 </form>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
         <p-listbox 
             [options]="cities" 

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A toast disappears after the time defined by the <i>life</i> option, set <i>sticky</i> option <i>true</i> on the message to override this and not hide the toast automatically.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <div class="flex flex-wrap gap-2">
                 <p-button pRipple (click)="show()" severity="success" label="Sticky" />
@@ -43,7 +43,7 @@ export class StickyDoc {
         (click)="clear()" 
         label="Clear" />
 </div>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <div class="flex flex-wrap gap-2">
         <p-button 

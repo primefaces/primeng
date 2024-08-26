@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 properties such as <i>severity</i>, <i>summary</i> and <i>detail</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-button (onClick)="show()" label="Show" />
         </div>
@@ -30,7 +30,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-toast />
 <p-button (onClick)="show()" label="Show" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-button (onClick)="show()" label="Show" />
 </div>`,

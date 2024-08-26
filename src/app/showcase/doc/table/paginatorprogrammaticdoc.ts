@@ -11,7 +11,7 @@ import { CustomerService } from '@service/customerservice';
         </app-docsectiontext>
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
-                <div class="mb-3 flex gap-1">
+                <div class="mb-4 flex gap-1">
                     <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" styleClass="p-button-text" />
                     <p-button type="button" icon="pi pi-refresh" (click)="reset()" styleClass="p-button-text" />
                     <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" styleClass="p-button-text" />
@@ -95,7 +95,7 @@ export class PaginatorProgrammaticDoc {
     }
 
     code: Code = {
-        basic: `<div class="mb-3">
+        basic: `<div class="mb-4">
     <p-button 
         type="button" 
         icon="pi pi-chevron-left" 
@@ -148,7 +148,7 @@ export class PaginatorProgrammaticDoc {
         <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text" />
     </ng-template>
 </p-table>`,
-        html: `<div class="mb-3">
+        html: `<div class="mb-4">
     <p-button 
         type="button" 
         icon="pi pi-chevron-left" 

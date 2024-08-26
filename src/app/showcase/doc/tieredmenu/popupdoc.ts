@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Popup mode is enabled by adding <i>popup</i> property and calling <i>toggle</i> method with an event of the target.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button label="Toggle" (click)="menu.toggle($event)" />
             <p-tieredMenu #menu [model]="items" [popup]="true" />
         </div>
@@ -94,7 +94,7 @@ export class PopupDoc implements OnInit {
         basic: `<p-button label="Toggle" (click)="menu.toggle($event)" />
 <p-tieredMenu #menu [model]="items" [popup]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button label="Toggle" (click)="menu.toggle($event)" />
     <p-tieredMenu #menu [model]="items" [popup]="true" />
 </div>`,

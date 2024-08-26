@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Scrollbar visuals can be styled for a unified look across different platforms.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-column md:flex-row gap-5">
+            <div class="flex flex-col md:flex-row gap-8">
                 <div class="flex-auto">
                     <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">
                         <p>
@@ -63,7 +63,7 @@ export class CusstomDoc {
 </p-scrollPanel>`,
 
         html: `<div class="card">
-    <div class="flex flex-column md:flex-row gap-5">
+    <div class="flex flex-col md:flex-row gap-8">
         <div class="flex-auto">
             <p-scrollPanel [style]="{ width: '100%', height: '200px' }" styleClass="custombar1">
                 <p>

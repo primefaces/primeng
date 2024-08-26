@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content can easily be customized with the dynamic content instead of using the built-in modes.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-avatar size="xlarge">
                 <span class="text-base">Content</span>
             </p-avatar>
@@ -20,7 +20,7 @@ export class TemplateDoc {
         basic: `<p-avatar size="xlarge">
     <span class="text-base">Content</span>
 </p-avatar>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-avatar size="xlarge">
         <span class="text-base">Content</span>
     </p-avatar>

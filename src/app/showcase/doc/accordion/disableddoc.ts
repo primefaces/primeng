@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Enabling <i>disabled</i> property of an AccordionTab prevents user interaction.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-accordion [activeIndex]="0">
                 <p-accordionTab header="Header I">
                     <p>
@@ -54,7 +54,7 @@ export class DisabledDoc {
     <p-accordionTab header="Header IV" [disabled]="true" />
 </p-accordion>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-accordion [activeIndex]="0">
         <p-accordionTab header="Header I">
             <p>

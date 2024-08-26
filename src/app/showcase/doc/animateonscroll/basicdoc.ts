@@ -7,39 +7,39 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Animation classes are defined with the <i>enterClass</i> and <i>leaveClass</i> properties. This example utilizes PrimeFlex animations however any valid CSS animation is supported.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center overflow-hidden">
-            <div class="flex flex-column align-items-center gap-2">
+        <div class="card flex flex-col items-center overflow-hidden">
+            <div class="flex flex-col items-center gap-2">
                 <span class="text-xl font-medium">Scroll Down</span>
-                <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
+                <span class="slidedown-icon h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
                     <i class="pi pi-arrow-down"></i>
                 </span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-fadein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
                 <span class="text-3xl font-bold">fade-in</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="fadeinleft" leaveClass="fadeoutleft" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-fadeinleft" leaveClass="animate-fadeoutleft" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
                 <span class="text-3xl font-bold">fade-left</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="fadeinright" leaveClass="fadeoutright" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-fadeinright" leaveClass="animate-fadeoutright" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
                 <span class="text-3xl font-bold">fade-right</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-zoomin" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
                 <span class="text-3xl font-bold">zoom</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="flipleft" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-flipleft" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
                 <span class="text-3xl font-bold">flip-left</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="flipup" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-flipup" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
                 <span class="text-3xl font-bold">flip-y</span>
             </div>
-            <div class="h-30rem"></div>
-            <div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+            <div class="h-[30rem]"></div>
+            <div pAnimateOnScroll enterClass="animate-scalein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
                 <span class="text-3xl font-bold">scalein</span>
             </div>
         </div>
@@ -79,73 +79,73 @@ import { Code } from '@domain/code';
 })
 export class BasicDoc {
     code: Code = {
-        basic: `<div class="flex flex-column align-items-center gap-2">
+        basic: `<div class="flex flex-col items-center gap-2">
     <span class="text-xl font-medium">Scroll Down</span>
-    <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
+    <span class="slidedown-icon h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
         <i class="pi pi-arrow-down"></i>
     </span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-fadein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
     <span class="text-3xl font-bold">fade-in</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="fadeinleft" leaveClass="fadeoutleft" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-fadeinleft" leaveClass="animate-fadeoutleft" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
     <span class="text-3xl font-bold">fade-left</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="fadeinright" leaveClass="fadeoutright" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-fadeinright" leaveClass="animate-fadeoutright" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
     <span class="text-3xl font-bold">fade-right</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-zoomin" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
     <span class="text-3xl font-bold">zoom</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="flipleft" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-flipleft" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
     <span class="text-3xl font-bold">flip-left</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="flipup" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-flipup" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
     <span class="text-3xl font-bold">flip-y</span>
 </div>
-<div class="h-30rem"></div>
-<div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+<div class="h-[30rem]"></div>
+<div pAnimateOnScroll enterClass="animate-scalein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
     <span class="text-3xl font-bold">scalein</span>
 </div>`,
-        html: `<div class="card flex flex-column align-items-center overflow-hidden">
-    <div class="flex flex-column align-items-center gap-2">
+        html: `<div class="card flex flex-col items-center overflow-hidden">
+    <div class="flex flex-col items-center gap-2">
         <span class="text-xl font-medium">Scroll Down</span>
-        <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
+        <span class="slidedown-icon h-8 w-8 bg-primary text-primary-contrast rounded-full inline-flex items-center justify-center">
             <i class="pi pi-arrow-down"></i>
         </span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-fadein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
         <span class="text-3xl font-bold">fade-in</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="fadeinleft" leaveClass="fadeoutleft" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-fadeinleft" leaveClass="animate-fadeoutleft" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
         <span class="text-3xl font-bold">fade-left</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="fadeinright" leaveClass="fadeoutright" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-fadeinright" leaveClass="animate-fadeoutright" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
         <span class="text-3xl font-bold">fade-right</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-zoomin" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000">
         <span class="text-3xl font-bold">zoom</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="flipleft" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-flipleft" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
         <span class="text-3xl font-bold">flip-left</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="flipup" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-flipup" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
         <span class="text-3xl font-bold">flip-y</span>
     </div>
-    <div class="h-30rem"></div>
-    <div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+    <div class="h-[30rem]"></div>
+    <div pAnimateOnScroll enterClass="animate-scalein" leaveClass="animate-fadeout" class="flex box shadow-lg justify-center items-center h-40 w-40 sm:h-60 sm:w-60 rounded-border animate-duration-1000 animate-ease-in-out">
         <span class="text-3xl font-bold">scalein</span>
     </div>
 </div>`,

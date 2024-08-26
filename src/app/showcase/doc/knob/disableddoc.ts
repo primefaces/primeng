@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, a visual hint is applied to indicate that the Knob cannot be interacted with.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-knob [(ngModel)]="value" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="knob-disabled-demo"></app-code>
@@ -19,7 +19,7 @@ export class DisabledDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" [disabled]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-knob [(ngModel)]="value" [disabled]="true" />
 </div>`,
 

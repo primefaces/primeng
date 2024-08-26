@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Grouping is available by wrapping multiple Avatar components inside an <i>AvatarGroup</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-avatarGroup styleClass="mb-3">
+        <div class="card flex justify-center">
+            <p-avatarGroup styleClass="mb-4">
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" size="large" shape="circle" />
                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" size="large" shape="circle" />
@@ -22,7 +22,7 @@ import { Code } from '@domain/code';
 })
 export class GroupDoc {
     code: Code = {
-        basic: `<p-avatarGroup styleClass="mb-3">
+        basic: `<p-avatarGroup styleClass="mb-4">
     <p-avatar 
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
         size="large" 
@@ -32,8 +32,8 @@ export class GroupDoc {
         size="large" 
         shape="circle" />
 </p-avatarGroup>`,
-        html: `<div class="card flex justify-content-center">
-    <p-avatarGroup styleClass="mb-3">
+        html: `<div class="card flex justify-center">
+    <p-avatarGroup styleClass="mb-4">
         <p-avatar 
             image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
             size="large" 

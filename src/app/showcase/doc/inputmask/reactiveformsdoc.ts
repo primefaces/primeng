@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputMask can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <form [formGroup]="formGroup">
                 <p-inputMask mask="99-999999" formControlName="value" placeholder="99-999999" />
             </form>
@@ -31,7 +31,7 @@ export class ReactiveFormsDoc implements OnInit {
     formControlName="value" 
     placeholder="99-999999" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-inputMask 
         mask="99-999999" 
         formControlName="value" 

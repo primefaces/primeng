@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Image is used as the native <i>img</i> element and supports all properties that the native element has. For multiple image, see <a [routerLink]="['/galleria']">Galleria.</a></p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-image src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg" alt="Image" width="250" />
         </div>
         <app-code [code]="code" selector="image-basic-demo"></app-code>
@@ -20,7 +20,7 @@ export class BasicDoc {
     alt="Image" 
     width="250" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-image 
         src="https://primefaces.org/cdn/primeng/images/galleria/galleria10.jpg"
         alt="Image"

@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>When <i>editable</i> is present, the input can also be entered with typing.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" [editable]="true" optionLabel="name" />
         </div>
         <app-code [code]="code" selector="select-editable-demo"></app-code>
@@ -41,7 +41,7 @@ export class EditableDoc implements OnInit {
     [editable]="true" 
     optionLabel="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 

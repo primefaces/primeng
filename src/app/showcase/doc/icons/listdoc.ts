@@ -8,12 +8,12 @@ import { default as IconData } from 'src/assets/showcase/data/icons.json';
             <p>Here is the full list of PrimeIcons. More icons will be added periodically and you may also <a href="https://github.com/primefaces/primeicons/issues">request new icons</a> at the issue tracker.</p>
         </app-docsectiontext>
         <div>
-            <input class="p-inputtext p-component w-full p-3 mt-3 mb-4" (input)="onFilter($event)" pInputText placeholder="Search an icon" />
+            <input class="p-inputtext p-component w-full p-4 mt-4 mb-6" (input)="onFilter($event)" pInputText placeholder="Search an icon" />
         </div>
         <div class="card">
-            <div class="grid text-center">
-                <div class="col-12 md:col-2 mb-5" *ngFor="let icon of filteredIcons">
-                    <i class="pi pi-{{ icon.properties.name }} text-2xl mb-3 text-color-secondary"></i>
+            <div class="grid grid-cols-12 gap-4 text-center">
+                <div class="col-span-12 md:col-span-2 mb-8" *ngFor="let icon of filteredIcons">
+                    <i class="pi pi-{{ icon.properties.name }} text-2xl mb-4 text-muted-color"></i>
                     <div>pi-{{ icon.properties.name }}</div>
                 </div>
             </div>

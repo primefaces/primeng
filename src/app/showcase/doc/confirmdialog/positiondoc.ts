@@ -11,10 +11,10 @@ import { Code } from '@domain/code';
                 of the screen.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap flex-column align-items-center gap-2">
+        <div class="card flex flex-wrap flex-col items-center gap-2">
             <p-toast />
             <p-confirmDialog key="positionDialog" [position]="position" rejectButtonStyleClass="p-button-outlined" />
-            <div class="flex flex-wrap justify-content-center gap-2">
+            <div class="flex flex-wrap justify-center gap-2">
                 <p-button
                     (click)="confirmPosition('left')"
                     icon="pi pi-arrow-right"
@@ -28,7 +28,7 @@ import { Code } from '@domain/code';
                     severity="secondary"
                 />
             </div>
-            <div class="flex flex-wrap justify-content-center gap-2">
+            <div class="flex flex-wrap justify-center gap-2">
                 <p-button
                     (click)="confirmPosition('topleft')"
                     icon="pi pi-arrow-down"
@@ -43,7 +43,7 @@ import { Code } from '@domain/code';
                     severity="secondary"
                 />
             </div>
-            <div class="flex flex-wrap justify-content-center gap-2">
+            <div class="flex flex-wrap justify-center gap-2">
                 <p-button
                     (click)="confirmPosition('bottomleft')"
                     icon="pi pi-arrow-up"
@@ -103,7 +103,7 @@ export class PositionDoc {
     [position]="position" 
     rejectButtonStyleClass="p-button-outlined" />
 
-<div class="flex flex-wrap justify-content-center gap-2">
+<div class="flex flex-wrap justify-center gap-2">
     <p-button 
         (click)="confirmPosition('left')" 
         icon="pi pi-arrow-right" 
@@ -115,7 +115,7 @@ export class PositionDoc {
         label="Right" 
         severity="secondary" />
 </div>
-<div class="flex flex-wrap justify-content-center gap-2">
+<div class="flex flex-wrap justify-center gap-2">
     <p-button 
         (click)="confirmPosition('topleft')" 
         icon="pi pi-arrow-down" 
@@ -132,7 +132,7 @@ export class PositionDoc {
         label="TopRight" 
         severity="secondary" />
 </div>
-<div class="flex flex-wrap justify-content-center gap-2">
+<div class="flex flex-wrap justify-center gap-2">
     <p-button 
         (click)="confirmPosition('bottom-left')" 
         icon="pi pi-arrow-up" 
@@ -150,14 +150,14 @@ export class PositionDoc {
         severity="secondary" />
 </div>`,
 
-        html: `<div class="card flex flex-wrap flex-column align-items-center gap-2">
+        html: `<div class="card flex flex-wrap flex-col items-center gap-2">
     <p-toast />
     <p-confirmDialog 
         key="positionDialog" 
         [position]="position" 
         rejectButtonStyleClass="p-button-outlined" />
 
-    <div class="flex flex-wrap justify-content-center gap-2">
+    <div class="flex flex-wrap justify-center gap-2">
         <p-button 
             (click)="confirmPosition('left')" 
             icon="pi pi-arrow-right" 
@@ -169,7 +169,7 @@ export class PositionDoc {
             label="Right" 
             severity="secondary" />
     </div>
-    <div class="flex flex-wrap justify-content-center gap-2">
+    <div class="flex flex-wrap justify-center gap-2">
         <p-button 
             (click)="confirmPosition('topleft')" 
             icon="pi pi-arrow-down" 
@@ -186,7 +186,7 @@ export class PositionDoc {
             label="TopRight" 
             severity="secondary" />
     </div>
-    <div class="flex flex-wrap justify-content-center gap-2">
+    <div class="flex flex-wrap justify-center gap-2">
         <p-button 
             (click)="confirmPosition('bottom-left')" 
             icon="pi pi-arrow-up" 

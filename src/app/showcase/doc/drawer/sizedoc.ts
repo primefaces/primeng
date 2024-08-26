@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Drawer dimension can be defined with <i>style</i> or <i>styleClass</i> properties which can also be responsive when used with a CSS utility library like PrimeFlex.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-drawer [(visible)]="visible" styleClass="w-30rem">
+        <div class="card flex justify-center">
+            <p-drawer [(visible)]="visible" styleClass="w-[30rem]">
                 <ng-template pTemplate="header">
                     <span class="font-semibold text-xl">Drawer</span>
                 </ng-template>
@@ -26,7 +26,7 @@ export class SizeDoc {
     visible: boolean = false;
 
     code: Code = {
-        basic: `<p-drawer [(visible)]="visible" styleClass="w-30rem">
+        basic: `<p-drawer [(visible)]="visible" styleClass="w-[30rem]">
     <ng-template pTemplate="header">
         <span class="font-semibold text-xl">Drawer</span>
     </ng-template>
@@ -36,8 +36,8 @@ export class SizeDoc {
 </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-arrow-right" />`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-drawer [(visible)]="visible" styleClass="w-30rem">
+        html: `<div class="card flex justify-center">
+    <p-drawer [(visible)]="visible" styleClass="w-[30rem]">
         <ng-template pTemplate="header">
             <span class="font-semibold text-xl">Drawer</span>
         </ng-template>

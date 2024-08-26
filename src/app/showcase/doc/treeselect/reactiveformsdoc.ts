@@ -10,8 +10,8 @@ import { NodeService } from '@service/nodeservice';
             <p>TreeSelect can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card">
-            <form class="flex justify-content-center" [formGroup]="formGroup">
-                <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
+            <form class="flex justify-center" [formGroup]="formGroup">
+                <p-treeSelect class="md:w-80 w-full" containerStyleClass="w-full" formControlName="selectedNodes" [options]="nodes" placeholder="Select Item" />
             </form>
         </div>
         <app-code [code]="code" selector="tree-select-reactive-forms-demo"></app-code>
@@ -35,17 +35,17 @@ export class ReactiveFormsDoc implements OnInit {
     code: Code = {
         basic: `<form [formGroup]="formGroup">
     <p-treeSelect 
-        class="md:w-20rem w-full" 
+        class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         formControlName="selectedNodes" 
         [options]="nodes" 
         placeholder="Select Item" />
 </form>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
         <p-treeSelect 
-            class="md:w-20rem w-full" 
+            class="md:w-80 w-full" 
             containerStyleClass="w-full" 
             formControlName="selectedNodes" 
             [options]="nodes" 

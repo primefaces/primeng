@@ -5,7 +5,7 @@ import { Doc } from 'src/app/showcase/domain/doc';
     selector: 'app-docsection',
     template: `
         <ng-container *ngIf="docs && docs.length">
-            <section class="py-4" *ngFor="let doc of docs; trackBy: trackById">
+            <section class="py-6" *ngFor="let doc of docs; trackBy: trackById">
                 <ng-container *ngIf="!doc.component && doc.children">
                     <app-docsectiontext [title]="doc.label" [id]="doc.id" [level]="2" [description]="doc?.description" />
 
@@ -23,7 +23,7 @@ import { Doc } from 'src/app/showcase/domain/doc';
         </ng-container>
 
         <ng-container *ngIf="apiDocs && apiDocs.length">
-            <section class="py-4" *ngFor="let doc of apiDocs; trackBy: trackById">
+            <section class="py-6" *ngFor="let doc of apiDocs; trackBy: trackById">
                 <ng-container *ngIf="doc.children">
                     <app-docsectiontext [title]="doc.label" [id]="doc.id" [description]="doc.description" [level]="2" />
 

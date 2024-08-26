@@ -29,7 +29,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-nogutter justify-content-center">
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" />
                     </div>
                 </ng-template>
@@ -190,7 +190,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
     </ng-template>
     <ng-template pTemplate="thumbnail" let-item>
-        <div class="grid grid-nogutter justify-content-center">
+        <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
             <img [src]="item.thumbnailImageSrc" />
         </div>
     </ng-template>
@@ -229,7 +229,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                 [ngStyle]="{ width: !fullscreen ? '100%' : '', display: !fullscreen ? 'block' : '' }" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-nogutter justify-content-center">
+            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img [src]="item.thumbnailImageSrc" />
             </div>
         </ng-template>

@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-floatLabel>
                 <p-multiSelect inputId="float-label" [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" />
                 <label for="float-label">MultiSelect</label>
@@ -46,7 +46,7 @@ export class FloatLabelDoc implements OnInit {
     <label for="float-label">MultiSelect</label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-floatLabel>
         <p-multiSelect 
             inputId="float-label" 

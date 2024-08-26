@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Label is a string template that can be customized with the <i>valueTemplate</i> property having 60 as the placeholder .</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
         </div>
         <app-code [code]="code" selector="knob-template-demo"></app-code>
@@ -19,7 +19,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" valueTemplate="{value}%" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-knob [(ngModel)]="value" valueTemplate="{value}%" />
 </div>`,
 

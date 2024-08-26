@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-inplace>
                 <ng-template pTemplate="display">
-                    <div class="inline-flex align-items-center">
+                    <div class="inline-flex items-center">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
                         <span class="ml-2">View Picture</span>
                     </div>
@@ -27,7 +27,7 @@ export class ImageDoc {
     code: Code = {
         basic: `<p-inplace>
     <ng-template pTemplate="display">
-        <div class="inline-flex align-items-center">
+        <div class="inline-flex items-center">
             <span class="pi pi-image" style="vertical-align: middle"></span>
             <span class="ml-2">View Picture</span>
         </div>
@@ -41,7 +41,7 @@ export class ImageDoc {
         html: `<div class="card">
     <p-inplace>
         <ng-template pTemplate="display">
-            <div class="inline-flex align-items-center">
+            <div class="inline-flex items-center">
                 <span class="pi pi-image" style="vertical-align: middle"></span>
                 <span class="ml-2">View Picture</span>
             </div>

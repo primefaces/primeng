@@ -18,13 +18,13 @@ interface Column {
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-content-center mb-4">
+            <div class="flex justify-center mb-6">
                 <p-selectButton [options]="filterModes" [(ngModel)]="filterMode" optionLabel="label" optionValue="value" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable #tt [value]="files" [columns]="cols" [filterMode]="filterMode" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="caption">
-                        <div class="flex justify-content-end align-items-center">
+                        <div class="flex justify-end items-center">
                             <div class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
                                 <input type="text" pInputText placeholder="Global Search" (input)="tt.filterGlobal($event.target.value, 'contains')" />
@@ -101,7 +101,7 @@ export class FilterDoc {
     [scrollable]="true" 
     [tableStyle]="{'min-width':'50rem'}">
         <ng-template pTemplate="caption">
-            <div class="flex justify-content-end align-items-center">
+            <div class="flex justify-end items-center">
                 <div class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input 
@@ -143,7 +143,7 @@ export class FilterDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <div class="flex justify-content-center mb-4">
+    <div class="flex justify-center mb-6">
         <p-selectButton 
             [options]="filterModes" 
             [(ngModel)]="filterMode" 
@@ -158,7 +158,7 @@ export class FilterDoc {
         [scrollable]="true" 
         [tableStyle]="{'min-width':'50rem'}">
             <ng-template pTemplate="caption">
-                <div class="flex justify-content-end align-items-center">
+                <div class="flex justify-end items-center">
                     <div class="p-input-icon-left">
                         <i class="pi pi-search"></i>
                         <input 

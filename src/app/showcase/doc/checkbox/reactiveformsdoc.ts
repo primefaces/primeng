@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Checkbox can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
         <div class="card">
-            <form [formGroup]="formGroup" class="flex align-items-center justify-content-center gap-1">
+            <form [formGroup]="formGroup" class="flex items-center justify-center gap-1">
                 <p-checkbox formControlName="city" value="New York" inputId="ny" />
                 <label for="ny">New York</label>
             </form>
@@ -27,7 +27,7 @@ export class ReactiveFormsDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<form class="flex align-items-center gap-1" [formGroup]="formGroup">
+        basic: `<form class="flex items-center gap-1" [formGroup]="formGroup">
     <p-checkbox 
         formControlName="city" 
         value="New York" 
@@ -36,7 +36,7 @@ export class ReactiveFormsDoc implements OnInit {
 </form>`,
 
         html: `<div class="card">
-    <form class="flex align-items-center gap-1" [formGroup]="formGroup">
+    <form class="flex items-center gap-1" [formGroup]="formGroup">
         <p-checkbox 
             formControlName="city" 
             value="New York" 

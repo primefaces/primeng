@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
         </div>
@@ -158,7 +158,7 @@ export class NestedDoc {
     (onClick)="save('info')" 
     [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-splitButton 
         label="Save" 

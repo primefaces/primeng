@@ -5,12 +5,12 @@ import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'size-doc',
-    template: ` <section class="py-4">
+    template: ` <section class="py-6">
         <app-docsectiontext>
             <p>In addition to a regular treetable, alternatives with alternative sizes are available. Add <i>p-treetable-sm</i> class to reduce the size of treetable or <i>p-treetable-lg</i> to enlarge it.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-content-center mb-3">
+            <div class="flex justify-center mb-4">
                 <p-selectButton [options]="sizes" [(ngModel)]="selectedSize" [multiple]="false" optionLabel="name" optionValue="class" />
             </div>
             <p-deferred-demo (load)="loadDemoData()">
@@ -59,7 +59,7 @@ export class SizeDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex justify-content-center mb-3">
+        basic: `<div class="flex justify-center mb-4">
     <p-selectButton 
         [options]="sizes" 
         [(ngModel)]="selectedSize" 
@@ -92,7 +92,7 @@ export class SizeDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <div class="flex justify-content-center mb-3">
+    <div class="flex justify-center mb-4">
         <p-selectButton 
             [options]="sizes" 
             [(ngModel)]="selectedSize" 

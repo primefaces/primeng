@@ -34,7 +34,7 @@ export class ScrollerDemo {
             component: HorizontalDoc
         },
         {
-            id: 'grid',
+            id: 'grid grid-cols-12 gap-4',
             label: 'Grid',
             component: GridDoc
         },

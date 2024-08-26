@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom content instead of a node <i>label</i> is defined using the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center overflow-x-auto">
+        <div class="card flex justify-center overflow-x-auto">
             <p-organizationChart [value]="data" [collapsible]="true">
                 <ng-template let-node pTemplate="default">
                     <div class="p-2 text-center">
@@ -82,7 +82,7 @@ export class TemplateDoc {
     </ng-template>
 </p-organizationChart>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-organizationChart [value]="data" [collapsible]="true">
         <ng-template let-node pTemplate="default">
             <div class="p-2 text-center">

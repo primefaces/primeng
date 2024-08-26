@@ -11,9 +11,9 @@ import { Code } from '@domain/code';
             <p-tabView styleClass="tabview-custom">
                 <p-tabPanel>
                     <ng-template pTemplate="header">
-                        <div class="flex align-items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold white-space-nowrap m-0">Amy Elsner</span>
+                            <span class="font-bold whitespace-nowrap m-0">Amy Elsner</span>
                         </div>
                     </ng-template>
                     <p>
@@ -23,9 +23,9 @@ import { Code } from '@domain/code';
                 </p-tabPanel>
                 <p-tabPanel header="Header II">
                     <ng-template pTemplate="header">
-                        <div class="flex align-items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" shape="circle" />
-                            <span class="font-bold white-space-nowrap m-0">Onyama Limba</span>
+                            <span class="font-bold whitespace-nowrap m-0">Onyama Limba</span>
                         </div>
                     </ng-template>
                     <p>
@@ -35,9 +35,9 @@ import { Code } from '@domain/code';
                 </p-tabPanel>
                 <p-tabPanel header="Header III">
                     <ng-template pTemplate="header">
-                        <div class="flex align-items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" shape="circle" />
-                            <span class="font-bold white-space-nowrap m-0">Ioni Bowcher</span>
+                            <span class="font-bold whitespace-nowrap m-0">Ioni Bowcher</span>
                             <p-badge value="2" />
                         </div>
                     </ng-template>
@@ -56,11 +56,11 @@ export class TemplateDoc {
         basic: `<p-tabView styleClass="tabview-custom">
     <p-tabPanel>
         <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                     shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
+                <span class="font-bold whitespace-nowrap m-0">
                     Amy Elsner
                 </span>
             </div>
@@ -71,11 +71,11 @@ export class TemplateDoc {
     </p-tabPanel>
     <p-tabPanel header="Header II">
         <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" 
                     shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
+                <span class="font-bold whitespace-nowrap m-0">
                     Onyama Limba
                 </span>
             </div>
@@ -86,11 +86,11 @@ export class TemplateDoc {
     </p-tabPanel>
     <p-tabPanel header="Header III">
         <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" 
                     shape="circle" />
-                <span class="font-bold white-space-nowrap m-0">
+                <span class="font-bold whitespace-nowrap m-0">
                     Ioni Bowcher
                 </span>
                 <p-badge value="2" />
@@ -106,11 +106,11 @@ export class TemplateDoc {
     <p-tabView styleClass="tabview-custom">
         <p-tabPanel>
             <ng-template pTemplate="header">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                         shape="circle" />
-                    <span class="font-bold white-space-nowrap m-0">
+                    <span class="font-bold whitespace-nowrap m-0">
                         Amy Elsner
                     </span>
                 </div>
@@ -121,11 +121,11 @@ export class TemplateDoc {
         </p-tabPanel>
         <p-tabPanel header="Header II">
             <ng-template pTemplate="header">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" 
                         shape="circle" />
-                    <span class="font-bold white-space-nowrap m-0">
+                    <span class="font-bold whitespace-nowrap m-0">
                         Onyama Limba
                     </span>
                 </div>
@@ -136,11 +136,11 @@ export class TemplateDoc {
         </p-tabPanel>
         <p-tabPanel header="Header III">
             <ng-template pTemplate="header">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" 
                         shape="circle" />
-                    <span class="font-bold white-space-nowrap m-0">
+                    <span class="font-bold whitespace-nowrap m-0">
                         Ioni Bowcher
                     </span>
                     <p-badge value="2" />

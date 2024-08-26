@@ -13,8 +13,8 @@ import { NodeService } from '@service/nodeservice';
             <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
         </app-docsectiontext>
         <app-code [code]="exampleCode" [hideToggleCode]="true"></app-code>
-        <div class="card flex justify-content-center">
-            <p-treeSelect class="w-full md:w-20rem" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
+        <div class="card flex justify-center">
+            <p-treeSelect class="w-full md:w-80" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" [metaKeySelection]="false" selectionMode="multiple" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-multiple-demo"></app-code>
     `
@@ -38,7 +38,7 @@ export class MultipleDoc {
 
     code: Code = {
         basic: `<p-treeSelect 
-    class="w-full md:w-20rem" 
+    class="w-full md:w-80" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
     [options]="nodes" 
@@ -46,9 +46,9 @@ export class MultipleDoc {
     selectionMode="multiple"
     placeholder="Select Item" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect 
-        class="w-full md:w-20rem" 
+        class="w-full md:w-80" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         [options]="nodes" 

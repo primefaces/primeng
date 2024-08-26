@@ -5,7 +5,7 @@ import { NodeService } from '@service/nodeservice';
 
 @Component({
     selector: 'gridlines-doc',
-    template: ` <section class="py-4">
+    template: ` <section class="py-6">
         <app-docsectiontext>
             <p>Adding <i>p-treetable-gridlines</i> class displays grid lines.</p>
         </app-docsectiontext>

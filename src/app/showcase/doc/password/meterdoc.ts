@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Strength meter is displayed as a popup while a value is being entered.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-password [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="password-meter-demo"></app-code>
@@ -19,7 +19,7 @@ export class MeterDoc {
     code: Code = {
         basic: `<p-password [(ngModel)]="value" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-password [(ngModel)]="value" />
 </div>`,
 

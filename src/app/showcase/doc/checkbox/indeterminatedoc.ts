@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>indeterminate</i> is present, the checkbox masks the actual value visually.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-3">
+        <div class="card flex justify-center gap-4">
             <p-checkbox [(ngModel)]="checked" [binary]="true" [indeterminate]="true" inputId="binary" />
         </div>
         <app-code [code]="code" selector="checkbox-indeterminate-demo"></app-code>
@@ -23,7 +23,7 @@ export class IndeterminateDoc {
     [indeterminate]="true"
     inputId="binary" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-checkbox 
         [(ngModel)]="checked" 
         [binary]="true"

@@ -8,8 +8,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-floatLabel class="md:w-20rem w-full">
+        <div class="card flex justify-center">
+            <p-floatLabel class="md:w-80 w-full">
                 <p-treeSelect containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
                 <label for="treeselect">Tree Select</label>
             </p-floatLabel>
@@ -27,7 +27,7 @@ export class FloatLabelDoc {
     }
 
     code: Code = {
-        basic: `<p-floatLabel class="md:w-20rem w-full">
+        basic: `<p-floatLabel class="md:w-80 w-full">
     <p-treeSelect 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
@@ -38,8 +38,8 @@ export class FloatLabelDoc {
     </label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-floatLabel class="md:w-20rem w-full">
+        html: `<div class="card flex justify-center">
+    <p-floatLabel class="md:w-80 w-full">
         <p-treeSelect 
             containerStyleClass="w-full" 
             [(ngModel)]="selectedNodes" 

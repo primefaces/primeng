@@ -8,10 +8,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom node content instead of a node label is defined with the <i>pTemplate</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree [value]="nodes" class="w-full md:w-30rem">
+        <div class="card flex justify-center">
+            <p-tree [value]="nodes" class="w-full md:w-[30rem]">
                 <ng-template let-node pTemplate="url">
-                    <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">{{ node.label }}</a>
+                    <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">{{ node.label }}</a>
                 </ng-template>
                 <ng-template let-node pTemplate="default">
                     <b>{{ node.label }}</b>
@@ -50,9 +50,9 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-tree [value]="nodes" class="w-full md:w-30rem">
+        basic: `<p-tree [value]="nodes" class="w-full md:w-[30rem]">
     <ng-template let-node pTemplate="url">
-        <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">
+        <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
             {{ node.label }}
         </a>
     </ng-template>
@@ -61,10 +61,10 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-tree>`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-tree [value]="nodes" class="w-full md:w-30rem">
+        html: `<div class="card flex justify-center">
+    <p-tree [value]="nodes" class="w-full md:w-[30rem]">
         <ng-template let-node pTemplate="url">
-            <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-700 hover:text-primary">
+            <a [href]="node.data" target="_blank" rel="noopener noreferrer" class="text-surface-700 dark:text-surface-100 hover:text-primary">
                {{ node.label }}
             </a>
         </ng-template>

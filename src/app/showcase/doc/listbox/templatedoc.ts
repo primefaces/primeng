@@ -12,10 +12,10 @@ interface Country {
         <app-docsectiontext>
             <p>Custom content for an option is displayed with the <i>pTemplate</i> property that takes an option as a parameter.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [listStyle]="{ 'max-height': '250px' }" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }">
                 <ng-template let-country pTemplate="item">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
@@ -54,7 +54,7 @@ export class TemplateDoc implements OnInit {
     [style]="{ width: '15rem' }" 
     [listStyle]="{'max-height': '220px'}">
         <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'flag flag-' + country.code.toLowerCase()" 
@@ -64,7 +64,7 @@ export class TemplateDoc implements OnInit {
         </ng-template>
 </p-listbox>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox 
         [options]="countries" 
         [(ngModel)]="selectedCountry" 
@@ -73,7 +73,7 @@ export class TemplateDoc implements OnInit {
         [style]="{ width: '15rem' }" 
         [listStyle]="{'max-height': '220px'}">
             <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + country.code.toLowerCase()" 

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Number of stars to display is defined with <i>stars</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-rating [(ngModel)]="value" [stars]="10" />
         </div>
         <app-code [code]="code" selector="rating-number-of-stars-demo"></app-code>
@@ -19,7 +19,7 @@ export class NumberOfStarsDoc {
     code: Code = {
         basic: `<p-rating [(ngModel)]="value" [stars]="10" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-rating [(ngModel)]="value" [stars]="10" />
 </div>`,
 

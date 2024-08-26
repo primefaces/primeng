@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Only one single root menuitem can be active by default, enable <i>multiple</i> property to be able to open more than one items.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-panelMenu [model]="items" styleClass="w-full md:w-20rem" [multiple]="true" />
+        <div class="card flex justify-center">
+            <p-panelMenu [model]="items" styleClass="w-full md:w-80" [multiple]="true" />
         </div>
         <app-code [code]="code" selector="panel-menu-multiple-demo"></app-code>
     `
@@ -101,7 +101,7 @@ export class MultipleDoc implements OnInit {
     code: Code = {
         basic: `<p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-panelMenu [model]="items" [style]="{'width':'300px'}" [multiple]="true" />
 </div>`,
 

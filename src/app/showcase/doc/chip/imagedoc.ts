@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The <i>image</i> property is used to display an image like an avatar.</p>
         </app-docsectiontext>
-        <div class="card flex align-items-center gap-2 flex-wrap">
+        <div class="card flex items-center gap-2 flex-wrap">
             <p-chip label="Amy Elsner" image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="Avatar image" />
             <p-chip label="Asiya Javayant" image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" alt="Avatar image" />
             <p-chip label="Onyama Limba" image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png" alt="Avatar image" />
@@ -22,7 +22,7 @@ export class ImageDoc {
     label="Amy Elsner" 
     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
     alt="Avatar image" />`,
-        html: `<div class="card flex align-items-center gap-2 flex-wrap">
+        html: `<div class="card flex items-center gap-2 flex-wrap">
     <p-chip 
         label="Amy Elsner" 
         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 

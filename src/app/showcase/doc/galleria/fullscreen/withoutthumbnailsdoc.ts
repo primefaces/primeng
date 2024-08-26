@@ -8,7 +8,7 @@ import { PhotoService } from '@service/photoservice';
         <app-docsectiontext>
             <p>Thumbnails can also be hidden in full screen mode.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
             <p-galleria
                 [(value)]="images"
@@ -76,7 +76,7 @@ export class WithoutThumbnailsDoc implements OnInit {
                 style="width: 100%; display: block;" />
         </ng-template>
 </p-galleria>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button 
     icon="pi pi-external-link" 
     label="Show" 

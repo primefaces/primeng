@@ -9,11 +9,11 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>An event is provided for each type of user interaction such as expand, collapse and selection.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-tree
                 [value]="files"
-                class="w-full md:w-30rem"
+                class="w-full md:w-[30rem]"
                 selectionMode="single"
                 [(selection)]="selectedFile"
                 (onNodeExpand)="nodeExpand($event)"
@@ -59,7 +59,7 @@ export class EventDoc implements OnInit {
     code: Code = {
         basic: `<p-tree 
     [value]="files" 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     selectionMode="single" 
     [(selection)]="selectedFile"
     (onNodeExpand)="nodeExpand($event)"
@@ -67,11 +67,11 @@ export class EventDoc implements OnInit {
     (onNodeSelect)="nodeSelect($event)"
     (onNodeUnselect)="nodeUnselect($event)" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-tree 
         [value]="files" 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         selectionMode="single" 
         [(selection)]="selectedFile"
         (onNodeExpand)="nodeExpand($event)" 

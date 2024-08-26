@@ -7,20 +7,20 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A font icon is displayed as an Avatar with the <i>icon</i> property.</p>
         </app-docsectiontext>
-        <div class="grid card grid-nogutter">
-            <div class="col-12 md:col-4">
+        <div class="grid grid-cols-12 gap-4 card grid-nogutter">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Icon</h5>
                 <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" />
                 <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" />
                 <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Icon - Circle</h5>
                 <p-avatar icon="pi pi-user" styleClass="mr-2" size="xlarge" shape="circle" />
                 <p-avatar icon="pi pi-user" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
                 <p-avatar icon="pi pi-user" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Badge</h5>
                 <p-avatar icon="pi pi-user" pBadge value="4" size="xlarge" badgeSize="large" />
             </div>
@@ -66,7 +66,7 @@ export class IconDoc {
     value="4" 
     size="xlarge"
     badgeSize="large" />`,
-        html: `<div class="col-12 md:col-4">
+        html: `<div class="col-span-12 md:col-span-4">
         <h5>Icon</h5>
         <p-avatar 
             icon="pi pi-user" 
@@ -82,7 +82,7 @@ export class IconDoc {
             styleClass="mr-2" 
             [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
     </div>
-    <div class="col-12 md:col-4">
+    <div class="col-span-12 md:col-span-4">
         <h5>Icon - Circle</h5>
         <p-avatar 
             icon="pi pi-user" 
@@ -101,7 +101,7 @@ export class IconDoc {
             [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
             shape="circle" />
     </div>
-    <div class="col-12 md:col-4">
+    <div class="col-span-12 md:col-span-4">
         <h5>Badge</h5>
         <p-avatar 
             icon="pi pi-user" 

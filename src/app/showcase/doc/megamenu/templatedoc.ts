@@ -9,9 +9,9 @@ import { Code } from '@domain/code';
             <p>Custom content can be placed between p-megaMenu tags. Megamenu should be <i>horizontal</i> for custom content.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-3 surface-0">
+            <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
                 <ng-template pTemplate="start">
-                    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-2rem">
+                    <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                         <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color-text)" />
@@ -42,20 +42,20 @@ import { Code } from '@domain/code';
                     </svg>
                 </ng-template>
                 <ng-template pTemplate="item" let-item>
-                    <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+                    <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
                         <i [ngClass]="item.icon"></i>
                         <span class="ml-2">{{ item.label }}</span>
                     </a>
-                    <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
-                        <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
+                    <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
+                        <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
                             <i [ngClass]="item.icon + ' text-lg'"></i>
                         </span>
-                        <span class="inline-flex flex-column gap-1">
-                            <span class="font-medium text-lg text-900">{{ item.label }}</span>
-                            <span class="white-space-nowrap">{{ item.subtext }}</span>
+                        <span class="inline-flex flex-col gap-1">
+                            <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
+                            <span class="whitespace-nowrap">{{ item.subtext }}</span>
                         </span>
                     </a>
-                    <div *ngIf="item.image" class="flex flex-column align-items-start gap-3">
+                    <div *ngIf="item.image" class="flex flex-col items-start gap-4">
                         <img [src]="item.image" alt="megamenu-demo" class="w-full" />
                         <span>{{ item.subtext }}</span>
                         <p-button [label]="item.label" [outlined]="true"></p-button>
@@ -124,9 +124,9 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-3 surface-0">
+        basic: `<p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
     <ng-template pTemplate="start">
-        <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-2rem">
+        <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
             <path d="..." fill="var(--primary-color)" />
             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                 <path d="..." fill="var(--primary-color-text)" />
@@ -157,20 +157,20 @@ export class TemplateDoc implements OnInit {
         </svg>
     </ng-template>
     <ng-template pTemplate="item" let-item>
-        <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+        <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
             <i [ngClass]="item.icon"></i>
             <span class="ml-2">{{ item.label }}</span>
         </a>
-        <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
-            <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
+        <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
+            <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
                 <i [ngClass]="item.icon + ' text-lg'"></i>
             </span>
-            <span class="inline-flex flex-column gap-1">
-                <span class="font-medium text-lg text-900">{{ item.label }}</span>
-                <span class="white-space-nowrap">{{ item.subtext }}</span>
+            <span class="inline-flex flex-col gap-1">
+                <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
+                <span class="whitespace-nowrap">{{ item.subtext }}</span>
             </span>
         </a>
-        <div *ngIf="item.image" class="flex flex-column align-items-start gap-3">
+        <div *ngIf="item.image" class="flex flex-col items-start gap-4">
             <img [src]="item.image" alt="megamenu-demo" class="w-full" />
             <span>{{ item.subtext }}</span>
             <p-button [label]="item.label" [outlined]="true"></p-button>
@@ -182,9 +182,9 @@ export class TemplateDoc implements OnInit {
 </p-megaMenu>`,
 
         html: `<div class="card">
-    <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-3 surface-0">
+    <p-megaMenu [model]="items" [style]="{ 'border-radius': '3rem', display: 'flex' }" styleClass="p-4 bg-surface-0 dark:bg-surface-900">
         <ng-template pTemplate="start">
-            <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-2rem">
+            <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8">
                 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                 <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color-text)" />
@@ -215,20 +215,20 @@ export class TemplateDoc implements OnInit {
             </svg>
         </ng-template>
         <ng-template pTemplate="item" let-item>
-            <a *ngIf="item.root" pRipple class="flex align-items-center cursor-pointer px-3 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
+            <a *ngIf="item.root" pRipple class="flex items-center cursor-pointer px-4 py-2 overflow-hidden relative font-semibold text-lg uppercase" style="border-radius: 2rem">
                 <i [ngClass]="item.icon"></i>
                 <span class="ml-2">{{ item.label }}</span>
             </a>
-            <a *ngIf="!item.root && !item.image" class="flex align-items-center p-3 cursor-pointer mb-2 gap-2">
-                <span class="inline-flex align-items-center justify-content-center border-circle bg-primary w-3rem h-3rem">
+            <a *ngIf="!item.root && !item.image" class="flex items-center p-4 cursor-pointer mb-2 gap-2">
+                <span class="inline-flex items-center justify-center rounded-full bg-primary text-primary-contrast w-12 h-12">
                     <i [ngClass]="item.icon + ' text-lg'"></i>
                 </span>
-                <span class="inline-flex flex-column gap-1">
-                    <span class="font-medium text-lg text-900">{{ item.label }}</span>
-                    <span class="white-space-nowrap">{{ item.subtext }}</span>
+                <span class="inline-flex flex-col gap-1">
+                    <span class="font-medium text-lg text-surface-900 dark:text-surface-0">{{ item.label }}</span>
+                    <span class="whitespace-nowrap">{{ item.subtext }}</span>
                 </span>
             </a>
-            <div *ngIf="item.image" class="flex flex-column align-items-start gap-3">
+            <div *ngIf="item.image" class="flex flex-col items-start gap-4">
                 <img [src]="item.image" alt="megamenu-demo" class="w-full" />
                 <span>{{ item.subtext }}</span>
                 <p-button [label]="item.label" [outlined]="true"></p-button>

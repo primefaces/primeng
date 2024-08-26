@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Tooltip is hidden when mouse leaves the target element, in cases where tooltip needs to be interacted with, set <i>autoHide</i> to false to change the default behavior.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-2">
+        <div class="card flex flex-wrap justify-center gap-2">
             <input type="text" pInputText pTooltip="Enter your username" [autoHide]="false" placeholder="autoHide: false" />
             <input type="text" pInputText pTooltip="Enter your username" placeholder="autoHide: true" />
         </div>
@@ -28,7 +28,7 @@ export class AutoHideDoc {
     pTooltip="Enter your username" 
     placeholder="autoHide: true" />`,
 
-        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+        html: `<div class="card flex flex-wrap justify-center gap-2">
     <input 
         type="text" 
         pInputText 

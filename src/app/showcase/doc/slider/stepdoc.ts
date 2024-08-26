@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Size of each movement is defined with the <i>step</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-slider [(ngModel)]="value" [step]="20" />
         </div>
         <app-code [code]="code" selector="slider-step-demo"></app-code>
@@ -19,7 +19,7 @@ export class StepDoc {
     code: Code = {
         basic: `<p-slider [(ngModel)]="value" [step]="20" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-slider [(ngModel)]="value" [step]="20" />
 </div>`,
 

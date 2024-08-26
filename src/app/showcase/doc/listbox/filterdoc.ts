@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>ListBox provides built-in filtering that is enabled by adding the <i>filter</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [filter]="true" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-filter-demo"></app-code>
@@ -42,7 +42,7 @@ export class FilterDoc implements OnInit {
     [style]="{ width: '15rem' }" 
     [listStyle]="{'max-height': '220px'}" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox 
         [options]="cities" 
         [(ngModel)]="selectedCity" 

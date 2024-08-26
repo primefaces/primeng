@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>TimeLine orientation is controlled with the <i>layout</i> property, default is <i>vertical</i> having <i>horizontal</i> as the alternative.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3">
+        <div class="card flex flex-col gap-4">
             <p-timeline [value]="events" layout="horizontal" align="top">
                 <ng-template pTemplate="content" let-event>
                     {{ event }}
@@ -57,7 +57,7 @@ export class HorizontalDoc {
     </ng-template>
 </p-timeline>`,
 
-        html: `<div class="card flex flex-column gap-3">
+        html: `<div class="card flex flex-col gap-4">
     <p-timeline [value]="events" layout="horizontal" align="top">
         <ng-template pTemplate="content" let-event>
             {{ event }}

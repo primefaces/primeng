@@ -13,12 +13,12 @@ import { NodeService } from '@service/nodeservice';
             </p>
             <p>In multiple selection mode, value binding should be a key-value pair where key is the node key and value is a boolean to indicate selection.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center justify-content-center">
-            <div class="flex align-items-center mb-4 gap-2">
+        <div class="card flex flex-col items-center justify-center">
+            <div class="flex items-center mb-6 gap-2">
                 <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
                 <label for="input-metakey">MetaKey</label>
             </div>
-            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-30rem" selectionMode="multiple" [(selection)]="selectedFiles" />
+            <p-tree [metaKeySelection]="metaKeySelection" [value]="files" class="w-full md:w-[30rem]" selectionMode="multiple" [(selection)]="selectedFiles" />
         </div>
         <app-code [code]="code" selector="tree-multiple-demo"></app-code>
     `
@@ -37,26 +37,26 @@ export class MultipleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="flex align-items-center mb-4 gap-2">
+        basic: `<div class="flex items-center mb-6 gap-2">
     <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
     <label for="input-metakey">MetaKey</label>
 </div>
 <p-tree 
     [metaKeySelection]="metaKeySelection" 
     [value]="files" 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     selectionMode="multiple" 
     [(selection)]="selectedFiles" />`,
 
-        html: `<div class="card flex flex-column align-items-center justify-content-center">
-    <div class="flex align-items-center mb-4 gap-2">
+        html: `<div class="card flex flex-col items-center justify-center">
+    <div class="flex items-center mb-6 gap-2">
         <p-inputSwitch inputId="input-metakey" [(ngModel)]="metaKeySelection" />
         <label for="input-metakey">MetaKey</label>
     </div>
     <p-tree 
         [metaKeySelection]="metaKeySelection" 
         [value]="files" 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         selectionMode="multiple" 
         [(selection)]="selectedFiles" />
 </div>`,

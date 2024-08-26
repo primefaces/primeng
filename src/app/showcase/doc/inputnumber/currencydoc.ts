@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 "code".
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="currency-us">United States</label>
                 <p-inputNumber [(ngModel)]="value1" inputId="currency-us" mode="currency" currency="USD" locale="en-US" />
@@ -71,7 +71,7 @@ export class CurrencyDoc {
     locale="jp-JP" /> `,
 
         html: `
-<div class="card flex flex-wrap gap-3 p-fluid">
+<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="currency-us">
             United States

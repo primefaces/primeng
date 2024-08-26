@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Define a template with your own UI elements with bindings to the provided events and attributes to replace the default design.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-inputOtp [(ngModel)]="value">
                 <ng-template pTemplate="input" let-token let-events="events">
                     <input pInputText class="custom-otp-input" (keydown)="events.keydown($event)" (input)="events.input($event)" type="text" [attr.value]="token" [maxLength]="1" />
@@ -56,7 +56,7 @@ export class TemplateDoc {
     </ng-template>
 </p-inputOtp>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-inputOtp [(ngModel)]="value">
         <ng-template pTemplate="input" let-token let-events="events">
             <input 

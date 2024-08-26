@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>ProgressSpinner can be customized with styling property like <i>styleClass</i>, <i>strokeWidth</i> and <i>fill</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
+        <div class="card flex justify-center">
+            <p-progressSpinner styleClass="w-16 h-16" strokeWidth="8" fill="var(--surface-ground)" animationDuration=".5s" />
         </div>
         <app-code [code]="code" selector="progress-spinner-custom-demo"></app-code>
     `
@@ -20,13 +20,13 @@ export class CustomDoc {
 
     code: Code = {
         basic: `<p-progressSpinner 
-    styleClass="w-4rem h-4rem" 
+    styleClass="w-16 h-16" 
     strokeWidth="8" 
     fill="var(--surface-ground)" 
     animationDuration=".5s" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-progressSpinner 
-        styleClass="w-4rem h-4rem" 
+        styleClass="w-16 h-16" 
         strokeWidth="8" 
         fill="var(--surface-ground)" 
         animationDuration=".5s" />

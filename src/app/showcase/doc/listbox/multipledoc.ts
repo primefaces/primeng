@@ -15,7 +15,7 @@ interface City {
                 to be present.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox [options]="cities" [(ngModel)]="selectedCities" optionLabel="name" [style]="{ width: '15rem' }" [multiple]="true" [metaKeySelection]="false" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-multiple-demo"></app-code>
@@ -46,7 +46,7 @@ export class MultipleDoc implements OnInit {
     [metaKeySelection]="false" 
     [listStyle]="{'max-height': '220px'}" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox 
         [options]="cities" 
         [(ngModel)]="selectedCities" 

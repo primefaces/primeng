@@ -13,7 +13,7 @@ interface PageEvent {
     template: `
         <app-docsectiontext>
             <p>Current page report item in the template displays information about the pagination state. Default value is ({{ '{' }}currentPage{{ '}' }} of {{ '{' }}totalPages{{ '}' }}) whereas available placeholders are the following;</p>
-            <ul class="mb-4 line-height-4">
+            <ul class="mb-6 leading-loose">
                 <li>{{ '{' }}currentPage{{ '}' }}</li>
                 <li>{{ '{' }}totalPages{{ '}' }}</li>
                 <li>{{ '{' }}rows{{ '}' }}</li>
@@ -22,7 +22,7 @@ interface PageEvent {
                 <li>{{ '{' }}totalRecords{{ '}' }}</li>
             </ul>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-paginator
                 (onPageChange)="onPageChange($event)"
                 [first]="first"
@@ -58,7 +58,7 @@ export class CurrentPageReportDoc {
     [showJumpToPageDropdown]="false"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-paginator
         (onPageChange)="onPageChange($event)"
         [first]="first"

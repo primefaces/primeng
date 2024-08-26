@@ -8,11 +8,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Scrolling to a specific index can be done with the <i>scrollToIndex</i> function.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center gap-3">
+        <div class="card flex flex-col items-center gap-4">
             <p-button label="Reset" (click)="reset()" />
-            <p-scroller #sc [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border-1 surface-border" [style]="{ width: '200px', height: '200px' }">
+            <p-scroller #sc [items]="items" [itemSize]="50" scrollHeight="200px" styleClass="border border-surface" [style]="{ width: '200px', height: '200px' }">
                 <ng-template pTemplate="item" let-item let-options="options">
-                    <div class="flex align-items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
+                    <div class="flex items-center p-2" [ngClass]="{ 'surface-ground': options.odd }" style="height: 50px;">{{ item }}</div>
                 </ng-template>
             </p-scroller>
         </div>
@@ -38,11 +38,11 @@ export class ProgrammaticDoc implements OnInit {
     #sc [items]="items" 
     [itemSize]="50" 
     scrollHeight="200px" 
-    styleClass="border-1 surface-border" 
+    styleClass="border border-surface" 
     [style]="{'width': '200px', 'height': '200px'}">
         <ng-template pTemplate="item" let-item let-options="options">
             <div 
-                class="flex align-items-center p-2" 
+                class="flex items-center p-2" 
                 [ngClass]="{ 'surface-ground': options.odd }" 
                 style="height: 50px;">
                     {{ item }}
@@ -50,18 +50,18 @@ export class ProgrammaticDoc implements OnInit {
         </ng-template>
 </p-scroller>`,
 
-        html: `<div class="card flex flex-column align-items-center gap-3">
+        html: `<div class="card flex flex-col items-center gap-4">
     <p-button label="Reset" (click)="reset()" />
     <p-scroller 
         #sc 
         [items]="items" 
         [itemSize]="50" 
         scrollHeight="200px" 
-        styleClass="border-1 surface-border" 
+        styleClass="border border-surface" 
         [style]="{'width': '200px', 'height': '200px'}">
             <ng-template pTemplate="item" let-item let-options="options">
                 <div 
-                class="flex align-items-center p-2" 
+                class="flex items-center p-2" 
                 [ngClass]="{ 'surface-ground': options.odd }" 
                 style="height: 50px;">
                     {{ item }}

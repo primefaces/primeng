@@ -8,14 +8,14 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>TieredMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-tieredMenu [model]="items">
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-                    <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+                    <a pRipple class="flex items-center p-tieredmenu-item-link">
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
                     </a>
                 </ng-template>
@@ -112,11 +112,11 @@ export class TemplateDoc implements OnInit {
     code: Code = {
         basic: `<p-tieredMenu [model]="items">
     <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-    <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+    <a pRipple class="flex items-center p-tieredmenu-item-link">
     <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
                 {{ item.shortcut }}
             </span>
             <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
@@ -124,14 +124,14 @@ export class TemplateDoc implements OnInit {
     </ng-template>
 </p-tieredMenu>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tieredMenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
-        <a pRipple class="flex align-items-center p-tieredmenu-item-link">
+        <a pRipple class="flex items-center p-tieredmenu-item-link">
         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
                     {{ item.shortcut }}
                 </span>
                 <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>

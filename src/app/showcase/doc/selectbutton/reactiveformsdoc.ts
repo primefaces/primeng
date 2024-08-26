@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>SelectButton can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <form [formGroup]="formGroup">
                 <p-selectButton [options]="stateOptions" formControlName="value" optionLabel="label" optionValue="value" />
             </form>
@@ -39,7 +39,7 @@ export class ReactiveFormsDoc implements OnInit {
         optionValue="value" />
 </form>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
         <p-selectButton 
             [options]="stateOptions" 

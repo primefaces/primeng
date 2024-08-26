@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-multiSelect [options]="cities" [(ngModel)]="selectedCities" [disabled]="true" optionLabel="name" placeholder="Select Cities" />
         </div>
         <app-code [code]="code" selector="multi-select-disabled-demo"></app-code>
@@ -40,7 +40,7 @@ export class DisabledDoc implements OnInit {
         [disabled]="true" 
         optionLabel="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-multiSelect 
         [options]="cities" 
         [(ngModel)]="selectedCities" 

@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 present, and the menu button is disabled when <i>menuButtonDisabled</i> is present.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-splitButton label="Save" icon="pi pi-plus" (onClick)="save('info')" [model]="items" [disabled]="true" />
         </div>
@@ -62,7 +62,7 @@ export class DisabledDoc {
     [model]="items" 
     [disabled]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-splitButton 
         label="Save" 
@@ -72,7 +72,7 @@ export class DisabledDoc {
         [disabled]="true" />
 </div>
 
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-toast />
     <p-splitButton 
         label="Save" 
@@ -82,7 +82,7 @@ export class DisabledDoc {
         [menuButtonDisabled]="true" />
 </div>
 
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-toast />
     <p-splitButton 
         label="Save"

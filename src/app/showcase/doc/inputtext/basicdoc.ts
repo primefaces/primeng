@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputText is used as a controlled input with <i>ngModel</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <input type="text" pInputText [(ngModel)]="value" />
         </div>
         <app-code [code]="code" selector="input-text-basic-demo"></app-code>
@@ -19,7 +19,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<input type="text" pInputText [(ngModel)]="value" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <input type="text" pInputText [(ngModel)]="value" />
 </div>`,
 

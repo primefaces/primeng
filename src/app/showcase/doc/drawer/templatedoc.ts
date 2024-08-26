@@ -7,10 +7,10 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Drawer is customizable by <i>header</i>, <i>content</i>, <i>footer</i> templates.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-drawer [(visible)]="visible">
                 <ng-template pTemplate="header">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
@@ -31,7 +31,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-drawer [(visible)]="visible">
     <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
             <p-avatar 
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                 shape="circle" />
@@ -46,10 +46,10 @@ export class TemplateDoc {
 </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-plus" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-drawer [(visible)]="visible">
         <ng-template pTemplate="header">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                     shape="circle" />

@@ -8,7 +8,7 @@ import { TagModule } from 'primeng/tag';
 @Component({
     selector: '[app-menuitem]',
     template: `
-        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="slidedown" leaveToClass="hidden" leaveActiveClass="slideup">
+        <button *ngIf="root && item.children" pButton type="button" class="px-link" pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-slidedown" leaveToClass="hidden" leaveActiveClass="animate-slideup">
             <div class="menu-icon">
                 <i [ngClass]="item.icon"></i>
             </div>
@@ -30,7 +30,7 @@ import { TagModule } from 'primeng/tag';
             <p-tag *ngIf="item.badge" [value]="item.badge" />
         </a>
         <span *ngIf="!root && item.children" class="menu-child-category">{{ item.name }}</span>
-        <div *ngIf="item.children" class="overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
+        <div *ngIf="item.children" class="overflow-y-hidden transition-all duration-[400ms] ease-in-out" [ngClass]="{ hidden: item.children && root && isActiveRootMenuItem(item) }">
             <ol>
                 <li *ngFor="let child of item.children" app-menuitem [root]="false" [item]="child"></li>
             </ol>

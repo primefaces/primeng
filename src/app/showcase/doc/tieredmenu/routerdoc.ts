@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a router link component, an external link or programmatic navigation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-tieredMenu [model]="items">
                 <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
                     <ng-container *ngIf="item.route; else withoutRoute">
@@ -113,7 +113,7 @@ export class RouterDoc implements OnInit {
         </ng-template>
 </p-tieredMenu>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tieredMenu [model]="items">
         <ng-template pTemplate="item" let-item let-hasSubmenu="hasSubmenu">
             <ng-container *ngIf="item.route; else withoutRoute">

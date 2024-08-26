@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Only one tab at a time can be active by default, enabling <i>multiple</i> property changes this behavior to allow multiple tabs. In this case <i>activeIndex</i> needs to be an array.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-accordion [multiple]="true" [activeIndex]="[0]">
                 <p-accordionTab header="Header I">
                     <p>
@@ -52,7 +52,7 @@ export class MultipleDoc {
     </p-accordionTab>
 </p-accordion>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-accordion [multiple]="true" [activeIndex]="[0]">
         <p-accordionTab header="Header I">
             <p>

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Localization information such as grouping and decimal symbols are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
                 <p-inputNumber [(ngModel)]="value1" inputId="locale-user" [minFractionDigits]="2" />
@@ -64,7 +64,7 @@ export class LocaleDoc {
     locale="en-IN" 
     [minFractionDigits]="2" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label class="block font-bold mb-2" for="locale-user">
             User Locale

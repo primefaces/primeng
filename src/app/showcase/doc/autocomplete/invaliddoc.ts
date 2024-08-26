@@ -11,7 +11,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" class="ng-invalid ng-dirty" (completeMethod)="search($event)" />
         </div>
         <app-code [code]="code" selector="autocomplete-invalid-demo"></app-code>`
@@ -34,7 +34,7 @@ export class InvalidDoc {
     [suggestions]="suggestions" 
     (completeMethod)="search($event)" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         class="ng-invalid ng-dirty" 
         [(ngModel)]="selectedItem" 

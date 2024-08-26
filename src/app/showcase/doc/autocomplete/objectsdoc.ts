@@ -15,7 +15,7 @@ interface AutoCompleteCompleteEvent {
                 Country object that has name and code fields such as <i>&#123;name: "United States", code:"USA"&#125;</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedCountry" placeholder="Search" [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" />
         </div>
         <app-code [code]="code" selector="autocomplete-objects-demo"></app-code>`
@@ -56,7 +56,7 @@ export class ObjectsDoc implements OnInit {
     (completeMethod)="filterCountry($event)" 
     field="name" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         [(ngModel)]="selectedCountry" 
         [suggestions]="filteredCountries" 

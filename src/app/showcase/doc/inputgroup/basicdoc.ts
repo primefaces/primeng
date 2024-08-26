@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>An InputGroup is created by wrapping the add-ons inside the <i>p-inputGroup</i> element.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:flex-row gap-3">
+        <div class="card flex flex-col md:flex-row gap-4">
             <p-inputGroup>
                 <p-inputGroupAddon>
                     <i class="pi pi-user"></i>
@@ -45,7 +45,7 @@ export class BasicDoc {
     <input type="text" pInputText placeholder="Website" />
 </p-inputGroup>`,
 
-        html: `<div class="card flex flex-column md:flex-row gap-3">
+        html: `<div class="card flex flex-col md:flex-row gap-4">
     <p-inputGroup>
         <p-inputGroupAddon>
             <i class="pi pi-user"></i>

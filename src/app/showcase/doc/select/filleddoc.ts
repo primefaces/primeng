@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>Specify the <i>variant</i> property as <i>filled</i> to display the component with a higher visual emphasis than the default <i>outlined</i> style.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" variant="filled" optionLabel="name" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="select-filled-demo"></app-code>
@@ -41,7 +41,7 @@ export class FilledDoc implements OnInit {
     optionLabel="name" 
     placeholder="Select a City" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity"

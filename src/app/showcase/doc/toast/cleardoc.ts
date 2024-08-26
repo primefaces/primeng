@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 calling it with a key, removes the messages displayed on a toast having the same key.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast key="myKey" />
             <p-button pRipple (click)="show()" label="Show" />
             <p-button pRipple (click)="clear()" label="Clear" severity="secondary" />
@@ -42,7 +42,7 @@ export class ClearDoc {
     (click)="clear()" 
     label="Clear" 
     severity="secondary" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast key="myKey" />
     <p-button 
         pRipple 

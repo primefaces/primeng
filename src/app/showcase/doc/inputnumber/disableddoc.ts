@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-inputNumber inputId="integeronly" [disabled]="true" prefix="%" [(ngModel)]="value1" />
         </div>
         <app-code [code]="code" selector="input-number-disabled-demo"></app-code>
@@ -23,7 +23,7 @@ export class DisabledDoc {
     prefix="%" 
     [(ngModel)]="value1" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-inputNumber 
         inputId="integeronly" 
         [disabled]="true" 

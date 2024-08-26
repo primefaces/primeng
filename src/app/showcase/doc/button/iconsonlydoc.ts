@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Buttons can have icons without labels.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" />
                 <p-button icon="pi pi-bookmark" severity="secondary" />
                 <p-button icon="pi pi-search" severity="success" />
@@ -17,7 +17,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-heart" severity="help" />
                 <p-button icon="pi pi-times" severity="danger" />
             </div>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" />
                 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
                 <p-button icon="pi pi-search" [rounded]="true" severity="success" />
@@ -26,7 +26,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
             </div>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
                 <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
                 <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
@@ -35,7 +35,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
                 <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
             </div>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
                 <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary " />
                 <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success " />
@@ -44,7 +44,7 @@ import { Code } from '@domain/code';
                 <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help " />
                 <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger " />
             </div>
-            <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+            <div class="flex justify-center flex-wrap gap-4 mb-6">
                 <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
                 <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary " />
                 <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success " />
@@ -100,7 +100,7 @@ export class IconOnlyDoc {
 <p-button icon="pi pi-times" [rounded]="true" [text]="true" severity="danger " />`,
 
         html: `<div class="card">
-    <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+    <div class="flex justify-center flex-wrap gap-4 mb-6">
         <p-button icon="pi pi-check" />
         <p-button icon="pi pi-bookmark" severity="secondary" />
         <p-button icon="pi pi-search" severity="success" />
@@ -109,7 +109,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-heart" severity="help" />
         <p-button icon="pi pi-times" severity="danger" />
     </div>
-    <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+    <div class="flex justify-center flex-wrap gap-4 mb-6">
         <p-button icon="pi pi-check" [rounded]="true" />
         <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" />
         <p-button icon="pi pi-search" [rounded]="true" severity="success" />
@@ -118,7 +118,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-heart" [rounded]="true" severity="help" />
         <p-button icon="pi pi-times" [rounded]="true" severity="danger" />
     </div>
-    <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+    <div class="flex justify-center flex-wrap gap-4 mb-6">
         <p-button icon="pi pi-check" [rounded]="true" [outlined]="true" />
         <p-button icon="pi pi-bookmark" [rounded]="true" severity="secondary" [outlined]="true" />
         <p-button icon="pi pi-search" [rounded]="true" severity="success" [outlined]="true" />
@@ -127,7 +127,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-heart" [rounded]="true" severity="help" [outlined]="true" />
         <p-button icon="pi pi-times" [rounded]="true" severity="danger" [outlined]="true" />
     </div>
-    <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+    <div class="flex justify-center flex-wrap gap-4 mb-6">
         <p-button icon="pi pi-check" [rounded]="true" [text]="true" [raised]="true" />
         <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" [raised]="true" severity="secondary " />
         <p-button icon="pi pi-search" [rounded]="true" [text]="true" [raised]="true" severity="success " />
@@ -136,7 +136,7 @@ export class IconOnlyDoc {
         <p-button icon="pi pi-heart" [rounded]="true" [text]="true" [raised]="true" severity="help " />
         <p-button icon="pi pi-times" [rounded]="true" [text]="true" [raised]="true" severity="danger " />
     </div>
-    <div class="flex justify-content-center flex-wrap gap-3 mb-4">
+    <div class="flex justify-center flex-wrap gap-4 mb-6">
         <p-button icon="pi pi-check" [rounded]="true" [text]="true" />
         <p-button icon="pi pi-bookmark" [rounded]="true" [text]="true" severity="secondary " />
         <p-button icon="pi pi-search" [rounded]="true" [text]="true" severity="success " />

@@ -9,19 +9,19 @@ import { ProductService } from '@service/productservice';
         <app-docsectiontext>
             <p>OrderList is used as a controlled input with <i>value</i> properties. Content of a list item needs to be defined with the <i>pTemplate</i> property that receives an object in the list as parameter.</p>
         </app-docsectiontext>
-        <div class="card xl:flex xl:justify-content-center">
+        <div class="card xl:flex xl:justify-center">
             <p-orderList [value]="products" [listStyle]="{ height: '25rem' }" header="List of Products">
                 <ng-template let-product pTemplate="item">
-                    <div class="flex flex-wrap p-2 align-items-center gap-3">
-                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-4rem shadow-2 flex-shrink-0 border-round" />
-                        <div class="flex-1 flex flex-column gap-2">
+                    <div class="flex flex-wrap p-2 items-center gap-4">
+                        <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-16 shadow shrink-0 rounded-border" />
+                        <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex align-items-center gap-2">
+                            <div class="flex items-center gap-2">
                                 <i class="pi pi-tag text-sm"></i>
                                 <span>{{ product.category }}</span>
                             </div>
                         </div>
-                        <span class="font-bold text-900">{{ '$' + product.price }}</span>
+                        <span class="font-bold text-surface-900 dark:text-surface-0">{{ '$' + product.price }}</span>
                     </div>
                 </ng-template>
             </p-orderList>
@@ -61,48 +61,48 @@ export class BasicDoc implements OnInit {
     [listStyle]="{ height: '25rem' }" 
     header="List of Products">
         <ng-template let-product pTemplate="item">
-            <div class="flex flex-wrap p-2 align-items-center gap-3">
+            <div class="flex flex-wrap p-2 items-center gap-4">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                     [alt]="product.name" 
-                    class="w-4rem shadow-2 flex-shrink-0 border-round" />
-                        <div class="flex-1 flex flex-column gap-2">
+                    class="w-16 shadow shrink-0 rounded-border" />
+                        <div class="flex-1 flex flex-col gap-2">
                             <span class="font-bold">{{ product.name }}</span>
-                            <div class="flex align-items-center gap-2">
+                            <div class="flex items-center gap-2">
                                 <i class="pi pi-tag text-sm"></i>
                                 <span>
                                     {{ product.category }}
                                 </span>
                             </div>
                         </div>
-                <span class="font-bold text-900">
+                <span class="font-bold text-surface-900 dark:text-surface-0">
                     {{ '$' + product.price }}
                 </span>
             </div>
         </ng-template>
 </p-orderList>`,
 
-        html: `<div class="card xl:flex xl:justify-content-center">
+        html: `<div class="card xl:flex xl:justify-center">
     <p-orderList 
         [value]="products" 
         [listStyle]="{ height: '25rem' }" 
         header="List of Products">
             <ng-template let-product pTemplate="item">
-                <div class="flex flex-wrap p-2 align-items-center gap-3">
+                <div class="flex flex-wrap p-2 items-center gap-4">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                         [alt]="product.name" 
-                        class="w-4rem shadow-2 flex-shrink-0 border-round" />
-                            <div class="flex-1 flex flex-column gap-2">
+                        class="w-16 shadow shrink-0 rounded-border" />
+                            <div class="flex-1 flex flex-col gap-2">
                                 <span class="font-bold">{{ product.name }}</span>
-                                <div class="flex align-items-center gap-2">
+                                <div class="flex items-center gap-2">
                                     <i class="pi pi-tag text-sm"></i>
                                     <span>
                                         {{ product.category }}
                                     </span>
                                 </div>
                             </div>
-                    <span class="font-bold text-900">
+                    <span class="font-bold text-surface-900 dark:text-surface-0">
                         {{ '$' + product.price }}
                     </span>
                 </div>

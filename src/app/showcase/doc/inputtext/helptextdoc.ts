@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>An advisory text can be defined with the semantic <i>small</i> tag.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <div class="flex flex-column gap-2">
+        <div class="card flex justify-center">
+            <div class="flex flex-col gap-2">
                 <label for="username">Username</label>
                 <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="value" />
                 <small id="username-help">Enter your username to reset your password.</small>
@@ -21,7 +21,7 @@ export class HelpTextDoc {
     value: string | undefined;
 
     code: Code = {
-        basic: `<div class="flex flex-column gap-2">
+        basic: `<div class="flex flex-col gap-2">
     <label for="username">Username</label>
     <input 
         pInputText 
@@ -33,8 +33,8 @@ export class HelpTextDoc {
     </small>
 </div>`,
 
-        html: `<div class="card flex justify-content-center">
-    <div class="flex flex-column gap-2">
+        html: `<div class="card flex justify-center">
+    <div class="flex flex-col gap-2">
         <label for="username">Username</label>
         <input 
             pInputText

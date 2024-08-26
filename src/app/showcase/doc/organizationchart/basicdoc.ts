@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>OrganizationChart requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center overflow-x-auto">
+        <div class="card flex justify-center overflow-x-auto">
             <p-organizationChart [value]="data" />
         </div>
         <app-code [code]="code" selector="organization-chart-basic-doc"></app-code>
@@ -51,7 +51,7 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-organizationChart [value]="data" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-organizationChart [value]="data" />
 </div>`,
 

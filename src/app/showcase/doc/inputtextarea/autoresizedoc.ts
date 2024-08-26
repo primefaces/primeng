@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>autoResize</i> is enabled, textarea grows instead of displaying a scrollbar.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <textarea rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
         </div>
         <app-code [code]="code" selector="input-textarea-auto-resize-demo"></app-code>
@@ -22,7 +22,7 @@ export class AutoResizeDoc {
     [autoResize]="true">
 </textarea>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <textarea 
         rows="5"
         cols="30"

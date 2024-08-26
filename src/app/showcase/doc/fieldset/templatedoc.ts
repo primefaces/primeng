@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-fieldset>
                 <ng-template pTemplate="header">
-                    <div class="flex align-items-center gap-2 px-2">
+                    <div class="flex items-center gap-2 px-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
@@ -28,7 +28,7 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-fieldset>
     <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2 px-2">
+        <div class="flex items-center gap-2 px-2">
             <p-avatar 
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                 shape="circle" />
@@ -43,7 +43,7 @@ export class TemplateDoc {
         html: `<div class="card">
 <p-fieldset>
 <ng-template pTemplate="header">
-    <div class="flex align-items-center gap-2 px-2">
+    <div class="flex items-center gap-2 px-2">
         <p-avatar 
             image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
             shape="circle" />

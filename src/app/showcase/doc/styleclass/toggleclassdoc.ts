@@ -10,9 +10,9 @@ import { Code } from '@domain/code';
                 keywords including <i>&#64;next</i>, <i>prev</i>, <i>parent</i>, <i>grandparent</i>
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center">
+        <div class="card flex flex-col items-center">
             <p-button label="Toggle p-disabled" pStyleClass="@next" toggleClass="p-disabled" />
-            <input type="text" pInputText class="block mt-3" />
+            <input type="text" pInputText class="block mt-4" />
         </div>
         <app-code [code]="code" selector="style-class-toggle-class-demo"></app-code>
     `
@@ -23,13 +23,13 @@ export class ToggleClassDoc {
     label="Toggle p-disabled" 
     pStyleClass="@next" 
     toggleClass="p-disabled" />
-<input type="text" pInputText class="block mt-3" />`,
-        html: `<div class="card flex flex-column align-items-center">
+<input type="text" pInputText class="block mt-4" />`,
+        html: `<div class="card flex flex-col items-center">
     <p-button 
         label="Toggle p-disabled"
         pStyleClass="@next" 
         toggleClass="p-disabled" />
-    <input type="text" pInputText class="block mt-3">
+    <input type="text" pInputText class="block mt-4">
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { StyleClassModule } from 'primeng/styleclass';

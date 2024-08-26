@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>range</i> property is present, slider provides two handles to define two values. In range mode, value should be an array instead of a single value.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-slider [(ngModel)]="rangeValues" [range]="true" />
         </div>
         <app-code [code]="code" selector="slider-range-demo"></app-code>
@@ -19,7 +19,7 @@ export class RangeDoc {
     code: Code = {
         basic: `<p-slider [(ngModel)]="rangeValues" [range]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-slider [(ngModel)]="rangeValues" [range]="true" />
 </div>`,
 

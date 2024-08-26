@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The border size is specified with the <i>strokeWidth</i> property as a number in pixels.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-knob [(ngModel)]="value" [strokeWidth]="5" />
         </div>
         <app-code [code]="code" selector="knob-stroke-demo"></app-code>
@@ -19,7 +19,7 @@ export class StrokeDoc {
     code: Code = {
         basic: `<p-knob [(ngModel)]="value" [strokeWidth]="5" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-knob [(ngModel)]="value" [strokeWidth]="5" />
 </div>`,
 

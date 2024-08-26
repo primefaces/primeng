@@ -8,8 +8,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
+        <div class="card flex justify-center">
+            <p-treeSelect class="md:w-80 w-full ng-invalid ng-dirty" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" />
         </div>
         <app-code [code]="code" selector="tree-select-invalid-demo"></app-code>
     `
@@ -25,15 +25,15 @@ export class InvalidDoc {
 
     code: Code = {
         basic: `<p-treeSelect 
-    class="md:w-20rem w-full ng-invalid ng-dirty" 
+    class="md:w-80 w-full ng-invalid ng-dirty" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
     [options]="nodes"
     placeholder="Select Item" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect 
-        class="md:w-20rem w-full ng-invalid ng-dirty" 
+        class="md:w-80 w-full ng-invalid ng-dirty" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         [options]="nodes" 

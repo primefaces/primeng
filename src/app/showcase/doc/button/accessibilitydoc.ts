@@ -54,7 +54,7 @@ export class AccessibilityDoc {
 
 <p-button class="youtube p-0" aria-label="Youtube">
     <i class="pi pi-youtube px-2"></i>
-    <span class="px-3">Youtube</span>
+    <span class="px-4">Youtube</span>
 </p-button>`
     };
 }

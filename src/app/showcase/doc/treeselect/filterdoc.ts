@@ -12,8 +12,8 @@ import { NodeService } from '@service/nodeservice';
                 On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-treeSelect class="md:w-20rem w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
+        <div class="card flex justify-center">
+            <p-treeSelect class="md:w-80 w-full" containerStyleClass="w-full" [(ngModel)]="selectedNodes" [options]="nodes" placeholder="Select Item" [filter]="true" [filterInputAutoFocus]="true" />
         </div>
         <app-code [code]="code" selector="tree-select-filter-demo"></app-code>
     `
@@ -29,7 +29,7 @@ export class FilterDoc {
 
     code: Code = {
         basic: `<p-treeSelect 
-    class="md:w-20rem w-full" 
+    class="md:w-80 w-full" 
     containerStyleClass="w-full" 
     [(ngModel)]="selectedNodes" 
     [options]="nodes" 
@@ -37,9 +37,9 @@ export class FilterDoc {
     [filter]="true" 
     [filterInputAutoFocus]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-treeSelect 
-        class="md:w-20rem w-full" 
+        class="md:w-80 w-full" 
         containerStyleClass="w-full" 
         [(ngModel)]="selectedNodes" 
         [options]="nodes"

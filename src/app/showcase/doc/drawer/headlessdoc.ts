@@ -8,12 +8,12 @@ import { Drawer } from 'primeng/drawer';
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-drawer #drawerRef [(visible)]="visible">
                 <ng-template pTemplate="headless">
-                    <div class="flex flex-column h-full">
-                        <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
-                            <span class="inline-flex align-items-center gap-2">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                            <span class="inline-flex items-center gap-2">
                                 <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                                     <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                                     <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -46,33 +46,33 @@ import { Drawer } from 'primeng/drawer';
                                 <span class="font-semibold text-2xl text-primary">Your Logo</span>
                             </span>
                             <span>
-                                <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                                <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
                             </span>
                         </div>
                         <div class="overflow-y-auto">
-                            <ul class="list-none p-3 m-0">
+                            <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
                                         pRipple
                                         pStyleClass="@next"
                                         enterClass="hidden"
-                                        enterActiveClass="slidedown"
+                                        enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
-                                        leaveActiveClass="slideup"
-                                        class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                                        leaveActiveClass="animate-slideup"
+                                        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                                     >
                                         <span class="font-medium">FAVORITES</span>
                                         <i class="pi pi-chevron-down"></i>
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-home mr-2"></i>
                                                 <span class="font-medium">Dashboard</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-bookmark mr-2"></i>
                                                 <span class="font-medium">Bookmarks</span>
                                             </a>
@@ -82,39 +82,39 @@ import { Drawer } from 'primeng/drawer';
                                                 pRipple
                                                 pStyleClass="@next"
                                                 enterClass="hidden"
-                                                enterActiveClass="slidedown"
+                                                enterActiveClass="animate-slidedown"
                                                 leaveToClass="hidden"
-                                                leaveActiveClass="slideup"
-                                                class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                                leaveActiveClass="animate-slideup"
+                                                class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                             >
                                                 <i class="pi pi-chart-line mr-2"></i>
                                                 <span class="font-medium">Reports</span>
                                                 <i class="pi pi-chevron-down ml-auto"></i>
                                             </a>
-                                            <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                            <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                 <li>
                                                     <a
                                                         pRipple
                                                         pStyleClass="@next"
                                                         enterClass="hidden"
-                                                        enterActiveClass="slidedown"
+                                                        enterActiveClass="animate-slidedown"
                                                         leaveToClass="hidden"
-                                                        leaveActiveClass="slideup"
-                                                        class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                                        leaveActiveClass="animate-slideup"
+                                                        class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                                     >
                                                         <i class="pi pi-chart-line mr-2"></i>
                                                         <span class="font-medium">Revenue</span>
                                                         <i class="pi pi-chevron-down ml-auto"></i>
                                                     </a>
-                                                    <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                                    <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                                         <li>
-                                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                                 <i class="pi pi-table mr-2"></i>
                                                                 <span class="font-medium">View</span>
                                                             </a>
                                                         </li>
                                                         <li>
-                                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                                 <i class="pi pi-search mr-2"></i>
                                                                 <span class="font-medium">Search</span>
                                                             </a>
@@ -122,7 +122,7 @@ import { Drawer } from 'primeng/drawer';
                                                     </ul>
                                                 </li>
                                                 <li>
-                                                    <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                    <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                         <i class="pi pi-chart-line mr-2"></i>
                                                         <span class="font-medium">Expenses</span>
                                                     </a>
@@ -130,26 +130,26 @@ import { Drawer } from 'primeng/drawer';
                                             </ul>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-users mr-2"></i>
                                                 <span class="font-medium">Team</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-comments mr-2"></i>
                                                 <span class="font-medium">Messages</span>
-                                                <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                                <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-calendar mr-2"></i>
                                                 <span class="font-medium">Calendar</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -157,35 +157,35 @@ import { Drawer } from 'primeng/drawer';
                                     </ul>
                                 </li>
                             </ul>
-                            <ul class="list-none p-3 m-0">
+                            <ul class="list-none p-4 m-0">
                                 <li>
                                     <div
                                         pRipple
                                         pStyleClass="@next"
                                         enterClass="hidden"
-                                        enterActiveClass="slidedown"
+                                        enterActiveClass="animate-slidedown"
                                         leaveToClass="hidden"
-                                        leaveActiveClass="slideup"
-                                        class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                                        leaveActiveClass="animate-slideup"
+                                        class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                                     >
                                         <span class="font-medium">APPLICATION</span>
                                         <i class="pi pi-chevron-down"></i>
                                     </div>
                                     <ul class="list-none p-0 m-0 overflow-hidden">
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-folder mr-2"></i>
                                                 <span class="font-medium">Projects</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-chart-bar mr-2"></i>
                                                 <span class="font-medium">Performance</span>
                                             </a>
                                         </li>
                                         <li>
-                                            <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                            <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                 <i class="pi pi-cog mr-2"></i>
                                                 <span class="font-medium">Settings</span>
                                             </a>
@@ -195,8 +195,8 @@ import { Drawer } from 'primeng/drawer';
                             </ul>
                         </div>
                         <div class="mt-auto">
-                            <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
-                            <a pRipple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                            <hr class="mb-4 mx-4 border-t border-0 border-surface" />
+                            <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                 <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                                 <span class="font-bold">Amy Elsner</span>
                             </a>
@@ -221,9 +221,9 @@ export class HeadlessDoc {
     code: Code = {
         basic: `<p-drawer #drawerRef [(visible)]="visible">
     <ng-template pTemplate="headless">
-        <div class="flex flex-column h-full">
-            <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
-                <span class="inline-flex align-items-center gap-2">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                <span class="inline-flex items-center gap-2">
                     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                         <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -256,33 +256,33 @@ export class HeadlessDoc {
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
                 <span>
-                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
                 </span>
             </div>
             <div class="overflow-y-auto">
-                <ul class="list-none p-3 m-0">
+                <ul class="list-none p-4 m-0">
                     <li>
                         <div
                             pRipple
                             pStyleClass="@next"
                             enterClass="hidden"
-                            enterActiveClass="slidedown"
+                            enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                            leaveActiveClass="animate-slideup"
+                            class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                         >
                             <span class="font-medium">FAVORITES</span>
                             <i class="pi pi-chevron-down"></i>
                         </div>
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-bookmark mr-2"></i>
                                     <span class="font-medium">Bookmarks</span>
                                 </a>
@@ -292,39 +292,39 @@ export class HeadlessDoc {
                                     pRipple
                                     pStyleClass="@next"
                                     enterClass="hidden"
-                                    enterActiveClass="slidedown"
+                                    enterActiveClass="animate-slidedown"
                                     leaveToClass="hidden"
-                                    leaveActiveClass="slideup"
-                                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                    leaveActiveClass="animate-slideup"
+                                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                 >
                                     <i class="pi pi-chart-line mr-2"></i>
                                     <span class="font-medium">Reports</span>
                                     <i class="pi pi-chevron-down ml-auto"></i>
                                 </a>
-                                <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                     <li>
                                         <a
                                             pRipple
                                             pStyleClass="@next"
                                             enterClass="hidden"
-                                            enterActiveClass="slidedown"
+                                            enterActiveClass="animate-slidedown"
                                             leaveToClass="hidden"
-                                            leaveActiveClass="slideup"
-                                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                            leaveActiveClass="animate-slideup"
+                                            class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                         >
                                             <i class="pi pi-chart-line mr-2"></i>
                                             <span class="font-medium">Revenue</span>
                                             <i class="pi pi-chevron-down ml-auto"></i>
                                         </a>
-                                        <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                        <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                             <li>
-                                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                     <i class="pi pi-table mr-2"></i>
                                                     <span class="font-medium">View</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                     <i class="pi pi-search mr-2"></i>
                                                     <span class="font-medium">Search</span>
                                                 </a>
@@ -332,7 +332,7 @@ export class HeadlessDoc {
                                         </ul>
                                     </li>
                                     <li>
-                                        <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                        <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                             <i class="pi pi-chart-line mr-2"></i>
                                             <span class="font-medium">Expenses</span>
                                         </a>
@@ -340,26 +340,26 @@ export class HeadlessDoc {
                                 </ul>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-users mr-2"></i>
                                     <span class="font-medium">Team</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-comments mr-2"></i>
                                     <span class="font-medium">Messages</span>
-                                    <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                    <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-calendar mr-2"></i>
                                     <span class="font-medium">Calendar</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
@@ -367,35 +367,35 @@ export class HeadlessDoc {
                         </ul>
                     </li>
                 </ul>
-                <ul class="list-none p-3 m-0">
+                <ul class="list-none p-4 m-0">
                     <li>
                         <div
                             pRipple
                             pStyleClass="@next"
                             enterClass="hidden"
-                            enterActiveClass="slidedown"
+                            enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                            leaveActiveClass="animate-slideup"
+                            class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                         >
                             <span class="font-medium">APPLICATION</span>
                             <i class="pi pi-chevron-down"></i>
                         </div>
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-folder mr-2"></i>
                                     <span class="font-medium">Projects</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-chart-bar mr-2"></i>
                                     <span class="font-medium">Performance</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
@@ -405,8 +405,8 @@ export class HeadlessDoc {
                 </ul>
             </div>
             <div class="mt-auto">
-                <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
-                <a pRipple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                <hr class="mb-4 mx-4 border-t border-0 border-surface" />
+                <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold">Amy Elsner</span>
                 </a>
@@ -416,12 +416,12 @@ export class HeadlessDoc {
 </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-arrow-right"></p-button>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
 <p-drawer #drawerRef [(visible)]="visible">
     <ng-template pTemplate="headless">
-        <div class="flex flex-column h-full">
-            <div class="flex align-items-center justify-content-between px-4 pt-3 flex-shrink-0">
-                <span class="inline-flex align-items-center gap-2">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between px-6 pt-4 shrink-0">
+                <span class="inline-flex items-center gap-2">
                     <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                         <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                         <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -454,33 +454,33 @@ export class HeadlessDoc {
                     <span class="font-semibold text-2xl text-primary">Your Logo</span>
                 </span>
                 <span>
-                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-2rem w-2rem"></p-button>
+                    <p-button type="button" (click)="closeCallback($event)" icon="pi pi-times" rounded="true" outlined="true" styleClass="h-8 w-8"></p-button>
                 </span>
             </div>
             <div class="overflow-y-auto">
-                <ul class="list-none p-3 m-0">
+                <ul class="list-none p-4 m-0">
                     <li>
                         <div
                             pRipple
                             pStyleClass="@next"
                             enterClass="hidden"
-                            enterActiveClass="slidedown"
+                            enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                            leaveActiveClass="animate-slideup"
+                            class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                         >
                             <span class="font-medium">FAVORITES</span>
                             <i class="pi pi-chevron-down"></i>
                         </div>
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-home mr-2"></i>
                                     <span class="font-medium">Dashboard</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-bookmark mr-2"></i>
                                     <span class="font-medium">Bookmarks</span>
                                 </a>
@@ -490,39 +490,39 @@ export class HeadlessDoc {
                                     pRipple
                                     pStyleClass="@next"
                                     enterClass="hidden"
-                                    enterActiveClass="slidedown"
+                                    enterActiveClass="animate-slidedown"
                                     leaveToClass="hidden"
-                                    leaveActiveClass="slideup"
-                                    class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                    leaveActiveClass="animate-slideup"
+                                    class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                 >
                                     <i class="pi pi-chart-line mr-2"></i>
                                     <span class="font-medium">Reports</span>
                                     <i class="pi pi-chevron-down ml-auto"></i>
                                 </a>
-                                <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                     <li>
                                         <a
                                             pRipple
                                             pStyleClass="@next"
                                             enterClass="hidden"
-                                            enterActiveClass="slidedown"
+                                            enterActiveClass="animate-slidedown"
                                             leaveToClass="hidden"
-                                            leaveActiveClass="slideup"
-                                            class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
+                                            leaveActiveClass="animate-slideup"
+                                            class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple"
                                         >
                                             <i class="pi pi-chart-line mr-2"></i>
                                             <span class="font-medium">Revenue</span>
                                             <i class="pi pi-chevron-down ml-auto"></i>
                                         </a>
-                                        <ul class="list-none py-0 pl-3 pr-0 m-0 hidden overflow-y-hidden transition-all transition-duration-400 transition-ease-in-out">
+                                        <ul class="list-none py-0 pl-4 pr-0 m-0 hidden overflow-y-hidden transition-all duration-[400ms] ease-in-out">
                                             <li>
-                                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                     <i class="pi pi-table mr-2"></i>
                                                     <span class="font-medium">View</span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                                     <i class="pi pi-search mr-2"></i>
                                                     <span class="font-medium">Search</span>
                                                 </a>
@@ -530,7 +530,7 @@ export class HeadlessDoc {
                                         </ul>
                                     </li>
                                     <li>
-                                        <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                        <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                             <i class="pi pi-chart-line mr-2"></i>
                                             <span class="font-medium">Expenses</span>
                                         </a>
@@ -538,26 +538,26 @@ export class HeadlessDoc {
                                 </ul>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-users mr-2"></i>
                                     <span class="font-medium">Team</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-comments mr-2"></i>
                                     <span class="font-medium">Messages</span>
-                                    <span class="inline-flex align-items-center justify-content-center ml-auto bg-primary border-circle" style="min-width: 1.5rem; height: 1.5rem">3</span>
+                                    <span class="inline-flex items-center justify-center ml-auto bg-primary text-primary-contrast rounded-full" style="min-width: 1.5rem; height: 1.5rem">3</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-calendar mr-2"></i>
                                     <span class="font-medium">Calendar</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
@@ -565,35 +565,35 @@ export class HeadlessDoc {
                         </ul>
                     </li>
                 </ul>
-                <ul class="list-none p-3 m-0">
+                <ul class="list-none p-4 m-0">
                     <li>
                         <div
                             pRipple
                             pStyleClass="@next"
                             enterClass="hidden"
-                            enterActiveClass="slidedown"
+                            enterActiveClass="animate-slidedown"
                             leaveToClass="hidden"
-                            leaveActiveClass="slideup"
-                            class="p-3 flex align-items-center justify-content-between text-600 cursor-pointer p-ripple"
+                            leaveActiveClass="animate-slideup"
+                            class="p-4 flex items-center justify-between text-surface-600 dark:text-surface-200 cursor-pointer p-ripple"
                         >
                             <span class="font-medium">APPLICATION</span>
                             <i class="pi pi-chevron-down"></i>
                         </div>
                         <ul class="list-none p-0 m-0 overflow-hidden">
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-folder mr-2"></i>
                                     <span class="font-medium">Projects</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-chart-bar mr-2"></i>
                                     <span class="font-medium">Performance</span>
                                 </a>
                             </li>
                             <li>
-                                <a pRipple class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                                <a pRipple class="flex items-center cursor-pointer p-4 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                                     <i class="pi pi-cog mr-2"></i>
                                     <span class="font-medium">Settings</span>
                                 </a>
@@ -603,8 +603,8 @@ export class HeadlessDoc {
                 </ul>
             </div>
             <div class="mt-auto">
-                <hr class="mb-3 mx-3 border-top-1 border-none surface-border" />
-                <a pRipple class="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple">
+                <hr class="mb-4 mx-4 border-t border-0 border-surface" />
+                <a pRipple class="m-4 flex items-center cursor-pointer p-4 gap-2 rounded-border text-surface-700 dark:text-surface-100 hover:bg-surface-100 dark:hover:bg-surface-700 duration-150 transition-colors p-ripple">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
                     <span class="font-bold">Amy Elsner</span>
                 </a>

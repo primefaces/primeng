@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content of the OverlayPanel is defined by <i>content</i> template.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-overlayPanel #op>
                 <ng-template pTemplate="content">
                     <h4>Custom Content</h4>
@@ -28,7 +28,7 @@ export class TemplateDoc {
 <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,
 
         html: `
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-overlayPanel #op>
         <ng-template pTemplate="content">
             <h4>Custom Content</h4>

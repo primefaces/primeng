@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Enabling <i>ngModel</i> property displays the component as active initially.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toggleSwitch [(ngModel)]="checked" />
         </div>
         <app-code [code]="code" selector="toggle-switch-preselection-demo"></app-code>
@@ -19,7 +19,7 @@ export class PreselectionDoc {
     code: Code = {
         basic: `<p-toggleSwitch [(ngModel)]="checked" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toggleSwitch [(ngModel)]="checked" />
 </div>`,
 

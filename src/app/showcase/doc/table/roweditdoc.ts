@@ -77,7 +77,7 @@ import { ProductService } from '@service/productservice';
                                 </p-cellEditor>
                             </td>
                             <td>
-                                <div class="flex align-items-center justify-content-center gap-2">
+                                <div class="flex items-center justify-center gap-2">
                                     <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(product)" class="p-button-rounded p-button-text"></button>
                                     <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(product)" class="p-button-rounded p-button-text p-button-success mr-2"></button>
                                     <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(product, ri)" class="p-button-rounded p-button-text p-button-danger"></button>
@@ -217,7 +217,7 @@ export class RowEditDoc {
                 </p-cellEditor>
             </td>
             <td>
-                <div class="flex align-items-center justify-content-center gap-2">
+                <div class="flex items-center justify-center gap-2">
                     <button 
                         *ngIf="!editing" 
                         pButton 
@@ -320,7 +320,7 @@ export class RowEditDoc {
                     </p-cellEditor>
                 </td>
                 <td>
-            <div class="flex align-items-center justify-content-center gap-2">
+            <div class="flex items-center justify-center gap-2">
                 <button 
                     *ngIf="!editing" 
                     pButton 

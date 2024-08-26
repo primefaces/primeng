@@ -12,49 +12,49 @@ import { ProductService } from '@service/productservice';
         <div class="card">
             <p-dataView #dv [value]="products" [layout]="layout">
                 <ng-template pTemplate="header">
-                    <div class="flex justify-content-end">
+                    <div class="flex justify-end">
                         <p-dataViewLayoutOptions [layout]="layout" />
                     </div>
                 </ng-template>
                 <ng-template pTemplate="list" let-products>
-                    <div class="grid grid-nogutter">
-                        <div class="col-12" *ngFor="let i of counterArray(6); let first = first" class="col-12">
-                            <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
-                                <p-skeleton styleClass="w-9 sm:w-16rem xl:w-10rem h-6rem block xl:block mx-auto border-round" />
-                                <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                                    <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                        <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                                        <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                                        <div class="flex align-items-center gap-3">
-                                            <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                                            <p-skeleton styleClass="w-3rem border-round h-1rem" />
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                        <div class="col-span-12" *ngFor="let i of counterArray(6); let first = first" class="col-span-12">
+                            <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                                <p-skeleton styleClass="w-9/12 sm:w-64 xl:w-40 h-24 block xl:block mx-auto rounded-border" />
+                                <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
+                                    <div class="flex flex-col items-center sm:items-start gap-4">
+                                        <p-skeleton styleClass="w-32 rounded-border h-8" />
+                                        <p-skeleton styleClass="w-24 rounded-border h-4" />
+                                        <div class="flex items-center gap-4">
+                                            <p-skeleton styleClass="w-24 rounded-border h-4" />
+                                            <p-skeleton styleClass="w-12 rounded-border h-4" />
                                         </div>
                                     </div>
-                                    <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                        <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                                        <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                                    <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
+                                        <p-skeleton styleClass="w-16 rounded-border h-8" />
+                                        <p-skeleton shape="circle" styleClass="w-12 h-12" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </ng-template>
-                <ng-template let-product pTemplate="grid" let-products>
-                    <div class="grid grid-nogutter">
-                        <div class="col-12 sm:col-6 md:col-4 xl:col-6 p-2" *ngFor="let i of counterArray(6)">
-                            <div class="p-4 border-1 surface-border surface-card border-round">
-                                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                                    <p-skeleton styleClass="w-6rem border-round h-2rem" />
-                                    <p-skeleton styleClass="w-3rem border-round h-1rem" />
+                <ng-template let-product pTemplate="grid grid-cols-12 gap-4" let-products>
+                    <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                        <div class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2" *ngFor="let i of counterArray(6)">
+                            <div class="p-6 border border-surface bg-surface-0 dark:bg-surface-900 rounded-border">
+                                <div class="flex flex-wrap items-center justify-between gap-2">
+                                    <p-skeleton styleClass="w-24 rounded-border h-8" />
+                                    <p-skeleton styleClass="w-12 rounded-border h-4" />
                                 </div>
-                                <div class="flex flex-column align-items-center gap-3 py-5">
-                                    <p-skeleton styleClass="w-9 border-round h-10rem" />
-                                    <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                                    <p-skeleton styleClass="w-6rem border-round h-1rem" />
+                                <div class="flex flex-col items-center gap-4 py-8">
+                                    <p-skeleton styleClass="w-9/12 rounded-border h-40" />
+                                    <p-skeleton styleClass="w-32 rounded-border h-8" />
+                                    <p-skeleton styleClass="w-24 rounded-border h-4" />
                                 </div>
-                                <div class="flex align-items-center justify-content-between">
-                                    <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                                    <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                                <div class="flex items-center justify-between">
+                                    <p-skeleton styleClass="w-16 rounded-border h-8" />
+                                    <p-skeleton shape="circle" styleClass="w-12 h-12" />
                                 </div>
                             </div>
                         </div>
@@ -99,49 +99,49 @@ export class LoadingDoc {
     code: Code = {
         basic: `<p-dataView #dv [value]="products" [layout]="layout">
     <ng-template pTemplate="header">
-        <div class="flex justify-content-end">
+        <div class="flex justify-end">
             <p-dataViewLayoutOptions [layout]="layout" />
         </div>
     </ng-template>
     <ng-template pTemplate="list" let-products>
-        <div class="grid grid-nogutter">
-            <div class="col-12" *ngFor="let i of counterArray(6); let first = first" class="col-12">
-                <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
-                    <p-skeleton styleClass="w-9 sm:w-16rem xl:w-10rem h-6rem block xl:block mx-auto border-round" />
-                    <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                        <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                            <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                            <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                            <div class="flex align-items-center gap-3">
-                                <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                                <p-skeleton styleClass="w-3rem border-round h-1rem" />
+        <div class="grid grid-cols-12 gap-4 grid-nogutter">
+            <div class="col-span-12" *ngFor="let i of counterArray(6); let first = first" class="col-span-12">
+                <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <p-skeleton styleClass="w-9/12 sm:w-64 xl:w-40 h-24 block xl:block mx-auto rounded-border" />
+                    <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
+                        <div class="flex flex-col items-center sm:items-start gap-4">
+                            <p-skeleton styleClass="w-32 rounded-border h-8" />
+                            <p-skeleton styleClass="w-24 rounded-border h-4" />
+                            <div class="flex items-center gap-4">
+                                <p-skeleton styleClass="w-24 rounded-border h-4" />
+                                <p-skeleton styleClass="w-12 rounded-border h-4" />
                             </div>
                         </div>
-                        <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                            <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                            <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                        <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
+                            <p-skeleton styleClass="w-16 rounded-border h-8" />
+                            <p-skeleton shape="circle" styleClass="w-12 h-12" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </ng-template>
-    <ng-template let-product pTemplate="grid" let-products>
-        <div class="grid grid-nogutter">
-            <div class="col-12 sm:col-6 md:col-4 xl:col-6 p-2" *ngFor="let i of counterArray(6)">
-                <div class="p-4 border-1 surface-border surface-card border-round">
-                    <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                        <p-skeleton styleClass="w-6rem border-round h-2rem" />
-                        <p-skeleton styleClass="w-3rem border-round h-1rem" />
+    <ng-template let-product pTemplate="grid grid-cols-12 gap-4" let-products>
+        <div class="grid grid-cols-12 gap-4 grid-nogutter">
+            <div class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2" *ngFor="let i of counterArray(6)">
+                <div class="p-6 border border-surface bg-surface-0 dark:bg-surface-900 rounded-border">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <p-skeleton styleClass="w-24 rounded-border h-8" />
+                        <p-skeleton styleClass="w-12 rounded-border h-4" />
                     </div>
-                    <div class="flex flex-column align-items-center gap-3 py-5">
-                        <p-skeleton styleClass="w-9 border-round h-10rem" />
-                        <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                        <p-skeleton styleClass="w-6rem border-round h-1rem" />
+                    <div class="flex flex-col items-center gap-4 py-8">
+                        <p-skeleton styleClass="w-9/12 rounded-border h-40" />
+                        <p-skeleton styleClass="w-32 rounded-border h-8" />
+                        <p-skeleton styleClass="w-24 rounded-border h-4" />
                     </div>
-                    <div class="flex align-items-center justify-content-between">
-                        <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                        <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                    <div class="flex items-center justify-between">
+                        <p-skeleton styleClass="w-16 rounded-border h-8" />
+                        <p-skeleton shape="circle" styleClass="w-12 h-12" />
                     </div>
                 </div>
             </div>
@@ -152,49 +152,49 @@ export class LoadingDoc {
         html: `<div class="card">
     <p-dataView #dv [value]="products" [layout]="layout">
         <ng-template pTemplate="header">
-            <div class="flex justify-content-end">
+            <div class="flex justify-end">
                 <p-dataViewLayoutOptions [layout]="layout" />
             </div>
         </ng-template>
         <ng-template pTemplate="list" let-products>
-            <div class="grid grid-nogutter">
-                <div class="col-12" *ngFor="let i of counterArray(6); let first = first" class="col-12">
-                    <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
-                        <p-skeleton styleClass="w-9 sm:w-16rem xl:w-10rem h-6rem block xl:block mx-auto border-round" />
-                        <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-                            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                                <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                                <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                                <div class="flex align-items-center gap-3">
-                                    <p-skeleton styleClass="w-6rem border-round h-1rem" />
-                                    <p-skeleton styleClass="w-3rem border-round h-1rem" />
+            <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                <div class="col-span-12" *ngFor="let i of counterArray(6); let first = first" class="col-span-12">
+                    <div class="flex flex-col xl:flex-row xl:items-start p-6 gap-6" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                        <p-skeleton styleClass="w-9/12 sm:w-64 xl:w-40 h-24 block xl:block mx-auto rounded-border" />
+                        <div class="flex flex-col sm:flex-row justify-between items-center xl:items-start flex-1 gap-6">
+                            <div class="flex flex-col items-center sm:items-start gap-4">
+                                <p-skeleton styleClass="w-32 rounded-border h-8" />
+                                <p-skeleton styleClass="w-24 rounded-border h-4" />
+                                <div class="flex items-center gap-4">
+                                    <p-skeleton styleClass="w-24 rounded-border h-4" />
+                                    <p-skeleton styleClass="w-12 rounded-border h-4" />
                                 </div>
                             </div>
-                            <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-                                <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                                <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                            <div class="flex sm:flex-col items-center sm:items-end gap-4 sm:gap-2">
+                                <p-skeleton styleClass="w-16 rounded-border h-8" />
+                                <p-skeleton shape="circle" styleClass="w-12 h-12" />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </ng-template>
-        <ng-template let-product pTemplate="grid" let-products>
-            <div class="grid grid-nogutter">
-                <div class="col-12 sm:col-6 md:col-4 xl:col-6 p-2" *ngFor="let i of counterArray(6)">
-                    <div class="p-4 border-1 surface-border surface-card border-round">
-                        <div class="flex flex-wrap align-items-center justify-content-between gap-2">
-                            <p-skeleton styleClass="w-6rem border-round h-2rem" />
-                            <p-skeleton styleClass="w-3rem border-round h-1rem" />
+        <ng-template let-product pTemplate="grid grid-cols-12 gap-4" let-products>
+            <div class="grid grid-cols-12 gap-4 grid-nogutter">
+                <div class="col-span-12 sm:col-span-6 md:col-span-4 xl:col-span-6 p-2" *ngFor="let i of counterArray(6)">
+                    <div class="p-6 border border-surface bg-surface-0 dark:bg-surface-900 rounded-border">
+                        <div class="flex flex-wrap items-center justify-between gap-2">
+                            <p-skeleton styleClass="w-24 rounded-border h-8" />
+                            <p-skeleton styleClass="w-12 rounded-border h-4" />
                         </div>
-                        <div class="flex flex-column align-items-center gap-3 py-5">
-                            <p-skeleton styleClass="w-9 border-round h-10rem" />
-                            <p-skeleton styleClass="w-8rem border-round h-2rem" />
-                            <p-skeleton styleClass="w-6rem border-round h-1rem" />
+                        <div class="flex flex-col items-center gap-4 py-8">
+                            <p-skeleton styleClass="w-9/12 rounded-border h-40" />
+                            <p-skeleton styleClass="w-32 rounded-border h-8" />
+                            <p-skeleton styleClass="w-24 rounded-border h-4" />
                         </div>
-                        <div class="flex align-items-center justify-content-between">
-                            <p-skeleton styleClass="w-4rem border-round h-2rem" />
-                            <p-skeleton shape="circle" styleClass="w-3rem h-3rem" />
+                        <div class="flex items-center justify-between">
+                            <p-skeleton styleClass="w-16 rounded-border h-8" />
+                            <p-skeleton shape="circle" styleClass="w-12 h-12" />
                         </div>
                     </div>
                 </div>

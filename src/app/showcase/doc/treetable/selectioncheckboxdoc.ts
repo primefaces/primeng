@@ -19,7 +19,7 @@ interface Column {
             </p>
         </app-docsectiontext>
         <app-code [code]="code2" selector="selection-keys" [hideToggleCode]="true"></app-code>
-        <div class="card mt-3">
+        <div class="card mt-4">
             <p-deferred-demo (load)="loadDemoData()">
                 <p-treeTable [value]="files" [columns]="cols" selectionMode="checkbox" [(selectionKeys)]="selectionKeys" dataKey="key" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header" let-columns>

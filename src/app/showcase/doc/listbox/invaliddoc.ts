@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" class="ng-invalid ng-dirty" [style]="{ width: '15rem' }" [listStyle]="{ 'max-height': '220px' }" />
         </div>
         <app-code [code]="code" selector="listbox-invalid-demo"></app-code>
@@ -42,7 +42,7 @@ export class InvalidDoc implements OnInit {
     [style]="{ width: '15rem' }" 
     [listStyle]="{'max-height': '220px'}" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox 
         [options]="cities" 
         [(ngModel)]="selectedCity" 

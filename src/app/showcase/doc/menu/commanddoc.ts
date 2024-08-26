@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-menu [model]="items" />
         </div>
@@ -52,7 +52,7 @@ export class CommandDoc implements OnInit {
         basic: `<p-toast />
 <p-menu [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-menu [model]="items" />
 </div>`,

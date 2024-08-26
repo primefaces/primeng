@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The <i>severity</i> property defines the type of button.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center flex-wrap gap-3">
+        <div class="card flex justify-center flex-wrap gap-4">
             <p-toast />
             <p-splitButton label="Save" (onClick)="save('info')" [model]="items" />
             <p-splitButton label="Save" (onClick)="save('secondary')" [model]="items" severity="secondary" />
@@ -94,7 +94,7 @@ export class SeverityDoc {
     [model]="items" 
     severity="danger" />`,
 
-        html: `<div class="card flex justify-content-center flex-wrap gap-3">
+        html: `<div class="card flex justify-center flex-wrap gap-4">
     <p-toast />
     <p-splitButton 
         label="Save" 

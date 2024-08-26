@@ -9,10 +9,10 @@ import { Code } from '@domain/code';
             <p>Steps can be controlled programmatically using <i>activeIndex</i> property.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex mb-5 gap-2 justify-content-end">
-                <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-2rem h-2rem p-0" [outlined]="active !== 0" />
-                <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-2rem h-2rem p-0" [outlined]="active !== 1" />
-                <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-2rem h-2rem p-0" [outlined]="active !== 2" />
+            <div class="flex mb-8 gap-2 justify-end">
+                <p-button (click)="active = 0" [rounded]="true" label="1" styleClass="w-8 h-8 p-0" [outlined]="active !== 0" />
+                <p-button (click)="active = 1" [rounded]="true" label="2" styleClass="w-8 h-8 p-0" [outlined]="active !== 1" />
+                <p-button (click)="active = 2" [rounded]="true" label="3" styleClass="w-8 h-8 p-0" [outlined]="active !== 2" />
             </div>
             <p-steps [activeIndex]="active" [model]="items" />
         </div>
@@ -39,47 +39,47 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="flex mb-5 gap-2 justify-content-end">
+        basic: `<div class="flex mb-8 gap-2 justify-end">
     <p-button 
         (click)="active = 0" 
         [rounded]="true" 
         label="1" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="active !== 0" />
     <p-button 
         (click)="active = 1" 
         [rounded]="true"
         label="2" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="active !== 1" />
     <p-button 
         (click)="active = 2" 
         [rounded]="true" 
         label="3" 
-        styleClass="w-2rem h-2rem p-0" 
+        styleClass="w-8 h-8 p-0" 
         [outlined]="active !== 2" />
 </div>
 <p-steps [activeIndex]="active" [model]="items" />`,
 
         html: `<div class="card">
-    <div class="flex mb-5 gap-2 justify-content-end">
+    <div class="flex mb-8 gap-2 justify-end">
         <p-button 
             (click)="active = 0" 
             [rounded]="true" 
             label="1" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="active !== 0" />
         <p-button 
             (click)="active = 1" 
             [rounded]="true" 
             label="2" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="active !== 1" />
         <p-button 
             (click)="active = 2" 
             [rounded]="true" 
             label="3" 
-            styleClass="w-2rem h-2rem p-0" 
+            styleClass="w-8 h-8 p-0" 
             [outlined]="active !== 2" />
     </div>
     <p-steps [activeIndex]="active" [model]="items" />

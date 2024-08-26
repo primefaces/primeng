@@ -9,12 +9,12 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Tree requires a collection of <i>TreeNode</i> instances as a <i>value</i>.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center justify-content-center">
-            <div class="mb-3">
+        <div class="card flex flex-col items-center justify-center">
+            <div class="mb-4">
                 <p-button icon="pi pi-plus" label="Expand all" (click)="expandAll()" class="mr-2" />
                 <p-button icon="pi pi-minus" label="Collapse all" (click)="collapseAll()" />
             </div>
-            <p-tree [value]="files" class="w-full md:w-30rem" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="tree-controlled-demo"></app-code>
     `
@@ -50,7 +50,7 @@ export class ControlledDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<div class="mb-3">
+        basic: `<div class="mb-4">
     <p-button 
         icon="pi pi-plus" 
         label="Expand all" 
@@ -61,10 +61,10 @@ export class ControlledDoc implements OnInit {
         label="Collapse all" 
         (click)="collapseAll()" />
 </div>
-<p-tree [value]="files" class="w-full md:w-30rem" />`,
+<p-tree [value]="files" class="w-full md:w-[30rem]" />`,
 
-        html: `<div class="card flex flex-column align-items-center justify-content-center">
-    <div class="mb-3">
+        html: `<div class="card flex flex-col items-center justify-center">
+    <div class="mb-4">
         <p-button 
             icon="pi pi-plus" 
             label="Expand all" 
@@ -75,7 +75,7 @@ export class ControlledDoc implements OnInit {
             label="Collapse all" 
             (click)="collapseAll()" />
     </div>
-    <p-tree [value]="files" class="w-full md:w-30rem" />
+    <p-tree [value]="files" class="w-full md:w-[30rem]" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

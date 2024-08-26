@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-floatLabel>
                 <p-inputMask mask="999-99-9999" [(ngModel)]="value" id="ssn_input" />
                 <label for="ssn_input">SSN</label>
@@ -28,7 +28,7 @@ export class FloatlabelDoc {
     <label for="ssn_input">SSN</label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-floatLabel>
         <p-inputMask 
             mask="999-99-9999" 

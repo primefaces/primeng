@@ -8,11 +8,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>SplitButton has a default action button and a collection of additional options defined by the <i>model</i> property based on MenuModel API.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-splitButton label="Save" (onClick)="save('info')" severity="contrast" [model]="items">
                 <ng-template pTemplate="content">
-                    <span class="flex align-items-center font-bold">
+                    <span class="flex items-center font-bold">
                         <img alt="logo" src="https://primefaces.org/cdn/primeng/images/logo.svg" style="height: 1rem; margin-right: 0.5rem" />
                         <span>PrimeNG</span>
                     </span>
@@ -65,7 +65,7 @@ export class TemplateDoc {
     severity="contrast" 
     [model]="items">
         <ng-template pTemplate="content">
-            <span class="flex align-items-center font-bold">
+            <span class="flex items-center font-bold">
                 <img 
                     alt="logo" 
                     src="https://primefaces.org/cdn/primeng/images/logo.svg" 
@@ -75,7 +75,7 @@ export class TemplateDoc {
         </ng-template>
 </p-splitButton>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-splitButton 
         label="Save" 
@@ -83,7 +83,7 @@ export class TemplateDoc {
         severity="contrast" 
         [model]="items">
             <ng-template pTemplate="content">
-                <span class="flex align-items-center font-bold">
+                <span class="flex items-center font-bold">
                     <img 
                         alt="logo" 
                         src="https://primefaces.org/cdn/primeng/images/logo.svg" 

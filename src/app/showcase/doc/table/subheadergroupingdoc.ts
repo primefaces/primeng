@@ -33,7 +33,7 @@ import { CustomerService } from '@service/customerservice';
                     </ng-template>
                     <ng-template pTemplate="groupfooter" let-customer>
                         <tr>
-                            <td colspan="5" class="text-right font-bold pr-6">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</td>
+                            <td colspan="5" class="text-right font-bold pr-12">Total Customers: {{ calculateCustomerTotal(customer.representative.name) }}</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-customer let-rowIndex="rowIndex">
@@ -43,7 +43,7 @@ import { CustomerService } from '@service/customerservice';
                             </td>
                             <td>
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + customer.country.code" style="width: 20px" />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 {{ customer.company }}
@@ -143,7 +143,7 @@ export class SubheaderGroupingDoc {
         </ng-template>
         <ng-template pTemplate="groupfooter" let-customer>
             <tr>
-                <td colspan="5" class="text-right font-bold pr-6">
+                <td colspan="5" class="text-right font-bold pr-12">
                     Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
                 </td>
             </tr>
@@ -158,7 +158,7 @@ export class SubheaderGroupingDoc {
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                         [class]="'flag flag-' + customer.country.code" 
                         style="width: 20px">
-                    <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                    <span class="ml-1 align-middle">{{customer.country.name}}</span>
                 </td>
                 <td>
                     {{customer.company}}
@@ -205,7 +205,7 @@ export class SubheaderGroupingDoc {
             </ng-template>
             <ng-template pTemplate="groupfooter" let-customer>
                 <tr>
-                    <td colspan="5" class="text-right font-bold pr-6">
+                    <td colspan="5" class="text-right font-bold pr-12">
                         Total Customers: {{calculateCustomerTotal(customer.representative.name)}}
                     </td>
                 </tr>
@@ -220,7 +220,7 @@ export class SubheaderGroupingDoc {
                             src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                             [class]="'flag-' + customer.country.code" 
                             style="width: 20px">
-                        <span class="ml-1 vertical-align-middle">{{customer.country.name}}</span>
+                        <span class="ml-1 align-middle">{{customer.country.name}}</span>
                     </td>
                     <td>
                         {{customer.company}}

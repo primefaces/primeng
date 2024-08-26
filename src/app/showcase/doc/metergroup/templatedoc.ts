@@ -10,15 +10,15 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-meterGroup [value]="value" labelPosition="start">
                 <ng-template pTemplate="label">
-                    <div class="flex flex-wrap gap-3">
+                    <div class="flex flex-wrap gap-4">
                         <ng-container *ngFor="let meterItem of value; let index = index">
                             <p-card class="flex-1">
-                                <div class="flex justify-content-between gap-5">
-                                    <div class="flex flex-column gap-1">
+                                <div class="flex justify-between gap-8">
+                                    <div class="flex flex-col gap-1">
                                         <span class="text-secondary text-sm">{{ meterItem.label }}</span>
                                         <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                                     </div>
-                                    <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                                    <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
                                         <i [class]="meterItem.icon"></i>
                                     </span>
                                 </div>
@@ -30,14 +30,14 @@ import { Code } from '@domain/code';
                     <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
                 </ng-template>
                 <ng-template pTemplate="start" let-totalPercent="totalPercent">
-                    <div class="flex justify-content-between mt-3 mb-2 relative">
+                    <div class="flex justify-between mt-4 mb-2 relative">
                         <span>Storage</span>
                         <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
                         <span class="font-medium">1TB</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="end">
-                    <div class="flex justify-content-between mt-3">
+                    <div class="flex justify-between mt-4">
                         <p-button label="Manage Storage" [outlined]="true" size="small" />
                         <p-button label="Update Plan" size="small" />
                     </div>
@@ -58,15 +58,15 @@ export class TemplateDoc {
     code: Code = {
         basic: `<p-meterGroup [value]="value" labelPosition="start">
     <ng-template pTemplate="label">
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-4">
             <ng-container *ngFor="let meterItem of value; let index = index">
                 <p-card class="flex-1">
-                    <div class="flex justify-content-between gap-5">
-                        <div class="flex flex-column gap-1">
+                    <div class="flex justify-between gap-8">
+                        <div class="flex flex-col gap-1">
                             <span class="text-secondary text-sm">{{ meterItem.label }}</span>
                             <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                         </div>
-                        <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                        <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
                             <i [class]="meterItem.icon"></i>
                         </span>
                     </div>
@@ -78,14 +78,14 @@ export class TemplateDoc {
         <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
     </ng-template>
     <ng-template pTemplate="start" let-totalPercent="totalPercent">
-        <div class="flex justify-content-between mt-3 mb-2 relative">
+        <div class="flex justify-between mt-4 mb-2 relative">
             <span>Storage</span>
             <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
             <span class="font-medium">1TB</span>
         </div>
     </ng-template>
     <ng-template pTemplate="end">
-        <div class="flex justify-content-between mt-3">
+        <div class="flex justify-between mt-4">
             <p-button label="Manage Storage" [outlined]="true" size="small" />
             <p-button label="Update Plan" size="small" />
         </div>
@@ -95,15 +95,15 @@ export class TemplateDoc {
         html: `<div class="card">
     <p-meterGroup [value]="value" labelPosition="start">
         <ng-template pTemplate="label">
-            <div class="flex flex-wrap gap-3">
+            <div class="flex flex-wrap gap-4">
                 <ng-container *ngFor="let meterItem of value; let index = index">
                     <p-card class="flex-1">
-                        <div class="flex justify-content-between gap-5">
-                            <div class="flex flex-column gap-1">
+                        <div class="flex justify-between gap-8">
+                            <div class="flex flex-col gap-1">
                                 <span class="text-secondary text-sm">{{ meterItem.label }}</span>
                                 <span class="font-bold text-lg">{{ meterItem.value }}%</span>
                             </div>
-                            <span class="w-2rem h-2rem border-circle inline-flex justify-content-center align-items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
+                            <span class="w-8 h-8 rounded-full inline-flex justify-center items-center text-center" [style]="{ 'background-color': meterItem.color1, color: '#ffffff' }">
                                 <i [class]="meterItem.icon"></i>
                             </span>
                         </div>
@@ -115,14 +115,14 @@ export class TemplateDoc {
             <span [class]="class" [style]="{ background: 'linear-gradient(to right, ' + value.color1 + ', ' + value.color2 + ')', width: width }"></span>
         </ng-template>
         <ng-template pTemplate="start" let-totalPercent="totalPercent">
-            <div class="flex justify-content-between mt-3 mb-2 relative">
+            <div class="flex justify-between mt-4 mb-2 relative">
                 <span>Storage</span>
                 <span [style]="{ width: totalPercent + '%' }" class="absolute text-right">{{ totalPercent }}%</span>
                 <span class="font-medium">1TB</span>
             </div>
         </ng-template>
         <ng-template pTemplate="end">
-            <div class="flex justify-content-between mt-3">
+            <div class="flex justify-between mt-4">
                 <p-button label="Manage Storage" [outlined]="true" size="small" />
                 <p-button label="Update Plan" size="small" />
             </div>

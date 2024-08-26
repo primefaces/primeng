@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-cascadeSelect
                 class="ng-invalid ng-dirty"
                 [(ngModel)]="selectedCity"
@@ -115,7 +115,7 @@ export class InvalidDoc {
     [style]="{ minWidth: '14rem' }"
     placeholder="Select a City" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-cascadeSelect
         class="ng-invalid ng-dirty"
         [(ngModel)]="selectedCity"

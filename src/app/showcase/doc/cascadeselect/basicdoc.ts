@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 Note that order of the <i>optionGroupChildren</i> matters and it should correspond to the data hierarchy.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-cascadeSelect [(ngModel)]="selectedCity" [options]="countries" optionLabel="cname" optionGroupLabel="name" [optionGroupChildren]="['states', 'cities']" [style]="{ minWidth: '14rem' }" placeholder="Select a City" />
         </div>
         <app-code [code]="code" selector="cascade-select-basic-demo"></app-code>
@@ -108,7 +108,7 @@ export class BasicDoc {
     [style]="{ minWidth: '14rem' }"
     placeholder="Select a City" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-cascadeSelect 
         [(ngModel)]="selectedCity" 
         [options]="countries" 

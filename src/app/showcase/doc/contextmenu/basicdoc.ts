@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>ContextMenu can be attached to a particular element whose local template variable name is defined using the <i>target</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <img #img src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" alt="Logo" aria-haspopup="true" class="max-w-full" />
             <p-contextMenu [target]="img" [model]="items" />
         </div>
@@ -34,7 +34,7 @@ export class BasicDoc implements OnInit {
     class="max-w-full" />
 <p-contextMenu [target]="img" [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <img 
         #img 
         src="https://primefaces.org/cdn/primeng/images/demo/nature/nature2.jpg" 

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Icon of a button is specified with <i>icon</i> property and position is configured using <i>iconPos</i> attribute.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-3">
+        <div class="card flex flex-wrap justify-center gap-4">
             <p-button icon="pi pi-check" />
             <p-button label="Submit" icon="pi pi-check" />
             <p-button label="Submit" icon="pi pi-check" iconPos="right" />
@@ -21,7 +21,7 @@ export class IconsDoc {
 <p-button label="Submit" icon="pi pi-check" />
 <p-button label="Submit" icon="pi pi-check" iconPos="right" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button icon="pi pi-check" />
     <p-button label="Submit" icon="pi pi-check" />
     <p-button label="Submit" icon="pi pi-check" iconPos="right" />

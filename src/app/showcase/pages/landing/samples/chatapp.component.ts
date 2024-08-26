@@ -35,26 +35,26 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
         InputTextareaModule,
     ],
     template: `
-        <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-6">
-            <div class="flex flex-col gap-6 pt-3 pb-2 -mb-2 px-5 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
-                <div class="flex items-center justify-between gap-6 text-color">
+        <div class="w-4/12 xl:w-3/12 min-w-40 overflow-auto flex flex-col gap-12">
+            <div class="flex flex-col gap-12 pt-4 pb-2 -mb-2 px-8 sticky top-0 bg-surface-0 dark:bg-surface-950 z-10">
+                <div class="flex items-center justify-between gap-12 text-color">
                     <div class="text-2xl font-medium lead">Chats</div>
                     <p-button icon="pi pi-plus" text />
                 </div>
             </div>
-            <div class="px-5">
+            <div class="px-8">
                 <p-iconField iconPosition="left">
                     <p-inputIcon class="pi pi-search"> </p-inputIcon>
                     <input type="text" pInputText [(ngModel)]="search" placeholder="Search" class="w-full" />
                 </p-iconField>
             </div>
-            <div class="w-full px-5">
+            <div class="w-full px-8">
                 <p-selectButton [(ngModel)]="value" [options]="options" aria-labelledby="basic" styleClass="w-full" />
             </div>
             <div class="flex-1 flex flex-col">
                 <div
                     *ngFor="let chat of chats"
-                    class="flex items-center gap-2 p-4 cursor-pointer hover:bg-emphasis transition-all"
+                    class="flex items-center gap-2 p-6 cursor-pointer hover:bg-emphasis transition-all"
                     [ngClass]="{
                         'bg-emphasis': chat.name === activeChat
                     }"
@@ -82,7 +82,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             <div class="text-color font-medium leading-6">{{ chat.name }}</div>
                             <div class="text-sm text-muted-color leading-5">{{ chat.time }}</div>
                         </div>
-                        <div class="flex items-center gap-5 justify-between mt-1">
+                        <div class="flex items-center gap-8 justify-between mt-1">
                             <div class="text-muted-color text-sm leading-5 line-clamp-1">
                                 {{ chat.lastMessage }}
                             </div>
@@ -97,7 +97,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
             </div>
         </div>
         <div class="w-8/12 xl:w-6/12 border-x border-surface flex flex-col">
-            <div class="flex items-center p-4 gap-7 border-b border-surface">
+            <div class="flex items-center p-6 gap-16 border-b border-surface">
                 <div class="flex items-center">
                     <p-avatar
                         image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
@@ -130,7 +130,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                 </div>
             </div>
-            <div class="flex-1 overflow-y-auto flex flex-col gap-8 py-8 px-6">
+            <div class="flex-1 overflow-y-auto flex flex-col gap-20 py-20 px-12">
                 <div
                     *ngFor="let message of chatMessages"
                     class="flex items-start min-w-64 w-fit max-w-[60%]"
@@ -148,7 +148,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                             [ngClass]="{
                                 'bg-primary-100 text-primary-950': !message.image
                             }"
-                            styleClass="w-10 h-10 text-sm font-medium"
+                            styleClass="w-10/12 h-10 text-sm font-medium"
                             shape="circle"
                         />
                         <div>
@@ -174,7 +174,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                         [ngClass]="
                             message.type === 'received'
                                 ? 'flex-1 bg-surface-100 dark:bg-surface-800 px-2 py-1 rounded-lg'
-                                : 'flex-1 bg-primary px-2 py-1 rounded-lg'
+                                : 'flex-1 bg-primary text-primary-contrast px-2 py-1 rounded-lg'
                         "
                     >
                         <p
@@ -200,13 +200,13 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     </div>
                 </div>
             </div>
-            <div class="p-4 border-t border-surface flex items-end justify-between gap-2">
+            <div class="p-6 border-t border-surface flex items-end justify-between gap-2">
                 <div class="flex items-end gap-1 flex-1">
                     <p-button icon="pi pi-face-smile" text />
                     <p-button icon="pi pi-paperclip" text />
                     <textarea
                         pInputTextarea
-                        class="ml-1 flex-1 border-0 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
+                        class="ml-1 flex-1 border-surface-0 dark:border-surface-900 shadow-none max-h-32 min-h-9 bg-emphasis overflow-auto"
                         autoResize
                         rows="1"
                         placeholder="Write your message..."
@@ -215,7 +215,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                 <p-button icon="pi pi-send" />
             </div>
         </div>
-        <div class="w-3/12 xl:block hidden min-w-40 py-6 px-3 overflow-auto">
+        <div class="w-3/12 xl:block hidden min-w-40 py-12 px-4 overflow-auto">
             <div class="flex flex-col items-center justify-center">
                 <p-avatar
                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar-primetek.png"
@@ -223,9 +223,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     size="xlarge"
                     shape="circle"
                 />
-                <div class="leading-6 font-medium text-color mt-4 w-full text-center">PrimeTek</div>
+                <div class="leading-6 font-medium text-color mt-6 w-full text-center">PrimeTek</div>
                 <div class="leading-5 text-sm text-muted-color mt-1 w-full text-center">&#64;primetek</div>
-                <div class="flex items-center justify-center flex-wrap gap-1 mt-4">
+                <div class="flex items-center justify-center flex-wrap gap-1 mt-6">
                     <p-button icon="pi pi-phone text-muted-color" severity="secondary" text />
                     <p-button icon="pi pi-video text-muted-color" severity="secondary" text />
                     <p-button icon="pi pi-sign-in text-muted-color" severity="secondary" text />
@@ -242,7 +242,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" />
                 </div>
             </div>
-            <div class="flex flex-col gap-4 mt-4">
+            <div class="flex flex-col gap-6 mt-6">
                 <div class="flex items-center gap-2">
                     <i class="pi pi-bell text-color"></i>
                     <div class="leading-6 font-medium text-color flex-1">Notification</div>
@@ -259,12 +259,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     <p-inputSwitch [(ngModel)]="download" />
                 </div>
             </div>
-            <div class="mt-6">
+            <div class="mt-12">
                 <div class="flex items-center gap-2">
                     <div class="flex-1 text-color leading-6 font-medium">Members</div>
                     <p-button label="See All" styleClass="text-sm py-0.5 px-2 text-muted-color" text />
                 </div>
-                <div class="mt-4 flex flex-col gap-2">
+                <div class="mt-6 flex flex-col gap-2">
                     <div *ngFor="let member of members" class="flex items-center gap-2 cursor-pointer">
                         <p-avatar
                             [image]="member.image"
@@ -285,10 +285,10 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
                     </div>
                 </div>
             </div>
-            <div class="mt-5">
+            <div class="mt-8">
                 <p-selectButton [(ngModel)]="media" [options]="mediaOptions" styleClass="w-full" />
 
-                <div class="mt-3 mb-5 grid grid-cols-3 gap-2">
+                <div class="mt-4 mb-8 grid grid-cols-12 gap-4 grid-cols-3 gap-2">
                     <div
                         *ngFor="let media of chatMedia"
                         class="bg-emphasis hover:opacity-70 transition-all flex-1 aspect-square rounded-lg border border-surface cursor-pointer"

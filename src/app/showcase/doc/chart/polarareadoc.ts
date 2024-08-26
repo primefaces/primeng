@@ -9,7 +9,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <app-docsectiontext>
             <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-chart type="polarArea" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
@@ -80,7 +80,7 @@ export class PolarAreaDoc implements OnInit {
 
     code: Code = {
         basic: `<p-chart type="polarArea" [data]="data" [options]="options" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-chart type="polarArea" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

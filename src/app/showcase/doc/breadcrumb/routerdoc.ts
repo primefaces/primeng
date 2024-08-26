@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Items with navigation are defined with templating to be able to use a routerLink directive, an external link or programmatic navigation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-breadcrumb class="max-w-full" [model]="items">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else elseBlock">
@@ -54,7 +54,7 @@ export class RouterDoc implements OnInit {
     </ng-template>
 </p-breadcrumb>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-breadcrumb class="max-w-full" [model]="items">
         <ng-template pTemplate="item" let-item>
             <ng-container *ngIf="item.route; else elseBlock">

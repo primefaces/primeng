@@ -12,7 +12,7 @@ import { ProductService } from '@service/productservice';
         <p-deferred-demo (load)="loadDemoData()">
             <div class="card">
                 <p-toast />
-                <p-toolbar styleClass="mb-4 gap-2">
+                <p-toolbar styleClass="mb-6 gap-2">
                     <ng-template pTemplate="left">
                         <p-button pRipple severity="success" label="New" icon="pi pi-plus" class="mr-2" (click)="openNew()" />
                         <p-button pRipple severity="danger" label="Delete" icon="pi pi-trash" (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length" />
@@ -38,7 +38,7 @@ import { ProductService } from '@service/productservice';
                     [showCurrentPageReport]="true"
                 >
                     <ng-template pTemplate="caption">
-                        <div class="flex align-items-center justify-content-between">
+                        <div class="flex items-center justify-between">
                             <h5 class="m-0">Manage Products</h5>
                             <span class="p-input-icon-left">
                                 <i class="pi pi-search"></i>
@@ -66,7 +66,7 @@ import { ProductService } from '@service/productservice';
                                 <p-tableCheckbox [value]="product" />
                             </td>
                             <td>{{ product.name }}</td>
-                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-4" /></td>
+                            <td><img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.name" width="50" class="shadow-lg" /></td>
                             <td>{{ product.price | currency: 'USD' }}</td>
                             <td>{{ product.category }}</td>
                             <td><p-rating [(ngModel)]="product.rating" [readonly]="true" [cancel]="false" /></td>
@@ -80,13 +80,13 @@ import { ProductService } from '@service/productservice';
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="summary">
-                        <div class="flex align-items-center justify-content-between">In total there are {{ products ? products.length : 0 }} products.</div>
+                        <div class="flex items-center justify-between">In total there are {{ products ? products.length : 0 }} products.</div>
                     </ng-template>
                 </p-table>
 
                 <p-dialog [(visible)]="productDialog" [style]="{ width: '450px' }" header="Product Details" [modal]="true" styleClass="p-fluid">
                     <ng-template pTemplate="content">
-                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-3" *ngIf="product.image" />
+                        <img [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" [alt]="product.image" class="block m-auto pb-4" *ngIf="product.image" />
                         <div class="field">
                             <label for="name">Name</label>
                             <input type="text" pInputText id="name" [(ngModel)]="product.name" required autofocus />
@@ -110,28 +110,28 @@ import { ProductService } from '@service/productservice';
                         </div>
 
                         <div class="field">
-                            <label class="mb-3">Category</label>
-                            <div class="formgrid grid">
-                                <div class="field-radiobutton col-6">
+                            <label class="mb-4">Category</label>
+                            <div class="formgrid grid grid-cols-12 gap-4">
+                                <div class="field-radiobutton col-span-6">
                                     <p-radioButton id="category1" name="category" value="Accessories" [(ngModel)]="product.category" />
                                     <label for="category1">Accessories</label>
                                 </div>
-                                <div class="field-radiobutton col-6">
+                                <div class="field-radiobutton col-span-6">
                                     <p-radioButton id="category2" name="category" value="Clothing" [(ngModel)]="product.category" />
                                     <label for="category2">Clothing</label>
                                 </div>
-                                <div class="field-radiobutton col-6">
+                                <div class="field-radiobutton col-span-6">
                                     <p-radioButton id="category3" name="category" value="Electronics" [(ngModel)]="product.category" />
                                     <label for="category3">Electronics</label>
                                 </div>
-                                <div class="field-radiobutton col-6">
+                                <div class="field-radiobutton col-span-6">
                                     <p-radioButton id="category4" name="category" value="Fitness" [(ngModel)]="product.category" />
                                     <label for="category4">Fitness</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="formgrid grid">
+                        <div class="formgrid grid grid-cols-12 gap-4">
                             <div class="field col">
                                 <label for="price">Price</label>
                                 <p-inputNumber id="price" [(ngModel)]="product.price" mode="currency" currency="USD" locale="en-US" />
@@ -285,7 +285,7 @@ export class ProductsDoc {
 
     code: Code = {
         basic: `<p-toast />
-<p-toolbar styleClass="mb-4 gap-2">
+<p-toolbar styleClass="mb-6 gap-2">
     <ng-template pTemplate="left">
         <p-button 
             pRipple 
@@ -331,7 +331,7 @@ export class ProductsDoc {
     [showCurrentPageReport]="true"
 >
     <ng-template pTemplate="caption">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex items-center justify-between">
             <h5 class="m-0">Manage Products</h5>
             <span class="p-input-icon-left">
                 <i class="pi pi-search"></i>
@@ -382,7 +382,7 @@ export class ProductsDoc {
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
                     [alt]="product.name" 
                     width="50" 
-                    class="shadow-4" />
+                    class="shadow-lg" />
             </td>
             <td>
                 {{ product.price | currency : 'USD' }}
@@ -416,14 +416,14 @@ export class ProductsDoc {
         </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-        <div class="flex align-items-center justify-content-between">
+        <div class="flex items-center justify-between">
             In total there are {{ products ? products.length : 0 }} products.
         </div>
     </ng-template>
 </p-table>`,
         html: `<div class="card">
     <p-toast />
-    <p-toolbar styleClass="mb-4 gap-2">
+    <p-toolbar styleClass="mb-6 gap-2">
         <ng-template pTemplate="left">
             <p-button 
                 pRipple 
@@ -471,7 +471,7 @@ export class ProductsDoc {
         [showCurrentPageReport]="true"
     >
         <ng-template pTemplate="caption">
-            <div class="flex align-items-center justify-content-between">
+            <div class="flex items-center justify-between">
                 <h5 class="m-0">Manage Products</h5>
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
@@ -522,7 +522,7 @@ export class ProductsDoc {
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
                     [alt]="product.name" 
                     width="50" 
-                    class="shadow-4" />
+                    class="shadow-lg" />
                 </td>
                 <td>
                     {{ product.price | currency : 'USD' }}
@@ -561,7 +561,7 @@ export class ProductsDoc {
             </tr>
         </ng-template>
         <ng-template pTemplate="summary">
-            <div class="flex align-items-center justify-content-between">
+            <div class="flex items-center justify-between">
                 In total there are {{ products ? products.length : 0 }} products.
             </div>
         </ng-template>
@@ -577,7 +577,7 @@ export class ProductsDoc {
                 <img 
                     [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image" 
                     [alt]="product.image" 
-                    class="block m-auto pb-3" 
+                    class="block m-auto pb-4" 
                     *ngIf="product.image" />
                 <div class="field">
                     <label for="name">Name</label>
@@ -624,9 +624,9 @@ export class ProductsDoc {
                 </div>
 
                 <div class="field">
-                    <label class="mb-3">Category</label>
-                    <div class="formgrid grid">
-                        <div class="field-radiobutton col-6">
+                    <label class="mb-4">Category</label>
+                    <div class="formgrid grid grid-cols-12 gap-4">
+                        <div class="field-radiobutton col-span-6">
                             <p-radioButton 
                                 id="category1" 
                                 name="category" 
@@ -634,7 +634,7 @@ export class ProductsDoc {
                                 [(ngModel)]="product.category" />
                             <label for="category1">Accessories</label>
                         </div>
-                        <div class="field-radiobutton col-6">
+                        <div class="field-radiobutton col-span-6">
                             <p-radioButton 
                                 id="category2" 
                                 name="category" 
@@ -642,7 +642,7 @@ export class ProductsDoc {
                                 [(ngModel)]="product.category" />
                             <label for="category2">Clothing</label>
                         </div>
-                        <div class="field-radiobutton col-6">
+                        <div class="field-radiobutton col-span-6">
                             <p-radioButton 
                                 id="category3" 
                                 name="category" 
@@ -650,7 +650,7 @@ export class ProductsDoc {
                                 [(ngModel)]="product.category" />
                             <label for="category3">Electronics</label>
                         </div>
-                        <div class="field-radiobutton col-6">
+                        <div class="field-radiobutton col-span-6">
                             <p-radioButton 
                                 id="category4" 
                                 name="category" 
@@ -661,7 +661,7 @@ export class ProductsDoc {
                     </div>
                 </div>
 
-                <div class="formgrid grid">
+                <div class="formgrid grid grid-cols-12 gap-4">
                     <div class="field col">
                         <label for="price">Price</label>
                         <p-inputNumber 

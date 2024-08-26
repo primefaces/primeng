@@ -15,7 +15,7 @@ import { Code } from 'src/app/showcase/domain/code';
                 the layers, we'd have to write a stronger css or use <i>!important</i> however, with layers, this does not present an issue as your CSS can always override PrimeNG with a more straightforward class name such as <i>my-inputswitch</i>.
                 Another advantage of this approach is that it does not force you to figure out the built-in class names of the components.
             </p>
-            <div class="card flex justify-content-center">
+            <div class="card flex justify-center">
                 <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
             </div>
 
@@ -47,7 +47,7 @@ export class SpecificityDoc {
 
 @Component({
     template: \`
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-inputSwitch [(ngModel)]="checked" styleClass="my-inputswitch" />
         </div>\`,
     encapsulation: ViewEncapsulation.None,

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Use the <i>image</i> property to display an image as an Avatar.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex flex-wrap gap-5">
+            <div class="flex flex-wrap gap-8">
                 <div class="flex-auto">
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" styleClass="mr-2" size="xlarge" shape="circle" />
                     <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png" styleClass="mr-2" size="large" shape="circle" />
@@ -20,7 +20,7 @@ import { Code } from '@domain/code';
                 </div>
                 <div class="flex-auto">
                     <h5>Gravatar</h5>
-                    <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" styleClass="flex align-items-center justify-content-center mr-2" size="xlarge" />
+                    <p-avatar image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" styleClass="flex items-center justify-center mr-2" size="xlarge" />
                 </div>
             </div>
         </div>
@@ -53,10 +53,10 @@ export class ImageDoc {
 
 <p-avatar 
     image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" 
-    styleClass="flex align-items-center justify-content-center mr-2" 
+    styleClass="flex items-center justify-center mr-2" 
     size="xlarge" />`,
         html: `<div class="card">
-    <div class="flex flex-wrap gap-5">
+    <div class="flex flex-wrap gap-8">
         <div class="flex-auto">
             <p-avatar 
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
@@ -86,7 +86,7 @@ export class ImageDoc {
             <h5>Gravatar</h5>
             <p-avatar 
                 image="https://www.gravatar.com/avatar/05dfd4b41340d09cae045235eb0893c3?d=mp" 
-                styleClass="flex align-items-center justify-content-center mr-2" 
+                styleClass="flex items-center justify-center mr-2" 
                 size="xlarge" />
         </div>
     </div>

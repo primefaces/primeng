@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A font icon next to the value can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-tag icon="pi pi-user" value="Primary" />
             <p-tag icon="pi pi-check" severity="success" value="Success" />
             <p-tag icon="pi pi-info-circle" severity="info" value="Info" />
@@ -21,7 +21,7 @@ export class IconDoc {
     code: Code = {
         basic: `<p-tag icon="pi pi-user" value="Primary" />`,
         html: `
-<div class="card flex justify-content-center gap-2">
+<div class="card flex justify-center gap-2">
     <p-tag icon="pi pi-user" value="Primary" />
     <p-tag icon="pi pi-check" severity="success" value="Success" />
     <p-tag icon="pi pi-info-circle" severity="info" value="Info" />

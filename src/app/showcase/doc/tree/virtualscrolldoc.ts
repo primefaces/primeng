@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>VirtualScroller is a performance-approach to handle huge data efficiently. Setting <i>virtualScroll</i> property as true and providing a <i>virtualScrollItemSize</i> in pixels would be enough to enable this functionality.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
+        <div class="card flex justify-center">
+            <p-tree class="w-full md:w-[30rem]" scrollHeight="250px" [virtualScroll]="true" [virtualScrollItemSize]="46" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-virtual-scroll-demo"></app-code>
     `
@@ -42,15 +42,15 @@ export class VirtualScrollDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     scrollHeight="250px" 
     [virtualScroll]="true" 
     [virtualScrollItemSize]="46" 
     [value]="files" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tree 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         scrollHeight="250px" 
         [virtualScroll]="true" 
         [virtualScrollItemSize]="46" 

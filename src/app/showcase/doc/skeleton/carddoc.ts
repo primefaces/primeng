@@ -8,8 +8,8 @@ import { Code } from '@domain/code';
             <p>Sample Card implementation using different Skeleton components and PrimeFlex CSS utilities.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="border-round border-1 surface-border p-4 surface-card">
-                <div class="flex mb-3">
+            <div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
+                <div class="flex mb-4">
                     <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
                     <div>
                         <p-skeleton width="10rem" styleClass="mb-2" />
@@ -18,7 +18,7 @@ import { Code } from '@domain/code';
                     </div>
                 </div>
                 <p-skeleton width="100%" height="150px" />
-                <div class="flex justify-content-between mt-3">
+                <div class="flex justify-between mt-4">
                     <p-skeleton width="4rem" height="2rem" />
                     <p-skeleton width="4rem" height="2rem" />
                 </div>
@@ -29,8 +29,8 @@ import { Code } from '@domain/code';
 })
 export class CardDoc {
     code: Code = {
-        basic: `<div class="border-round border-1 surface-border p-4 surface-card">
-    <div class="flex mb-3">
+        basic: `<div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
+    <div class="flex mb-4">
         <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
         <div>
             <p-skeleton width="10rem" styleClass="mb-2" />
@@ -39,14 +39,14 @@ export class CardDoc {
         </div>
     </div>
     <p-skeleton width="100%" height="150px" />
-    <div class="flex justify-content-between mt-3">
+    <div class="flex justify-between mt-4">
         <p-skeleton width="4rem" height="2rem" />
         <p-skeleton width="4rem" height="2rem" />
     </div>
 </div>`,
         html: `<div class="card">
-    <div class="border-round border-1 surface-border p-4 surface-card">
-        <div class="flex mb-3">
+    <div class="rounded-border border border-surface p-6 bg-surface-0 dark:bg-surface-900">
+        <div class="flex mb-4">
             <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
             <div>
                 <p-skeleton width="10rem" styleClass="mb-2" />
@@ -55,7 +55,7 @@ export class CardDoc {
             </div>
         </div>
         <p-skeleton width="100%" height="150px" />
-        <div class="flex justify-content-between mt-3">
+        <div class="flex justify-between mt-4">
             <p-skeleton width="4rem" height="2rem" />
             <p-skeleton width="4rem" height="2rem" />
         </div>

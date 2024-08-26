@@ -11,7 +11,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" placeholder="Search" (completeMethod)="search($event)" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="autocomplete-disabled-demo"></app-code>`
@@ -34,7 +34,7 @@ export class DisabledDoc {
     (completeMethod)="search($event)" 
     [disabled]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         [(ngModel)]="selectedItem" 
         [suggestions]="suggestions" 

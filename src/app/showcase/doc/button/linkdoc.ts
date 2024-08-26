@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A button can be rendered as a link as well.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-3">
+        <div class="card flex justify-center gap-4">
             <p-button label="Link" [link]="true" />
             <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">External</a>
             <a routerLink="/" class="p-button font-bold">Router</a>
@@ -25,7 +25,7 @@ export class LinkDoc {
     Router
 </a>`,
 
-        html: `<div class="card flex justify-content-center gap-3">
+        html: `<div class="card flex justify-center gap-4">
     <p-button label="Link" [link]="true" />
     <a href="https://angular.dev/" target="_blank" rel="noopener noreferrer" class="p-button font-bold">
         External

@@ -12,10 +12,10 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>Option grouping is enabled when <i>group</i> property is set to <i>true</i>. <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-autoComplete [(ngModel)]="selectedCity" [group]="true" [suggestions]="filteredGroups" (completeMethod)="filterGroupedCity($event)" placeholder="Hint: type 'a'">
                 <ng-template let-group pTemplate="group">
-                    <div class="flex align-items-center">
+                    <div class="flex items-center">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'mr-2 flag flag-' + group.value" style="width: 20px" />
                         <span>{{ group.label }}</span>
                     </div>
@@ -94,7 +94,7 @@ export class GroupDoc implements OnInit {
     (completeMethod)="filterGroupedCity($event)" 
     placeholder="Hint: type 'a'">
         <ng-template let-group pTemplate="group">
-            <div class="flex align-items-center">
+            <div class="flex items-center">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" 
                     [class]="'mr-2 flag flag-' + group.value" 
@@ -104,7 +104,7 @@ export class GroupDoc implements OnInit {
         </ng-template>
 </p-autoComplete>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-autoComplete 
         [(ngModel)]="selectedCity" 
         [group]="true" 
@@ -112,7 +112,7 @@ export class GroupDoc implements OnInit {
         (completeMethod)="filterGroupedCity($event)" 
         placeholder="Hint: type 'a'">
             <ng-template let-group pTemplate="group">
-                <div class="flex align-items-center">
+                <div class="flex items-center">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'mr-2 flag flag-' + group.value" 

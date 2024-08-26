@@ -17,7 +17,7 @@ interface PageEvent {
                 <i>totalRecords</i> property. Default template includes a dropdown to change the <i>rows</i> so <i>rowsPerPageOptions</i> is also necessary for the dropdown options.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
         </div>
         <app-code [code]="code" selector="paginator-basic-demo"></app-code>
@@ -41,7 +41,7 @@ export class BasicDoc {
     [totalRecords]="120" 
     [rowsPerPageOptions]="[10, 20, 30]" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-paginator 
         (onPageChange)="onPageChange($event)" 
         [first]="first" 

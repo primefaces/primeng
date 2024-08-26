@@ -14,20 +14,20 @@ interface PageEvent {
         <app-docsectiontext>
             <p>Templating allows overriding the default content of the UI elements by defining callbacks using the element name.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column gap-3">
-            <div class="flex align-items-center justify-content-center">
+        <div class="card flex flex-col gap-4">
+            <div class="flex items-center justify-center">
                 <div>
                     <p-button icon="pi pi-star" styleClass="p-button-outlined" />
                 </div>
                 <div class="flex-1">
                     <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
                 </div>
-                <div class="justify-content-end">
+                <div class="justify-end">
                     <p-button icon="pi pi-search" />
                 </div>
             </div>
             <p-divider />
-            <div class="flex align-items-center justify-content-end">
+            <div class="flex items-center justify-end">
                 <span class="mx-1 text-color">Items per page: </span>
                 <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
                 <p-paginator
@@ -42,8 +42,8 @@ interface PageEvent {
                 ></p-paginator>
             </div>
             <p-divider />
-            <div class="flex align-items-center justify-content-start">
-                <div class="flex justify-content-center align-items-center gap-3">
+            <div class="flex items-center justify-start">
+                <div class="flex justify-center items-center gap-4">
                     <span>Items per page: </span>
                     <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
                 </div>
@@ -99,27 +99,27 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex align-items-center justify-content-center">
+        basic: `<div class="flex items-center justify-center">
     <div>
         <p-button icon="pi pi-star" styleClass="p-button-outlined" />
     </div>
     <div class="flex-1">
         <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
     </div>
-    <div class="justify-content-end">
+    <div class="justify-end">
         <p-button icon="pi pi-search" />
     </div>
 </div>
 
-<div class="flex align-items-center justify-content-end">
+<div class="flex items-center justify-end">
     <span class="mx-1 text-color">Items per page: </span>
     <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
     <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true"
         currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false" ></p-paginator>
 </div>
 
-<div class="flex align-items-center justify-content-start">
-    <div class="flex justify-content-center align-items-center gap-3">
+<div class="flex items-center justify-start">
+    <div class="flex justify-center items-center gap-4">
         <span>Items per page: </span>
         <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
     </div>
@@ -127,28 +127,28 @@ export class TemplateDoc {
         [showCurrentPageReport]="true" currentPageReportTemplate="{first} - {last} of {totalRecords}" ></p-paginator>
 </div>`,
 
-        html: `<div class="card flex flex-column gap-3">
-    <div class="flex align-items-center justify-content-center">
+        html: `<div class="card flex flex-col gap-4">
+    <div class="flex items-center justify-center">
         <div>
             <p-button icon="pi pi-star" styleClass="p-button-outlined" />
         </div>
         <div class="flex-1">
             <p-paginator (onPageChange)="onPageChange1($event)" [first]="first1" [rows]="rows1" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" [showFirstLastIcon]="false" />
         </div>
-        <div class="justify-content-end">
+        <div class="justify-end">
             <p-button icon="pi pi-search" />
         </div>
     </div>
     <p-divider />
-    <div class="flex align-items-center justify-content-end">
+    <div class="flex items-center justify-end">
         <span class="mx-1 text-color">Items per page: </span>
         <p-dropdown [options]="options" optionLabel="label" optionValue="value" [(ngModel)]="rows2" (ngModelChange)="first2 = 0" />
         <p-paginator [first]="first2" [rows]="rows2" [totalRecords]="120" (onPageChange)="onPageChange2($event)" [showCurrentPageReport]="true" 
             currentPageReportTemplate="{first} - {last} of {totalRecords}" [showPageLinks]="false" [showFirstLastIcon]="false"></p-paginator>
     </div>
     <p-divider />
-    <div class="flex align-items-center justify-content-start">
-        <div class="flex justify-content-center align-items-center gap-3">
+    <div class="flex items-center justify-start">
+        <div class="flex justify-center items-center gap-4">
             <span>Items per page: </span>
             <p-slider [(ngModel)]="rows3" (ngModelChange)="first3 = 0" [style]="{ width: '10rem' }" [min]="10" [max]="120" [step]="30" />
         </div>

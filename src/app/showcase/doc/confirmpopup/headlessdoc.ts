@@ -8,13 +8,13 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-confirmPopup #confirmPopupRef>
                 <ng-template pTemplate="headless" let-message let-test>
-                    <div class="border-round p-3">
+                    <div class="rounded-border p-4">
                         <span>{{ message.message }}</span>
-                        <div class="flex align-items-center gap-2 mt-3">
+                        <div class="flex items-center gap-2 mt-4">
                             <p-button (click)="accept()" label="Save" size="small" />
                             <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                         </div>
@@ -60,9 +60,9 @@ export class HeadlessDoc {
         basic: `<p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="border-round p-3">
+            <div class="rounded-border p-4">
                 <span>{{ message.message }}</span>
-                <div class="flex align-items-center gap-2 mt-3">
+                <div class="flex items-center gap-2 mt-4">
                     <p-button (click)="accept()" label="Save" size="small" />
                     <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                 </div>
@@ -71,13 +71,13 @@ export class HeadlessDoc {
     </p-confirmPopup>
 <p-button (click)="confirm($event)" label="Save" />`,
 
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="border-round p-3">
+            <div class="rounded-border p-4">
                 <span>{{ message.message }}</span>
-                <div class="flex align-items-center gap-2 mt-3">
+                <div class="flex items-center gap-2 mt-4">
                     <p-button (click)="accept()" label="Save" size="small" />
                     <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
                 </div>

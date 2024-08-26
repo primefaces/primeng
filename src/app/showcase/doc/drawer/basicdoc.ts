@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Drawer is used as a container and visibility is controlled with a binding to <i>visible</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-drawer [(visible)]="visible">
                 <h3>Drawer</h3>
                 <p>
@@ -32,7 +32,7 @@ export class BasicDoc {
 </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-arrow-right" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-drawer [(visible)]="visible">
         <h3>Drawer</h3>
         <p>

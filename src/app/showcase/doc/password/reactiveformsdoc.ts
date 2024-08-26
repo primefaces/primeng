@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Password can also be used with reactive forms. In this case, the <i>formControlName</i> property is used to bind the component to a form control.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <form [formGroup]="formGroup">
                 <p-password formControlName="value" [feedback]="false" />
             </form>
@@ -30,7 +30,7 @@ export class ReactiveFormsDoc implements OnInit {
     <p-password formControlName="value" [feedback]="false" />
 </form>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <form [formGroup]="formGroup">
         <p-password formControlName="value" [feedback]="false" />
     </form>

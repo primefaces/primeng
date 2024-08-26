@@ -11,14 +11,14 @@ import { Code } from '@domain/code';
                 <i>icon</i> is available.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap p-fluid gap-3">
-            <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
+        <div class="card flex flex-wrap p-fluid gap-4">
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
                 <label for="mask" class="font-bold block mb-2">Mask Mode</label>
-                <p-tree class="w-full md:w-30rem" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
+                <p-tree class="w-full md:w-[30rem]" [value]="nodes" (onNodeExpand)="onNodeExpand($event)" [loading]="loading" />
             </div>
-            <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
+            <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
                 <label for="icon" class="font-bold block mb-2">Icon Mode</label>
-                <p-tree class="w-full md:w-30rem" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
+                <p-tree class="w-full md:w-[30rem]" [value]="nodes2" loadingMode="icon" (onNodeExpand)="onNodeExpand2($event)" />
             </div>
         </div>
         <app-code [code]="code" selector="tree-lazy-demo"></app-code>
@@ -135,29 +135,29 @@ export class LazyDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [value]="nodes" 
     (onNodeExpand)="onNodeExpand($event)" 
     [loading]="loading" />
 <p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [value]="nodes2" 
     loadingMode="icon" 
     (onNodeExpand)="onNodeExpand2($event)" />`,
 
-        html: `<div class="card flex flex-wrap p-fluid gap-3">
-    <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
+        html: `<div class="card flex flex-wrap p-fluid gap-4">
+    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
         <label for="mask" class="font-bold block mb-2">Mask Mode</label>
         <p-tree 
-            class="w-full md:w-30rem" 
+            class="w-full md:w-[30rem]" 
             [value]="nodes" 
             (onNodeExpand)="onNodeExpand($event)" 
             [loading]="loading" />
     </div>
-    <div class="flex-auto md:flex md:justify-content-start md:align-items-center flex-column">
+    <div class="flex-auto md:flex md:justify-start md:items-center flex-col">
         <label for="icon" class="font-bold block mb-2">Icon Mode</label>
         <p-tree 
-            class="w-full md:w-30rem" 
+            class="w-full md:w-[30rem]" 
             [value]="nodes2" 
             loadingMode="icon" 
             (onNodeExpand)="onNodeExpand2($event)" />

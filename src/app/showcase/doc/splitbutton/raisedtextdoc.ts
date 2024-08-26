@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Text buttons can be displayed as raised as well for elevation.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center flex-wrap gap-3">
+        <div class="card flex justify-center flex-wrap gap-4">
             <p-toast />
             <p-splitButton label="Primary" [model]="items" (onClick)="save('info')" raised text />
             <p-splitButton label="Secondary" [model]="items" (onClick)="save('info')" raised text severity="secondary" />
@@ -107,7 +107,7 @@ export class RaisedTextDoc {
     text 
     severity="danger" />`,
 
-        html: `<div class="card flex justify-content-center flex-wrap gap-3">
+        html: `<div class="card flex justify-center flex-wrap gap-4">
     <p-toast />
     <p-splitButton 
         label="Primary" 

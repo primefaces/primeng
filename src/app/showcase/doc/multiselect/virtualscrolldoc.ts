@@ -11,7 +11,7 @@ import { MultiSelect } from 'primeng/multiselect';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-multiSelect
                 [options]="items"
                 [showToggleAll]="true"
@@ -68,7 +68,7 @@ export class VirtualScrollDoc {
     </ng-template>
 </p-multiSelect>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-multiSelect
         [options]="items"
         [showToggleAll]="true"

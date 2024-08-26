@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <i>center</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast position="top-left" key="tl" />
             <p-toast position="bottom-left" key="bl" />
             <p-toast position="bottom-right" key="br" />
@@ -78,7 +78,7 @@ export class PositionDoc {
     label="Bottom Right" 
     severity="help" />`,
 
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast position="top-left" key="tl" />
     <p-toast position="bottom-left" key="bl" />
     <p-toast position="bottom-right" key="br" />

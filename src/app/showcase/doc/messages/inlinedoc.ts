@@ -8,24 +8,24 @@ import { Code } from '@domain/code';
             <p><i>p-message</i> component is used to display inline messages mostly within forms.</p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex justify-content-center gap-2">
+            <div class="flex justify-center gap-2">
                 <p-message severity="info" text="Message Content"></p-message>
                 <p-message severity="success" text="Message Content"></p-message>
                 <p-message severity="warn" text="Message Content"></p-message>
                 <p-message severity="error" text="Message Content"></p-message>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-6">
                 <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2" />
                 <p-message severity="error" text="Field is required"></p-message>
             </div>
 
-            <div class="mt-4">
+            <div class="mt-6">
                 <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2" />
                 <p-message severity="error"></p-message>
             </div>
 
-            <div class="field p-fluid mt-4">
+            <div class="field p-fluid mt-6">
                 <label for="username">Username</label>
                 <input
                     id="username"
@@ -42,48 +42,48 @@ import { Code } from '@domain/code';
 })
 export class InlineDoc {
     code: Code = {
-        basic: `<div class="flex justify-content-center gap-2">
+        basic: `<div class="flex justify-center gap-2">
     <p-message severity="info" text="Message Content"></p-message>
     <p-message severity="success" text="Message Content"></p-message>  
     <p-message severity="warn" text="Message Content"></p-message>  
     <p-message severity="error" text="Message Content"></p-message>
 </div>
 
-<div class="mt-4">
+<div class="mt-6">
     <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2">
     <p-message severity="error" text="Field is required"></p-message>
 </div>
 
-<div class="mt-4">
+<div class="mt-6">
     <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2">
     <p-message severity="error"></p-message>
 </div>
 
-<div class="field p-fluid mt-4">
+<div class="field p-fluid mt-6">
     <label for="username">Username</label>
     <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
     <p-message severity="error" text="Username is not available."></p-message>
 </div>`,
         html: `
 <div class="card">
-    <div class="flex justify-content-center gap-2">
+    <div class="flex justify-center gap-2">
         <p-message severity="info" text="Message Content"></p-message>
         <p-message severity="success" text="Message Content"></p-message>  
         <p-message severity="warn" text="Message Content"></p-message>  
         <p-message severity="error" text="Message Content"></p-message>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-6">
         <input type="text" pInputText placeholder="Username" class="ng-dirty ng-invalid mr-2">
         <p-message severity="error" text="Field is required"></p-message>
     </div>
 
-    <div class="mt-4">
+    <div class="mt-6">
         <input type="text" pInputText placeholder="Email" class="ng-dirty ng-invalid mr-2">
         <p-message severity="error"></p-message>
     </div>
 
-    <div class="field p-fluid mt-4">
+    <div class="field p-fluid mt-6">
         <label for="username">Username</label>
         <input id="username" type="username" aria-describedby="username-help" class="ng-invalid ng-dirty" pInputText />
         <p-message severity="error" text="Username is not available."></p-message>

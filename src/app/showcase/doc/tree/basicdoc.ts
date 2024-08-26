@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Tree component requires an array of <i>TreeNode</i> objects as its <i>value</i>.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" />
+        <div class="card flex justify-center">
+            <p-tree class="w-full md:w-[30rem]" [value]="files" />
         </div>
         <app-code [code]="code" selector="tree-basic-demo"></app-code>
     `
@@ -27,8 +27,8 @@ export class BasicDoc implements OnInit {
     code: Code = {
         basic: `<p-tree class="w-full md:w-30rem" [value]="files" />`,
 
-        html: `<div class="card flex justify-content-center">
-    <p-tree class="w-full md:w-30rem" [value]="files" />
+        html: `<div class="card flex justify-center">
+    <p-tree class="w-full md:w-[30rem]" [value]="files" />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';

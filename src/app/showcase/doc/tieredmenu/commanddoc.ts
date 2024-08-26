@@ -9,7 +9,7 @@ import { MessageService } from 'primeng/api';
         <app-docsectiontext>
             <p>The <i>command</i> property defines the callback to run when an item is activated by click or a key event.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-tieredMenu [model]="items" />
         </div>
@@ -80,7 +80,7 @@ export class CommandDoc implements OnInit {
         basic: `<p-toast/>
 <p-tieredMenu [model]="items" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast/>
     <p-tieredMenu [model]="items" />
 </div>`,

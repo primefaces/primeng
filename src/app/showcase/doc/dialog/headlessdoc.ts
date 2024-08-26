@@ -7,11 +7,11 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p><i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
             <p-dialog [modal]="true" [maskStyle]="{'backdrop-filter': 'blur(2px)'}" [(visible)]="visible">
                 <ng-template pTemplate="headless">
-                    <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
+                    <div class="flex flex-col px-20 py-8 gap-6" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
                         <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                             <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                             <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -41,17 +41,17 @@ import { Code } from '@domain/code';
                             <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--primary-color-text)" />
                             <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--primary-color-text)" />
                         </svg>
-                        <div class="inline-flex flex-column gap-2">
+                        <div class="inline-flex flex-col gap-2">
                             <label for="username" class="text-primary-50 font-semibold">Username</label>
-                            <input pInputText id="username" class="bg-white-alpha-20 border-none p-3 text-primary-50" />
+                            <input pInputText id="username" class="bg-white/20 border-0 p-4 text-primary-50" />
                         </div>
-                        <div class="inline-flex flex-column gap-2">
+                        <div class="inline-flex flex-col gap-2">
                             <label for="password" class="text-primary-50 font-semibold">Password</label>
-                            <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password" />
+                            <input pInputText id="password" class="bg-white/20 border-0 p-4 text-primary-50" type="password" />
                         </div>
-                        <div class="flex align-items-center gap-2">
-                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
-                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
+                        <div class="flex items-center gap-2">
+                            <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full" />
+                            <p-button label="Cancel" (click)="closeDialog()" [text]="true" styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full" />
                         </div>
                     </div>
                 </ng-template>
@@ -75,7 +75,7 @@ export class HeadlessDoc {
         basic: `<p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog [modal]="true" [maskStyle]="{'backdrop-filter': 'blur(2px)'}" [(visible)]="visible">
     <ng-template pTemplate="headless">
-        <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
+        <div class="flex flex-col px-20 py-8 gap-6" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                 <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -105,27 +105,27 @@ export class HeadlessDoc {
                 <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--primary-color-text)" />
                 <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--primary-color-text)" />
             </svg>
-            <div class="inline-flex flex-column gap-2">
+            <div class="inline-flex flex-col gap-2">
                 <label for="username" class="text-primary-50 font-semibold">Username</label>
-                <input pInputText id="username" class="bg-white-alpha-20 border-none p-3 text-primary-50"/>
+                <input pInputText id="username" class="bg-white/20 border-0 p-4 text-primary-50"/>
             </div>
-            <div class="inline-flex flex-column gap-2">
+            <div class="inline-flex flex-col gap-2">
                 <label for="password" class="text-primary-50 font-semibold">Password</label>
-                <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"/>
+                <input pInputText id="password" class="bg-white/20 border-0 p-4 text-primary-50" type="password"/>
             </div>
-            <div class="flex align-items-center gap-2">
-                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"  />
-                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
+            <div class="flex items-center gap-2">
+                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full"  />
+                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full" />
             </div>
         </div>
     </ng-template>
 </p-dialog>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
 <p-button (click)="showDialog()" icon="pi pi-user" label="Login" />
 <p-dialog [modal]="true" [maskStyle]="{'backdrop-filter': 'blur(2px)'}" [(visible)]="visible">
     <ng-template pTemplate="headless">
-        <div class="flex flex-column px-8 py-5 gap-4" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
+        <div class="flex flex-col px-20 py-8 gap-6" style="border-radius: 12px; background-image: radial-gradient(circle at left top, var(--primary-400), var(--primary-700))">
             <svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg" class="block mx-auto">
                 <path d="M15.1934 0V0V0L0.0391235 5.38288L2.35052 25.3417L15.1934 32.427V32.427V32.427L28.0364 25.3417L30.3478 5.38288L15.1934 0Z" fill="var(--primary-color)" />
                 <mask id="mask0_1_36" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="31" height="33">
@@ -155,17 +155,17 @@ export class HeadlessDoc {
                 <path d="M18.8321 8.27235L22.2245 7.94938L19.9629 5.68861H17.7013L18.8321 8.27235Z" fill="var(--primary-color-text)" />
                 <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--primary-color-text)" />
             </svg>
-            <div class="inline-flex flex-column gap-2">
+            <div class="inline-flex flex-col gap-2">
                 <label for="username" class="text-primary-50 font-semibold">Username</label>
-                <input pInputText id="username" class="bg-white-alpha-20 border-none p-3 text-primary-50"/>
+                <input pInputText id="username" class="bg-white/20 border-0 p-4 text-primary-50"/>
             </div>
-            <div class="inline-flex flex-column gap-2">
+            <div class="inline-flex flex-col gap-2">
                 <label for="password" class="text-primary-50 font-semibold">Password</label>
-                <input pInputText id="password" class="bg-white-alpha-20 border-none p-3 text-primary-50" type="password"/>
+                <input pInputText id="password" class="bg-white/20 border-0 p-4 text-primary-50" type="password"/>
             </div>
-            <div class="flex align-items-center gap-2">
-                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"  />
-                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-3 w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full" />
+            <div class="flex items-center gap-2">
+                <p-button label="Sign-In" (click)="closeDialog()" [text]="true" styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full"  />
+                <p-button label="Cancel" (click)="closeDialog()" [text]="true"  styleClass="p-4 w-full text-primary-50 border border-white/30 hover:bg-white/10" class="w-full" />
             </div>
         </div>
     </ng-template>

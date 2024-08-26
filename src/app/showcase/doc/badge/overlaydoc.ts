@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Content of the badge is specified using the <i>value</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-4">
+        <div class="card flex flex-wrap justify-center gap-6">
             <p-overlayBadge value="2">
                 <i class="pi pi-bell" style="font-size: 2rem"></i>
             </p-overlayBadge>
@@ -32,7 +32,7 @@ export class OverlayDoc {
 <p-overlayBadge severity="danger">
     <i class="pi pi-envelope" style="font-size: 2rem"></i>
 </p-overlayBadge>`,
-        html: `<div class="card flex flex-wrap justify-content-center gap-4">
+        html: `<div class="card flex flex-wrap justify-center gap-6">
     <p-overlayBadge value="2">
         <i class="pi pi-bell" style="font-size: 2rem"></i>
     </p-overlayBadge>

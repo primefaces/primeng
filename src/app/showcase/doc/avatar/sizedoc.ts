@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p><i>size</i> property defines the size of the Avatar with <i>large</i> and <i>xlarge</i> as possible values.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-avatar label="P" size="large" />
             <p-avatar label="T" size="xlarge" />
         </div>
@@ -18,7 +18,7 @@ export class SizeDoc {
     code: Code = {
         basic: `<p-avatar label="P" size="large" />
 <p-avatar label="T" size="xlarge" />`,
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-avatar label="P" size="large" />
     <p-avatar label="T" size="xlarge" />
 </div>`,

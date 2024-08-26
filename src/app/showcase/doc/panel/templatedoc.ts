@@ -10,14 +10,14 @@ import { Code } from '@domain/code';
         <div class="card">
             <p-panel [toggleable]="true">
                 <ng-template pTemplate="header">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" size="large" shape="circle" />
                         <span class="font-bold">Amy Elsner</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="footer">
-                    <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-                        <div class="flex align-items-center gap-2">
+                    <div class="flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-2">
                             <p-button icon="pi pi-user" rounded="true" text="true" />
                             <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
                         </div>
@@ -65,7 +65,7 @@ export class TemplateDoc implements OnInit {
     code: Code = {
         basic: `<p-panel [toggleable]="true">
     <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
             <p-avatar 
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                 size="large" 
@@ -76,8 +76,8 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-            <div class="flex align-items-center gap-2">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
                 <p-button icon="pi pi-user" rounded="true" text="true" />
                 <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
             </div>
@@ -100,7 +100,7 @@ export class TemplateDoc implements OnInit {
         html: `<div class="card">
     <p-panel [toggleable]="true">
     <ng-template pTemplate="header">
-        <div class="flex align-items-center gap-2">
+        <div class="flex items-center gap-2">
             <p-avatar 
                 image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                 size="large" 
@@ -111,8 +111,8 @@ export class TemplateDoc implements OnInit {
         </div>
     </ng-template>
     <ng-template pTemplate="footer">
-        <div class="flex flex-wrap align-items-center justify-content-between gap-3">
-            <div class="flex align-items-center gap-2">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
                 <p-button icon="pi pi-user" rounded="true" text="true" />
                 <p-button icon="pi pi-bookmark" severity="secondary" rounded="true" text="true" />
             </div>

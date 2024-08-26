@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
                 resides inside PrimeNG to implement the structure of the components such as positioning whereas theme brings the colors and spacing.
             </p>
         </app-docsectiontext>
-        <img alt="Architecture" src="https://primefaces.org/cdn/primeng/images/architecture.jpg" class="w-full mb-5" />
+        <img alt="Architecture" src="https://primefaces.org/cdn/primeng/images/architecture.jpg" class="w-full mb-8" />
     `
 })
 export class ArchitectureDoc {}

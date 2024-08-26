@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 <i>ConfirmationService</i> is required to display it bycalling confirm method.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast />
             <p-confirmDialog />
             <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
@@ -68,7 +68,7 @@ export class BasicDoc {
 <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
 <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
 
-        html: `<div class="card flex justify-content-center gap-2">
+        html: `<div class="card flex justify-center gap-2">
     <p-toast />
     <p-confirmDialog />
     <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />

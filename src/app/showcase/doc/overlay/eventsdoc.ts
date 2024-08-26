@@ -3,7 +3,7 @@ import { Code } from '@domain/code';
 
 @Component({
     selector: 'events-doc',
-    template: ` <section class="py-4">
+    template: ` <section class="py-6">
         <app-code [code]="code" [hideToggleCode]="true"></app-code>
     </section>`
 })

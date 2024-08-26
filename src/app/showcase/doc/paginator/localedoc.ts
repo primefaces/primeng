@@ -14,7 +14,7 @@ interface PageEvent {
         <app-docsectiontext>
             <p>Localization information such as page numbers and rows per page options are defined with the <i>locale</i> property which defaults to the user locale.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="block font-bold mb-2" for="locale-user">User Locale</label>
                 <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows" [totalRecords]="120" [rowsPerPageOptions]="[10, 20, 30]" />
@@ -72,7 +72,7 @@ export class LocaleDoc {
 </div>
 `,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-paginator 
         (onPageChange)="onPageChange($event)"
         [first]="first" 
@@ -81,7 +81,7 @@ export class LocaleDoc {
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-paginator 
         locale="en-US" 
         (onPageChange)="onPageChange($event)"
@@ -91,7 +91,7 @@ export class LocaleDoc {
         [rowsPerPageOptions]="[10, 20, 30]" />
 </div>
 
-<div class="card flex justify-content-center">
+<div class="card flex justify-center">
     <p-paginator 
         locale="fa-IR" 
         (onPageChange)="onPageChange($event)" 

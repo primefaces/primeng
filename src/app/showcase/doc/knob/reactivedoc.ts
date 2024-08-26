@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Knob can be controlled with custom controls as well.</p>
         </app-docsectiontext>
-        <div class="card flex flex-column align-items-center gap-2">
+        <div class="card flex flex-col items-center gap-2">
             <p-knob [(ngModel)]="value" size="150" readonly="true" />
             <div class="flex gap-2">
                 <p-button icon="pi pi-plus" (click)="value = value + 1" [disabled]="value >= 100" />
@@ -33,7 +33,7 @@ export class ReactiveDoc {
         [disabled]="value <= 0" />
 </div>`,
 
-        html: `<div class="card flex flex-column align-items-center gap-2">
+        html: `<div class="card flex flex-col items-center gap-2">
 <p-knob [(ngModel)]="value" size="150" readonly="true"/>
 <div class="flex gap-2">
     <p-button 

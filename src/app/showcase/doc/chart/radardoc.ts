@@ -9,7 +9,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <app-docsectiontext>
             <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-chart type="radar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
@@ -91,7 +91,7 @@ export class RadarDoc implements OnInit {
 
     code: Code = {
         basic: `<p-chart type="radar" [data]="data" [options]="options" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-chart type="radar" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

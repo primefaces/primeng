@@ -12,7 +12,7 @@ interface City {
         <app-docsectiontext>
             <p>When <i>disabled</i> is present, the element cannot be edited and focused.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [disabled]="true" />
         </div>
         <app-code [code]="code" selector="select-disabled-demo"></app-code>
@@ -41,7 +41,7 @@ export class DisabledDoc {
     optionLabel="name" 
     [disabled]="true" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="cities" 
         [(ngModel)]="selectedCity" 

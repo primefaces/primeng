@@ -11,7 +11,7 @@ interface AutoCompleteCompleteEvent {
     template: ` <app-docsectiontext>
             <p>A floating label appears on top of the input field when focused. Visit <a routerLink="/floatlabel">FloatLabel</a> documentation for more information.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-floatLabel>
                 <p-autoComplete [(ngModel)]="selectedItem" [suggestions]="suggestions" (completeMethod)="search($event)" inputId="float-label" />
                 <label for="float-label">Float Label</label>
@@ -40,7 +40,7 @@ export class FloatLabelDoc {
     <label for="float-label">Float Label</label>
 </p-floatLabel>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-floatLabel>
         <p-autoComplete 
             [(ngModel)]="selectedItem" 

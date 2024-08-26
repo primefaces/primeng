@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A toast disappears after 3000ms by default, set the <i>life</i> option on either the message or toast to override this.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-2">
+        <div class="card flex justify-center gap-2">
             <p-toast [life]="10000" />
             <p-button pRipple (click)="showLife()" label="Show Life" />
             <p-button pRipple (click)="showLifeLong()" label="Show Life Long" />
@@ -38,7 +38,7 @@ export class LifeDoc {
     pRipple 
     (click)="showLifeLong()" 
     label="Show Life Long" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast [life]="10000" />
     <p-button 
         pRipple 

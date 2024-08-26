@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 <a href="/configuration/#locale">locale</a>
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-password [(ngModel)]="value" promptLabel="Choose a password" weakLabel="Too simple" mediumLabel="Average complexity" strongLabel="Complex password" />
         </div>
         <app-code [code]="code" selector="password-locale-demo"></app-code>
@@ -27,7 +27,7 @@ export class LocaleDoc {
     mediumLabel="Average complexity" 
     strongLabel="Complex password" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-password 
         [(ngModel)]="value"
         promptLabel="Choose a password" 

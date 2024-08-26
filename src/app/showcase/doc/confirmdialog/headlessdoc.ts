@@ -10,21 +10,21 @@ import { Code } from '@domain/code';
                 <i>Headless</i> mode allows you to customize the entire user interface instead of the default elements.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-confirmDialog #cd>
                 <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-                    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+                    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
                         <div
-                            class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+                            class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
                         >
                             <i class="pi pi-question text-5xl"></i>
                         </div>
-                        <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+                        <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
                         <p class="mb-0">{{ message.message }}</p>
-                        <div class="flex align-items-center gap-2 mt-4">
-                            <p-button label="Save" (onClick)="onAccept()" styleClass="w-8rem"></p-button>
-                            <p-button label="Cancel" (onClick)="onReject()" styleClass="w-8rem"></p-button>
+                        <div class="flex items-center gap-2 mt-6">
+                            <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                            <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
                         </div>
                     </div>
                 </ng-template>
@@ -54,37 +54,37 @@ export class HeadlessDoc {
     code: Code = {
         basic: `<p-confirmDialog #cd>
     <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
             <div
-                class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
             >
                 <i class="pi pi-question text-5xl"></i>
             </div>
-            <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+            <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
             <p class="mb-0">{{ message.message }}</p>
-            <div class="flex align-items-center gap-2 mt-4">
-                <p-button label="Save" (onClick)="onAccept()" styleClass="w-8rem"></p-button>
-                <p-button label="Cancel" (onClick)="onReject()" styleClass="w-8rem"></p-button>
+            <div class="flex items-center gap-2 mt-6">
+                <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
             </div>
         </div>
     </ng-template>
 </p-confirmDialog>`,
 
-        html: `div class="card flex justify-content-center">
+        html: `div class="card flex justify-center">
     <p-toast />
     <p-confirmDialog #cd>
         <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-            <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
                 <div
-                    class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem"
+                    class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
                 >
                     <i class="pi pi-question text-5xl"></i>
                 </div>
-                <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+                <span class="font-bold text-2xl block mb-2 mt-6">{{ message.header }}</span>
                 <p class="mb-0">{{ message.message }}</p>
-                <div class="flex align-items-center gap-2 mt-4">
-                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-8rem"></p-button>
-                    <p-button label="Cancel" (onClick)="onReject()" styleClass="w-8rem"></p-button>
+                <div class="flex items-center gap-2 mt-6">
+                    <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
+                    <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
                 </div>
             </div>
         </ng-template>

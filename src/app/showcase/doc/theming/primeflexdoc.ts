@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
                 of PrimeFlex and currently does not provide an extended style property like <i>sx</i>. Same approach is also utilized in <a href="https://blocks.primeng.org">PrimeBlocks for PrimeNG</a> project as well.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
+        <div class="card flex flex-col md:flex-row md:justify-between gap-y-4">
             <p-button label="Button 1"></p-button>
             <p-button styleClass="p-button-secondary" label="Button 2"></p-button>
             <p-button styleClass="p-button-help" label="Button 3"></p-button>
@@ -21,7 +21,7 @@ import { Code } from '@domain/code';
 })
 export class PrimeFlexDoc {
     code1: Code = {
-        basic: `<div class="card flex flex-column md:flex-row md:justify-content-between row-gap-3">
+        basic: `<div class="card flex flex-col md:flex-row md:justify-between gap-y-4">
     <p-button label="Button 1"></p-button>
     <p-button styleClass="p-button-secondary" label="Button 2"></p-button>
     <p-button styleClass="p-button-help" label="Button 3"></p-button>

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Drawer can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-drawer [(visible)]="visible" [fullScreen]="true">
                 <ng-template pTemplate="header">
                     <span class="font-semibold text-xl">Drawer</span>
@@ -38,7 +38,7 @@ export class FullScreenDoc {
     </p-drawer>
 <p-button (click)="visible = true" icon="pi pi-window-maximize" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-drawer [(visible)]="visible" [fullScreen]="true">
         <ng-template pTemplate="header">
             <span class="font-semibold text-xl">

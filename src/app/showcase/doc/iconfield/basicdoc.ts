@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 that the default value is <i>right</i> and also <i>left</i> option is available.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-3">
+        <div class="card flex flex-wrap justify-center gap-4">
             <p-iconField iconPosition="left">
                 <p-inputIcon styleClass="pi pi-search" />
                 <input type="text" pInputText placeholder="Search" />
@@ -34,7 +34,7 @@ export class BasicDoc {
     <input type="text" pInputText />
 </p-iconField>`,
 
-        html: `<div class="card flex flex-wrap justify-content-center gap-3">
+        html: `<div class="card flex flex-wrap justify-center gap-4">
     <p-iconField iconPosition="left">
         <p-inputIcon styleClass="pi pi-search" />
         <input type="text" pInputText placeholder="Search" />

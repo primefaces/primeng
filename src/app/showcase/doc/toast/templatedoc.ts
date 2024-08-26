@@ -8,15 +8,15 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Templating allows customizing the content where the message instance is available as the implicit variable.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast position="bottom-center" key="confirm" (onClose)="onReject()" [baseZIndex]="5000">
                 <ng-template let-message pTemplate="message">
-                    <div class="flex flex-column align-items-start" style="flex: 1">
-                        <div class="flex align-items-center gap-2">
+                    <div class="flex flex-col items-start" style="flex: 1">
+                        <div class="flex items-center gap-2">
                             <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                            <span class="font-bold text-900">Amy Elsner</span>
+                            <span class="font-bold text-surface-900 dark:text-surface-0">Amy Elsner</span>
                         </div>
-                        <div class="font-medium text-lg my-3 text-900">{{ message.summary }}</div>
+                        <div class="font-medium text-lg my-4 text-surface-900 dark:text-surface-0">{{ message.summary }}</div>
                         <p-button size="small" label="Reply" (click)="onConfirm()" />
                     </div>
                 </ng-template>
@@ -56,16 +56,16 @@ export class TemplateDoc {
     (onClose)="onReject()" 
     [baseZIndex]="5000">
         <ng-template let-message pTemplate="message">
-            <div class="flex flex-column align-items-start" style="flex: 1">
-                <div class="flex align-items-center gap-2">
+            <div class="flex flex-col items-start" style="flex: 1">
+                <div class="flex items-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                         shape="circle" />
-                    <span class="font-bold text-900">
+                    <span class="font-bold text-surface-900 dark:text-surface-0">
                         Amy Elsner
                     </span>
                 </div>
-                <div class="font-medium text-lg my-3 text-900">
+                <div class="font-medium text-lg my-4 text-surface-900 dark:text-surface-0">
                     {{ message.summary }}
                 </div>
                 <p-button size="small" label="Reply" (click)="onConfirm()" />
@@ -73,23 +73,23 @@ export class TemplateDoc {
         </ng-template>
 </p-toast>
 <p-button pRipple (click)="showConfirm()" label="View" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast 
         position="bottom-center" 
         key="confirm" 
         (onClose)="onReject()" 
         [baseZIndex]="5000">
             <ng-template let-message pTemplate="message">
-                <div class="flex flex-column align-items-start" style="flex: 1">
-                    <div class="flex align-items-center gap-2">
+                <div class="flex flex-col items-start" style="flex: 1">
+                    <div class="flex items-center gap-2">
                         <p-avatar 
                             image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                             shape="circle" />
-                        <span class="font-bold text-900">
+                        <span class="font-bold text-surface-900 dark:text-surface-0">
                             Amy Elsner
                         </span>
                     </div>
-                    <div class="font-medium text-lg my-3 text-900">
+                    <div class="font-medium text-lg my-4 text-surface-900 dark:text-surface-0">
                         {{ message.summary }}
                     </div>
                     <p-button size="small" label="Reply" (click)="onConfirm()" />

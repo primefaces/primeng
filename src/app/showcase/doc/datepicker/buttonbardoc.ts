@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>When <i>showButtonBar</i> is present, today and clear buttons are displayed at the footer.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-datePicker [(ngModel)]="date" [showButtonBar]="true" />
         </div>
         <app-code [code]="code" selector="datepicker-buttonbar-demo"></app-code>
@@ -21,7 +21,7 @@ export class ButtonBarDoc {
     [(ngModel)]="date" 
     [showButtonBar]="true"/>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-datePicker 
         [(ngModel)]="date" 
         [showButtonBar]="true"/>

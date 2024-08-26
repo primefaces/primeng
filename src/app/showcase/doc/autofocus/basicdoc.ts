@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>AutoFocus is applied to any focusable input element on initial load. It's disabled by default and needs to be enabled manually.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <input type="text" pInputText pAutoFocus [autofocus]="true" placeholder="Automatically focused" />
         </div>
         <app-code [code]="code" selector="auto-focus-basic-demo"></app-code>
@@ -21,7 +21,7 @@ export class BasicDoc {
     pAutoFocus 
     [autofocus]="true" 
     placeholder="Automatically focused" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <input 
         type="text" 
         pInputText 

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="card flex flex-wrap gap-4 p-fluid">
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="mile">Mile</label>
                 <p-inputNumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
@@ -62,7 +62,7 @@ export class PrefixSuffixDoc {
     [min]="0" 
     [max]="40" />`,
 
-        html: `<div class="card flex flex-wrap gap-3 p-fluid">
+        html: `<div class="card flex flex-wrap gap-4 p-fluid">
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="mile">
             Mile

@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 issues. Usage is simple as setting <i>virtualScroll</i> property to true and defining <i>virtualScrollItemSize</i> to specify the height of an item.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-listbox
                 [options]="items"
                 [(ngModel)]="selectedItems"
@@ -61,7 +61,7 @@ export class VirtualScrollDoc {
     (onChange)="onChange($event)"
     scrollHeight="250px" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-listbox
         [options]="items"
         [(ngModel)]="selectedItems"

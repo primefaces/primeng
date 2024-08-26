@@ -7,22 +7,22 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />
             <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template pTemplate="header">
-                    <div class="inline-flex align-items-center justify-content-center gap-2">
+                    <div class="inline-flex items-center justify-center gap-2">
                         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-                        <span class="font-bold white-space-nowrap">Amy Elsner</span>
+                        <span class="font-bold whitespace-nowrap">Amy Elsner</span>
                     </div>
                 </ng-template>
-                <span class="p-text-secondary block mb-5">Update your information.</span>
-                <div class="flex align-items-center gap-3 mb-3">
-                    <label for="username" class="font-semibold w-6rem">Username</label>
+                <span class="p-text-secondary block mb-8">Update your information.</span>
+                <div class="flex items-center gap-4 mb-4">
+                    <label for="username" class="font-semibold w-24">Username</label>
                     <input pInputText id="username" class="flex-auto" autocomplete="off" />
                 </div>
-                <div class="flex align-items-center gap-3 mb-5">
-                    <label for="email" class="font-semibold w-6rem">Email</label>
+                <div class="flex items-center gap-4 mb-8">
+                    <label for="email" class="font-semibold w-24">Email</label>
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <ng-template pTemplate="footer">
@@ -49,24 +49,24 @@ export class TemplateDoc {
     [modal]="true" 
     [style]="{ width: '25rem' }">
         <ng-template pTemplate="header">
-            <div class="inline-flex align-items-center justify-content-center gap-2">
+            <div class="inline-flex items-center justify-center gap-2">
                 <p-avatar 
                     image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" 
                     shape="circle" />
-                <span class="font-bold white-space-nowrap">
+                <span class="font-bold whitespace-nowrap">
                     Amy Elsner
                 </span>
             </div>
         </ng-template>
-        <span class="p-text-secondary block mb-5">Update your information.</span>
-        <div class="flex align-items-center gap-3 mb-3">
-            <label for="username" class="font-semibold w-6rem">
+        <span class="p-text-secondary block mb-8">Update your information.</span>
+        <div class="flex items-center gap-4 mb-4">
+            <label for="username" class="font-semibold w-24">
                 Username
             </label>
             <input pInputText id="username" class="flex-auto" autocomplete="off" />
         </div>
-        <div class="flex align-items-center gap-3 mb-5">
-            <label for="email" class="font-semibold w-6rem">Email</label>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="email" class="font-semibold w-24">Email</label>
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
         <ng-template pTemplate="footer">
@@ -84,7 +84,7 @@ export class TemplateDoc {
         </ng-template>
 </p-dialog>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button (click)="showDialog()" label="Show" />
     <p-dialog 
         header="Header" 
@@ -92,24 +92,24 @@ export class TemplateDoc {
         [modal]="true" 
         [style]="{ width: '25rem' }">
             <ng-template pTemplate="header">
-                <div class="inline-flex align-items-center justify-content-center gap-2">
+                <div class="inline-flex items-center justify-center gap-2">
                     <p-avatar 
                         image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
                         shape="circle" />
-                    <span class="font-bold white-space-nowrap">
+                    <span class="font-bold whitespace-nowrap">
                         Amy Elsner
                     </span>
                 </div>
             </ng-template>
-            <span class="p-text-secondary block mb-5">Update your information.</span>
-            <div class="flex align-items-center gap-3 mb-3">
-                <label for="username" class="font-semibold w-6rem">
+            <span class="p-text-secondary block mb-8">Update your information.</span>
+            <div class="flex items-center gap-4 mb-4">
+                <label for="username" class="font-semibold w-24">
                     Username
                 </label>
                 <input pInputText id="username" class="flex-auto" autocomplete="off" />
             </div>
-            <div class="flex align-items-center gap-3 mb-5">
-                <label for="email" class="font-semibold w-6rem">Email</label>
+            <div class="flex items-center gap-4 mb-8">
+                <label for="email" class="font-semibold w-24">Email</label>
                 <input pInputText id="email" class="flex-auto" autocomplete="off" />
             </div>
             <ng-template pTemplate="footer">

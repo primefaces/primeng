@@ -18,7 +18,7 @@ interface Column {
             </p>
         </app-docsectiontext>
         <div class="card">
-            <div class="flex gap-3 align-items-center justify-content-center mb-4">
+            <div class="flex gap-4 items-center justify-center mb-6">
                 <p-inputSwitch [(ngModel)]="metaKeySelection" />
                 <span>Metakey</span>
             </div>
@@ -96,7 +96,7 @@ export class SelectionMultipleDoc {
 </p-treeTable>`,
 
         html: `<div class="card">
-    <div class="flex gap-3 align-items-center justify-content-center mb-4">
+    <div class="flex gap-4 items-center justify-center mb-6">
         <p-inputSwitch [(ngModel)]="metaKeySelection" />
         <span>Metakey</span>
     </div>

@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Drawer location is configured with the <i>position</i> property that can take <i>left</i>, <i>right</i>, <i>top</i> and <i>bottom</i> as a value.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-2">
+        <div class="card flex flex-wrap justify-center gap-2">
             <p-drawer [(visible)]="visible1" position="left">
                 <h3>Left Drawer</h3>
             </p-drawer>
@@ -79,7 +79,7 @@ export class PositionDoc {
     (click)="visible4 = true" 
     icon="pi pi-arrow-up" />`,
 
-        html: `<div class="card flex flex-wrap justify-content-center gap-2">
+        html: `<div class="card flex flex-wrap justify-center gap-2">
     <p-drawer [(visible)]="visible1" position="left">
         <h3>Left Drawer</h3>
     </p-drawer>

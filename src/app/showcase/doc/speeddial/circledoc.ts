@@ -9,7 +9,7 @@ import { Code } from '@domain/code';
             <p>Items can be displayed around the button when <i>type</i> is set to <i>circle</i>. Additional <i>radius</i> property defines the radius of the circle.</p>
         </app-docsectiontext>
         <div class="card">
-            <div style="height: 500px" class="flex align-items-center justify-content-center">
+            <div style="height: 500px" class="flex items-center justify-center">
                 <p-toast />
                 <p-speedDial [model]="items" type="circle" [radius]="80" buttonClassName="p-button-warning" />
             </div>
@@ -63,7 +63,7 @@ export class CircleDoc implements OnInit {
     buttonClassName="p-button-warning" />`,
 
         html: `<div class="card">
-    <div style="height: 500px" class="flex align-items-center justify-content-center">
+    <div style="height: 500px" class="flex items-center justify-center">
         <p-toast />
         <p-speedDial 
             [model]="items" 

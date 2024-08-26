@@ -9,8 +9,8 @@ import { NodeService } from '@service/nodeservice';
         <app-docsectiontext>
             <p>Nodes can be reordered within the same tree and also can be transferred between other trees using drag&drop.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-tree class="w-full md:w-30rem" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
+        <div class="card flex justify-center">
+            <p-tree class="w-full md:w-[30rem]" [value]="files" [draggableNodes]="true" [droppableNodes]="true" draggableScope="self" droppableScope="self" />
         </div>
         <app-code [code]="code" selector="tree-drag-drop-demo"></app-code>
     `,
@@ -27,16 +27,16 @@ export class DragDropDoc implements OnInit {
 
     code: Code = {
         basic: `<p-tree 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [value]="files" 
     [draggableNodes]="true" 
     [droppableNodes]="true" 
     draggableScope="self" 
     droppableScope="self" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-tree 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         [value]="files" 
         [draggableNodes]="true" 
         [droppableNodes]="true" 

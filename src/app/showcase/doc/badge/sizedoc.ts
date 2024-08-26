@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Badge sizes are adjusted with the <i>badgeSize</i> property that accepts <i>small</i>, <i>large</i> and <i>xlarge</i> as the possible alternatives to the default size. Currently sizes only apply to component mode.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center gap-1 align-items-end">
+        <div class="card flex justify-center gap-1 items-end">
             <p-badge value="8" badgeSize="xlarge" severity="success" />
             <p-badge value="6" badgeSize="large" severity="warn" />
             <p-badge value="4" severity="info" />
@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
 export class SizeDoc {
     code: Code = {
         basic: `<p-badge value="8" badgeSize="xlarge" severity="success" />`,
-        html: `<div class="card flex justify-content-center gap-1">
+        html: `<div class="card flex justify-center gap-1">
         <p-badge value="8" badgeSize="xlarge" severity="success" />
         <p-badge value="6" badgeSize="large" severity="warn" />
         <p-badge value="4" badgeSize="small" severity="info" />

@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
         <app-docsectiontext>
             <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-chart type="pie" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
@@ -69,7 +69,7 @@ export class PieDoc implements OnInit {
 
     code: Code = {
         basic: `<p-chart type="pie" [data]="data" [options]="options" />`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-chart type="pie" [data]="data" [options]="options" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';

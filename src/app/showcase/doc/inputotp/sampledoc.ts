@@ -7,19 +7,19 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A sample UI implementation with templating and additional elements.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <div class="flex flex-column align-items-center">
+        <div class="card flex justify-center">
+            <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-                <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
+                <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
                 <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
                     <ng-template pTemplate="input" let-token let-events="events" let-index="index">
                         <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
-                        <div *ngIf="index === 3" class="px-3">
+                        <div *ngIf="index === 3" class="px-4">
                             <i class="pi pi-minus"></i>
                         </div>
                     </ng-template>
                 </p-inputOtp>
-                <div class="flex justify-content-between mt-5 align-self-stretch">
+                <div class="flex justify-between mt-8 self-stretch">
                     <p-button label="Resend Code" [link]="true" class="p-0" />
                     <p-button label="Submit Code" />
                 </div>
@@ -71,9 +71,9 @@ export class SampleDoc {
     value: any;
 
     code: Code = {
-        basic: `<div class="flex flex-column align-items-center">
+        basic: `<div class="flex flex-col items-center">
     <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-    <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
+    <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
     <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
             <input 
@@ -84,21 +84,21 @@ export class SampleDoc {
                 (keydown)="events.keydown($event)" 
                 [attr.value]="token" 
                 class="custom-otp-input" />
-            <div *ngIf="index === 3" class="px-3">
+            <div *ngIf="index === 3" class="px-4">
                 <i class="pi pi-minus"></i>
             </div>
         </ng-template>
     </p-inputOtp>
-    <div class="flex justify-content-between mt-5 align-self-stretch">
+    <div class="flex justify-between mt-8 self-stretch">
         <p-button label="Resend Code" [link]="true" class="p-0"/>
         <p-button label="Submit Code"/>
     </div>
 </div>`,
 
-        html: `<div class="card flex justify-content-center">
-    <div class="flex flex-column align-items-center">
+        html: `<div class="card flex justify-center">
+    <div class="flex flex-col items-center">
         <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
-        <p class="text-color-secondary block mb-5">Please enter the code sent to your phone.</p>
+        <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
         <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
                 <input 
@@ -109,12 +109,12 @@ export class SampleDoc {
                     (keydown)="events.keydown($event)" 
                     [attr.value]="token" 
                     class="custom-otp-input" />
-                <div *ngIf="index === 3" class="px-3">
+                <div *ngIf="index === 3" class="px-4">
                     <i class="pi pi-minus"></i>
                 </div>
             </ng-template>
         </p-inputOtp>
-        <div class="flex justify-content-between mt-5 align-self-stretch">
+        <div class="flex justify-between mt-8 self-stretch">
             <p-button label="Resend Code" [link]="true" class="p-0"/>
             <p-button label="Submit Code"/>
         </div>

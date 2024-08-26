@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A font icon next to the label can be displayed with the <i>icon</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex align-items-center gap-2 flex-wrap">
+        <div class="card flex items-center gap-2 flex-wrap">
             <p-chip label="Apple" icon="pi pi-apple" />
             <p-chip label="Facebook" icon="pi pi-facebook" />
             <p-chip label="Google" icon="pi pi-google" />
@@ -19,7 +19,7 @@ import { Code } from '@domain/code';
 export class IconDoc {
     code: Code = {
         basic: `<p-chip label="Apple" icon="pi pi-apple" />`,
-        html: `<div class="card flex align-items-center gap-2 flex-wrap">
+        html: `<div class="card flex items-center gap-2 flex-wrap">
     <p-chip label="Apple" icon="pi pi-apple" />
     <p-chip label="Facebook" icon="pi pi-facebook" />
     <p-chip label="Google" icon="pi pi-google" />

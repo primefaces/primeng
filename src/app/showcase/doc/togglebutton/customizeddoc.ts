@@ -7,8 +7,8 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>Icons and Labels can be customized using <i>onLabel</i>, <i>offLabel</i>, <i>onIcon</i> and <i>offIcon</i> properties.</p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
-            <p-toggleButton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" styleClass="w-9rem" ariaLabel="Do you confirm" />
+        <div class="card flex justify-center">
+            <p-toggleButton [(ngModel)]="checked" onLabel="Locked" offLabel="Unlocked" onIcon="pi pi-check" offIcon="pi pi-times" onIcon="pi pi-lock" offIcon="pi pi-lock-open" styleClass="w-36" ariaLabel="Do you confirm" />
         </div>
         <app-code [code]="code" selector="toggle-button-customized-demo"></app-code>
     `
@@ -25,10 +25,10 @@ export class CustomizedDoc {
     offIcon="pi pi-times" 
     onIcon="pi pi-lock" 
     offIcon="pi pi-lock-open" 
-    styleClass="w-9rem"
+    styleClass="w-36"
     ariaLabel="Do you confirm" />`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toggleButton 
         [(ngModel)]="checked" 
         onLabel="Locked"
@@ -37,7 +37,7 @@ export class CustomizedDoc {
         offIcon="pi pi-times" 
         onIcon="pi pi-lock"
         offIcon="pi pi-lock-open" 
-        styleClass="w-9rem"
+        styleClass="w-36"
         ariaLabel="Do you confirm" />
 </div>`,
 

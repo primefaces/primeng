@@ -10,16 +10,16 @@ import { Code } from '@domain/code';
                 options in the select panel. In addition when grouping is enabled, <i>group</i> template is available to customize the option groups. All templates get the option instance as the default local template variable.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-select [options]="countries" [(ngModel)]="selectedCountry" optionLabel="name" [showClear]="true" placeholder="Select a country">
                 <ng-template pTemplate="selectedItem" let-selectedOption>
-                    <div class="flex align-items-center gap-2" *ngIf="selectedOption">
+                    <div class="flex items-center gap-2" *ngIf="selectedOption">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + selectedOption.code.toLowerCase()" style="width: 18px" />
                         <div>{{ selectedOption.name }}</div>
                     </div>
                 </ng-template>
                 <ng-template let-country pTemplate="item">
-                    <div class="flex align-items-center gap-2">
+                    <div class="flex items-center gap-2">
                         <img src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + country.code.toLowerCase()" style="width: 18px" />
                         <div>{{ country.name }}</div>
                     </div>
@@ -57,7 +57,7 @@ export class TemplateDoc implements OnInit {
     [showClear]="true"
     placeholder="Select a Country">
         <ng-template pTemplate="selectedItem">
-            <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+            <div class="flex items-center gap-2" *ngIf="selectedCountry">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
@@ -66,7 +66,7 @@ export class TemplateDoc implements OnInit {
             </div>
         </ng-template>
         <ng-template let-country pTemplate="item">
-            <div class="flex align-items-center gap-2">
+            <div class="flex items-center gap-2">
                 <img 
                     src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                     [class]="'flag flag-' + country.code.toLowerCase()" 
@@ -76,7 +76,7 @@ export class TemplateDoc implements OnInit {
         </ng-template>
 </p-select>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-select 
         [options]="countries" 
         [(ngModel)]="selectedCountry"
@@ -84,7 +84,7 @@ export class TemplateDoc implements OnInit {
         [showClear]="true"
         placeholder="Select a Country">
             <ng-template pTemplate="selectedItem">
-                <div class="flex align-items-center gap-2" *ngIf="selectedCountry">
+                <div class="flex items-center gap-2" *ngIf="selectedCountry">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + selectedCountry.code.toLowerCase()"
@@ -93,7 +93,7 @@ export class TemplateDoc implements OnInit {
                 </div>
             </ng-template>
             <ng-template let-country pTemplate="item">
-                <div class="flex align-items-center gap-2">
+                <div class="flex items-center gap-2">
                     <img 
                         src="https://primefaces.org/cdn/primeng/images/demo/flag/flag_placeholder.png"
                         [class]="'flag flag-' + country.code.toLowerCase()"

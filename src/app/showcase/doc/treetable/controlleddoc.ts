@@ -15,7 +15,7 @@ import { NodeService } from '@service/nodeservice';
                     [value]="files"
                     [scrollable]="true"
                     [tableStyle]="{ 'min-width': '50rem' }"
-                    styleClass="mt-4"
+                    styleClass="mt-6"
                 >
                     <ng-template pTemplate="header">
                         <tr>
@@ -62,7 +62,7 @@ export class ControlledDoc {
 
     code: Code = {
         basic: `<p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
+<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>
@@ -84,7 +84,7 @@ export class ControlledDoc {
 
         html: `<div class="card">
 <p-button (click)="toggleApplications()" label="Toggle Applications" />
-<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-4">
+<p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" styleClass="mt-6">
     <ng-template pTemplate="header">
         <tr>
             <th>Name</th>

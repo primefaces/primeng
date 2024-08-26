@@ -11,11 +11,11 @@ interface UploadEvent {
     selector: 'file-upload-advanced-demo',
     template: `
         <app-docsectiontext> <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p></app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-toast />
             <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
                 <ng-template pTemplate="toolbar">
-                    <div class="py-3">Drag and drop files to here to upload.</div>
+                    <div class="py-4">Drag and drop files to here to upload.</div>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
@@ -57,7 +57,7 @@ export class AdvancedDoc {
             </ul>
         </ng-template>
 </p-fileUpload>`,
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-fileUpload 
         name="demo[]" 

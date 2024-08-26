@@ -10,7 +10,7 @@ import { Code } from '@domain/code';
                 <i>style</i> property is used.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-content-center">
+        <div class="card flex justify-center">
             <p-button (click)="showDialog()" label="Show" />
             <p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <p>
@@ -44,7 +44,7 @@ export class ResponsiveDoc {
         </p>
 </p-dialog>`,
 
-        html: `<div class="card flex justify-content-center">
+        html: `<div class="card flex justify-center">
     <p-button (click)="showDialog()" label="Show" />
     <p-dialog 
         header="Header" 

@@ -7,20 +7,20 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>A letter Avatar is defined with the <i>label</i> property.</p>
         </app-docsectiontext>
-        <div class="card grid grid-nogutter">
-            <div class="col-12 md:col-4">
+        <div class="card grid grid-cols-12 gap-4 grid-nogutter">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Label</h5>
                 <p-avatar label="P" styleClass="mr-2" size="xlarge" />
                 <p-avatar label="V" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" />
                 <p-avatar label="U" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Label - Circle</h5>
                 <p-avatar label="P" styleClass="mr-2" size="xlarge" shape="circle" />
                 <p-avatar label="V" styleClass="mr-2" size="large" [style]="{ 'background-color': '#ece9fc', color: '#2a1261' }" shape="circle" />
                 <p-avatar label="U" styleClass="mr-2" [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" shape="circle" />
             </div>
-            <div class="col-12 md:col-4">
+            <div class="col-span-12 md:col-span-4">
                 <h5>Badge</h5>
                 <p-avatar label="U" pBadge styleClass="mr-2" value="4" size="xlarge" badgeSize="large" />
             </div>
@@ -68,8 +68,8 @@ export class LabelDoc {
     value="4" 
     size="xlarge"
     badgeSize="large" />`,
-        html: `<div class="card grid grid-nogutter">
-    <div class="col-12 md:col-4">
+        html: `<div class="card grid grid-cols-12 gap-4 grid-nogutter">
+    <div class="col-span-12 md:col-span-4">
         <h5>Label</h5>
         <p-avatar 
             label="P" 
@@ -85,7 +85,7 @@ export class LabelDoc {
             styleClass="mr-2" 
             [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" />
     </div>
-    <div class="col-12 md:col-4">
+    <div class="col-span-12 md:col-span-4">
         <h5>Label - Circle</h5>
         <p-avatar 
             label="P" 
@@ -104,7 +104,7 @@ export class LabelDoc {
             [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }" 
             shape="circle" />
     </div>
-    <div class="col-12 md:col-4">
+    <div class="col-span-12 md:col-span-4">
         <h5>Badge</h5>
         <p-avatar 
             label="U" 

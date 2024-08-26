@@ -13,9 +13,9 @@ import { NodeService } from '@service/nodeservice';
                 On the other hand, in <i>strict</i> mode when the query matches a node, filtering continues on all descendants.
             </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap justify-content-center gap-5">
-            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterPlaceholder="Lenient Filter" />
-            <p-tree [value]="files" class="w-full md:w-30rem" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
+        <div class="card flex flex-wrap justify-center gap-8">
+            <p-tree [value]="files" class="w-full md:w-[30rem]" [filter]="true" filterPlaceholder="Lenient Filter" />
+            <p-tree [value]="files" class="w-full md:w-[30rem]" [filter]="true" filterMode="strict" filterPlaceholder="Strict Filter" />
         </div>
         <app-code [code]="code" selector="tree-filter-demo"></app-code>
     `
@@ -32,25 +32,25 @@ export class FilterDoc implements OnInit {
     code: Code = {
         basic: `<p-tree 
     [value]="files" 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [filter]="true" 
     filterPlaceholder="Lenient Filter" />
 <p-tree 
     [value]="files" 
-    class="w-full md:w-30rem" 
+    class="w-full md:w-[30rem]" 
     [filter]="true" 
     filterMode="strict" 
     filterPlaceholder="Strict Filter" />`,
 
-        html: `<div class="card flex flex-wrap justify-content-center gap-5">
+        html: `<div class="card flex flex-wrap justify-center gap-8">
     <p-tree 
         [value]="files" 
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         [filter]="true" 
         filterPlaceholder="Lenient Filter" />
     <p-tree 
         [value]="files"
-        class="w-full md:w-30rem" 
+        class="w-full md:w-[30rem]" 
         [filter]="true" 
         filterMode="strict" 
         filterPlaceholder="Strict Filter" />

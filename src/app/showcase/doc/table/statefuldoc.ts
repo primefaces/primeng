@@ -70,7 +70,7 @@ import { CustomerService } from '@service/customerservice';
                                     [class]="'flag flag-' + customer.country.code"
                                     style="width: 20px"
                                 />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img
@@ -81,7 +81,7 @@ import { CustomerService } from '@service/customerservice';
                                     width="32"
                                     style="vertical-align: middle"
                                 />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -99,7 +99,7 @@ import { CustomerService } from '@service/customerservice';
                                     [class]="'flag flag-' + customer.country.code"
                                     style="width: 20px"
                                 />
-                                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                             </td>
                             <td>
                                 <img
@@ -110,7 +110,7 @@ import { CustomerService } from '@service/customerservice';
                                     width="32"
                                     style="vertical-align: middle"
                                 />
-                                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                             </td>
                             <td>
                                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -212,7 +212,7 @@ export class StatefulDoc {
                     [class]="'flag flag-' + customer.country.code"
                     style="width: 20px"
                 />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <img
@@ -223,7 +223,7 @@ export class StatefulDoc {
                     width="32"
                     style="vertical-align: middle"
                 />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -241,7 +241,7 @@ export class StatefulDoc {
                     [class]="'flag flag-' + customer.country.code"
                     style="width: 20px"
                 />
-                <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.country.name }}</span>
             </td>
             <td>
                 <img
@@ -252,7 +252,7 @@ export class StatefulDoc {
                     width="32"
                     style="vertical-align: middle"
                 />
-                <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
             </td>
             <td>
                 <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -316,7 +316,7 @@ export class StatefulDoc {
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px"
                     />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <img
@@ -327,7 +327,7 @@ export class StatefulDoc {
                         width="32"
                         style="vertical-align: middle"
                     />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
@@ -345,7 +345,7 @@ export class StatefulDoc {
                         [class]="'flag flag-' + customer.country.code"
                         style="width: 20px"
                     />
-                    <span class="ml-1 vertical-align-middle">{{ customer.country.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.country.name }}</span>
                 </td>
                 <td>
                     <img
@@ -356,7 +356,7 @@ export class StatefulDoc {
                         width="32"
                         style="vertical-align: middle"
                     />
-                    <span class="ml-1 vertical-align-middle">{{ customer.representative.name }}</span>
+                    <span class="ml-1 align-middle">{{ customer.representative.name }}</span>
                 </td>
                 <td>
                     <p-tag [value]="customer.status" [severity]="getSeverity(customer.status)" />
