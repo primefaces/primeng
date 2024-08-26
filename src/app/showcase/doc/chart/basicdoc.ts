@@ -9,15 +9,18 @@ import { Subscription, debounceTime } from 'rxjs';
     template: `
         <app-docsectiontext>
             <p>
-                A chart is configured with 3 properties; <i>type</i>, <i>data</i> and <i>options</i>. Chart type is defined using the <i>type</i> property that accepts <i>pie</i>, <i>doughtnut</i>, <i>line</i>, <i>bar</i>, <i>radar</i> and
-                <i>polarArea</i> as a value. The <i>data</i> defines datasets represented with the chart and the <i>options</i> provide numerous customization options to customize the presentation.
+                A chart is configured with 3 properties; <i>type</i>, <i>data</i> and <i>options</i>. Chart type is
+                defined using the <i>type</i> property that accepts <i>pie</i>, <i>doughtnut</i>, <i>line</i>,
+                <i>bar</i>, <i>radar</i> and <i>polarArea</i> as a value. The <i>data</i> defines datasets represented
+                with the chart and the <i>options</i> provide numerous customization options to customize the
+                presentation.
             </p>
         </app-docsectiontext>
         <div class="card">
             <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
         </div>
         <app-code [code]="code" selector="chart-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     basicData: any;
@@ -26,16 +29,7 @@ export class BasicDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -54,44 +48,54 @@ export class BasicDoc implements OnInit {
                     {
                         label: 'Sales',
                         data: [540, 325, 702, 620],
-                        backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
-                        borderWidth: 1
-                    }
-                ]
+                        backgroundColor: [
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(255, 159, 64)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                        ],
+                        borderWidth: 1,
+                    },
+                ],
             };
 
             this.basicOptions = {
                 plugins: {
                     legend: {
                         labels: {
-                            fontColor: textColor
-                        }
-                    }
+                            fontColor: textColor,
+                        },
+                    },
                 },
                 scales: {
                     x: {
                         ticks: {
                             color: textColorSecondary,
                             font: {
-                                weight: 500
-                            }
+                                weight: 500,
+                            },
                         },
                         grid: {
                             display: false,
-                            drawBorder: false
-                        }
+                            drawBorder: false,
+                        },
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
                             color: surfaceBorder,
-                            drawBorder: false
-                        }
-                    }
-                }
+                            drawBorder: false,
+                        },
+                    },
+                },
             };
         }
     }
@@ -165,6 +169,6 @@ export class ChartBasicDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

@@ -8,13 +8,16 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-pie-demo',
     template: `
         <app-docsectiontext>
-            <p>A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical proportion.</p>
+            <p>
+                A pie chart is a circular statistical graphic which is divided into slices to illustrate numerical
+                proportion.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-chart type="pie" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
-    `
+    `,
 })
 export class PieDoc implements OnInit {
     data: any;
@@ -23,16 +26,7 @@ export class PieDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -48,10 +42,18 @@ export class PieDoc implements OnInit {
                 datasets: [
                     {
                         data: [540, 325, 702],
-                        backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-                        hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-                    }
-                ]
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--blue-500'),
+                            documentStyle.getPropertyValue('--yellow-500'),
+                            documentStyle.getPropertyValue('--green-500'),
+                        ],
+                        hoverBackgroundColor: [
+                            documentStyle.getPropertyValue('--blue-400'),
+                            documentStyle.getPropertyValue('--yellow-400'),
+                            documentStyle.getPropertyValue('--green-400'),
+                        ],
+                    },
+                ],
             };
 
             this.options = {
@@ -59,10 +61,10 @@ export class PieDoc implements OnInit {
                     legend: {
                         labels: {
                             usePointStyle: true,
-                            color: textColor
-                        }
-                    }
-                }
+                            color: textColor,
+                        },
+                    },
+                },
             };
         }
     }
@@ -112,6 +114,6 @@ export class ChartPieDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

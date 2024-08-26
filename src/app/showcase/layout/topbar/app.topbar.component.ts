@@ -54,7 +54,7 @@ export class AppTopBarComponent implements OnDestroy {
     }
 
     get isDarkMode() {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     toggleMenu() {
@@ -72,7 +72,7 @@ export class AppTopBarComponent implements OnDestroy {
     }
 
     toggleDarkMode() {
-        this.onDarkModeSwitch.emit(null);
+        this.configService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
     }
 
     initDocSearch() {

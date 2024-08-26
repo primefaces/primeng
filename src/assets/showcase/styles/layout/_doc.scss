@@ -1,3 +1,17 @@
+@mixin mark() {
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    font-style: normal;
+    background: var(--mark-background);
+    color: var(--mark-text);
+}
+
+.mark {
+    @include mark();
+}
+
 .doc-tabmenu {
     list-style: none;
     margin: 0;
@@ -12,46 +26,48 @@
         position: absolute;
         bottom: 0;
         width: 100%;
-        border-bottom: 1px solid var(--surface-border);
+        border-bottom: 1px solid var(--border-color);
         content: '';
     }
 
     li {
         position: relative;
         z-index: 1;
-        
+
         button {
             background-color: transparent;
             border: 0 none;
             display: block;
             padding: 0 2rem 1rem 2rem;
             text-align: center;
-            color: var(--surface-700);
+            color: var(--text-color);
             font-size: 1rem;
             letter-spacing: 1px;
             cursor: pointer;
             margin: 0;
-            transition: all 0.2s;
+            transition: outline-color 0.2s, border-color 0.2s;
+            outline-color: transparent;
             border-bottom: 1px solid transparent;
-            border-top-right-radius: var(--border-round);
-            border-top-left-radius: var(--border-round);
+            border-top-right-radius: 6px;
+            border-top-left-radius: 6px;
             white-space: nowrap;
+            --p-focus-ring-offset: -1px;
+            @include focus-visible();
 
             &:hover {
-                border-bottom-color: var(--surface-500);
+                border-bottom-color: var(--hover-border-color);
             }
 
             &:focus {
                 outline: 0 none;
             }
 
-            @include focus-visible();
         }
 
         &.doc-tabmenu-active {
             button {
-                border-bottom-color: var(--primary-color);
-                color: var(--primary-color);
+                border-bottom-color: var(--primary-text-color);
+                color: var(--primary-text-color);
             }
         }
     }
@@ -77,10 +93,17 @@
     margin-bottom: 1.5rem;
 
     p {
-        font-size: 1.125rem;
-        color: var(--surface-900);
+        font-size: 1.25rem;
         margin: 0;
+
+        a {
+            @include doc-link();
+        }
     }
+}
+
+.doc-link {
+    @include doc-link();
 }
 
 .doc-section-label {
@@ -89,13 +112,22 @@
     scroll-margin-top: 6.5rem;
 
     > a {
-        color: var(--primary-color);
+        color: var(--primary-text-color);
         opacity: 0.7;
         margin-left: 1rem;
         display: none;
-        transition: all .2s;
-        border-radius: var(--border-radius);
+        transition: outline-color 0.2s, border-color 0.2s, opacity 0.2s;
+        outline-color: transparent;
+        border-radius: 6px;
         @include focus-visible();
+    }
+
+    > .doc-section-label-badge {
+        margin-left: 0.5rem;
+    }
+
+    &:has(.doc-section-label-badge) {
+        line-height: 1;
     }
 
     &:hover {
@@ -112,39 +144,29 @@
 .doc-section-description {
     > p {
         font-size: 1.125rem;
-        color: var(--surface-900);
 
         i {
-            border-radius: 6px;
-            padding: 2px 6px;
-            font-size: 1rem;
-            font-weight: 500;
-            font-style: normal;
-            background-color: var(--doc-highlight-text-bg);
-            color: var(--doc-highlight-text-color);
+            @include mark();
         }
 
         a {
-            color: var(--primary-color);
-            font-weight: 500;
-            transition: all .2s;
-            border-radius: var(--border-radius);
-            @include focus-visible();
-
-            &:hover {
-                text-decoration: underline;
-            }
+            @include doc-link();
         }
     }
 
-    .notification {
-        line-height: 1.5;
-        padding: 1rem;
-        font-weight: 500;
-        border-radius: 10px;
-        background-color: var(--doc-highlight-text-bg);
-        color: var(--doc-highlight-text-color);
+    li {
+        font-size: 1.125rem;
     }
+}
+
+.doc-notification {
+    line-height: 1.5;
+    padding: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    background: var(--mark-background);
+    color: var(--mark-text);
+    margin-bottom: 1rem;
 }
 
 .doc-section-nav {
@@ -163,12 +185,12 @@
 
     > .navbar-item {
         .navbar-item-content {
-            border-left: 1px solid var(--surface-border);
+            border-left: 1px solid var(--border-color);
             padding-left: .25rem;
             transition: all .2s;
 
             &:hover {
-                border-left-color: var(--surface-500);
+                border-left-color: var(--hover-border-color);
             }
         }
     }
@@ -177,30 +199,39 @@
         > .navbar-item-content {
             display: flex;
 
-            .px-link {
+            button {
+                font-size: 1rem;
+                text-align: left;
+                background: transparent;
+                margin: 0;
+                border: 0 none;
                 padding: 0.25rem 1rem 0.25rem 1rem;
-                color: var(--surface-800);
-                font-weight: 400;
+                color: var(--text-secondary-color);
                 white-space: nowrap;
                 min-width: 0;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                transition: all .2s;
+                transition: outline-color 0.2s, border-color .2s;
+                outline-color: transparent;
+                cursor: pointer;
+                user-select: none;
+                --p-focus-ring-offset: -1px;
+                @include focus-visible();
             }
 
             &:hover {
-                .px-link {
-                    color: var(--surface-900);
+                button {
+                    color: var(--text-color);
                 }
             }
         }
 
         &.active-navbar-item {
             > .navbar-item-content {
-                border-color: var(--primary-color);
+                border-color: var(--primary-text-color);
 
-                .px-link {
-                    color: var(--primary-color);
+                button {
+                    color: var(--primary-text-color);
                 }
             }
         }
@@ -219,9 +250,9 @@
     }
 }
 
-.doc-section-code { 
+.doc-section-code {
     position: relative;
-    
+
     div {
         &::-webkit-scrollbar {
             width: 5px;
@@ -253,7 +284,7 @@
     padding: 2px;
     backdrop-filter: blur(6px);
     border: 1px solid rgba(255, 255, 255, .1);
-    
+
     button {
         outline: 0 none;
         border-radius: 8px;
@@ -261,12 +292,12 @@
         background-color: transparent;
         transition: background-color .2s, box-shadow .2s;
         border: 0 none;
-        color: var(--demo-code-button-color);
+        color: var(--code-button-text-color);
         cursor: pointer;
 
         &:hover {
-            background-color: var(--demo-code-button-hover-bg);
-            color: var(--demo-code-button-hover-color);
+            background-color: rgba(255,255,255,.1);
+            color: var(--code-button-text-color);
         }
 
         &.code-active {
@@ -293,7 +324,7 @@
     margin-bottom: 1.5rem;
 
     th {
-        border-bottom: 1px solid var(--surface-border);
+        border-bottom: 1px solid var(--border-color);
         padding: .75rem 1rem;
         text-align: left;
         text-transform: capitalize;
@@ -301,34 +332,30 @@
 
     tbody {
         tr:hover {
-            background: var(--surface-hover);
+            background: var(--hover-background);
         }
 
         td {
             padding: .75rem 1rem;
-            border-bottom: 1px solid var(--surface-border);
+            border-bottom: 1px solid var(--border-color);
             white-space: pre-line;
             line-height: 1.5;
             scroll-margin-top: 6.5rem;
 
             &:first-child {
-                color: var(--primary-color);
+                color: var(--primary-text-color);
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
                 font-weight: 600;
             }
 
             .doc-option-type {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-                color: var(--primary-500);
+                color: var(--primary-text-color);
                 font-weight: 500;
 
                 .doc-option-type-options-container {
                     display: flex;
                     align-items: center;
-                }
-
-                span.doc-option-type-options {
-                    color: var(--primary-700);
                 }
 
                 &.doc-option-link {
@@ -343,8 +370,8 @@
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
                 position: relative;
                 scroll-margin-top: 6.5rem;
-                background-color: var(--doc-highlight-text-bg);
-                color: var(--doc-highlight-text-color);
+                background-color: var(--mark-background);
+                color: var(--mark-text);
                 border-radius: 6px;
                 padding: 2px 6px;
                 font-weight: 600;
@@ -355,7 +382,7 @@
                     position: absolute;
                     top: 0;
                     right: -1.5rem;
-                    color: var(--primary-color);
+                    color: var(--primary-text-color);
                     opacity: 0.7;
                     display: none;
                     transition: opacity 0.3s, colors 0.3s;
@@ -385,30 +412,22 @@
                 border-radius: 6px;
                 padding: 2px 6px;
                 max-width: min-content;
+                border-color: var(--border-color);
+                background-color: var(--card-background);
+                color: var(--text-secondary-color);
             }
 
             .doc-option-parameter-name {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-                color: var(--primary-700);
             }
 
             .doc-option-parameter-type {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-                color: var(--primary-500);
+                color: var(--primary-text-color);
             }
 
             .doc-option-params {
                 font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, Liberation Mono, monospace;
-            }
-
-            .doc-option-light {
-                background: var(--bluegray-50);
-                border-color: var(--bluegray-100);
-            }
-
-            .doc-option-dark {
-                background: var(--bluegray-800);
-                border-color: var(--bluegray-800);
             }
         }
     }

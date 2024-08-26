@@ -17,31 +17,35 @@ import { Subscription } from 'rxjs';
     selector: 'landing',
     standalone: true,
     templateUrl: './landing.component.html',
-    imports: [CommonModule, NgOptimizedImage, AppNewsComponent, AppTopBarComponent, HeroSectionComponent, FeaturesSectionComponent, UsersSectionComponent, ThemeSectionComponent, BlockSectionComponent, TemplateSectionComponent, FooterSectionComponent]
+    imports: [
+        CommonModule,
+        NgOptimizedImage,
+        AppNewsComponent,
+        AppTopBarComponent,
+        HeroSectionComponent,
+        FeaturesSectionComponent,
+        UsersSectionComponent,
+        ThemeSectionComponent,
+        BlockSectionComponent,
+        TemplateSectionComponent,
+        FooterSectionComponent,
+    ],
 })
 export class LandingComponent implements OnInit {
-    get tableTheme() {
-        return this.configService.config().tableTheme;
-    }
-
     subscription!: Subscription;
 
-    constructor(
-        private configService: AppConfigService,
-        private metaService: Meta,
-        private titleService: Title
-    ) {}
+    constructor(private configService: AppConfigService, private metaService: Meta, private titleService: Title) {}
 
     get landingClass() {
         return {
             'layout-dark': this.isDarkMode,
             'layout-light': !this.isDarkMode,
-            'layout-news-active': this.isNewsActive
+            'layout-news-active': this.isNewsActive,
         };
     }
 
     get isDarkMode() {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     get isNewsActive() {
@@ -50,12 +54,9 @@ export class LandingComponent implements OnInit {
 
     ngOnInit() {
         this.titleService.setTitle('PrimeNG - Angular UI Component Library');
-        this.metaService.updateTag({ name: 'description', content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.' });
-    }
-
-    toggleDarkMode() {
-        const dark = !this.isDarkMode;
-        const newTableTheme = !dark ? this.tableTheme.replace('dark', 'light') : this.tableTheme.replace('light', 'dark');
-        this.configService.config.update((config) => ({ ...config, darkMode: dark, theme: dark ? 'lara-dark-blue' : 'lara-light-blue', tableTheme: newTableTheme }));
+        this.metaService.updateTag({
+            name: 'description',
+            content: 'The ultimate collection of design-agnostic, flexible and accessible Angular UI Components.',
+        });
     }
 }

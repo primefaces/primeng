@@ -30,7 +30,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
-            if (this.config && this.config.ripple) {
+            if (this.config && this.config.ripple()) {
                 this.zone.runOutsideAngular(() => {
                     this.create();
                     this.mouseDownListener = this.renderer.listen(
@@ -124,7 +124,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.config && this.config.ripple) {
+        if (this.config && this.config.ripple()) {
             this.remove();
         }
 

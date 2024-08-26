@@ -24,7 +24,18 @@ import Aura from '@themes/aura';
     selector: 'app-root',
     templateUrl: './app.component.html',
     standalone: true,
-    imports: [RouterOutlet, FormsModule, ReactiveFormsModule, HttpClientModule, AppMainComponent, LandingComponent, AppNewsComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent],
+    imports: [
+        RouterOutlet,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppMainComponent,
+        LandingComponent,
+        AppNewsComponent,
+        AppConfigComponent,
+        AppTopBarComponent,
+        AppMenuComponent,
+    ],
     providers: [
         CarService,
         CountryService,
@@ -38,13 +49,20 @@ import Aura from '@themes/aura';
             provide: IMAGE_CONFIG,
             useValue: {
                 disableImageSizeWarning: true,
-                disableImageLazyLoadWarning: true
-            }
-        }
-    ]
+                disableImageLazyLoadWarning: true,
+            },
+        },
+    ],
 })
 export class AppComponent implements OnInit {
-    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+        private renderer: Renderer2,
+        private primeng: PrimeNGConfig,
+        private configService: AppConfigService,
+        private router: Router,
+        @Inject(PLATFORM_ID) private platformId: any,
+    ) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();
@@ -57,7 +75,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.primeng.ripple = true;
+        this.primeng.ripple.set(true);
     }
 
     injectScripts() {
@@ -83,14 +101,8 @@ export class AppComponent implements OnInit {
             if (event instanceof NavigationEnd) {
                 if (typeof window['gtag'] === 'function') {
                     window['gtag']('event', 'page_view', {
-                        page_path: event.urlAfterRedirects
+                        page_path: event.urlAfterRedirects,
                     });
-                }
-
-                const { theme, darkMode } = this.configService.config();
-                const landingTheme = darkMode ? 'aura-dark-blue' : 'aura-light-blue';
-                if (event.urlAfterRedirects === '/' && theme !== landingTheme) {
-                    this.configService.config.update((config) => ({ ...config, theme: landingTheme, dark: darkMode }));
                 }
             }
         });

@@ -462,7 +462,7 @@ export class OverviewApp {
     }
 
     setChartOptions() {
-        const { darkMode } = this.configService.config();
+        const { darkTheme } = this.configService.appState();
         const documentStyle = getComputedStyle(document.documentElement);
         const surface100 = documentStyle.getPropertyValue('--p-surface-100');
         const surface900 = documentStyle.getPropertyValue('--p-surface-900');
@@ -580,7 +580,7 @@ export class OverviewApp {
                 x: {
                     stacked: true,
                     ticks: {
-                        color: darkMode ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400,
                     },
                     grid: {
                         display: false,
@@ -594,11 +594,11 @@ export class OverviewApp {
                     beginAtZero: true,
                     stacked: true,
                     ticks: {
-                        color: darkMode ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400,
                     },
                     grid: {
                         display: true,
-                        color: darkMode ? surface900 : surface100,
+                        color: darkTheme ? surface900 : surface100,
                         borderColor: 'transparent',
                     },
                     border: {
