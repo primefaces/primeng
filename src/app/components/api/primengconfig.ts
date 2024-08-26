@@ -7,7 +7,7 @@ import { ThemeProvider } from './themeprovider';
 
 @Injectable({ providedIn: 'root' })
 export class PrimeNGConfig extends ThemeProvider {
-    ripple: boolean = false;
+    ripple = signal<boolean>(false);
 
     public platformId: any = inject(PLATFORM_ID);
 
