@@ -32,4 +32,19 @@ export interface ToggleButtonTemplates {
          */
         $implicit: boolean;
     }): TemplateRef<{ $implicit: boolean }>;
+
+    /**
+     * Custom content template.
+     * @param {Object} context - content data.
+     */
+    content(context: {
+        /**
+         * Checked.
+         */
+        $implicit: boolean;
+        /**
+         * Label of the component.
+         */
+        label: string;
+    }): TemplateRef<{ $implicit: boolean | null; label: string }>;
 }

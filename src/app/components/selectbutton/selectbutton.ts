@@ -27,7 +27,7 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
             <ng-container *ngFor="let option of options; let i = index">
                 <p-toggleButton [ngModel]="isSelected(option)" [onLabel]="this.getOptionLabel(option)" [offLabel]="this.getOptionLabel(option)" [disabled]="disabled || isOptionDisabled(option)" (onChange)="onOptionSelect($event, option, i)">
                     <ng-container *ngIf="itemTemplate">
-                        <ng-template pTemplate="icon">
+                        <ng-template pTemplate="content">
                             <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
                         </ng-template>
                     </ng-container>

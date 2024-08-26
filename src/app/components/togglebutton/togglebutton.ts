@@ -1,5 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
@@ -14,7 +29,7 @@ type ToggleButtonIconPosition = 'left' | 'right';
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ToggleButton),
-    multi: true
+    multi: true,
 };
 /**
  * ToggleButton is used to select a boolean value using a button.
@@ -24,7 +39,11 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     selector: 'p-toggleButton',
     template: `
         <button
-            [ngClass]="{ 'p-togglebutton p-component': true, 'p-togglebutton-checked': checked, 'p-disabled': disabled }"
+            [ngClass]="{
+                'p-togglebutton p-component': true,
+                'p-togglebutton-checked': checked,
+                'p-disabled': disabled
+            }"
             [ngStyle]="style"
             [class]="styleClass"
             (click)="toggle($event)"
@@ -41,25 +60,41 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
             [autofocus]="autofocus"
         >
             <span class="p-togglebutton-content">
-                @if (!iconTemplate) {
-                <span
-                    *ngIf="onIcon || offIcon"
-                    [class]="checked ? this.onIcon : this.offIcon"
-                    [ngClass]="{ 'p-togglebutton-icon': true, 'p-togglebutton-icon-left': iconPos === 'left', 'p-togglebutton-icon-right': iconPos === 'right' }"
-                    [attr.data-pc-section]="'icon'"
-                ></span>
-                } @else {
+                @if (!contentTemplate) { @if(iconTemplate) {
                 <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
                 }
-                <span class="p-togglebutton-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
+                <span
+                    *ngIf="onIcon || (offIcon && !iconTemplate)"
+                    [class]="checked ? this.onIcon : this.offIcon"
+                    [ngClass]="{
+                        'p-togglebutton-icon': true,
+                        'p-togglebutton-icon-left': iconPos === 'left',
+                        'p-togglebutton-icon-right': iconPos === 'right'
+                    }"
+                    [attr.data-pc-section]="'icon'"
+                ></span>
+                <span class="p-togglebutton-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{
+                    checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
+                }}</span>
+                } @if(contentTemplate) {
+                <ng-container
+                    *ngTemplateOutlet="
+                        contentTemplate;
+                        context: {
+                            $implicit: checked,
+                            label: checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
+                        }
+                    "
+                ></ng-container>
+                }
             </span>
         </button>
     `,
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-element'
-    }
+        class: 'p-element',
+    },
 })
 export class ToggleButton extends BaseComponent implements ControlValueAccessor {
     /**
@@ -138,6 +173,8 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     iconTemplate: Nullable<TemplateRef<any>>;
 
+    contentTemplate: Nullable<TemplateRef<any>>;
+
     checked: boolean = false;
 
     onModelChange: Function = () => {};
@@ -149,6 +186,9 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
                 case 'icon':
                     this.iconTemplate = item.template;
                     break;
@@ -166,7 +206,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
             this.onModelTouched();
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.checked
+                checked: this.checked,
             });
 
             this.cd.markForCheck();
@@ -220,6 +260,6 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
     exports: [ToggleButton, SharedModule],
-    declarations: [ToggleButton]
+    declarations: [ToggleButton],
 })
 export class ToggleButtonModule {}
