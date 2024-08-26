@@ -67,7 +67,7 @@ import { CustomersApp } from './samples/customersapp.component';
                     components. With PrimeVue, turning your development vision into reality has never been easier.
                 </p>
                 <div class="flex items-center gap-4">
-                    <a [routerLink]="'installation'" class="linkbox active">
+                    <a [routerLink]="'installation'" class="linkbox linkbox-primary">
                         <span>Get Started</span>
                         <i class="pi pi-arrow-right ml-4"></i>
                     </a>

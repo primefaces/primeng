@@ -56,31 +56,39 @@
     }
     
     .linkbox {
-        transition: background-color .2s, border-color .2s;
+        transition: background-color .2s, border-color .2s, outline-color .2s;
         display: inline-flex;
         align-items: center;
-        color: var(--home-linkbox-text-color);
-        padding: 0.5rem 1rem;
-        border: var(--home-linkbox-border);
-        background-color: var(--home-linkbox-bg);
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        background-color: var(--card-background);
         border-radius: 10px;
-        cursor: pointer;
+        font-weight: 600;
+        padding: 1rem 1.5rem;
         
+        cursor: pointer;
         @include focus-visible();
 
         &:hover {
-            background: var(--home-linkbox-hover-bg);
+            background: var(--hover-background);
         }
 
-        &.active {
-            background: var(--home-highlight-color);
-            color: var(--home-highlight-fore-color);
+        &.linkbox-primary {
+            background: var(--primary-color);
+            color: var(--primary-contrast-color);
 
             &:hover {
-                background: var(--home-highlight-darker-color);
+                background: var(--primary-hover-color);
             }
         }
+
+        &.linkbox-icon {
+            width: 3rem;
+            height: 3rem;
+            justify-content: center;
+        }
     }
+
 
     .section-header {
         font-size: 2rem;
