@@ -455,7 +455,7 @@ export class OverviewApp {
                         topLeft: 8,
                         topRight: 8,
                     },
-                    borderSkipped: true,
+                    borderSkipped: false,
                     barThickness: 32,
                 },
             ],
