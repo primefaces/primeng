@@ -2,17 +2,16 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { Component, EventEmitter, Inject, Output, Renderer2, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { InputSwitchModule, InputSwitchChangeEvent } from 'primeng/inputswitch';
+import { InputSwitchModule } from 'primeng/inputswitch';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { SelectButtonChangeEvent, SelectButtonModule } from 'primeng/selectbutton';
-import { SidebarModule } from 'primeng/sidebar';
+import { SelectButton } from 'primeng/selectbutton';
 import { AppConfigService } from '@service/appconfigservice';
 import { PrimeNGConfig } from 'primeng/api';
 import Aura from '@themes/aura';
 import Nora from '@themes/nora';
 import Lara from '@themes/lara';
 import { $t, updatePreset, updateSurfacePalette } from 'primeng/themes';
-import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToggleButton, ToggleButtonModule } from 'primeng/togglebutton';
 
 const presets = {
     Aura,
@@ -61,17 +60,6 @@ const presets = {
 
             <div class="config-panel-settings">
                 <span class="config-panel-label">Presets</span>
-                <!-- @for(preset of presets; track preset) {
-                <span class="flex items-center gap-2">
-                    <p-radioButton
-                        [value]="preset"
-                        [(ngModel)]="selectedPreset"
-                        (ngModelChange)="onPresetChange($event)"
-                        [inputId]="preset"
-                    />
-                    <label [for]="preset">{{ preset }}</label>
-                </span>
-                } -->
                 <p-selectButton
                     [options]="presets"
                     [(ngModel)]="selectedPreset"
@@ -81,23 +69,14 @@ const presets = {
 
             <div class="config-panel-settings">
                 <div class="config-panel-label">Ripple</div>
-                <!-- <p-toggleButton [(ngModel)]="ripple" (onChange)="onRippleChange($event)" onLabel="On" offLabel="Off" /> -->
+                <p-inputSwitch [(ngModel)]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
             </div>
         </div>
     `,
     host: {
         class: 'config-panel hidden',
     },
-    imports: [
-        CommonModule,
-        FormsModule,
-        SidebarModule,
-        InputSwitchModule,
-        ButtonModule,
-        RadioButtonModule,
-        SelectButtonModule,
-        ToggleButtonModule,
-    ],
+    imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton],
 })
 export class AppConfigComponent {
     setNewTheme(arg) {
