@@ -13,6 +13,7 @@ import { RippleStyle } from './style/ripplestyle';
     host: {
         class: 'p-ripple',
     },
+    standalone: true,
     providers: [RippleStyle],
 })
 export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
@@ -132,8 +133,7 @@ export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Ripple],
     exports: [Ripple],
-    declarations: [Ripple],
 })
 export class RippleModule {}
