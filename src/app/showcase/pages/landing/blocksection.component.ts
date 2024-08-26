@@ -17,10 +17,10 @@ import { Component } from '@angular/core';
             </div>
             <section class="prime-blocks blocks-animation flex justify-center items-center flex-col">
                 <div class="flex">
-                    <div class="flex self-stretch p-1">
+                    <div class="prime-block flex self-stretch p-1">
                         <div class="block-sidebar w-1/12 p-4">
                             <div class="logo">
-                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo" width="20" height="18" />
+                                <img src="https://primefaces.org/cdn/primeng/images/landing/blocks/logo-1.svg" alt="block logo"  />
                             </div>
                             <div class="sidebar-menu mt-8">
                                 <div class="bar w-8/12 my-4"></div>
