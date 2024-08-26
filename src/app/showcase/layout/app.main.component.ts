@@ -15,7 +15,6 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         <div class="layout-wrapper" [ngClass]="containerClass" [attr.data-p-theme]="theme">
             <app-news></app-news>
             <app-topbar (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
-            <app-config (onDarkModeSwitch)="toggleDarkMode()"></app-config>
             <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive }" (click)="hideMenu()"></div>
             <div class="layout-content">
                 <app-menu></app-menu>
@@ -27,13 +26,10 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         </div>
     `,
     standalone: true,
-    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
+    imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppTopBarComponent],
 })
 export class AppMainComponent {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private configService: AppConfigService
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private configService: AppConfigService) {}
 
     get isNewsActive(): boolean {
         return this.configService.state.newsActive;
@@ -60,7 +56,7 @@ export class AppMainComponent {
             'layout-news-active': this.isNewsActive,
             'p-ripple-disabled': this.isRippleDisabled,
             'layout-dark': this.isDarkMode,
-            'layout-light': !this.isDarkMode
+            'layout-light': !this.isDarkMode,
         };
     }
 

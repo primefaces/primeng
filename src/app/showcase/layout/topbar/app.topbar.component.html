@@ -123,11 +123,19 @@
                 </button>
             </li>
             <li *ngIf="showConfigurator" class="relative">
-                <button type="button"
-                class="topbar-item"
-                    (click)="showConfig()">
+                <button 
+                    type="button"
+                    class="topbar-item"
+                    pStyleClass="@next" 
+                    enterFromClass="hidden" 
+                    enterActiveClass="animate-scalein" 
+                    leaveToClass="hidden" 
+                    leaveActiveClass="animate-fadeout" 
+                    [hideOnOutsideClick]="true"
+                >
                     <i class="pi pi-palette"></i>
                 </button>
+                <app-config />
             </li>
             <li >
                 <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden"
