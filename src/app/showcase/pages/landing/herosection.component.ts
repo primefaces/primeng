@@ -98,10 +98,9 @@ import { CustomersApp } from './samples/customersapp.component';
                     class="bg-surface-0 border border-black/10 dark:border-white/20 dark:bg-surface-950 w-full rounded-3xl p-0 flex lg:hidden items-start gap-6 overflow-hidden"
                 >
                     <ng-container *ngFor="let sampleOption of sampleOptions">
-                        <!-- <img *ngIf="selectedSampleOption.title === sampleOption.title" [src]="sampleOption.src + (isDark() ? '-dark.jpg' : '.jpg')" class="w-full" /> -->
                         <img
                             *ngIf="selectedSampleOption.title === sampleOption.title"
-                            [src]="sampleOption.src + '.jpg'"
+                            [src]="sampleOption.src + (isDarkMode ? '-dark.jpg' : '.jpg')"
                             class="w-full"
                         />
                     </ng-container>
@@ -310,8 +309,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
 
     isSlimMenu: boolean = true;
 
-    // -------------------------
-
     value1: number = 24;
 
     radioValue: string = 'S';
@@ -337,6 +334,10 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     rangeValues = [20, 80];
 
     subscription!: Subscription;
+
+    get isDarkMode(): boolean {
+        return this.configService.config().darkMode;
+    }
 
     constructor(
         private configService: AppConfigService,
