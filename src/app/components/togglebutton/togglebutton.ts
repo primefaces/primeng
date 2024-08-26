@@ -1,20 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, forwardRef, inject, Input, NgModule, numberAttribute, Output, QueryList, TemplateRef } from '@angular/core';
+import {
+    booleanAttribute,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    inject,
+    Input,
+    NgModule,
+    numberAttribute,
+    Output,
+    QueryList,
+    TemplateRef,
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { RippleModule } from 'primeng/ripple';
+import { Ripple } from 'primeng/ripple';
 import { ToggleButtonChangeEvent } from './togglebutton.interface';
 import { Nullable } from 'primeng/ts-helpers';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
-import { AutoFocusModule } from 'primeng/autofocus';
+import { AutoFocus } from 'primeng/autofocus';
 import { BaseComponent } from 'primeng/basecomponent';
 import { ToggleButtonStyle } from './style/togglebuttonstyle';
-
-type ToggleButtonIconPosition = 'left' | 'right';
 
 export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => ToggleButton),
-    multi: true
+    multi: true,
 };
 /**
  * ToggleButton is used to select a boolean value using a button.
@@ -23,43 +37,52 @@ export const TOGGLEBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-toggleButton',
     template: `
-        <button
-            [ngClass]="{ 'p-togglebutton p-component': true, 'p-togglebutton-checked': checked, 'p-disabled': disabled }"
-            [ngStyle]="style"
-            [class]="styleClass"
-            (click)="toggle($event)"
-            (keydown)="onKeyDown($event)"
-            [attr.tabindex]="disabled ? null : tabindex"
-            role="switch"
-            [attr.aria-checked]="checked"
-            [attr.aria-labelledby]="ariaLabelledBy"
-            [attr.aria-label]="ariaLabel"
-            pRipple
-            [attr.data-pc-name]="'togglebutton'"
-            [attr.data-pc-section]="'root'"
-            pAutoFocus
-            [autofocus]="autofocus"
-        >
-            <span class="p-togglebutton-content">
-                @if (!iconTemplate) {
-                <span
-                    *ngIf="onIcon || offIcon"
-                    [class]="checked ? this.onIcon : this.offIcon"
-                    [ngClass]="{ 'p-togglebutton-icon': true, 'p-togglebutton-icon-left': iconPos === 'left', 'p-togglebutton-icon-right': iconPos === 'right' }"
-                    [attr.data-pc-section]="'icon'"
-                ></span>
-                } @else {
-                <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
-                }
-                <span class="p-togglebutton-label" *ngIf="onLabel || offLabel" [attr.data-pc-section]="'label'">{{ checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : '' }}</span>
-            </span>
-        </button>
+        <span [ngClass]="cx('content')" [class]="styleClass">
+            @if (!iconTemplate) { @if(onIcon || offIcon) {
+            <span
+                [class]="checked ? this.onIcon : this.offIcon"
+                [ngClass]="{
+                    'p-togglebutton-icon': true,
+                    'p-togglebutton-icon-left': iconPos === 'left',
+                    'p-togglebutton-icon-right': iconPos === 'right'
+                }"
+                [attr.data-pc-section]="'icon'"
+            ></span>
+            } } @else {
+            <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: checked }"></ng-container>
+            } @if(onLabel || offLabel) {
+            <span [ngClass]="cx('label')" [attr.data-pc-section]="'label'">{{
+                checked ? (hasOnLabel ? onLabel : '') : hasOffLabel ? offLabel : ''
+            }}</span>
+            }
+        </span>
     `,
+    standalone: true,
+    imports: [Ripple, AutoFocus, SharedModule, CommonModule],
     providers: [TOGGLEBUTTON_VALUE_ACCESSOR, ToggleButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'p-element'
-    }
+        role: 'switch',
+        type: 'button',
+        '(click)': 'toggle($event)',
+        '(keydown)': 'onKeyDown($event)',
+        '[attr.tabindex]': 'disabled ? null : tabindex',
+        '[attr.aria-checked]': 'checked',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.aria-label]': 'ariaLabel',
+        '[attr.data-pc-name]': 'toggleButton',
+        '[attr.data-pc-section]': 'root',
+        '[class.p-togglebutton.p-component]': 'true',
+        '[class.p-togglebutton-checked]': 'checked',
+        '[class.p-disabled]': 'disabled',
+    },
+    hostDirectives: [
+        Ripple,
+        {
+            directive: AutoFocus,
+            inputs: ['autofocus'],
+        },
+    ],
 })
 export class ToggleButton extends BaseComponent implements ControlValueAccessor {
     /**
@@ -166,7 +189,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
             this.onModelTouched();
             this.onChange.emit({
                 originalEvent: event,
-                checked: this.checked
+                checked: this.checked,
             });
 
             this.cd.markForCheck();
@@ -218,8 +241,7 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule],
-    exports: [ToggleButton, SharedModule],
-    declarations: [ToggleButton]
+    imports: [ToggleButton],
+    exports: [ToggleButton],
 })
 export class ToggleButtonModule {}

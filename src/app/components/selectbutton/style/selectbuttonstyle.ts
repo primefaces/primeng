@@ -8,7 +8,6 @@ const theme = ({ dt }) => `
     vertical-align: bottom;
     outline-color: transparent;
     border-radius: ${dt('selectbutton.border.radius')};
-    overflow: hidden; 
 }
 
 .p-selectbutton .p-togglebutton {
@@ -21,21 +20,15 @@ const theme = ({ dt }) => `
     z-index: 1;
 }
 
-/* For PrimeNG */
-
-.p-selectbutton .p-togglebutton:first-child button {
+.p-selectbutton .p-togglebutton:first-child {
     border-left-width: 1px;
     border-top-left-radius: ${dt('selectbutton.border.radius')};
     border-bottom-left-radius: ${dt('selectbutton.border.radius')};
 }
 
-.p-selectbutton .p-togglebutton:last-child button {
+.p-selectbutton .p-togglebutton:last-child {
     border-top-right-radius: ${dt('selectbutton.border.radius')};
     border-bottom-right-radius: ${dt('selectbutton.border.radius')};
-}
-
-.p-selectbutton .p-togglebutton:not(:first-child):not(:last-child) button {
-    border-radius: 0;
 }
 
 .p-selectbutton.ng-invalid.ng-dirty {
@@ -48,9 +41,9 @@ const classes = {
     root: ({ props }) => [
         'p-selectbutton p-component',
         {
-            'p-invalid': props.invalid
-        }
-    ]
+            'p-invalid': props.invalid,
+        },
+    ],
 };
 
 @Injectable()
