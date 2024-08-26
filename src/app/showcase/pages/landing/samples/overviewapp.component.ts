@@ -71,7 +71,6 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
-                    <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
 
                     <p-datePicker
                         [(ngModel)]="dates"
@@ -176,71 +175,6 @@ import { AppConfigService } from '@service/appconfigservice';
                                 </tr>
                             </ng-template>
                         </p-table>
-
-                        <!-- <p-table
-                            :value="sampleAppsTableDatas"
-                            paginator
-                            :rows="5"
-                            dataKey="id"
-                            tableClass="overflow-x-auto dark:bg-surface-950"
-                            paginatorTemplate="PrevPageLink PageLinks NextPageLink  CurrentPageReport RowsPerPageDropdown"
-                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-                            pt:pcpaginator:root="!bg-transparent"
-                            :dt="{
-                            header: {
-                                background: 'transparent'
-                            },
-                            headerCell: {
-                                background: 'transparent'
-                            },
-                            row: {
-                                background: 'transparent'
-                            }
-                        }"
-                        >
-                             <Column header="Id" class="w-1/12">
-                            <template #body="slotProps">
-                                <div class="text-muted-color">{{ slotProps.data.id }}</div>
-                            </template>
-                        </Column>
-                        <Column header="Name" class="w-1/4">
-                            <template #body="slotProps">
-                                <div class="flex items-center">
-                                    <Avatar :label="slotProps.data.name.label" class="mr-2 text-xs font-medium" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
-                                    <div class="leading-6 text-muted-color flex-1">{{ slotProps.data.name.text }}</div>
-                                </div>
-                            </template>
-                        </Column>
-                        <Column header="Coin" class="w-1/6">
-                            <template #body="slotProps">
-                                <div class="flex items-center">
-                                    <i
-                                        :class="[
-                                            {
-                                                'pi pi-bitcoin text-yellow-500 !text-3xl': slotProps.data.coin !== 'btc',
-                                                'pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': slotProps.data.coin !== 'eth'
-                                            }
-                                        ]"
-                                    ></i>
-                                </div>
-                            </template>
-                        </Column>
-                        <Column header="Date" class="w-1/6">
-                            <template #body="slotProps">
-                                <div class="text-muted-color">{{ slotProps.data.date }}</div>
-                            </template>
-                        </Column>
-                        <Column header="Process" class="w-1/6">
-                            <template #body="slotProps">
-                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value" class="font-medium"></Tag>
-                            </template>
-                        </Column>
-                        <Column header="Amount" class="w-1/6">
-                            <template #body="slotProps">
-                                <div class="text-muted-color text-right">{{ slotProps.data.amount }}</div>
-                            </template>
-                        </Column> 
-                        </p-table> -->
                     </div>
                     <div class="xl:w-96 border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
                         <div>
@@ -436,6 +370,7 @@ export class OverviewApp {
                     hoverBackgroundColor: primary600,
                     data: datasets.data[0],
                     barThickness: 32,
+                    borderSkipped: true,
                 },
                 {
                     type: 'bar',
@@ -444,6 +379,7 @@ export class OverviewApp {
                     hoverBackgroundColor: primary500,
                     data: datasets.data[1],
                     barThickness: 32,
+                    borderSkipped: true,
                 },
                 {
                     type: 'bar',
@@ -452,10 +388,10 @@ export class OverviewApp {
                     hoverBackgroundColor: primary400,
                     data: datasets.data[2],
                     borderRadius: {
-                        topLeft: 8,
-                        topRight: 8,
+                        topLeft: 5,
+                        topRight: 5,
                     },
-                    borderSkipped: true,
+                    borderSkipped: false,
                     barThickness: 32,
                 },
             ],
