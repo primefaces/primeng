@@ -257,7 +257,7 @@ export class Badge extends BaseComponent {
      */
     @Input() public set size(value: 'large' | 'xlarge' | 'small' | undefined | null) {
         this._size = value;
-        console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
+        !this.badgeSize && this.size && console.warn('size property is deprecated and will removed in v18, use badgeSize instead.');
     }
     get size() {
         return this._size;
