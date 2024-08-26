@@ -44,7 +44,7 @@ import { AppConfigService } from '@service/appconfigservice';
     ],
     template: `
         <div class="flex-1 h-full overflow-y-auto pb-0.5">
-            <div class="flex flex-wrap gap-6 items-start justify-between">
+            <div class="flex flex-wrap gap-4 items-start justify-between">
                 <div class="flex-1">
                     <div class="text-muted-color font-medium leading-normal">Overview</div>
                     <div class="text-color text-3xl font-semibold leading-normal">Welcome to PrimeNG</div>
@@ -61,7 +61,7 @@ import { AppConfigService } from '@service/appconfigservice';
                     </p-button>
                 </div>
             </div>
-            <div class="mt-6 flex flex-wrap gap-12 items-center justify-between">
+            <div class="mt-4 flex flex-wrap gap-6 items-center justify-between">
                 <p-selectButton
                     [(ngModel)]="selectedTime"
                     [options]="timeOptions"
@@ -71,6 +71,7 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
+                    <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
 
                     <p-datePicker
                         [(ngModel)]="dates"
@@ -82,22 +83,22 @@ import { AppConfigService } from '@service/appconfigservice';
                     />
                 </div>
             </div>
-            <div class="flex flex-col gap-12 mt-12">
-                <div class="w-full border border-surface rounded-2xl py-8 px-16 flex flex-col justify-between">
-                    <div class="flex items-center gap-12 mb-12">
+            <div class="flex flex-col gap-6 mt-6">
+                <div class="w-full border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
+                    <div class="flex items-center gap-6 mb-6">
                         <div class="flex-1 text-color font-semibold leading-6">Crypto Analytics</div>
-                        <div class="flex items-center gap-8">
+                        <div class="flex items-center gap-5">
                             <div *ngFor="let item of chartData?.datasets" class="flex items-center gap-2">
-                                <div class="w-3/12 h-3 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
+                                <div class="w-3 h-3 rounded-full" [style.backgroundColor]="item.backgroundColor"></div>
                                 <span class="font-medium text-color leading-6">{{ item.label }}</span>
                             </div>
                         </div>
                     </div>
                     <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'15rem'" />
                 </div>
-                <div class="flex gap-12 xl:flex-row flex-col">
-                    <div class="flex-1 border border-surface rounded-2xl py-8 px-16">
-                        <div class="flex items-center gap-12 mb-6">
+                <div class="flex gap-6 xl:flex-row flex-col">
+                    <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
+                        <div class="flex items-center gap-6 mb-4">
                             <div class="flex-1 text-color font-semibold leading-6">Transactions</div>
                             <p-button
                                 type="button"
@@ -153,7 +154,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                                 class="pi"
                                                 [ngClass]="{
                                                     'pi-bitcoin text-yellow-500 !text-3xl': item.coin !== 'btc',
-                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7/12 h-7 rounded-full flex items-center justify-center':
+                                                    'pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center':
                                                         item.coin !== 'eth'
                                                 }"
                                             ></i>
@@ -175,10 +176,75 @@ import { AppConfigService } from '@service/appconfigservice';
                                 </tr>
                             </ng-template>
                         </p-table>
+
+                        <!-- <p-table
+                            :value="sampleAppsTableDatas"
+                            paginator
+                            :rows="5"
+                            dataKey="id"
+                            tableClass="overflow-x-auto dark:bg-surface-950"
+                            paginatorTemplate="PrevPageLink PageLinks NextPageLink  CurrentPageReport RowsPerPageDropdown"
+                            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                            pt:pcpaginator:root="!bg-transparent"
+                            :dt="{
+                            header: {
+                                background: 'transparent'
+                            },
+                            headerCell: {
+                                background: 'transparent'
+                            },
+                            row: {
+                                background: 'transparent'
+                            }
+                        }"
+                        >
+                             <Column header="Id" class="w-1/12">
+                            <template #body="slotProps">
+                                <div class="text-muted-color">{{ slotProps.data.id }}</div>
+                            </template>
+                        </Column>
+                        <Column header="Name" class="w-1/4">
+                            <template #body="slotProps">
+                                <div class="flex items-center">
+                                    <Avatar :label="slotProps.data.name.label" class="mr-2 text-xs font-medium" style="background-color: #ece9fc; color: #2a1261" shape="circle" />
+                                    <div class="leading-6 text-muted-color flex-1">{{ slotProps.data.name.text }}</div>
+                                </div>
+                            </template>
+                        </Column>
+                        <Column header="Coin" class="w-1/6">
+                            <template #body="slotProps">
+                                <div class="flex items-center">
+                                    <i
+                                        :class="[
+                                            {
+                                                'pi pi-bitcoin text-yellow-500 !text-3xl': slotProps.data.coin !== 'btc',
+                                                'pi pi-ethereum bg-surface-950 text-surface-0 dark:bg-surface-0 dark:text-surface-950 w-7 h-7 rounded-full flex items-center justify-center': slotProps.data.coin !== 'eth'
+                                            }
+                                        ]"
+                                    ></i>
+                                </div>
+                            </template>
+                        </Column>
+                        <Column header="Date" class="w-1/6">
+                            <template #body="slotProps">
+                                <div class="text-muted-color">{{ slotProps.data.date }}</div>
+                            </template>
+                        </Column>
+                        <Column header="Process" class="w-1/6">
+                            <template #body="slotProps">
+                                <Tag :severity="slotProps.data.process.type" :value="slotProps.data.process.value" class="font-medium"></Tag>
+                            </template>
+                        </Column>
+                        <Column header="Amount" class="w-1/6">
+                            <template #body="slotProps">
+                                <div class="text-muted-color text-right">{{ slotProps.data.amount }}</div>
+                            </template>
+                        </Column> 
+                        </p-table> -->
                     </div>
-                    <div class="xl:w-96 border border-surface rounded-2xl py-8 px-16 flex flex-col justify-between">
+                    <div class="xl:w-96 border border-surface rounded-2xl py-5 px-7 flex flex-col justify-between">
                         <div>
-                            <div class="flex items-center mb-12">
+                            <div class="flex items-center mb-6">
                                 <div class="flex-1 text-color font-semibold leading-6">My Wallet</div>
                                 <p-button
                                     type="button"
@@ -189,15 +255,15 @@ import { AppConfigService } from '@service/appconfigservice';
                                     aria-haspopup="true"
                                     aria-controls="overlay_menu"
                                 />
-                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-12" />
+                                <p-menu #menu id="overlay_menu" [model]="menuItems" [popup]="true" styleClass="ml-6" />
                             </div>
                             <p-meterGroup [value]="metersData" labelPosition="end">
                                 <ng-template pTemplate="label">
-                                    <div class="flex flex-col gap-12 mt-6">
+                                    <div class="flex flex-col gap-6 mt-4">
                                         <ng-container *ngFor="let val of metersData; let index = index">
                                             <div class="flex items-center gap-2">
                                                 <div
-                                                    class="w-2/12 h-2 rounded-full"
+                                                    class="w-2 h-2 rounded-full"
                                                     [ngStyle]="{ backgroundColor: val.color }"
                                                 ></div>
                                                 <div class="text-color uppercase font-medium leading-6 flex-1">
@@ -370,7 +436,6 @@ export class OverviewApp {
                     hoverBackgroundColor: primary600,
                     data: datasets.data[0],
                     barThickness: 32,
-                    borderSkipped: true,
                 },
                 {
                     type: 'bar',
@@ -379,7 +444,6 @@ export class OverviewApp {
                     hoverBackgroundColor: primary500,
                     data: datasets.data[1],
                     barThickness: 32,
-                    borderSkipped: true,
                 },
                 {
                     type: 'bar',
@@ -388,10 +452,10 @@ export class OverviewApp {
                     hoverBackgroundColor: primary400,
                     data: datasets.data[2],
                     borderRadius: {
-                        topLeft: 5,
-                        topRight: 5,
+                        topLeft: 8,
+                        topRight: 8,
                     },
-                    borderSkipped: false,
+                    borderSkipped: true,
                     barThickness: 32,
                 },
             ],
@@ -423,7 +487,7 @@ export class OverviewApp {
                                 'chartjs-tooltip',
                                 'dark:bg-surface-950',
                                 'bg-surface-0',
-                                'p-4',
+                                'p-3',
                                 'rounded-[8px]',
                                 'overflow-hidden',
                                 'opacity-100',
@@ -450,7 +514,7 @@ export class OverviewApp {
                             tooltipEl.innerHTML = '';
                             const tooltipBody = document.createElement('div');
 
-                            tooltipBody.classList.add('flex', 'flex-col', 'gap-6', 'px-4', 'py-4', 'min-w-[18rem]');
+                            tooltipBody.classList.add('flex', 'flex-col', 'gap-4', 'px-3', 'py-3', 'min-w-[18rem]');
                             tooltip.dataPoints.reverse().forEach((body, i) => {
                                 const row = document.createElement('div');
 

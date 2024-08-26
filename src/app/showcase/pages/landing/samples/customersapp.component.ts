@@ -46,7 +46,7 @@ import { AppConfigService } from '@service/appconfigservice';
         DrawerModule,
     ],
     template: `
-        <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-12">
+        <div class="h-full flex-1 flex flex-col overflow-hidden border border-surface rounded-2xl p-6">
             <div class="flex items-start gap-2 justify-between">
                 <div>
                     <div class="text-2xl leading-8 text-color font-medium">Customers</div>
@@ -59,12 +59,12 @@ import { AppConfigService } from '@service/appconfigservice';
                     severity="secondary"
                 />
             </div>
-            <div class="mt-10 mb-6 flex items-center justify-between">
+            <div class="mt-10 mb-4 flex items-center justify-between">
                 <p-iconField iconPosition="left">
                     <p-inputIcon class="pi pi-search"> </p-inputIcon>
                     <input pInputText type="text" [(ngModel)]="search" placeholder="Search" />
                 </p-iconField>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-3">
                     <p-button icon="pi pi-filter" outlined severity="secondary" />
                     <p-divider layout="vertical" />
                     <p-button icon="pi pi-refresh" outlined severity="secondary" />
@@ -110,7 +110,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                         />
                                     </p-overlayBadge>
 
-                                    <div class="ml-6 leading-6 text-color font-medium">{{ data.name }}</div>
+                                    <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                                 </div>
                             </td>
                             <td>
@@ -213,7 +213,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <ng-template pTemplate="headless">
                 <div class="flex flex-col h-screen overflow-auto">
                     <div class="">
-                        <div class="flex items-center gap-4 p-12">
+                        <div class="flex align-items-center gap-3 p-6">
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar11.jpg"
                                 size="large"
@@ -230,7 +230,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             [options]="sidebarOptions"
                             :pt="{
                             root: {
-                                class: 'px-12 py-4 w-full'
+                                class: 'px-6 py-3 w-full'
                             },
                             pcButton: {
                                 root: {
@@ -244,20 +244,20 @@ import { AppConfigService } from '@service/appconfigservice';
                         <p-selectButton
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
-                            styleClass="flex-1 px-12 py-4"
+                            styleClass="flex-1 px-6 py-3"
                             class="flex"
                         />
                     </div>
                     <div
                         *ngIf="selectedSidebarOption === 'Interaction Logs'"
-                        class="h-[calc(100%-172px)] flex flex-col gap-6 p-12"
+                        class="h-[calc(100%-172px)] flex flex-col gap-4 p-6"
                     >
-                        <div class="h-1/3 flex flex-col p-4 rounded-xl bg-emphasis">
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-start justify-between">
                                 <div class="leading-6 font-medium text-color">Call Logs</div>
                                 <p-button
                                     icon="pi pi-download text-sm"
-                                    styleClass="w-8/12 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
                                     severity="secondary"
                                     text
                                 />
@@ -265,12 +265,12 @@ import { AppConfigService } from '@service/appconfigservice';
                             <div
                                 class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
                             >
-                                <div *ngFor="let data of callLogs" class="flex items-center gap-4 p-2">
+                                <div *ngFor="let data of callLogs" class="flex items-center gap-3 p-2">
                                     <p-overlayBadge severity="success" styleClass="w-fit">
                                         <p-avatar
                                             [image]="data.image"
                                             size="small"
-                                            styleClass="rounded-md w-10/12 h-10 overflow-hidden flex"
+                                            styleClass="rounded-md w-10 h-10 overflow-hidden flex"
                                         />
                                     </p-overlayBadge>
 
@@ -281,17 +281,17 @@ import { AppConfigService } from '@service/appconfigservice';
                                     <p-button
                                         icon="pi pi-phone text-sm"
                                         text
-                                        styleClass="bg-primary/10 dark:bg-primary/20 w-8/12 h-8"
+                                        styleClass="bg-primary/10 dark:bg-primary/20 w-8 h-8"
                                     />
                                 </div>
                             </div>
                         </div>
-                        <div class="h-1/3 flex flex-col p-4 rounded-xl bg-emphasis">
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-start justify-between">
                                 <div class="leading-6 font-medium text-color">Email Records</div>
                                 <p-button
                                     icon="pi pi-download text-sm"
-                                    styleClass="w-8/12 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all"
                                     severity="secondary"
                                     text
                                 />
@@ -299,12 +299,12 @@ import { AppConfigService } from '@service/appconfigservice';
                             <div
                                 class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 flex flex-col rounded-lg overflow-hidden divide-y divide-surface-200 dark:divide-surface-800"
                             >
-                                <div *ngFor="let data of emailRecords" class="flex items-center gap-4 p-2">
+                                <div *ngFor="let data of emailRecords" class="flex items-center gap-3 p-2">
                                     <p-overlayBadge severity="danger" styleClass="w-fit">
                                         <p-avatar
                                             [image]="data.image"
                                             size="small"
-                                            styleClass="rounded-md overflow-hidden w-10/12 h-10 flex"
+                                            styleClass="rounded-md overflow-hidden w-10 h-10 flex"
                                         />
                                     </p-overlayBadge>
 
@@ -323,18 +323,18 @@ import { AppConfigService } from '@service/appconfigservice';
                                 </div>
                             </div>
                         </div>
-                        <div class="h-1/3 flex flex-col p-4 rounded-xl bg-emphasis">
+                        <div class="h-1/3 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-start justify-between">
                                 <div class="leading-6 font-medium text-color">Meeting Notes</div>
                                 <p-button
                                     icon="pi pi-download text-sm"
-                                    styleClass="w-8/12 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
+                                    styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900 hover:opacity-75 transition-all leading-none"
                                     severity="secondary"
                                     text
                                 />
                             </div>
                             <div
-                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-6 flex flex-col rounded-lg overflow-hidden"
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col rounded-lg overflow-hidden"
                             >
                                 <div class="flex items-start justify-between gap-1">
                                     <div class="text-sm text-color font-medium max-w-60">
@@ -342,11 +342,11 @@ import { AppConfigService } from '@service/appconfigservice';
                                     </div>
                                     <div class="text-sm text-muted-color">February 14, 2024 / 2:00 PM</div>
                                 </div>
-                                <div class="text-sm text-muted-color mt-12">
+                                <div class="text-sm text-muted-color mt-6">
                                     Here's a quick review of our meeting with Brook Simmons and next steps. Summary:
                                     <br />
                                     <br />
-                                    <ul class="list-disc pl-8">
+                                    <ul class="list-disc pl-5">
                                         <li>Reviewed our SaaS solution and its features.</li>
                                         <li>Arlene McCoy intrigued by user experience potential.</li>
                                         <li>Voiced concerns on integration with current system.Action Items:</li>
@@ -365,12 +365,12 @@ import { AppConfigService } from '@service/appconfigservice';
                     </div>
                     <div
                         *ngIf="selectedSidebarOption === 'Preferences'"
-                        class="h-[calc(100%-72px)] flex flex-col gap-6 p-12"
+                        class="h-[calc(100%-72px)] flex flex-col gap-4 p-6"
                     >
-                        <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-4 rounded-xl bg-emphasis">
+                        <div *ngFor="let data of preferences" class="h-1/4 flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="leading-6 font-medium text-color p-2">{{ data.title }}</div>
                             <div
-                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-6 flex flex-col gap-4 rounded-lg"
+                                class="overflow-y-auto flex-1 bg-surface-0 dark:bg-surface-900 mt-2 p-4 flex flex-col gap-3 rounded-lg"
                             >
                                 <div *ngFor="let pref of data.prefs" class="flex items-center gap-2">
                                     <i class="text-lg text-color" [class]="pref.icon"></i>
@@ -380,14 +380,14 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-12 gap-4 grid-cols-2 gap-12 p-12">
-                        <div *ngFor="let data of opportunities" class="flex flex-col p-4 rounded-xl bg-emphasis">
+                    <div *ngIf="selectedSidebarOption === 'Opportunities'" class="grid grid-cols-2 gap-6 p-6">
+                        <div *ngFor="let data of opportunities" class="flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="flex items-start justify-between gap-2">
                                 <div class="font-medium text-color mt-0.5">{{ data.title }}</div>
                                 <a [routerLink]="data.link" target="_blank" rel="noopener">
                                     <p-button
                                         icon="pi pi-arrow-up-right text-sm !leading-none"
-                                        styleClass="w-8/12 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
+                                        styleClass="w-8 h-8 !border-surface !bg-surface-0 dark:!bg-surface-900"
                                         severity="secondary"
                                         text
                                     />
@@ -399,14 +399,14 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                     </div>
-                    <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-12">
-                        <div class="grid grid-cols-12 gap-4 grid-cols-2 gap-6">
-                            <div class="w-full h-full flex flex-col p-4 rounded-xl bg-emphasis">
+                    <div *ngIf="selectedSidebarOption === 'Statistics'" class="h-[calc(100%-160px)] p-6">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="font-medium text-color p-2">Customer Satisfaction Score</div>
                                 </div>
                                 <div
-                                    class="flex-1 py-6 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                    class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
                                 >
                                     <p-knob
                                         [(ngModel)]="customerSatisfaction"
@@ -417,7 +417,7 @@ import { AppConfigService } from '@service/appconfigservice';
                                     />
                                 </div>
                             </div>
-                            <div class="w-full h-full flex flex-col p-4 rounded-xl bg-emphasis">
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="font-medium text-color p-2">Estimated Lifetime Value</div>
                                 </div>
@@ -446,11 +446,11 @@ import { AppConfigService } from '@service/appconfigservice';
                                     </div>
                                 </div>
                             </div>
-                            <div class="w-full h-full flex flex-col p-4 rounded-xl bg-emphasis">
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                 <div class="flex items-center justify-between gap-2">
                                     <div class="font-medium text-color p-2">Product Usage</div>
                                 </div>
-                                <div class="flex-1 mt-2 py-6 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
+                                <div class="flex-1 mt-2 py-4 rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm">
                                     <p-chart
                                         type="line"
                                         [data]="lineChartData"
@@ -461,10 +461,10 @@ import { AppConfigService } from '@service/appconfigservice';
                                     />
                                 </div>
                             </div>
-                            <div class="w-full h-full flex flex-col p-4 rounded-xl bg-emphasis">
+                            <div class="w-full h-full flex flex-col p-3 rounded-xl bg-emphasis">
                                 <div class="font-medium text-color p-2">Churn Risk</div>
                                 <div
-                                    class="flex-1 py-6 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                    class="flex-1 py-4 mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
                                 >
                                     <p-knob
                                         [(ngModel)]="churnRisk"
@@ -476,10 +476,10 @@ import { AppConfigService } from '@service/appconfigservice';
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-6 w-full flex flex-col p-4 rounded-xl bg-emphasis">
+                        <div class="mt-4 w-full flex flex-col p-3 rounded-xl bg-emphasis">
                             <div class="font-medium text-color p-2">Total Purchases</div>
                             <div
-                                class="flex-1 py-6 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
+                                class="flex-1 py-4 px-2 w-full mt-2 flex items-center justify-center rounded-lg bg-surface-0 dark:bg-surface-900 shadow-sm"
                             >
                                 <p-chart
                                     type="bar"

@@ -10,14 +10,14 @@ import { AppConfigService } from '@service/appconfigservice';
         <section class="landing-templates theme-dark py-20">
             <div class="section-header relative z-30">Templates</div>
             <p class="section-detail relative z-30">Professionally designed highly customizable application templates to get started in style.</p>
-            <div class="flex justify-center mt-12 relative z-30">
+            <div class="flex justify-center mt-6 relative z-30">
                 <a href="https://www.primefaces.org/store" class="linkbox linkbox-primary">
                     <span>Explore All</span>
                     <i class="pi pi-arrow-right ml-2"></i>
                 </a>
             </div>
-            <section class="templates templates-animation flex justify-center items-center flex-col mt-16">
-                <div class="flex md:flex-row flex-col gap-12 lg:gap-0">
+            <section class="templates templates-animation flex justify-center items-center flex-col mt-7">
+                <div class="flex md:flex-row flex-col gap-6 lg:gap-0">
                     <div
                         class="template-block block-5 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{ 'background-image': isDarkMode ? 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-dark-v17.jpg)' : 'url(https://primefaces.org/cdn/primeng/images/landing/templates/verona-light-v17.jpg)' }"
@@ -33,7 +33,7 @@ import { AppConfigService } from '@service/appconfigservice';
                         <a class="templates-btn" href="https://www.primefaces.org/freya-ng/" target="_blank">Freya Preview</a>
                     </div>
                 </div>
-                <div class="flex my-12 md:flex-row flex-col gap-12 lg:gap-0">
+                <div class="flex my-6 md:flex-row flex-col gap-6 lg:gap-0">
                     <div
                         class="template-block block-3 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{
@@ -58,7 +58,7 @@ import { AppConfigService } from '@service/appconfigservice';
                         <a class="templates-btn" href="https://www.primefaces.org/apollo-ng/" target="_blank">Apollo Preview</a>
                     </div>
                 </div>
-                <div class="flex md:flex-row flex-col gap-12 lg:gap-0">
+                <div class="flex md:flex-row flex-col gap-6 lg:gap-0">
                     <div
                         class="template-block block-1 mr-2 lg:mb-0 flex justify-center items-center"
                         [ngStyle]="{

@@ -7,65 +7,65 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
-        <section class="landing-footer pt-20 px-20 lg:px-20">
+        <section class="landing-footer pt-20 px-8 lg:px-20">
             <div class="landing-footer-container">
                 <div class="flex flex-wrap z-10">
                     <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mb-20">General</li>
-                            <li class="mb-12">
+                            <li class="font-bold mb-8">General</li>
+                            <li class="mb-6">
                                 <a [routerLink]="['installation']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300"> Get Started </a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://github.com/primefaces/primeng-examples" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Examples</a>
                             </li>
                         </ul>
                     </div>
                     <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mb-20">Support</li>
-                            <li class="mb-12">
+                            <li class="font-bold mb-8">Support</li>
+                            <li class="mb-6">
                                 <a href="https://github.com/orgs/primefaces/discussions" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Forum</a>
                             </li>
-                            <li class="mb-12">
-                                <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors duration-150">Discord</a>
+                            <li class="mb-6">
+                                <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="text-secondary font-medium hover:text-primary transition-colors transition-duration-150">Discord</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a [routerLink]="['support']" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PRO Support </a>
                             </li>
                         </ul>
                     </div>
                     <div class="w-6/12 lg:w-3/12 flex">
                         <ul class="list-none p-0 m-0">
-                            <li class="font-bold mt-20 lg:mt-0 mb-20">Resources</li>
-                            <li class="mb-12">
+                            <li class="font-bold mt-8 lg:mt-0 mb-8">Resources</li>
+                            <li class="mb-6">
                                 <a href="https://www.youtube.com/channel/UCTgmp69aBOlLnPEqlUyetWw" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeTV</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://www.primefaces.org/store/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Store</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Source Code</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Twitter</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://www.primefaces.org/newsletter" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Newsletter</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="https://gear.primefaces.org/" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">PrimeGear</a>
                             </li>
-                            <li class="mb-12">
+                            <li class="mb-6">
                                 <a href="mailto:contact@primetek.com.tr" target="_blank" rel="noopener noreferrer" class="text-surface-500 dark:text-surface-400 font-medium hover:text-primary rounded transition-all duration-300">Contact Us</a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <hr class="section-divider mt-20" />
+                <hr class="section-divider mt-8" />
 
-                <div class="flex flex-wrap justify-between py-12 gap-20">
+                <div class="flex flex-wrap justify-between py-12 gap-8">
                     <span>
                         <svg width="120" height="33" viewBox="0 0 120 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -109,17 +109,17 @@ import { RouterModule } from '@angular/router';
                             <path d="M11.4013 8.27235L8.00893 7.94938L10.2705 5.68861H12.5321L11.4013 8.27235Z" fill="var(--primary-color-text)" />
                         </svg>
                     </span>
-                    <div class="flex items-center gap-2">
-                        <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox block w-12 h-12 flex items-center justify-center">
+                    <div class="flex align-items-center gap-2">
+                        <a href="https://twitter.com/prime_ng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                             <i class="pi pi-twitter"></i>
                         </a>
-                        <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox block w-12 h-12 flex items-center justify-center">
+                        <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                             <i class="pi pi-github"></i>
                         </a>
-                        <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox block w-12 h-12 flex items-center justify-center">
+                        <a href="https://discord.gg/gzKFYnpmCY" target="_blank" rel="noopener noreferrer" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                             <i class="pi pi-discord"></i>
                         </a>
-                        <a href="https://github.com/orgs/primefaces/discussions" class="linkbox block w-12 h-12 flex items-center justify-center">
+                        <a href="https://github.com/orgs/primefaces/discussions" class="linkbox block w-3rem h-3rem flex align-items-center justify-content-center">
                             <i class="pi pi-comments"></i>
                         </a>
                     </div>

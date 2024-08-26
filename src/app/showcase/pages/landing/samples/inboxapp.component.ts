@@ -37,11 +37,11 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     ],
     template: `
         <div class="w-64 h-full overflow-hidden border border-surface rounded-2xl flex flex-col">
-            <div class="flex items-center justify-between gap-2 p-6 border-b border-surface">
+            <div class="flex items-center justify-between gap-2 p-4 border-b border-surface">
                 <div class="text-xl font-medium leading-7 text-color">Mails</div>
-                <p-button icon="pi pi-plus" styleClass="w-8/12 h-8" />
+                <p-button icon="pi pi-plus" styleClass="w-8 h-8" />
             </div>
-            <div class="flex-1 flex flex-col overflow-auto justify-between gap-6 pt-6 pb-6 px-6">
+            <div class="flex-1 flex flex-col overflow-auto justify-between gap-4 pt-4 pb-4 px-4">
                 <div class="flex-1 overflow-auto flex flex-col gap-2">
                     <div *ngFor="let navData of inboxNavs" class="flex flex-col gap-2">
                         <div class="text-sm font-medium leading-5 text-surface-400 dark:text-surface-500">
@@ -54,7 +54,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                 'text-color bg-emphasis': activeInboxNav === nav.name,
                                 'text-muted-color bg-transparent': activeInboxNav !== nav.name
                             }"
-                            class="px-6 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
+                            class="px-4 py-2 rounded-lg flex items-center gap-2 cursor-pointer hover:bg-emphasis transition-all"
                         >
                             <i [class]="nav.icon"></i>
                             <span class="font-medium">{{ nav.name }}</span>
@@ -62,8 +62,8 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                     </div>
                 </div>
                 <div>
-                    <div class="border border-surface rounded-border px-6 pb-6 pt-4 mb-6">
-                        <div class="font-medium text-color mb-6">Free Version</div>
+                    <div class="border border-surface rounded-border px-4 pb-4 pt-3 mb-4">
+                        <div class="font-medium text-color mb-4">Free Version</div>
                         <p-progressBar [value]="75">
                             <ng-template pTemplate="content" let-value>
                                 <span
@@ -133,7 +133,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     />
                                 </p-overlayBadge>
 
-                                <div class="ml-6 leading-6 text-color font-medium">{{ data.name }}</div>
+                                <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                             </div>
                         </td>
 
@@ -266,7 +266,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                                     class="rounded-md overflow-hidden flex"
                                 />
                             </OverlayBadge>
-                            <div class="ml-6 leading-6 text-color font-medium">{{ data.name }}</div>
+                            <div class="ml-4 leading-6 text-color font-medium">{{ data.name }}</div>
                         </div>
                     </template>
                 </Column>
@@ -292,7 +292,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
         </div>
     `,
     host: {
-        class: 'flex gap-6 h-full flex-1 w-full overflow-auto',
+        class: 'flex gap-4 h-full flex-1 w-full overflow-auto',
     },
     styleUrls: ['./styles/inboxapp.scss'],
     encapsulation: ViewEncapsulation.None,

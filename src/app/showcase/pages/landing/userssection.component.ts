@@ -7,15 +7,15 @@ import { AppConfigService } from '@service/appconfigservice';
     standalone: true,
     imports: [CommonModule],
     template: `
-        <section class="landing-users py-20 px-6 lg:px-20">
+        <section class="landing-users py-20 px-4 lg:px-20">
             <div class="section-header">Who Uses</div>
             <p class="section-detail">
                 PrimeTek libraries have reached over<span
-                    class="font-semibold animated-text relative whitespace-nowrap"
+                    class="font-semibold animated-text relative white-space-nowrap"
                     ><span>150 Million Downloads</span></span
                 >on npm! Join the PrimeLand community and experience the difference yourself.
             </p>
-            <div class="flex justify-center items-center mt-12">
+            <div class="flex justify-center items-center mt-6">
                 <span class="ml-2"> </span>
             </div>
             <div

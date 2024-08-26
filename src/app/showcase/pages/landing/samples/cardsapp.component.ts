@@ -59,10 +59,10 @@ import { SelectModule } from 'primeng/select';
     template: `
         <div class="text-color text-2xl font-medium leading-8">Cards</div>
         <div class="mt-1 text-muted-color leading-6">You can make cards using Aura like below 👇</div>
-        <div class="mt-12 flex flex-wrap items-start gap-12">
-            <div class="flex-1 flex flex-col gap-12">
-                <div class="border border-surface rounded-3xl p-12 flex flex-col gap-12">
-                    <div class="flex items-center gap-4">
+        <div class="mt-6 flex flex-wrap items-start gap-6">
+            <div class="flex-1 flex flex-col gap-6">
+                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
+                    <div class="flex items-center gap-3">
                         <p-overlayBadge severity="danger" styleClass="w-fit">
                             <p-avatar
                                 image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
@@ -76,7 +76,7 @@ import { SelectModule } from 'primeng/select';
                             <div class="mt-1 text-muted-color leading-5">hi&#64;jacobjones.co</div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-12">
+                    <div class="flex items-center gap-6">
                         <div class="text-sm leading-5 text-color">
                             14.k <span class="text-muted-color">Followers</span>
                         </div>
@@ -138,12 +138,12 @@ import { SelectModule } from 'primeng/select';
                         [options]="userSelectButtonOptions"
                         styleClass="w-full"
                     />
-                    <div class="flex flex-col gap-6">
-                        <div class="p-2 rounded-2xl flex items-center gap-4 bg-emphasis">
+                    <div class="flex flex-col gap-4">
+                        <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
-                                    styleClass="rounded-lg overflow-hidden w-10/12 h-10 block"
+                                    styleClass="rounded-lg overflow-hidden w-10 h-10 block"
                                 />
                             </p-overlayBadge>
 
@@ -153,11 +153,11 @@ import { SelectModule } from 'primeng/select';
                             </div>
                             <p-button label="Join" />
                         </div>
-                        <div class="p-2 rounded-2xl flex items-center gap-4 bg-emphasis">
+                        <div class="p-2 rounded-2xl flex items-center gap-3 bg-emphasis">
                             <p-overlayBadge severity="danger" class="w-fit">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar9.jpg"
-                                    styleClass="rounded-lg overflow-hidden w-10/12 h-10 flex"
+                                    styleClass="rounded-lg overflow-hidden w-10 h-10 flex"
                                 />
                             </p-overlayBadge>
 
@@ -169,9 +169,9 @@ import { SelectModule } from 'primeng/select';
                         </div>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-12">
+                <div class="border border-surface rounded-3xl p-6">
                     <div
-                        class="flex items-center gap-4 p-4 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]"
+                        class="flex items-center gap-3 p-3 border border-surface rounded-xl shadow-[0px_1px_2px_0px_rgba(18,18,23,0.05)]"
                     >
                         <p-avatar
                             image="https://www.primefaces.org/cdn/primevue/images/landing/apps/main-avatar.png"
@@ -184,29 +184,29 @@ import { SelectModule } from 'primeng/select';
                         </div>
                         <p-button icon="pi pi-bell" severity="contrast" text />
                     </div>
-                    <div class="mt-6 flex flex-col gap-1">
+                    <div class="mt-4 flex flex-col gap-1">
                         <button
                             class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
                         >
-                            <i class="pi pi-envelope text-lg w-7/12 h-7 flex items-center justify-center"></i>
+                            <i class="pi pi-envelope text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Messages</div>
                         </button>
                         <button
                             class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
                         >
-                            <i class="pi pi-cog text-lg w-7/12 h-7 flex items-center justify-center"></i>
+                            <i class="pi pi-cog text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Settings</div>
                         </button>
                         <button
                             class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
                         >
-                            <i class="pi pi-sync text-lg w-7/12 h-7 flex items-center justify-center"></i>
+                            <i class="pi pi-sync text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Switch Accounts</div>
                         </button>
                         <button
                             class="w-full flex items-center gap-2 text-color p-2 bg-transparent hover:bg-emphasis active:bg-surface-200 dark:active:bg-surface-700 cursor-pointer rounded-lg transition-all select-none"
                         >
-                            <i class="pi pi-sign-in text-lg w-7/12 h-7 flex items-center justify-center"></i>
+                            <i class="pi pi-sign-in text-lg w-7 h-7 flex items-center justify-center"></i>
                             <div class="font-medium leading-normal flex-1 text-left">Log out</div>
                         </button>
                     </div>
@@ -215,7 +215,7 @@ import { SelectModule } from 'primeng/select';
                         class="w-full flex items-center gap-2 text-color p-2 bg-transparent cursor-pointer rounded-lg transition-all select-none"
                     >
                         <i
-                            class="pi text-lg w-7/12 h-7 flex items-center justify-center"
+                            class="pi text-lg w-7 h-7 flex items-center justify-center"
                             [ngClass]="{
                                 'pi-moon': !darkMode,
                                 'pi-sun': darkMode
@@ -228,7 +228,7 @@ import { SelectModule } from 'primeng/select';
                     </div>
                 </div>
                 <div class="border border-surface rounded-3xl">
-                    <div class="pt-12 px-12 flex flex-col gap-12">
+                    <div class="pt-6 px-6 flex flex-col gap-6">
                         <div class="flex items-start gap-2 justify-between">
                             <div>
                                 <div class="text-2xl text-color font-medium">Data Analyst</div>
@@ -266,9 +266,9 @@ import { SelectModule } from 'primeng/select';
                             <p-tag value="Big Data" rounded class="font-normal"></p-tag>
                         </div>
                     </div>
-                    <div class="p-1 mt-6">
+                    <div class="p-1 mt-4">
                         <button
-                            class="p-6 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer"
+                            class="p-4 rounded-3xl w-full bg-emphasis transition-all text-color hover:text-color-emphasis flex items-center gap-2 justify-between cursor-pointer"
                         >
                             <div class="flex items-center [&>*]:-mr-2">
                                 <p-avatar
@@ -305,8 +305,8 @@ import { SelectModule } from 'primeng/select';
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-col gap-12">
-                <div class="border border-surface rounded-3xl p-12 flex flex-col gap-12">
+            <div class="flex-1 flex flex-col gap-6">
+                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="flex items-center gap-2 text-color">
                         <i class="pi pi-cloud-upload text-xl"></i>
                         <div class="flex-1 font-medium leading-6">Upload Files</div>
@@ -356,7 +356,7 @@ import { SelectModule } from 'primeng/select';
                             >
                                 <div
                                     *ngIf="files.length > 0 || uploadedFiles.length > 0"
-                                    class="flex w-full flex-wrap justify-between items-center flex-1 gap-6 border-b border-surface pb-6"
+                                    class="flex w-full flex-wrap justify-between items-center flex-1 gap-4 border-b border-surface pb-4"
                                 >
                                     <div class="flex gap-2">
                                         <p-button
@@ -386,7 +386,7 @@ import { SelectModule } from 'primeng/select';
                                 </div>
                                 <div
                                     *ngIf="files.length <= 0 && uploadedFiles.length <= 0"
-                                    class="flex flex-col items-center justify-center p-12 cursor-pointer"
+                                    class="flex flex-col items-center justify-center p-6 cursor-pointer"
                                     (click)="chooseCallback()"
                                 >
                                     <i class="pi pi-cloud-upload text-4xl text-color"></i>
@@ -405,12 +405,12 @@ import { SelectModule } from 'primeng/select';
                                 let-clearCallback="clearCallback"
                                 let-uploadCallback="uploadCallback"
                             >
-                                <div *ngIf="files.length > 0" class="px-6 py-0">
+                                <div *ngIf="files.length > 0" class="px-4 py-0">
                                     <h5 class="m-0 mb-2">Pending</h5>
                                     <div class="flex flex-wrap gap-2 grow overflow-auto max-h-[210px]">
                                         <div
                                             *ngFor="let file of files"
-                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border border-surface items-center gap-2 text-center"
+                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
                                         >
                                             <div>
                                                 <img
@@ -441,13 +441,13 @@ import { SelectModule } from 'primeng/select';
                                     </div>
                                 </div>
 
-                                <div *ngIf="uploadedFiles.length > 0" class="px-6 py-0">
+                                <div *ngIf="uploadedFiles.length > 0" class="px-4 py-0">
                                     <h5 class="m-0 mb-2">Completed</h5>
                                     <div class="flex flex-wrap gap-2">
                                         <div
                                             *ngFor="let file of uploadedFiles"
                                             :key="file.name + file.type + file.size"
-                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border border-surface items-center gap-2 text-center"
+                                            class="card max-w-[120px] !p-2 m-0 flex flex-col border-1 surface-border items-center gap-2 text-center"
                                         >
                                             <div>
                                                 <img
@@ -464,7 +464,7 @@ import { SelectModule } from 'primeng/select';
                                             >
                                             <span class="text-sm text-muted-color">{{ formatSize(file.size) }}</span>
                                             <div class="grow flex flex-col gap-2 justify-end">
-                                                <p-badge value="Completed" class="mt-4" severity="success" />
+                                                <p-badge value="Completed" class="mt-3" severity="success" />
                                                 <p-button
                                                     icon="pi pi-times text-sm leading-none"
                                                     (click)="removeUploadedFileCallback(index)"
@@ -514,7 +514,7 @@ import { SelectModule } from 'primeng/select';
                         <button pButton label="Upload" class="flex-1"></button>
                     </div>
                 </div>
-                <div class="border border-surface rounded-3xl p-12">
+                <div class="border border-surface rounded-3xl p-6">
                     <div class="flex items-start justify-between gap-1">
                         <div class="flex items-center gap-x-2 gap-y-1 flex-wrap flex-1">
                             <p-avatar
@@ -571,17 +571,17 @@ import { SelectModule } from 'primeng/select';
                         </div>
                         <p-button icon="pi pi-arrow-up-right" rounded text />
                     </div>
-                    <div class="text-2xl font-medium text-color mt-12 leading-8">That's your avatar</div>
+                    <div class="text-2xl font-medium text-color mt-6 leading-8">That's your avatar</div>
                     <div class="leading-6 text-muted-color mt-2">Easy to use! place it, watch it.</div>
                 </div>
-                <div class="border border-surface rounded-3xl p-12 flex flex-col gap-12">
+                <div class="border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="flex items-center justify-between gap-2">
                         <div class="text-2xl font-medium leading-8 flex-1">Add Member</div>
                         <p-button icon="pi pi-times" rounded text severity="secondary" />
                     </div>
                     <div>
                         <div class="text-muted-color leading-6">Email</div>
-                        <div class="flex items-start gap-4 mt-2">
+                        <div class="flex items-start gap-3 mt-2">
                             <p-autoComplete
                                 [(ngModel)]="emailChips"
                                 inputId="multiple-ac-2"
@@ -596,11 +596,11 @@ import { SelectModule } from 'primeng/select';
                     </div>
                     <div>
                         <div class="font-medium leading-6 text-muted-color">Members</div>
-                        <div class="mt-6 flex flex-col gap-6">
+                        <div class="mt-4 flex flex-col gap-4">
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar8.png"
-                                    styleClass="w-9/12 h-9"
+                                    styleClass="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
@@ -620,7 +620,7 @@ import { SelectModule } from 'primeng/select';
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar13.jpg"
-                                    styleClass="w-9/12 h-9"
+                                    styleClass="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
@@ -640,7 +640,7 @@ import { SelectModule } from 'primeng/select';
                             <div class="flex items-center gap-2 justify-between">
                                 <p-avatar
                                     image="https://www.primefaces.org/cdn/primevue/images/landing/apps/avatar12.jpg"
-                                    styleClass="w-9/12 h-9"
+                                    styleClass="w-9 h-9"
                                     shape="circle"
                                 />
                                 <div class="flex-1">
@@ -661,7 +661,7 @@ import { SelectModule } from 'primeng/select';
                     </div>
                     <div>
                         <div class="font-medium leading-6 text-muted-color">Copy Link</div>
-                        <div class="flex items-center gap-4 mt-2">
+                        <div class="flex items-center gap-3 mt-2">
                             <input
                                 type="text"
                                 pInputText
@@ -675,44 +675,44 @@ import { SelectModule } from 'primeng/select';
                     </div>
                 </div>
             </div>
-            <div class="flex-1 flex flex-wrap gap-12">
-                <div class="flex-1 border border-surface rounded-3xl p-12">
-                    <div class="text-color font-medium leading-6 mb-6">User Profiles</div>
+            <div class="flex-1 flex flex-wrap gap-6">
+                <div class="flex-1 border border-surface rounded-3xl p-6">
+                    <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
                     <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" styleClass="w-full" />
-                    <div class="flex flex-col gap-6 mt-12">
-                        <div class="flex items-center gap-4">
+                    <div class="flex flex-col gap-4 mt-6">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Sound</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[0]" />
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-wifi text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Wi-Fi</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[1]" />
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-moon text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Dark Mode</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[2]" />
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-map-marker text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Location Services</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[3]" />
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-shield text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Privacy Settings</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[4]" />
                         </div>
-                        <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-3">
                             <i class="pi pi-sync text-color text-xl"></i>
                             <div class="leading-6 text-color flex-1">Auto Update</div>
                             <p-inputSwitch [(ngModel)]="userProfilesValues[5]" />
                         </div>
                     </div>
                 </div>
-                <div class="flex-1 border border-surface rounded-3xl p-12 flex flex-col gap-12">
+                <div class="flex-1 border border-surface rounded-3xl p-6 flex flex-col gap-6">
                     <div class="font-medium text-color text-2xl text-center">Forgot Password</div>
                     <div>
                         <div class="text-muted-color text-lg text-center leading-snug">
@@ -720,7 +720,7 @@ import { SelectModule } from 'primeng/select';
                             has been sent to email
                         </div>
                         <div
-                            class="rounded-full px-6 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-6 text-color text-lg leading-relaxed"
+                            class="rounded-full px-4 py-1 bg-surface-200 dark:bg-surface-800 w-fit mx-auto mt-4 text-color text-lg leading-relaxed"
                         >
                             u*******m&#64;gmail.com
                         </div>
@@ -733,12 +733,12 @@ import { SelectModule } from 'primeng/select';
                     </div>
                     <button pButton label="Change password" class="w-full"></button>
                 </div>
-                <div class="border border-surface rounded-3xl p-12">
-                    <div class="text-color font-medium leading-6 mb-12">Price Range</div>
+                <div class="border border-surface rounded-3xl p-6">
+                    <div class="text-color font-medium leading-6 mb-6">Price Range</div>
                     <div>
                         <p-slider [(ngModel)]="priceRange" [min]="0" range [max]="15000" />
                     </div>
-                    <div class="mt-6 flex gap-2">
+                    <div class="mt-4 flex gap-2">
                         <div class="flex-1">
                             <label for="price-min-val" class="leading-6 text-color">Min Value</label>
                             <p-inputNumber
@@ -763,10 +763,10 @@ import { SelectModule } from 'primeng/select';
                             />
                         </div>
                     </div>
-                    <div class="mt-6">
-                        <div class="text-color font-medium leading-6 mb-12">Popular specs</div>
-                        <div class="flex items-center gap-6 flex-wrap">
-                            <div *ngFor="let data of priceRangePopularSpecs" class="flex items-center">
+                    <div class="mt-4">
+                        <div class="text-color font-medium leading-6 mb-6">Popular specs</div>
+                        <div class="flex items-center gap-4 flex-wrap">
+                            <div *ngFor="let data of priceRangePopularSpecs" class="flex align-items-center">
                                 <p-checkbox
                                     [(ngModel)]="priceRangePopularSpecsChecked"
                                     [inputId]="data.value"
@@ -777,7 +777,7 @@ import { SelectModule } from 'primeng/select';
                             </div>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4 flex-wrap [&>*]:flex-1 mt-12">
+                    <div class="flex items-center gap-3 flex-wrap [&>*]:flex-1 mt-6">
                         <button pButton label="Undo" outlined class="w-full"></button>
                         <button pButton label="Random" class="w-full"></button>
                     </div>
@@ -786,7 +786,7 @@ import { SelectModule } from 'primeng/select';
         </div>
     `,
     host: {
-        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-12',
+        class: 'flex-1 h-full overflow-y-auto overflow-x-clip overflow-hidden border border-surface rounded-2xl p-6',
     },
     providers: [MessageService],
     styleUrls: ['./styles/cardsapp.scss'],
