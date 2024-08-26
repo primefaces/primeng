@@ -6,6 +6,7 @@ import { DefaultDoc } from '@doc/ripple/defaultdoc';
 import { AccessibilityDoc } from '@doc/ripple/accessibilitydoc';
 @Component({
     templateUrl: './rippledemo.html',
+    styleUrls: ['./rippledemo.scss'],
 })
 export class RippleDemo {
     docs = [
