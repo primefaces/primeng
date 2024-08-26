@@ -71,10 +71,9 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
-                    <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
-
                     <p-datePicker
                         [(ngModel)]="dates"
+                        appendTo="body"
                         dateFormat="dd.mm.yy"
                         selectionMode="range"
                         showIcon
