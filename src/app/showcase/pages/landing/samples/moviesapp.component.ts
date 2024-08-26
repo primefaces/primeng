@@ -45,7 +45,7 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
                         <input type="text" pInputText [(ngModel)]="search" placeholder="Search" />
                     </p-iconField>
                     <p-button severity="secondary" outlined>
-                        <p-overlayBadge severity="danger" size="small" styleClass="!min-w-0 !w-2.5 !h-2.5">
+                        <p-overlayBadge severity="danger" badgeSize="small" styleClass="!min-w-0 !w-2.5 !h-2.5">
                             <i class="pi pi-bell"></i>
                         </p-overlayBadge>
                     </p-button>
