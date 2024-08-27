@@ -244,8 +244,8 @@ import { AppConfigService } from '@service/appconfigservice';
                         <p-selectButton
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
-                            styleClass="flex-1 px-6 py-3"
-                            class="flex"
+                            class="flex-1 px-6 py-3"
+              
                         />
                     </div>
                     <div
