@@ -34,9 +34,21 @@ import { DisabledDoc } from './disableddoc';
 import { FilledDoc } from './filleddoc';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { DatePickerModule } from 'primeng/datepicker';
+import { FluidModule } from 'primeng/fluid';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, CalendarModule, ReactiveFormsModule, FloatLabelModule,DatePickerModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        AppCodeModule,
+        AppDocModule,
+        FormsModule,
+        CalendarModule,
+        ReactiveFormsModule,
+        FloatLabelModule,
+        DatePickerModule,
+        FluidModule,
+    ],
     exports: [AppDocModule],
     declarations: [
         ImportDoc,
@@ -65,7 +77,7 @@ import { DatePickerModule } from 'primeng/datepicker';
         FloatLabelDoc,
         FilledDoc,
         InvalidDoc,
-        DisabledDoc
-    ]
+        DisabledDoc,
+    ],
 })
 export class DatePickerDocModule {}
