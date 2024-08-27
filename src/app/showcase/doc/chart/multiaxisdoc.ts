@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
-    `
+    `,
 })
 export class MultiAxisDoc implements OnInit {
     data: any;
@@ -22,16 +22,7 @@ export class MultiAxisDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -53,7 +44,7 @@ export class MultiAxisDoc implements OnInit {
                         borderColor: documentStyle.getPropertyValue('--blue-500'),
                         yAxisID: 'y',
                         tension: 0.4,
-                        data: [65, 59, 80, 81, 56, 55, 10]
+                        data: [65, 59, 80, 81, 56, 55, 10],
                     },
                     {
                         label: 'Dataset 2',
@@ -61,9 +52,9 @@ export class MultiAxisDoc implements OnInit {
                         borderColor: documentStyle.getPropertyValue('--green-500'),
                         yAxisID: 'y1',
                         tension: 0.4,
-                        data: [28, 48, 40, 19, 86, 27, 90]
-                    }
-                ]
+                        data: [28, 48, 40, 19, 86, 27, 90],
+                    },
+                ],
             };
 
             this.options = {
@@ -73,43 +64,43 @@ export class MultiAxisDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
+                            color: surfaceBorder,
+                        },
                     },
                     y: {
                         type: 'linear',
                         display: true,
                         position: 'left',
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
+                            color: surfaceBorder,
+                        },
                     },
                     y1: {
                         type: 'linear',
                         display: true,
                         position: 'right',
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
                             drawOnChartArea: false,
-                            color: surfaceBorder
-                        }
-                    }
-                }
+                            color: surfaceBorder,
+                        },
+                    },
+                },
             };
         }
     }
@@ -207,6 +198,6 @@ export class ChartMultiAxisDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

@@ -29,7 +29,7 @@ import {
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
-    ViewRef
+    ViewRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FilterService, OverlayOptions, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
@@ -57,7 +57,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 export const SELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => Select),
-    multi: true
+    multi: true,
 };
 
 @Component({
@@ -77,7 +77,12 @@ export const SELECT_VALUE_ACCESSOR: any = {
             [attr.data-p-highlight]="selected"
             [attr.data-p-disabled]="disabled"
             [ngStyle]="{ height: itemSize + 'px' }"
-            [ngClass]="{ 'p-select-option': true, 'p-select-option-selected': selected, 'p-disabled': disabled, 'p-focus': focused }"
+            [ngClass]="{
+                'p-select-option': true,
+                'p-select-option-selected': selected,
+                'p-disabled': disabled,
+                'p-focus': focused
+            }"
         >
             <ng-container *ngIf="checkmark">
                 <CheckIcon *ngIf="selected" [styleClass]="'p-select-option-check-icon'" />
@@ -86,7 +91,7 @@ export const SELECT_VALUE_ACCESSOR: any = {
             <span *ngIf="!template">{{ label ?? 'empty' }}</span>
             <ng-container *ngTemplateOutlet="template; context: { $implicit: option }"></ng-container>
         </li>
-    `
+    `,
 })
 export class SelectItem extends BaseComponent {
     @Input() id: string | undefined;
@@ -135,7 +140,14 @@ export class SelectItem extends BaseComponent {
 @Component({
     selector: 'p-select',
     template: `
-        <div #container [attr.id]="id" [ngClass]="rootClass" (click)="onContainerClick($event)" [ngStyle]="style" [class]="styleClass">
+        <div
+            #container
+            [attr.id]="id"
+            [ngClass]="rootClass"
+            (click)="onContainerClick($event)"
+            [ngStyle]="style"
+            [class]="styleClass"
+        >
             <span
                 #focusInput
                 [ngClass]="inputClass"
@@ -162,8 +174,14 @@ export class SelectItem extends BaseComponent {
                 [attr.aria-required]="required"
                 [attr.required]="required"
             >
-                <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
-                <ng-container *ngIf="selectedItemTemplate && selectedOption" [ngTemplateOutlet]="selectedItemTemplate" [ngTemplateOutletContext]="{ $implicit: selectedOption }"></ng-container>
+                <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{
+                    label() === 'p-emptylabel' ? '&nbsp;' : label()
+                }}</ng-container>
+                <ng-container
+                    *ngIf="selectedItemTemplate && selectedOption"
+                    [ngTemplateOutlet]="selectedItemTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: selectedOption }"
+                ></ng-container>
                 <ng-template #defaultPlaceholder>
                     <span *ngIf="!selectedOption">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</span>
                 </ng-template>
@@ -188,20 +206,47 @@ export class SelectItem extends BaseComponent {
                 (blur)="onInputBlur($event)"
             />
             <ng-container *ngIf="isVisibleClearIcon">
-                <TimesIcon class="p-select-clear-icon" (click)="clear($event)" *ngIf="!clearIconTemplate" [attr.data-pc-section]="'clearicon'" />
-                <span class="p-select-clear-icon" (click)="clear($event)" *ngIf="clearIconTemplate" [attr.data-pc-section]="'clearicon'">
-                    <ng-template *ngTemplateOutlet="clearIconTemplate; context: { class: 'p-select-clear-icon' }"></ng-template>
+                <TimesIcon
+                    class="p-select-clear-icon"
+                    (click)="clear($event)"
+                    *ngIf="!clearIconTemplate"
+                    [attr.data-pc-section]="'clearicon'"
+                />
+                <span
+                    class="p-select-clear-icon"
+                    (click)="clear($event)"
+                    *ngIf="clearIconTemplate"
+                    [attr.data-pc-section]="'clearicon'"
+                >
+                    <ng-template
+                        *ngTemplateOutlet="clearIconTemplate; context: { class: 'p-select-clear-icon' }"
+                    ></ng-template>
                 </span>
             </ng-container>
 
-            <div class="p-select-dropdown" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+            <div
+                class="p-select-dropdown"
+                role="button"
+                aria-label="dropdown trigger"
+                aria-haspopup="listbox"
+                [attr.aria-expanded]="overlayVisible ?? false"
+                [attr.data-pc-section]="'trigger'"
+            >
                 <ng-container *ngIf="loading; else elseBlock">
                     <ng-container *ngIf="loadingIconTemplate">
                         <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!loadingIconTemplate">
-                        <span *ngIf="loadingIcon" [ngClass]="'p-select-loading-icon pi-spin ' + loadingIcon" aria-hidden="true"></span>
-                        <span *ngIf="!loadingIcon" [class]="'p-select-loading-icon pi pi-spinner pi-spin'" aria-hidden="true"></span>
+                        <span
+                            *ngIf="loadingIcon"
+                            [ngClass]="'p-select-loading-icon pi-spin ' + loadingIcon"
+                            aria-hidden="true"
+                        ></span>
+                        <span
+                            *ngIf="!loadingIcon"
+                            [class]="'p-select-loading-icon pi pi-spinner pi-spin'"
+                            aria-hidden="true"
+                        ></span>
                     </ng-container>
                 </ng-container>
 
@@ -211,7 +256,9 @@ export class SelectItem extends BaseComponent {
                         <ChevronDownIcon *ngIf="!dropdownIcon" [styleClass]="'p-select-dropdown-icon'" />
                     </ng-container>
                     <span *ngIf="dropdownIconTemplate" class="p-select-dropdown-icon">
-                        <ng-template *ngTemplateOutlet="dropdownIconTemplate; context: { class: 'p-select-dropdown-icon' }"></ng-template>
+                        <ng-template
+                            *ngTemplateOutlet="dropdownIconTemplate; context: { class: 'p-select-dropdown-icon' }"
+                        ></ng-template>
                     </span>
                 </ng-template>
             </div>
@@ -244,7 +291,9 @@ export class SelectItem extends BaseComponent {
                         <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                         <div class="p-select-header" *ngIf="filter" (click)="$event.stopPropagation()">
                             <ng-container *ngIf="filterTemplate; else builtInFilterElement">
-                                <ng-container *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"></ng-container>
+                                <ng-container
+                                    *ngTemplateOutlet="filterTemplate; context: { options: filterOptions }"
+                                ></ng-container>
                             </ng-container>
                             <ng-template #builtInFilterElement>
                                 <p-iconField>
@@ -274,7 +323,10 @@ export class SelectItem extends BaseComponent {
                                 </p-iconField>
                             </ng-template>
                         </div>
-                        <div class="p-select-list-container" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div
+                            class="p-select-list-container"
+                            [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'"
+                        >
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -287,25 +339,57 @@ export class SelectItem extends BaseComponent {
                                 [options]="virtualScrollOptions"
                             >
                                 <ng-template pTemplate="content" let-items let-scrollerOptions="options">
-                                    <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: items, options: scrollerOptions }"></ng-container>
+                                    <ng-container
+                                        *ngTemplateOutlet="
+                                            buildInItems;
+                                            context: { $implicit: items, options: scrollerOptions }
+                                        "
+                                    ></ng-container>
                                 </ng-template>
                                 <ng-container *ngIf="loaderTemplate">
                                     <ng-template pTemplate="loader" let-scrollerOptions="options">
-                                        <ng-container *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"></ng-container>
+                                        <ng-container
+                                            *ngTemplateOutlet="loaderTemplate; context: { options: scrollerOptions }"
+                                        ></ng-container>
                                     </ng-template>
                                 </ng-container>
                             </p-scroller>
                             <ng-container *ngIf="!virtualScroll">
-                                <ng-container *ngTemplateOutlet="buildInItems; context: { $implicit: visibleOptions(), options: {} }"></ng-container>
+                                <ng-container
+                                    *ngTemplateOutlet="
+                                        buildInItems;
+                                        context: { $implicit: visibleOptions(), options: {} }
+                                    "
+                                ></ng-container>
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-select-list" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                <ul
+                                    #items
+                                    [attr.id]="id + '_list'"
+                                    [attr.aria-label]="listLabel"
+                                    class="p-select-list"
+                                    [ngClass]="scrollerOptions.contentStyleClass"
+                                    [style]="scrollerOptions.contentStyle"
+                                    role="listbox"
+                                >
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
-                                            <li class="p-select-option-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
-                                                <span *ngIf="!groupTemplate">{{ getOptionGroupLabel(option.optionGroup) }}</span>
-                                                <ng-container *ngTemplateOutlet="groupTemplate; context: { $implicit: option.optionGroup }"></ng-container>
+                                            <li
+                                                class="p-select-option-group"
+                                                [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)"
+                                                [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                                role="option"
+                                            >
+                                                <span *ngIf="!groupTemplate">{{
+                                                    getOptionGroupLabel(option.optionGroup)
+                                                }}</span>
+                                                <ng-container
+                                                    *ngTemplateOutlet="
+                                                        groupTemplate;
+                                                        context: { $implicit: option.optionGroup }
+                                                    "
+                                                ></ng-container>
                                             </li>
                                         </ng-container>
                                         <ng-container *ngIf="!isOptionGroup(option)">
@@ -321,17 +405,32 @@ export class SelectItem extends BaseComponent {
                                                 [ariaPosInset]="getAriaPosInset(getOptionIndex(i, scrollerOptions))"
                                                 [ariaSetSize]="ariaSetSize"
                                                 (onClick)="onOptionSelect($event, option)"
-                                                (onMouseEnter)="onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))"
+                                                (onMouseEnter)="
+                                                    onOptionMouseEnter($event, getOptionIndex(i, scrollerOptions))
+                                                "
                                             ></p-selectItem>
                                         </ng-container>
                                     </ng-template>
-                                    <li *ngIf="filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li
+                                        *ngIf="filterValue && isEmpty()"
+                                        class="p-select-empty-message"
+                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                        role="option"
+                                    >
                                         <ng-container *ngIf="!emptyFilterTemplate && !emptyTemplate; else emptyFilter">
                                             {{ emptyFilterMessageLabel }}
                                         </ng-container>
-                                        <ng-container #emptyFilter *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"></ng-container>
+                                        <ng-container
+                                            #emptyFilter
+                                            *ngTemplateOutlet="emptyFilterTemplate || emptyTemplate"
+                                        ></ng-container>
                                     </li>
-                                    <li *ngIf="!filterValue && isEmpty()" class="p-select-empty-message" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
+                                    <li
+                                        *ngIf="!filterValue && isEmpty()"
+                                        class="p-select-empty-message"
+                                        [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }"
+                                        role="option"
+                                    >
                                         <ng-container *ngIf="!emptyTemplate; else empty">
                                             {{ emptyMessageLabel }}
                                         </ng-container>
@@ -357,9 +456,12 @@ export class SelectItem extends BaseComponent {
     `,
     providers: [SELECT_VALUE_ACCESSOR, SelectStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
-export class Select extends BaseComponent implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor {
+export class Select
+    extends BaseComponent
+    implements OnInit, AfterViewInit, AfterContentInit, AfterViewChecked, ControlValueAccessor
+{
     /**
      * Unique identifier of the component
      * @group Props
@@ -595,7 +697,17 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      * Defines how the items are filtered.
      * @group Props
      */
-    @Input() filterMatchMode: 'contains' | 'startsWith' | 'endsWith' | 'equals' | 'notEquals' | 'in' | 'lt' | 'lte' | 'gt' | 'gte' = 'contains';
+    @Input() filterMatchMode:
+        | 'contains'
+        | 'startsWith'
+        | 'endsWith'
+        | 'equals'
+        | 'notEquals'
+        | 'in'
+        | 'lt'
+        | 'lte'
+        | 'gt'
+        | 'gte' = 'contains';
     /**
      * Maximum number of character allows in the editable input field.
      * @group Props
@@ -714,7 +826,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
     set showTransitionOptions(val: string | undefined) {
         this._showTransitionOptions = val;
-        console.warn('The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.warn(
+            'The showTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.',
+        );
     }
     _showTransitionOptions: string | undefined;
     /**
@@ -727,7 +841,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
     set hideTransitionOptions(val: string | undefined) {
         this._hideTransitionOptions = val;
-        console.warn('The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.');
+        console.warn(
+            'The hideTransitionOptions property is deprecated since v14.2.0, use overlayOptions property instead.',
+        );
     }
     _hideTransitionOptions: string | undefined;
     /**
@@ -939,7 +1055,10 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         return {
             'p-select-label': true,
             'p-placeholder': this.placeholder() && label === this.placeholder(),
-            'p-select-label-empty': !this.editable && !this.selectedItemTemplate && (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0)
+            'p-select-label-empty':
+                !this.editable &&
+                !this.selectedItemTemplate &&
+                (label === undefined || label === null || label === 'p-emptylabel' || label.length === 0),
         };
     }
 
@@ -947,7 +1066,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         return {
             'p-dropdown-panel p-component': true,
             'p-input-filled': this.config.inputStyle() === 'filled',
-            'p-ripple-disabled': this.config.ripple === false
+            'p-ripple-disabled': this.config.ripple() === false,
         };
     }
 
@@ -965,11 +1084,24 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => {
                           if (option.label) {
-                              return option.label.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                              return (
+                                  option.label
+                                      .toString()
+                                      .toLowerCase()
+                                      .indexOf(this._filterValue().toLowerCase().trim()) !== -1
+                              );
                           }
-                          return option.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1;
+                          return (
+                              option.toString().toLowerCase().indexOf(this._filterValue().toLowerCase().trim()) !== -1
+                          );
                       })
-                    : this.filterService.filter(options, this.searchFields(), this._filterValue().trim(), this.filterMatchMode, this.filterLocale);
+                    : this.filterService.filter(
+                          options,
+                          this.searchFields(),
+                          this._filterValue().trim(),
+                          this.filterMatchMode,
+                          this.filterLocale,
+                      );
 
             if (this.group) {
                 const optionGroups = this.options || [];
@@ -979,7 +1111,13 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                     const groupChildren = this.getOptionGroupChildren(group);
                     const filteredItems = groupChildren.filter((item) => filteredOptions.includes(item));
 
-                    if (filteredItems.length > 0) filtered.push({ ...group, [typeof this.optionGroupChildren === 'string' ? this.optionGroupChildren : 'items']: [...filteredItems] });
+                    if (filteredItems.length > 0)
+                        filtered.push({
+                            ...group,
+                            [typeof this.optionGroupChildren === 'string' ? this.optionGroupChildren : 'items']: [
+                                ...filteredItems,
+                            ],
+                        });
                 });
 
                 return this.flatOptions(filtered);
@@ -997,7 +1135,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         // use isOptionEqualsModelValue for the use case where the dropdown is initalized with a disabled option
         const selectedOptionIndex = options.findIndex((option) => this.isOptionValueEqualsModelValue(option));
 
-        return selectedOptionIndex !== -1 ? this.getOptionLabel(options[selectedOptionIndex]) : this.placeholder() || 'p-emptylabel';
+        return selectedOptionIndex !== -1
+            ? this.getOptionLabel(options[selectedOptionIndex])
+            : this.placeholder() || 'p-emptylabel';
     });
 
     filled = computed(() => {
@@ -1018,12 +1158,22 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 const selectedOptionIndex = this.findSelectedOptionIndex();
 
-                if (selectedOptionIndex !== -1 || modelValue === undefined || (typeof modelValue === 'string' && modelValue.length === 0) || this.isModelValueNotSet() || this.editable) {
+                if (
+                    selectedOptionIndex !== -1 ||
+                    modelValue === undefined ||
+                    (typeof modelValue === 'string' && modelValue.length === 0) ||
+                    this.isModelValueNotSet() ||
+                    this.editable
+                ) {
                     this.selectedOption = visibleOptions[selectedOptionIndex];
                 }
             }
 
-            if (ObjectUtils.isEmpty(visibleOptions) && (modelValue === undefined || this.isModelValueNotSet()) && ObjectUtils.isNotEmpty(this.selectedOption)) {
+            if (
+                ObjectUtils.isEmpty(visibleOptions) &&
+                (modelValue === undefined || this.isModelValueNotSet()) &&
+                ObjectUtils.isNotEmpty(this.selectedOption)
+            ) {
                 this.selectedOption = null;
             }
 
@@ -1050,7 +1200,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         if (this.filterBy) {
             this.filterOptions = {
                 filter: (value) => this.onFilterInputChange(value),
-                reset: () => this.resetFilter()
+                reset: () => this.resetFilter(),
             };
         }
     }
@@ -1069,7 +1219,10 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         if (this.selectedOptionUpdated && this.itemsWrapper) {
-            let selectedItem = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, 'li.p-highlight');
+            let selectedItem = DomHandler.findSingle(
+                this.overlayViewChild?.overlayViewChild?.nativeElement,
+                'li.p-highlight',
+            );
             if (selectedItem) {
                 DomHandler.scrollInView(this.itemsWrapper, selectedItem);
             }
@@ -1202,7 +1355,14 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     allowModelChange() {
-        return this.autoDisplayFirst && !this.placeholder() && (this.modelValue() === undefined || this.modelValue() === null) && !this.editable && this.options && this.options.length;
+        return (
+            this.autoDisplayFirst &&
+            !this.placeholder() &&
+            (this.modelValue() === undefined || this.modelValue() === null) &&
+            !this.editable &&
+            this.options &&
+            this.options.length
+        );
     }
 
     isSelected(option) {
@@ -1233,7 +1393,8 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.selectedOption) || this.modelValue() || '';
+            this.editableInputViewChild.nativeElement.value =
+                this.getOptionLabel(this.selectedOption) || this.modelValue() || '';
         }
     }
 
@@ -1248,27 +1409,48 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     getOptionLabel(option: any) {
-        return this.optionLabel !== undefined && this.optionLabel !== null ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option && option.label !== undefined ? option.label : option;
+        return this.optionLabel !== undefined && this.optionLabel !== null
+            ? ObjectUtils.resolveFieldData(option, this.optionLabel)
+            : option && option.label !== undefined
+            ? option.label
+            : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue && this.optionValue !== null ? ObjectUtils.resolveFieldData(option, this.optionValue) : !this.optionLabel && option && option.value !== undefined ? option.value : option;
+        return this.optionValue && this.optionValue !== null
+            ? ObjectUtils.resolveFieldData(option, this.optionValue)
+            : !this.optionLabel && option && option.value !== undefined
+            ? option.value
+            : option;
     }
 
     isOptionDisabled(option: any) {
-        if (this.getOptionValue(this.modelValue()) === this.getOptionValue(option) || (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)) {
+        if (
+            this.getOptionValue(this.modelValue()) === this.getOptionValue(option) ||
+            (this.getOptionLabel(this.modelValue() === this.getOptionLabel(option)) && option.disabled === false)
+        ) {
             return false;
         } else {
-            return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option && option.disabled !== undefined ? option.disabled : false;
+            return this.optionDisabled
+                ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
+                : option && option.disabled !== undefined
+                ? option.disabled
+                : false;
         }
     }
 
     getOptionGroupLabel(optionGroup: any) {
-        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel) : optionGroup && optionGroup.label !== undefined ? optionGroup.label : optionGroup;
+        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null
+            ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupLabel)
+            : optionGroup && optionGroup.label !== undefined
+            ? optionGroup.label
+            : optionGroup;
     }
 
     getOptionGroupChildren(optionGroup: any) {
-        return this.optionGroupChildren !== undefined && this.optionGroupChildren !== null ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren) : optionGroup.items;
+        return this.optionGroupChildren !== undefined && this.optionGroupChildren !== null
+            ? ObjectUtils.resolveFieldData(optionGroup, this.optionGroupChildren)
+            : optionGroup.items;
     }
 
     getAriaPosInset(index) {
@@ -1318,7 +1500,11 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
         this.focusInputViewChild?.nativeElement.focus({ preventScroll: true });
 
-        if (event.target.tagName === 'INPUT' || event.target.getAttribute('data-pc-section') === 'clearicon' || event.target.closest('[data-pc-section="clearicon"]')) {
+        if (
+            event.target.tagName === 'INPUT' ||
+            event.target.getAttribute('data-pc-section') === 'clearicon' ||
+            event.target.closest('[data-pc-section="clearicon"]')
+        ) {
             return;
         } else if (!this.overlayViewChild || !this.overlayViewChild.el.nativeElement.contains(event.target)) {
             this.overlayVisible ? this.hide(true) : this.show(true);
@@ -1352,7 +1538,14 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
      */
     public show(isFocus?) {
         this.overlayVisible = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : this.editable ? -1 : this.findSelectedOptionIndex();
+        const focusedOptionIndex =
+            this.focusedOptionIndex() !== -1
+                ? this.focusedOptionIndex()
+                : this.autoOptionFocus
+                ? this.findFirstFocusedOptionIndex()
+                : this.editable
+                ? -1
+                : this.findSelectedOptionIndex();
         this.focusedOptionIndex.set(focusedOptionIndex);
 
         if (isFocus) {
@@ -1364,7 +1557,10 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
     onOverlayAnimationStart(event: AnimationEvent) {
         if (event.toState === 'visible') {
-            this.itemsWrapper = DomHandler.findSingle(this.overlayViewChild?.overlayViewChild?.nativeElement, this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper');
+            this.itemsWrapper = DomHandler.findSingle(
+                this.overlayViewChild?.overlayViewChild?.nativeElement,
+                this.virtualScroll ? '.p-scroller' : '.p-dropdown-items-wrapper',
+            );
             this.virtualScroll && this.scroller?.setContentEl(this.itemsViewChild?.nativeElement);
 
             if (this.options && this.options.length) {
@@ -1432,7 +1628,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
         }
 
         this.focused = true;
-        const focusedOptionIndex = this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : this.overlayVisible && this.autoOptionFocus ? this.findFirstFocusedOptionIndex() : -1;
+        const focusedOptionIndex =
+            this.focusedOptionIndex() !== -1
+                ? this.focusedOptionIndex()
+                : this.overlayVisible && this.autoOptionFocus
+                ? this.findFirstFocusedOptionIndex()
+                : -1;
         this.focusedOptionIndex.set(focusedOptionIndex);
         this.overlayVisible && this.scrollInView(this.focusedOptionIndex());
 
@@ -1581,7 +1782,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
             this.show();
             this.editable && this.changeFocusedOptionIndex(event, this.findSelectedOptionIndex());
         } else {
-            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findNextOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findFirstOptionIndex() : this.findFirstFocusedOptionIndex();
+            const optionIndex =
+                this.focusedOptionIndex() !== -1
+                    ? this.findNextOptionIndex(this.focusedOptionIndex())
+                    : this.clicked()
+                    ? this.findFirstOptionIndex()
+                    : this.findFirstFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
         }
@@ -1618,7 +1824,8 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
                 element.scrollIntoView && element.scrollIntoView({ block: 'nearest', inline: 'nearest' });
             } else if (!this.virtualScrollerDisabled) {
                 setTimeout(() => {
-                    this.virtualScroll && this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
+                    this.virtualScroll &&
+                        this.scroller?.scrollToIndex(index !== -1 ? index : this.focusedOptionIndex());
                 }, 0);
             }
         }
@@ -1646,7 +1853,9 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     findSelectedOptionIndex() {
-        return this.hasSelectedOption() ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option)) : -1;
+        return this.hasSelectedOption()
+            ? this.visibleOptions().findIndex((option) => this.isValidSelectedOption(option))
+            : -1;
     }
 
     findNextOptionIndex(index) {
@@ -1660,7 +1869,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     findPrevOptionIndex(index) {
-        const matchedOptionIndex = index > 0 ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) => this.isValidOption(option)) : -1;
+        const matchedOptionIndex =
+            index > 0
+                ? ObjectUtils.findLastIndex(this.visibleOptions().slice(0, index), (option) =>
+                      this.isValidOption(option),
+                  )
+                : -1;
 
         return matchedOptionIndex > -1 ? matchedOptionIndex : index;
     }
@@ -1676,11 +1890,19 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     isValidOption(option) {
-        return option !== undefined && option !== null && !(this.isOptionDisabled(option) || this.isOptionGroup(option));
+        return (
+            option !== undefined && option !== null && !(this.isOptionDisabled(option) || this.isOptionGroup(option))
+        );
     }
 
     isOptionGroup(option) {
-        return this.optionGroupLabel !== undefined && this.optionGroupLabel !== null && option.optionGroup !== undefined && option.optionGroup !== null && option.group;
+        return (
+            this.optionGroupLabel !== undefined &&
+            this.optionGroupLabel !== null &&
+            option.optionGroup !== undefined &&
+            option.optionGroup !== null &&
+            option.group
+        );
     }
 
     onArrowUpKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
@@ -1692,7 +1914,12 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 
             this.overlayVisible && this.hide();
         } else {
-            const optionIndex = this.focusedOptionIndex() !== -1 ? this.findPrevOptionIndex(this.focusedOptionIndex()) : this.clicked() ? this.findLastOptionIndex() : this.findLastFocusedOptionIndex();
+            const optionIndex =
+                this.focusedOptionIndex() !== -1
+                    ? this.findPrevOptionIndex(this.focusedOptionIndex())
+                    : this.clicked()
+                    ? this.findLastOptionIndex()
+                    : this.findLastFocusedOptionIndex();
 
             this.changeFocusedOptionIndex(event, optionIndex);
 
@@ -1790,7 +2017,11 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     onTabKey(event, pressedInInputText = false) {
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
-                DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
+                DomHandler.focus(
+                    event.shiftKey
+                        ? this.lastHiddenFocusableElementOnOverlay.nativeElement
+                        : this.firstHiddenFocusableElementOnOverlay.nativeElement,
+                );
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
@@ -1804,21 +2035,35 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     onFirstHiddenFocus(event) {
-        const focusableEl = event.relatedTarget === this.focusInputViewChild?.nativeElement ? DomHandler.getFirstFocusableElement(this.overlayViewChild.el?.nativeElement, ':not(.p-hidden-focusable)') : this.focusInputViewChild?.nativeElement;
+        const focusableEl =
+            event.relatedTarget === this.focusInputViewChild?.nativeElement
+                ? DomHandler.getFirstFocusableElement(
+                      this.overlayViewChild.el?.nativeElement,
+                      ':not(.p-hidden-focusable)',
+                  )
+                : this.focusInputViewChild?.nativeElement;
         DomHandler.focus(focusableEl);
     }
 
     onLastHiddenFocus(event) {
         const focusableEl =
             event.relatedTarget === this.focusInputViewChild?.nativeElement
-                ? DomHandler.getLastFocusableElement(this.overlayViewChild?.overlayViewChild?.nativeElement, ':not([data-p-hidden-focusable="true"])')
+                ? DomHandler.getLastFocusableElement(
+                      this.overlayViewChild?.overlayViewChild?.nativeElement,
+                      ':not([data-p-hidden-focusable="true"])',
+                  )
                 : this.focusInputViewChild?.nativeElement;
 
         DomHandler.focus(focusableEl);
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return (
+            DomHandler.getFocusableElements(
+                this.overlayViewChild.overlayViewChild.nativeElement,
+                ':not([data-p-hidden-focusable="true"])',
+            ).length > 0
+        );
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {
@@ -1876,7 +2121,13 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     isOptionMatched(option) {
-        return this.isValidOption(option) && this.getOptionLabel(option).toString().toLocaleLowerCase(this.filterLocale).startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale));
+        return (
+            this.isValidOption(option) &&
+            this.getOptionLabel(option)
+                .toString()
+                .toLocaleLowerCase(this.filterLocale)
+                .startsWith(this.searchValue.toLocaleLowerCase(this.filterLocale))
+        );
     }
 
     onFilterInputChange(event: Event | any): void {
@@ -1917,8 +2168,24 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
 }
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, SharedModule, TooltipModule, RippleModule, ScrollerModule, AutoFocusModule, TimesIcon, ChevronDownIcon, SearchIcon, BlankIcon, CheckIcon, InputTextModule, IconFieldModule, InputIconModule],
+    imports: [
+        CommonModule,
+        OverlayModule,
+        SharedModule,
+        TooltipModule,
+        RippleModule,
+        ScrollerModule,
+        AutoFocusModule,
+        TimesIcon,
+        ChevronDownIcon,
+        SearchIcon,
+        BlankIcon,
+        CheckIcon,
+        InputTextModule,
+        IconFieldModule,
+        InputIconModule,
+    ],
     exports: [Select, OverlayModule, SharedModule, ScrollerModule],
-    declarations: [Select, SelectItem]
+    declarations: [Select, SelectItem],
 })
 export class SelectModule {}

@@ -6,34 +6,34 @@ import { DefaultDoc } from '@doc/ripple/defaultdoc';
 import { AccessibilityDoc } from '@doc/ripple/accessibilitydoc';
 @Component({
     templateUrl: './rippledemo.html',
-    styleUrls: ['./rippledemo.scss']
+    styleUrls: ['./rippledemo.scss'],
 })
 export class RippleDemo {
     docs = [
         {
             id: 'import',
             label: 'Import',
-            component: ImportDoc
+            component: ImportDoc,
         },
         {
             id: 'default',
             label: 'Default',
-            component: DefaultDoc
+            component: DefaultDoc,
         },
         {
             id: 'custom',
             label: 'Custom',
-            component: CustomDoc
+            component: CustomDoc,
         },
         {
             id: 'style',
             label: 'Style',
-            component: StyleDoc
+            component: StyleDoc,
         },
         {
             id: 'accessibility',
             label: 'Accessibility',
-            component: AccessibilityDoc
-        }
+            component: AccessibilityDoc,
+        },
     ];
 }

@@ -7,13 +7,16 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-doughnut-demo',
     template: `
         <app-docsectiontext>
-            <p>A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information about the data as a whole to be included.</p>
+            <p>
+                A doughnut chart is a variant of the pie chart, with a blank center allowing for additional information
+                about the data as a whole to be included.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-chart type="doughnut" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
-    `
+    `,
 })
 export class DoughnutDoc implements OnInit {
     data: any;
@@ -22,16 +25,7 @@ export class DoughnutDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -47,10 +41,18 @@ export class DoughnutDoc implements OnInit {
                 datasets: [
                     {
                         data: [300, 50, 100],
-                        backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-                        hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
-                    }
-                ]
+                        backgroundColor: [
+                            documentStyle.getPropertyValue('--blue-500'),
+                            documentStyle.getPropertyValue('--yellow-500'),
+                            documentStyle.getPropertyValue('--green-500'),
+                        ],
+                        hoverBackgroundColor: [
+                            documentStyle.getPropertyValue('--blue-400'),
+                            documentStyle.getPropertyValue('--yellow-400'),
+                            documentStyle.getPropertyValue('--green-400'),
+                        ],
+                    },
+                ],
             };
 
             this.options = {
@@ -58,10 +60,10 @@ export class DoughnutDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
-                }
+                            color: textColor,
+                        },
+                    },
+                },
             };
         }
     }
@@ -111,6 +113,6 @@ export class ChartDoughnutDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

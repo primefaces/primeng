@@ -1,5 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, HostListener, Input, NgModule, NgZone, OnDestroy, Renderer2, booleanAttribute } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    HostListener,
+    Input,
+    NgModule,
+    NgZone,
+    OnDestroy,
+    Renderer2,
+    booleanAttribute,
+} from '@angular/core';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
 /**
@@ -9,15 +19,11 @@ import { VoidListener } from 'primeng/ts-helpers';
 @Directive({
     selector: '[pStyleClass]',
     host: {
-        class: 'p-element'
-    }
+        class: 'p-element',
+    },
 })
 export class StyleClass implements OnDestroy {
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        private zone: NgZone
-    ) {}
+    constructor(public el: ElementRef, public renderer: Renderer2, private zone: NgZone) {}
     /**
      * Selector to define the target element. Available selectors are '@next', '@prev', '@parent' and '@grandparent'.
      * @group Props
@@ -124,7 +130,8 @@ export class StyleClass implements OnDestroy {
     }
 
     toggle() {
-        if (DomHandler.hasClass(this.target, this.toggleClass as string)) DomHandler.removeClass(this.target, this.toggleClass as string);
+        if (DomHandler.hasClass(this.target, this.toggleClass as string))
+            DomHandler.removeClass(this.target, this.toggleClass as string);
         else DomHandler.addClass(this.target, this.toggleClass as string);
     }
 
@@ -241,7 +248,11 @@ export class StyleClass implements OnDestroy {
     bindDocumentClickListener() {
         if (!this.documentClickListener) {
             this.documentClickListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'click', (event) => {
-                if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentClickListener();
+                if (
+                    !this.isVisible() ||
+                    getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static'
+                )
+                    this.unbindDocumentClickListener();
                 else if (this.isOutsideClick(event)) this.leave();
             });
         }
@@ -250,11 +261,19 @@ export class StyleClass implements OnDestroy {
     bindDocumentKeydownListener() {
         if (!this.documentKeydownListener) {
             this.zone.runOutsideAngular(() => {
-                this.documentKeydownListener = this.renderer.listen(this.el.nativeElement.ownerDocument, 'keydown', (event) => {
-                    const { key, keyCode, which, type } = event;
-                    if (!this.isVisible() || getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static') this.unbindDocumentKeydownListener();
-                    if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
-                });
+                this.documentKeydownListener = this.renderer.listen(
+                    this.el.nativeElement.ownerDocument,
+                    'keydown',
+                    (event) => {
+                        const { key, keyCode, which, type } = event;
+                        if (
+                            !this.isVisible() ||
+                            getComputedStyle(this.target as HTMLElement).getPropertyValue('position') === 'static'
+                        )
+                            this.unbindDocumentKeydownListener();
+                        if (this.isVisible() && key === 'Escape' && keyCode === 27 && which === 27) this.leave();
+                    },
+                );
             });
         }
     }
@@ -264,7 +283,11 @@ export class StyleClass implements OnDestroy {
     }
 
     isOutsideClick(event: MouseEvent) {
-        return !this.el.nativeElement.isSameNode(event.target) && !this.el.nativeElement.contains(event.target) && !(this.target as HTMLElement).contains(<HTMLElement>event.target);
+        return (
+            !this.el.nativeElement.isSameNode(event.target) &&
+            !this.el.nativeElement.contains(event.target) &&
+            !(this.target as HTMLElement).contains(<HTMLElement>event.target)
+        );
     }
 
     unbindDocumentClickListener() {
@@ -294,6 +317,6 @@ export class StyleClass implements OnDestroy {
 @NgModule({
     imports: [CommonModule],
     exports: [StyleClass],
-    declarations: [StyleClass]
+    declarations: [StyleClass],
 })
 export class StyleClassModule {}

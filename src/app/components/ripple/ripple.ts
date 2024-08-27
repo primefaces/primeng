@@ -1,8 +1,9 @@
-import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { AfterViewInit, Directive, ElementRef, Inject, NgModule, NgZone, OnDestroy, Optional, PLATFORM_ID, Renderer2 } from '@angular/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Directive, inject, NgModule, NgZone, OnDestroy } from '@angular/core';
+import { BaseComponent } from 'primeng/basecomponent';
 import { DomHandler } from 'primeng/dom';
 import { VoidListener } from 'primeng/ts-helpers';
+import { RippleStyle } from './style/ripplestyle';
 /**
  * Ripple directive adds ripple effect to the host element.
  * @group Components
@@ -10,18 +11,15 @@ import { VoidListener } from 'primeng/ts-helpers';
 @Directive({
     selector: '[pRipple]',
     host: {
-        class: 'p-ripple p-element'
-    }
+        class: 'p-ripple',
+    },
+    standalone: true,
+    providers: [RippleStyle],
 })
-export class Ripple implements AfterViewInit, OnDestroy {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public el: ElementRef,
-        public zone: NgZone,
-        @Optional() public config: PrimeNGConfig
-    ) {}
+export class Ripple extends BaseComponent implements AfterViewInit, OnDestroy {
+    zone: NgZone = inject(NgZone);
+
+    _componentStyle = inject(RippleStyle);
 
     animationListener: VoidListener;
 
@@ -30,11 +28,16 @@ export class Ripple implements AfterViewInit, OnDestroy {
     timeout: any;
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (isPlatformBrowser(this.platformId)) {
-            if (this.config && this.config.ripple) {
+            if (this.config && this.config.ripple()) {
                 this.zone.runOutsideAngular(() => {
                     this.create();
-                    this.mouseDownListener = this.renderer.listen(this.el.nativeElement, 'mousedown', this.onMouseDown.bind(this));
+                    this.mouseDownListener = this.renderer.listen(
+                        this.el.nativeElement,
+                        'mousedown',
+                        this.onMouseDown.bind(this),
+                    );
                 });
             }
         }
@@ -48,7 +51,10 @@ export class Ripple implements AfterViewInit, OnDestroy {
 
         DomHandler.removeClass(ink, 'p-ink-active');
         if (!DomHandler.getHeight(ink) && !DomHandler.getWidth(ink)) {
-            let d = Math.max(DomHandler.getOuterWidth(this.el.nativeElement), DomHandler.getOuterHeight(this.el.nativeElement));
+            let d = Math.max(
+                DomHandler.getOuterWidth(this.el.nativeElement),
+                DomHandler.getOuterHeight(this.el.nativeElement),
+            );
             ink.style.height = d + 'px';
             ink.style.width = d + 'px';
         }
@@ -118,15 +124,16 @@ export class Ripple implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        if (this.config && this.config.ripple) {
+        if (this.config && this.config.ripple()) {
             this.remove();
         }
+
+        super.ngOnDestroy();
     }
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [Ripple],
     exports: [Ripple],
-    declarations: [Ripple]
 })
 export class RippleModule {}

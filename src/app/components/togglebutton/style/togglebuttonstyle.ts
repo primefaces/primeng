@@ -17,7 +17,9 @@ const theme = ({ dt }) => `
     font-size: 1rem;
     font-family: inherit;
     font-feature-settings: inherit;
-    transition: background ${dt('togglebutton.transition.duration')}, color ${dt('togglebutton.transition.duration')}, border-color ${dt('togglebutton.transition.duration')},
+    transition: background ${dt('togglebutton.transition.duration')}, color ${dt(
+    'togglebutton.transition.duration',
+)}, border-color ${dt('togglebutton.transition.duration')},
         outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt('togglebutton.transition.duration')};
     border-radius: ${dt('togglebutton.border.radius')};
     outline-color: transparent;
@@ -41,8 +43,12 @@ const theme = ({ dt }) => `
 .p-togglebutton::before {
     content: "";
     background: transparent;
-    transition: background ${dt('togglebutton.transition.duration')}, color ${dt('togglebutton.transition.duration')}, border-color ${dt('togglebutton.transition.duration')},
-            outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt('togglebutton.transition.duration')};
+    transition: background ${dt('togglebutton.transition.duration')}, color ${dt(
+    'togglebutton.transition.duration',
+)}, border-color ${dt('togglebutton.transition.duration')},
+            outline-color ${dt('togglebutton.transition.duration')}, box-shadow ${dt(
+    'togglebutton.transition.duration',
+)};
     position: absolute;
     left: ${dt('togglebutton.content.left')};
     top: ${dt('togglebutton.content.top')};
@@ -69,7 +75,9 @@ const theme = ({ dt }) => `
 
 .p-togglebutton:focus-visible {
     box-shadow: ${dt('togglebutton.focus.ring.shadow')};
-    outline: ${dt('togglebutton.focus.ring.width')} ${dt('togglebutton.focus.ring.style')} ${dt('togglebutton.focus.ring.color')};
+    outline: ${dt('togglebutton.focus.ring.width')} ${dt('togglebutton.focus.ring.style')} ${dt(
+    'togglebutton.focus.ring.color',
+)};
     outline-offset: ${dt('togglebutton.focus.ring.offset')};
 }
 
@@ -113,16 +121,14 @@ const theme = ({ dt }) => `
 `;
 
 const classes = {
-    root: ({ instance, props }) => [
-        'p-togglebutton p-component',
-        {
-            'p-togglebutton-checked': instance.active,
-            'p-invalid': props.invalid
-        }
-    ],
+    root: ({ instance }) => ({
+        'p-togglebutton p-component': true,
+        'p-togglebutton-checked': instance.checked,
+        'p-disabled': instance.disabled,
+    }),
     content: 'p-togglebutton-content',
     icon: 'p-togglebutton-icon',
-    label: 'p-togglebutton-label'
+    label: 'p-togglebutton-label',
 };
 
 @Injectable()

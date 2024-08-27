@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p-chart type="line" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-line-style-demo"></app-code>
-    `
+    `,
 })
 export class LineStyleDoc implements OnInit {
     data: any;
@@ -22,16 +22,7 @@ export class LineStyleDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -52,7 +43,7 @@ export class LineStyleDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--blue-500')
+                        borderColor: documentStyle.getPropertyValue('--blue-500'),
                     },
                     {
                         label: 'Second Dataset',
@@ -60,7 +51,7 @@ export class LineStyleDoc implements OnInit {
                         fill: false,
                         borderDash: [5, 5],
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--teal-500')
+                        borderColor: documentStyle.getPropertyValue('--teal-500'),
                     },
                     {
                         label: 'Third Dataset',
@@ -68,9 +59,9 @@ export class LineStyleDoc implements OnInit {
                         fill: true,
                         borderColor: documentStyle.getPropertyValue('--orange-500'),
                         tension: 0.4,
-                        backgroundColor: 'rgba(255,167,38,0.2)'
-                    }
-                ]
+                        backgroundColor: 'rgba(255,167,38,0.2)',
+                    },
+                ],
             };
 
             this.options = {
@@ -79,28 +70,28 @@ export class LineStyleDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     x: {
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
+                            color: surfaceBorder,
+                        },
                     },
                     y: {
                         ticks: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         grid: {
-                            color: surfaceBorder
-                        }
-                    }
-                }
+                            color: surfaceBorder,
+                        },
+                    },
+                },
             };
         }
     }
@@ -189,6 +180,6 @@ export class ChartLineStyleDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

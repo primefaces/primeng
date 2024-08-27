@@ -7,9 +7,7 @@ import { DomHandler } from 'primeng/dom';
  */
 @Directive({
     selector: '[pAutoFocus]',
-    host: {
-        class: 'p-element'
-    }
+    standalone: true,
 })
 export class AutoFocus {
     /**
@@ -64,8 +62,7 @@ export class AutoFocus {
 }
 
 @NgModule({
-    imports: [CommonModule],
+    imports: [AutoFocus],
     exports: [AutoFocus],
-    declarations: [AutoFocus]
 })
 export class AutoFocusModule {}

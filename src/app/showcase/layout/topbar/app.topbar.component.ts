@@ -1,5 +1,15 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Inject, Input, OnDestroy, Output, Renderer2, afterNextRender } from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    Input,
+    OnDestroy,
+    Output,
+    Renderer2,
+    afterNextRender,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
@@ -7,12 +17,13 @@ import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
 import { AppConfigService } from '@service/appconfigservice';
+import { AppConfigComponent } from '@layout/config/app.config.component';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
     templateUrl: './app.topbar.component.html',
-    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule]
+    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule, AppConfigComponent],
 })
 export class AppTopBarComponent implements OnDestroy {
     @Input() showConfigurator = true;
@@ -32,7 +43,7 @@ export class AppTopBarComponent implements OnDestroy {
         private el: ElementRef,
         private renderer: Renderer2,
         private router: Router,
-        private configService: AppConfigService
+        private configService: AppConfigService,
     ) {
         this.window = this.document.defaultView as Window;
 
@@ -43,7 +54,7 @@ export class AppTopBarComponent implements OnDestroy {
     }
 
     get isDarkMode() {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     toggleMenu() {
@@ -61,7 +72,7 @@ export class AppTopBarComponent implements OnDestroy {
     }
 
     toggleDarkMode() {
-        this.onDarkModeSwitch.emit(null);
+        this.configService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
     }
 
     initDocSearch() {
@@ -69,7 +80,7 @@ export class AppTopBarComponent implements OnDestroy {
             appId: 'XG1L2MUWT9',
             apiKey: '6057fe1af77fee4e7e41907b0b3ec79d',
             indexName: 'primeng',
-            container: '#docsearch'
+            container: '#docsearch',
         });
     }
 

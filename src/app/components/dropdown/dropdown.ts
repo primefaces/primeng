@@ -1083,7 +1083,7 @@ export class Dropdown
         return {
             'p-dropdown-panel p-component': true,
             'p-input-filled': this.config.inputStyle() === 'filled',
-            'p-ripple-disabled': this.config.ripple === false,
+            'p-ripple-disabled': this.config.ripple() === false,
         };
     }
 

@@ -204,13 +204,6 @@ export class ThemeSectionComponent {
 
     @ViewChild('dt') table: Table;
 
-    get tableTheme() {
-        return this.configService.config().tableTheme;
-    }
-    set tableTheme(value: string) {
-        this.configService.config.update((config) => ({ ...config, tableTheme: value }));
-    }
-
     customers: Customer[];
 
     selectedCustomers: Customer[];
@@ -218,7 +211,7 @@ export class ThemeSectionComponent {
     loading: boolean = true;
 
     get isDarkMode() {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     ngOnInit() {
@@ -226,10 +219,6 @@ export class ThemeSectionComponent {
             this.customers = customers;
             this.loading = false;
         });
-    }
-
-    changeTableTheme(value: string) {
-        this.tableTheme = value;
     }
 
     getSeverity(status) {

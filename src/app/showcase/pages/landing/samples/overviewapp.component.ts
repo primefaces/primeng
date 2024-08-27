@@ -71,10 +71,9 @@ import { AppConfigService } from '@service/appconfigservice';
                 />
                 <div class="flex items-center gap-2">
                     <p-button label="Download" icon="pi pi-download" iconPos="right" />
-                    <!-- <p-calendar [(ngModel)="dates" selectionMode="range" :manualInput="false" showIcon iconDisplay="input" placeholder="06/11/2024 - 06/22/2024" /> -->
-
                     <p-datePicker
                         [(ngModel)]="dates"
+                        appendTo="body"
                         dateFormat="dd.mm.yy"
                         selectionMode="range"
                         showIcon
@@ -455,7 +454,7 @@ export class OverviewApp {
                         topLeft: 8,
                         topRight: 8,
                     },
-                    borderSkipped: true,
+                    borderSkipped: false,
                     barThickness: 32,
                 },
             ],
@@ -463,7 +462,7 @@ export class OverviewApp {
     }
 
     setChartOptions() {
-        const { darkMode } = this.configService.config();
+        const { darkTheme } = this.configService.appState();
         const documentStyle = getComputedStyle(document.documentElement);
         const surface100 = documentStyle.getPropertyValue('--p-surface-100');
         const surface900 = documentStyle.getPropertyValue('--p-surface-900');
@@ -581,7 +580,7 @@ export class OverviewApp {
                 x: {
                     stacked: true,
                     ticks: {
-                        color: darkMode ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400,
                     },
                     grid: {
                         display: false,
@@ -595,11 +594,11 @@ export class OverviewApp {
                     beginAtZero: true,
                     stacked: true,
                     ticks: {
-                        color: darkMode ? surface500 : surface400,
+                        color: darkTheme ? surface500 : surface400,
                     },
                     grid: {
                         display: true,
-                        color: darkMode ? surface900 : surface100,
+                        color: darkTheme ? surface900 : surface100,
                         borderColor: 'transparent',
                     },
                     border: {

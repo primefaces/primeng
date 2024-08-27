@@ -7,13 +7,16 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-polar-area-demo',
     template: `
         <app-docsectiontext>
-            <p>Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the segment differs depending on the value.</p>
+            <p>
+                Polar area charts are similar to pie charts, but each segment has the same angle - the radius of the
+                segment differs depending on the value.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-chart type="polarArea" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
-    `
+    `,
 })
 export class PolarAreaDoc implements OnInit {
     data: any;
@@ -22,16 +25,7 @@ export class PolarAreaDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -51,29 +45,29 @@ export class PolarAreaDoc implements OnInit {
                             documentStyle.getPropertyValue('--green-500'),
                             documentStyle.getPropertyValue('--yellow-500'),
                             documentStyle.getPropertyValue('--bluegray-500'),
-                            documentStyle.getPropertyValue('--blue-500')
+                            documentStyle.getPropertyValue('--blue-500'),
                         ],
-                        label: 'My dataset'
-                    }
+                        label: 'My dataset',
+                    },
                 ],
-                labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+                labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
             };
 
             this.options = {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: surfaceBorder
-                        }
-                    }
-                }
+                            color: surfaceBorder,
+                        },
+                    },
+                },
             };
         }
     }
@@ -136,6 +130,6 @@ export class ChartPolarAreaDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

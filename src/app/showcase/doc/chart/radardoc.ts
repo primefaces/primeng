@@ -7,13 +7,16 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'chart-radar-demo',
     template: `
         <app-docsectiontext>
-            <p>A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional chart of three or more quantitative variables represented on axes starting from the same point.</p>
+            <p>
+                A radar chart is a graphical method of displaying multivariate data in the form of a two-dimensional
+                chart of three or more quantitative variables represented on axes starting from the same point.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-chart type="radar" [data]="data" [options]="options" />
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
-    `
+    `,
 })
 export class RadarDoc implements OnInit {
     data: any;
@@ -22,16 +25,7 @@ export class RadarDoc implements OnInit {
 
     subscription!: Subscription;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private configService: AppConfigService,
-        private cd: ChangeDetectorRef
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.initChart();
-            this.cd.markForCheck();
-        });
-    }
+    constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
     ngOnInit() {
         this.initChart();
@@ -53,7 +47,7 @@ export class RadarDoc implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
-                        data: [65, 59, 90, 81, 56, 55, 40]
+                        data: [65, 59, 90, 81, 56, 55, 40],
                     },
                     {
                         label: 'My Second dataset',
@@ -62,29 +56,29 @@ export class RadarDoc implements OnInit {
                         pointBorderColor: documentStyle.getPropertyValue('--pink-400'),
                         pointHoverBackgroundColor: textColor,
                         pointHoverBorderColor: documentStyle.getPropertyValue('--pink-400'),
-                        data: [28, 48, 40, 19, 96, 27, 100]
-                    }
-                ]
+                        data: [28, 48, 40, 19, 96, 27, 100],
+                    },
+                ],
             };
 
             this.options = {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor
-                        }
-                    }
+                            color: textColor,
+                        },
+                    },
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: textColorSecondary
+                            color: textColorSecondary,
                         },
                         pointLabels: {
-                            color: textColorSecondary
-                        }
-                    }
-                }
+                            color: textColorSecondary,
+                        },
+                    },
+                },
             };
         }
     }
@@ -157,6 +151,6 @@ export class ChartRadarDemo implements OnInit {
             }
         };
     }
-}`
+}`,
     };
 }

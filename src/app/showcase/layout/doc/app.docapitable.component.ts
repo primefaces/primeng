@@ -1,5 +1,12 @@
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, ViewContainerRef, booleanAttribute, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    ViewContainerRef,
+    booleanAttribute,
+    numberAttribute,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AppConfigService } from '@service/appconfigservice';
 
@@ -7,7 +14,12 @@ import { AppConfigService } from '@service/appconfigservice';
     selector: 'app-docapitable',
     template: ` <ng-container *ngIf="data">
         <div *ngIf="parentId" class="my-4 pt-4">
-            <app-docsectiontext [parentId]="parentId" [parentTitle]="parentTitle" [parentDescription]="parentDescription" [level]="2"></app-docsectiontext>
+            <app-docsectiontext
+                [parentId]="parentId"
+                [parentTitle]="parentTitle"
+                [parentDescription]="parentDescription"
+                [level]="2"
+            ></app-docsectiontext>
         </div>
         <app-docsectiontext [id]="id" [title]="label" [level]="3">
             <p>{{ description || null }}</p>
@@ -27,25 +39,50 @@ import { AppConfigService } from '@service/appconfigservice';
                 <tbody>
                     <tr *ngFor="let prop of data">
                         <td *ngFor="let entry of getEntries(prop)">
-                            <ng-container *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'">
-                                <span *ngIf="entry[0] === 'name'" [attr.id]="id + '.' + entry[1]" class="doc-option-name" [ngClass]="{ 'line-through cursor-pointer': !!prop.deprecated }" [attr.title]="prop.deprecated"
-                                    >{{ entry[1] || '-' }}<a (click)="navigate($event, entry[1])" class="doc-option-link"><i class="pi pi-link"></i></a
+                            <ng-container
+                                *ngIf="entry[0] !== 'readonly' && entry[0] !== 'optional' && entry[0] !== 'deprecated'"
+                            >
+                                <span
+                                    *ngIf="entry[0] === 'name'"
+                                    [attr.id]="id + '.' + entry[1]"
+                                    class="doc-option-name"
+                                    [ngClass]="{ 'line-through cursor-pointer': !!prop.deprecated }"
+                                    [attr.title]="prop.deprecated"
+                                    >{{ entry[1] || '-'
+                                    }}<a (click)="navigate($event, entry[1])" class="doc-option-link"
+                                        ><i class="pi pi-link"></i></a
                                 ></span>
                                 <span *ngIf="entry[0] === 'type'" class="doc-option-type">{{ entry[1] || '-' }}</span>
                                 <ng-container *ngIf="entry[0] === 'parameters'">
                                     <ng-container *ngFor="let parameter of entry[1]">
                                         <div class="doc-option-params" *ngIf="parameter.name; else nullValue">
-                                            <span *ngIf="parameter.name" [ngClass]="{ 'doc-option-parameter-name': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ parameter.name }} :</span>
+                                            <span
+                                                *ngIf="parameter.name"
+                                                [ngClass]="{
+                                                    'doc-option-parameter-name': label === 'Emitters',
+                                                    'text-primary-700': label === 'Templates'
+                                                }"
+                                                >{{ parameter.name }} :</span
+                                            >
                                             <ng-container *ngFor="let value of getType(parameter.type); let i = index"
                                                 >{{ i !== 0 ? ' |' : ' ' }}
                                                 <a
                                                     *ngIf="isLinkType(value); else elseBlock"
                                                     (click)="scrollToLinkedElement($event, value, prop)"
-                                                    [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }"
+                                                    [ngClass]="{
+                                                        'doc-option-parameter-type': label === 'Emitters',
+                                                        'text-primary-700': label === 'Templates'
+                                                    }"
                                                     >{{ value || '-' }}</a
                                                 >
                                                 <ng-template #elseBlock>
-                                                    <span [ngClass]="{ 'doc-option-parameter-type': label === 'Emitters', 'text-primary-700': label === 'Templates' }">{{ value }}</span>
+                                                    <span
+                                                        [ngClass]="{
+                                                            'doc-option-parameter-type': label === 'Emitters',
+                                                            'text-primary-700': label === 'Templates'
+                                                        }"
+                                                        >{{ value }}</span
+                                                    >
                                                 </ng-template>
                                             </ng-container>
                                         </div>
@@ -74,7 +111,13 @@ import { AppConfigService } from '@service/appconfigservice';
 
         <ng-container *ngIf="data[0].data && data[0].data.length > 0">
             <ng-container *ngFor="let childData of data">
-                <app-docapitable [id]="childData.id" [data]="childData.data" [label]="childData.label" [description]="childData.description" [relatedProp]="childData.relatedProp"></app-docapitable>
+                <app-docapitable
+                    [id]="childData.id"
+                    [data]="childData.data"
+                    [label]="childData.label"
+                    [description]="childData.description"
+                    [relatedProp]="childData.relatedProp"
+                ></app-docapitable>
             </ng-container>
         </ng-container>
     </ng-container>`,
@@ -83,9 +126,9 @@ import { AppConfigService } from '@service/appconfigservice';
             .parameter-bold {
                 font-weight: bold;
             }
-        `
+        `,
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppDocApiTable {
     @Input() id: string;
@@ -112,11 +155,11 @@ export class AppDocApiTable {
         public viewContainerRef: ViewContainerRef,
         public router: Router,
         public location: Location,
-        private configService: AppConfigService
+        private configService: AppConfigService,
     ) {}
 
     get isDarkMode(): boolean {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     navigate(event, param) {
@@ -155,7 +198,10 @@ export class AppDocApiTable {
     isLinkType(value) {
         if (this.label === 'Templates') return false;
         const validValues = ['confirmationoptions', 'toastmessageoptions'];
-        return value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) || validValues.includes(value.toLowerCase());
+        return (
+            value.toLowerCase().includes(this.id.split('.')[1].toLowerCase()) ||
+            validValues.includes(value.toLowerCase())
+        );
     }
 
     setLinkPath(value, type) {
@@ -163,13 +209,23 @@ export class AppDocApiTable {
         let componentName = this.id.split('.')[1];
 
         const validValues = ['menuitem', 'confirmationoptions'];
-        let definationType = type ? type : value.includes('Type') ? 'types' : value.includes('Event') ? 'events' : validValues.includes(value.toLowerCase()) ? 'options' : 'interfaces';
+        let definationType = type
+            ? type
+            : value.includes('Type')
+            ? 'types'
+            : value.includes('Event')
+            ? 'events'
+            : validValues.includes(value.toLowerCase())
+            ? 'options'
+            : 'interfaces';
 
         if (componentName.includes('toast')) {
             componentName = 'toast';
         }
 
-        return definationType === 'options' ? `/${currentRoute}/#api.${definationType}.${value}` : `/${currentRoute}/#api.${componentName}.${definationType}.${value}`;
+        return definationType === 'options'
+            ? `/${currentRoute}/#api.${definationType}.${value}`
+            : `/${currentRoute}/#api.${componentName}.${definationType}.${value}`;
     }
 
     scrollToLinkedElement(event, value) {

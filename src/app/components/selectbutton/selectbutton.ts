@@ -1,20 +1,32 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, EventEmitter, Input, NgModule, Output, TemplateRef, ViewChild, ViewEncapsulation, booleanAttribute, forwardRef, inject, numberAttribute } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChild,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    inject,
+    numberAttribute,
+} from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { RippleModule } from 'primeng/ripple';
-import { Nullable } from 'primeng/ts-helpers';
 import { ObjectUtils } from 'primeng/utils';
-import { AutoFocusModule } from 'primeng/autofocus';
 import { SelectButtonChangeEvent, SelectButtonOptionClickEvent } from './selectbutton.interface';
-import { ToggleButtonModule } from '../togglebutton/togglebutton';
+import { ToggleButton } from 'primeng/togglebutton';
 import { BaseComponent } from 'primeng/basecomponent';
 import { SelectButtonStyle } from './style/selectbuttonstyle';
+import { CommonModule } from '@angular/common';
 
 export const SELECTBUTTON_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => SelectButton),
-    multi: true
+    multi: true,
 };
 /**
  * SelectButton is used to choose single or multiple items from a list using buttons.
@@ -23,24 +35,39 @@ export const SELECTBUTTON_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-selectButton',
     template: `
-        <div #container [ngClass]="'p-selectbutton p-component'" [ngStyle]="style" [class]="styleClass" role="group" [attr.aria-labelledby]="ariaLabelledBy" [attr.data-pc-name]="'selectbutton'" [attr.data-pc-section]="'root'">
-            <ng-container *ngFor="let option of options; let i = index">
-                <p-toggleButton [ngModel]="isSelected(option)" [onLabel]="this.getOptionLabel(option)" [offLabel]="this.getOptionLabel(option)" [disabled]="disabled || isOptionDisabled(option)" (onChange)="onOptionSelect($event, option, i)">
-                    <ng-container *ngIf="itemTemplate">
-                        <ng-template pTemplate="content">
-                            <ng-container *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"></ng-container>
-                        </ng-template>
-                    </ng-container>
-                </p-toggleButton>
-            </ng-container>
-        </div>
+        @for(option of options; track option; let i = $index) {
+        <p-toggleButton
+            [autofocus]="autofocus"
+            [styleClass]="styleClass"
+            [ngModel]="isSelected(option)"
+            [onLabel]="this.getOptionLabel(option)"
+            [offLabel]="this.getOptionLabel(option)"
+            [disabled]="disabled || isOptionDisabled(option)"
+            (onChange)="onOptionSelect($event, option, i)"
+        >
+            @if(itemTemplate) {
+            <ng-template pTemplate="icon">
+                <ng-container
+                    *ngTemplateOutlet="selectButtonTemplate; context: { $implicit: option, index: i }"
+                ></ng-container>
+            </ng-template>
+            }
+        </p-toggleButton>
+        }
     `,
+    standalone: true,
+    imports: [RippleModule, SharedModule, ToggleButton, FormsModule, CommonModule],
     providers: [SELECTBUTTON_VALUE_ACCESSOR, SelectButtonStyle],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
-    }
+        '[class.p-selectbutton.p-component]': 'true',
+        '[style]': 'style',
+        '[attr.role]': 'group',
+        '[attr.aria-labelledby]': 'ariaLabelledBy',
+        '[attr.data-pc-section]': "'root'",
+        '[attr.data-pc-name]': "'selectbutton'",
+    },
 })
 export class SelectButton extends BaseComponent implements ControlValueAccessor {
     /**
@@ -118,15 +145,14 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
      * @param {SelectButtonOptionClickEvent} event - Custom click event.
      * @group Emits
      */
-    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> = new EventEmitter<SelectButtonOptionClickEvent>();
+    @Output() onOptionClick: EventEmitter<SelectButtonOptionClickEvent> =
+        new EventEmitter<SelectButtonOptionClickEvent>();
     /**
      * Callback to invoke on selection change.
      * @param {SelectButtonChangeEvent} event - Custom change event.
      * @group Emits
      */
     @Output() onChange: EventEmitter<SelectButtonChangeEvent> = new EventEmitter<SelectButtonChangeEvent>();
-
-    @ViewChild('container') container: Nullable<ElementRef>;
 
     @ContentChild(PrimeTemplate) itemTemplate!: PrimeTemplate;
 
@@ -149,15 +175,27 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
     _componentStyle = inject(SelectButtonStyle);
 
     getOptionLabel(option: any) {
-        return this.optionLabel ? ObjectUtils.resolveFieldData(option, this.optionLabel) : option.label != undefined ? option.label : option;
+        return this.optionLabel
+            ? ObjectUtils.resolveFieldData(option, this.optionLabel)
+            : option.label != undefined
+            ? option.label
+            : option;
     }
 
     getOptionValue(option: any) {
-        return this.optionValue ? ObjectUtils.resolveFieldData(option, this.optionValue) : this.optionLabel || option.value === undefined ? option : option.value;
+        return this.optionValue
+            ? ObjectUtils.resolveFieldData(option, this.optionValue)
+            : this.optionLabel || option.value === undefined
+            ? option
+            : option.value;
     }
 
     isOptionDisabled(option: any) {
-        return this.optionDisabled ? ObjectUtils.resolveFieldData(option, this.optionDisabled) : option.disabled !== undefined ? option.disabled : false;
+        return this.optionDisabled
+            ? ObjectUtils.resolveFieldData(option, this.optionDisabled)
+            : option.disabled !== undefined
+            ? option.disabled
+            : false;
     }
 
     writeValue(value: any): void {
@@ -193,7 +231,8 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
         let newValue;
 
         if (this.multiple) {
-            if (selected) newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
+            if (selected)
+                newValue = this.value.filter((val) => !ObjectUtils.equals(val, optionValue, this.equalityKey));
             else newValue = this.value ? [...this.value, optionValue] : [optionValue];
         } else {
             if (selected && !this.allowEmpty) {
@@ -208,33 +247,34 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 
         this.onChange.emit({
             originalEvent: event,
-            value: this.value
+            value: this.value,
         });
 
         this.onOptionClick.emit({
             originalEvent: event,
             option: option,
-            index: index
+            index: index,
         });
     }
 
     changeTabIndexes(event, direction) {
         let firstTabableChild, index;
 
-        for (let i = 0; i <= this.container.nativeElement.children.length - 1; i++) {
-            if (this.container.nativeElement.children[i].getAttribute('tabindex') === '0') firstTabableChild = { elem: this.container.nativeElement.children[i], index: i };
+        for (let i = 0; i <= this.el.nativeElement.children.length - 1; i++) {
+            if (this.el.nativeElement.children[i].getAttribute('tabindex') === '0')
+                firstTabableChild = { elem: this.el.nativeElement.children[i], index: i };
         }
 
         if (direction === 'prev') {
-            if (firstTabableChild.index === 0) index = this.container.nativeElement.children.length - 1;
+            if (firstTabableChild.index === 0) index = this.el.nativeElement.children.length - 1;
             else index = firstTabableChild.index - 1;
         } else {
-            if (firstTabableChild.index === this.container.nativeElement.children.length - 1) index = 0;
+            if (firstTabableChild.index === this.el.nativeElement.children.length - 1) index = 0;
             else index = firstTabableChild.index + 1;
         }
 
         this.focusedIndex = index;
-        this.container.nativeElement.children[index].focus();
+        this.el.nativeElement.children[index].focus();
     }
 
     onFocus(event: Event, index: number) {
@@ -246,7 +286,9 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
     }
 
     removeOption(option: any): void {
-        this.value = this.value.filter((val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey));
+        this.value = this.value.filter(
+            (val: any) => !ObjectUtils.equals(val, this.getOptionValue(option), this.dataKey),
+        );
     }
 
     isSelected(option: any) {
@@ -271,8 +313,7 @@ export class SelectButton extends BaseComponent implements ControlValueAccessor 
 }
 
 @NgModule({
-    imports: [CommonModule, RippleModule, SharedModule, AutoFocusModule, ToggleButtonModule, FormsModule],
-    exports: [SelectButton, SharedModule],
-    declarations: [SelectButton]
+    imports: [SelectButton],
+    exports: [SelectButton],
 })
 export class SelectButtonModule {}

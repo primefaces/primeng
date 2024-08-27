@@ -1017,7 +1017,7 @@ export class CustomersApp {
     }
 
     setLineChartData() {
-        const { darkMode } = this.configService.config();
+        const { darkTheme } = this.configService.appState();
 
         return {
             labels: ['31', '1', '2', '3', '4', '5', '6', '7', '8'],
@@ -1030,7 +1030,7 @@ export class CustomersApp {
                     tension: 0.4,
                     borderWidth: 1.5,
                     pointBackgroundColor: '#16A34A',
-                    pointBorderColor: darkMode ? '#09090B' : '#FFF',
+                    pointBorderColor: darkTheme ? '#09090B' : '#FFF',
                     pointBorderWidth: 3,
 
                     hideInLegendAndTooltip: false,

@@ -336,19 +336,14 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
     subscription!: Subscription;
 
     get isDarkMode(): boolean {
-        return this.configService.config().darkMode;
+        return this.configService.appState().darkTheme;
     }
 
     constructor(
         private configService: AppConfigService,
         @Inject(PLATFORM_ID) private platformId: any,
         private cd: ChangeDetectorRef,
-    ) {
-        this.subscription = this.configService.configUpdate$.pipe(debounceTime(25)).subscribe((config) => {
-            this.setChartOptions();
-            this.cd.markForCheck();
-        });
-    }
+    ) {}
 
     ngOnInit() {
         this.sampleOptions = [
@@ -397,8 +392,7 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { icon: 'pi pi-flag', title: 'Support' },
             { icon: 'pi pi-cog', title: 'Settings' },
         ];
-        this.initChartData();
-        this.setChartOptions();
+
         this.selectedSampleAppsSidebarNav = 'Overview';
         this.selectButtonValue = { label: 'Styled', value: 1 };
 
@@ -417,59 +411,6 @@ export class HeroSectionComponent implements OnInit, OnDestroy {
             { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
             { name: 'Onyama Limba', image: 'onyamalimba.png' },
         ];
-    }
-
-    initChartData(): void {
-        this.chartData = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [
-                {
-                    label: 'Annual Income',
-                    data: [40, 59, 40, 50, 56],
-                    fill: true,
-                    borderColor: '#3b82f6',
-                    tension: 0.4,
-                    backgroundColor: 'rgba(59, 130, 246, .2)',
-                },
-            ],
-        };
-    }
-
-    setChartOptions(): void {
-        if (isPlatformBrowser(this.platformId)) {
-            const documentStyle = getComputedStyle(document.documentElement);
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-            this.chartOptions = {
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: textColorSecondary,
-                        },
-                        grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: textColorSecondary,
-                        },
-                        min: 0,
-                        max: 100,
-                        grid: {
-                            color: surfaceBorder,
-                        },
-                    },
-                },
-            };
-        }
     }
 
     setSelectedSampleAppsSidebarNav(title) {
