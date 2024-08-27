@@ -22,7 +22,7 @@ import {
     booleanAttribute,
     inject,
     numberAttribute,
-    signal
+    signal,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MenuItem, PrimeTemplate, SharedModule } from 'primeng/api';
@@ -43,11 +43,20 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-speedDial',
     template: `
-        <div #container [ngClass]="containerClass()" [class]="className" [style]="style" [ngStyle]="rootStyles" [attr.data-pc-name]="'speeddial'" [attr.data-pc-section]="'root'">
-            <p-button
+        <div
+            #container
+            [ngClass]="containerClass()"
+            [class]="className"
+            [style]="style"
+            [ngStyle]="rootStyles"
+            [attr.data-pc-name]="'speeddial'"
+            [attr.data-pc-section]="'root'"
+        >
+            <button
+                pButton
                 [style]="buttonStyle"
                 [icon]="buttonIconClass"
-                [styleClass]="buttonClass()"
+                [class]="buttonClass()"
                 [disabled]="disabled"
                 [attr.aria-expanded]="visible"
                 [attr.aria-haspopup]="true"
@@ -63,7 +72,7 @@ import { BaseComponent } from 'primeng/basecomponent';
                 <ng-container *ngIf="buttonTemplate">
                     <ng-container *ngTemplateOutlet="buttonTemplate"></ng-container>
                 </ng-container>
-            </p-button>
+            </button>
             <ul
                 #list
                 class="p-speeddial-list"
@@ -90,36 +99,51 @@ import { BaseComponent } from 'primeng/basecomponent';
                     [attr.data-pc-section]="'menuitem'"
                 >
                     <ng-container *ngIf="itemTemplate">
-                        <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="itemTemplate; context: { $implicit: item, index: i }"
+                        ></ng-container>
                     </ng-container>
                     <ng-container *ngIf="!itemTemplate">
-                        <p-button
-                            styleClass="p-speeddial-action"
+                        <button
+                            pButton
+                            class="p-speeddial-action"
                             severity="secondary"
+                            [rounded]="true"
+                            size="small"
                             role="menuitem"
+                            [icon]="item.icon"
                             (click)="onItemClick($event, item)"
                             [disabled]="item?.disabled"
                             (keydown.enter)="onItemClick($event, item, i)"
                             [attr.target]="item.target"
                             [attr.data-pc-section]="'action'"
                             [attr.aria-label]="item.label"
-                            [attr.tabindex]="item.disabled || (i !== activeIndex && readonly) || !visible ? null : item.tabindex ? item.tabindex : '0'"
-                        >
-                            <span class="p-speeddial-action-icon" *ngIf="item.icon" [ngClass]="item.icon"></span>
-                        </p-button>
+                            [attr.tabindex]="
+                                item.disabled || (i !== activeIndex && readonly) || !visible
+                                    ? null
+                                    : item.tabindex
+                                    ? item.tabindex
+                                    : '0'
+                            "
+                        ></button>
                     </ng-container>
                 </li>
             </ul>
         </div>
-        <div *ngIf="mask && visible" [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }" [class]="maskClassName" [ngStyle]="maskStyle"></div>
+        <div
+            *ngIf="mask && visible"
+            [ngClass]="{ 'p-speeddial-mask': true, 'p-speeddial-mask-visible': visible }"
+            [class]="maskClassName"
+            [ngStyle]="maskStyle"
+        ></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
 
     host: {
-        class: 'p-element'
+        class: 'p-element',
     },
-    providers: [SpeedDialStyle]
+    providers: [SpeedDialStyle],
 })
 export class SpeedDial extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -163,7 +187,16 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
      * Specifies the opening direction of actions.
      * @gruop Props
      */
-    @Input() direction: 'up' | 'down' | 'left' | 'right' | 'up-left' | 'up-right' | 'down-left' | 'down-right' | undefined = 'up';
+    @Input() direction:
+        | 'up'
+        | 'down'
+        | 'left'
+        | 'right'
+        | 'up-left'
+        | 'up-right'
+        | 'down-left'
+        | 'down-right'
+        | undefined = 'up';
     /**
      * Transition delay step for each action item.
      * @group Props
@@ -573,7 +606,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     findPrevOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
 
-        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+        const filteredItems = [...items].filter(
+            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
+        );
         const newIndex = index === -1 ? filteredItems[filteredItems.length - 1].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -584,7 +619,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     findNextOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+        const filteredItems = [...items].filter(
+            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
+        );
         const newIndex = index === -1 ? filteredItems[0].id : index;
         let matchedOptionIndex = filteredItems.findIndex((link) => link.getAttribute('id') === newIndex);
 
@@ -595,7 +632,9 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
     changeFocusedOptionIndex(index) {
         const items = DomHandler.find(this.container.nativeElement, '[data-pc-section="menuitem"]');
-        const filteredItems = [...items].filter((item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'));
+        const filteredItems = [...items].filter(
+            (item) => !DomHandler.hasClass(DomHandler.findSingle(item, 'a'), 'p-disabled'),
+        );
 
         if (filteredItems[index]) {
             this.focusedOptionIndex.set(filteredItems[index].getAttribute('id'));
@@ -614,7 +653,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 
                 return {
                     left: `calc(${radius * Math.cos(step * index)}px + var(--item-diff-x, 0px))`,
-                    top: `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`
+                    top: `calc(${radius * Math.sin(step * index)}px + var(--item-diff-y, 0px))`,
                 };
             } else if (type === 'semi-circle') {
                 const direction = this.direction;
@@ -661,7 +700,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
             ['p-speeddial p-component' + ` p-speeddial-${this.type}`]: true,
             [`p-speeddial-direction-${this.direction}`]: this.type !== 'circle',
             'p-speeddial-open': this.visible,
-            'p-disabled': this.disabled
+            'p-disabled': this.disabled,
         };
     }
 
@@ -682,7 +721,7 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
         const pointStyle = this.calculatePointStyle(index);
         return {
             transitionDelay: `${transitionDelay}ms`,
-            ...pointStyle
+            ...pointStyle,
         };
     }
 
@@ -691,7 +730,14 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
     }
 
     isOutsideClicked(event: Event) {
-        return this.container && !(this.container.nativeElement.isSameNode(event.target) || this.container.nativeElement.contains(event.target) || this.isItemClicked);
+        return (
+            this.container &&
+            !(
+                this.container.nativeElement.isSameNode(event.target) ||
+                this.container.nativeElement.contains(event.target) ||
+                this.isItemClicked
+            )
+        );
     }
 
     bindDocumentClickListener() {
@@ -724,6 +770,6 @@ export class SpeedDial extends BaseComponent implements AfterViewInit, AfterCont
 @NgModule({
     imports: [CommonModule, ButtonModule, RippleModule, TooltipModule, RouterModule, PlusIcon],
     exports: [SpeedDial, SharedModule, ButtonModule, TooltipModule, RouterModule],
-    declarations: [SpeedDial]
+    declarations: [SpeedDial],
 })
 export class SpeedDialModule {}
