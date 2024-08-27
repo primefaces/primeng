@@ -11,9 +11,17 @@ import { Code } from '@domain/code';
             <div class="flex flex-col items-center">
                 <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
                 <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-                <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+                <p-inputOtp [(ngModel)]="value" [length]="6">
                     <ng-template pTemplate="input" let-token let-events="events" let-index="index">
-                        <input pInputText type="text" [maxLength]="1" (input)="events.input($event)" (keydown)="events.keydown($event)" [attr.value]="token" class="custom-otp-input" />
+                        <input
+                            pInputText
+                            type="text"
+                            [maxLength]="1"
+                            (input)="events.input($event)"
+                            (keydown)="events.keydown($event)"
+                            [attr.value]="token"
+                            class="custom-otp-input"
+                        />
                         <div *ngIf="index === 3" class="px-4">
                             <i class="pi pi-minus"></i>
                         </div>
@@ -29,6 +37,10 @@ import { Code } from '@domain/code';
     `,
     styles: [
         `
+            .p-inputotp {
+                gap: 0;
+            }
+
             .custom-otp-input {
                 width: 48px;
                 height: 48px;
@@ -37,17 +49,17 @@ import { Code } from '@domain/code';
                 text-align: center;
                 transition: all 0.2s;
                 border-radius: 0;
-                border: 1px solid var(--surface-400);
+                border: 1px solid var(--p-inputtext-border-color);
                 background: transparent;
                 outline-offset: -2px;
                 outline-color: transparent;
                 border-right: 0 none;
                 transition: outline-color 0.3s;
-                color: var(--text-color);
+                color: var(--p-inputtext-color);
             }
 
             .custom-otp-input:focus {
-                outline: 2px solid var(--primary-color);
+                outline: 2px solid var(--p-focus-ring-color);
             }
 
             .custom-otp-input:first-child,
@@ -62,10 +74,10 @@ import { Code } from '@domain/code';
                 border-bottom-right-radius: 12px;
                 border-right-width: 1px;
                 border-right-style: solid;
-                border-color: var(--surface-400);
+                border-color: var(--p-inputtext-border-color);
             }
-        `
-    ]
+        `,
+    ],
 })
 export class SampleDoc {
     value: any;
@@ -74,7 +86,7 @@ export class SampleDoc {
         basic: `<div class="flex flex-col items-center">
     <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
     <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-    <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+    <p-inputOtp [(ngModel)]="value" [length]="6">
         <ng-template pTemplate="input" let-token let-events="events" let-index="index">
             <input 
                 pInputText
@@ -99,7 +111,7 @@ export class SampleDoc {
     <div class="flex flex-col items-center">
         <div class="font-bold text-xl mb-2">Authenticate Your Account</div>
         <p class="text-muted-color block mb-8">Please enter the code sent to your phone.</p>
-        <p-inputOtp [(ngModel)]="value" [length]="6" style="gap: 0">
+        <p-inputOtp [(ngModel)]="value" [length]="6">
             <ng-template pTemplate="input" let-token let-events="events" let-index="index">
                 <input 
                     pInputText 
@@ -133,46 +145,50 @@ import { ButtonModule } from 'primeng/button';
     imports: [FormsModule, InputOtpModule, ButtonModule],
     styles: [
         \`
-        .custom-otp-input {
-            width: 48px;
-            height: 48px;
-            font-size: 24px;
-            appearance: none;
-            text-align: center;
-            transition: all 0.2s;
-            border-radius: 0;
-            border: 1px solid var(--surface-400);
-            background: transparent;
-            outline-offset: -2px;
-            outline-color: transparent;
-            border-right: 0 none;
-            transition: outline-color 0.3s;
-            color: var(--text-color);
-        }
+            .p-inputotp {
+                gap: 0;
+            }
 
-        .custom-otp-input:focus {
-            outline: 2px solid var(--primary-color);
-        }
+            .custom-otp-input {
+                width: 48px;
+                height: 48px;
+                font-size: 24px;
+                appearance: none;
+                text-align: center;
+                transition: all 0.2s;
+                border-radius: 0;
+                border: 1px solid var(--p-inputtext-border-color);
+                background: transparent;
+                outline-offset: -2px;
+                outline-color: transparent;
+                border-right: 0 none;
+                transition: outline-color 0.3s;
+                color: var(--p-inputtext-color);
+            }
 
-        .custom-otp-input:first-child,
-        .custom-otp-input:nth-child(5) {
-            border-top-left-radius: 12px;
-            border-bottom-left-radius: 12px;
-        }
+            .custom-otp-input:focus {
+                outline: 2px solid var(--p-focus-ring-color);
+            }
 
-        .custom-otp-input:nth-child(3),
-        .custom-otp-input:last-child {
-            border-top-right-radius: 12px;
-            border-bottom-right-radius: 12px;
-            border-right-width: 1px;
-            border-right-style: solid;
-            border-color: var(--surface-400);
-        }
+            .custom-otp-input:first-child,
+            .custom-otp-input:nth-child(5) {
+                border-top-left-radius: 12px;
+                border-bottom-left-radius: 12px;
+            }
+
+            .custom-otp-input:nth-child(3),
+            .custom-otp-input:last-child {
+                border-top-right-radius: 12px;
+                border-bottom-right-radius: 12px;
+                border-right-width: 1px;
+                border-right-style: solid;
+                border-color: var(--p-inputtext-border-color);
+            }
         \`
     ],
 })
 export class InputOtpSampleDemo {
     value: any;
-}`
+}`,
     };
 }
