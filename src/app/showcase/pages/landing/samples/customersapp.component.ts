@@ -1018,7 +1018,7 @@ export class CustomersApp {
 
     setLineChartData() {
         const { darkTheme } = this.configService.appState();
-
+        
         return {
             labels: ['31', '1', '2', '3', '4', '5', '6', '7', '8'],
             datasets: [
@@ -1091,9 +1091,7 @@ export class CustomersApp {
     }
 
     setLineChartOptions() {
-        const darkMode = false;
         const documentStyle = getComputedStyle(document.documentElement);
-
         const backgroundColor = documentStyle.getPropertyValue('--p-content-background');
         const textColor = documentStyle.getPropertyValue('--p-text-color');
         const borderColor = documentStyle.getPropertyValue('--p-content-border-color');
