@@ -22,7 +22,7 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputOtp',
     template: `
-        <div class="p-inputotp p-component">
+   
             <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
                 <ng-container *ngIf="!inputTemplate">
                     <input
@@ -52,11 +52,14 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
                     <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
                 </ng-container>
             </ng-container>
-        </div>
+    
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle]
+    providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
+    host:{
+        class:"p-inputotp p-component"
+    }
 })
 export class InputOtp extends BaseComponent implements AfterContentInit {
     /**
