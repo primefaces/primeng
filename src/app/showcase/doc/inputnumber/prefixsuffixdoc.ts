@@ -5,9 +5,12 @@ import { Code } from '@domain/code';
     selector: 'prefix-suffix-doc',
     template: `
         <app-docsectiontext>
-            <p>Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and <i>suffix</i> properties.</p>
+            <p>
+                Custom texts e.g. units can be placed before or after the input section with the <i>prefix</i> and
+                <i>suffix</i> properties.
+            </p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4 p-fluid">
+        <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="font-bold block mb-2" for="mile">Mile</label>
                 <p-inputNumber [(ngModel)]="value1" inputId="mile" suffix=" mi" />
@@ -24,9 +27,9 @@ import { Code } from '@domain/code';
                 <label class="font-bold block mb-2" for="temperature">Temperature</label>
                 <p-inputNumber [(ngModel)]="value4" prefix="↑ " inputId="temperature" suffix="℃" [min]="0" [max]="40" />
             </div>
-        </div>
+        </p-fluid>
         <app-code [code]="code" selector="input-number-prefix-suffix-demo"></app-code>
-    `
+    `,
 })
 export class PrefixSuffixDoc {
     value1: number = 20;
@@ -62,7 +65,7 @@ export class PrefixSuffixDoc {
     [min]="0" 
     [max]="40" />`,
 
-        html: `<div class="card flex flex-wrap gap-4 p-fluid">
+        html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label class="font-bold block mb-2" for="mile">
             Mile
@@ -103,17 +106,18 @@ export class PrefixSuffixDoc {
             [min]="0" 
             [max]="40" />
     </div>
-</div>`,
+</p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { FluidModule } from 'primeng/fluid';
 
 @Component({
     selector: 'input-number-prefix-suffix-demo',
     templateUrl: './input-number-prefix-suffix-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule]
+    imports: [FormsModule, InputNumberModule, FluidModule]
 })
 export class InputNumberPrefixSuffixDemo {
     value1: number = 20;
@@ -123,6 +127,6 @@ export class InputNumberPrefixSuffixDemo {
     value3: number = 10;
 
     value4: number = 20;
-}`
+}`,
     };
 }

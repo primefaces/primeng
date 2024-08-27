@@ -161,6 +161,8 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
 
     iconTemplate: Nullable<TemplateRef<any>>;
 
+    contentTemplate: Nullable<TemplateRef<any>>;
+
     checked: boolean = false;
 
     onModelChange: Function = () => {};
@@ -172,6 +174,9 @@ export class ToggleButton extends BaseComponent implements ControlValueAccessor 
     ngAfterContentInit() {
         this.templates.forEach((item) => {
             switch (item.getType()) {
+                case 'content':
+                    this.contentTemplate = item.template;
+                    break;
                 case 'icon':
                     this.iconTemplate = item.template;
                     break;

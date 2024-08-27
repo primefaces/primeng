@@ -10,11 +10,16 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-inputGroup',
     template: `
-        <div class="p-inputgroup" [attr.data-pc-name]="'inputgroup'" [ngClass]="styleClass" [ngStyle]="style">
             <ng-content></ng-content>
-        </div>
     `,
-    providers: [InputGroupStyle]
+    providers: [InputGroupStyle],
+
+    host: {
+        class: 'p-inputgroup',
+        '[attr.attr.data-pc-name]': 'inputgroup',
+        '[class]': 'styleClass',
+        '[style]': 'style'
+    },
 })
 export class InputGroup extends BaseComponent {
     /**

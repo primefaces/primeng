@@ -7,7 +7,7 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>InputNumber is used as a controlled input with <i>ngModel</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex flex-wrap gap-4 p-fluid">
+        <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="integeronly">Integer Only</label>
                 <p-inputNumber inputId="integeronly" [(ngModel)]="value1" />
@@ -18,15 +18,21 @@ import { Code } from '@domain/code';
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmaxfraction">Min-Max Fraction Digits</label>
-                <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2" [maxFractionDigits]="5" />
+                <p-inputNumber
+                    [(ngModel)]="value3"
+                    inputId="minmaxfraction"
+                    mode="decimal"
+                    [minFractionDigits]="2"
+                    [maxFractionDigits]="5"
+                />
             </div>
             <div class="flex-auto">
                 <label class="mb-2 font-bold block" for="minmax">Min-Max Boundaries</label>
                 <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
             </div>
-        </div>
+        </p-fluid>
         <app-code [code]="code" selector="input-number-numerals-demo"></app-code>
-    `
+    `,
 })
 export class NumeralsDoc {
     value1: number = 42723;
@@ -62,7 +68,7 @@ export class NumeralsDoc {
     [min]="0" 
     [max]="100" /> `,
 
-        html: `<div class="card flex flex-wrap gap-4 p-fluid">
+        html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <label for="integeronly">Integer Only</label>
         <p-inputNumber 
@@ -95,17 +101,18 @@ export class NumeralsDoc {
             [min]="0" 
             [max]="100" /> 
     </div>
-</div>`,
+</p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
+import { FluidModule } from 'primeng/fluid';
 
 @Component({
     selector: 'input-number-numerals-demo',
     templateUrl: './input-number-numerals-demo.html',
     standalone: true,
-    imports: [FormsModule, InputNumberModule]
+    imports: [FormsModule, InputNumberModule, FluidModule]
 })
 export class InputNumberNumeralsDemo {
     value1: number = 42723;
@@ -115,6 +122,6 @@ export class InputNumberNumeralsDemo {
     value3: number = 2351.35;
 
     value4: number = 50;
-}`
+}`,
     };
 }

@@ -9,14 +9,21 @@ interface AutoCompleteCompleteEvent {
 @Component({
     selector: 'autocomplete-multiple-demo',
     template: ` <app-docsectiontext>
-            <p>Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the autocomplete. In this case, value reference should be an array.</p>
+            <p>
+                Multiple mode is enabled using <i>multiple</i> property used to select more than one value from the
+                autocomplete. In this case, value reference should be an array.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <span class="p-fluid">
-                <p-autoComplete [(ngModel)]="selectedItems" [suggestions]="items" (completeMethod)="search($event)" [multiple]="true" />
-            </span>
+            <p-autoComplete
+                [(ngModel)]="selectedItems"
+                [suggestions]="items"
+                (completeMethod)="search($event)"
+                [multiple]="true"
+                styleClass="w-full"
+            />
         </div>
-        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`
+        <app-code [code]="code" selector="autocomplete-multiple-demo"></app-code>`,
 })
 export class MultipleDoc {
     selectedItems: any[] | undefined;
@@ -28,22 +35,20 @@ export class MultipleDoc {
     }
 
     code: Code = {
-        basic: `<span class="p-fluid">
+        basic: `<p-autoComplete 
+    [(ngModel)]="selectedItems" 
+    [suggestions]="items" 
+    (completeMethod)="search($event)" 
+    [multiple]="true"
+    styleClass="w-full" />`,
+
+        html: `<div class="card">
     <p-autoComplete 
         [(ngModel)]="selectedItems" 
         [suggestions]="items" 
         (completeMethod)="search($event)" 
-        [multiple]="true" />
-</span>`,
-
-        html: `<div class="card">
-    <span class="p-fluid">
-        <p-autoComplete 
-            [(ngModel)]="selectedItems" 
-            [suggestions]="items" 
-            (completeMethod)="search($event)" 
-            [multiple]="true" />
-    </span>
+        [multiple]="true"
+        styleClass="w-full" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';
@@ -69,6 +74,6 @@ export class AutocompleteMultipleDemo {
     search(event: AutoCompleteCompleteEvent) {
         this.items = [...Array(10).keys()].map((item) => event.query + '-' + item);
     }
-}`
+}`,
     };
 }

@@ -6,11 +6,12 @@ import { Code } from '@domain/code';
     template: `
         <app-docsectiontext>
             <p>
-                Mask format can be a combination of the following definitions; <i>a</i> for alphabetic characters, <i>9</i> for numeric characters and <i>*</i> for alphanumberic characters. In addition, formatting characters like <i>(</i> ,
-                <i>)</i> , <i>-</i> are also accepted.
+                Mask format can be a combination of the following definitions; <i>a</i> for alphabetic characters,
+                <i>9</i> for numeric characters and <i>*</i> for alphanumberic characters. In addition, formatting
+                characters like <i>(</i> , <i>)</i> , <i>-</i> are also accepted.
             </p>
         </app-docsectiontext>
-        <div class="card p-fluid flex flex-wrap gap-4">
+        <p-fluid class="card flex flex-wrap gap-4">
             <div class="flex-auto">
                 <span class="font-bold block mb-2">SSN</span>
                 <p-inputMask mask="999-99-9999" [(ngModel)]="value1" placeholder="999-99-9999" />
@@ -23,9 +24,9 @@ import { Code } from '@domain/code';
                 <span class="font-bold block mb-2">Serial Number</span>
                 <p-inputMask mask="a*-999-a999" [(ngModel)]="value3" placeholder="a*-999-a999" />
             </div>
-        </div>
+        </p-fluid>
         <app-code [code]="code" selector="input-mask-mask-demo"></app-code>
-    `
+    `,
 })
 export class MaskDoc {
     value1: string | undefined;
@@ -51,7 +52,7 @@ export class MaskDoc {
     [(ngModel)]="value3"
     placeholder="a*-999-a999" />`,
 
-        html: `<div class="card p-fluid flex flex-wrap gap-4">
+        html: `<p-fluid class="card flex flex-wrap gap-4">
     <div class="flex-auto">
         <span class="font-bold block mb-2">SSN</span>
         <p-inputMask 
@@ -73,17 +74,18 @@ export class MaskDoc {
             [(ngModel)]="value3" 
             placeholder="a*-999-a999" />
     </div>
-</div>`,
+</p-fluid>`,
 
         typescript: `import { Component } from '@angular/core';
 import { InputMaskModule } from 'primeng/inputmask';
 import { FormsModule } from '@angular/forms';
+import { FluidModule } from 'primeng/fluid';
 
 @Component({
     selector: 'input-mask-mask-demo',
     templateUrl: './input-mask-mask-demo.html',
     standalone: true,
-    imports: [FormsModule, InputMaskModule]
+    imports: [FormsModule, InputMaskModule, FluidModule]
 })
 export class InputMaskMaskDemo {
     value1: string | undefined;
@@ -91,6 +93,6 @@ export class InputMaskMaskDemo {
     value2: string | undefined;
 
     value3: string | undefined;
-}`
+}`,
     };
 }

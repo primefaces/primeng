@@ -678,7 +678,7 @@ import { SelectModule } from 'primeng/select';
             <div class="flex-1 flex flex-wrap gap-6">
                 <div class="flex-1 border border-surface rounded-3xl p-6">
                     <div class="text-color font-medium leading-6 mb-4">User Profiles</div>
-                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" styleClass="w-full" />
+                    <p-selectButton [(ngModel)]="userProfiles" [options]="userProfilesOptions" class="w-full" />
                     <div class="flex flex-col gap-4 mt-6">
                         <div class="flex items-center gap-3">
                             <i class="pi pi-volume-down text-color text-xl"></i>

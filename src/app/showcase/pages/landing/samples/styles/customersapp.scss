@@ -5,7 +5,11 @@ tr, th{
     margin: 0px;
 }
 
-p-toggleButton, p-toggleButton > button{
+p-selectbutton{
+    display: flex !important;
+}
+
+p-toggleButton{
     width: 100%;
     padding-top: 0.625rem;
     padding-bottom: 0.625rem;
