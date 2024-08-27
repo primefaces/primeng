@@ -10,11 +10,24 @@ interface UploadEvent {
 @Component({
     selector: 'file-upload-advanced-demo',
     template: `
-        <app-docsectiontext> <p>FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress tracking and validations.</p></app-docsectiontext>
+        <app-docsectiontext>
+            <p>
+                FileUpload is an advanced uploader with dragdrop support, multi file uploads, auto uploading, progress
+                tracking and validations.
+            </p>
+        </app-docsectiontext>
         <div class="card flex justify-center">
             <p-toast />
-            <p-fileUpload name="demo[]" url="https://www.primefaces.org/cdn/api/upload.php" (onUpload)="onUpload($event)" [multiple]="true" accept="image/*" maxFileSize="1000000" mode="advanced">
-                <ng-template pTemplate="toolbar">
+            <p-fileUpload
+                name="demo[]"
+                url="https://www.primefaces.org/cdn/api/upload.php"
+                (onUpload)="onUpload($event)"
+                [multiple]="true"
+                accept="image/*"
+                maxFileSize="1000000"
+                mode="advanced"
+            >
+                <ng-template pTemplate="empty">
                     <div class="py-4">Drag and drop files to here to upload.</div>
                 </ng-template>
                 <ng-template pTemplate="content">
@@ -26,7 +39,7 @@ interface UploadEvent {
         </div>
         <app-code [code]="code" selector="file-upload-advanced-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class AdvancedDoc {
     uploadedFiles: any[] = [];
@@ -42,37 +55,43 @@ export class AdvancedDoc {
     }
 
     code: Code = {
-        basic: `<p-fileUpload 
-    name="demo[]" 
-    url="https://www.primefaces.org/cdn/api/upload.php" 
-    (onUpload)="onUpload($event)" 
-    [multiple]="true" 
-    accept="image/*" 
-    maxFileSize="1000000">
-        <ng-template pTemplate="content">
-            <ul *ngIf="uploadedFiles.length">
-                <li *ngFor="let file of uploadedFiles">
-                    {{ file.name }} - {{ file.size }} bytes
-                </li>
-            </ul>
-        </ng-template>
+        basic: `<p-fileUpload
+    name="demo[]"
+    url="https://www.primefaces.org/cdn/api/upload.php"
+    (onUpload)="onUpload($event)"
+    [multiple]="true"
+    accept="image/*"
+    maxFileSize="1000000"
+    mode="advanced"
+>
+    <ng-template pTemplate="empty">
+        <div class="py-4">Drag and drop files to here to upload.</div>
+    </ng-template>
+    <ng-template pTemplate="content">
+        <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+        </ul>
+    </ng-template>
 </p-fileUpload>`,
         html: `<div class="card flex justify-center">
     <p-toast />
-    <p-fileUpload 
-        name="demo[]" 
-        url="https://www.primefaces.org/cdn/api/upload.php" 
-        (onUpload)="onUpload($event)" 
-        [multiple]="true" 
-        accept="image/*" 
-        maxFileSize="1000000">
-            <ng-template pTemplate="content">
-                <ul *ngIf="uploadedFiles.length">
-                    <li *ngFor="let file of uploadedFiles">
-                        {{ file.name }} - {{ file.size }} bytes
-                    </li>
-                </ul>
-            </ng-template>
+    <p-fileUpload
+        name="demo[]"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        (onUpload)="onUpload($event)"
+        [multiple]="true"
+        accept="image/*"
+        maxFileSize="1000000"
+        mode="advanced"
+    >
+        <ng-template pTemplate="empty">
+            <div class="py-4">Drag and drop files to here to upload.</div>
+        </ng-template>
+        <ng-template pTemplate="content">
+            <ul *ngIf="uploadedFiles.length">
+                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+            </ul>
+        </ng-template>
     </p-fileUpload>
 </div>`,
         typescript: `import { Component } from '@angular/core';
@@ -105,6 +124,6 @@ export class FileUploadAdvancedDemo {
 
         this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
     }
-}`
+}`,
     };
 }
