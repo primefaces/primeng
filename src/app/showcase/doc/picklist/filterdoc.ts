@@ -47,10 +47,7 @@ export class FilterDoc {
 
     targetProducts!: Product[];
 
-    constructor(
-        private carService: ProductService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    constructor(private carService: ProductService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.carService.getProductsSmall().then((products) => {

@@ -58,7 +58,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <div
                 #container
                 [ngClass]="{ 'p-dialog p-dynamic-dialog p-component': true, 'p-dialog-rtl': config.rtl, 'p-dialog-resizable': config.resizable, 'p-dialog-draggable': config.draggable, 'p-dialog-maximized': maximized }"
-                [ngStyle]="config.style"
+                [ngStyle]="containerStyle"
                 [class]="config.styleClass"
                 [@animation]="{ value: 'visible', params: { transform: transformOptions, transition: config.transitionOptions || '150ms cubic-bezier(0, 0, 0.2, 1)' } }"
                 (@animation.start)="onAnimationStart($event)"
@@ -67,12 +67,10 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                 *ngIf="visible"
                 pFocusTrap
                 [pFocusTrapDisabled]="config.focusTrap === false"
-                [style.width]="config.width"
-                [style.height]="config.height"
                 [attr.aria-labelledby]="ariaLabelledBy"
                 [attr.aria-modal]="true"
             >
-                <div *ngIf="config.resizable" class="p-resizable-handle" style="z-index: 90;" (mousedown)="initResize($event)"></div>
+                <div *ngIf="config.resizable" class="p-resizable-handle" (mousedown)="initResize($event)"></div>
                 <div #titlebar class="p-dialog-header" (mousedown)="initDrag($event)" *ngIf="config.showHeader === false ? false : true">
                     <ng-container *ngComponentOutlet="headerTemplate"></ng-container>
                     <ng-container *ngIf="!headerTemplate">
@@ -274,6 +272,14 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
         return dynamicDialogCount;
     }
 
+    get containerStyle() {
+        return {
+            ...this.config.style,
+            width: this.config.width,
+            height: this.config.height
+        };
+    }
+
     constructor(
         @Inject(DOCUMENT) private document: Document,
         @Inject(PLATFORM_ID) private platformId: any,
@@ -296,6 +302,7 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
             if (!this.styleElement) {
                 this.styleElement = this.renderer.createElement('style');
                 this.styleElement.type = 'text/css';
+                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
                 let innerHTML = '';
                 for (let breakpoint in this.breakpoints) {
@@ -309,7 +316,6 @@ export class DynamicDialogComponent implements AfterViewInit, OnDestroy {
                 }
 
                 this.renderer.setProperty(this.styleElement, 'innerHTML', innerHTML);
-                DomHandler.setAttribute(this.styleElement, 'nonce', this.primeNGConfig?.csp()?.nonce);
             }
         }
     }

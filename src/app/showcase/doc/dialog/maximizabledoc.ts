@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Setting <i>maximizable</i> property to <i>true</i> enables the full screen mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" label="Show" />
+            <p-button (onClick)="showDialog()" label="Show" />
             <p-dialog header="Header" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -27,7 +27,7 @@ export class MaximizableDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" label="Show" />
+        basic: `<p-button (onClick)="showDialog()" label="Show" />
 <p-dialog 
     header="Header" 
     [modal]="true"
@@ -41,7 +41,7 @@ export class MaximizableDoc {
 </p-dialog>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-button (click)="showDialog()" label="Show" />
+    <p-button (onClick)="showDialog()" label="Show" />
     <p-dialog 
         header="Header" 
         [modal]="true" 

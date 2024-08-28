@@ -27,14 +27,7 @@ export class DeferredLoader implements AfterViewInit, OnDestroy {
 
     window: Window;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public viewContainer: ViewContainerRef,
-        private cd: ChangeDetectorRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public renderer: Renderer2, public viewContainer: ViewContainerRef, private cd: ChangeDetectorRef) {
         this.window = this.document.defaultView as Window;
     }
 

@@ -96,14 +96,7 @@ export class BlockUI implements AfterViewInit, OnDestroy {
 
     contentTemplate: TemplateRef<any> | undefined;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2,
-        @Inject(PLATFORM_ID) public platformId: any
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig, private renderer: Renderer2, @Inject(PLATFORM_ID) public platformId: any) {}
 
     ngAfterViewInit() {
         if (this._blocked) this.block();

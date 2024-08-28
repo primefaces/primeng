@@ -22,10 +22,7 @@ export class LazyVirtualScrollDoc implements OnInit {
 
     virtualFiles!: TreeNode[];
 
-    constructor(
-        private nodeService: NodeService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private nodeService: NodeService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.loading = true;

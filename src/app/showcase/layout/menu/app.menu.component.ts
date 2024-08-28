@@ -38,11 +38,7 @@ export class AppMenuComponent implements OnDestroy {
 
     private routerSubscription: Subscription;
 
-    constructor(
-        private configService: AppConfigService,
-        private el: ElementRef,
-        private router: Router
-    ) {
+    constructor(private configService: AppConfigService, private el: ElementRef, private router: Router) {
         this.menu = MenuData.data;
 
         afterNextRender(() => {

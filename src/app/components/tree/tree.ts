@@ -85,7 +85,9 @@ import {
             >
                 <div
                     class="p-treenode-content"
-                    [style.paddingLeft]="level * indentation + 'rem'"
+                    [ngStyle]="{
+                        'padding-left': level * indentation + 'rem'
+                    }"
                     (click)="onNodeClick($event)"
                     (contextmenu)="onNodeRightClick($event)"
                     (touchend)="onNodeTouchEnd()"
@@ -98,7 +100,7 @@ import {
                     (dragend)="onDragStop($event)"
                     [ngClass]="{ 'p-treenode-selectable': tree.selectionMode && node.selectable !== false, 'p-treenode-dragover': draghoverNode, 'p-highlight': isSelected() }"
                 >
-                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1" aria-hidden="true">
+                    <button type="button" [attr.data-pc-section]="'toggler'" class="p-tree-toggler p-link" (click)="toggle($event)" pRipple tabindex="-1">
                         <ng-container *ngIf="!tree.togglerIconTemplate">
                             <ng-container *ngIf="!node.loading">
                                 <ChevronRightIcon *ngIf="!node.expanded" [styleClass]="'p-tree-toggler-icon'" />
@@ -134,7 +136,14 @@ import {
                         </span>
                     </span>
                 </div>
-                <ul class="p-treenode-children" style="display: none;" *ngIf="!tree.virtualScroll && node.children && node.expanded" [style.display]="node.expanded ? 'block' : 'none'" role="group">
+                <ul
+                    class="p-treenode-children"
+                    [ngStyle]="{
+                        display: node.expanded ? 'block' : 'none'
+                    }"
+                    *ngIf="!tree.virtualScroll && node.children && node.expanded"
+                    role="group"
+                >
                     <p-treeNode
                         *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; let index = index; trackBy: tree.trackBy"
                         [node]="childNode"
@@ -202,7 +211,13 @@ import {
                                 </span>
                             </div>
                         </td>
-                        <td class="p-treenode-children-container" *ngIf="node.children && node.expanded" [style.display]="node.expanded ? 'table-cell' : 'none'">
+                        <td
+                            class="p-treenode-children-container"
+                            *ngIf="node.children && node.expanded"
+                            [ngStyle]="{
+                                display: node.expanded ? 'table-cell' : 'none'
+                            }"
+                        >
                             <div class="p-treenode-children">
                                 <p-treeNode *ngFor="let childNode of node.children; let firstChild = first; let lastChild = last; trackBy: tree.trackBy" [node]="childNode" [firstChild]="firstChild" [lastChild]="lastChild"></p-treeNode>
                             </div>
@@ -266,7 +281,10 @@ export class UITreeNode implements OnInit {
 
     ngOnInit() {
         (<TreeNode>this.node).parent = this.parentNode;
-        if (this.parentNode) {
+        const nativeElement = this.tree.el.nativeElement;
+        const pDialogWrapper = nativeElement.closest('p-dialog');
+
+        if (this.parentNode && !pDialogWrapper) {
             this.setAllNodesTabIndexes();
             this.tree.syncNodeOption(<TreeNode>this.node, <TreeNode<any>[]>this.tree.value, 'parent', this.tree.getNodeWithKey(<string>this.parentNode.key, <TreeNode<any>[]>this.tree.value));
         }
@@ -551,10 +569,18 @@ export class UITreeNode implements OnInit {
 
             //enter
             case 'Enter':
-            case 'Space':
             case 'NumpadEnter':
                 this.onEnter(event);
                 break;
+
+            //space
+            case 'Space':
+                const nodeName = event.target instanceof HTMLElement && event.target.nodeName;
+                if (!['INPUT'].includes(nodeName)) {
+                    this.onEnter(event);
+                }
+                break;
+
             //tab
             case 'Tab':
                 this.setAllNodesTabIndexes();
@@ -807,7 +833,7 @@ export class UITreeNode implements OnInit {
                     </ng-container>
                 </p-scroller>
                 <ng-container *ngIf="!virtualScroll">
-                    <div #wrapper class="p-tree-wrapper" [style.max-height]="scrollHeight">
+                    <div #wrapper class="p-tree-wrapper" [ngStyle]="{ 'max-height': scrollHeight }">
                         <ul class="p-tree-container" *ngIf="getRootNode()" role="tree" [attr.aria-label]="ariaLabel" [attr.aria-labelledby]="ariaLabelledBy">
                             <p-treeNode
                                 *ngFor="let node of getRootNode(); let firstChild = first; let lastChild = last; let index = index; trackBy: trackBy"
@@ -1166,12 +1192,7 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
 
     public dragStopSubscription: Subscription | undefined | null;
 
-    constructor(
-        public el: ElementRef,
-        @Optional() public dragDropService: TreeDragDropService,
-        public config: PrimeNGConfig,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(public el: ElementRef, @Optional() public dragDropService: TreeDragDropService, public config: PrimeNGConfig, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (this.droppableNodes) {
@@ -1358,7 +1379,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                             this.onNodeUnselect.emit({ originalEvent: event, node: node });
                         } else {
                             this.selection = node;
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            setTimeout(() => {
+                                this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            });
                         }
                     } else {
                         if (selected) {
@@ -1366,7 +1389,9 @@ export class Tree implements OnInit, AfterContentInit, OnChanges, OnDestroy, Blo
                             this.onNodeUnselect.emit({ originalEvent: event, node: node });
                         } else {
                             this.selection = [...(this.selection || []), node];
-                            this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            setTimeout(() => {
+                                this.onNodeSelect.emit({ originalEvent: event, node: node });
+                            });
                         }
                     }
 

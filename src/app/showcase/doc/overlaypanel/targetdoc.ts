@@ -11,7 +11,7 @@ import { Code } from '@domain/code';
             </p>
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-3">
-            <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+            <p-button (onClick)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
             <div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
                 <span>Target Element</span>
             </div>
@@ -24,7 +24,7 @@ import { Code } from '@domain/code';
 })
 export class TargetDoc {
     code: Code = {
-        basic: `<p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+        basic: `<p-button (onClick)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
 <div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
     <span>Target Element</span>
 </div>
@@ -34,7 +34,7 @@ export class TargetDoc {
 
         html: `
 <div class="card flex flex-column align-items-center gap-3">
-    <p-button (click)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
+    <p-button (onClick)="op.show($event, targetEl)" icon="pi pi-image" label="Show"></p-button>
     <div #targetEl class="mt-5 w-10rem h-5rem border-1 surface-border border-round flex align-items-center justify-content-center">
         <span>Target Element</span>
     </div>

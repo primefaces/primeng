@@ -30,10 +30,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     imports: [RouterOutlet, AppFooterComponent, CommonModule, AppNewsComponent, AppMenuComponent, AppConfigComponent, AppTopBarComponent]
 })
 export class AppMainComponent {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private configService: AppConfigService
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, private configService: AppConfigService) {}
 
     get isNewsActive(): boolean {
         return this.configService.state.newsActive;

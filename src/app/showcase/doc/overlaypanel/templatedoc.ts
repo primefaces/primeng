@@ -13,7 +13,7 @@ import { Code } from '@domain/code';
                     <h4>Custom Content</h4>
                 </ng-template>
             </p-overlayPanel>
-            <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+            <p-button (onClick)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
         </div>
         <app-code [code]="code" selector="overlay-panel-template-demo"></app-code>
     `
@@ -25,7 +25,7 @@ export class TemplateDoc {
         <h4>Custom Content</h4>
     </ng-template>
 </p-overlayPanel>
-<p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,
+<p-button (onClick)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>`,
 
         html: `
 <div class="card flex justify-content-center">
@@ -34,7 +34,7 @@ export class TemplateDoc {
             <h4>Custom Content</h4>
         </ng-template>
     </p-overlayPanel>
-    <p-button (click)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
+    <p-button (onClick)="op.toggle($event)" icon="pi pi-image" label="Show"></p-button>
 </div>`,
 
         typescript: `

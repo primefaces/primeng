@@ -164,14 +164,9 @@ export class Tooltip implements AfterViewInit, OnDestroy {
 
     resizeListener: any;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef,
-        public zone: NgZone,
-        public config: PrimeNGConfig,
-        private renderer: Renderer2,
-        private viewContainer: ViewContainerRef
-    ) {}
+    interactionInProgress = false;
+
+    constructor(@Inject(PLATFORM_ID) private platformId: any, public el: ElementRef, public zone: NgZone, public config: PrimeNGConfig, private renderer: Renderer2, private viewContainer: ViewContainerRef) {}
 
     ngAfterViewInit() {
         if (isPlatformBrowser(this.platformId)) {
@@ -190,11 +185,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
                     this.focusListener = this.onFocus.bind(this);
                     this.blurListener = this.onBlur.bind(this);
 
-                    let target = this.el.nativeElement.querySelector('.p-component');
-
-                    if (!target) {
-                        target = this.getTarget(this.el.nativeElement);
-                    }
+                    let target = this.getTarget(this.el.nativeElement);
 
                     target.addEventListener('focus', this.focusListener);
                     target.addEventListener('blur', this.blurListener);
@@ -339,24 +330,28 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     activate() {
-        this.active = true;
-        this.clearHideTimeout();
+        if (!this.interactionInProgress) {
+            this.active = true;
+            this.clearHideTimeout();
 
-        if (this.getOption('showDelay'))
-            this.showTimeout = setTimeout(() => {
-                this.show();
-            }, this.getOption('showDelay'));
-        else this.show();
+            if (this.getOption('showDelay'))
+                this.showTimeout = setTimeout(() => {
+                    this.show();
+                }, this.getOption('showDelay'));
+            else this.show();
 
-        if (this.getOption('life')) {
-            let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
-            this.hideTimeout = setTimeout(() => {
-                this.hide();
-            }, duration);
+            if (this.getOption('life')) {
+                let duration = this.getOption('showDelay') ? this.getOption('life') + this.getOption('showDelay') : this.getOption('life');
+                this.hideTimeout = setTimeout(() => {
+                    this.hide();
+                }, duration);
+            }
         }
+        this.interactionInProgress = true;
     }
 
     deactivate() {
+        this.interactionInProgress = false;
         this.active = false;
         this.clearShowTimeout();
 
@@ -606,7 +601,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
     }
 
     getTarget(el: Element) {
-        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el;
+        return DomHandler.hasClass(el, 'p-inputwrapper') ? DomHandler.findSingle(el, 'input') : el.querySelector('.p-component') || el;
     }
 
     preAlign(position: string) {
@@ -673,11 +668,7 @@ export class Tooltip implements AfterViewInit, OnDestroy {
             this.el.nativeElement.removeEventListener('click', this.clickListener);
         }
         if (tooltipEvent === 'focus' || tooltipEvent === 'both') {
-            let target = this.el.nativeElement.querySelector('.p-component');
-
-            if (!target) {
-                target = this.getTarget(this.el.nativeElement);
-            }
+            let target = this.getTarget(this.el.nativeElement);
 
             target.removeEventListener('focus', this.focusListener);
             target.removeEventListener('blur', this.blurListener);

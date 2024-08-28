@@ -35,10 +35,7 @@ import { Router } from '@angular/router';
     `
 })
 export class SeatDemo implements OnInit {
-    constructor(
-        public ticketService: TicketService,
-        private router: Router
-    ) {}
+    constructor(public ticketService: TicketService, private router: Router) {}
 
     classes: any[];
 

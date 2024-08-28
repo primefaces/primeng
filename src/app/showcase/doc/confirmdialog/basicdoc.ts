@@ -11,18 +11,15 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast />
             <p-confirmDialog />
-            <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-            <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+            <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+            <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-basic-demo"></app-code>
     `,
     providers: [ConfirmationService, MessageService]
 })
 export class BasicDoc {
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm1(event: Event) {
         this.confirmationService.confirm({
@@ -65,14 +62,14 @@ export class BasicDoc {
     code: Code = {
         basic: `<p-toast />
 <p-confirmDialog />
-<p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-<p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
+<p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+<p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast />
     <p-confirmDialog />
-    <p-button (click)="confirm1($event)" label="Save" [outlined]="true" />
-    <p-button (click)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
+    <p-button (onClick)="confirm1($event)" label="Save" [outlined]="true" />
+    <p-button (onClick)="confirm2($event)" label="Delete" severity="danger" [outlined]="true" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

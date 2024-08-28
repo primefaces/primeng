@@ -30,15 +30,15 @@ import { Code } from '@domain/code';
                             <td>{{ sale.product }}</td>
                             <td>{{ sale.lastYearSale }}%</td>
                             <td>{{ sale.thisYearSale }}%</td>
-                            <td>{{ sale.lastYearProfit | currency: 'USD' }}</td>
-                            <td>{{ sale.thisYearProfit | currency: 'USD' }}</td>
+                            <td>{{ sale.lastYearProfit | currency : 'USD' }}</td>
+                            <td>{{ sale.thisYearProfit | currency : 'USD' }}</td>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="footer">
                         <tr>
                             <td colspan="3" class="text-right">Totals</td>
-                            <td>{{ lastYearTotal | currency: 'USD' }}</td>
-                            <td>{{ thisYearTotal | currency: 'USD' }}</td>
+                            <td>{{ lastYearTotal | currency : 'USD' }}</td>
+                            <td>{{ thisYearTotal | currency : 'USD' }}</td>
                         </tr>
                     </ng-template>
                 </p-table>

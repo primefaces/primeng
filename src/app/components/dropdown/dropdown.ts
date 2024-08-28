@@ -191,7 +191,7 @@ export class DropdownItem {
                 </span>
             </ng-container>
 
-            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
+            <div class="p-dropdown-trigger" role="button" aria-label="dropdown trigger" (mousedown)="onMouseDown($event)" aria-haspopup="listbox" [attr.aria-expanded]="overlayVisible ?? false" [attr.data-pc-section]="'trigger'">
                 <ng-container *ngIf="loading; else elseBlock">
                     <ng-container *ngIf="loadingIconTemplate">
                         <ng-container *ngTemplateOutlet="loadingIconTemplate"></ng-container>
@@ -268,7 +268,13 @@ export class DropdownItem {
                                 </div>
                             </ng-template>
                         </div>
-                        <div class="p-dropdown-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div
+                            class="p-dropdown-items-wrapper"
+                            [ngStyle]="{
+                                'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto'
+                            }"
+                            tabindex="0"
+                        >
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -294,7 +300,7 @@ export class DropdownItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox">
+                                <ul #items [attr.id]="id + '_list'" [attr.aria-label]="listLabel" class="p-dropdown-items" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="scrollerOptions.contentStyle" role="listbox">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li class="p-dropdown-item-group" [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -1012,14 +1018,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     editableInputValue = computed(() => this.getOptionLabel(this.selectedOption) || this.modelValue() || '');
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig) {
         effect(() => {
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
@@ -1233,6 +1232,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     updatePlaceHolderForFloatingLabel(): void {
+        if (this._placeholder() !== null && this._placeholder() !== undefined) {
+            // We don't want to overwrite the placeholder if it's already set
+            return;
+        }
         const parentElement = this.el.nativeElement.parentElement;
         const isInFloatingLabel = parentElement?.classList.contains('p-float-label');
         if (parentElement && isInFloatingLabel && !this.selectedOption) {
@@ -1428,10 +1431,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         }
         if (isFocus) {
             if (this.focusInputViewChild) {
-                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.focusInputViewChild?.nativeElement);
+                });
             }
             if (this.editable && this.editableInputViewChild) {
-                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                setTimeout(() => {
+                    DomHandler.focus(this.editableInputViewChild?.nativeElement);
+                });
             }
         }
         this.cd.markForCheck();
@@ -1459,6 +1466,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             this.onModelTouched();
         }
         this.preventModelTouched = false;
+    }
+
+    onMouseDown(event: MouseEvent) {
+        event.preventDefault();
     }
 
     onKeyDown(event: KeyboardEvent, search: boolean) {
@@ -1830,7 +1841,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     hasFocusableElements() {
-        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"])').length > 0;
+        return DomHandler.getFocusableElements(this.overlayViewChild.overlayViewChild.nativeElement, ':not([data-p-hidden-focusable="true"]):not([class="p-dropdown-items-wrapper"])').length > 0;
     }
 
     onBackspaceKey(event: KeyboardEvent, pressedInInputText = false) {

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Dialog can be customized using <i>header</i> and <i>footer</i> templates.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" label="Show" />
+            <p-button (onClick)="showDialog()" label="Show" />
             <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
                 <ng-template pTemplate="header">
                     <div class="inline-flex align-items-center justify-content-center gap-2">
@@ -26,8 +26,8 @@ import { Code } from '@domain/code';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <ng-template pTemplate="footer">
-                    <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" [outlined]="true" severity="secondary" (click)="visible = false" />
+                    <p-button label="Cancel" [text]="true" severity="secondary" (onClick)="visible = false" />
+                    <p-button label="Save" [outlined]="true" severity="secondary" (onClick)="visible = false" />
                 </ng-template>
             </p-dialog>
         </div>
@@ -42,7 +42,7 @@ export class TemplateDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" label="Show" />
+        basic: `<p-button (onClick)="showDialog()" label="Show" />
 <p-dialog 
     header="Header" 
     [(visible)]="visible" 
@@ -74,18 +74,18 @@ export class TemplateDoc {
                 label="Cancel" 
                 [text]="true" 
                 severity="secondary" 
-                (click)="visible = false" />
+                (onClick)="visible = false" />
             <p-button 
                 label="Save" 
                 [outlined]="true" 
                 severity="secondary" 
-                (click)="visible = false" 
+                (onClick)="visible = false" 
               />
         </ng-template>
 </p-dialog>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-button (click)="showDialog()" label="Show" />
+    <p-button (onClick)="showDialog()" label="Show" />
     <p-dialog 
         header="Header" 
         [(visible)]="visible" 
@@ -117,12 +117,12 @@ export class TemplateDoc {
                     label="Cancel" 
                     [text]="true" 
                     severity="secondary" 
-                    (click)="visible = false" />
+                    (onClick)="visible = false" />
                 <p-button 
                     label="Save" 
                     [outlined]="true" 
                     severity="secondary" 
-                    (click)="visible = false" 
+                    (onClick)="visible = false" 
                   />
             </ng-template>
     </p-dialog>

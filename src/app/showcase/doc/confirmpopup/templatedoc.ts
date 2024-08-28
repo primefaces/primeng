@@ -18,17 +18,14 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
             </p-confirmPopup>
-            <p-button (click)="confirm($event)" label="Save" />
+            <p-button (onClick)="confirm($event)" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-popup-template-demo"></app-code>
     `,
     providers: [ConfirmationService, MessageService]
 })
 export class TemplateDoc {
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm(event: Event) {
         this.confirmationService.confirm({
@@ -60,7 +57,7 @@ export class TemplateDoc {
             </div>
         </ng-template>
     </p-confirmPopup>
-<p-button (click)="confirm($event)" label="Save" />`,
+<p-button (onClick)="confirm($event)" label="Save" />`,
 
         html: `<div class="card flex justify-content-center gap-2">
         <p-toast />
@@ -72,7 +69,7 @@ export class TemplateDoc {
                 </div>
             </ng-template>
         </p-confirmPopup>
-    <p-button (click)="confirm($event)" label="Save" />
+    <p-button (onClick)="confirm($event)" label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

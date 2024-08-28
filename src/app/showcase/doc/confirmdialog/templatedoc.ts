@@ -25,17 +25,14 @@ import { Code } from '@domain/code';
                     </div>
                 </ng-template>
             </p-confirmDialog>
-            <p-button (click)="confirm()" label="Save" />
+            <p-button (onClick)="confirm()" label="Save" />
         </div>
         <app-code [code]="code" selector="confirm-dialog-template-demo"></app-code>
     `,
     providers: [ConfirmationService, MessageService]
 })
 export class TemplateDoc {
-    constructor(
-        private confirmationService: ConfirmationService,
-        private messageService: MessageService
-    ) {}
+    constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
     confirm() {
         this.confirmationService.confirm({
@@ -64,7 +61,7 @@ export class TemplateDoc {
         </div>
     </ng-template>
 </p-confirmDialog>
-<p-button (click)="confirm()" label="Save" />`,
+<p-button (onClick)="confirm()" label="Save" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-toast />
@@ -76,7 +73,7 @@ export class TemplateDoc {
             </div>
         </ng-template>
     </p-confirmDialog>
-    <p-button (click)="confirm()" label="Save" />
+    <p-button (onClick)="confirm()" label="Save" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

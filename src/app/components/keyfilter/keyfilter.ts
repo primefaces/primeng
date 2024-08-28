@@ -113,11 +113,7 @@ export class KeyFilter implements Validator {
 
     lastValue: any;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        public el: ElementRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, public el: ElementRef) {
         if (isPlatformBrowser(this.platformId)) {
             this.isAndroid = DomHandler.isAndroid();
         } else {
@@ -229,7 +225,12 @@ export class KeyFilter implements Validator {
         if (!browser.mozilla && (this.isSpecialKey(e) || !cc)) {
             return;
         }
-        let val = this.el.nativeElement.value + cc;
+
+        let valueCheck = this.el.nativeElement.value || '';
+        const selectionStart = (<HTMLInputElement>e.currentTarget).selectionStart || 0;
+        const selectionEnd = (<HTMLInputElement>e.currentTarget).selectionEnd || 0;
+        let val = valueCheck.substring(0, selectionStart) + cc + valueCheck.substring(selectionEnd);
+
         ok = (<RegExp>this.regex).test(val);
 
         if (!ok) {

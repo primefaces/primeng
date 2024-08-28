@@ -108,12 +108,7 @@ export class AppDocApiTable {
 
     @Input({ transform: booleanAttribute }) isInterface: boolean = false;
 
-    constructor(
-        public viewContainerRef: ViewContainerRef,
-        public router: Router,
-        public location: Location,
-        private configService: AppConfigService
-    ) {}
+    constructor(public viewContainerRef: ViewContainerRef, public router: Router, public location: Location, private configService: AppConfigService) {}
 
     get isDarkMode(): boolean {
         return this.configService.config().darkMode;

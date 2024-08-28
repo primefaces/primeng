@@ -178,13 +178,7 @@ export class Splitter {
 
     private window: Window;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        private el: ElementRef
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, public cd: ChangeDetectorRef, private el: ElementRef) {
         this.window = this.document.defaultView as Window;
     }
 
@@ -394,11 +388,13 @@ export class Splitter {
     }
 
     validateResize(newPrevPanelSize: number, newNextPanelSize: number) {
-        if (this.minSizes.length >= 1 && this.minSizes[0] && this.minSizes[0] > newPrevPanelSize) {
+        const prevPanelIndex = this.prevPanelIndex;
+        if (this.minSizes.length > prevPanelIndex && this.minSizes[prevPanelIndex] && this.minSizes[prevPanelIndex] > newPrevPanelSize) {
             return false;
         }
 
-        if (this.minSizes.length > 1 && this.minSizes[1] && this.minSizes[1] > newNextPanelSize) {
+        const nextPanelIndex = this.prevPanelIndex + 1;
+        if (this.minSizes.length > nextPanelIndex && this.minSizes[nextPanelIndex] && this.minSizes[nextPanelIndex] > newNextPanelSize) {
             return false;
         }
 

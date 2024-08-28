@@ -24,10 +24,10 @@ import { Code } from '@domain/code';
                 <h3>Bottom Sidebar</h3>
             </p-sidebar>
 
-            <p-button type="button" class="mr-2" (click)="sidebarVisible1 = true" icon="pi pi-arrow-right" />
-            <p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-arrow-left" />
-            <p-button type="button" class="mr-2" (click)="sidebarVisible3 = true" icon="pi pi-arrow-down" />
-            <p-button type="button" class="mr-2" (click)="sidebarVisible4 = true" icon="pi pi-arrow-up" />
+            <p-button type="button" class="mr-2" (onClick)="sidebarVisible1 = true" icon="pi pi-arrow-right" />
+            <p-button type="button" class="mr-2" (onClick)="sidebarVisible2 = true" icon="pi pi-arrow-left" />
+            <p-button type="button" class="mr-2" (onClick)="sidebarVisible3 = true" icon="pi pi-arrow-down" />
+            <p-button type="button" class="mr-2" (onClick)="sidebarVisible4 = true" icon="pi pi-arrow-up" />
         </div>
         <app-code [code]="code" selector="sidebar-position-demo"></app-code>
     `
@@ -61,22 +61,22 @@ export class PositionDoc {
 <p-button 
     type="button" 
     class="mr-2" 
-    (click)="sidebarVisible1 = true" 
+    (onClick)="sidebarVisible1 = true" 
     icon="pi pi-arrow-right" />
 <p-button 
     type="button" 
     class="mr-2" 
-    (click)="sidebarVisible2 = true" 
+    (onClick)="sidebarVisible2 = true" 
     icon="pi pi-arrow-left" />
 <p-button 
     type="button" 
     class="mr-2" 
-    (click)="sidebarVisible3 = true" 
+    (onClick)="sidebarVisible3 = true" 
     icon="pi pi-arrow-down" />
 <p-button 
     type="button" 
     class="mr-2" 
-    (click)="sidebarVisible4 = true" 
+    (onClick)="sidebarVisible4 = true" 
     icon="pi pi-arrow-up" />`,
 
         html: `<div class="card flex flex-wrap justify-content-center gap-2">
@@ -99,22 +99,22 @@ export class PositionDoc {
     <p-button 
         type="button"
         class="mr-2" 
-        (click)="sidebarVisible1 = true" 
+        (onClick)="sidebarVisible1 = true" 
         icon="pi pi-arrow-right" />
     <p-button 
         type="button" 
         class="mr-2" 
-        (click)="sidebarVisible2 = true" 
+        (onClick)="sidebarVisible2 = true" 
         icon="pi pi-arrow-left" />
     <p-button 
         type="button"
         class="mr-2" 
-        (click)="sidebarVisible3 = true" 
+        (onClick)="sidebarVisible3 = true" 
         icon="pi pi-arrow-down" />
     <p-button 
         type="button" 
         class="mr-2" 
-        (click)="sidebarVisible4 = true" 
+        (onClick)="sidebarVisible4 = true" 
         icon="pi pi-arrow-up" />
 </div>`,
 

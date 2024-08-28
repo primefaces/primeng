@@ -13,12 +13,12 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex justify-content-center gap-2">
             <p-toast />
-            <p-button type="button" pRipple (click)="showSuccess()" label="Success" severity="success" />
-            <p-button type="button" pRipple (click)="showInfo()" label="Info" severity="info" />
-            <p-button type="button" pRipple (click)="showWarn()" label="Warn" severity="warning" />
-            <p-button type="button" pRipple (click)="showError()" label="Error" severity="danger" />
-            <p-button type="button" pRipple (click)="showSecondary()" label="Secondary" severity="secondary" />
-            <p-button type="button" pRipple (click)="showContrast()" label="Contrast" severity="contrast" />
+            <p-button type="button" (onClick)="showSuccess()" label="Success" severity="success" />
+            <p-button type="button" (onClick)="showInfo()" label="Info" severity="info" />
+            <p-button type="button" (onClick)="showWarn()" label="Warn" severity="warning" />
+            <p-button type="button" (onClick)="showError()" label="Error" severity="danger" />
+            <p-button type="button" (onClick)="showSecondary()" label="Secondary" severity="secondary" />
+            <p-button type="button" (onClick)="showContrast()" label="Contrast" severity="contrast" />
         </div>
         <app-code [code]="code" selector="toast-severity-demo"></app-code>
     `,
@@ -55,76 +55,64 @@ export class SeverityDoc {
         basic: `<p-toast />
 <p-button 
     type="button" 
-    pRipple 
-    (click)="showSuccess()" 
+    (onClick)="showSuccess()" 
     label="Success" 
     severity="success" />
 <p-button 
     type="button"
-    pRipple 
-    (click)="showInfo()" 
+    (onClick)="showInfo()" 
     label="Info" 
     severity="info" />
 <p-button 
     type="button" 
-    pRipple 
-    (click)="showWarn()" 
+    (onClick)="showWarn()" 
     label="Warn" 
     severity="warning" />
 <p-button 
     type="button" 
-    pRipple 
-    (click)="showError()" 
+    (onClick)="showError()" 
     label="Error" 
     severity="danger" />
 <p-button 
     type="button" 
-    pRipple 
-    (click)="showSecondary()" 
+    (onClick)="showSecondary()" 
     label="Secondary" 
     severity="secondary" />
 <p-button 
     type="button" 
-    pRipple 
-    (click)="showContrast()" 
+    (onClick)="showContrast()" 
     label="Contrast" 
     severity="contrast" />`,
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast />
     <p-button 
-        type="button" 
-        pRipple 
-        (click)="showSuccess()" 
+        type="button"
+        (onClick)="showSuccess()" 
         label="Success" 
         severity="success" />
     <p-button 
         type="button"
-        pRipple 
-        (click)="showInfo()" 
+        (onClick)="showInfo()" 
         label="Info" 
         severity="info" />
     <p-button 
-        type="button" 
-        pRipple 
-        (click)="showWarn()" 
+        type="button"
+        (onClick)="showWarn()" 
         label="Warn" 
         severity="warning"  />
     <p-button 
-        type="button" 
-        pRipple 
-        (click)="showError()" 
+        type="button"
+        (onClick)="showError()" 
         label="Error" 
         severity="danger" />
     <p-button 
-        type="button" 
-        pRipple 
-        (click)="showSecondary()" 
+        type="button"
+        (onClick)="showSecondary()" 
         label="Secondary" 
         severity="secondary" />
     <p-button 
-        type="button" 
-        pRipple 
-        (click)="showContrast()" 
+        type="button"
+        (onClick)="showContrast()" 
         label="Contrast" 
         severity="contrast" />
 </div>`,

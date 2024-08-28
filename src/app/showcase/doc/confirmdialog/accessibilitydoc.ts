@@ -83,7 +83,7 @@ this.confirmationService.confirm({
     reject: () => rejectFunc()
 });
 
-<p-button (click)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
+<p-button (onClick)="confirm1()" icon="pi pi-check" label="Confirm"></p-button>
 
 <p-confirmDialog></p-confirmDialog>
         `

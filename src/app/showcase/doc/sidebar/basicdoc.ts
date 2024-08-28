@@ -15,7 +15,7 @@ import { Code } from '@domain/code';
                     consequat.
                 </p>
             </p-sidebar>
-            <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />
+            <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
         </div>
         <app-code [code]="code" selector="sidebar-basic-demo"></app-code>
     `
@@ -30,7 +30,7 @@ export class BasicDoc {
         Lorem ipsum dolor sit amet...
     </p>
 </p-sidebar>
-<p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />`,
+<p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />`,
 
         html: `<div class="card flex justify-content-center">
     <p-sidebar [(visible)]="sidebarVisible">
@@ -40,7 +40,7 @@ export class BasicDoc {
             Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
     </p-sidebar>
-    <p-button (click)="sidebarVisible = true" icon="pi pi-arrow-right" />
+    <p-button (onClick)="sidebarVisible = true" icon="pi pi-arrow-right" />
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

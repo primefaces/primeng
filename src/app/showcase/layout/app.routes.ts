@@ -99,6 +99,7 @@ export const routes: Routes = [
             { path: 'stepper', loadChildren: () => import('@pages/stepper/stepperdemo.module').then((m) => m.StepperDemoModule) },
             { path: 'steps', loadChildren: () => import('@pages/steps/stepsdemo.module').then((m) => m.StepsDemoModule) },
             { path: 'support', loadChildren: () => import('@pages/support/support.module').then((m) => m.SupportModule) },
+            { path: 'contribution', loadChildren: () => import('@pages/contribution/contribution.module').then((m) => m.ContributionModule) },
             { path: 'styleclass', loadChildren: () => import('@pages/styleclass/styleclassdemo.module').then((m) => m.StyleClassDemoModule) },
             { path: 'tag', loadChildren: () => import('@pages/tag/tagdemo.module').then((m) => m.TagDemoModule) },
             { path: 'table', loadChildren: () => import('@pages/table/tabledemo.module').then((m) => m.TableDemoModule) },

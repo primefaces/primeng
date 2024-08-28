@@ -10,8 +10,8 @@ import { PhotoService } from '@service/photoservice';
         </app-docsectiontext>
         <div class="card">
             <div class="py-2">
-                <p-button type="button" icon="pi pi-minus" (click)="prev()" severity="secondary" styleClass="mr-2" />
-                <p-button type="button" icon="pi pi-plus" (click)="next()" />
+                <p-button type="button" icon="pi pi-minus" (onClick)="prev()" severity="secondary" styleClass="mr-2" />
+                <p-button type="button" icon="pi pi-plus" (onClick)="next()" />
             </div>
             <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5" [(activeIndex)]="activeIndex">
                 <ng-template pTemplate="item" let-item>
@@ -76,13 +76,13 @@ export class ControlledDoc implements OnInit {
     <p-button 
         type="button" 
         icon="pi pi-minus" 
-        (click)="prev()" 
+        (onClick)="prev()" 
         severity="secondary" 
         styleClass="mr-2" />
     <p-button 
         type="button" 
         icon="pi pi-plus" 
-        (click)="next()" />
+        (onClick)="next()" />
 </div>
 <p-galleria 
     [(value)]="images" 
@@ -104,13 +104,13 @@ export class ControlledDoc implements OnInit {
         <p-button 
             type="button" 
             icon="pi pi-minus" 
-            (click)="prev()" 
+            (onClick)="prev()" 
             severity="secondary" 
             styleClass="mr-2" />
         <p-button 
             type="button" 
             icon="pi pi-plus" 
-            (click)="next()" />
+            (onClick)="next()" />
     </div>
     <p-galleria 
         [(value)]="images" 

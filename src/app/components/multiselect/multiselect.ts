@@ -25,7 +25,6 @@ import {
     Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -176,6 +175,7 @@ export class MultiSelectItem {
                     (keydown)="onKeyDown($event)"
                     pAutoFocus
                     [autofocus]="autofocus"
+                    [attr.value]="label() || 'empty'"
                 />
             </div>
             <div
@@ -194,7 +194,14 @@ export class MultiSelectItem {
                             <div #token *ngFor="let item of chipSelectedItems(); let i = index" class="p-multiselect-token">
                                 <span class="p-multiselect-token-label">{{ getLabelByValue(item) }}</span>
                                 <ng-container *ngIf="!disabled">
-                                    <TimesCircleIcon *ngIf="!removeTokenIconTemplate" [styleClass]="'p-multiselect-token-icon'" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true" />
+                                    <TimesCircleIcon
+                                        *ngIf="!removeTokenIconTemplate"
+                                        [ngClass]="{ 'p-disabled': isOptionDisabled(item) }"
+                                        [styleClass]="'p-multiselect-token-icon'"
+                                        (click)="removeOption(item, event)"
+                                        [attr.data-pc-section]="'clearicon'"
+                                        [attr.aria-hidden]="true"
+                                    />
                                     <span *ngIf="removeTokenIconTemplate" class="p-multiselect-token-icon" (click)="removeOption(item, event)" [attr.data-pc-section]="'clearicon'" [attr.aria-hidden]="true">
                                         <ng-container *ngTemplateOutlet="removeTokenIconTemplate"></ng-container>
                                     </span>
@@ -338,7 +345,7 @@ export class MultiSelectItem {
                                 </button>
                             </ng-template>
                         </div>
-                        <div class="p-multiselect-items-wrapper" [style.max-height]="virtualScroll ? 'auto' : scrollHeight || 'auto'">
+                        <div class="p-multiselect-items-wrapper" [ngStyle]="{ 'max-height': virtualScroll ? 'auto' : scrollHeight || 'auto' }">
                             <p-scroller
                                 *ngIf="virtualScroll"
                                 #scroller
@@ -365,7 +372,7 @@ export class MultiSelectItem {
                             </ng-container>
 
                             <ng-template #buildInItems let-items let-scrollerOptions="options">
-                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [style]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
+                                <ul #items class="p-multiselect-items p-component" [ngClass]="scrollerOptions.contentStyleClass" [ngStyle]="scrollerOptions.contentStyle" role="listbox" aria-multiselectable="true" [attr.aria-label]="listLabel">
                                     <ng-template ngFor let-option [ngForOf]="items" let-i="index">
                                         <ng-container *ngIf="isOptionGroup(option)">
                                             <li [attr.id]="id + '_' + getOptionIndex(i, scrollerOptions)" class="p-multiselect-item-group" [ngStyle]="{ height: scrollerOptions.itemSize + 'px' }" role="option">
@@ -564,7 +571,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
      * Decides how many selected item labels to show at most.
      * @group Props
      */
-    @Input({ transform: numberAttribute }) selectionLimit: number | undefined;
+    @Input({ transform: (value: unknown) => numberAttribute(value, null) }) selectionLimit: number | null | undefined;
     /**
      * Label to display after exceeding max selected labels e.g. ({0} items selected), defaults "ellipsis" keyword to indicate a text-overflow.
      * @group Props
@@ -1181,15 +1188,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1378,7 +1377,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
 
         this.onChange.emit({
-            originalEvent: event,
+            originalEvent: { ...event, selected: !event.selected },
             value: value,
             itemValue: option
         });

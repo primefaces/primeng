@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-content-center gap-2">
             <p-toast key="toast1" />
             <p-toast key="toast2" />
-            <p-button pRipple (click)="showToast1()" label="Show Success" />
-            <p-button pRipple (click)="showToast2()" label="Show Warning" severity="warning" />
+            <p-button (onClick)="showToast1()" label="Show Success" />
+            <p-button (onClick)="showToast2()" label="Show Warning" severity="warning" />
         </div>
         <app-code [code]="code" selector="toast-target-demo"></app-code>
     `,
@@ -34,25 +34,21 @@ export class TargetDoc {
     code: Code = {
         basic: `<p-toast key="toast1" />
 <p-toast key="toast2" />
-<p-button 
-    pRipple 
-    (click)="showToast1()" 
+<p-button
+    (onClick)="showToast1()" 
     label="Show Success" />
-<p-button 
-    pRipple 
-    (click)="showToast2()" 
+<p-button
+    (onClick)="showToast2()" 
     label="Show Warning" 
     severity="warning" />`,
         html: `<div class="card flex justify-content-center gap-2">
     <p-toast key="toast1" />
     <p-toast key="toast2" />
-    <p-button 
-        pRipple 
-        (click)="showToast1()" 
+    <p-button
+        (onClick)="showToast1()" 
         label="Show Success" />
-    <p-button 
-        pRipple 
-        (click)="showToast2()" 
+    <p-button
+        (onClick)="showToast2()" 
         label="Show Warning" 
         severity="warning" />
 </div>`,

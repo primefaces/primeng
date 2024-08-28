@@ -47,8 +47,20 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
      * @group Props
      */
     @Input() public value: string | number;
+    /**
+     * Inline style of the element.
+     * @group Props
+     */
+    @Input() badgeStyle: { [klass: string]: any } | null | undefined;
+    /**
+     * Class of the element.
+     * @group Props
+     */
+    @Input() badgeStyleClass: string;
 
     private id!: string;
+
+    badgeEl: HTMLElement;
 
     private get activeElement(): HTMLElement {
         return this.el.nativeElement.nodeName.indexOf('-') != -1 ? this.el.nativeElement.firstChild : this.el.nativeElement;
@@ -58,13 +70,9 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         return this.id && !this.disabled;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        private renderer: Renderer2
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, private renderer: Renderer2) {}
 
-    public ngOnChanges({ value, size, severity, disabled }: SimpleChanges): void {
+    public ngOnChanges({ value, size, severity, disabled, badgeStyle, badgeStyleClass }: SimpleChanges): void {
         if (disabled) {
             this.toggleDisableState();
         }
@@ -83,6 +91,10 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
 
         if (value) {
             this.setValue();
+        }
+
+        if (badgeStyle || badgeStyleClass) {
+            this.applyStyles();
         }
     }
 
@@ -169,6 +181,19 @@ export class BadgeDirective implements OnChanges, AfterViewInit {
         this.setValue(badge);
         DomHandler.addClass(el, 'p-overlay-badge');
         this.renderer.appendChild(el, badge);
+        this.badgeEl = badge;
+        this.applyStyles();
+    }
+
+    private applyStyles(): void {
+        if (this.badgeEl && this.badgeStyle && typeof this.badgeStyle === 'object') {
+            for (const [key, value] of Object.entries(this.badgeStyle)) {
+                this.renderer.setStyle(this.badgeEl, key, value);
+            }
+        }
+        if (this.badgeEl && this.badgeStyleClass) {
+            this.badgeEl.classList.add(...this.badgeStyleClass.split(' '));
+        }
     }
 
     private setSeverity(oldSeverity?: 'success' | 'info' | 'warning' | 'danger' | null, element?: HTMLElement): void {

@@ -45,7 +45,7 @@ import { asapScheduler } from 'rxjs';
                 pRipple
                 pButton
                 class="p-button-icon-only"
-                [style]="buttonStyle"
+                [ngStyle]="buttonStyle"
                 [icon]="buttonIconClass"
                 [ngClass]="buttonClass()"
                 [disabled]="disabled"
@@ -318,13 +318,7 @@ export class SpeedDial implements AfterViewInit, AfterContentInit, OnDestroy {
         return this.focusedOptionIndex() !== -1 ? this.focusedOptionIndex() : null;
     }
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private el: ElementRef,
-        public cd: ChangeDetectorRef,
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private el: ElementRef, public cd: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document, private renderer: Renderer2) {}
 
     ngOnInit() {
         this.id = this.id || UniqueComponentId();

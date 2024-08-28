@@ -62,11 +62,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 
     @ViewChild('galleria') galleria: Galleria | undefined;
 
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: any,
-        private photoService: PhotoService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: any, private photoService: PhotoService, private cd: ChangeDetectorRef) {}
 
     responsiveOptions: any[] = [
         {

@@ -155,10 +155,7 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
 
     private _internalClasses: string[] = Object.values(INTERNAL_BUTTON_CLASSES);
 
-    constructor(
-        public el: ElementRef,
-        @Inject(DOCUMENT) private document: Document
-    ) {}
+    constructor(public el: ElementRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngAfterViewInit() {
         DomHandler.addMultipleClasses(this.htmlElement, this.getStyleClass().join(' '));
@@ -349,7 +346,8 @@ export class ButtonDirective implements AfterViewInit, OnDestroy {
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        class: 'p-element',
+        '[class.p-disabled]': 'disabled' || 'loading'
     }
 })
 export class Button implements AfterContentInit {
@@ -524,7 +522,6 @@ export class Button implements AfterContentInit {
             'p-button p-component': true,
             'p-button-icon-only': (this.icon || this.iconTemplate || this.loadingIcon || this.loadingIconTemplate) && !this.label,
             'p-button-vertical': (this.iconPos === 'top' || this.iconPos === 'bottom') && this.label,
-            'p-disabled': this.disabled || this.loading,
             'p-button-loading': this.loading,
             'p-button-loading-label-only': this.loading && !this.icon && this.label && !this.loadingIcon && this.iconPos === 'left',
             'p-button-link': this.link,
@@ -567,6 +564,14 @@ export class Button implements AfterContentInit {
             'p-badge p-component': true,
             'p-badge-no-gutter': this.badge && String(this.badge).length === 1
         };
+    }
+
+    /**
+     * Applies focus.
+     * @group Method
+     */
+    public focus() {
+        this.el.nativeElement.firstChild.focus();
     }
 }
 

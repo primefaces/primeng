@@ -9,18 +9,18 @@ import { Code } from '@domain/code';
         </app-docsectiontext>
         <div class="card flex flex-column align-items-center gap-2">
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
-                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
+                <p-button (onClick)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
+                <p-button (onClick)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
-                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (click)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
+                <p-button (onClick)="showDialog('top-left')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
+                <p-button (onClick)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
+                <p-button (onClick)="showDialog('top-right')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
             </div>
             <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
-                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (click)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-left')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
+                <p-button (onClick)="showDialog('bottom-right')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
                 <span class="p-text-secondary block mb-5">Update your information.</span>
@@ -33,8 +33,8 @@ import { Code } from '@domain/code';
                     <input pInputText id="email" class="flex-auto" autocomplete="off" />
                 </div>
                 <div class="flex justify-content-end gap-2">
-                    <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                    <p-button label="Save" (click)="visible = false" />
+                    <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+                    <p-button label="Save" (onClick)="visible = false" />
                 </div>
             </p-dialog>
         </div>
@@ -54,46 +54,46 @@ export class PositionDoc {
     code: Code = {
         basic: `<div class="flex flex-wrap gap-2">
     <p-button 
-        (click)="showDialog('left')" 
+        (onClick)="showDialog('left')" 
         icon="pi pi-arrow-right" 
         label="Left" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('right')" 
+        (onClick)="showDialog('right')" 
         icon="pi pi-arrow-left" 
         label="Right" 
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button 
-        (click)="showDialog('top-left')" 
+        (onClick)="showDialog('top-left')" 
         icon="pi pi-arrow-down-right" 
         label="TopLeft" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('top')"
+        (onClick)="showDialog('top')"
         icon="pi pi-arrow-down" 
         label="Top" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('top-right')" 
+        (onClick)="showDialog('top-right')" 
         icon="pi pi-arrow-down-left" 
         label="TopRight" 
         severity="secondary" />
 </div>
 <div class="flex flex-wrap gap-2">
     <p-button 
-        (click)="showDialog('bottom-left')" 
+        (onClick)="showDialog('bottom-left')" 
         icon="pi pi-arrow-up-right" 
         label="BottomLeft" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('bottom')" 
+        (onClick)="showDialog('bottom')" 
         icon="pi pi-arrow-up" 
         label="Bottom" 
         severity="secondary" />
     <p-button 
-        (click)="showDialog('bottom-right')" 
+        (onClick)="showDialog('bottom-right')" 
         icon="pi pi-arrow-up-left" 
         label="BottomRight" 
         severity="secondary" />
@@ -120,54 +120,54 @@ export class PositionDoc {
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex justify-content-end gap-2">
-            <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-            <p-button label="Save" (click)="visible = false" />
+            <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+            <p-button label="Save" (onClick)="visible = false" />
         </div>
 </p-dialog>`,
 
         html: `<div class="card flex flex-column align-items-center gap-2">
     <div class="flex flex-wrap gap-2">
         <p-button 
-            (click)="showDialog('left')" 
+            (onClick)="showDialog('left')" 
             icon="pi pi-arrow-right" 
             label="Left" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('right')" 
+            (onClick)="showDialog('right')" 
             icon="pi pi-arrow-left" 
             label="Right" 
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button 
-            (click)="showDialog('top-left')" 
+            (onClick)="showDialog('top-left')" 
             icon="pi pi-arrow-down-right" 
             label="TopLeft" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('top')" 
+            (onClick)="showDialog('top')" 
             icon="pi pi-arrow-down" 
             label="Top" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('top-right')" 
+            (onClick)="showDialog('top-right')" 
             icon="pi pi-arrow-down-left" 
             label="TopRight" 
             severity="secondary" />
     </div>
     <div class="flex flex-wrap gap-2">
         <p-button 
-            (click)="showDialog('bottom-left')" 
+            (onClick)="showDialog('bottom-left')" 
             icon="pi pi-arrow-up-right" 
             label="BottomLeft" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('bottom')" 
+            (onClick)="showDialog('bottom')" 
             icon="pi pi-arrow-up" 
             label="Bottom" 
             severity="secondary" />
         <p-button 
-            (click)="showDialog('bottom-right')" 
+            (onClick)="showDialog('bottom-right')" 
             icon="pi pi-arrow-up-left" 
             label="BottomRight" 
             severity="secondary" />
@@ -194,8 +194,8 @@ export class PositionDoc {
                 <input pInputText id="email" class="flex-auto" autocomplete="off" />
             </div>
             <div class="flex justify-content-end gap-2">
-                <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                <p-button label="Save" (click)="visible = false" />
+                <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+                <p-button label="Save" (onClick)="visible = false" />
             </div>
     </p-dialog>
 </div>`,

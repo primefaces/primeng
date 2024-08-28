@@ -286,13 +286,7 @@ export class Galleria implements OnChanges, OnDestroy {
 
     numVisibleLimit = 0;
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) public platformId: any,
-        public element: ElementRef,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) public platformId: any, public element: ElementRef, public cd: ChangeDetectorRef, public config: PrimeNGConfig) {}
 
     ngAfterContentInit() {
         this.templates?.forEach((item) => {
@@ -509,13 +503,7 @@ export class GalleriaContent implements DoCheck {
 
     private differ: any;
 
-    constructor(
-        public galleria: Galleria,
-        public cd: ChangeDetectorRef,
-        private differs: KeyValueDiffers,
-        public config: PrimeNGConfig,
-        private elementRef: ElementRef
-    ) {
+    constructor(public galleria: Galleria, public cd: ChangeDetectorRef, private differs: KeyValueDiffers, public config: PrimeNGConfig, private elementRef: ElementRef) {
         this.id = this.galleria.id || UniqueComponentId();
         this.differ = this.differs.find(this.galleria).create();
     }
@@ -1029,13 +1017,7 @@ export class GalleriaThumbnails implements OnInit, AfterContentChecked, AfterVie
 
     _oldactiveIndex: number = 0;
 
-    constructor(
-        public galleria: Galleria,
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(public galleria: Galleria, @Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {
         if (isPlatformBrowser(this.platformId)) {

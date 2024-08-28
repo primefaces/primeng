@@ -38,7 +38,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                                 <span class="font-semibold">{{ file.name }}</span>
                                 <div>{{ formatSize(file.size) }}</div>
                                 <p-badge value="Pending" severity="warning" />
-                                <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                                <p-button icon="pi pi-times" (onClick)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
                 <ng-template pTemplate="empty">
                     <div class="flex align-items-center justify-content-center flex-column">
                         <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-                        <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+                        <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
                     </div>
                 </ng-template>
             </p-fileUpload>
@@ -77,10 +77,7 @@ export class TemplateDoc {
 
     totalSizePercent: number = 0;
 
-    constructor(
-        private config: PrimeNGConfig,
-        private messageService: MessageService
-    ) {}
+    constructor(private config: PrimeNGConfig, private messageService: MessageService) {}
 
     choose(event, callback) {
         callback();
@@ -154,7 +151,7 @@ export class TemplateDoc {
                     <span class="font-semibold">{{ file.name }}</span>
                     <div>{{ formatSize(file.size) }}</div>
                     <p-badge value="Pending" severity="warning" />
-                    <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                    <p-button icon="pi pi-times" (onClick)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                 </div>
             </div>
         </div>
@@ -177,7 +174,7 @@ export class TemplateDoc {
     <ng-template pTemplate="empty">
         <div class="flex align-items-center justify-content-center flex-column">
             <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-            <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+            <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
         </div>
     </ng-template>
 </p-fileUpload>`,
@@ -207,7 +204,7 @@ export class TemplateDoc {
                         <span class="font-semibold">{{ file.name }}</span>
                         <div>{{ formatSize(file.size) }}</div>
                         <p-badge value="Pending" severity="warning" />
-                        <p-button icon="pi pi-times" (click)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
+                        <p-button icon="pi pi-times" (onClick)="onRemoveTemplatingFile($event, file, removeFileCallback, index)" [outlined]="true" [rounded]="true" severity="danger" />
                     </div>
                 </div>
             </div>
@@ -230,7 +227,7 @@ export class TemplateDoc {
         <ng-template pTemplate="empty">
             <div class="flex align-items-center justify-content-center flex-column">
                 <i class="pi pi-cloud-upload border-2 border-circle p-5 text-8xl text-400 border-400"></i>
-                <p class="mt-4 mb-0">Drag and drop files to here to upload.</p>
+                <p class="mt-4 mb-0">Drag and drop files here to upload.</p>
             </div>
         </ng-template>
     </p-fileUpload>

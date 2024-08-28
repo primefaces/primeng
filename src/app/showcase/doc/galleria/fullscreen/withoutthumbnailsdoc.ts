@@ -9,7 +9,7 @@ import { PhotoService } from '@service/photoservice';
             <p>Thumbnails can also be hidden in full screen mode.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button icon="pi pi-external-link" label="Show" (click)="displayBasic = true" />
+            <p-button icon="pi pi-external-link" label="Show" (onClick)="displayBasic = true" />
             <p-galleria
                 [(value)]="images"
                 [(visible)]="displayBasic"
@@ -80,7 +80,7 @@ export class WithoutThumbnailsDoc implements OnInit {
     <p-button 
     icon="pi pi-external-link" 
     label="Show" 
-    (click)="displayBasic = true" />
+    (onClick)="displayBasic = true" />
         <p-galleria
             [(value)]="images"
             [(visible)]="displayBasic"

@@ -194,7 +194,7 @@ export const AUTOCOMPLETE_VALUE_ACCESSOR: any = {
                 (onAnimationStart)="onOverlayAnimationStart($event)"
                 (onHide)="hide()"
             >
-                <div [ngClass]="panelClass" [style.max-height]="virtualScroll ? 'auto' : scrollHeight" [ngStyle]="panelStyle" [class]="panelStyleClass">
+                <div [ngClass]="panelClass" [ngStyle]="panelStyles" [class]="panelStyleClass">
                     <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
                     <p-scroller
                         *ngIf="virtualScroll"
@@ -825,6 +825,13 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         };
     }
 
+    get panelStyles() {
+        return {
+            'max-height': this.virtualScroll ? 'auto' : this.scrollHeight,
+            ...this.panelStyle
+        };
+    }
+
     get inputClass() {
         return {
             'p-autocomplete-input p-inputtext p-component': !this.multiple,
@@ -873,15 +880,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         return typeof this.modelValue() === 'string' && this.optionValue;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService,
-        private zone: NgZone
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public config: PrimeNGConfig, public overlayService: OverlayService, private zone: NgZone) {
         effect(() => {
             this.filled = ObjectUtils.isNotEmpty(this.modelValue());
         });
@@ -1101,12 +1100,10 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.updateModel(query);
         }
 
-        if (query.length === 0 && !this.multiple) {
+        if (query.length === 0 && !this.multiple && !this.completeOnFocus) {
             this.onClear.emit();
 
-            setTimeout(() => {
-                this.hide();
-            }, this.delay / 2);
+            this.hide();
         } else {
             if (query.length >= this.minLength) {
                 this.focusedOptionIndex.set(-1);
@@ -1148,6 +1145,7 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
 
         if (!this.dirty && this.completeOnFocus) {
             this.search(event, event.target.value, 'focus');
+            this.show();
         }
         this.dirty = true;
         this.focused = true;
@@ -1369,12 +1367,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
         } else {
             if (this.focusedOptionIndex() !== -1) {
                 this.onOptionSelect(event, this.visibleOptions()[this.focusedOptionIndex()]);
+                event.preventDefault();
             }
 
             this.hide();
         }
-
-        event.preventDefault();
     }
 
     onEscapeKey(event) {
@@ -1459,8 +1456,8 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             return;
         }
 
-        //do not search blank values on input change
-        if (source === 'input' && query.trim().length === 0) {
+        //do not search on input change if minLength is not met
+        if (source === 'input' && query.trim().length < this.minLength) {
             return;
         }
         this.loading = true;
@@ -1553,6 +1550,11 @@ export class AutoComplete implements AfterViewChecked, AfterContentInit, OnDestr
             this.onHide.emit();
             this.cd.markForCheck();
         };
+
+        // Added to adjust the scroller's content position when the dropdown closes.
+        if (this.virtualScroll) {
+            this.scroller.onScrollChange(event);
+        }
 
         setTimeout(() => {
             _hide();

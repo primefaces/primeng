@@ -28,7 +28,7 @@ import { Table } from 'primeng/table';
                 >
                     <ng-template pTemplate="caption">
                         <div class="flex justify-content-between">
-                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+                            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
                             <p-iconField iconPosition="left">
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
@@ -147,11 +147,11 @@ import { Table } from 'primeng/table';
                             </td>
                             <td>
                                 <span class="p-column-title">Date</span>
-                                {{ customer.date | date: 'MM/dd/yyyy' }}
+                                {{ customer.date | date : 'MM/dd/yyyy' }}
                             </td>
                             <td>
                                 <span class="p-column-title">Balance</span>
-                                {{ customer.balance | currency: 'USD' : 'symbol' }}
+                                {{ customer.balance | currency : 'USD' : 'symbol' }}
                             </td>
                             <td>
                                 <span class="p-column-title">Status</span>
@@ -192,10 +192,7 @@ export class CustomersDoc {
 
     searchValue: string | undefined;
 
-    constructor(
-        private customerService: CustomerService,
-        private cd: ChangeDetectorRef
-    ) {}
+    constructor(private customerService: CustomerService, private cd: ChangeDetectorRef) {}
 
     loadDemoData() {
         this.customerService.getCustomersLarge().then((customers) => {
@@ -271,7 +268,7 @@ export class CustomersDoc {
 >
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
             <p-iconField iconPosition="left">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>
@@ -433,7 +430,7 @@ export class CustomersDoc {
     >
     <ng-template pTemplate="caption">
         <div class="flex justify-content-between">
-            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (click)="clear(dt)" />
+            <p-button [outlined]="true" icon="pi pi-filter-slash" label="Clear" (onClick)="clear(dt)" />
             <p-iconField iconPosition="left">
                 <p-inputIcon>
                     <i class="pi pi-search"></i>

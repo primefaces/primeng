@@ -43,14 +43,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
     ]
 })
 export class AppComponent implements OnInit {
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private renderer: Renderer2,
-        private primeng: PrimeNGConfig,
-        private configService: AppConfigService,
-        private router: Router,
-        @Inject(PLATFORM_ID) private platformId: any
-    ) {
+    constructor(@Inject(DOCUMENT) private document: Document, private renderer: Renderer2, private primeng: PrimeNGConfig, private configService: AppConfigService, private router: Router, @Inject(PLATFORM_ID) private platformId: any) {
         afterNextRender(() => {
             if (process.env.NODE_ENV === 'production') {
                 this.injectScripts();

@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>Mask layer behind the Dialog can be turned on by setting the <i>modal</i> property to <i>true</i>.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+            <p-button (onClick)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
             <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
                 <p class="m-0">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -27,7 +27,7 @@ export class ModalDoc {
     }
 
     code: Code = {
-        basic: `<p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+        basic: `<p-button (onClick)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
 <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
     <p class="m-0">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -37,7 +37,7 @@ export class ModalDoc {
 
         html: `
 <div class="card flex justify-content-center">
-    <p-button (click)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
+    <p-button (onClick)="showDialog()" icon="pi pi-external-link" label="Show"></p-button>
     <p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
         <p class="m-0">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

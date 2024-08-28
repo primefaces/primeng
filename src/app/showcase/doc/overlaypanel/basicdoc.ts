@@ -8,7 +8,7 @@ import { Code } from '@domain/code';
             <p>OverlayPanel is accessed via its reference and visibility is controlled using <i>toggle</i>, <i>show</i> and <i>hide</i> methods with an event of the target.</p>
         </app-docsectiontext>
         <div class="card flex justify-content-center">
-            <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+            <p-button (onClick)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
             <p-overlayPanel #op>
                 <div class="flex flex-column gap-3 w-25rem">
                     <div>
@@ -57,7 +57,7 @@ export class BasicDoc {
     ];
 
     code: Code = {
-        basic: `<p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+        basic: `<p-button (onClick)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
     <p-overlayPanel #op>
         <div class="flex flex-column gap-3 w-25rem">
             <div>
@@ -96,7 +96,7 @@ export class BasicDoc {
     </p-overlayPanel>`,
 
         html: `<div class="card flex justify-content-center">
-    <p-button (click)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
+    <p-button (onClick)="op.toggle($event)" icon="pi pi-share-alt" label="Share" />
     <p-overlayPanel #op>
         <div class="flex flex-column gap-3 w-25rem">
             <div>

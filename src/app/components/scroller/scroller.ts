@@ -504,13 +504,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
         return this._columns;
     }
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        @Inject(PLATFORM_ID) private platformId: any,
-        private renderer: Renderer2,
-        private cd: ChangeDetectorRef,
-        private zone: NgZone
-    ) {}
+    constructor(@Inject(DOCUMENT) private document: Document, @Inject(PLATFORM_ID) private platformId: any, private renderer: Renderer2, private cd: ChangeDetectorRef, private zone: NgZone) {}
 
     ngOnInit() {
         this.setInitialState();
@@ -614,6 +608,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                 this.setInitialState();
                 this.setContentEl(this.contentEl);
                 this.init();
+                this.calculateAutoSize();
 
                 this.defaultWidth = DomHandler.getWidth(this.elementViewChild?.nativeElement);
                 this.defaultHeight = DomHandler.getHeight(this.elementViewChild?.nativeElement);
@@ -871,7 +866,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
     }
 
     setSpacerSize() {
-        if (this._items) {
+        if (this._scrollHeight !== '100%' && this._items) {
             const contentPos = this.getContentPosition();
             const setProp = (_name: string, _value: any, _size: number, _cpos: number = 0) => (this.spacerStyle = { ...this.spacerStyle, ...{ [`${_name}`]: (_value || []).length * _size + _cpos + 'px' } });
 
@@ -1074,6 +1069,7 @@ export class Scroller implements OnInit, AfterContentInit, AfterViewChecked, OnD
                         this.defaultContentHeight = DomHandler.getHeight(this.contentEl);
 
                         this.init();
+                        this.calculateAutoSize();
                     });
             }
         }, this._resizeDelay);
