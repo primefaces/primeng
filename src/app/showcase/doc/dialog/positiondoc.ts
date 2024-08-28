@@ -7,23 +7,23 @@ import { Code } from '@domain/code';
         <app-docsectiontext>
             <p>The <i>position</i> property is used to display a Dialog at all edges and corners of the screen.</p>
         </app-docsectiontext>
-        <div class="card flex flex-col items-center gap-2">
-            <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" />
-                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" />
+        <div class="card">
+            <div class="flex flex-wrap justify-center gap-2 mb-2">
+                <p-button (click)="showDialog('left')" icon="pi pi-arrow-right" label="Left" severity="secondary" styleClass="min-w-40"/>
+                <p-button (click)="showDialog('right')" icon="pi pi-arrow-left" label="Right" severity="secondary" styleClass="min-w-40"/>
             </div>
-            <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" />
-                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" />
-                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" />
+            <div class="flex flex-wrap justify-center gap-2 mb-2">
+                <p-button (click)="showDialog('topleft')" icon="pi pi-arrow-down-right" label="TopLeft" severity="secondary" styleClass="min-w-40"/>
+                <p-button (click)="showDialog('top')" icon="pi pi-arrow-down" label="Top" severity="secondary" styleClass="min-w-40"/>
+                <p-button (click)="showDialog('topright')" icon="pi pi-arrow-down-left" label="TopRight" severity="secondary" styleClass="min-w-40"/>
             </div>
-            <div class="flex flex-wrap gap-2">
-                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" />
-                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" />
-                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" />
+            <div class="flex flex-wrap justify-center gap-2">
+                <p-button (click)="showDialog('bottomleft')" icon="pi pi-arrow-up-right" label="BottomLeft" severity="secondary" styleClass="min-w-40"/>
+                <p-button (click)="showDialog('bottom')" icon="pi pi-arrow-up" label="Bottom" severity="secondary" styleClass="min-w-40"/>
+                <p-button (click)="showDialog('bottomright')" icon="pi pi-arrow-up-left" label="BottomRight" severity="secondary" styleClass="min-w-40"/>
             </div>
             <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
-                <span class="p-text-secondary block mb-8">Update your information.</span>
+                <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
                 <div class="flex items-center gap-4 mb-4">
                     <label for="username" class="font-semibold w-24">Username</label>
                     <input pInputText id="username" class="flex-auto" autocomplete="off" />
@@ -52,151 +52,145 @@ export class PositionDoc {
     }
 
     code: Code = {
-        basic: `<div class="flex flex-wrap gap-2">
+        basic: `<div class="flex flex-wrap justify-center gap-2 mb-2">
     <p-button 
         (click)="showDialog('left')" 
         icon="pi pi-arrow-right" 
         label="Left" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
     <p-button 
         (click)="showDialog('right')" 
         icon="pi pi-arrow-left" 
         label="Right" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
 </div>
-<div class="flex flex-wrap gap-2">
+<div class="flex flex-wrap justify-center gap-2 mb-2">
     <p-button 
         (click)="showDialog('topleft')" 
         icon="pi pi-arrow-down-right" 
         label="TopLeft" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
     <p-button 
-        (click)="showDialog('top')"
+        (click)="showDialog('top')" 
         icon="pi pi-arrow-down" 
         label="Top" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
     <p-button 
         (click)="showDialog('topright')" 
         icon="pi pi-arrow-down-left" 
         label="TopRight" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
 </div>
-<div class="flex flex-wrap gap-2">
+<div class="flex flex-wrap justify-center gap-2">
     <p-button 
         (click)="showDialog('bottomleft')" 
         icon="pi pi-arrow-up-right" 
         label="BottomLeft" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
     <p-button 
         (click)="showDialog('bottom')" 
         icon="pi pi-arrow-up" 
         label="Bottom" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
     <p-button 
         (click)="showDialog('bottomright')" 
         icon="pi pi-arrow-up-left" 
         label="BottomRight" 
-        severity="secondary" />
+        severity="secondary" 
+        styleClass="min-w-40"/>
 </div>
-<p-dialog 
-    header="Edit Profile" 
-    [modal]="true"
-    [(visible)]="visible" 
-    [position]="position" 
-    [style]="{ width: '25rem' }">
-        <span class="p-text-secondary block mb-8">
-            Update your information.
-        </span>
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
+    <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
+    <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
+        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+    </div>
+    <div class="flex justify-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="visible = false" />
+    </div>
+</p-dialog>`,
+
+        html: `<div class="card">
+    <div class="flex flex-wrap justify-center gap-2 mb-2">
+        <p-button 
+            (click)="showDialog('left')" 
+            icon="pi pi-arrow-right" 
+            label="Left" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+        <p-button 
+            (click)="showDialog('right')" 
+            icon="pi pi-arrow-left" 
+            label="Right" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+    </div>
+    <div class="flex flex-wrap justify-center gap-2 mb-2">
+        <p-button 
+            (click)="showDialog('topleft')" 
+            icon="pi pi-arrow-down-right" 
+            label="TopLeft" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+        <p-button 
+            (click)="showDialog('top')" 
+            icon="pi pi-arrow-down" 
+            label="Top" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+        <p-button 
+            (click)="showDialog('topright')" 
+            icon="pi pi-arrow-down-left" 
+            label="TopRight" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+    </div>
+    <div class="flex flex-wrap justify-center gap-2">
+        <p-button 
+            (click)="showDialog('bottomleft')" 
+            icon="pi pi-arrow-up-right" 
+            label="BottomLeft" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+        <p-button 
+            (click)="showDialog('bottom')" 
+            icon="pi pi-arrow-up" 
+            label="Bottom" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+        <p-button 
+            (click)="showDialog('bottomright')" 
+            icon="pi pi-arrow-up-left" 
+            label="BottomRight" 
+            severity="secondary" 
+            styleClass="min-w-40"/>
+    </div>
+    <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [position]="position" [style]="{ width: '25rem' }">
+        <span class="text-surface-500 dark:text-surface-400 block mb-8">Update your information.</span>
         <div class="flex items-center gap-4 mb-4">
-            <label for="username" class="font-semibold w-24">
-                Username
-            </label>
+            <label for="username" class="font-semibold w-24">Username</label>
             <input pInputText id="username" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex items-center gap-4 mb-8">
-            <label for="email" class="font-semibold w-24">
-                Email
-            </label>
+            <label for="email" class="font-semibold w-24">Email</label>
             <input pInputText id="email" class="flex-auto" autocomplete="off" />
         </div>
         <div class="flex justify-end gap-2">
             <p-button label="Cancel" severity="secondary" (click)="visible = false" />
             <p-button label="Save" (click)="visible = false" />
         </div>
-</p-dialog>`,
-
-        html: `<div class="card flex flex-col items-center gap-2">
-    <div class="flex flex-wrap gap-2">
-        <p-button 
-            (click)="showDialog('left')" 
-            icon="pi pi-arrow-right" 
-            label="Left" 
-            severity="secondary" />
-        <p-button 
-            (click)="showDialog('right')" 
-            icon="pi pi-arrow-left" 
-            label="Right" 
-            severity="secondary" />
-    </div>
-    <div class="flex flex-wrap gap-2">
-        <p-button 
-            (click)="showDialog('topleft')" 
-            icon="pi pi-arrow-down-right" 
-            label="TopLeft" 
-            severity="secondary" />
-        <p-button 
-            (click)="showDialog('top')" 
-            icon="pi pi-arrow-down" 
-            label="Top" 
-            severity="secondary" />
-        <p-button 
-            (click)="showDialog('topright')" 
-            icon="pi pi-arrow-down-left" 
-            label="TopRight" 
-            severity="secondary" />
-    </div>
-    <div class="flex flex-wrap gap-2">
-        <p-button 
-            (click)="showDialog('bottomleft')" 
-            icon="pi pi-arrow-up-right" 
-            label="BottomLeft" 
-            severity="secondary" />
-        <p-button 
-            (click)="showDialog('bottom')" 
-            icon="pi pi-arrow-up" 
-            label="Bottom" 
-            severity="secondary" />
-        <p-button 
-            (click)="showDialog('bottomright')" 
-            icon="pi pi-arrow-up-left" 
-            label="BottomRight" 
-            severity="secondary" />
-    </div>
-    <p-dialog 
-        header="Edit Profile" 
-        [modal]="true"
-        [(visible)]="visible" 
-        [position]="position" 
-        [style]="{ width: '25rem' }">
-            <span class="p-text-secondary block mb-8">
-                Update your information.
-            </span>
-            <div class="flex items-center gap-4 mb-4">
-                <label for="username" class="font-semibold w-24">
-                    Username
-                </label>
-                <input pInputText id="username" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex items-center gap-4 mb-8">
-                <label for="email" class="font-semibold w-24">
-                    Email
-                </label>
-                <input pInputText id="email" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex justify-end gap-2">
-                <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-                <p-button label="Save" (click)="visible = false" />
-            </div>
     </p-dialog>
 </div>`,
 
