@@ -16,7 +16,7 @@ interface UploadEvent {
                 tracking and validations.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center">
+        <div class="card">
             <p-toast />
             <p-fileUpload
                 name="demo[]"
@@ -28,7 +28,7 @@ interface UploadEvent {
                 mode="advanced"
             >
                 <ng-template pTemplate="empty">
-                    <div class="py-4">Drag and drop files to here to upload.</div>
+                    <div>Drag and drop files to here to upload.</div>
                 </ng-template>
                 <ng-template pTemplate="content">
                     <ul *ngIf="uploadedFiles.length">
@@ -65,7 +65,7 @@ export class AdvancedDoc {
     mode="advanced"
 >
     <ng-template pTemplate="empty">
-        <div class="py-4">Drag and drop files to here to upload.</div>
+        <div>Drag and drop files to here to upload.</div>
     </ng-template>
     <ng-template pTemplate="content">
         <ul *ngIf="uploadedFiles.length">
@@ -73,7 +73,7 @@ export class AdvancedDoc {
         </ul>
     </ng-template>
 </p-fileUpload>`,
-        html: `<div class="card flex justify-center">
+        html: `<div class="card">
     <p-toast />
     <p-fileUpload
         name="demo[]"
@@ -85,7 +85,7 @@ export class AdvancedDoc {
         mode="advanced"
     >
         <ng-template pTemplate="empty">
-            <div class="py-4">Drag and drop files to here to upload.</div>
+            <div>Drag and drop files to here to upload.</div>
         </ng-template>
         <ng-template pTemplate="content">
             <ul *ngIf="uploadedFiles.length">
