@@ -395,7 +395,7 @@ export class TableService {
             </span>
         </div>
     `,
-    providers: [TableService],
+    providers: [TableService, DataTableStyle],
     changeDetection: ChangeDetectionStrategy.Default,
     encapsulation: ViewEncapsulation.None,
 })
