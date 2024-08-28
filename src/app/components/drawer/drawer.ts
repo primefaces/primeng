@@ -93,9 +93,9 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
                     </div>
 
-                    <ng-container *ngIf="footerTemplate">
+                    <ng-container *ngIf="_footerTemplate">
                         <div [ngClass]="cx('footer')" [attr.data-pc-section]="'footer'">
-                            <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
+                            <ng-container *ngTemplateOutlet="_footerTemplate"></ng-container>
                         </div>
                     </ng-container>
                 </ng-template>
