@@ -7,13 +7,27 @@ import { ContextMenu } from 'primeng/contextmenu';
     selector: 'context-menu-template-demo',
     template: `
         <app-docsectiontext>
-            <p>ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance from the model as a parameter.</p>
+            <p>
+                ContextMenu offers item customization with the <i>item</i> template that receives the menuitem instance
+                from the model as a parameter.
+            </p>
         </app-docsectiontext>
         <div class="card flex md:justify-center">
-            <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-                <li *ngFor="let product of data" class="p-2 hover:bg-emphasis rounded-border border border-transparent transition-all duration-200" (contextmenu)="onContextMenu($event)">
+            <ul
+                class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]"
+            >
+                <li
+                    *ngFor="let product of data"
+                    class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                    [ngClass]="{ 'border-primary': selectedId === product.id }"
+                    (contextmenu)="onContextMenu($event)"
+                >
                     <div class="flex flex-wrap p-2 items-center gap-4">
-                        <img class="w-16 shrink-0 rounded-border" src="https://primefaces.org/cdn/primeng/images/{{ product.image }}" alt="product.name" />
+                        <img
+                            class="w-16 shrink-0 rounded"
+                            src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                            [alt]="product.name"
+                        />
                         <div class="flex-1 flex flex-col gap-1">
                             <span class="font-bold">{{ product.name }}</span>
                             <div class="flex items-center gap-2">
@@ -21,18 +35,22 @@ import { ContextMenu } from 'primeng/contextmenu';
                                 <span>{{ product.category }}</span>
                             </div>
                         </div>
-                        <span class="font-bold text-surface-900 dark:text-surface-0 ml-8">&#36;{{ product.price }}</span>
+                        <span class="font-bold ml-8">&#36;{{ product.price }}</span>
                     </div>
                 </li>
             </ul>
 
             <p-contextMenu #cm [model]="items" (onHide)="onHide()">
                 <ng-template pTemplate="item" let-item>
-                    <a pRipple class="flex items-center p-menuitem-link">
-                        <span class="item.icon"></span>
+                    <a pRipple class="flex items-center p-contextmenu-item-link">
+                        <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
+                        <span
+                            *ngIf="item.shortcut"
+                            class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                            >{{ item.shortcut }}</span
+                        >
                         <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
@@ -40,7 +58,7 @@ import { ContextMenu } from 'primeng/contextmenu';
         </div>
 
         <app-code [code]="code" selector="context-menu-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -60,7 +78,7 @@ export class TemplateDoc implements OnInit {
             category: 'Accessories',
             quantity: 24,
             inventoryStatus: 'INSTOCK',
-            rating: 5
+            rating: 5,
         },
         {
             id: '1001',
@@ -72,7 +90,7 @@ export class TemplateDoc implements OnInit {
             category: 'Accessories',
             quantity: 61,
             inventoryStatus: 'INSTOCK',
-            rating: 4
+            rating: 4,
         },
         {
             id: '1002',
@@ -84,7 +102,7 @@ export class TemplateDoc implements OnInit {
             category: 'Fitness',
             quantity: 2,
             inventoryStatus: 'LOWSTOCK',
-            rating: 3
+            rating: 3,
         },
         {
             id: '1003',
@@ -96,7 +114,7 @@ export class TemplateDoc implements OnInit {
             category: 'Clothing',
             quantity: 25,
             inventoryStatus: 'INSTOCK',
-            rating: 5
+            rating: 5,
         },
         {
             id: '1004',
@@ -108,8 +126,8 @@ export class TemplateDoc implements OnInit {
             category: 'Accessories',
             quantity: 73,
             inventoryStatus: 'INSTOCK',
-            rating: 4
-        }
+            rating: 4,
+        },
     ];
 
     ngOnInit() {
@@ -117,15 +135,15 @@ export class TemplateDoc implements OnInit {
             {
                 label: 'Favorite',
                 icon: 'pi pi-star',
-                shortcut: '⌘+D'
+                shortcut: '⌘+D',
             },
             {
                 label: 'Add',
                 icon: 'pi pi-shopping-cart',
-                shortcut: '⌘+A'
+                shortcut: '⌘+A',
             },
             {
-                separator: true
+                separator: true,
             },
             {
                 label: 'Share',
@@ -134,15 +152,15 @@ export class TemplateDoc implements OnInit {
                     {
                         label: 'Whatsapp',
                         icon: 'pi pi-whatsapp',
-                        badge: '2'
+                        badge: '2',
                     },
                     {
                         label: 'Instagram',
                         icon: 'pi pi-instagram',
-                        badge: '3'
-                    }
-                ]
-            }
+                        badge: '3',
+                    },
+                ],
+            },
         ];
     }
 
@@ -156,86 +174,88 @@ export class TemplateDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-    <li 
-        *ngFor="let product of data" 
-        class="p-2 hover:bg-emphasis rounded-border border border-transparent transition-all duration-200" 
-        (contextmenu)="onContextMenu($event)">
-            <div class="flex flex-wrap p-2 items-center gap-4">
-                <img 
-                    class="w-16 shrink-0 rounded-border" 
-                    src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}" 
-                    alt="product.name" />
-                <div class="flex-1 flex flex-col gap-1">
-                    <span class="font-bold">
-                        {{ product.name }}
-                    </span>
-                    <div class="flex items-center gap-2">
-                        <i class="pi pi-tag text-sm"></i>
-                        <span>
-                            {{ product.category }}
-                        </span>
-                    </div>
+        basic: `<ul
+    class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]"
+>
+    <li
+        *ngFor="let product of data"
+        class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+        [ngClass]="{ 'border-primary': selectedId === product.id }"
+        (contextmenu)="onContextMenu($event)"
+    >
+        <div class="flex flex-wrap p-2 items-center gap-4">
+            <img
+                class="w-16 shrink-0 rounded"
+                src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                [alt]="product.name"
+            />
+            <div class="flex-1 flex flex-col gap-1">
+                <span class="font-bold">{{ product.name }}</span>
+                <div class="flex items-center gap-2">
+                    <i class="pi pi-tag text-sm"></i>
+                    <span>{{ product.category }}</span>
                 </div>
-                <span class="font-bold text-surface-900 dark:text-surface-0 ml-8">
-                &#36;{{ product.price }}
-                </span>
             </div>
+            <span class="font-bold ml-8">&#36;{{ product.price }}</span>
+        </div>
     </li>
 </ul>
 
 <p-contextMenu #cm [model]="items" (onHide)="onHide()">
     <ng-template pTemplate="item" let-item>
-        <a pRipple class="flex items-center p-menuitem-link">
-            <span class="item.icon"></span>
+        <a pRipple class="flex items-center p-contextmenu-item-link">
+            <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
-                {{ item.shortcut }}
-            </span>
+            <span
+                *ngIf="item.shortcut"
+                class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                >{{ item.shortcut }}</span
+            >
             <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
 </p-contextMenu>`,
 
-        html: `<div class="card flex justify-center">
-    <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-        <li 
-            *ngFor="let product of data" 
-            class="p-2 hover:bg-emphasis rounded-border border border-transparent transition-all duration-200" 
-            (contextmenu)="onContextMenu($event)">
+        html: `<div class="card flex md:justify-center">
+    <ul
+        class="m-0 p-0 list-none border border-surface-200 dark:border-surface-700 rounded p-4 flex flex-col gap-2 w-full md:w-[30rem]"
+    >
+            <li
+                *ngFor="let product of data"
+                class="p-2 hover:bg-surface-100 dark:hover:bg-surface-800 rounded border border-transparent transition-all transition-duration-200"
+                [ngClass]="{ 'border-primary': selectedId === product.id }"
+                (contextmenu)="onContextMenu($event)"
+            >
                 <div class="flex flex-wrap p-2 items-center gap-4">
-                    <img 
-                        class="w-16 shrink-0 rounded-border" 
-                        src="https://primefaces.org/cdn/primeng/images/product/{{ product.image }}" 
-                        alt="product.name" />
-                        <div class="flex-1 flex flex-col gap-1">
-                            <span class="font-bold">
-                                {{ product.name }}
-                            </span>
-                            <div class="flex items-center gap-2">
-                                <i class="pi pi-tag text-sm"></i>
-                                <span>
-                                    {{ product.category }}
-                                </span>
-                            </div>
+                    <img
+                        class="w-16 shrink-0 rounded"
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                        [alt]="product.name"
+                    />
+                    <div class="flex-1 flex flex-col gap-1">
+                        <span class="font-bold">{{ product.name }}</span>
+                        <div class="flex items-center gap-2">
+                            <i class="pi pi-tag text-sm"></i>
+                            <span>{{ product.category }}</span>
                         </div>
-                        <span class="font-bold text-surface-900 dark:text-surface-0 ml-8">
-                        &#36;{{ product.price }}
-                        </span>
+                    </div>
+                    <span class="font-bold ml-8">&#36;{{ product.price }}</span>
                 </div>
-        </li>
-    </ul>
+            </li>
+        </ul>
 
     <p-contextMenu #cm [model]="items" (onHide)="onHide()">
         <ng-template pTemplate="item" let-item>
-            <a pRipple class="flex items-center p-menuitem-link">
-                <span class="item.icon"></span>
+            <a pRipple class="flex items-center p-contextmenu-item-link">
+                <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
-                    {{ item.shortcut }}
-                </span>
+                <span
+                    *ngIf="item.shortcut"
+                    class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1"
+                    >{{ item.shortcut }}</span
+                >
                 <i *ngIf="item.items" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
@@ -248,13 +268,13 @@ import { MenuItem } from 'primeng/api';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { CommonModule } from '@angular/common';
 import { RippleModule } from 'primeng/ripple';
-
+import { BadgeModule } from 'primeng/badge';
 
 @Component({
     selector: 'context-menu-template-demo',
     templateUrl: './context-menu-template-demo.html',
     standalone: true,
-    imports: [ContextMenuModule, CommonModule, RippleModule]
+    imports: [ContextMenuModule, CommonModule, RippleModule, BadgeModule]
 })
 export class ContextMenuTemplateDemo implements OnInit {
     items: MenuItem[] | undefined;
@@ -368,6 +388,6 @@ export class ContextMenuTemplateDemo implements OnInit {
     onHide() {
         this.selectedId = undefined;
     }
-}`
+}`,
     };
 }
