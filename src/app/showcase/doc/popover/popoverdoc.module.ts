@@ -17,10 +17,24 @@ import { AccessibilityDoc } from './accessibilitydoc';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ChipsModule } from 'primeng/chips';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, OverlayPanelModule, ButtonModule, TableModule, ToastModule, AppDocModule, InputGroupModule, InputGroupAddonModule, ChipsModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        OverlayPanelModule,
+        ButtonModule,
+        TableModule,
+        ToastModule,
+        AppDocModule,
+        InputGroupModule,
+        InputGroupAddonModule,
+        ChipsModule,
+        InputTextModule,
+    ],
     declarations: [BasicDoc, ImportDoc, StyleDoc, DataTableDoc, TemplateDoc, TargetDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class PopoverDocModule {}
