@@ -8,10 +8,7 @@ import { Code } from '@domain/code';
             <p>Drawer can cover the whole page when <i>fullScreen</i> property is enabled.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-drawer [(visible)]="visible" [fullScreen]="true">
-                <ng-template pTemplate="header">
-                    <span class="font-semibold text-xl">Drawer</span>
-                </ng-template>
+            <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
                     consequat.
@@ -26,12 +23,7 @@ export class FullScreenDoc {
     visible: boolean = false;
 
     code: Code = {
-        basic: `<p-drawer [(visible)]="visible" [fullScreen]="true">
-        <ng-template pTemplate="header">
-            <span class="font-semibold text-xl">
-                Drawer
-            </span>
-        </ng-template>
+        basic: `<p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit...
         </p>
@@ -39,12 +31,7 @@ export class FullScreenDoc {
 <p-button (click)="visible = true" icon="pi pi-window-maximize" />`,
 
         html: `<div class="card flex justify-center">
-    <p-drawer [(visible)]="visible" [fullScreen]="true">
-        <ng-template pTemplate="header">
-            <span class="font-semibold text-xl">
-                Drawer
-            </span>
-        </ng-template>
+    <p-drawer header="Drawer" [(visible)]="visible" [fullScreen]="true">
         <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
             consequat.
