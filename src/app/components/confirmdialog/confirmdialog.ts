@@ -90,7 +90,7 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             <ng-template pTemplate="content">
                 @if(iconTemplate) {
                 <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
-                } @else {
+                } @else if(!iconTemplate && !messageTemplate) {
                 <i [ngClass]="cx('icon')" [class]="option('icon')" *ngIf="option('icon')"></i>
                 } @if(messageTemplate) {
                 <ng-template *ngTemplateOutlet="messageTemplate; context: { $implicit: confirmation }"></ng-template>
