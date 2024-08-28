@@ -12,11 +12,11 @@ import { ConfirmPopup } from 'primeng/confirmpopup';
             <p-toast />
             <p-confirmPopup #confirmPopupRef>
                 <ng-template pTemplate="headless" let-message let-test>
-                    <div class="rounded-border p-4">
+                    <div class="rounded p-4">
                         <span>{{ message.message }}</span>
                         <div class="flex items-center gap-2 mt-4">
                             <p-button (click)="accept()" label="Save" size="small" />
-                            <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
+                            <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                         </div>
                     </div>
                 </ng-template>
@@ -60,11 +60,11 @@ export class HeadlessDoc {
         basic: `<p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="rounded-border p-4">
+            <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
                     <p-button (click)="accept()" label="Save" size="small" />
-                    <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
+                    <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>
         </ng-template>
@@ -75,11 +75,11 @@ export class HeadlessDoc {
     <p-toast />
     <p-confirmPopup #confirmPopupRef>
         <ng-template pTemplate="headless" let-message let-test>
-            <div class="rounded-border p-4">
+            <div class="rounded p-4">
                 <span>{{ message.message }}</span>
                 <div class="flex items-center gap-2 mt-4">
                     <p-button (click)="accept()" label="Save" size="small" />
-                    <p-button (click)="reject()" label="Cancel" [outlined]="true" size="small" />
+                    <p-button (click)="reject()" label="Cancel" [text]="true" size="small" severity="secondary" />
                 </div>
             </div>
         </ng-template>

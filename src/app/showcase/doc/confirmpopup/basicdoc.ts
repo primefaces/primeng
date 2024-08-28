@@ -29,6 +29,14 @@ export class BasicDoc {
             target: event.target as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Save'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
@@ -43,7 +51,15 @@ export class BasicDoc {
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass: 'p-button-danger',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
             },
@@ -101,6 +117,14 @@ export class ConfirmPopupBasicDemo {
             target: event.target as EventTarget,
             message: 'Are you sure you want to proceed?',
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Save'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
@@ -115,7 +139,15 @@ export class ConfirmPopupBasicDemo {
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass: 'p-button-danger',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
             },
