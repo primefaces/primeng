@@ -19,7 +19,7 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { DomHandler } from 'primeng/dom';
@@ -55,11 +55,18 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             [attr.data-pc-section]="'mask'"
             (click)="maskClickListener($event)"
         >
-            <div [ngClass]="cx('root')" [class]="styleClass" [attr.data-pc-section]="'root'" (keydown)="onKeyDown($event)">
+            <div
+                [ngClass]="cx('root')"
+                [class]="styleClass"
+                [style]="style"
+                [attr.data-pc-section]="'root'"
+                (keydown)="onKeyDown($event)"
+            >
                 <ng-container *ngTemplateOutlet="_headlessTemplate || notHeadless"></ng-container>
                 <ng-template #notHeadless>
                     <div [ngClass]="cx('header')" [attr.data-pc-section]="'header'">
                         <ng-container *ngTemplateOutlet="_headerTemplate"></ng-container>
+                        <div *ngIf="header" [class]="cx('title')">{{ header }}</div>
                         <p-button
                             *ngIf="showCloseIcon"
                             [ngClass]="cx('closeButton')"
@@ -71,7 +78,11 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                             [attr.data-pc-group-section]="'iconcontainer'"
                         >
                             <TimesIcon *ngIf="!closeIconTemplate" [attr.data-pc-section]="'closeicon'" />
-                            <span *ngIf="closeIconTemplate" class="p-sidebar-close-icon" [attr.data-pc-section]="'closeicon'">
+                            <span
+                                *ngIf="closeIconTemplate"
+                                class="p-sidebar-close-icon"
+                                [attr.data-pc-section]="'closeicon'"
+                            >
                                 <ng-template *ngTemplateOutlet="closeIconTemplate"></ng-template>
                             </span>
                         </p-button>
@@ -91,10 +102,15 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
             </div>
         </div>
     `,
-    animations: [trigger('panelState', [transition('void => visible', [useAnimation(showAnimation)]), transition('visible => void', [useAnimation(hideAnimation)])])],
+    animations: [
+        trigger('panelState', [
+            transition('void => visible', [useAnimation(showAnimation)]),
+            transition('visible => void', [useAnimation(hideAnimation)]),
+        ]),
+    ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [DrawerStyle]
+    providers: [DrawerStyle],
 })
 export class Drawer extends BaseComponent implements AfterViewInit, AfterContentInit, OnDestroy {
     /**
@@ -141,7 +157,7 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
      * Used to pass all properties of the ButtonProps to the Button component.
      * @group Props
      */
-    @Input() closeButtonProps: ButtonProps;
+    @Input() closeButtonProps: ButtonProps = { severity: 'secondary', text: true, rounded: true };
     /**
      * Whether to dismiss drawer on click of the mask.
      * @group Props
@@ -209,8 +225,13 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
         if (value) this.transformOptions = 'none';
     }
+    /**
+     * Title content of the dialog.
+     * @group Props
+     */
+    @Input() header: string | undefined;
 
-    @Input() maskStyle: any;
+    @Input() maskStyle: { [klass: string]: any } | null | undefined;
 
     @ContentChildren(PrimeTemplate) templates: QueryList<PrimeTemplate> | undefined;
     /**
@@ -373,7 +394,9 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 
     appendContainer() {
         if (this.appendTo) {
-            return this.appendTo === 'body' ? this.renderer.appendChild(this.document.body, this.container) : DomHandler.appendChild(this.container, this.appendTo);
+            return this.appendTo === 'body'
+                ? this.renderer.appendChild(this.document.body, this.container)
+                : DomHandler.appendChild(this.container, this.appendTo);
         }
     }
 
@@ -421,6 +444,6 @@ export class Drawer extends BaseComponent implements AfterViewInit, AfterContent
 @NgModule({
     imports: [CommonModule, RippleModule, SharedModule, TimesIcon, ButtonModule],
     exports: [Drawer, SharedModule],
-    declarations: [Drawer]
+    declarations: [Drawer],
 })
 export class DrawerModule {}
