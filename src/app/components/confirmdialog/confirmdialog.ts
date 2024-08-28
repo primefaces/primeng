@@ -108,14 +108,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     (onClick)="onReject()"
                     [styleClass]="cx('pcRejectButton', option('rejectButtonStyleClass'))"
                     [ariaLabel]="option('rejectButtonProps', 'ariaLabel')"
-                    [buttonProps]="option('acceptButtonProps')"
+                    [buttonProps]="getRejectButtonProps()"
                 >
-                    @if(!rejectIconTemplate) {
+                    @if(rejectIcon) {
                     <i *ngIf="option('rejectIcon')" [class]="option('rejectIcon')"></i>
-                    <TimesIcon *ngIf="!option('rejectIcon')" />
-                    } @else {
-                    <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
                     }
+                    <ng-template *ngTemplateOutlet="rejectIconTemplate"></ng-template>
                 </p-button>
                 <p-button
                     [label]="acceptButtonLabel"
@@ -123,14 +121,12 @@ const hideAnimation = animation([animate('{{transition}}', style({ transform: '{
                     [styleClass]="cx('pcAcceptButton', option('acceptButtonStyleClass'))"
                     *ngIf="option('acceptVisible')"
                     [ariaLabel]="option('acceptButtonProps', 'ariaLabel')"
-                    [buttonProps]="option('acceptButtonProps')"
+                    [buttonProps]="getAcceptButtonProps()"
                 >
-                    @if(!acceptIconTemplate) {
+                    @if(acceptIcon) {
                     <i *ngIf="option('acceptIcon')" [class]="option('acceptIcon')"></i>
-                    <CheckIcon *ngIf="!option('acceptIcon')" />
-                    } @else {
-                    <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
                     }
+                    <ng-template *ngTemplateOutlet="acceptIconTemplate"></ng-template>
                 </p-button>
                 }
             </ng-template>
@@ -599,17 +595,12 @@ export class ConfirmDialog extends BaseComponent implements AfterContentInit, On
         return this.option('rejectLabel') || this.config.getTranslation(TranslationKeys.REJECT);
     }
 
-    get acceptButtonProps() {
-        return this.option('acceptButtonProps') || undefined;
+    getAcceptButtonProps() {
+        return this.option('acceptButtonProps');
     }
 
-    get rejectButtonProps() {
-        return (
-            this.option('rejectButtonProps') || {
-                severity: 'secondary',
-                outlined: true,
-            }
-        );
+    getRejectButtonProps() {
+        return this.option('rejectButtonProps');
     }
 }
 
