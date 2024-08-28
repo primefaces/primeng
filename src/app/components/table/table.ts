@@ -4170,7 +4170,7 @@ export class EditableColumn implements OnChanges, AfterViewInit, OnDestroy {
 
     public ngOnChanges(changes: SimpleChanges): void {
         if (changes.pEditableColumnDisabled?.currentValue === true && DomHandler.hasClass(this.el.nativeElement, 'p-cell-editing')) {
-            this.closeEditingCell(false, new Event('cancel'))
+            this.closeEditingCell(false, new Event('cancel'));
         } else if (changes.data?.firstChange === false && this.el.nativeElement) {
             this.dt.updateEditingCell(this.el.nativeElement, this.data, this.field, <number>this.rowIndex);
         }
