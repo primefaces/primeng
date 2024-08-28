@@ -1836,13 +1836,11 @@ export class Calendar implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     isYearSelected(year: number) {
-        if (this.isComparable()) {
-            let value = this.isRangeSelection() ? this.value[0] : this.value;
+        if (!this.isComparable()) return false;
+        if (this.isMultipleSelection()) return false;
 
-            return !this.isMultipleSelection() ? value.getFullYear() === year : false;
-        }
-
-        return false;
+        let value = this.isRangeSelection() ? this.value[0] : this.value; 
+        return value ? value.getFullYear() === year : false;
     }
 
     isDateEquals(value: any, dateMeta: any) {
