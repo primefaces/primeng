@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
             <p-badge value="6" severity="secondary" />
             <p-badge value="8" severity="success" />
             <p-badge value="4" severity="info" />
-            <p-badge value="12" severity="warn" />
+            <p-badge value="9" severity="warn" />
             <p-badge value="3" severity="danger" />
             <p-badge value="5" severity="contrast" />
         </div>
@@ -26,7 +26,7 @@ export class SeverityDoc {
     <p-badge [value]="2" severity="success" />
     <p-badge [value]="9" severity="info" />
     <p-badge [value]="3" severity="warn" />
-    <p-badge [value]="12" severity="danger" />
+    <p-badge [value]="9" severity="danger" />
 </div>`,
         typescript: `import { Component } from '@angular/core';
 import { BadgeModule } from 'primeng/badge';
