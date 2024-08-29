@@ -5,14 +5,14 @@ import { Code } from '@domain/code';
     selector: 'severity-doc',
     template: `
         <app-docsectiontext>
-            <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warning</i> and <i>danger</i> in addition to the default theme color.</p>
+            <p>Severity defines the color of the tag, possible values are <i>success</i>, <i>info</i>, <i>warn</i> and <i>danger</i> in addition to the default theme color.</p>
         </app-docsectiontext>
         <div class="card flex justify-center gap-2">
             <p-tag value="Primary" />
             <p-tag severity="success" value="Success" />
             <p-tag severity="secondary" value="Secondary" />
             <p-tag severity="info" value="Info" />
-            <p-tag severity="warning" value="Warning" />
+            <p-tag severity="warn" value="Warning" />
             <p-tag severity="danger" value="Danger" />
             <p-tag severity="contrast" value="Contrast" />
         </div>
@@ -27,7 +27,7 @@ export class SeverityDoc {
     <p-tag severity="success" value="Success"/>
     <p-tag severity="secondary" value="Secondary"/>
     <p-tag severity="info" value="Info"/>
-    <p-tag severity="warning" value="Warning"/>
+    <p-tag severity="warn" value="Warning"/>
     <p-tag severity="danger" value="Danger"/>
     <p-tag severity="contrast" value="Contrast"/>
 </div>`,
