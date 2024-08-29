@@ -11,8 +11,8 @@ import { Code } from '@domain/code';
         <div class="card flex justify-center">
             <p-toast />
             <div class="flex flex-wrap gap-2">
-                <p-button pRipple (click)="show()" severity="success" label="Sticky" />
-                <p-button pRipple (click)="clear()" label="Clear" />
+                <p-button pRipple (click)="show()" label="Sticky" />
+                <p-button pRipple (click)="clear()" severity="secondary" label="Clear" />
             </div>
         </div>
         <app-code [code]="code" selector="toast-sticky-demo"></app-code>
@@ -36,25 +36,25 @@ export class StickyDoc {
     <p-button 
         pRipple 
         (click)="show()" 
-        severity="success" 
         label="Sticky" />
     <p-button 
         pRipple 
         (click)="clear()" 
-        label="Clear" />
+        label="Clear"
+        severity="secondary" />
 </div>`,
         html: `<div class="card flex justify-center">
     <p-toast />
     <div class="flex flex-wrap gap-2">
         <p-button 
             pRipple 
-            (click)="show()" 
-            severity="success" 
+            (click)="show()"
             label="Sticky" />
         <p-button 
             pRipple 
             (click)="clear()" 
-            label="Clear" />
+            label="Clear"
+            severity="secondary" />
     </div>
 </div>`,
         typescript: `import { Component } from '@angular/core';
