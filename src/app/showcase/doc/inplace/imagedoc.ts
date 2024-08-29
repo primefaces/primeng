@@ -12,7 +12,7 @@ import { Code } from '@domain/code';
                 <ng-template pTemplate="display">
                     <div class="inline-flex items-center">
                         <span class="pi pi-image" style="vertical-align: middle"></span>
-                        <span class="ml-2">View Picture</span>
+                        <span class="ml-2">View Photo</span>
                     </div>
                 </ng-template>
                 <ng-template pTemplate="content">
@@ -29,7 +29,7 @@ export class ImageDoc {
     <ng-template pTemplate="display">
         <div class="inline-flex items-center">
             <span class="pi pi-image" style="vertical-align: middle"></span>
-            <span class="ml-2">View Picture</span>
+            <span class="ml-2">View Photo</span>
         </div>
     </ng-template>
     <ng-template pTemplate="content">
@@ -43,7 +43,7 @@ export class ImageDoc {
         <ng-template pTemplate="display">
             <div class="inline-flex items-center">
                 <span class="pi pi-image" style="vertical-align: middle"></span>
-                <span class="ml-2">View Picture</span>
+                <span class="ml-2">View Photo</span>
             </div>
         </ng-template>
         <ng-template pTemplate="content">
