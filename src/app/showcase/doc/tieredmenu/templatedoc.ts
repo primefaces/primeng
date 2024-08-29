@@ -15,8 +15,8 @@ import { Code } from '@domain/code';
                         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
-                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
+                        <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
                     </a>
                 </ng-template>
             </p-tieredMenu>
@@ -116,10 +116,10 @@ export class TemplateDoc implements OnInit {
     <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
                 {{ item.shortcut }}
             </span>
-            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+            <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
         </a>
     </ng-template>
 </p-tieredMenu>`,
@@ -131,10 +131,10 @@ export class TemplateDoc implements OnInit {
         <span [class]="item.icon" class="p-tieredmenu-item-icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" class="ml-auto" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">
                     {{ item.shortcut }}
                 </span>
-                <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto text-primary"></i>
+                <i *ngIf="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
             </a>
         </ng-template>
     </p-tieredMenu>
