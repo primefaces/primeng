@@ -19,9 +19,17 @@ import {
     ViewEncapsulation,
     booleanAttribute,
     inject,
-    numberAttribute
+    numberAttribute,
 } from '@angular/core';
-import { Confirmation, ConfirmationService, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import {
+    Confirmation,
+    ConfirmationService,
+    OverlayService,
+    PrimeNGConfig,
+    PrimeTemplate,
+    SharedModule,
+    TranslationKeys,
+} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { Nullable, VoidListener } from 'primeng/ts-helpers';
@@ -43,7 +51,10 @@ import { BaseComponent } from 'primeng/basecomponent';
             [class]="styleClass"
             role="alertdialog"
             (click)="onOverlayClick($event)"
-            [@animation]="{ value: 'open', params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions } }"
+            [@animation]="{
+                value: 'open',
+                params: { showTransitionParams: showTransitionOptions, hideTransitionParams: hideTransitionOptions }
+            }"
             (@animation.start)="onAnimationStart($event)"
             (@animation.done)="onAnimationEnd($event)"
         >
@@ -53,10 +64,16 @@ import { BaseComponent } from 'primeng/basecomponent';
             <ng-template #notHeadless>
                 <div #content class="p-confirmpopup-content">
                     <ng-container *ngIf="contentTemplate; else withoutContentTemplate">
-                        <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"></ng-container>
+                        <ng-container
+                            *ngTemplateOutlet="contentTemplate; context: { $implicit: confirmation }"
+                        ></ng-container>
                     </ng-container>
                     <ng-template #withoutContentTemplate>
-                        <i [ngClass]="'p-confirmpopup-icon'" [class]="confirmation?.icon" *ngIf="confirmation?.icon"></i>
+                        <i
+                            [ngClass]="'p-confirmpopup-icon'"
+                            [class]="confirmation?.icon"
+                            *ngIf="confirmation?.icon"
+                        ></i>
                         <span class="p-confirmpopup-message">{{ confirmation?.message }}</span>
                     </ng-template>
                 </div>
@@ -65,10 +82,13 @@ import { BaseComponent } from 'primeng/basecomponent';
                         type="button"
                         [label]="rejectButtonLabel"
                         (click)="reject()"
-                        [ngClass]="'p-confirmpopup-reject-button p-button-sm'"
-                        [styleClass]="confirmation?.rejectButtonStyleClass || 'p-button-text'"
+                        [ngClass]="'p-confirmpopup-reject-button'"
+                        [styleClass]="confirmation?.rejectButtonStyleClass"
+                        [size]="confirmation.rejectButtonProps?.size || 'small'"
+                        [text]="confirmation.rejectButtonProps?.text || false"
                         *ngIf="confirmation?.rejectVisible !== false"
                         [attr.aria-label]="rejectButtonLabel"
+                        [buttonProps]="getRejectButtonProps()"
                     >
                         <i [class]="confirmation?.rejectIcon" *ngIf="confirmation?.rejectIcon; else rejecticon"></i>
                         <ng-template #rejecticon *ngTemplateOutlet="rejectIconTemplate"></ng-template>
@@ -77,10 +97,12 @@ import { BaseComponent } from 'primeng/basecomponent';
                         type="button"
                         [label]="acceptButtonLabel"
                         (click)="accept()"
-                        [ngClass]="'p-confirmpopup-accept-button p-button-sm'"
+                        [ngClass]="'p-confirmpopup-accept-button'"
                         [styleClass]="confirmation?.acceptButtonStyleClass"
+                        [size]="confirmation.acceptButtonProps?.size || 'small'"
                         *ngIf="confirmation?.acceptVisible !== false"
                         [attr.aria-label]="acceptButtonLabel"
+                        [buttonProps]="getAcceptButtonProps()"
                     >
                         <i [class]="confirmation?.acceptIcon" *ngIf="confirmation?.acceptIcon; else accepticon"></i>
                         <ng-template #accepticon *ngTemplateOutlet="acceptIconTemplate"></ng-template>
@@ -95,23 +117,23 @@ import { BaseComponent } from 'primeng/basecomponent';
                 'void',
                 style({
                     transform: 'scaleY(0.8)',
-                    opacity: 0
-                })
+                    opacity: 0,
+                }),
             ),
             state(
                 'open',
                 style({
                     transform: 'translateY(0)',
-                    opacity: 1
-                })
+                    opacity: 1,
+                }),
             ),
             transition('void => open', animate('{{showTransitionParams}}')),
-            transition('open => void', animate('{{hideTransitionParams}}'))
-        ])
+            transition('open => void', animate('{{hideTransitionParams}}')),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [ConfirmPopupStyle]
+    providers: [ConfirmPopupStyle],
 })
 export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnDestroy {
     /**
@@ -201,7 +223,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
         public cd: ChangeDetectorRef,
         public config: PrimeNGConfig,
         public overlayService: OverlayService,
-        @Inject(DOCUMENT) public document: Document
+        @Inject(DOCUMENT) public document: Document,
     ) {
         super();
         this.window = this.document.defaultView as Window;
@@ -213,6 +235,12 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 
             if (confirmation.key === this.key) {
                 this.confirmation = confirmation;
+                const keys = Object.keys(confirmation);
+
+                keys.forEach((key) => {
+                    this[key] = confirmation[key];
+                });
+
                 if (this.confirmation.accept) {
                     this.confirmation.acceptEvent = new EventEmitter();
                     this.confirmation.acceptEvent.subscribe(this.confirmation.accept);
@@ -226,6 +254,18 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
                 this.visible = true;
             }
         });
+    }
+
+    option(name: string, k?: string) {
+        const source: { [key: string]: any } = this || this;
+        if (source.hasOwnProperty(name)) {
+            if (k) {
+                return source[k];
+            }
+            return source[name];
+        }
+
+        return undefined;
     }
 
     ngAfterContentInit() {
@@ -277,6 +317,14 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
                 this.onContainerDestroy();
                 break;
         }
+    }
+
+    getAcceptButtonProps() {
+        return this.option('acceptButtonProps');
+    }
+
+    getRejectButtonProps() {
+        return this.option('rejectButtonProps');
     }
 
     getElementToFocus() {
@@ -339,7 +387,7 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
     onOverlayClick(event: MouseEvent) {
         this.overlayService.add({
             originalEvent: event,
-            target: this.el.nativeElement
+            target: this.el.nativeElement,
         });
     }
 
@@ -370,7 +418,12 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
             this.documentClickListener = this.renderer.listen(documentTarget, documentEvent, (event) => {
                 if (this.confirmation && this.confirmation.dismissableMask !== false) {
                     let targetElement = <HTMLElement>this.confirmation.target;
-                    if (this.container !== event.target && !this.container?.contains(event.target) && targetElement !== event.target && !targetElement.contains(event.target)) {
+                    if (
+                        this.container !== event.target &&
+                        !this.container?.contains(event.target) &&
+                        targetElement !== event.target &&
+                        !targetElement.contains(event.target)
+                    ) {
                         this.hide();
                     }
                 }
@@ -474,6 +527,6 @@ export class ConfirmPopup extends BaseComponent implements AfterContentInit, OnD
 @NgModule({
     imports: [CommonModule, ButtonModule, SharedModule],
     exports: [ConfirmPopup, SharedModule],
-    declarations: [ConfirmPopup]
+    declarations: [ConfirmPopup],
 })
 export class ConfirmPopupModule {}

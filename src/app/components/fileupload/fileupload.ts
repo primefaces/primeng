@@ -195,6 +195,9 @@ import { BaseComponent } from 'primeng/basecomponent';
                             <p-button
                                 (onClick)="remove($event, i)"
                                 [disabled]="uploading"
+                                text
+                                rounded
+                                severity="danger"
                                 [styleClass]="'p-fileupload-file-remove-button ' + removeStyleClass"
                             >
                                 <ng-template pTemplate="icon">

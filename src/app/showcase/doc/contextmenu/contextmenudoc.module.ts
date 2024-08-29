@@ -15,10 +15,30 @@ import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { RouterDoc } from './routerdoc';
 import { TableDoc } from './tabledoc';
+import { BadgeModule } from 'primeng/badge';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, ContextMenuModule, AppDocModule, TagModule, ToastModule],
-    declarations: [BasicDoc, ImportDoc, DocumentDoc, TemplateDoc, CommandDoc, RouterDoc, TableDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        ContextMenuModule,
+        AppDocModule,
+        TagModule,
+        ToastModule,
+        BadgeModule,
+    ],
+    declarations: [
+        BasicDoc,
+        ImportDoc,
+        DocumentDoc,
+        TemplateDoc,
+        CommandDoc,
+        RouterDoc,
+        TableDoc,
+        StyleDoc,
+        AccessibilityDoc,
+    ],
+    exports: [AppDocModule],
 })
 export class ContextMenuDocModule {}

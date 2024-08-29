@@ -16,7 +16,7 @@ import { ProductService } from '@service/productservice';
         <div class="card">
             <p-carousel [value]="products" [numVisible]="3" [numScroll]="1" [responsiveOptions]="responsiveOptions">
                 <ng-template let-product pTemplate="item">
-                    <div class="border border-surface rounded-border m-2 p-4">
+                    <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                         <div class="mb-4">
                             <div class="relative mx-auto">
                                 <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.name" class="w-full rounded-border" />
@@ -78,7 +78,7 @@ export class ResponsiveDoc implements OnInit {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -91,7 +91,7 @@ export class ResponsiveDoc implements OnInit {
     [numScroll]="1" 
     [responsiveOptions]="responsiveOptions">
         <ng-template let-product pTemplate="item">
-            <div class="border border-surface rounded-border m-2 p-4">
+            <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                 <div class="mb-4">
                     <div class="relative mx-auto">
                         <img 
@@ -127,7 +127,7 @@ export class ResponsiveDoc implements OnInit {
         [numScroll]="1" 
         [responsiveOptions]="responsiveOptions">
             <ng-template let-product pTemplate="item">
-                <div class="border border-surface rounded-border m-2 p-4">
+                <div class="border border-surface-200 dark:border-surface-700 rounded m-2 p-4">
                     <div class="mb-4">
                         <div class="relative mx-auto">
                             <img 
@@ -207,7 +207,7 @@ export class CarouselResponsiveDemo {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }

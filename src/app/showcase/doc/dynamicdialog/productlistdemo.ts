@@ -22,7 +22,7 @@ import { InfoDemo } from './infodemo';
                 <tr>
                     <td>{{ product.code }}</td>
                     <td>{{ product.name }}</td>
-                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16 h-16 shadow" /></td>
+                    <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-16" /></td>
                     <td>{{ product.category }}</td>
                     <td>
                         {{ product.quantity }}

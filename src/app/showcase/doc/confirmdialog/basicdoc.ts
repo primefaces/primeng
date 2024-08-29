@@ -32,6 +32,14 @@ export class BasicDoc {
             closable: true,
             closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Save',
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
@@ -50,8 +58,18 @@ export class BasicDoc {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            header: 'Danger Zone',
             icon: 'pi pi-info-circle',
+            rejectLabel: 'Cancel',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger',
+            },
 
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
@@ -96,16 +114,28 @@ export class ConfirmDialogBasicDemo {
             target: event.target as EventTarget,
             message: 'Are you sure that you want to proceed?',
             header: 'Confirmation',
+            closable: true,
+            closeOnEscape: true,
             icon: 'pi pi-exclamation-triangle',
-            acceptIcon:"none",
-            rejectIcon:"none",
-            rejectButtonStyleClass:"p-button-text",
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Save',
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
             },
             reject: () => {
-                this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-            }
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Rejected',
+                    detail: 'You have rejected',
+                    life: 3000,
+                });
+            },
         });
     }
 
@@ -113,19 +143,25 @@ export class ConfirmDialogBasicDemo {
         this.confirmationService.confirm({
             target: event.target as EventTarget,
             message: 'Do you want to delete this record?',
-            header: 'Delete Confirmation',
+            header: 'Danger Zone',
             icon: 'pi pi-info-circle',
-            acceptButtonStyleClass:"p-button-danger p-button-text",
-            rejectButtonStyleClass:"p-button-text p-button-text",
-            acceptIcon:"none",
-            rejectIcon:"none",
+            rejectLabel: 'Cancel',
+            rejectButtonProps: {
+                label: 'Cancel',
+                severity: 'secondary',
+                outlined: true,
+            },
+            acceptButtonProps: {
+                label: 'Delete',
+                severity: 'danger',
+            },
 
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
             },
             reject: () => {
                 this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-            }
+            },
         });
     }
 }`,

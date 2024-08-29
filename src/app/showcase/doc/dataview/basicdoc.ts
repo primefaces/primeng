@@ -14,7 +14,7 @@ import { ProductService } from '@service/productservice';
                 <ng-template pTemplate="list" let-products>
                     <div class="grid grid-cols-12 gap-4 grid-nogutter">
                         <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
-                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                            <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{'border-t border-surface-200 dark:border-surface-700': !first}">
                                 <div class="md:w-40 relative">
                                     <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
                                     <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" [style.left.px]="4" [style.top.px]="4" />
@@ -79,7 +79,7 @@ export class BasicDoc {
     <ng-template pTemplate="list" let-products>
         <div class="grid grid-cols-12 gap-4 grid-nogutter">
             <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
-                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{'border-t border-surface-200 dark:border-surface-700': !first}">
                     <div class="md:w-40 relative">
                         <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
                         <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" [style.left.px]="4" [style.top.px]="4" />
@@ -116,7 +116,7 @@ export class BasicDoc {
         <ng-template pTemplate="list" let-products>
             <div class="grid grid-cols-12 gap-4 grid-nogutter">
                 <div class="col-span-12" *ngFor="let item of products; let first = first" class="col-span-12">
-                    <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{ 'border-top-1 surface-border': !first }">
+                    <div class="flex flex-col sm:flex-row sm:items-center p-6 gap-4" [ngClass]="{'border-t border-surface-200 dark:border-surface-700': !first}">
                         <div class="md:w-40 relative">
                             <img class="block xl:block mx-auto rounded-border w-full" [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + item.image" [alt]="item.name" />
                             <p-tag [value]="item.inventoryStatus" [severity]="getSeverity(item)" class="absolute" [style.left.px]="4" [style.top.px]="4" />

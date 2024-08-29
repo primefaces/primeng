@@ -12,14 +12,15 @@ import { Code } from '@domain/code';
                 <i>center</i>.
             </p>
         </app-docsectiontext>
-        <div class="card flex justify-center gap-2">
+        <div class="card flex justify-center">
             <p-toast position="top-left" key="tl" />
             <p-toast position="bottom-left" key="bl" />
             <p-toast position="bottom-right" key="br" />
-
-            <p-button pRipple (click)="showTopLeft()" label="Top Left" />
-            <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" severity="warning" />
-            <p-button pRipple (click)="showBottomRight()" label="Bottom Right" severity="help" />
+            <div class="flex flex-wrap gap-2">
+                <p-button pRipple (click)="showTopLeft()" label="Top Left" />
+                <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
+                <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+            </div>
         </div>
         <app-code [code]="code" selector="toast-position-demo"></app-code>
     `,
@@ -70,33 +71,21 @@ export class PositionDoc {
 <p-button 
     pRipple 
     (click)="showBottomLeft()" 
-    label="Bottom Left" 
-    severity="warning" />
+    label="Bottom Left" />
 <p-button 
     pRipple 
     (click)="showBottomRight()" 
-    label="Bottom Right" 
-    severity="help" />`,
+    label="Bottom Right" />`,
 
-        html: `<div class="card flex justify-center gap-2">
+        html: `<div class="card flex justify-center">
     <p-toast position="top-left" key="tl" />
     <p-toast position="bottom-left" key="bl" />
     <p-toast position="bottom-right" key="br" />
-
-    <p-button 
-        pRipple 
-        (click)="showTopLeft()" 
-        label="Top Left" />
-    <p-button 
-        pRipple 
-        (click)="showBottomLeft()" 
-        label="Bottom Left" 
-        severity="warning" />
-    <p-button 
-        pRipple 
-        (click)="showBottomRight()" 
-        label="Bottom Right" 
-        severity="help" />
+    <div class="flex flex-wrap gap-2">
+        <p-button pRipple (click)="showTopLeft()" label="Top Left" />
+        <p-button pRipple (click)="showBottomLeft()" label="Bottom Left" />
+        <p-button pRipple (click)="showBottomRight()" label="Bottom Right" />
+    </div>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

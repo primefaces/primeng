@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Various styles of a line series can be customized to display customizations like an area chart.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" />
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]"/>
         </div>
         <app-code [code]="code" selector="chart-line-style-demo"></app-code>
     `,
@@ -31,9 +31,9 @@ export class LineStyleDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -43,7 +43,7 @@ export class LineStyleDoc implements OnInit {
                         data: [65, 59, 80, 81, 56, 55, 40],
                         fill: false,
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--blue-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500')
                     },
                     {
                         label: 'Second Dataset',
@@ -51,16 +51,16 @@ export class LineStyleDoc implements OnInit {
                         fill: false,
                         borderDash: [5, 5],
                         tension: 0.4,
-                        borderColor: documentStyle.getPropertyValue('--teal-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500')
                     },
                     {
                         label: 'Third Dataset',
                         data: [12, 51, 62, 33, 21, 62, 45],
                         fill: true,
-                        borderColor: documentStyle.getPropertyValue('--orange-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         tension: 0.4,
-                        backgroundColor: 'rgba(255,167,38,0.2)',
-                    },
+                        backgroundColor: 'rgba(107, 114, 128, 0.2)'
+                    }
                 ],
             };
 
@@ -97,9 +97,9 @@ export class LineStyleDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />`,
         html: `<div class="card">
-    <p-chart type="line" [data]="data" [options]="options" />
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -117,19 +117,19 @@ export class ChartLineStyleDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
         
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
+               {
                     label: 'First Dataset',
                     data: [65, 59, 80, 81, 56, 55, 40],
                     fill: false,
                     tension: 0.4,
-                    borderColor: documentStyle.getPropertyValue('--blue-500')
+                    borderColor: documentStyle.getPropertyValue('--p-cyan-500')
                 },
                 {
                     label: 'Second Dataset',
@@ -137,15 +137,15 @@ export class ChartLineStyleDemo implements OnInit {
                     fill: false,
                     borderDash: [5, 5],
                     tension: 0.4,
-                    borderColor: documentStyle.getPropertyValue('--teal-500')
+                    borderColor: documentStyle.getPropertyValue('--p-orange-500')
                 },
                 {
                     label: 'Third Dataset',
                     data: [12, 51, 62, 33, 21, 62, 45],
                     fill: true,
-                    borderColor: documentStyle.getPropertyValue('--orange-500'),
+                    borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                     tension: 0.4,
-                    backgroundColor: 'rgba(255,167,38,0.2)'
+                    backgroundColor: 'rgba(107, 114, 128, 0.2)'
                 }
             ]
         };

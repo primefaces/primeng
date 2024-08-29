@@ -14,9 +14,9 @@ import { Code } from '@domain/code';
             <p-toast />
             <p-confirmDialog #cd>
                 <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-                    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
+                    <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                         <div
-                            class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
+                            class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
                         >
                             <i class="pi pi-question text-5xl"></i>
                         </div>
@@ -24,12 +24,12 @@ import { Code } from '@domain/code';
                         <p class="mb-0">{{ message.message }}</p>
                         <div class="flex items-center gap-2 mt-6">
                             <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                            <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
+                            <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
                         </div>
                     </div>
                 </ng-template>
             </p-confirmDialog>
-            <p-button (click)="confirm()" icon="pi pi-check" label="Confirm" />
+            <p-button (click)="confirm()" label="Save"/>
         </div>
         <app-code [code]="code" selector="confirm-dialog-headless-demo"></app-code>
     `,
@@ -52,11 +52,12 @@ export class HeadlessDoc {
     }
 
     code: Code = {
-        basic: `<p-confirmDialog #cd>
+        basic: `<p-toast />
+<p-confirmDialog #cd>
     <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
+        <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
             <div
-                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
+                class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
             >
                 <i class="pi pi-question text-5xl"></i>
             </div>
@@ -64,19 +65,20 @@ export class HeadlessDoc {
             <p class="mb-0">{{ message.message }}</p>
             <div class="flex items-center gap-2 mt-6">
                 <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
+                <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
             </div>
         </div>
     </ng-template>
-</p-confirmDialog>`,
+</p-confirmDialog>
+<p-button (click)="confirm()" label="Save"/>`,
 
-        html: `div class="card flex justify-center">
+        html: `<div class="card flex justify-center">
     <p-toast />
     <p-confirmDialog #cd>
         <ng-template pTemplate="headless" let-message let-onAccept="onAccept" let-onReject="onReject">
-            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded-border">
+            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
                 <div
-                    class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24"
+                    class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-24 w-24 -mt-20"
                 >
                     <i class="pi pi-question text-5xl"></i>
                 </div>
@@ -84,12 +86,12 @@ export class HeadlessDoc {
                 <p class="mb-0">{{ message.message }}</p>
                 <div class="flex items-center gap-2 mt-6">
                     <p-button label="Save" (onClick)="onAccept()" styleClass="w-32"></p-button>
-                    <p-button label="Cancel" (onClick)="onReject()" styleClass="w-32"></p-button>
+                    <p-button label="Cancel" [outlined]="true" (onClick)="onReject()" styleClass="w-32"></p-button>
                 </div>
             </div>
         </ng-template>
     </p-confirmDialog>
-    <p-button (click)="confirm()" icon="pi pi-check" label="Confirm" />
+    <p-button (click)="confirm()" label="Save"/>
 </div>`,
 
         typescript: `import { Component } from '@angular/core';

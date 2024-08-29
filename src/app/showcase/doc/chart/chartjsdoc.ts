@@ -12,8 +12,6 @@ import { Code } from '@domain/code';
 })
 export class ChartjsDoc {
     code: Code = {
-        typescript: `
-npm install chart.js --save
-`
+        typescript: `npm install chart.js --save`
     };
 }

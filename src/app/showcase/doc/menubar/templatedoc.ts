@@ -46,7 +46,7 @@ import { Code } from '@domain/code';
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
+                        <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                         <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
                     </a>
                 </ng-template>
@@ -160,7 +160,7 @@ export class TemplateDoc implements OnInit {
             <span [class]="item.icon"></span>
             <span class="ml-2">{{ item.label }}</span>
             <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
+            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
             <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
         </a>
     </ng-template>
@@ -210,7 +210,7 @@ export class TemplateDoc implements OnInit {
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge" />
-                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded-border bg-surface-100 dark:bg-surface-700 text-xs p-1">{{ item.shortcut }}</span>
+                <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
                 <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
             </a>
         </ng-template>

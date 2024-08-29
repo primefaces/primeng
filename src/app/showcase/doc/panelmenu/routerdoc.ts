@@ -13,18 +13,18 @@ import { Router } from '@angular/router';
             <p-panelMenu [model]="items" styleClass="w-full md:w-80">
                 <ng-template pTemplate="item" let-item>
                     <ng-container *ngIf="item.route; else urlRef">
-                        <a [routerLink]="item.route" class="flex items-center cursor-pointer text-color px-4 py-2">
+                        <a [routerLink]="item.route" class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
                             <span [class]="item.icon"></span>
-                            <span class="ml-2 text-color">{{ item.label }}</span>
+                            <span class="ml-2">{{ item.label }}</span>
                         </a>
                     </ng-container>
                     <ng-template #urlRef>
-                        <a *ngIf="item.url; else noLink" [href]="item.url" class="flex items-center cursor-pointer text-color px-4 py-2">
+                        <a *ngIf="item.url; else noLink" [href]="item.url" class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
                             <span [class]="item.icon"></span>
                             <span class="ml-2">{{ item.label }}</span>
                         </a>
                         <ng-template #noLink>
-                            <span class="flex items-center cursor-pointer text-color px-4 py-2">
+                            <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
                                 <span [class]="item.icon"></span>
                                 <span class="ml-2">{{ item.label }}</span>
                                 <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
@@ -94,7 +94,7 @@ export class RouterDoc implements OnInit {
             <a [routerLink]="item.route" class="flex align-items-center 
                 cursor-pointer text-color px-3 py-2">
                 <span [class]="item.icon"></span>
-                <span class="ml-2 text-color">{{ item.label }}</span>
+                <span class="ml-2">{{ item.label }}</span>
             </a>
         </ng-container>
         <ng-template #urlRef>
@@ -104,7 +104,7 @@ export class RouterDoc implements OnInit {
                 <span class="ml-2">{{ item.label }}</span>
             </a>
             <ng-template #noLink>
-                <span class="flex items-center cursor-pointer text-color px-4 py-2">
+                <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
                     <span [class]="item.icon"></span>
                     <span class="ml-2">{{ item.label }}</span>
                     <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>
@@ -121,7 +121,7 @@ export class RouterDoc implements OnInit {
                 <a [routerLink]="item.route" class="flex align-items-center 
                     cursor-pointer text-color px-3 py-2">
                     <span [class]="item.icon"></span>
-                    <span class="ml-2 text-color">{{ item.label }}</span>
+                    <span class="ml-2">{{ item.label }}</span>
                 </a>
             </ng-container>
             <ng-template #urlRef>
@@ -131,7 +131,7 @@ export class RouterDoc implements OnInit {
                     <span class="ml-2">{{ item.label }}</span>
                 </a>
                 <ng-template #noLink>
-                    <span class="flex items-center cursor-pointer text-color px-4 py-2">
+                    <span class="flex items-center cursor-pointer text-surface-700 dark:text-surface-0 px-4 py-2">
                         <span [class]="item.icon"></span>
                         <span class="ml-2">{{ item.label }}</span>
                         <i *ngIf="item.items" class="pi pi-angle-down text-primary ml-auto"></i>

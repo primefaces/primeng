@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Bars can be stacked on top of each other when <i>stacked</i> option of a scale is enabled.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="bar" [data]="data" [options]="options" />
+            <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-stacked-bar-demo"></app-code>
     `,
@@ -31,9 +31,9 @@ export class StackedBarDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -41,21 +41,21 @@ export class StackedBarDoc implements OnInit {
                     {
                         type: 'bar',
                         label: 'Dataset 1',
-                        backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                        data: [50, 25, 12, 48, 90, 76, 42],
+                        backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        data: [50, 25, 12, 48, 90, 76, 42]
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 2',
-                        backgroundColor: documentStyle.getPropertyValue('--green-500'),
-                        data: [21, 84, 24, 75, 37, 65, 34],
+                        backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                        data: [21, 84, 24, 75, 37, 65, 34]
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 3',
-                        backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-                        data: [41, 52, 24, 74, 23, 21, 32],
-                    },
+                        backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
                 ],
             };
 
@@ -100,9 +100,9 @@ export class StackedBarDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="bar" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />`,
         html: `<div class="card">
-    <p-chart type="bar" [data]="data" [options]="options" />
+    <p-chart type="bar" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -120,31 +120,31 @@ export class ChartStackedBarDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
             datasets: [
-                {
-                    type: 'bar',
-                    label: 'Dataset 1',
-                    backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [50, 25, 12, 48, 90, 76, 42]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 2',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
-                    data: [21, 84, 24, 75, 37, 65, 34]
-                },
-                {
-                    type: 'bar',
-                    label: 'Dataset 3',
-                    backgroundColor: documentStyle.getPropertyValue('--yellow-500'),
-                    data: [41, 52, 24, 74, 23, 21, 32]
-                }
+            {
+                type: 'bar',
+                label: 'Dataset 1',
+                backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                data: [50, 25, 12, 48, 90, 76, 42]
+            },
+            {
+                type: 'bar',
+                label: 'Dataset 2',
+                backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+                data: [21, 84, 24, 75, 37, 65, 34]
+            },
+            {
+                type: 'bar',
+                label: 'Dataset 3',
+                backgroundColor: documentStyle.getPropertyValue('--p-orange-500'),
+                data: [41, 52, 24, 74, 23, 21, 32]
+            }
             ]
         };
 

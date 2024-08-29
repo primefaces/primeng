@@ -16,7 +16,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 
     host: {
         class: 'p-inputgroup',
-        '[attr.attr.data-pc-name]': 'inputgroup',
+        '[attr.data-pc-name]': 'inputgroup',
         '[class]': 'styleClass',
         '[style]': 'style'
     },

@@ -17,7 +17,7 @@ import {
     TemplateRef,
     ViewEncapsulation,
     booleanAttribute,
-    inject
+    inject,
 } from '@angular/core';
 import { BlockableUI, Footer, PrimeTemplate, SharedModule } from 'primeng/api';
 import { MinusIcon } from 'primeng/icons/minus';
@@ -37,17 +37,36 @@ import { BaseComponent } from 'primeng/basecomponent';
 @Component({
     selector: 'p-panel',
     template: `
-        <div [attr.id]="id" [attr.data-pc-name]="'panel'" [ngClass]="{ 'p-panel p-component': true, 'p-panel-toggleable': toggleable, 'p-panel-expanded': !collapsed && toggleable }" [ngStyle]="style" [class]="styleClass">
+        <div
+            [attr.id]="id"
+            [attr.data-pc-name]="'panel'"
+            [ngClass]="{
+                'p-panel p-component': true,
+                'p-panel-toggleable': toggleable,
+                'p-panel-expanded': !collapsed && toggleable
+            }"
+            [ngStyle]="style"
+            [class]="styleClass"
+        >
             <div class="p-panel-header" *ngIf="showHeader" (click)="onHeaderClick($event)" [attr.id]="id + '-titlebar'">
                 <span class="p-panel-title" *ngIf="header" [attr.id]="id + '_header'">{{ header }}</span>
                 <ng-content select="p-header"></ng-content>
                 <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-                <div class="p-panel-icons" [ngClass]="{ 'p-panel-icons-start': iconPos === 'start', 'p-panel-icons-end': iconPos === 'end', 'p-panel-icons-center': iconPos === 'center' }">
+                <div
+                    class="p-panel-icons"
+                    [ngClass]="{
+                        'p-panel-icons-start': iconPos === 'start',
+                        'p-panel-icons-end': iconPos === 'end',
+                        'p-panel-icons-center': iconPos === 'center'
+                    }"
+                >
                     <ng-template *ngTemplateOutlet="iconTemplate"></ng-template>
                     <p-button
                         *ngIf="toggleable"
                         [attr.id]="id + '_header'"
-                        pRipple
+                        severity="secondary"
+                        [text]="true"
+                        [rounded]="true"
                         type="button"
                         role="button"
                         styleClass="p-panel-header-icon p-panel-toggler p-link"
@@ -70,7 +89,9 @@ import { BaseComponent } from 'primeng/basecomponent';
                             </ng-container>
                         </ng-container>
 
-                        <ng-template *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"></ng-template>
+                        <ng-template
+                            *ngTemplateOutlet="headerIconTemplate; context: { $implicit: collapsed }"
+                        ></ng-template>
                     </p-button>
                 </div>
             </div>
@@ -83,8 +104,22 @@ import { BaseComponent } from 'primeng/basecomponent';
                 [attr.tabindex]="collapsed ? '-1' : undefined"
                 [@panelContent]="
                     collapsed
-                        ? { value: 'hidden', params: { transitionParams: animating ? transitionOptions : '0ms', height: '0', opacity: '0' } }
-                        : { value: 'visible', params: { transitionParams: animating ? transitionOptions : '0ms', height: '*', opacity: '1' } }
+                        ? {
+                              value: 'hidden',
+                              params: {
+                                  transitionParams: animating ? transitionOptions : '0ms',
+                                  height: '0',
+                                  opacity: '0'
+                              }
+                          }
+                        : {
+                              value: 'visible',
+                              params: {
+                                  transitionParams: animating ? transitionOptions : '0ms',
+                                  height: '*',
+                                  opacity: '1'
+                              }
+                          }
                 "
                 (@panelContent.done)="onToggleDone($event)"
             >
@@ -105,33 +140,33 @@ import { BaseComponent } from 'primeng/basecomponent';
             state(
                 'hidden',
                 style({
-                    height: '0'
-                })
+                    height: '0',
+                }),
             ),
             state(
                 'void',
                 style({
-                    height: '{{height}}'
+                    height: '{{height}}',
                 }),
-                { params: { height: '0' } }
+                { params: { height: '0' } },
             ),
             state(
                 'visible',
                 style({
-                    height: '*'
-                })
+                    height: '*',
+                }),
             ),
             transition('visible <=> hidden', [animate('{{transitionParams}}')]),
             transition('void => hidden', animate('{{transitionParams}}')),
-            transition('void => visible', animate('{{transitionParams}}'))
-        ])
+            transition('void => visible', animate('{{transitionParams}}')),
+        ]),
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'p-element'
+        class: 'p-element',
     },
-    providers: [PanelStyle]
+    providers: [PanelStyle],
 })
 export class Panel extends BaseComponent implements AfterContentInit, BlockableUI {
     /**
@@ -328,6 +363,6 @@ export class Panel extends BaseComponent implements AfterContentInit, BlockableU
 @NgModule({
     imports: [CommonModule, SharedModule, RippleModule, PlusIcon, MinusIcon, ButtonModule],
     exports: [Panel, SharedModule],
-    declarations: [Panel]
+    declarations: [Panel],
 })
 export class PanelModule {}

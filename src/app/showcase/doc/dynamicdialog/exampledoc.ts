@@ -36,7 +36,7 @@ export class ExampleDoc implements OnDestroy {
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Select a Product',
+            header: 'Product List',
             width: '50vw',
             closable: true,
             contentStyle: { overflow: 'auto' },
@@ -109,7 +109,7 @@ export class DynamicDialogExampleDemo implements OnDestroy {
 
     show() {
         this.ref = this.dialogService.open(ProductListDemo, {
-            header: 'Select a Product',
+            header: 'Product List',
             width: '50vw',
             contentStyle: { overflow: 'auto' },
             breakpoints: {

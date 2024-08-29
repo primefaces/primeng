@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Multiple axes can be added using the <i>scales</i> option.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" />
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-multi-axis-demo"></app-code>
     `,
@@ -31,9 +31,9 @@ export class MultiAxisDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -41,7 +41,7 @@ export class MultiAxisDoc implements OnInit {
                     {
                         label: 'Dataset 1',
                         fill: false,
-                        borderColor: documentStyle.getPropertyValue('--blue-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
                         yAxisID: 'y',
                         tension: 0.4,
                         data: [65, 59, 80, 81, 56, 55, 10],
@@ -49,7 +49,7 @@ export class MultiAxisDoc implements OnInit {
                     {
                         label: 'Dataset 2',
                         fill: false,
-                        borderColor: documentStyle.getPropertyValue('--green-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                         yAxisID: 'y1',
                         tension: 0.4,
                         data: [28, 48, 40, 19, 86, 27, 90],
@@ -106,9 +106,9 @@ export class MultiAxisDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />`,
         html: `<div class="card">
-    <p-chart type="line" [data]="data" [options]="options" />
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -126,9 +126,9 @@ export class ChartMultiAxisDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
         
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -136,7 +136,7 @@ export class ChartMultiAxisDemo implements OnInit {
                 {
                     label: 'Dataset 1',
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
+                    borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
                     yAxisID: 'y',
                     tension: 0.4,
                     data: [65, 59, 80, 81, 56, 55, 10]
@@ -144,7 +144,7 @@ export class ChartMultiAxisDemo implements OnInit {
                 {
                     label: 'Dataset 2',
                     fill: false,
-                    borderColor: documentStyle.getPropertyValue('--green-500'),
+                    borderColor: documentStyle.getPropertyValue('--p-gray-500'),
                     yAxisID: 'y1',
                     tension: 0.4,
                     data: [28, 48, 40, 19, 86, 27, 90]

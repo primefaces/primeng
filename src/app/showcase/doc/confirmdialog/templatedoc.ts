@@ -19,8 +19,8 @@ import { Code } from '@domain/code';
             <p-toast />
             <p-confirmDialog>
                 <ng-template pTemplate="message" let-message>
-                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
-                        <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+                    <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                        <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                         <p>{{ message.message }}</p>
                     </div>
                 </ng-template>
@@ -41,10 +41,18 @@ export class TemplateDoc {
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Please confirm to proceed moving forward.',
-            acceptIcon: 'pi pi-check mr-2',
-            rejectIcon: 'pi pi-times mr-2',
-            rejectButtonStyleClass: 'p-button-sm',
-            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                icon: 'pi pi-times',
+                outlined: true,
+                size: 'small'
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                icon: 'pi pi-check',
+                size: 'small'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },
@@ -58,8 +66,8 @@ export class TemplateDoc {
         basic: `<p-toast />
 <p-confirmDialog>
     <ng-template pTemplate="message" let-message>
-        <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
-            <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+        <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+            <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
             <p>{{ message.message }}</p>
         </div>
     </ng-template>
@@ -70,8 +78,8 @@ export class TemplateDoc {
     <p-toast />
     <p-confirmDialog>
         <ng-template pTemplate="message" let-message>
-            <div class="flex flex-col items-center w-full gap-4 border-b border-surface">
-                <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+            <div class="flex flex-col items-center w-full gap-4 border-b border-surface-200 dark:border-surface-700">
+                <i [ngClass]="message.icon" class="!text-6xl text-primary-500"></i>
                 <p>{{ message.message }}</p>
             </div>
         </ng-template>
@@ -99,10 +107,18 @@ export class ConfirmDialogTemplateDemo {
         this.confirmationService.confirm({
             header: 'Confirmation',
             message: 'Please confirm to proceed moving forward.',
-            acceptIcon: 'pi pi-check mr-2',
-            rejectIcon: 'pi pi-times mr-2',
-            rejectButtonStyleClass: 'p-button-sm',
-            acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+            icon: 'pi pi-exclamation-circle',
+            rejectButtonProps: {
+                label: 'Cancel',
+                icon: 'pi pi-times',
+                outlined: true,
+                size: 'small'
+            },
+            acceptButtonProps: {
+                label: 'Save',
+                icon: 'pi pi-check',
+                size: 'small'
+            },
             accept: () => {
                 this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
             },

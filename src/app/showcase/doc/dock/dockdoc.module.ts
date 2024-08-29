@@ -17,10 +17,26 @@ import { AdvancedDoc } from './advanceddoc';
 import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, RouterModule, DockModule, FormsModule, RadioButtonModule, MenubarModule, ToastModule, DialogModule, GalleriaModule, TerminalModule, TreeModule, AppDocModule],
+    imports: [
+        CommonModule,
+        AppCodeModule,
+        RouterModule,
+        DockModule,
+        FormsModule,
+        RadioButtonModule,
+        MenubarModule,
+        ToastModule,
+        DialogModule,
+        GalleriaModule,
+        TerminalModule,
+        TreeModule,
+        AppDocModule,
+        TooltipModule,
+    ],
     declarations: [AdvancedDoc, BasicDoc, ImportDoc, StyleDoc, AccessibilityDoc],
-    exports: [AppDocModule]
+    exports: [AppDocModule],
 })
 export class DockDocModule {}

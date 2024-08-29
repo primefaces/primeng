@@ -20,20 +20,39 @@ interface TableRowSelectEvent {
         </app-docsectiontext>
         <div class="card flex flex-col items-center gap-4">
             <p-toast />
-            <p-button (click)="op.toggle($event)" icon="pi pi-search" [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-            <div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+            <p-button
+                (click)="op.toggle($event)"
+                icon="pi pi-search"
+                [label]="selectedProduct ? selectedProduct.name : 'Select a Product'"
+            />
+            <div
+                *ngIf="selectedProduct"
+                class="p-8 bg-surface-0 dark:bg-surface-900 rounded border border-surface-200 dark:border-surface-700"
+            >
                 <div class="relative">
-                    <img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" [alt]="selectedProduct.name" />
+                    <img
+                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}"
+                        [alt]="selectedProduct.name"
+                        class="w-full sm:w-80"
+                    />
                 </div>
                 <div class="flex items-center justify-between mt-4 mb-2">
-                    <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">{{ selectedProduct.name }}</span>
-                    <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">{{ '$' + selectedProduct.price }}</span>
+                    <span class="font-semibold text-xl">{{ selectedProduct.name }}</span>
+                    <span class="text-xl ml-4">{{ '$' + selectedProduct.price }}</span>
                 </div>
-                <span class="text-surface-600 dark:text-surface-200">{{ selectedProduct.category }}</span>
+                <span class="text-surface-500 dark:text-surface-400">{{ selectedProduct.category }}</span>
             </div>
             <p-popover #op [style]="{ width: '450px' }" [showCloseIcon]="true">
                 <ng-template pTemplate="content">
-                    <p-table [value]="products" selectionMode="single" [(selection)]="selectedProduct" (onRowSelect)="onRowSelect($event, op)" [paginator]="true" [rows]="5" responsiveLayout="scroll">
+                    <p-table
+                        [value]="products"
+                        selectionMode="single"
+                        [(selection)]="selectedProduct"
+                        (onRowSelect)="onRowSelect($event, op)"
+                        [paginator]="true"
+                        [rows]="5"
+                        responsiveLayout="scroll"
+                    >
                         <ng-template pTemplate="header">
                             <tr>
                                 <th pSortableColumn="name">Name<p-sortIcon field="name" /></th>
@@ -44,8 +63,14 @@ interface TableRowSelectEvent {
                         <ng-template pTemplate="body" let-rowData let-product>
                             <tr [pSelectableRow]="rowData">
                                 <td>{{ product.name }}</td>
-                                <td><img src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" [alt]="product.image" class="w-20 shadow" /></td>
-                                <td>{{ product.price }}</td>
+                                <td>
+                                    <img
+                                        src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}"
+                                        [alt]="product.image"
+                                        class="w-16 shadow-sm"
+                                    />
+                                </td>
+                                <td>$ {{ product.price }}</td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -54,13 +79,13 @@ interface TableRowSelectEvent {
         </div>
         <app-code [code]="code" selector="popover-data-table-demo" [extFiles]="extFiles"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class DataTableDoc implements OnInit {
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
-        private cdr: ChangeDetectorRef
+        private cdr: ChangeDetectorRef,
     ) {}
 
     products: Product[] | undefined;
@@ -86,17 +111,18 @@ export class DataTableDoc implements OnInit {
     (click)="op.toggle($event)" 
     icon="pi pi-search" 
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 rounded border border-surface-200 dark:border-surface-700">
     <div class="relative">
         <img 
             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
-            [alt]="selectedProduct.name" />
+            [alt]="selectedProduct.name"
+            class="w-full sm:w-80" />
     </div>
     <div class="flex items-center justify-between mt-4 mb-2">
-        <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">
+        <span class="font-semibold text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">
+        <span class="text-xl ml-4">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
@@ -134,9 +160,9 @@ export class DataTableDoc implements OnInit {
                             <img 
                                 src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                                 [alt]="product.image" 
-                                class="w-20 shadow" />
+                                class="w-16 shadow-sm" />
                         </td>
-                        <td>{{ product.price }}</td>
+                        <td>$ {{ product.price }}</td>
                     </tr>
                 </ng-template>
         </p-table>
@@ -149,17 +175,18 @@ export class DataTableDoc implements OnInit {
     (click)="op.toggle($event)" 
     icon="pi pi-search" 
     [label]="selectedProduct ? selectedProduct.name : 'Select a Product'" />
-<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 shadow rounded-border">
+<div *ngIf="selectedProduct" class="p-8 bg-surface-0 dark:bg-surface-900 rounded border border-surface-200 dark:border-surface-700">
     <div class="relative">
         <img 
             src="https://primefaces.org/cdn/primeng/images/demo/product/{{ selectedProduct.image }}" 
-            [alt]="selectedProduct.name" />
+            [alt]="selectedProduct.name"
+            class="w-full sm:w-80" />
     </div>
     <div class="flex items-center justify-between mt-4 mb-2">
-        <span class="text-surface-900 dark:text-surface-0 font-medium text-xl">
+        <span class="font-semibold text-xl">
             {{ selectedProduct.name }}
         </span>
-        <span class="text-surface-900 dark:text-surface-0 text-xl ml-4">
+        <span class="text-xl ml-4">
             {{ '$' + selectedProduct.price }}
         </span>
     </div>
@@ -197,9 +224,9 @@ export class DataTableDoc implements OnInit {
                             <img 
                                 src="https://primefaces.org/cdn/primeng/images/demo/product/{{ product.image }}" 
                                 [alt]="product.image" 
-                                class="w-20 shadow" />
+                                class="w-16 shadow-sm" />
                         </td>
-                        <td>{{ product.price }}</td>
+                        <td>$ {{ product.price }}</td>
                     </tr>
                 </ng-template>
         </p-table>
@@ -252,7 +279,7 @@ export class PopoverDataTableDemo implements OnInit {
         op.hide();
     }
 }`,
-        service: ['ProductService']
+        service: ['ProductService'],
     };
 
     extFiles = [
@@ -270,7 +297,7 @@ export interface Product {
     category?: string;
     image?: string;
     rating?: number;
-}`
-        }
+}`,
+        },
     ];
 }

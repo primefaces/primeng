@@ -14,7 +14,7 @@ import { AppConfigService } from '@service/appconfigservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="pie" [data]="data" [options]="options" />
+            <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-pie-demo"></app-code>
     `,
@@ -42,17 +42,9 @@ export class PieDoc implements OnInit {
                 datasets: [
                     {
                         data: [540, 325, 702],
-                        backgroundColor: [
-                            documentStyle.getPropertyValue('--blue-500'),
-                            documentStyle.getPropertyValue('--yellow-500'),
-                            documentStyle.getPropertyValue('--green-500'),
-                        ],
-                        hoverBackgroundColor: [
-                            documentStyle.getPropertyValue('--blue-400'),
-                            documentStyle.getPropertyValue('--yellow-400'),
-                            documentStyle.getPropertyValue('--green-400'),
-                        ],
-                    },
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
                 ],
             };
 
@@ -70,9 +62,9 @@ export class PieDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="pie" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />`,
         html: `<div class="card flex justify-center">
-    <p-chart type="pie" [data]="data" [options]="options" />
+    <p-chart type="pie" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -97,8 +89,8 @@ export class ChartPieDemo implements OnInit {
             datasets: [
                 {
                     data: [540, 325, 702],
-                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+                    backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                    hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
                 }
             ]
         };

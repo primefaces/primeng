@@ -10,7 +10,7 @@ import { AppConfigService } from '@service/appconfigservice';
             <p>Different chart types can be combined in the same graph using the <i>type</i> option of a dataset.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-chart type="line" [data]="data" [options]="options" />
+            <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-combo-demo"></app-code>
     `,
@@ -31,9 +31,9 @@ export class ComboDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
             this.data = {
                 labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -41,26 +41,26 @@ export class ComboDoc implements OnInit {
                     {
                         type: 'line',
                         label: 'Dataset 1',
-                        borderColor: documentStyle.getPropertyValue('--blue-500'),
+                        borderColor: documentStyle.getPropertyValue('--p-orange-500'),
                         borderWidth: 2,
                         fill: false,
                         tension: 0.4,
-                        data: [50, 25, 12, 48, 56, 76, 42],
+                        data: [50, 25, 12, 48, 56, 76, 42]
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 2',
-                        backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                        backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                         data: [21, 84, 24, 75, 37, 65, 34],
                         borderColor: 'white',
-                        borderWidth: 2,
+                        borderWidth: 2
                     },
                     {
                         type: 'bar',
                         label: 'Dataset 3',
-                        backgroundColor: documentStyle.getPropertyValue('--orange-500'),
-                        data: [41, 52, 24, 74, 23, 21, 32],
-                    },
+                        backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
+                        data: [41, 52, 24, 74, 23, 21, 32]
+                    }
                 ],
             };
 
@@ -97,9 +97,9 @@ export class ComboDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="line" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />`,
         html: `<div class="card">
-    <p-chart type="line" [data]="data" [options]="options" />
+    <p-chart type="line" [data]="data" [options]="options" class="h-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -117,9 +117,9 @@ export class ChartComboDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
         
         this.data = {
             labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -127,7 +127,7 @@ export class ChartComboDemo implements OnInit {
                 {
                     type: 'line',
                     label: 'Dataset 1',
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
+                    borderColor: documentStyle.getPropertyValue('--p-orange-500'),
                     borderWidth: 2,
                     fill: false,
                     tension: 0.4,
@@ -136,7 +136,7 @@ export class ChartComboDemo implements OnInit {
                 {
                     type: 'bar',
                     label: 'Dataset 2',
-                    backgroundColor: documentStyle.getPropertyValue('--green-500'),
+                    backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
                     data: [21, 84, 24, 75, 37, 65, 34],
                     borderColor: 'white',
                     borderWidth: 2
@@ -144,7 +144,7 @@ export class ChartComboDemo implements OnInit {
                 {
                     type: 'bar',
                     label: 'Dataset 3',
-                    backgroundColor: documentStyle.getPropertyValue('--orange-500'),
+                    backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
                     data: [41, 52, 24, 74, 23, 21, 32]
                 }
             ]

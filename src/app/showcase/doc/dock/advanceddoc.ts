@@ -11,8 +11,9 @@ import { PhotoService } from '@service/photoservice';
     template: `
         <app-docsectiontext>
             <p>
-                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other sides are also available when defined with the <i>position</i> property. Content of the dock component is defined by
-                <i>item</i> template.
+                Dock requires a collection of menuitems as its <i>model</i>. Default location is <i>bottom</i> and other
+                sides are also available when defined with the <i>position</i> property. Content of the dock component
+                is defined by <i>item</i> template.
             </p>
         </app-docsectiontext>
         <div class="card">
@@ -24,26 +25,44 @@ import { PhotoService } from '@service/photoservice';
                     <i class="pi pi-video px-2"></i>
                     <i class="pi pi-wifi px-2"></i>
                     <i class="pi pi-volume-up px-2"></i>
-                    <span>Fri 13:07</span>
+                    <span class="px-2">Fri 13:07</span>
                     <i class="pi pi-search px-2"></i>
                     <i class="pi pi-bars px-2"></i>
                 </ng-template>
             </p-menubar>
-            <div class="dock-window dock-advanced">
+            <div class="dock-window">
                 <p-dock [model]="dockItems" position="bottom">
                     <ng-template pTemplate="item" let-item>
-                        <img [src]="item.icon" [alt]="item.label" width="100%" />
+                        <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+                            <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+                        </a>
                     </ng-template>
                 </p-dock>
 
                 <p-toast position="top-center" key="tc" />
 
-                <p-dialog [(visible)]="displayFinder" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw', height: '18rem' }" [draggable]="false" [resizable]="false">
+                <p-dialog
+                    [(visible)]="displayFinder"
+                    [breakpoints]="{ '960px': '50vw' }"
+                    [style]="{ width: '30vw', height: '18rem' }"
+                    [draggable]="false"
+                    [resizable]="false"
+                >
                     <p-tree [value]="nodes" />
                 </p-dialog>
 
-                <p-dialog [maximizable]="true" [(visible)]="displayTerminal" [breakpoints]="{ '960px': '50vw' }" [style]="{ width: '30vw' }" [draggable]="false" [resizable]="false">
-                    <p-terminal welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')" prompt="primeng $" />
+                <p-dialog
+                    [maximizable]="true"
+                    [(visible)]="displayTerminal"
+                    [breakpoints]="{ '960px': '50vw' }"
+                    [style]="{ width: '30vw' }"
+                    [draggable]="false"
+                    [resizable]="false"
+                >
+                    <p-terminal
+                        welcomeMessage="Welcome to PrimeNG (cmd: 'date', 'greet {0}', 'random')"
+                        prompt="primeng $"
+                    />
                 </p-dialog>
 
                 <p-galleria
@@ -66,7 +85,7 @@ import { PhotoService } from '@service/photoservice';
         </div>
         <app-code [code]="code" selector="dock-advanced-demo"></app-code>
     `,
-    providers: [MessageService, TerminalService, PhotoService, NodeService]
+    providers: [MessageService, TerminalService, PhotoService, NodeService],
 })
 export class AdvancedDoc implements OnInit, OnDestroy {
     displayTerminal: boolean | undefined;
@@ -91,7 +110,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         private galleriaService: PhotoService,
         private nodeService: NodeService,
         private messageService: MessageService,
-        private terminalService: TerminalService
+        private terminalService: TerminalService,
     ) {}
 
     ngOnInit() {
@@ -103,12 +122,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/finder.svg',
                 command: () => {
                     this.displayFinder = true;
-                }
+                },
             },
             {
                 label: 'Terminal',
@@ -117,12 +136,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/terminal.svg',
                 command: () => {
                     this.displayTerminal = true;
-                }
+                },
             },
             {
                 label: 'App Store',
@@ -131,12 +150,17 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/appstore.svg',
                 command: () => {
-                    this.messageService.add({ severity: 'error', summary: 'An unexpected error occurred while signing in.', detail: 'UNTRUSTED_CERT_TITLE', key: 'tc' });
-                }
+                    this.messageService.add({
+                        severity: 'error',
+                        summary: 'An unexpected error occurred while signing in.',
+                        detail: 'UNTRUSTED_CERT_TITLE',
+                        key: 'tc',
+                    });
+                },
             },
             {
                 label: 'Safari',
@@ -145,12 +169,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/safari.svg',
                 command: () => {
                     this.messageService.add({ severity: 'warn', summary: 'Safari has stopped working', key: 'tc' });
-                }
+                },
             },
             {
                 label: 'Photos',
@@ -159,12 +183,12 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/photos.svg',
                 command: () => {
                     this.displayGalleria = true;
-                }
+                },
             },
             {
                 label: 'GitHub',
@@ -173,9 +197,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
-                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg'
+                icon: 'https://primefaces.org/cdn/primeng/images/dock/github.svg',
             },
             {
                 label: 'Trash',
@@ -184,19 +208,19 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                     tooltipPosition: 'top',
                     positionTop: -15,
                     positionLeft: 15,
-                    showDelay: 1000
+                    showDelay: 1000,
                 },
                 icon: 'https://primefaces.org/cdn/primeng/images/dock/trash.png',
                 command: () => {
                     this.messageService.add({ severity: 'info', summary: 'Empty Trash', key: 'tc' });
-                }
-            }
+                },
+            },
         ];
 
         this.menubarItems = [
             {
                 label: 'Finder',
-                styleClass: 'menubar-root'
+                styleClass: 'menubar-root',
             },
             {
                 label: 'File',
@@ -207,58 +231,58 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                         items: [
                             {
                                 label: 'Bookmark',
-                                icon: 'pi pi-fw pi-bookmark'
+                                icon: 'pi pi-fw pi-bookmark',
                             },
                             {
                                 label: 'Video',
-                                icon: 'pi pi-fw pi-video'
-                            }
-                        ]
+                                icon: 'pi pi-fw pi-video',
+                            },
+                        ],
                     },
                     {
                         label: 'Delete',
-                        icon: 'pi pi-fw pi-trash'
+                        icon: 'pi pi-fw pi-trash',
                     },
                     {
-                        separator: true
+                        separator: true,
                     },
                     {
                         label: 'Export',
-                        icon: 'pi pi-fw pi-external-link'
-                    }
-                ]
+                        icon: 'pi pi-fw pi-external-link',
+                    },
+                ],
             },
             {
                 label: 'Edit',
                 items: [
                     {
                         label: 'Left',
-                        icon: 'pi pi-fw pi-align-left'
+                        icon: 'pi pi-fw pi-align-left',
                     },
                     {
                         label: 'Right',
-                        icon: 'pi pi-fw pi-align-right'
+                        icon: 'pi pi-fw pi-align-right',
                     },
                     {
                         label: 'Center',
-                        icon: 'pi pi-fw pi-align-center'
+                        icon: 'pi pi-fw pi-align-center',
                     },
                     {
                         label: 'Justify',
-                        icon: 'pi pi-fw pi-align-justify'
-                    }
-                ]
+                        icon: 'pi pi-fw pi-align-justify',
+                    },
+                ],
             },
             {
                 label: 'Users',
                 items: [
                     {
                         label: 'New',
-                        icon: 'pi pi-fw pi-user-plus'
+                        icon: 'pi pi-fw pi-user-plus',
                     },
                     {
                         label: 'Delete',
-                        icon: 'pi pi-fw pi-user-minus'
+                        icon: 'pi pi-fw pi-user-minus',
                     },
                     {
                         label: 'Search',
@@ -270,17 +294,17 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                                 items: [
                                     {
                                         label: 'Print',
-                                        icon: 'pi pi-fw pi-print'
-                                    }
-                                ]
+                                        icon: 'pi pi-fw pi-print',
+                                    },
+                                ],
                             },
                             {
                                 icon: 'pi pi-fw pi-bars',
-                                label: 'List'
-                            }
-                        ]
-                    }
-                ]
+                                label: 'List',
+                            },
+                        ],
+                    },
+                ],
             },
             {
                 label: 'Events',
@@ -291,13 +315,13 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                         items: [
                             {
                                 label: 'Save',
-                                icon: 'pi pi-fw pi-calendar-plus'
+                                icon: 'pi pi-fw pi-calendar-plus',
                             },
                             {
                                 label: 'Delete',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
+                                icon: 'pi pi-fw pi-calendar-minus',
+                            },
+                        ],
                     },
                     {
                         label: 'Archieve',
@@ -305,30 +329,30 @@ export class AdvancedDoc implements OnInit, OnDestroy {
                         items: [
                             {
                                 label: 'Remove',
-                                icon: 'pi pi-fw pi-calendar-minus'
-                            }
-                        ]
-                    }
-                ]
+                                icon: 'pi pi-fw pi-calendar-minus',
+                            },
+                        ],
+                    },
+                ],
             },
             {
-                label: 'Quit'
-            }
+                label: 'Quit',
+            },
         ];
 
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
-                numVisible: 3
+                numVisible: 3,
             },
             {
                 breakpoint: '768px',
-                numVisible: 2
+                numVisible: 2,
             },
             {
                 breakpoint: '560px',
-                numVisible: 1
-            }
+                numVisible: 1,
+            },
         ];
 
         this.subscription = this.terminalService.commandHandler.subscribe((command) => this.commandHandler(command));
@@ -380,7 +404,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
         <i class="pi pi-video px-2"></i>
         <i class="pi pi-wifi px-2"></i>
         <i class="pi pi-volume-up px-2"></i>
-        <span>Fri 13:07</span>
+        <span class="px-2">Fri 13:07</span>
         <i class="pi pi-search px-2"></i>
         <i class="pi pi-bars px-2"></i>
     </ng-template>
@@ -388,7 +412,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
 <div class="dock-window dock-advanced">
     <p-dock [model]="dockItems" position="bottom">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.icon" [alt]="item.label" width="100%" />
+            <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+                <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+            </a>
         </ng-template>
     </p-dock>
 
@@ -441,7 +467,7 @@ export class AdvancedDoc implements OnInit, OnDestroy {
             <i class="pi pi-video px-2"></i>
             <i class="pi pi-wifi px-2"></i>
             <i class="pi pi-volume-up px-2"></i>
-            <span>Fri 13:07</span>
+            <span class="px-2">Fri 13:07</span>
             <i class="pi pi-search px-2"></i>
             <i class="pi pi-bars px-2"></i>
         </ng-template>
@@ -449,7 +475,9 @@ export class AdvancedDoc implements OnInit, OnDestroy {
     <div class="dock-window dock-advanced">
         <p-dock [model]="dockItems" position="bottom">
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.icon" [alt]="item.label" width="100%" />
+                <a [pTooltip]="item.label" tooltipPosition="top" href="#" class="p-dock-item-link">
+                    <img [alt]="item.label" [src]="item.icon" style="width: 100%" />
+                </a>
             </ng-template>
         </p-dock>
 
@@ -508,12 +536,12 @@ import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TreeModule } from 'primeng/tree';
 import { GalleriaModule } from 'primeng/galleria';
-        
+import { TooltipModule } from 'primeng/tooltip';       
 
 @Component({
     selector: 'dock-advanced-demo',
     templateUrl: './dock-advanced-demo.html',
-    imports: [DockModule, MenubarModule, ToastModule, DialogModule, TreeModule, TerminalModule, GalleriaModule],
+    imports: [DockModule, MenubarModule, ToastModule, DialogModule, TreeModule, TerminalModule, GalleriaModule, TooltipModule],
     standalone: true,
     styles: [
         \` :host ::ng-deep {
@@ -1034,6 +1062,6 @@ export class DockAdvancedDemo implements OnInit {
         }
     }
 }`,
-        service: ['PhotoService', 'NodeService']
+        service: ['PhotoService', 'NodeService'],
     };
 }

@@ -24,7 +24,7 @@ export class BasicDoc {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
     }
 
     code: Code = {
@@ -51,7 +51,7 @@ export class ToastBasicDemo {
     constructor(private messageService: MessageService) {}
 
     show() {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Message Content' });
+        this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Message Content', life: 3000 });
     }
 }`,
     };

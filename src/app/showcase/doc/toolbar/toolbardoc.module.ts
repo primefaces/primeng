@@ -13,9 +13,11 @@ import { BasicDoc } from './basicdoc';
 import { ImportDoc } from './importdoc';
 import { StyleDoc } from './styledoc';
 import { TemplateDoc } from './templatedoc';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @NgModule({
-    imports: [CommonModule, AppCodeModule, AppDocModule, ToolbarModule, RouterModule, ButtonModule, SplitButtonModule, InputTextModule, AvatarModule],
+    imports: [CommonModule, AppCodeModule, AppDocModule, ToolbarModule, RouterModule, ButtonModule, SplitButtonModule, InputTextModule, AvatarModule, IconFieldModule, InputIconModule],
     exports: [AppDocModule],
     declarations: [ImportDoc, BasicDoc, TemplateDoc, StyleDoc, AccessibilityDoc]
 })
