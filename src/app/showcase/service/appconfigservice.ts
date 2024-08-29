@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { AppState } from '@domain/appstate';
 
 @Injectable({
@@ -20,6 +20,8 @@ export class AppConfigService {
     });
 
     document = inject(DOCUMENT);
+
+    theme = computed(() => (this.appState().darkTheme ? 'dark' : 'light'));
 
     constructor() {
         effect(() => {

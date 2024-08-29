@@ -14,7 +14,7 @@ import { NodeService } from '@service/nodeservice';
 import { PhotoService } from '@service/photoservice';
 import { ProductService } from '@service/productservice';
 import { AppMainComponent } from './app.main.component';
-import { AppConfigComponent } from './config/app.config.component';
+import { AppConfiguratorComponent } from './configurator/app.configurator.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
@@ -32,7 +32,7 @@ import Aura from '@themes/aura';
         AppMainComponent,
         LandingComponent,
         AppNewsComponent,
-        AppConfigComponent,
+        AppConfiguratorComponent,
         AppTopBarComponent,
         AppMenuComponent,
     ],
@@ -71,7 +71,7 @@ export class AppComponent implements OnInit {
             this.bindRouteEvents();
         });
 
-        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '' } });
+        this.primeng.theme.set({ preset: Aura, options: { darkModeSelector: '.p-dark' } });
     }
 
     ngOnInit(): void {

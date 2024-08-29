@@ -29,7 +29,7 @@ import { Title, Meta } from '@angular/platform-browser';
                 <app-docapisection [docs]="apiDocs" [header]="header" class="doc-tabpanel"></app-docapisection>
             </div>
         </div>
-    </div>`
+    </div>`,
 })
 export class AppDoc implements OnInit, OnChanges {
     @Input() docTitle!: string;
@@ -48,7 +48,7 @@ export class AppDoc implements OnInit, OnChanges {
         private router: Router,
         private titleService: Title,
         private metaService: Meta,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
     ) {}
 
     ngOnInit() {
