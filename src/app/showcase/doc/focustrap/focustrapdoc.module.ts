@@ -10,9 +10,10 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FocusTrapModule } from 'primeng/focustrap';
 import { ImportDoc } from './importdoc';
 import { BasicDoc } from './basicdoc';
+import { FloatLabelModule } from 'primeng/floatlabel';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ButtonModule, InputTextModule, DropdownModule, FocusTrapModule],
+    imports: [CommonModule, RouterModule, AppCodeModule, AppDocModule, FormsModule, ButtonModule, InputTextModule, DropdownModule, FocusTrapModule, FloatLabelModule],
     declarations: [ImportDoc, BasicDoc],
     exports: [AppDocModule]
 })

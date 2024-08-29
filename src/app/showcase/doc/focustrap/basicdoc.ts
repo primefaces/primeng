@@ -14,10 +14,10 @@ import { Code } from '@domain/code';
             </div>
             <div>
                 <h4>Float Label</h4>
-                <span class="p-float-label">
+                <p-floatLabel>
                     <input id="float-input" type="text" size="30" pInputText />
                     <label for="float-input">Username</label>
-                </span>
+                </p-floatLabel>
             </div>
             <div>
                 <h4>Disabled Input</h4>
@@ -33,11 +33,17 @@ import { Code } from '@domain/code';
             </div>
             <div>
                 <h4>Dropdown</h4>
-                <p-dropdown [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a City" optionLabel="name" [showClear]="true" />
+                <p-dropdown
+                    [options]="cities"
+                    [(ngModel)]="selectedCity"
+                    placeholder="Select a City"
+                    optionLabel="name"
+                    [showClear]="true"
+                />
             </div>
         </div>
         <app-code [code]="code" selector="focus-trap-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc {
     selectedCity: string | undefined;
@@ -47,7 +53,7 @@ export class BasicDoc {
         { name: 'Rome', code: 'RM' },
         { name: 'London', code: 'LDN' },
         { name: 'Istanbul', code: 'IST' },
-        { name: 'Paris', code: 'PRS' }
+        { name: 'Paris', code: 'PRS' },
     ];
 
     code: Code = {
@@ -58,10 +64,10 @@ export class BasicDoc {
     </div>
     <div>
         <h4>Float Label</h4>
-        <span class="p-float-label">
-            <input id="float-input" type="text" size="30" pInputText> 
+         <p-floatLabel>
+            <input id="float-input" type="text" size="30" pInputText />
             <label for="float-input">Username</label>
-        </span>
+        </p-floatLabel>
     </div>
 </div>`,
         html: `<div pFocusTrap class="card flex items-center justify-center flex-wrap gap-4">
@@ -71,10 +77,10 @@ export class BasicDoc {
     </div>
     <div>
         <h4>Float Label</h4>
-        <span class="p-float-label">
-            <input id="float-input" type="text" size="30" pInputText> 
+        <p-floatLabel>
+            <input id="float-input" type="text" size="30" pInputText />
             <label for="float-input">Username</label>
-        </span>
+        </p-floatLabel>
     </div>
     <div>
         <h4>Disabled Input</h4>
@@ -121,6 +127,6 @@ export class FocusTrapBasicDemo {
         { name: 'Istanbul', code: 'IST' },
         { name: 'Paris', code: 'PRS' }
     ];
-}`
+}`,
     };
 }
