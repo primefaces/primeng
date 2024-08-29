@@ -50,7 +50,7 @@ export class Tag extends BaseComponent {
      * Severity type of the tag.
      * @group Props
      */
-    @Input() severity: 'success' | 'secondary' | 'info' | 'warning' | 'danger' | 'contrast' | undefined;
+    @Input() severity: 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' | undefined;
     /**
      * Value to display inside the tag.
      * @group Props
