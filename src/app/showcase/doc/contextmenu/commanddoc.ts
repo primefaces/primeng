@@ -16,28 +16,21 @@ interface Users {
         <app-docsectiontext>
             <p>The function to invoke when an item is clicked is defined using the <i>command</i> property.</p>
         </app-docsectiontext>
-        <div class="card flex md:justify-center">
+        <div class="card flex sm:justify-center">
             <p-toast />
-            <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
+            <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
                 <li
                     *ngFor="let user of users"
-                    [class]="[
-                        'p-2',
-                        'hover:bg-emphasis',
-                        'rounded-border',
-                        'border',
-                        'border-transparent',
-                        'transition-all',
-                        'duration-200',
-                        'flex',
-                        'items-center',
-                        'justify-between',
-                        selectedUser?.id === user?.id ? 'border-primary' : ''
-                    ]"
+                    class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+                    [ngClass]="{ 'border-primary': selectedId === user.id }"
                     (contextmenu)="onContextMenu($event, user)"
                 >
-                    <div class="flex items-center gap-2">
-                        <img [alt]="user.name" [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" style="width: 32px" />
+                    <div class="flex flex-1 items-center gap-2">
+                        <img
+                            class="w-8 h-8"
+                            [alt]="user.name"
+                            [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
+                        />
                         <span class="font-bold">{{ user.name }}</span>
                     </div>
                     <p-tag [value]="user.role" [severity]="getBadge(user)" />
@@ -49,7 +42,7 @@ interface Users {
 
         <app-code [code]="code" selector="context-menu-command-demo"></app-code>
     `,
-    providers: [MessageService]
+    providers: [MessageService],
 })
 export class CommandDoc implements OnInit {
     items: MenuItem[] | undefined;
@@ -68,7 +61,7 @@ export class CommandDoc implements OnInit {
             { id: 1, name: 'Anna Fali', image: 'annafali.png', role: 'Member' },
             { id: 2, name: 'Asiya Javayant', image: 'asiyajavayant.png', role: 'Member' },
             { id: 3, name: 'Bernardo Dominic', image: 'bernardodominic.png', role: 'Guest' },
-            { id: 4, name: 'Elwin Sharvill', image: 'elwinsharvill.png', role: 'Member' }
+            { id: 4, name: 'Elwin Sharvill', image: 'elwinsharvill.png', role: 'Member' },
         ];
 
         this.items = [
@@ -80,29 +73,34 @@ export class CommandDoc implements OnInit {
                         label: 'Admin',
                         command: () => {
                             this.selectedUser.role = 'Admin';
-                        }
+                        },
                     },
                     {
                         label: 'Member',
                         command: () => {
                             this.selectedUser.role = 'Member';
-                        }
+                        },
                     },
                     {
                         label: 'Guest',
                         command: () => {
                             this.selectedUser.role = 'Guest';
-                        }
-                    }
-                ]
+                        },
+                    },
+                ],
             },
             {
                 label: 'Invite',
                 icon: 'pi pi-user-plus',
                 command: () => {
-                    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Invitation sent!', life: 3000 });
-                }
-            }
+                    this.messageService.add({
+                        severity: 'success',
+                        summary: 'Success',
+                        detail: 'Invitation sent!',
+                        life: 3000,
+                    });
+                },
+            },
         ];
     }
 
@@ -123,64 +121,43 @@ export class CommandDoc implements OnInit {
 
     code: Code = {
         basic: `<p-toast />
-<ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
-    <li
-        *ngFor="let user of users"
-        [class]="[
-            'p-2',
-            'hover:bg-emphasis',
-            'rounded-border',
-            'border',
-            'border-transparent',
-            'transition-all',
-            'duration-200',
-            'flex',
-            'items-center',
-            'justify-between',
-            selectedUser?.id === user?.id ? 'border-primary' : ''
-        ]"
-        (contextmenu)="onContextMenu($event, user)">
-        <div class="flex items-center gap-2">
-            <img 
-                [alt]="user.name" 
-                [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 
-                style="width: 32px" />
-            <span class="font-bold">
-                {{ user.name }}
-            </span>
-        </div>
-        <p-tag [value]="user.role" [severity]="getBadge(user)" />
-    </li>
-</ul>
-<p-contextMenu #cm [model]="items" (onHide)="onHide()" />`,
-
-        html: `<div class="card flex justify-center">
-    <p-toast />
-    <ul class="m-0 p-0 list-none border border-surface rounded-border p-4 flex flex-col gap-2 w-full md:w-[30rem]">
+    <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
         <li
             *ngFor="let user of users"
-            [class]="[
-                'p-2',
-                'hover:bg-emphasis',
-                'rounded-border',
-                'border',
-                'border-transparent',
-                'transition-all',
-                'duration-200',
-                'flex',
-                'items-center',
-                'justify-between',
-                selectedUser?.id === user?.id ? 'border-primary' : ''
-            ]"
-            (contextmenu)="onContextMenu($event, user)">
-            <div class="flex items-center gap-2">
-                <img 
-                    [alt]="user.name" 
-                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image" 
-                    style="width: 32px" />
-                <span class="font-bold">
-                    {{ user.name }}
-                </span>
+            class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+            [ngClass]="{ 'border-primary': selectedId === user.id }"
+            (contextmenu)="onContextMenu($event, user)"
+        >
+            <div class="flex flex-1 items-center gap-2">
+                <img
+                    class="w-8 h-8"
+                    [alt]="user.name"
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
+                />
+                <span class="font-bold">{{ user.name }}</span>
+            </div>
+            <p-tag [value]="user.role" [severity]="getBadge(user)" />
+        </li>
+    </ul>
+
+    <p-contextMenu #cm [model]="items" (onHide)="onHide()" />`,
+
+        html: `<div class="card flex sm:justify-center">
+    <p-toast />
+    <ul class="m-0 list-none border border-surface rounded p-4 flex flex-col gap-2 w-full sm:w-96">
+        <li
+            *ngFor="let user of users"
+            class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
+            [ngClass]="{ 'border-primary': selectedId === user.id }"
+            (contextmenu)="onContextMenu($event, user)"
+        >
+            <div class="flex flex-1 items-center gap-2">
+                <img
+                    class="w-8 h-8"
+                    [alt]="user.name"
+                    [src]="'https://primefaces.org/cdn/primeng/images/demo/avatar/' + user.image"
+                />
+                <span class="font-bold">{{ user.name }}</span>
             </div>
             <p-tag [value]="user.role" [severity]="getBadge(user)" />
         </li>
@@ -280,6 +257,6 @@ export class ContextMenuCommandDemo implements OnInit {
     onHide() {
         this.selectedUser = null;
     }
-}`
+}`,
     };
 }
