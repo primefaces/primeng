@@ -5,7 +5,9 @@ import { Code } from '@domain/code';
     selector: 'badge-overlay-demo',
     template: `
         <app-docsectiontext>
-            <p>Content of the badge is specified using the <i>value</i> property.</p>
+            <p>
+                A badge can be added to any element by encapsulating the content with the <i>OverlayBadge</i> component.
+            </p>
         </app-docsectiontext>
         <div class="card flex flex-wrap justify-center gap-6">
             <p-overlayBadge value="2">
@@ -19,7 +21,7 @@ import { Code } from '@domain/code';
             </p-overlayBadge>
         </div>
         <app-code [code]="code" selector="badge-overlay-demo"></app-code>
-    `
+    `,
 })
 export class OverlayDoc {
     code: Code = {
@@ -52,6 +54,6 @@ import { OverlayBadgeModule } from 'primeng/overlaybadge';
     standalone: true,
     imports: [OverlayBadgeModule]
 })
-export class BadgeOverlayDemo {}`
+export class BadgeOverlayDemo {}`,
     };
 }
