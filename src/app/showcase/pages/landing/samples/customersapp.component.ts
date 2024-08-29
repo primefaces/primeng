@@ -161,51 +161,10 @@ import { AppConfigService } from '@service/appconfigservice';
                         </tr>
                     </ng-template>
                 </p-table>
-                <!-- <DataTable
-                v-model:selection="selectedRows"
-                selectionMode="multiple"
-                :value="tableData"
-                :rows="10"
-                :pt="{
-                    root: {
-                        class: 'w-full flex-1 overflow-auto '
-                    },
-                    thead: {
-                        class: 'sticky top-0 z-10'
-                    }
-                }"
-                :dt="{
-                    headerCell: {
-                        background: 'transparent'
-                    },
-                    row: {
-                        background: 'transparent'
-                    }
-                }"
-            > -->
             </div>
         </div>
-        <!-- <Drawer
-            v-model:visible="visibleRight"
-            :containerVisible="true"
-            header="Right Sidebar"
-            position="right"
-            closeIcon="pi pi-sign-out"
-            :pt="{
-            root: {
-                class: '!max-w-2xl !w-full !h-screen rounded-l-2xl'
-            },
-            footer: {
-                class: 'hidden'
-            },
-            content: {
-                class: 'flex-1 flex flex-col'
-            }
-        }"
-        > -->
         <p-drawer
             [(visible)]="visibleRight"
-            header="Right Sidebar"
             position="right"
             closeIcon="pi pi-sign-out"
             styleClass="!max-w-2xl !w-full !h-screen rounded-l-2xl"
@@ -225,27 +184,10 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                             <p-button icon="pi pi-sign-out" text rounded severity="secondary" />
                         </div>
-                        <!-- <p-selectButton
-                            [(ngModel)]="selectedSidebarOption"
-                            [options]="sidebarOptions"
-                            :pt="{
-                            root: {
-                                class: 'px-6 py-3 w-full'
-                            },
-                            pcButton: {
-                                root: {
-                                    class: 'flex-1 py-2.5'
-                                },
-                                label: {
-                                    class: 'text-sm'
-                                }
-                            }
-                        }" -->
                         <p-selectButton
                             [(ngModel)]="selectedSidebarOption"
                             [options]="sidebarOptions"
                             class="flex-1 px-6 py-3"
-              
                         />
                     </div>
                     <div
@@ -1018,7 +960,7 @@ export class CustomersApp {
 
     setLineChartData() {
         const { darkTheme } = this.configService.appState();
-        
+
         return {
             labels: ['31', '1', '2', '3', '4', '5', '6', '7', '8'],
             datasets: [

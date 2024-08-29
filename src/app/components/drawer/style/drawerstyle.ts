@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { BaseStyle } from 'primeng/base';
 
 const theme = ({ dt }) => `
-
 .p-drawer {
     display: flex;
     flex-direction: column;
     pointer-events: auto;
     transform: translate3d(0px, 0px, 0px);
-    position: relative;
+    position: fixed;
     transition: transform 0.3s;
     background: ${dt('drawer.background')};
     color: ${dt('drawer.color')};
@@ -50,39 +49,6 @@ const theme = ({ dt }) => `
     border-width: 1px;
 }
 
-/* PrimeVue animations
-
-.p-drawer-left .p-drawer-enter-from,
-.p-drawer-left .p-drawer-leave-to {
-    transform: translateX(-100%);
-}
-
-.p-drawer-right .p-drawer-enter-from,
-.p-drawer-right .p-drawer-leave-to {
-    transform: translateX(100%);
-}
-
-.p-drawer-top .p-drawer-enter-from,
-.p-drawer-top .p-drawer-leave-to {
-    transform: translateY(-100%);
-}
-
-.p-drawer-bottom .p-drawer-enter-from,
-.p-drawer-bottom .p-drawer-leave-to {
-    transform: translateY(100%);
-}
-
-.p-drawer-full .p-drawer-enter-from,
-.p-drawer-full .p-drawer-leave-to {
-    opacity: 0;
-}
-
-.p-drawer-full .p-drawer-enter-active,
-.p-drawer-full .p-drawer-leave-active {
-    transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-*/
-
 .p-drawer-left .p-drawer {
     align-self: start;
     width: 20rem;
@@ -98,7 +64,6 @@ const theme = ({ dt }) => `
 }
 
 .p-drawer-top .p-drawer {
-
     height: 10rem;
     width: 100%;
     border-bottom-width: 1px;
@@ -129,6 +94,110 @@ const theme = ({ dt }) => `
 .p-drawer-bottom {
     justify-content: flex-end;
 }
+
+.p-drawer {
+    position: fixed;
+    transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.p-drawer-content {
+    position: relative;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.p-drawer-header {
+    display: flex;
+    align-items: center;
+}
+
+.p-drawer-footer {
+    margin-top: auto;
+}
+
+.p-drawer-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+}
+
+.p-drawer-left {
+    top: 0;
+    left: 0;
+    width: 20rem;
+    height: 100%;
+}
+
+.p-drawer-right {
+    top: 0;
+    right: 0;
+    width: 20rem;
+    height: 100%;
+}
+
+.p-drawer-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+}
+
+.p-drawer-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10rem;
+}
+
+.p-drawer-full {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-transition: none;
+    transition: none;
+}
+
+.p-drawer-mask {
+    background-color: rgba(0, 0, 0, 0.4);
+    transition-duration: 0.2s;
+}
+
+.p-component-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.p-component-overlay-enter {
+    animation: p-component-overlay-enter-animation 150ms forwards;
+}
+
+.p-component-overlay-leave {
+    animation: p-component-overlay-leave-animation 150ms forwards;
+}
+
+@keyframes p-component-overlay-enter-animation {
+    from {
+        background-color: transparent;
+    }
+    to {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+}
+@keyframes p-component-overlay-leave-animation {
+    from {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    to {
+        background-color: transparent;
+    }
+}
 `;
 
 const inlineStyles = {
@@ -140,8 +209,8 @@ const inlineStyles = {
         top: 0,
         display: 'flex',
         flexDirection: 'column',
-        alignItems: instance.position === 'top' ? 'flex-start' : instance.position === 'bottom' ? 'flex-end' : 'center'
-    })
+        alignItems: instance.position === 'top' ? 'flex-start' : instance.position === 'bottom' ? 'flex-end' : 'center',
+    }),
 };
 
 const classes = {
@@ -150,17 +219,17 @@ const classes = {
         'p-overlay-mask p-overlay-mask-enter': instance.modal,
         'p-drawer-open': instance.containerVisible,
         'p-drawer-full': instance.fullScreen,
-        [`p-drawer-${instance.position}`]: !!instance.position
+        [`p-drawer-${instance.position}`]: !!instance.position,
     }),
     root: ({ instance }) => ({
         'p-drawer p-component': true,
-        'p-drawer-full': instance.fullScreen
+        'p-drawer-full': instance.fullScreen,
     }),
     header: 'p-drawer-header',
     title: 'p-drawer-title',
     pcCloseButton: 'p-drawer-close-button',
     content: 'p-drawer-content',
-    footer: 'p-drawer-footer'
+    footer: 'p-drawer-footer',
 };
 
 @Injectable()
