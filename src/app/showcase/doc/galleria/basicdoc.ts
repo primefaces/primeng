@@ -6,22 +6,28 @@ import { PhotoService } from '@service/photoservice';
     selector: 'galleria-basic-demo',
     template: `
         <app-docsectiontext>
-            <p>Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher resolution image and <i>thumbnail</i> template to display as a thumbnail.</p>
+            <p>
+                Galleria requires a <i>value</i> as a collection of images, <i>item</i> template for the higher
+                resolution image and <i>thumbnail</i> template to display as a thumbnail.
+            </p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <p-galleria
+                [(value)]="images"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '640px' }"
+                [numVisible]="5"
+            >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%;" />
+                    <img [src]="item.itemImageSrc" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" />
-                    </div>
+                    <img [src]="item.thumbnailImageSrc" />
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-basic-demo"></app-code>
-    `
+    `,
 })
 export class BasicDoc implements OnInit {
     images: any[] | undefined;
@@ -35,16 +41,16 @@ export class BasicDoc implements OnInit {
         this.responsiveOptions = [
             {
                 breakpoint: '1024px',
-                numVisible: 5
+                numVisible: 5,
             },
             {
                 breakpoint: '768px',
-                numVisible: 3
+                numVisible: 3,
             },
             {
                 breakpoint: '560px',
-                numVisible: 1
-            }
+                numVisible: 1,
+            },
         ];
     }
 
@@ -55,12 +61,10 @@ export class BasicDoc implements OnInit {
     [containerStyle]="{ 'max-width': '640px' }" 
     [numVisible]="5">
         <ng-template pTemplate="item" let-item>
-            <img [src]="item.itemImageSrc" style="width: 100%;" />
+            <img [src]="item.itemImageSrc" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                 <img [src]="item.thumbnailImageSrc" />
-            </div>
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
@@ -70,12 +74,10 @@ export class BasicDoc implements OnInit {
         [containerStyle]="{ 'max-width': '640px' }" 
         [numVisible]="5">
             <ng-template pTemplate="item" let-item>
-                <img [src]="item.itemImageSrc" style="width: 100%;" />
+                <img [src]="item.itemImageSrc" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                     <img [src]="item.thumbnailImageSrc" />
-                </div>
             </ng-template>
     </p-galleria>
 </div>`,
@@ -124,6 +126,6 @@ export class GalleriaBasicDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

@@ -14,7 +14,7 @@ import { PhotoService } from '@service/photoservice';
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="indicator" let-index>
-                    <span style="color: #e9ecef; cursor: pointer">
+                    <span style="color: #ffffff; cursor: pointer">
                         {{ index + 1 }}
                     </span>
                 </ng-template>
@@ -55,7 +55,7 @@ export class TemplateDoc implements OnInit {
         <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
     </ng-template>
     <ng-template pTemplate="indicator" let-index>
-        <span style="color: #e9ecef; cursor: pointer">
+        <span style="color: #ffffff; cursor: pointer">
             {{ index + 1 }}
         </span>
     </ng-template>
@@ -67,7 +67,7 @@ export class TemplateDoc implements OnInit {
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="indicator" let-index>
-            <span style="color: #e9ecef; cursor: pointer">
+            <span style="color: #ffffff; cursor: pointer">
                 {{index + 1}}
             </span>
         </ng-template>
