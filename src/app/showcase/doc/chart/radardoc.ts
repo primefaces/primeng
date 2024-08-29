@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="radar" [data]="data" [options]="options" />
+            <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-radar-demo"></app-code>
     `,
@@ -34,30 +34,30 @@ export class RadarDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
 
             this.data = {
                 labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
                 datasets: [
                     {
                         label: 'My First dataset',
-                        borderColor: documentStyle.getPropertyValue('--bluegray-400'),
-                        pointBackgroundColor: documentStyle.getPropertyValue('--bluegray-400'),
-                        pointBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
+                        borderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        pointBackgroundColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
                         pointHoverBackgroundColor: textColor,
-                        pointHoverBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
-                        data: [65, 59, 90, 81, 56, 55, 40],
+                        pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                        data: [65, 59, 90, 81, 56, 55, 40]
                     },
                     {
                         label: 'My Second dataset',
-                        borderColor: documentStyle.getPropertyValue('--pink-400'),
-                        pointBackgroundColor: documentStyle.getPropertyValue('--pink-400'),
-                        pointBorderColor: documentStyle.getPropertyValue('--pink-400'),
+                        borderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        pointBackgroundColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
                         pointHoverBackgroundColor: textColor,
-                        pointHoverBorderColor: documentStyle.getPropertyValue('--pink-400'),
-                        data: [28, 48, 40, 19, 96, 27, 100],
-                    },
+                        pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                        data: [28, 48, 40, 19, 96, 27, 100]
+                    }
                 ],
             };
 
@@ -65,28 +65,25 @@ export class RadarDoc implements OnInit {
                 plugins: {
                     legend: {
                         labels: {
-                            color: textColor,
-                        },
-                    },
+                            color: textColor
+                        }
+                    }
                 },
                 scales: {
                     r: {
                         grid: {
-                            color: textColorSecondary,
-                        },
-                        pointLabels: {
-                            color: textColorSecondary,
-                        },
-                    },
-                },
+                            color: textColorSecondary
+                        }
+                    }
+                }
             };
         }
     }
 
     code: Code = {
-        basic: `<p-chart type="radar" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />`,
         html: `<div class="card flex justify-center">
-    <p-chart type="radar" [data]="data" [options]="options" />
+    <p-chart type="radar" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -104,28 +101,28 @@ export class ChartRadarDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
         
         this.data = {
             labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],
             datasets: [
                 {
                     label: 'My First dataset',
-                    borderColor: documentStyle.getPropertyValue('--bluegray-400'),
-                    pointBackgroundColor: documentStyle.getPropertyValue('--bluegray-400'),
-                    pointBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
+                    borderColor: documentStyle.getPropertyValue('--p-gray-400'),
+                    pointBackgroundColor: documentStyle.getPropertyValue('--p-gray-400'),
+                    pointBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
                     pointHoverBackgroundColor: textColor,
-                    pointHoverBorderColor: documentStyle.getPropertyValue('--bluegray-400'),
+                    pointHoverBorderColor: documentStyle.getPropertyValue('--p-gray-400'),
                     data: [65, 59, 90, 81, 56, 55, 40]
                 },
                 {
                     label: 'My Second dataset',
-                    borderColor: documentStyle.getPropertyValue('--pink-400'),
-                    pointBackgroundColor: documentStyle.getPropertyValue('--pink-400'),
-                    pointBorderColor: documentStyle.getPropertyValue('--pink-400'),
+                    borderColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                    pointBackgroundColor: documentStyle.getPropertyValue('--p-cyan-400'),
+                    pointBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
                     pointHoverBackgroundColor: textColor,
-                    pointHoverBorderColor: documentStyle.getPropertyValue('--pink-400'),
+                    pointHoverBorderColor: documentStyle.getPropertyValue('--p-cyan-400'),
                     data: [28, 48, 40, 19, 96, 27, 100]
                 }
             ]
@@ -142,9 +139,6 @@ export class ChartRadarDemo implements OnInit {
             scales: {
                 r: {
                     grid: {
-                        color: textColorSecondary
-                    },
-                    pointLabels: {
                         color: textColorSecondary
                     }
                 }

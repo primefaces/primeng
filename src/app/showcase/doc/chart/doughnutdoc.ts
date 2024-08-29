@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="doughnut" [data]="data" [options]="options" />
+            <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-doughnut-demo"></app-code>
     `,
@@ -34,25 +34,17 @@ export class DoughnutDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
 
             this.data = {
                 labels: ['A', 'B', 'C'],
                 datasets: [
                     {
                         data: [300, 50, 100],
-                        backgroundColor: [
-                            documentStyle.getPropertyValue('--blue-500'),
-                            documentStyle.getPropertyValue('--yellow-500'),
-                            documentStyle.getPropertyValue('--green-500'),
-                        ],
-                        hoverBackgroundColor: [
-                            documentStyle.getPropertyValue('--blue-400'),
-                            documentStyle.getPropertyValue('--yellow-400'),
-                            documentStyle.getPropertyValue('--green-400'),
-                        ],
-                    },
-                ],
+                        backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                        hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
+                    }
+                ]
             };
 
             this.options = {
@@ -68,9 +60,9 @@ export class DoughnutDoc implements OnInit {
         }
     }
     code: Code = {
-        basic: `<p-chart type="doughnut" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />`,
         html: `<div class="card flex justify-center">
-    <p-chart type="doughnut" [data]="data" [options]="options" />
+    <p-chart type="doughnut" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -88,15 +80,15 @@ export class ChartDoughnutDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
 
         this.data = {
             labels: ['A', 'B', 'C'],
-            datasets: [
+             datasets: [
                 {
                     data: [300, 50, 100],
-                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
-                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+                    backgroundColor: [documentStyle.getPropertyValue('--p-cyan-500'), documentStyle.getPropertyValue('--p-orange-500'), documentStyle.getPropertyValue('--p-gray-500')],
+                    hoverBackgroundColor: [documentStyle.getPropertyValue('--p-cyan-400'), documentStyle.getPropertyValue('--p-orange-400'), documentStyle.getPropertyValue('--p-gray-400')]
                 }
             ]
         };

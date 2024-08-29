@@ -13,7 +13,7 @@ import { AppConfigService } from '@service/appconfigservice';
             </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-chart type="polarArea" [data]="data" [options]="options" />
+            <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
         </div>
         <app-code [code]="code" selector="chart-polar-area-demo"></app-code>
     `,
@@ -33,24 +33,24 @@ export class PolarAreaDoc implements OnInit {
     initChart() {
         if (isPlatformBrowser(this.platformId)) {
             const documentStyle = getComputedStyle(document.documentElement);
-            const textColor = documentStyle.getPropertyValue('--text-color');
-            const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+            const textColor = documentStyle.getPropertyValue('--p-text-color');
+            const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
 
             this.data = {
                 datasets: [
                     {
                         data: [11, 16, 7, 3, 14],
                         backgroundColor: [
-                            documentStyle.getPropertyValue('--red-500'),
-                            documentStyle.getPropertyValue('--green-500'),
-                            documentStyle.getPropertyValue('--yellow-500'),
-                            documentStyle.getPropertyValue('--bluegray-500'),
-                            documentStyle.getPropertyValue('--blue-500'),
+                            documentStyle.getPropertyValue('--p-pink-500'),
+                            documentStyle.getPropertyValue('--p-gray-500'),
+                            documentStyle.getPropertyValue('--p-orange-500'),
+                            documentStyle.getPropertyValue('--p-purple-500'),
+                            documentStyle.getPropertyValue('--p-cyan-500')
                         ],
-                        label: 'My dataset',
-                    },
+                        label: 'My dataset'
+                    }
                 ],
-                labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue'],
+                labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
             };
 
             this.options = {
@@ -73,9 +73,9 @@ export class PolarAreaDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-chart type="polarArea" [data]="data" [options]="options" />`,
+        basic: `<p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />`,
         html: `<div class="card flex justify-center">
-    <p-chart type="polarArea" [data]="data" [options]="options" />
+    <p-chart type="polarArea" [data]="data" [options]="options" class="w-full md:w-[30rem]" />
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
@@ -93,24 +93,24 @@ export class ChartPolarAreaDemo implements OnInit {
 
     ngOnInit() {
         const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        const textColor = documentStyle.getPropertyValue('--p-text-color');
+        const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
         
         this.data = {
             datasets: [
                 {
                     data: [11, 16, 7, 3, 14],
                     backgroundColor: [
-                        documentStyle.getPropertyValue('--red-500'),
-                        documentStyle.getPropertyValue('--green-500'),
-                        documentStyle.getPropertyValue('--yellow-500'),
-                        documentStyle.getPropertyValue('--bluegray-500'),
-                        documentStyle.getPropertyValue('--blue-500')
+                        documentStyle.getPropertyValue('--p-pink-500'),
+                        documentStyle.getPropertyValue('--p-gray-500'),
+                        documentStyle.getPropertyValue('--p-orange-500'),
+                        documentStyle.getPropertyValue('--p-purple-500'),
+                        documentStyle.getPropertyValue('--p-cyan-500')
                     ],
                     label: 'My dataset'
                 }
             ],
-            labels: ['Red', 'Green', 'Yellow', 'Grey', 'Blue']
+            labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan']
         };
         
         this.options = {
