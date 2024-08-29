@@ -93,7 +93,7 @@ import { AppConfigService } from '@service/appconfigservice';
                             </div>
                         </div>
                     </div>
-                    <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'15rem'" />
+                    <p-chart type="bar" [data]="chartData" [options]="chartOptions" [height]="'20rem'" />
                 </div>
                 <div class="flex gap-6 xl:flex-row flex-col">
                     <div class="flex-1 border border-surface rounded-2xl py-5 px-7">
