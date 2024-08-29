@@ -74,7 +74,7 @@ export class NumScrollDoc implements OnInit {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
@@ -204,7 +204,7 @@ export class CarouselNumScrollDemo implements OnInit {
             case 'INSTOCK':
                 return 'success';
             case 'LOWSTOCK':
-                return 'warning';
+                return 'warn';
             case 'OUTOFSTOCK':
                 return 'danger';
         }
