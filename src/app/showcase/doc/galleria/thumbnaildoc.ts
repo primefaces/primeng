@@ -10,21 +10,36 @@ import { PhotoService } from '@service/photoservice';
         </app-docsectiontext>
         <div class="card">
             <div class="flex flex-wrap gap-4 mb-8">
-                <p-radioButton *ngFor="let option of positionOptions" [name]="option.label" [value]="option.value" [label]="option.label" [(ngModel)]="position" [inputId]="label" />
+                <div *ngFor="let option of positionOptions" class="flex items-center">
+                    <p-radioButton
+                        [name]="option.label"
+                        [value]="option.value"
+                        [label]="option.label"
+                        [(ngModel)]="position"
+                        [inputId]="label"
+                    />
+                    <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+                </div>
             </div>
-            <p-galleria [(value)]="images" [thumbnailsPosition]="position" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }" [numVisible]="5">
+            <p-galleria
+                [(value)]="images"
+                [thumbnailsPosition]="position"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '640px' }"
+                [numVisible]="5"
+            >
                 <ng-template pTemplate="item" let-item>
-                    <img [src]="item.itemImageSrc" style="width: 100%; min-height: 420px; display: block;" />
+                    <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                        <img [src]="item.thumbnailImageSrc" />
+                    <div class="grid gap-4 justify-center">
+                        <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
                     </div>
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-thumbnail-demo"></app-code>
-    `
+    `,
 })
 export class ThumbnailDoc implements OnInit {
     images: any[] | undefined;
@@ -34,35 +49,35 @@ export class ThumbnailDoc implements OnInit {
     positionOptions = [
         {
             label: 'Bottom',
-            value: 'bottom'
+            value: 'bottom',
         },
         {
             label: 'Top',
-            value: 'top'
+            value: 'top',
         },
         {
             label: 'Left',
-            value: 'left'
+            value: 'left',
         },
         {
             label: 'Right',
-            value: 'right'
-        }
+            value: 'right',
+        },
     ];
 
     responsiveOptions: any[] = [
         {
             breakpoint: '1024px',
-            numVisible: 5
+            numVisible: 5,
         },
         {
             breakpoint: '768px',
-            numVisible: 3
+            numVisible: 3,
         },
         {
             breakpoint: '560px',
-            numVisible: 1
-        }
+            numVisible: 1,
+        },
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -72,49 +87,62 @@ export class ThumbnailDoc implements OnInit {
     }
 
     code: Code = {
-        basic: `<p-galleria 
-    [(value)]="images" 
-    [thumbnailsPosition]="position" 
-    [responsiveOptions]="responsiveOptions" 
+        basic: `<div class="flex flex-wrap gap-4 mb-8">
+    <div *ngFor="let option of positionOptions" class="flex items-center">
+        <p-radioButton
+            [name]="option.label"
+            [value]="option.value"
+            [label]="option.label"
+            [(ngModel)]="position"
+            [inputId]="label"
+        />
+        <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+    </div>
+</div>
+<p-galleria
+    [(value)]="images"
+    [thumbnailsPosition]="position"
+    [responsiveOptions]="responsiveOptions"
     [containerStyle]="{ 'max-width': '640px' }"
-    [numVisible]="5">
-        <ng-template pTemplate="item" let-item>
-            <img 
-                [src]="item.itemImageSrc" 
-                style="width: 100%; min-height: 420px; display: block;" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" />
-            </div>
-        </ng-template>
+    [numVisible]="5"
+>
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+    </ng-template>
+    <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid gap-4 justify-center">
+            <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+        </div>
+    </ng-template>
 </p-galleria>`,
         html: `<div class="card">
     <div class="flex flex-wrap gap-4 mb-8">
-        <p-radioButton 
-            *ngFor="let option of positionOptions;" 
-            [name]="option.label" 
-            [value]="option.value" 
-            [label]="option.label" 
-            [(ngModel)]="position" 
-            [inputId]="label" />
+        <div *ngFor="let option of positionOptions" class="flex items-center">
+            <p-radioButton
+                [name]="option.label"
+                [value]="option.value"
+                [label]="option.label"
+                [(ngModel)]="position"
+                [inputId]="label"
+            />
+            <label [for]="option.label" class="ml-2"> {{ option.label }} </label>
+        </div>
     </div>
-    <p-galleria 
-        [(value)]="images" 
-        [thumbnailsPosition]="position" 
-        [responsiveOptions]="responsiveOptions" 
-        [containerStyle]="{ 'max-width': '640px' }" 
-        [numVisible]="5"> 
-            <ng-template pTemplate="item" let-item>
-                <img 
-                    [src]="item.itemImageSrc" 
-                    style="width: 100%; min-height: 420px; display: block;" />
-            </ng-template>
-            <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" />
-                </div>
-            </ng-template>
+    <p-galleria
+        [(value)]="images"
+        [thumbnailsPosition]="position"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [numVisible]="5"
+    >
+        <ng-template pTemplate="item" let-item>
+            <img [src]="item.itemImageSrc" style="width: 100%; display: block" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+            <div class="grid gap-4 justify-center">
+                <img [src]="item.thumbnailImageSrc" style="width: 100%; display: block" />
+            </div>
+        </ng-template>
     </p-galleria>
 </div>`,
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -184,6 +212,6 @@ export class GalleriaThumbnailDemo implements OnInit {
     title: 'Title 1'
 },
 ...`,
-        service: ['PhotoService']
+        service: ['PhotoService'],
     };
 }

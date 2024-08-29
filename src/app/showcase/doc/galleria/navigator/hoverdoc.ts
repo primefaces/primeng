@@ -9,37 +9,38 @@ import { PhotoService } from '@service/photoservice';
             <p>Navigators are displayed on hover only if <i>showItemNavigatorsOnHover</i> is enabled.</p>
         </app-docsectiontext>
         <div class="card">
-            <p-galleria [(value)]="images" [showIndicators]="false" [showItemNavigatorsOnHover]="true" [showItemNavigators]="true" [responsiveOptions]="responsiveOptions" [containerStyle]="{ 'max-width': '640px' }">
+            <p-galleria
+                [(value)]="images"
+                [showIndicators]="false"
+                [showItemNavigatorsOnHover]="true"
+                [showItemNavigators]="true"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ 'max-width': '640px' }"
+            >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
                 </ng-template>
                 <ng-template pTemplate="thumbnail" let-item>
-                    <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
                         <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                    </div>
                 </ng-template>
             </p-galleria>
         </div>
         <app-code [code]="code" selector="galleria-navigator-hover-demo"></app-code>
     `,
-    providers: [PhotoService]
+    providers: [PhotoService],
 })
 export class HoverDoc implements OnInit {
     images: any[] | undefined;
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '1300px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
+            breakpoint: '575px',
+            numVisible: 1,
         },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -62,9 +63,7 @@ export class HoverDoc implements OnInit {
             <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
         </ng-template>
         <ng-template pTemplate="thumbnail" let-item>
-            <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                <img [src]="item.thumbnailImageSrc" style="display: block;" />
-            </div>
+            <img [src]="item.thumbnailImageSrc" style="display: block;" />
         </ng-template>
 </p-galleria>`,
         html: `<div class="card">
@@ -79,9 +78,7 @@ export class HoverDoc implements OnInit {
                 <img [src]="item.itemImageSrc" style="width: 100%; display: block;" />
             </ng-template>
             <ng-template pTemplate="thumbnail" let-item>
-                <div class="grid grid-cols-12 gap-4 grid-nogutter justify-center">
-                    <img [src]="item.thumbnailImageSrc" style="display: block;" />
-                </div>
+                <img [src]="item.thumbnailImageSrc" style="display: block;" />
             </ng-template>
     </p-galleria>
 </div>`,
@@ -101,17 +98,13 @@ export class GalleriaNavigatorHoverDemo implements OnInit {
 
     responsiveOptions: any[] = [
         {
-            breakpoint: '1024px',
-            numVisible: 5
+            breakpoint: '1300px',
+            numVisible: 4,
         },
         {
-            breakpoint: '768px',
-            numVisible: 3
+            breakpoint: '575px',
+            numVisible: 1,
         },
-        {
-            breakpoint: '560px',
-            numVisible: 1
-        }
     ];
 
     constructor(private photoService: PhotoService) {}
@@ -130,6 +123,6 @@ export class GalleriaNavigatorHoverDemo implements OnInit {
     alt: 'Description for Image 1',
     title: 'Title 1'
 },
-...`
+...`,
     };
 }
