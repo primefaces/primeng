@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from '@service/appconfigservice';
-import { AppConfigComponent } from './config/app.config.component';
+import { AppConfiguratorComponent } from './configurator/app.configurator.component';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
@@ -16,8 +16,14 @@ describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [RouterTestingModule, FormsModule, BrowserAnimationsModule, AutoCompleteModule, HttpClientModule],
-            declarations: [AppComponent, AppConfigComponent, AppTopBarComponent, AppMenuComponent, AppFooterComponent],
-            providers: [JsonService, AppConfigService]
+            declarations: [
+                AppComponent,
+                AppConfiguratorComponent,
+                AppTopBarComponent,
+                AppMenuComponent,
+                AppFooterComponent,
+            ],
+            providers: [JsonService, AppConfigService],
         }).compileComponents();
     }));
 

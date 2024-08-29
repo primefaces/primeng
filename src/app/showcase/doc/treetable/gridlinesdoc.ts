@@ -7,11 +7,11 @@ import { NodeService } from '@service/nodeservice';
     selector: 'gridlines-doc',
     template: ` <section class="py-6">
         <app-docsectiontext>
-            <p>Adding <i>p-treetable-gridlines</i> class displays grid lines.</p>
+            <p>Enabling <i>showGridlines</i> displays grid lines.</p>
         </app-docsectiontext>
         <div class="card">
             <p-deferred-demo (load)="loadDemoData()">
-                <p-treeTable [value]="files" [scrollable]="true" [tableStyle]="{ 'min-width': '50rem' }" showGridlines>
+                <p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
                     <ng-template pTemplate="header">
                         <tr>
                             <th>Name</th>
@@ -46,11 +46,28 @@ export class GridlinesDoc {
     }
 
     code: Code = {
-        basic: `<p-treeTable 
-    [value]="files" 
-    [scrollable]="true" 
-    [tableStyle]="{'min-width':'50rem'}" 
-    styleClass="p-treetable-gridlines">
+        basic: `<p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Type</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+            <td>
+                <p-treeTableToggler [rowNode]="rowNode" />
+                {{ rowData.name }}
+            </td>
+            <td>{{ rowData.size }}</td>
+            <td>{{ rowData.type }}</td>
+        </tr>
+    </ng-template>
+</p-treeTable>`,
+
+        html: `<div class="card">
+    <p-treeTable [value]="files" [scrollable]="true" showGridlines [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template pTemplate="header">
             <tr>
                 <th>Name</th>
@@ -68,30 +85,6 @@ export class GridlinesDoc {
                 <td>{{ rowData.type }}</td>
             </tr>
         </ng-template>
-</p-treeTable>`,
-
-        html: `<div class="card">
-    <p-treeTable 
-        [value]="files" 
-        [scrollable]="true" 
-        [tableStyle]="{'min-width':'50rem'}">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Name</th>
-                    <th>Size</th>
-                    <th>Type</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                <tr [ttRow]="rowNode">
-                    <td>
-                        <p-treeTableToggler [rowNode]="rowNode" />
-                        {{ rowData.name }}
-                    </td>
-                    <td>{{ rowData.size }}</td>
-                    <td>{{ rowData.type }}</td>
-                </tr>
-            </ng-template>
     </p-treeTable>
 </div>`,
 

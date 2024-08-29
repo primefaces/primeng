@@ -1,9 +1,8 @@
-import { CommonModule, DOCUMENT, IMAGE_CONFIG } from '@angular/common';
-import { Component, inject, Inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DomHandler } from 'primeng/dom';
 import { AppConfigService } from '@service/appconfigservice';
-import { AppConfigComponent } from './config/app.config.component';
 import { AppFooterComponent } from './footer/app.footer.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
@@ -14,16 +13,16 @@ import { PrimeNGConfig } from 'primeng/api';
     selector: 'app-main',
     template: `
         <div class="layout-wrapper" [ngClass]="containerClass">
-            <app-news></app-news>
-            <app-topbar (onDarkModeSwitch)="toggleDarkMode()"></app-topbar>
+            <app-news />
+            <app-topbar />
             <div class="layout-mask" [ngClass]="{ 'layout-mask-active': isMenuActive }" (click)="hideMenu()"></div>
             <div class="layout-content">
-                <app-menu></app-menu>
+                <app-menu />
                 <div class="layout-content-slot">
                     <router-outlet></router-outlet>
                 </div>
             </div>
-            <app-footer></app-footer>
+            <app-footer />
         </div>
     `,
     standalone: true,
@@ -55,18 +54,6 @@ export class AppMainComponent {
             'layout-news-active': this.isNewsActive,
             'p-ripple-disabled': this.isRippleDisabled,
         };
-    }
-
-    toggleDarkMode() {
-        // let newTheme = null;
-        // const { theme, darkMode } = this.configService.config();
-        // if (darkMode) {
-        //     newTheme = theme.replace('dark', 'light');
-        // } else {
-        //     if (theme.includes('light') && theme !== 'fluent-light') newTheme = theme.replace('light', 'dark');
-        //     else newTheme = 'lara-dark-blue';
-        // }
-        // this.configService.config.update((config) => ({ ...config, darkMode: !darkMode, theme: newTheme }));
     }
 
     hideMenu() {

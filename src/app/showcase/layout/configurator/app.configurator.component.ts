@@ -18,7 +18,7 @@ const presets = {
     Lara,
 };
 @Component({
-    selector: 'app-config',
+    selector: 'app-configurator',
     standalone: true,
     template: `
         <div class="config-panel-content">
@@ -68,7 +68,7 @@ const presets = {
 
             <div class="config-panel-settings">
                 <div class="config-panel-label">Ripple</div>
-                <p-inputSwitch [(ngModel)]="ripple" (onChange)="onRippleChange($event)"></p-inputSwitch>
+                <p-inputSwitch [(ngModel)]="ripple" (onChange)="onRippleChange($event)" />
             </div>
         </div>
     `,
@@ -77,7 +77,7 @@ const presets = {
     },
     imports: [CommonModule, FormsModule, InputSwitchModule, ButtonModule, RadioButtonModule, SelectButton],
 })
-export class AppConfigComponent {
+export class AppConfiguratorComponent {
     get ripple() {
         return this.config.ripple();
     }
@@ -90,12 +90,6 @@ export class AppConfigComponent {
     config: PrimeNGConfig = inject(PrimeNGConfig);
 
     configService: AppConfigService = inject(AppConfigService);
-
-    @Output() onDarkModeSwitch = new EventEmitter<any>();
-
-    toggleDarkMode() {
-        this.onDarkModeSwitch.emit(null);
-    }
 
     onRippleChange(event) {
         this.config.ripple.set(event.checked);

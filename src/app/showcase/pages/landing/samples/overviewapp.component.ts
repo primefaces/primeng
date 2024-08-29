@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
+import { Component, effect, inject, PLATFORM_ID, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ChartModule } from 'primeng/chart';
@@ -305,7 +305,17 @@ export class OverviewApp {
 
     metersData: any;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: any, private configService: AppConfigService) {}
+    platformId = inject(PLATFORM_ID);
+
+    configService = inject(AppConfigService);
+
+    appState = this.configService.appState();
+
+    themeEffect = effect(() => {
+        if (this.configService.theme() && isPlatformBrowser(this.platformId)) {
+            this.initChart();
+        }
+    });
 
     ngOnInit() {
         this.menuItems = [
@@ -412,9 +422,13 @@ export class OverviewApp {
         ];
 
         if (isPlatformBrowser(this.platformId)) {
-            this.chartData = this.setChartData(this.selectedTime);
-            this.chartOptions = this.setChartOptions();
+            this.initChart();
         }
+    }
+
+    initChart() {
+        this.chartData = this.setChartData(this.selectedTime);
+        this.chartOptions = this.setChartOptions();
     }
 
     setChartData(timeUnit: string) {

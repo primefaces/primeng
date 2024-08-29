@@ -15,7 +15,7 @@ import { ProductService } from '@service/productservice';
 import Aura from '@themes/aura';
 import { PrimeNGConfig } from 'primeng/api';
 import { AppMainComponent } from './app.main.component';
-import { AppConfigComponent } from './config/app.config.component';
+import { AppConfiguratorComponent } from './configurator/app.configurator.component';
 import { AppMenuComponent } from './menu/app.menu.component';
 import { AppNewsComponent } from './news/app.news.component';
 import { AppTopBarComponent } from './topbar/app.topbar.component';
@@ -32,7 +32,7 @@ import { AppTopBarComponent } from './topbar/app.topbar.component';
         AppMainComponent,
         LandingComponent,
         AppNewsComponent,
-        AppConfigComponent,
+        AppConfiguratorComponent,
         AppTopBarComponent,
         AppMenuComponent,
     ],

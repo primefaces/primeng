@@ -2,36 +2,32 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
     Component,
     ElementRef,
-    EventEmitter,
     Inject,
     Input,
     OnDestroy,
-    Output,
     Renderer2,
     afterNextRender,
+    booleanAttribute,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import docsearch from '@docsearch/js';
 import { DomHandler } from 'primeng/dom';
 import { StyleClassModule } from 'primeng/styleclass';
 import Versions from '../../data/versions.json';
 import { AppConfigService } from '@service/appconfigservice';
-import { AppConfigComponent } from '@layout/config/app.config.component';
+import { AppConfiguratorComponent } from '@layout/configurator/app.configurator.component';
 
 @Component({
     selector: 'app-topbar',
     standalone: true,
     templateUrl: './app.topbar.component.html',
-    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule, AppConfigComponent],
+    imports: [CommonModule, FormsModule, StyleClassModule, RouterModule, AppConfiguratorComponent],
 })
 export class AppTopBarComponent implements OnDestroy {
-    @Input() showConfigurator = true;
+    @Input({ transform: booleanAttribute }) showConfigurator = true;
 
-    @Input() showMenuButton = true;
-
-    @Output() onDarkModeSwitch = new EventEmitter<any>();
-
+    @Input({ transform: booleanAttribute }) showMenuButton = true;
     versions: any[] = Versions;
 
     scrollListener: VoidFunction | null;
@@ -42,7 +38,6 @@ export class AppTopBarComponent implements OnDestroy {
         @Inject(DOCUMENT) private document: Document,
         private el: ElementRef,
         private renderer: Renderer2,
-        private router: Router,
         private configService: AppConfigService,
     ) {
         this.window = this.document.defaultView as Window;
