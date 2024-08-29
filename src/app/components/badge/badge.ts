@@ -45,7 +45,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
@@ -176,7 +176,7 @@ export class BadgeDirective extends BaseComponent implements OnChanges, AfterVie
         this.renderer.appendChild(el, badge);
     }
 
-    private setSeverity(oldSeverity?: 'success' | 'info' | 'warning' | 'danger' | null, element?: HTMLElement): void {
+    private setSeverity(oldSeverity?: 'success' | 'info' | 'warn' | 'danger' | null, element?: HTMLElement): void {
         const badge = element ?? this.document.getElementById(this.id);
 
         if (!badge) {
@@ -239,7 +239,7 @@ export class Badge extends BaseComponent {
      * Severity type of the badge.
      * @group Props
      */
-    @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
+    @Input() severity: 'success' | 'info' | 'warn' | 'danger' | 'help' | 'primary' | 'secondary' | 'contrast' | null | undefined;
     /**
      * Value to display inside the badge.
      * @group Props
