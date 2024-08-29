@@ -426,7 +426,7 @@ export class Galleria extends BaseComponent implements OnChanges, OnDestroy {
             pFocusTrap
             [pFocusTrapDisabled]="!fullScreen"
         >
-            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close-button" (click)="maskHide.emit()" pRipple [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
+            <button *ngIf="galleria.fullScreen" type="button" class="p-galleria-close-button" (click)="maskHide.emit()" [attr.aria-label]="closeAriaLabel()" [attr.data-pc-section]="'closebutton'">
                 <TimesIcon *ngIf="!galleria.closeIconTemplate" [styleClass]="'p-galleria-close-icon'" />
                 <ng-template *ngTemplateOutlet="galleria.closeIconTemplate"></ng-template>
             </button>
@@ -672,7 +672,6 @@ export class GalleriaItemSlot {
                     [ngClass]="{ 'p-galleria-prev-button p-galleria-nav-button': true, 'p-disabled': this.isNavBackwardDisabled() }"
                     (click)="navBackward($event)"
                     [disabled]="isNavBackwardDisabled()"
-                    pRipple
                     (focus)="onButtonFocus('left')"
                     (blur)="onButtonBlur('left')"
                 >
@@ -688,7 +687,6 @@ export class GalleriaItemSlot {
                     [ngClass]="{ 'p-galleria-next-button p-galleria-nav-button': true, 'p-disabled': this.isNavForwardDisabled() }"
                     (click)="navForward($event)"
                     [disabled]="isNavForwardDisabled()"
-                    pRipple
                     role="navigation"
                     (focus)="onButtonFocus('right')"
                     (blur)="onButtonBlur('right')"
