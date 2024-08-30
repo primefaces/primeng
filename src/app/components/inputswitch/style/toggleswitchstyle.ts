@@ -6,6 +6,7 @@ const theme = ({ dt }) => `
     display: inline-block;
     width: ${dt('toggleswitch.width')};
     height: ${dt('toggleswitch.height')};
+    
 }
 
 .p-toggleswitch-input {
@@ -33,11 +34,9 @@ const theme = ({ dt }) => `
     border-style: solid;
     border-color: ${dt('toggleswitch.border.color')};
     background: ${dt('toggleswitch.background')};
-    transition: background ${dt('toggleswitch.transition.duration')}, color ${dt(
+    transition: background ${dt('toggleswitch.transition.duration')}, color ${dt('toggleswitch.transition.duration')}, border-color ${dt(
     'toggleswitch.transition.duration',
-)}, border-color ${dt('toggleswitch.transition.duration')}, outline-color ${dt(
-    'toggleswitch.transition.duration',
-)}, box-shadow ${dt('toggleswitch.transition.duration')};
+)}, outline-color ${dt('toggleswitch.transition.duration')}, box-shadow ${dt('toggleswitch.transition.duration')};
     border-radius: ${dt('toggleswitch.border.radius')};
     outline-color: transparent;
     box-shadow: ${dt('toggleswitch.shadow')};
@@ -86,9 +85,7 @@ const theme = ({ dt }) => `
 
 .p-toggleswitch:not(.p-disabled):has(.p-toggleswitch-input:focus-visible) .p-toggleswitch-slider {
     box-shadow: ${dt('toggleswitch.focus.ring.shadow')};
-    outline: ${dt('toggleswitch.focus.ring.width')} ${dt('toggleswitch.focus.ring.style')} ${dt(
-    'toggleswitch.focus.ring.color',
-)};
+    outline: ${dt('toggleswitch.focus.ring.width')} ${dt('toggleswitch.focus.ring.style')} ${dt('toggleswitch.focus.ring.color')};
     outline-offset: ${dt('toggleswitch.focus.ring.offset')};
 }
 
