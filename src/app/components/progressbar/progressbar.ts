@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, TemplateRef, ContentChildren, Input, NgModule, ViewEncapsulation, booleanAttribute, numberAttribute, inject } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    TemplateRef,
+    ContentChildren,
+    Input,
+    NgModule,
+    ViewEncapsulation,
+    booleanAttribute,
+    numberAttribute,
+    inject,
+} from '@angular/core';
 import { PrimeTemplate } from 'primeng/api';
 import { QueryList } from '@angular/core';
 import { BaseComponent } from 'primeng/basecomponent';
@@ -21,25 +32,49 @@ import { ProgressBarStyle } from './style/progressbarstyle';
             [attr.aria-valuemax]="100"
             [attr.data-pc-name]="'progressbar'"
             [attr.data-pc-section]="'root'"
-            [ngClass]="{ 'p-progressbar p-component': true, 'p-progressbar-determinate': mode === 'determinate', 'p-progressbar-indeterminate': mode === 'indeterminate' }"
+            [ngClass]="{
+                'p-progressbar p-component': true,
+                'p-progressbar-determinate': mode === 'determinate',
+                'p-progressbar-indeterminate': mode === 'indeterminate'
+            }"
         >
-            <div *ngIf="mode === 'determinate'" class="p-progressbar-value p-progressbar-value-animate" [style.width]="value + '%'" style="display:flex" [style.background]="color" [attr.data-pc-section]="'value'">
+            <div
+                *ngIf="mode === 'determinate'"
+                [ngClass]="'p-progressbar-value p-progressbar-value-animate'"
+                [class]="valueStyleClass"
+                [style.width]="value + '%'"
+                style="display:flex"
+                [style.background]="color"
+                [attr.data-pc-section]="'value'"
+            >
                 <div class="p-progressbar-label">
-                    <div *ngIf="showValue && !contentTemplate" [style.display]="value != null && value !== 0 ? 'flex' : 'none'" [attr.data-pc-section]="'label'">{{ value }}{{ unit }}</div>
+                    <div
+                        *ngIf="showValue && !contentTemplate"
+                        [style.display]="value != null && value !== 0 ? 'flex' : 'none'"
+                        [attr.data-pc-section]="'label'"
+                    >
+                        {{ value }}{{ unit }}
+                    </div>
                     <ng-container *ngTemplateOutlet="contentTemplate; context: { $implicit: value }"></ng-container>
                 </div>
             </div>
-            <div *ngIf="mode === 'indeterminate'" class="p-progressbar-indeterminate-container" [attr.data-pc-section]="'container'">
-                <div class="p-progressbar-value p-progressbar-value-animate" [style.background]="color" [attr.data-pc-section]="'value'"></div>
+            <div
+                *ngIf="mode === 'indeterminate'"
+                [ngClass]="'p-progressbar-indeterminate-container'"
+                [class]="valueStyleClass"
+                [attr.data-pc-section]="'container'"
+            >
+                <div
+                    class="p-progressbar-value p-progressbar-value-animate"
+                    [style.background]="color"
+                    [attr.data-pc-section]="'value'"
+                ></div>
             </div>
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'p-element'
-    },
-    providers: [ProgressBarStyle]
+    providers: [ProgressBarStyle],
 })
 export class ProgressBar extends BaseComponent {
     /**
@@ -53,10 +88,15 @@ export class ProgressBar extends BaseComponent {
      */
     @Input({ transform: booleanAttribute }) showValue: boolean = true;
     /**
-     * Class of the element.
+     * Style class of the element.
      * @group Props
      */
     @Input() styleClass: string | undefined;
+    /**
+     * Style class of the value element.
+     * @group Props
+     */
+    @Input() valueStyleClass: string | undefined;
     /**
      * Inline style of the element.
      * @group Props
@@ -100,6 +140,6 @@ export class ProgressBar extends BaseComponent {
 @NgModule({
     imports: [CommonModule],
     exports: [ProgressBar],
-    declarations: [ProgressBar]
+    declarations: [ProgressBar],
 })
 export class ProgressBarModule {}
