@@ -9,7 +9,9 @@ const theme = ({ dt }) => `
     user-select: none;
     background: ${dt('select.background')};
     border: 1px solid ${dt('select.border.color')};
-    transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt('select.transition.duration')},
+    transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt(
+    'select.transition.duration',
+)},
         outline-color ${dt('select.transition.duration')}, box-shadow ${dt('select.transition.duration')};
     border-radius: ${dt('select.border.radius')};
     outline-color: transparent;
@@ -33,10 +35,6 @@ const theme = ({ dt }) => `
 
 .p-select.p-variant-filled.p-focus {
     background: ${dt('select.filled.focus.background')};
-}
-
-.p-select.p-invalid {
-    border-color: ${dt('select.invalid.border.color')};
 }
 
 .p-select.p-disabled {
@@ -158,7 +156,9 @@ input.p-select-label {
     border: 0 none;
     color: ${dt('select.option.color')};
     background: transparent;
-    transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt('select.transition.duration')},
+    transition: background ${dt('select.transition.duration')}, color ${dt('select.transition.duration')}, border-color ${dt(
+    'select.transition.duration',
+)},
             box-shadow ${dt('select.transition.duration')}, outline-color ${dt('select.transition.duration')};
     border-radius: ${dt('select.option.border.radius')};
 }
@@ -193,33 +193,36 @@ input.p-select-label {
     display: flex;
 }
 
-/* For PrimeNG */
-p-dropdown.ng-invalid.ng-dirty > .p-select.p-inputwrapper {
-    border-color: ${dt('select.invalid.border.color')}
-};
+/*For PrimeNG*/
 
-p-select.ng-invalid.ng-dirty > .p-select.p-inputwrapper {
-    border-color: ${dt('select.invalid.border.color')}
-};
+.p-dropdown.ng-invalid.ng-dirty,
+.p-select.ng-invalid.ng-dirty {
+    outline: 1px solid ${dt('selectbutton.invalid.border.color')};
+    outline-offset: 0;
+}
+
 `;
 
 const classes = {
-    root: ({ instance }) => ({
-        'p-select p-component p-inputwrapper': true,
-        'p-disabled': instance.disabled,
-        'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
-        'p-focus': instance.focused,
-        'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null && !instance.modelValue().length,
-        'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
-        'p-select-open': instance.overlayVisible,
-        'p-select-fluid': instance.hasFluid
-    }),
+    root: ({ instance }) => [
+        'p-select p-component p-inputwrapper',
+        {
+            'p-disabled': instance.disabled,
+            'p-variant-filled': instance.variant ? instance.variant === 'filled' : instance.config.inputStyle() === 'filled',
+            'p-focus': instance.focused,
+            'p-inputwrapper-filled': instance.modelValue() !== undefined && instance.modelValue() !== null && !instance.modelValue().length,
+            'p-inputwrapper-focus': instance.focused || instance.overlayVisible,
+            'p-select-open': instance.overlayVisible,
+            'p-select-fluid': instance.fluid,
+        },
+    ],
     label: ({ instance, props }) => [
         'p-select-label',
         {
             'p-placeholder': !props.editable && instance.label === props.placeholder,
-            'p-select-label-empty': !props.editable && !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0)
-        }
+            'p-select-label-empty':
+                !props.editable && !instance.$slots['value'] && (instance.label === 'p-emptylabel' || instance.label.length === 0),
+        },
     ],
     clearIcon: 'p-select-clear-icon',
     dropdown: 'p-select-dropdown',
@@ -237,13 +240,13 @@ const classes = {
         {
             'p-select-option-selected': instance.isSelected(option) && props.highlightOnSelect,
             'p-focus': state.focusedOptionIndex === focusedOption,
-            'p-disabled': instance.isOptionDisabled(option)
-        }
+            'p-disabled': instance.isOptionDisabled(option),
+        },
     ],
     optionLabel: 'p-select-option-label',
     optionCheckIcon: 'p-select-option-check-icon',
     optionBlankIcon: 'p-select-option-blank-icon',
-    emptyMessage: 'p-select-empty-message'
+    emptyMessage: 'p-select-empty-message',
 };
 
 @Injectable()
