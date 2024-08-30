@@ -5,17 +5,21 @@ import { Code } from '@domain/code';
     selector: 'template-doc',
     template: `
         <app-docsectiontext>
-            <p>For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template variable refers to an option in the options collection.</p>
+            <p>
+                For custom content support define a ng-template with <i>pTemplate</i> where the local ng-template
+                variable refers to an option in the options collection.
+            </p>
         </app-docsectiontext>
         <div class="card flex justify-center">
             <p-selectButton [options]="justifyOptions" [(ngModel)]="value" optionLabel="justify">
-                <ng-template let-item pTemplate>
+                <ng-template pTemplate="item" let-item>
                     <i [class]="item.icon"></i>
+                    <span>{{ item.justify }}</span>
                 </ng-template>
             </p-selectButton>
         </div>
         <app-code [code]="code" selector="select-button-template-demo"></app-code>
-    `
+    `,
 })
 export class TemplateDoc {
     value: any;
@@ -24,7 +28,7 @@ export class TemplateDoc {
         { icon: 'pi pi-align-left', justify: 'Left' },
         { icon: 'pi pi-align-right', justify: 'Right' },
         { icon: 'pi pi-align-center', justify: 'Center' },
-        { icon: 'pi pi-align-justify', justify: 'Justify' }
+        { icon: 'pi pi-align-justify', justify: 'Justify' },
     ];
 
     code: Code = {
@@ -32,7 +36,7 @@ export class TemplateDoc {
     [options]="justifyOptions" 
     [(ngModel)]="value" 
     optionLabel="justify">
-        <ng-template let-item pTemplate>
+        <ng-template pTemplate="item" let-item>
             <i [class]="item.icon"></i>
         </ng-template>
 </p-selectButton>`,
@@ -42,7 +46,7 @@ export class TemplateDoc {
         [options]="justifyOptions" 
         [(ngModel)]="value" 
         optionLabel="justify">
-            <ng-template let-item pTemplate>
+            <ng-template pTemplate="item" let-item>
                 <i [class]="item.icon"></i>
             </ng-template>
     </p-selectButton>
@@ -68,6 +72,6 @@ export class SelectButtonTemplateDemo {
         { icon: 'pi pi-align-justify', justify: 'Justify' }
     ];
 
-}`
+}`,
     };
 }

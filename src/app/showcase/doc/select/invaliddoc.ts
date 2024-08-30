@@ -13,10 +13,17 @@ interface City {
             <p>Invalid state style is added using the <i>ng-invalid</i> and <i>ng-dirty</i> class to indicate a failed validation.</p>
         </app-docsectiontext>
         <div class="card flex justify-center">
-            <p-select [options]="cities" [(ngModel)]="selectedCity" optionLabel="name" [showClear]="true" placeholder="Select a City" class="ng-dirty ng-invalid" />
+            <p-select
+                [options]="cities"
+                [(ngModel)]="selectedCity"
+                optionLabel="name"
+                [showClear]="true"
+                placeholder="Select a City"
+                class="ng-dirty ng-invalid"
+            />
         </div>
         <app-code [code]="code" selector="select-invalid-demo"></app-code>
-    `
+    `,
 })
 export class InvalidDoc implements OnInit {
     cities: City[];
@@ -29,18 +36,19 @@ export class InvalidDoc implements OnInit {
             { name: 'Rome', code: 'RM' },
             { name: 'London', code: 'LDN' },
             { name: 'Istanbul', code: 'IST' },
-            { name: 'Paris', code: 'PRS' }
+            { name: 'Paris', code: 'PRS' },
         ];
     }
 
     code: Code = {
-        basic: `<p-select 
+        basic: `<p-select
     [options]="cities"
     [(ngModel)]="selectedCity"
     optionLabel="name"
-    [showClear]="true" 
-    placeholder="Select a City" 
-    class="ng-dirty ng-invalid" />`,
+    [showClear]="true"
+    placeholder="Select a City"
+    class="ng-dirty ng-invalid"
+/>`,
 
         html: `<div class="card flex justify-center">
     <p-select 
@@ -49,7 +57,8 @@ export class InvalidDoc implements OnInit {
         optionLabel="name" 
         [showClear]="true" 
         placeholder="Select a City" 
-        class="ng-dirty ng-invalid" />
+        class="ng-dirty ng-invalid" 
+    />
 </div>`,
 
         typescript: `import { Component, OnInit } from '@angular/core';
@@ -80,6 +89,6 @@ export class SelectInvalidDemo implements OnInit {
             { name: 'Paris', code: 'PRS' }
         ];
     }
-}`
+}`,
     };
 }
