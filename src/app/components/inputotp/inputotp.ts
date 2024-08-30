@@ -1,5 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, EventEmitter, Input, NgModule, Output, QueryList, TemplateRef, ViewEncapsulation, booleanAttribute, forwardRef, inject } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    NgModule,
+    Output,
+    QueryList,
+    TemplateRef,
+    ViewEncapsulation,
+    booleanAttribute,
+    forwardRef,
+    inject,
+} from '@angular/core';
 import { PrimeTemplate, SharedModule } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -12,7 +28,7 @@ import { BaseComponent } from 'primeng/basecomponent';
 export const INPUT_OTP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputOtp),
-    multi: true
+    multi: true,
 };
 
 /**
@@ -22,44 +38,46 @@ export const INPUT_OTP_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'p-inputOtp',
     template: `
-   
-            <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
-                <ng-container *ngIf="!inputTemplate">
-                    <input
-                        type="text"
-                        pInputText
-                        [value]="getModelValue(i)"
-                        [maxLength]="1"
-                        [type]="inputType"
-                        class="p-inputotp-input"
-                        [inputmode]="inputMode"
-                        [variant]="variant"
-                        [readonly]="readonly"
-                        [disabled]="disabled"
-                        [invalid]="invalid"
-                        [tabindex]="tabindex"
-                        [unstyled]="unstyled"
-                        (input)="onInput($event, i - 1)"
-                        (focus)="onInputFocus($event)"
-                        (blur)="onInputBlur($event)"
-                        (paste)="onPaste($event)"
-                        (keydown)="onKeyDown($event)"
-                        pAutoFocus
-                        [autofocus]="getAutofocus(i)"
-                    />
-                </ng-container>
-                <ng-container *ngIf="inputTemplate">
-                    <ng-container *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"> </ng-container>
+        <ng-container *ngFor="let i of getRange(length); trackBy: trackByFn">
+            <ng-container *ngIf="!inputTemplate">
+                <input
+                    type="text"
+                    pInputText
+                    [value]="getModelValue(i)"
+                    [maxLength]="1"
+                    [type]="inputType"
+                    class="p-inputotp-input"
+                    [inputmode]="inputMode"
+                    [variant]="variant"
+                    [readonly]="readonly"
+                    [disabled]="disabled"
+                    [invalid]="invalid"
+                    [tabindex]="tabindex"
+                    [unstyled]="unstyled"
+                    (input)="onInput($event, i - 1)"
+                    (focus)="onInputFocus($event)"
+                    (blur)="onInputBlur($event)"
+                    (paste)="onPaste($event)"
+                    (keydown)="onKeyDown($event)"
+                    pAutoFocus
+                    [autofocus]="getAutofocus(i)"
+                    [ngClass]="styleClass"
+                />
+            </ng-container>
+            <ng-container *ngIf="inputTemplate">
+                <ng-container
+                    *ngTemplateOutlet="inputTemplate; context: { $implicit: getToken(i - 1), events: getTemplateEvents(i - 1), index: i }"
+                >
                 </ng-container>
             </ng-container>
-    
+        </ng-container>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [INPUT_OTP_VALUE_ACCESSOR, InputOtpStyle],
-    host:{
-        class:"p-inputotp p-component"
-    }
+    host: {
+        class: 'p-inputotp p-component',
+    },
 })
 export class InputOtp extends BaseComponent implements AfterContentInit {
     /**
@@ -92,6 +110,11 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() length: number = 4;
+    /**
+     * Style class of the input element.
+     * @group Props
+     */
+    @Input() styleClass: string | undefined;
     /**
      * Mask pattern.
      * @group Props
@@ -170,7 +193,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
             keydown: (event) => this.onKeyDown(event),
             focus: (event) => this.onFocus.emit(event),
             blur: (event) => this.onBlur.emit(event),
-            paste: (event) => this.onPaste(event)
+            paste: (event) => this.onPaste(event),
         };
     }
 
@@ -191,7 +214,7 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 
         this.onChange.emit({
             originalEvent: event,
-            value: newValue
+            value: newValue,
         });
     }
 
@@ -316,7 +339,15 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
                 break;
 
             default:
-                if ((this.integerOnly && !((event.code.startsWith('Digit') || event.code.startsWith('Numpad')) && Number(event.key) >= 0 && Number(event.key) <= 9)) || (this.tokens.join('').length >= this.length && event.code !== 'Delete')) {
+                if (
+                    (this.integerOnly &&
+                        !(
+                            (event.code.startsWith('Digit') || event.code.startsWith('Numpad')) &&
+                            Number(event.key) >= 0 &&
+                            Number(event.key) <= 9
+                        )) ||
+                    (this.tokens.join('').length >= this.length && event.code !== 'Delete')
+                ) {
                     event.preventDefault();
                 }
 
@@ -353,6 +384,6 @@ export class InputOtp extends BaseComponent implements AfterContentInit {
 @NgModule({
     imports: [CommonModule, SharedModule, InputTextModule, AutoFocusModule],
     exports: [InputOtp, SharedModule],
-    declarations: [InputOtp]
+    declarations: [InputOtp],
 })
 export class InputOtpModule {}
